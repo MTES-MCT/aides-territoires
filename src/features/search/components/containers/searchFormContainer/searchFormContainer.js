@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import SearchForm from "../../presentationals/searchForm/SearchForm";
 import { isPostalCode } from "../../../lib/searchLib";
 import { getCommunesFromPostalCode } from "../../../api/searchApi";
@@ -13,14 +12,18 @@ class SearchFormContainer extends React.Component {
   }
   onSearchChange = text => {
     this.resetSuggestions();
-    if (isPostalCode(text)) {
+    if (isPostalCode(text.replace(" ", ""))) {
       getCommunesFromPostalCode(text).then(result => {
         const communes = result.data;
-        communes.map(commune => this.addSuggestion(`${commune.nom} (commune)`));
+        communes.map(commune =>
+          this.addSuggestion(`${commune.nom} (${commune.code})`)
+        );
       });
     }
   };
-  onSearchSubmit = values => {};
+  onSearchSubmit = values => {
+    alert("submitted");
+  };
   resetSuggestions() {
     this.setState({
       suggestions: []
@@ -46,7 +49,5 @@ class SearchFormContainer extends React.Component {
     );
   }
 }
-
-SearchFormContainer.propTypes = {};
 
 export default SearchFormContainer;
