@@ -1,6 +1,8 @@
 import React from "react";
 import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
 import SearchResultList from "../../presentationals/searchResultList/SearchResultList";
+import ReactGoogleSheetConnector from "react-google-sheet-connector";
+import PageLoader from "../../../../../features/app/components/presentationals/pageLoader/PageLoader";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -14,10 +16,16 @@ class SearchPage extends React.Component {
   };
   render() {
     return (
-      <div className="search-page">
-        <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
-        <SearchResultList searchedData={this.state.searchedData} />
-      </div>
+      <ReactGoogleSheetConnector
+        apiKey="AIzaSyDIYvCWkj5B4LmGMeBMOuwzRuiV80nhTyg"
+        spreadsheetId={"1Niopty1WMvtBXQY1wbASuCm83dq2pIIcv3LcpYbBDQo"}
+        spinner={<PageLoader>Connexion à la feuille Google ...</PageLoader>}
+      >
+        <div className="search-page">
+          <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
+          <SearchResultList searchedData={this.state.searchedData} />
+        </div>
+      </ReactGoogleSheetConnector>
     );
   }
 }

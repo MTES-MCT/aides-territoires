@@ -19,7 +19,6 @@ class SearchFormContainer extends React.Component {
     };
   }
   onSuggestionClick = value => {
-    console.log(value);
     this.resetSuggestions();
   };
   onSearchChange = text => {
@@ -97,6 +96,7 @@ class SearchFormContainer extends React.Component {
     });
   };
   onSearchSubmit = values => {
+    this.resetSuggestions();
     this.props.onSearchSubmit(values);
   };
   resetSuggestions() {
