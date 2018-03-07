@@ -8,18 +8,19 @@ class SearchForm extends React.Component {
       text: ""
     };
   }
-  onChange = event => {
+  onSearchChange = event => {
     this.setState({
       text: event.target.value
     });
+    this.props.onSearchChange(event.target.value);
   };
   onSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSearchSubmit(this.state);
   };
   render() {
     return (
-      <div className="form container">
+      <div className="search-form container">
         <form onSubmit={this.onSubmit}>
           <div className="field">
             <div className="control">
@@ -27,7 +28,7 @@ class SearchForm extends React.Component {
                 name="text"
                 placeholder="Code postal, ville, département ..."
                 value={this.state.text}
-                onChange={this.onChange}
+                onChange={this.onSearchChange}
                 className="input"
                 type="text"
               />
@@ -38,6 +39,7 @@ class SearchForm extends React.Component {
               <button className="button is-primary">OK</button>
             </div>
           </div>
+          {this.props.suggestions}
         </form>
       </div>
     );
@@ -45,7 +47,9 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.propTypes = {
-  onSubmit: PropTypes.func
+  onSearchSubmit: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+  suggestions: PropTypes.array
 };
 
 export default SearchForm;

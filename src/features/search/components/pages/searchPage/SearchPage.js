@@ -4,7 +4,7 @@ import SearchFormContainer from "../../containers/searchFormContainer/searchForm
 class SearchPage extends React.Component {
   render() {
     return (
-      <div>
+      <div className="search-page">
         <SearchFormContainer />
       </div>
     );
