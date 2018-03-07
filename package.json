@@ -1,5 +1,6 @@
 {
   "name": "aide-territoires",
+  "homepage": "https://github.com/MTES-MCT/aides-territoires",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

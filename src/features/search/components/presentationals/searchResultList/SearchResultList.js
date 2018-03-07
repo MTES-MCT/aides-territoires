@@ -4,7 +4,11 @@ import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 class SearchResultList extends React.Component {
   render() {
-    this.props.getSheet("Feuille 1").map(row => console.log(row));
+    const SheetData = this.props.getSheet("Feuille 1");
+    if (this.props.searchedData.data) {
+      SheetData.filter({ périmètre: this.props.searchedData.data.nom });
+    }
+    SheetData.map(r => console.log(r));
     return (
       <div className="search-result-list section container">
         <div className="debug">
@@ -15,7 +19,7 @@ class SearchResultList extends React.Component {
             </div>
           )}
         </div>
-        {this.props.getSheet("Feuille 1").map((row, index) => (
+        {SheetData.map((row, index) => (
           <div className="box" key={index}>
             <h2 className="title is-3">{row[1]}</h2>
             <div className="objectif">{row[5]}</div>

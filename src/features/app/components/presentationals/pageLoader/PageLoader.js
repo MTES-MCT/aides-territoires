@@ -12,7 +12,7 @@ class PageLoader extends React.Component {
             height: loaderSize,
             margin: "2rem auto"
           }}
-          class="loader"
+          className="loader"
         />
         {this.props.children}
       </div>
