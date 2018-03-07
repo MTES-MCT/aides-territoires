@@ -1,16 +1,26 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-# INSTALL
+# INSTALL AND RUN DEV VERSION
 
-clone the repository, then
+clone the git repository, then
 
 ```
 yarn install
 yarn start
 ```
 
-See components in storybook
+See presentationals components in storybook :
 
 ```
 yarn storybook
 ```
+
+# DEPLOY
+
+Create the build with
+
+```
+yarn build
+```
+
+Serve this repository from a http server.
