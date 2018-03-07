@@ -7,7 +7,7 @@ class Header extends React.Component {
         <section className="hero is-info">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">AIDES TERRITOIRES</h1>
+              <h1 className="title">PROJET A.T</h1>
             </div>
           </div>
         </section>
