@@ -1,5 +1,5 @@
 import React from "react";
-import SearchFormContainer from "../../containers/searchFormContainer/searchFormContainer";
+import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
 
 class SearchPage extends React.Component {
   render() {
