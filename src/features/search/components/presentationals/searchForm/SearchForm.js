@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class SearchForm extends React.Component {
   };
   onSubmit = event => {
     event.preventDefault();
+    this.props.onSubmit(this.state);
   };
   render() {
     return (
@@ -41,5 +43,9 @@ class SearchForm extends React.Component {
     );
   }
 }
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func
+};
 
 export default SearchForm;
