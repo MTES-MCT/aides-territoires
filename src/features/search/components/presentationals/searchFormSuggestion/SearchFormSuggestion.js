@@ -3,11 +3,7 @@ import PropTypes from "prop-types";
 
 const SearchFormSuggestion = ({ suggestion, onSuggestionClick }) => {
   return (
-    <a
-      onClick={() => onSuggestionClick(suggestion)}
-      href="#"
-      className="dropdown-item"
-    >
+    <a onClick={() => onSuggestionClick(suggestion)} className="dropdown-item">
       {suggestion.text}
     </a>
   );

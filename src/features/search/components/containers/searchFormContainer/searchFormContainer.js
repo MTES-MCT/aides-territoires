@@ -88,6 +88,7 @@ class SearchFormContainer extends React.Component {
     // when all promises have run, add suggestions to state
     Promise.all(promises).then(promisesResults => {
       let suggestions = [];
+      // eslint-disable-next-line
       promisesResults.map(function(result) {
         suggestions = [...suggestions, ...result];
       });
