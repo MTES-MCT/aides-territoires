@@ -1,16 +1,16 @@
 import React from "react";
 
-const style = {
-  fontSize: "60px"
-};
-
 class Header extends React.Component {
   render() {
     return (
-      <header className="container">
-        <div style={style} className="title">
-          Aide territoires
-        </div>
+      <header>
+        <section class="hero is-info">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">AIDES TERRITOIRES</h1>
+            </div>
+          </div>
+        </section>
       </header>
     );
   }

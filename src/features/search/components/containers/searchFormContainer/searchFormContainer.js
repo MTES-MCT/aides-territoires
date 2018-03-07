@@ -1,7 +1,12 @@
 import React from "react";
 import SearchForm from "../../presentationals/searchForm/SearchForm";
 import { isPostalCode } from "../../../lib/searchLib";
-import { getCommunesFromPostalCode } from "../../../api/searchApi";
+import {
+  getCommunesFromPostalCode,
+  getCommunesFromName
+} from "../../../api/searchApi";
+
+const SUGGESTIONS_LIMIT = 5;
 
 class SearchFormContainer extends React.Component {
   constructor(props) {
@@ -12,14 +17,39 @@ class SearchFormContainer extends React.Component {
   }
   onSearchChange = text => {
     this.resetSuggestions();
+    const promises = [];
+    // typing a postal code ?
+    // suggest communes corresponding to the postal code
     if (isPostalCode(text.replace(" ", ""))) {
-      getCommunesFromPostalCode(text).then(result => {
-        const communes = result.data;
-        communes.map(commune =>
-          this.addSuggestion(`${commune.nom} (${commune.code})`)
-        );
-      });
+      promises.push(
+        getCommunesFromPostalCode(text).then(result => {
+          const communes = result.data;
+          const suggestions = communes.map(commune => {
+            return `${commune.nom} - ${commune.code} (commune)`;
+          });
+          return suggestions.slice(0, SUGGESTIONS_LIMIT);
+        })
+      );
     }
+    if (text.length > 1) {
+      promises.push(
+        getCommunesFromName(text).then(result => {
+          const communes = result.data;
+          const suggestions = communes.map(commune => {
+            return `${commune.nom} ${commune.code} (commune)`;
+          });
+          return suggestions.slice(0, SUGGESTIONS_LIMIT);
+        })
+      );
+    }
+    // when all promises have run, add suggestions to state
+    Promise.all(promises).then(promisesResults => {
+      let suggestions = [];
+      promisesResults.map(result => {
+        suggestions = [...suggestions, ...result];
+      });
+      this.addSuggestions(suggestions);
+    });
   };
   onSearchSubmit = values => {
     alert("submitted");
@@ -30,17 +60,18 @@ class SearchFormContainer extends React.Component {
     });
   }
   /**
-   * @param {string} newSuggestion
+   * @param {array} newSuggestions - e.g ["Nantes", "Paris"]
    */
-  addSuggestion(newSuggestion) {
+  addSuggestions(newSuggestions) {
     this.setState({
-      suggestions: [...this.state.suggestions, newSuggestion]
+      suggestions: [...this.state.suggestions, ...newSuggestions]
     });
   }
   render() {
     return (
       <div className="search-form-container">
         <SearchForm
+          {...this.props}
           suggestions={this.state.suggestions}
           onSearchSubmit={this.onSearchSubmit}
           onSearchChange={this.onSearchChange}
