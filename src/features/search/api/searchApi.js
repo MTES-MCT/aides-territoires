@@ -23,3 +23,13 @@ export const getCommunesFromName = name => {
   );
   return result;
 };
+
+export const getDepartementsByName = name => {
+  const result = axios.get(`https://geo.api.gouv.fr/departements?nom=${name}`);
+  return result;
+};
+
+export const getRegionsByName = name => {
+  const result = axios.get(`https://geo.api.gouv.fr/regions?nom=${name}`);
+  return result;
+};

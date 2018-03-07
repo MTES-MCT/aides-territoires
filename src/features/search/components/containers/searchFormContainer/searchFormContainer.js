@@ -3,7 +3,9 @@ import SearchForm from "../../presentationals/searchForm/SearchForm";
 import { isPostalCode } from "../../../lib/searchLib";
 import {
   getCommunesFromPostalCode,
-  getCommunesFromName
+  getCommunesFromName,
+  getDepartementsByName,
+  getRegionsByName
 } from "../../../api/searchApi";
 
 const SUGGESTIONS_LIMIT = 5;
@@ -34,11 +36,32 @@ class SearchFormContainer extends React.Component {
       );
     }
     if (text.length > 1) {
+      // communes
       promises.push(
         getCommunesFromName(text).then(result => {
           const communes = result.data;
           const suggestions = communes.map(commune => {
             return `${commune.nom} (commune)`;
+          });
+          return suggestions.slice(0, SUGGESTIONS_LIMIT);
+        })
+      );
+      // départements
+      promises.push(
+        getDepartementsByName(text).then(result => {
+          const departements = result.data;
+          const suggestions = departements.map(departement => {
+            return `${departement.nom} (département)`;
+          });
+          return suggestions.slice(0, SUGGESTIONS_LIMIT);
+        })
+      );
+      // régions
+      promises.push(
+        getRegionsByName(text).then(result => {
+          const regions = result.data;
+          const suggestions = regions.map(region => {
+            return `${region.nom} (Région)`;
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
