@@ -16,7 +16,6 @@ class SearchFormContainer extends React.Component {
     };
   }
   onSearchChange = text => {
-    this.resetSuggestions();
     const promises = [];
     // typing a postal code ?
     // suggest communes corresponding to the postal code
@@ -48,6 +47,7 @@ class SearchFormContainer extends React.Component {
       promisesResults.map(result => {
         suggestions = [...suggestions, ...result];
       });
+      this.resetSuggestions();
       this.addSuggestions(suggestions);
     });
   };

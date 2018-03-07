@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AutoComplete from "material-ui/AutoComplete";
-import RaisedButton from "material-ui/RaisedButton";
+import SearchFormSuggestionList from "../searchFormSuggestionList/SearchFormSuggestionList";
+import "./SearchForm.css";
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -30,8 +30,9 @@ class SearchForm extends React.Component {
   onNewRequest = value => {};
   render() {
     return (
-      <div className="search-form container">
+      <div className="search-form container section">
         <form onSubmit={this.onSubmit}>
+          {/*
           <AutoComplete
             floatingLabelText="Code postal, ville, département, région ..."
             fullWidth={true}
@@ -41,6 +42,31 @@ class SearchForm extends React.Component {
             onNewRequest={this.onNewRequest}
           />
           <RaisedButton onClick={this.onSubmit} label="OK" />
+          */}
+          <div className="field has-addons">
+            <div className="control is-expanded">
+              <input
+                onChange={this.onInputChange}
+                className="input is-large"
+                type="text"
+                placeholder="Find a repository"
+              />
+              {this.props.suggestions.length > 0 && (
+                <div className="suggestions">
+                  <SearchFormSuggestionList
+                    suggestions={this.props.suggestions}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="control">
+              <input
+                type="submit"
+                value="Chercher"
+                className="button is-info is-large"
+              />
+            </div>
+          </div>
         </form>
       </div>
     );
