@@ -40,7 +40,7 @@ class SearchForm extends React.Component {
                 className="input is-large"
                 type="text"
                 value={this.state.text}
-                placeholder="Entrez un code postal ou un département"
+                placeholder="Entrez un code postal, une ville, un département ou une région"
               />
               {this.props.suggestions.length > 0 && (
                 <div className="suggestions">
@@ -51,6 +51,7 @@ class SearchForm extends React.Component {
                 </div>
               )}
             </div>
+            {/*
             <div className="control">
               <input
                 type="submit"
@@ -58,6 +59,7 @@ class SearchForm extends React.Component {
                 className="button is-info is-large"
               />
             </div>
+            */}
           </div>
         </form>
       </div>
