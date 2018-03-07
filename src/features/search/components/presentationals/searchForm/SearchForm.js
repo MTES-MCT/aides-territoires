@@ -7,7 +7,8 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
+      data: {}
     };
   }
   onInputChange = event => {
@@ -17,11 +18,9 @@ class SearchForm extends React.Component {
     });
     this.props.onSearchChange(value);
   };
-  onSuggestionClick = value => {
-    this.setState({
-      text: value
-    });
-    this.props.onSuggestionClick(value);
+  onSuggestionClick = data => {
+    this.setState(data);
+    this.props.onSuggestionClick(data);
   };
   onSubmit = event => {
     event.preventDefault();
@@ -32,17 +31,6 @@ class SearchForm extends React.Component {
     return (
       <div className="search-form container section">
         <form onSubmit={this.onSubmit}>
-          {/*
-          <AutoComplete
-            floatingLabelText="Code postal, ville, département, région ..."
-            fullWidth={true}
-            dataSource={this.props.suggestions}
-            filter={AutoComplete.noFilter}
-            onUpdateInput={this.onUpdateInput}
-            onNewRequest={this.onNewRequest}
-          />
-          <RaisedButton onClick={this.onSubmit} label="OK" />
-          */}
           <div className="field has-addons">
             <div className="control is-expanded">
               <input

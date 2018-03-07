@@ -8,7 +8,7 @@ const SearchFormSuggestion = ({ suggestion, onSuggestionClick }) => {
       href="#"
       className="dropdown-item"
     >
-      {suggestion}
+      {suggestion.text}
     </a>
   );
 };

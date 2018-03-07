@@ -1,6 +1,7 @@
 import React from "react";
 import SearchForm from "../../presentationals/searchForm/SearchForm";
 import { isPostalCode } from "../../../lib/searchLib";
+import PropTypes from "prop-types";
 import {
   getCommunesFromPostalCode,
   getCommunesFromName,
@@ -18,6 +19,7 @@ class SearchFormContainer extends React.Component {
     };
   }
   onSuggestionClick = value => {
+    console.log(value);
     this.resetSuggestions();
   };
   onSearchChange = text => {
@@ -28,8 +30,12 @@ class SearchFormContainer extends React.Component {
       promises.push(
         getCommunesFromPostalCode(text).then(result => {
           const communes = result.data;
-          const suggestions = communes.map(commune => {
-            return `${commune.nom} - (commune)`;
+          const suggestions = communes.map(function(commune) {
+            return {
+              text: `${commune.nom} - (commune)`,
+              type: "commune",
+              data: commune
+            };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -40,8 +46,12 @@ class SearchFormContainer extends React.Component {
       promises.push(
         getCommunesFromName(text).then(result => {
           const communes = result.data;
-          const suggestions = communes.map(commune => {
-            return `${commune.nom} (commune)`;
+          const suggestions = communes.map(function(commune) {
+            return {
+              text: `${commune.nom} (commune)`,
+              type: "commune",
+              data: commune
+            };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -50,8 +60,12 @@ class SearchFormContainer extends React.Component {
       promises.push(
         getDepartementsByName(text).then(result => {
           const departements = result.data;
-          const suggestions = departements.map(departement => {
-            return `${departement.nom} (département)`;
+          const suggestions = departements.map(function(departement) {
+            return {
+              text: `${departement.nom} (département)`,
+              type: "departement",
+              data: departement
+            };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -60,8 +74,12 @@ class SearchFormContainer extends React.Component {
       promises.push(
         getRegionsByName(text).then(result => {
           const regions = result.data;
-          const suggestions = regions.map(region => {
-            return `${region.nom} (Région)`;
+          const suggestions = regions.map(function(region) {
+            return {
+              text: `${region.nom} (Région)`,
+              type: "region",
+              data: region
+            };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -70,7 +88,7 @@ class SearchFormContainer extends React.Component {
     // when all promises have run, add suggestions to state
     Promise.all(promises).then(promisesResults => {
       let suggestions = [];
-      promisesResults.map(result => {
+      promisesResults.map(function(result) {
         suggestions = [...suggestions, ...result];
       });
       this.resetSuggestions();
@@ -78,7 +96,7 @@ class SearchFormContainer extends React.Component {
     });
   };
   onSearchSubmit = values => {
-    alert("submitted");
+    this.props.onSearchSubmit(values);
   };
   resetSuggestions() {
     this.setState({
@@ -107,5 +125,9 @@ class SearchFormContainer extends React.Component {
     );
   }
 }
+
+SearchFormContainer.propTypes = {
+  onSearchSubmit: PropTypes.func.isRequired
+};
 
 export default SearchFormContainer;
