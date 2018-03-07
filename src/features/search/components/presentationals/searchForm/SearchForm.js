@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SearchFormSuggestionList from "../searchFormSuggestionList/SearchFormSuggestionList";
-import "./SearchForm.css";
+import "./searchForm.css";
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -17,11 +17,11 @@ class SearchForm extends React.Component {
     });
     this.props.onSearchChange(value);
   };
-  onUpdateInput = value => {
+  onSuggestionClick = value => {
     this.setState({
       text: value
     });
-    this.props.onSearchChange(value);
+    this.props.onSuggestionClick(value);
   };
   onSubmit = event => {
     event.preventDefault();
@@ -49,11 +49,13 @@ class SearchForm extends React.Component {
                 onChange={this.onInputChange}
                 className="input is-large"
                 type="text"
-                placeholder="Find a repository"
+                value={this.state.text}
+                placeholder="Entrez un code postal ou un département"
               />
               {this.props.suggestions.length > 0 && (
                 <div className="suggestions">
                   <SearchFormSuggestionList
+                    onSuggestionClick={this.onSuggestionClick}
                     suggestions={this.props.suggestions}
                   />
                 </div>
@@ -76,7 +78,8 @@ class SearchForm extends React.Component {
 SearchForm.propTypes = {
   onSearchSubmit: PropTypes.func.isRequired,
   onSearchChange: PropTypes.func.isRequired,
-  suggestions: PropTypes.array
+  suggestions: PropTypes.array,
+  onSuggestionClick: PropTypes.func.isRequired
 };
 
 export default SearchForm;

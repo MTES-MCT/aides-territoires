@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SearchFormSuggestion = ({ suggestion }) => {
+const SearchFormSuggestion = ({ suggestion, onSuggestionClick }) => {
   return (
-    <a href="#" className="dropdown-item">
+    <a
+      onClick={() => onSuggestionClick(suggestion)}
+      href="#"
+      className="dropdown-item"
+    >
       {suggestion}
     </a>
   );
 };
 
-SearchFormSuggestion.PropTypes = {};
+SearchFormSuggestion.propTypes = {
+  onSuggestionClick: PropTypes.func.isRequired
+};
 
 export default SearchFormSuggestion;

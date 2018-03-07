@@ -8,7 +8,7 @@ import axios from "axios";
  */
 export const getCommunesFromPostalCode = postalCode => {
   const result = axios.get(
-    `https://geo.api.gouv.fr/communes?codePostal=${postalCode}&fields=nom`
+    `https://geo.api.gouv.fr/communes?codePostal=${postalCode}&fields=nom&boost=population`
   );
   return result;
 };
@@ -19,7 +19,7 @@ export const getCommunesFromPostalCode = postalCode => {
  */
 export const getCommunesFromName = name => {
   const result = axios.get(
-    `https://geo.api.gouv.fr/communes?nom=${name}&fields=nom`
+    `https://geo.api.gouv.fr/communes?nom=${name}&fields=nom&boost=population`
   );
   return result;
 };

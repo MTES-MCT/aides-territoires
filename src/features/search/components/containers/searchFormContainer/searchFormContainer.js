@@ -15,6 +15,9 @@ class SearchFormContainer extends React.Component {
       suggestions: []
     };
   }
+  onSuggestionClick = value => {
+    this.resetSuggestions();
+  };
   onSearchChange = text => {
     const promises = [];
     // typing a postal code ?
@@ -24,7 +27,7 @@ class SearchFormContainer extends React.Component {
         getCommunesFromPostalCode(text).then(result => {
           const communes = result.data;
           const suggestions = communes.map(commune => {
-            return `${commune.nom} - ${commune.code} (commune)`;
+            return `${commune.nom} - (commune)`;
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -35,7 +38,7 @@ class SearchFormContainer extends React.Component {
         getCommunesFromName(text).then(result => {
           const communes = result.data;
           const suggestions = communes.map(commune => {
-            return `${commune.nom} ${commune.code} (commune)`;
+            return `${commune.nom} (commune)`;
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })
@@ -75,6 +78,7 @@ class SearchFormContainer extends React.Component {
           suggestions={this.state.suggestions}
           onSearchSubmit={this.onSearchSubmit}
           onSearchChange={this.onSearchChange}
+          onSuggestionClick={this.onSuggestionClick}
         />
       </div>
     );
