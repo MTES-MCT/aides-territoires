@@ -4,7 +4,7 @@ import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 class SearchResultList extends React.Component {
   render() {
-    const SheetData = this.props.getSheet("Feuille 2");
+    const SheetData = this.props.getSheet("version-1");
     if (this.props.searchedData.data) {
       SheetData.filter({ périmètre: this.props.searchedData.data.nom });
     }
