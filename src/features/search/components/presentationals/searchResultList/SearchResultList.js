@@ -8,7 +8,7 @@ class SearchResultList extends React.Component {
     if (this.props.searchedData.data) {
       SheetData.filter({ périmètre: this.props.searchedData.data.nom });
     }
-    SheetData.map(r => console.log(r));
+    // SheetData.map(r => console.log(r));
     return (
       <div className="search-result-list section container">
         <div className="debug">
