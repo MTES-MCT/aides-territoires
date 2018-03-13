@@ -1,7 +1,7 @@
 import React from "react";
 import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
-import SearchResultList from "../../presentationals/searchResultList/SearchResultList";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
+import SearchResultListContainer from "../../containers/searchResultListContainer/SearchResultListContainer";
 import PageLoader from "../../../../../features/app/components/presentationals/pageLoader/PageLoader";
 
 class SearchPage extends React.Component {
@@ -23,7 +23,7 @@ class SearchPage extends React.Component {
       >
         <div className="search-page">
           <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
-          <SearchResultList searchedData={this.state.searchedData} />
+          <SearchResultListContainer searchedData={this.state.searchedData} />
         </div>
       </ReactGoogleSheetConnector>
     );
