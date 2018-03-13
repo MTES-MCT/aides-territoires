@@ -87,11 +87,14 @@ class SearchResultListContainer extends React.Component {
               <h2 className="title is-2 is-text-centered">
                 {resultsGroup.title}
               </h2>
-              <SearchResultList
-                key={index}
-                {...this.props}
-                results={resultsGroup.results}
-              />
+              {resultsGroup.results.length === 0 && <div>Pas de résultat</div>}
+              {resultsGroup.results && (
+                <SearchResultList
+                  key={index}
+                  {...this.props}
+                  results={resultsGroup.results}
+                />
+              )}
             </div>
           );
         })}
