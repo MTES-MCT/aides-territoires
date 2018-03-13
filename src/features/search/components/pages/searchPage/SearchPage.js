@@ -2,7 +2,7 @@ import React from "react";
 import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
 import SearchResultListContainer from "../../containers/searchResultListContainer/SearchResultListContainer";
-import PageLoader from "../../../../../features/app/components/presentationals/pageLoader/PageLoader";
+import AppLoader from "../../../../../features/app/components/presentationals/appLoader/AppLoader";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class SearchPage extends React.Component {
       <ReactGoogleSheetConnector
         apiKey="AIzaSyDIYvCWkj5B4LmGMeBMOuwzRuiV80nhTyg"
         spreadsheetId={"1Niopty1WMvtBXQY1wbASuCm83dq2pIIcv3LcpYbBDQo"}
-        spinner={<PageLoader>Connexion à la feuille Google ...</PageLoader>}
+        spinner={<AppLoader>Connexion à la feuille Google ...</AppLoader>}
       >
         <div className="search-page">
           <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />

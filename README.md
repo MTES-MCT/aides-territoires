@@ -9,7 +9,7 @@ yarn install
 yarn start
 ```
 
-See presentationals components in storybook :
+See presentationals components in the storybook
 
 ```
 yarn storybook
@@ -23,4 +23,8 @@ Create the build with
 yarn build
 ```
 
-Serve this repository from a http server.
+Deploy on now
+
+```
+yarn deploy
+```

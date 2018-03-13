@@ -1,7 +1,9 @@
-import { configure } from '@storybook/react';
+import { configure } from "@storybook/react";
+import "bulma/css/bulma.css";
 
+const req = require.context("../src", true, /Stories\.js$/);
 function loadStories() {
-  require('../src/stories');
+  req.keys().forEach(req);
 }
 
 configure(loadStories, module);
