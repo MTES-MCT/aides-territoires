@@ -5,7 +5,8 @@ const cors = require("cors");
 const graphql = require("graphql");
 const { buildSchema, GraphQLSchema } = require("graphql");
 
-const helloWorldSchema = require("./modules/helloWorld/graphql/helloWorldSchema");
+const helloWorldSchema = require("./services/helloWorld/graphql/helloWorldSchema");
+const aideSchema = require("./services/aide/graphql/aideSchema");
 
 // our full graphQL schema
 const schema = new graphql.GraphQLSchema({
@@ -13,7 +14,8 @@ const schema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
     name: "Query",
     fields: {
-      helloWorld: helloWorldSchema
+      helloWorld: helloWorldSchema,
+      aide: aideSchema
     }
   })
   // "mutation" type contains all our mutations types

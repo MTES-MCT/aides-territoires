@@ -17,3 +17,15 @@ variables :
 ```
 {"name": "Yann"}
 ```
+
+response:
+
+```
+{
+  "data": {
+    "helloWorld": {
+      "message": "hello Yann !"
+    }
+  }
+}
+```
