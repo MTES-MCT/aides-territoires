@@ -1,3 +1,4 @@
+import "./polyfill";
 import React, { Component } from "react";
 import Header from "./features/app/components/presentationals/header/Header";
 import SearchPage from "./features/search/components/pages/searchPage/SearchPage";
