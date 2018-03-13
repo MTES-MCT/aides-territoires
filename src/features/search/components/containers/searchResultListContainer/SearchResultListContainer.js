@@ -7,6 +7,9 @@ class SearchResultListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.sheetData = this.props.getSheet("version-2");
+    this.codeCommune = null;
+    this.codeDepartement = null;
+    this.codeRegion = null;
   }
   filterAides(type, codeInsee = null) {
     let results = [];
@@ -28,35 +31,44 @@ class SearchResultListContainer extends React.Component {
     //SheetData.filter({ "code insee": "44109" });
     let resultsGroups = [];
     if (this.props.searchedData.type === "commune") {
+      this.codeCommune = this.props.searchedData.data.code;
+      this.codeDepartement = this.props.searchedData.data.codeDepartement;
+      this.codeRegion = this.props.searchedData.data.codeRegion;
+    }
+    if (this.props.searchedData.type === "departement") {
+      this.codeDepartement = this.props.searchedData.data.code;
+      this.codeRegion = this.props.searchedData.data.codeRegion;
+    }
+    if (this.props.searchedData.type === "region") {
+      this.codeDepartement = this.props.searchedData.data.code;
+    }
+    if (this.codeCommune) {
       resultsGroups.push({
         title: "Communes",
-        results: this.filterAides("commune", this.props.searchedData.data.code)
-      });
-      resultsGroups.push({
-        title: "Département",
-        results: this.filterAides(
-          "departement",
-          this.props.searchedData.data.codeDepartement
-        )
-      });
-      resultsGroups.push({
-        title: "Région",
-        results: this.filterAides(
-          "region",
-          this.props.searchedData.data.codeRegion
-        )
-      });
-      resultsGroups.push({
-        title: "National",
-        results: this.filterAides("national")
-      });
-      resultsGroups.push({
-        title: "Europe",
-        results: this.filterAides("europe")
+        results: this.filterAides("commune", this.codeCommune)
       });
     }
+    if (this.codeDepartement) {
+      resultsGroups.push({
+        title: "Département",
+        results: this.filterAides("departement", this.codeDepartement)
+      });
+    }
+    if (this.codeRegion) {
+      resultsGroups.push({
+        title: "Région",
+        results: this.filterAides("region", this.codeRegion)
+      });
+    }
+    resultsGroups.push({
+      title: "National",
+      results: this.filterAides("national")
+    });
+    resultsGroups.push({
+      title: "Europe",
+      results: this.filterAides("europe")
+    });
 
-    // console.log("results", results);
     return (
       <div className="search-result-list section container">
         <div className="debug">
@@ -67,10 +79,14 @@ class SearchResultListContainer extends React.Component {
             </div>
           )}
         </div>
+        <br />
+        <br />
         {resultsGroups.map((resultsGroup, index) => {
           return (
-            <div>
-              <h2 class="container title is-5">{resultsGroup.title}</h2>
+            <div className="content">
+              <h2 className="title is-2 is-text-centered">
+                {resultsGroup.title}
+              </h2>
               <SearchResultList
                 key={index}
                 {...this.props}

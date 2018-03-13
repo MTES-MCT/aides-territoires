@@ -5,7 +5,7 @@ import SearchResultListItem from "../searchResultListItem/SearchResultListItem";
 class SearchResultList extends React.Component {
   render() {
     return (
-      <div className="search-result-list section container">
+      <div className="search-result-list">
         {this.props.results.map((row, index) => (
           <SearchResultListItem key={index} result={row} />
         ))}
