@@ -1,12 +1,15 @@
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost/aides-territoires");
+
 // middleware express pour ajouter les headers CORS
 const cors = require("cors");
 const graphql = require("graphql");
 const { buildSchema, GraphQLSchema } = require("graphql");
 
-const helloWorldSchema = require("./services/helloWorld/graphql/helloWorldSchema");
-const aideSchema = require("./services/aide/graphql/aideSchema");
+const helloWorldGraphqlSchema = require("./services/helloWorld/graphql/helloWorldGraphqlSchema");
+const aideGraphqlSchema = require("./services/aide/graphql/aideGraphqlSchema");
 
 // our full graphQL schema
 const schema = new graphql.GraphQLSchema({
@@ -14,19 +17,17 @@ const schema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
     name: "Query",
     fields: {
-      helloWorld: helloWorldSchema,
-      aide: aideSchema
+      helloWorld: helloWorldGraphqlSchema.query,
+      aideGet: aideGraphqlSchema.query
     }
-  })
+  }),
   // "mutation" type contains all our mutations types
-  /*
   mutation: new graphql.GraphQLObjectType({
     name: "Mutation",
     fields: {
-      email: emailSchema
+      aideSave: aideGraphqlSchema.mutation
     }
   })
-  */
 });
 
 const isDev = process.env.NODE_ENV === "development";

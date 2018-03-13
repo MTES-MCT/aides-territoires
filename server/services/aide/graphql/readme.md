@@ -1,6 +1,6 @@
 # HelloWorld
 
-## Example query
+## aideGet
 
 query :
 
@@ -29,6 +29,41 @@ response:
       "id": "76YUIHJK",
       "title": "aide de test",
       "description": "description aide de test"
+    }
+  }
+}
+```
+
+## aideSave
+
+mutation
+
+```
+mutation($title:String!, $description:String) {
+  aideSave(title:$title, description:$description) {
+    title
+    description
+  }
+}
+```
+
+variables
+
+```
+{
+  "title": "title",
+  "description": "description"
+}
+```
+
+response
+
+```
+{
+  "data": {
+    "aideSave": {
+      "title": "title",
+      "description": "description"
     }
   }
 }
