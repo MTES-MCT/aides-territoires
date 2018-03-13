@@ -4,13 +4,59 @@ import SearchResultList from "../../presentationals/searchResultList/SearchResul
 import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 class SearchResultListContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.sheetData = this.props.getSheet("version-2");
+  }
+  filterAides(type, codeInsee = null) {
+    let results = [];
+    this.sheetData.map(row => {
+      if (!codeInsee) {
+        if (row.typeDePérimètre === type) {
+          results.push(row);
+        }
+      }
+      if (codeInsee) {
+        if (row.typeDePérimètre === type && row.codeInsee == codeInsee) {
+          results.push(row);
+        }
+      }
+    });
+    return results;
+  }
   render() {
-    const SheetData = this.props.getSheet("version-1");
-    if (this.props.searchedData.data) {
-      SheetData.filter({ périmètre: this.props.searchedData.data.nom });
+    //SheetData.filter({ "code insee": "44109" });
+    let resultsGroups = [];
+    if (this.props.searchedData.type === "commune") {
+      resultsGroups.push({
+        title: "Communes",
+        results: this.filterAides("commune", this.props.searchedData.data.code)
+      });
+      resultsGroups.push({
+        title: "Département",
+        results: this.filterAides(
+          "departement",
+          this.props.searchedData.data.codeDepartement
+        )
+      });
+      resultsGroups.push({
+        title: "Région",
+        results: this.filterAides(
+          "region",
+          this.props.searchedData.data.codeRegion
+        )
+      });
+      resultsGroups.push({
+        title: "National",
+        results: this.filterAides("national")
+      });
+      resultsGroups.push({
+        title: "Europe",
+        results: this.filterAides("europe")
+      });
     }
-    const results = SheetData.getCurrentData();
-    // SheetData.map(r => console.log(r));
+
+    // console.log("results", results);
     return (
       <div className="search-result-list section container">
         <div className="debug">
@@ -21,7 +67,18 @@ class SearchResultListContainer extends React.Component {
             </div>
           )}
         </div>
-        <SearchResultList {...this.props} results={results} />
+        {resultsGroups.map((resultsGroup, index) => {
+          return (
+            <div>
+              <h2 class="container title is-5">{resultsGroup.title}</h2>
+              <SearchResultList
+                key={index}
+                {...this.props}
+                results={resultsGroup.results}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   }
