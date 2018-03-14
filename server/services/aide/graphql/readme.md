@@ -40,7 +40,7 @@ mutation
 
 ```
 mutation($title:String!, $description:String) {
-  aideSave(title:$title, description:$description) {
+  saveAide(title:$title, description:$description) {
     title
     description
   }

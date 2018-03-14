@@ -44,10 +44,9 @@ module.exports.mutations = {
       description: { type: graphql.GraphQLString }
     },
     // data returned for this query
-    resolve: function(_, { title, description }) {
-      const aide = new aideModel({ title, description });
-      return aide
-        .save()
+    resolve: function(_, params) {
+      return aideService
+        .saveAide(params)
         .then(result => {
           return result;
         })
