@@ -10,6 +10,7 @@ const { buildSchema, GraphQLSchema } = require("graphql");
 
 const helloWorldTypes = require("./services/helloWorld/graphql/helloWorldTypes");
 const aideTypes = require("./services/aide/graphql/aideTypes");
+const userTypes = require("./services/user/graphql/userTypes");
 
 // our full graphQL schema
 const schema = new graphql.GraphQLSchema({
@@ -18,14 +19,16 @@ const schema = new graphql.GraphQLSchema({
     name: "Query",
     fields: {
       ...helloWorldTypes.queries,
-      ...aideTypes.queries
+      ...aideTypes.queries,
+      ...userTypes.queries
     }
   }),
   // "mutation" type contains all our mutations types
   mutation: new graphql.GraphQLObjectType({
     name: "Mutation",
     fields: {
-      ...aideTypes.mutations
+      ...aideTypes.mutations,
+      ...userTypes.mutations
     }
   })
 });

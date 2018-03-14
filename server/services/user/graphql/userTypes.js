@@ -1,16 +1,16 @@
 const graphql = require("graphql");
-const aideService = require("../services/aideService");
+const userService = require("../services/userService");
 
 // queries
 module.exports.queries = {
-  getAide: {
+  getUser: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
-      name: "getAide",
+      name: "getUser",
       fields: {
         id: { type: graphql.GraphQLString },
-        title: { type: graphql.GraphQLString },
-        description: { type: graphql.GraphQLString }
+        name: { type: graphql.GraphQLString },
+        mail: { type: graphql.GraphQLString }
       }
     }),
     // `args` describes the arguments that our query accepts
@@ -19,7 +19,7 @@ module.exports.queries = {
     },
     // data returned for this query
     resolve: function(_, { id }) {
-      return aideService.getAideById(id).then(result => {
+      return userService.getUserById(id).then(result => {
         return result;
       });
     }
@@ -28,27 +28,29 @@ module.exports.queries = {
 
 // mutations
 module.exports.mutations = {
-  saveAide: {
+  saveUser: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
-      name: "saveAide",
+      name: "saveUser",
       fields: {
         id: { type: graphql.GraphQLString },
-        title: { type: graphql.GraphQLString },
-        description: { type: graphql.GraphQLString }
+        name: { type: graphql.GraphQLString },
+        mail: { type: graphql.GraphQLString }
       }
     }),
     // `args` describes the arguments that our query accepts
     args: {
-      title: { type: graphql.GraphQLString },
-      description: { type: graphql.GraphQLString }
+      id: { type: graphql.GraphQLString },
+      name: { type: graphql.GraphQLString },
+      mail: { type: graphql.GraphQLString },
+      password: { type: graphql.GraphQLString }
     },
     // data returned for this query
-    resolve: function(_, { title, description }) {
-      const aide = new aideModel({ title, description });
-      return aide
-        .save()
+    resolve: function(_, params) {
+      return userService
+        .saveUser(params)
         .then(result => {
+          console.log(JSON.stringify(result));
           return result;
         })
         .catch(e => console.log(e.message));
