@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const userService = require("../services/userService");
+const userService = require("../lib/userService");
 
 // queries
 module.exports.queries = {

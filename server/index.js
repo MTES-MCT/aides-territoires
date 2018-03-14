@@ -11,6 +11,7 @@ const { buildSchema, GraphQLSchema } = require("graphql");
 const helloWorldTypes = require("./services/helloWorld/graphql/helloWorldTypes");
 const aideTypes = require("./services/aide/graphql/aideTypes");
 const userTypes = require("./services/user/graphql/userTypes");
+const emailTypes = require("./services/email/graphql/emailTypes");
 
 // our full graphQL schema
 const schema = new graphql.GraphQLSchema({
@@ -28,7 +29,8 @@ const schema = new graphql.GraphQLSchema({
     name: "Mutation",
     fields: {
       ...aideTypes.mutations,
-      ...userTypes.mutations
+      ...userTypes.mutations,
+      ...emailTypes.mutations
     }
   })
 });

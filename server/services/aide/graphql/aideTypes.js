@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const aideService = require("../services/aideService");
+const aideService = require("../lib/aideService");
 
 // queries
 module.exports.queries = {

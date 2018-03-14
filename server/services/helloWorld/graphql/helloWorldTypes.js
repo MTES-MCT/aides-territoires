@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const helloService = require("../services/helloService");
+const helloService = require("../lib/helloService");
 
 module.exports.queries = {
   helloWorld: {
