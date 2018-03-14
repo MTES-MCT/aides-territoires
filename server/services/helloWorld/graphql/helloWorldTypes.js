@@ -1,7 +1,8 @@
 const graphql = require("graphql");
+const helloService = require("../services/helloService");
 
-module.exports = {
-  query: {
+module.exports.queries = {
+  helloWorld: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
       name: "helloWorld",
@@ -16,7 +17,7 @@ module.exports = {
     // data returned for this query
     resolve: function(_, { name }) {
       return {
-        message: `hello ${name} !`
+        message: helloService.sayHello(name)
       };
     }
   }

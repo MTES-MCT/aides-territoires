@@ -1,11 +1,12 @@
 const graphql = require("graphql");
-const aideModel = require("../mongoose/aideModel");
+const aideService = require("../services/aideService");
 
-module.exports = {
-  query: {
+// queries
+module.exports.queries = {
+  getAide: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
-      name: "aideGet",
+      name: "getAide",
       fields: {
         id: { type: graphql.GraphQLString },
         title: { type: graphql.GraphQLString },
@@ -18,14 +19,16 @@ module.exports = {
     },
     // data returned for this query
     resolve: function(_, { id }) {
-      return {
-        id: id,
-        title: "aide de test",
-        description: "description aide de test"
-      };
+      return aideService.getAideById(id).then(result => {
+        return result;
+      });
     }
-  },
-  mutation: {
+  }
+};
+
+// mutations
+module.exports.mutations = {
+  aideSave: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
       name: "aideSave",
