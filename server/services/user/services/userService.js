@@ -10,7 +10,7 @@ module.exports = {
       return user.save();
     }
     if (params.id) {
-      return Promise.resolve();
+      return userModel.findOneAndUpdate({ _id: params.id }, params);
     }
   }
 };

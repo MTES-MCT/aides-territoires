@@ -50,7 +50,6 @@ module.exports.mutations = {
       return userService
         .saveUser(params)
         .then(result => {
-          console.log(JSON.stringify(result));
           return result;
         })
         .catch(e => console.log(e.message));
