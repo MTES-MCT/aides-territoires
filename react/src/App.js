@@ -1,16 +1,22 @@
 import "./polyfill";
 import React, { Component } from "react";
-import Header from "./features/app/components/presentationals/header/Header";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import HomePage from "./features/app/components/pages/homePage/HomePage";
 import SearchPage from "./features/search/components/pages/searchPage/SearchPage";
-import "bulma/css/bulma.css";
+import ParcoursPage from "./features/parcours/components/pages/parcoursPage/ParcoursPages";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Header />
-        <SearchPage />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/parcours" component={ParcoursPage} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }

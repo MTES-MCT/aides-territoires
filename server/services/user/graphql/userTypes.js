@@ -1,51 +1,63 @@
 const graphql = require("graphql");
 const userService = require("../lib/userService");
 
+module.exports = {
+  queries: {},
+  mutations: {}
+};
+
+// Define the User type
+const userType = new graphql.GraphQLObjectType({
+  name: "User",
+  description: "a single user object",
+  fields: {
+    id: { type: graphql.GraphQLString },
+    name: { type: graphql.GraphQLString },
+    mail: { type: graphql.GraphQLString },
+    password: { type: graphql.GraphQLString }
+  }
+});
+
 // queries
-module.exports.queries = {
-  getUser: {
-    // describe our field for this type of entity
-    type: new graphql.GraphQLObjectType({
-      name: "getUser",
-      fields: {
-        id: { type: graphql.GraphQLString },
-        name: { type: graphql.GraphQLString },
-        mail: { type: graphql.GraphQLString }
-      }
-    }),
-    // `args` describes the arguments that our query accepts
-    args: {
-      id: { type: graphql.GraphQLString }
-    },
-    // data returned for this query
-    resolve: function(_, { id }) {
-      return userService.getUserById(id).then(result => {
-        return result;
-      });
-    }
+module.exports.queries.getUser = {
+  type: userType,
+  description: "Get a single user by its id",
+  args: {
+    id: { type: graphql.GraphQLString }
+  },
+  resolve: function(_, { id }) {
+    return userService.getUserById(id).then(result => {
+      return result;
+    });
   }
 };
+
+/*
+module.exports.queries.getAllUsers = {
+  // describe our field for this type of entity
+  type: new graphql.GraphQLObjectType({
+    name: "getAllUsers",
+    users: [userType]
+  }),
+  // data returned for this query
+  resolve: function(_, { id }) {
+    return userService.getAllUsers().then(result => {
+      return result;
+    });
+  }
+};
+*/
 
 // mutations
 module.exports.mutations = {
   saveUser: {
-    // describe our field for this type of entity
-    type: new graphql.GraphQLObjectType({
-      name: "saveUser",
-      fields: {
-        id: { type: graphql.GraphQLString },
-        name: { type: graphql.GraphQLString },
-        mail: { type: graphql.GraphQLString }
-      }
-    }),
-    // `args` describes the arguments that our query accepts
+    type: userType,
     args: {
       id: { type: graphql.GraphQLString },
       name: { type: graphql.GraphQLString },
       mail: { type: graphql.GraphQLString },
       password: { type: graphql.GraphQLString }
     },
-    // data returned for this query
     resolve: function(_, params) {
       return userService
         .saveUser(params)

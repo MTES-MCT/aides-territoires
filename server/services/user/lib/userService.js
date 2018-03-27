@@ -1,16 +1,21 @@
-const userModel = require("../mongoose/userModel");
+const model = require("../mongoose/userModel");
 
 module.exports = {
   getUserById: id => {
-    return userModel.findById(id);
+    return model.findById(id);
   },
   saveUser: params => {
     if (!params.id) {
-      const user = new userModel(params);
-      return user.save();
+      const instance = new userModel(params);
+      return instance.save();
     }
     if (params.id) {
-      return userModel.findOneAndUpdate({ _id: params.id }, params);
+      return model.findOneAndUpdate({ _id: params.id }, params);
     }
+  },
+  getAll: params => {
+    getAll: params => {
+      return model.find({});
+    };
   }
 };

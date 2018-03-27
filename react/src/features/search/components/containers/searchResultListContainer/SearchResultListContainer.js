@@ -83,7 +83,7 @@ class SearchResultListContainer extends React.Component {
         <br />
         {resultsGroups.map((resultsGroup, index) => {
           return (
-            <div className="content">
+            <div key={index} className="content">
               <h2 className="title is-2 is-text-centered">
                 {resultsGroup.title}
               </h2>
