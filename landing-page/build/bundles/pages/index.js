@@ -1,1 +1,2460 @@
-module.exports=__NEXT_REGISTER_PAGE("/",function(){var e=webpackJsonp([0],{183:function(e,t,r){e.exports=r(184)},184:function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:true});var n=r(1);var a=r.n(n);var o=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function s(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function c(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var u=function(e){c(t,e);function t(){i(this,t);return s(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}o(t,[{key:"render",value:function e(){return a.a.createElement("nav",{className:"navbar is-fixed-top app-main-menu",role:"navigation","aria-label":"main navigation"},a.a.createElement("div",{className:"navbar-brand"},a.a.createElement("a",{className:"navbar-item js-scrollTo",href:"#aides-territoires"},a.a.createElement("img",{src:"/static/images/logo.png "}),a.a.createElement("p",{className:"app-name "},"Aides-territoires")),a.a.createElement("div",{className:"navbar-burger","data-target":"navMenu "},a.a.createElement("span",null),a.a.createElement("span",null),a.a.createElement("span",null))),a.a.createElement("div",{className:"navbar-menu",id:"navMenu "},a.a.createElement("div",{className:"navbar-end"},a.a.createElement("a",{className:"navbar-item js-scrollTo",href:"/#aides-territoires"},"Aides-territoires"),a.a.createElement("a",{className:"navbar-item js-scrollTo",href:"/#comment-ca-marche"},"Le service"),a.a.createElement("a",{className:"navbar-item js-scrollTo",href:"/#inscription"},"Inscription"),a.a.createElement("a",{className:"navbar-item js-scrollTo",href:"/#contact"},"Contact"))))}}]);return t}(a.a.Component);var l=u;var f=r(185);var p=r.n(f);var h=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function m(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function d(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function y(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var b=function(e){y(t,e);function t(){m(this,t);return d(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}h(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"aides-territoires",className:"hero "},a.a.createElement("header",{className:"header "},a.a.createElement("div",{className:"header-overlay "},a.a.createElement("div",{className:"hero-body "},a.a.createElement("div",{className:"container "},a.a.createElement("h1",{className:"title "},"UN OUTIL POUR LES COLLECTIVITÉS"),a.a.createElement("h2",{className:"subtitle "},a.a.createElement("p",null,"Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'aménagements durables.",a.a.createElement("br",null),a.a.createElement("br",null)," Un service actuellement expérimenté pour les projets de quartiers durables, dont les EcoQuartiers.")),a.a.createElement("div",{className:"button is-large is-primary "},a.a.createElement("a",{className:"button-lancez-la-recherche js-scrollTo ",href:"#inscription"},"Lancez votre recherche")))))))}}]);return t}(a.a.Component);var v=b;var E=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function w(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function g(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function _(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var O=function(e){_(t,e);function t(){w(this,t);return g(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}E(t,[{key:"render",value:function e(){return a.a.createElement("div",{className:"default-layout"},a.a.createElement(p.a,null,a.a.createElement("meta",{name:"viewport",content:"initial-scale=1.0, width=device-width"}),a.a.createElement("link",{rel:"stylesheet",href:"/static/css/bulma.css"}),a.a.createElement("link",{rel:"stylesheet",href:"/static/css/style.css"})),a.a.createElement(l,null),a.a.createElement(v,null),this.props.children)}}]);return t}(a.a.Component);var j=O;var P=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function N(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function T(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function S(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var x=function(e){S(t,e);function t(){N(this,t);return T(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}P(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"comment-ca-marche",className:"section"},a.a.createElement("div",{className:"container "},a.a.createElement("h2",{className:"section-title title is-3"},"Comment ça marche ?"),a.a.createElement("div",{className:"columns"},a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"numero"},"1"),a.a.createElement("h3",{className:"title is-4"},"Un territoire, un projet"),a.a.createElement("p",null,"Donnez nous votre localisation et votre projet ")),a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"numero"},"2"),a.a.createElement("h3",{className:"title is-4"},"Des aides"),a.a.createElement("p",null,"Nous vous aidons à identifier les meilleures aides publiques mobilisables")),a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"numero"},"3"),a.a.createElement("h3",{className:"title is-4"},"Du temps gagné"),a.a.createElement("p",null,"passez plus de temps sur votre projet en activant les aides pertinentes au bon moment")))))}}]);return t}(a.a.Component);var C=x;var A=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function k(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function B(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function R(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var U=function(e){R(t,e);function t(){k(this,t);return B(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}A(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"chronophage",className:"section "},a.a.createElement("div",{className:"container "},a.a.createElement("p",null,"L'accès aux aides publiques disponibles et pertinentes pour vos projets est trop souvent synonyme de veille chronophage au détriment du temps passé sur le projet en lui-même.")))}}]);return t}(a.a.Component);var q=U;var I=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function D(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function L(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function F(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var z=function(e){F(t,e);function t(){D(this,t);return L(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}I(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"benefices",className:"section "},a.a.createElement("div",{className:"container"},a.a.createElement("div",{className:"content "},"Avec Aides-territoires :",a.a.createElement("ul",null,a.a.createElement("li",null," ","Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement"),a.a.createElement("li",null," ","Ne passez plus à côté des aides qui correspondent à votre projet"),a.a.createElement("li",null,"Bénéficiez d'une sélection pertinente à chaque étape de votre projet")))))}}]);return t}(a.a.Component);var G=z;var M=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function H(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function V(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function Q(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var J=function(e){Q(t,e);function t(){H(this,t);return V(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}M(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"types-aides",className:"section"},a.a.createElement("div",{className:"container"},a.a.createElement("p",{className:"text"},"Quelque soit le stade d'avancement de votre projet d'ÉcoQuartier, Aides-territoires vous permet d'identifier les aides pertinentes:"),a.a.createElement("div",{className:"content "},a.a.createElement("div",{className:"columns"},a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"aides-icon"},a.a.createElement("img",{src:"/static/images/icon-compas.png"})),a.a.createElement("h2",{className:"title is-4"},"Ingénierie")),a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"aides-icon"},a.a.createElement("img",{src:"/static/images/icon-financement.png"})),a.a.createElement("h2",{className:"title is-4"},"Financement")),a.a.createElement("div",{className:"column"},a.a.createElement("div",{className:"aides-icon"},a.a.createElement("img",{src:"/static/images/icon-journal.png"})),a.a.createElement("h2",{className:"title is-4"},"Appels à projet"))))))}}]);return t}(a.a.Component);var $=J;var X=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function K(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function W(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function Y(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var Z=function(e){Y(t,e);function t(){K(this,t);return W(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}X(t,[{key:"render",value:function e(){return a.a.createElement("section",{id:"inscription",className:"section lancez-votre-recherche"},a.a.createElement("iframe",{width:"540",height:"723",src:"https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1",frameBorder:"0",scrolling:"auto",allowFullScreen:true,style:{background:"transparent",display:"block",marginLeft:"auto",marginRight:"auto",maXidth:"100%"}}))}}]);return t}(a.a.Component);var ee=Z;var te=r(191);var re=r.n(te);var ne=r(193);var ae=r.n(ne);var oe=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function ie(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function se(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function ce(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var ue=ae()(),le=ue.publicRuntimeConfig;var fe="not_started";var pe="pending";var he="sent";var me="error";var de=function(e){ce(t,e);function t(e){ie(this,t);var r=se(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));r.handleSubmit=function(e){e.preventDefault();r.setState({emailSendingStatus:pe});r.sendEmail().then(function(e){r.setState({emailSendingStatus:he})}).catch(function(e){r.setState({emailSendingStatus:me})})};r.onEmailChange=function(e){r.setState({email:e.target.value})};r.onMessageChange=function(e){r.setState({message:e.target.value})};r.state={email:"",message:"",emailSendingStatus:fe};return r}oe(t,[{key:"sendEmail",value:function e(){var t="\n    mutation sendContactFormEmail($from:String!,$text:String!) {\n      sendContactFormEmail(from: $from, text:$text) {\n        from\n        text\n      }\n    }";var r={from:this.state.email,text:this.state.message};return Object(te["request"])(le.GRAPHQL_URL,t,r)}},{key:"render",value:function e(){return a.a.createElement("div",null,this.state.emailSendingStatus===me&&a.a.createElement("div",null,"Désolé nous avons rencontré une erreur lors de l'envoi de l'email. Vous pouvez nous contacter à l'addresse suivante :",a.a.createElement("strong",null,"contact@aides-territoires.beta.gouv.fr")," ou"," ",a.a.createElement("strong",null,"elise.marion@beta.gouv.fr")),this.state.emailSendingStatus===he&&a.a.createElement("div",{className:"section message is-success"},"Merci! Votre message a bien été envoyé."),this.state.emailSendingStatus!==me&&this.state.emailSendingStatus!==he&&a.a.createElement("form",{id:"contact-form",onSubmit:this.handleSubmit},a.a.createElement("div",{className:"field"},a.a.createElement("label",{className:"label"},"Votre email*"),a.a.createElement("div",{className:"control"},a.a.createElement("input",{id:"email",onChange:this.onEmailChange,className:"input is-large",type:"text",placeholder:"Email",required:true}))),a.a.createElement("div",{className:"field"},a.a.createElement("label",{className:"label"},"Votre message"),a.a.createElement("div",{className:"control"},a.a.createElement("textarea",{onChange:this.onMessageChange,id:"message",className:"textarea",placeholder:"Votre message"}))),a.a.createElement("div",{className:"field is-grouped is-grouped-right"},a.a.createElement("div",{className:"control"},a.a.createElement("input",{type:"submit",value:"envoyer",className:"button is-link is-large is-primary"})))))}}]);return t}(a.a.Component);var ye=de;var be=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||false;n.configurable=true;"value"in n&&(n.writable=true);Object.defineProperty(e,n.key,n)}}return function(t,r,n){r&&e(t.prototype,r);n&&e(t,n);return t}}();function ve(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function Ee(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!==typeof t&&"function"!==typeof t?e:t}function we(e,t){if("function"!==typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:false,writable:true,configurable:true}});t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var ge=function(e){we(t,e);function t(){ve(this,t);return Ee(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}be(t,[{key:"render",value:function e(){return a.a.createElement(j,null,a.a.createElement(C,null),a.a.createElement(q,null),a.a.createElement(G,null),a.a.createElement("hr",null),a.a.createElement($,null),a.a.createElement(ee,null),a.a.createElement("section",{id:"contact",className:"section container"},a.a.createElement(ye,null)))}}]);return t}(a.a.Component);var _e=t["default"]=ge},185:function(e,t,r){e.exports=r(91)},191:function(e,t,r){"use strict";var n=this&&this.__assign||Object.assign||function(e){for(var t,r=1,n=arguments.length;r<n;r++){t=arguments[r];for(var a in t)Object.prototype.hasOwnProperty.call(t,a)&&(e[a]=t[a])}return e};var a=this&&this.__awaiter||function(e,t,r,n){return new(r||(r=Promise))(function(a,o){function i(e){try{c(n.next(e))}catch(e){o(e)}}function s(e){try{c(n["throw"](e))}catch(e){o(e)}}function c(e){e.done?a(e.value):new r(function(t){t(e.value)}).then(i,s)}c((n=n.apply(e,t||[])).next())})};var o=this&&this.__generator||function(e,t){var r={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]},n,a,o,i;return i={next:s(0),throw:s(1),return:s(2)},"function"===typeof Symbol&&(i[Symbol.iterator]=function(){return this}),i;function s(e){return function(t){return c([e,t])}}function c(i){if(n)throw new TypeError("Generator is already executing.");while(r)try{if(n=1,a&&(o=a[2&i[0]?"return":i[0]?"throw":"next"])&&!(o=o.call(a,i[1])).done)return o;(a=0,o)&&(i=[0,o.value]);switch(i[0]){case 0:case 1:o=i;break;case 4:r.label++;return{value:i[1],done:false};case 5:r.label++;a=i[1];i=[0];continue;case 7:i=r.ops.pop();r.trys.pop();continue;default:if(!(o=r.trys,o=o.length>0&&o[o.length-1])&&(6===i[0]||2===i[0])){r=0;continue}if(3===i[0]&&(!o||i[1]>o[0]&&i[1]<o[3])){r.label=i[1];break}if(6===i[0]&&r.label<o[1]){r.label=o[1];o=i;break}if(o&&r.label<o[2]){r.label=o[2];r.ops.push(i);break}o[2]&&r.ops.pop();r.trys.pop();continue}i=t.call(e,r)}catch(e){i=[6,e];a=0}finally{n=o=0}if(5&i[0])throw i[1];return{value:i[0]?i[1]:void 0,done:true}}};var i=this&&this.__rest||function(e,t){var r={};for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.indexOf(n)<0&&(r[n]=e[n]);if(null!=e&&"function"===typeof Object.getOwnPropertySymbols)for(var a=0,n=Object.getOwnPropertySymbols(e);a<n.length;a++)t.indexOf(n[a])<0&&(r[n[a]]=e[n[a]]);return r};Object.defineProperty(t,"__esModule",{value:true});var s=r(93);var c=r(93);t.ClientError=c.ClientError;r(192);var u=function(){function e(e,t){this.url=e;this.options=t||{}}e.prototype.rawRequest=function(e,t){return a(this,void 0,void 0,function(){var r,a,c,u,l,f,h;return o(this,function(o){switch(o.label){case 0:r=this.options,a=r.headers,c=i(r,["headers"]);u=JSON.stringify({query:e,variables:t||void 0});return[4,fetch(this.url,n({method:"POST",headers:Object.assign({"Content-Type":"application/json"},a),body:u},c))];case 1:l=o.sent();return[4,p(l)];case 2:f=o.sent();if(l.ok&&!f.errors&&f.data)return[2,f];h="string"===typeof f?{error:f}:f;throw new s.ClientError(n({},h,{status:l.status}),{query:e,variables:t})}})})};e.prototype.request=function(e,t){return a(this,void 0,void 0,function(){var r,a,c,u,l,f,h;return o(this,function(o){switch(o.label){case 0:r=this.options,a=r.headers,c=i(r,["headers"]);u=JSON.stringify({query:e,variables:t||void 0});return[4,fetch(this.url,n({method:"POST",headers:Object.assign({"Content-Type":"application/json"},a),body:u},c))];case 1:l=o.sent();return[4,p(l)];case 2:f=o.sent();if(l.ok&&!f.errors&&f.data)return[2,f.data];h="string"===typeof f?{error:f}:f;throw new s.ClientError(n({},h,{status:l.status}),{query:e,variables:t})}})})};e.prototype.setHeaders=function(e){this.options.headers=e;return this};e.prototype.setHeader=function(e,t){var r=this.options.headers;r?r[e]=t:this.options.headers=(n={},n[e]=t,n);return this;var n};return e}();t.GraphQLClient=u;function l(e,t,r){return a(this,void 0,void 0,function(){var n;return o(this,function(a){n=new u(e);return[2,n.rawRequest(t,r)]})})}t.rawRequest=l;function f(e,t,r){return a(this,void 0,void 0,function(){var n;return o(this,function(a){n=new u(e);return[2,n.request(t,r)]})})}t.request=f;t.default=f;function p(e){return a(this,void 0,void 0,function(){var t;return o(this,function(r){t=e.headers.get("Content-Type");return t&&t.startsWith("application/json")?[2,e.json()]:[2,e.text()]})})}},192:function(e,t){(function(e){if(e.fetch)return;var t={searchParams:"URLSearchParams"in e,iterable:"Symbol"in e&&"iterator"in Symbol,blob:"FileReader"in e&&"Blob"in e&&function(){try{new Blob;return true}catch(e){return false}}(),formData:"FormData"in e,arrayBuffer:"ArrayBuffer"in e};if(t.arrayBuffer){var r=["[object Int8Array]","[object Uint8Array]","[object Uint8ClampedArray]","[object Int16Array]","[object Uint16Array]","[object Int32Array]","[object Uint32Array]","[object Float32Array]","[object Float64Array]"];var n=function(e){return e&&DataView.prototype.isPrototypeOf(e)};var a=ArrayBuffer.isView||function(e){return e&&r.indexOf(Object.prototype.toString.call(e))>-1}}function o(e){"string"!==typeof e&&(e=String(e));if(/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(e))throw new TypeError("Invalid character in header field name");return e.toLowerCase()}function i(e){"string"!==typeof e&&(e=String(e));return e}function s(e){var r={next:function(){var t=e.shift();return{done:void 0===t,value:t}}};t.iterable&&(r[Symbol.iterator]=function(){return r});return r}function c(e){this.map={};e instanceof c?e.forEach(function(e,t){this.append(t,e)},this):Array.isArray(e)?e.forEach(function(e){this.append(e[0],e[1])},this):e&&Object.getOwnPropertyNames(e).forEach(function(t){this.append(t,e[t])},this)}c.prototype.append=function(e,t){e=o(e);t=i(t);var r=this.map[e];this.map[e]=r?r+","+t:t};c.prototype["delete"]=function(e){delete this.map[o(e)]};c.prototype.get=function(e){e=o(e);return this.has(e)?this.map[e]:null};c.prototype.has=function(e){return this.map.hasOwnProperty(o(e))};c.prototype.set=function(e,t){this.map[o(e)]=i(t)};c.prototype.forEach=function(e,t){for(var r in this.map)this.map.hasOwnProperty(r)&&e.call(t,this.map[r],r,this)};c.prototype.keys=function(){var e=[];this.forEach(function(t,r){e.push(r)});return s(e)};c.prototype.values=function(){var e=[];this.forEach(function(t){e.push(t)});return s(e)};c.prototype.entries=function(){var e=[];this.forEach(function(t,r){e.push([r,t])});return s(e)};t.iterable&&(c.prototype[Symbol.iterator]=c.prototype.entries);function u(e){if(e.bodyUsed)return Promise.reject(new TypeError("Already read"));e.bodyUsed=true}function l(e){return new Promise(function(t,r){e.onload=function(){t(e.result)};e.onerror=function(){r(e.error)}})}function f(e){var t=new FileReader;var r=l(t);t.readAsArrayBuffer(e);return r}function p(e){var t=new FileReader;var r=l(t);t.readAsText(e);return r}function h(e){var t=new Uint8Array(e);var r=new Array(t.length);for(var n=0;n<t.length;n++)r[n]=String.fromCharCode(t[n]);return r.join("")}function m(e){if(e.slice)return e.slice(0);var t=new Uint8Array(e.byteLength);t.set(new Uint8Array(e));return t.buffer}function d(){this.bodyUsed=false;this._initBody=function(e){this._bodyInit=e;if(e)if("string"===typeof e)this._bodyText=e;else if(t.blob&&Blob.prototype.isPrototypeOf(e))this._bodyBlob=e;else if(t.formData&&FormData.prototype.isPrototypeOf(e))this._bodyFormData=e;else if(t.searchParams&&URLSearchParams.prototype.isPrototypeOf(e))this._bodyText=e.toString();else if(t.arrayBuffer&&t.blob&&n(e)){this._bodyArrayBuffer=m(e.buffer);this._bodyInit=new Blob([this._bodyArrayBuffer])}else{if(!t.arrayBuffer||!ArrayBuffer.prototype.isPrototypeOf(e)&&!a(e))throw new Error("unsupported BodyInit type");this._bodyArrayBuffer=m(e)}else this._bodyText="";this.headers.get("content-type")||("string"===typeof e?this.headers.set("content-type","text/plain;charset=UTF-8"):this._bodyBlob&&this._bodyBlob.type?this.headers.set("content-type",this._bodyBlob.type):t.searchParams&&URLSearchParams.prototype.isPrototypeOf(e)&&this.headers.set("content-type","application/x-www-form-urlencoded;charset=UTF-8"))};if(t.blob){this.blob=function(){var e=u(this);if(e)return e;if(this._bodyBlob)return Promise.resolve(this._bodyBlob);if(this._bodyArrayBuffer)return Promise.resolve(new Blob([this._bodyArrayBuffer]));if(this._bodyFormData)throw new Error("could not read FormData body as blob");return Promise.resolve(new Blob([this._bodyText]))};this.arrayBuffer=function(){return this._bodyArrayBuffer?u(this)||Promise.resolve(this._bodyArrayBuffer):this.blob().then(f)}}this.text=function(){var e=u(this);if(e)return e;if(this._bodyBlob)return p(this._bodyBlob);if(this._bodyArrayBuffer)return Promise.resolve(h(this._bodyArrayBuffer));if(this._bodyFormData)throw new Error("could not read FormData body as text");return Promise.resolve(this._bodyText)};t.formData&&(this.formData=function(){return this.text().then(E)});this.json=function(){return this.text().then(JSON.parse)};return this}var y=["DELETE","GET","HEAD","OPTIONS","POST","PUT"];function b(e){var t=e.toUpperCase();return y.indexOf(t)>-1?t:e}function v(e,t){t=t||{};var r=t.body;if(e instanceof v){if(e.bodyUsed)throw new TypeError("Already read");this.url=e.url;this.credentials=e.credentials;t.headers||(this.headers=new c(e.headers));this.method=e.method;this.mode=e.mode;if(!r&&null!=e._bodyInit){r=e._bodyInit;e.bodyUsed=true}}else this.url=String(e);this.credentials=t.credentials||this.credentials||"omit";!t.headers&&this.headers||(this.headers=new c(t.headers));this.method=b(t.method||this.method||"GET");this.mode=t.mode||this.mode||null;this.referrer=null;if(("GET"===this.method||"HEAD"===this.method)&&r)throw new TypeError("Body not allowed for GET or HEAD requests");this._initBody(r)}v.prototype.clone=function(){return new v(this,{body:this._bodyInit})};function E(e){var t=new FormData;e.trim().split("&").forEach(function(e){if(e){var r=e.split("=");var n=r.shift().replace(/\+/g," ");var a=r.join("=").replace(/\+/g," ");t.append(decodeURIComponent(n),decodeURIComponent(a))}});return t}function w(e){var t=new c;e.split(/\r?\n/).forEach(function(e){var r=e.split(":");var n=r.shift().trim();if(n){var a=r.join(":").trim();t.append(n,a)}});return t}d.call(v.prototype);function g(e,t){t||(t={});this.type="default";this.status="status"in t?t.status:200;this.ok=this.status>=200&&this.status<300;this.statusText="statusText"in t?t.statusText:"OK";this.headers=new c(t.headers);this.url=t.url||"";this._initBody(e)}d.call(g.prototype);g.prototype.clone=function(){return new g(this._bodyInit,{status:this.status,statusText:this.statusText,headers:new c(this.headers),url:this.url})};g.error=function(){var e=new g(null,{status:0,statusText:""});e.type="error";return e};var _=[301,302,303,307,308];g.redirect=function(e,t){if(-1===_.indexOf(t))throw new RangeError("Invalid status code");return new g(null,{status:t,headers:{location:e}})};e.Headers=c;e.Request=v;e.Response=g;e.fetch=function(e,r){return new Promise(function(n,a){var o=new v(e,r);var i=new XMLHttpRequest;i.onload=function(){var e={status:i.status,statusText:i.statusText,headers:w(i.getAllResponseHeaders()||"")};e.url="responseURL"in i?i.responseURL:e.headers.get("X-Request-URL");var t="response"in i?i.response:i.responseText;n(new g(t,e))};i.onerror=function(){a(new TypeError("Network request failed"))};i.ontimeout=function(){a(new TypeError("Network request failed"))};i.open(o.method,o.url,true);"include"===o.credentials&&(i.withCredentials=true);"responseType"in i&&t.blob&&(i.responseType="blob");o.headers.forEach(function(e,t){i.setRequestHeader(t,e)});i.send("undefined"===typeof o._bodyInit?null:o._bodyInit)})};e.fetch.polyfill=true})("undefined"!==typeof self?self:this)},193:function(e,t,r){e.exports=r(90)},93:function(e,t,r){"use strict";var n=this&&this.__extends||function(){var e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t}||function(e,t){for(var r in t)t.hasOwnProperty(r)&&(e[r]=t[r])};return function(t,r){e(t,r);function n(){this.constructor=t}t.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n)}}();Object.defineProperty(t,"__esModule",{value:true});var a=function(e){n(t,e);function t(r,n){var a=this;var o=t.extractMessage(r)+": "+JSON.stringify({response:r,request:n});a=e.call(this,o)||this;a.response=r;a.request=n;"function"===typeof Error.captureStackTrace&&Error.captureStackTrace(a,t);return a}t.extractMessage=function(e){try{return e.errors[0].message}catch(t){return"GraphQL Error (Code: "+e.status+")"}};return t}(Error);t.ClientError=a}},[183]);return{page:e.default}});
+module.exports =
+
+        __NEXT_REGISTER_PAGE('/', function() {
+          var comp = 
+      webpackJsonp([3],{
+
+/***/ "./components/DefaultLayout.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Navigation__ = __webpack_require__("./components/Navigation.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_head__ = __webpack_require__("./node_modules/next/head.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_head__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__("./components/Header.js");
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/DefaultLayout.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var DefaultLayout = function (_React$Component) {
+  _inherits(DefaultLayout, _React$Component);
+
+  function DefaultLayout() {
+    _classCallCheck(this, DefaultLayout);
+
+    return _possibleConstructorReturn(this, (DefaultLayout.__proto__ || Object.getPrototypeOf(DefaultLayout)).apply(this, arguments));
+  }
+
+  _createClass(DefaultLayout, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "default-layout", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 9
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_2_next_head___default.a,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 10
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
+            name: "viewport",
+            content: "initial-scale=1.0, width=device-width",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 11
+            }
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", { rel: "stylesheet", href: "/static/css/bulma.css", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 15
+            }
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", { rel: "stylesheet", href: "/static/css/style.css", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 16
+            }
+          })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 18
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 19
+          }
+        }),
+        this.props.children
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return DefaultLayout;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = DefaultLayout;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(DefaultLayout, "DefaultLayout", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/DefaultLayout.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/DefaultLayout.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/Header.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Header = function (_React$Component) {
+  _inherits(Header, _React$Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+  }
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "aides-territoires", className: "hero ", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "header",
+          { className: "header ", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 7
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "header-overlay ", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 8
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "hero-body ", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 9
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "container ", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 10
+                  }
+                },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h1",
+                  { className: "title ", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 11
+                    }
+                  },
+                  "UN OUTIL POUR LES COLLECTIVIT\xC9S"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h2",
+                  { className: "subtitle ", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 12
+                    }
+                  },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "p",
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 13
+                      }
+                    },
+                    "Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'am\xE9nagements durables.",
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 17
+                      }
+                    }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 18
+                      }
+                    }),
+                    " Un service actuellement exp\xE9riment\xE9 pour les projets de quartiers durables, dont les EcoQuartiers."
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "button is-large is-primary ", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 22
+                    }
+                  },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "a",
+                    {
+                      className: "button-lancez-la-recherche js-scrollTo ",
+                      href: "#inscription",
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 23
+                      }
+                    },
+                    "Lancez votre recherche"
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return Header;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = Header;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(Header, "Header", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/Navigation.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Navigation.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Navigation = function (_React$Component) {
+  _inherits(Navigation, _React$Component);
+
+  function Navigation() {
+    _classCallCheck(this, Navigation);
+
+    return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
+  }
+
+  _createClass(Navigation, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "nav",
+        {
+          className: "navbar is-fixed-top app-main-menu",
+          role: "navigation",
+          "aria-label": "main navigation",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "navbar-brand", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 11
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { className: "navbar-item js-scrollTo", href: "#aides-territoires", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 12
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/logo.png ", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 13
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "p",
+              { className: "app-name ", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 14
+                }
+              },
+              "Aides-territoires"
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "navbar-burger", "data-target": "navMenu ", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 16
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 17
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 18
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 19
+              }
+            })
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "navbar-menu", id: "navMenu ", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 22
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "navbar-end", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 23
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#aides-territoires", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 24
+                }
+              },
+              "Aides-territoires"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#comment-ca-marche", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 27
+                }
+              },
+              "Le service"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#inscription", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 30
+                }
+              },
+              "Inscription"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#contact", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 33
+                }
+              },
+              "Contact"
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return Navigation;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = Navigation;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(Navigation, "Navigation", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Navigation.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Navigation.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SectionBenefices.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionBenefices.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionBenefices = function (_React$Component) {
+  _inherits(SectionBenefices, _React$Component);
+
+  function SectionBenefices() {
+    _classCallCheck(this, SectionBenefices);
+
+    return _possibleConstructorReturn(this, (SectionBenefices.__proto__ || Object.getPrototypeOf(SectionBenefices)).apply(this, arguments));
+  }
+
+  _createClass(SectionBenefices, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "benefices", className: "section ", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "container", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 7
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "content ", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 8
+              }
+            },
+            "Avec Aides-territoires :",
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "ul",
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 10
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "li",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 11
+                  }
+                },
+                " ",
+                "Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "li",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 16
+                  }
+                },
+                " ",
+                "Ne passez plus \xE0 c\xF4t\xE9 des aides qui correspondent \xE0 votre projet"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "li",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 20
+                  }
+                },
+                "B\xE9n\xE9ficiez d'une s\xE9lection pertinente \xE0 chaque \xE9tape de votre projet"
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return SectionBenefices;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = SectionBenefices;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SectionBenefices, "SectionBenefices", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionBenefices.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionBenefices.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SectionChronophage.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionChronophage.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionChronophage = function (_React$Component) {
+  _inherits(SectionChronophage, _React$Component);
+
+  function SectionChronophage() {
+    _classCallCheck(this, SectionChronophage);
+
+    return _possibleConstructorReturn(this, (SectionChronophage.__proto__ || Object.getPrototypeOf(SectionChronophage)).apply(this, arguments));
+  }
+
+  _createClass(SectionChronophage, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "chronophage", className: "section ", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "container ", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 7
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "p",
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 8
+              }
+            },
+            "L'acc\xE8s aux aides publiques disponibles et pertinentes pour vos projets est trop souvent synonyme de veille chronophage au d\xE9triment du temps pass\xE9 sur le projet en lui-m\xEAme."
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return SectionChronophage;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = SectionChronophage;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SectionChronophage, "SectionChronophage", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionChronophage.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionChronophage.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SectionCommentCaMarche.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionCommentCaMarche.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionCommentCaMarche = function (_React$Component) {
+  _inherits(SectionCommentCaMarche, _React$Component);
+
+  function SectionCommentCaMarche() {
+    _classCallCheck(this, SectionCommentCaMarche);
+
+    return _possibleConstructorReturn(this, (SectionCommentCaMarche.__proto__ || Object.getPrototypeOf(SectionCommentCaMarche)).apply(this, arguments));
+  }
+
+  _createClass(SectionCommentCaMarche, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "comment-ca-marche", className: "section", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "container ", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 7
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "h2",
+            { className: "section-title title is-3", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 8
+              }
+            },
+            "Comment \xE7a marche ?"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "columns", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 9
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "column", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 10
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "numero", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 11
+                  }
+                },
+                "1"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                { className: "title is-4", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 12
+                  }
+                },
+                "Un territoire, un projet"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "p",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 13
+                  }
+                },
+                "Donnez nous votre localisation et votre projet "
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "column", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 15
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "numero", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 16
+                  }
+                },
+                "2"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                { className: "title is-4", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 17
+                  }
+                },
+                "Des aides"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "p",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 18
+                  }
+                },
+                "Nous vous aidons \xE0 identifier les meilleures aides publiques mobilisables"
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "column", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 23
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "numero", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 24
+                  }
+                },
+                "3"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                { className: "title is-4", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 25
+                  }
+                },
+                "Du temps gagn\xE9"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "p",
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 26
+                  }
+                },
+                "passez plus de temps sur votre projet en activant les aides pertinentes au bon moment"
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return SectionCommentCaMarche;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = SectionCommentCaMarche;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SectionCommentCaMarche, "SectionCommentCaMarche", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionCommentCaMarche.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionCommentCaMarche.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SectionTypesAides.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionTypesAides.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionTypeAides = function (_React$Component) {
+  _inherits(SectionTypeAides, _React$Component);
+
+  function SectionTypeAides() {
+    _classCallCheck(this, SectionTypeAides);
+
+    return _possibleConstructorReturn(this, (SectionTypeAides.__proto__ || Object.getPrototypeOf(SectionTypeAides)).apply(this, arguments));
+  }
+
+  _createClass(SectionTypeAides, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "types-aides", className: "section", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "container", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 7
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "p",
+            { className: "text", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 8
+              }
+            },
+            "Quelque soit le stade d'avancement de votre projet d'\xC9coQuartier, Aides-territoires vous permet d'identifier les aides pertinentes:"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "content ", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 12
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "columns", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 13
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "column", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 14
+                  }
+                },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "aides-icon", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 15
+                    }
+                  },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-compas.png", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 16
+                    }
+                  })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h2",
+                  { className: "title is-4", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 18
+                    }
+                  },
+                  "Ing\xE9nierie"
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "column", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 20
+                  }
+                },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "aides-icon", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 21
+                    }
+                  },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-financement.png", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 22
+                    }
+                  })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h2",
+                  { className: "title is-4", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 24
+                    }
+                  },
+                  "Financement"
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "column", __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 26
+                  }
+                },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "aides-icon", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 27
+                    }
+                  },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-journal.png", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 28
+                    }
+                  })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "h2",
+                  { className: "title is-4", __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 30
+                    }
+                  },
+                  "Appels \xE0 projet"
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return SectionTypeAides;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = SectionTypeAides;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SectionTypeAides, "SectionTypeAides", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionTypesAides.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionTypesAides.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SendInBlueContactForm.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request__ = __webpack_require__("./node_modules/graphql-request/dist/src/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_graphql_request__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config__ = __webpack_require__("./node_modules/next/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_config__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var _getConfig = __WEBPACK_IMPORTED_MODULE_2_next_config___default()(),
+    publicRuntimeConfig = _getConfig.publicRuntimeConfig;
+
+var EMAIL_SENDING_STATUS_NOT_STARTED = "not_started";
+var EMAIL_SENDING_STATUS_PENDING = "pending";
+var EMAIL_SENDING_STATUS_SENT = "sent";
+var EMAIL_SENDING_STATUS_ERROR = "error";
+
+var ContactForm = function (_React$Component) {
+  _inherits(ContactForm, _React$Component);
+
+  function ContactForm(props) {
+    _classCallCheck(this, ContactForm);
+
+    var _this = _possibleConstructorReturn(this, (ContactForm.__proto__ || Object.getPrototypeOf(ContactForm)).call(this, props));
+
+    _this.handleSubmit = function (event) {
+      event.preventDefault();
+      _this.setState({
+        emailSendingStatus: EMAIL_SENDING_STATUS_PENDING
+      });
+      _this.sendEmail().then(function (r) {
+        _this.setState({
+          emailSendingStatus: EMAIL_SENDING_STATUS_SENT
+        });
+      }).catch(function (e) {
+        _this.setState({
+          emailSendingStatus: EMAIL_SENDING_STATUS_ERROR
+        });
+      });
+    };
+
+    _this.onEmailChange = function (event) {
+      _this.setState({ email: event.target.value });
+    };
+
+    _this.onMessageChange = function (event) {
+      _this.setState({ message: event.target.value });
+    };
+
+    _this.state = {
+      email: "",
+      message: "",
+      emailSendingStatus: EMAIL_SENDING_STATUS_NOT_STARTED
+    };
+    return _this;
+  }
+
+  _createClass(ContactForm, [{
+    key: "sendEmail",
+    value: function sendEmail() {
+      var query = "\n    mutation sendContactFormEmail($from:String!,$text:String!) {\n      sendContactFormEmail(from: $from, text:$text) {\n        from\n        text\n      }\n    }";
+      var variables = {
+        from: this.state.email,
+        text: this.state.message
+      };
+      return Object(__WEBPACK_IMPORTED_MODULE_1_graphql_request__["request"])(publicRuntimeConfig.GRAPHQL_URL, query, variables);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 59
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "p",
+          { "class": "text", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 60
+            }
+          },
+          "Vous avez encore des questions ? des suggestions ? N'h\xE9sitez pas, nous sommes \xE0 votre disposition et serons ravis d'\xE9changer avec vous : laissez-nous un message !",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 63
+            }
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 64
+            }
+          })
+        ),
+        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 67
+            }
+          },
+          "D\xE9sol\xE9 nous avons rencontr\xE9 une erreur lors de l'envoi de l'email. Vous pouvez nous contacter \xE0 l'addresse suivante :",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "strong",
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 70
+              }
+            },
+            "contact@aides-territoires.beta.gouv.fr"
+          ),
+          " ou",
+          " ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "strong",
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 71
+              }
+            },
+            "elise.marion@beta.gouv.fr"
+          )
+        ),
+        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_SENT && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "section message is-success", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 75
+            }
+          },
+          "Merci! Votre message a bien \xE9t\xE9 envoy\xE9."
+        ),
+        this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_ERROR && this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_SENT && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "form",
+          { id: "contact-form", onSubmit: this.handleSubmit, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 82
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "field", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 83
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { className: "label", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 84
+                }
+              },
+              "Votre email*"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "control", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 85
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                id: "email",
+                onChange: this.onEmailChange,
+                className: "input is-large",
+                type: "text",
+                placeholder: "Email",
+                required: true,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 86
+                }
+              })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "field", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 97
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { className: "label", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 98
+                }
+              },
+              "Votre message"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "control", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 99
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", {
+                onChange: this.onMessageChange,
+                id: "message",
+                className: "textarea",
+                placeholder: "Votre message",
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 100
+                }
+              })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "field is-grouped is-grouped-right", __source: {
+                fileName: _jsxFileName,
+                lineNumber: 109
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "control", __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 110
+                }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                type: "submit",
+                value: "envoyer",
+                className: "button is-link is-large is-primary",
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 111
+                }
+              })
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return ContactForm;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = ContactForm;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(publicRuntimeConfig, "publicRuntimeConfig", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(EMAIL_SENDING_STATUS_NOT_STARTED, "EMAIL_SENDING_STATUS_NOT_STARTED", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(EMAIL_SENDING_STATUS_PENDING, "EMAIL_SENDING_STATUS_PENDING", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(EMAIL_SENDING_STATUS_SENT, "EMAIL_SENDING_STATUS_SENT", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(EMAIL_SENDING_STATUS_ERROR, "EMAIL_SENDING_STATUS_ERROR", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(ContactForm, "ContactForm", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./components/SendInBlueInscrivezVous.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueInscrivezVous.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SendInBlueInscrivezVous = function (_React$Component) {
+  _inherits(SendInBlueInscrivezVous, _React$Component);
+
+  function SendInBlueInscrivezVous() {
+    _classCallCheck(this, SendInBlueInscrivezVous);
+
+    return _possibleConstructorReturn(this, (SendInBlueInscrivezVous.__proto__ || Object.getPrototypeOf(SendInBlueInscrivezVous)).apply(this, arguments));
+  }
+
+  _createClass(SendInBlueInscrivezVous, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "section",
+        { id: "inscription", className: "section lancez-votre-recherche", __source: {
+            fileName: _jsxFileName,
+            lineNumber: 6
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("iframe", {
+          width: "540",
+          height: "723",
+          src: "https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1",
+          frameBorder: "0",
+          scrolling: "auto",
+          allowFullScreen: true,
+          style: {
+            background: "transparent",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            maXidth: "100%"
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 7
+          }
+        })
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return SendInBlueInscrivezVous;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = SendInBlueInscrivezVous;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(SendInBlueInscrivezVous, "SendInBlueInscrivezVous", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueInscrivezVous.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueInscrivezVous.js");
+  leaveModule(module);
+})();
+
+;
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/cross-fetch/dist/browser-polyfill.js":
+/***/ (function(module, exports) {
+
+(function(self) {
+
+  if (self.fetch) {
+    return
+  }
+
+  var support = {
+    searchParams: 'URLSearchParams' in self,
+    iterable: 'Symbol' in self && 'iterator' in Symbol,
+    blob: 'FileReader' in self && 'Blob' in self && (function() {
+      try {
+        new Blob();
+        return true
+      } catch(e) {
+        return false
+      }
+    })(),
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
+  };
+
+  if (support.arrayBuffer) {
+    var viewClasses = [
+      '[object Int8Array]',
+      '[object Uint8Array]',
+      '[object Uint8ClampedArray]',
+      '[object Int16Array]',
+      '[object Uint16Array]',
+      '[object Int32Array]',
+      '[object Uint32Array]',
+      '[object Float32Array]',
+      '[object Float64Array]'
+    ];
+
+    var isDataView = function(obj) {
+      return obj && DataView.prototype.isPrototypeOf(obj)
+    };
+
+    var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+    };
+  }
+
+  function normalizeName(name) {
+    if (typeof name !== 'string') {
+      name = String(name);
+    }
+    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+      throw new TypeError('Invalid character in header field name')
+    }
+    return name.toLowerCase()
+  }
+
+  function normalizeValue(value) {
+    if (typeof value !== 'string') {
+      value = String(value);
+    }
+    return value
+  }
+
+  // Build a destructive iterator for the value list
+  function iteratorFor(items) {
+    var iterator = {
+      next: function() {
+        var value = items.shift();
+        return {done: value === undefined, value: value}
+      }
+    };
+
+    if (support.iterable) {
+      iterator[Symbol.iterator] = function() {
+        return iterator
+      };
+    }
+
+    return iterator
+  }
+
+  function Headers(headers) {
+    this.map = {};
+
+    if (headers instanceof Headers) {
+      headers.forEach(function(value, name) {
+        this.append(name, value);
+      }, this);
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function(header) {
+        this.append(header[0], header[1]);
+      }, this);
+    } else if (headers) {
+      Object.getOwnPropertyNames(headers).forEach(function(name) {
+        this.append(name, headers[name]);
+      }, this);
+    }
+  }
+
+  Headers.prototype.append = function(name, value) {
+    name = normalizeName(name);
+    value = normalizeValue(value);
+    var oldValue = this.map[name];
+    this.map[name] = oldValue ? oldValue+','+value : value;
+  };
+
+  Headers.prototype['delete'] = function(name) {
+    delete this.map[normalizeName(name)];
+  };
+
+  Headers.prototype.get = function(name) {
+    name = normalizeName(name);
+    return this.has(name) ? this.map[name] : null
+  };
+
+  Headers.prototype.has = function(name) {
+    return this.map.hasOwnProperty(normalizeName(name))
+  };
+
+  Headers.prototype.set = function(name, value) {
+    this.map[normalizeName(name)] = normalizeValue(value);
+  };
+
+  Headers.prototype.forEach = function(callback, thisArg) {
+    for (var name in this.map) {
+      if (this.map.hasOwnProperty(name)) {
+        callback.call(thisArg, this.map[name], name, this);
+      }
+    }
+  };
+
+  Headers.prototype.keys = function() {
+    var items = [];
+    this.forEach(function(value, name) { items.push(name); });
+    return iteratorFor(items)
+  };
+
+  Headers.prototype.values = function() {
+    var items = [];
+    this.forEach(function(value) { items.push(value); });
+    return iteratorFor(items)
+  };
+
+  Headers.prototype.entries = function() {
+    var items = [];
+    this.forEach(function(value, name) { items.push([name, value]); });
+    return iteratorFor(items)
+  };
+
+  if (support.iterable) {
+    Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
+  }
+
+  function consumed(body) {
+    if (body.bodyUsed) {
+      return Promise.reject(new TypeError('Already read'))
+    }
+    body.bodyUsed = true;
+  }
+
+  function fileReaderReady(reader) {
+    return new Promise(function(resolve, reject) {
+      reader.onload = function() {
+        resolve(reader.result);
+      };
+      reader.onerror = function() {
+        reject(reader.error);
+      };
+    })
+  }
+
+  function readBlobAsArrayBuffer(blob) {
+    var reader = new FileReader();
+    var promise = fileReaderReady(reader);
+    reader.readAsArrayBuffer(blob);
+    return promise
+  }
+
+  function readBlobAsText(blob) {
+    var reader = new FileReader();
+    var promise = fileReaderReady(reader);
+    reader.readAsText(blob);
+    return promise
+  }
+
+  function readArrayBufferAsText(buf) {
+    var view = new Uint8Array(buf);
+    var chars = new Array(view.length);
+
+    for (var i = 0; i < view.length; i++) {
+      chars[i] = String.fromCharCode(view[i]);
+    }
+    return chars.join('')
+  }
+
+  function bufferClone(buf) {
+    if (buf.slice) {
+      return buf.slice(0)
+    } else {
+      var view = new Uint8Array(buf.byteLength);
+      view.set(new Uint8Array(buf));
+      return view.buffer
+    }
+  }
+
+  function Body() {
+    this.bodyUsed = false;
+
+    this._initBody = function(body) {
+      this._bodyInit = body;
+      if (!body) {
+        this._bodyText = '';
+      } else if (typeof body === 'string') {
+        this._bodyText = body;
+      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+        this._bodyBlob = body;
+      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+        this._bodyFormData = body;
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this._bodyText = body.toString();
+      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+        this._bodyArrayBuffer = bufferClone(body.buffer);
+        // IE 10-11 can't handle a DataView body.
+        this._bodyInit = new Blob([this._bodyArrayBuffer]);
+      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+        this._bodyArrayBuffer = bufferClone(body);
+      } else {
+        throw new Error('unsupported BodyInit type')
+      }
+
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8');
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type);
+        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        }
+      }
+    };
+
+    if (support.blob) {
+      this.blob = function() {
+        var rejected = consumed(this);
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return Promise.resolve(this._bodyBlob)
+        } else if (this._bodyArrayBuffer) {
+          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+        } else if (this._bodyFormData) {
+          throw new Error('could not read FormData body as blob')
+        } else {
+          return Promise.resolve(new Blob([this._bodyText]))
+        }
+      };
+
+      this.arrayBuffer = function() {
+        if (this._bodyArrayBuffer) {
+          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+        } else {
+          return this.blob().then(readBlobAsArrayBuffer)
+        }
+      };
+    }
+
+    this.text = function() {
+      var rejected = consumed(this);
+      if (rejected) {
+        return rejected
+      }
+
+      if (this._bodyBlob) {
+        return readBlobAsText(this._bodyBlob)
+      } else if (this._bodyArrayBuffer) {
+        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+      } else if (this._bodyFormData) {
+        throw new Error('could not read FormData body as text')
+      } else {
+        return Promise.resolve(this._bodyText)
+      }
+    };
+
+    if (support.formData) {
+      this.formData = function() {
+        return this.text().then(decode)
+      };
+    }
+
+    this.json = function() {
+      return this.text().then(JSON.parse)
+    };
+
+    return this
+  }
+
+  // HTTP methods whose capitalization should be normalized
+  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'];
+
+  function normalizeMethod(method) {
+    var upcased = method.toUpperCase();
+    return (methods.indexOf(upcased) > -1) ? upcased : method
+  }
+
+  function Request(input, options) {
+    options = options || {};
+    var body = options.body;
+
+    if (input instanceof Request) {
+      if (input.bodyUsed) {
+        throw new TypeError('Already read')
+      }
+      this.url = input.url;
+      this.credentials = input.credentials;
+      if (!options.headers) {
+        this.headers = new Headers(input.headers);
+      }
+      this.method = input.method;
+      this.mode = input.mode;
+      if (!body && input._bodyInit != null) {
+        body = input._bodyInit;
+        input.bodyUsed = true;
+      }
+    } else {
+      this.url = String(input);
+    }
+
+    this.credentials = options.credentials || this.credentials || 'omit';
+    if (options.headers || !this.headers) {
+      this.headers = new Headers(options.headers);
+    }
+    this.method = normalizeMethod(options.method || this.method || 'GET');
+    this.mode = options.mode || this.mode || null;
+    this.referrer = null;
+
+    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+      throw new TypeError('Body not allowed for GET or HEAD requests')
+    }
+    this._initBody(body);
+  }
+
+  Request.prototype.clone = function() {
+    return new Request(this, { body: this._bodyInit })
+  };
+
+  function decode(body) {
+    var form = new FormData();
+    body.trim().split('&').forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split('=');
+        var name = split.shift().replace(/\+/g, ' ');
+        var value = split.join('=').replace(/\+/g, ' ');
+        form.append(decodeURIComponent(name), decodeURIComponent(value));
+      }
+    });
+    return form
+  }
+
+  function parseHeaders(rawHeaders) {
+    var headers = new Headers();
+    rawHeaders.split(/\r?\n/).forEach(function(line) {
+      var parts = line.split(':');
+      var key = parts.shift().trim();
+      if (key) {
+        var value = parts.join(':').trim();
+        headers.append(key, value);
+      }
+    });
+    return headers
+  }
+
+  Body.call(Request.prototype);
+
+  function Response(bodyInit, options) {
+    if (!options) {
+      options = {};
+    }
+
+    this.type = 'default';
+    this.status = 'status' in options ? options.status : 200;
+    this.ok = this.status >= 200 && this.status < 300;
+    this.statusText = 'statusText' in options ? options.statusText : 'OK';
+    this.headers = new Headers(options.headers);
+    this.url = options.url || '';
+    this._initBody(bodyInit);
+  }
+
+  Body.call(Response.prototype);
+
+  Response.prototype.clone = function() {
+    return new Response(this._bodyInit, {
+      status: this.status,
+      statusText: this.statusText,
+      headers: new Headers(this.headers),
+      url: this.url
+    })
+  };
+
+  Response.error = function() {
+    var response = new Response(null, {status: 0, statusText: ''});
+    response.type = 'error';
+    return response
+  };
+
+  var redirectStatuses = [301, 302, 303, 307, 308];
+
+  Response.redirect = function(url, status) {
+    if (redirectStatuses.indexOf(status) === -1) {
+      throw new RangeError('Invalid status code')
+    }
+
+    return new Response(null, {status: status, headers: {location: url}})
+  };
+
+  self.Headers = Headers;
+  self.Request = Request;
+  self.Response = Response;
+
+  self.fetch = function(input, init) {
+    return new Promise(function(resolve, reject) {
+      var request = new Request(input, init);
+      var xhr = new XMLHttpRequest();
+
+      xhr.onload = function() {
+        var options = {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+        };
+        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
+        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+        resolve(new Response(body, options));
+      };
+
+      xhr.onerror = function() {
+        reject(new TypeError('Network request failed'));
+      };
+
+      xhr.ontimeout = function() {
+        reject(new TypeError('Network request failed'));
+      };
+
+      xhr.open(request.method, request.url, true);
+
+      if (request.credentials === 'include') {
+        xhr.withCredentials = true;
+      }
+
+      if ('responseType' in xhr && support.blob) {
+        xhr.responseType = 'blob';
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value);
+      });
+
+      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
+    })
+  };
+  self.fetch.polyfill = true;
+})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ }),
+
+/***/ "./node_modules/graphql-request/dist/src/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__("./node_modules/graphql-request/dist/src/types.js");
+var types_2 = __webpack_require__("./node_modules/graphql-request/dist/src/types.js");
+exports.ClientError = types_2.ClientError;
+__webpack_require__("./node_modules/cross-fetch/dist/browser-polyfill.js");
+var GraphQLClient = /** @class */ (function () {
+    function GraphQLClient(url, options) {
+        this.url = url;
+        this.options = options || {};
+    }
+    GraphQLClient.prototype.rawRequest = function (query, variables) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, headers, others, body, response, result, errorResult;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
+                        body = JSON.stringify({
+                            query: query,
+                            variables: variables ? variables : undefined,
+                        });
+                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
+                    case 1:
+                        response = _b.sent();
+                        return [4 /*yield*/, getResult(response)];
+                    case 2:
+                        result = _b.sent();
+                        if (response.ok && !result.errors && result.data) {
+                            return [2 /*return*/, result];
+                        }
+                        else {
+                            errorResult = typeof result === 'string' ? { error: result } : result;
+                            throw new types_1.ClientError(__assign({}, errorResult, { status: response.status }), { query: query, variables: variables });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GraphQLClient.prototype.request = function (query, variables) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, headers, others, body, response, result, errorResult;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
+                        body = JSON.stringify({
+                            query: query,
+                            variables: variables ? variables : undefined,
+                        });
+                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
+                    case 1:
+                        response = _b.sent();
+                        return [4 /*yield*/, getResult(response)];
+                    case 2:
+                        result = _b.sent();
+                        if (response.ok && !result.errors && result.data) {
+                            return [2 /*return*/, result.data];
+                        }
+                        else {
+                            errorResult = typeof result === 'string' ? { error: result } : result;
+                            throw new types_1.ClientError(__assign({}, errorResult, { status: response.status }), { query: query, variables: variables });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GraphQLClient.prototype.setHeaders = function (headers) {
+        this.options.headers = headers;
+        return this;
+    };
+    GraphQLClient.prototype.setHeader = function (key, value) {
+        var headers = this.options.headers;
+        if (headers) {
+            headers[key] = value;
+        }
+        else {
+            this.options.headers = (_a = {}, _a[key] = value, _a);
+        }
+        return this;
+        var _a;
+    };
+    return GraphQLClient;
+}());
+exports.GraphQLClient = GraphQLClient;
+function rawRequest(url, query, variables) {
+    return __awaiter(this, void 0, void 0, function () {
+        var client;
+        return __generator(this, function (_a) {
+            client = new GraphQLClient(url);
+            return [2 /*return*/, client.rawRequest(query, variables)];
+        });
+    });
+}
+exports.rawRequest = rawRequest;
+function request(url, query, variables) {
+    return __awaiter(this, void 0, void 0, function () {
+        var client;
+        return __generator(this, function (_a) {
+            client = new GraphQLClient(url);
+            return [2 /*return*/, client.request(query, variables)];
+        });
+    });
+}
+exports.request = request;
+exports.default = request;
+function getResult(response) {
+    return __awaiter(this, void 0, void 0, function () {
+        var contentType;
+        return __generator(this, function (_a) {
+            contentType = response.headers.get('Content-Type');
+            if (contentType && contentType.startsWith('application/json')) {
+                return [2 /*return*/, response.json()];
+            }
+            else {
+                return [2 /*return*/, response.text()];
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/graphql-request/dist/src/types.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ClientError = /** @class */ (function (_super) {
+    __extends(ClientError, _super);
+    function ClientError(response, request) {
+        var _this = this;
+        var message = ClientError.extractMessage(response) + ": " + JSON.stringify({ response: response, request: request });
+        _this = _super.call(this, message) || this;
+        _this.response = response;
+        _this.request = request;
+        // this is needed as Safari doesn't support .captureStackTrace
+        /* tslint:disable-next-line */
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(_this, ClientError);
+        }
+        return _this;
+    }
+    ClientError.extractMessage = function (response) {
+        try {
+            return response.errors[0].message;
+        }
+        catch (e) {
+            return "GraphQL Error (Code: " + response.status + ")";
+        }
+    };
+    return ClientError;
+}(Error));
+exports.ClientError = ClientError;
+//# sourceMappingURL=types.js.map
+
+/***/ }),
+
+/***/ "./node_modules/next/config.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./node_modules/next/dist/lib/runtime-config.js")
+
+
+/***/ }),
+
+/***/ "./node_modules/next/head.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./node_modules/next/dist/lib/head.js")
+
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/harmony-module.js":
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if(!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true,
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ "./pages/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_DefaultLayout__ = __webpack_require__("./components/DefaultLayout.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_SectionCommentCaMarche__ = __webpack_require__("./components/SectionCommentCaMarche.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SectionChronophage__ = __webpack_require__("./components/SectionChronophage.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SectionBenefices__ = __webpack_require__("./components/SectionBenefices.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_SectionTypesAides__ = __webpack_require__("./components/SectionTypesAides.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_SendInBlueInscrivezVous__ = __webpack_require__("./components/SendInBlueInscrivezVous.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_SendInBlueContactForm__ = __webpack_require__("./components/SendInBlueContactForm.js");
+var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/pages/index.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+(function () {
+  var enterModule = __webpack_require__("./node_modules/react-hot-loader/index.js").enterModule;
+
+  enterModule && enterModule(module);
+})();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+var HomePage = function (_React$Component) {
+  _inherits(HomePage, _React$Component);
+
+  function HomePage() {
+    _classCallCheck(this, HomePage);
+
+    return _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));
+  }
+
+  _createClass(HomePage, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_1__components_DefaultLayout__["a" /* default */],
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 13
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_SectionCommentCaMarche__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 14
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_SectionChronophage__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 15
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_SectionBenefices__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 16
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 17
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_SectionTypesAides__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 18
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_SendInBlueInscrivezVous__["a" /* default */], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 19
+          }
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "section",
+          { id: "contact", className: "section container", __source: {
+              fileName: _jsxFileName,
+              lineNumber: 20
+            }
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_SendInBlueContactForm__["a" /* default */], {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 21
+            }
+          })
+        )
+      );
+    }
+  }, {
+    key: "__reactstandin__regenerateByEval",
+    value: function __reactstandin__regenerateByEval(key, code) {
+      this[key] = eval(code);
+    }
+  }]);
+
+  return HomePage;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+var _default = HomePage;
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
+;
+
+(function () {
+  var reactHotLoader = __webpack_require__("./node_modules/react-hot-loader/index.js").default;
+
+  var leaveModule = __webpack_require__("./node_modules/react-hot-loader/index.js").leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(HomePage, "HomePage", "/Applications/MAMP/htdocs/aides-territoires/landing-page/pages/index.js");
+  reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/pages/index.js");
+  leaveModule(module);
+})();
+
+;
+    (function (Component, route) {
+      if(!Component) return
+      if (false) return
+      module.hot.accept()
+      Component.__route = route
+
+      if (module.hot.status() === 'idle') return
+
+      var components = next.router.components
+      for (var r in components) {
+        if (!components.hasOwnProperty(r)) continue
+
+        if (components[r].Component.__route === route) {
+          next.router.update(r, Component)
+        }
+      }
+    })(typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__.default : (module.exports.default || module.exports), "/")
+  
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./pages/index.js");
+
+
+/***/ })
+
+},[2])
+          return { page: comp.default }
+        })
+      ;
+//# sourceMappingURL=index.js.map

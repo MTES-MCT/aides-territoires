@@ -57,6 +57,12 @@ export default class ContactForm extends React.Component {
   render() {
     return (
       <div>
+        <p class="text">
+          Vous avez encore des questions ? des suggestions ? N'hésitez pas, nous
+          sommes à votre disposition et serons ravis d'échanger avec vous :
+          laissez-nous un message !<br />
+          <br />
+        </p>
         {this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && (
           <div>
             Désolé nous avons rencontré une erreur lors de l'envoi de l'email.
