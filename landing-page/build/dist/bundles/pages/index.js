@@ -67,23 +67,34 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
 
-/***/ "./components/DefaultLayout.js":
+module.exports = require("react");
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Navigation__ = __webpack_require__("./components/Navigation.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_head__ = __webpack_require__("next/head");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_head__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__("./components/Header.js");
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/DefaultLayout.js";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
+// EXTERNAL MODULE: external "react"
+var external__react_ = __webpack_require__(0);
+var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
+
+// CONCATENATED MODULE: ./components/Navigation.js
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -94,200 +105,149 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var Navigation_Navigation = function (_React$Component) {
+  _inherits(Navigation, _React$Component);
 
+  function Navigation() {
+    _classCallCheck(this, Navigation);
 
-
-var DefaultLayout = function (_React$Component) {
-  _inherits(DefaultLayout, _React$Component);
-
-  function DefaultLayout() {
-    _classCallCheck(this, DefaultLayout);
-
-    return _possibleConstructorReturn(this, (DefaultLayout.__proto__ || Object.getPrototypeOf(DefaultLayout)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
   }
 
-  _createClass(DefaultLayout, [{
+  _createClass(Navigation, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "default-layout", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 9
-          }
+      return external__react__default.a.createElement(
+        "nav",
+        {
+          className: "navbar is-fixed-top app-main-menu",
+          role: "navigation",
+          "aria-label": "main navigation"
         },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_2_next_head___default.a,
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 10
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
-            name: "viewport",
-            content: "initial-scale=1.0, width=device-width",
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 11
-            }
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", { rel: "stylesheet", href: "/static/css/bulma.css", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 15
-            }
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", { rel: "stylesheet", href: "/static/css/style.css", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 16
-            }
-          })
+        external__react__default.a.createElement(
+          "div",
+          { className: "navbar-brand" },
+          external__react__default.a.createElement(
+            "a",
+            { className: "navbar-item js-scrollTo", href: "#aides-territoires" },
+            external__react__default.a.createElement("img", { src: "/static/images/logo.png " }),
+            external__react__default.a.createElement(
+              "p",
+              { className: "app-name " },
+              "Aides-territoires"
+            )
+          ),
+          external__react__default.a.createElement(
+            "div",
+            { className: "navbar-burger", "data-target": "navMenu " },
+            external__react__default.a.createElement("span", null),
+            external__react__default.a.createElement("span", null),
+            external__react__default.a.createElement("span", null)
+          )
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Navigation__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 18
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 19
-          }
-        }),
-        this.props.children
+        external__react__default.a.createElement(
+          "div",
+          { className: "navbar-menu", id: "navMenu " },
+          external__react__default.a.createElement(
+            "div",
+            { className: "navbar-end" },
+            external__react__default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#aides-territoires" },
+              "Aides-territoires"
+            ),
+            external__react__default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#comment-ca-marche" },
+              "Le service"
+            ),
+            external__react__default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#inscription" },
+              "Inscription"
+            ),
+            external__react__default.a.createElement(
+              "a",
+              { className: "navbar-item js-scrollTo", href: "/#contact" },
+              "Contact"
+            )
+          )
+        )
       );
     }
   }]);
 
-  return DefaultLayout;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+  return Navigation;
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (DefaultLayout);
+/* harmony default export */ var components_Navigation = (Navigation_Navigation);
+// EXTERNAL MODULE: external "next/head"
+var head_ = __webpack_require__(3);
+var head__default = /*#__PURE__*/__webpack_require__.n(head_);
 
-/***/ }),
+// CONCATENATED MODULE: ./components/Header.js
+var Header__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ "./components/Header.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function Header__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js";
+function Header__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function Header__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-var Header = function (_React$Component) {
-  _inherits(Header, _React$Component);
+var Header_Header = function (_React$Component) {
+  Header__inherits(Header, _React$Component);
 
   function Header() {
-    _classCallCheck(this, Header);
+    Header__classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    return Header__possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
   }
 
-  _createClass(Header, [{
+  Header__createClass(Header, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return external__react__default.a.createElement(
         "section",
-        { id: "aides-territoires", className: "hero ", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        { id: "aides-territoires", className: "hero " },
+        external__react__default.a.createElement(
           "header",
-          { className: "header ", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 7
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          { className: "header " },
+          external__react__default.a.createElement(
             "div",
-            { className: "header-overlay ", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 8
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "header-overlay " },
+            external__react__default.a.createElement(
               "div",
-              { className: "hero-body ", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 9
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "hero-body " },
+              external__react__default.a.createElement(
                 "div",
-                { className: "container ", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 10
-                  }
-                },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { className: "container " },
+                external__react__default.a.createElement(
                   "h1",
-                  { className: "title ", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 11
-                    }
-                  },
+                  { className: "title " },
                   "UN OUTIL POUR LES COLLECTIVIT\xC9S"
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                external__react__default.a.createElement(
                   "h2",
-                  { className: "subtitle ", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 12
-                    }
-                  },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  { className: "subtitle " },
+                  external__react__default.a.createElement(
                     "p",
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 13
-                      }
-                    },
+                    null,
                     "Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'am\xE9nagements durables.",
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 17
-                      }
-                    }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 18
-                      }
-                    }),
+                    external__react__default.a.createElement("br", null),
+                    external__react__default.a.createElement("br", null),
                     " Un service actuellement exp\xE9riment\xE9 pour les projets de quartiers durables, dont les EcoQuartiers."
                   )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                external__react__default.a.createElement(
                   "div",
-                  { className: "button is-large is-primary ", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 22
-                    }
-                  },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  { className: "button is-large is-primary " },
+                  external__react__default.a.createElement(
                     "a",
                     {
                       className: "button-lancez-la-recherche js-scrollTo ",
-                      href: "#inscription",
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 23
-                      }
+                      href: "#inscription"
                     },
                     "Lancez votre recherche"
                   )
@@ -301,509 +261,150 @@ var Header = function (_React$Component) {
   }]);
 
   return Header;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (Header);
+/* harmony default export */ var components_Header = (Header_Header);
+// CONCATENATED MODULE: ./components/DefaultLayout.js
+var DefaultLayout__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
+function DefaultLayout__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/***/ "./components/Navigation.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function DefaultLayout__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Navigation.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function DefaultLayout__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-var Navigation = function (_React$Component) {
-  _inherits(Navigation, _React$Component);
 
-  function Navigation() {
-    _classCallCheck(this, Navigation);
 
-    return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
+
+var DefaultLayout_DefaultLayout = function (_React$Component) {
+  DefaultLayout__inherits(DefaultLayout, _React$Component);
+
+  function DefaultLayout() {
+    DefaultLayout__classCallCheck(this, DefaultLayout);
+
+    return DefaultLayout__possibleConstructorReturn(this, (DefaultLayout.__proto__ || Object.getPrototypeOf(DefaultLayout)).apply(this, arguments));
   }
 
-  _createClass(Navigation, [{
+  DefaultLayout__createClass(DefaultLayout, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "nav",
-        {
-          className: "navbar is-fixed-top app-main-menu",
-          role: "navigation",
-          "aria-label": "main navigation",
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "navbar-brand", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 11
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { className: "navbar-item js-scrollTo", href: "#aides-territoires", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 12
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/logo.png ", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 13
-              }
-            }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "p",
-              { className: "app-name ", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 14
-                }
-              },
-              "Aides-territoires"
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "navbar-burger", "data-target": "navMenu ", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 16
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 17
-              }
-            }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 18
-              }
-            }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 19
-              }
-            })
-          )
+      return external__react__default.a.createElement(
+        "div",
+        { className: "default-layout" },
+        external__react__default.a.createElement(
+          head__default.a,
+          null,
+          external__react__default.a.createElement("meta", {
+            name: "viewport",
+            content: "initial-scale=1.0, width=device-width"
+          }),
+          external__react__default.a.createElement("link", { rel: "stylesheet", href: "/static/css/bulma.css" }),
+          external__react__default.a.createElement("link", { rel: "stylesheet", href: "/static/css/style.css" })
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "navbar-menu", id: "navMenu ", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 22
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "navbar-end", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 23
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "a",
-              { className: "navbar-item js-scrollTo", href: "/#aides-territoires", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 24
-                }
-              },
-              "Aides-territoires"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "a",
-              { className: "navbar-item js-scrollTo", href: "/#comment-ca-marche", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 27
-                }
-              },
-              "Le service"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "a",
-              { className: "navbar-item js-scrollTo", href: "/#inscription", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 30
-                }
-              },
-              "Inscription"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "a",
-              { className: "navbar-item js-scrollTo", href: "/#contact", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 33
-                }
-              },
-              "Contact"
-            )
-          )
-        )
+        external__react__default.a.createElement(components_Navigation, null),
+        external__react__default.a.createElement(components_Header, null),
+        this.props.children
       );
     }
   }]);
 
-  return Navigation;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+  return DefaultLayout;
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (Navigation);
+/* harmony default export */ var components_DefaultLayout = (DefaultLayout_DefaultLayout);
+// CONCATENATED MODULE: ./components/SectionCommentCaMarche.js
+var SectionCommentCaMarche__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
+function SectionCommentCaMarche__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/***/ "./components/SectionBenefices.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function SectionCommentCaMarche__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionBenefices.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function SectionCommentCaMarche__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-var SectionBenefices = function (_React$Component) {
-  _inherits(SectionBenefices, _React$Component);
-
-  function SectionBenefices() {
-    _classCallCheck(this, SectionBenefices);
-
-    return _possibleConstructorReturn(this, (SectionBenefices.__proto__ || Object.getPrototypeOf(SectionBenefices)).apply(this, arguments));
-  }
-
-  _createClass(SectionBenefices, [{
-    key: "render",
-    value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "section",
-        { id: "benefices", className: "section ", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "container", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 7
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "content ", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 8
-              }
-            },
-            "Avec Aides-territoires :",
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "ul",
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 10
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "li",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 11
-                  }
-                },
-                " ",
-                "Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "li",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 16
-                  }
-                },
-                " ",
-                "Ne passez plus \xE0 c\xF4t\xE9 des aides qui correspondent \xE0 votre projet"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "li",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 20
-                  }
-                },
-                "B\xE9n\xE9ficiez d'une s\xE9lection pertinente \xE0 chaque \xE9tape de votre projet"
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return SectionBenefices;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (SectionBenefices);
-
-/***/ }),
-
-/***/ "./components/SectionChronophage.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionChronophage.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var SectionChronophage = function (_React$Component) {
-  _inherits(SectionChronophage, _React$Component);
-
-  function SectionChronophage() {
-    _classCallCheck(this, SectionChronophage);
-
-    return _possibleConstructorReturn(this, (SectionChronophage.__proto__ || Object.getPrototypeOf(SectionChronophage)).apply(this, arguments));
-  }
-
-  _createClass(SectionChronophage, [{
-    key: "render",
-    value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "section",
-        { id: "chronophage", className: "section ", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "container ", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 7
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "p",
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 8
-              }
-            },
-            "L'acc\xE8s aux aides publiques disponibles et pertinentes pour vos projets est trop souvent synonyme de veille chronophage au d\xE9triment du temps pass\xE9 sur le projet en lui-m\xEAme."
-          )
-        )
-      );
-    }
-  }]);
-
-  return SectionChronophage;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (SectionChronophage);
-
-/***/ }),
-
-/***/ "./components/SectionCommentCaMarche.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionCommentCaMarche.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var SectionCommentCaMarche = function (_React$Component) {
-  _inherits(SectionCommentCaMarche, _React$Component);
+var SectionCommentCaMarche_SectionCommentCaMarche = function (_React$Component) {
+  SectionCommentCaMarche__inherits(SectionCommentCaMarche, _React$Component);
 
   function SectionCommentCaMarche() {
-    _classCallCheck(this, SectionCommentCaMarche);
+    SectionCommentCaMarche__classCallCheck(this, SectionCommentCaMarche);
 
-    return _possibleConstructorReturn(this, (SectionCommentCaMarche.__proto__ || Object.getPrototypeOf(SectionCommentCaMarche)).apply(this, arguments));
+    return SectionCommentCaMarche__possibleConstructorReturn(this, (SectionCommentCaMarche.__proto__ || Object.getPrototypeOf(SectionCommentCaMarche)).apply(this, arguments));
   }
 
-  _createClass(SectionCommentCaMarche, [{
+  SectionCommentCaMarche__createClass(SectionCommentCaMarche, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return external__react__default.a.createElement(
         "section",
-        { id: "comment-ca-marche", className: "section", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        { id: "comment-ca-marche", className: "section" },
+        external__react__default.a.createElement(
           "div",
-          { className: "container ", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 7
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          { className: "container " },
+          external__react__default.a.createElement(
             "h2",
-            { className: "section-title title is-3", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 8
-              }
-            },
+            { className: "section-title title is-3" },
             "Comment \xE7a marche ?"
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "div",
-            { className: "columns", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 9
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "columns" },
+            external__react__default.a.createElement(
               "div",
-              { className: "column", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 10
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "column" },
+              external__react__default.a.createElement(
                 "div",
-                { className: "numero", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 11
-                  }
-                },
+                { className: "numero" },
                 "1"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "h3",
-                { className: "title is-4", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 12
-                  }
-                },
+                { className: "title is-4" },
                 "Un territoire, un projet"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "p",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 13
-                  }
-                },
+                null,
                 "Donnez nous votre localisation et votre projet "
               )
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            external__react__default.a.createElement(
               "div",
-              { className: "column", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 15
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "column" },
+              external__react__default.a.createElement(
                 "div",
-                { className: "numero", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 16
-                  }
-                },
+                { className: "numero" },
                 "2"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "h3",
-                { className: "title is-4", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 17
-                  }
-                },
+                { className: "title is-4" },
                 "Des aides"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "p",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 18
-                  }
-                },
+                null,
                 "Nous vous aidons \xE0 identifier les meilleures aides publiques mobilisables"
               )
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            external__react__default.a.createElement(
               "div",
-              { className: "column", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 23
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "column" },
+              external__react__default.a.createElement(
                 "div",
-                { className: "numero", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 24
-                  }
-                },
+                { className: "numero" },
                 "3"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "h3",
-                { className: "title is-4", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 25
-                  }
-                },
+                { className: "title is-4" },
                 "Du temps gagn\xE9"
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "p",
-                {
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 26
-                  }
-                },
+                null,
                 "passez plus de temps sur votre projet en activant les aides pertinentes au bon moment"
               )
             )
@@ -814,166 +415,195 @@ var SectionCommentCaMarche = function (_React$Component) {
   }]);
 
   return SectionCommentCaMarche;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (SectionCommentCaMarche);
+/* harmony default export */ var components_SectionCommentCaMarche = (SectionCommentCaMarche_SectionCommentCaMarche);
+// CONCATENATED MODULE: ./components/SectionChronophage.js
+var SectionChronophage__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
+function SectionChronophage__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/***/ "./components/SectionTypesAides.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function SectionChronophage__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SectionTypesAides.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function SectionChronophage__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-var SectionTypeAides = function (_React$Component) {
-  _inherits(SectionTypeAides, _React$Component);
+var SectionChronophage_SectionChronophage = function (_React$Component) {
+  SectionChronophage__inherits(SectionChronophage, _React$Component);
 
-  function SectionTypeAides() {
-    _classCallCheck(this, SectionTypeAides);
+  function SectionChronophage() {
+    SectionChronophage__classCallCheck(this, SectionChronophage);
 
-    return _possibleConstructorReturn(this, (SectionTypeAides.__proto__ || Object.getPrototypeOf(SectionTypeAides)).apply(this, arguments));
+    return SectionChronophage__possibleConstructorReturn(this, (SectionChronophage.__proto__ || Object.getPrototypeOf(SectionChronophage)).apply(this, arguments));
   }
 
-  _createClass(SectionTypeAides, [{
+  SectionChronophage__createClass(SectionChronophage, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return external__react__default.a.createElement(
         "section",
-        { id: "types-aides", className: "section", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        { id: "chronophage", className: "section " },
+        external__react__default.a.createElement(
           "div",
-          { className: "container", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 7
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          { className: "container " },
+          external__react__default.a.createElement(
             "p",
-            { className: "text", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 8
-              }
-            },
+            null,
+            "L'acc\xE8s aux aides publiques disponibles et pertinentes pour vos projets est trop souvent synonyme de veille chronophage au d\xE9triment du temps pass\xE9 sur le projet en lui-m\xEAme."
+          )
+        )
+      );
+    }
+  }]);
+
+  return SectionChronophage;
+}(external__react__default.a.Component);
+
+/* harmony default export */ var components_SectionChronophage = (SectionChronophage_SectionChronophage);
+// CONCATENATED MODULE: ./components/SectionBenefices.js
+var SectionBenefices__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function SectionBenefices__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function SectionBenefices__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function SectionBenefices__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionBenefices_SectionBenefices = function (_React$Component) {
+  SectionBenefices__inherits(SectionBenefices, _React$Component);
+
+  function SectionBenefices() {
+    SectionBenefices__classCallCheck(this, SectionBenefices);
+
+    return SectionBenefices__possibleConstructorReturn(this, (SectionBenefices.__proto__ || Object.getPrototypeOf(SectionBenefices)).apply(this, arguments));
+  }
+
+  SectionBenefices__createClass(SectionBenefices, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement(
+        "section",
+        { id: "benefices", className: "section " },
+        external__react__default.a.createElement(
+          "div",
+          { className: "container" },
+          external__react__default.a.createElement(
+            "div",
+            { className: "content " },
+            "Avec Aides-territoires :",
+            external__react__default.a.createElement(
+              "ul",
+              null,
+              external__react__default.a.createElement(
+                "li",
+                null,
+                " ",
+                "Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement"
+              ),
+              external__react__default.a.createElement(
+                "li",
+                null,
+                " ",
+                "Ne passez plus \xE0 c\xF4t\xE9 des aides qui correspondent \xE0 votre projet"
+              ),
+              external__react__default.a.createElement(
+                "li",
+                null,
+                "B\xE9n\xE9ficiez d'une s\xE9lection pertinente \xE0 chaque \xE9tape de votre projet"
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SectionBenefices;
+}(external__react__default.a.Component);
+
+/* harmony default export */ var components_SectionBenefices = (SectionBenefices_SectionBenefices);
+// CONCATENATED MODULE: ./components/SectionTypesAides.js
+var SectionTypesAides__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function SectionTypesAides__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function SectionTypesAides__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function SectionTypesAides__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var SectionTypesAides_SectionTypeAides = function (_React$Component) {
+  SectionTypesAides__inherits(SectionTypeAides, _React$Component);
+
+  function SectionTypeAides() {
+    SectionTypesAides__classCallCheck(this, SectionTypeAides);
+
+    return SectionTypesAides__possibleConstructorReturn(this, (SectionTypeAides.__proto__ || Object.getPrototypeOf(SectionTypeAides)).apply(this, arguments));
+  }
+
+  SectionTypesAides__createClass(SectionTypeAides, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement(
+        "section",
+        { id: "types-aides", className: "section" },
+        external__react__default.a.createElement(
+          "div",
+          { className: "container" },
+          external__react__default.a.createElement(
+            "p",
+            { className: "text" },
             "Quelque soit le stade d'avancement de votre projet d'\xC9coQuartier, Aides-territoires vous permet d'identifier les aides pertinentes:"
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "div",
-            { className: "content ", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 12
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "content " },
+            external__react__default.a.createElement(
               "div",
-              { className: "columns", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 13
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "columns" },
+              external__react__default.a.createElement(
                 "div",
-                { className: "column", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 14
-                  }
-                },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { className: "column" },
+                external__react__default.a.createElement(
                   "div",
-                  { className: "aides-icon", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 15
-                    }
-                  },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-compas.png", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 16
-                    }
-                  })
+                  { className: "aides-icon" },
+                  external__react__default.a.createElement("img", { src: "/static/images/icon-compas.png" })
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                external__react__default.a.createElement(
                   "h2",
-                  { className: "title is-4", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 18
-                    }
-                  },
+                  { className: "title is-4" },
                   "Ing\xE9nierie"
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "div",
-                { className: "column", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 20
-                  }
-                },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { className: "column" },
+                external__react__default.a.createElement(
                   "div",
-                  { className: "aides-icon", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 21
-                    }
-                  },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-financement.png", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 22
-                    }
-                  })
+                  { className: "aides-icon" },
+                  external__react__default.a.createElement("img", { src: "/static/images/icon-financement.png" })
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                external__react__default.a.createElement(
                   "h2",
-                  { className: "title is-4", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 24
-                    }
-                  },
+                  { className: "title is-4" },
                   "Financement"
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              external__react__default.a.createElement(
                 "div",
-                { className: "column", __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 26
-                  }
-                },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                { className: "column" },
+                external__react__default.a.createElement(
                   "div",
-                  { className: "aides-icon", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 27
-                    }
-                  },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { src: "/static/images/icon-journal.png", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 28
-                    }
-                  })
+                  { className: "aides-icon" },
+                  external__react__default.a.createElement("img", { src: "/static/images/icon-journal.png" })
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                external__react__default.a.createElement(
                   "h2",
-                  { className: "title is-4", __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 30
-                    }
-                  },
+                  { className: "title is-4" },
                   "Appels \xE0 projet"
                 )
               )
@@ -985,37 +615,80 @@ var SectionTypeAides = function (_React$Component) {
   }]);
 
   return SectionTypeAides;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (SectionTypeAides);
+/* harmony default export */ var SectionTypesAides = (SectionTypesAides_SectionTypeAides);
+// CONCATENATED MODULE: ./components/SendInBlueInscrivezVous.js
+var SendInBlueInscrivezVous__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
+function SendInBlueInscrivezVous__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/***/ "./components/SendInBlueContactForm.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function SendInBlueInscrivezVous__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request__ = __webpack_require__("graphql-request");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_graphql_request__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config__ = __webpack_require__("next/config");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_config__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function SendInBlueInscrivezVous__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
+var SendInBlueInscrivezVous_SendInBlueInscrivezVous = function (_React$Component) {
+  SendInBlueInscrivezVous__inherits(SendInBlueInscrivezVous, _React$Component);
+
+  function SendInBlueInscrivezVous() {
+    SendInBlueInscrivezVous__classCallCheck(this, SendInBlueInscrivezVous);
+
+    return SendInBlueInscrivezVous__possibleConstructorReturn(this, (SendInBlueInscrivezVous.__proto__ || Object.getPrototypeOf(SendInBlueInscrivezVous)).apply(this, arguments));
+  }
+
+  SendInBlueInscrivezVous__createClass(SendInBlueInscrivezVous, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement(
+        "section",
+        { id: "inscription", className: "section lancez-votre-recherche" },
+        external__react__default.a.createElement("iframe", {
+          width: "540",
+          height: "723",
+          src: "https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1",
+          frameBorder: "0",
+          scrolling: "auto",
+          allowFullScreen: true,
+          style: {
+            background: "transparent",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            maXidth: "100%"
+          }
+        })
+      );
+    }
+  }]);
+
+  return SendInBlueInscrivezVous;
+}(external__react__default.a.Component);
+
+/* harmony default export */ var components_SendInBlueInscrivezVous = (SendInBlueInscrivezVous_SendInBlueInscrivezVous);
+// EXTERNAL MODULE: external "graphql-request"
+var external__graphql_request_ = __webpack_require__(4);
+var external__graphql_request__default = /*#__PURE__*/__webpack_require__.n(external__graphql_request_);
+
+// EXTERNAL MODULE: external "next/config"
+var config_ = __webpack_require__(5);
+var config__default = /*#__PURE__*/__webpack_require__.n(config_);
+
+// CONCATENATED MODULE: ./components/SendInBlueContactForm.js
+var SendInBlueContactForm__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function SendInBlueContactForm__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function SendInBlueContactForm__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function SendInBlueContactForm__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-var _getConfig = __WEBPACK_IMPORTED_MODULE_2_next_config___default()(),
+
+
+
+var _getConfig = config__default()(),
     publicRuntimeConfig = _getConfig.publicRuntimeConfig;
 
 var EMAIL_SENDING_STATUS_NOT_STARTED = "not_started";
@@ -1023,13 +696,13 @@ var EMAIL_SENDING_STATUS_PENDING = "pending";
 var EMAIL_SENDING_STATUS_SENT = "sent";
 var EMAIL_SENDING_STATUS_ERROR = "error";
 
-var ContactForm = function (_React$Component) {
-  _inherits(ContactForm, _React$Component);
+var SendInBlueContactForm_ContactForm = function (_React$Component) {
+  SendInBlueContactForm__inherits(ContactForm, _React$Component);
 
   function ContactForm(props) {
-    _classCallCheck(this, ContactForm);
+    SendInBlueContactForm__classCallCheck(this, ContactForm);
 
-    var _this = _possibleConstructorReturn(this, (ContactForm.__proto__ || Object.getPrototypeOf(ContactForm)).call(this, props));
+    var _this = SendInBlueContactForm__possibleConstructorReturn(this, (ContactForm.__proto__ || Object.getPrototypeOf(ContactForm)).call(this, props));
 
     _this.handleSubmit = function (event) {
       event.preventDefault();
@@ -1063,7 +736,7 @@ var ContactForm = function (_React$Component) {
     return _this;
   }
 
-  _createClass(ContactForm, [{
+  SendInBlueContactForm__createClass(ContactForm, [{
     key: "sendEmail",
     value: function sendEmail() {
       var query = "\n    mutation sendContactFormEmail($from:String!,$text:String!) {\n      sendContactFormEmail(from: $from, text:$text) {\n        from\n        text\n      }\n    }";
@@ -1071,182 +744,96 @@ var ContactForm = function (_React$Component) {
         from: this.state.email,
         text: this.state.message
       };
-      return Object(__WEBPACK_IMPORTED_MODULE_1_graphql_request__["request"])(publicRuntimeConfig.GRAPHQL_URL, query, variables);
+      return Object(external__graphql_request_["request"])(publicRuntimeConfig.GRAPHQL_URL, query, variables);
     }
   }, {
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return external__react__default.a.createElement(
         "div",
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 59
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        null,
+        external__react__default.a.createElement(
           "p",
-          { "class": "text", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 60
-            }
-          },
+          { "class": "text" },
           "Vous avez encore des questions ? des suggestions ? N'h\xE9sitez pas, nous sommes \xE0 votre disposition et serons ravis d'\xE9changer avec vous : laissez-nous un message !",
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 63
-            }
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 64
-            }
-          })
+          external__react__default.a.createElement("br", null),
+          external__react__default.a.createElement("br", null)
         ),
-        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && external__react__default.a.createElement(
           "div",
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 67
-            }
-          },
+          null,
           "D\xE9sol\xE9 nous avons rencontr\xE9 une erreur lors de l'envoi de l'email. Vous pouvez nous contacter \xE0 l'addresse suivante :",
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "strong",
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 70
-              }
-            },
+            null,
             "contact@aides-territoires.beta.gouv.fr"
           ),
           " ou",
           " ",
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "strong",
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 71
-              }
-            },
+            null,
             "elise.marion@beta.gouv.fr"
           )
         ),
-        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_SENT && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        this.state.emailSendingStatus === EMAIL_SENDING_STATUS_SENT && external__react__default.a.createElement(
           "div",
-          { className: "section message is-success", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 75
-            }
-          },
+          { className: "section message is-success" },
           "Merci! Votre message a bien \xE9t\xE9 envoy\xE9."
         ),
-        this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_ERROR && this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_SENT && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_ERROR && this.state.emailSendingStatus !== EMAIL_SENDING_STATUS_SENT && external__react__default.a.createElement(
           "form",
-          { id: "contact-form", onSubmit: this.handleSubmit, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 82
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          { id: "contact-form", onSubmit: this.handleSubmit },
+          external__react__default.a.createElement(
             "div",
-            { className: "field", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 83
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "field" },
+            external__react__default.a.createElement(
               "label",
-              { className: "label", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 84
-                }
-              },
+              { className: "label" },
               "Votre email*"
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            external__react__default.a.createElement(
               "div",
-              { className: "control", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 85
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              { className: "control" },
+              external__react__default.a.createElement("input", {
                 id: "email",
                 onChange: this.onEmailChange,
                 className: "input is-large",
                 type: "text",
                 placeholder: "Email",
-                required: true,
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 86
-                }
+                required: true
               })
             )
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "div",
-            { className: "field", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 97
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "field" },
+            external__react__default.a.createElement(
               "label",
-              { className: "label", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 98
-                }
-              },
+              { className: "label" },
               "Votre message"
             ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            external__react__default.a.createElement(
               "div",
-              { className: "control", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 99
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", {
+              { className: "control" },
+              external__react__default.a.createElement("textarea", {
                 onChange: this.onMessageChange,
                 id: "message",
                 className: "textarea",
-                placeholder: "Votre message",
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 100
-                }
+                placeholder: "Votre message"
               })
             )
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          external__react__default.a.createElement(
             "div",
-            { className: "field is-grouped is-grouped-right", __source: {
-                fileName: _jsxFileName,
-                lineNumber: 109
-              }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            { className: "field is-grouped is-grouped-right" },
+            external__react__default.a.createElement(
               "div",
-              { className: "control", __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 110
-                }
-              },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              { className: "control" },
+              external__react__default.a.createElement("input", {
                 type: "submit",
                 value: "envoyer",
-                className: "button is-link is-large is-primary",
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 111
-                }
+                className: "button is-link is-large is-primary"
               })
             )
           )
@@ -1256,102 +843,17 @@ var ContactForm = function (_React$Component) {
   }]);
 
   return ContactForm;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (ContactForm);
+/* harmony default export */ var SendInBlueContactForm = (SendInBlueContactForm_ContactForm);
+// CONCATENATED MODULE: ./pages/index.js
+var pages__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
+function pages__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/***/ "./components/SendInBlueInscrivezVous.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function pages__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueInscrivezVous.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var SendInBlueInscrivezVous = function (_React$Component) {
-  _inherits(SendInBlueInscrivezVous, _React$Component);
-
-  function SendInBlueInscrivezVous() {
-    _classCallCheck(this, SendInBlueInscrivezVous);
-
-    return _possibleConstructorReturn(this, (SendInBlueInscrivezVous.__proto__ || Object.getPrototypeOf(SendInBlueInscrivezVous)).apply(this, arguments));
-  }
-
-  _createClass(SendInBlueInscrivezVous, [{
-    key: "render",
-    value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "section",
-        { id: "inscription", className: "section lancez-votre-recherche", __source: {
-            fileName: _jsxFileName,
-            lineNumber: 6
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("iframe", {
-          width: "540",
-          height: "723",
-          src: "https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1",
-          frameBorder: "0",
-          scrolling: "auto",
-          allowFullScreen: true,
-          style: {
-            background: "transparent",
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-            maXidth: "100%"
-          },
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 7
-          }
-        })
-      );
-    }
-  }]);
-
-  return SendInBlueInscrivezVous;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["a"] = (SendInBlueInscrivezVous);
-
-/***/ }),
-
-/***/ "./pages/index.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_DefaultLayout__ = __webpack_require__("./components/DefaultLayout.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_SectionCommentCaMarche__ = __webpack_require__("./components/SectionCommentCaMarche.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SectionChronophage__ = __webpack_require__("./components/SectionChronophage.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SectionBenefices__ = __webpack_require__("./components/SectionBenefices.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_SectionTypesAides__ = __webpack_require__("./components/SectionTypesAides.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_SendInBlueInscrivezVous__ = __webpack_require__("./components/SendInBlueInscrivezVous.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_SendInBlueContactForm__ = __webpack_require__("./components/SendInBlueContactForm.js");
-var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/pages/index.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function pages__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
@@ -1362,122 +864,58 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var HomePage = function (_React$Component) {
-  _inherits(HomePage, _React$Component);
+var pages_HomePage = function (_React$Component) {
+  pages__inherits(HomePage, _React$Component);
 
   function HomePage() {
-    _classCallCheck(this, HomePage);
+    pages__classCallCheck(this, HomePage);
 
-    return _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));
+    return pages__possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));
   }
 
-  _createClass(HomePage, [{
+  pages__createClass(HomePage, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1__components_DefaultLayout__["a" /* default */],
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 13
-          }
-        },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_SectionCommentCaMarche__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 14
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_SectionChronophage__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 15
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_SectionBenefices__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 16
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 17
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_SectionTypesAides__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 18
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_SendInBlueInscrivezVous__["a" /* default */], {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 19
-          }
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return external__react__default.a.createElement(
+        components_DefaultLayout,
+        null,
+        external__react__default.a.createElement(components_SectionCommentCaMarche, null),
+        external__react__default.a.createElement(components_SectionChronophage, null),
+        external__react__default.a.createElement(components_SectionBenefices, null),
+        external__react__default.a.createElement("hr", null),
+        external__react__default.a.createElement(SectionTypesAides, null),
+        external__react__default.a.createElement(components_SendInBlueInscrivezVous, null),
+        external__react__default.a.createElement(
           "section",
-          { id: "contact", className: "section container", __source: {
-              fileName: _jsxFileName,
-              lineNumber: 20
-            }
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_SendInBlueContactForm__["a" /* default */], {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 21
-            }
-          })
+          { id: "contact", className: "section container" },
+          external__react__default.a.createElement(SendInBlueContactForm, null)
         )
       );
     }
   }]);
 
   return HomePage;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(external__react__default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (HomePage);
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("./pages/index.js");
-
+/* harmony default export */ var pages = __webpack_exports__["default"] = (pages_HomePage);
 
 /***/ }),
-
-/***/ "graphql-request":
-/***/ (function(module, exports) {
-
-module.exports = require("graphql-request");
-
-/***/ }),
-
-/***/ "next/config":
-/***/ (function(module, exports) {
-
-module.exports = require("next/config");
-
-/***/ }),
-
-/***/ "next/head":
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("next/head");
 
 /***/ }),
-
-/***/ "react":
+/* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("react");
+module.exports = require("graphql-request");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("next/config");
 
 /***/ })
-
-/******/ });
-//# sourceMappingURL=index.js.map
+/******/ ]);
