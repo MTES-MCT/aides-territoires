@@ -25,7 +25,11 @@ class Navigation extends React.Component {
             <p className="app-name ">Aides-territoires</p>
           </a>
           <div
-            className="navbar-burger"
+            className={
+              this.state.mobileMenuIsActive
+                ? "navbar-burger is-active"
+                : "navbar-burger"
+            }
             data-target="navMenu"
             onClick={this.handleClick}
           >

@@ -391,7 +391,7 @@ var Navigation = function (_React$Component) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
             {
-              className: "navbar-burger",
+              className: this.state.mobileMenuIsActive ? "navbar-burger is-active" : "navbar-burger",
               "data-target": "navMenu",
               onClick: this.handleClick,
               __source: {
@@ -402,19 +402,19 @@ var Navigation = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 32
+                lineNumber: 36
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 33
+                lineNumber: 37
               }
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 34
+                lineNumber: 38
               }
             })
           )
@@ -426,21 +426,21 @@ var Navigation = function (_React$Component) {
             id: "navMenu ",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 37
+              lineNumber: 41
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
             { className: "navbar-end", __source: {
                 fileName: _jsxFileName,
-                lineNumber: 45
+                lineNumber: 49
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "a",
               { className: "navbar-item js-scrollTo", href: "/#aides-territoires", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 46
+                  lineNumber: 50
                 }
               },
               "Aides-territoires"
@@ -449,7 +449,7 @@ var Navigation = function (_React$Component) {
               "a",
               { className: "navbar-item js-scrollTo", href: "/#comment-ca-marche", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 49
+                  lineNumber: 53
                 }
               },
               "Le service"
@@ -458,7 +458,7 @@ var Navigation = function (_React$Component) {
               "a",
               { className: "navbar-item js-scrollTo", href: "/#inscription", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 52
+                  lineNumber: 56
                 }
               },
               "Inscription"
@@ -467,7 +467,7 @@ var Navigation = function (_React$Component) {
               "a",
               { className: "navbar-item js-scrollTo", href: "/#contact", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 55
+                  lineNumber: 59
                 }
               },
               "Contact"
