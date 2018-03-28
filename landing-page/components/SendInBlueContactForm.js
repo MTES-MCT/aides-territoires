@@ -1,5 +1,7 @@
 import React from "react";
 import { request } from "graphql-request";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
 
 const EMAIL_SENDING_STATUS_NOT_STARTED = "not_started";
 const EMAIL_SENDING_STATUS_PENDING = "pending";
@@ -50,7 +52,7 @@ export default class ContactForm extends React.Component {
       from: this.state.email,
       text: this.state.message
     };
-    return request(process.env.REACT_APP_GRAPHQL_API_URL, query, variables);
+    return request(publicRuntimeConfig.GRAPHQL_URL, query, variables);
   }
   render() {
     return (

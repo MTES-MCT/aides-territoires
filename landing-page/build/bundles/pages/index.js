@@ -135,8 +135,6 @@ var _default = DefaultLayout;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_config__ = __webpack_require__("./node_modules/next/config.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_config__);
 var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -155,10 +153,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
-var _getConfig = __WEBPACK_IMPORTED_MODULE_1_next_config___default()(),
-    publicRuntimeConfig = _getConfig.publicRuntimeConfig;
-
 var Header = function (_React$Component) {
   _inherits(Header, _React$Component);
 
@@ -175,42 +169,42 @@ var Header = function (_React$Component) {
         "section",
         { id: "aides-territoires", className: "hero ", __source: {
             fileName: _jsxFileName,
-            lineNumber: 7
+            lineNumber: 6
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "header",
           { className: "header ", __source: {
               fileName: _jsxFileName,
-              lineNumber: 8
+              lineNumber: 7
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
             { className: "header-overlay ", __source: {
                 fileName: _jsxFileName,
-                lineNumber: 9
+                lineNumber: 8
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
               { className: "hero-body ", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 10
+                  lineNumber: 9
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 { className: "container ", __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 11
+                    lineNumber: 10
                   }
                 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "h1",
                   { className: "title ", __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 12
+                      lineNumber: 11
                     }
                   },
                   "UN OUTIL POUR LES COLLECTIVIT\xC9S"
@@ -219,7 +213,7 @@ var Header = function (_React$Component) {
                   "h2",
                   { className: "subtitle ", __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 13
+                      lineNumber: 12
                     }
                   },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -227,21 +221,20 @@ var Header = function (_React$Component) {
                     {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 14
+                        lineNumber: 13
                       }
                     },
-                    publicRuntimeConfig.GRAPHQL_URL,
-                    " Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'am\xE9nagements durables.",
+                    "Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'am\xE9nagements durables.",
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 18
+                        lineNumber: 17
                       }
                     }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", {
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 19
+                        lineNumber: 18
                       }
                     }),
                     " Un service actuellement exp\xE9riment\xE9 pour les projets de quartiers durables, dont les EcoQuartiers."
@@ -251,7 +244,7 @@ var Header = function (_React$Component) {
                   "div",
                   { className: "button is-large is-primary ", __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 23
+                      lineNumber: 22
                     }
                   },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -261,7 +254,7 @@ var Header = function (_React$Component) {
                       href: "#inscription",
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 24
+                        lineNumber: 23
                       }
                     },
                     "Lancez votre recherche"
@@ -296,7 +289,6 @@ var _default = Header;
     return;
   }
 
-  reactHotLoader.register(publicRuntimeConfig, "publicRuntimeConfig", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js");
   reactHotLoader.register(Header, "Header", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js");
   reactHotLoader.register(_default, "default", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/Header.js");
   leaveModule(module);
@@ -1147,10 +1139,12 @@ var _default = SectionTypeAides;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(module, process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/cjs/react.development.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request__ = __webpack_require__("./node_modules/graphql-request/dist/src/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_graphql_request___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_graphql_request__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config__ = __webpack_require__("./node_modules/next/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_next_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_next_config__);
 var _jsxFileName = "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1169,6 +1163,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
+var _getConfig = __WEBPACK_IMPORTED_MODULE_2_next_config___default()(),
+    publicRuntimeConfig = _getConfig.publicRuntimeConfig;
 
 var EMAIL_SENDING_STATUS_NOT_STARTED = "not_started";
 var EMAIL_SENDING_STATUS_PENDING = "pending";
@@ -1223,7 +1221,7 @@ var ContactForm = function (_React$Component) {
         from: this.state.email,
         text: this.state.message
       };
-      return Object(__WEBPACK_IMPORTED_MODULE_1_graphql_request__["request"])(process.env.REACT_APP_GRAPHQL_API_URL, query, variables);
+      return Object(__WEBPACK_IMPORTED_MODULE_1_graphql_request__["request"])(publicRuntimeConfig.GRAPHQL_URL, query, variables);
     }
   }, {
     key: "render",
@@ -1233,7 +1231,7 @@ var ContactForm = function (_React$Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 57
+            lineNumber: 59
           }
         },
         this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -1241,7 +1239,7 @@ var ContactForm = function (_React$Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 59
+              lineNumber: 61
             }
           },
           "D\xE9sol\xE9 nous avons rencontr\xE9 une erreur lors de l'envoi de l'email. Vous pouvez nous contacter \xE0 l'addresse suivante :",
@@ -1250,7 +1248,7 @@ var ContactForm = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 62
+                lineNumber: 64
               }
             },
             "contact@aides-territoires.beta.gouv.fr"
@@ -1262,7 +1260,7 @@ var ContactForm = function (_React$Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 63
+                lineNumber: 65
               }
             },
             "elise.marion@beta.gouv.fr"
@@ -1272,7 +1270,7 @@ var ContactForm = function (_React$Component) {
           "div",
           { className: "section message is-success", __source: {
               fileName: _jsxFileName,
-              lineNumber: 67
+              lineNumber: 69
             }
           },
           "Merci! Votre message a bien \xE9t\xE9 envoy\xE9."
@@ -1281,21 +1279,21 @@ var ContactForm = function (_React$Component) {
           "form",
           { id: "contact-form", onSubmit: this.handleSubmit, __source: {
               fileName: _jsxFileName,
-              lineNumber: 74
+              lineNumber: 76
             }
           },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
             { className: "field", __source: {
                 fileName: _jsxFileName,
-                lineNumber: 75
+                lineNumber: 77
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "label",
               { className: "label", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 76
+                  lineNumber: 78
                 }
               },
               "Votre email*"
@@ -1304,7 +1302,7 @@ var ContactForm = function (_React$Component) {
               "div",
               { className: "control", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 77
+                  lineNumber: 79
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
@@ -1316,7 +1314,7 @@ var ContactForm = function (_React$Component) {
                 required: true,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 78
+                  lineNumber: 80
                 }
               })
             )
@@ -1325,14 +1323,14 @@ var ContactForm = function (_React$Component) {
             "div",
             { className: "field", __source: {
                 fileName: _jsxFileName,
-                lineNumber: 89
+                lineNumber: 91
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "label",
               { className: "label", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 90
+                  lineNumber: 92
                 }
               },
               "Votre message"
@@ -1341,7 +1339,7 @@ var ContactForm = function (_React$Component) {
               "div",
               { className: "control", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 91
+                  lineNumber: 93
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", {
@@ -1351,7 +1349,7 @@ var ContactForm = function (_React$Component) {
                 placeholder: "Votre message",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 92
+                  lineNumber: 94
                 }
               })
             )
@@ -1360,14 +1358,14 @@ var ContactForm = function (_React$Component) {
             "div",
             { className: "field is-grouped is-grouped-right", __source: {
                 fileName: _jsxFileName,
-                lineNumber: 101
+                lineNumber: 103
               }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
               { className: "control", __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 102
+                  lineNumber: 104
                 }
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
@@ -1376,7 +1374,7 @@ var ContactForm = function (_React$Component) {
                 className: "button is-link is-large is-primary",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 103
+                  lineNumber: 105
                 }
               })
             )
@@ -1407,6 +1405,7 @@ var _default = ContactForm;
     return;
   }
 
+  reactHotLoader.register(publicRuntimeConfig, "publicRuntimeConfig", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
   reactHotLoader.register(EMAIL_SENDING_STATUS_NOT_STARTED, "EMAIL_SENDING_STATUS_NOT_STARTED", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
   reactHotLoader.register(EMAIL_SENDING_STATUS_PENDING, "EMAIL_SENDING_STATUS_PENDING", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
   reactHotLoader.register(EMAIL_SENDING_STATUS_SENT, "EMAIL_SENDING_STATUS_SENT", "/Applications/MAMP/htdocs/aides-territoires/landing-page/components/SendInBlueContactForm.js");
@@ -1417,7 +1416,7 @@ var _default = ContactForm;
 })();
 
 ;
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module), __webpack_require__("./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 

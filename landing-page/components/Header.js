@@ -1,6 +1,5 @@
 import React from "react";
-import getConfig from "next/config";
-const { publicRuntimeConfig } = getConfig();
+
 export default class Header extends React.Component {
   render() {
     return (
@@ -12,9 +11,9 @@ export default class Header extends React.Component {
                 <h1 className="title ">UN OUTIL POUR LES COLLECTIVITÉS</h1>
                 <h2 className="subtitle ">
                   <p>
-                    {publicRuntimeConfig.GRAPHQL_URL} Identifiez en quelques
-                    clics toutes les aides disponibles sur votre territoire pour
-                    vos projets d'aménagements durables.
+                    Identifiez en quelques clics toutes les aides disponibles
+                    sur votre territoire pour vos projets d'aménagements
+                    durables.
                     <br />
                     <br /> Un service actuellement expérimenté pour les projets
                     de quartiers durables, dont les EcoQuartiers.
