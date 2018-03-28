@@ -1,4 +1,12 @@
-## aides territoires - landing page
+# aides territoires - landing page
+
+## installation
+
+```
+npm i yarn
+```
+
+## build and serve
 
 build landing page and start to server on port 3000
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/aides-territoires");
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb://localhost/aides-territoires");
 
 // middleware express pour ajouter les headers CORS
 const cors = require("cors");
