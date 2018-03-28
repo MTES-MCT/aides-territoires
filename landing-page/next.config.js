@@ -1,17 +1,16 @@
-const webpack = require('webpack');
+// next.config.js
 
-require('dotenv').config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
-});
+// if there is a "env.config.js", load its config
+var fs = require("fs");
+let envConfig = {};
+if (fs.existsSync("./env.config.js")) {
+  envConfig = require("./env.config.js");
+}
 
 module.exports = {
-  webpack: config => {
-    const env = Object.keys(process.env).reduce((acc, curr) => {
-      acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
-      return acc;
-    }, {});
-
-    config.plugins.push(new webpack.DefinePlugin(env));
-
-    return config;
+  distDir: "build",
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    ...envConfig
   }
+};

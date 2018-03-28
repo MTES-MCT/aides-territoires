@@ -1,22 +1,10 @@
-# readme
+# SERVEUR AIDES TERRITOIRES
 
-# install
-
-install mongodb
-
-## on mac
+start server on port 8100
 
 ```
-brew install mongodb
-```
-
-# start
-
-## on mac
-
-```
-# start mongodb
-brew services start mongodb
-# start server and graphQL services
+cd server
 yarn start
 ```
+
+graphQL API will be available at /graphql
