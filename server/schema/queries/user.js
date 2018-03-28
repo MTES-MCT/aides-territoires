@@ -1,4 +1,4 @@
-const userTypes = require("../types/user");
+const types = require("../types");
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -10,7 +10,7 @@ const {
 
 module.exports = {
   user: {
-    type: userTypes.User,
+    type: types.User,
     args: {
       id: {
         type: GraphQLID
@@ -24,7 +24,7 @@ module.exports = {
     }
   },
   users: {
-    type: new GraphQLList(userTypes.User),
+    type: new GraphQLList(types.User),
     args: {
       limit: {
         type: GraphQLInt

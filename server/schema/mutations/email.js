@@ -1,5 +1,5 @@
 const { sendContactFormEmail } = require("../../services/email");
-const types = require("../types/email");
+const types = require("../types");
 const {
   GraphQLObjectType,
   GraphQLString,
