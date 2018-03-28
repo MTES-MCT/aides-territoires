@@ -1,4 +1,4 @@
-const sendInBlue = require("../../../lib/send-in-blue");
+const sendInBlue = require("./send-in-blue");
 
 module.exports.sendContactFormEmail = ({ from, text }) => {
   if (!process.env.CONTACT_FORM_TO) {
@@ -20,8 +20,5 @@ module.exports.sendContactFormEmail = ({ from, text }) => {
     "ap/contactForm - sending email with following params : ",
     params
   );
-  return api
-    .sendTransacEmail(params)
-    .then(r => res.send(r))
-    .catch(r => res.send(r));
+  return api.sendTransacEmail(params);
 };
