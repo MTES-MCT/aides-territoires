@@ -1,32 +1,26 @@
 const graphql = require("graphql");
-const sendEmail = require("../lib/email").sendEmail;
+const { sendContactFormEmail } = require("../lib/email");
 
 module.exports.mutations = {
-  email: {
+  sendContactFormEmail: {
     // describe our field for this type of entity
     type: new graphql.GraphQLObjectType({
       name: "email",
       fields: {
         from: { type: graphql.GraphQLString },
-        to: { type: graphql.GraphQLString },
-        subject: { type: graphql.GraphQLString },
         text: { type: graphql.GraphQLString }
       }
     }),
     // `args` describes the arguments that our query accepts
     args: {
       from: { type: graphql.GraphQLString },
-      to: { type: graphql.GraphQLString },
-      subject: { type: graphql.GraphQLString },
       text: { type: graphql.GraphQLString }
     },
     // data returned for this query
-    resolve: function(_, { from, to, subject, text }) {
-      sendEmail({ from, to, subject, text });
+    resolve: function(_, { from, text }) {
+      sendContactFormEmail({ from, text });
       return {
         from,
-        to,
-        subject,
         text
       };
     }

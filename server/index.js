@@ -9,8 +9,6 @@ const graphql = require("graphql");
 const { buildSchema, GraphQLSchema } = require("graphql");
 
 const helloWorldTypes = require("./services/helloWorld/graphql/helloWorldTypes");
-const aideTypes = require("./services/aide/graphql/aideTypes");
-const userTypes = require("./services/user/graphql/userTypes");
 const emailTypes = require("./services/email/graphql/emailTypes");
 
 // our full graphQL schema
@@ -19,17 +17,13 @@ const schema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
     name: "Query",
     fields: {
-      ...helloWorldTypes.queries,
-      ...aideTypes.queries,
-      ...userTypes.queries
+      ...helloWorldTypes.queries
     }
   }),
   // "mutation" type contains all our mutations types
   mutation: new graphql.GraphQLObjectType({
     name: "Mutation",
     fields: {
-      ...aideTypes.mutations,
-      ...userTypes.mutations,
       ...emailTypes.mutations
     }
   })
@@ -38,6 +32,8 @@ const schema = new graphql.GraphQLSchema({
 const isDev = process.env.NODE_ENV === "development";
 const app = express();
 app.use(cors());
+// to support JSON-encoded bodies
+app.use(express.json());
 
 app.use(
   "/graphql",
@@ -50,7 +46,7 @@ app.use(
 );
 
 app.use("/", (req, res) => {
-  res.json("Go to /graphql to test your queries and mutations!");
+  res.json("server is running. Go to /graphql or /api endpoint.");
 });
 
 app.listen(4000);

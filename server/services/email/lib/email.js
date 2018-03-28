@@ -1,19 +1,27 @@
-const nodemailer = require("nodemailer");
+const sendInBlue = require("../../../lib/send-in-blue");
 
-const config = require("../config");
-
-module.exports.sendEmail = ({ from, to, subject, text }) => {
-  const transporter = nodemailer.createTransport(config);
-  const mailOptions = {
-    from,
-    to,
-    subject,
-    text
+module.exports.sendContactFormEmail = ({ from, text }) => {
+  if (!process.env.CONTACT_FORM_TO) {
+    console.log(
+      "sendContactFormEmail : Le mail n'a pas été envoyé. La variable d'environnement CONTACT_FORM_TO doit être configurée avec l'adresse mail du destinataire"
+    );
+    return;
+  }
+  var api = new sendInBlue.SMTPApi();
+  const params = {
+    sender: {
+      email: from
+    },
+    to: [{ email: process.env.CONTACT_FORM_TO }],
+    htmlContent: text,
+    subject: "Formulaire de contact de Aides-territoires"
   };
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      return console.log(error);
-    }
-    console.log("Message sent: " + info.response);
-  });
+  console.log(
+    "ap/contactForm - sending email with following params : ",
+    params
+  );
+  return api
+    .sendTransacEmail(params)
+    .then(r => res.send(r))
+    .catch(r => res.send(r));
 };

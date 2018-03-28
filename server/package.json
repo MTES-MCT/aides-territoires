@@ -10,12 +10,12 @@
     "graphql": "^0.12.3",
     "mongoose": "^5.0.10",
     "nodemailer": "^4.6.3",
-    "nodemon": "^1.14.11"
+    "nodemon": "^1.14.11",
+    "sib-api-v3-sdk": "^6.0.0"
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "NODE_ENV=development node_modules/.bin/nodemon index.js",
-    "start": "node_modules/.bin/nodemon index.js"
+    "start": "pm2 start ecosystem.config.js"
   },
   "author": "",
   "license": "ISC"
