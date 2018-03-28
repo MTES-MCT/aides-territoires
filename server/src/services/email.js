@@ -1,4 +1,4 @@
-const sendInBlue = require("./send-in-blue");
+const sendInBlueClient = require("./send-in-blue-client");
 
 module.exports.sendContactFormEmail = ({ from, text }) => {
   if (!process.env.CONTACT_FORM_TO) {
@@ -7,7 +7,7 @@ module.exports.sendContactFormEmail = ({ from, text }) => {
     );
     return;
   }
-  var api = new sendInBlue.SMTPApi();
+  var api = new sendInBlueClient.SMTPApi();
   const params = {
     sender: {
       email: from
