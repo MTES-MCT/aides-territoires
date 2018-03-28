@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import HomePage from "./features/app/components/pages/homePage/HomePage";
 import SearchPage from "./features/search/components/pages/searchPage/SearchPage";
-import ParcoursPage from "./features/parcours/components/pages/parcoursPage/ParcoursPages";
+import ParcoursPage from "./features/parcours/components/pages/parcoursPage/ParcoursPage";
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/search" component={SearchPage} />
-            <Route exact path="/parcours" component={ParcoursPage} />
+            <Route path="/parcours/:step?" component={ParcoursPage} />
           </Switch>
         </div>
       </BrowserRouter>
