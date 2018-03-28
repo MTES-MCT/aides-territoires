@@ -26,7 +26,7 @@ const schema = new graphql.GraphQLSchema({
     }
   })
 });
-console.log(JSON.stringify(schema, null, 2));
+// console.log(JSON.stringify(schema, null, 2));
 
 const isDev = process.env.NODE_ENV === "development";
 const app = express();
@@ -49,4 +49,6 @@ app.use("/", (req, res) => {
 });
 
 app.listen(process.env.PORT);
-console.log("Running a GraphQL API server at localhost:4000/graphql");
+console.log(
+  `Running a GraphQL API server at localhost:${process.env.PORT}/graphql`
+);
