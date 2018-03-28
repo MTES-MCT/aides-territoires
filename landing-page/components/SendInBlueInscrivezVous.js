@@ -5,8 +5,8 @@ export default class SendInBlueInscrivezVous extends React.Component {
     return (
       <section id="inscription" className="section lancez-votre-recherche">
         <iframe
-          width="540"
-          height="723"
+          width="100%"
+          height="850"
           src="https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1"
           frameBorder="0"
           scrolling="auto"
@@ -16,7 +16,7 @@ export default class SendInBlueInscrivezVous extends React.Component {
             display: "block",
             marginLeft: "auto",
             marginRight: "auto",
-            maXidth: "100%"
+            maxWidth: "100%"
           }}
         />
       </section>

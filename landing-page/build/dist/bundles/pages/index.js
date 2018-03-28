@@ -1318,8 +1318,8 @@ var SendInBlueInscrivezVous = function (_React$Component) {
           }
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("iframe", {
-          width: "540",
-          height: "723",
+          width: "100%",
+          height: "850",
           src: "https://my.sendinblue.com/users/subscribe/js_id/35zg8/id/1",
           frameBorder: "0",
           scrolling: "auto",
@@ -1329,7 +1329,7 @@ var SendInBlueInscrivezVous = function (_React$Component) {
             display: "block",
             marginLeft: "auto",
             marginRight: "auto",
-            maXidth: "100%"
+            maxWidth: "100%"
           },
           __source: {
             fileName: _jsxFileName,
