@@ -57,7 +57,7 @@ export default class ContactForm extends React.Component {
   render() {
     return (
       <div>
-        <p class="text">
+        <p className="text">
           Vous avez encore des questions ? des suggestions ? N'hésitez pas, nous
           sommes à votre disposition et serons ravis d'échanger avec vous :
           laissez-nous un message !<br />
