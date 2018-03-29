@@ -1,5 +1,6 @@
 import React from "react";
 import DefaultLayout from "../components/DefaultLayout";
+import Header from "../components/Header";
 import SectionCommentCaMarche from "../components/SectionCommentCaMarche";
 import SectionChronophage from "../components/SectionChronophage";
 import SectionBenefices from "../components/SectionBenefices";
@@ -11,6 +12,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <DefaultLayout>
+        <Header />
         <SectionCommentCaMarche />
         <SectionChronophage />
         <SectionBenefices />

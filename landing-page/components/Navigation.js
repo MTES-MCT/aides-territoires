@@ -56,6 +56,9 @@ class Navigation extends React.Component {
             <a className="navbar-item js-scrollTo" href="/#inscription">
               Inscription
             </a>
+            <a className="navbar-item js-scrollTo" href="/porteur-aide">
+              Porteur d'aide
+            </a>
             <a className="navbar-item js-scrollTo" href="/#contact">
               Contact
             </a>

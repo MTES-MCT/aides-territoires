@@ -140,7 +140,7 @@
   text-align: center;
 }
 
-.section#types-aides .text {
+.text {
   font-size: var(--paragraph-font-size);
   font-weight: 400;
 }

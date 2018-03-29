@@ -16,7 +16,6 @@ export default class DefaultLayout extends React.Component {
           <link rel="stylesheet" href="/static/css/style.css" />
         </Head>
         <Navigation />
-        <Header />
         {this.props.children}
       </div>
     );
