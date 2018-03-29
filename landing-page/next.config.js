@@ -3,10 +3,11 @@
 // if there is a "env.config.js", load its config
 var fs = require("fs");
 let envConfig = {};
-const fileName = `./env.${process.env.NODE_ENV}.config.js`;
+const fileName = `./env.config.js`;
 if (fs.existsSync(fileName)) {
   envConfig = require(fileName);
 }
+console.log("evn", envConfig);
 
 module.exports = {
   publicRuntimeConfig: {
