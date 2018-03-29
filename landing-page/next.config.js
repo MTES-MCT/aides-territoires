@@ -3,12 +3,12 @@
 // if there is a "env.config.js", load its config
 var fs = require("fs");
 let envConfig = {};
-if (fs.existsSync("./env.config.js")) {
-  envConfig = require("./env.config.js");
+const fileName = `./env.${process.env.NODE_ENV}.config.js`;
+if (fs.existsSync(fileName)) {
+  envConfig = require(fileName);
 }
 
 module.exports = {
-  distDir: "build",
   publicRuntimeConfig: {
     // Will be available on both server and client
     ...envConfig
