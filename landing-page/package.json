@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "export": "next export",
+    "deploy": "next build && next export",
     "start": "pm2 start server.js --name \"aides-territoires-landing-page\"",
     "restart": "pm2 delete aides-territoires-landing-page && yarn start"
   }
