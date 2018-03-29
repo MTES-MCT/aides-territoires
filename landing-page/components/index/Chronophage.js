@@ -3,7 +3,7 @@ import React from "react";
 export default class SectionChronophage extends React.Component {
   render() {
     return (
-      <section id="chronophage" className="section ">
+      <section id="chronophage" className="section has-primary-background">
         <div className="container ">
           <p>
             L'accès aux aides publiques disponibles et pertinentes pour vos

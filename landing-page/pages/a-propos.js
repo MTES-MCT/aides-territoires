@@ -1,21 +1,19 @@
 import React from "react";
-import DefaultLayout from "../components/DefaultLayout";
-import HeaderAPropos from "../components/HeaderAPropos";
-import SectionCommentCaMarche from "../components/SectionCommentCaMarche";
-import SectionChronophage from "../components/SectionChronophage";
-import SectionBenefices from "../components/SectionBenefices";
-import SectionTypeAides from "../components/SectionTypesAides";
-import SendInBlueInscrivezVous from "../components/SendInBlueInscrivezVous";
-import SendInBlueContactForm from "../components/SendInBlueContactForm";
+import DefaultLayout from "../components/common/DefaultLayout";
+import Header from "../components/a-propos/Header";
+import Content from "../components/a-propos/Content";
+import Equipe from "../components/a-propos/Equipe";
 
-class porteurAidePage extends React.Component {
+class aProposPage extends React.Component {
   render() {
     return (
       <DefaultLayout>
-        <HeaderAPropos />
+        <Header />
+        <Content />
+        <Equipe />
       </DefaultLayout>
     );
   }
 }
 
-export default porteurAidePage;
+export default aProposPage;

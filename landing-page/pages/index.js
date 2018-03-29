@@ -1,27 +1,25 @@
 import React from "react";
-import DefaultLayout from "../components/DefaultLayout";
-import Header from "../components/Header";
-import SectionCommentCaMarche from "../components/SectionCommentCaMarche";
-import SectionChronophage from "../components/SectionChronophage";
-import SectionBenefices from "../components/SectionBenefices";
-import SectionTypeAides from "../components/SectionTypesAides";
-import SendInBlueInscrivezVous from "../components/SendInBlueInscrivezVous";
-import SendInBlueContactForm from "../components/SendInBlueContactForm";
+import DefaultLayout from "../components/common/DefaultLayout";
+import Header from "../components/index/Header";
+import CommentCaMarche from "../components/index/CommentCaMarche";
+import Chronophage from "../components/index/Chronophage";
+import Benefices from "../components/index/Benefices";
+import TypeAides from "../components/index/TypesAides";
+import FormPorteurProjetQuartierDurable from "../components/index/FormPorteurProjetQuartierDurable";
+import ContactForm from "../components/common/ContactForm";
 
 class HomePage extends React.Component {
   render() {
     return (
       <DefaultLayout>
         <Header />
-        <SectionCommentCaMarche />
-        <SectionChronophage />
-        <SectionBenefices />
+        <CommentCaMarche />
+        <Chronophage />
+        <Benefices />
         <hr />
-        <SectionTypeAides />
-        <SendInBlueInscrivezVous />
-        <section id="contact" className="section container">
-          <SendInBlueContactForm />
-        </section>
+        <TypeAides />
+        <FormPorteurProjetQuartierDurable />
+        <ContactForm />
       </DefaultLayout>
     );
   }

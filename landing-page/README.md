@@ -1,19 +1,21 @@
 # aides territoires - landing page
 
 Code pour http://www.aides-territoires.beta.gouv.fr
+Le site est propulsé par Next.js ( Application React universelle ).
+
+## pré-requis
+
+Node js ^8.9.3 est requis.
 
 ## installation
 
-Le site est propulsé par Next.js (React avec SSR).
-Il faut donc avoir _node js_ d'installé.
-
-_Yarn_ est utilisé comment gestionnaire de paquet
-
-_pm2_ est utilisé pour la gestion des process node
-
 ```sh
+# yarn est utilisé comment gestionnaire de paquet
 npm install yarn -g
+# pm2 est utilisé pour la gestion des process node
 npm install pm2 -g
+# install all packages
+yarn install
 ```
 
 ## compiler le code et servir sur le port 3000

@@ -115,7 +115,7 @@
   font-weight: 400;
 }
 
-.section#chronophage {
+.has-primary-background {
   background-color: var(--primary-color-background);
   color: white;
   font-size: var(--paragraph-font-size);
@@ -193,4 +193,8 @@
 
 .section#contact p {
   font-size: var(--paragraph-font-size) !important;
+}
+
+#a-propos-content p {
+  text-align: justify;
 }

@@ -22,7 +22,9 @@ class Navigation extends React.Component {
         <div className="navbar-brand">
           <a className="navbar-item js-scrollTo" href="#aides-territoires">
             <img src="/static/images/logo.png " />
-            <p className="app-name ">Aides-territoires</p>
+            <p className="app-name ">
+              <strong>Aides-territoires</strong>
+            </p>
           </a>
           <div
             className={
@@ -51,13 +53,16 @@ class Navigation extends React.Component {
               Aides-territoires
             </a>
             <a className="navbar-item js-scrollTo" href="/#comment-ca-marche">
-              Le service
+              Service
             </a>
             <a className="navbar-item js-scrollTo" href="/#inscription">
               Inscription
             </a>
-            <a className="navbar-item js-scrollTo" href="/porteur-aide">
-              Porteur d'aide
+            <a className="navbar-item js-scrollTo" href="/porteurs-aides">
+              Porteurs d'aides
+            </a>
+            <a className="navbar-item js-scrollTo" href="/a-propos">
+              À propos
             </a>
             <a className="navbar-item js-scrollTo" href="/#contact">
               Contact
