@@ -993,7 +993,7 @@ var HeaderPorteurAide_HeaderPorteurAide = function (_React$Component) {
                 external__react__default.a.createElement(
                   "h1",
                   { className: "title" },
-                  "Porteur d'aides"
+                  "Porteur d'aide"
                 ),
                 external__react__default.a.createElement(
                   "h2",
