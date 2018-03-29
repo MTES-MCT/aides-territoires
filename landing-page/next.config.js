@@ -12,5 +12,11 @@ module.exports = {
   publicRuntimeConfig: {
     // Will be available on both server and client
     ...envConfig
+  },
+  exportPathMap: function() {
+    return {
+      "/": { page: "/" },
+      "/porteur-aide": { page: "/porteur-aide" }
+    };
   }
 };
