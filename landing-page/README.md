@@ -25,7 +25,17 @@ yarn build
 yarn start
 ```
 
-# Mettre en production
+## en cas de souci : rédémarrer le process node
+
+Attention, cela coupe le serveur le temps du rédémarrage !
+
+```
+yarn restart
+```
+
+## Mettre en production
+
+### déployer
 
 sur le serveur :
 
@@ -39,4 +49,23 @@ yarn build
 # démarrer le process node.
 # Inutile si le process node est déjà démarré.
 yarn start
+```
+
+### exemple de configuration nginx
+
+```
+# se connecter au serveur node
+upstream www.aides-territoires.beta.gouv.fr {
+    server localhost:3000;
+}
+
+server {
+  gzip on;
+	listen 80;
+	listen [::]:80;
+	server_name www.aides-territoires.beta.gouv.fr;
+	location / {
+		proxy_pass http://www.aides-territoires.beta.gouv.fr;
+	}
+}
 ```
