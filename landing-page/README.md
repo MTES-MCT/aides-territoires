@@ -1,42 +1,42 @@
 # aides territoires - landing page
 
+Code pour http://www.aides-territoires.beta.gouv.fr
+
 ## installation
 
-```
-npm i yarn
-```
+Le site est propulsé par Next.js (React avec SSR).
+Il faut donc avoir _node js_ d'installé.
 
-## build and serve
+_Yarn_ est utilisé comment gestionnaire de paquet
 
-build landing page and start to server on port 3000
-
-```
-cd landing-page
-yarn build
-yarn start
-```
-
-start landing page on port 3000
-
-```
-cd server
-yarn start
-```
-
-# Deploy
+_pm2_ est utilisé pour la gestion des process node
 
 ```sh
-# faire un build sur le serveur local
-# le fichier "build" est versionné pour permettre de tester en local
-# avant de le déployer
-yarn build
-yarn start
+npm install yarn -g
+npm install pm2 -g
+```
 
-# si tout est ok, plus qu'à récupérer le code sur le serveur de prod
-# on clean les éventuelles modifs qui empecherait un rebase correct :
+## compiler le code et servir sur le port 3000
+
+```sh
+# compilation
+yarn build
+# servir (utilise pm2)
+yarn start
+```
+
+# Mettre en production
+
+sur le serveur :
+
+```sh
+# s'assurer que le répertoire est clean
 git checkout .
-# on récupère notre code
+# récupérer les dernières modif
 git pull --rebase
-# installer les paquets qui aurait pu être installées entre temps
-yarn install
+# compiler le code
+yarn build
+# démarrer le process node.
+# Inutile si le process node est déjà démarré.
+yarn start
 ```
