@@ -13,9 +13,10 @@
     "dev": "next",
     "build": "next build",
     "build-static": "next build && next export",
-    "deploy": "yarn build && pm2 start server.js --name \"aides-territoires-landing-page\"",
-    "start": "pm2 start server.js --name \"aides-territoires-landing-page\"",
-    "restart": "pm2 restart server.js --name \"aides-territoires-landing-page\"",
+    "start":
+      "pm2 start server.js --name \"aides-territoires-landing-page\"  -i 0",
+    "restart":
+      "pm2 restart server.js --name \"aides-territoires-landing-page\" -i 0",
     "restart-hard": "pm2 delete aides-territoires-landing-page && yarn start"
   }
 }
