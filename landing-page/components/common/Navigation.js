@@ -21,16 +21,18 @@ class Navigation extends React.Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item js-scrollTo" href="/#aides-territoires">
-            <img
-              style={{ paddingRight: "20px" }}
-              src="/static/images/logo-gouv.png "
-            />{" "}
-            <img src="/static/images/logo.png " />
-            <p className="app-name ">
-              <strong>Aides-territoires</strong>
-            </p>
-          </a>
+          <Link href="/#aides-territoires">
+            <a className="navbar-item js-scrollTo">
+              <img
+                style={{ paddingRight: "20px" }}
+                src="/static/images/logo-gouv.png "
+              />{" "}
+              <img src="/static/images/logo.png " />
+              <p className="app-name ">
+                <strong>Aides-territoires</strong>
+              </p>
+            </a>
+          </Link>
           <div
             className={
               this.state.mobileMenuIsActive
@@ -55,7 +57,7 @@ class Navigation extends React.Component {
         >
           <div className="navbar-end">
             <Link href="/#aides-territoires">
-              <a className="navbar-item js-scrollTo">Aides-territoires</a>
+              <a className="navbar-item">Aides-territoires</a>
             </Link>
             <Link href="/#comment-ca-marche">
               <a className="navbar-item js-scrollTo">Service</a>
@@ -70,7 +72,7 @@ class Navigation extends React.Component {
               <a className="navbar-item js-scrollTo">À propos</a>
             </Link>
             <Link href="/#contact">
-              <a className="navbar-item js-scrollTo">Contact</a>
+              <a className="navbar-item">Contact</a>
             </Link>
           </div>
         </div>
