@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../../services/api";
 import { request } from "graphql-request";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
@@ -52,11 +53,7 @@ export default class ContactForm extends React.Component {
       from: this.state.email,
       text: this.state.message
     };
-    console.log(
-      `client request sends request to ${publicRuntimeConfig.GRAPHQL_URL}`,
-      variables
-    );
-    return request(publicRuntimeConfig.GRAPHQL_URL, query, variables);
+    return api.request(query, variables);
   }
   render() {
     return (

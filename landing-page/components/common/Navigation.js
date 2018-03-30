@@ -20,7 +20,7 @@ class Navigation extends React.Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item js-scrollTo" href="#aides-territoires">
+          <a className="navbar-item js-scrollTo" href="/#aides-territoires">
             <img src="/static/images/logo.png " />
             <p className="app-name ">
               <strong>Aides-territoires</strong>

@@ -7,17 +7,26 @@ import Benefices from "../components/index/Benefices";
 import TypeAides from "../components/index/TypesAides";
 import FormPorteurProjetQuartierDurable from "../components/index/FormPorteurProjetQuartierDurable";
 import ContactForm from "../components/common/ContactForm";
+import graphcms from "../services/graphcms";
 
 class HomePage extends React.Component {
+  static async getInitialProps({ req }) {
+    const query = `{
+      Pagedaccueil(id:"cjfdxk4tpcy3v016424h68se6") {
+        header
+      }
+    }
+    `;
+    return graphcms.request(query);
+  }
   render() {
     return (
       <DefaultLayout>
-        <Header />
+        <Header content={this.props.Pagedaccueil.header} />
         <CommentCaMarche />
         <Chronophage />
         <Benefices />
-        <hr />
-        <TypeAides />
+        {/* <TypeAides /> */}
         <FormPorteurProjetQuartierDurable />
         <ContactForm />
       </DefaultLayout>

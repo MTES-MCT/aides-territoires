@@ -10,15 +10,20 @@ export default class Header extends React.Component {
               <div className="container ">
                 <h1 className="title ">UN OUTIL POUR LES COLLECTIVITÉS</h1>
                 <h2 className="subtitle ">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: this.props.content }}
+                  />
                   <p>
+                    {/*
                     <strong style={{ color: "white" }}>
                       Identifiez en quelques clics toutes les aides disponibles
                       sur votre territoire pour vos projets d'aménagement
                       durable.
                       <br />
-                      <br /> Un service actuellement expérimenté pour les
+                      <br /> Le service actuellement expérimenté pour les
                       projets de quartiers durables, dont les EcoQuartiers.
                     </strong>
+                    */}
                   </p>
                 </h2>
                 <div className="button is-large is-primary">
