@@ -4,12 +4,12 @@ export default class SendInBlueInscrivezVous extends React.Component {
   render() {
     return (
       <section id="inscription" className="section lancez-votre-recherche">
-        <p className="text container">
-          Nous travaillons dur pour créer ce nouveau service ! Il sera
-          disponible pour les projets d’aménagement de quartiers durables au
-          cours du 2ème trimestre 2018. Laissez nous votre contact pour faire
-          partie des premiers utilisateurs :
-        </p>
+        <div
+          className="text container"
+          dangerouslySetInnerHTML={{
+            __html: this.props.data.texteduformulaireaideecoquartiers
+          }}
+        />
         <iframe
           width="100%"
           height="850"

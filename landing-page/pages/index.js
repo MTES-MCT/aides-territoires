@@ -13,9 +13,20 @@ class HomePage extends React.Component {
   static async getInitialProps({ req }) {
     const query = `{
       Pagedaccueil(id:"cjfdxk4tpcy3v016424h68se6") {
-        header,
-        headertitre,
+        commentcamarchetitre
+        commentcamarchebloc1
+        commentcamarchebloc2
+        commentcamarchebloc3
+        commentcamarchebloc1titre
+        commentcamarchebloc2titre
+        commentcamarchebloc3titre
+        header
         headercalltoaction
+        headertitre
+        probleme
+        benefices
+        texteduformulaireaideecoquartiers
+        texteduformulairedecontact
       }
     }
     `;
@@ -25,12 +36,12 @@ class HomePage extends React.Component {
     return (
       <DefaultLayout>
         <Header data={this.props.Pagedaccueil} />
-        <CommentCaMarche />
-        <Chronophage />
-        <Benefices />
+        <CommentCaMarche data={this.props.Pagedaccueil} />
+        <Chronophage data={this.props.Pagedaccueil} />
+        <Benefices data={this.props.Pagedaccueil} />
         {/* <TypeAides /> */}
-        <FormPorteurProjetQuartierDurable />
-        <ContactForm />
+        <FormPorteurProjetQuartierDurable data={this.props.Pagedaccueil} />
+        <ContactForm data={this.props.Pagedaccueil} />
       </DefaultLayout>
     );
   }

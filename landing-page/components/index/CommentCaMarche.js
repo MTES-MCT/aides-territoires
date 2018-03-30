@@ -5,28 +5,42 @@ export default class SectionCommentCaMarche extends React.Component {
     return (
       <section id="comment-ca-marche" className="section">
         <div className="container ">
-          <h2 className="section-title title is-3">Comment ça marche ?</h2>
+          <h2 className="section-title title is-3">
+            {this.props.data.commentcamarchetitre}
+          </h2>
           <div className="columns">
             <div className="column">
               <div className="numero">1</div>
-              <h3 className="title is-4">Un territoire, un projet</h3>
-              <p>Donnez nous votre localisation et votre projet </p>
+              <h3 className="title is-4">
+                {this.props.data.commentcamarchebloc1titre}
+              </h3>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props.data.commentcamarchebloc1
+                }}
+              />
             </div>
             <div className="column">
               <div className="numero">2</div>
-              <h3 className="title is-4">Des aides</h3>
-              <p>
-                Nous vous aidons à identifier les meilleures aides publiques
-                mobilisables
-              </p>
+              <h3 className="title is-4">
+                {this.props.data.commentcamarchebloc2titre}
+              </h3>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props.data.commentcamarchebloc2
+                }}
+              />
             </div>
             <div className="column">
               <div className="numero">3</div>
-              <h3 className="title is-4">Du temps gagné</h3>
-              <p>
-                passez plus de temps sur votre projet en activant les aides
-                pertinentes au bon moment
-              </p>
+              <h3 className="title is-4">
+                {this.props.data.commentcamarchebloc3titre}
+              </h3>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: this.props.data.commentcamarchebloc3
+                }}
+              />
             </div>
           </div>
         </div>

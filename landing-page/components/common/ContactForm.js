@@ -59,12 +59,13 @@ export default class ContactForm extends React.Component {
     return (
       <section id="contact" className="section container">
         <div>
-          <p className="text">
-            Vous avez encore des questions ? des suggestions ? N'hésitez pas,
-            nous sommes à votre disposition et serons ravis d'échanger avec vous
-            : laissez-nous un message !<br />
-            <br />
-          </p>
+          <div
+            className="text container"
+            dangerouslySetInnerHTML={{
+              __html: this.props.data.texteduformulairedecontact
+            }}
+          />
+          <br />
           {this.state.emailSendingStatus === EMAIL_SENDING_STATUS_ERROR && (
             <div>
               Désolé nous avons rencontré une erreur lors de l'envoi de l'email.
