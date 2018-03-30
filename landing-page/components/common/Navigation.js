@@ -21,6 +21,10 @@ class Navigation extends React.Component {
       >
         <div className="navbar-brand">
           <a className="navbar-item js-scrollTo" href="/#aides-territoires">
+            <img
+              style={{ paddingRight: "20px" }}
+              src="/static/images/logo-gouv.png "
+            />{" "}
             <img src="/static/images/logo.png " />
             <p className="app-name ">
               <strong>Aides-territoires</strong>
