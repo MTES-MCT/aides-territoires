@@ -13,7 +13,9 @@ class HomePage extends React.Component {
   static async getInitialProps({ req }) {
     const query = `{
       Pagedaccueil(id:"cjfdxk4tpcy3v016424h68se6") {
-        header
+        header,
+        headertitre,
+        headercalltoaction
       }
     }
     `;
@@ -22,7 +24,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <DefaultLayout>
-        <Header content={this.props.Pagedaccueil.header} />
+        <Header data={this.props.Pagedaccueil} />
         <CommentCaMarche />
         <Chronophage />
         <Benefices />

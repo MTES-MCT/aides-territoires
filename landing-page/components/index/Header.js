@@ -2,16 +2,22 @@ import React from "react";
 
 export default class Header extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <section id="aides-territoires" className="hero ">
         <header className="header ">
           <div className="header-overlay ">
             <div className="hero-body ">
               <div className="container ">
-                <h1 className="title ">UN OUTIL POUR LES COLLECTIVITÉS</h1>
+                <h1
+                  className="title"
+                  dangerouslySetInnerHTML={{
+                    __html: this.props.data.headertitre
+                  }}
+                />
                 <h2 className="subtitle ">
                   <div
-                    dangerouslySetInnerHTML={{ __html: this.props.content }}
+                    dangerouslySetInnerHTML={{ __html: this.props.data.header }}
                   />
                   <p>
                     {/*
@@ -31,7 +37,7 @@ export default class Header extends React.Component {
                     className="button-lancez-la-recherche js-scrollTo "
                     href="#inscription"
                   >
-                    Lancez votre recherche
+                    {this.props.data.headercalltoaction}
                   </a>
                 </div>
               </div>
