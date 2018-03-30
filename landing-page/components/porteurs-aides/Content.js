@@ -6,19 +6,11 @@ export default class Content extends React.Component {
       <section id="description" className="section">
         <div className="container">
           <div className="text">
-            <p>
-              Aides-territoires est une base de données dynamique qui référence
-              les aides à destination des territoires afin de les accompagner
-              dans leur recherche à toutes les étapes de leur projet
-              d’aménagement durable.
-            </p>
-            <br />
-            <p>
-              <strong>
-                Notre service est actuellement expérimenté pour les projets de
-                quartiers durables{" "}
-              </strong>
-            </p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: this.props.data.textebloc1
+              }}
+            />
             <br />
           </div>
           <div className="has-text-centered">
@@ -31,12 +23,12 @@ export default class Content extends React.Component {
           </div>
           <br />
           <br />
-          <p className="text">
-            D’autres types de projets arrivent, nous enrichissons notre base de
-            données : si vos aides concernent d’autres types de projets,
-            contactez-nous et nous reviendrons très vite vers vous pour discuter
-            des modalités de diffusion de vos aides !
-          </p>
+          <div
+            className="content text"
+            dangerouslySetInnerHTML={{
+              __html: this.props.data.textebloc2
+            }}
+          />
         </div>
       </section>
     );
