@@ -16,6 +16,9 @@ npm install yarn -g
 npm install pm2 -g
 # install all packages
 yarn install
+# creer le fichier de config de l'app pour l'environnement local
+# ce fichier n'est pas versionné
+cp env.config.example.js env.config.gs
 ```
 
 ## compiler le code et servir sur le port 3000

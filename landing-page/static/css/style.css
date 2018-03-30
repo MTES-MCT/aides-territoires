@@ -198,3 +198,7 @@
 #a-propos-content p {
   text-align: justify;
 }
+
+#equipe .card-content {
+  min-height: 210px;
+}

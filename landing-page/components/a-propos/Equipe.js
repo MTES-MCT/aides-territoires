@@ -14,9 +14,9 @@ export default class Equipe extends React.Component {
         <br />
         <div className="columns">
           <div className="column">
-            <BulmaCard>
+            <BulmaCard image={"/static/images/elise.jpeg"}>
               <p class="title is-4">Élise, intrapreneuse</p>
-              <p class="subtitle is-6">
+              <p class="is-6">
                 Ingénieur et urbaniste au Ministère de la Cohésion des
                 Territoires, je suis au carrefour des besoins des collectivités,
                 des services de l'Etat, des ministères et de leurs opérateurs.
@@ -24,13 +24,18 @@ export default class Equipe extends React.Component {
             </BulmaCard>
           </div>
           <div className="column">
-            <BulmaCard>
+            <BulmaCard image={"/static/images/yann.jpeg"}>
               <p class="title is-4">Yann, développeur</p>
+              <p class="is-6">
+                Développeur spécialisé en applications web : React, Node,
+                GraphQL, APIs, Vue.js, REST
+              </p>
             </BulmaCard>
           </div>
           <div className="column">
-            <BulmaCard>
+            <BulmaCard image={"/static/images/roxane.jpg"}>
               <p class="title is-4">Roxane, coach</p>
+              <p class="is-6">Fan d'utilité sociale et d'avocats</p>
             </BulmaCard>
           </div>
         </div>

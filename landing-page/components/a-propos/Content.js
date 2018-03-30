@@ -75,8 +75,9 @@ export default class Content extends React.Component {
             </Link>
           </div>
         </section>
+        <hr />
         <section className="section">
-          <div className="">
+          <div>
             <h2 className="title is-2">Les prochaines étapes</h2>
             <p>
               Une fois notre concept validé sur l’entrée pilote « quartier
@@ -88,6 +89,7 @@ export default class Content extends React.Component {
             </p>
           </div>
         </section>
+        <hr />
       </div>
     );
   }
