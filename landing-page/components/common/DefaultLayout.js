@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "./Navigation";
 import Head from "next/head";
+import PageLoader from "./PageLoader";
 
 export default class DefaultLayout extends React.Component {
   render() {
@@ -19,6 +20,7 @@ export default class DefaultLayout extends React.Component {
           <link rel="stylesheet" href="/static/css/bulma.css" />
           <link rel="stylesheet" href="/static/css/style.css" />
         </Head>
+        <PageLoader />
         <Navigation />
         {this.props.children}
       </div>

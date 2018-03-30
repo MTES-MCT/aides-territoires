@@ -4,8 +4,8 @@ export default class BulmaCard extends React.Component {
   render() {
     return (
       <div className="card" style={{ borderRadius: "5px" }}>
-        <div class="card-image">
-          <figure class="image">
+        <div className="card-image">
+          <figure className="image">
             <img src={this.props.image} alt="Placeholder image" />
           </figure>
         </div>
