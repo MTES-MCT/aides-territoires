@@ -21,38 +21,23 @@ yarn install
 cp env.config.example.js env.config.gs
 ```
 
-## compiler le code et servir sur le port 3000
+## développer
 
 ```sh
-# compilation
-yarn build
-# servir (utilise pm2)
-yarn start
+yarn dev
 ```
 
-## en cas de souci : rédémarrer le process node
+### déployer code optimisé pour la production
 
-Attention, cela coupe le serveur le temps du rédémarrage !
-
-```
-yarn restart
-```
-
-## Mettre en production
-
-### déployer
-
-sur le serveur :
+sur le serveur cible :
 
 ```sh
 # s'assurer que le répertoire est clean
 git checkout .
 # récupérer les dernières modif
 git pull --rebase
-# compiler le code
+# re compiler le code et redémarrer les process node
 yarn build
-# démarrer le process node.
-# Inutile si le process node est déjà démarré.
 yarn start
 ```
 
