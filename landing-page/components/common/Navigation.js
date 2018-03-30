@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -53,24 +54,24 @@ class Navigation extends React.Component {
           id="navMenu "
         >
           <div className="navbar-end">
-            <a className="navbar-item js-scrollTo" href="/#aides-territoires">
-              Aides-territoires
-            </a>
-            <a className="navbar-item js-scrollTo" href="/#comment-ca-marche">
-              Service
-            </a>
-            <a className="navbar-item js-scrollTo" href="/#inscription">
-              Inscription
-            </a>
-            <a className="navbar-item js-scrollTo" href="/porteurs-aides">
-              Porteurs d'aides
-            </a>
-            <a className="navbar-item js-scrollTo" href="/a-propos">
-              À propos
-            </a>
-            <a className="navbar-item js-scrollTo" href="/#contact">
-              Contact
-            </a>
+            <Link href="/#aides-territoires">
+              <a className="navbar-item js-scrollTo">Aides-territoires</a>
+            </Link>
+            <Link href="/#comment-ca-marche">
+              <a className="navbar-item js-scrollTo">Service</a>
+            </Link>
+            <Link href="/#inscription">
+              <a className="navbar-item js-scrollTo">Inscription</a>
+            </Link>
+            <Link href="/porteurs-aides">
+              <a className="navbar-item js-scrollTo">Porteurs d'aides</a>
+            </Link>
+            <Link href="/a-propos">
+              <a className="navbar-item js-scrollTo">À propos</a>
+            </Link>
+            <Link href="/#contact">
+              <a className="navbar-item js-scrollTo">Contact</a>
+            </Link>
           </div>
         </div>
       </nav>
