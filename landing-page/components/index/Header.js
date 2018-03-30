@@ -2,7 +2,6 @@ import React from "react";
 
 export default class Header extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <section id="aides-territoires" className="hero ">
         <header className="header ">
