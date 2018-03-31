@@ -21,7 +21,7 @@ class aProposPage extends React.Component {
       }
     }    
     `;
-    return graphcms.request(query);
+    return graphcms.requestWithCache("Apropos", query);
   }
   render() {
     return (
