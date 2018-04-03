@@ -13,6 +13,11 @@ class Navigation extends React.Component {
       mobileMenuIsActive: !this.state.mobileMenuIsActive
     });
   };
+  handleLinkClick = () => {
+    this.setState({
+      mobileMenuIsActive: false
+    });
+  };
   render() {
     return (
       <nav
@@ -57,21 +62,23 @@ class Navigation extends React.Component {
         >
           <div className="navbar-end">
             <Link href="/#aides-territoires">
-              <a className="navbar-item">Aides-territoires</a>
+              <a className="navbar-item" onClick={this.handleLinkClick}>
+                Aides-territoires
+              </a>
             </Link>
-            <Link href="/#comment-ca-marche">
+            <Link href="/#comment-ca-marche" onClick={this.handleLinkClick}>
               <a className="navbar-item js-scrollTo">Service</a>
             </Link>
-            <Link href="/#inscription">
+            <Link href="/#inscription" onClick={this.handleLinkClick}>
               <a className="navbar-item js-scrollTo">Inscription</a>
             </Link>
-            <Link href="/porteurs-aides">
+            <Link href="/porteurs-aides" onClick={this.handleLinkClick}>
               <a className="navbar-item js-scrollTo">Porteurs d'aides</a>
             </Link>
-            <Link href="/a-propos">
+            <Link href="/a-propos" onClick={this.handleLinkClick}>
               <a className="navbar-item js-scrollTo">À propos</a>
             </Link>
-            <Link href="/#contact">
+            <Link href="/#contact" onClick={this.handleLinkClick}>
               <a className="navbar-item">Contact</a>
             </Link>
           </div>
