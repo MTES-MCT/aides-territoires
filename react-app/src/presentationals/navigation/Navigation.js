@@ -21,26 +21,22 @@ class Navigation extends React.Component {
   };
   render() {
     return (
-      <nav
-        className="navbar navigation"
-        role="navigation"
-        aria-label="main navigation"
-      >
+      <nav className="navbar navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <Link to="/">
-            <a className="navbar-item js-scrollTo">
-              <img
-                style={{ paddingRight: "20px" }}
-                src="/images/logo-gouv.png "
-              />{" "}
-              <img
-                style={{ paddingRight: "20px" }}
-                src="/images/logo-aides-territoires.png "
-              />
-              <p className="app-name ">
-                <strong>Aides-territoires</strong>
-              </p>
-            </a>
+          <Link className="navbar-item" to="/">
+            <img
+              alt="logo gouv"
+              style={{ paddingRight: "20px" }}
+              src="/images/logo-gouv.png "
+            />{" "}
+            <img
+              alt="logo aides-territoires"
+              style={{ paddingRight: "20px" }}
+              src="/images/logo-aides-territoires.png "
+            />
+            <p className="app-name ">
+              <strong>Aides-territoires</strong>
+            </p>
           </Link>
           <div
             className={
@@ -67,13 +63,6 @@ class Navigation extends React.Component {
           <div className="navbar-end">
             <Link className="navbar-item" to="/">
               Accueil
-            </Link>
-            <Link
-              className="navbar-item"
-              to="/parcours"
-              onClick={this.handleLinkClick}
-            >
-              Lancer la recherche
             </Link>
             <Link className="navbar-item" to="/" onClick={this.handleLinkClick}>
               Contact

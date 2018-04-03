@@ -1,7 +1,7 @@
 // increment
 export function myAction(index) {
   return {
-    type: 'MY_ACTION',
+    type: "MY_ACTION",
     index
-  }
+  };
 }
