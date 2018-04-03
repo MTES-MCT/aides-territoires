@@ -1,13 +1,13 @@
 import React from "react";
 import SearchForm from "../../presentationals/searchForm/SearchForm";
-import { isPostalCode } from "../../../lib/searchLib";
+import { isPostalCode } from "../../services/searchLib";
 import PropTypes from "prop-types";
 import {
   getCommunesFromPostalCode,
   getCommunesFromName,
   getDepartementsByName,
   getRegionsByName
-} from "../../../api/searchApi";
+} from "../../services/geoApi";
 
 const SUGGESTIONS_LIMIT = 5;
 

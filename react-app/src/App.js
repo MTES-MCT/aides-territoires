@@ -1,9 +1,9 @@
 import "./polyfill";
 import React, { Component } from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import HomePage from "./features/app/components/pages/homePage/HomePage";
-import SearchPage from "./features/search/components/pages/searchPage/SearchPage";
-import ParcoursPage from "./features/parcours/components/pages/parcoursPage/ParcoursPage";
+import HomePage from "./pages/homePage/HomePage";
+import SearchPage from "./pages/searchPage/SearchPage";
+import ParcoursPage from "./pages/parcoursPage/ParcoursPage";
 
 class App extends Component {
   render() {
