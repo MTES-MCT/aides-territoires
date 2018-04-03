@@ -11,51 +11,42 @@ const style = {
 
 let SelectableList = makeSelectable(List);
 
-function wrapState(ComposedComponent) {
-  return class SelectableList extends React.Component {
-    static propTypes = {
-      children: PropTypes.node.isRequired,
-      defaultValue: PropTypes.number.isRequired
-    };
-
-    componentWillMount() {
-      this.setState({
-        selectedIndex: this.props.defaultValue
-      });
-    }
-
-    handleRequestChange = (event, index) => {
-      this.setState({
-        selectedIndex: index
-      });
-    };
-
-    render() {
-      return (
-        <ComposedComponent
-          value={this.state.selectedIndex}
-          onChange={this.handleRequestChange}
-        >
-          {this.props.children}
-        </ComposedComponent>
-      );
-    }
-  };
-}
-
-SelectableList = wrapState(SelectableList);
-
 class ParcoursPhase extends React.Component {
-  onSearchSubmit = () => {
-    alert("ok");
+  componentWillMount() {
+    this.setState({
+      selectedIndex: null,
+      LinkTo: ""
+    });
+  }
+  getLinkToFromIndex(index) {
+    const map = {
+      1: "/parcours/phase/avant-projet",
+      2: "/parcours/phase/xxx",
+      3: "/parcours/phase/xyz"
+    };
+    return map[index];
+  }
+
+  handleRequestChange = (event, index) => {
+    this.setState({
+      selectedIndex: index,
+      LinkTo: this.getLinkToFromIndex(index)
+    });
   };
   render() {
+    const RaisedButtonProps = {};
+    if (this.state.LinkTo === "") {
+      RaisedButtonProps.disabled = true;
+    }
     return (
       <DefaultLayout>
         <div className="container">
           <section className="section">
             <div className="has-text-centered">
-              <SelectableList defaultValue={3}>
+              <SelectableList
+                onChange={this.handleRequestChange}
+                value={this.state.selectedIndex}
+              >
                 <ListItem
                   value={1}
                   primaryText="Avant projet"
@@ -79,8 +70,13 @@ class ParcoursPhase extends React.Component {
                   secondary={true}
                 />
               </Link>
-              <Link to="/">
-                <RaisedButton style={style} label="Suivant" primary={true} />
+              <Link to={this.state.LinkTo}>
+                <RaisedButton
+                  {...RaisedButtonProps}
+                  style={style}
+                  label="Suivant"
+                  primary={true}
+                />
               </Link>
             </div>
           </section>
