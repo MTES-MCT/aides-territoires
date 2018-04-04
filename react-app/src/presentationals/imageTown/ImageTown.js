@@ -1,11 +1,11 @@
 import React from "react";
 
-const url = "/images/flat-design-town.png";
+const url = "/static/images/flat-design-town.png";
 
 const size = "400px";
 const borderRadius = size;
 const style = {
-  background: `url("/static/images/flat-design-town.png")`,
+  background: `url("${url}")`,
   backgroundSize: "100%",
   backgroundPosition: "center",
   height: 100
