@@ -27,12 +27,12 @@ class Navigation extends React.Component {
             <img
               alt="logo gouv"
               style={{ paddingRight: "20px" }}
-              src="/images/logo-gouv.png "
+              src="/static/images/logo-gouv.png "
             />{" "}
             <img
               alt="logo aides-territoires"
               style={{ paddingRight: "20px" }}
-              src="/images/logo-aides-territoires.png "
+              src="/static/images/logo-aides-territoires.png "
             />
             <p className="app-name ">
               <strong>Aides-territoires</strong>

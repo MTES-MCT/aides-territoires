@@ -5,7 +5,7 @@ const url = "/images/flat-design-town.png";
 const size = "400px";
 const borderRadius = size;
 const style = {
-  background: `url("/images/flat-design-town.png")`,
+  background: `url("/static/images/flat-design-town.png")`,
   backgroundSize: "100%",
   backgroundPosition: "center",
   height: 100
