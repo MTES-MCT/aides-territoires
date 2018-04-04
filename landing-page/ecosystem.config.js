@@ -1,3 +1,6 @@
+/**
+ * La configuration de pm2, qui gére le process du serveur node
+ */
 module.exports = {
   apps: [
     {

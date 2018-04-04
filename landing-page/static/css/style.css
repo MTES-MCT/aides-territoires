@@ -45,6 +45,11 @@ header .subtitle strong {
   background: var(--primary-color-button-light);
 }
 
+/* MENU */
+.app-main-menu .navbar-brand img {
+  height: 43px;
+}
+
 /* HEADER */
 
 .header {
