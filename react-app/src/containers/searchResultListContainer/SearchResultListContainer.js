@@ -28,7 +28,9 @@ class SearchResultListContainer extends React.Component {
     return results;
   }
   render() {
-    //SheetData.filter({ "code insee": "44109" });
+    if (Object.keys(this.props.searchedData).length === 0) {
+      return <div />;
+    }
     let resultsGroups = [];
     if (this.props.searchedData.type === "commune") {
       this.codeCommune = this.props.searchedData.data.code;
@@ -70,7 +72,7 @@ class SearchResultListContainer extends React.Component {
     });
 
     return (
-      <div className="search-result-list section container">
+      <div className="search-result-list">
         <div className="debug">
           {this.props.searchedData.text && (
             <div className="box">
@@ -79,8 +81,6 @@ class SearchResultListContainer extends React.Component {
             </div>
           )}
         </div>
-        <br />
-        <br />
         {resultsGroups.map((resultsGroup, index) => {
           return (
             <div key={index} className="content">
