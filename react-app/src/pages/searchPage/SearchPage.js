@@ -23,7 +23,7 @@ class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchedData: {}
+      searchedData: null
     };
   }
   onSearchSubmit = values => {
@@ -36,39 +36,41 @@ class SearchPage extends React.Component {
           <h2 className="title is-1">Où est situé votre projet ?</h2>
           <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
         </div>
-        <div className="container">
-          <div className="columns">
-            <div className="column is-2">
-              <h2 className="title is-2 has-text-centered"> </h2>
-              <div>
-                <Paper style={styles.Paper} zDepth={1}>
-                  Ingénierie
-                </Paper>
-                <Paper style={styles.Paper} zDepth={1}>
-                  Financement
-                </Paper>
-                <Paper style={styles.Paper} zDepth={1}>
-                  Autres aide
-                </Paper>
+        {this.state.searchedData && (
+          <div className="container">
+            <div className="columns">
+              <div className="column is-2">
+                <h2 className="title is-2 has-text-centered"> </h2>
+                <div>
+                  <Paper style={styles.Paper} zDepth={1}>
+                    Ingénierie
+                  </Paper>
+                  <Paper style={styles.Paper} zDepth={1}>
+                    Financement
+                  </Paper>
+                  <Paper style={styles.Paper} zDepth={1}>
+                    Autres aide
+                  </Paper>
+                </div>
+              </div>
+              <div className="column">
+                <ReactGoogleSheetConnector
+                  apiKey="AIzaSyDIYvCWkj5B4LmGMeBMOuwzRuiV80nhTyg"
+                  spreadsheetId={"1Niopty1WMvtBXQY1wbASuCm83dq2pIIcv3LcpYbBDQo"}
+                  spinner={
+                    <AppLoader>Connexion à la feuille Google ...</AppLoader>
+                  }
+                >
+                  <div className="search-page">
+                    <SearchResultListContainer
+                      searchedData={this.state.searchedData}
+                    />
+                  </div>
+                </ReactGoogleSheetConnector>
               </div>
             </div>
-            <div className="column">
-              <ReactGoogleSheetConnector
-                apiKey="AIzaSyDIYvCWkj5B4LmGMeBMOuwzRuiV80nhTyg"
-                spreadsheetId={"1Niopty1WMvtBXQY1wbASuCm83dq2pIIcv3LcpYbBDQo"}
-                spinner={
-                  <AppLoader>Connexion à la feuille Google ...</AppLoader>
-                }
-              >
-                <div className="search-page">
-                  <SearchResultListContainer
-                    searchedData={this.state.searchedData}
-                  />
-                </div>
-              </ReactGoogleSheetConnector>
-            </div>
           </div>
-        </div>
+        )}
         <div className="has-text-centered section">
           <Link to="/parcours/phase">
             <RaisedButton label="Suivant" primary={true} />

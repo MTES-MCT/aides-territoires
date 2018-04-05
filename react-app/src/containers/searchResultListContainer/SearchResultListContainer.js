@@ -28,9 +28,6 @@ class SearchResultListContainer extends React.Component {
     return results;
   }
   render() {
-    if (Object.keys(this.props.searchedData).length === 0) {
-      return <div />;
-    }
     let resultsGroups = [];
     if (this.props.searchedData.type === "commune") {
       this.codeCommune = this.props.searchedData.data.code;
