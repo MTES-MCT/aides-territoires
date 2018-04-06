@@ -1,5 +1,29 @@
 import axios from "axios";
 
+const TERRITOIRE_TYPE_COMMUNE = "commune";
+const TERRITOIRE_TYPE_DEPARTEMENT = "departement";
+const TERRITOIRE_TYPE_REGION = "region";
+
+/**
+ * Get commune, département or region from insee code
+ * @return {type} string : "commune", "departement", "region"
+ * @param {string} codeInsee - Code Insee
+ * @see https://geo.api.gouv.fr/docs/communes
+ */
+export const getTerritoireByTypeAndCodeInsee = (type, codeInsee) => {
+  let result = null;
+  if (type === TERRITOIRE_TYPE_COMMUNE) {
+    result = axios.get(`https://geo.api.gouv.fr/communes/${codeInsee}`);
+  }
+  if (type === TERRITOIRE_TYPE_DEPARTEMENT) {
+    result = axios.get(`https://geo.api.gouv.fr/departement/${codeInsee}`);
+  }
+  if (type === TERRITOIRE_TYPE_REGION) {
+    result = axios.get(`https://geo.api.gouv.fr/region/${codeInsee}`);
+  }
+  return result;
+};
+
 /**
  * Get communes from a postal code
  * @param {string} postalCode

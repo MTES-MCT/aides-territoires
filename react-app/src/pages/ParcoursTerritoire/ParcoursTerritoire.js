@@ -3,6 +3,7 @@ import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import SearchFormContainer from "../../containers/SearchFormContainer/SearchFormContainer";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
+import queryString from "query-string";
 
 class ParcoursTerritoire extends React.Component {
   constructor(props) {
@@ -17,9 +18,14 @@ class ParcoursTerritoire extends React.Component {
   render() {
     const to = { pathname: "/parcours/results" };
     if (this.state.result) {
+      to.search = queryString.stringify({
+        searchedData: JSON.stringify(this.state.result)
+      });
+      /*
       to.search = `territoire[type]=${
         this.state.result.type
       }&territoire[codeInsee]=${this.state.result.data.code}`;
+      */
     }
     return (
       <DefaultLayout>

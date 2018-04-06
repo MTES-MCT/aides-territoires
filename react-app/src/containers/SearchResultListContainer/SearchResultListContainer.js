@@ -83,9 +83,9 @@ class SearchResultListContainer extends React.Component {
           )}
         </div>
         */}
-        <h2 className="title is-3">
-          Nous avons trouvé <strong>{totalResults}</strong> aides pour votre
-          territoire
+        <h2 className="subtitle is-3">
+          Nous avons trouvé <strong>{totalResults}</strong> aides pour le
+          territoire <strong>{this.props.searchedData.text}</strong>
         </h2>
         {resultsGroups.map((resultsGroup, index) => {
           return (
@@ -110,7 +110,12 @@ class SearchResultListContainer extends React.Component {
 }
 
 SearchResultListContainer.propTypes = {
-  searchedData: PropTypes.object.isRequired
+  searchedData: PropTypes.shape({
+    type: PropTypes.string,
+    codeCommune: PropTypes.string,
+    codeDepartement: PropTypes.string,
+    codeRegion: PropTypes.string
+  })
 };
 
 export default connectToSpreadsheet(SearchResultListContainer);

@@ -15,7 +15,8 @@ class SearchFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      suggestions: []
+      suggestions: [],
+      text: ""
     };
   }
   onSuggestionClick = value => {
@@ -117,6 +118,7 @@ class SearchFormContainer extends React.Component {
       <div className="search-form-container">
         <SearchForm
           {...this.props}
+          text={this.state.text}
           suggestions={this.state.suggestions}
           onSearchSubmit={this.onSearchSubmit}
           onSearchChange={this.onSearchChange}
@@ -128,7 +130,8 @@ class SearchFormContainer extends React.Component {
 }
 
 SearchFormContainer.propTypes = {
-  onSearchSubmit: PropTypes.func.isRequired
+  onSearchSubmit: PropTypes.func.isRequired,
+  text: PropTypes.string
 };
 
 export default SearchFormContainer;

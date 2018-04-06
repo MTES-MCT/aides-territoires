@@ -7,6 +7,8 @@ import ReactGoogleSheetConnector from "react-google-sheet-connector";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
+import queryString from "query-string";
+import { getTerritoireByTypeAndCodeInsee } from "../../services/geoApi";
 
 const styles = {
   Paper: {
@@ -21,9 +23,15 @@ const styles = {
 
 class ResultsPage extends React.Component {
   constructor(props) {
+    let searchedData = null;
+    if (props.location.search) {
+      const params = queryString.parse(props.location.search);
+      searchedData = JSON.parse(params.searchedData);
+      console.log("searchedData", searchedData);
+    }
     super(props);
     this.state = {
-      searchedData: null
+      searchedData
     };
   }
   onSearchSubmit = values => {
@@ -33,7 +41,7 @@ class ResultsPage extends React.Component {
     return (
       <DefaultLayout>
         <div className="has-text-centered">
-          <h2 className="title is-1">Où est situé votre projet ?</h2>
+          <h2 className="title is-1">Les aides</h2>
           <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
         </div>
         {this.state.searchedData && (
@@ -70,6 +78,9 @@ class ResultsPage extends React.Component {
           </div>
         )}
         <div className="has-text-centered section">
+          <Link style={{ margin: "12px" }} to="/parcours/phase">
+            <RaisedButton label="Précédent" secondary={true} />
+          </Link>
           <Link to="/parcours/phase">
             <RaisedButton label="Suivant" primary={true} />
           </Link>
