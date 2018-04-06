@@ -1,7 +1,7 @@
 import React from "react";
-import Navigation from "../../presentationals/navigation/Navigation";
-import Header from "../../presentationals/header/Header";
-import ImageTown from "../../presentationals/imageTown/ImageTown";
+import Navigation from "../../presentationals/Navigation/Navigation";
+import Header from "../../presentationals/Header/Header";
+import ImageTown from "../../presentationals/ImageTown/ImageTown";
 import { Step, Stepper, StepLabel } from "material-ui/Stepper";
 
 const styles = {
@@ -17,6 +17,7 @@ class DefaultLayout extends React.Component {
         <Navigation />
         {/*<Header />*/}
         <div className="container section">
+          {/*
           <Stepper activeStep={1}>
             <Step>
               <StepLabel>Territoire</StepLabel>
@@ -28,6 +29,7 @@ class DefaultLayout extends React.Component {
               <StepLabel>thématiques</StepLabel>
             </Step>
           </Stepper>
+          */}
         </div>
         <div style={styles.pageContent} className="page-content">
           {this.props.children}

@@ -2,7 +2,7 @@ import React from "react";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import SearchFormContainer from "../../containers/SearchFormContainer/SearchFormContainer";
 import SearchResultListContainer from "../../containers/SearchResultListContainer/SearchResultListContainer";
-import AppLoader from "../../presentationals/appLoader/AppLoader";
+import AppLoader from "../../presentationals/AppLoader/AppLoader";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
@@ -19,7 +19,7 @@ const styles = {
   }
 };
 
-class SearchPage extends React.Component {
+class ResultsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,4 +79,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default ResultsPage;

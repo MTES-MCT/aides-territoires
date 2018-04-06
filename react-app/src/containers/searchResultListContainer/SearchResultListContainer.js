@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SearchResultList from "../../presentationals/searchResultList/SearchResultList";
+import SearchResultList from "../../presentationals/SearchResultList/SearchResultList";
 import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 class SearchResultListContainer extends React.Component {
@@ -67,9 +67,13 @@ class SearchResultListContainer extends React.Component {
       title: "Europe",
       results: this.filterAides("europe")
     });
-
+    // nombre total de résultats
+    const totalResults = resultsGroups.reduce((total, group) => {
+      return total + group.results.length;
+    }, 0);
     return (
       <div className="search-result-list">
+        {/*
         <div className="debug">
           {this.props.searchedData.text && (
             <div className="box">
@@ -78,6 +82,11 @@ class SearchResultListContainer extends React.Component {
             </div>
           )}
         </div>
+        */}
+        <h2 className="title is-3">
+          Nous avons trouvé <strong>{totalResults}</strong> aides pour votre
+          territoire
+        </h2>
         {resultsGroups.map((resultsGroup, index) => {
           return (
             <div key={index} className="content">

@@ -6,7 +6,7 @@ import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import ParcoursTerritoire from "./pages/parcoursTerritoire/ParcoursTerritoire";
 import ParcoursPhase from "./pages/parcoursPhase/ParcoursPhase";
-import SearchPage from "./pages/searchPage/SearchPage";
+import ResultsPage from "./pages/resultsPage/ResultsPage";
 import ParcoursPhaseAvantProjet from "./pages/parcoursPhaseAvantProjet/ParcoursPhaseAvantProjet";
 
 class App extends Component {
@@ -17,7 +17,8 @@ class App extends Component {
           <MuiThemeProvider>
             <div className="App">
               <Switch>
-                <Route exact path="/" component={SearchPage} />
+                <Route exact path="/" component={ParcoursTerritoire} />
+                <Route exact path="/parcours/results" component={ResultsPage} />
                 <Route exact path="/parcours/phase" component={ParcoursPhase} />
                 <Route
                   exact

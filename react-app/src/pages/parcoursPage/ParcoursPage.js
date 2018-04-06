@@ -1,6 +1,6 @@
 import React from "react";
-import DefaultLayout from "../../layouts/defaultLayout/DefaultLayout";
-import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
+import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
+import SearchFormContainer from "../../containers/SearchFormContainer/SearchFormContainer";
 import { Link } from "react-router-dom";
 
 const STEP_LOCALISATION = "localisation";

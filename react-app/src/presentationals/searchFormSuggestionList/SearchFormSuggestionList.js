@@ -1,5 +1,5 @@
 import React from "react";
-import SearchFormSuggestion from "../searchFormSuggestion/SearchFormSuggestion";
+import SearchFormSuggestion from "../SearchFormSuggestion/SearchFormSuggestion";
 import PropTypes from "prop-types";
 
 const SearchFormSuggestionList = ({ suggestions, onSuggestionClick }) => {
