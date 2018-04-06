@@ -8,6 +8,7 @@ import ParcoursTerritoire from "./pages/ParcoursTerritoire/ParcoursTerritoire";
 import ParcoursPhase from "./pages/ParcoursPhase/ParcoursPhase";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 import ParcoursPhaseAvantProjet from "./pages/ParcoursPhaseAvantProjet/ParcoursPhaseAvantProjet";
+import ParcoursCriteres from "./pages/ParcoursCriteres/ParcoursCriteres";
 
 class App extends Component {
   render() {
@@ -24,6 +25,11 @@ class App extends Component {
                   exact
                   path="/parcours/phase/avant-projet"
                   component={ParcoursPhaseAvantProjet}
+                />
+                <Route
+                  exact
+                  path="/parcours/criteres"
+                  component={ParcoursCriteres}
                 />
               </Switch>
             </div>

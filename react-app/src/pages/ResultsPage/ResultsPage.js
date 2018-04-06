@@ -78,11 +78,11 @@ class ResultsPage extends React.Component {
           </div>
         )}
         <div className="has-text-centered section">
-          <Link style={{ margin: "12px" }} to="/parcours/phase">
+          <Link style={{ margin: "12px" }} to="/">
             <RaisedButton label="Précédent" secondary={true} />
           </Link>
-          <Link to="/parcours/phase">
-            <RaisedButton label="Suivant" primary={true} />
+          <Link to="/parcours/criteres">
+            <RaisedButton label="Affiner les résultats" primary={true} />
           </Link>
         </div>
       </DefaultLayout>
