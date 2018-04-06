@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultLayout from "../../layouts/defaultLayout/DefaultLayout";
+import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
 import Checkbox from "material-ui/Checkbox";

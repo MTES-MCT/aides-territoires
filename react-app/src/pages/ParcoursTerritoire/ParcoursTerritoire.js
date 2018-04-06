@@ -1,6 +1,6 @@
 import React from "react";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
-import SearchFormContainer from "../../containers/searchFormContainer/SearchFormContainer";
+import SearchFormContainer from "../../containers/SearchFormContainer/SearchFormContainer";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
 

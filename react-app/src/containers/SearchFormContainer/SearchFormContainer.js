@@ -1,6 +1,6 @@
 import React from "react";
 import SearchForm from "../../presentationals/SearchForm/SearchForm";
-import { isPostalCode } from "../../services/SearchLib";
+import { isPostalCode } from "../../services/searchLib";
 import PropTypes from "prop-types";
 import {
   getCommunesFromPostalCode,
