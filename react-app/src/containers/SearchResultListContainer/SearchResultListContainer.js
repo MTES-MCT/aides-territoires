@@ -38,7 +38,7 @@ class SearchResultListContainer extends React.Component {
   }
   render() {
     let resultsGroups = [];
-    console.log(this.props.searchedData);
+    console.log("searchedData debug : ", this.props.searchedData);
     if (this.props.searchedData.type === "commune") {
       this.codeCommune = this.props.searchedData.data.code;
       this.codeDepartement = this.props.searchedData.data.codeDepartement;
@@ -51,27 +51,47 @@ class SearchResultListContainer extends React.Component {
     if (this.props.searchedData.type === "region") {
       this.codeRegion = this.props.searchedData.data.code;
     }
+
+    // afficher les aides de la communes, si il y en a
     if (this.codeCommune) {
-      resultsGroups.push({
-        title: "Communes",
-        results: this.getAidesByTypeAndCodeInsee("commune", this.codeCommune)
-      });
+      const aidesCommunes = this.getAidesByTypeAndCodeInsee(
+        "commune",
+        this.codeCommune
+      );
+      if (aidesCommunes.length > 0) {
+        resultsGroups.push({
+          title: "Communes",
+          results: aidesCommunes
+        });
+      }
     }
-    console.log(this.codeCommune, this.codeDepartement);
+
+    // afficher les aides des département, si il y en a
     if (this.codeDepartement) {
-      resultsGroups.push({
-        title: "Département",
-        results: this.getAidesByTypeAndCodeInsee(
-          "departement",
-          this.codeDepartement
-        )
-      });
+      const aidesDepartements = this.getAidesByTypeAndCodeInsee(
+        "commune",
+        this.codeCommune
+      );
+      if (aidesDepartements.length > 0) {
+        resultsGroups.push({
+          title: "Département",
+          results: aidesDepartements
+        });
+      }
     }
+
+    // afficher les aides de la région, si il y en a
     if (this.codeRegion) {
-      resultsGroups.push({
-        title: "Région",
-        results: this.getAidesByTypeAndCodeInsee("region", this.codeRegion)
-      });
+      const aidesRegion = this.getAidesByTypeAndCodeInsee(
+        "region",
+        this.codeRegion
+      );
+      if (aidesRegion.length > 0) {
+        resultsGroups.push({
+          title: "Région",
+          results: aidesRegion
+        });
+      }
     }
     resultsGroups.push({
       title: "National",
@@ -87,10 +107,13 @@ class SearchResultListContainer extends React.Component {
     }, 0);
     return (
       <div className="search-result-list">
-        <h2 style={styles.title} className="subtitle is-3">
-          Nous avons trouvé <strong>{totalResults}</strong> aides pour le
-          territoire <strong>{this.props.searchedData.text}</strong>
-        </h2>
+        {this.props.searchedData.text && (
+          <h2 style={styles.title} className="subtitle is-3">
+            Nous avons trouvé <strong>{totalResults}</strong> aides pour
+            lesquelles le territoire
+            <strong>{this.props.searchedData.text}</strong>
+          </h2>
+        )}
         {resultsGroups.map((resultsGroup, index) => {
           return (
             <div key={index} className="content">
