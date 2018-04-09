@@ -31,7 +31,7 @@ class SearchForm extends React.Component {
   onNewRequest = value => {};
   render() {
     return (
-      <div className="search-form container section">
+      <div className="search-form">
         <form onSubmit={this.onSubmit}>
           <div className="field has-addons">
             <div className="control is-expanded">

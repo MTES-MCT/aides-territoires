@@ -3,6 +3,15 @@ import PropTypes from "prop-types";
 import SearchResultList from "../../presentationals/SearchResultList/SearchResultList";
 import { connectToSpreadsheet } from "react-google-sheet-connector";
 
+const styles = {
+  title: {
+    marginTop: "50px"
+  },
+  groupTitle: {
+    marginTop: "50px"
+  }
+};
+
 class SearchResultListContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -73,24 +82,14 @@ class SearchResultListContainer extends React.Component {
     }, 0);
     return (
       <div className="search-result-list">
-        {/*
-        <div className="debug">
-          {this.props.searchedData.text && (
-            <div className="box">
-              <h2>Liste des aides pour </h2>
-              <pre>{JSON.stringify(this.props.searchedData)}</pre>
-            </div>
-          )}
-        </div>
-        */}
-        <h2 className="subtitle is-3">
+        <h2 style={styles.title} className="subtitle is-3">
           Nous avons trouvé <strong>{totalResults}</strong> aides pour le
           territoire <strong>{this.props.searchedData.text}</strong>
         </h2>
         {resultsGroups.map((resultsGroup, index) => {
           return (
             <div key={index} className="content">
-              <h2 className="title is-2 is-text-centered">
+              <h2 style={styles.groupTitle} className="subtitle is-4">
                 {resultsGroup.title}
               </h2>
               {resultsGroup.results.length === 0 && <div>Pas de résultat</div>}

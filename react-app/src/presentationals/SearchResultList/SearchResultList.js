@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import SearchResultListItem from "../SearchResultListItem/SearchResultListItem";
 
 class SearchResultList extends React.Component {
+  static propTypes = {
+    searchedData: PropTypes.object.isRequired,
+    results: PropTypes.array.isRequired
+  };
   render() {
     return (
       <div className="search-result-list">
@@ -13,10 +17,5 @@ class SearchResultList extends React.Component {
     );
   }
 }
-
-SearchResultList.propTypes = {
-  searchedData: PropTypes.object.isRequired,
-  results: PropTypes.array.isRequired
-};
 
 export default SearchResultList;
