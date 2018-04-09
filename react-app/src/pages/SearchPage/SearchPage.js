@@ -4,20 +4,6 @@ import SearchFormContainer from "../../containers/SearchFormContainer/SearchForm
 import SearchResultListContainer from "../../containers/SearchResultListContainer/SearchResultListContainer";
 import AppLoader from "../../presentationals/AppLoader/AppLoader";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
-import { Link } from "react-router-dom";
-import RaisedButton from "material-ui/RaisedButton";
-import Paper from "material-ui/Paper";
-
-const styles = {
-  Paper: {
-    height: 150,
-    width: 150,
-    margin: 20,
-    textAlign: "center",
-    display: "inline-block",
-    padding: 10
-  }
-};
 
 class SearchPage extends React.Component {
   constructor(props) {

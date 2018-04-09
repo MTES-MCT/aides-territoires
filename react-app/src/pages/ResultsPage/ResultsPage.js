@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
 // import queryString from "query-string";
-import { getTerritoireByTypeAndCodeInsee } from "../../services/geoApi";
 
 const styles = {
   Paper: {

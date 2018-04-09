@@ -38,7 +38,7 @@ class SearchResultListContainer extends React.Component {
   }
   render() {
     let resultsGroups = [];
-    console.log("searchedData", this.props.searchedData);
+    console.log(this.props.searchedData);
     if (this.props.searchedData.type === "commune") {
       this.codeCommune = this.props.searchedData.data.code;
       this.codeDepartement = this.props.searchedData.data.codeDepartement;
@@ -57,6 +57,7 @@ class SearchResultListContainer extends React.Component {
         results: this.getAidesByTypeAndCodeInsee("commune", this.codeCommune)
       });
     }
+    console.log(this.codeCommune, this.codeDepartement);
     if (this.codeDepartement) {
       resultsGroups.push({
         title: "Département",

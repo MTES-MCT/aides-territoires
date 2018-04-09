@@ -3,7 +3,6 @@ import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import { Link } from "react-router-dom";
 import { List, ListItem, makeSelectable } from "material-ui/List";
 import RaisedButton from "material-ui/RaisedButton";
-import PropTypes from "prop-types";
 
 const style = {
   margin: 12
