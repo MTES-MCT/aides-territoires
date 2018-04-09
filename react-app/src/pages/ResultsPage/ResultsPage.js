@@ -7,7 +7,7 @@ import ReactGoogleSheetConnector from "react-google-sheet-connector";
 import { Link } from "react-router-dom";
 import RaisedButton from "material-ui/RaisedButton";
 import Paper from "material-ui/Paper";
-import queryString from "query-string";
+// import queryString from "query-string";
 import { getTerritoireByTypeAndCodeInsee } from "../../services/geoApi";
 
 const styles = {
@@ -24,11 +24,13 @@ const styles = {
 class ResultsPage extends React.Component {
   constructor(props) {
     let searchedData = null;
+    /*
     if (props.location.search) {
       const params = queryString.parse(props.location.search);
       searchedData = JSON.parse(params.searchedData);
       console.log("searchedData", searchedData);
     }
+    */
     super(props);
     this.state = {
       searchedData
