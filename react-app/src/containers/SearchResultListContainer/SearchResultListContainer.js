@@ -15,12 +15,12 @@ const styles = {
 class SearchResultListContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.sheetData = this.props.getSheet("version-2");
+    this.sheetData = this.props.getSheet("ELISE-PROTO");
     this.codeCommune = null;
     this.codeDepartement = null;
     this.codeRegion = null;
   }
-  filterAides(type, codeInsee = null) {
+  getAidesByTypeAndCodeInsee(type, codeInsee = null) {
     let results = [];
     this.sheetData.map(row => {
       if (!codeInsee) {
@@ -38,6 +38,7 @@ class SearchResultListContainer extends React.Component {
   }
   render() {
     let resultsGroups = [];
+    console.log("searchedData", this.props.searchedData);
     if (this.props.searchedData.type === "commune") {
       this.codeCommune = this.props.searchedData.data.code;
       this.codeDepartement = this.props.searchedData.data.codeDepartement;
@@ -48,33 +49,36 @@ class SearchResultListContainer extends React.Component {
       this.codeRegion = this.props.searchedData.data.codeRegion;
     }
     if (this.props.searchedData.type === "region") {
-      this.codeDepartement = this.props.searchedData.data.code;
+      this.codeRegion = this.props.searchedData.data.code;
     }
     if (this.codeCommune) {
       resultsGroups.push({
         title: "Communes",
-        results: this.filterAides("commune", this.codeCommune)
+        results: this.getAidesByTypeAndCodeInsee("commune", this.codeCommune)
       });
     }
     if (this.codeDepartement) {
       resultsGroups.push({
         title: "Département",
-        results: this.filterAides("departement", this.codeDepartement)
+        results: this.getAidesByTypeAndCodeInsee(
+          "departement",
+          this.codeDepartement
+        )
       });
     }
     if (this.codeRegion) {
       resultsGroups.push({
         title: "Région",
-        results: this.filterAides("region", this.codeRegion)
+        results: this.getAidesByTypeAndCodeInsee("region", this.codeRegion)
       });
     }
     resultsGroups.push({
       title: "National",
-      results: this.filterAides("national")
+      results: this.getAidesByTypeAndCodeInsee("national")
     });
     resultsGroups.push({
       title: "Europe",
-      results: this.filterAides("europe")
+      results: this.getAidesByTypeAndCodeInsee("europe")
     });
     // nombre total de résultats
     const totalResults = resultsGroups.reduce((total, group) => {

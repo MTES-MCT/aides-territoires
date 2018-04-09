@@ -51,7 +51,7 @@ class SearchForm extends React.Component {
                 </div>
               )}
             </div>
-            {/*
+
             <div className="control">
               <input
                 type="submit"
@@ -59,7 +59,6 @@ class SearchForm extends React.Component {
                 className="button is-info is-large"
               />
             </div>
-            */}
           </div>
         </form>
       </div>
