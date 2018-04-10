@@ -1,16 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SearchResultList from "../presentationals/SearchResultList";
+import SearchFilters from "../presentationals/SearchFilters";
 import { connectToSpreadsheet } from "react-google-sheet-connector";
-
-const styles = {
-  title: {
-    marginTop: "50px"
-  },
-  groupTitle: {
-    marginTop: "50px"
-  }
-};
 
 class SearchResultListContainer extends React.Component {
   constructor(props) {
@@ -106,31 +98,43 @@ class SearchResultListContainer extends React.Component {
       return total + group.results.length;
     }, 0);
     return (
-      <div className="search-result-list">
+      <div>
         {this.props.searchedData.text && (
-          <h2 style={styles.title} className="subtitle is-3">
-            Nous avons trouvé <strong>{totalResults}</strong> aides pour
-            lesquelles le territoire
-            <strong>{this.props.searchedData.text}</strong>
+          <h2 className="subtitle is-4 section">
+            Nous avons trouvé <strong>{totalResults}</strong> aides qui
+            s'appliquent sur votre territoire de recherche. Vous pouvez
+            désormais préciser votre recherche en utilisant les filtres ad hoc,
+            ou utiliser les recherches préqualifiées. Une fois votre recherche
+            finalisée, enregistrez là pour être notifié(e) des actualités,
+            partagez-la, imprimez-là
           </h2>
         )}
-        {resultsGroups.map((resultsGroup, index) => {
-          return (
-            <div key={index} className="content">
-              <h2 style={styles.groupTitle} className="subtitle is-4">
-                {resultsGroup.title}
-              </h2>
-              {resultsGroup.results.length === 0 && <div>Pas de résultat</div>}
-              {resultsGroup.results && (
-                <SearchResultList
-                  key={index}
-                  {...this.props}
-                  results={resultsGroup.results}
-                />
-              )}
+        <div className="columns">
+          <div className="column is-one-quarter">
+            <SearchFilters />
+          </div>
+          <div className="column">
+            <div className="search-result-list">
+              {resultsGroups.map((resultsGroup, index) => {
+                return (
+                  <div key={index} className="content">
+                    <h2 className="subtitle is-4">{resultsGroup.title}</h2>
+                    {resultsGroup.results.length === 0 && (
+                      <div>Pas de résultat</div>
+                    )}
+                    {resultsGroup.results && (
+                      <SearchResultList
+                        key={index}
+                        {...this.props}
+                        results={resultsGroup.results}
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
     );
   }

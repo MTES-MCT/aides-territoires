@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SearchFormSuggestionList from "../presentationals/SearchFormSuggestionList";
+import SearchFilters from "./SearchFilters";
 import "./searchForm.css";
 
 class SearchForm extends React.Component {
