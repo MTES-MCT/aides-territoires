@@ -32,7 +32,7 @@ class Navigation extends React.Component {
               src="/static/images/logo-gouv.png "
             />{" "}
             <p className="app-name ">
-              <strong>Aides-territoires</strong>
+              Aides-territoires.<strong>beta.gouv</strong>.fr
             </p>
           </Link>
           <div
@@ -58,47 +58,15 @@ class Navigation extends React.Component {
           id="navMenu "
         >
           <div className="navbar-end">
-            <Link
-              className="navbar-item"
-              onClick={this.handleLinkClick}
-              to="/#aides-territoires"
-            >
+            <Link className="navbar-item" onClick={this.handleLinkClick} to="/">
               Aides-territoires
             </Link>
             <Link
               className="navbar-item"
-              to="/#comment-ca-marche"
               onClick={this.handleLinkClick}
+              to="/search"
             >
-              Service
-            </Link>
-            <Link
-              className="navbar-item"
-              to="/#inscription"
-              onClick={this.handleLinkClick}
-            >
-              Inscription
-            </Link>
-            <Link
-              className="navbar-item"
-              to="/porteurs-aides"
-              onClick={this.handleLinkClick}
-            >
-              Porteurs d'aides
-            </Link>
-            <Link
-              className="navbar-item"
-              to="/a-propos"
-              onClick={this.handleLinkClick}
-            >
-              À propos
-            </Link>
-            <Link
-              className="navbar-item"
-              to="/#contact"
-              onClick={this.handleLinkClick}
-            >
-              Contact
+              Rechercher une aide
             </Link>
           </div>
         </div>

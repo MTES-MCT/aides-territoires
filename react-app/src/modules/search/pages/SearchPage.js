@@ -4,6 +4,7 @@ import SearchFormContainer from "../decorators/SearchFormContainer";
 import SearchResultListContainer from "../decorators/SearchResultListContainer";
 import AppLoader from "../../generic/presentationals/AppLoader";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
+import Header from "../../../themes/ThemeDefault/presentationals/Header";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class SearchPage extends React.Component {
   render() {
     return (
       <ThemeDefault>
+        <Header />
         <section className="section container">
           <div className="has-text-centered">
             <h2 className="title is-1">Où est situé votre projet ?</h2>

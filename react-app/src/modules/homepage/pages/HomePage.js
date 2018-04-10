@@ -1,6 +1,6 @@
 import React from "react";
 import ThemeDefault from "../../../themes/ThemeDefault/ThemeDefault";
-import Header from "../../../themes/ThemeDefault/presentationals/Header";
+import Header from "../presentationals/Header";
 import Benefices from "../presentationals/Benefices";
 import CommentCaMarche from "../presentationals/CommentCaMarche";
 import Chronophage from "../presentationals/Chronophage";
