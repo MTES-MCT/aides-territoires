@@ -4,7 +4,6 @@ import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 class ExamplePage extends React.Component {
   render() {
     const aide = this.props.location.state.aide;
-    console.log(aide);
     return (
       <DefaultLayout>
         <div className="container">

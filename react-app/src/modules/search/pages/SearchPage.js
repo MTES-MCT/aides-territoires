@@ -1,8 +1,8 @@
 import React from "react";
-import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
-import SearchFormContainer from "../../containers/SearchFormContainer/SearchFormContainer";
-import SearchResultListContainer from "../../containers/SearchResultListContainer/SearchResultListContainer";
-import AppLoader from "../../presentationals/AppLoader/AppLoader";
+import ThemeDefault from "../../../themes/ThemeDefault/ThemeDefault";
+import SearchFormContainer from "../decorators/SearchFormContainer";
+import SearchResultListContainer from "../decorators/SearchResultListContainer";
+import AppLoader from "../../generic/presentationals/AppLoader";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
 
 class SearchPage extends React.Component {
@@ -17,7 +17,7 @@ class SearchPage extends React.Component {
   };
   render() {
     return (
-      <DefaultLayout>
+      <ThemeDefault>
         <section className="section container">
           <div className="has-text-centered">
             <h2 className="title is-1">Où est situé votre projet ?</h2>
@@ -52,7 +52,7 @@ class SearchPage extends React.Component {
         </div>
         */}
         </section>
-      </DefaultLayout>
+      </ThemeDefault>
     );
   }
 }

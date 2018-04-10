@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.6.2",
+    "dotenv": "^5.0.1",
+    "graphql-request": "^1.5.1",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.1",

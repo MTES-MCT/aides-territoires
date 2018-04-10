@@ -4,12 +4,8 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import ParcoursPhase from "./pages/ParcoursPhase/ParcoursPhase";
-import ResultsPage from "./pages/ResultsPage/ResultsPage";
-import SearchPage from "./pages/SearchPage/SearchPage";
-import AidePage from "./pages/AidePage/AidePage";
-import ParcoursPhaseAvantProjet from "./pages/ParcoursPhaseAvantProjet/ParcoursPhaseAvantProjet";
-import ParcoursCriteres from "./pages/ParcoursCriteres/ParcoursCriteres";
+import HomePage from "./modules/homepage/pages/HomePage";
+import SearchPage from "./modules/search/pages/SearchPage";
 
 class App extends Component {
   render() {
@@ -19,20 +15,8 @@ class App extends Component {
           <MuiThemeProvider>
             <div className="App">
               <Switch>
-                <Route exact path="/" component={SearchPage} />
-                <Route exact path="/aide" component={AidePage} />
-                <Route exact path="/parcours/results" component={ResultsPage} />
-                <Route exact path="/parcours/phase" component={ParcoursPhase} />
-                <Route
-                  exact
-                  path="/parcours/phase/avant-projet"
-                  component={ParcoursPhaseAvantProjet}
-                />
-                <Route
-                  exact
-                  path="/parcours/criteres"
-                  component={ParcoursCriteres}
-                />
+                <Route exact path="/" component={HomePage} />
+                <Route exact path="/search" component={SearchPage} />
               </Switch>
             </div>
           </MuiThemeProvider>

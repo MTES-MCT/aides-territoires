@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SearchResultList from "../../presentationals/SearchResultList/SearchResultList";
+import SearchResultList from "../presentationals/SearchResultList";
 import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 const styles = {
