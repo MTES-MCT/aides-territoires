@@ -27,7 +27,10 @@ class Navigation extends React.Component {
       >
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
-            <img style={{ paddingRight: "20px" }} src="images/logo-gouv.png " />{" "}
+            <img
+              style={{ paddingRight: "20px" }}
+              src="/static/images/logo-gouv.png "
+            />{" "}
             <p className="app-name ">
               <strong>Aides-territoires</strong>
             </p>
