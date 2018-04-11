@@ -17,12 +17,15 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "react-scripts-plugin-no-minify": "^0.3.2",
     "redux-devtools": "^3.4.1",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start":
+      "REACT_APP_GRAPHCMS_API_URL=https://api.graphcms.com/simple/v1/cjfdxg4vd5bmo0176upepcub5 react-scripts start",
+    "build":
+      "REACT_APP_GRAPHCMS_API_URL=https://api.graphcms.com/simple/v1/cjfdxg4vd5bmo0176upepcub5 react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
