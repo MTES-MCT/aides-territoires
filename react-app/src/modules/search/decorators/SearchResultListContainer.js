@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import SearchResultList from "../presentationals/SearchResultList";
 import SearchFilters from "../presentationals/SearchFilters";
+import RaisedButton from "material-ui/RaisedButton";
 import { connectToSpreadsheet } from "react-google-sheet-connector";
 
 class SearchResultListContainer extends React.Component {
@@ -109,29 +110,47 @@ class SearchResultListContainer extends React.Component {
             partagez-la, imprimez-là
           </h2>
         )}
-        <div className="columns">
-          <div className="column is-one-quarter">
-            <SearchFilters />
-          </div>
-          <div className="column">
-            <div className="search-result-list">
-              {resultsGroups.map((resultsGroup, index) => {
-                return (
-                  <div key={index} className="content">
-                    <h2 className="subtitle is-4">{resultsGroup.title}</h2>
-                    {resultsGroup.results.length === 0 && (
-                      <div>Pas de résultat</div>
-                    )}
-                    {resultsGroup.results && (
-                      <SearchResultList
-                        key={index}
-                        {...this.props}
-                        results={resultsGroup.results}
-                      />
-                    )}
-                  </div>
-                );
-              })}
+        <div>
+          <header style={{ textAlign: "right" }}>
+            <RaisedButton
+              style={{ marginRight: "20px" }}
+              primary={true}
+              label="Imprimer mes résultats"
+            />
+            <RaisedButton
+              style={{ marginRight: "20px" }}
+              secondary={true}
+              label="Partager mes résultats"
+            />
+            <RaisedButton
+              style={{ marginRight: "20px" }}
+              label="Etre alerté de nouvelles aides"
+            />
+          </header>
+          <div className="columns">
+            <div className="column is-one-quarter">
+              <SearchFilters />
+            </div>
+            <div className="column">
+              <div className="search-result-list">
+                {resultsGroups.map((resultsGroup, index) => {
+                  return (
+                    <div key={index} className="content">
+                      <h2 className="subtitle is-4">{resultsGroup.title}</h2>
+                      {resultsGroup.results.length === 0 && (
+                        <div>Pas de résultat</div>
+                      )}
+                      {resultsGroup.results && (
+                        <SearchResultList
+                          key={index}
+                          {...this.props}
+                          results={resultsGroup.results}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
