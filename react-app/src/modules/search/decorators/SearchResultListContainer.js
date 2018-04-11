@@ -104,10 +104,9 @@ class SearchResultListContainer extends React.Component {
           <h2 className="subtitle is-4 section">
             Nous avons trouvé <strong>{totalResults}</strong> aides qui
             s'appliquent sur votre territoire de recherche. Vous pouvez
-            désormais préciser votre recherche en utilisant les filtres ad hoc,
-            ou utiliser les recherches préqualifiées. Une fois votre recherche
-            finalisée, enregistrez là pour être notifié(e) des actualités,
-            partagez-la, imprimez-là
+            désormais préciser votre recherche en utilisant les filtres.<br />
+            <br /> Une fois votre recherche finalisée, enregistrez là pour être
+            notifié(e) des actualités, partagez-la, imprimez-la.
           </h2>
         )}
         <div>

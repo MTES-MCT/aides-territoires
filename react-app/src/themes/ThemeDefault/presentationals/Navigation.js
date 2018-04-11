@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -27,13 +28,7 @@ class Navigation extends React.Component {
       >
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
-            <img
-              style={{ paddingRight: "20px" }}
-              src="/static/images/logo-gouv.png "
-            />{" "}
-            <p className="app-name ">
-              Aides-territoires.<strong>beta.gouv</strong>.fr
-            </p>
+            <Logo />
           </Link>
           <div
             className={

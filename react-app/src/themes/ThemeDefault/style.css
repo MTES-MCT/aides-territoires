@@ -49,7 +49,7 @@ header .subtitle strong {
 
 /* MENU */
 .app-main-menu .navbar-brand img {
-  height: 43px;
+  max-height: 50px;
 }
 .page-accueil .container {
   max-width: 1000px;
