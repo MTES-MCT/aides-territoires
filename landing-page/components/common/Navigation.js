@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import AppName from "./AppName";
+import Logo from "./Logo";
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -28,12 +28,8 @@ class Navigation extends React.Component {
       >
         <div className="navbar-brand">
           <Link href="/#aides-territoires">
-            <a className="navbar-item js-scrollTo">
-              <img
-                style={{ paddingRight: "20px" }}
-                src="/static/images/logo-gouv.png "
-              />{" "}
-              <AppName />
+            <a className="navbar-item">
+              <Logo />
             </a>
           </Link>
           <div
