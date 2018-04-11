@@ -69,6 +69,24 @@ const SearchFilters = () => (
       <List>
         <Subheader style={styles.subHeader}>Structure porteuse</Subheader>
       </List>
+      <Divider />
+      <List>
+        <Subheader style={styles.subHeader}>Thématiques</Subheader>
+        <ListItem primaryText="aménagement et DD" leftCheckbox={<Checkbox />} />
+        <ListItem
+          primaryText="infrastructures et réseaux"
+          leftCheckbox={<Checkbox />}
+        />
+        <ListItem
+          primaryText="développement local"
+          leftCheckbox={<Checkbox />}
+        />
+        <ListItem
+          primaryText="solidarité et cohésion sociale"
+          leftCheckbox={<Checkbox />}
+        />
+      </List>
+      <Divider />
     </div>
   </div>
 );
