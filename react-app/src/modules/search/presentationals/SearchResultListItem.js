@@ -49,26 +49,29 @@ class SearchResultListItem extends React.Component {
           </tbody>
         </table>
         {result.sousThématique.split(",").map((item, index) => {
-          console.log("item", item);
           return (
-            <div
-              key={index}
-              style={{ marginRight: "10px" }}
-              className="tag is-success thematique"
-            >
-              {item}
-            </div>
+            item.trim().length > 0 && (
+              <div
+                key={index}
+                style={{ marginRight: "10px" }}
+                className="tag is-success thematique"
+              >
+                {item}
+              </div>
+            )
           );
         })}
         {result.sousThématique2.split(",").map((item, index) => {
           return (
-            <div
-              key={index}
-              style={{ marginRight: "10px" }}
-              className="tag is-info thematique"
-            >
-              {item}
-            </div>
+            item.trim().length > 0 && (
+              <div
+                key={index}
+                style={{ marginRight: "10px" }}
+                className="tag is-info thematique"
+              >
+                {item}
+              </div>
+            )
           );
         })}
         {/*
