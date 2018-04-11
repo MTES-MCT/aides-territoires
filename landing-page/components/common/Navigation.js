@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import AppName from "./AppName";
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -32,10 +33,7 @@ class Navigation extends React.Component {
                 style={{ paddingRight: "20px" }}
                 src="/static/images/logo-gouv.png "
               />{" "}
-              <img src="/static/images/logo.png " />
-              <p className="app-name ">
-                <strong>Aides-territoires</strong>
-              </p>
+              <AppName />
             </a>
           </Link>
           <div
