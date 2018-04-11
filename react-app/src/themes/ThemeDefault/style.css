@@ -51,6 +51,9 @@ header .subtitle strong {
 .app-main-menu .navbar-brand img {
   height: 43px;
 }
+.page-accueil .container {
+  max-width: 1000px;
+}
 
 /* HEADER */
 

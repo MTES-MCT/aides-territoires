@@ -41,10 +41,12 @@ class HomePage extends React.Component {
     const Pagedaccueil = this.state.Pagedaccueil;
     return (
       <ThemeDefault>
-        <Header data={Pagedaccueil} />
-        <CommentCaMarche data={Pagedaccueil} />
-        <Chronophage data={Pagedaccueil} />
-        <Benefices data={Pagedaccueil} />
+        <div className="page-accueil">
+          <Header data={Pagedaccueil} />
+          <CommentCaMarche data={Pagedaccueil} />
+          <Chronophage data={Pagedaccueil} />
+          <Benefices data={Pagedaccueil} />
+        </div>
       </ThemeDefault>
     );
   }
