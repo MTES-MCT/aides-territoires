@@ -38,6 +38,9 @@ git checkout .
 git pull --rebase
 # re compiler le code et redémarrer les process node
 yarn build
+# si les process node sont déjà démarrés, on les redémarre
+yarn restart
+# sinon on démarre pour la première fois les serveurs nodes
 yarn start
 ```
 
