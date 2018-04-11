@@ -49,6 +49,7 @@ class SearchResultListItem extends React.Component {
           </tbody>
         </table>
         {result.sousThématique.split(",").map((item, index) => {
+          console.log("item", item);
           return (
             <div
               key={index}
