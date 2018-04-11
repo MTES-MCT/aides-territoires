@@ -19,7 +19,7 @@ class SearchResultListItem extends React.Component {
             <tr>
               <td>Lien vers le site</td>
               <td>
-                <a target="_blank" href={result.lienVersLeSite}>
+                <a target="_blank" href={result.url}>
                   Lien vers le site
                 </a>
               </td>
