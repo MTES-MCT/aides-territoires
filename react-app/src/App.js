@@ -6,6 +6,7 @@ import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import HomePage from "./modules/homepage/pages/HomePage";
 import SearchPage from "./modules/search/pages/SearchPage";
+import AideFormPage from "./modules/aide/pages/AideFormPage";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/search" component={SearchPage} />
+                <Route exact path="/aide/form" component={AideFormPage} />
               </Switch>
             </div>
           </MuiThemeProvider>

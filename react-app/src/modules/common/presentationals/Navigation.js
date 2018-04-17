@@ -21,7 +21,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <nav
-        className="navbar is-fixed-top app-main-menu"
+        className="navbar app-main-menu"
         role="navigation"
         aria-label="main navigation"
       >
