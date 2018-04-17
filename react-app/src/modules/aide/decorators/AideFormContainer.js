@@ -5,11 +5,11 @@ export default class AideFormContainer extends React.Component {
   state = {
     formValues: []
   };
-  onSubmit = values => {
+  handleSubmit = values => {
     console.log(values);
     // postOnRocketChatNantes(values);
   };
   render() {
-    return <AideForm onSubmit={this.onSubmit} />;
+    return <AideForm handleSubmit={this.handleSubmit} />;
   }
 }
