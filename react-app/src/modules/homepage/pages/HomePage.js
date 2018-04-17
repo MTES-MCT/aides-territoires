@@ -1,6 +1,6 @@
 import React from "react";
-import ThemeDefault from "../../../themes/ThemeDefault/ThemeDefault";
-import Header from "../presentationals/Header";
+import Layout from "../../common/layouts/Layout";
+import Header from "../../common/presentationals/Header";
 import Benefices from "../presentationals/Benefices";
 import CommentCaMarche from "../presentationals/CommentCaMarche";
 import Chronophage from "../presentationals/Chronophage";
@@ -40,14 +40,12 @@ class HomePage extends React.Component {
   render() {
     const Pagedaccueil = this.state.Pagedaccueil;
     return (
-      <ThemeDefault>
-        <div className="page-accueil">
-          <Header data={Pagedaccueil} />
-          <CommentCaMarche data={Pagedaccueil} />
-          <Chronophage data={Pagedaccueil} />
-          <Benefices data={Pagedaccueil} />
-        </div>
-      </ThemeDefault>
+      <Layout>
+        <Header data={Pagedaccueil} />
+        <CommentCaMarche data={Pagedaccueil} />
+        <Chronophage data={Pagedaccueil} />
+        <Benefices data={Pagedaccueil} />
+      </Layout>
     );
   }
 }

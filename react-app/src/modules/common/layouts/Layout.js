@@ -1,7 +1,7 @@
 import React from "react";
-import Navigation from "./presentationals/Navigation";
+import Navigation from "../presentationals/Navigation";
 import "bulma/css/bulma.css";
-import "./style.css";
+import "./Layout.css";
 
 export default class DefaultLayout extends React.Component {
   render() {

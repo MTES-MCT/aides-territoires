@@ -1,10 +1,10 @@
 import React from "react";
-import ThemeDefault from "../../../themes/ThemeDefault/ThemeDefault";
+import Layout from "../../common/layouts/Layout";
 import SearchFormContainer from "../decorators/SearchFormContainer";
 import SearchResultListContainer from "../decorators/SearchResultListContainer";
-import AppLoader from "../../generic/presentationals/AppLoader";
+import AppLoader from "../../common/presentationals/AppLoader";
 import ReactGoogleSheetConnector from "react-google-sheet-connector";
-import Header from "../../../themes/ThemeDefault/presentationals/Header";
+import Header from "../../common/presentationals/Header";
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class SearchPage extends React.Component {
   };
   render() {
     return (
-      <ThemeDefault>
+      <Layout>
         <Header />
         <section className="section container">
           <div className="has-text-centered">
@@ -54,7 +54,7 @@ class SearchPage extends React.Component {
         </div>
         */}
         </section>
-      </ThemeDefault>
+      </Layout>
     );
   }
 }
