@@ -1,3 +1,7 @@
 import React from "react";
 
-export default () => <img src="/static/images/logo-gouv.png" />;
+const Logo = () => {
+  return <img src={"/static/images/logo-aides-territoires.png"} />;
+};
+
+export default Logo;

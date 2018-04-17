@@ -1,12 +1,19 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers/index";
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
+import { reducer as formReducer } from "redux-form";
 
-// Note: this API requires redux@>=3.1.0
+const rootReducer = combineReducers({
+  // ...your other reducers here
+  // you have to pass formReducer under 'form' key,
+  // for custom keys look up the docs for 'getFormState'
+  form: formReducer
+});
+
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  {},
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
 
 export default store;

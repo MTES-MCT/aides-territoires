@@ -1,5 +1,5 @@
 import React from "react";
-import AideForm from "../presentationals/AideForm";
+import AideForm from "modules/aide/presentationals/AideForm";
 
 export default class AideFormContainer extends React.Component {
   state = {
@@ -10,6 +10,6 @@ export default class AideFormContainer extends React.Component {
     // postOnRocketChatNantes(values);
   };
   render() {
-    return <AideForm handleSubmit={this.handleSubmit} />;
+    return <AideForm onSubmit={this.handleSubmit} />;
   }
 }

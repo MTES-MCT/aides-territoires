@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../../common/layouts/Layout";
-import AideFormContainer from "../decorators/AideFormContainer";
+import Layout from "modules/common/layouts/Layout";
+import AideFormContainer from "modules/aide/decorators/AideFormContainer";
 
 class AideFormPage extends React.Component {
   render() {

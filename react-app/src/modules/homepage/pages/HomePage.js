@@ -1,10 +1,10 @@
 import React from "react";
-import Layout from "../../common/layouts/Layout";
-import Header from "../../common/presentationals/Header";
-import Benefices from "../presentationals/Benefices";
-import CommentCaMarche from "../presentationals/CommentCaMarche";
-import Chronophage from "../presentationals/Chronophage";
-import graphcms from "../../../services/graphcms";
+import Layout from "modules/common/layouts/Layout";
+import Header from "modules/common/presentationals/Header";
+import Benefices from "modules/homepage/presentationals/Benefices";
+import CommentCaMarche from "modules/homepage/presentationals/CommentCaMarche";
+import Chronophage from "modules/homepage/presentationals/Chronophage";
+import graphcms from "services/graphcms";
 
 class HomePage extends React.Component {
   constructor(props) {
