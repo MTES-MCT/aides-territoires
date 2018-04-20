@@ -31,7 +31,7 @@ export default class CheckboxGroup extends Component {
       };
       const checked = inputValue.includes(value);
       return (
-        <div className="checkbox">
+        <div key={index} className="checkbox">
           <label className="label" key={`checkbox-${index}`}>
             <input
               type="checkbox"

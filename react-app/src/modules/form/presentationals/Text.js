@@ -1,18 +1,31 @@
 import React from "react";
 import classNames from "classnames";
+import TextSuggestions from "./TextSuggestions";
 
 export default class extends React.Component {
-  handleChange = event => {
+  state = {
+    suggestions: [],
+    showSuggestions: false
+  };
+  handleChange = async event => {
     const { value } = event.target;
     this.props.input.onChange(value);
     if (this.props.autocompleteCallback) {
-      this.props.autocompleteCallback(value).then(r => {
-        console.log(r);
+      const response = await this.props.autocompleteCallback(value);
+      const suggestions = response.data.map(result => ({
+        text: result.nom,
+        value: result.code
+      }));
+      if (suggestions.length > 0) {
         this.setState({
-          suggestions: []
+          suggestions,
+          showSuggestions: true
         });
-      });
+      }
     }
+  };
+  handleClick = suggestion => {
+    this.setState({ showSuggestions: false });
   };
 
   render() {
@@ -31,6 +44,12 @@ export default class extends React.Component {
           {...input}
           onChange={this.handleChange}
         />
+        {this.state.showSuggestions && (
+          <TextSuggestions
+            onClick={this.handleClick}
+            suggestions={this.state.suggestions}
+          />
+        )}
         {error && touched && <div className="help is-danger">{error}</div>}
       </div>
     );

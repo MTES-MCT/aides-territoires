@@ -63,7 +63,7 @@ let AideForm = props => {
             label="Précisez le département"
             component={Text}
             className="is-large"
-            autocompleteCallback={getCommunesFromName}
+            autocompleteCallback={getDepartementsByName}
           />
         )}
       {props.formValues.typesDeTerritoires &&
@@ -73,6 +73,7 @@ let AideForm = props => {
             label="Précisez la région"
             component={Text}
             className="is-large"
+            autocompleteCallback={getRegionsByName}
           />
         )}
       {props.formValues.typesDeTerritoires &&
