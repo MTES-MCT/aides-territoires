@@ -45,14 +45,20 @@ let AideForm = props => {
         component={TextField}
         label="Structure porteuse"
       />
+      <CheckboxGroup
+        name="typesDeTerritoires"
+        options={TYPES_DE_TERRITOIRES_OPTIONS}
+      />
+      {/*
       <Field
         name="typeDeTerritoire"
         component={Select}
         className="is-medium is-multiple is-primary"
         options={TYPES_DE_TERRITOIRES_OPTIONS}
       />
-      <pre>{JSON.stringify(props.formValues)}</pre>
       <br />
+    */}
+      <pre>{JSON.stringify(props.formValues)}</pre>
       {props.formValues.typeDeTerritoire &&
         props.formValues.typeDeTerritoire.includes("departement") && (
           <Field
