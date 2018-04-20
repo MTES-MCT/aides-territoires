@@ -6,7 +6,7 @@ class AideFormPage extends React.Component {
   render() {
     return (
       <Layout>
-        <div className="container">
+        <div className="section container">
           <AideFormContainer />
         </div>
       </Layout>
