@@ -21,11 +21,7 @@ class Navigation extends React.Component {
   };
   render() {
     return (
-      <nav
-        className="navbar app-main-menu"
-        role="navigation"
-        aria-label="main navigation"
-      >
+      <nav className="navbar app-main-menu" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
             <Logo />

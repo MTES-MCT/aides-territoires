@@ -1,14 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, getFormValues } from "redux-form";
-import store from "../../../store/index";
-import {
-  TextField,
-  TextArea,
-  SubmitButton,
-  Select,
-  CheckboxGroup
-} from "modules/bulma/presentationals/Form";
+import { Field, reduxForm } from "redux-form";
+import Text from "modules/form/presentationals/Text";
+import TextArea from "modules/form/presentationals/TextArea";
+import CheckboxGroup from "modules/form/presentationals/CheckboxGroup";
+import SubmitButton from "modules/form/presentationals/SubmitButton";
 import {
   getCommunesFromPostalCode,
   getCommunesFromName,
@@ -18,11 +14,13 @@ import {
 
 const TYPES_DE_TERRITOIRES_OPTIONS = [
   { value: "europe", label: "Europe" },
-  { value: "national", label: "National" },
-  { value: "commune", label: "Commune" },
-  { value: "departement", label: "Département" },
+  { value: "france_entiere", label: "France entière" },
+  { value: "outre_mer", label: "France outre Mer" },
+  { value: "metropole", label: "France Métropole et Corse" },
   { value: "region", label: "Région" },
-  { value: "bassin", label: "Bassin" }
+  { value: "departement", label: "Département" }
+  /*{ value: "epci", label: "epci" },
+  { value: "bassin", label: "Bassin" },*/
 ];
 
 let AideForm = props => {
@@ -31,7 +29,7 @@ let AideForm = props => {
       <Field
         className="is-large"
         name="name"
-        component={TextField}
+        component={Text}
         label="Nom de l'aide"
       />
       <Field
@@ -42,7 +40,7 @@ let AideForm = props => {
       <Field
         name="structurePorteuse"
         className="is-large"
-        component={TextField}
+        component={Text}
         label="Structure porteuse"
       />
       <CheckboxGroup
@@ -58,19 +56,37 @@ let AideForm = props => {
       />
       <br />
     */}
-      <pre>{JSON.stringify(props.formValues)}</pre>
-      {props.formValues.typeDeTerritoire &&
-        props.formValues.typeDeTerritoire.includes("departement") && (
+      {props.formValues.typesDeTerritoires &&
+        props.formValues.typesDeTerritoires.includes("departement") && (
           <Field
             name="codeDepartement"
             label="Précisez le département"
-            component={TextField}
+            component={Text}
             className="is-large"
             autocompleteCallback={getCommunesFromName}
-            options={TYPES_DE_TERRITOIRES_OPTIONS}
+          />
+        )}
+      {props.formValues.typesDeTerritoires &&
+        props.formValues.typesDeTerritoires.includes("region") && (
+          <Field
+            name="codeRegion"
+            label="Précisez la région"
+            component={Text}
+            className="is-large"
+          />
+        )}
+      {props.formValues.typesDeTerritoires &&
+        props.formValues.typesDeTerritoires.includes("epci") && (
+          <Field
+            name="codeEpci"
+            label="Précisez l'EPCI"
+            component={Text}
+            className="is-large"
           />
         )}
       <SubmitButton className="is-large is-primary" value="Envoyer" />
+      Debug <br />
+      <pre>{JSON.stringify(props.formValues, null, 2)}</pre>
     </form>
   );
 };

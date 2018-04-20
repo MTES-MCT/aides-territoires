@@ -1,0 +1,13 @@
+.CheckboxGroup {
+  padding: 1rem;
+}
+
+.CheckboxGroup .checkbox {
+  display: block;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.CheckboxGroup .checkbox span {
+  padding: 1rem;
+}
