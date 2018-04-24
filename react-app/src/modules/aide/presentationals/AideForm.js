@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, formValues } from "redux-form";
 import Store from "store";
 import Text from "modules/form/presentationals/Text";
 import TextArea from "modules/form/presentationals/TextArea";

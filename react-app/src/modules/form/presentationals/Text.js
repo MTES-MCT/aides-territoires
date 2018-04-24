@@ -16,7 +16,11 @@ export default class extends React.Component {
     value: "",
     showSuggestions: false
   };
-  handleChange = async event => {
+  handleInputChange = async event => {
+    if (this.props.onSuggestionClick) {
+      // si on est en train d'écrire, il n'y a pas de suggestion validée
+      this.props.onSuggestionClick({});
+    }
     const { value } = event.target;
     this.props.input.onChange(value);
     // call redux-form onChange method ourselves
@@ -62,7 +66,7 @@ export default class extends React.Component {
           autoComplete={this.state.showSuggestions ? "off" : "on"}
           {...input}
           // override redux-form onChange method
-          onChange={this.handleChange}
+          onChange={this.handleInputChange}
         />
         {this.state.showSuggestions && (
           <TextSuggestions
