@@ -1,33 +1,51 @@
 import React from "react";
 import classNames from "classnames";
 import TextSuggestions from "./TextSuggestions";
+import PropTypes from "prop-types";
+import { change } from "redux-form";
+import Store from "../../../store";
 
 export default class extends React.Component {
+  static propTypes = {
+    // MUST return an object with "value" and "label"
+    autocompleteCallback: PropTypes.func,
+    onSuggestionClick: PropTypes.func
+  };
   state = {
     suggestions: [],
+    value: "",
     showSuggestions: false
   };
   handleChange = async event => {
     const { value } = event.target;
     this.props.input.onChange(value);
+    // call redux-form onChange method ourselves
+    // this.props.input.onChange(value);
     if (this.props.autocompleteCallback) {
       const response = await this.props.autocompleteCallback(value);
-      const suggestions = response.data.map(result => ({
-        text: result.nom,
-        value: result.code
-      }));
-      if (suggestions.length > 0) {
-        this.setState({
-          suggestions,
-          showSuggestions: true
-        });
+      if (response !== undefined) {
+        const suggestions = response.data.map(result => ({
+          label: result.nom,
+          value: result.code
+        }));
+        if (suggestions.length > 0) {
+          this.setState({
+            suggestions,
+            showSuggestions: true
+          });
+        }
       }
     }
   };
-  handleClick = suggestion => {
-    this.setState({ showSuggestions: false });
+  handleSuggestionClick = suggestion => {
+    this.props.input.onChange(suggestion.label);
+    this.setState({
+      showSuggestions: false
+    });
+    if (this.props.onSuggestionClick) {
+      this.props.onSuggestionClick(suggestion);
+    }
   };
-
   render() {
     const {
       input,
@@ -41,12 +59,14 @@ export default class extends React.Component {
         <input
           type="textfield"
           className={classNames("input", className)}
+          autoComplete={this.state.showSuggestions ? "off" : "on"}
           {...input}
+          // override redux-form onChange method
           onChange={this.handleChange}
         />
         {this.state.showSuggestions && (
           <TextSuggestions
-            onClick={this.handleClick}
+            onSuggestionClick={this.handleSuggestionClick}
             suggestions={this.state.suggestions}
           />
         )}

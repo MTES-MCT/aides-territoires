@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, change } from "redux-form";
+import Store from "store";
 import Text from "modules/form/presentationals/Text";
 import TextArea from "modules/form/presentationals/TextArea";
 import CheckboxGroup from "modules/form/presentationals/CheckboxGroup";
@@ -12,16 +13,27 @@ import {
   getRegionsByName
 } from "../../../services/geoApi";
 
-const TYPES_DE_TERRITOIRES_OPTIONS = [
-  { value: "europe", label: "Europe" },
-  { value: "france_entiere", label: "France entière" },
-  { value: "outre_mer", label: "France outre Mer" },
+// les périmètres géographiques éligibles pour l'aide
+const TERRITOIRES_ELIGIBLES_OPTIONS = [
+  { value: "europeene", label: "Europe" },
+  { value: "nationale", label: "Nationale (Métropole + outre-mer)" },
+  { value: "regionale", label: "Régionale" },
+  { value: "outre_mer", label: "Outre Mer" },
   { value: "metropole", label: "France Métropole et Corse" },
-  { value: "region", label: "Région" },
-  { value: "departement", label: "Département" }
+  { value: "departementale", label: "Département" }
   /*{ value: "epci", label: "epci" },
   { value: "bassin", label: "Bassin" },*/
 ];
+
+const formName = "aide";
+
+const onDepartementSuggestionClick = suggestion => {
+  Store.dispatch(change(formName, "departement", suggestion));
+};
+
+const onRegionSuggestionClick = suggestion => {
+  Store.dispatch(change(formName, "region", suggestion));
+};
 
 let AideForm = props => {
   return (
@@ -44,40 +56,33 @@ let AideForm = props => {
         label="Structure porteuse"
       />
       <CheckboxGroup
-        name="typesDeTerritoires"
-        options={TYPES_DE_TERRITOIRES_OPTIONS}
+        name="territoiresEligibles"
+        options={TERRITOIRES_ELIGIBLES_OPTIONS}
       />
-      {/*
-      <Field
-        name="typeDeTerritoire"
-        component={Select}
-        className="is-medium is-multiple is-primary"
-        options={TYPES_DE_TERRITOIRES_OPTIONS}
-      />
-      <br />
-    */}
-      {props.formValues.typesDeTerritoires &&
-        props.formValues.typesDeTerritoires.includes("departement") && (
+      {props.formValues.territoiresEligibles &&
+        props.formValues.territoiresEligibles.includes("regionale") && (
           <Field
-            name="codeDepartement"
-            label="Précisez le département"
-            component={Text}
-            className="is-large"
-            autocompleteCallback={getDepartementsByName}
-          />
-        )}
-      {props.formValues.typesDeTerritoires &&
-        props.formValues.typesDeTerritoires.includes("region") && (
-          <Field
-            name="codeRegion"
+            name="regionName"
             label="Précisez la région"
             component={Text}
             className="is-large"
             autocompleteCallback={getRegionsByName}
+            onSuggestionClick={onRegionSuggestionClick}
           />
         )}
-      {props.formValues.typesDeTerritoires &&
-        props.formValues.typesDeTerritoires.includes("epci") && (
+      {props.formValues.territoiresEligibles &&
+        props.formValues.territoiresEligibles.includes("departementale") && (
+          <Field
+            name="departementName"
+            label="Précisez le département"
+            component={Text}
+            className="is-large"
+            autocompleteCallback={getDepartementsByName}
+            onSuggestionClick={onDepartementSuggestionClick}
+          />
+        )}
+      {props.formValues.territoiresEligibles &&
+        props.formValues.territoiresEligibles.includes("epci") && (
           <Field
             name="codeEpci"
             label="Précisez l'EPCI"
@@ -86,20 +91,17 @@ let AideForm = props => {
           />
         )}
       <SubmitButton className="is-large is-primary" value="Envoyer" />
-      Debug <br />
+      <br />
+      <br />
       <pre>{JSON.stringify(props.formValues, null, 2)}</pre>
     </form>
   );
 };
 
-const formName = "aide";
 const validate = values => {
   const errors = {};
   if (!values.name.trim()) {
     errors.name = "Le champ nom est requis";
-  }
-  if (!values.codeDepartement.trim()) {
-    errors.codeDepartement = "Le champ codeDepartement est requis";
   }
   return errors;
 };
@@ -112,8 +114,11 @@ AideForm = reduxForm({
     name: "",
     description: "",
     structurePorteuse: "",
-    typeDeTerritoire: ["region"],
-    codeDepartement: ""
+    territoiresEligibles: [],
+    departementName: "",
+    regionName: "",
+    departement: {},
+    region: {}
   }
 })(AideForm);
 

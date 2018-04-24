@@ -2,10 +2,13 @@
   padding: 1rem;
 }
 
+.CheckboxGroup .label {
+  cursor: pointer;
+}
+
 .CheckboxGroup .checkbox {
   display: block;
   margin-bottom: 1rem;
-  cursor: pointer;
 }
 
 .CheckboxGroup .checkbox span {

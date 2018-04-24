@@ -4,10 +4,7 @@ import "./TextSuggestions.css";
 
 export default class extends React.Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired
-  };
-  handleClick = suggestion => {
-    this.props.onClick(suggestion);
+    onSuggestionClick: PropTypes.func.isRequired
   };
   render() {
     const { suggestions } = this.props;
@@ -15,8 +12,11 @@ export default class extends React.Component {
       <div className="TextSuggestions dropdown is-active">
         <ul className="suggestionsWrapper">
           {suggestions.map((suggestion, index) => (
-            <li onClick={e => this.handleClick(suggestion)} key={index}>
-              {suggestion.text}
+            <li
+              onClick={e => this.props.onSuggestionClick(suggestion)}
+              key={index}
+            >
+              {suggestion.label}
             </li>
           ))}
         </ul>
