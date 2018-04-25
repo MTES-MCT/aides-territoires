@@ -19,8 +19,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "pm2 start ecosystem.config.js",
-    "start": "pm2 start ecosystem.config.js --env production",
+    "dev": "pm2 start ecosystem.config.js --watch",
+    "start": "pm2 start ecosystem.config.js",
     "restart": "pm2 delete aides-territoires-server && yarn start"
   },
   "author": "",
