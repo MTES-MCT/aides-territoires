@@ -27,3 +27,7 @@
   border-bottom: solid silver 1px;
   background: rgb(240, 240, 240);
 }
+
+.TextSuggestions .active {
+  background: rgba(144, 238, 144, 0.3);
+}

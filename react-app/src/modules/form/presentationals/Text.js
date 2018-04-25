@@ -14,7 +14,8 @@ export default class extends React.Component {
   state = {
     suggestions: [],
     value: "",
-    showSuggestions: false
+    showSuggestions: false,
+    inputKeyDown: null
   };
   handleInputChange = async event => {
     if (this.props.onSuggestionClick) {
@@ -50,6 +51,11 @@ export default class extends React.Component {
       this.props.onSuggestionClick(suggestion);
     }
   };
+  handleInputKeyDown = e => {
+    this.setState({
+      inputKeyDown: e.key
+    });
+  };
   render() {
     const {
       input,
@@ -61,15 +67,17 @@ export default class extends React.Component {
       <div className="field">
         <label className="label">{label}</label>
         <input
+          onKeyDown={this.handleInputKeyDown}
           type="textfield"
           className={classNames("input", className)}
-          autoComplete={this.state.showSuggestions ? "off" : "on"}
+          autoComplete={this.props.onSuggestionClick ? "off" : "on"}
           {...input}
           // override redux-form onChange method
           onChange={this.handleInputChange}
         />
         {this.state.showSuggestions && (
           <TextSuggestions
+            inputKeyDown={this.state.inputKeyDown}
             onSuggestionClick={this.handleSuggestionClick}
             suggestions={this.state.suggestions}
           />
