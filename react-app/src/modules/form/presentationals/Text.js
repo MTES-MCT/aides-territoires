@@ -18,11 +18,13 @@ export default class extends React.Component {
     inputKeyDown: null
   };
   handleInputChange = async event => {
+    const { value } = event.target;
     if (this.props.onSuggestionClick) {
-      // si on est en train d'écrire, il n'y a pas de suggestion validée
+      // si on est en train d'écrire, il faut retirer la suggestion
+      // précédemment enregistrée : on averti le composant parent
+      // en envoyant une suggestion vide
       this.props.onSuggestionClick({});
     }
-    const { value } = event.target;
     this.props.input.onChange(value);
     // call redux-form onChange method ourselves
     // this.props.input.onChange(value);
