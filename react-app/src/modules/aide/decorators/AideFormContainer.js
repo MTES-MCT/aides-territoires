@@ -8,7 +8,7 @@ class AideFormContainer extends React.Component {
     formValues: []
   };
   handleSubmit = values => {
-    this.props.AideSave({
+    this.props.createAide({
       variables: { name: values.name, description: values.description }
     });
   };
@@ -17,13 +17,13 @@ class AideFormContainer extends React.Component {
   }
 }
 
-const AideSave = gql`
-  mutation AideSave($name: String!, $description: String!) {
-    AideSave(name: $name, description: $description) {
+const createAide = gql`
+  mutation createAide($name: String!, $description: String!) {
+    createAide(name: $name, description: $description) {
       name
       description
     }
   }
 `;
 
-export default graphql(AideSave, { name: "AideSave" })(AideFormContainer);
+export default graphql(createAide, { name: "createAide" })(AideFormContainer);

@@ -1,15 +1,14 @@
 import React from "react";
-import Layout from "modules/common/layouts/Layout";
+import AdminLayout from "modules/admin/layouts/AdminLayout";
 import AideFormContainer from "modules/aide/decorators/AideFormContainer";
 
 class AideFormPage extends React.Component {
   render() {
     return (
-      <Layout>
-        <div className="section container">
-          <AideFormContainer />
-        </div>
-      </Layout>
+      <AdminLayout>
+        <h1 className="title is-1">Créer une aide</h1>
+        <AideFormContainer />
+      </AdminLayout>
     );
   }
 }

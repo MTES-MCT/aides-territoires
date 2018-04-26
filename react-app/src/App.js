@@ -8,7 +8,9 @@ import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import HomePage from "./modules/homepage/pages/HomePage";
 import SearchPage from "./modules/search/pages/SearchPage";
-import AideFormPage from "./modules/aide/pages/AideFormPage";
+import AideCreatePage from "./modules/aide/pages/AideCreatePage";
+import AdminPage from "./modules/admin/pages/AdminPage";
+import TypeDeTerritoireCreatePage from "./modules/aide/pages/TypeDeTerritoireCreatePage";
 
 class App extends Component {
   render() {
@@ -21,7 +23,13 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/search" component={SearchPage} />
-                  <Route exact path="/aide/form" component={AideFormPage} />
+                  <Route exact path="/admin" component={AdminPage} />
+                  <Route exact path="/aide/create" component={AideCreatePage} />
+                  <Route
+                    exact
+                    path="/type-de-territoire/create"
+                    component={TypeDeTerritoireCreatePage}
+                  />
                 </Switch>
               </div>
             </MuiThemeProvider>
