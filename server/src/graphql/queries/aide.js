@@ -32,7 +32,11 @@ module.exports = {
       }
     },
     resolve: (_, args, context) => {
-      return AideModel.find({}).then(r => r);
+      const query = AideModel.find({});
+      if (args.limit) {
+        query.limit(args.limit);
+      }
+      return query.then(r => r);
     }
   }
 };
