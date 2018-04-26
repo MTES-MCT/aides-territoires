@@ -10,18 +10,15 @@ const {
 } = require("graphql");
 
 module.exports = {
-  aide: {
+  getAide: {
     type: types.Aide,
     args: {
       id: {
         type: GraphQLID
       }
     },
-    resolve: (_, args, context) => {
-      return {
-        id: "56789YHJKNKL",
-        name: "Yann"
-      };
+    resolve: async (_, { id }, context) => {
+      return await AideModel.findById(id);
     }
   },
   allAides: {
