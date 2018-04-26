@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AideList from "../presentationals/AideList";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +7,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <AideList />
+        <h2 className="title is-2">Liste des aides</h2>
       </div>
     );
   }

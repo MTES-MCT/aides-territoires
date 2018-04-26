@@ -10,6 +10,7 @@ import HomePage from "./modules/homepage/pages/HomePage";
 import SearchPage from "./modules/search/pages/SearchPage";
 import AideCreatePage from "./modules/aide/pages/AideCreatePage";
 import AdminPage from "./modules/admin/pages/AdminPage";
+import AideListPage from "./modules/admin/pages/AideListPage";
 import TypeDeTerritoireCreatePage from "./modules/aide/pages/TypeDeTerritoireCreatePage";
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
                   <Route exact path="/search" component={SearchPage} />
                   <Route exact path="/admin" component={AdminPage} />
                   <Route exact path="/aide/create" component={AideCreatePage} />
+                  <Route exact path="/aide/list" component={AideListPage} />
                   <Route
                     exact
                     path="/type-de-territoire/create"

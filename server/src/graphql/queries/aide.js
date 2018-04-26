@@ -36,6 +36,7 @@ module.exports = {
       if (args.limit) {
         query.limit(args.limit);
       }
+      query.sort("-createdAt");
       return query.then(r => r);
     }
   }
