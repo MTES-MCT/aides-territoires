@@ -8,17 +8,22 @@ class AideFormContainer extends React.Component {
     formValues: []
   };
   handleSubmit = values => {
-    console.log(values);
+    this.props.AideSave({
+      variables: { name: values.name, description: values.description }
+    });
   };
   render() {
     return <AideForm onSubmit={this.handleSubmit} />;
   }
 }
 
-export default graphql(gql`
-  {
-    allPagedaccueils {
-      header
+const AideSave = gql`
+  mutation AideSave($name: String!, $description: String!) {
+    AideSave(name: $name, description: $description) {
+      name
+      description
     }
   }
-`)(AideFormContainer);
+`;
+
+export default graphql(AideSave, { name: "AideSave" })(AideFormContainer);
