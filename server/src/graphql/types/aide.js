@@ -11,8 +11,11 @@ const {
 const Aide = new GraphQLObjectType({
   name: "Aide",
   fields: () => ({
+    id: { type: GraphQLString },
     name: { type: GraphQLString },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
+    updatedAt: { type: GraphQLString }
   })
 });
 

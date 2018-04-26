@@ -26,7 +26,8 @@ function buildGraphQLSchema() {
       name: "Query",
       fields: {
         ...require("./graphql/queries/user"),
-        ...require("./graphql/queries/hello")
+        ...require("./graphql/queries/hello"),
+        ...require("./graphql/queries/aide")
       }
     }),
     // "mutation" type contains all our mutations types
