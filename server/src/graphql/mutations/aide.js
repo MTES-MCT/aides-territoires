@@ -20,5 +20,24 @@ module.exports = {
       const result = await aide.save();
       return result;
     }
+  },
+  deleteAide: {
+    type: new GraphQLObjectType({
+      name: "deleteAide",
+      fields: () => ({
+        id: { type: GraphQLString },
+        n: { type: GraphQLString },
+        ok: { type: GraphQLString }
+      })
+    }),
+    args: {
+      id: {
+        type: GraphQLID
+      }
+    },
+    resolve: async (_, { id }, context) => {
+      const result = await AideModel.remove({ _id: id });
+      return { id, ...result };
+    }
   }
 };
