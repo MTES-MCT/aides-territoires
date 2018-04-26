@@ -22,7 +22,7 @@ class AideFormContainer extends React.Component {
       .createAide({
         variables: { name: values.name, description: values.description },
         // mettre à jour la liste des aides dans l'admin
-        refetchQueries: ["AideListPageAllAides"]
+        refetchQueries: ["adminAllAides"]
       })
       .then(r =>
         this.setState({
