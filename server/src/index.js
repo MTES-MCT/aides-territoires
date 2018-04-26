@@ -34,7 +34,8 @@ function buildGraphQLSchema() {
       name: "Mutation",
       fields: {
         ...require("./graphql/mutations/email"),
-        ...require("./graphql/mutations/aide")
+        ...require("./graphql/mutations/aide"),
+        ...require("./graphql/mutations/typeDeTerritoire")
       }
     })
   });
