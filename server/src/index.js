@@ -1,56 +1,68 @@
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/aides-territoires");
-
 // middleware express pour ajouter les headers CORS
 const cors = require("cors");
 const graphql = require("graphql");
 const { buildSchema, GraphQLSchema } = require("graphql");
+const mongoose = require("mongoose");
 
-// our full graphQL schema
-
-const schema = new graphql.GraphQLSchema({
-  // "query" type contains all our queries types
-  query: new graphql.GraphQLObjectType({
-    name: "Query",
-    fields: {
-      ...require("./schema/queries/user"),
-      ...require("./schema/queries/hello")
-    }
-  }),
-  // "mutation" type contains all our mutations types
-  mutation: new graphql.GraphQLObjectType({
-    name: "Mutation",
-    fields: {
-      ...require("./schema/mutations/email"),
-      ...require("./schema/mutations/aide")
-    }
+connectToMongodb()
+  .then(() => {
+    console.log(`connected successfully to ${process.env.MONGODB_URL} ! `);
+    const schema = buildGraphQLSchema();
+    startExpressServer(schema);
   })
-});
-// console.log(JSON.stringify(schema, null, 2));
+  .catch(e => console.error(e));
 
-const isDev = process.env.NODE_ENV === "development";
-const app = express();
-app.use(cors());
-// to support JSON-encoded bodies
-// app.use(express.json());
+function connectToMongodb() {
+  mongoose.Promise = global.Promise;
+  return mongoose.connect(process.env.MONGODB_URL);
+}
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    rootValue: root,
-    // always display graphiql explorer for now
-    graphiql: true
-  })
-);
+function buildGraphQLSchema() {
+  const schema = new graphql.GraphQLSchema({
+    // "query" type contains all our queries types
+    query: new graphql.GraphQLObjectType({
+      name: "Query",
+      fields: {
+        ...require("./graphql/queries/user"),
+        ...require("./graphql/queries/hello")
+      }
+    }),
+    // "mutation" type contains all our mutations types
+    mutation: new graphql.GraphQLObjectType({
+      name: "Mutation",
+      fields: {
+        ...require("./graphql/mutations/email"),
+        ...require("./graphql/mutations/aide")
+      }
+    })
+  });
+  return schema;
+}
 
-app.use("/", (req, res) => {
-  res.json("server is running. Go to /graphql.");
-});
+function startExpressServer(schema) {
+  const app = express();
+  app.use(cors());
+  // to support JSON-encoded bodies
+  // app.use(express.json());
 
-app.listen(process.env.PORT);
-console.log(
-  `Running a GraphQL API server at localhost:${process.env.PORT}/graphql`
-);
+  app.use(
+    "/graphql",
+    graphqlHTTP({
+      schema,
+      rootValue: root,
+      // always display graphiql explorer for now
+      graphiql: true
+    })
+  );
+
+  app.use("/", (req, res) => {
+    res.json("server is running. Go to /graphql.");
+  });
+
+  app.listen(process.env.PORT);
+  console.log(
+    `Running a GraphQL API server at localhost:${process.env.PORT}/graphql`
+  );
+}
