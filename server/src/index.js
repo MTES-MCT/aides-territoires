@@ -55,7 +55,12 @@ function startExpressServer(schema) {
       schema,
       rootValue: root,
       // always display graphiql explorer for now
-      graphiql: true
+      graphiql: true,
+      formatError: error => {
+        return {
+          message: error.message
+        };
+      }
     })
   );
 

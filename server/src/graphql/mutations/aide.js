@@ -15,8 +15,8 @@ module.exports = {
     args: {
       ...types.Aide._typeConfig.fields()
     },
-    resolve: async (_, { name, description }, context) => {
-      const aide = new AideModel({ name, description });
+    resolve: async (_, args, context) => {
+      const aide = new AideModel(args);
       const result = await aide.save();
       return result;
     }

@@ -11,7 +11,6 @@ const AideListPage = class extends React.Component {
   }
 
   render() {
-    console.log("props", this.props);
     const { props } = this;
 
     const { loading, allAides } = props.data;

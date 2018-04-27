@@ -4,8 +4,10 @@ const {
   GraphQLID,
   GraphQLObjectType,
   GraphQLNonNull,
+  GraphQLEnumType,
   GraphQLString,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLList
 } = require("graphql");
 
 const Aide = new GraphQLObjectType({
@@ -13,9 +15,15 @@ const Aide = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
-    description: { type: GraphQLString },
     createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString }
+    updatedAt: { type: GraphQLString },
+    description: { type: GraphQLString },
+    type: { type: GraphQLString },
+    perimetreApplication: { type: new GraphQLList(GraphQLString) },
+    etape: { type: new GraphQLList(GraphQLString) },
+    status: { type: GraphQLString },
+    perimetreApplication: { type: new GraphQLList(GraphQLString) },
+    structurePorteuse: { type: GraphQLString }
   })
 });
 

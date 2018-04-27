@@ -11,15 +11,27 @@ import {
 } from "../../../services/geoApi";
 
 // les périmètres géographiques éligibles pour l'aide
-const TERRITOIRES_ELIGIBLES_OPTIONS = [
-  { value: "europeene", label: "Europe" },
-  { value: "nationale", label: "Nationale (Métropole + outre-mer)" },
-  { value: "regionale", label: "Régionale" },
+const PERIMETRE_APPLICATION_OPTIONS = [
+  { value: "europe", label: "Europe" },
+  { value: "france", label: "Nationale (Métropole + outre-mer)" },
+  { value: "region", label: "Régionale" },
   { value: "outre_mer", label: "Outre Mer" },
   { value: "metropole", label: "France Métropole et Corse" },
-  { value: "departementale", label: "Département" }
-  /*{ value: "epci", label: "epci" },
-  { value: "bassin", label: "Bassin" },*/
+  { value: "departement", label: "Département" }
+];
+
+const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;
+
+const TYPE_OPTIONS = [
+  { value: "financement", label: "Financement" },
+  { value: "ingenierie", label: "Ingénierie" },
+  { value: "autre", label: "Autre" }
+];
+
+const ETAPE_OPTIONS = [
+  { value: "pre-operationnel", label: "Pré-opérationnel" },
+  { value: "operationnel", label: "Opérationnel" },
+  { value: "fonctionnement", label: "Fonctionnement" }
 ];
 
 const formName = "aide";
@@ -27,7 +39,7 @@ const formName = "aide";
 const initialValues = {
   description: "",
   structurePorteuse: "",
-  territoiresEligibles: [],
+  perimetreApplication: [],
   regionName: "",
   departementName: "",
   departement: {
@@ -65,23 +77,26 @@ let AideForm = props => {
             component={Text}
             label="Structure porteuse"
           />
-          {TERRITOIRES_ELIGIBLES_OPTIONS.map(option => {
-            return (
-              <div key={option.value}>
-                <label className="checkbox">
-                  <Field
-                    name="territoiresEligibles"
-                    component="input"
-                    type="checkbox"
-                    value={option.value}
-                  />{" "}
-                  {option.label}
-                </label>
-              </div>
-            );
-          })}
-          {values.territoiresEligibles &&
-            values.territoiresEligibles.includes("regionale") && (
+          <div className="field">
+            <label className="label"> Périmètre d'application </label>
+            {PERIMETRE_APPLICATION_OPTIONS.map(option => {
+              return (
+                <div key={option.value}>
+                  <label className="checkbox">
+                    <Field
+                      name="perimetreApplication"
+                      component="input"
+                      type="checkbox"
+                      value={option.value}
+                    />{" "}
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+          {values.perimetreApplication &&
+            values.perimetreApplication.includes("region") && (
               <Field
                 name="region"
                 label="Précisez la région"
@@ -91,8 +106,8 @@ let AideForm = props => {
                 autocompleteCallback={getRegionsByName}
               />
             )}
-          {values.territoiresEligibles &&
-            values.territoiresEligibles.includes("departementale") && (
+          {values.perimetreApplication &&
+            values.perimetreApplication.includes("departement") && (
               <Field
                 name="departement"
                 format={suggestion => suggestion.label}
@@ -102,6 +117,62 @@ let AideForm = props => {
                 autocompleteCallback={getDepartementsByName}
               />
             )}
+          <div className="field">
+            <label className="label"> Périmètre de diffusion </label>
+            {PERIMETRE_DIFFUSION_OPTIONS.map(option => {
+              return (
+                <div key={option.value}>
+                  <label className="checkbox">
+                    <Field
+                      name="perimetreDiffusion"
+                      component="input"
+                      type="checkbox"
+                      value={option.value}
+                    />{" "}
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+          <div className="field">
+            <label className="label"> Financement </label>
+            {TYPE_OPTIONS.map(option => {
+              return (
+                <div key={option.value}>
+                  <label className="checkbox">
+                    <Field
+                      name="type"
+                      component="input"
+                      type="checkbox"
+                      value={option.value}
+                    />{" "}
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="field">
+            <label className="label"> Etape </label>
+            {ETAPE_OPTIONS.map(option => {
+              return (
+                <div key={option.value}>
+                  <label className="checkbox">
+                    <Field
+                      name="etape"
+                      component="input"
+                      type="checkbox"
+                      value={option.value}
+                    />{" "}
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+
           <button
             type="submit"
             className="button is-large is-primary"

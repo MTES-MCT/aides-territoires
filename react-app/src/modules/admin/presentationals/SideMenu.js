@@ -13,11 +13,13 @@ const SideMenu = () => {
           <li>
             <NavLink to="/aide/list">Liste des aides</NavLink>
           </li>
+          {/*
           <li>
             <NavLink to="/type-de-territoire/create">
               Créer un type de territoire
             </NavLink>
           </li>
+          */}
         </ul>
       </aside>
     </div>

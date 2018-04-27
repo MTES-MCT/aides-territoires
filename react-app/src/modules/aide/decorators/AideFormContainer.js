@@ -18,9 +18,10 @@ class AideFormContainer extends React.Component {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
+    console.log(values);
     this.props
       .createAide({
-        variables: { name: values.name, description: values.description },
+        variables: { ...values },
         // mettre à jour la liste des aides dans l'admin
         refetchQueries: ["adminAllAides"]
       })
@@ -39,10 +40,27 @@ class AideFormContainer extends React.Component {
 }
 
 const createAide = gql`
-  mutation createAide($name: String!, $description: String!) {
-    createAide(name: $name, description: $description) {
+  mutation createAide(
+    $name: String!
+    $description: String!
+    $type: String
+    $perimetreDiffusion: [String]
+    $perimetreApplication: [String]
+    $etape: [String]
+    $status: String!
+    $structurePorteuse: String!
+  ) {
+    createAide(
+      name: $name
+      description: $description
+      type: $type
+      perimetreDiffusion: $perimetreDiffusion
+      perimetreApplication: $perimetreApplication
+      etape: $etape
+      status: $status
+      structurePorteuse: $structurePorteuse
+    ) {
       name
-      description
     }
   }
 `;
