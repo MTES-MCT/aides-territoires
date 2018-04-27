@@ -46,15 +46,7 @@ let AideForm = props => {
       onSubmit={props.onSubmit}
       validate={validate}
       initialValues={initialValues}
-      render={({
-        handleSubmit,
-        reset,
-        submitting,
-        pristine,
-        values,
-        form,
-        mutators
-      }) => (
+      render={({ handleSubmit, reset, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
           <Field
             className="is-large"
