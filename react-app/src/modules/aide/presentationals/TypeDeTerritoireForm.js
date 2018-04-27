@@ -4,8 +4,6 @@ import { Field, reduxForm, change, formValues } from "redux-form";
 import Store from "store";
 import Text from "modules/form/presentationals/Text";
 import TextArea from "modules/form/presentationals/TextArea";
-import CheckboxGroup from "modules/form/presentationals/CheckboxGroup";
-import SubmitButton from "modules/form/presentationals/SubmitButton";
 
 const formName = "typeDeTerritoire";
 
@@ -23,7 +21,6 @@ let TypeDeTerritoireForm = props => {
         component={TextArea}
         label="Descriptif de l'aide"
       />
-      <SubmitButton className="is-large is-primary" value="Envoyer" />
       <br />
       <br />
       <pre>{JSON.stringify(props.formValues, null, 2)}</pre>
