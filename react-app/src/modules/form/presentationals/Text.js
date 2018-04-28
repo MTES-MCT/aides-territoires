@@ -18,11 +18,7 @@ export default class extends React.Component {
   };
   handleInputChange = async event => {
     const { value } = event.target;
-    if (this.props.autocompleteCallback) {
-      this.props.input.onChange({ label: value, value: "" });
-    } else {
-      this.props.input.onChange(value);
-    }
+    this.props.input.onChange(value);
     // call redux-form onChange method ourselves
     // this.props.input.onChange(value);
     if (this.props.autocompleteCallback) {
@@ -42,13 +38,11 @@ export default class extends React.Component {
     }
   };
   handleSuggestionClick = suggestion => {
-    this.props.input.onChange(suggestion);
+    this.props.input.onChange(suggestion.label);
+    this.props.onSuggestionClick(suggestion);
     this.setState({
       showSuggestions: false
     });
-    if (this.props.onSuggestionClick) {
-      this.props.onSuggestionClick(suggestion);
-    }
   };
   handleInputKeyDown = e => {
     this.setState({
@@ -60,7 +54,8 @@ export default class extends React.Component {
       input,
       label,
       meta: { touched, error },
-      className
+      className,
+      ...rest
     } = this.props;
     return (
       <div className="field">
@@ -73,6 +68,7 @@ export default class extends React.Component {
           autoComplete="off"
           // override redux-form onChange method
           {...input}
+          {...rest}
           onChange={this.handleInputChange}
         />
         {this.state.showSuggestions && (

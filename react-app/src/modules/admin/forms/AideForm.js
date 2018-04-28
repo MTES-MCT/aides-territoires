@@ -120,7 +120,14 @@ class AideForm extends React.Component {
         onSubmit={this.handleSubmit}
         validate={validate}
         initialValues={initialValues}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
+        render={({
+          handleSubmit,
+          reset,
+          submitting,
+          pristine,
+          values,
+          form
+        }) => (
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
@@ -189,14 +196,32 @@ class AideForm extends React.Component {
                   )}
                 {values.perimetreApplication &&
                   values.perimetreApplication.includes("departement") && (
-                    <Field
-                      name="departement"
-                      format={suggestion => suggestion.label}
-                      label="Précisez le département"
-                      component={Text}
-                      className="is-large"
-                      autocompleteCallback={getDepartementsByName}
-                    />
+                    <div className="columns">
+                      <div className="column">
+                        <Field
+                          name="departement"
+                          // format={suggestion => suggestion.label}
+                          label="Précisez le département"
+                          component={Text}
+                          className="is-large"
+                          onSuggestionClick={suggestion => {
+                            form.change("departementCode", suggestion.value);
+                          }}
+                          autocompleteCallback={getDepartementsByName}
+                        />
+                      </div>
+                      <div className="column">
+                        <Field
+                          name="departementCode"
+                          // format={suggestion => suggestion.label}
+                          label="code territoire"
+                          component={Text}
+                          className="is-large"
+                          disabled={true}
+                          autocompleteCallback={getDepartementsByName}
+                        />
+                      </div>
+                    </div>
                   )}
               </div>
               <div className="column">
