@@ -87,36 +87,34 @@ class AideForm extends React.Component {
     formValues: [],
     submissionStatus: SUBMISSION_STATUS_NOT_STARTED
   };
-  handleSubmit = values => {
+  handleSubmit = async values => {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
-    if (values.perimetreApplication === "departement") {
-      values.perimetreApplicationCode = values.departement.value;
+    const aide = { ...values };
+    if (aide.perimetreApplication === "departement") {
+      aide.perimetreApplicationCode = values.departement.value;
     }
-    if (values.perimetreApplication === "region") {
-      values.perimetreApplicationCode = values.region.value;
+    if (aide.perimetreApplication === "region") {
+      aide.perimetreApplicationCode = values.region.value;
     }
-    this.props
-      .createAide({
-        variables: { ...values },
-        // mettre à jour la liste des aides dans l'admin
-        refetchQueries: ["adminAllAides"]
-      })
-      .then(r =>
-        this.setState({
-          submissionStatus: SUBMISSION_STATUS_FINISHED
-        })
-      )
-      .catch(e => {
-        console.error(e);
-      });
+    console.log("aide", aide);
+    const result = await this.props.saveAide({
+      variables: aide,
+      // mettre à jour la liste des aides dans l'admin
+      refetchQueries: ["adminAllAides"]
+    });
+    this.setState({
+      submissionStatus: SUBMISSION_STATUS_FINISHED
+    });
   };
   render() {
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
       return <Redirect push to="/aide/list" />;
     }
-    const initialValues = this.props.values ? this.props.values : defaultValues;
+    const initialValues = this.props.aide
+      ? Object.assign(defaultValues, this.props.aide)
+      : defaultValues;
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -305,8 +303,9 @@ class AideForm extends React.Component {
   }
 }
 
-const createAideMutation = gql`
-  mutation createAide(
+const saveAide = gql`
+  mutation saveAide(
+    $id: String
     $name: String!
     $description: String!
     $type: String!
@@ -317,7 +316,8 @@ const createAideMutation = gql`
     $structurePorteuse: String!
     $status: String!
   ) {
-    createAide(
+    saveAide(
+      id: $id
       name: $name
       description: $description
       type: $type
@@ -333,4 +333,4 @@ const createAideMutation = gql`
   }
 `;
 
-export default graphql(createAideMutation, { name: "createAide" })(AideForm);
+export default graphql(saveAide, { name: "saveAide" })(AideForm);

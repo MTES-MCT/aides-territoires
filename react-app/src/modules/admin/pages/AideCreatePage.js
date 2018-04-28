@@ -1,6 +1,6 @@
 import React from "react";
 import AdminLayout from "modules/admin/layouts/AdminLayout";
-import AideForm from "modules/admin/presentationals/AideForm";
+import AideForm from "modules/admin/forms/AideForm";
 
 class AideFormPage extends React.Component {
   render() {

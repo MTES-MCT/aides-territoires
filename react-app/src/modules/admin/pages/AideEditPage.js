@@ -1,20 +1,23 @@
 import React from "react";
 import AdminLayout from "modules/admin/layouts/AdminLayout";
-import AideForm from "modules/admin/presentationals/AideForm";
+import AideForm from "modules/admin/forms/AideForm";
+import AppLoader from "modules/common/presentationals/AppLoader";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
-const AideEditPage = ({ data }) => {
+const AideEditPage = ({ data: { aide } }) => {
   return (
     <AdminLayout>
-      <AideForm />
+      {!aide && <AppLoader />}
+      {aide && <AideForm aide={aide} />}
     </AdminLayout>
   );
 };
 
 const editAideQuery = gql`
   query editAide($id: ID) {
-    getAide(id: $id) {
+    aide: getAide(id: $id) {
+      id
       name
       description
       etape
@@ -36,7 +39,6 @@ const editAideQuery = gql`
 export default compose(
   graphql(editAideQuery, {
     options: props => {
-      console.log(props);
       return {
         variables: {
           id: props.match.params.id

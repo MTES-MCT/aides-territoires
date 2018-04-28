@@ -6,14 +6,8 @@ import Loader from "modules/common/presentationals/AppLoader";
 import AideList from "modules/admin/presentationals/AideList";
 
 const AideListPage = class extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { props } = this;
-
-    const { loading, allAides } = props.data;
+    const { loading, allAides } = this.props.data;
     return (
       <AdminLayout>
         <h1 className="title is-1">Liste des aides</h1>
