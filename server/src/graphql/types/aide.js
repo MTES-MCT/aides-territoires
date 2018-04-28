@@ -5,6 +5,7 @@ const {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLEnumType,
+  GraphQLInt,
   GraphQLString,
   GraphQLBoolean,
   GraphQLList
@@ -19,11 +20,15 @@ const Aide = new GraphQLObjectType({
     updatedAt: { type: GraphQLString },
     description: { type: GraphQLString },
     type: { type: GraphQLString },
-    perimetreApplication: { type: new GraphQLList(GraphQLString) },
-    etape: { type: new GraphQLList(GraphQLString) },
+    perimetreApplication: { type: GraphQLString },
+    perimetreDiffusion: { type: GraphQLString },
+    etape: { type: GraphQLString },
     status: { type: GraphQLString },
-    perimetreApplication: { type: new GraphQLList(GraphQLString) },
-    structurePorteuse: { type: GraphQLString }
+    structurePorteuse: { type: GraphQLString },
+    beneficiaires: { type: GraphQLList(GraphQLString) },
+    populationMin: { type: GraphQLInt },
+    populationMax: { type: GraphQLInt },
+    status: { type: GraphQLString }
   })
 });
 

@@ -1,0 +1,54 @@
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"Variable \"$perimetreDiffusion\" of type \"[String]\" used in position expecting type \"String\".","locations":[{"line":1,"column":76},{"line":2,"column":87}],"level":"error"}
+{"message":"Variable \"$perimetreApplication\" of type \"[String]\" used in position expecting type \"String\".","locations":[{"line":1,"column":107},{"line":2,"column":130}],"level":"error"}
+{"message":"Variable \"$etape\" of type \"String\" used in position expecting type \"[String]\".","locations":[{"line":1,"column":136},{"line":2,"column":160}],"level":"error"}
+{"message":"Variable \"$etape\" of type \"String\" used in position expecting type \"[String]\".","locations":[{"line":1,"column":136},{"line":2,"column":160}],"level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"level":"error"}
+{"message":"MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"level":"error"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}
+{"message":"warning : MISSING PORT VARIABLE","level":"error"}
+{"message":"Running a GraphQL API server at localhost:8100/graphql","level":"info"}

@@ -5,8 +5,8 @@ const schema = new mongoose.Schema(
     name: String,
     description: String,
     type: {
-      type: [String],
-      enum: ["financement", "ingénierie", "autre"]
+      type: String,
+      enum: ["financement", "ingenierie", "autre"]
     },
     perimetreApplication: {
       type: String,
@@ -20,18 +20,18 @@ const schema = new mongoose.Schema(
       ]
     },
     perimetreApplicationCode: {
-      type: [String]
+      type: String
     },
     etape: {
-      type: [String],
+      type: String,
       enum: ["pre-operationnel", "operationnel", "fonctionnement"]
     },
     status: {
-      type: [String],
+      type: String,
       enum: ["draft", "published", "to_review"]
     },
     perimetreDiffusion: {
-      type: [String],
+      type: String,
       enum: [
         "departement",
         "region",
@@ -42,7 +42,7 @@ const schema = new mongoose.Schema(
       ]
     },
     lien: {
-      type: [String]
+      type: String
     },
     populationMin: {
       type: Number
@@ -51,7 +51,7 @@ const schema = new mongoose.Schema(
       type: Number
     },
     structurePorteuse: {
-      type: [String]
+      type: String
     },
     beneficiaires: {
       type: [String],

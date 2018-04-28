@@ -5,6 +5,7 @@ const cors = require("cors");
 const graphql = require("graphql");
 const { buildSchema, GraphQLSchema } = require("graphql");
 const mongoose = require("mongoose");
+const logger = require("./services/logger");
 
 connectToMongodb()
   .then(() => {
@@ -56,11 +57,13 @@ function startExpressServer(schema) {
       rootValue: root,
       // always display graphiql explorer for now
       graphiql: true,
-      formatError: error => {
-        return {
-          message: error.message
-        };
-      }
+      formatError: error => ({
+        message: error.message,
+        stack:
+          process.env.NODE_ENV === "development"
+            ? error.stack.split("\n")
+            : null
+      })
     })
   );
 
@@ -68,8 +71,10 @@ function startExpressServer(schema) {
     res.json("server is running. Go to /graphql.");
   });
 
-  app.listen(process.env.PORT);
-  console.log(
-    `Running a GraphQL API server at localhost:${process.env.PORT}/graphql`
-  );
+  if (!process.env.PORT) {
+    logger.error("warning : MISSING PORT VARIABLE");
+  }
+  const port = process.env.PORT ? process.env.PORT : 8100;
+  app.listen(port);
+  logger.info(`Running a GraphQL API server at localhost:${port}/graphql`);
 }

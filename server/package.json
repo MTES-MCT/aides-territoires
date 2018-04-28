@@ -13,13 +13,16 @@
     "mongoose": "^5.0.10",
     "nconf": "^0.10.0",
     "nodemailer": "^4.6.3",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.17.3",
     "require-dir": "^1.0.0",
-    "sib-api-v3-sdk": "^6.0.0"
+    "sib-api-v3-sdk": "^6.0.0",
+    "winston": "next"
   },
   "devDependencies": {},
   "scripts": {
     "dev":
+      "MONGODB_URL=mongodb://localhost/aides-territoires nodemon src/index.js",
+    "pm2-dev":
       "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
     "start": "pm2 start ecosystem.config.js",
     "restart": "pm2 delete aides-territoires-server && yarn start"
