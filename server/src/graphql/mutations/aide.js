@@ -10,14 +10,24 @@ const {
 } = require("graphql");
 
 module.exports = {
-  createAide: {
+  saveAide: {
     type: types.Aide,
     args: {
       ...types.Aide._typeConfig.fields()
     },
     resolve: async (_, args, context) => {
-      const aide = new AideModel(args);
-      const result = await aide.save();
+      // pas d'id : on créer une nouvelle aide
+      let result = null;
+      if (!args.id) {
+        const aide = new AideModel(args);
+        result = await aide.save();
+      }
+      // un id, on le cherche puis on met à jour si on trouve
+      let aide = await AideModel.findById(args.id);
+      if (aide) {
+        aide = Object.assign(aide, args);
+        result = aide.save();
+      }
       return result;
     }
   },

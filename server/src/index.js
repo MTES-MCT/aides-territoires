@@ -57,13 +57,16 @@ function startExpressServer(schema) {
       rootValue: root,
       // always display graphiql explorer for now
       graphiql: true,
-      formatError: error => ({
-        message: error.message,
-        stack:
-          process.env.NODE_ENV === "development"
-            ? error.stack.split("\n")
-            : null
-      })
+      formatError: error => {
+        console.log(error);
+        return {
+          message: error.message,
+          stack:
+            process.env.NODE_ENV === "development"
+              ? error.stack.split("\n")
+              : null
+        };
+      }
     })
   );
 
