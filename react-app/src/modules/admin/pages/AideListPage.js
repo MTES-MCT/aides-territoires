@@ -42,6 +42,11 @@ const allAidesQuery = gql`
       updatedAt
       name
       description
+      perimetreApplication
+      perimetreApplicationCode
+      etape
+      structurePorteuse
+      status
     }
   }
 `;

@@ -77,148 +77,180 @@ let AideForm = props => {
       initialValues={initialValues}
       render={({ handleSubmit, reset, submitting, pristine, values }) => (
         <form onSubmit={handleSubmit}>
-          <Field
-            className="is-large"
-            name="name"
-            component={Text}
-            label="Nom de l'aide"
-          />
-          <Field
-            name="description"
-            component={TextArea}
-            label="Descriptif de l'aide"
-          />
-          <Field
-            name="structurePorteuse"
-            className="is-large"
-            component={Text}
-            label="Structure porteuse"
-          />
-          <div className="field">
-            <label className="label"> Périmètre d'application </label>
-            {PERIMETRE_APPLICATION_OPTIONS.map(option => {
-              return (
-                <div key={option.value}>
-                  <label className="checkbox">
-                    <Field
-                      name="perimetreApplication"
-                      component="input"
-                      type="radio"
-                      value={option.value}
-                    />{" "}
-                    {option.label}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          {values.perimetreApplication &&
-            values.perimetreApplication.includes("region") && (
+          <div className="columns">
+            <div className="column">
               <Field
-                name="region"
-                label="Précisez la région"
-                component={Text}
-                format={suggestion => suggestion.label}
                 className="is-large"
-                autocompleteCallback={getRegionsByName}
+                name="name"
+                component={Text}
+                label="Nom de l'aide"
               />
-            )}
-          {values.perimetreApplication &&
-            values.perimetreApplication.includes("departement") && (
               <Field
-                name="departement"
-                format={suggestion => suggestion.label}
-                label="Précisez le département"
-                component={Text}
-                className="is-large"
-                autocompleteCallback={getDepartementsByName}
+                name="description"
+                component={TextArea}
+                label="Descriptif de l'aide"
               />
-            )}
-          <div className="field">
-            <label className="label"> Périmètre de diffusion </label>
-            {PERIMETRE_DIFFUSION_OPTIONS.map(option => {
-              return (
-                <div key={option.value}>
-                  <label className="checkbox">
-                    <Field
-                      name="perimetreDiffusion"
-                      component="input"
-                      type="radio"
-                      value={option.value}
-                    />{" "}
-                    {option.label}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          <div className="field">
-            <label className="label"> Financement </label>
-            {TYPE_OPTIONS.map(option => {
-              return (
-                <div key={option.value}>
-                  <label className="checkbox">
-                    <Field
-                      name="type"
-                      component="input"
-                      type="radio"
-                      value={option.value}
-                    />{" "}
-                    {option.label}
-                  </label>
-                </div>
-              );
-            })}
+              <Field
+                name="structurePorteuse"
+                className="is-large"
+                component={Text}
+                label="Structure porteuse"
+              />
+              <Field
+                name="populationMin"
+                className="is-large"
+                component={Text}
+                label="population minimum (nombre d'habitant)"
+              />
+              <Field
+                name="populationMax"
+                className="is-large"
+                component={Text}
+                label="population maximum"
+              />
+            </div>
           </div>
 
-          <div className="field">
-            <label className="label"> Etape </label>
-            {ETAPE_OPTIONS.map(option => {
-              return (
-                <div key={option.value}>
-                  <label className="checkbox">
-                    <Field
-                      name="etape"
-                      component="input"
-                      type="radio"
-                      value={option.value}
-                    />{" "}
-                    {option.label}
-                  </label>
-                </div>
-              );
-            })}
+          <div className="columns">
+            <div className="column">
+              <div className="field">
+                <label className="label"> Périmètre d'application </label>
+                {PERIMETRE_APPLICATION_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="perimetreApplication"
+                          component="input"
+                          type="radio"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {values.perimetreApplication &&
+                values.perimetreApplication.includes("region") && (
+                  <Field
+                    name="region"
+                    label="Précisez la région"
+                    component={Text}
+                    format={suggestion => suggestion.label}
+                    className="is-large"
+                    autocompleteCallback={getRegionsByName}
+                  />
+                )}
+              {values.perimetreApplication &&
+                values.perimetreApplication.includes("departement") && (
+                  <Field
+                    name="departement"
+                    format={suggestion => suggestion.label}
+                    label="Précisez le département"
+                    component={Text}
+                    className="is-large"
+                    autocompleteCallback={getDepartementsByName}
+                  />
+                )}
+            </div>
+            <div className="column">
+              <div className="field">
+                <label className="label"> Périmètre de diffusion </label>
+                {PERIMETRE_DIFFUSION_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="perimetreDiffusion"
+                          component="input"
+                          type="radio"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="columns">
+            <div className="column">
+              <div className="field">
+                <label className="label"> Financement </label>
+                {TYPE_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="type"
+                          component="input"
+                          type="radio"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="column">
+              <div className="field">
+                <label className="label"> Etape </label>
+                {ETAPE_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="etape"
+                          component="input"
+                          type="radio"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          <div className="field">
-            <label className="label"> Status de publication </label>
-            {STATUS_OPTIONS.map(option => {
-              return (
-                <div key={option.value}>
-                  <label className="checkbox">
-                    <Field
-                      name="status"
-                      component="input"
-                      type="radio"
-                      value={option.value}
-                    />{" "}
-                    {option.label}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
+          <div className="columns">
+            <div className="column">
+              <div className="field">
+                <label className="label"> Status de publication </label>
+                {STATUS_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="status"
+                          component="input"
+                          type="radio"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
 
-          <button
-            type="submit"
-            className="button is-large is-primary"
-            disabled={submitting || pristine}
-          >
-            Sauver
-          </button>
-          <br />
-          <br />
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+              <button
+                type="submit"
+                className="button is-large is-primary"
+                disabled={submitting || pristine}
+              >
+                Sauver
+              </button>
+              <br />
+              <br />
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+            </div>
+          </div>
         </form>
       )}
     />

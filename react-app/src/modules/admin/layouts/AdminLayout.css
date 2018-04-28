@@ -1,4 +1,5 @@
-.AdminLayout .column {
+.AdminLayout .column-content,
+.AdminLayout .column-menu {
   padding: 2rem;
   padding-top: 4rem;
   min-height: 100%;
@@ -11,7 +12,4 @@
 .AdminLayout .column-menu {
   background-color: rgb(247, 249, 250);
   border-right: 1px solid rgb(211, 220, 224);
-}
-
-.AdminLayout .columns {
 }

@@ -59,6 +59,7 @@ const createAide = gql`
     $perimetreApplicationCode: String
     $etape: String
     $structurePorteuse: String!
+    $status: String!
   ) {
     createAide(
       name: $name
@@ -69,6 +70,7 @@ const createAide = gql`
       perimetreApplicationCode: $perimetreApplicationCode
       etape: $etape
       structurePorteuse: $structurePorteuse
+      status: $status
     ) {
       name
     }
