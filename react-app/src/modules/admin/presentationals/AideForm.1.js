@@ -55,7 +55,7 @@ const STATUS_OPTIONS = [
 
 const formName = "aide";
 
-const initialValues = {
+const defaultValues = {
   description: "",
   structurePorteuse: "",
   perimetreApplication: [],
@@ -70,6 +70,8 @@ const initialValues = {
 };
 
 let AideForm = props => {
+  const initialValues = props.values ? props.values : defaultValues;
+  console.log(initialValues);
   return (
     <Form
       onSubmit={props.onSubmit}

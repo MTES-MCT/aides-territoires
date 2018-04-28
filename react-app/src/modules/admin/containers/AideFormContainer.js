@@ -1,5 +1,5 @@
 import React from "react";
-import AideForm from "modules/aide/presentationals/AideForm";
+import AideForm from "modules/admin/presentationals/AideForm";
 import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
@@ -18,7 +18,6 @@ class AideFormContainer extends React.Component {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
-    console.log(values.perimetreApplication);
     if (values.perimetreApplication === "departement") {
       values.perimetreApplicationCode = values.departement.value;
     }

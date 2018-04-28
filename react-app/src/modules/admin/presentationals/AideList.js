@@ -1,6 +1,7 @@
 import React from "react";
 import "./AideList.css";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 class AideList extends React.Component {
   static propTypes = {
@@ -17,7 +18,8 @@ class AideList extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th>Actions</th>
+              <th>Supprimer</th>
+              <th>Editer</th>
               <th>Nom</th>
               <th>Description</th>
               <th>type</th>
@@ -31,12 +33,20 @@ class AideList extends React.Component {
               return (
                 <tr key={aide.id}>
                   <td>
-                    <div
+                    <span
                       onClick={e => this.props.onDeleteClick(aide)}
                       className="button is-danger"
                     >
                       Supprimer
-                    </div>
+                    </span>
+                  </td>
+                  <td>
+                    <NavLink
+                      to={`/aide/${aide.id}/edit`}
+                      className="button is-success"
+                    >
+                      Editer
+                    </NavLink>
                   </td>
                   <td>{aide.name}</td>
                   <td>{aide.description}</td>
