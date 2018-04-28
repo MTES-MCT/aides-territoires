@@ -197,7 +197,7 @@ let AideForm = props => {
                 <div key={option.value}>
                   <label className="checkbox">
                     <Field
-                      name="etape"
+                      name="status"
                       component="input"
                       type="radio"
                       value={option.value}
