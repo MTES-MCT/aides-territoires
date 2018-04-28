@@ -28,7 +28,7 @@ const schema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["draft", "published", "to_review"]
+      enum: ["draft", "published", "review_required", "trash"]
     },
     perimetreDiffusion: {
       type: String,

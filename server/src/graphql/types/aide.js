@@ -21,6 +21,7 @@ const Aide = new GraphQLObjectType({
     description: { type: GraphQLString },
     type: { type: GraphQLString },
     perimetreApplication: { type: GraphQLString },
+    perimetreApplicationCode: { type: GraphQLString },
     perimetreDiffusion: { type: GraphQLString },
     etape: { type: GraphQLString },
     status: { type: GraphQLString },

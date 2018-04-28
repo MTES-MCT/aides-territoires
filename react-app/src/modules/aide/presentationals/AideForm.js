@@ -34,14 +34,31 @@ const ETAPE_OPTIONS = [
   { value: "fonctionnement", label: "Fonctionnement" }
 ];
 
+const STATUS_OPTIONS = [
+  {
+    value: "draft",
+    label: "Brouillon"
+  },
+  {
+    value: "review_required",
+    label: "A vérifier"
+  },
+  {
+    value: "published",
+    label: "Publiée"
+  },
+  {
+    value: "corbeille",
+    label: "trash"
+  }
+];
+
 const formName = "aide";
 
 const initialValues = {
   description: "",
   structurePorteuse: "",
   perimetreApplication: [],
-  regionName: "",
-  departementName: "",
   departement: {
     label: "",
     value: ""
@@ -86,7 +103,7 @@ let AideForm = props => {
                     <Field
                       name="perimetreApplication"
                       component="input"
-                      type="checkbox"
+                      type="radio"
                       value={option.value}
                     />{" "}
                     {option.label}
@@ -126,7 +143,7 @@ let AideForm = props => {
                     <Field
                       name="perimetreDiffusion"
                       component="input"
-                      type="checkbox"
+                      type="radio"
                       value={option.value}
                     />{" "}
                     {option.label}
@@ -144,7 +161,7 @@ let AideForm = props => {
                     <Field
                       name="type"
                       component="input"
-                      type="checkbox"
+                      type="radio"
                       value={option.value}
                     />{" "}
                     {option.label}
@@ -163,7 +180,26 @@ let AideForm = props => {
                     <Field
                       name="etape"
                       component="input"
-                      type="checkbox"
+                      type="radio"
+                      value={option.value}
+                    />{" "}
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="field">
+            <label className="label"> Status de publication </label>
+            {STATUS_OPTIONS.map(option => {
+              return (
+                <div key={option.value}>
+                  <label className="checkbox">
+                    <Field
+                      name="etape"
+                      component="input"
+                      type="radio"
                       value={option.value}
                     />{" "}
                     {option.label}

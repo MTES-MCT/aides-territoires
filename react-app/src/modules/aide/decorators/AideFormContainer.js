@@ -18,6 +18,13 @@ class AideFormContainer extends React.Component {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
+    console.log(values.perimetreApplication);
+    if (values.perimetreApplication === "departement") {
+      values.perimetreApplicationCode = values.departement.value;
+    }
+    if (values.perimetreApplication === "region") {
+      values.perimetreApplicationCode = values.region.value;
+    }
     console.log(values);
     this.props
       .createAide({
@@ -29,7 +36,10 @@ class AideFormContainer extends React.Component {
         this.setState({
           submissionStatus: SUBMISSION_STATUS_FINISHED
         })
-      );
+      )
+      .catch(e => {
+        console.error(e);
+      });
   };
   render() {
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
@@ -43,11 +53,11 @@ const createAide = gql`
   mutation createAide(
     $name: String!
     $description: String!
-    $type: String
-    $perimetreDiffusion: [String]
-    $perimetreApplication: [String]
-    $etape: [String]
-    $status: String!
+    $type: String!
+    $perimetreDiffusion: String
+    $perimetreApplication: String
+    $perimetreApplicationCode: String
+    $etape: String
     $structurePorteuse: String!
   ) {
     createAide(
@@ -56,8 +66,8 @@ const createAide = gql`
       type: $type
       perimetreDiffusion: $perimetreDiffusion
       perimetreApplication: $perimetreApplication
+      perimetreApplicationCode: $perimetreApplicationCode
       etape: $etape
-      status: $status
       structurePorteuse: $structurePorteuse
     ) {
       name
