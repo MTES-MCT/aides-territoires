@@ -19,6 +19,7 @@ const Aide = new GraphQLObjectType({
     createdAt: { type: GraphQLString },
     updatedAt: { type: GraphQLString },
     description: { type: GraphQLString },
+    criteresEligibilite: { type: GraphQLString },
     type: { type: GraphQLString },
     perimetreApplicationType: { type: GraphQLString },
     perimetreApplicationName: { type: GraphQLString },

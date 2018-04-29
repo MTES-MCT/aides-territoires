@@ -73,7 +73,8 @@ const defaultValues = {
   perimetreApplicationName: "",
   perimetreApplicationCode: "",
   perimetreDiffusionType: "",
-  lien: ""
+  lien: "",
+  criteresEligibilite: ""
 };
 
 class AideForm extends React.Component {
@@ -134,13 +135,18 @@ class AideForm extends React.Component {
                   name="lien"
                   className="is-large"
                   component={Text}
-                  label="Structure porteuse"
+                  label="Lien"
                 />
                 <Field
                   name="structurePorteuse"
                   className="is-large"
                   component={Text}
                   label="Structure porteuse"
+                />
+                <Field
+                  name="criteresEligibilite"
+                  component={TextArea}
+                  label="Critères d'éligibilité"
                 />
                 <Field
                   name="populationMin"
@@ -337,14 +343,15 @@ const saveAide = gql`
     $name: String!
     $description: String!
     $type: String!
-    $perimetreDiffusionType: String
-    $perimetreApplicationType: String
+    $perimetreDiffusionType: String!
+    $perimetreApplicationType: String!
     $perimetreApplicationName: String
-    $perimetreApplicationCode: String
+    $perimetreApplicationCode: String!
     $etape: String
     $structurePorteuse: String!
     $status: String!
     $lien: String!
+    $criteresEligibilite: String
   ) {
     saveAide(
       id: $id
@@ -359,6 +366,7 @@ const saveAide = gql`
       structurePorteuse: $structurePorteuse
       status: $status
       lien: $lien
+      criteresEligibilite: $criteresEligibilite
     ) {
       name
     }

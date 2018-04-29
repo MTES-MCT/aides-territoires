@@ -4,6 +4,7 @@ const schema = new mongoose.Schema(
   {
     name: String,
     description: String,
+    criteresEligibilite: String,
     type: {
       type: String,
       enum: ["financement", "ingenierie", "autre"]

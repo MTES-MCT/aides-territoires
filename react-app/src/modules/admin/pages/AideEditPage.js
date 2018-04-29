@@ -20,6 +20,7 @@ const editAideQuery = gql`
       id
       name
       description
+      criteresEligibilite
       etape
       type
       updatedAt
