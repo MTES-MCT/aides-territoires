@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
       type: String,
       enum: ["financement", "ingenierie", "autre"]
     },
-    perimetreApplication: {
+    perimetreApplicationType: {
       type: String,
       enum: [
         "departement",
@@ -18,6 +18,9 @@ const schema = new mongoose.Schema(
         "metropole",
         "europe"
       ]
+    },
+    perimetreApplicationName: {
+      type: String
     },
     perimetreApplicationCode: {
       type: String
@@ -30,7 +33,7 @@ const schema = new mongoose.Schema(
       type: String,
       enum: ["draft", "published", "review_required", "trash"]
     },
-    perimetreDiffusion: {
+    perimetreDiffusionType: {
       type: String,
       enum: [
         "departement",

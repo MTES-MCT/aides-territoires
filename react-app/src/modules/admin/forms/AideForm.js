@@ -49,12 +49,12 @@ const STATUS_OPTIONS = [
     label: "A vérifier"
   },
   {
-    value: "published",
-    label: "Publiée"
+    value: "trash",
+    label: "Corbeille"
   },
   {
-    value: "corbeille",
-    label: "trash"
+    value: "published",
+    label: "Publiée"
   }
 ];
 
@@ -69,19 +69,12 @@ const validate = values => {
 const defaultValues = {
   description: "",
   structurePorteuse: "",
-  perimetreApplication: [],
-  departement: {
-    label: "",
-    value: ""
-  },
-  region: {
-    label: "",
-    value: ""
-  }
+  perimetreApplicationType: "",
+  perimetreApplicationName: "",
+  perimetreApplicationCode: "",
+  perimetreDiffusionType: "",
+  lien: ""
 };
-
-const OPERATION_STATUS_CREATION = "creation";
-const OPERATION_STATUS_EDITION = "edition";
 
 class AideForm extends React.Component {
   state = {
@@ -89,9 +82,9 @@ class AideForm extends React.Component {
     submissionStatus: SUBMISSION_STATUS_NOT_STARTED
   };
   static propTypes = {
-    aide: propTypes.object,
-    // "creation" or "edition"
-    operation: propTypes.oneOf(["creation", "edition"])
+    // si une aide est passée en props, on considèrera
+    // qu'on est en mode édition
+    aide: propTypes.object
   };
   constructor(props) {
     super(props);
@@ -101,12 +94,6 @@ class AideForm extends React.Component {
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
     const aide = { ...values };
-    if (aide.perimetreApplication === "departement") {
-      aide.perimetreApplicationCode = values.departement.value;
-    }
-    if (aide.perimetreApplication === "region") {
-      aide.perimetreApplicationCode = values.region.value;
-    }
     const result = await this.props.saveAide({
       variables: aide,
       // mettre à jour la liste des aides dans l'admin
@@ -144,6 +131,12 @@ class AideForm extends React.Component {
                   label="Descriptif de l'aide"
                 />
                 <Field
+                  name="lien"
+                  className="is-large"
+                  component={Text}
+                  label="Structure porteuse"
+                />
+                <Field
                   name="structurePorteuse"
                   className="is-large"
                   component={Text}
@@ -173,7 +166,12 @@ class AideForm extends React.Component {
                       <div key={option.value}>
                         <label className="checkbox">
                           <Field
-                            name="perimetreApplication"
+                            onClick={() => {
+                              // reset application name and code
+                              form.change("perimetreApplicationName", "");
+                              form.change("perimetreApplicationCode", "");
+                            }}
+                            name="perimetreApplicationType"
                             component="input"
                             type="radio"
                             value={option.value}
@@ -184,46 +182,54 @@ class AideForm extends React.Component {
                     );
                   })}
                 </div>
-                {values.perimetreApplication &&
-                  values.perimetreApplication.includes("region") && (
-                    <Field
-                      name="region"
-                      label="Précisez la région"
-                      component={Text}
-                      format={suggestion => suggestion.label}
-                      className="is-large"
-                      autocompleteCallback={getRegionsByName}
-                    />
-                  )}
-                {values.perimetreApplication &&
-                  values.perimetreApplication.includes("departement") && (
-                    <div className="columns">
-                      <div className="column">
-                        <Field
-                          name="departement"
-                          // format={suggestion => suggestion.label}
-                          label="Précisez le département"
-                          component={Text}
-                          className="is-large"
-                          onSuggestionClick={suggestion => {
-                            form.change("departementCode", suggestion.value);
-                          }}
-                          autocompleteCallback={getDepartementsByName}
-                        />
-                      </div>
-                      <div className="column">
-                        <Field
-                          name="departementCode"
-                          // format={suggestion => suggestion.label}
-                          label="code territoire"
-                          component={Text}
-                          className="is-large"
-                          disabled={true}
-                          autocompleteCallback={getDepartementsByName}
-                        />
-                      </div>
+                <div className="columns">
+                  <div className="column">
+                    {values.perimetreApplicationType === "departement" && (
+                      <Field
+                        name="perimetreApplicationName"
+                        // format={suggestion => suggestion.label}
+                        label="Précisez le département"
+                        component={Text}
+                        className="is-large"
+                        onSuggestionClick={suggestion => {
+                          form.change(
+                            "perimetreApplicationCode",
+                            suggestion.value
+                          );
+                        }}
+                        autocompleteCallback={getDepartementsByName}
+                      />
+                    )}
+                    {values.perimetreApplicationType === "region" && (
+                      <Field
+                        name="perimetreApplicationName"
+                        label="Précisez la région"
+                        component={Text}
+                        className="is-large"
+                        autocompleteCallback={getRegionsByName}
+                        onSuggestionClick={suggestion => {
+                          form.change(
+                            "perimetreApplicationCode",
+                            suggestion.value
+                          );
+                        }}
+                      />
+                    )}
+                  </div>
+                  {(values.perimetreApplicationType == "region" ||
+                    values.perimetreApplicationType == "departement") && (
+                    <div className="column">
+                      <Field
+                        name="perimetreApplicationCode"
+                        label="code territoire"
+                        component={Text}
+                        className="is-large"
+                        disabled={true}
+                        autocompleteCallback={getDepartementsByName}
+                      />
                     </div>
                   )}
+                </div>
               </div>
               <div className="column">
                 <div className="field">
@@ -233,7 +239,7 @@ class AideForm extends React.Component {
                       <div key={option.value}>
                         <label className="checkbox">
                           <Field
-                            name="perimetreDiffusion"
+                            name="perimetreDiffusionType"
                             component="input"
                             type="radio"
                             value={option.value}
@@ -310,11 +316,7 @@ class AideForm extends React.Component {
                   })}
                 </div>
 
-                <button
-                  type="submit"
-                  className="button is-large is-primary"
-                  disabled={submitting || pristine}
-                >
+                <button type="submit" className="button is-large is-primary">
                   Sauver
                 </button>
                 <br />
@@ -335,24 +337,28 @@ const saveAide = gql`
     $name: String!
     $description: String!
     $type: String!
-    $perimetreDiffusion: String
-    $perimetreApplication: String
+    $perimetreDiffusionType: String
+    $perimetreApplicationType: String
+    $perimetreApplicationName: String
     $perimetreApplicationCode: String
     $etape: String
     $structurePorteuse: String!
     $status: String!
+    $lien: String!
   ) {
     saveAide(
       id: $id
       name: $name
       description: $description
       type: $type
-      perimetreDiffusion: $perimetreDiffusion
-      perimetreApplication: $perimetreApplication
+      perimetreDiffusionType: $perimetreDiffusionType
+      perimetreApplicationType: $perimetreApplicationType
+      perimetreApplicationName: $perimetreApplicationName
       perimetreApplicationCode: $perimetreApplicationCode
       etape: $etape
       structurePorteuse: $structurePorteuse
       status: $status
+      lien: $lien
     ) {
       name
     }

@@ -36,8 +36,10 @@ const allAidesQuery = gql`
       updatedAt
       name
       description
-      perimetreApplication
+      perimetreApplicationType
+      perimetreApplicationName
       perimetreApplicationCode
+      perimetreDiffusionType
       etape
       structurePorteuse
       status
