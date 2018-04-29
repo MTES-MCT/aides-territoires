@@ -7,7 +7,7 @@ class AideFormPage extends React.Component {
     return (
       <AdminLayout>
         <h1 className="title is-1">Créer une aide</h1>
-        <AideForm />
+        <AideForm operation={"creation"} />
       </AdminLayout>
     );
   }

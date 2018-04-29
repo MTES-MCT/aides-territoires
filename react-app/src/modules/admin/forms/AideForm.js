@@ -1,17 +1,15 @@
 import React from "react";
-// import { Field, reduxForm, change } from "redux-form";
 import { Form, Field } from "react-final-form";
 import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import Text from "modules/form/presentationals/Text";
-import TextArea from "modules/form/presentationals/TextArea";
+import Text from "modules/ui-kit/finalForm/Text";
+import TextArea from "modules/ui-kit/finalForm/TextArea";
 import {
-  getCommunesFromPostalCode,
-  getCommunesFromName,
   getDepartementsByName,
   getRegionsByName
 } from "../../../services/geoApi";
+import propTypes from "prop-types";
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
 const SUBMISSION_STATUS_PENDING = "pending";
@@ -82,11 +80,22 @@ const defaultValues = {
   }
 };
 
+const OPERATION_STATUS_CREATION = "creation";
+const OPERATION_STATUS_EDITION = "edition";
+
 class AideForm extends React.Component {
   state = {
     formValues: [],
     submissionStatus: SUBMISSION_STATUS_NOT_STARTED
   };
+  static propTypes = {
+    aide: propTypes.object,
+    // "creation" or "edition"
+    operation: propTypes.oneOf(["creation", "edition"])
+  };
+  constructor(props) {
+    super(props);
+  }
   handleSubmit = async values => {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
@@ -98,7 +107,6 @@ class AideForm extends React.Component {
     if (aide.perimetreApplication === "region") {
       aide.perimetreApplicationCode = values.region.value;
     }
-    console.log("aide", aide);
     const result = await this.props.saveAide({
       variables: aide,
       // mettre à jour la liste des aides dans l'admin
@@ -112,22 +120,15 @@ class AideForm extends React.Component {
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
       return <Redirect push to="/aide/list" />;
     }
-    const initialValues = this.props.aide
-      ? Object.assign(defaultValues, this.props.aide)
-      : defaultValues;
+    const initialValues = !this.props.aide
+      ? defaultValues
+      : Object.assign({}, defaultValues, this.props.aide);
     return (
       <Form
         onSubmit={this.handleSubmit}
         validate={validate}
         initialValues={initialValues}
-        render={({
-          handleSubmit,
-          reset,
-          submitting,
-          pristine,
-          values,
-          form
-        }) => (
+        render={({ handleSubmit, submitting, pristine, values, form }) => (
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">

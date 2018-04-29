@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import Text from "modules/form/presentationals/Text";
-import TextArea from "modules/form/presentationals/TextArea";
+import Text from "modules/ui-kit/finalForm/Text";
+import TextArea from "modules/ui-kit/finalForm/TextArea";
 
 const initialValues = {
   name: "",

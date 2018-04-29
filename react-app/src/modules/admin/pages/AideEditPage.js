@@ -9,7 +9,7 @@ const AideEditPage = ({ data: { aide } }) => {
   return (
     <AdminLayout>
       {!aide && <AppLoader />}
-      {aide && <AideForm aide={aide} />}
+      {aide && <AideForm operation={"edition"} aide={aide} />}
     </AdminLayout>
   );
 };
