@@ -23,7 +23,8 @@ class AideList extends React.Component {
               <th>Nom</th>
               <th>Description</th>
               <th>type</th>
-              <th>Périmètre d'application</th>
+              <th>Périmètre d'application type</th>
+              <th>Périmètre d'application nom</th>
               <th>Périmètre d'application (code)</th>
               <th>Status</th>
             </tr>
@@ -51,7 +52,8 @@ class AideList extends React.Component {
                   <td>{aide.name}</td>
                   <td>{aide.description}</td>
                   <td>{aide.type}</td>
-                  <td>{aide.perimetreApplication}</td>
+                  <td>{aide.perimetreApplicationType}</td>
+                  <td>{aide.perimetreApplicationName}</td>
                   <td>{aide.perimetreApplicationCode}</td>
                   <td>{aide.status}</td>
                 </tr>

@@ -26,11 +26,12 @@ const editAideQuery = gql`
       createdAt
       beneficiaires
       structurePorteuse
-      perimetreApplication
+      perimetreApplicationType
+      perimetreApplicationName
       perimetreApplicationCode
       populationMin
       populationMax
-      perimetreDiffusion
+      perimetreDiffusionType
       status
     }
   }
