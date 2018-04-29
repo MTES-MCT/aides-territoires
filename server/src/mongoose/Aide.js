@@ -1,4 +1,9 @@
 const mongoose = require("mongoose");
+const {
+  PERIMETRE_APPLICATION_TYPE,
+  getEnumAsArray,
+  getEnumAsGraphQLEnumType
+} = require("../enumTypes");
 
 const schema = new mongoose.Schema(
   {
@@ -7,18 +12,11 @@ const schema = new mongoose.Schema(
     criteresEligibilite: String,
     type: {
       type: String,
-      enum: ["financement", "ingenierie", "autre"]
+      enum: getEnumAsArray("AIDE_TYPES")
     },
     perimetreApplicationType: {
       type: String,
-      enum: [
-        "departement",
-        "region",
-        "france",
-        "outre_mer",
-        "metropole",
-        "europe"
-      ]
+      enum: getEnumAsArray("PERIMETRE_APPLICATION_TYPES")
     },
     perimetreApplicationName: {
       type: String
@@ -28,22 +26,15 @@ const schema = new mongoose.Schema(
     },
     etape: {
       type: String,
-      enum: ["pre-operationnel", "operationnel", "fonctionnement"]
+      enum: getEnumAsArray("AIDE_ETAPES")
     },
     status: {
       type: String,
-      enum: ["draft", "published", "review_required", "trash"]
+      enum: getEnumAsArray("AIDE_STATUS")
     },
     perimetreDiffusionType: {
       type: String,
-      enum: [
-        "departement",
-        "region",
-        "france",
-        "outre_mer",
-        "metropole",
-        "europe"
-      ]
+      enum: getEnumAsArray("PERIMETRE_APPLICATION_TYPES")
     },
     lien: {
       type: String
@@ -59,7 +50,7 @@ const schema = new mongoose.Schema(
     },
     beneficiaires: {
       type: [String],
-      enum: ["commune", "EPCI", "entreprises", "associations"]
+      enum: getEnumAsArray("AIDE_BENEFICIAIRES")
     }
   },
   { timestamps: true }

@@ -8,6 +8,11 @@ const {
   GraphQLList,
   GraphQLInt
 } = require("graphql");
+const { getEnumAsGraphQLEnumType } = require("../../enumTypes");
+const aideEtapes = getEnumAsGraphQLEnumType(
+  "SEARCH_AIDE_ETAPES",
+  "AIDE_ETAPES"
+);
 
 module.exports = {
   getAide: {
@@ -24,17 +29,33 @@ module.exports = {
   allAides: {
     type: new GraphQLList(types.Aide),
     args: {
-      limit: {
-        type: GraphQLInt
-      }
+      ...types.Aide._typeConfig.fields()
     },
-    resolve: (_, args, context) => {
-      const query = AideModel.find({});
+    resolve: async (_, args = {}, context) => {
+      // console.log(JSON.stringify(args, null, 2));
+      const result = await AideModel.find({});
+      console.log(result);
+      return result;
+      /*
+      const query = AideModel.find(args);
       if (args.limit) {
         query.limit(args.limit);
       }
       query.sort("-createdAt");
-      return query.then(r => r);
+      return query;
+      */
+    }
+  },
+  searchAides: {
+    type: new GraphQLList(types.Aide),
+    args: {
+      etape: {
+        type: new GraphQLList(aideEtapes)
+      }
+    },
+    resolve: async (_, args = {}, context) => {
+      const result = await AideModel.find(args);
+      return result;
     }
   }
 };
