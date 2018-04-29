@@ -32,18 +32,8 @@ module.exports = {
       ...types.Aide._typeConfig.fields()
     },
     resolve: async (_, args = {}, context) => {
-      // console.log(JSON.stringify(args, null, 2));
       const result = await AideModel.find({});
-      console.log(result);
       return result;
-      /*
-      const query = AideModel.find(args);
-      if (args.limit) {
-        query.limit(args.limit);
-      }
-      query.sort("-createdAt");
-      return query;
-      */
     }
   },
   searchAides: {
