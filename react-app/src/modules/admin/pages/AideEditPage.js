@@ -1,7 +1,7 @@
 import React from "react";
 import AdminLayout from "modules/admin/layouts/AdminLayout";
 import AideForm from "modules/admin/forms/AideForm";
-import AppLoader from "modules/common/presentationals/AppLoader";
+import AppLoader from "modules/ui-kit/AppLoader";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 

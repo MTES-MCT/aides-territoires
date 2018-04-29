@@ -2,7 +2,7 @@ import React from "react";
 import AdminLayout from "modules/admin/layouts/AdminLayout";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
-import Loader from "modules/common/presentationals/AppLoader";
+import Loader from "modules/ui-kit/AppLoader";
 import AideList from "modules/admin/presentationals/AideList";
 
 const AideListPage = class extends React.Component {

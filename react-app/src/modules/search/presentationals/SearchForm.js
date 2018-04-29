@@ -22,7 +22,6 @@ class SearchForm extends React.Component {
   onSuggestionClick = data => {
     this.setState(data);
     this.props.onSuggestionClick(data);
-    this.props.onSearchSubmit(data);
   };
   onSubmit = event => {
     event.preventDefault();

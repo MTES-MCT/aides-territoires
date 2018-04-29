@@ -4,22 +4,23 @@ import PropTypes from "prop-types";
 
 class SearchResultListItem extends React.Component {
   static propTypes = {
-    result: PropTypes.array.isRequired
+    aide: PropTypes.object.isRequired
   };
   render() {
-    const { result } = this.props;
+    const { aide } = this.props;
+    console.log(aide);
     return (
       <div className="search-result-list-item box">
-        <h2 className="title is-4">{result.intitulé}</h2>
+        <h2 className="title is-4">{aide.name}</h2>
         <p className="content">
-          <em>{result.objectifs}</em>
+          <em>{aide.description}</em>
         </p>
         <table className="table">
           <tbody>
             <tr>
               <td>Lien vers le site</td>
               <td>
-                <a target="_blank" href={result.url}>
+                <a target="_blank" href={aide.lien}>
                   Lien vers le site
                 </a>
               </td>
@@ -28,52 +29,24 @@ class SearchResultListItem extends React.Component {
           <tr>
             <td>Dotation</td>
             <td>{result.dotation}</td>
-          </tr>
+          </taider>
           */}
-            <tr>
-              <td>Date de clotûre </td>
-              <td>{result.dateDeClôture}</td>
-            </tr>
-            <tr>
-              <td>Bénéficiaires </td>
-              <td>{result.bénéficiaires}</td>
-            </tr>
+            {aide.beneficiaires && (
+              <tr>
+                <td>Bénéficiaires </td>
+                <td>{aide.beneficiaires}</td>
+              </tr>
+            )}
             <tr>
               <td>Porteur du dispositif</td>
-              <td>{result.porteurDuDispositif}</td>
+              <td>{aide.structurePorteuse}</td>
             </tr>
             <tr>
               <td>Type d'aide</td>
-              <td>{result.type}</td>
+              <td>{aide.type}</td>
             </tr>
           </tbody>
         </table>
-        {result.sousThématique.split(",").map((item, index) => {
-          return (
-            item.trim().length > 0 && (
-              <div
-                key={index}
-                style={{ marginRight: "10px" }}
-                className="tag is-success thematique"
-              >
-                {item}
-              </div>
-            )
-          );
-        })}
-        {result.sousThématique2.split(",").map((item, index) => {
-          return (
-            item.trim().length > 0 && (
-              <div
-                key={index}
-                style={{ marginRight: "10px" }}
-                className="tag is-info thematique"
-              >
-                {item}
-              </div>
-            )
-          );
-        })}
         {/*
         <Link
           to={{ pathname: "/aide", state: { aide: result } }}

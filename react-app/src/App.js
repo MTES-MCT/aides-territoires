@@ -8,9 +8,9 @@ import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import HomePage from "./modules/homepage/pages/HomePage";
 import SearchPage from "./modules/search/pages/SearchPage";
+import SearchResultsPage from "./modules/search/pages/SearchResultsPage";
 import AideCreatePage from "./modules/admin/pages/AideCreatePage";
 import AideEditPage from "./modules/admin/pages/AideEditPage";
-import AdminPage from "./modules/admin/pages/AdminPage";
 import AideListPage from "./modules/admin/pages/AideListPage";
 import TypeDeTerritoireCreatePage from "./modules/aide/pages/TypeDeTerritoireCreatePage";
 
@@ -24,8 +24,13 @@ class App extends Component {
               <div className="App">
                 <Switch>
                   <Route exact path="/" component={HomePage} />
-                  <Route exact path="/search" component={SearchPage} />
-                  <Route exact path="/admin" component={AdminPage} />
+                  <Route exact path="/recherche" component={SearchPage} />
+                  <Route
+                    exact
+                    path="/resultats"
+                    component={SearchResultsPage}
+                  />
+                  <Route exact path="/admin" component={AideListPage} />
                   <Route exact path="/aide/create" component={AideCreatePage} />
                   <Route exact path="/aide/list" component={AideListPage} />
                   <Route exact path="/aide/:id/edit" component={AideEditPage} />

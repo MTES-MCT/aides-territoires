@@ -4,14 +4,13 @@ import SearchResultListItem from "./SearchResultListItem";
 
 class SearchResultList extends React.Component {
   static propTypes = {
-    searchedData: PropTypes.object.isRequired,
-    results: PropTypes.array.isRequired
+    aides: PropTypes.array.isRequired
   };
   render() {
     return (
       <div className="search-result-list">
-        {this.props.results.map((row, index) => (
-          <SearchResultListItem key={index} result={row} />
+        {this.props.aides.map((aide, index) => (
+          <SearchResultListItem key={aide.id} aide={aide} />
         ))}
       </div>
     );

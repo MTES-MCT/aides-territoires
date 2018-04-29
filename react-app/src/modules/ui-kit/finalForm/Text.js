@@ -2,8 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import TextSuggestions from "./TextSuggestions";
 import PropTypes from "prop-types";
-import { change } from "redux-form";
-import Store from "../../../store";
+import Store from "store";
 
 export default class extends React.Component {
   static propTypes = {

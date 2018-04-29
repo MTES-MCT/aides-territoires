@@ -7,7 +7,7 @@ import {
   getCommunesFromName,
   getDepartementsByName,
   getRegionsByName
-} from "../../../services/geoApi";
+} from "services/geoApi";
 
 const SUGGESTIONS_LIMIT = 5;
 
@@ -19,6 +19,10 @@ class SearchFormContainer extends React.Component {
       text: ""
     };
   }
+  static propTypes = {
+    onSearchSubmit: PropTypes.func.isRequired,
+    text: PropTypes.string
+  };
   onSuggestionClick = value => {
     this.resetSuggestions();
   };
@@ -128,10 +132,5 @@ class SearchFormContainer extends React.Component {
     );
   }
 }
-
-SearchFormContainer.propTypes = {
-  onSearchSubmit: PropTypes.func.isRequired,
-  text: PropTypes.string
-};
 
 export default SearchFormContainer;
