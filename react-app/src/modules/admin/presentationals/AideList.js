@@ -18,29 +18,24 @@ class AideList extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th>Supprimer</th>
-              <th>Editer</th>
               <th>Nom</th>
-              <th>Description</th>
+              <th>Mis à jour</th>
               <th>type</th>
               <th>Périmètre d'application type</th>
-              <th>Périmètre d'application nom</th>
-              <th>Périmètre d'application (code)</th>
               <th>Status</th>
+              <th>Editer</th>
+              <th>Supprimer</th>
             </tr>
           </thead>
           <tbody>
             {this.props.aides.map(aide => {
               return (
                 <tr key={aide.id}>
-                  <td>
-                    <span
-                      onClick={e => this.props.onDeleteClick(aide)}
-                      className="button is-danger"
-                    >
-                      Supprimer
-                    </span>
-                  </td>
+                  <td>{aide.nom}</td>
+                  <td>{aide.updatedAt}</td>
+                  <td>{aide.type}</td>
+                  <td>{aide.perimetreApplicationType}</td>
+                  <td>{aide.statusPublication}</td>
                   <td>
                     <NavLink
                       to={`/aide/${aide.id}/edit`}
@@ -49,13 +44,14 @@ class AideList extends React.Component {
                       Editer
                     </NavLink>
                   </td>
-                  <td>{aide.name}</td>
-                  <td>{aide.description}</td>
-                  <td>{aide.type}</td>
-                  <td>{aide.perimetreApplicationType}</td>
-                  <td>{aide.perimetreApplicationName}</td>
-                  <td>{aide.perimetreApplicationCode}</td>
-                  <td>{aide.status}</td>
+                  <td>
+                    <span
+                      onClick={e => this.props.onDeleteClick(aide)}
+                      className="button is-danger"
+                    >
+                      Supprimer
+                    </span>
+                  </td>
                 </tr>
               );
             })}

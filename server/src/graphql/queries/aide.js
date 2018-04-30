@@ -37,7 +37,7 @@ module.exports = {
       ...types.Aide._typeConfig.fields()
     },
     resolve: async (_, args = {}, context) => {
-      const result = await AideModel.find({});
+      const result = await AideModel.find({}).sort({ updatedAt: "-1" });
       return result;
     }
   },

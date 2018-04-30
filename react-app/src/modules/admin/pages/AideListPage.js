@@ -46,6 +46,7 @@ const allAidesQuery = gql`
       statusPublication
       lien
       beneficiaires
+      type
     }
   }
 `;
