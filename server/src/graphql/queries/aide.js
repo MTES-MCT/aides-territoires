@@ -14,10 +14,7 @@ const aideStatusPublication = formatEnumForGraphQL(
   "searchAideStatusPublicaton",
   enums.AIDE_STATUS_PUBLICATION
 );
-const aideApplicationTypes = formatEnumForGraphQL(
-  "searchApplicationTypes",
-  enums.AIDE_PERIMETRE_APPLICATION_TYPES
-);
+const aideTypes = formatEnumForGraphQL("searchAideTypes", enums.AIDE_TYPES);
 
 module.exports = {
   getAide: {
@@ -50,8 +47,8 @@ module.exports = {
       status: {
         type: new GraphQLList(aideStatusPublication)
       },
-      perimetreApplicationType: {
-        type: new GraphQLList(aideApplicationTypes)
+      type: {
+        type: new GraphQLList(aideTypes)
       }
     },
     resolve: async (_, args = {}, context) => {

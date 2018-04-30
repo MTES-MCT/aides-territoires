@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
-class Navigation extends React.Component {
+class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

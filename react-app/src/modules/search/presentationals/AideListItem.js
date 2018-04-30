@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 // import { Link } from "react-router-dom";
 
-class SearchResultListItem extends React.Component {
+class AideListItem extends React.Component {
   static propTypes = {
     aide: PropTypes.object.isRequired
   };
   render() {
     const { aide } = this.props;
-    console.log(aide);
     return (
       <div className="search-result-list-item box">
         <h2 className="title is-4">{aide.name}</h2>
@@ -60,4 +59,4 @@ class SearchResultListItem extends React.Component {
   }
 }
 
-export default SearchResultListItem;
+export default AideListItem;

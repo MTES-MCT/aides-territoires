@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SearchResultListItem from "./SearchResultListItem";
+import AideListItem from "./AideListItem";
 
 class SearchResultList extends React.Component {
   static propTypes = {
@@ -10,7 +10,7 @@ class SearchResultList extends React.Component {
     return (
       <div className="search-result-list">
         {this.props.aides.map((aide, index) => (
-          <SearchResultListItem key={aide.id} aide={aide} />
+          <AideListItem key={aide.id} aide={aide} />
         ))}
       </div>
     );

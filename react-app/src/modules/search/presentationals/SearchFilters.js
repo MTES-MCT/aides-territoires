@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
+import { FormSpy } from "react-final-form";
 import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
@@ -99,37 +100,15 @@ const defaultValues = {
 };
 
 class SearchFilters extends React.Component {
-  state = {
-    formValues: [],
-    submissionStatus: SUBMISSION_STATUS_NOT_STARTED
-  };
   static propTypes = {
     // si une aide est passée en props, on considèrera
     // qu'on est en mode édition
-    aide: propTypes.object
+    aide: propTypes.object,
+    onFiltersChange: propTypes.func
   };
-  constructor(props) {
-    super(props);
-  }
-  handleSubmit = values => {
-    this.setState({
-      submissionStatus: SUBMISSION_STATUS_PENDING
-    });
-    const aide = { ...values };
-    /*
-    const result = this.props
-      .saveAide({
-        variables: aide,
-        // mettre à jour la liste des aides dans l'admin
-        refetchQueries: ["adminAllAides"]
-      })
-      .then(r => {
-        this.setState({
-          submissionStatus: SUBMISSION_STATUS_FINISHED
-        });
-      })
-      .catch(e => alert(e.message));
-      */
+  handleSubmit = values => {};
+  handleFormChange = values => {
+    this.props.onFiltersChange(values);
   };
   render() {
     return (
@@ -146,6 +125,11 @@ class SearchFilters extends React.Component {
           form
         }) => (
           <form onSubmit={handleSubmit}>
+            {/* listen for form values change from outside of the <form> tag */}
+            <FormSpy
+              subscription={{ values: true }}
+              onChange={this.handleFormChange}
+            />
             {/* ================== */}
             <div className="field">
               <label className="label"> Status de publication </label>
@@ -154,7 +138,7 @@ class SearchFilters extends React.Component {
                   <div key={option.value}>
                     <label className="checkbox">
                       <Field
-                        name="statusPublication"
+                        name="type"
                         component="input"
                         type="checkbox"
                         value={option.value}

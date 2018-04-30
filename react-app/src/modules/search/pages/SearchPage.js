@@ -28,7 +28,7 @@ class SearchPage extends React.Component {
   render() {
     if (this.state.searchedData) {
       const urlParams = this.buildUrlParamsFromValues(this.state.searchedData);
-      return <Redirect push to={`/resultats?${urlParams}`} />;
+      return <Redirect push to={`/aides?${urlParams}`} />;
     }
     return (
       <Layout>

@@ -3,7 +3,7 @@ import Navigation from "../presentationals/Navigation";
 import "bulma/css/bulma.css";
 import "./Layout.css";
 
-export default class DefaultLayout extends React.Component {
+export default class DefaultLayout extends React.PureComponent {
   render() {
     return (
       <div className="default-layout">

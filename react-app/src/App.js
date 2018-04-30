@@ -8,7 +8,7 @@ import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import HomePage from "./modules/homepage/pages/HomePage";
 import SearchPage from "./modules/search/pages/SearchPage";
-import SearchResultsPage from "./modules/search/pages/SearchResultsPage";
+import SearchAidePage from "./modules/search/pages/SearchAidePage";
 import AideCreatePage from "./modules/admin/pages/AideCreatePage";
 import AideEditPage from "./modules/admin/pages/AideEditPage";
 import AideListPage from "./modules/admin/pages/AideListPage";
@@ -25,11 +25,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/recherche" component={SearchPage} />
-                  <Route
-                    exact
-                    path="/resultats"
-                    component={SearchResultsPage}
-                  />
+                  <Route exact path="/aides" component={SearchAidePage} />
                   <Route exact path="/admin" component={AideListPage} />
                   <Route exact path="/aide/create" component={AideCreatePage} />
                   <Route exact path="/aide/list" component={AideListPage} />
