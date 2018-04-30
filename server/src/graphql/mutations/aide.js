@@ -9,56 +9,30 @@ const {
   GraphQLInt
 } = require("graphql");
 
-const { getEnumAsGraphQLEnumType } = require("../../enumTypes");
-
-const perimetreApplicationType = getEnumAsGraphQLEnumType(
-  "filter_perimetreApplicationType",
-  "PERIMETRE_APPLICATION_TYPES"
-);
-
-const perimetreDiffusionType = getEnumAsGraphQLEnumType(
-  "filter_perimetreDiffusionType",
-  "PERIMETRE_DIFFUSION_TYPES"
-);
-
-const aideTypes = getEnumAsGraphQLEnumType("filter_aide_type", "AIDE_TYPES");
-const aideStatus = getEnumAsGraphQLEnumType(
-  "filter_aide_status",
-  "AIDE_STATUS"
-);
-const aideBeneficiaires = getEnumAsGraphQLEnumType(
-  "filter_aide_beneficaires",
-  "AIDE_BENEFICIAIRES"
-);
-const aideEtapes = getEnumAsGraphQLEnumType(
-  "filter_aide_etapes",
-  "AIDE_ETAPES"
-);
-
 module.exports = {
   saveAide: {
     type: types.Aide,
     args: {
       id: { type: GraphQLString },
-      name: { type: GraphQLString },
+      nom: { type: GraphQLString },
       createdAt: { type: GraphQLString },
       updatedAt: { type: GraphQLString },
       description: { type: GraphQLString },
       criteresEligibilite: { type: GraphQLString },
-      type: { type: new GraphQLList(aideTypes) },
+      type: { type: GraphQLString },
       perimetreApplicationType: {
-        type: perimetreApplicationType
+        type: GraphQLString
       },
-      perimetreApplicationName: { type: GraphQLString },
+      perimetreApplicationNom: { type: GraphQLString },
       perimetreApplicationCode: { type: GraphQLString },
       perimetreDiffusionType: {
-        type: new GraphQLList(perimetreDiffusionType)
+        type: GraphQLString
       },
       lien: { type: GraphQLString },
-      etape: { type: new GraphQLList(aideEtapes) },
-      status: { type: new GraphQLList(aideStatus) },
+      etape: { type: GraphQLString },
+      statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
-      beneficiaires: { type: new GraphQLList(aideBeneficiaires) },
+      beneficiaires: { type: new GraphQLList(GraphQLString) },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt }
     },

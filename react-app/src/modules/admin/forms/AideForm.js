@@ -34,9 +34,18 @@ const TYPE_OPTIONS = [
 ];
 
 const ETAPE_OPTIONS = [
-  { value: "pre-operationnel", label: "Pré-opérationnel" },
-  { value: "operationnel", label: "Opérationnel" },
-  { value: "fonctionnement", label: "Fonctionnement" }
+  {
+    value: "pre_operationnel",
+    label: "Pré-opérationnel (Avant-projet, faisabilité)"
+  },
+  {
+    value: "operationnel",
+    label: "Opérationnel (Programmation-conception-réalisation)"
+  },
+  {
+    value: "fonctionnement",
+    label: "Fonctionnement (Fonctionnement,Phase de vie)"
+  }
 ];
 
 const STATUS_OPTIONS = [
@@ -49,32 +58,75 @@ const STATUS_OPTIONS = [
     label: "A vérifier"
   },
   {
-    value: "trash",
-    label: "Corbeille"
-  },
-  {
     value: "published",
     label: "Publiée"
   }
 ];
 
+const BENEFICIAIRES_OPTIONS = [
+  {
+    value: "commune",
+    label: "Commune"
+  },
+  {
+    value: "EPCI",
+    label: "EPCI"
+  },
+  {
+    value: "entreprises",
+    label: "Entreprises"
+  },
+  {
+    value: "associations",
+    label: "Associations"
+  },
+  {
+    value: "autre",
+    label: "Autre"
+  }
+];
+
 const validate = values => {
   const errors = {};
-  if (!values.name || values.name.trim().length === 0) {
-    errors.name = "Le champ nom est requis";
+  if (!values.nom || values.nom.trim().length === 0) {
+    errors.nom = "Le champ nom est requis";
+  }
+  if (!values.description || values.description.trim().length === 0) {
+    errors.description = "Le champ description est requis";
+  }
+  if (!values.lien || values.lien.trim().length === 0) {
+    errors.lien = "Le champ lien est requis";
+  }
+  if (
+    !values.structurePorteuse ||
+    values.structurePorteuse.trim().length === 0
+  ) {
+    errors.structurePorteuse = "Le champ structurePorteuse est requis";
+  }
+  if (
+    !values.perimetreApplicationType ||
+    values.perimetreApplicationType.trim().length === 0
+  ) {
+    errors.perimetreApplicationType =
+      "Le champ périmètre d'application est requis";
   }
   return errors;
 };
 
 const defaultValues = {
+  nom: "",
   description: "",
   structurePorteuse: "",
-  perimetreApplicationType: "",
-  perimetreApplicationName: "",
+  perimetreApplicationType: "france",
+  perimetreApplicationNom: "",
   perimetreApplicationCode: "",
-  perimetreDiffusionType: "",
+  perimetreDiffusionType: "france",
   lien: "",
-  criteresEligibilite: ""
+  criteresEligibilite: "",
+  statusPublication: "published",
+  type: "financement",
+  etape: "pre_operationnel",
+  beneficiaires: ["commune"]
 };
 
 class AideForm extends React.Component {
@@ -90,19 +142,23 @@ class AideForm extends React.Component {
   constructor(props) {
     super(props);
   }
-  handleSubmit = async values => {
+  handleSubmit = values => {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
     const aide = { ...values };
-    const result = await this.props.saveAide({
-      variables: aide,
-      // mettre à jour la liste des aides dans l'admin
-      refetchQueries: ["adminAllAides"]
-    });
-    this.setState({
-      submissionStatus: SUBMISSION_STATUS_FINISHED
-    });
+    const result = this.props
+      .saveAide({
+        variables: aide,
+        // mettre à jour la liste des aides dans l'admin
+        refetchQueries: ["adminAllAides"]
+      })
+      .then(r => {
+        this.setState({
+          submissionStatus: SUBMISSION_STATUS_FINISHED
+        });
+      })
+      .catch(e => alert(e.message));
   };
   render() {
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
@@ -116,13 +172,20 @@ class AideForm extends React.Component {
         onSubmit={this.handleSubmit}
         validate={validate}
         initialValues={initialValues}
-        render={({ handleSubmit, submitting, pristine, values, form }) => (
+        render={({
+          handleSubmit,
+          submitting,
+          pristine,
+          values,
+          errors,
+          form
+        }) => (
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
                 <Field
                   className="is-large"
-                  name="name"
+                  name="nom"
                   component={Text}
                   label="Nom de l'aide"
                 />
@@ -148,6 +211,7 @@ class AideForm extends React.Component {
                   component={TextArea}
                   label="Critères d'éligibilité"
                 />
+                {/*
                 <Field
                   name="populationMin"
                   className="is-large"
@@ -160,6 +224,7 @@ class AideForm extends React.Component {
                   component={Text}
                   label="population maximum"
                 />
+                */}
               </div>
             </div>
 
@@ -174,7 +239,7 @@ class AideForm extends React.Component {
                           <Field
                             onClick={() => {
                               // reset application name and code
-                              form.change("perimetreApplicationName", "");
+                              form.change("perimetreApplicationNom", "");
                               form.change("perimetreApplicationCode", "");
                             }}
                             name="perimetreApplicationType"
@@ -187,12 +252,13 @@ class AideForm extends React.Component {
                       </div>
                     );
                   })}
+                  {errors.perimetreApplicationType}
                 </div>
                 <div className="columns">
                   <div className="column">
                     {values.perimetreApplicationType === "departement" && (
                       <Field
-                        name="perimetreApplicationName"
+                        name="perimetreApplicationNom"
                         // format={suggestion => suggestion.label}
                         label="Précisez le département"
                         component={Text}
@@ -208,7 +274,7 @@ class AideForm extends React.Component {
                     )}
                     {values.perimetreApplicationType === "region" && (
                       <Field
-                        name="perimetreApplicationName"
+                        name="perimetreApplicationNom"
                         label="Précisez la région"
                         component={Text}
                         className="is-large"
@@ -304,13 +370,33 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
+                  <label className="label"> Bénéficiaires </label>
+                  {BENEFICIAIRES_OPTIONS.map(option => {
+                    return (
+                      <div key={option.value}>
+                        <label className="checkbox">
+                          <Field
+                            name="beneficiaires"
+                            component="input"
+                            type="checkbox"
+                            value={option.value}
+                          />{" "}
+                          {option.label}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="column">
+                <div className="field">
                   <label className="label"> Status de publication </label>
                   {STATUS_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
                           <Field
-                            name="status"
+                            name="statusPublication"
                             component="input"
                             type="radio"
                             value={option.value}
@@ -321,15 +407,15 @@ class AideForm extends React.Component {
                     );
                   })}
                 </div>
-
-                <button type="submit" className="button is-large is-primary">
-                  Sauver
-                </button>
-                <br />
-                <br />
-                <pre>{JSON.stringify(values, null, 2)}</pre>
               </div>
             </div>
+
+            <button type="submit" className="button is-large is-primary">
+              Sauver
+            </button>
+            <br />
+            <br />
+            <pre>{JSON.stringify(values, null, 2)}</pre>
           </form>
         )}
       />
@@ -340,35 +426,37 @@ class AideForm extends React.Component {
 const saveAide = gql`
   mutation saveAide(
     $id: String
-    $name: String!
+    $nom: String!
     $description: String!
     $type: String!
     $perimetreDiffusionType: String!
     $perimetreApplicationType: String!
-    $perimetreApplicationName: String
+    $perimetreApplicationNom: String
     $perimetreApplicationCode: String!
     $etape: String
     $structurePorteuse: String!
-    $status: String!
+    $statusPublication: String!
     $lien: String!
     $criteresEligibilite: String
+    $beneficiaires: [String]
   ) {
     saveAide(
       id: $id
-      name: $name
+      nom: $nom
       description: $description
       type: $type
       perimetreDiffusionType: $perimetreDiffusionType
       perimetreApplicationType: $perimetreApplicationType
-      perimetreApplicationName: $perimetreApplicationName
+      perimetreApplicationNom: $perimetreApplicationNom
       perimetreApplicationCode: $perimetreApplicationCode
       etape: $etape
       structurePorteuse: $structurePorteuse
-      status: $status
+      statusPublication: $statusPublication
       lien: $lien
       criteresEligibilite: $criteresEligibilite
+      beneficiaires: $beneficiaires
     ) {
-      name
+      nom
     }
   }
 `;

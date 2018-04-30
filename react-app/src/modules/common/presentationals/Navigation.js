@@ -55,7 +55,7 @@ class Navigation extends React.Component {
             <Link
               className="navbar-item"
               onClick={this.handleLinkClick}
-              to="/search"
+              to="/recherche"
             >
               Rechercher une aide
             </Link>

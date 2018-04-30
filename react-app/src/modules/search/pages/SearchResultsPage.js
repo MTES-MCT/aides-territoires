@@ -14,7 +14,7 @@ const SearchResultsPage = class extends React.Component {
   }
 
   render() {
-    if (this.props.data.loading) {
+    if (!this.props.data.aides) {
       return <AppLoader />;
     }
     return (

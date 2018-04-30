@@ -8,6 +8,7 @@ import AideList from "modules/admin/presentationals/AideList";
 const AideListPage = class extends React.Component {
   render() {
     const { loading, allAides } = this.props.data;
+    console.log(allAides);
     return (
       <AdminLayout>
         <h1 className="title is-1">Liste des aides</h1>
@@ -34,15 +35,17 @@ const allAidesQuery = gql`
       id
       createdAt
       updatedAt
-      name
+      nom
       description
       perimetreApplicationType
-      perimetreApplicationName
+      perimetreApplicationNom
       perimetreApplicationCode
       perimetreDiffusionType
       etape
       structurePorteuse
-      status
+      statusPublication
+      lien
+      beneficiaires
     }
   }
 `;

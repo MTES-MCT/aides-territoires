@@ -39,6 +39,7 @@ class App extends Component {
                     path="/type-de-territoire/create"
                     component={TypeDeTerritoireCreatePage}
                   />
+                  <Route component={() => <div>Oups ! Page non trouvée</div>} />
                 </Switch>
               </div>
             </MuiThemeProvider>

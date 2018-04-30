@@ -18,22 +18,23 @@ const editAideQuery = gql`
   query editAide($id: ID) {
     aide: getAide(id: $id) {
       id
-      name
+      nom
       description
       criteresEligibilite
       etape
       type
       updatedAt
       createdAt
-      beneficiaires
       structurePorteuse
       perimetreApplicationType
-      perimetreApplicationName
+      perimetreApplicationNom
       perimetreApplicationCode
       populationMin
       populationMax
       perimetreDiffusionType
-      status
+      statusPublication
+      lien
+      beneficiaires
     }
   }
 `;

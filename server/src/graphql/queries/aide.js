@@ -8,10 +8,15 @@ const {
   GraphQLList,
   GraphQLInt
 } = require("graphql");
-const { getEnumAsGraphQLEnumType } = require("../../enumTypes");
-const aideEtapes = getEnumAsGraphQLEnumType(
-  "SEARCH_AIDE_ETAPES",
-  "AIDE_ETAPES"
+const { enums, formatEnumForGraphQL } = require("../../enums");
+const aideEtapes = formatEnumForGraphQL("searchAideEtapes", enums.AIDE_ETAPES);
+const aideStatusPublication = formatEnumForGraphQL(
+  "searchAideStatusPublicaton",
+  enums.AIDE_STATUS_PUBLICATION
+);
+const aideApplicationTypes = formatEnumForGraphQL(
+  "searchApplicationTypes",
+  enums.AIDE_PERIMETRE_APPLICATION_TYPES
 );
 
 module.exports = {
@@ -41,6 +46,12 @@ module.exports = {
     args: {
       etape: {
         type: new GraphQLList(aideEtapes)
+      },
+      status: {
+        type: new GraphQLList(aideStatusPublication)
+      },
+      perimetreApplicationType: {
+        type: new GraphQLList(aideApplicationTypes)
       }
     },
     resolve: async (_, args = {}, context) => {

@@ -11,31 +11,34 @@ const {
   GraphQLList
 } = require("graphql");
 
-const { getEnumAsGraphQLEnumType } = require("../../enumTypes");
+const { enums, formatEnumForGraphQL } = require("../../enums");
 
-const perimetreApplicationType = getEnumAsGraphQLEnumType(
-  "PERIMETRE_APPLICATION_TYPES",
-  "PERIMETRE_APPLICATION_TYPES"
+const perimetreApplicationType = formatEnumForGraphQL(
+  "perimetreApplicationType",
+  enums.AIDE_PERIMETRE_APPLICATION_TYPES
 );
 
-const perimetreDiffusionType = getEnumAsGraphQLEnumType(
-  "PERIMETRE_DIFFUSION_TYPES",
-  "PERIMETRE_DIFFUSION_TYPES"
+const perimetreDiffusionTypes = formatEnumForGraphQL(
+  "perimetreDiffusionType",
+  enums.AIDE_PERIMETRE_DIFFUSION_TYPES
 );
 
-const aideTypes = getEnumAsGraphQLEnumType("AIDE_TYPES", "AIDE_TYPES");
-const aideStatus = getEnumAsGraphQLEnumType("AIDE_STATUS", "AIDE_STATUS");
-const aideBeneficiaires = getEnumAsGraphQLEnumType(
-  "AIDE_BENEFICIAIRES",
-  "AIDE_BENEFICIAIRES"
+const aideTypes = formatEnumForGraphQL("aideTypes", enums.AIDE_TYPES);
+const statusPublication = formatEnumForGraphQL(
+  "statusPublication",
+  enums.AIDE_STATUS_PUBLICATION
 );
-const aideEtapes = getEnumAsGraphQLEnumType("AIDE_ETAPES", "AIDE_ETAPES");
+const aideBeneficiaires = formatEnumForGraphQL(
+  "beneficiaires",
+  enums.AIDE_BENEFICIAIRES
+);
+const aideEtapes = formatEnumForGraphQL("aideEtapes", enums.AIDE_ETAPES);
 
 const Aide = new GraphQLObjectType({
   name: "Aide",
   fields: () => ({
     id: { type: GraphQLString },
-    name: { type: GraphQLString },
+    nom: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     updatedAt: { type: GraphQLString },
     description: { type: GraphQLString },
@@ -44,16 +47,16 @@ const Aide = new GraphQLObjectType({
     perimetreApplicationType: {
       type: perimetreApplicationType
     },
-    perimetreApplicationName: { type: GraphQLString },
+    perimetreApplicationNom: { type: GraphQLString },
     perimetreApplicationCode: { type: GraphQLString },
     perimetreDiffusionType: {
-      type: perimetreDiffusionType
+      type: perimetreDiffusionTypes
     },
     lien: { type: GraphQLString },
     etape: { type: aideEtapes },
-    status: { type: aideStatus },
+    statusPublication: { type: statusPublication },
     structurePorteuse: { type: GraphQLString },
-    beneficiaires: { type: aideBeneficiaires },
+    beneficiaires: { type: new GraphQLList(GraphQLString) },
     populationMin: { type: GraphQLInt },
     populationMax: { type: GraphQLInt }
   })

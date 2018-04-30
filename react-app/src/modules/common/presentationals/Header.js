@@ -21,7 +21,7 @@ export default class Header extends React.Component {
                 <div className="button is-large is-primary">
                   <Link
                     className="button-lancez-la-recherche js-scrollTo "
-                    to="/search"
+                    to="/recherche"
                   >
                     Lancer la recherche
                   </Link>

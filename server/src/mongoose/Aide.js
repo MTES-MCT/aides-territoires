@@ -1,24 +1,21 @@
 const mongoose = require("mongoose");
-const {
-  PERIMETRE_APPLICATION_TYPE,
-  getEnumAsArray,
-  getEnumAsGraphQLEnumType
-} = require("../enumTypes");
+const { enums, formatEnumForMongoose } = require("../enums");
+console.log(formatEnumForMongoose(enums.AIDE_TYPES));
 
 const schema = new mongoose.Schema(
   {
-    name: String,
+    nom: String,
     description: String,
     criteresEligibilite: String,
     type: {
       type: String,
-      enum: getEnumAsArray("AIDE_TYPES")
+      enum: formatEnumForMongoose(enums.AIDE_TYPES)
     },
     perimetreApplicationType: {
       type: String,
-      enum: getEnumAsArray("PERIMETRE_APPLICATION_TYPES")
+      enum: formatEnumForMongoose(enums.AIDE_PERIMETRE_APPLICATION_TYPES)
     },
-    perimetreApplicationName: {
+    perimetreApplicationNom: {
       type: String
     },
     perimetreApplicationCode: {
@@ -26,15 +23,15 @@ const schema = new mongoose.Schema(
     },
     etape: {
       type: String,
-      enum: getEnumAsArray("AIDE_ETAPES")
+      enum: formatEnumForMongoose(enums.AIDE_ETAPES)
     },
-    status: {
+    statusPublication: {
       type: String,
-      enum: getEnumAsArray("AIDE_STATUS")
+      enum: formatEnumForMongoose(enums.AIDE_STATUS_PUBLICATION)
     },
     perimetreDiffusionType: {
       type: String,
-      enum: getEnumAsArray("PERIMETRE_APPLICATION_TYPES")
+      enum: formatEnumForMongoose(enums.AIDE_PERIMETRE_APPLICATION_TYPES)
     },
     lien: {
       type: String
@@ -50,7 +47,7 @@ const schema = new mongoose.Schema(
     },
     beneficiaires: {
       type: [String],
-      enum: getEnumAsArray("AIDE_BENEFICIAIRES")
+      enum: formatEnumForMongoose(enums.AIDE_BENEFICIAIRES)
     }
   },
   { timestamps: true }
