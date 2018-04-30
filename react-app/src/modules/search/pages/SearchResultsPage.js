@@ -12,7 +12,6 @@ const SearchResultsPage = class extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     if (!this.props.data.aides) {
       return <AppLoader />;
@@ -38,17 +37,20 @@ const searchAidesQuery = gql`
   query searchAidesQuery {
     aides: allAides {
       id
+      nom
       createdAt
       updatedAt
-      name
       description
       perimetreApplicationType
-      perimetreApplicationName
+      perimetreApplicationNom
       perimetreApplicationCode
       perimetreDiffusionType
       etape
       structurePorteuse
-      status
+      statusPublication
+      lien
+      type
+      beneficiaires
     }
   }
 `;

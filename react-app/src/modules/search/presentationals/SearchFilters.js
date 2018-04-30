@@ -1,93 +1,199 @@
 import React from "react";
-import { List, ListItem } from "material-ui/List";
-import Subheader from "material-ui/Subheader";
-import Divider from "material-ui/Divider";
-import Checkbox from "material-ui/Checkbox";
+import { Form, Field } from "react-final-form";
+import { Redirect } from "react-router";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import Text from "modules/ui-kit/finalForm/Text";
+import TextArea from "modules/ui-kit/finalForm/TextArea";
+import {
+  getDepartementsByName,
+  getRegionsByName
+} from "../../../services/geoApi";
+import propTypes from "prop-types";
 
-const styles = {
-  root: {
-    background: `rgb(250, 250, 250)`,
-    display: "flex",
-    flexWrap: "wrap"
+const SUBMISSION_STATUS_NOT_STARTED = "not_started";
+const SUBMISSION_STATUS_PENDING = "pending";
+const SUBMISSION_STATUS_FINISHED = "finished";
+
+// les périmètres géographiques éligibles pour l'aide
+const PERIMETRE_APPLICATION_OPTIONS = [
+  { value: "europe", label: "Europe" },
+  { value: "france", label: "Nationale (Métropole + outre-mer)" },
+  { value: "region", label: "Régionale" },
+  { value: "outre_mer", label: "Outre Mer" },
+  { value: "metropole", label: "France Métropole et Corse" },
+  { value: "departement", label: "Département" }
+];
+
+const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;
+
+const TYPE_OPTIONS = [
+  { value: "financement", label: "Financement" },
+  { value: "ingenierie", label: "Ingénierie" },
+  { value: "autre", label: "Autre" }
+];
+
+const ETAPE_OPTIONS = [
+  {
+    value: "pre_operationnel",
+    label: "Pré-opérationnel"
   },
-  subHeader: {
-    fontSize: "20px",
-    color: "black"
+  {
+    value: "operationnel",
+    label: "Opérationnel"
+  },
+  {
+    value: "fonctionnement",
+    label: "Fonctionnement"
   }
+];
+
+const STATUS_OPTIONS = [
+  {
+    value: "draft",
+    label: "Brouillon"
+  },
+  {
+    value: "review_required",
+    label: "A vérifier"
+  },
+  {
+    value: "published",
+    label: "Publiée"
+  }
+];
+
+const BENEFICIAIRES_OPTIONS = [
+  {
+    value: "commune",
+    label: "Commune"
+  },
+  {
+    value: "EPCI",
+    label: "EPCI"
+  },
+  {
+    value: "entreprises",
+    label: "Entreprises"
+  },
+  {
+    value: "associations",
+    label: "Associations"
+  },
+  {
+    value: "autre",
+    label: "Autre"
+  }
+];
+
+const validate = values => {
+  const errors = {};
+  if (!values.nom || values.nom.trim().length === 0) {
+    errors.nom = "Le champ nom est requis";
+  }
+  return errors;
 };
 
-const SearchFilters = () => (
-  <div style={styles.root}>
-    <div>
-      <List>
-        <Subheader style={{ fontSize: "25px", color: "black" }}>
-          Filtres
-        </Subheader>
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>Type d'aide</Subheader>
-        <ListItem leftCheckbox={<Checkbox />} primaryText="financement" />
-        <ListItem leftCheckbox={<Checkbox />} primaryText="ingénierie" />
-        <ListItem leftCheckbox={<Checkbox />} primaryText="autre" />
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>
-          Étape à laquelle mobiliser l'aide
-        </Subheader>
-        <ListItem primaryText="pré-opérationnel" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="opérationnel" leftCheckbox={<Checkbox />} />
-        <ListItem
-          primaryText="Phase de vie / fonctionnement"
-          leftCheckbox={<Checkbox />}
-        />
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>Destination de l'aide</Subheader>
-        <ListItem primaryText="études" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="investissement" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="travaux" leftCheckbox={<Checkbox />} />
-      </List>
-      <List>
-        <Subheader style={styles.subHeader}>
-          Forme de diffusion de l'aide
-        </Subheader>
-        <ListItem primaryText="subvention" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="ingénierie" leftCheckbox={<Checkbox />} />
-        <ListItem primaryText="valorisaion" leftCheckbox={<Checkbox />} />
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>
-          Périmètre de diffusion de l'aide
-        </Subheader>
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>Structure porteuse</Subheader>
-      </List>
-      <Divider />
-      <List>
-        <Subheader style={styles.subHeader}>Thématiques</Subheader>
-        <ListItem primaryText="aménagement et DD" leftCheckbox={<Checkbox />} />
-        <ListItem
-          primaryText="infrastructures et réseaux"
-          leftCheckbox={<Checkbox />}
-        />
-        <ListItem
-          primaryText="développement local"
-          leftCheckbox={<Checkbox />}
-        />
-        <ListItem
-          primaryText="solidarité et cohésion sociale"
-          leftCheckbox={<Checkbox />}
-        />
-      </List>
-      <Divider />
-    </div>
-  </div>
-);
+const defaultValues = {
+  nom: ""
+};
+
+class SearchFilters extends React.Component {
+  state = {
+    formValues: [],
+    submissionStatus: SUBMISSION_STATUS_NOT_STARTED
+  };
+  static propTypes = {
+    // si une aide est passée en props, on considèrera
+    // qu'on est en mode édition
+    aide: propTypes.object
+  };
+  constructor(props) {
+    super(props);
+  }
+  handleSubmit = values => {
+    this.setState({
+      submissionStatus: SUBMISSION_STATUS_PENDING
+    });
+    const aide = { ...values };
+    /*
+    const result = this.props
+      .saveAide({
+        variables: aide,
+        // mettre à jour la liste des aides dans l'admin
+        refetchQueries: ["adminAllAides"]
+      })
+      .then(r => {
+        this.setState({
+          submissionStatus: SUBMISSION_STATUS_FINISHED
+        });
+      })
+      .catch(e => alert(e.message));
+      */
+  };
+  render() {
+    return (
+      <Form
+        onSubmit={this.handleSubmit}
+        validate={validate}
+        initialValues={defaultValues}
+        render={({
+          handleSubmit,
+          submitting,
+          pristine,
+          values,
+          errors,
+          form
+        }) => (
+          <form onSubmit={handleSubmit}>
+            {/* ================== */}
+            <div className="field">
+              <label className="label"> Status de publication </label>
+              {TYPE_OPTIONS.map(option => {
+                return (
+                  <div key={option.value}>
+                    <label className="checkbox">
+                      <Field
+                        name="statusPublication"
+                        component="input"
+                        type="checkbox"
+                        value={option.value}
+                      />{" "}
+                      {option.label}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            {/* ================== */}
+            <div className="field">
+              <label className="label"> Etapes </label>
+              {ETAPE_OPTIONS.map(option => {
+                return (
+                  <div key={option.value}>
+                    <label className="checkbox">
+                      <Field
+                        name="etape"
+                        component="input"
+                        type="checkbox"
+                        value={option.value}
+                      />{" "}
+                      {option.label}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            {/* ================== */}
+
+            <br />
+            <br />
+            <pre>{JSON.stringify(values, null, 2)}</pre>
+          </form>
+        )}
+      />
+    );
+  }
+}
 
 export default SearchFilters;
