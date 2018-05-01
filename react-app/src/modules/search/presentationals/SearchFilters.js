@@ -79,7 +79,6 @@ class SearchFilters extends React.Component {
       <Form
         onSubmit={this.handleSubmit}
         validate={validate}
-        initialValues={defaultValues}
         render={({
           handleSubmit,
           submitting,

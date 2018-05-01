@@ -11,7 +11,9 @@ const SearchAidePage = class extends React.Component {
   state = {
     type: [],
     etape: [],
-    perimetreApplicationType: []
+    perimetreApplicationType: [],
+    // texte du moteur de recherche
+    searchedText: ""
   };
   constructor(props) {
     super(props);
@@ -19,35 +21,129 @@ const SearchAidePage = class extends React.Component {
     this.state = {
       ...urlParams
     };
-    console.log(this.state);
+    console.log("state", this.state);
   }
   handlFiltersChange = newValues => {
     this.setState({
       ...newValues.values
     });
   };
-  handleSearchSubmit = values => {
-    const urlParams = queryString.stringify(this.state);
-    this.props.history.replace(`${this.props.match.url}?${urlParams}`);
-  };
   render() {
     return (
       <Layout>
         <div className="SearchResultsPage container">
-          <div className="section">
-            <SearchFormContainer
-              text={this.state.searchedText}
-              onSearchSubmit={this.handleSearchSubmit}
-            />
-          </div>
           <div className="columns">
             <div className="column is-one-quarter">
-              <SearchFilters onFiltersChange={this.handlFiltersChange} />
+              <SearchFilters
+                defaultValues={this.state}
+                onFiltersChange={this.handlFiltersChange}
+              />
             </div>
             <div className="column">
+              {this.state.perimetreApplicationType === "departement" && (
+                <AidesSearchQuery
+                  statusPublication={["published"]}
+                  perimetreApplicationType={"departement"}
+                  perimetreApplicationCode={this.state.perimetreApplicationCode}
+                  etape={this.state.etape}
+                  type={this.state.type}
+                >
+                  {({ aides }) => (
+                    <div>
+                      {aides.length > 0 && (
+                        <h2 className="title is-2">
+                          A destination de votre département
+                        </h2>
+                      )}
+                      <AideList aides={aides} />
+                    </div>
+                  )}
+                </AidesSearchQuery>
+              )}
+              {this.state.codeDepartement && (
+                <AidesSearchQuery
+                  statusPublication={["published"]}
+                  perimetreApplicationType={"departement"}
+                  perimetreApplicationCode={this.state.codeDepartement}
+                  etape={this.state.etape}
+                  type={this.state.type}
+                >
+                  {({ aides }) => (
+                    <div>
+                      {aides.length > 0 && (
+                        <h2 className="title is-2">
+                          A destination de votre département
+                        </h2>
+                      )}
+                      <AideList aides={aides} />
+                    </div>
+                  )}
+                </AidesSearchQuery>
+              )}
+              {this.state.codeRegion && (
+                <AidesSearchQuery
+                  statusPublication={["published"]}
+                  perimetreApplicationType={"region"}
+                  perimetreApplicationCode={this.state.codeRegion}
+                  etape={this.state.etape}
+                  type={this.state.type}
+                >
+                  {({ aides }) => (
+                    <div>
+                      {aides.length > 0 && (
+                        <h2 className="title is-2">
+                          A destination de votre région
+                        </h2>
+                      )}
+                      <AideList aides={aides} />
+                    </div>
+                  )}
+                </AidesSearchQuery>
+              )}
+              {this.state.perimetreApplicationType === "region" && (
+                <AidesSearchQuery
+                  statusPublication={["published"]}
+                  perimetreApplicationType={this.state.perimetreApplicationType}
+                  perimetreApplicationCode={this.state.perimetreApplicationCode}
+                  etape={this.state.etape}
+                  type={this.state.type}
+                >
+                  {({ aides }) => (
+                    <div>
+                      {aides.length > 0 && (
+                        <h2 className="title is-2">
+                          A destination de votre région
+                        </h2>
+                      )}
+                      <AideList aides={aides} />
+                    </div>
+                  )}
+                </AidesSearchQuery>
+              )}
+              {(this.state.perimetreApplicationType === "commune" ||
+                this.state.perimetreApplicationType === "departement") && (
+                <AidesSearchQuery
+                  statusPublication={["published"]}
+                  perimetreApplicationType={"departement"}
+                  perimetreApplicationCode={""}
+                  etape={this.state.etape}
+                  type={this.state.type}
+                >
+                  {({ aides }) => (
+                    <div>
+                      {aides.length > 0 && (
+                        <h2 className="title is-2">
+                          Toutes les Aides Départementales
+                        </h2>
+                      )}
+                      <AideList aides={aides} />
+                    </div>
+                  )}
+                </AidesSearchQuery>
+              )}
               <AidesSearchQuery
                 statusPublication={["published"]}
-                perimetreApplicationType={"departement"}
+                perimetreApplicationType={"region"}
                 perimetreApplicationCode={""}
                 etape={this.state.etape}
                 type={this.state.type}
@@ -55,22 +151,10 @@ const SearchAidePage = class extends React.Component {
                 {({ aides }) => (
                   <div>
                     {aides.length > 0 && (
-                      <h2 className="title is-2">Département</h2>
+                      <h2 className="title is-2">
+                        Toutes les aides Régionales
+                      </h2>
                     )}
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"region"}
-                perimetreApplicationCode={"44109"}
-                etape={this.state.etape}
-                type={this.state.type}
-              >
-                {({ aides }) => (
-                  <div>
-                    {aides.length > 0 && <h2 className="title is-2">Région</h2>}
                     <AideList aides={aides} />
                   </div>
                 )}
@@ -117,7 +201,9 @@ const SearchAidePage = class extends React.Component {
                 {({ aides }) => (
                   <div>
                     {aides.length > 0 && (
-                      <h2 className="title is-2">Nationale</h2>
+                      <h2 className="title is-2">
+                        Toutes les aides Nationales
+                      </h2>
                     )}
                     <AideList aides={aides} />
                   </div>
@@ -133,7 +219,9 @@ const SearchAidePage = class extends React.Component {
                 {({ aides }) => (
                   <div>
                     {aides.length > 0 && (
-                      <h2 className="title is-2">Européennes</h2>
+                      <h2 className="title is-2">
+                        Toutes les aides Européennes
+                      </h2>
                     )}
                     <AideList aides={aides} />
                   </div>

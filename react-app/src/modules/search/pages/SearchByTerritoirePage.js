@@ -20,7 +20,9 @@ class SearchPage extends React.Component {
       perimetreApplicationType: values.type,
       perimetreApplicationCode: values.data.code,
       perimetreApplicationName: values.data.name,
-      searchedText: values.text
+      searchedText: values.text,
+      codeDepartement: values.data.codeDepartement,
+      codeRegion: values.data.codeRegion
     };
     return queryString.stringify(params);
   };

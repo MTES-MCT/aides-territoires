@@ -11,12 +11,14 @@ const searchAidesQuery = gql`
     $type: [searchAideTypes]
     $statusPublication: [searchAideStatusPublication]
     $perimetreApplicationType: [searchAidePerimetreApplicationType]
+    $perimetreApplicationCode: String
   ) {
     aides: searchAides(
       etape: $etape
       type: $type
       statusPublication: $statusPublication
       perimetreApplicationType: $perimetreApplicationType
+      perimetreApplicationCode: $perimetreApplicationCode
     ) {
       id
       nom
@@ -67,6 +69,9 @@ export default compose(
       }
       if (props.statusPublication) {
         variables.statusPublication = props.statusPublication;
+      }
+      if (props.perimetreApplicationCode) {
+        variables.perimetreApplicationCode = props.perimetreApplicationCode;
       }
       if (
         props.perimetreApplicationType &&

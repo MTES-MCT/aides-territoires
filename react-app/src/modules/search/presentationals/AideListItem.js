@@ -10,7 +10,7 @@ class AideListItem extends React.Component {
     const { aide } = this.props;
     return (
       <div className="search-result-list-item box">
-        <h2 className="title is-4">{aide.name}</h2>
+        <h2 className="title is-4">{aide.nom}</h2>
         <p className="content">
           <em>{aide.description}</em>
         </p>

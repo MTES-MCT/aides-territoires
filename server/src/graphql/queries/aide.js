@@ -56,6 +56,9 @@ module.exports = {
       },
       perimetreApplicationType: {
         type: new GraphQLList(aidePerimetreApplicationTypes)
+      },
+      perimetreApplicationCode: {
+        type: GraphQLString
       }
     },
     resolve: async (_, args = {}, context) => {
