@@ -21,7 +21,6 @@ const SearchAidePage = class extends React.Component {
     this.state = {
       ...urlParams
     };
-    console.log("state", this.state);
   }
   handlFiltersChange = newValues => {
     this.setState({
