@@ -19,10 +19,10 @@ const searchAidesQuery = gql`
       perimetreApplicationType: $perimetreApplicationType
     ) {
       id
-      noms
+      nom
       createdAt
       updatedAt
-      descriptionA
+      description
       perimetreApplicationType
       perimetreApplicationNom
       perimetreApplicationCode
@@ -47,7 +47,7 @@ export default WrappedComponent => {
     };
     render() {
       if (this.props.data.loading) {
-        return <div>Chargement ...</div>;
+        return <AppLoader />;
       }
       if (this.props.data.error) {
         return <GraphQLError error={this.props.data.error} />;

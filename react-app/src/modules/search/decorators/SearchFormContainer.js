@@ -12,6 +12,9 @@ import {
 const SUGGESTIONS_LIMIT = 5;
 
 class SearchFormContainer extends React.Component {
+  static propTypes = {
+    onSearchSubmit: PropTypes.string.isRequired
+  };
   constructor(props) {
     super(props);
     this.state = {
