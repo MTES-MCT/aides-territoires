@@ -139,15 +139,12 @@ class AideForm extends React.Component {
     // qu'on est en mode édition
     aide: propTypes.object
   };
-  constructor(props) {
-    super(props);
-  }
   handleSubmit = values => {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
     const aide = { ...values };
-    const result = this.props
+    this.props
       .saveAide({
         variables: aide,
         // mettre à jour la liste des aides dans l'admin
@@ -288,8 +285,8 @@ class AideForm extends React.Component {
                       />
                     )}
                   </div>
-                  {(values.perimetreApplicationType == "region" ||
-                    values.perimetreApplicationType == "departement") && (
+                  {(values.perimetreApplicationType === "region" ||
+                    values.perimetreApplicationType === "departement") && (
                     <div className="column">
                       <Field
                         name="perimetreApplicationCode"

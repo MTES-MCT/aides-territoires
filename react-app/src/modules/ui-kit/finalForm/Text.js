@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import TextSuggestions from "./TextSuggestions";
 import PropTypes from "prop-types";
-import Store from "store";
 
 export default class extends React.Component {
   static propTypes = {

@@ -5,8 +5,16 @@ import AppLoader from "modules/ui-kit/AppLoader";
 import PropTypes from "prop-types";
 
 const searchAidesQuery = gql`
-  query searchAidesQuery($etape: [searchAideEtapes], $type: [searchAideTypes]) {
-    aides: searchAides(etape: $etape, type: $type) {
+  query searchAidesQuery(
+    $etape: [searchAideEtapes]
+    $type: [searchAideTypes]
+    $statusPublication: [searchAideStatusPublicaton]
+  ) {
+    aides: searchAides(
+      etape: $etape
+      type: $type
+      statusPublication: $statusPublication
+    ) {
       id
       nom
       createdAt
@@ -30,7 +38,9 @@ export default WrappedComponent => {
   class AidesProvider extends Component {
     static propTypes = {
       perimetreApplicationType: PropTypes.string,
-      perimetreApplicationCode: PropTypes.string
+      perimetreApplicationCode: PropTypes.string,
+      statusPublication: PropTypes.array,
+      type: PropTypes.array
     };
     constructor(props) {
       super(props);
@@ -56,6 +66,9 @@ export default WrappedComponent => {
         }
         if (props.type && props.type.length > 0) {
           variables.type = props.type;
+        }
+        if (props.statusPublication) {
+          variables.statusPublicaton = props.statusPublication;
         }
         return {
           variables

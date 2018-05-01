@@ -7,7 +7,7 @@ import apolloClient from "./services/apolloClient";
 import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import HomePage from "./modules/homepage/pages/HomePage";
-import SearchPage from "./modules/search/pages/SearchPage";
+import SearchByTerritoirePage from "./modules/search/pages/SearchByTerritoirePage";
 import SearchAidePage from "./modules/search/pages/SearchAidePage";
 import AideCreatePage from "./modules/admin/pages/AideCreatePage";
 import AideEditPage from "./modules/admin/pages/AideEditPage";
@@ -24,7 +24,11 @@ class App extends Component {
               <div className="App">
                 <Switch>
                   <Route exact path="/" component={HomePage} />
-                  <Route exact path="/recherche" component={SearchPage} />
+                  <Route
+                    exact
+                    path="/recherche"
+                    component={SearchByTerritoirePage}
+                  />
                   <Route exact path="/aides" component={SearchAidePage} />
                   <Route exact path="/admin" component={AideListPage} />
                   <Route exact path="/aide/create" component={AideCreatePage} />

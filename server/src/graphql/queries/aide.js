@@ -44,7 +44,7 @@ module.exports = {
       etape: {
         type: new GraphQLList(aideEtapes)
       },
-      status: {
+      statusPublication: {
         type: new GraphQLList(aideStatusPublication)
       },
       type: {

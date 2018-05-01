@@ -1,32 +1,9 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 import { FormSpy } from "react-final-form";
-import { Redirect } from "react-router";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import Text from "modules/ui-kit/finalForm/Text";
-import TextArea from "modules/ui-kit/finalForm/TextArea";
-import {
-  getDepartementsByName,
-  getRegionsByName
-} from "../../../services/geoApi";
 import propTypes from "prop-types";
 
-const SUBMISSION_STATUS_NOT_STARTED = "not_started";
-const SUBMISSION_STATUS_PENDING = "pending";
-const SUBMISSION_STATUS_FINISHED = "finished";
-
 // les périmètres géographiques éligibles pour l'aide
-const PERIMETRE_APPLICATION_OPTIONS = [
-  { value: "europe", label: "Europe" },
-  { value: "france", label: "Nationale (Métropole + outre-mer)" },
-  { value: "region", label: "Régionale" },
-  { value: "outre_mer", label: "Outre Mer" },
-  { value: "metropole", label: "France Métropole et Corse" },
-  { value: "departement", label: "Département" }
-];
-
-const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;
 
 const TYPE_OPTIONS = [
   { value: "financement", label: "Financement" },
@@ -49,21 +26,7 @@ const ETAPE_OPTIONS = [
   }
 ];
 
-const STATUS_OPTIONS = [
-  {
-    value: "draft",
-    label: "Brouillon"
-  },
-  {
-    value: "review_required",
-    label: "A vérifier"
-  },
-  {
-    value: "published",
-    label: "Publiée"
-  }
-];
-
+/*
 const BENEFICIAIRES_OPTIONS = [
   {
     value: "commune",
@@ -86,6 +49,7 @@ const BENEFICIAIRES_OPTIONS = [
     label: "Autre"
   }
 ];
+*/
 
 const validate = values => {
   const errors = {};

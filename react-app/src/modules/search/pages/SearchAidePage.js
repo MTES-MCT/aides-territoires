@@ -3,10 +3,6 @@ import Layout from "../../common/layouts/Layout";
 import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
 import AidesProvider from "modules/search/decorators/AidesProvider";
-import queryString from "query-string";
-import { graphql, compose } from "react-apollo";
-import gql from "graphql-tag";
-import AppLoader from "modules/ui-kit/AppLoader";
 import "./SearchAidePage.css";
 
 const Aides = AidesProvider(AideList);
@@ -32,6 +28,7 @@ const SearchResultsPage = class extends React.Component {
             </div>
             <div className="column">
               <Aides
+                statusPublication={["review_required"]}
                 perimetreApplicationType={"commune"}
                 perimetreApplicationCode={"44109"}
                 etape={this.state.etape}

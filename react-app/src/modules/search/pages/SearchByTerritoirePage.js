@@ -1,9 +1,6 @@
 import React from "react";
 import Layout from "../../common/layouts/Layout";
 import SearchFormContainer from "../decorators/SearchFormContainer";
-import SearchResultListContainer from "../decorators/SearchResultListContainer";
-import AppLoader from "modules/ui-kit/AppLoader";
-import Header from "../../common/presentationals/Header";
 import { Redirect } from "react-router-dom";
 import queryString from "query-string";
 
