@@ -17,12 +17,13 @@ const SUBMISSION_STATUS_FINISHED = "finished";
 
 // les périmètres géographiques éligibles pour l'aide
 const PERIMETRE_APPLICATION_OPTIONS = [
-  { value: "europe", label: "Europe" },
-  { value: "france", label: "Nationale (Métropole + outre-mer)" },
+  { value: "commune", label: "Commune" },
+  { value: "departement", label: "Département" },
   { value: "region", label: "Régionale" },
-  { value: "outre_mer", label: "Outre Mer" },
+  { value: "europe", label: "Europe" },
   { value: "metropole", label: "France Métropole et Corse" },
-  { value: "departement", label: "Département" }
+  { value: "outre_mer", label: "Outre Mer" },
+  { value: "france", label: "Nationale (Métropole + outre-mer)" }
 ];
 
 const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;

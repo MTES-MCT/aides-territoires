@@ -10,16 +10,16 @@ const enums = {};
 
 enums.AIDE_PERIMETRE_APPLICATION_TYPES = [
   {
-    value: "france",
-    label: "France"
-  },
-  {
-    value: "region",
-    label: "Région"
+    value: "commune",
+    label: "Commune"
   },
   {
     value: "departement",
     label: "Département"
+  },
+  {
+    value: "region",
+    label: "Région"
   },
   {
     value: "metropole",
@@ -28,6 +28,10 @@ enums.AIDE_PERIMETRE_APPLICATION_TYPES = [
   {
     value: "outre_mer",
     label: "Outre mer"
+  },
+  {
+    value: "france",
+    label: "France"
   },
   {
     value: "europe",

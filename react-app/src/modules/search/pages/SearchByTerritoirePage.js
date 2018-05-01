@@ -15,9 +15,12 @@ class SearchPage extends React.Component {
     this.setState({ searchedData: values });
   };
   buildUrlParamsFromValues = values => {
+    console.log(values);
     const params = {
       perimetreApplicationType: values.type,
-      perimetreApplicationCode: values.data.code
+      perimetreApplicationCode: values.data.code,
+      perimetreApplicationName: values.data.name,
+      searchedText: values.text
     };
     return queryString.stringify(params);
   };

@@ -4,7 +4,8 @@ import AideListItem from "./AideListItem";
 
 class SearchResultList extends React.Component {
   static propTypes = {
-    aides: PropTypes.array.isRequired
+    aides: PropTypes.array.isRequired,
+    title: PropTypes.string
   };
   render() {
     return (

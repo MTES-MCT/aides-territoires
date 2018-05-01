@@ -19,7 +19,7 @@ class SearchFormContainer extends React.Component {
     super(props);
     this.state = {
       suggestions: [],
-      text: ""
+      text: props.text ? props.text : ""
     };
   }
   static propTypes = {

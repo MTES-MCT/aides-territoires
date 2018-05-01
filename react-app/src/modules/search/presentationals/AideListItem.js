@@ -45,6 +45,10 @@ class AideListItem extends React.Component {
               <td>{aide.statusPublication}</td>
             </tr>
             <tr>
+              <td>Périmètre application</td>
+              <td>{aide.perimetreApplicationType}</td>
+            </tr>
+            <tr>
               <td>Type d'aide</td>
               <td>{aide.type}</td>
             </tr>
