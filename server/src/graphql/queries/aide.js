@@ -11,10 +11,14 @@ const {
 const { enums, formatEnumForGraphQL } = require("../../enums");
 const aideEtapes = formatEnumForGraphQL("searchAideEtapes", enums.AIDE_ETAPES);
 const aideStatusPublication = formatEnumForGraphQL(
-  "searchAideStatusPublicaton",
+  "searchAideStatusPublication",
   enums.AIDE_STATUS_PUBLICATION
 );
 const aideTypes = formatEnumForGraphQL("searchAideTypes", enums.AIDE_TYPES);
+const aidePerimetreApplicationTypes = formatEnumForGraphQL(
+  "searchAidePerimetreApplicationType",
+  enums.AIDE_PERIMETRE_APPLICATION_TYPES
+);
 
 module.exports = {
   getAide: {
@@ -49,6 +53,9 @@ module.exports = {
       },
       type: {
         type: new GraphQLList(aideTypes)
+      },
+      perimetreApplicationType: {
+        type: new GraphQLList(aidePerimetreApplicationTypes)
       }
     },
     resolve: async (_, args = {}, context) => {

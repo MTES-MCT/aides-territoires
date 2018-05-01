@@ -8,15 +8,13 @@ import "./SearchAidePage.css";
 const Aides = AidesProvider(AideList);
 
 const SearchResultsPage = class extends React.Component {
-  state = {
-    perimetreApplicationType: "",
-    perimetreApplicationCode: "",
-    etape: []
-  };
+  state = {};
   handlFiltersChange = newValues => {
     this.setState({
       ...newValues.values
     });
+    console.log(this.state);
+    // this.props.history.replace("/foo");
   };
   render() {
     return (
@@ -28,8 +26,8 @@ const SearchResultsPage = class extends React.Component {
             </div>
             <div className="column">
               <Aides
-                statusPublication={["review_required"]}
-                perimetreApplicationType={"commune"}
+                statusPublication={["published"]}
+                perimetreApplicationType={""}
                 perimetreApplicationCode={"44109"}
                 etape={this.state.etape}
                 type={this.state.type}

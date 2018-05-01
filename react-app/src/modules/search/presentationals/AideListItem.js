@@ -41,6 +41,10 @@ class AideListItem extends React.Component {
               <td>{aide.structurePorteuse}</td>
             </tr>
             <tr>
+              <td>Status de publication</td>
+              <td>{aide.statusPublication}</td>
+            </tr>
+            <tr>
               <td>Type d'aide</td>
               <td>{aide.type}</td>
             </tr>

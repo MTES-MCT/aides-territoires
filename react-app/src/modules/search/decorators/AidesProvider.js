@@ -3,23 +3,26 @@ import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import AppLoader from "modules/ui-kit/AppLoader";
 import PropTypes from "prop-types";
+import GraphQLError from "modules/ui-kit/GraphQLError";
 
 const searchAidesQuery = gql`
   query searchAidesQuery(
     $etape: [searchAideEtapes]
     $type: [searchAideTypes]
-    $statusPublication: [searchAideStatusPublicaton]
+    $statusPublication: [searchAideStatusPublication]
+    $perimetreApplicationType: [searchAidePerimetreApplicationType]
   ) {
     aides: searchAides(
       etape: $etape
       type: $type
       statusPublication: $statusPublication
+      perimetreApplicationType: $perimetreApplicationType
     ) {
       id
-      nom
+      noms
       createdAt
       updatedAt
-      description
+      descriptionA
       perimetreApplicationType
       perimetreApplicationNom
       perimetreApplicationCode
@@ -42,17 +45,16 @@ export default WrappedComponent => {
       statusPublication: PropTypes.array,
       type: PropTypes.array
     };
-    constructor(props) {
-      super(props);
-      this.state = {};
-    }
     render() {
-      if (!this.props.data.aides) {
-        return <AppLoader />;
+      if (this.props.data.loading) {
+        return <div>Chargement ...</div>;
+      }
+      if (this.props.data.error) {
+        return <GraphQLError error={this.props.data.error} />;
       }
       return (
         <div>
-          <WrappedComponent aides={this.props.data.aides} {...this.props} />
+          <WrappedComponent {...this.props} aides={this.props.data.aides} />
         </div>
       );
     }
@@ -68,7 +70,13 @@ export default WrappedComponent => {
           variables.type = props.type;
         }
         if (props.statusPublication) {
-          variables.statusPublicaton = props.statusPublication;
+          variables.statusPublication = props.statusPublication;
+        }
+        if (
+          props.perimetreApplicationType &&
+          props.perimetreApplicationType.length > 0
+        ) {
+          variables.perimetreApplicationType = props.perimetreApplicationType;
         }
         return {
           variables
