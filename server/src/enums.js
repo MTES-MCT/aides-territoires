@@ -118,6 +118,21 @@ enums.AIDE_STATUS_PUBLICATION = [
   }
 ];
 
+enums.FORME_DE_DIFFUSION = [
+  {
+    value: "subvention",
+    label: "Subvention"
+  },
+  {
+    value: "ingenierie",
+    label: "Ingénierie"
+  },
+  {
+    value: "valorisation",
+    label: "Valorisation"
+  }
+];
+
 enums.AIDE_BENEFICIAIRES = [
   {
     value: "commune",

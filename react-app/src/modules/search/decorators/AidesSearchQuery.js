@@ -12,6 +12,7 @@ const searchAidesQuery = gql`
     $statusPublication: [searchAideStatusPublication]
     $perimetreApplicationType: [searchAidePerimetreApplicationType]
     $perimetreApplicationCode: String
+    $formeDeDiffusion: String
   ) {
     aides: searchAides(
       etape: $etape
@@ -19,6 +20,7 @@ const searchAidesQuery = gql`
       statusPublication: $statusPublication
       perimetreApplicationType: $perimetreApplicationType
       perimetreApplicationCode: $perimetreApplicationCode
+      formeDeDiffusion: $formeDeDiffusion
     ) {
       id
       nom
@@ -35,6 +37,7 @@ const searchAidesQuery = gql`
       lien
       type
       beneficiaires
+      formeDeDiffusion
     }
   }
 `;
@@ -72,6 +75,9 @@ export default compose(
       }
       if (props.perimetreApplicationCode) {
         variables.perimetreApplicationCode = props.perimetreApplicationCode;
+      }
+      if (props.formeDeDiffusion) {
+        variables.formeDeDiffusion = props.formeDeDiffusion;
       }
       if (
         props.perimetreApplicationType &&

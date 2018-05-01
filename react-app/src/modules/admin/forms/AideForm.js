@@ -28,6 +28,21 @@ const PERIMETRE_APPLICATION_OPTIONS = [
 
 const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;
 
+const FORME_DE_DIFFUSION_OPTIONS = [
+  {
+    value: "subvention",
+    label: "Subvention"
+  },
+  {
+    value: "ingenierie",
+    label: "Ingénierie"
+  },
+  {
+    value: "valorisation",
+    label: "Valorisation"
+  }
+];
+
 const TYPE_OPTIONS = [
   { value: "financement", label: "Financement" },
   { value: "ingenierie", label: "Ingénierie" },
@@ -127,7 +142,8 @@ const defaultValues = {
   statusPublication: "published",
   type: "financement",
   etape: "pre_operationnel",
-  beneficiaires: ["commune"]
+  beneficiaires: ["commune"],
+  formeDeDiffusion: "subvention"
 };
 
 class AideForm extends React.Component {
@@ -368,15 +384,15 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Bénéficiaires </label>
-                  {BENEFICIAIRES_OPTIONS.map(option => {
+                  <label className="label"> Forme de diffusion </label>
+                  {FORME_DE_DIFFUSION_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
                           <Field
-                            name="beneficiaires"
+                            name="formeDeDiffusion"
                             component="input"
-                            type="checkbox"
+                            type="radio"
                             value={option.value}
                           />{" "}
                           {option.label}
@@ -386,6 +402,10 @@ class AideForm extends React.Component {
                   })}
                 </div>
               </div>
+              <div className="column" />
+            </div>
+
+            <div className="columns">
               <div className="column">
                 <div className="field">
                   <label className="label"> Status de publication </label>
@@ -437,6 +457,7 @@ const saveAide = gql`
     $lien: String!
     $criteresEligibilite: String
     $beneficiaires: [String]
+    $formeDeDiffusion: String
   ) {
     saveAide(
       id: $id
@@ -453,6 +474,7 @@ const saveAide = gql`
       lien: $lien
       criteresEligibilite: $criteresEligibilite
       beneficiaires: $beneficiaires
+      formeDeDiffusion: $formeDeDiffusion
     ) {
       nom
     }

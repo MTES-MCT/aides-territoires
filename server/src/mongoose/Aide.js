@@ -48,6 +48,10 @@ const schema = new mongoose.Schema(
     beneficiaires: {
       type: [String],
       enum: formatEnumForMongoose(enums.AIDE_BENEFICIAIRES)
+    },
+    formeDeDiffusion: {
+      type: String,
+      enum: formatEnumForMongoose(enums.FORME_DE_DIFFUSION)
     }
   },
   { timestamps: true }

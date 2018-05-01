@@ -12,6 +12,7 @@ const SearchAidePage = class extends React.Component {
     type: [],
     etape: [],
     perimetreApplicationType: [],
+    formeDeDiffusion: "",
     // texte du moteur de recherche
     searchedText: ""
   };
@@ -44,6 +45,7 @@ const SearchAidePage = class extends React.Component {
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
                   perimetreApplicationCode={this.state.perimetreApplicationCode}
+                  formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
                 >
@@ -64,6 +66,7 @@ const SearchAidePage = class extends React.Component {
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
                   perimetreApplicationCode={this.state.codeDepartement}
+                  formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
                 >
@@ -84,6 +87,7 @@ const SearchAidePage = class extends React.Component {
                   statusPublication={["published"]}
                   perimetreApplicationType={"region"}
                   perimetreApplicationCode={this.state.codeRegion}
+                  formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
                 >
@@ -104,6 +108,7 @@ const SearchAidePage = class extends React.Component {
                   statusPublication={["published"]}
                   perimetreApplicationType={this.state.perimetreApplicationType}
                   perimetreApplicationCode={this.state.perimetreApplicationCode}
+                  formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
                 >
@@ -125,6 +130,7 @@ const SearchAidePage = class extends React.Component {
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
                   perimetreApplicationCode={""}
+                  formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
                 >
@@ -144,6 +150,7 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"region"}
                 perimetreApplicationCode={""}
+                formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
               >
@@ -162,6 +169,7 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"outre_mer"}
                 perimetreApplicationCode={""}
+                formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
               >
@@ -178,6 +186,7 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"metropole"}
                 perimetreApplicationCode={""}
+                formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
               >
@@ -194,6 +203,7 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"france"}
                 perimetreApplicationCode={""}
+                formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
               >
@@ -212,6 +222,7 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"europe"}
                 perimetreApplicationCode={""}
+                formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
               >

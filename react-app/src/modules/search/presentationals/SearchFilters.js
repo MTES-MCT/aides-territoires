@@ -26,6 +26,21 @@ const ETAPE_OPTIONS = [
   }
 ];
 
+const FORME_DE_DIFFUSION_OPTIONS = [
+  {
+    value: "subvention",
+    label: "Subvention"
+  },
+  {
+    value: "ingenierie",
+    label: "Ingénierie"
+  },
+  {
+    value: "valorisation",
+    label: "Valorisation"
+  }
+];
+
 /*
 const BENEFICIAIRES_OPTIONS = [
   {
@@ -95,7 +110,7 @@ class SearchFilters extends React.Component {
             />
             {/* ================== */}
             <div className="field">
-              <label className="label"> Status de publication </label>
+              <label className="label"> Type d'aide </label>
               {TYPE_OPTIONS.map(option => {
                 return (
                   <div key={option.value}>
@@ -123,6 +138,25 @@ class SearchFilters extends React.Component {
                         name="etape"
                         component="input"
                         type="checkbox"
+                        value={option.value}
+                      />{" "}
+                      {option.label}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            {/* ================== */}
+            <div className="field">
+              <label className="label"> Forme de diffusion </label>
+              {FORME_DE_DIFFUSION_OPTIONS.map(option => {
+                return (
+                  <div key={option.value}>
+                    <label className="checkbox">
+                      <Field
+                        name="formeDeDiffusion"
+                        component="input"
+                        type="radio"
                         value={option.value}
                       />{" "}
                       {option.label}

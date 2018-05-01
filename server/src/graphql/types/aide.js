@@ -58,7 +58,8 @@ const Aide = new GraphQLObjectType({
     structurePorteuse: { type: GraphQLString },
     beneficiaires: { type: new GraphQLList(GraphQLString) },
     populationMin: { type: GraphQLInt },
-    populationMax: { type: GraphQLInt }
+    populationMax: { type: GraphQLInt },
+    formeDeDiffusion: { type: GraphQLString }
   })
 });
 

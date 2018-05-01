@@ -59,6 +59,9 @@ module.exports = {
       },
       perimetreApplicationCode: {
         type: GraphQLString
+      },
+      formeDeDiffusion: {
+        type: GraphQLString
       }
     },
     resolve: async (_, args = {}, context) => {

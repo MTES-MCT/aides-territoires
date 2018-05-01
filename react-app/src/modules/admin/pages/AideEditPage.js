@@ -35,6 +35,7 @@ const editAideQuery = gql`
       statusPublication
       lien
       beneficiaires
+      formeDeDiffusion
     }
   }
 `;

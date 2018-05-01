@@ -32,6 +32,7 @@ module.exports = {
       etape: { type: GraphQLString },
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
+      formeDeDiffusion: { type: GraphQLString },
       beneficiaires: { type: new GraphQLList(GraphQLString) },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt }
