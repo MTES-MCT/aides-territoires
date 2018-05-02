@@ -21,5 +21,9 @@ app.get("/", function(request, reponse) {
   reponse.sendFile(__dirname + "/index.html");
   app.use("/static", express.static("static"));
 });
+app.get("/admin", function(request, reponse) {
+  reponse.sendFile(__dirname + "/index.html");
+  app.use("/static", express.static("static"));
+});
 app.listen(3000);
 console.log("app listening on port 3000");
