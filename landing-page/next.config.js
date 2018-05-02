@@ -7,7 +7,7 @@ const fileName = `./env.config.js`;
 if (fs.existsSync(fileName)) {
   envConfig = require(fileName);
 }
-console.log("evn", envConfig);
+console.log("env", envConfig);
 
 module.exports = {
   publicRuntimeConfig: {
