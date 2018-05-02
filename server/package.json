@@ -20,8 +20,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev":
-      "MONGODB_URL=mongodb://localhost/aides-territoires nodemon src/index.js",
+    "dev": "nodemon src/index.js",
     "pm2-dev":
       "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
     "start": "pm2 start ecosystem.config.js",

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 // middleware express pour ajouter les headers CORS
@@ -78,6 +79,7 @@ function startExpressServer(schema) {
     logger.error("warning : MISSING PORT VARIABLE");
   }
   const port = process.env.PORT ? process.env.PORT : 8100;
+
   app.listen(port);
   logger.info(`Running a GraphQL API server at localhost:${port}/graphql`);
 }
