@@ -12,7 +12,6 @@ import SearchAidePage from "./modules/search/pages/SearchAidePage";
 import AideCreatePage from "./modules/admin/pages/AideCreatePage";
 import AideEditPage from "./modules/admin/pages/AideEditPage";
 import AideListPage from "./modules/admin/pages/AideListPage";
-import TypeDeTerritoireCreatePage from "./modules/aide/pages/TypeDeTerritoireCreatePage";
 
 class App extends Component {
   render() {
@@ -34,11 +33,6 @@ class App extends Component {
                   <Route exact path="/aide/create" component={AideCreatePage} />
                   <Route exact path="/aide/list" component={AideListPage} />
                   <Route exact path="/aide/:id/edit" component={AideEditPage} />
-                  <Route
-                    exact
-                    path="/type-de-territoire/create"
-                    component={TypeDeTerritoireCreatePage}
-                  />
                   <Route component={() => <div>Oups ! Page non trouvée</div>} />
                 </Switch>
               </div>
