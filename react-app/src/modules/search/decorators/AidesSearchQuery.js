@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import GraphQLError from "modules/ui-kit/GraphQLError";
 
 const searchAidesQuery = gql`
-  query searchAidesQuery(
+  query allAidesQuery(
     $etape: [searchAideEtapes]
     $type: [searchAideTypes]
     $statusPublication: [searchAideStatusPublication]
@@ -14,13 +14,16 @@ const searchAidesQuery = gql`
     $perimetreApplicationCode: String
     $formeDeDiffusion: String
   ) {
-    aides: searchAides(
-      etape: $etape
-      type: $type
-      statusPublication: $statusPublication
-      perimetreApplicationType: $perimetreApplicationType
-      perimetreApplicationCode: $perimetreApplicationCode
-      formeDeDiffusion: $formeDeDiffusion
+    aides: allAides(
+      sort: createdAtDesc
+      filters: {
+        etape: $etape
+        type: $type
+        statusPublication: $statusPublication
+        perimetreApplicationType: $perimetreApplicationType
+        perimetreApplicationCode: $perimetreApplicationCode
+        formeDeDiffusion: $formeDeDiffusion
+      }
     ) {
       id
       nom

@@ -27,7 +27,6 @@ function buildGraphQLSchema() {
     query: new graphql.GraphQLObjectType({
       name: "Query",
       fields: {
-        ...require("./graphql/queries/user"),
         ...require("./graphql/queries/hello"),
         ...require("./graphql/queries/aide")
       }
@@ -37,8 +36,7 @@ function buildGraphQLSchema() {
       name: "Mutation",
       fields: {
         ...require("./graphql/mutations/email"),
-        ...require("./graphql/mutations/aide"),
-        ...require("./graphql/mutations/typeDeTerritoire")
+        ...require("./graphql/mutations/aide")
       }
     })
   });

@@ -2,11 +2,13 @@ const types = require("../types");
 const AideModel = require("../../mongoose/Aide");
 const {
   GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLString,
   GraphQLID,
   GraphQLBoolean,
   GraphQLList,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLEnumType
 } = require("graphql");
 const { enums, formatEnumForGraphQL } = require("../../enums");
 const aideEtapes = formatEnumForGraphQL("searchAideEtapes", enums.AIDE_ETAPES);
@@ -35,38 +37,55 @@ module.exports = {
   allAides: {
     type: new GraphQLList(types.Aide),
     args: {
-      ...types.Aide._typeConfig.fields()
-    },
-    resolve: async (_, args = {}, context) => {
-      const result = await AideModel.find({}).sort({ updatedAt: "-1" });
-      return result;
-    }
-  },
-  searchAides: {
-    type: new GraphQLList(types.Aide),
-    args: {
-      etape: {
-        type: new GraphQLList(aideEtapes)
+      sort: {
+        type: new GraphQLEnumType({
+          name: "allAidesSort",
+          values: {
+            updatedAtDesc: {
+              value: "-updatedAt"
+            },
+            updatedAtAsc: {
+              value: "updatedAt"
+            },
+            createdAtDesc: {
+              value: "-updatedAt"
+            },
+            createdAtAsc: {
+              value: "updatedAt"
+            }
+          }
+        })
       },
-      statusPublication: {
-        type: new GraphQLList(aideStatusPublication)
-      },
-      type: {
-        type: new GraphQLList(aideTypes)
-      },
-      perimetreApplicationType: {
-        type: new GraphQLList(aidePerimetreApplicationTypes)
-      },
-      perimetreApplicationCode: {
-        type: GraphQLString
-      },
-      formeDeDiffusion: {
-        type: GraphQLString
+      filters: {
+        type: new GraphQLInputObjectType({
+          name: "allAidesFilters",
+          fields: {
+            etape: {
+              type: new GraphQLList(aideEtapes)
+            },
+            statusPublication: {
+              type: new GraphQLList(aideStatusPublication)
+            },
+            type: {
+              type: new GraphQLList(aideTypes)
+            },
+            perimetreApplicationType: {
+              type: new GraphQLList(aidePerimetreApplicationTypes)
+            },
+            perimetreApplicationCode: {
+              type: GraphQLString
+            },
+            formeDeDiffusion: {
+              type: GraphQLString
+            }
+          }
+        })
       }
     },
-    resolve: async (_, args = {}, context) => {
-      const result = await AideModel.find(args);
-      return result;
+    resolve: (_, { filters, sort = "-updatedAt" }, context) => {
+      const query = AideModel.find(filters);
+      query.sort(sort);
+      return query;
     }
   }
 };
