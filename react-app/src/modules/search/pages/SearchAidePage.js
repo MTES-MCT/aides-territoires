@@ -4,7 +4,7 @@ import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
 import SearchFormContainer from "modules/search/decorators/SearchFormContainer";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
-import queryString from "query-string";
+import queryString from "qs";
 import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
