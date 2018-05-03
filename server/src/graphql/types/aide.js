@@ -38,6 +38,9 @@ const Aide = new GraphQLObjectType({
     beneficiaires: {
       type: formatEnumForGraphQL("beneficiaires", enums.beneficiaires)
     },
+    beneficiairesAutre: {
+      type: GraphQLString
+    },
     populationMin: { type: GraphQLInt },
     populationMax: { type: GraphQLInt },
     formeDeDiffusion: { type: GraphQLString }

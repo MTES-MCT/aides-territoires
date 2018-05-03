@@ -54,7 +54,7 @@ const schema = new mongoose.Schema(
       enum: formatEnumForMongoose(enums.beneficiaires)
     },
     beneficiairesAutre: {
-      type: [String]
+      type: String
     },
     formeDeDiffusion: {
       type: String,
