@@ -48,6 +48,7 @@ const SearchAidePage = class extends React.Component {
                   formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
+                  thematiques={this.state.thematiques}
                 >
                   {({ aides }) => (
                     <div>
@@ -69,6 +70,7 @@ const SearchAidePage = class extends React.Component {
                   formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
+                  thematiques={this.state.thematiques}
                 >
                   {({ aides }) => (
                     <div>
@@ -90,6 +92,7 @@ const SearchAidePage = class extends React.Component {
                   formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
+                  thematiques={this.state.thematiques}
                 >
                   {({ aides }) => (
                     <div>
@@ -111,6 +114,7 @@ const SearchAidePage = class extends React.Component {
                   formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
+                  thematiques={this.state.thematiques}
                 >
                   {({ aides }) => (
                     <div>
@@ -133,6 +137,7 @@ const SearchAidePage = class extends React.Component {
                   formeDeDiffusion={this.state.formeDeDiffusion}
                   etape={this.state.etape}
                   type={this.state.type}
+                  thematiques={this.state.thematiques}
                 >
                   {({ aides }) => (
                     <div>
@@ -153,12 +158,13 @@ const SearchAidePage = class extends React.Component {
                 formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
+                thematiques={this.state.thematiques}
               >
                 {({ aides }) => (
                   <div>
                     {aides.length > 0 && (
                       <h2 className="title is-2">
-                        Toutes les aides Régionales
+                        Toutes les aides régionales
                       </h2>
                     )}
                     <AideList aides={aides} />
@@ -172,6 +178,7 @@ const SearchAidePage = class extends React.Component {
                 formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
+                thematiques={this.state.thematiques}
               >
                 {({ aides }) => (
                   <div>
@@ -189,6 +196,7 @@ const SearchAidePage = class extends React.Component {
                 formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
+                thematiques={this.state.thematiques}
               >
                 {({ aides }) => (
                   <div>
@@ -206,6 +214,7 @@ const SearchAidePage = class extends React.Component {
                 formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
+                thematiques={this.state.thematiques}
               >
                 {({ aides }) => (
                   <div>
@@ -225,12 +234,13 @@ const SearchAidePage = class extends React.Component {
                 formeDeDiffusion={this.state.formeDeDiffusion}
                 etape={this.state.etape}
                 type={this.state.type}
+                thematiques={this.state.thematiques}
               >
                 {({ aides }) => (
                   <div>
                     {aides.length > 0 && (
                       <h2 className="title is-2">
-                        Toutes les aides Européennes
+                        Toutes les aides européennes
                       </h2>
                     )}
                     <AideList aides={aides} />

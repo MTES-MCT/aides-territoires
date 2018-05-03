@@ -13,6 +13,7 @@ const searchAidesQuery = gql`
     $perimetreApplicationType: [allAidesPerimetreApplicationType]
     $perimetreApplicationCode: String
     $formeDeDiffusion: [allAidesFormeDeDiffusion]
+    $thematiques: [allAidesThematiques]
   ) {
     aides: allAides(
       sort: createdAtDesc
@@ -23,6 +24,7 @@ const searchAidesQuery = gql`
         perimetreApplicationType: $perimetreApplicationType
         perimetreApplicationCode: $perimetreApplicationCode
         formeDeDiffusion: $formeDeDiffusion
+        thematiques: $thematiques
       }
     ) {
       id
@@ -80,8 +82,11 @@ export default compose(
       if (props.perimetreApplicationCode) {
         variables.perimetreApplicationCode = props.perimetreApplicationCode;
       }
-      if (props.formeDeDiffusion && props.type.length > 0) {
+      if (props.formeDeDiffusion && props.formeDeDiffusion.length > 0) {
         variables.formeDeDiffusion = props.formeDeDiffusion;
+      }
+      if (props.thematiques && props.thematiques.length > 0) {
+        variables.thematiques = props.thematiques;
       }
       if (
         props.perimetreApplicationType &&
