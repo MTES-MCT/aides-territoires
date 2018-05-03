@@ -47,6 +47,8 @@ const allAidesQuery = gql`
       statusPublication
       lien
       type
+      destination
+      beneficiaires
     }
   }
 `;
