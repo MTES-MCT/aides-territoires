@@ -609,8 +609,18 @@ class AideForm extends React.Component {
               </div>
             </div>
 
-            <button type="submit" className="button is-large is-primary">
-              Sauver
+            <button
+              disabled={
+                this.state.submissionStatus === SUBMISSION_STATUS_PENDING
+                  ? true
+                  : false
+              }
+              type="submit"
+              className="button is-large is-primary"
+            >
+              {this.state.submissionStatus === SUBMISSION_STATUS_PENDING
+                ? "envoi en cours ..."
+                : "Sauver"}
             </button>
             <br />
             <br />
