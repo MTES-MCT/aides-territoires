@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Field } from "react-final-form";
 import { FormSpy } from "react-final-form";
 import propTypes from "prop-types";
+import "./SearchFilter.css";
 
 // les périmètres géographiques éligibles pour l'aide
 
@@ -223,127 +224,125 @@ class SearchFilters extends React.Component {
   };
   render() {
     return (
-      <Form
-        onSubmit={this.handleSubmit}
-        validate={validate}
-        render={({
-          handleSubmit,
-          submitting,
-          pristine,
-          values,
-          errors,
-          form
-        }) => (
-          <form onSubmit={handleSubmit}>
-            {/* listen for form values change from outside of the <form> tag */}
-            <FormSpy
-              subscription={{ values: true }}
-              onChange={this.handleFormChange}
-            />
-            {/* ================== */}
-            <div className="field">
-              <label className="label"> Type d'aide </label>
-              {TYPE_OPTIONS.map(option => {
-                return (
-                  <div key={option.value}>
-                    <label className="checkbox">
-                      <Field
-                        name="type"
-                        component="input"
-                        type="checkbox"
-                        value={option.value}
-                      />{" "}
-                      {option.label}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            {/* ================== */}
-            <div className="field">
-              <label className="label"> Temporalité dans le projet </label>
-              {ETAPE_OPTIONS.map(option => {
-                return (
-                  <div key={option.value}>
-                    <label className="checkbox">
-                      <Field
-                        name="etape"
-                        component="input"
-                        type="checkbox"
-                        value={option.value}
-                      />{" "}
-                      {option.label}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            {/* ================== */}
-            <div className="field">
-              <label className="label"> Modalité de diffusion </label>
-              {FORME_DE_DIFFUSION_OPTIONS.map(option => {
-                return (
-                  <div key={option.value}>
-                    <label className="checkbox">
-                      <Field
-                        name="formeDeDiffusion"
-                        component="input"
-                        type="checkbox"
-                        value={option.value}
-                      />{" "}
-                      {option.label}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            {/* ================== */}
-            <div className="field">
-              <label className="label"> Thématiques </label>
-              {THEMATIQUES_OPTIONS.map(option => {
-                return (
-                  <div key={option.value}>
-                    <label className="checkbox">
-                      <Field
-                        name="thematiques"
-                        component="input"
-                        type="checkbox"
-                        value={option.value}
-                      />{" "}
-                      {option.label}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            {/* ================== */}
-            {/* ================== */}
-            <div className="field">
-              <label className="label"> Destination de l'aide </label>
-              {DESTINATION_OPTIONS.map(option => {
-                return (
-                  <div key={option.value}>
-                    <label className="checkbox">
-                      <Field
-                        name="destination"
-                        component="input"
-                        type="checkbox"
-                        value={option.value}
-                      />{" "}
-                      {option.label}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            {/* ================== */}
-
-            <br />
-            <br />
-            <pre>{JSON.stringify(values, null, 2)}</pre>
-          </form>
-        )}
-      />
+      <div className="SearchFilters">
+        <Form
+          onSubmit={this.handleSubmit}
+          validate={validate}
+          render={({
+            handleSubmit,
+            submitting,
+            pristine,
+            values,
+            errors,
+            form
+          }) => (
+            <form onSubmit={handleSubmit}>
+              {/* listen for form values change from outside of the <form> tag */}
+              <FormSpy
+                subscription={{ values: true }}
+                onChange={this.handleFormChange}
+              />
+              {/* ================== */}
+              <div className="field">
+                <label className="label"> Type d'aide </label>
+                {TYPE_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="type"
+                          component="input"
+                          type="checkbox"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* ================== */}
+              <div className="field">
+                <label className="label"> Temporalité dans le projet </label>
+                {ETAPE_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="etape"
+                          component="input"
+                          type="checkbox"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* ================== */}
+              <div className="field">
+                <label className="label"> Modalité de diffusion </label>
+                {FORME_DE_DIFFUSION_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="formeDeDiffusion"
+                          component="input"
+                          type="checkbox"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* ================== */}
+              <div className="field">
+                <label className="label"> Thématiques </label>
+                {THEMATIQUES_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="thematiques"
+                          component="input"
+                          type="checkbox"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* ================== */}
+              {/* ================== */}
+              <div className="field">
+                <label className="label"> Destination de l'aide </label>
+                {DESTINATION_OPTIONS.map(option => {
+                  return (
+                    <div key={option.value}>
+                      <label className="checkbox">
+                        <Field
+                          name="destination"
+                          component="input"
+                          type="checkbox"
+                          value={option.value}
+                        />{" "}
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* ================== */}
+            </form>
+          )}
+        />
+      </div>
     );
   }
 }

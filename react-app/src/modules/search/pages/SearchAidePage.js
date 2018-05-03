@@ -4,6 +4,7 @@ import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
 import SearchFormContainer from "modules/search/decorators/SearchFormContainer";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
+import RaisedButton from "material-ui/RaisedButton";
 import queryString from "qs";
 import "./SearchAidePage.css";
 
@@ -31,6 +32,22 @@ const SearchAidePage = class extends React.Component {
   render() {
     return (
       <Layout>
+        <div style={{ textAlign: "right", marginTop: "2rem" }}>
+          <RaisedButton
+            style={{ marginRight: "20px" }}
+            primary={true}
+            label="Imprimer mes résultats"
+          />
+          <RaisedButton
+            style={{ marginRight: "20px" }}
+            secondary={true}
+            label="Partager mes résultats"
+          />
+          <RaisedButton
+            style={{ marginRight: "20px" }}
+            label="Etre alerté de nouvelles aides"
+          />
+        </div>
         <div className="SearchResultsPage container">
           <div className="columns">
             <div className="column is-one-quarter">
