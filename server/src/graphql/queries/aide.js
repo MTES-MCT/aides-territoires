@@ -61,7 +61,7 @@ module.exports = {
               )
             },
             type: {
-              type: formatEnumForGraphQL("type", enums.type)
+              type: formatEnumForGraphQL("allAidesType", enums.type)
             },
             perimetreApplicationType: {
               type: formatEnumForGraphQL(

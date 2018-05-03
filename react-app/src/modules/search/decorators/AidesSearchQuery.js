@@ -7,10 +7,10 @@ import GraphQLError from "modules/ui-kit/GraphQLError";
 
 const searchAidesQuery = gql`
   query allAidesQuery(
-    $etape: [searchAideEtapes]
-    $type: [searchAideTypes]
-    $statusPublication: [searchAideStatusPublication]
-    $perimetreApplicationType: [searchAidePerimetreApplicationType]
+    $etape: [allAidesEtape]
+    $type: [allAidesType]
+    $statusPublication: [allAidesStatusPublication]
+    $perimetreApplicationType: [allAidesPerimetreApplicationType]
     $perimetreApplicationCode: String
     $formeDeDiffusion: String
   ) {
