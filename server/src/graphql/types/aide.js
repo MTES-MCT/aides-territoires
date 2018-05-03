@@ -30,6 +30,7 @@ const Aide = new GraphQLObjectType({
     perimetreDiffusionType: {
       type: GraphQLString
     },
+    perimetreDiffusionTypeAutre: { type: GraphQLString },
     lien: { type: GraphQLString },
     etape: { type: GraphQLString },
     statusPublication: { type: GraphQLString },
