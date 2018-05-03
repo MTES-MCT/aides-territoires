@@ -14,6 +14,7 @@ const searchAidesQuery = gql`
     $perimetreApplicationCode: String
     $formeDeDiffusion: [allAidesFormeDeDiffusion]
     $thematiques: [allAidesThematiques]
+    $destination: [allAidesDestination]
   ) {
     aides: allAides(
       sort: createdAtDesc
@@ -25,6 +26,7 @@ const searchAidesQuery = gql`
         perimetreApplicationCode: $perimetreApplicationCode
         formeDeDiffusion: $formeDeDiffusion
         thematiques: $thematiques
+        destination: $destination
       }
     ) {
       id
@@ -43,6 +45,7 @@ const searchAidesQuery = gql`
       type
       beneficiaires
       formeDeDiffusion
+      destination
     }
   }
 `;
@@ -87,6 +90,9 @@ export default compose(
       }
       if (props.thematiques && props.thematiques.length > 0) {
         variables.thematiques = props.thematiques;
+      }
+      if (props.destination && props.destination.length > 0) {
+        variables.destination = props.destination;
       }
       if (
         props.perimetreApplicationType &&

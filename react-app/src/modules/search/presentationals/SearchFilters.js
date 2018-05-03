@@ -261,7 +261,7 @@ class SearchFilters extends React.Component {
             </div>
             {/* ================== */}
             <div className="field">
-              <label className="label"> Etapes </label>
+              <label className="label"> Temporalité dans le projet </label>
               {ETAPE_OPTIONS.map(option => {
                 return (
                   <div key={option.value}>
@@ -280,7 +280,7 @@ class SearchFilters extends React.Component {
             </div>
             {/* ================== */}
             <div className="field">
-              <label className="label"> Forme de diffusion </label>
+              <label className="label"> Modalité de diffusion </label>
               {FORME_DE_DIFFUSION_OPTIONS.map(option => {
                 return (
                   <div key={option.value}>
@@ -306,6 +306,26 @@ class SearchFilters extends React.Component {
                     <label className="checkbox">
                       <Field
                         name="thematiques"
+                        component="input"
+                        type="checkbox"
+                        value={option.value}
+                      />{" "}
+                      {option.label}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            {/* ================== */}
+            {/* ================== */}
+            <div className="field">
+              <label className="label"> Destination de l'aide </label>
+              {DESTINATION_OPTIONS.map(option => {
+                return (
+                  <div key={option.value}>
+                    <label className="checkbox">
+                      <Field
+                        name="destination"
                         component="input"
                         type="checkbox"
                         value={option.value}
