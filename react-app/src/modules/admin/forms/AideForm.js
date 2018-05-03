@@ -107,25 +107,6 @@ const validate = values => {
   if (!values.nom || values.nom.trim().length === 0) {
     errors.nom = "Le champ nom est requis";
   }
-  if (!values.description || values.description.trim().length === 0) {
-    errors.description = "Le champ description est requis";
-  }
-  if (!values.lien || values.lien.trim().length === 0) {
-    errors.lien = "Le champ lien est requis";
-  }
-  if (
-    !values.structurePorteuse ||
-    values.structurePorteuse.trim().length === 0
-  ) {
-    errors.structurePorteuse = "Le champ structurePorteuse est requis";
-  }
-  if (
-    !values.perimetreApplicationType ||
-    values.perimetreApplicationType.trim().length === 0
-  ) {
-    errors.perimetreApplicationType =
-      "Le champ périmètre d'application est requis";
-  }
   return errors;
 };
 
