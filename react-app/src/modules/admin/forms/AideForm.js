@@ -10,6 +10,7 @@ import {
   getRegionsByName
 } from "../../../services/geoApi";
 import propTypes from "prop-types";
+import GraphQLError from "../../ui-kit/GraphQLError";
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
 const SUBMISSION_STATUS_PENDING = "pending";
@@ -26,7 +27,15 @@ const PERIMETRE_APPLICATION_OPTIONS = [
   { value: "france", label: "Nationale (Métropole + outre-mer)" }
 ];
 
-const PERIMETRE_DIFFUSION_OPTIONS = PERIMETRE_APPLICATION_OPTIONS;
+// les périmètres géographiques éligibles pour l'aide
+const PERIMETRE_DIFFUSION_OPTIONS = [
+  { value: "europe", label: "Europe" },
+  { value: "metropole", label: "National" },
+  { value: "outre_mer", label: "Outre Mer" },
+  { value: "region", label: "Régional" },
+  { value: "departement", label: "Départemental" },
+  { value: "autre", label: "Autre" }
+];
 
 const FORME_DE_DIFFUSION_OPTIONS = [
   {
@@ -130,7 +139,8 @@ const defaultValues = {
 class AideForm extends React.Component {
   state = {
     formValues: [],
-    submissionStatus: SUBMISSION_STATUS_NOT_STARTED
+    submissionStatus: SUBMISSION_STATUS_NOT_STARTED,
+    error: null
   };
   static propTypes = {
     // si une aide est passée en props, on considèrera
@@ -153,9 +163,12 @@ class AideForm extends React.Component {
           submissionStatus: SUBMISSION_STATUS_FINISHED
         });
       })
-      .catch(e => alert(e.message));
+      .catch(e => this.setState({ error: e }));
   };
   render() {
+    if (this.state.error) {
+      return <GraphQLError error={this.state.error} />;
+    }
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
       return <Redirect push to="/aide/list" />;
     }
@@ -190,16 +203,16 @@ class AideForm extends React.Component {
                   label="Descriptif de l'aide"
                 />
                 <Field
-                  name="lien"
-                  className="is-large"
-                  component={Text}
-                  label="Lien"
-                />
-                <Field
                   name="structurePorteuse"
                   className="is-large"
                   component={Text}
                   label="Structure porteuse"
+                />
+                <Field
+                  name="lien"
+                  className="is-large"
+                  component={Text}
+                  label="Lien"
                 />
                 <Field
                   name="criteresEligibilite"
@@ -316,6 +329,16 @@ class AideForm extends React.Component {
                       </div>
                     );
                   })}
+                  {/* perimetreDiffusionTypeAutre */}
+                  {values.perimetreDiffusionType === "autre" && (
+                    <Field
+                      name="perimetreDiffusionTypeAutre"
+                      className="is-large"
+                      component={Text}
+                      label="Autre"
+                    />
+                  )}
+                  {/* /perimetreDiffusionTypeAutre*/}
                 </div>
               </div>
             </div>
@@ -437,8 +460,9 @@ const saveAide = gql`
     $statusPublication: String!
     $lien: String!
     $criteresEligibilite: String
-    $beneficiaires: [String]
+    $beneficiaires: [saveAideBeneficiaires]
     $formeDeDiffusion: String
+    $perimetreDiffusionTypeAutre: String
   ) {
     saveAide(
       id: $id
@@ -446,6 +470,7 @@ const saveAide = gql`
       description: $description
       type: $type
       perimetreDiffusionType: $perimetreDiffusionType
+      perimetreDiffusionTypeAutre: $perimetreDiffusionTypeAutre
       perimetreApplicationType: $perimetreApplicationType
       perimetreApplicationNom: $perimetreApplicationNom
       perimetreApplicationCode: $perimetreApplicationCode

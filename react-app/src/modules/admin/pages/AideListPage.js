@@ -4,15 +4,17 @@ import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import Loader from "modules/ui-kit/AppLoader";
 import AideList from "modules/admin/presentationals/AideList";
+import GraphQLError from "modules/ui-kit/GraphQLError";
 
 const AideListPage = class extends React.Component {
   render() {
-    const { loading, allAides } = this.props.data;
+    const { loading, aides, error } = this.props.data;
     return (
       <AdminLayout>
         <h1 className="title is-1">Liste des aides</h1>
-        {loading && <Loader />}
-        {loading === false && (
+        {error && <GraphQLError error={error} />}
+        {!aides && loading && <Loader />}
+        {aides && (
           <AideList
             onDeleteClick={aide =>
               this.props.deleteAide({
@@ -20,7 +22,7 @@ const AideListPage = class extends React.Component {
                 refetchQueries: ["adminAllAides"]
               })
             }
-            aides={allAides}
+            aides={aides}
           />
         )}
       </AdminLayout>
@@ -30,7 +32,7 @@ const AideListPage = class extends React.Component {
 
 const allAidesQuery = gql`
   query adminAllAides {
-    allAides {
+    aides: allAides {
       id
       createdAt
       updatedAt
@@ -44,7 +46,6 @@ const allAidesQuery = gql`
       structurePorteuse
       statusPublication
       lien
-      beneficiaires
       type
     }
   }

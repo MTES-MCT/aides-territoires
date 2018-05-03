@@ -1,5 +1,7 @@
 const types = require("../types");
+const enums = require("../../enums/aide");
 const AideModel = require("../../mongoose/Aide");
+const { formatEnumForGraphQL } = require("../../services/enums");
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -28,12 +30,17 @@ module.exports = {
       perimetreDiffusionType: {
         type: GraphQLString
       },
+      perimetreDiffusionTypeAutre: {
+        type: GraphQLString
+      },
       lien: { type: GraphQLString },
       etape: { type: GraphQLString },
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
       formeDeDiffusion: { type: GraphQLString },
-      beneficiaires: { type: new GraphQLList(GraphQLString) },
+      beneficiaires: {
+        type: formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires)
+      },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt }
     },

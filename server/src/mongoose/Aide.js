@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const { enums, formatEnumForMongoose } = require("../enums");
-console.log(formatEnumForMongoose(enums.AIDE_TYPES));
+
+const { formatEnumForMongoose } = require("../services/enums");
+const enums = require("../enums/aide");
 
 const schema = new mongoose.Schema(
   {
@@ -9,11 +10,11 @@ const schema = new mongoose.Schema(
     criteresEligibilite: String,
     type: {
       type: String,
-      enum: formatEnumForMongoose(enums.AIDE_TYPES)
+      enum: formatEnumForMongoose(enums.type)
     },
     perimetreApplicationType: {
       type: String,
-      enum: formatEnumForMongoose(enums.AIDE_PERIMETRE_APPLICATION_TYPES)
+      enum: formatEnumForMongoose(enums.perimetreApplicationType)
     },
     perimetreApplicationNom: {
       type: String
@@ -23,15 +24,18 @@ const schema = new mongoose.Schema(
     },
     etape: {
       type: String,
-      enum: formatEnumForMongoose(enums.AIDE_ETAPES)
+      enum: formatEnumForMongoose(enums.etape)
     },
     statusPublication: {
       type: String,
-      enum: formatEnumForMongoose(enums.AIDE_STATUS_PUBLICATION)
+      enum: formatEnumForMongoose(enums.statusPublication)
     },
     perimetreDiffusionType: {
       type: String,
-      enum: formatEnumForMongoose(enums.AIDE_PERIMETRE_APPLICATION_TYPES)
+      enum: formatEnumForMongoose(enums.perimetreDiffusionType)
+    },
+    perimetreDiffusionTypeAutre: {
+      type: String
     },
     lien: {
       type: String
@@ -47,11 +51,14 @@ const schema = new mongoose.Schema(
     },
     beneficiaires: {
       type: [String],
-      enum: formatEnumForMongoose(enums.AIDE_BENEFICIAIRES)
+      enum: formatEnumForMongoose(enums.beneficiaires)
+    },
+    beneficiairesAutre: {
+      type: [String]
     },
     formeDeDiffusion: {
       type: String,
-      enum: formatEnumForMongoose(enums.FORME_DE_DIFFUSION)
+      enum: formatEnumForMongoose(enums.formeDeDiffusion)
     }
   },
   { timestamps: true }

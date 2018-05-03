@@ -4,11 +4,13 @@ import AideForm from "modules/admin/forms/AideForm";
 import AppLoader from "modules/ui-kit/AppLoader";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
+import GraphQLError from "modules/ui-kit/GraphQLError";
 
-const AideEditPage = ({ data: { aide } }) => {
+const AideEditPage = ({ data: { aide, error, loading } }) => {
   return (
     <AdminLayout>
-      {!aide && <AppLoader />}
+      {error && <GraphQLError error={error} />}
+      {loading && <AppLoader />}
       {aide && <AideForm operation={"edition"} aide={aide} />}
     </AdminLayout>
   );

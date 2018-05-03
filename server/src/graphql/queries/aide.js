@@ -1,5 +1,7 @@
 const types = require("../types");
 const AideModel = require("../../mongoose/Aide");
+const enums = require("../../enums/aide");
+const { formatEnumForGraphQL } = require("../../services/enums");
 const {
   GraphQLObjectType,
   GraphQLInputObjectType,
@@ -10,17 +12,6 @@ const {
   GraphQLInt,
   GraphQLEnumType
 } = require("graphql");
-const { enums, formatEnumForGraphQL } = require("../../enums");
-const aideEtapes = formatEnumForGraphQL("searchAideEtapes", enums.AIDE_ETAPES);
-const aideStatusPublication = formatEnumForGraphQL(
-  "searchAideStatusPublication",
-  enums.AIDE_STATUS_PUBLICATION
-);
-const aideTypes = formatEnumForGraphQL("searchAideTypes", enums.AIDE_TYPES);
-const aidePerimetreApplicationTypes = formatEnumForGraphQL(
-  "searchAidePerimetreApplicationType",
-  enums.AIDE_PERIMETRE_APPLICATION_TYPES
-);
 
 module.exports = {
   getAide: {
@@ -61,16 +52,22 @@ module.exports = {
           name: "allAidesFilters",
           fields: {
             etape: {
-              type: new GraphQLList(aideEtapes)
+              type: formatEnumForGraphQL("allAidesEtape", enums.etape)
             },
             statusPublication: {
-              type: new GraphQLList(aideStatusPublication)
+              type: formatEnumForGraphQL(
+                "allAidesStatusPublication",
+                enums.statusPublication
+              )
             },
             type: {
-              type: new GraphQLList(aideTypes)
+              type: formatEnumForGraphQL("type", enums.type)
             },
             perimetreApplicationType: {
-              type: new GraphQLList(aidePerimetreApplicationTypes)
+              type: formatEnumForGraphQL(
+                "allAidesPerimetreApplicationType",
+                enums.perimetreApplicationType
+              )
             },
             perimetreApplicationCode: {
               type: GraphQLString
