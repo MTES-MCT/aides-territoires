@@ -43,12 +43,56 @@ const FORME_DE_DIFFUSION_OPTIONS = [
     label: "Subvention"
   },
   {
+    value: "bonification_interet",
+    label: "Bonification d'intérêt"
+  },
+  {
+    value: "pret",
+    label: "prêt"
+  },
+  {
+    value: "avance_recuperable",
+    label: "avance récupérable"
+  },
+  {
+    value: "garantie",
+    label: "Garantie"
+  },
+  {
+    value: "pret_taux_reduit",
+    label: "Prêt à taux réduit"
+  },
+  {
+    value: "investissement_en_capital",
+    label: "Investissement en capital"
+  },
+  {
+    value: "avantage_fiscal",
+    label: "avantage fiscal"
+  },
+  {
+    value: "fonds_de_retour",
+    label: "Fonds de retour"
+  },
+  {
     value: "ingenierie",
-    label: "Ingénierie"
+    label: "Ingénierie de projet"
+  },
+  {
+    value: "conseil",
+    label: "Conseil"
+  },
+  {
+    value: "accompagnement",
+    label: "Accompagnement"
   },
   {
     value: "valorisation",
     label: "Valorisation"
+  },
+  {
+    value: "communication",
+    label: "Communication"
   }
 ];
 
