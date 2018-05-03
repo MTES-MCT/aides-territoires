@@ -59,6 +59,10 @@ const schema = new mongoose.Schema(
     formeDeDiffusion: {
       type: String,
       enum: formatEnumForMongoose(enums.formeDeDiffusion)
+    },
+    destination: {
+      type: [String],
+      enum: formatEnumForMongoose(enums.destination)
     }
   },
   { timestamps: true }

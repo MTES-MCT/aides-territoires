@@ -38,6 +38,8 @@ const editAideQuery = gql`
       statusPublication
       lien
       beneficiaires
+      beneficiairesAutre
+      destination
       formeDeDiffusion
     }
   }

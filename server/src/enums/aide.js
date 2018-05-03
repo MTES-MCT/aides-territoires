@@ -142,5 +142,31 @@ module.exports = {
       value: "autre",
       label: "Autre"
     }
+  ],
+  destination: [
+    {
+      value: "etude",
+      label: "Etude"
+    },
+    {
+      value: "investissement",
+      label: "Investissement"
+    },
+    {
+      value: "fourniture",
+      label: "Fourniture"
+    },
+    {
+      value: "fonctionnement",
+      label: "Fonctionnement"
+    },
+    {
+      value: "service",
+      label: "Service"
+    },
+    {
+      value: "travaux",
+      label: "Travaux"
+    }
   ]
 };

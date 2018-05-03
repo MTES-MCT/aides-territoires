@@ -111,6 +111,33 @@ const BENEFICIAIRES_OPTIONS = [
   }
 ];
 
+const DESTINATION_OPTIONS = [
+  {
+    value: "etude",
+    label: "Etude"
+  },
+  {
+    value: "investissement",
+    label: "Investissement"
+  },
+  {
+    value: "fourniture",
+    label: "Fourniture"
+  },
+  {
+    value: "fonctionnement",
+    label: "Fonctionnement"
+  },
+  {
+    value: "service",
+    label: "Service"
+  },
+  {
+    value: "travaux",
+    label: "Travaux"
+  }
+];
+
 const validate = values => {
   const errors = {};
   if (!values.nom || values.nom.trim().length === 0) {
@@ -342,6 +369,9 @@ class AideForm extends React.Component {
                 </div>
               </div>
             </div>
+
+            <hr />
+
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -384,8 +414,9 @@ class AideForm extends React.Component {
                 </div>
               </div>
             </div>
-
+            <hr />
             <div className="columns">
+              {/* ==== */}
               <div className="column">
                 <div className="field">
                   <label className="label"> Modalité de diffusion </label>
@@ -406,9 +437,64 @@ class AideForm extends React.Component {
                   })}
                 </div>
               </div>
-              <div className="column" />
+              {/* ==== */}
+              <div className="column">
+                <div className="column">
+                  <div className="field">
+                    <label className="label"> Public visé </label>
+                    {BENEFICIAIRES_OPTIONS.map(option => {
+                      return (
+                        <div key={option.value}>
+                          <label className="checkbox">
+                            <Field
+                              name="beneficiaires"
+                              component="input"
+                              type="checkbox"
+                              value={option.value}
+                            />{" "}
+                            {option.label}
+                          </label>
+                        </div>
+                      );
+                    })}
+                    {/* perimetreDiffusionTypeAutre */}
+                    {values.beneficiaires.includes("autre") && (
+                      <Field
+                        name="beneficiairesAutre"
+                        className="is-large"
+                        component={Text}
+                        label="Autre"
+                      />
+                    )}
+                    {/* /perimetreDiffusionTypeAutre*/}
+                  </div>
+                </div>
+              </div>
             </div>
-
+            <hr />
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <label className="label"> Destination de l'aide </label>
+                  {DESTINATION_OPTIONS.map(option => {
+                    return (
+                      <div key={option.value}>
+                        <label className="checkbox">
+                          <Field
+                            name="destination"
+                            component="input"
+                            type="checkbox"
+                            value={option.value}
+                          />{" "}
+                          {option.label}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <hr />
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -461,8 +547,10 @@ const saveAide = gql`
     $lien: String!
     $criteresEligibilite: String
     $beneficiaires: [saveAideBeneficiaires]
+    $beneficiairesAutre: String
     $formeDeDiffusion: String
     $perimetreDiffusionTypeAutre: String
+    $destination: [saveAideDestination]
   ) {
     saveAide(
       id: $id
@@ -480,7 +568,9 @@ const saveAide = gql`
       lien: $lien
       criteresEligibilite: $criteresEligibilite
       beneficiaires: $beneficiaires
+      beneficiairesAutre: $beneficiairesAutre
       formeDeDiffusion: $formeDeDiffusion
+      destination: $destination
     ) {
       nom
     }

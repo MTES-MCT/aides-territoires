@@ -42,6 +42,9 @@ module.exports = {
         type: formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires)
       },
       beneficiairesAutre: { type: GraphQLString },
+      destination: {
+        type: formatEnumForGraphQL("saveAideDestination", enums.destination)
+      },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt }
     },

@@ -69,6 +69,18 @@ module.exports = {
                 enums.perimetreApplicationType
               )
             },
+            destination: {
+              type: formatEnumForGraphQL(
+                "allAidesDestination",
+                enums.destination
+              )
+            },
+            beneficiaires: {
+              type: formatEnumForGraphQL(
+                "allAidesBeneficiaires",
+                enums.beneficiaires
+              )
+            },
             perimetreApplicationCode: {
               type: GraphQLString
             },
