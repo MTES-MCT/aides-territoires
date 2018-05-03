@@ -34,6 +34,7 @@ const editAideQuery = gql`
       populationMin
       populationMax
       perimetreDiffusionType
+      perimetreDiffusionTypeAutre
       statusPublication
       lien
       beneficiaires
