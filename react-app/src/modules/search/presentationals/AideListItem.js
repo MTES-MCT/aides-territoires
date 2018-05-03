@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./AideListItem.css";
 // import { Link } from "react-router-dom";
 
 class AideListItem extends React.Component {
@@ -9,7 +10,7 @@ class AideListItem extends React.Component {
   render() {
     const { aide } = this.props;
     return (
-      <div className="search-result-list-item box">
+      <div className="AideListItem search-result-list-item box">
         <h2 className="title is-4">{aide.nom}</h2>
         <p className="content">
           <em>{aide.description}</em>
@@ -33,7 +34,7 @@ class AideListItem extends React.Component {
             {aide.beneficiaires && (
               <tr>
                 <td>Bénéficiaires </td>
-                <td>{aide.beneficiaires}</td>
+                <td>{aide.beneficiaires.join(", ")}</td>
               </tr>
             )}
             <tr>
@@ -41,8 +42,8 @@ class AideListItem extends React.Component {
               <td>{aide.structurePorteuse}</td>
             </tr>
             <tr>
-              <td>Status de publication</td>
-              <td>{aide.statusPublication}</td>
+              <td>Modalité de diffusion</td>
+              <td>{aide.formeDeDiffusion.join(", ")}</td>
             </tr>
             <tr>
               <td>Périmètre application</td>
@@ -52,8 +53,26 @@ class AideListItem extends React.Component {
               <td>Type d'aide</td>
               <td>{aide.type}</td>
             </tr>
+            <tr>
+              <td>Temporalité dans le projet</td>
+              <td>{aide.etape.join(", ")}</td>
+            </tr>
+            <tr>
+              <td>Destination de l'aide</td>
+              <td>{aide.destination}</td>
+            </tr>
           </tbody>
         </table>
+        <div className="thematiques">
+          {aide.thematiques &&
+            aide.thematiques.map(thematique => {
+              return (
+                <div className="tag is-success" style={{ marginRight: "20px" }}>
+                  {thematique}
+                </div>
+              );
+            })}
+        </div>
         {/*
         <Link
           to={{ pathname: "/aide", state: { aide: result } }}

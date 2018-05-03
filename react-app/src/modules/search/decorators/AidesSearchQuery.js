@@ -46,6 +46,7 @@ const searchAidesQuery = gql`
       beneficiaires
       formeDeDiffusion
       destination
+      thematiques
     }
   }
 `;
