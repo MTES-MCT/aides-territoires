@@ -85,7 +85,10 @@ module.exports = {
               type: GraphQLString
             },
             formeDeDiffusion: {
-              type: GraphQLString
+              type: formatEnumForGraphQL(
+                "allAidesFormeDeDiffusion",
+                enums.formeDeDiffusion
+              )
             }
           }
         })

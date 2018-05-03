@@ -425,7 +425,7 @@ class AideForm extends React.Component {
                           <Field
                             name="formeDeDiffusion"
                             component="input"
-                            type="radio"
+                            type="checkbox"
                             value={option.value}
                           />{" "}
                           {option.label}
@@ -546,7 +546,7 @@ const saveAide = gql`
     $criteresEligibilite: String
     $beneficiaires: [saveAideBeneficiaires]
     $beneficiairesAutre: String
-    $formeDeDiffusion: String
+    $formeDeDiffusion: [saveAideFormeDeDiffusion]
     $perimetreDiffusionTypeAutre: String
     $destination: [saveAideDestination]
   ) {

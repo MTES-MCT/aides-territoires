@@ -48,7 +48,13 @@ module.exports = {
         type: formatEnumForGraphQL("saveAideDestination", enums.destination)
       },
       populationMin: { type: GraphQLInt },
-      populationMax: { type: GraphQLInt }
+      populationMax: { type: GraphQLInt },
+      formeDeDiffusion: {
+        type: formatEnumForGraphQL(
+          "saveAideFormeDeDiffusion",
+          enums.formeDeDiffusion
+        )
+      }
     },
     resolve: async (_, args, context) => {
       // pas d'id : on créer une nouvelle aide

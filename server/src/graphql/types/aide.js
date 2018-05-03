@@ -46,7 +46,9 @@ const Aide = new GraphQLObjectType({
     },
     populationMin: { type: GraphQLInt },
     populationMax: { type: GraphQLInt },
-    formeDeDiffusion: { type: GraphQLString }
+    formeDeDiffusion: {
+      type: formatEnumForGraphQL("formeDeDiffusion", enums.formeDeDiffusion)
+    }
   })
 });
 

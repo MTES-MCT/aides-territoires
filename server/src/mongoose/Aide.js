@@ -57,7 +57,7 @@ const schema = new mongoose.Schema(
       type: String
     },
     formeDeDiffusion: {
-      type: String,
+      type: [String],
       enum: formatEnumForMongoose(enums.formeDeDiffusion)
     },
     destination: {
