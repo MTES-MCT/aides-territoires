@@ -12,7 +12,7 @@ const searchAidesQuery = gql`
     $statusPublication: [allAidesStatusPublication]
     $perimetreApplicationType: [allAidesPerimetreApplicationType]
     $perimetreApplicationCode: String
-    $formeDeDiffusion: String
+    $formeDeDiffusion: [allAidesFormeDeDiffusion]
   ) {
     aides: allAides(
       sort: createdAtDesc
