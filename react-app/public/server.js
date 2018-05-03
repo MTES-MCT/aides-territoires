@@ -1,3 +1,9 @@
+/**
+ * Just a hack to serve our app from zeit now hosting
+ * withour a basic http auth protected access :
+ * if there is package.json, zeit now considers this is a node app
+ * and launch this tiny express server instead of directly serving static files
+ */
 const express = require("express");
 const basicAuth = require("express-basic-auth");
 const fs = require("fs");

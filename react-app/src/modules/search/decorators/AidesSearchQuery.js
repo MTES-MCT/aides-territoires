@@ -50,6 +50,7 @@ class AidesSearchQuery extends Component {
     children: PropTypes.func.isRequired,
     perimetreApplicationType: PropTypes.string,
     perimetreApplicationCode: PropTypes.string,
+    etape: PropTypes.array,
     statusPublication: PropTypes.array,
     type: PropTypes.array
   };
@@ -79,7 +80,7 @@ export default compose(
       if (props.perimetreApplicationCode) {
         variables.perimetreApplicationCode = props.perimetreApplicationCode;
       }
-      if (props.formeDeDiffusion) {
+      if (props.formeDeDiffusion && props.type.length > 0) {
         variables.formeDeDiffusion = props.formeDeDiffusion;
       }
       if (

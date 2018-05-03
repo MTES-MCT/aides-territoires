@@ -34,7 +34,9 @@ module.exports = {
         type: GraphQLString
       },
       lien: { type: GraphQLString },
-      etape: { type: GraphQLString },
+      etape: {
+        type: formatEnumForGraphQL("saveAideEtape", enums.etape)
+      },
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
       formeDeDiffusion: { type: GraphQLString },

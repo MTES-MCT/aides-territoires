@@ -23,7 +23,7 @@ const schema = new mongoose.Schema(
       type: String
     },
     etape: {
-      type: String,
+      type: [String],
       enum: formatEnumForMongoose(enums.etape)
     },
     statusPublication: {

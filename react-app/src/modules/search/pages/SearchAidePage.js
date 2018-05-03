@@ -138,7 +138,7 @@ const SearchAidePage = class extends React.Component {
                     <div>
                       {aides.length > 0 && (
                         <h2 className="title is-2">
-                          Toutes les Aides Départementales
+                          Toutes les aides départementales
                         </h2>
                       )}
                       <AideList aides={aides} />
@@ -211,7 +211,7 @@ const SearchAidePage = class extends React.Component {
                   <div>
                     {aides.length > 0 && (
                       <h2 className="title is-2">
-                        Toutes les aides Nationales
+                        Toutes les aides nationales
                       </h2>
                     )}
                     <AideList aides={aides} />

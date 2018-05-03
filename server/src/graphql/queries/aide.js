@@ -91,10 +91,15 @@ module.exports = {
         })
       }
     },
-    resolve: (_, { filters, sort = "-updatedAt" }, context) => {
-      const query = AideModel.find(filters);
-      query.sort(sort);
-      return query;
+    resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
+      // convert all array to mongosse $in syntax
+      // example : {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
+      for (filter in filters) {
+        if (Array.isArray(filters[filter])) {
+          filters[filter] = { $in: filters[filter] };
+        }
+      }
+      return await AideModel.find(filters);
     }
   }
 };

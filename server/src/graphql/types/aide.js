@@ -32,7 +32,7 @@ const Aide = new GraphQLObjectType({
     },
     perimetreDiffusionTypeAutre: { type: GraphQLString },
     lien: { type: GraphQLString },
-    etape: { type: GraphQLString },
+    etape: { type: formatEnumForGraphQL("etape", enums.etape) },
     statusPublication: { type: GraphQLString },
     structurePorteuse: { type: GraphQLString },
     beneficiaires: {

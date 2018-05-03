@@ -21,10 +21,10 @@ const PERIMETRE_APPLICATION_OPTIONS = [
   { value: "commune", label: "Commune" },
   { value: "departement", label: "Département" },
   { value: "region", label: "Régionale" },
-  { value: "europe", label: "Europe" },
-  { value: "metropole", label: "France Métropole et Corse" },
-  { value: "outre_mer", label: "Outre Mer" },
-  { value: "france", label: "Nationale (Métropole + outre-mer)" }
+  { value: "metropole", label: "National (hors Outre-mer)" },
+  // { value: "outre_mer", label: "Outre Mer" },
+  { value: "france", label: "National (métropole + Outre-mer)" },
+  { value: "europe", label: "Europe" }
 ];
 
 // les périmètres géographiques éligibles pour l'aide
@@ -55,7 +55,7 @@ const FORME_DE_DIFFUSION_OPTIONS = [
 const TYPE_OPTIONS = [
   { value: "financement", label: "Financement" },
   { value: "ingenierie", label: "Ingénierie" },
-  { value: "autre", label: "Autre" }
+  { value: "autre", label: "Autre (valorisation, communication etc)" }
 ];
 
 const ETAPE_OPTIONS = [
@@ -246,11 +246,10 @@ class AideForm extends React.Component {
                   component={TextArea}
                   label="Critères d'éligibilité"
                 />
-                {/*
                 <Field
                   name="populationMin"
                   className="is-large"
-                  component={Text}
+                  type={Text}
                   label="population minimum (nombre d'habitant)"
                 />
                 <Field
@@ -259,7 +258,6 @@ class AideForm extends React.Component {
                   component={Text}
                   label="population maximum"
                 />
-                */}
               </div>
             </div>
 
@@ -403,7 +401,7 @@ class AideForm extends React.Component {
                           <Field
                             name="etape"
                             component="input"
-                            type="radio"
+                            type="checkbox"
                             value={option.value}
                           />{" "}
                           {option.label}
@@ -541,7 +539,7 @@ const saveAide = gql`
     $perimetreApplicationType: String!
     $perimetreApplicationNom: String
     $perimetreApplicationCode: String!
-    $etape: String
+    $etape: [saveAideEtape]
     $structurePorteuse: String!
     $statusPublication: String!
     $lien: String!
