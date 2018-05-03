@@ -345,7 +345,7 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Financement </label>
+                  <label className="label"> Type d'aides </label>
                   {TYPE_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
@@ -365,7 +365,7 @@ class AideForm extends React.Component {
               </div>
               <div className="column">
                 <div className="field">
-                  <label className="label"> Etape </label>
+                  <label className="label"> Temporalité dans le projet </label>
                   {ETAPE_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
@@ -388,7 +388,7 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Forme de diffusion </label>
+                  <label className="label"> Modalité de diffusion </label>
                   {FORME_DE_DIFFUSION_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
@@ -412,7 +412,7 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Status de publication </label>
+                  <label className="label"> Statut de publication </label>
                   {STATUS_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
