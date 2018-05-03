@@ -43,6 +43,10 @@ const FORME_DE_DIFFUSION_OPTIONS = [
     label: "Subvention"
   },
   {
+    value: "formation",
+    label: "Formation"
+  },
+  {
     value: "bonification_interet",
     label: "Bonification d'intérêt"
   },
@@ -140,6 +144,10 @@ const BENEFICIAIRES_OPTIONS = [
   {
     value: "EPCI",
     label: "EPCI"
+  },
+  {
+    value: "societe_civile",
+    label: "Société civile"
   },
   {
     value: "entreprises",

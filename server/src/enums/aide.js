@@ -117,6 +117,10 @@ module.exports = {
       label: "Subvention"
     },
     {
+      value: "formation",
+      label: "Formation"
+    },
+    {
       value: "bonification_interet",
       label: "Bonification d'intérêt"
     },
@@ -181,6 +185,10 @@ module.exports = {
     {
       value: "entreprises",
       label: "Entreprises"
+    },
+    {
+      value: "societe_civile",
+      label: "Société civile"
     },
     {
       value: "associations",
