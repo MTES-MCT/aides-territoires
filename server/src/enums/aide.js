@@ -216,5 +216,23 @@ module.exports = {
       value: "travaux",
       label: "Travaux"
     }
+  ],
+  thematiques: [
+    {
+      value: "amenagement_durable",
+      label: "Aménagement Durable"
+    },
+    {
+      value: "developpement_local",
+      label: "Développement local"
+    },
+    {
+      value: "infrastructures_reseaux_et_deplacements",
+      label: "Infrastructures, réseaux et déplacements"
+    },
+    {
+      value: "solidarite_et_cohesion_sociale",
+      label: "Solidarité et Cohésion sociale"
+    }
   ]
 };

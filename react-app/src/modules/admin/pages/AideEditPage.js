@@ -41,6 +41,7 @@ const editAideQuery = gql`
       beneficiairesAutre
       destination
       formeDeDiffusion
+      thematiques
     }
   }
 `;

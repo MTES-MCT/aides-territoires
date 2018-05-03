@@ -89,6 +89,12 @@ module.exports = {
                 "allAidesFormeDeDiffusion",
                 enums.formeDeDiffusion
               )
+            },
+            thematiques: {
+              type: formatEnumForGraphQL(
+                "allAidesThematiques",
+                enums.thematiques
+              )
             }
           }
         })
@@ -102,7 +108,9 @@ module.exports = {
           filters[filter] = { $in: filters[filter] };
         }
       }
-      return await AideModel.find(filters);
+      const query = AideModel.find(filters);
+      query.sort(sort);
+      return query;
     }
   }
 };

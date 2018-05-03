@@ -54,6 +54,9 @@ module.exports = {
           "saveAideFormeDeDiffusion",
           enums.formeDeDiffusion
         )
+      },
+      thematiques: {
+        type: formatEnumForGraphQL("saveAideThematiques", enums.thematiques)
       }
     },
     resolve: async (_, args, context) => {

@@ -182,6 +182,25 @@ const DESTINATION_OPTIONS = [
   }
 ];
 
+const THEMATIQUES_OPTIONS = [
+  {
+    value: "amenagement_durable",
+    label: "Aménagement Durable"
+  },
+  {
+    value: "developpement_local",
+    label: "Développement local"
+  },
+  {
+    value: "infrastructures_reseaux_et_deplacements",
+    label: "Infrastructures, réseaux et déplacements"
+  },
+  {
+    value: "solidarite_et_cohesion_sociale",
+    label: "Solidarité et Cohésion sociale"
+  }
+];
+
 const validate = values => {
   const errors = {};
   if (!values.nom || values.nom.trim().length === 0) {
@@ -290,6 +309,7 @@ class AideForm extends React.Component {
                   component={TextArea}
                   label="Critères d'éligibilité"
                 />
+                {/*
                 <Field
                   name="populationMin"
                   className="is-large"
@@ -302,6 +322,7 @@ class AideForm extends React.Component {
                   component={Text}
                   label="population maximum"
                 />
+                */}
               </div>
             </div>
 
@@ -535,6 +556,26 @@ class AideForm extends React.Component {
                   })}
                 </div>
               </div>
+              <div className="column">
+                <div className="field">
+                  <label className="label"> Thématiques </label>
+                  {THEMATIQUES_OPTIONS.map(option => {
+                    return (
+                      <div key={option.value}>
+                        <label className="checkbox">
+                          <Field
+                            name="thematiques"
+                            component="input"
+                            type="checkbox"
+                            value={option.value}
+                          />{" "}
+                          {option.label}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
             <hr />
             <div className="columns">
@@ -593,6 +634,7 @@ const saveAide = gql`
     $formeDeDiffusion: [saveAideFormeDeDiffusion]
     $perimetreDiffusionTypeAutre: String
     $destination: [saveAideDestination]
+    $thematiques: [saveAideThematiques]
   ) {
     saveAide(
       id: $id
@@ -613,6 +655,7 @@ const saveAide = gql`
       beneficiairesAutre: $beneficiairesAutre
       formeDeDiffusion: $formeDeDiffusion
       destination: $destination
+      thematiques: $thematiques
     ) {
       nom
     }

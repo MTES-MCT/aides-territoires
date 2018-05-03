@@ -63,6 +63,10 @@ const schema = new mongoose.Schema(
     destination: {
       type: [String],
       enum: formatEnumForMongoose(enums.destination)
+    },
+    thematiques: {
+      type: [String],
+      enum: formatEnumForMongoose(enums.thematiques)
     }
   },
   { timestamps: true }

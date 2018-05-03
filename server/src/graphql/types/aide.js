@@ -48,6 +48,9 @@ const Aide = new GraphQLObjectType({
     populationMax: { type: GraphQLInt },
     formeDeDiffusion: {
       type: formatEnumForGraphQL("formeDeDiffusion", enums.formeDeDiffusion)
+    },
+    thematiques: {
+      type: formatEnumForGraphQL("thematiques", enums.thematiques)
     }
   })
 });
