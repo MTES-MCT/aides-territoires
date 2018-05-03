@@ -3,7 +3,9 @@ module.exports = {
   apps: [
     {
       name: "aides-territoires-server",
-      script: "./src/index.js"
+      script: "./src/index.js",
+      instances: 0,
+      exec_mode: "cluster"
     }
   ]
 };
