@@ -242,5 +242,19 @@ module.exports = {
       value: "solidarite_et_cohesion_sociale",
       label: "Solidarité et Cohésion sociale"
     }
+  ],
+  status: [
+    {
+      value: "ouvert",
+      label: "Ouvert"
+    },
+    {
+      value: "projete",
+      label: "Projeté"
+    },
+    {
+      value: "ferme",
+      label: "Fermé"
+    }
   ]
 };

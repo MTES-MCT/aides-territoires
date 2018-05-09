@@ -95,6 +95,9 @@ module.exports = {
                 "allAidesThematiques",
                 enums.thematiques
               )
+            },
+            status: {
+              type: GraphQLString
             }
           }
         })

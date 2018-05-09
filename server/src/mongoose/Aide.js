@@ -76,6 +76,10 @@ const schema = new mongoose.Schema(
     },
     contact: {
       type: String
+    },
+    status: {
+      type: String,
+      enum: formatEnumForMongoose(enums.status)
     }
   },
   { timestamps: true }

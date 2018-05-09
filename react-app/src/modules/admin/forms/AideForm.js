@@ -123,7 +123,7 @@ const ETAPE_OPTIONS = [
   }
 ];
 
-const STATUS_OPTIONS = [
+const STATUS_PUBLICATION_OPTIONS = [
   {
     value: "draft",
     label: "Brouillon"
@@ -211,6 +211,21 @@ const THEMATIQUES_OPTIONS = [
   }
 ];
 
+const STATUS_OPTIONS = [
+  {
+    value: "ouvert",
+    label: "Ouvert"
+  },
+  {
+    value: "projete",
+    label: "Projeté"
+  },
+  {
+    value: "ferme",
+    label: "Fermé"
+  }
+];
+
 const validate = values => {
   const errors = {};
   if (!values.nom || values.nom.trim().length === 0) {
@@ -289,6 +304,7 @@ class AideForm extends React.Component {
           form
         }) => (
           <form onSubmit={handleSubmit}>
+            {console.log(values)}
             <div className="columns">
               <div className="column">
                 <Field
@@ -611,8 +627,31 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Statut de publication </label>
+                  <label className="label"> Statut de l'aide </label>
                   {STATUS_OPTIONS.map(option => {
+                    return (
+                      <div key={option.value}>
+                        <label className="checkbox">
+                          <Field
+                            name="status"
+                            component="input"
+                            type="radio"
+                            value={option.value}
+                          />{" "}
+                          {option.label}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <label className="label"> Statut de publication </label>
+                  {STATUS_PUBLICATION_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -680,6 +719,7 @@ const saveAide = gql`
     $populationMin: Int
     $populationMax: Int
     $contact: String
+    $status: [saveAideStatus]
   ) {
     saveAide(
       id: $id
@@ -706,6 +746,7 @@ const saveAide = gql`
       populationMin: $populationMin
       populationMax: $populationMax
       contact: $contact
+      status: $status
     ) {
       nom
     }

@@ -60,6 +60,9 @@ const Aide = new GraphQLObjectType({
     },
     contact: {
       type: GraphQLString
+    },
+    status: {
+      type: GraphQLString
     }
   })
 });

@@ -66,6 +66,9 @@ module.exports = {
       },
       contact: {
         type: GraphQLString
+      },
+      status: {
+        type: formatEnumForGraphQL("saveAideStatus", enums.status)
       }
     },
     resolve: async (_, args, context) => {

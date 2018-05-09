@@ -45,6 +45,7 @@ const editAideQuery = gql`
       dateEcheance
       tauxSubvention
       contact
+      status
     }
   }
 `;
