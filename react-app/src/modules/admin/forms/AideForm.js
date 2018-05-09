@@ -248,7 +248,9 @@ const defaultValues = {
   type: "financement",
   etape: "pre_operationnel",
   beneficiaires: ["commune"],
-  formeDeDiffusion: "subvention"
+  formeDeDiffusion: "subvention",
+  status: "ouvert",
+  dateEcheance: Date()
 };
 
 class AideForm extends React.Component {
@@ -304,7 +306,6 @@ class AideForm extends React.Component {
           form
         }) => (
           <form onSubmit={handleSubmit}>
-            {console.log(values)}
             <div className="columns">
               <div className="column">
                 <Field
