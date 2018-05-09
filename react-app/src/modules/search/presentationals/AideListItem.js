@@ -1,11 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./AideListItem.css";
-// import { Link } from "react-router-dom";
+import classNames from "classnames";
+import AideListItemDetails from "./AideListItemDetails";
+import { Motion, spring } from "react-motion";
+import SlideDown from "modules/ui-kit/SlideDown";
 
 class AideListItem extends React.Component {
+  state = {
+    showDetails: false
+  };
   static propTypes = {
     aide: PropTypes.object.isRequired
+  };
+  handleMoreButtonClick = () => {
+    this.setState(prevState => ({
+      showDetails: !prevState.showDetails
+    }));
   };
   render() {
     const { aide } = this.props;
@@ -15,72 +26,14 @@ class AideListItem extends React.Component {
         <p className="content">
           <em>{aide.description}</em>
         </p>
-        <table className="table">
-          <tbody>
-            <tr>
-              <td>Lien vers le site</td>
-              <td>
-                <a target="_blank" href={aide.lien}>
-                  Lien vers le site
-                </a>
-              </td>
-            </tr>
-            {/*
-          <tr>
-            <td>Dotation</td>
-            <td>{result.dotation}</td>
-          </taider>
-          */}
-            {aide.beneficiaires && (
-              <tr>
-                <td>Bénéficiaires </td>
-                <td>{aide.beneficiaires.join(", ")}</td>
-              </tr>
-            )}
-            <tr>
-              <td>Porteur du dispositif</td>
-              <td>{aide.structurePorteuse}</td>
-            </tr>
-            <tr>
-              <td>Modalité de diffusion</td>
-              <td>{aide.formeDeDiffusion.join(", ")}</td>
-            </tr>
-            <tr>
-              <td>Périmètre application</td>
-              <td>{aide.perimetreApplicationType}</td>
-            </tr>
-            <tr>
-              <td>Type d'aide</td>
-              <td>{aide.type}</td>
-            </tr>
-            <tr>
-              <td>Temporalité dans le projet</td>
-              <td>{aide.etape.join(", ")}</td>
-            </tr>
-            <tr>
-              <td>Destination de l'aide</td>
-              <td>{aide.destination}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="thematiques">
-          {aide.thematiques &&
-            aide.thematiques.map(thematique => {
-              return (
-                <div className="tag is-success" style={{ marginRight: "20px" }}>
-                  {thematique}
-                </div>
-              );
-            })}
+        <SlideDown maxHeight={400} show={this.state.showDetails}>
+          <AideListItemDetails aide={aide} />
+        </SlideDown>
+        <div className="show-more">
+          <button onClick={this.handleMoreButtonClick} className="button">
+            {!this.state.showDetails ? "Voir plus" : "cacher les détails"}
+          </button>
         </div>
-        {/*
-        <Link
-          to={{ pathname: "/aide", state: { aide: result } }}
-          className="button is-primary"
-        >
-          Voir la fiche
-        </Link>
-        */}
       </div>
     );
   }

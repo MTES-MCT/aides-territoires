@@ -1,3 +1,4 @@
-.AideListItem table {
-  width: 100%;
+.AideListItem .show-more {
+  margin-top: 2rem;
+  text-align: center;
 }
