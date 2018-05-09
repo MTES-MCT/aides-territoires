@@ -34,7 +34,10 @@ class SearchPage extends React.Component {
       <Layout>
         <section className="section container">
           <div className="has-text-centered">
-            <h2 className="title is-1">Où est situé votre projet ?</h2>
+            <h2 className="title is-2">
+              Je veux connaître les aides disponibles sur mon territoire.
+            </h2>
+            <h2 className="title is-3">Où est situé votre projet ?</h2>
             <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
           </div>
         </section>
