@@ -43,6 +43,7 @@ const editAideQuery = gql`
       formeDeDiffusion
       thematiques
       dateEcheance
+      tauxSubvention
     }
   }
 `;

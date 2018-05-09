@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 import Text from "modules/ui-kit/finalForm/Text";
 import TextArea from "modules/ui-kit/finalForm/TextArea";
 import DatePicker from "modules/ui-kit/finalForm/DatePicker";
+import Number from "modules/ui-kit/finalForm/Number";
 import {
   getDepartementsByName,
   getRegionsByName
@@ -319,20 +320,18 @@ class AideForm extends React.Component {
                   label="Critères d'éligibilité"
                 />
                 <Field name="dateEcheance" component={DatePicker} />
-                {/*
                 <Field
                   name="populationMin"
                   className="is-large"
-                  type={Text}
+                  component={Number}
                   label="population minimum (nombre d'habitant)"
                 />
                 <Field
                   name="populationMax"
                   className="is-large"
-                  component={Text}
+                  component={Number}
                   label="population maximum"
                 />
-                */}
               </div>
             </div>
 
@@ -511,6 +510,17 @@ class AideForm extends React.Component {
                 </div>
               </div>
               {/* ==== */}
+              {values.formeDeDiffusion.includes("subvention") && (
+                <div className="column">
+                  <Field
+                    name="tauxSubvention"
+                    className="is-large"
+                    component={Number}
+                    label="Taux de subvention"
+                  />
+                </div>
+              )}
+              {/* ==== */}
               <div className="column">
                 <div className="column">
                   <div className="field">
@@ -656,6 +666,9 @@ const saveAide = gql`
     $destination: [saveAideDestination]
     $thematiques: [saveAideThematiques]
     $dateEcheance: String
+    $tauxSubvention: String
+    $populationMin: Int
+    $populationMax: Int
   ) {
     saveAide(
       id: $id
@@ -678,6 +691,9 @@ const saveAide = gql`
       destination: $destination
       thematiques: $thematiques
       dateEcheance: $dateEcheance
+      tauxSubvention: $tauxSubvention
+      populationMin: $populationMin
+      populationMax: $populationMax
     ) {
       nom
     }

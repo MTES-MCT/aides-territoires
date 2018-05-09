@@ -9,7 +9,7 @@ import React from "react";
 const GraphQLError = error => {
   let networkErrorMessage = "";
   let errorMessage = error.error.message;
-  if (error.error.networkError) {
+  if (error.error.networkError.result) {
     networkErrorMessage = error.error.networkError.result.errors
       .map(error => {
         return error.message;
