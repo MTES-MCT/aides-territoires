@@ -47,6 +47,7 @@ const searchAidesQuery = gql`
       formeDeDiffusion
       destination
       thematiques
+      dateEcheance
     }
   }
 `;

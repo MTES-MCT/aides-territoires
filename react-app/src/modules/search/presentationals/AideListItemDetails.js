@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./AideListItemDetails.css";
 import classNames from "classnames";
+import moment from "moment";
 
 class AideListItemDetails extends React.Component {
   static propTypes = {
@@ -15,7 +16,10 @@ class AideListItemDetails extends React.Component {
           <tbody>
             <tr>
               <td>Date d'échéance</td>
-              <td>{aide.dateEcheance}</td>
+              <td>
+                {!aide.dateEcheance && "Non renseignée"}
+                {aide.dateEcheance && moment(aide.dateEcheance).format("LLLL")}
+              </td>
             </tr>
             <tr>
               <td>Lien vers le site</td>
@@ -53,7 +57,7 @@ class AideListItemDetails extends React.Component {
             </tr>
             <tr>
               <td>Destination de l'aide</td>
-              <td>{aide.destination}</td>
+              <td>{aide.destination.join(", ")}</td>
             </tr>
           </tbody>
         </table>
