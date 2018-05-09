@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./AideListItem.css";
-import classNames from "classnames";
 import AideListItemDetails from "./AideListItemDetails";
-import { Motion, spring } from "react-motion";
-import SlideDown from "modules/ui-kit/SlideDown";
+import SlideDown from "modules/ui-kit/reactMotion/SlideDown";
+import Fade from "modules/ui-kit/reactMotion/Fade";
+import "./AideListItem.css";
+
+const DESCRIPTION_CHARS_LIMIT = 300;
 
 class AideListItem extends React.Component {
   state = {
@@ -23,10 +24,16 @@ class AideListItem extends React.Component {
     return (
       <div className="AideListItem search-result-list-item box">
         <h2 className="title is-4">{aide.nom}</h2>
-        <p className="content">
-          <em>{aide.description}</em>
+        <p className="description">
+          {aide.description.substring(0, DESCRIPTION_CHARS_LIMIT)}
+          {!this.state.showDetails &&
+            aide.description.length > DESCRIPTION_CHARS_LIMIT &&
+            "..."}
+          <Fade show={this.state.showDetails}>
+            {aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
+          </Fade>
         </p>
-        <SlideDown maxHeight={400} show={this.state.showDetails}>
+        <SlideDown maxHeight={500} show={this.state.showDetails}>
           <AideListItemDetails aide={aide} />
         </SlideDown>
         <div className="show-more">

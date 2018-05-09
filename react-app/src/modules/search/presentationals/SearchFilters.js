@@ -4,29 +4,6 @@ import { FormSpy } from "react-final-form";
 import propTypes from "prop-types";
 import "./SearchFilter.css";
 
-// les périmètres géographiques éligibles pour l'aide
-
-// les périmètres géographiques éligibles pour l'aide
-const PERIMETRE_APPLICATION_OPTIONS = [
-  { value: "commune", label: "Commune" },
-  { value: "departement", label: "Département" },
-  { value: "region", label: "Régionale" },
-  { value: "metropole", label: "National (hors Outre-mer)" },
-  // { value: "outre_mer", label: "Outre Mer" },
-  { value: "france", label: "National (métropole + Outre-mer)" },
-  { value: "europe", label: "Europe" }
-];
-
-// les périmètres géographiques éligibles pour l'aide
-const PERIMETRE_DIFFUSION_OPTIONS = [
-  { value: "europe", label: "Europe" },
-  { value: "metropole", label: "National" },
-  { value: "outre_mer", label: "Outre Mer" },
-  { value: "region", label: "Régional" },
-  { value: "departement", label: "Départemental" },
-  { value: "autre", label: "Autre" }
-];
-
 const FORME_DE_DIFFUSION_OPTIONS = [
   {
     value: "subvention",
@@ -111,21 +88,7 @@ const ETAPE_OPTIONS = [
   }
 ];
 
-const STATUS_OPTIONS = [
-  {
-    value: "draft",
-    label: "Brouillon"
-  },
-  {
-    value: "review_required",
-    label: "A vérifier"
-  },
-  {
-    value: "published",
-    label: "Publiée"
-  }
-];
-
+/*
 const BENEFICIAIRES_OPTIONS = [
   {
     value: "commune",
@@ -152,6 +115,7 @@ const BENEFICIAIRES_OPTIONS = [
     label: "Autre"
   }
 ];
+*/
 
 const DESTINATION_OPTIONS = [
   {
@@ -206,11 +170,6 @@ const validate = values => {
   }
   return errors;
 };
-
-const defaultValues = {
-  nom: ""
-};
-
 class SearchFilters extends React.Component {
   static propTypes = {
     // si une aide est passée en props, on considèrera

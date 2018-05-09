@@ -29,9 +29,7 @@ export default class extends React.Component {
     const {
       input,
       label,
-      meta: { touched, error },
-      className,
-      ...custom
+      meta: { touched, error }
     } = this.props;
     return (
       <div className="field">

@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../../common/layouts/Layout";
 import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
-import SearchFormContainer from "modules/search/decorators/SearchFormContainer";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
 import RaisedButton from "material-ui/RaisedButton";
 import queryString from "qs";

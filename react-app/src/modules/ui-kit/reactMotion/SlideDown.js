@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default class SlideDown extends Component {
   state = {
-    showDetails: false
+    show: false
   };
   static propTypes = {
     show: PropTypes.bool.isRequired,
@@ -14,20 +14,21 @@ export default class SlideDown extends Component {
     maxHeight: 1000
   };
   render() {
-    console.log(this.props);
     return (
       <Motion
         defaultStyle={{
-          overflow: "hidden",
           maxHeight: 0
         }}
         style={{
-          overflow: "visible",
           maxHeight: spring(this.props.show ? this.props.maxHeight : 0)
         }}
       >
         {interpolatingStyle => {
-          return <div style={interpolatingStyle}>{this.props.children}</div>;
+          return (
+            <div style={{ ...interpolatingStyle, overflow: "hidden" }}>
+              {this.props.children}
+            </div>
+          );
         }}
       </Motion>
     );

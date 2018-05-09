@@ -2,17 +2,12 @@ import React from "react";
 import classNames from "classnames";
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       input,
       label,
       meta: { touched, error },
-      className,
-      ...custom
+      className
     } = this.props;
 
     return (
