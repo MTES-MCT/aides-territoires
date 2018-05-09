@@ -44,6 +44,7 @@ const editAideQuery = gql`
       thematiques
       dateEcheance
       tauxSubvention
+      contact
     }
   }
 `;

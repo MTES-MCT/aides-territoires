@@ -73,6 +73,9 @@ const schema = new mongoose.Schema(
     },
     tauxSubvention: {
       type: String
+    },
+    contact: {
+      type: String
     }
   },
   { timestamps: true }

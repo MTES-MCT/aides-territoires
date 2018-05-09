@@ -319,7 +319,17 @@ class AideForm extends React.Component {
                   component={TextArea}
                   label="Critères d'éligibilité"
                 />
-                <Field name="dateEcheance" component={DatePicker} />
+                <Field
+                  label="Date d'échéance"
+                  name="dateEcheance"
+                  component={DatePicker}
+                />
+                <Field
+                  label="Contact"
+                  name="contact"
+                  className="is-large"
+                  component={Text}
+                />
                 <Field
                   name="populationMin"
                   className="is-large"
@@ -669,6 +679,7 @@ const saveAide = gql`
     $tauxSubvention: String
     $populationMin: Int
     $populationMax: Int
+    $contact: String
   ) {
     saveAide(
       id: $id
@@ -694,6 +705,7 @@ const saveAide = gql`
       tauxSubvention: $tauxSubvention
       populationMin: $populationMin
       populationMax: $populationMax
+      contact: $contact
     ) {
       nom
     }

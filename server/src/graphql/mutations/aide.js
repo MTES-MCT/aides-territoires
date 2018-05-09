@@ -63,6 +63,9 @@ module.exports = {
       },
       tauxSubvention: {
         type: GraphQLString
+      },
+      contact: {
+        type: GraphQLString
       }
     },
     resolve: async (_, args, context) => {

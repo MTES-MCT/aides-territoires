@@ -57,6 +57,9 @@ const Aide = new GraphQLObjectType({
     },
     tauxSubvention: {
       type: GraphQLString
+    },
+    contact: {
+      type: GraphQLString
     }
   })
 });
