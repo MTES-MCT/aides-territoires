@@ -231,6 +231,9 @@ const validate = values => {
   if (!values.nom || values.nom.trim().length === 0) {
     errors.nom = "Le champ nom est requis";
   }
+  if (!values.status) {
+    errors.status = "Le champ status est requis";
+  }
   return errors;
 };
 

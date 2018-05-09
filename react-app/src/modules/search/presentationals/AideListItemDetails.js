@@ -14,6 +14,10 @@ class AideListItemDetails extends React.Component {
         <table className={classNames("table")}>
           <tbody>
             <tr>
+              <td>Date d'échéance</td>
+              <td>{aide.dateEcheance}</td>
+            </tr>
+            <tr>
               <td>Lien vers le site</td>
               <td>
                 <a target="_blank" href={aide.lien}>
