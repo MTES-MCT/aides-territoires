@@ -42,6 +42,7 @@ const editAideQuery = gql`
       destination
       formeDeDiffusion
       thematiques
+      dateEcheance
     }
   }
 `;

@@ -10,7 +10,6 @@ export default class extends React.Component {
     onSuggestionClick: PropTypes.func.isRequired
   };
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps);
     const max = nextProps.suggestions.length - 1;
     if (nextProps.inputKeyDown === "Enter") {
       nextProps.onSuggestionClick(

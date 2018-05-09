@@ -5,6 +5,7 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Text from "modules/ui-kit/finalForm/Text";
 import TextArea from "modules/ui-kit/finalForm/TextArea";
+import DatePicker from "modules/ui-kit/finalForm/DatePicker";
 import {
   getDepartementsByName,
   getRegionsByName
@@ -317,6 +318,7 @@ class AideForm extends React.Component {
                   component={TextArea}
                   label="Critères d'éligibilité"
                 />
+                <Field name="dateEcheance" component={DatePicker} />
                 {/*
                 <Field
                   name="populationMin"
@@ -653,6 +655,7 @@ const saveAide = gql`
     $perimetreDiffusionTypeAutre: String
     $destination: [saveAideDestination]
     $thematiques: [saveAideThematiques]
+    $dateEcheance: String
   ) {
     saveAide(
       id: $id
@@ -674,6 +677,7 @@ const saveAide = gql`
       formeDeDiffusion: $formeDeDiffusion
       destination: $destination
       thematiques: $thematiques
+      dateEcheance: $dateEcheance
     ) {
       nom
     }
