@@ -67,6 +67,12 @@ const schema = new mongoose.Schema(
     thematiques: {
       type: [String],
       enum: formatEnumForMongoose(enums.thematiques)
+    },
+    dateEcheance: {
+      type: Date
+    },
+    tauxSubvention: {
+      type: String
     }
   },
   { timestamps: true }

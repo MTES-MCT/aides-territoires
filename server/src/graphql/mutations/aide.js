@@ -57,6 +57,12 @@ module.exports = {
       },
       thematiques: {
         type: formatEnumForGraphQL("saveAideThematiques", enums.thematiques)
+      },
+      dateEcheance: {
+        type: GraphQLString
+      },
+      tauxSubvention: {
+        type: GraphQLString
       }
     },
     resolve: async (_, args, context) => {

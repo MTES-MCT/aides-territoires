@@ -51,6 +51,12 @@ const Aide = new GraphQLObjectType({
     },
     thematiques: {
       type: formatEnumForGraphQL("thematiques", enums.thematiques)
+    },
+    dateEcheance: {
+      type: GraphQLString
+    },
+    tauxSubvention: {
+      type: GraphQLString
     }
   })
 });
