@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
-import SlideDown from "modules/ui-kit/reactMotion/SlideDown";
-import Fade from "modules/ui-kit/reactMotion/Fade";
 import { Spring, Transition, animated } from "react-spring";
 import "./AideListItem.css";
 
