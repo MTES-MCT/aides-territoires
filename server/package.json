@@ -8,6 +8,7 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
+    "express-ipfilter": "^0.3.1",
     "graphql": "^0.12.3",
     "lodash": "^4.17.5",
     "mongoose": "^5.0.10",
@@ -21,8 +22,7 @@
   "devDependencies": {},
   "scripts": {
     "dev": "nodemon src/index.js",
-    "pm2-dev":
-      "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
+    "pm2-dev": "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
     "start": "pm2 start ecosystem.config.js",
     "restart": "pm2 delete aides-territoires-server && yarn start"
   },
