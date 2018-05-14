@@ -50,11 +50,6 @@ function startExpressServer(schema) {
   // to support JSON-encoded bodies
   // app.use(express.json());
 
-  // allow only local access for now, until
-  // we have user accounts to protect our GraphQL API
-  var ips = ["::1", "127.0.0.1"];
-  app.use(ipfilter(ips, { mode: "allow" }));
-
   app.use(
     "/graphql",
     graphqlHTTP({

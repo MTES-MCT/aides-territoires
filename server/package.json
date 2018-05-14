@@ -24,6 +24,7 @@
     "dev": "nodemon src/index.js",
     "pm2-dev": "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
     "start": "pm2 start ecosystem.config.js",
+    "stop": "pm2 stop aides-territoires-server",
     "restart": "pm2 delete aides-territoires-server && yarn start"
   },
   "author": "",
