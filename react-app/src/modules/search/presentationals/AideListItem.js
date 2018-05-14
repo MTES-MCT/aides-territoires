@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import SlideDown from "modules/ui-kit/reactMotion/SlideDown";
 import Fade from "modules/ui-kit/reactMotion/Fade";
-import { Spring, Transition } from "react-spring";
+import { Spring, Transition, animated } from "react-spring";
 import "./AideListItem.css";
 
 const DESCRIPTION_CHARS_LIMIT = 300;
@@ -30,22 +30,22 @@ class AideListItem extends React.Component {
           {!this.state.showDetails &&
             aide.description.length > DESCRIPTION_CHARS_LIMIT &&
             "..."}
-          <Fade show={this.state.showDetails}>
-            {aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
-          </Fade>
+          {aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
         </p>
         <Spring
+          native
           from={{ maxHeight: 0, overflow: "hidden" }}
           to={{
             maxHeight: this.state.showDetails ? 500 : 0
           }}
         >
           {styles => (
-            <div style={styles}>
+            <animated.div style={styles}>
               <AideListItemDetails aide={aide} />
-            </div>
+            </animated.div>
           )}
         </Spring>
+
         <div className="show-more">
           <button onClick={this.handleMoreButtonClick} className="button">
             {!this.state.showDetails ? "Voir plus" : "cacher les détails"}
