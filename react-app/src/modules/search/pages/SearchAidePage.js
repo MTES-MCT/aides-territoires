@@ -9,14 +9,7 @@ import { connect } from "react-redux";
 import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
-  state = {
-    type: [],
-    etape: [],
-    perimetreApplicationType: [],
-    formeDeDiffusion: "",
-    // texte du moteur de recherche
-    searchedText: ""
-  };
+  /*
   constructor(props) {
     super(props);
     const urlParams = queryString.parse(props.location.search);
@@ -24,11 +17,7 @@ const SearchAidePage = class extends React.Component {
       ...urlParams
     };
   }
-  handlFiltersChange = newValues => {
-    this.setState({
-      ...newValues.values
-    });
-  };
+  */
   render() {
     return (
       <Layout>

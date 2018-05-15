@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Field } from "redux-form";
+import Checkbox from "material-ui/Checkbox";
 import "./CheckboxGroup.css";
 
 export default class CheckboxGroup extends Component {
@@ -31,6 +32,14 @@ export default class CheckboxGroup extends Component {
       const checked = inputValue.includes(value);
       return (
         <div key={index} className="checkbox">
+          <Checkbox
+            label={label}
+            name={`${name}[${index}]`}
+            checked={checked}
+            onCheck={handleChange}
+            onFocus={onFocus}
+          />
+          {/*
           <label className="label" key={`checkbox-${index}`}>
             <input
               type="checkbox"
@@ -42,6 +51,7 @@ export default class CheckboxGroup extends Component {
             />
             <span>{label}</span>
           </label>
+          */}
         </div>
       );
     });
