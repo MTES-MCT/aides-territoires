@@ -2,14 +2,18 @@ import React from "react";
 import Layout from "../../common/layouts/Layout";
 import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
-import ActiveFilters from "modules/search/presentationals/ActiveFilters";
+import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
 import RaisedButton from "material-ui/RaisedButton";
-import queryString from "qs";
+// import queryString from "qs";
 import { connect } from "react-redux";
+import Modal from "react-awesome-modal";
 import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
+  state = {
+    showModal: false
+  };
   /*
   constructor(props) {
     super(props);
@@ -19,24 +23,59 @@ const SearchAidePage = class extends React.Component {
     };
   }
   */
+  handleButtonClick = () => {
+    this.setState({
+      showModal: true
+    });
+  };
   render() {
     return (
       <Layout>
-        <div style={{ textAlign: "right", marginTop: "2rem" }}>
-          <RaisedButton
-            style={{ marginRight: "20px" }}
-            primary={true}
-            label="Imprimer mes résultats"
-          />
-          <RaisedButton
-            style={{ marginRight: "20px" }}
-            secondary={true}
-            label="Partager mes résultats"
-          />
-          <RaisedButton
-            style={{ marginRight: "20px" }}
-            label="Etre alerté de nouvelles aides"
-          />
+        <Modal
+          visible={this.state.showModal}
+          width="300"
+          height="200"
+          effect="fadeInUp"
+          onClickAway={() => this.setState({ showModal: false })}
+        >
+          <div className="has-text-centered section">
+            Cette fonctionnalité sera bientôt disponible !
+            <br />
+            <br />
+            <p>
+              <a
+                className="button is-primary"
+                href="javascript:void(0);"
+                onClick={() => this.setState({ showModal: false })}
+              >
+                OK
+              </a>
+            </p>
+          </div>
+        </Modal>
+        <div className="container">
+          <div className="columns">
+            <div
+              className="column"
+              style={{ textAlign: "right", marginTop: "2rem" }}
+            >
+              <RaisedButton
+                style={{ marginRight: "20px" }}
+                label="Imprimer mes résultats"
+                onClick={this.handleButtonClick}
+              />
+              <RaisedButton
+                style={{ marginRight: "20px" }}
+                label="Partager mes résultats"
+                onClick={this.handleButtonClick}
+              />
+              <RaisedButton
+                style={{ marginRight: "20px" }}
+                label="Etre alerté de nouvelles aides"
+                onClick={this.handleButtonClick}
+              />
+            </div>
+          </div>
         </div>
         <div className="SearchResultsPage container">
           <div className="columns">
@@ -47,7 +86,7 @@ const SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
-              <ActiveFilters />
+              {/*<SearchActiveFilters />*/}
               {this.props.perimetreApplicationType === "departement" && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
@@ -61,11 +100,6 @@ const SearchAidePage = class extends React.Component {
                 >
                   {({ aides }) => (
                     <div>
-                      {aides.length > 0 && (
-                        <h2 className="title is-2">
-                          A destination de votre département
-                        </h2>
-                      )}
                       <AideList aides={aides} />
                     </div>
                   )}
@@ -84,11 +118,6 @@ const SearchAidePage = class extends React.Component {
                 >
                   {({ aides }) => (
                     <div>
-                      {aides.length > 0 && (
-                        <h2 className="title is-2">
-                          A destination de votre département
-                        </h2>
-                      )}
                       <AideList aides={aides} />
                     </div>
                   )}
@@ -107,11 +136,6 @@ const SearchAidePage = class extends React.Component {
                 >
                   {({ aides }) => (
                     <div>
-                      {aides.length > 0 && (
-                        <h2 className="title is-2">
-                          A destination de votre région
-                        </h2>
-                      )}
                       <AideList aides={aides} />
                     </div>
                   )}
@@ -130,11 +154,6 @@ const SearchAidePage = class extends React.Component {
                 >
                   {({ aides }) => (
                     <div>
-                      {aides.length > 0 && (
-                        <h2 className="title is-2">
-                          A destination de votre région
-                        </h2>
-                      )}
                       <AideList aides={aides} />
                     </div>
                   )}
@@ -154,11 +173,6 @@ const SearchAidePage = class extends React.Component {
                 >
                   {({ aides }) => (
                     <div>
-                      {aides.length > 0 && (
-                        <h2 className="title is-2">
-                          Toutes les aides départementales
-                        </h2>
-                      )}
                       <AideList aides={aides} />
                     </div>
                   )}
@@ -176,11 +190,6 @@ const SearchAidePage = class extends React.Component {
               >
                 {({ aides }) => (
                   <div>
-                    {aides.length > 0 && (
-                      <h2 className="title is-2">
-                        Toutes les aides régionales
-                      </h2>
-                    )}
                     <AideList aides={aides} />
                   </div>
                 )}
@@ -197,9 +206,6 @@ const SearchAidePage = class extends React.Component {
               >
                 {({ aides }) => (
                   <div>
-                    {aides.length > 0 && (
-                      <h2 className="title is-2">Outre mer</h2>
-                    )}
                     <AideList aides={aides} />
                   </div>
                 )}
@@ -216,9 +222,6 @@ const SearchAidePage = class extends React.Component {
               >
                 {({ aides }) => (
                   <div>
-                    {aides.length > 0 && (
-                      <h2 className="title is-2">Métropole</h2>
-                    )}
                     <AideList aides={aides} />
                   </div>
                 )}
@@ -235,11 +238,6 @@ const SearchAidePage = class extends React.Component {
               >
                 {({ aides }) => (
                   <div>
-                    {aides.length > 0 && (
-                      <h2 className="title is-2">
-                        Toutes les aides nationales
-                      </h2>
-                    )}
                     <AideList aides={aides} />
                   </div>
                 )}
@@ -256,11 +254,6 @@ const SearchAidePage = class extends React.Component {
               >
                 {({ aides }) => (
                   <div>
-                    {aides.length > 0 && (
-                      <h2 className="title is-2">
-                        Toutes les aides européennes
-                      </h2>
-                    )}
                     <AideList aides={aides} />
                   </div>
                 )}

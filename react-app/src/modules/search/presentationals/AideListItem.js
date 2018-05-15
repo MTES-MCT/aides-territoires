@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import RaisedButton from "material-ui/RaisedButton";
-import { Spring, Transition, animated } from "react-spring";
+import { Spring, animated } from "react-spring";
 import "./AideListItem.css";
 
 const DESCRIPTION_CHARS_LIMIT = 300;
@@ -12,7 +12,20 @@ class AideListItem extends React.Component {
     showDetails: false
   };
   static propTypes = {
-    aide: PropTypes.object.isRequired
+    aide: PropTypes.object.isRequired,
+    label: PropTypes.string
+  };
+  getLabelPerimetre = value => {
+    const perimetres = {
+      commune: "Commune",
+      departement: "Département",
+      region: "Régionale",
+      outre_mer: "Outre Mer",
+      metropole: "France (hors Outre-mer)",
+      france: "France et Outre-mer",
+      europe: "Europe"
+    };
+    return perimetres[value];
   };
   handleMoreButtonClick = () => {
     this.setState(prevState => ({
@@ -22,8 +35,14 @@ class AideListItem extends React.Component {
   render() {
     const { aide } = this.props;
     return (
-      <div className="AideListItem search-result-list-item box">
+      <div
+        style={{ position: "relative" }}
+        className="AideListItem search-result-list-item box"
+      >
         <h2 className="title is-4">{aide.nom}</h2>
+        <div className="tag" style={{ position: "absolute", top: 0, left: 0 }}>
+          {this.getLabelPerimetre(aide.perimetreApplicationType)}
+        </div>
         <p className="description">
           {aide.description.substring(0, DESCRIPTION_CHARS_LIMIT)}
           {!this.state.showDetails &&

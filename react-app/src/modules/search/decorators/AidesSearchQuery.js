@@ -96,6 +96,9 @@ export default compose(
       if (props.destination && props.destination.length > 0) {
         variables.destination = props.destination;
       }
+      if (props.destination && props.destination.length > 0) {
+        variables.destination = props.destination;
+      }
       if (
         props.perimetreApplicationType &&
         props.perimetreApplicationType.length > 0

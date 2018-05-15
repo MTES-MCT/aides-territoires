@@ -1,11 +1,9 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import Store from "store";
-import propTypes from "prop-types";
-import classnames from "classnames";
+import { reduxForm } from "redux-form";
 import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
 import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
 import { connect } from "react-redux";
+import { ArrowDown, ArrowUp } from "modules/ui-kit/bulma/Icons";
 import {
   PERIMETRE_APPLICATION_OPTIONS,
   PERIMETRE_DIFFUSION_OPTIONS,
@@ -18,7 +16,163 @@ import {
   STATUS_OPTIONS,
   STATUS_PUBLICATION_OPTIONS
 } from "modules/aide/enums";
-import "./SearchFilter.css";
+
+let SearchFilters = class extends React.Component {
+  state = {
+    activeFilters: {
+      perimetreApplication: true,
+      type: true,
+      etape: false,
+      formeDeDiffusion: false,
+      destination: false,
+      thematiques: false
+    }
+  };
+  handleLabelClick = filterId => {
+    const newFilters = {
+      ...this.state.activeFilters,
+      [filterId]: !this.state.activeFilters[filterId]
+    };
+    this.setState({
+      activeFilters: newFilters
+    });
+  };
+  render() {
+    const { props } = this;
+    const { handleSubmit, formValues, pristine, reset, submitting } = props;
+    return (
+      <form style={styles.searchFilters}>
+        {/***  PERIMETRE D'APPLICATION ***/}
+        {/*
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("perimetreApplicationType")}
+          >
+            Périmètre d'application
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.perimetreApplication}
+          >
+            <CheckboxGroup
+              name="perimetreApplicationType"
+              options={PERIMETRE_APPLICATION_OPTIONS}
+            />
+          </SlideDown>
+        </div>
+        */}
+        {/*** TYPE D'AIDE ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("type")}
+          >
+            {this.state.activeFilters.type ? <ArrowUp /> : <ArrowDown />}
+            Type d'aide{" "}
+          </label>
+          <SlideDown maxHeight={400} show={this.state.activeFilters.type}>
+            <CheckboxGroup name="type" options={TYPE_OPTIONS} />
+          </SlideDown>
+        </div>
+
+        {/*** ETAPE ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("etape")}
+          >
+            {this.state.activeFilters.etape ? <ArrowUp /> : <ArrowDown />}
+            Étape
+          </label>
+          <SlideDown maxHeight={400} show={this.state.activeFilters.etape}>
+            <CheckboxGroup name="etape" options={ETAPE_OPTIONS} />
+          </SlideDown>
+        </div>
+
+        {/*** MODALITE DE DIFFUSION ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("formeDeDiffusion")}
+          >
+            {this.state.activeFilters.formeDeDiffusion ? (
+              <ArrowUp />
+            ) : (
+              <ArrowDown />
+            )}
+            Modalité de diffusion
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.formeDeDiffusion}
+          >
+            <CheckboxGroup
+              name="formeDeDiffusion"
+              options={FORME_DE_DIFFUSION_OPTIONS}
+            />
+          </SlideDown>
+        </div>
+
+        {/*** DESTINATION DE L'AIDE ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("destination")}
+          >
+            {this.state.activeFilters.destination ? <ArrowUp /> : <ArrowDown />}
+            Destination
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.destination}
+          >
+            <CheckboxGroup name="destination" options={DESTINATION_OPTIONS} />
+          </SlideDown>
+        </div>
+
+        {/***  THEMATIQUES ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("thematiques")}
+          >
+            {this.state.activeFilters.thematiques ? <ArrowUp /> : <ArrowDown />}
+            Thématiques
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.thematiques}
+          >
+            <CheckboxGroup name="thematiques" options={THEMATIQUES_OPTIONS} />
+          </SlideDown>
+        </div>
+      </form>
+    );
+  }
+};
+
+const styles = {
+  searchFilters: {
+    background: "rgb(250, 250, 250)"
+  },
+  filter: {
+    marginBottom: "0.5 rem",
+    borderBottom: "solid rgb(220, 220, 220) 1px",
+    padding: "1rem"
+  },
+  label: {
+    paddingBottom: "0.5 rem",
+    cursor: "pointer",
+    textTransform: "uppercase"
+  }
+};
 
 const validate = values => {
   const errors = {};
@@ -26,66 +180,6 @@ const validate = values => {
     errors.nom = "Le champ nom est requis";
   }
   return errors;
-};
-
-let SearchFilters = props => {
-  const { handleSubmit, formValues, pristine, reset, submitting } = props;
-  return (
-    <form className="SearchFilters">
-      {/* ================== */}
-      <div className="field">
-        <label className="label" onClick={() => this.handleClickLabel("type")}>
-          Type d'aide
-        </label>
-        <CheckboxGroup name="type" options={TYPE_OPTIONS} />
-      </div>
-      {/* ================== */}
-      <div className="field">
-        <label
-          className={classnames("label")}
-          onClick={() => this.handleClickLabel("etape")}
-        >
-          Quand mobiliser l'aide
-        </label>
-        <CheckboxGroup name="etape" options={ETAPE_OPTIONS} />
-      </div>
-      {/* ================== */}
-      <div className="field">
-        <label
-          className={classnames("label")}
-          onClick={() => this.handleClickLabel("formeDeDiffusion")}
-        >
-          Modalité de diffusion
-        </label>
-        <CheckboxGroup
-          name="formeDeDiffusion"
-          options={FORME_DE_DIFFUSION_OPTIONS}
-        />
-      </div>
-      {/* ================== */}
-      <div className="field">
-        <label
-          className={classnames("label")}
-          onClick={() => this.handleClickLabel("destination")}
-        >
-          {" "}
-          Destination de l'aide{" "}
-        </label>
-        <CheckboxGroup name="destination" options={DESTINATION_OPTIONS} />
-      </div>
-      {/* ================== */}
-      <div className="field">
-        <label
-          className={classnames("label")}
-          onClick={() => this.handleClickLabel("thematiques")}
-        >
-          Thématiques
-        </label>
-        <CheckboxGroup name="thematiques" options={THEMATIQUES_OPTIONS} />
-      </div>
-      {/* ================== */}
-    </form>
-  );
 };
 
 SearchFilters = reduxForm({

@@ -11,9 +11,6 @@ export default class SlideDown extends React.Component {
     maxHeight: PropTypes.number,
     show: PropTypes.bool
   };
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Spring

@@ -2,18 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-
-/*
-function exampleReducer(state = {}, action) {
-  switch (action.type) {
-    case "SET_VISIBILITY_FILTER":
-      return Object.assign({}, state, {
-        visibilityFilter: action.filter
-      });
-    default:
-      return state;
-  }
-}*/
+// import searchFiltersReducer from "reducers/searchFiltersReducer";
 
 const rootReducer = combineReducers({
   // ...your other reducers here
