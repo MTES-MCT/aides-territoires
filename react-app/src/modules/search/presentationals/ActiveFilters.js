@@ -13,33 +13,35 @@ const styles = {
   }
 };
 
-const handleRequestDelete = () => {};
-const handleClick = () => {};
+const handleRequestDelete = () => {
+  alert("delete handler");
+};
 
 const ActiveFilters = ({ filters }) => {
   return (
     <div>
       {Object.keys(filters).map(filterId => {
         return (
-          <div>
-            <div style={styles.wrapper}>
-              <Chip backgroundColor={"white"} style={styles.chip}>
-                <strong>{filterId} </strong>
-              </Chip>
-              {filters[filterId].map(filter => {
-                return (
-                  <Chip
-                    style={styles.chip}
-                    onRequestDelete={handleRequestDelete}
-                    onClick={handleClick}
-                    backgroundColor={blue300}
-                  >
-                    {filter}
-                  </Chip>
-                );
-              })}
+          filters[filterId].length > 0 && (
+            <div>
+              <div style={styles.wrapper}>
+                <Chip backgroundColor={"white"} style={styles.chip}>
+                  <strong>{filterId} : </strong>
+                </Chip>
+                {filters[filterId].map(filter => {
+                  return (
+                    <Chip
+                      style={styles.chip}
+                      onRequestDelete={handleRequestDelete}
+                      backgroundColor={blue300}
+                    >
+                      {filter}
+                    </Chip>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )
         );
       })}
     </div>

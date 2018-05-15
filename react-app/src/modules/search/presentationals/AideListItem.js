@@ -29,7 +29,8 @@ class AideListItem extends React.Component {
           {!this.state.showDetails &&
             aide.description.length > DESCRIPTION_CHARS_LIMIT &&
             "..."}
-          {aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
+          {this.state.showDetails &&
+            aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
         </p>
         <Spring
           native
