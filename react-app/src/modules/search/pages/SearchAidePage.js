@@ -5,6 +5,7 @@ import SearchFilters from "modules/search/presentationals/SearchFilters";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
 import RaisedButton from "material-ui/RaisedButton";
 import queryString from "qs";
+import { connect } from "react-redux";
 import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
@@ -19,7 +20,7 @@ const SearchAidePage = class extends React.Component {
   constructor(props) {
     super(props);
     const urlParams = queryString.parse(props.location.search);
-    this.state = {
+    this.props = {
       ...urlParams
     };
   }
@@ -51,21 +52,21 @@ const SearchAidePage = class extends React.Component {
           <div className="columns">
             <div className="column is-one-quarter">
               <SearchFilters
-                defaultValues={this.state}
+                defaultValues={this.props}
                 onFiltersChange={this.handlFiltersChange}
               />
             </div>
             <div className="column">
-              {this.state.perimetreApplicationType === "departement" && (
+              {this.props.perimetreApplicationType === "departement" && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
-                  perimetreApplicationCode={this.state.perimetreApplicationCode}
-                  formeDeDiffusion={this.state.formeDeDiffusion}
-                  etape={this.state.etape}
-                  type={this.state.type}
-                  thematiques={this.state.thematiques}
-                  destination={this.state.destination}
+                  perimetreApplicationCode={this.props.perimetreApplicationCode}
+                  formeDeDiffusion={this.props.formeDeDiffusion}
+                  etape={this.props.etape}
+                  type={this.props.type}
+                  thematiques={this.props.thematiques}
+                  destination={this.props.destination}
                 >
                   {({ aides }) => (
                     <div>
@@ -79,16 +80,16 @@ const SearchAidePage = class extends React.Component {
                   )}
                 </AidesSearchQuery>
               )}
-              {this.state.codeDepartement && (
+              {this.props.codeDepartement && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
-                  perimetreApplicationCode={this.state.codeDepartement}
-                  formeDeDiffusion={this.state.formeDeDiffusion}
-                  etape={this.state.etape}
-                  type={this.state.type}
-                  thematiques={this.state.thematiques}
-                  destination={this.state.destination}
+                  perimetreApplicationCode={this.props.codeDepartement}
+                  formeDeDiffusion={this.props.formeDeDiffusion}
+                  etape={this.props.etape}
+                  type={this.props.type}
+                  thematiques={this.props.thematiques}
+                  destination={this.props.destination}
                 >
                   {({ aides }) => (
                     <div>
@@ -102,16 +103,16 @@ const SearchAidePage = class extends React.Component {
                   )}
                 </AidesSearchQuery>
               )}
-              {this.state.codeRegion && (
+              {this.props.codeRegion && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
                   perimetreApplicationType={"region"}
-                  perimetreApplicationCode={this.state.codeRegion}
-                  formeDeDiffusion={this.state.formeDeDiffusion}
-                  etape={this.state.etape}
-                  type={this.state.type}
-                  thematiques={this.state.thematiques}
-                  destination={this.state.destination}
+                  perimetreApplicationCode={this.props.codeRegion}
+                  formeDeDiffusion={this.props.formeDeDiffusion}
+                  etape={this.props.etape}
+                  type={this.props.type}
+                  thematiques={this.props.thematiques}
+                  destination={this.props.destination}
                 >
                   {({ aides }) => (
                     <div>
@@ -125,16 +126,16 @@ const SearchAidePage = class extends React.Component {
                   )}
                 </AidesSearchQuery>
               )}
-              {this.state.perimetreApplicationType === "region" && (
+              {this.props.perimetreApplicationType === "region" && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
-                  perimetreApplicationType={this.state.perimetreApplicationType}
-                  perimetreApplicationCode={this.state.perimetreApplicationCode}
-                  formeDeDiffusion={this.state.formeDeDiffusion}
-                  etape={this.state.etape}
-                  type={this.state.type}
-                  thematiques={this.state.thematiques}
-                  destination={this.state.destination}
+                  perimetreApplicationType={this.props.perimetreApplicationType}
+                  perimetreApplicationCode={this.props.perimetreApplicationCode}
+                  formeDeDiffusion={this.props.formeDeDiffusion}
+                  etape={this.props.etape}
+                  type={this.props.type}
+                  thematiques={this.props.thematiques}
+                  destination={this.props.destination}
                 >
                   {({ aides }) => (
                     <div>
@@ -148,17 +149,17 @@ const SearchAidePage = class extends React.Component {
                   )}
                 </AidesSearchQuery>
               )}
-              {(this.state.perimetreApplicationType === "commune" ||
-                this.state.perimetreApplicationType === "departement") && (
+              {(this.props.perimetreApplicationType === "commune" ||
+                this.props.perimetreApplicationType === "departement") && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
                   perimetreApplicationType={"departement"}
                   perimetreApplicationCode={""}
-                  formeDeDiffusion={this.state.formeDeDiffusion}
-                  etape={this.state.etape}
-                  type={this.state.type}
-                  thematiques={this.state.thematiques}
-                  destination={this.state.destination}
+                  formeDeDiffusion={this.props.formeDeDiffusion}
+                  etape={this.props.etape}
+                  type={this.props.type}
+                  thematiques={this.props.thematiques}
+                  destination={this.props.destination}
                 >
                   {({ aides }) => (
                     <div>
@@ -176,11 +177,11 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"region"}
                 perimetreApplicationCode={""}
-                formeDeDiffusion={this.state.formeDeDiffusion}
-                etape={this.state.etape}
-                type={this.state.type}
-                thematiques={this.state.thematiques}
-                destination={this.state.destination}
+                formeDeDiffusion={this.props.formeDeDiffusion}
+                etape={this.props.etape}
+                type={this.props.type}
+                thematiques={this.props.thematiques}
+                destination={this.props.destination}
               >
                 {({ aides }) => (
                   <div>
@@ -197,11 +198,11 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"outre_mer"}
                 perimetreApplicationCode={""}
-                formeDeDiffusion={this.state.formeDeDiffusion}
-                etape={this.state.etape}
-                type={this.state.type}
-                thematiques={this.state.thematiques}
-                destination={this.state.destination}
+                formeDeDiffusion={this.props.formeDeDiffusion}
+                etape={this.props.etape}
+                type={this.props.type}
+                thematiques={this.props.thematiques}
+                destination={this.props.destination}
               >
                 {({ aides }) => (
                   <div>
@@ -216,11 +217,11 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"metropole"}
                 perimetreApplicationCode={""}
-                formeDeDiffusion={this.state.formeDeDiffusion}
-                etape={this.state.etape}
-                type={this.state.type}
-                thematiques={this.state.thematiques}
-                destination={this.state.destination}
+                formeDeDiffusion={this.props.formeDeDiffusion}
+                etape={this.props.etape}
+                type={this.props.type}
+                thematiques={this.props.thematiques}
+                destination={this.props.destination}
               >
                 {({ aides }) => (
                   <div>
@@ -235,11 +236,11 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"france"}
                 perimetreApplicationCode={""}
-                formeDeDiffusion={this.state.formeDeDiffusion}
-                etape={this.state.etape}
-                type={this.state.type}
-                thematiques={this.state.thematiques}
-                destination={this.state.destination}
+                formeDeDiffusion={this.props.formeDeDiffusion}
+                etape={this.props.etape}
+                type={this.props.type}
+                thematiques={this.props.thematiques}
+                destination={this.props.destination}
               >
                 {({ aides }) => (
                   <div>
@@ -256,11 +257,11 @@ const SearchAidePage = class extends React.Component {
                 statusPublication={["published"]}
                 perimetreApplicationType={"europe"}
                 perimetreApplicationCode={""}
-                formeDeDiffusion={this.state.formeDeDiffusion}
-                etape={this.state.etape}
-                type={this.state.type}
-                thematiques={this.state.thematiques}
-                destination={this.state.destination}
+                formeDeDiffusion={this.props.formeDeDiffusion}
+                etape={this.props.etape}
+                type={this.props.type}
+                thematiques={this.props.thematiques}
+                destination={this.props.destination}
               >
                 {({ aides }) => (
                   <div>
@@ -281,4 +282,10 @@ const SearchAidePage = class extends React.Component {
   }
 };
 
-export default SearchAidePage;
+export default connect(state => {
+  if (state.form.searchFilters && state.form.searchFilters.values) {
+    console.log({ ...state.form.searchFilters.values });
+    return { ...state.form.searchFilters.values };
+  }
+  return {};
+})(SearchAidePage);
