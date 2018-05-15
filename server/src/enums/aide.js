@@ -117,6 +117,10 @@ module.exports = {
       label: "Subvention"
     },
     {
+      value: "convention",
+      label: "Convention"
+    },
+    {
       value: "formation",
       label: "Formation"
     },
