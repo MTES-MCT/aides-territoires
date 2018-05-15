@@ -12,7 +12,6 @@ export default class CheckboxGroup extends Component {
       })
     ).isRequired
   };
-
   field = ({ input, meta, options }) => {
     const { name, onChange, onBlur, onFocus } = input;
     const { touched, error } = meta;

@@ -29,6 +29,7 @@
     "react-spring": "^5.1.7",
     "redux-devtools": "^3.4.1",
     "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {

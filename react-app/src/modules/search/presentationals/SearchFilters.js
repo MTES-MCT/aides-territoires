@@ -1,7 +1,11 @@
 import React from "react";
-import { Form, Field } from "react-final-form";
-import { FormSpy } from "react-final-form";
+import { Field, reduxForm } from "redux-form";
+import Store from "store";
 import propTypes from "prop-types";
+import classnames from "classnames";
+import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
+import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
+import { connect } from "react-redux";
 import {
   PERIMETRE_APPLICATION_OPTIONS,
   PERIMETRE_DIFFUSION_OPTIONS,
@@ -23,140 +27,78 @@ const validate = values => {
   }
   return errors;
 };
-class SearchFilters extends React.Component {
-  static propTypes = {
-    // si une aide est passée en props, on considèrera
-    // qu'on est en mode édition
-    aide: propTypes.object,
-    onFiltersChange: propTypes.func
-  };
-  handleSubmit = values => {};
-  handleFormChange = values => {
-    this.props.onFiltersChange(values);
-  };
-  render() {
-    return (
-      <div className="SearchFilters">
-        <Form
-          onSubmit={this.handleSubmit}
-          validate={validate}
-          render={({
-            handleSubmit,
-            submitting,
-            pristine,
-            values,
-            errors,
-            form
-          }) => (
-            <form onSubmit={handleSubmit}>
-              {/* listen for form values change from outside of the <form> tag */}
-              <FormSpy
-                subscription={{ values: true }}
-                onChange={this.handleFormChange}
-              />
-              {/* ================== */}
-              <div className="field">
-                <label className="label"> Type d'aide </label>
-                {TYPE_OPTIONS.map(option => {
-                  return (
-                    <div key={option.value}>
-                      <label className="checkbox">
-                        <Field
-                          name="type"
-                          component="input"
-                          type="checkbox"
-                          value={option.value}
-                        />{" "}
-                        {option.label}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* ================== */}
-              <div className="field">
-                <label className="label"> Quand mobiliser l'aide </label>
-                {ETAPE_OPTIONS.map(option => {
-                  return (
-                    <div key={option.value}>
-                      <label className="checkbox">
-                        <Field
-                          name="etape"
-                          component="input"
-                          type="checkbox"
-                          value={option.value}
-                        />{" "}
-                        {option.label}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* ================== */}
-              <div className="field">
-                <label className="label"> Modalité de diffusion </label>
-                {FORME_DE_DIFFUSION_OPTIONS.map(option => {
-                  return (
-                    <div key={option.value}>
-                      <label className="checkbox">
-                        <Field
-                          name="formeDeDiffusion"
-                          component="input"
-                          type="checkbox"
-                          value={option.value}
-                        />{" "}
-                        {option.label}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* ================== */}
-              <div className="field">
-                <label className="label"> Thématiques </label>
-                {THEMATIQUES_OPTIONS.map(option => {
-                  return (
-                    <div key={option.value}>
-                      <label className="checkbox">
-                        <Field
-                          name="thematiques"
-                          component="input"
-                          type="checkbox"
-                          value={option.value}
-                        />{" "}
-                        {option.label}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* ================== */}
-              {/* ================== */}
-              <div className="field">
-                <label className="label"> Destination de l'aide </label>
-                {DESTINATION_OPTIONS.map(option => {
-                  return (
-                    <div key={option.value}>
-                      <label className="checkbox">
-                        <Field
-                          name="destination"
-                          component="input"
-                          type="checkbox"
-                          value={option.value}
-                        />{" "}
-                        {option.label}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* ================== */}
-            </form>
-          )}
+
+let SearchFilters = props => {
+  const { handleSubmit, formValues, pristine, reset, submitting } = props;
+  return (
+    <form className="SearchFilters">
+      {/* ================== */}
+      <div className="field">
+        <label className="label" onClick={() => this.handleClickLabel("type")}>
+          Type d'aide
+        </label>
+        <SlideDown show={true}>
+          <CheckboxGroup name="type" options={TYPE_OPTIONS} />
+        </SlideDown>
+      </div>
+      {/* ================== */}
+      <div className="field">
+        <label
+          className={classnames("label")}
+          onClick={() => this.handleClickLabel("etape")}
+        >
+          Quand mobiliser l'aide
+        </label>
+        <CheckboxGroup name="etape" options={ETAPE_OPTIONS} />
+      </div>
+      {/* ================== */}
+      <div className="field">
+        <label
+          className={classnames("label")}
+          onClick={() => this.handleClickLabel("formeDeDiffusion")}
+        >
+          Modalité de diffusion
+        </label>
+        <CheckboxGroup
+          name="formeDeDiffusion"
+          options={FORME_DE_DIFFUSION_OPTIONS}
         />
       </div>
-    );
-  }
-}
+      {/* ================== */}
+      <div className="field">
+        <label
+          className={classnames("label")}
+          onClick={() => this.handleClickLabel("destination")}
+        >
+          {" "}
+          Destination de l'aide{" "}
+        </label>
+        <CheckboxGroup name="destination" options={DESTINATION_OPTIONS} />
+      </div>
+      {/* ================== */}
+      <div className="field">
+        <label
+          className={classnames("label")}
+          onClick={() => this.handleClickLabel("thematiques")}
+        >
+          Thématiques
+        </label>
+        <CheckboxGroup name="thematiques" options={THEMATIQUES_OPTIONS} />
+      </div>
+      {/* ================== */}
+    </form>
+  );
+};
+
+SearchFilters = reduxForm({
+  // a unique name for the form
+  form: "searchFilters"
+})(SearchFilters);
+
+SearchFilters = connect(state => {
+  return {
+    formValues: state.form.searchFilters ? state.form.searchFilters.values : {}
+  };
+})(SearchFilters);
 
 export default SearchFilters;
