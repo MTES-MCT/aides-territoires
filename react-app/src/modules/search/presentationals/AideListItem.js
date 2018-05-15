@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
+import RaisedButton from "material-ui/RaisedButton";
 import { Spring, Transition, animated } from "react-spring";
 import "./AideListItem.css";
 
@@ -45,9 +46,12 @@ class AideListItem extends React.Component {
         </Spring>
 
         <div className="show-more">
-          <button onClick={this.handleMoreButtonClick} className="button">
-            {!this.state.showDetails ? "Voir plus" : "cacher les détails"}
-          </button>
+          <RaisedButton
+            onClick={this.handleMoreButtonClick}
+            style={{ marginRight: "20px" }}
+            primary={true}
+            label={!this.state.showDetails ? "Voir plus" : "cacher les détails"}
+          />
         </div>
       </div>
     );

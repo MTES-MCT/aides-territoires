@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../../common/layouts/Layout";
 import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
+import ActiveFilters from "modules/search/presentationals/ActiveFilters";
 import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
 import RaisedButton from "material-ui/RaisedButton";
 import queryString from "qs";
@@ -46,6 +47,7 @@ const SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
+              <ActiveFilters />
               {this.props.perimetreApplicationType === "departement" && (
                 <AidesSearchQuery
                   statusPublication={["published"]}
@@ -273,7 +275,6 @@ const SearchAidePage = class extends React.Component {
 
 export default connect(state => {
   if (state.form.searchFilters && state.form.searchFilters.values) {
-    console.log({ ...state.form.searchFilters.values });
     return { ...state.form.searchFilters.values };
   }
   return {};

@@ -37,9 +37,7 @@ let SearchFilters = props => {
         <label className="label" onClick={() => this.handleClickLabel("type")}>
           Type d'aide
         </label>
-        <SlideDown show={true}>
-          <CheckboxGroup name="type" options={TYPE_OPTIONS} />
-        </SlideDown>
+        <CheckboxGroup name="type" options={TYPE_OPTIONS} />
       </div>
       {/* ================== */}
       <div className="field">
