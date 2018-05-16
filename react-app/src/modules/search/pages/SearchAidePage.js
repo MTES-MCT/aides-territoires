@@ -4,7 +4,6 @@ import SearchFilters from "modules/search/presentationals/SearchFilters";
 import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";
 import SearchResults from "modules/search/presentationals/SearchResults";
-import Sticky from "react-stickynode";
 // import queryString from "qs";
 import Modal from "react-awesome-modal";
 import "./SearchAidePage.css";
@@ -79,12 +78,10 @@ const SearchAidePage = class extends React.Component {
         <div className="SearchResultsPage container">
           <div className="columns">
             <div className="column is-one-quarter">
-              <Sticky enabled={true} top={50}>
-                <SearchFilters
-                  defaultValues={this.props}
-                  onFiltersChange={this.handlFiltersChange}
-                />
-              </Sticky>
+              <SearchFilters
+                defaultValues={this.props}
+                onFiltersChange={this.handlFiltersChange}
+              />
             </div>
             <div className="column">
               <SearchResults />
