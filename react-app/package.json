@@ -28,6 +28,7 @@
     "react-scripts": "1.1.4",
     "react-scripts-plugin-no-minify": "^0.3.2",
     "react-spring": "^5.1.7",
+    "react-stickynode": "^1.4.1",
     "redux-devtools": "^3.4.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.3.0",

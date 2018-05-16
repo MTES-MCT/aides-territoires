@@ -39,7 +39,7 @@ let SearchFilters = class extends React.Component {
   };
   render() {
     const { props } = this;
-    const { handleSubmit, formValues, pristine, reset, submitting } = props;
+    const { handleSubmit, pristine, reset, submitting } = props;
     return (
       <form style={styles.searchFilters}>
         {/***  PERIMETRE D'APPLICATION ***/}
@@ -187,10 +187,12 @@ SearchFilters = reduxForm({
   form: "searchFilters"
 })(SearchFilters);
 
+/*
 SearchFilters = connect(state => {
   return {
     formValues: state.form.searchFilters ? state.form.searchFilters.values : {}
   };
 })(SearchFilters);
+*/
 
 export default SearchFilters;

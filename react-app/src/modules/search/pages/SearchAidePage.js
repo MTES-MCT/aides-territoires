@@ -1,12 +1,11 @@
 import React from "react";
 import Layout from "../../common/layouts/Layout";
-import AideList from "modules/search/presentationals/AideList";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
 import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
-import AidesSearchQuery from "modules/search/decorators/AidesSearchQuery";
 import RaisedButton from "material-ui/RaisedButton";
+import SearchResults from "modules/search/presentationals/SearchResults";
+import Sticky from "react-stickynode";
 // import queryString from "qs";
-import { connect } from "react-redux";
 import Modal from "react-awesome-modal";
 import "./SearchAidePage.css";
 
@@ -80,184 +79,15 @@ const SearchAidePage = class extends React.Component {
         <div className="SearchResultsPage container">
           <div className="columns">
             <div className="column is-one-quarter">
-              <SearchFilters
-                defaultValues={this.props}
-                onFiltersChange={this.handlFiltersChange}
-              />
+              <Sticky enabled={true} top={50}>
+                <SearchFilters
+                  defaultValues={this.props}
+                  onFiltersChange={this.handlFiltersChange}
+                />
+              </Sticky>
             </div>
             <div className="column">
-              {/*<SearchActiveFilters />*/}
-              {this.props.perimetreApplicationType === "departement" && (
-                <AidesSearchQuery
-                  statusPublication={["published"]}
-                  perimetreApplicationType={"departement"}
-                  perimetreApplicationCode={this.props.perimetreApplicationCode}
-                  formeDeDiffusion={this.props.formeDeDiffusion}
-                  etape={this.props.etape}
-                  type={this.props.type}
-                  thematiques={this.props.thematiques}
-                  destination={this.props.destination}
-                >
-                  {({ aides }) => (
-                    <div>
-                      <AideList aides={aides} />
-                    </div>
-                  )}
-                </AidesSearchQuery>
-              )}
-              {this.props.codeDepartement && (
-                <AidesSearchQuery
-                  statusPublication={["published"]}
-                  perimetreApplicationType={"departement"}
-                  perimetreApplicationCode={this.props.codeDepartement}
-                  formeDeDiffusion={this.props.formeDeDiffusion}
-                  etape={this.props.etape}
-                  type={this.props.type}
-                  thematiques={this.props.thematiques}
-                  destination={this.props.destination}
-                >
-                  {({ aides }) => (
-                    <div>
-                      <AideList aides={aides} />
-                    </div>
-                  )}
-                </AidesSearchQuery>
-              )}
-              {this.props.codeRegion && (
-                <AidesSearchQuery
-                  statusPublication={["published"]}
-                  perimetreApplicationType={"region"}
-                  perimetreApplicationCode={this.props.codeRegion}
-                  formeDeDiffusion={this.props.formeDeDiffusion}
-                  etape={this.props.etape}
-                  type={this.props.type}
-                  thematiques={this.props.thematiques}
-                  destination={this.props.destination}
-                >
-                  {({ aides }) => (
-                    <div>
-                      <AideList aides={aides} />
-                    </div>
-                  )}
-                </AidesSearchQuery>
-              )}
-              {this.props.perimetreApplicationType === "region" && (
-                <AidesSearchQuery
-                  statusPublication={["published"]}
-                  perimetreApplicationType={this.props.perimetreApplicationType}
-                  perimetreApplicationCode={this.props.perimetreApplicationCode}
-                  formeDeDiffusion={this.props.formeDeDiffusion}
-                  etape={this.props.etape}
-                  type={this.props.type}
-                  thematiques={this.props.thematiques}
-                  destination={this.props.destination}
-                >
-                  {({ aides }) => (
-                    <div>
-                      <AideList aides={aides} />
-                    </div>
-                  )}
-                </AidesSearchQuery>
-              )}
-              {(this.props.perimetreApplicationType === "commune" ||
-                this.props.perimetreApplicationType === "departement") && (
-                <AidesSearchQuery
-                  statusPublication={["published"]}
-                  perimetreApplicationType={"departement"}
-                  perimetreApplicationCode={""}
-                  formeDeDiffusion={this.props.formeDeDiffusion}
-                  etape={this.props.etape}
-                  type={this.props.type}
-                  thematiques={this.props.thematiques}
-                  destination={this.props.destination}
-                >
-                  {({ aides }) => (
-                    <div>
-                      <AideList aides={aides} />
-                    </div>
-                  )}
-                </AidesSearchQuery>
-              )}
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"region"}
-                perimetreApplicationCode={""}
-                formeDeDiffusion={this.props.formeDeDiffusion}
-                etape={this.props.etape}
-                type={this.props.type}
-                thematiques={this.props.thematiques}
-                destination={this.props.destination}
-              >
-                {({ aides }) => (
-                  <div>
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"outre_mer"}
-                perimetreApplicationCode={""}
-                formeDeDiffusion={this.props.formeDeDiffusion}
-                etape={this.props.etape}
-                type={this.props.type}
-                thematiques={this.props.thematiques}
-                destination={this.props.destination}
-              >
-                {({ aides }) => (
-                  <div>
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"metropole"}
-                perimetreApplicationCode={""}
-                formeDeDiffusion={this.props.formeDeDiffusion}
-                etape={this.props.etape}
-                type={this.props.type}
-                thematiques={this.props.thematiques}
-                destination={this.props.destination}
-              >
-                {({ aides }) => (
-                  <div>
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"france"}
-                perimetreApplicationCode={""}
-                formeDeDiffusion={this.props.formeDeDiffusion}
-                etape={this.props.etape}
-                type={this.props.type}
-                thematiques={this.props.thematiques}
-                destination={this.props.destination}
-              >
-                {({ aides }) => (
-                  <div>
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
-              <AidesSearchQuery
-                statusPublication={["published"]}
-                perimetreApplicationType={"europe"}
-                perimetreApplicationCode={""}
-                formeDeDiffusion={this.props.formeDeDiffusion}
-                etape={this.props.etape}
-                type={this.props.type}
-                thematiques={this.props.thematiques}
-                destination={this.props.destination}
-              >
-                {({ aides }) => (
-                  <div>
-                    <AideList aides={aides} />
-                  </div>
-                )}
-              </AidesSearchQuery>
+              <SearchResults />
             </div>
           </div>
         </div>
@@ -266,9 +96,4 @@ const SearchAidePage = class extends React.Component {
   }
 };
 
-export default connect(state => {
-  if (state.form.searchFilters && state.form.searchFilters.values) {
-    return { ...state.form.searchFilters.values };
-  }
-  return {};
-})(SearchAidePage);
+export default SearchAidePage;
