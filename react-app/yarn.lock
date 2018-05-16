@@ -7318,10 +7318,6 @@ react-apollo:
     lodash "4.17.5"
     prop-types "^15.6.0"
 
-react-awesome-modal:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-awesome-modal/-/react-awesome-modal-2.0.3.tgz#1f8c162b63be9b724c08938f80ee970b622b4c77"
-
 react-datepicker:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-1.4.1.tgz#ee171b71d9853e56f9eece5fc3186402f4648683"

@@ -4,8 +4,9 @@ import SearchFilters from "modules/search/presentationals/SearchFilters";
 import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";
 import SearchResults from "modules/search/presentationals/SearchResults";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 // import queryString from "qs";
-import Modal from "react-awesome-modal";
 import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
@@ -29,28 +30,24 @@ const SearchAidePage = class extends React.Component {
   render() {
     return (
       <Layout>
-        <Modal
-          visible={this.state.showModal}
-          width="300"
-          height="200"
-          effect="fadeInUp"
-          onClickAway={() => this.setState({ showModal: false })}
+        <Dialog
+          title=""
+          actions={[
+            <FlatButton
+              label="OK"
+              primary={true}
+              keyboardFocused={true}
+              onClick={() => this.setState({ showModal: false })}
+            />
+          ]}
+          modal={false}
+          open={this.state.showModal}
+          onRequestClose={this.handleClose}
         >
-          <div className="has-text-centered section">
-            Cette fonctionnalité sera bientôt disponible !
-            <br />
-            <br />
-            <p>
-              <a
-                className="button is-primary"
-                href="javascript:void(0);"
-                onClick={() => this.setState({ showModal: false })}
-              >
-                OK
-              </a>
-            </p>
+          <div className="has-text-centered">
+            Cette fonctionnalité sera bientôt disponible!
           </div>
-        </Modal>
+        </Dialog>
         <div className="container">
           <div className="columns">
             <div
