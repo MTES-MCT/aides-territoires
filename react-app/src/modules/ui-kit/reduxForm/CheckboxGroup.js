@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Field } from "redux-form";
 import Checkbox from "material-ui/Checkbox";
-import "./CheckboxGroup.css";
 
 export default class CheckboxGroup extends Component {
   static propTypes = {

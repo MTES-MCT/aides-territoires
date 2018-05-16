@@ -1,5 +1,4 @@
 import React from "react";
-import "./AideList.css";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
