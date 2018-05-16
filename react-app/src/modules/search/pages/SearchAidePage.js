@@ -7,7 +7,6 @@ import SearchResults from "modules/search/presentationals/SearchResults";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 // import queryString from "qs";
-import "./SearchAidePage.css";
 
 const SearchAidePage = class extends React.Component {
   state = {

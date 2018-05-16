@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./AideListItemDetails.css";
-import classNames from "classnames";
 import moment from "moment";
+
+const styles = {
+  table: {
+    width: "100%",
+    marginTop: "2rem"
+  }
+};
 
 class AideListItemDetails extends React.Component {
   static propTypes = {
@@ -12,7 +17,7 @@ class AideListItemDetails extends React.Component {
     const { aide } = this.props;
     return (
       <div className="AideListItemDetails">
-        <table className={classNames("table")}>
+        <table className="table" style={styles.table}>
           <tbody>
             <tr>
               <td>Date d'échéance</td>

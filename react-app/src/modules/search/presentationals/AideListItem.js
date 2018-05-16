@@ -3,7 +3,17 @@ import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import RaisedButton from "material-ui/RaisedButton";
 import { Spring, animated } from "react-spring";
-import "./AideListItem.css";
+import injectSheet from "react-jss";
+
+const styles = {
+  wrapper: {
+    paddingTop: "2rem"
+  },
+  showMoreButton: {
+    marginTop: "1rem",
+    textAlign: "center"
+  }
+};
 
 const DESCRIPTION_CHARS_LIMIT = 300;
 
@@ -37,7 +47,7 @@ class AideListItem extends React.Component {
     return (
       <div
         style={{ position: "relative" }}
-        className="AideListItem search-result-list-item box"
+        className={`box ${this.props.classes.wrapper}`}
       >
         <h2 className="title is-4">{aide.nom}</h2>
         <div className="tag" style={{ position: "absolute", top: 0, left: 0 }}>
@@ -65,7 +75,7 @@ class AideListItem extends React.Component {
           )}
         </Spring>
 
-        <div className="show-more">
+        <div className={this.props.classes.showMoreButton}>
           <RaisedButton
             onClick={this.handleMoreButtonClick}
             style={{ marginRight: "20px" }}
@@ -78,4 +88,4 @@ class AideListItem extends React.Component {
   }
 }
 
-export default AideListItem;
+export default injectSheet(styles)(AideListItem);
