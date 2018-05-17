@@ -7,6 +7,7 @@ import Text from "modules/ui-kit/finalForm/Text";
 import TextArea from "modules/ui-kit/finalForm/TextArea";
 import DatePicker from "modules/ui-kit/finalForm/DatePicker";
 import Number from "modules/ui-kit/finalForm/Number";
+import moment from "moment";
 import {
   getDepartementsByName,
   getRegionsByName
@@ -450,9 +451,17 @@ class AideForm extends React.Component {
               </div>
               <div className="column">
                 <Field
-                  label="Date d'échéance"
                   name="dateEcheance"
-                  component={DatePicker}
+                  // value displayed
+                  parse={value => (value ? moment(value).toString() : "")}
+                  // value registered
+                  format={value =>
+                    value ? moment(value).format("Y-MM-DD") : ""
+                  }
+                  className="date input is-large"
+                  component="input"
+                  type="date"
+                  placeholder="Date"
                 />
               </div>
             </div>
