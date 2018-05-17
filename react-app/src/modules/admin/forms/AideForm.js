@@ -414,14 +414,15 @@ class AideForm extends React.Component {
                     );
                   })}
                 </div>
-                {values.destination.includes("autre") && (
-                  <Field
-                    name="destinationAutre"
-                    className="is-large"
-                    component={Text}
-                    label="Autre"
-                  />
-                )}
+                {values.destination &&
+                  values.destination.includes("autre") && (
+                    <Field
+                      name="destinationAutre"
+                      className="is-large"
+                      component={Text}
+                      label="Autre"
+                    />
+                  )}
               </div>
               <div className="column">
                 <div className="field">
