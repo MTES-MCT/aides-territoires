@@ -58,7 +58,8 @@ header .subtitle strong {
 /* HEADER */
 
 .header {
-  background: url("../images/header-2.jpg");
+  background: url("../images/header-3.png");
+  background-position: bottom;
   background-size: cover;
   text-align: center;
   height: var(--header-height);

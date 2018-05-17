@@ -59,6 +59,12 @@ class Navigation extends React.PureComponent {
             >
               Rechercher une aide
             </Link>
+            <a
+              className="navbar-item"
+              href="https://www.aides-territoires.beta.gouv.fr/#contact"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </nav>

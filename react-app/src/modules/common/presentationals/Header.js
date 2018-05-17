@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import injectSheet from "react-jss";
+import classnames from "classnames";
+const styles = {};
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render() {
+    const { classes } = this.props;
     return (
       <section id="aides-territoires" className="hero ">
-        <header className="header" id="aides-territoires">
+        <header className={classnames("header")} id="aides-territoires">
           <div className="header-overlay ">
             <div className="hero-body ">
               <div className="container ">
@@ -34,3 +38,5 @@ export default class Header extends React.Component {
     );
   }
 }
+
+export default injectSheet(styles)(Header);
