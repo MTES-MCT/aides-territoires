@@ -57,8 +57,7 @@ const defaultValues = {
   etape: "pre_operationnel",
   beneficiaires: ["commune"],
   formeDeDiffusion: ["subvention"],
-  status: "ouvert",
-  dateEcheance: Date()
+  status: "ouvert"
 };
 
 class AideForm extends React.Component {
@@ -468,19 +467,41 @@ class AideForm extends React.Component {
                 </div>
               </div>
               <div className="column">
-                <Field
-                  name="dateEcheance"
-                  // value displayed
-                  parse={value => (value ? moment(value).toString() : "")}
-                  // value registered
-                  format={value =>
-                    value ? moment(value).format("Y-MM-DD") : ""
-                  }
-                  className="date input is-large"
-                  component="input"
-                  type="date"
-                  placeholder="Date"
-                />
+                {values.status &&
+                  values.status === "projete" && (
+                    <div className="field">
+                      <label className="label">Date de début</label>
+                      <Field
+                        name="dateDebut"
+                        // value displayed
+                        parse={value => (value ? moment(value).toString() : "")}
+                        // value registered
+                        format={value =>
+                          value ? moment(value).format("Y-MM-DD") : ""
+                        }
+                        className="date input is-large"
+                        component="input"
+                        type="date"
+                        placeholder="Date"
+                      />
+                    </div>
+                  )}
+                <div className="field">
+                  <label className="label">Date d'échéance</label>
+                  <Field
+                    name="dateEcheance"
+                    // value displayed
+                    parse={value => (value ? moment(value).toString() : "")}
+                    // value registered
+                    format={value =>
+                      value ? moment(value).format("Y-MM-DD") : ""
+                    }
+                    className="date input is-large"
+                    component="input"
+                    type="date"
+                    placeholder="Date"
+                  />
+                </div>
               </div>
             </div>
             <hr />
@@ -554,6 +575,7 @@ const saveAide = gql`
     $destinationAutre: String
     $thematiques: [saveAideThematiques]
     $dateEcheance: String
+    $dateDebut: String
     $tauxSubvention: String
     $populationMin: Int
     $populationMax: Int
@@ -582,6 +604,7 @@ const saveAide = gql`
       destination: $destination
       destinationAutre: $destinationAutre
       thematiques: $thematiques
+      dateDebut: $dateDebut
       dateEcheance: $dateEcheance
       tauxSubvention: $tauxSubvention
       populationMin: $populationMin

@@ -44,6 +44,7 @@ const editAideQuery = gql`
       formeDeDiffusion
       formeDeDiffusionAutre
       thematiques
+      dateDebut
       dateEcheance
       tauxSubvention
       contact

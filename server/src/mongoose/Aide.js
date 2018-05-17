@@ -74,6 +74,9 @@ const schema = new mongoose.Schema(
       type: [String],
       enum: formatEnumForMongoose(enums.thematiques)
     },
+    dateDebut: {
+      type: Date
+    },
     dateEcheance: {
       type: Date
     },

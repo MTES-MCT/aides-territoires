@@ -57,6 +57,9 @@ const Aide = new GraphQLObjectType({
     dateEcheance: {
       type: GraphQLString
     },
+    dateDebut: {
+      type: GraphQLString
+    },
     tauxSubvention: {
       type: GraphQLString
     },
