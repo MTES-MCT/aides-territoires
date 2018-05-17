@@ -40,6 +40,7 @@ const editAideQuery = gql`
       beneficiaires
       beneficiairesAutre
       destination
+      destinationAutre
       formeDeDiffusion
       thematiques
       dateEcheance

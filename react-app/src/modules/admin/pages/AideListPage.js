@@ -48,6 +48,7 @@ const allAidesQuery = gql`
       lien
       type
       destination
+      destinationAutre
       beneficiaires
     }
   }

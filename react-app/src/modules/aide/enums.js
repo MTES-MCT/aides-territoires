@@ -143,6 +143,10 @@ export const DESTINATION_OPTIONS = [
   {
     value: "travaux",
     label: "Travaux"
+  },
+  {
+    value: "autre",
+    label: "Autre"
   }
 ];
 

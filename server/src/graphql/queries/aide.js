@@ -75,6 +75,9 @@ module.exports = {
                 enums.destination
               )
             },
+            destinationAutre: {
+              type: GraphQLString
+            },
             beneficiaires: {
               type: formatEnumForGraphQL(
                 "allAidesBeneficiaires",

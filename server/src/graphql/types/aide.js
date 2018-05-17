@@ -44,6 +44,7 @@ const Aide = new GraphQLObjectType({
     destination: {
       type: formatEnumForGraphQL("destination", enums.destination)
     },
+    destinationAutre: { type: GraphQLString },
     populationMin: { type: GraphQLInt },
     populationMax: { type: GraphQLInt },
     formeDeDiffusion: {

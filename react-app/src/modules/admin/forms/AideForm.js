@@ -405,6 +405,14 @@ class AideForm extends React.Component {
                     );
                   })}
                 </div>
+                {values.destination.includes("autre") && (
+                  <Field
+                    name="destinationAutre"
+                    className="is-large"
+                    component={Text}
+                    label="Autre"
+                  />
+                )}
               </div>
               <div className="column">
                 <div className="field">
@@ -532,6 +540,7 @@ const saveAide = gql`
     $formeDeDiffusion: [saveAideFormeDeDiffusion]
     $perimetreDiffusionTypeAutre: String
     $destination: [saveAideDestination]
+    $destinationAutre: String
     $thematiques: [saveAideThematiques]
     $dateEcheance: String
     $tauxSubvention: String
@@ -559,6 +568,7 @@ const saveAide = gql`
       beneficiairesAutre: $beneficiairesAutre
       formeDeDiffusion: $formeDeDiffusion
       destination: $destination
+      destinationAutre: $destinationAutre
       thematiques: $thematiques
       dateEcheance: $dateEcheance
       tauxSubvention: $tauxSubvention

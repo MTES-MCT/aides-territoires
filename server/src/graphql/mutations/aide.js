@@ -47,6 +47,7 @@ module.exports = {
       destination: {
         type: formatEnumForGraphQL("saveAideDestination", enums.destination)
       },
+      destinationAutre: { type: GraphQLString },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt },
       formeDeDiffusion: {

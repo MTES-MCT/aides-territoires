@@ -227,6 +227,10 @@ module.exports = {
     {
       value: "travaux",
       label: "Travaux"
+    },
+    {
+      value: "autre",
+      label: "Autre"
     }
   ],
   thematiques: [

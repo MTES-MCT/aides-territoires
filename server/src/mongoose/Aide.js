@@ -64,6 +64,9 @@ const schema = new mongoose.Schema(
       type: [String],
       enum: formatEnumForMongoose(enums.destination)
     },
+    destinationAutre: {
+      type: String
+    },
     thematiques: {
       type: [String],
       enum: formatEnumForMongoose(enums.thematiques)
