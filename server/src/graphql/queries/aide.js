@@ -78,6 +78,9 @@ module.exports = {
             destinationAutre: {
               type: GraphQLString
             },
+            formeDeDiffusionAutre: {
+              type: GraphQLString
+            },
             beneficiaires: {
               type: formatEnumForGraphQL(
                 "allAidesBeneficiaires",

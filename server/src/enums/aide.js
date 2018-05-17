@@ -175,6 +175,10 @@ module.exports = {
     {
       value: "communication",
       label: "Communication"
+    },
+    {
+      value: "autre",
+      label: "Autre"
     }
   ],
   beneficiaires: [

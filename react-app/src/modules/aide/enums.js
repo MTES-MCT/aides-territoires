@@ -54,6 +54,10 @@ export const FORME_DE_DIFFUSION_OPTIONS = [
   {
     value: "fonds_de_retour",
     label: "Fonds de retour"
+  },
+  {
+    value: "autre",
+    label: "Autre"
   }
 ];
 

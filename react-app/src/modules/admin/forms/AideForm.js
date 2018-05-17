@@ -340,16 +340,25 @@ class AideForm extends React.Component {
                 </div>
               </div>
               {/* ==== */}
-              {values.formeDeDiffusion.includes("subvention") && (
-                <div className="column">
+              <div className="column">
+                {values.formeDeDiffusion.includes("subvention") && (
                   <Field
                     name="tauxSubvention"
                     className="is-large"
                     component={Number}
                     label="Taux de subvention"
                   />
-                </div>
-              )}
+                )}
+                {values.formeDeDiffusion.includes("autre") && (
+                  <Field
+                    name="formeDeDiffusionAutre"
+                    className="is-large"
+                    component={Text}
+                    label="Autre"
+                  />
+                )}
+              </div>
+
               {/* ==== */}
               <div className="column">
                 <div className="column">
@@ -538,6 +547,7 @@ const saveAide = gql`
     $beneficiaires: [saveAideBeneficiaires]
     $beneficiairesAutre: String
     $formeDeDiffusion: [saveAideFormeDeDiffusion]
+    $formeDeDiffusionAutre: String
     $perimetreDiffusionTypeAutre: String
     $destination: [saveAideDestination]
     $destinationAutre: String
@@ -567,6 +577,7 @@ const saveAide = gql`
       beneficiaires: $beneficiaires
       beneficiairesAutre: $beneficiairesAutre
       formeDeDiffusion: $formeDeDiffusion
+      formeDeDiffusionAutre: $formeDeDiffusionAutre
       destination: $destination
       destinationAutre: $destinationAutre
       thematiques: $thematiques

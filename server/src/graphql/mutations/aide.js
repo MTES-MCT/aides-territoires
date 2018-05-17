@@ -40,6 +40,7 @@ module.exports = {
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
       formeDeDiffusion: { type: GraphQLString },
+      formeDeDiffusionAutre: { type: GraphQLString },
       beneficiaires: {
         type: formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires)
       },

@@ -49,6 +49,8 @@ const allAidesQuery = gql`
       type
       destination
       destinationAutre
+      formeDeDiffusion
+      formeDeDiffusionAutre
       beneficiaires
     }
   }

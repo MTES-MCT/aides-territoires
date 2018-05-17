@@ -50,6 +50,7 @@ const Aide = new GraphQLObjectType({
     formeDeDiffusion: {
       type: formatEnumForGraphQL("formeDeDiffusion", enums.formeDeDiffusion)
     },
+    formeDeDiffusionAutre: { type: GraphQLString },
     thematiques: {
       type: formatEnumForGraphQL("thematiques", enums.thematiques)
     },

@@ -60,6 +60,9 @@ const schema = new mongoose.Schema(
       type: [String],
       enum: formatEnumForMongoose(enums.formeDeDiffusion)
     },
+    formeDeDiffusionAutre: {
+      type: String
+    },
     destination: {
       type: [String],
       enum: formatEnumForMongoose(enums.destination)
