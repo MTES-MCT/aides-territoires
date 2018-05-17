@@ -57,7 +57,8 @@ const defaultValues = {
   etape: "pre_operationnel",
   beneficiaires: ["commune"],
   formeDeDiffusion: ["subvention"],
-  status: "ouvert"
+  status: "ouvert",
+  categorieParticuliere: false
 };
 
 class AideForm extends React.Component {
@@ -505,6 +506,23 @@ class AideForm extends React.Component {
               </div>
             </div>
             <hr />
+
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <label className="checkbox">
+                    <Field
+                      name="categorieParticuliere"
+                      component="input"
+                      type="checkbox"
+                    />{" "}
+                    Catégorie particulière
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <hr />
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -581,6 +599,7 @@ const saveAide = gql`
     $populationMax: Int
     $contact: String
     $status: [saveAideStatus]
+    $categorieParticuliere: Boolean
   ) {
     saveAide(
       id: $id
@@ -611,6 +630,7 @@ const saveAide = gql`
       populationMax: $populationMax
       contact: $contact
       status: $status
+      categorieParticuliere: $categorieParticuliere
     ) {
       nom
     }

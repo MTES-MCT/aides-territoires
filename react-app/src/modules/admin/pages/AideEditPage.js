@@ -49,6 +49,7 @@ const editAideQuery = gql`
       tauxSubvention
       contact
       status
+      categorieParticuliere
     }
   }
 `;

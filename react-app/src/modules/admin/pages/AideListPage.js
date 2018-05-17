@@ -52,6 +52,7 @@ const allAidesQuery = gql`
       formeDeDiffusion
       formeDeDiffusionAutre
       beneficiaires
+      categorieParticuliere
     }
   }
 `;

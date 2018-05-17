@@ -104,6 +104,9 @@ module.exports = {
             },
             status: {
               type: GraphQLString
+            },
+            categorieParticuliere: {
+              type: GraphQLBoolean
             }
           }
         })

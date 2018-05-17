@@ -68,6 +68,9 @@ const Aide = new GraphQLObjectType({
     },
     status: {
       type: GraphQLString
+    },
+    categorieParticuliere: {
+      type: GraphQLBoolean
     }
   })
 });

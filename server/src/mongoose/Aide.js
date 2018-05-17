@@ -89,6 +89,9 @@ const schema = new mongoose.Schema(
     status: {
       type: String,
       enum: formatEnumForMongoose(enums.status)
+    },
+    categorieParticuliere: {
+      type: Boolean
     }
   },
   { timestamps: true }
