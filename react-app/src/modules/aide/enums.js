@@ -2,7 +2,7 @@
 export const PERIMETRE_APPLICATION_OPTIONS = [
   { value: "commune", label: "Commune" },
   { value: "departement", label: "Département" },
-  { value: "region", label: "Régionale" },
+  { value: "region", label: "Région" },
   { value: "outre_mer", label: "Outre Mer" },
   { value: "metropole", label: "Métropole" },
   { value: "france", label: "Métropole et Outre-mer" },

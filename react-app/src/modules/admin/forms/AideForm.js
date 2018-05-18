@@ -41,7 +41,7 @@ const validate = values => {
     errors.statusPublication = 'Le champ "status de publication" est requis';
   }
   if (!values.status) {
-    errors.status = `Le champ "status de l'aide" est requis`;
+    errors.status = `Le champ "statut de l'aide" est requis`;
   }
   return errors;
 };
@@ -453,7 +453,7 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="label"> Statut de l'aide </label>
+                  <label className="label"> Calendrier </label>
                   {STATUS_OPTIONS.map(option => {
                     return (
                       <div key={option.value}>
