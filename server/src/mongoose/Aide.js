@@ -92,6 +92,11 @@ const schema = new mongoose.Schema(
     },
     categorieParticuliere: {
       type: Boolean
+    },
+    //  La demande peut être faite par un tiers pour le compte du porteur de projet
+    // ou bien doit-elle être faite par le porteur de projet lui même
+    demandeTiersPossible: {
+      type: Boolean
     }
   },
   { timestamps: true }

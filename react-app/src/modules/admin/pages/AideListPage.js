@@ -53,6 +53,7 @@ const allAidesQuery = gql`
       formeDeDiffusionAutre
       beneficiaires
       categorieParticuliere
+      demandeTiersPossible
     }
   }
 `;

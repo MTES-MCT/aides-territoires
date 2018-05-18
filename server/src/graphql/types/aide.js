@@ -71,6 +71,9 @@ const Aide = new GraphQLObjectType({
     },
     categorieParticuliere: {
       type: GraphQLBoolean
+    },
+    demandeTiersPossible: {
+      type: GraphQLBoolean
     }
   })
 });

@@ -520,6 +520,21 @@ class AideForm extends React.Component {
                   </label>
                 </div>
               </div>
+              <div className="column">
+                <div className="field">
+                  <div>
+                    <label className="radio">
+                      <Field
+                        name="demandeTiersPossible"
+                        component="input"
+                        type="checkbox"
+                      />{" "}
+                      La demande peut être faite par un tiers pour le compte du
+                      porteur de projet
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <hr />
@@ -600,6 +615,7 @@ const saveAide = gql`
     $contact: String
     $status: [saveAideStatus]
     $categorieParticuliere: Boolean
+    $demandeTiersPossible: Boolean
   ) {
     saveAide(
       id: $id
@@ -631,6 +647,7 @@ const saveAide = gql`
       contact: $contact
       status: $status
       categorieParticuliere: $categorieParticuliere
+      demandeTiersPossible: $demandeTiersPossible
     ) {
       nom
     }

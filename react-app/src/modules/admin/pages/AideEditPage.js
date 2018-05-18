@@ -50,6 +50,7 @@ const editAideQuery = gql`
       contact
       status
       categorieParticuliere
+      demandeTiersPossible
     }
   }
 `;

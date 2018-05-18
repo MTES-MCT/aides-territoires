@@ -77,6 +77,9 @@ module.exports = {
       },
       categorieParticuliere: {
         type: GraphQLBoolean
+      },
+      demandeTiersPossible: {
+        type: GraphQLBoolean
       }
     },
     resolve: async (_, args, context) => {
