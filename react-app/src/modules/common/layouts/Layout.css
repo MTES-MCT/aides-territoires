@@ -20,7 +20,7 @@
 }
 */
 
-header .subtitle strong {
+strong {
   color: white;
 }
 
@@ -55,7 +55,7 @@ header .subtitle strong {
   max-width: 1000px;
 }
 
-/* HEADER */
+/* HEADER 
 
 .header {
   background: url("../images/header-3.png");
@@ -76,11 +76,16 @@ header .subtitle strong {
   font-size: 45px;
 }
 
+.header .content {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .header .subtitle {
   color: white;
   font-weight: 400;
   font-size: 26px;
 }
+
 
 .header-overlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -90,7 +95,7 @@ header .subtitle strong {
 .button-lancez-la-recherche,
 .button-lancez-la-recherche:hover {
   color: white;
-}
+}*/
 
 .app-name {
   color: var(--primary-color-background);

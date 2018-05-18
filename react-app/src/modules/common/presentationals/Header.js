@@ -1,55 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
-import classnames from "classnames";
 import graphcms from "services/graphcms";
-const styles = {};
+import headerBackground from "../images/header-4.png";
 
-class Header extends React.Component {
-  state = {
-    title: "",
-    content: ""
-  };
-  async componentDidMount() {
-    const data = await graphcms.request(`{
-      Pagedaccueil(id:"cjfdxk4tpcy3v016424h68se6") {
-        headertitre
-        header
-      }
-    }
-    `);
-    this.setState({
-      title: data.Pagedaccueil.headertitre,
-      content: data.Pagedaccueil.header
-    });
-  }
-  render() {
-    return (
-      <section id="aides-territoires" className="hero ">
-        <header className={classnames("header")} id="aides-territoires">
-          <div className="header-overlay ">
-            <div className="hero-body ">
-              <div className="container ">
-                <h1 className="title">{this.state.title}</h1>
-                <h2
-                  className="subtitle"
-                  dangerouslySetInnerHTML={{ __html: this.state.content }}
-                />
-                <div className="button is-large is-primary">
-                  <Link
-                    className="button-lancez-la-recherche js-scrollTo "
-                    to="/recherche"
-                  >
-                    Lancer la recherche
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-      </section>
-    );
-  }
-}
+const styles = {
+  header: {
+    position: "relative",
+    background: `url(${headerBackground})`,
+    backgroundPosition: "bottom",
+    backgroundSize: "cover",
+    textAlign: "center",
+    height: "400px"
+  },
+  headerOverlay: {
+    paddingBottom: "5rem",
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 0,
+    left: 0,
+    height: "100%",
+    width: "100%",
+    background: "rgba(20, 20, 20, 0.4)"
+  },
+  title: {
+    fontSize: "3rem",
+    lineHeight: "100%",
+    color: "white"
+  },
+  subtitle: { color: "white", fontSize: "1rem" },
+  button: { color: "white" }
+};
+
+const Header = ({ classes, data }) => {
+  return (
+    <header className={classes.header} id="aides-territoires">
+      <div className={classes.headerOverlay}>
+        <h1 className={classes.title}>{data.headertitre}</h1>
+        <h2
+          className={classes.subtitle}
+          dangerouslySetInnerHTML={{ __html: data.header }}
+        />
+        <div className="button is-large is-primary">
+          <Link className={classes.button} to="/recherche">
+            Lancer la recherche
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 export default injectSheet(styles)(Header);
