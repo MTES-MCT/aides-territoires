@@ -2,20 +2,30 @@ import React from "react";
 import { reduxForm } from "redux-form";
 import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
 import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
-import { connect } from "react-redux";
 import { ArrowDown, ArrowUp } from "modules/ui-kit/bulma/Icons";
 import {
-  PERIMETRE_APPLICATION_OPTIONS,
-  PERIMETRE_DIFFUSION_OPTIONS,
   TYPE_OPTIONS,
   ETAPE_OPTIONS,
   FORME_DE_DIFFUSION_OPTIONS,
-  BENEFICIAIRES_OPTIONS,
   DESTINATION_OPTIONS,
-  THEMATIQUES_OPTIONS,
-  STATUS_OPTIONS,
-  STATUS_PUBLICATION_OPTIONS
+  THEMATIQUES_OPTIONS
 } from "modules/aide/enums";
+
+const styles = {
+  searchFilters: {
+    background: "rgb(250, 250, 250)"
+  },
+  filter: {
+    marginBottom: "0.5 rem",
+    borderBottom: "solid rgb(220, 220, 220) 1px",
+    padding: "1rem"
+  },
+  label: {
+    paddingBottom: "0.5 rem",
+    cursor: "pointer",
+    textTransform: "uppercase"
+  }
+};
 
 let SearchFilters = class extends React.Component {
   state = {
@@ -38,8 +48,7 @@ let SearchFilters = class extends React.Component {
     });
   };
   render() {
-    const { props } = this;
-    const { handleSubmit, pristine, reset, submitting } = props;
+    // const { handleSubmit, pristine, reset, submitting } = props;
     return (
       <form style={styles.searchFilters}>
         {/***  PERIMETRE D'APPLICATION ***/}
@@ -158,22 +167,7 @@ let SearchFilters = class extends React.Component {
   }
 };
 
-const styles = {
-  searchFilters: {
-    background: "rgb(250, 250, 250)"
-  },
-  filter: {
-    marginBottom: "0.5 rem",
-    borderBottom: "solid rgb(220, 220, 220) 1px",
-    padding: "1rem"
-  },
-  label: {
-    paddingBottom: "0.5 rem",
-    cursor: "pointer",
-    textTransform: "uppercase"
-  }
-};
-
+/*
 const validate = values => {
   const errors = {};
   if (!values.nom || values.nom.trim().length === 0) {
@@ -181,6 +175,7 @@ const validate = values => {
   }
   return errors;
 };
+*/
 
 SearchFilters = reduxForm({
   // a unique name for the form

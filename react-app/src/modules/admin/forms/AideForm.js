@@ -4,8 +4,9 @@ import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Text from "modules/ui-kit/finalForm/Text";
+import FormErrors from "modules/ui-kit/finalForm/FormErrors";
 import TextArea from "modules/ui-kit/finalForm/TextArea";
-import DatePicker from "modules/ui-kit/finalForm/DatePicker";
+// import DatePicker from "modules/ui-kit/finalForm/DatePicker";
 import Number from "modules/ui-kit/finalForm/Number";
 import moment from "moment";
 import {
@@ -16,7 +17,6 @@ import propTypes from "prop-types";
 import GraphQLError from "../../ui-kit/GraphQLError";
 import {
   PERIMETRE_APPLICATION_OPTIONS,
-  PERIMETRE_DIFFUSION_OPTIONS,
   TYPE_OPTIONS,
   ETAPE_OPTIONS,
   FORME_DE_DIFFUSION_OPTIONS,
@@ -36,8 +36,11 @@ const validate = values => {
   if (!values.nom || values.nom.trim().length === 0) {
     errors.nom = "Le champ nom est requis";
   }
+  if (!values.statusPublication) {
+    errors.statusPublication = 'Le champ "status de publication" est requis';
+  }
   if (!values.status) {
-    errors.status = "Le champ status est requis";
+    errors.status = `Le champ "status de l'aide" est requis`;
   }
   return errors;
 };
@@ -240,6 +243,7 @@ class AideForm extends React.Component {
                   )}
                 </div>
               </div>
+              {/*
               <div className="column">
                 <div className="field">
                   <label className="label"> Périmètre de diffusion </label>
@@ -258,7 +262,6 @@ class AideForm extends React.Component {
                       </div>
                     );
                   })}
-                  {/* perimetreDiffusionTypeAutre */}
                   {values.perimetreDiffusionType === "autre" && (
                     <Field
                       name="perimetreDiffusionTypeAutre"
@@ -267,9 +270,9 @@ class AideForm extends React.Component {
                       label="Autre"
                     />
                   )}
-                  {/* /perimetreDiffusionTypeAutre*/}
                 </div>
               </div>
+              */}
             </div>
 
             <hr />
@@ -468,25 +471,23 @@ class AideForm extends React.Component {
                 </div>
               </div>
               <div className="column">
-                {values.status &&
-                  values.status === "projete" && (
-                    <div className="field">
-                      <label className="label">Date de début</label>
-                      <Field
-                        name="dateDebut"
-                        // value displayed
-                        parse={value => (value ? moment(value).toString() : "")}
-                        // value registered
-                        format={value =>
-                          value ? moment(value).format("Y-MM-DD") : ""
-                        }
-                        className="date input is-large"
-                        component="input"
-                        type="date"
-                        placeholder="Date"
-                      />
-                    </div>
-                  )}
+                <div className="field">
+                  <label className="label">Date de début</label>
+                  <Field
+                    name="dateDebut"
+                    // value displayed
+                    parse={value => (value ? moment(value).toString() : "")}
+                    // value registered
+                    format={value =>
+                      value ? moment(value).format("Y-MM-DD") : ""
+                    }
+                    className="date input is-large"
+                    component="input"
+                    type="date"
+                    placeholder="Date"
+                  />
+                </div>
+
                 <div className="field">
                   <label className="label">Date d'échéance</label>
                   <Field
@@ -560,7 +561,7 @@ class AideForm extends React.Component {
                 </div>
               </div>
             </div>
-
+            <FormErrors errors={errors} />
             <button
               disabled={
                 this.state.submissionStatus === SUBMISSION_STATUS_PENDING
@@ -576,6 +577,7 @@ class AideForm extends React.Component {
             </button>
             <br />
             <br />
+
             <pre>{JSON.stringify(values, null, 2)}</pre>
           </form>
         )}
@@ -590,7 +592,7 @@ const saveAide = gql`
     $nom: String!
     $description: String!
     $type: String!
-    $perimetreDiffusionType: String!
+    $perimetreDiffusionType: String
     $perimetreApplicationType: String!
     $perimetreApplicationNom: String
     $perimetreApplicationCode: String!

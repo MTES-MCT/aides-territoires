@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../common/layouts/Layout";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
-import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
+// import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";
 import SearchResults from "modules/search/presentationals/SearchResults";
 import Dialog from "material-ui/Dialog";

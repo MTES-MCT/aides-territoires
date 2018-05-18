@@ -6,7 +6,6 @@ const styles = {};
 
 class Header extends React.Component {
   render() {
-    const { classes } = this.props;
     return (
       <section id="aides-territoires" className="hero ">
         <header className={classnames("header")} id="aides-territoires">
