@@ -5,23 +5,60 @@ import gql from "graphql-tag";
 import Loader from "modules/ui-kit/AppLoader";
 import AideList from "modules/admin/presentationals/AideList";
 import GraphQLError from "modules/ui-kit/GraphQLError";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
 const AideListPage = class extends React.Component {
+  state = {
+    // will contain aide we want to delete
+    requestAideDeletion: null
+  };
+  deleteAide = aide => {
+    this.props.deleteAide({
+      variables: { id: aide.id },
+      refetchQueries: ["adminAllAides"]
+    });
+    this.setState({ requestAideDeletion: null });
+  };
   render() {
     const { loading, aides, error } = this.props.data;
     return (
       <AdminLayout>
+        <Dialog
+          title=""
+          actions={[
+            <FlatButton
+              label="ANNULER"
+              primary={true}
+              onClick={() => this.setState({ requestAideDeletion: null })}
+            />,
+            <FlatButton
+              label="SUPPRIMER"
+              secondary={true}
+              keyboardFocused={true}
+              onClick={() => this.deleteAide(this.state.requestAideDeletion)}
+            />
+          ]}
+          modal={false}
+          open={this.state.requestAideDeletion}
+          onRequestClose={this.handleClose}
+        >
+          <div className="has-text-centered">
+            Etes vous sûr de vouloir supprimer l'aide{" "}
+            {this.state.requestAideDeletion && (
+              <div>
+                <strong>{this.state.requestAideDeletion.nom}</strong> ? Cette
+                action est irréversible
+              </div>
+            )}
+          </div>
+        </Dialog>
         <h1 className="title is-1">Liste des aides</h1>
         {error && <GraphQLError error={error} />}
         {!aides && loading && <Loader />}
         {aides && (
           <AideList
-            onDeleteClick={aide =>
-              this.props.deleteAide({
-                variables: { id: aide.id },
-                refetchQueries: ["adminAllAides"]
-              })
-            }
+            onDeleteClick={aide => this.setState({ requestAideDeletion: aide })}
             aides={aides}
           />
         )}
