@@ -76,7 +76,10 @@ module.exports = {
         type: formatEnumForGraphQL("saveAideStatus", enums.status)
       },
       categorieParticuliere: {
-        type: GraphQLBoolean
+        type: formatEnumForGraphQL(
+          "saveAideCategorieParticuliere",
+          enums.categorieParticuliere
+        )
       },
       demandeTiersPossible: {
         type: GraphQLBoolean

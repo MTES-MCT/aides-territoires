@@ -24,7 +24,8 @@ import {
   DESTINATION_OPTIONS,
   THEMATIQUES_OPTIONS,
   STATUS_OPTIONS,
-  STATUS_PUBLICATION_OPTIONS
+  STATUS_PUBLICATION_OPTIONS,
+  CATEGORIE_PARTICULIERE_OPTIONS
 } from "modules/aide/enums";
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
@@ -511,14 +512,22 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 <div className="field">
-                  <label className="checkbox">
-                    <Field
-                      name="categorieParticuliere"
-                      component="input"
-                      type="checkbox"
-                    />{" "}
-                    Catégorie particulière
-                  </label>
+                  <label className="label"> Catégorie particulière </label>
+                  {CATEGORIE_PARTICULIERE_OPTIONS.map(option => {
+                    return (
+                      <div key={option.value}>
+                        <label className="checkbox">
+                          <Field
+                            name="categorieParticuliere"
+                            component="input"
+                            type="checkbox"
+                            value={option.value}
+                          />{" "}
+                          {option.label}
+                        </label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className="column">

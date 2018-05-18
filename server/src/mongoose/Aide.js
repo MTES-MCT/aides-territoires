@@ -91,7 +91,7 @@ const schema = new mongoose.Schema(
       enum: formatEnumForMongoose(enums.status)
     },
     categorieParticuliere: {
-      type: Boolean
+      type: formatEnumForMongoose(enums.categorieParticuliere)
     },
     //  La demande peut être faite par un tiers pour le compte du porteur de projet
     // ou bien doit-elle être faite par le porteur de projet lui même

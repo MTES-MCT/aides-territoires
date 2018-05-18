@@ -4,8 +4,8 @@ export const PERIMETRE_APPLICATION_OPTIONS = [
   { value: "departement", label: "Département" },
   { value: "region", label: "Régionale" },
   { value: "outre_mer", label: "Outre Mer" },
-  { value: "metropole", label: "France (hors Outre-mer)" },
-  { value: "france", label: "France et Outre-mer" },
+  { value: "metropole", label: "Métropole" },
+  { value: "france", label: "Métropole et Outre-mer" },
   { value: "europe", label: "Europe" }
 ];
 
@@ -185,5 +185,16 @@ export const STATUS_OPTIONS = [
   {
     value: "ferme",
     label: "Fermé"
+  }
+];
+
+export const CATEGORIE_PARTICULIERE_OPTIONS = [
+  {
+    value: "AAP",
+    label: "AAP"
+  },
+  {
+    value: "AMI",
+    label: "AMI"
   }
 ];

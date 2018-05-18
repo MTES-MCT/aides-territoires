@@ -70,7 +70,10 @@ const Aide = new GraphQLObjectType({
       type: GraphQLString
     },
     categorieParticuliere: {
-      type: GraphQLBoolean
+      type: formatEnumForGraphQL(
+        "categorieParticuliere",
+        enums.categorieParticuliere
+      )
     },
     demandeTiersPossible: {
       type: GraphQLBoolean

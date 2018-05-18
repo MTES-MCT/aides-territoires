@@ -106,7 +106,7 @@ module.exports = {
               type: GraphQLString
             },
             categorieParticuliere: {
-              type: GraphQLBoolean
+              type: GraphQLString
             },
             demandeTiersPossible: {
               type: GraphQLBoolean

@@ -268,5 +268,15 @@ module.exports = {
       value: "ferme",
       label: "Fermé"
     }
+  ],
+  categorieParticuliere: [
+    {
+      value: "AAP",
+      label: "AAP"
+    },
+    {
+      value: "AMI",
+      label: "AMI"
+    }
   ]
 };
