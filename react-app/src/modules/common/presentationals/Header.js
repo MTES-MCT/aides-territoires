@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
 import graphcms from "services/graphcms";
-import headerBackground from "../images/header-4.png";
+// import headerBackground from "../images/header-4.png";
+import headerBackground from "../images/header-5.png";
 
 const styles = {
   header: {

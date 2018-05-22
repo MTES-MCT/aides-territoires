@@ -3,6 +3,14 @@ import Layout from "../../common/layouts/Layout";
 import SearchFormContainer from "../decorators/SearchFormContainer";
 import { Redirect } from "react-router-dom";
 import queryString from "query-string";
+import classnames from "classnames";
+import injectSheet from "react-jss";
+
+const styles = {
+  title: {
+    paddingBottom: "3rem"
+  }
+};
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -34,10 +42,9 @@ class SearchPage extends React.Component {
       <Layout>
         <section className="section container">
           <div className="has-text-centered">
-            <h2 className="title is-2">
-              Je veux connaître les aides disponibles sur mon territoire.
+            <h2 className={classnames("title is-2", this.props.classes.title)}>
+              Je veux connaître les aides disponibles sur mon territoire :
             </h2>
-            <h2 className="title is-3">Où est situé votre projet ?</h2>
             <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
           </div>
         </section>
@@ -46,4 +53,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default injectSheet(styles)(SearchPage);

@@ -55,7 +55,7 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              text: `${commune.nom} (commune)`,
+              text: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
               type: "commune",
               data: commune
             };
