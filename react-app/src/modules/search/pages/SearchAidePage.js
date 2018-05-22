@@ -1,14 +1,28 @@
 import React from "react";
 import Layout from "../../common/layouts/Layout";
 import SearchFilters from "modules/search/presentationals/SearchFilters";
-// import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
+import SearchActiveFilters from "modules/search/presentationals/SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";
 import SearchResults from "modules/search/presentationals/SearchResults";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import Sticky from "react-stickynode";
+import injectSheet from "react-jss";
+import classnames from "classnames";
+import { connect } from "react-redux";
 // import queryString from "qs";
 
-const SearchAidePage = class extends React.Component {
+const styles = {
+  activeFilters: {
+    padding: "1rem",
+    background: "white"
+  },
+  filtersAndResults: {
+    zIndex: 1
+  }
+};
+
+let SearchAidePage = class extends React.Component {
   state = {
     showModal: false
   };
@@ -51,7 +65,11 @@ const SearchAidePage = class extends React.Component {
           <div className="columns">
             <div
               className="column"
-              style={{ textAlign: "right", marginTop: "2rem" }}
+              style={{
+                textAlign: "right",
+                marginTop: "2rem",
+                marginBottom: "2px"
+              }}
             >
               <RaisedButton
                 style={{ marginRight: "20px" }}
@@ -71,7 +89,22 @@ const SearchAidePage = class extends React.Component {
             </div>
           </div>
         </div>
-        <div className="SearchResultsPage container">
+        <Sticky innerZ={9999} enabled={true}>
+          <div
+            className={classnames(
+              this.props.classes.activeFilters,
+              "container"
+            )}
+          >
+            <SearchActiveFilters filters={this.props.filters} />
+          </div>
+        </Sticky>
+        <div
+          className={classnames(
+            "container",
+            this.props.classes.filtersAndResults
+          )}
+        >
           <div className="columns">
             <div className="column is-one-quarter">
               <SearchFilters
@@ -89,4 +122,12 @@ const SearchAidePage = class extends React.Component {
   }
 };
 
-export default SearchAidePage;
+function mapStateToProps(state) {
+  if (state.form.searchFilters && state.form.searchFilters.values) {
+    return { filters: state.form.searchFilters.values };
+  }
+  return { filters: {} };
+}
+
+SearchAidePage = connect(mapStateToProps)(SearchAidePage);
+export default injectSheet(styles)(SearchAidePage);

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import Chip from "material-ui/Chip";
 import { blue300 } from "material-ui/styles/colors";
 
@@ -39,9 +38,4 @@ const SearchActiveFilters = ({ filters }) => {
   );
 };
 
-export default connect(state => {
-  if (state.form.searchFilters && state.form.searchFilters.values) {
-    return { filters: state.form.searchFilters.values };
-  }
-  return { filters: {} };
-})(SearchActiveFilters);
+export default SearchActiveFilters;
