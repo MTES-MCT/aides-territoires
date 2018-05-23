@@ -9,7 +9,7 @@ import FlatButton from "material-ui/FlatButton";
 import Sticky from "react-stickynode";
 import injectSheet from "react-jss";
 import classnames from "classnames";
-import { setFilterValues } from "../../../store/actions/searchFiltersActions";
+import { change } from "redux-form";
 import { connect } from "react-redux";
 // import queryString from "qs";
 
@@ -36,8 +36,15 @@ let SearchAidePage = class extends React.Component {
     };
   }
   */
-  handleRequestDelete = () => {
-    alert("delete");
+  handleRequestDelete = (fieldId, filterValue) => {
+    console.log(this.props.filters);
+    const currentFilters = this.props.filters;
+    if (currentFilters[fieldId]) {
+      const newFilterValue = currentFilters[fieldId].filter(
+        filter => filter !== filterValue
+      );
+      this.props.change("searchFilters", fieldId, newFilterValue);
+    }
   };
   handleButtonClick = () => {
     this.setState({
@@ -138,11 +145,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterValues: filters => {
-      dispatch(setFilterValues(filters));
+    change: (form, field, value) => {
+      dispatch(change(form, field, value));
     }
   };
 }
 
-SearchAidePage = connect(mapStateToProps)(SearchAidePage);
+SearchAidePage = connect(mapStateToProps, mapDispatchToProps)(SearchAidePage);
 export default injectSheet(styles)(SearchAidePage);

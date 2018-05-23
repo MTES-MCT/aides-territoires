@@ -14,23 +14,24 @@ const styles = {
 };
 
 const SearchActiveFilters = ({ filters, onRequestDelete }) => {
-  console.log(filters);
   return (
     <div style={styles.wrapper}>
       {Object.keys(filters).map(filterId => {
-        console.log(filters);
         return (
           filters[filterId].length > 0 && (
             <span key={filterId} style={styles.wrapper}>
-              {filters[filterId].map(filter => {
+              {filters[filterId].map(filterValue => {
+                console.log(filterValue);
                 return (
                   <Chip
-                    key={`${filterId} - ${filter}`}
+                    key={`${filterId} - ${filterValue}`}
                     style={styles.chip}
                     backgroundColor={blue300}
-                    onRequestDelete={event => onRequestDelete(filterId, filter)}
+                    onRequestDelete={() =>
+                      onRequestDelete(filterId, filterValue)
+                    }
                   >
-                    <em>{filterId}</em> : {filter}
+                    <em>{filterId}</em> : {filterValue}
                   </Chip>
                 );
               })}
