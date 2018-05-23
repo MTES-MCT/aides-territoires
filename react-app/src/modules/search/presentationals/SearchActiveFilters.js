@@ -3,6 +3,7 @@ import Chip from "material-ui/Chip";
 import { blue300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
 import { getLabelFromEnumId } from "modules/aide/enums";
+import RaisedButton from "material-ui/RaisedButton";
 
 const styles = {
   chip: {
@@ -14,15 +15,25 @@ const styles = {
   }
 };
 
-const SearchActiveFilters = ({ filters, onRequestDelete }) => {
+const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
+  const values = Object.keys(filters).filter(
+    filterId => filters[filterId].length > 0
+  );
+  if (values.length === 0) {
+    return null;
+  }
   return (
     <div style={styles.wrapper}>
+      <RaisedButton
+        style={{ marginRight: "20px" }}
+        label="Reset"
+        onClick={onRequestReset}
+      />
       {Object.keys(filters).map(filterId => {
         return (
           filters[filterId].length > 0 && (
             <span key={filterId} style={styles.wrapper}>
               {filters[filterId].map(filterValue => {
-                console.log(filterValue);
                 return (
                   <Chip
                     key={`${filterId} - ${filterValue}`}
@@ -48,7 +59,8 @@ const SearchActiveFilters = ({ filters, onRequestDelete }) => {
 SearchActiveFilters.propTypes = {
   // {type:["autre","financement"],etape:["pre_operationnel"]}
   filters: PropTypes.object,
-  onRequestDelete: PropTypes.func.isRequired
+  onRequestDelete: PropTypes.func.isRequired,
+  onRequestReset: PropTypes.func
 };
 
 export default SearchActiveFilters;
