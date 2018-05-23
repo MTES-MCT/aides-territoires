@@ -191,13 +191,17 @@ const enums = {
   ]
 };
 
-export function getLabelFromEnum(enumId, enumValue) {
+export function getLabelFromEnumId(enumId, enumValue) {
   for (let i = 0; i < enums[enumId].length; i++) {
-    if (enums[enumId][i].value === enumValue) {
+    if (enumId === "formeDeDiffusion") {
+      console.log(enums[enumId][i].label);
+    }
+    if (enums[enumId][i].value == enumValue) {
       return enums[enumId][i].label;
     }
   }
-  return enumId;
+  console.error("label non trouvé pour " + enumId + "." + enumValue);
+  return enumValue;
 }
 
 export default enums;

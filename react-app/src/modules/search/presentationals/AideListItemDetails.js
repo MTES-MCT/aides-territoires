@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import { getLabelFromEnumId } from "modules/aide/enums";
 
 const styles = {
   table: {
@@ -37,7 +38,11 @@ class AideListItemDetails extends React.Component {
             {aide.beneficiaires && (
               <tr>
                 <td>Bénéficiaires </td>
-                <td>{aide.beneficiaires.join(", ")}</td>
+                <td>
+                  {aide.beneficiaires
+                    .map(option => getLabelFromEnumId("beneficiaires", option))
+                    .join(", ")}
+                </td>
               </tr>
             )}
             <tr>
@@ -46,7 +51,11 @@ class AideListItemDetails extends React.Component {
             </tr>
             <tr>
               <td>Modalité de diffusion</td>
-              <td>{aide.formeDeDiffusion.join(", ")}</td>
+              <td>
+                {aide.formeDeDiffusion
+                  .map(option => getLabelFromEnumId("formeDeDiffusion", option))
+                  .join(", ")}
+              </td>
             </tr>
             <tr>
               <td>Périmètre application</td>
@@ -58,11 +67,19 @@ class AideListItemDetails extends React.Component {
             </tr>
             <tr>
               <td>Temporalité dans le projet</td>
-              <td>{aide.etape.join(", ")}</td>
+              <td>
+                {aide.etape
+                  .map(option => getLabelFromEnumId("etape", option))
+                  .join(", ")}
+              </td>
             </tr>
             <tr>
               <td>Destination de l'aide</td>
-              <td>{aide.destination.join(", ")}</td>
+              <td>
+                {aide.destination
+                  .map(option => getLabelFromEnumId("destination", option))
+                  .join(", ")}
+              </td>
             </tr>
           </tbody>
         </table>
