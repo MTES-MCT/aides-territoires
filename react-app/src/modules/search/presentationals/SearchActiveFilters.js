@@ -2,6 +2,7 @@ import React from "react";
 import Chip from "material-ui/Chip";
 import { blue300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
+import { getLabelFromEnum } from "modules/aide/enums";
 
 const styles = {
   chip: {
@@ -31,7 +32,8 @@ const SearchActiveFilters = ({ filters, onRequestDelete }) => {
                       onRequestDelete(filterId, filterValue)
                     }
                   >
-                    <em>{filterId}</em> : {filterValue}
+                    <em>{filterId}</em> :{" "}
+                    {getLabelFromEnum(filterId, filterValue)}
                   </Chip>
                 );
               })}

@@ -3,13 +3,7 @@ import { reduxForm } from "redux-form";
 import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
 import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "modules/ui-kit/bulma/Icons";
-import {
-  TYPE_OPTIONS,
-  ETAPE_OPTIONS,
-  FORME_DE_DIFFUSION_OPTIONS,
-  DESTINATION_OPTIONS,
-  THEMATIQUES_OPTIONS
-} from "modules/aide/enums";
+import enums from "modules/aide/enums";
 
 const styles = {
   searchFilters: {
@@ -83,7 +77,7 @@ let SearchFilters = class extends React.Component {
             Type d'aide{" "}
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.type}>
-            <CheckboxGroup name="type" options={TYPE_OPTIONS} />
+            <CheckboxGroup name="type" options={enums.type} />
           </SlideDown>
         </div>
 
@@ -98,7 +92,7 @@ let SearchFilters = class extends React.Component {
             Étape
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.etape}>
-            <CheckboxGroup name="etape" options={ETAPE_OPTIONS} />
+            <CheckboxGroup name="etape" options={enums.etape} />
           </SlideDown>
         </div>
 
@@ -122,7 +116,7 @@ let SearchFilters = class extends React.Component {
           >
             <CheckboxGroup
               name="formeDeDiffusion"
-              options={FORME_DE_DIFFUSION_OPTIONS}
+              options={enums.formeDeDiffusion}
             />
           </SlideDown>
         </div>
@@ -141,7 +135,7 @@ let SearchFilters = class extends React.Component {
             maxHeight={400}
             show={this.state.activeFilters.destination}
           >
-            <CheckboxGroup name="destination" options={DESTINATION_OPTIONS} />
+            <CheckboxGroup name="destination" options={enums.destination} />
           </SlideDown>
         </div>
 
@@ -159,7 +153,7 @@ let SearchFilters = class extends React.Component {
             maxHeight={400}
             show={this.state.activeFilters.thematiques}
           >
-            <CheckboxGroup name="thematiques" options={THEMATIQUES_OPTIONS} />
+            <CheckboxGroup name="thematiques" options={enums.thematiques} />
           </SlideDown>
         </div>
       </form>
