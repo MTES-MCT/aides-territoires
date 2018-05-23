@@ -1,4 +1,7 @@
 import "./polyfill";
+import "raf/polyfill";
+import "core-js/es6/map";
+import "core-js/es6/set";
 import React, { Component } from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
