@@ -9,6 +9,7 @@ import FlatButton from "material-ui/FlatButton";
 import Sticky from "react-stickynode";
 import injectSheet from "react-jss";
 import classnames from "classnames";
+import { setFilterValues } from "../../../store/actions/searchFiltersActions";
 import { connect } from "react-redux";
 // import queryString from "qs";
 
@@ -35,6 +36,9 @@ let SearchAidePage = class extends React.Component {
     };
   }
   */
+  handleRequestDelete = () => {
+    alert("delete");
+  };
   handleButtonClick = () => {
     this.setState({
       showModal: true
@@ -96,7 +100,10 @@ let SearchAidePage = class extends React.Component {
               "container"
             )}
           >
-            <SearchActiveFilters filters={this.props.filters} />
+            <SearchActiveFilters
+              onRequestDelete={this.handleRequestDelete}
+              filters={this.props.filters}
+            />
           </div>
         </Sticky>
         <div
@@ -127,6 +134,14 @@ function mapStateToProps(state) {
     return { filters: state.form.searchFilters.values };
   }
   return { filters: {} };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setFilterValues: filters => {
+      dispatch(setFilterValues(filters));
+    }
+  };
 }
 
 SearchAidePage = connect(mapStateToProps)(SearchAidePage);
