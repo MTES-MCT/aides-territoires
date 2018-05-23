@@ -36,8 +36,8 @@ let SearchAidePage = class extends React.Component {
     };
   }
   */
+  // désactiver le filtre cliqué
   handleRequestDelete = (fieldId, filterValue) => {
-    console.log(this.props.filters);
     const currentFilters = this.props.filters;
     if (currentFilters[fieldId]) {
       const newFilterValue = currentFilters[fieldId].filter(
