@@ -4,6 +4,7 @@ import { blue300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
 import { getLabelFromEnumValue, getEnumName } from "modules/enums";
 import FlatButton from "material-ui/FlatButton";
+import injectSheet from "react-jss";
 
 const styles = {
   chip: {
@@ -87,4 +88,4 @@ SearchActiveFilters.propTypes = {
   onRequestReset: PropTypes.func
 };
 
-export default SearchActiveFilters;
+export default injectSheet(styles)(SearchActiveFilters);

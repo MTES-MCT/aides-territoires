@@ -15,8 +15,8 @@ import { connect } from "react-redux";
 
 const styles = {
   activeFilters: {
-    padding: "1rem",
-    background: "white"
+    background: " white",
+    padding: 5
   },
   filtersAndResults: {
     zIndex: 1
