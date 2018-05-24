@@ -16,16 +16,6 @@ const styles = {
   }
 };
 
-function filtersAreEmpty(filters) {
-  const values = Object.keys(filters).filter(
-    filterId => filters[filterId] && filters[filterId].length > 0
-  );
-  if (values.length === 0) {
-    return true;
-  }
-  return false;
-}
-
 const DeleteAllFilters = ({ onRequestReset }) => (
   <FlatButton
     primary={true}
@@ -56,7 +46,6 @@ const StickyActiveStyles = () => (
 );
 
 const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
-  if (filtersAreEmpty(filters)) return null;
   return (
     <div style={styles.wrapper}>
       <StickyActiveStyles />

@@ -11,12 +11,24 @@ import injectSheet from "react-jss";
 import classnames from "classnames";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
+
+function filtersAreEmpty(filters) {
+  const values = Object.keys(filters).filter(
+    filterId => filters[filterId] && filters[filterId].length > 0
+  );
+  if (values.length === 0) {
+    return true;
+  }
+  return false;
+}
+
 // import queryString from "qs";
 
 const styles = {
   activeFilters: {
     background: " white",
-    padding: 5
+    paddingBottom: "1rem",
+    paddingTop: "1rem"
   },
   filtersAndResults: {
     zIndex: 1
@@ -107,20 +119,22 @@ let SearchAidePage = class extends React.Component {
             </div>
           </div>
         </div>
-        <Sticky innerZ={9999} enabled={true}>
-          <div
-            className={classnames(
-              this.props.classes.activeFilters,
-              "container"
-            )}
-          >
-            <SearchActiveFilters
-              onRequestDelete={this.handleRequestDelete}
-              onRequestReset={this.handleRequestReset}
-              filters={this.props.filters}
-            />
-          </div>
-        </Sticky>
+        {filtersAreEmpty(this.props.filters) === false && (
+          <Sticky innerZ={9999} enabled={true}>
+            <div
+              className={classnames(
+                this.props.classes.activeFilters,
+                "container"
+              )}
+            >
+              <SearchActiveFilters
+                onRequestDelete={this.handleRequestDelete}
+                onRequestReset={this.handleRequestReset}
+                filters={this.props.filters}
+              />
+            </div>
+          </Sticky>
+        )}
         <div
           className={classnames(
             "container",
