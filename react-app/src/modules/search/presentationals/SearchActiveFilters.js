@@ -3,7 +3,6 @@ import Chip from "material-ui/Chip";
 import { blue300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
 import { getLabelFromEnumValue, getEnumName } from "modules/enums";
-import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 
 const styles = {
@@ -47,14 +46,23 @@ const ChipFilter = ({ filterId, filterValue, onRequestDelete }) => (
   </Chip>
 );
 
+const StickyActiveStyles = () => (
+  <style>
+    {
+      ".sticky-outer-wrapper.active .sticky-inner-wrapper {box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);}"
+    }
+  </style>
+);
+
 const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
   if (filtersAreEmpty(filters)) return null;
   return (
-    <div>
-      <DeleteAllFilters />
-      <div style={styles.wrapper}>
-        {Object.keys(filters).map(filterId => {
-          return (
+    <div style={styles.wrapper}>
+      <StickyActiveStyles />
+      <DeleteAllFilters onRequestReset={onRequestReset} />
+      {Object.keys(filters).map(filterId => {
+        return (
+          filters[filterId] && (
             <span key={filterId} style={styles.wrapper}>
               {filters[filterId].map(filterValue => (
                 <ChipFilter
@@ -65,9 +73,9 @@ const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
                 />
               ))}
             </span>
-          );
-        })}
-      </div>
+          )
+        );
+      })}
     </div>
   );
 };

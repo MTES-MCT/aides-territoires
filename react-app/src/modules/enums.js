@@ -233,9 +233,9 @@ export function getEnumName(enumGroupId, enumId) {
 }
 
 export function getLabelFromEnumValue(enumGroupId, enumId, enumValue) {
-  for (let i = 0; i < enums[enumGroupId][enumId].length; i++) {
-    if (enums[enumGroupId][enumId][i].value === enumValue) {
-      return enums[enumGroupId][enumId][i].label;
+  for (let i = 0; i < enums[enumGroupId][enumId].values.length; i++) {
+    if (enums[enumGroupId][enumId].values[i].value === enumValue) {
+      return enums[enumGroupId][enumId].values[i].label;
     }
   }
   return enumValue;

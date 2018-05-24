@@ -50,6 +50,7 @@ let SearchAidePage = class extends React.Component {
     }
   };
   handleRequestReset = () => {
+    // remet à zéro le formulaire des filtres de recherche via le store
     this.props.reset();
   };
   handleButtonClick = () => {
