@@ -25,6 +25,132 @@ module.exports = {
       return await AideModel.findById(id);
     }
   },
+  /**
+   * La query utilisée pour retournée les aides du moteur de recherche,
+   * groupées par localisations
+   */
+  searchAides: {
+    type: new GraphQLObjectType({
+      name: "searchAidesResults",
+      fields: () => {
+        return {
+          count: { type: GraphQLInt },
+          results: {
+            type: new GraphQLList(
+              new GraphQLObjectType({
+                name: "searchAideResultsGroup",
+                fields: {
+                  count: { type: GraphQLInt },
+                  type: { type: GraphQLString },
+                  aides: { type: new GraphQLList(types.Aide) }
+                }
+              })
+            )
+          }
+        };
+      }
+    }),
+    args: {
+      filters: {
+        type: new GraphQLInputObjectType({
+          name: "searchAidesFilters",
+          fields: {
+            etape: {
+              type: formatEnumForGraphQL("searchAidesEtape", enums.etape)
+            },
+            statusPublication: {
+              type: formatEnumForGraphQL(
+                "searchAidesStatusPublication",
+                enums.statusPublication
+              )
+            },
+            type: {
+              type: formatEnumForGraphQL("searchAidesType", enums.type)
+            },
+            perimetreApplicationType: {
+              type: formatEnumForGraphQL(
+                "searchAidesPerimetreApplicationType",
+                enums.perimetreApplicationType
+              )
+            },
+            destination: {
+              type: formatEnumForGraphQL(
+                "searchAidesDestination",
+                enums.destination
+              )
+            },
+            destinationAutre: {
+              type: GraphQLString
+            },
+            formeDeDiffusionAutre: {
+              type: GraphQLString
+            },
+            beneficiaires: {
+              type: formatEnumForGraphQL(
+                "searchAidesBeneficiaires",
+                enums.beneficiaires
+              )
+            },
+            perimetreApplicationCode: {
+              type: GraphQLString
+            },
+            formeDeDiffusion: {
+              type: formatEnumForGraphQL(
+                "searchAidesFormeDeDiffusion",
+                enums.formeDeDiffusion
+              )
+            },
+            thematiques: {
+              type: formatEnumForGraphQL(
+                "searchAidesThematiques",
+                enums.thematiques
+              )
+            },
+            status: {
+              type: GraphQLString
+            },
+            categorieParticuliere: {
+              type: GraphQLString
+            },
+            demandeTiersPossible: {
+              type: GraphQLBoolean
+            }
+          }
+        })
+      }
+    },
+    resolve: async (_, {}, context) => {
+      return {
+        count: 15,
+        results: [
+          {
+            count: 12,
+            type: "departement",
+            aides: [
+              {
+                nom: "aide numéro 1"
+              },
+              {
+                nom: "aide numéro 2"
+              }
+            ]
+          },
+          {
+            type: "motClefs",
+            count: 3,
+            aides: [
+              {
+                nom: "aide numéro 3"
+              },
+              {
+                nom: "aide numéro 4"
+              }
+            ]
+          }
+        ]
+      };
+    }
+  },
   allAides: {
     type: new GraphQLList(types.Aide),
     args: {
