@@ -6,6 +6,11 @@ import { connect } from "react-redux";
 const SearchResults = props => {
   return (
     <div>
+      <div className="notification">
+        Par défaut, le moteur de recherche présente toutes les aides disponibles
+        sur votre territoire.Vous pouvez utiliser les filtres ci-contre pour
+        préciser votre recherche et sélectionner vos critères
+      </div>
       {props.perimetreApplicationType === "departement" && (
         <AidesSearchQuery
           statusPublication={["published"]}
