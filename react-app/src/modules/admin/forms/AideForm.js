@@ -15,7 +15,8 @@ import {
 } from "../../../services/geoApi";
 import propTypes from "prop-types";
 import GraphQLError from "../../ui-kit/GraphQLError";
-import { enums } from "modules/enums";
+import allEnums from "modules/enums";
+const enums = allEnums.aide;
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
 const SUBMISSION_STATUS_PENDING = "pending";
@@ -93,7 +94,6 @@ class AideForm extends React.Component {
     const initialValues = !this.props.aide
       ? defaultValues
       : Object.assign({}, defaultValues, this.props.aide);
-    const enums = enums.aide;
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -163,7 +163,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Périmètre d'application </label>
-                  {enums.perimetreApplicationType.map(option => {
+                  {enums.perimetreApplicationType.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -272,7 +272,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Type d'aides </label>
-                  {enums.type.map(option => {
+                  {enums.type.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -292,7 +292,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Quand mobiliser l'aide ? </label>
-                  {enums.etape.map(option => {
+                  {enums.etape.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -316,7 +316,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Modalité de diffusion </label>
-                  {enums.formeDeDiffusion.map(option => {
+                  {enums.formeDeDiffusion.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -358,7 +358,7 @@ class AideForm extends React.Component {
                 <div className="column">
                   <div className="field">
                     <label className="label"> Public visé </label>
-                    {enums.beneficiaires.map(option => {
+                    {enums.beneficiaires.values.map(option => {
                       return (
                         <div key={option.value}>
                           <label className="checkbox">
@@ -392,7 +392,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Destination de l'aide </label>
-                  {enums.destination.map(option => {
+                  {enums.destination.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -421,7 +421,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Thématiques </label>
-                  {enums.destination.map(option => {
+                  {enums.thematiques.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -444,7 +444,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Calendrier </label>
-                  {enums.status.map(option => {
+                  {enums.status.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -503,7 +503,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Catégorie particulière </label>
-                  {enums.categorieParticuliere.map(option => {
+                  {enums.categorieParticuliere.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
@@ -542,7 +542,7 @@ class AideForm extends React.Component {
               <div className="column">
                 <div className="field">
                   <label className="label"> Statut de publication </label>
-                  {enums.statusPublication.map(option => {
+                  {enums.statusPublication.values.map(option => {
                     return (
                       <div key={option.value}>
                         <label className="checkbox">
