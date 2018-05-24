@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import RaisedButton from "material-ui/RaisedButton";
 import { Spring, animated } from "react-spring";
+import { getLabelFromEnumValue, getEnumName } from "modules/enums";
 import injectSheet from "react-jss";
 
 const styles = {
@@ -51,7 +52,11 @@ class AideListItem extends React.Component {
       >
         <h2 className="title is-4">{aide.nom}</h2>
         <div className="tag" style={{ position: "absolute", top: 0, left: 0 }}>
-          {this.getLabelPerimetre(aide.perimetreApplicationType)}
+          {getLabelFromEnumValue(
+            "aide",
+            "perimetreApplicationType",
+            aide.perimetreApplicationType
+          )}
         </div>
         <p className="description">
           {aide.description.substring(0, DESCRIPTION_CHARS_LIMIT)}
