@@ -15,7 +15,7 @@ import {
 } from "../../../services/geoApi";
 import propTypes from "prop-types";
 import GraphQLError from "../../ui-kit/GraphQLError";
-import enums from "modules/aide/enums";
+import { enums } from "modules/enums";
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
 const SUBMISSION_STATUS_PENDING = "pending";
@@ -93,6 +93,7 @@ class AideForm extends React.Component {
     const initialValues = !this.props.aide
       ? defaultValues
       : Object.assign({}, defaultValues, this.props.aide);
+    const enums = enums.aide;
     return (
       <Form
         onSubmit={this.handleSubmit}

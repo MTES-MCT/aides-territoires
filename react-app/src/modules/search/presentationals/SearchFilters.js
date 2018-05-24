@@ -3,7 +3,9 @@ import { reduxForm } from "redux-form";
 import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
 import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "modules/ui-kit/bulma/Icons";
-import enums from "modules/aide/enums";
+import allEnums from "modules/enums";
+
+const enums = allEnums.aide;
 
 const styles = {
   searchFilters: {
@@ -74,10 +76,10 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("type")}
           >
             {this.state.activeFilters.type ? <ArrowUp /> : <ArrowDown />}
-            Type d'aide{" "}
+            {enums.type.name}
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.type}>
-            <CheckboxGroup name="type" options={enums.type} />
+            <CheckboxGroup name="type" options={enums.type.values} />
           </SlideDown>
         </div>
 
@@ -89,10 +91,10 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("etape")}
           >
             {this.state.activeFilters.etape ? <ArrowUp /> : <ArrowDown />}
-            Étape
+            {enums.etape.name}
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.etape}>
-            <CheckboxGroup name="etape" options={enums.etape} />
+            <CheckboxGroup name="etape" options={enums.etape.values} />
           </SlideDown>
         </div>
 
@@ -108,7 +110,7 @@ let SearchFilters = class extends React.Component {
             ) : (
               <ArrowDown />
             )}
-            Modalité de diffusion
+            {enums.formeDeDiffusion.name}
           </label>
           <SlideDown
             maxHeight={400}
@@ -116,7 +118,7 @@ let SearchFilters = class extends React.Component {
           >
             <CheckboxGroup
               name="formeDeDiffusion"
-              options={enums.formeDeDiffusion}
+              options={enums.formeDeDiffusion.values}
             />
           </SlideDown>
         </div>
@@ -129,13 +131,16 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("destination")}
           >
             {this.state.activeFilters.destination ? <ArrowUp /> : <ArrowDown />}
-            Destination
+            {enums.destination.name}
           </label>
           <SlideDown
             maxHeight={400}
             show={this.state.activeFilters.destination}
           >
-            <CheckboxGroup name="destination" options={enums.destination} />
+            <CheckboxGroup
+              name="destination"
+              options={enums.destination.values}
+            />
           </SlideDown>
         </div>
 
@@ -147,13 +152,16 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("thematiques")}
           >
             {this.state.activeFilters.thematiques ? <ArrowUp /> : <ArrowDown />}
-            Thématiques
+            {enums.thematiques.name}
           </label>
           <SlideDown
             maxHeight={400}
             show={this.state.activeFilters.thematiques}
           >
-            <CheckboxGroup name="thematiques" options={enums.thematiques} />
+            <CheckboxGroup
+              name="thematiques"
+              options={enums.thematiques.values}
+            />
           </SlideDown>
         </div>
       </form>
