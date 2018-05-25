@@ -1,43 +1,25 @@
 // la fonction principale du moteur de recherche pour le site
 const AideModel = require("../mongoose/Aide");
 
-exports.getAide = id => {
+const getAide = id => {
   return AideModel.findById(id);
 };
 
-exports.searchAides = () => {
+const searchAides = async (filters, sort) => {
+  const aides = await getAides(filters);
   return {
-    count: 15,
+    count: Object.keys(aides).length,
     results: [
       {
-        count: 12,
-        type: "departement",
-        aides: [
-          {
-            nom: "aide numéro 1"
-          },
-          {
-            nom: "aide numéro 2"
-          }
-        ]
-      },
-      {
-        type: "motClefs",
-        count: 3,
-        aides: [
-          {
-            nom: "aide numéro 3"
-          },
-          {
-            nom: "aide numéro 4"
-          }
-        ]
+        count: Object.keys(aides).length,
+        type: "abc",
+        aides
       }
     ]
   };
 };
 
-exports.getAides = (filters = {}, sort = {}) => {
+const getAides = (filters = {}, sort = {}) => {
   // convert all array to mongoose $in syntax
   // example : {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
   for (filter in filters) {
@@ -48,4 +30,10 @@ exports.getAides = (filters = {}, sort = {}) => {
   const query = AideModel.find(filters);
   query.sort(sort);
   return query;
+};
+
+module.exports = {
+  getAide,
+  getAides,
+  searchAides
 };

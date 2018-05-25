@@ -120,8 +120,8 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, args = {}, context) => {
-      return searchAides(args);
+    resolve: async (_, { filters = {}, sort }, context) => {
+      return searchAides(filters, sort);
     }
   },
   allAides: {
