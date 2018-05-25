@@ -14,3 +14,22 @@ export const isPostalCode = string => {
   }
   return false;
 };
+
+/**
+ * Parfois le formulaire de filtres de recherche nous renvoie un objet
+ * de la forme suivante, qui n'est pas considéré vide par notre code alors
+ * qu'il signifie bien que rien n'est coché car type est vide.
+ * {
+ *    type:[]
+ * }
+ * la fonction le transforme en {}
+ * @param {Object} filters
+ */
+export function cleanSearchFilters(filters) {
+  Object.keys(filters).map(filterId => {
+    if (filters[filterId] && filters[filterId].length === 0) {
+      delete filters[filterId];
+    }
+  });
+  return filters;
+}

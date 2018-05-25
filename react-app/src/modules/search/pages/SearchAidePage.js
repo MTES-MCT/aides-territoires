@@ -9,18 +9,9 @@ import FlatButton from "material-ui/FlatButton";
 import Sticky from "react-stickynode";
 import injectSheet from "react-jss";
 import classnames from "classnames";
+import { cleanSearchFilters } from "../../../services/searchLib";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
-
-function filtersAreEmpty(filters) {
-  const values = Object.keys(filters).filter(
-    filterId => filters[filterId] && filters[filterId].length > 0
-  );
-  if (values.length === 0) {
-    return true;
-  }
-  return false;
-}
 
 // import queryString from "qs";
 
@@ -119,7 +110,8 @@ let SearchAidePage = class extends React.Component {
             </div>
           </div>
         </div>
-        {filtersAreEmpty(this.props.filters) === false && (
+        {/* affichr les filtres actifs si il y en a*/}
+        {Object.keys(cleanSearchFilters(this.props.filters)).length > 0 && (
           <Sticky innerZ={9999} enabled={true}>
             <div
               className={classnames(
@@ -149,7 +141,7 @@ let SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
-              <SearchResults />
+              <SearchResults filters={this.props.filters} />
             </div>
           </div>
         </div>
