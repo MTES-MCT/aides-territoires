@@ -12,7 +12,7 @@ const {
   GraphQLInt,
   GraphQLEnumType
 } = require("graphql");
-const { searchAides } = require("../../services/aide");
+const { searchAides, getAides } = require("../../services/aide");
 
 module.exports = {
   getAide: {
@@ -215,16 +215,7 @@ module.exports = {
       }
     },
     resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
-      // convert all array to mongosse $in syntax
-      // example : {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
-      for (filter in filters) {
-        if (Array.isArray(filters[filter])) {
-          filters[filter] = { $in: filters[filter] };
-        }
-      }
-      const query = AideModel.find(filters);
-      query.sort(sort);
-      return query;
+      return getAides(filters, sort);
     }
   }
 };
