@@ -12,6 +12,7 @@ const {
   GraphQLInt,
   GraphQLEnumType
 } = require("graphql");
+const { searchAides } = require("../../services/aide");
 
 module.exports = {
   getAide: {
@@ -119,36 +120,8 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, {}, context) => {
-      return {
-        count: 15,
-        results: [
-          {
-            count: 12,
-            type: "departement",
-            aides: [
-              {
-                nom: "aide numéro 1"
-              },
-              {
-                nom: "aide numéro 2"
-              }
-            ]
-          },
-          {
-            type: "motClefs",
-            count: 3,
-            aides: [
-              {
-                nom: "aide numéro 3"
-              },
-              {
-                nom: "aide numéro 4"
-              }
-            ]
-          }
-        ]
-      };
+    resolve: async (_, args = {}, context) => {
+      return searchAides(args);
     }
   },
   allAides: {
