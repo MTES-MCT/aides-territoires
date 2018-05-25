@@ -6,25 +6,120 @@ const getAide = id => {
 };
 
 const searchAides = async (filters, sort) => {
-  const aides = await getAides({ ...filters });
   const resultsGroups = [];
-  // on essaie d'abord d'apporter le résultat le plus localisé.
-  // Si on a le code du périmètre d'application (code région, code département etc),
-  // on créer un premier groupe de résultats avec les aides correspondantes
-  if (filters.perimetreApplicationCode) {
-    const aides = await getAides(filters);
-    resultsGroups.push({
-      count: Object.keys(aides).length,
-      type: filters.perimetreApplicationType[0],
-      label: filters.perimetreApplicationCode,
-      aides: aides
-    });
+  let total = 0;
+  let newFilters = {};
+  let aides = {};
+  const territoire = filters.perimetreApplicationType[0];
+
+  // on essaie d'abord d'apporter les résultats le plus localisés si
+  // un code est précié..
+  // (code région, code département etc),
+  // on créer un premier groupe de résultats avec les aides correspondantes)
+  if (territoire === "departement" || territoire === "region") {
+    if (filters.perimetreApplicationCode) {
+      aides = await getAides(filters);
+      resultsGroups.push({
+        count: Object.keys(aides).length,
+        type: `votre_${territoire}`,
+        label: `votre ${territoire}`,
+        aides: aides
+      });
+    }
   }
-  const response = {
+  // toutes les aides départementales
+  aides = getAllAidesDepartementales(filters);
+  resultsGroups.push({
     count: Object.keys(aides).length,
+    type: "departement",
+    label: "Département",
+    aides: aides
+  });
+
+  aides = getAllAidesRegionales(filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "region",
+    label: "Région",
+    aides: aides
+  });
+
+  aides = getAllAidesFrance(filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "france",
+    label: "France",
+    aides: aides
+  });
+
+  aides = getAllAidesEurope(filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "europe",
+    label: "Europe",
+    aides: aides
+  });
+
+  // toutes les aides régionales
+  const response = {
+    count: total,
     results: resultsGroups
   };
   return response;
+};
+
+const getAllAidesDepartementales = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "departement";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
+};
+
+const getAllAidesRegionales = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "region";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
+};
+
+const getAllAidesMetropole = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "metropole";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
+};
+
+const getAllAidesOutreMer = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "outre_mer";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
+};
+
+const getAllAidesFrance = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "francd";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
+};
+
+const getAllAidesEurope = async filters => {
+  const newFilters = { ...filters };
+  newFilters.perimetreApplicationCode[0] = "europe";
+  if (newFilters.perimetreApplicationCode) {
+    delete newFilters.perimetreApplicationCode;
+  }
+  return await getAides(newFilters);
 };
 
 const getAides = (filters = {}, sort = {}) => {

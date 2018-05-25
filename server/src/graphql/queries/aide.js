@@ -43,6 +43,7 @@ module.exports = {
                 fields: {
                   count: { type: GraphQLInt },
                   type: { type: GraphQLString },
+                  label: { type: GraphQLString },
                   aides: { type: new GraphQLList(types.Aide) }
                 }
               })
