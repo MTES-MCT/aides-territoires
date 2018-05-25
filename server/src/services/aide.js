@@ -27,8 +27,8 @@ const searchAides = async (filters, sort) => {
       });
     }
   }
-  // toutes les aides départementales
-  aides = getAllAidesDepartementales(filters);
+  // toutes les aides communales
+  aides = await getAllAidesByTerritoire("commune", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
     type: "departement",
@@ -36,7 +36,16 @@ const searchAides = async (filters, sort) => {
     aides: aides
   });
 
-  aides = getAllAidesRegionales(filters);
+  // toutes les aides départementales
+  aides = await getAllAidesByTerritoire("departement", filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "departement",
+    label: "Département",
+    aides: aides
+  });
+
+  aides = await getAllAidesByTerritoire("region", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
     type: "region",
@@ -44,7 +53,7 @@ const searchAides = async (filters, sort) => {
     aides: aides
   });
 
-  aides = getAllAidesFrance(filters);
+  aides = await getAllAidesByTerritoire("france", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
     type: "france",
@@ -52,7 +61,7 @@ const searchAides = async (filters, sort) => {
     aides: aides
   });
 
-  aides = getAllAidesEurope(filters);
+  aides = await getAllAidesByTerritoire("europe", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
     type: "europe",
@@ -62,60 +71,23 @@ const searchAides = async (filters, sort) => {
 
   // toutes les aides régionales
   const response = {
-    count: total,
-    results: resultsGroups
+    count: getTotalCountFromResultsGroups(resultsGroups),
+    resultsGroups
   };
   return response;
 };
 
-const getAllAidesDepartementales = async filters => {
-  const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "departement";
-  if (newFilters.perimetreApplicationCode) {
-    delete newFilters.perimetreApplicationCode;
-  }
-  return await getAides(newFilters);
-};
+function getTotalCountFromResultsGroups(resultsGroups) {
+  const count = resultsGroups.reduce(
+    (accumulator, resultGroup) => resultGroup.count + accumulator,
+    0
+  );
+  return count;
+}
 
-const getAllAidesRegionales = async filters => {
+const getAllAidesByTerritoire = async (perimetreId, filters) => {
   const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "region";
-  if (newFilters.perimetreApplicationCode) {
-    delete newFilters.perimetreApplicationCode;
-  }
-  return await getAides(newFilters);
-};
-
-const getAllAidesMetropole = async filters => {
-  const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "metropole";
-  if (newFilters.perimetreApplicationCode) {
-    delete newFilters.perimetreApplicationCode;
-  }
-  return await getAides(newFilters);
-};
-
-const getAllAidesOutreMer = async filters => {
-  const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "outre_mer";
-  if (newFilters.perimetreApplicationCode) {
-    delete newFilters.perimetreApplicationCode;
-  }
-  return await getAides(newFilters);
-};
-
-const getAllAidesFrance = async filters => {
-  const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "francd";
-  if (newFilters.perimetreApplicationCode) {
-    delete newFilters.perimetreApplicationCode;
-  }
-  return await getAides(newFilters);
-};
-
-const getAllAidesEurope = async filters => {
-  const newFilters = { ...filters };
-  newFilters.perimetreApplicationCode[0] = "europe";
+  newFilters.perimetreApplicationType = [perimetreId];
   if (newFilters.perimetreApplicationCode) {
     delete newFilters.perimetreApplicationCode;
   }

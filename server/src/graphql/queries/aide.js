@@ -36,7 +36,7 @@ module.exports = {
       fields: () => {
         return {
           count: { type: GraphQLInt },
-          results: {
+          resultsGroups: {
             type: new GraphQLList(
               new GraphQLObjectType({
                 name: "searchAideResultsGroup",
