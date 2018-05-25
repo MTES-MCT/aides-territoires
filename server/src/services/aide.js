@@ -1,6 +1,10 @@
 // la fonction principale du moteur de recherche pour le site
 const AideModel = require("../mongoose/Aide");
 
+exports.getAide = id => {
+  return AideModel.findById(id);
+};
+
 exports.searchAides = () => {
   return {
     count: 15,

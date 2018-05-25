@@ -12,7 +12,7 @@ const {
   GraphQLInt,
   GraphQLEnumType
 } = require("graphql");
-const { searchAides, getAides } = require("../../services/aide");
+const { searchAides, getAides, getAide } = require("../../services/aide");
 
 module.exports = {
   getAide: {
@@ -23,7 +23,7 @@ module.exports = {
       }
     },
     resolve: async (_, { id }, context) => {
-      return await AideModel.findById(id);
+      return await getAide(id);
     }
   },
   /**
