@@ -615,7 +615,7 @@ const saveAide = gql`
     $populationMax: Int
     $contact: String
     $status: [saveAideStatus]
-    $categorieParticuliere: Boolean
+    $categorieParticuliere: [saveAideCategorieParticuliere]
     $demandeTiersPossible: Boolean
   ) {
     saveAide(
