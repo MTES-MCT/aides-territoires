@@ -6,26 +6,25 @@ const getAide = id => {
 };
 
 const searchAides = async (filters, sort) => {
-  const aides = await getAides(filters);
+  const aides = await getAides({ ...filters });
   const resultsGroups = [];
   // on essaie d'abord d'apporter le résultat le plus localisé.
   // Si on a le code du périmètre d'application (code région, code département etc),
   // on créer un premier groupe de résultats avec les aides correspondantes
   if (filters.perimetreApplicationCode) {
     const aides = await getAides(filters);
-    resultsGroups.push([
-      {
-        count: Object.keys(aides).length,
-        type: filters.perimetreApplicationType,
-        label: filters.perimetreApplicationType,
-        aides: aides
-      }
-    ]);
+    resultsGroups.push({
+      count: Object.keys(aides).length,
+      type: filters.perimetreApplicationType[0],
+      label: filters.perimetreApplicationCode,
+      aides: aides
+    });
   }
-  return {
+  const response = {
     count: Object.keys(aides).length,
     results: resultsGroups
   };
+  return response;
 };
 
 const getAides = (filters = {}, sort = {}) => {
