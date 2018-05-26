@@ -23,4 +23,11 @@ const SearchResults = ({ filters }) => {
   );
 };
 
+function mapStateToProps(state) {
+  if (state.form.searchFilters && state.form.searchFilters.values) {
+    return { filters: state.form.searchFilters.values };
+  }
+  return { filters: {} };
+}
+
 export default SearchResults;
