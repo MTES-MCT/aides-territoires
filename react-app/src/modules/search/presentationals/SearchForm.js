@@ -7,7 +7,6 @@ class SearchForm extends React.Component {
     super(props);
     this.state = {
       text: props.text,
-      type: "",
       data: {}
     };
   }
@@ -19,7 +18,9 @@ class SearchForm extends React.Component {
     this.props.onSearchChange(value);
   };
   onSuggestionClick = data => {
-    this.setState(data);
+    this.setState({
+      text: data.text
+    });
     this.props.onSuggestionClick(data);
   };
   onSubmit = event => {

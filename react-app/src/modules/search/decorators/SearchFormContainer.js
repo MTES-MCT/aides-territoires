@@ -26,7 +26,8 @@ class SearchFormContainer extends React.Component {
     onSearchSubmit: PropTypes.func.isRequired,
     text: PropTypes.string
   };
-  onSuggestionClick = value => {
+  onSuggestionClick = values => {
+    this.setState({ text: values.text });
     this.resetSuggestions();
   };
   onSearchChange = text => {
@@ -39,9 +40,10 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              text: `${commune.nom} - (commune)`,
-              type: "commune",
-              data: commune
+              text: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
+              perimetreApplicationType: "commune",
+              perimetreApplicationCode: commune.code,
+              perimetreAdditionalData: commune
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -56,8 +58,9 @@ class SearchFormContainer extends React.Component {
           const suggestions = communes.map(function(commune) {
             return {
               text: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
-              type: "commune",
-              data: commune
+              perimetreApplicationType: "commune",
+              perimetreApplicationCode: commune.code,
+              perimetreAdditionalData: commune
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -70,8 +73,9 @@ class SearchFormContainer extends React.Component {
           const suggestions = departements.map(function(departement) {
             return {
               text: `${departement.nom} (département)`,
-              type: "departement",
-              data: departement
+              perimetreApplicationType: "departement",
+              perimetreApplicationCode: departement.code,
+              perimetreAdditionalData: departement
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -84,8 +88,9 @@ class SearchFormContainer extends React.Component {
           const suggestions = regions.map(function(region) {
             return {
               text: `${region.nom} (Région)`,
-              type: "region",
-              data: region
+              perimetreApplicationType: "region",
+              perimetreApplicationCode: region.code,
+              perimetreAdditionalData: region
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);

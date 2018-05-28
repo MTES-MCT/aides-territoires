@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import RaisedButton from "material-ui/RaisedButton";
 import { Spring, animated } from "react-spring";
-import { getLabelFromEnumValue, getEnumName } from "modules/enums";
+import { getLabelFromEnumValue } from "modules/enums";
 import injectSheet from "react-jss";
 
 const styles = {

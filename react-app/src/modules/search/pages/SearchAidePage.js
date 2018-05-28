@@ -13,8 +13,6 @@ import { cleanSearchFilters } from "../../../services/searchLib";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
 
-// import queryString from "qs";
-
 const styles = {
   activeFilters: {
     background: " white",
@@ -25,6 +23,14 @@ const styles = {
     zIndex: 1
   }
 };
+
+const SearchResultsTopText = () => (
+  <div className="notification">
+    Par défaut, le moteur de recherche présente toutes les aides disponibles sur
+    votre territoire.Vous pouvez utiliser les filtres ci-contre pour préciser
+    votre recherche et sélectionner vos critères
+  </div>
+);
 
 let SearchAidePage = class extends React.Component {
   state = {
@@ -141,6 +147,7 @@ let SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
+              <SearchResultsTopText />
               <SearchResults filters={this.props.filters} />
             </div>
           </div>
@@ -152,8 +159,12 @@ let SearchAidePage = class extends React.Component {
 
 function mapStateToProps(state) {
   if (state.form.searchFilters && state.form.searchFilters.values) {
-    return { filters: state.form.searchFilters.values };
+    return {
+      // les filtres sélectionnés par l'utilisateur pour sa recherche
+      filters: state.form.searchFilters.values
+    };
   }
+  // éviter une erreur pour cause de filters undefined
   return { filters: {} };
 }
 

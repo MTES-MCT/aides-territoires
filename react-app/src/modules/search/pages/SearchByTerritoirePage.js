@@ -2,9 +2,11 @@ import React from "react";
 import Layout from "../../common/layouts/Layout";
 import SearchFormContainer from "../decorators/SearchFormContainer";
 import { Redirect } from "react-router-dom";
-import queryString from "query-string";
+import { change } from "redux-form";
+import { connect } from "react-redux";
 import classnames from "classnames";
 import injectSheet from "react-jss";
+import { buildUrlParamsFromFilters } from "../../../services/searchLib";
 
 const styles = {
   title: {
@@ -16,27 +18,17 @@ class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchedData: null
+      filters: {}
     };
   }
   onSearchSubmit = values => {
-    this.setState({ searchedData: values });
-  };
-  buildUrlParamsFromValues = values => {
-    const params = {
-      perimetreApplicationType: values.type,
-      perimetreApplicationCode: values.data.code,
-      perimetreApplicationName: values.data.name,
-      searchedText: values.text,
-      codeDepartement: values.data.codeDepartement,
-      codeRegion: values.data.codeRegion
-    };
-    return queryString.stringify(params);
+    // this.props.change("searchFormFilters");
+    this.setState({ filters: values });
   };
   render() {
-    if (this.state.searchedData) {
-      const urlParams = this.buildUrlParamsFromValues(this.state.searchedData);
-      return <Redirect push to={`/aides?${urlParams}`} />;
+    if (Object.keys(this.state.filters).length > 0) {
+      const params = buildUrlParamsFromFilters(this.state.filters);
+      return <Redirect push to={`/aides?${params}`} />;
     }
     return (
       <Layout>
@@ -53,4 +45,17 @@ class SearchPage extends React.Component {
   }
 }
 
+function mapStateToProps() {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    change: (form, field, value) => {
+      dispatch(change(form, field, value));
+    }
+  };
+}
+
+SearchPage = connect(mapStateToProps, mapDispatchToProps)(SearchPage);
 export default injectSheet(styles)(SearchPage);

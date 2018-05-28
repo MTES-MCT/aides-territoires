@@ -1,33 +1,18 @@
 import React from "react";
-import AllAidesQuery from "modules/search/decorators/AllAidesQuery";
+import SearchAidesQuery from "modules/search/decorators/SearchAidesQuery";
 import AideList from "modules/search/presentationals/AideList";
-import { connect } from "react-redux";
-
-const SearchResultsTopText = () => (
-  <div className="notification">
-    Par défaut, le moteur de recherche présente toutes les aides disponibles sur
-    votre territoire.Vous pouvez utiliser les filtres ci-contre pour préciser
-    votre recherche et sélectionner vos critères
-  </div>
-);
 
 const SearchResults = ({ filters }) => {
   return (
-    <AllAidesQuery filters={filters}>
+    <SearchAidesQuery filters={filters}>
       {({ aides }) => (
         <div>
-          <AideList aides={aides} />
+          {console.log(aides)}
+          {/*<AideList aides={aides} />*/}
         </div>
       )}
-    </AllAidesQuery>
+    </SearchAidesQuery>
   );
 };
-
-function mapStateToProps(state) {
-  if (state.form.searchFilters && state.form.searchFilters.values) {
-    return { filters: state.form.searchFilters.values };
-  }
-  return { filters: {} };
-}
 
 export default SearchResults;

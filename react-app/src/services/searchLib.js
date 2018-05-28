@@ -1,3 +1,5 @@
+import queryString from "query-string";
+
 /**
  * Determine if string looks like a postal code, suitable
  * to launch a search on postal code API.
@@ -32,4 +34,15 @@ export function cleanSearchFilters(filters) {
     }
   });
   return filters;
+}
+
+export function buildUrlParamsFromFilters(filters) {
+  // je ne sais pas ce que fait cette clef data fait là, en attendant je la vire
+  if (filters.data && Object.keys(filters.data).length === 0) {
+    delete filters.data;
+  }
+  if (filters.perimetreAdditionalData) {
+    delete filters.perimetreAdditionalData;
+  }
+  return queryString.stringify(filters);
 }
