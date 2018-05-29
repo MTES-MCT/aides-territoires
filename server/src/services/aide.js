@@ -56,6 +56,23 @@ const searchAides = async (filters, sort) => {
     aides: aides
   });
 
+  aides = await getAllAidesByTerritoire("outre_mer", filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "france",
+    label: "France",
+    aides: aides
+  });
+
+  aides = await getAllAidesByTerritoire("metropole", filters);
+  resultsGroups.push({
+    count: Object.keys(aides).length,
+    type: "france",
+    label: "France",
+    aides: aides
+  });
+
+  // metropole + outre_mer
   aides = await getAllAidesByTerritoire("france", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,

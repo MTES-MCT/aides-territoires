@@ -1,6 +1,24 @@
 import React from "react";
 import AideList from "modules/search/presentationals/AideList";
 
+function getGroupTitleFromGroupType(groupType) {
+  let title = "";
+  switch (groupType) {
+    case "votre_commune":
+      title = "Dans votre commun";
+      break;
+    case "votre_departement":
+      title = "Dans votre département";
+      break;
+    case "votre_region":
+      title = "Dans votre région";
+      break;
+    default:
+      title = null;
+  }
+  return title;
+}
+
 /**
  *
  * @param {} param0
@@ -8,7 +26,12 @@ import AideList from "modules/search/presentationals/AideList";
 const SearchResults = ({ results }) => {
   return (
     <div>
-      <h2>Nous avons trouvé {results.totalCount} aides pour votre recherche</h2>
+      <div className="message is-info">
+        <div className="message-body" style={{ border: "none" }}>
+          <strong>{results.totalCount}</strong> aides correspondent à votre
+          recherche
+        </div>
+      </div>
       {results.resultsGroups.map(group => {
         return <AideList aides={group.aides} />;
       })}

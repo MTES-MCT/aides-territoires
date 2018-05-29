@@ -51,8 +51,7 @@ const defaultValues = {
   etape: "pre_operationnel",
   beneficiaires: ["commune"],
   formeDeDiffusion: ["subvention"],
-  status: "ouvert",
-  categorieParticuliere: false
+  status: "ouvert"
 };
 
 class AideForm extends React.Component {

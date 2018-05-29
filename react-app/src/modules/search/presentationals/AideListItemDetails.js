@@ -95,10 +95,10 @@ class AideListItemDetails extends React.Component {
               return (
                 <div
                   key={thematique}
-                  className="tag is-success"
+                  className="tag"
                   style={{ marginRight: "20px" }}
                 >
-                  {thematique}
+                  {getLabelFromEnumValue("aide", "thematiques", thematique)}
                 </div>
               );
             })}

@@ -26,18 +26,6 @@ class AideListItem extends React.Component {
     aide: PropTypes.object.isRequired,
     label: PropTypes.string
   };
-  getLabelPerimetre = value => {
-    const perimetres = {
-      commune: "Commune",
-      departement: "Département",
-      region: "Régionale",
-      outre_mer: "Outre Mer",
-      metropole: "France (hors Outre-mer)",
-      france: "France et Outre-mer",
-      europe: "Europe"
-    };
-    return perimetres[value];
-  };
   handleMoreButtonClick = () => {
     this.setState(prevState => ({
       showDetails: !prevState.showDetails
