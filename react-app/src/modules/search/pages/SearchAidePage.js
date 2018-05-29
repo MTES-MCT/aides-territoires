@@ -9,6 +9,7 @@ import FlatButton from "material-ui/FlatButton";
 import Sticky from "react-stickynode";
 import injectSheet from "react-jss";
 import classnames from "classnames";
+import SearchAidesQuery from "modules/search/decorators/SearchAidesQuery";
 import { cleanSearchFilters } from "../../../services/searchLib";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
@@ -149,9 +150,13 @@ let SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
-              <pre>{JSON.stringify(this.props.filters, 0, 2)}</pre>
+              {/*<pre>{JSON.stringify(this.props.filters, 0, 2)}</pre>*/}
               <SearchResultsTopText />
-              <SearchResults filters={this.props.filters} />
+              <SearchAidesQuery filters={this.props.filters}>
+                {({ results }) => (
+                  <div>{<SearchResults results={results} />}</div>
+                )}
+              </SearchAidesQuery>
             </div>
           </div>
         </div>

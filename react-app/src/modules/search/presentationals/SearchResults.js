@@ -1,13 +1,18 @@
 import React from "react";
-import SearchAidesQuery from "modules/search/decorators/SearchAidesQuery";
 import AideList from "modules/search/presentationals/AideList";
 
-const SearchResults = ({ filters }) => {
-  console.log("filters", filters);
+/**
+ *
+ * @param {} param0
+ */
+const SearchResults = ({ results }) => {
   return (
-    <SearchAidesQuery filters={filters}>
-      {({ aides }) => <div>{/*<AideList aides={aides} />*/}</div>}
-    </SearchAidesQuery>
+    <div>
+      <h2>Nous avons trouvé {results.totalCount} aides pour votre recherche</h2>
+      {results.resultsGroups.map(group => {
+        return <AideList aides={group.aides} />;
+      })}
+    </div>
   );
 };
 

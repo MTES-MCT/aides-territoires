@@ -10,13 +10,16 @@ const searchAides = async (filters, sort) => {
   let total = 0;
   let newFilters = {};
   let aides = {};
-  const territoire = filters.perimetreApplicationType[0];
+
+  const territoire = filters.perimetreApplicationType
+    ? filters.perimetreApplicationType[0]
+    : null;
 
   // on essaie d'abord d'apporter les résultats le plus localisés si
   // un code est précié..
   // (code région, code département etc),
   // on créer un premier groupe de résultats avec les aides correspondantes)
-  if (territoire === "departement" || territoire === "region") {
+  if ((territoire && territoire === "departement") || territoire === "region") {
     if (filters.perimetreApplicationCode) {
       aides = await getAides(filters);
       resultsGroups.push({
@@ -71,7 +74,7 @@ const searchAides = async (filters, sort) => {
 
   // toutes les aides régionales
   const response = {
-    count: getTotalCountFromResultsGroups(resultsGroups),
+    totalCount: getTotalCountFromResultsGroups(resultsGroups),
     resultsGroups
   };
   return response;

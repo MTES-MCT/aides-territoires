@@ -46,6 +46,9 @@ const StickyActiveStyles = () => (
 );
 
 const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
+  const perimetreApplicationCode = filters.perimetreApplicationCode
+    ? filters.perimetreApplicationCode
+    : "";
   return (
     <div style={styles.wrapper}>
       <StickyActiveStyles />
@@ -59,7 +62,11 @@ const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
                 <ChipFilter
                   key={filterId + "-" + filterValue}
                   filterId={filterId}
-                  filterValue={filterValue}
+                  filterValue={
+                    filterId === "perimetreApplicationType"
+                      ? `${filterValue} ${perimetreApplicationCode}`
+                      : filterValue
+                  }
                   onRequestDelete={onRequestDelete}
                 />
               ))}

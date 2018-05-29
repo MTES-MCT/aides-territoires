@@ -17,6 +17,7 @@ class SearchAideQuery extends Component {
     type: PropTypes.array
   };
   render() {
+    console.log(this.props);
     if (this.props.data.loading) {
       return <AppLoader />;
     }
@@ -29,7 +30,7 @@ class SearchAideQuery extends Component {
 
 const query = gql`
   query searchAides($filters: searchAidesFilters) {
-    searchAides(filters: $filters) {
+    results: searchAides(filters: $filters) {
       totalCount
       resultsGroups {
         count
@@ -64,11 +65,7 @@ const query = gql`
 export default compose(
   graphql(query, {
     options: ({ filters }) => {
-      if (!filters.perimetreApplicationType) {
-        console.error("filters.perimetreApplicationType doit être défini");
-      }
       filters = cleanSearchFilters(filters);
-      console.log("graphql filters", filters);
       return {
         variables: {
           filters
