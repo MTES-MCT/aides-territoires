@@ -34,7 +34,7 @@ const searchAides = async (filters, sort) => {
   aides = await getAllAidesByTerritoire("commune", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
-    type: "departement",
+    type: "commune",
     label: "Département",
     aides: aides
   });
@@ -59,16 +59,16 @@ const searchAides = async (filters, sort) => {
   aides = await getAllAidesByTerritoire("outre_mer", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
-    type: "france",
-    label: "France",
+    type: "outre_mer",
+    label: "Outre mer",
     aides: aides
   });
 
   aides = await getAllAidesByTerritoire("metropole", filters);
   resultsGroups.push({
     count: Object.keys(aides).length,
-    type: "france",
-    label: "France",
+    type: "metropole",
+    label: "metropole",
     aides: aides
   });
 

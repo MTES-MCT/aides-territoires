@@ -28,12 +28,13 @@ const SearchResults = ({ results }) => {
     <div>
       <div className="message is-info">
         <div className="message-body" style={{ border: "none" }}>
+          {console.log(results)}
           <strong>{results.totalCount}</strong> aides correspondent à votre
           recherche
         </div>
       </div>
       {results.resultsGroups.map(group => {
-        return <AideList aides={group.aides} />;
+        return <AideList key={group.type} aides={group.aides} />;
       })}
     </div>
   );
