@@ -26,7 +26,7 @@ const styles = {
 let SearchFilters = class extends React.Component {
   state = {
     activeFilters: {
-      perimetreApplication: true,
+      perimetreApplicationType: true,
       type: true,
       etape: false,
       formeDeDiffusion: false,
@@ -48,26 +48,29 @@ let SearchFilters = class extends React.Component {
     return (
       <form style={styles.searchFilters}>
         {/***  PERIMETRE D'APPLICATION ***/}
-        {/*
         <div style={styles.filter} className="field filter">
           <label
             style={styles.label}
             className="label"
             onClick={() => this.handleLabelClick("perimetreApplicationType")}
           >
-            Périmètre d'application
+            {this.state.activeFilters.perimetreApplicationType ? (
+              <ArrowUp />
+            ) : (
+              <ArrowDown />
+            )}
+            Territoire
           </label>
           <SlideDown
             maxHeight={400}
-            show={this.state.activeFilters.perimetreApplication}
+            show={this.state.activeFilters.perimetreApplicationType}
           >
             <CheckboxGroup
               name="perimetreApplicationType"
-              options={PERIMETRE_APPLICATION_OPTIONS}
+              options={enums.perimetreApplicationType.values}
             />
           </SlideDown>
         </div>
-        */}
         {/*** TYPE D'AIDE ***/}
         <div style={styles.filter} className="field filter">
           <label

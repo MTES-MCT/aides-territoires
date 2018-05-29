@@ -150,7 +150,7 @@ let SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
-              {/*<pre>{JSON.stringify(this.props.filters, 0, 2)}</pre>*/}
+              {<pre>{JSON.stringify(this.props.filters, 0, 2)}</pre>}
               <SearchResultsTopText />
               <SearchAidesQuery filters={this.props.filters}>
                 {({ results }) => (

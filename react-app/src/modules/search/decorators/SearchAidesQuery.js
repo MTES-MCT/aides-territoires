@@ -45,7 +45,6 @@ const query = gql`
           perimetreApplicationType
           perimetreApplicationNom
           perimetreApplicationCode
-          perimetreDiffusionType
           etape
           structurePorteuse
           statusPublication
@@ -66,6 +65,7 @@ export default compose(
   graphql(query, {
     options: ({ filters }) => {
       filters = cleanSearchFilters(filters);
+      console.log("filters", filters);
       return {
         variables: {
           filters

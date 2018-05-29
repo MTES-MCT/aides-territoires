@@ -28,7 +28,6 @@ const SearchResults = ({ results }) => {
     <div>
       <div className="message is-info">
         <div className="message-body" style={{ border: "none" }}>
-          {console.log(results)}
           <strong>{results.totalCount}</strong> aides correspondent à votre
           recherche
         </div>
