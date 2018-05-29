@@ -54,6 +54,7 @@ class allAidesQuery extends Component {
 export default compose(
   graphql(query, {
     options: ({ filters }) => {
+      console.log("filters", filters);
       return {
         variables: {
           filters

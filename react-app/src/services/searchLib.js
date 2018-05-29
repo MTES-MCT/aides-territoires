@@ -18,11 +18,12 @@ export const isPostalCode = string => {
 };
 
 /**
- * Parfois le formulaire de filtres de recherche nous renvoie un objet
- * de la forme suivante, qui n'est pas considéré vide par notre code alors
- * qu'il signifie bien que rien n'est coché car type est vide.
+ * Souvent le formulaire de filtres de recherche nous renvoie ce genre d'objet
+ * qui n'est pas considéré comme vide en terme de code alors
+ * qu'il signifie bien qu'ils sont vides côté métier
  * {
- *    type:[]
+ *    type:[],
+ *    etape: null
  * }
  * la fonction le transforme en {}
  * @param {Object} filters
@@ -30,6 +31,9 @@ export const isPostalCode = string => {
 export function cleanSearchFilters(filters) {
   Object.keys(filters).map(filterId => {
     if (filters[filterId] && filters[filterId].length === 0) {
+      delete filters[filterId];
+    }
+    if (filters[filterId] === null) {
       delete filters[filterId];
     }
   });

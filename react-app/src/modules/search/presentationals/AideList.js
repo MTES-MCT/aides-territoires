@@ -18,25 +18,10 @@ class SearchResultList extends React.Component {
   render() {
     // clone aides object or transition won't work
     // because it needs an extensible object
-    const aides = this.props.aides.map(aide => ({ ...aide }));
+    // const aides = this.props.aides.map(aide => ({ ...aide }));
     return (
-      <div>
-        <Transition
-          native
-          keys={aides.map(aide => aide.id)}
-          from={{ opacity: 0, height: 0 }}
-          enter={{ opacity: 1, height: 20 }}
-          leave={{ opacity: 0, height: 0 }}
-        >
-          {aides.map(aide => styles => (
-            <animated.div
-              className={this.props.classes.listItem}
-              style={{ styles }}
-            >
-              <AideListItem aide={aide} />
-            </animated.div>
-          ))}
-        </Transition>
+      <div style={{ padding: "0.5rem" }}>
+        {this.props.aides.map(aide => <AideListItem aide={aide} />)}
       </div>
     );
   }
