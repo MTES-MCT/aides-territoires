@@ -17,7 +17,6 @@ class SearchAideQuery extends Component {
     type: PropTypes.array
   };
   render() {
-    console.log(this.props);
     if (this.props.data.loading) {
       return <AppLoader />;
     }
@@ -65,7 +64,6 @@ export default compose(
   graphql(query, {
     options: ({ filters }) => {
       filters = cleanSearchFilters(filters);
-      console.log("filters", filters);
       return {
         variables: {
           filters

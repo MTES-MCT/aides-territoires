@@ -1,7 +1,7 @@
 // les enums pour les aides
 const aide = {
   perimetreApplicationType: {
-    name: "Périmètre d'application",
+    name: "Échelle",
     values: [
       { value: "commune", label: "Commune" },
       { value: "departement", label: "Département" },

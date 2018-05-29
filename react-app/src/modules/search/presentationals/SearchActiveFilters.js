@@ -46,9 +46,6 @@ const StickyActiveStyles = () => (
 );
 
 const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
-  const perimetreApplicationCode = filters.perimetreApplicationCode
-    ? filters.perimetreApplicationCode
-    : "";
   return (
     <div style={styles.wrapper}>
       <StickyActiveStyles />
@@ -58,18 +55,21 @@ const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
           filters[filterId] &&
           filters[filterId].constructor === Array && (
             <span key={filterId} style={styles.wrapper}>
-              {filters[filterId].map(filterValue => (
-                <ChipFilter
-                  key={filterId + "-" + filterValue}
-                  filterId={filterId}
-                  filterValue={
-                    filterId === "perimetreApplicationType"
-                      ? `${filterValue} ${perimetreApplicationCode}`
-                      : filterValue
-                  }
-                  onRequestDelete={onRequestDelete}
-                />
-              ))}
+              {filters[filterId].map(filterValue => {
+                const label = getLabelFromEnumValue(
+                  "aide",
+                  filterId,
+                  filterValue
+                );
+                return (
+                  <ChipFilter
+                    key={filterId + "-" + filterValue}
+                    filterId={filterId}
+                    filterValue={filterValue}
+                    onRequestDelete={onRequestDelete}
+                  />
+                );
+              })}
             </span>
           )
         );

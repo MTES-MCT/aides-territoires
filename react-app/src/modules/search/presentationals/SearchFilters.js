@@ -59,7 +59,7 @@ let SearchFilters = class extends React.Component {
             ) : (
               <ArrowDown />
             )}
-            Territoire
+            Échelle
           </label>
           <SlideDown
             maxHeight={400}
