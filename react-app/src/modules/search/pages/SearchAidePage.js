@@ -53,13 +53,11 @@ let SearchAidePage = class extends React.Component {
     const currentFilters = this.props.filters;
     if (currentFilters[fieldId]) {
       let newFilterValue = currentFilters[fieldId].filter(value => {
-        // FIXME we have a space somewhere -_-
         return value !== filterValue;
       });
       if (newFilterValue.length === 0) {
         newFilterValue = null;
       }
-      console.log(newFilterValue);
       this.props.change("searchFilters", fieldId, newFilterValue);
     }
   };
