@@ -20,9 +20,11 @@ class SearchResultList extends React.Component {
     // because it needs an extensible object
     // const aides = this.props.aides.map(aide => ({ ...aide }));
     return (
-      <div style={{ padding: "0.5rem" }}>
+      <div>
         {this.props.aides.map(aide => (
-          <AideListItem key={aide.id} aide={aide} />
+          <div style={{ padding: "0.5rem" }}>
+            <AideListItem key={aide.id} aide={aide} />
+          </div>
         ))}
       </div>
     );

@@ -114,14 +114,17 @@ class SearchFormContainer extends React.Component {
   };
   handleSearchSubmit = () => {
     this.resetSuggestions();
-    this.props.change("searchFilters", "perimetreApplicationType", [
+    this.props.change(
+      "searchFilters",
+      "perimetreApplicationType",
       this.state.selectedSuggestion.perimetreApplicationType
-    ]);
+    );
     this.props.change(
       "searchFilters",
       "perimetreApplicationCode",
       this.state.selectedSuggestion.perimetreApplicationCode
     );
+    // @FIXME pas pris en compte par redux-form semble-t-il
     this.props.change(
       "searchFilters",
       "perimetreAdditionalData",
