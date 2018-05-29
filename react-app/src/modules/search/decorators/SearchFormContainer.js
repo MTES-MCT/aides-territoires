@@ -1,6 +1,8 @@
 import React from "react";
 import SearchForm from "../presentationals/SearchForm";
 import { isPostalCode } from "../../../services/searchLib";
+import { change } from "redux-form";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
   getCommunesFromPostalCode,
@@ -18,7 +20,9 @@ class SearchFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedSuggestion: null,
       suggestions: [],
+      // searchForm textfield value.
       text: props.text ? props.text : ""
     };
   }
@@ -26,11 +30,11 @@ class SearchFormContainer extends React.Component {
     onSearchSubmit: PropTypes.func.isRequired,
     text: PropTypes.string
   };
-  onSuggestionClick = values => {
-    this.setState({ text: values.text });
+  handleSuggestionClick = suggestionData => {
+    this.setState({ selectedSuggestion: suggestionData });
     this.resetSuggestions();
   };
-  onSearchChange = text => {
+  handleSearchChange = text => {
     const promises = [];
     // typing a postal code ?
     // suggest communes corresponding to the postal code
@@ -108,9 +112,22 @@ class SearchFormContainer extends React.Component {
       this.addSuggestions(suggestions);
     });
   };
-  onSearchSubmit = values => {
+  handleSearchSubmit = () => {
     this.resetSuggestions();
-    this.props.onSearchSubmit(values);
+    this.props.change("searchFilters", "perimetreApplicationType", [
+      this.state.selectedSuggestion.perimetreApplicationType
+    ]);
+    this.props.change(
+      "searchFilters",
+      "perimetreApplicationCode",
+      this.state.selectedSuggestion.perimetreApplicationCode
+    );
+    this.props.change(
+      "searchFilters",
+      "perimetreAdditionalData",
+      this.state.selectedSuggestion.perimetreAdditionalData
+    );
+    this.props.onSearchSubmit(this.state.selectedSuggestion);
   };
   resetSuggestions() {
     this.setState({
@@ -132,13 +149,27 @@ class SearchFormContainer extends React.Component {
           {...this.props}
           text={this.state.text}
           suggestions={this.state.suggestions}
-          onSearchSubmit={this.onSearchSubmit}
-          onSearchChange={this.onSearchChange}
-          onSuggestionClick={this.onSuggestionClick}
+          onSearchSubmit={this.handleSearchSubmit}
+          onSearchChange={this.handleSearchChange}
+          onSuggestionClick={this.handleSuggestionClick}
         />
       </div>
     );
   }
 }
 
-export default SearchFormContainer;
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    change: (form, field, value) => {
+      dispatch(change(form, field, value));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SearchFormContainer
+);

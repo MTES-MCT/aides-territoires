@@ -20,7 +20,7 @@ const searchAides = async (filters, sort) => {
     if (filters.perimetreApplicationCode) {
       aides = await getAides(filters);
       resultsGroups.push({
-        count: Object.keys(aides).length,
+        totalCount: Object.keys(aides).length,
         type: `votre_${territoire}`,
         label: `votre ${territoire}`,
         aides: aides

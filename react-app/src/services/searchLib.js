@@ -33,6 +33,10 @@ export function cleanSearchFilters(filters) {
       delete filters[filterId];
     }
   });
+  // delete filters.perimetreAdditionalData for now, not handled by graphQL query
+  if (filters.perimetreAdditionalData) {
+    delete filters.perimetreAdditionalData;
+  }
   return filters;
 }
 

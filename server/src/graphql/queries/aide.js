@@ -10,7 +10,8 @@ const {
   GraphQLBoolean,
   GraphQLList,
   GraphQLInt,
-  GraphQLEnumType
+  GraphQLEnumType,
+  GraphQLNonNull
 } = require("graphql");
 const { searchAides, getAides, getAide } = require("../../services/aide");
 
@@ -35,7 +36,7 @@ module.exports = {
       name: "searchAidesResults",
       fields: () => {
         return {
-          count: { type: GraphQLInt },
+          totalCount: { type: GraphQLInt },
           resultsGroups: {
             type: new GraphQLList(
               new GraphQLObjectType({
@@ -70,9 +71,11 @@ module.exports = {
               type: formatEnumForGraphQL("searchAidesType", enums.type)
             },
             perimetreApplicationType: {
-              type: formatEnumForGraphQL(
-                "searchAidesPerimetreApplicationType",
-                enums.perimetreApplicationType
+              type: GraphQLNonNull(
+                formatEnumForGraphQL(
+                  "searchAidesPerimetreApplicationType",
+                  enums.perimetreApplicationType
+                )
               )
             },
             destination: {

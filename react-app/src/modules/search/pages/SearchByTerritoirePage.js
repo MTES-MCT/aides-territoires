@@ -22,7 +22,6 @@ class SearchPage extends React.Component {
     };
   }
   onSearchSubmit = values => {
-    // this.props.change("searchFormFilters");
     this.setState({ filters: values });
   };
   render() {

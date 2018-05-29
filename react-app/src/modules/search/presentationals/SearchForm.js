@@ -6,8 +6,8 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: props.text,
-      data: {}
+      // value of search textfield
+      text: props.text ? props.text : ""
     };
   }
   onInputChange = event => {
@@ -17,15 +17,18 @@ class SearchForm extends React.Component {
     });
     this.props.onSearchChange(value);
   };
-  onSuggestionClick = data => {
+  onSuggestionClick = suggestionData => {
+    // on met à jour le contenu du champ de recherche avec le text de la suggestion.
+    // on laisse le composant parent gérer le reste concernant la suggestion choisie
     this.setState({
-      text: data.text
+      text: suggestionData.text
     });
-    this.props.onSuggestionClick(data);
+    this.props.onSuggestionClick(suggestionData);
   };
   onSubmit = event => {
     event.preventDefault();
-    this.props.onSearchSubmit(this.state);
+    // laisser le parent gérer le submit avec la suggestion sélectionné (gérée par le parent aussi)
+    this.props.onSearchSubmit();
   };
   onNewRequest = value => {};
   render() {

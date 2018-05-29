@@ -52,7 +52,8 @@ const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
       <DeleteAllFilters onRequestReset={onRequestReset} />
       {Object.keys(filters).map(filterId => {
         return (
-          filters[filterId] && (
+          filters[filterId] &&
+          filters[filterId].constructor === Array && (
             <span key={filterId} style={styles.wrapper}>
               {filters[filterId].map(filterValue => (
                 <ChipFilter

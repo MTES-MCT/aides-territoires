@@ -3,14 +3,10 @@ import SearchAidesQuery from "modules/search/decorators/SearchAidesQuery";
 import AideList from "modules/search/presentationals/AideList";
 
 const SearchResults = ({ filters }) => {
+  console.log("filters", filters);
   return (
     <SearchAidesQuery filters={filters}>
-      {({ aides }) => (
-        <div>
-          {console.log(aides)}
-          {/*<AideList aides={aides} />*/}
-        </div>
-      )}
+      {({ aides }) => <div>{/*<AideList aides={aides} />*/}</div>}
     </SearchAidesQuery>
   );
 };

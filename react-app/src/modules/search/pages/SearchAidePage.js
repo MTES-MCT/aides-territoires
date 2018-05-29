@@ -36,15 +36,17 @@ let SearchAidePage = class extends React.Component {
   state = {
     showModal: false
   };
-  /*
+
   constructor(props) {
     super(props);
+    /*
     const urlParams = queryString.parse(props.location.search);
     this.props = {
       ...urlParams
     };
+    */
   }
-  */
+
   // désactiver le filtre cliqué
   handleRequestDelete = (fieldId, filterValue) => {
     const currentFilters = this.props.filters;
@@ -147,6 +149,7 @@ let SearchAidePage = class extends React.Component {
               />
             </div>
             <div className="column">
+              <pre>{JSON.stringify(this.props.filters, 0, 2)}</pre>
               <SearchResultsTopText />
               <SearchResults filters={this.props.filters} />
             </div>
@@ -161,6 +164,8 @@ function mapStateToProps(state) {
   if (state.form.searchFilters && state.form.searchFilters.values) {
     return {
       // les filtres sélectionnés par l'utilisateur pour sa recherche
+      // ainsi que les données de périmètre qui ont été enregistré
+      // par le moteur de recherche pas territoire
       filters: state.form.searchFilters.values
     };
   }

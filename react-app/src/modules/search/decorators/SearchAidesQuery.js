@@ -67,7 +67,8 @@ export default compose(
       if (!filters.perimetreApplicationType) {
         console.error("filters.perimetreApplicationType doit être défini");
       }
-      filters = cleanSearchFilters(filters) ? {} : filters;
+      filters = cleanSearchFilters(filters);
+      console.log("graphql filters", filters);
       return {
         variables: {
           filters
