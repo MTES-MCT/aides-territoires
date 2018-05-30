@@ -9,6 +9,7 @@ import classnames from "classnames";
 import { blue300 } from "material-ui/styles/colors";
 import moment from "moment";
 import CalendarIcon from "material-ui/svg-icons/action/event";
+import EuroIcon from "material-ui/svg-icons/action/euro-symbol";
 
 const styles = {
   root: {
@@ -86,6 +87,7 @@ class AideListItem extends React.Component {
             aide.perimetreApplicationType
           )}]
         </div>
+        {/*<EuroIcon />*/}
         <h2 className={classes.title}>{aide.nom}</h2>
         <div className={classes.titleUnderline} />
         {aide.description.trim().length > 0 && (
