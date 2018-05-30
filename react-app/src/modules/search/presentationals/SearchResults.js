@@ -22,7 +22,6 @@ function getGroupTitleFromGroupType(groupType) {
 const GroupeDeResultat = ({ groupeDeResultat }) => {
   return (
     <div>
-      {groupeDeResultat.label}
       {groupeDeResultat.aidesParTypeDeTerritoires.map(territoire => {
         return (
           <AideList
