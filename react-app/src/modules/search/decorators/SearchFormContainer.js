@@ -123,14 +123,14 @@ class SearchFormContainer extends React.Component {
       if (this.state.selectedSuggestion.typePerimetreInitialDeRecherche) {
         this.props.change(
           "searchFilters",
-          "perimetreApplicationType",
+          "typePerimetreInitialDeRecherche",
           this.state.selectedSuggestion.typePerimetreInitialDeRecherche
         );
       }
       if (this.state.selectedSuggestion.codePerimetreInitialDeRecherche) {
         this.props.change(
           "searchFilters",
-          "perimetreApplicationCode",
+          "codePerimetreInitialDeRecherche",
           this.state.selectedSuggestion.codePerimetreInitialDeRecherche
         );
       }
