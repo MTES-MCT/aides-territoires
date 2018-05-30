@@ -1,5 +1,6 @@
 //import "./polyfill";
 import "es6-shim";
+import "es7-shim";
 import "raf/polyfill";
 //import "core-js/es6/map";
 //import "core-js/es6/set";

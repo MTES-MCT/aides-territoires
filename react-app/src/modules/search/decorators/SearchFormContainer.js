@@ -46,8 +46,7 @@ class SearchFormContainer extends React.Component {
             return {
               texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
               typePerimetreInitialDeRecherche: "commune",
-              codePerimetreInitialDeRecherche: commune.code,
-              geoApiData: commune
+              codePerimetreInitialDeRecherche: commune.code
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -63,8 +62,7 @@ class SearchFormContainer extends React.Component {
             return {
               texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
               typePerimetreInitialDeRecherche: "commune",
-              codePerimetreInitialDeRecherche: commune.code,
-              geoApiData: commune
+              codePerimetreInitialDeRecherche: commune.code
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -78,8 +76,7 @@ class SearchFormContainer extends React.Component {
             return {
               texte: `${departement.nom} (département)`,
               typePerimetreInitialDeRecherche: "departement",
-              codePerimetreInitialDeRecherche: departement.code,
-              geoApiData: departement
+              codePerimetreInitialDeRecherche: departement.code
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -93,8 +90,7 @@ class SearchFormContainer extends React.Component {
             return {
               texte: `${region.nom} (Région)`,
               typePerimetreInitialDeRecherche: "region",
-              codePerimetreInitialDeRecherche: region.code,
-              geoApiData: region
+              codePerimetreInitialDeRecherche: region.code
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);

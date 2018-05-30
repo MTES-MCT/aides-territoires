@@ -9,6 +9,7 @@
     "classnames": "^2.2.5",
     "dotenv": "^5.0.1",
     "es6-shim": "^0.35.3",
+    "es7-shim": "^6.0.0",
     "final-form": "^4.6.1",
     "graphql": "^0.13.2",
     "graphql-request": "^1.5.1",
