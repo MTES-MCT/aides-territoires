@@ -117,8 +117,7 @@ module.exports = {
             perimetreApplicationType: {
               type: formatEnumForGraphQL(
                 "searchAidesPerimetreApplicationType",
-                enums.perimetreApplicationType,
-                false
+                enums.perimetreApplicationType
               )
             },
             destination: {

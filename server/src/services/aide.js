@@ -255,6 +255,12 @@ function getTotalCountFromResultsGroups(groupesDeResultats) {
 }
 
 const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
+  if (
+    filters.perimetreApplicationType &&
+    !filters.perimetreApplicationType.includes(perimetreId)
+  ) {
+    return [];
+  }
   const newFilters = { ...filters };
   delete newFilters.texte;
   if (perimetreId) {

@@ -48,6 +48,7 @@ const GroupeDeResultat = ({ groupeDeResultat }) => {
 /**
  */
 const SearchResults = ({ results }) => {
+  if (!results) return null;
   return (
     <div>
       <div className="message is-info">
