@@ -155,14 +155,14 @@ const searchAides = async (filters, sort) => {
       groupesDeResultats.push(GroupeVosTerritoires);
     }
   }
-  /*
+
   // les aides pour tous le territoires
   const GroupeTousLesTerritoires = {
     label: "Pour tous les territoires",
     type: "tous_les_territoires",
     aidesParTypeDeTerritoires: []
   };
-  
+
   // toutes les aides communales
   aides = await getAllAidesByTerritoire("commune", filters);
   if (aides.length > 0) {
@@ -236,10 +236,8 @@ const searchAides = async (filters, sort) => {
       aides: aides
     });
   }
-  
 
   groupesDeResultats.push(GroupeTousLesTerritoires);
-  */
 
   // toutes les aides régionales
   const response = {
