@@ -93,7 +93,7 @@ const searchAides = async (filters, sort) => {
     //
     if (
       filters.typePerimetreInitialDeRecherche === "departement" &&
-      filters.typePerimetreInitialDeRecherche
+      filters.codePerimetreInitialDeRecherche
     ) {
       // d'abord rechercher les aides pour cette commune
       aides = await getAllAidesByTerritoire(
@@ -130,6 +130,29 @@ const searchAides = async (filters, sort) => {
 
         groupesDeResultats.push(GroupeVosTerritoires);
       }
+    }
+    //
+    // si on a demandé une région en particulier :
+    //
+    if (
+      filters.typePerimetreInitialDeRecherche === "region" &&
+      filters.codePerimetreInitialDeRecherche
+    ) {
+      // d'abord rechercher les aides pour cette commune
+      aides = await getAllAidesByTerritoire(
+        filters.typePerimetreInitialDeRecherche,
+        filters,
+        filters.codePerimetreInitialDeRecherche
+      );
+      if (aides.length > 0) {
+        GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
+          nombreAides: Object.keys(aides).length,
+          type: "votre_region",
+          label: "Pour votre région",
+          aides: aides
+        });
+      }
+      groupesDeResultats.push(GroupeVosTerritoires);
     }
   }
   /*
