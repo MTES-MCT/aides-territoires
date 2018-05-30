@@ -22,8 +22,11 @@ class SearchResultList extends React.Component {
     return (
       <div>
         {this.props.aides.map(aide => (
-          <div style={{ padding: "0.5rem" }}>
-            <AideListItem key={aide.id} aide={aide} />
+          <div
+            key={this.props.groupeDeResultat.type + "-" + aide.id}
+            style={{ padding: "0.5rem" }}
+          >
+            <AideListItem aide={aide} />
           </div>
         ))}
       </div>

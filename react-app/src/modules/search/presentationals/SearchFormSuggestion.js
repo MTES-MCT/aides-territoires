@@ -23,7 +23,7 @@ const SearchFormSuggestion = ({ classes, suggestion, onSuggestionClick }) => {
       onClick={() => onSuggestionClick(suggestion)}
       className={classnames("dropdown-item", classes.suggestion)}
     >
-      {suggestion.text}
+      {suggestion.texte}
     </div>
   );
 };

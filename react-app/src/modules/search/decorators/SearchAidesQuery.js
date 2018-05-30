@@ -29,31 +29,35 @@ class SearchAideQuery extends Component {
 
 const query = gql`
   query searchAides($filters: searchAidesFilters) {
-    results: searchAides(filters: $filters) {
-      totalCount
-      resultsGroups {
-        count
-        label
+    results: rechercheAides(filters: $filters) {
+      totalNombreAides
+      groupesDeResultats {
         type
-        aides {
-          id
-          nom
-          createdAt
-          updatedAt
-          description
-          perimetreApplicationType
-          perimetreApplicationNom
-          perimetreApplicationCode
-          etape
-          structurePorteuse
-          statusPublication
-          lien
+        label
+        nombreAides
+        aidesParTypeDeTerritoires {
           type
-          beneficiaires
-          formeDeDiffusion
-          destination
-          thematiques
-          dateEcheance
+          label
+          aides {
+            id
+            nom
+            createdAt
+            updatedAt
+            description
+            perimetreApplicationType
+            perimetreApplicationNom
+            perimetreApplicationCode
+            etape
+            structurePorteuse
+            statusPublication
+            lien
+            type
+            beneficiaires
+            formeDeDiffusion
+            destination
+            thematiques
+            dateEcheance
+          }
         }
       }
     }

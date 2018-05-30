@@ -21,14 +21,14 @@ class SearchForm extends React.Component {
     // on met à jour le contenu du champ de recherche avec le text de la suggestion.
     // on laisse le composant parent gérer le reste concernant la suggestion choisie
     this.setState({
-      text: suggestionData.text
+      text: suggestionData.texte
     });
     this.props.onSuggestionClick(suggestionData);
   };
   onSubmit = event => {
     event.preventDefault();
-    // laisser le parent gérer le submit avec la suggestion sélectionné (gérée par le parent aussi)
-    this.props.onSearchSubmit();
+    // transmettre l'évènement de soumission au parent avec le text brut de recherche
+    this.props.onSearchSubmit(this.state.text);
   };
   onNewRequest = value => {};
   render() {

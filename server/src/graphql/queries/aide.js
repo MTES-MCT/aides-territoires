@@ -81,6 +81,26 @@ module.exports = {
             type: {
               type: formatEnumForGraphQL("searchAidesType", enums.type)
             },
+            // texte entré pour la recherche libre (par mots clefs)
+            texte: {
+              type: GraphQLString
+            },
+            // le perimetre initial de recherche: ex: département
+            typePerimetreInitialDeRecherche: {
+              type: formatEnumForGraphQL(
+                "searchAidesTypePerimetreInitialDeRecherche",
+                enums.perimetreApplicationType,
+                false
+              )
+            },
+            // le code insee ou identifiant unique associé au périmètre de recherche
+            // ex : 44 pour le typeDeperimetreInitialDeRecherche "Loire-Atlantique"
+            // en croisant le type
+            codePerimetreInitialDeRecherche: {
+              type: GraphQLString
+            },
+            // le perimetre d'application enregistré pour l'aide
+            // (département, région, EPCI, etc)
             perimetreApplicationType: {
               type: formatEnumForGraphQL(
                 "searchAidesPerimetreApplicationType",

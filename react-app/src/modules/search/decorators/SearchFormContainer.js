@@ -44,10 +44,10 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              text: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
-              perimetreApplicationType: "commune",
-              perimetreApplicationCode: commune.code,
-              perimetreAdditionalData: commune
+              texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
+              typePerimetreInitialDeRecherche: "commune",
+              codePerimetreInitialDeRecherche: commune.code,
+              typePerimetreInitialDeRecherche: commune
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -61,9 +61,9 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              text: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
-              perimetreApplicationType: "commune",
-              perimetreApplicationCode: commune.code,
+              texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
+              typePerimetreInitialDeRecherche: "commune",
+              codePerimetreInitialDeRecherche: commune.code,
               perimetreAdditionalData: commune
             };
           });
@@ -76,9 +76,9 @@ class SearchFormContainer extends React.Component {
           const departements = result.data;
           const suggestions = departements.map(function(departement) {
             return {
-              text: `${departement.nom} (département)`,
-              perimetreApplicationType: "departement",
-              perimetreApplicationCode: departement.code,
+              texte: `${departement.nom} (département)`,
+              typePerimetreInitialDeRecherche: "departement",
+              codePerimetreInitialDeRecherche: departement.code,
               perimetreAdditionalData: departement
             };
           });
@@ -91,9 +91,9 @@ class SearchFormContainer extends React.Component {
           const regions = result.data;
           const suggestions = regions.map(function(region) {
             return {
-              text: `${region.nom} (Région)`,
-              perimetreApplicationType: "region",
-              perimetreApplicationCode: region.code,
+              texte: `${region.nom} (Région)`,
+              typePerimetreInitialDeRecherche: "region",
+              codePerimetreInitialDeRecherche: region.code,
               perimetreAdditionalData: region
             };
           });
@@ -112,25 +112,45 @@ class SearchFormContainer extends React.Component {
       this.addSuggestions(suggestions);
     });
   };
-  handleSearchSubmit = () => {
+  handleSearchSubmit = text => {
     this.resetSuggestions();
-    this.props.change(
-      "searchFilters",
-      "perimetreApplicationType",
-      this.state.selectedSuggestion.perimetreApplicationType
-    );
-    this.props.change(
-      "searchFilters",
-      "perimetreApplicationCode",
-      this.state.selectedSuggestion.perimetreApplicationCode
-    );
-    // @FIXME pas pris en compte par redux-form semble-t-il
-    this.props.change(
-      "searchFilters",
-      "perimetreAdditionalData",
-      this.state.selectedSuggestion.perimetreAdditionalData
-    );
-    this.props.onSearchSubmit(this.state.selectedSuggestion);
+    if (this.state.selectedSuggestion) {
+      this.props.change(
+        "searchFilters",
+        "texte",
+        this.state.selectedSuggestion.texte
+      );
+      if (this.state.selectedSuggestion.typePerimetreInitialDeRecherche) {
+        this.props.change(
+          "searchFilters",
+          "perimetreApplicationType",
+          this.state.selectedSuggestion.typePerimetreInitialDeRecherche
+        );
+      }
+      if (this.state.selectedSuggestion.codePerimetreInitialDeRecherche) {
+        this.props.change(
+          "searchFilters",
+          "perimetreApplicationCode",
+          this.state.selectedSuggestion.codePerimetreInitialDeRecherche
+        );
+      }
+      // @FIXME pas pris en compte par redux-form semble-t-il
+      if (this.state.selectedSuggestion.perimetreAdditionalData) {
+        this.props.change(
+          "searchFilters",
+          "perimetreAdditionalData",
+          this.state.selectedSuggestion.perimetreAdditionalData
+        );
+      }
+    }
+    if (this.state.selectedSuggestion) {
+      this.props.onSearchSubmit(this.state.selectedSuggestion);
+    } else {
+      alert(
+        "Vous devez sélectionner un territoire depuis la liste déroulante."
+      );
+      // this.props.onSearchSubmit(text);
+    }
   };
   resetSuggestions() {
     this.setState({

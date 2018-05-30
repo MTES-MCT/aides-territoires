@@ -56,7 +56,7 @@ const searchAides = async (filters, sort) => {
 
   // Les résultats d'aide sur le territoire (quand on a un code insee précis)
   const GroupeVosTerritoires = {
-    label: "Les aides pour votre territoires",
+    label: "Pour votre territoire",
     type: "vos_territoires",
     aidesParTypeDeTerritoires: []
   };
@@ -72,7 +72,7 @@ const searchAides = async (filters, sort) => {
 
   // les aides pour tous le territoires
   const GroupeTousLesTerritoires = {
-    label: "Les aides pour votre territoires",
+    label: "Pour tous les territoires",
     type: "tous_les_territoires",
     aidesParTypeDeTerritoires: []
   };
@@ -134,17 +134,19 @@ const searchAides = async (filters, sort) => {
 
   // toutes les aides régionales
   const response = {
-    totalCount: getTotalCountFromResultsGroups(groupesDeResultats),
+    totalNombreAides: getTotalCountFromResultsGroups(groupesDeResultats),
     groupesDeResultats
   };
   return response;
 };
 
-function getTotalCountFromResultsGroups(resultsGroups) {
-  const count = resultsGroups.reduce(
-    (accumulator, resultGroup) => resultGroup.count + accumulator,
-    0
-  );
+function getTotalCountFromResultsGroups(groupesDeResultats) {
+  const count = groupesDeResultats.reduce((accumulator, groupeDeResultat) => {
+    for (territoire of groupeDeResultat.aidesParTypeDeTerritoires) {
+      accumulator += territoire.aides.length;
+    }
+    return accumulator;
+  }, 0);
   return count;
 }
 
@@ -174,7 +176,6 @@ const getAides = (filters = {}, sort = {}) => {
     filters.motsCles = { $regex: filters.motsCles, $options: "i" };
   }
   //  { "authors": /Alex/i },
-  console.log(JSON.stringify(filters, 0, 2));
   const query = AideModel.find(filters);
   query.sort(sort);
   return query;

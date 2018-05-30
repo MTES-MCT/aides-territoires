@@ -19,21 +19,51 @@ function getGroupTitleFromGroupType(groupType) {
   return title;
 }
 
+const GroupeDeResultat = ({ groupeDeResultat }) => {
+  return (
+    <div>
+      {groupeDeResultat.label}
+      {groupeDeResultat.aidesParTypeDeTerritoires.map(territoire => {
+        return (
+          <AideList
+            groupeDeResultat={groupeDeResultat}
+            key={territoire.type}
+            aides={territoire.aides}
+          />
+        );
+      })}
+      {/*
+      {groupeDeResultat.aidesParTypeDeTerritoires.aides.map(aide => {
+        return (
+          <AideList
+            key={groupeDeResultat.type}
+            aides={aide}
+          />
+        );
+      })}
+      */}
+    </div>
+  );
+};
+
 /**
- *
- * @param {} param0
  */
 const SearchResults = ({ results }) => {
   return (
     <div>
       <div className="message is-info">
         <div className="message-body" style={{ border: "none" }}>
-          <strong>{results.totalCount}</strong> aides correspondent à votre
-          recherche
+          <strong>{results.totalNombreAides}</strong> aides correspondent à
+          votre recherche
         </div>
       </div>
-      {results.resultsGroups.map(group => {
-        return <AideList key={group.type} aides={group.aides} />;
+      {results.groupesDeResultats.map(groupeDeResultat => {
+        return (
+          <GroupeDeResultat
+            key={groupeDeResultat.type}
+            groupeDeResultat={groupeDeResultat}
+          />
+        );
       })}
     </div>
   );
