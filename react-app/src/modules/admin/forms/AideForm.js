@@ -558,6 +558,14 @@ class AideForm extends React.Component {
                   })}
                 </div>
               </div>
+              <div className="column">
+                <Field
+                  name="motsCles"
+                  className="is-large"
+                  component={Text}
+                  label="Mots clefs (séparés par des virgules)"
+                />
+              </div>
             </div>
             <FormErrors errors={errors} />
             <button
@@ -616,6 +624,7 @@ const saveAide = gql`
     $status: [saveAideStatus]
     $categorieParticuliere: [saveAideCategorieParticuliere]
     $demandeTiersPossible: Boolean
+    $motsCles: String
   ) {
     saveAide(
       id: $id
@@ -648,6 +657,7 @@ const saveAide = gql`
       status: $status
       categorieParticuliere: $categorieParticuliere
       demandeTiersPossible: $demandeTiersPossible
+      motsCles: $motsCles
     ) {
       nom
     }

@@ -83,6 +83,9 @@ module.exports = {
       },
       demandeTiersPossible: {
         type: GraphQLBoolean
+      },
+      motsCles: {
+        type: GraphQLString
       }
     },
     resolve: async (_, args, context) => {

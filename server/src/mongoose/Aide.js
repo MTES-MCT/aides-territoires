@@ -90,6 +90,9 @@ const schema = new mongoose.Schema(
       type: String,
       enum: formatEnumForMongoose(enums.status)
     },
+    motsCles: {
+      type: String
+    },
     categorieParticuliere: {
       type: formatEnumForMongoose(enums.categorieParticuliere)
     },

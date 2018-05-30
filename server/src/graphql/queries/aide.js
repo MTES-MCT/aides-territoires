@@ -118,6 +118,9 @@ module.exports = {
             },
             demandeTiersPossible: {
               type: GraphQLBoolean
+            },
+            motsCles: {
+              type: GraphQLString
             }
           }
         })
@@ -212,6 +215,9 @@ module.exports = {
             },
             demandeTiersPossible: {
               type: GraphQLBoolean
+            },
+            motsCles: {
+              type: GraphQLString
             }
           }
         })

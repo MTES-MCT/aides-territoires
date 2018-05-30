@@ -51,6 +51,7 @@ const editAideQuery = gql`
       status
       categorieParticuliere
       demandeTiersPossible
+      motsCles
     }
   }
 `;

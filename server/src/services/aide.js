@@ -148,6 +148,11 @@ const getAides = (filters = {}, sort = {}) => {
       filters[filter] = { $in: filters[filter] };
     }
   }
+  if (filters.motsCles) {
+    filters.motsCles =  { "$regex": filters.motsCles, "$options": "i" } 
+  }
+  //  { "authors": /Alex/i },
+  console.log(JSON.stringify(filters, 0, 2))
   const query = AideModel.find(filters);
   query.sort(sort);
   return query;

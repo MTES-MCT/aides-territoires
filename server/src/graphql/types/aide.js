@@ -69,6 +69,9 @@ const Aide = new GraphQLObjectType({
     status: {
       type: GraphQLString
     },
+    motsCles: {
+      type: GraphQLString
+    },
     categorieParticuliere: {
       type: formatEnumForGraphQL(
         "categorieParticuliere",
