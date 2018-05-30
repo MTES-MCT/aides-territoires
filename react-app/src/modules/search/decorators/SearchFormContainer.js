@@ -134,14 +134,6 @@ class SearchFormContainer extends React.Component {
           this.state.selectedSuggestion.codePerimetreInitialDeRecherche
         );
       }
-      console.log(this.state.selectedSuggestion.geoApiData);
-      if (this.state.selectedSuggestion.geoApiData) {
-        this.props.change(
-          "searchFilters",
-          "geoApiData",
-          this.state.selectedSuggestion.geoApiData
-        );
-      }
     }
     if (this.state.selectedSuggestion) {
       this.props.onSearchSubmit(this.state.selectedSuggestion);
