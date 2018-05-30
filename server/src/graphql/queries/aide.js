@@ -168,9 +168,6 @@ module.exports = {
             },
             codeDepartement: {
               type: GraphQLString
-            },
-            geoApiData: {
-              type: searchAideGeoApiDataType
             }
           }
         })

@@ -6,10 +6,6 @@ const getAide = id => {
   return AideModel.findById(id);
 };
 
-/**
- * @param {*} filters
- * @param {*} sort
- */
 const searchAides = async (filters, sort) => {
   const groupesDeResultats = [];
   let totalNombreAides = 0;
@@ -155,8 +151,9 @@ const searchAides = async (filters, sort) => {
       groupesDeResultats.push(GroupeVosTerritoires);
     }
   }
-
+  //
   // les aides pour tous le territoires
+  //
   const GroupeTousLesTerritoires = {
     label: "Pour tous les territoires",
     type: "tous_les_territoires",
@@ -261,7 +258,7 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   const newFilters = { ...filters };
   delete newFilters.texte;
   if (perimetreId) {
-    newFilters.perimetreApplicationType = perimetreId;
+    newFilters.perimetreApplicationType = [perimetreId];
     delete newFilters.typePerimetreInitialDeRecherche;
   }
   if (code) {
@@ -270,7 +267,8 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   }
   // enlever la localisation sur par code si ce
   // n'est n'est pas explicitement demandé
-  if (code === null && newFilters.perimetreApplicationCode) {
+  if (code === null) {
+    delete newFilters.codePerimetreInitialDeRecherche;
     delete newFilters.perimetreApplicationCode;
   }
 
