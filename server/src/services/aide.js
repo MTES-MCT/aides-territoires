@@ -6,9 +6,14 @@ const getAide = id => {
   return AideModel.findById(id);
 };
 
+/**
+ *
+ * @param {*} filters
+ * @param {*} sort
+ */
 const searchAides = async (filters, sort) => {
-  const resultsGroups = [];
-  let total = 0;
+  const groupesDeResultats = [];
+  let totalNombreAides = 0;
   let newFilters = {};
   let aides = {};
 
@@ -49,19 +54,33 @@ const searchAides = async (filters, sort) => {
   }
   */
 
+  // Les résultats d'aide sur le territoire (quand on a un code insee précis)
+  const GroupeVosTerritoires = {
+    label: "Les aides pour votre territoires",
+    type: "vos_territoires",
+    aidesParTypeDeTerritoires: []
+  };
+
   // toutes les aides communales
   aides = await getAllAidesByTerritoire("commune", filters);
-  resultsGroups.push({
-    count: Object.keys(aides).length,
+  GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
+    nombreAides: Object.keys(aides).length,
     type: "commune",
     label: "Département",
     aides: aides
   });
 
+  // les aides pour tous le territoires
+  const GroupeTousLesTerritoires = {
+    label: "Les aides pour votre territoires",
+    type: "tous_les_territoires",
+    aidesParTypeDeTerritoires: []
+  };
+
   // toutes les aides départementales
 
   aides = await getAllAidesByTerritoire("departement", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "departement",
     label: "Département",
@@ -69,7 +88,7 @@ const searchAides = async (filters, sort) => {
   });
 
   aides = await getAllAidesByTerritoire("region", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "region",
     label: "Région",
@@ -77,7 +96,7 @@ const searchAides = async (filters, sort) => {
   });
 
   aides = await getAllAidesByTerritoire("outre_mer", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "outre_mer",
     label: "Outre mer",
@@ -85,7 +104,7 @@ const searchAides = async (filters, sort) => {
   });
 
   aides = await getAllAidesByTerritoire("metropole", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "metropole",
     label: "metropole",
@@ -95,7 +114,7 @@ const searchAides = async (filters, sort) => {
   // metropole + outre_mer
 
   aides = await getAllAidesByTerritoire("france", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "france",
     label: "France",
@@ -103,17 +122,20 @@ const searchAides = async (filters, sort) => {
   });
 
   aides = await getAllAidesByTerritoire("europe", filters);
-  resultsGroups.push({
+  GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
     count: Object.keys(aides).length,
     type: "europe",
     label: "Europe",
     aides: aides
   });
 
+  groupesDeResultats.push(GroupeVosTerritoires);
+  groupesDeResultats.push(GroupeTousLesTerritoires);
+
   // toutes les aides régionales
   const response = {
-    totalCount: getTotalCountFromResultsGroups(resultsGroups),
-    resultsGroups
+    totalCount: getTotalCountFromResultsGroups(groupesDeResultats),
+    groupesDeResultats
   };
   return response;
 };
@@ -149,10 +171,10 @@ const getAides = (filters = {}, sort = {}) => {
     }
   }
   if (filters.motsCles) {
-    filters.motsCles =  { "$regex": filters.motsCles, "$options": "i" } 
+    filters.motsCles = { $regex: filters.motsCles, $options: "i" };
   }
   //  { "authors": /Alex/i },
-  console.log(JSON.stringify(filters, 0, 2))
+  console.log(JSON.stringify(filters, 0, 2));
   const query = AideModel.find(filters);
   query.sort(sort);
   return query;

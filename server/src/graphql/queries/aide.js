@@ -15,6 +15,27 @@ const {
 } = require("graphql");
 const { searchAides, getAides, getAide } = require("../../services/aide");
 
+const searchAideTypeDeTerritoireType = new GraphQLObjectType({
+  name: "searchAideTypesDeTerritoires",
+  fields: {
+    type: { type: GraphQLString },
+    label: { type: GraphQLString },
+    aides: { type: new GraphQLList(types.Aide) }
+  }
+});
+
+const searchAideResultsGroupType = new GraphQLObjectType({
+  name: "searchAideResultsGroup",
+  fields: {
+    nombreAides: { type: GraphQLInt },
+    type: { type: GraphQLString },
+    label: { type: GraphQLString },
+    aidesParTypeDeTerritoires: {
+      type: new GraphQLList(searchAideTypeDeTerritoireType)
+    }
+  }
+});
+
 module.exports = {
   getAide: {
     type: types.Aide,
@@ -31,24 +52,14 @@ module.exports = {
    * La query utilisée pour retournée les aides du moteur de recherche,
    * groupées par localisations
    */
-  searchAides: {
+  rechercheAides: {
     type: new GraphQLObjectType({
       name: "searchAidesResults",
       fields: () => {
         return {
-          totalCount: { type: GraphQLInt },
-          resultsGroups: {
-            type: new GraphQLList(
-              new GraphQLObjectType({
-                name: "searchAideResultsGroup",
-                fields: {
-                  count: { type: GraphQLInt },
-                  type: { type: GraphQLString },
-                  label: { type: GraphQLString },
-                  aides: { type: new GraphQLList(types.Aide) }
-                }
-              })
-            )
+          totalNombreAides: { type: GraphQLInt },
+          groupesDeResultats: {
+            type: new GraphQLList(searchAideResultsGroupType)
           }
         };
       }
