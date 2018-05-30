@@ -6,7 +6,10 @@ import { getLabelFromEnumValue } from "modules/enums";
 const styles = {
   table: {
     width: "100%",
-    marginTop: "2rem"
+    marginTop: "2rem",
+    position: "relative",
+    left: "-0.5rem",
+    color: "#555"
   }
 };
 
@@ -20,6 +23,7 @@ class AideListItemDetails extends React.Component {
       <div className="AideListItemDetails">
         <table className="table" style={styles.table}>
           <tbody>
+            {/*}
             <tr>
               <td>Date d'échéance</td>
               <td>
@@ -27,6 +31,7 @@ class AideListItemDetails extends React.Component {
                 {aide.dateEcheance && moment(aide.dateEcheance).format("LLLL")}
               </td>
             </tr>
+            */}
             <tr>
               <td>Lien vers le site</td>
               <td>
@@ -60,10 +65,6 @@ class AideListItemDetails extends React.Component {
                   )
                   .join(", ")}
               </td>
-            </tr>
-            <tr>
-              <td>Périmètre application</td>
-              <td>{aide.perimetreApplicationType}</td>
             </tr>
             <tr>
               <td>Type d'aide</td>
