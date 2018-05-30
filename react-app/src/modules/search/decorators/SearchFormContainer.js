@@ -47,7 +47,7 @@ class SearchFormContainer extends React.Component {
               texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
               typePerimetreInitialDeRecherche: "commune",
               codePerimetreInitialDeRecherche: commune.code,
-              typePerimetreInitialDeRecherche: commune
+              geoApiData: commune
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -64,7 +64,7 @@ class SearchFormContainer extends React.Component {
               texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
               typePerimetreInitialDeRecherche: "commune",
               codePerimetreInitialDeRecherche: commune.code,
-              perimetreAdditionalData: commune
+              geoApiData: commune
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -79,7 +79,7 @@ class SearchFormContainer extends React.Component {
               texte: `${departement.nom} (département)`,
               typePerimetreInitialDeRecherche: "departement",
               codePerimetreInitialDeRecherche: departement.code,
-              perimetreAdditionalData: departement
+              geoApiData: departement
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -94,7 +94,7 @@ class SearchFormContainer extends React.Component {
               texte: `${region.nom} (Région)`,
               typePerimetreInitialDeRecherche: "region",
               codePerimetreInitialDeRecherche: region.code,
-              perimetreAdditionalData: region
+              geoApiData: region
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -134,12 +134,12 @@ class SearchFormContainer extends React.Component {
           this.state.selectedSuggestion.codePerimetreInitialDeRecherche
         );
       }
-      // @FIXME pas pris en compte par redux-form semble-t-il
-      if (this.state.selectedSuggestion.perimetreAdditionalData) {
+      console.log(this.state.selectedSuggestion.geoApiData);
+      if (this.state.selectedSuggestion.geoApiData) {
         this.props.change(
           "searchFilters",
-          "perimetreAdditionalData",
-          this.state.selectedSuggestion.perimetreAdditionalData
+          "geoApiData",
+          this.state.selectedSuggestion.geoApiData
         );
       }
     }

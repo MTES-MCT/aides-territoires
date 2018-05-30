@@ -15,6 +15,19 @@ const {
 } = require("graphql");
 const { searchAides, getAides, getAide } = require("../../services/aide");
 
+const searchAideGeoApiDataType = new GraphQLInputObjectType({
+  name: "searchAideGeoApiData",
+  fields: {
+    code: { type: GraphQLString },
+    nom: { type: GraphQLString },
+    population: { type: GraphQLString },
+    codeDepartement: { type: GraphQLString },
+    codeRegion: { type: GraphQLString },
+    _score: { type: GraphQLString },
+    codesPostaux: { type: new GraphQLList(GraphQLString) }
+  }
+});
+
 const searchAideTypeDeTerritoireType = new GraphQLObjectType({
   name: "searchAideTypesDeTerritoires",
   fields: {
@@ -152,6 +165,12 @@ module.exports = {
             },
             motsCles: {
               type: GraphQLString
+            },
+            codeDepartement: {
+              type: GraphQLString
+            },
+            geoApiData: {
+              type: searchAideGeoApiDataType
             }
           }
         })
