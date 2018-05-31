@@ -299,7 +299,9 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   // n'est n'est pas explicitement demandé
   if (code === null) {
     delete newFilters.codePerimetreInitialDeRecherche;
-    delete newFilters.perimetreApplicationCode;
+    // s'assurer qu'on ne récupère que les aides qui s'appliquent partout
+    // (et pas uniquement sur un territoire particulier), lorsque le code est null
+    newFilters.perimetreApplicationCode = "";
   }
 
   // console.log(JSON.stringify(newFilters, 0, 2));
