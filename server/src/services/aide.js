@@ -27,7 +27,7 @@ const searchAides = async (filters, sort) => {
     };
 
     //
-    // si on a demandé une commune en particulier :
+    // * si on a demandé une COMMUNE en particulier :
     //
     if (
       filters.typePerimetreInitialDeRecherche === "commune" &&
@@ -85,7 +85,7 @@ const searchAides = async (filters, sort) => {
     }
 
     //
-    // si on a demandé un département en particulier :
+    // * si on a demandé un DEPARTEMENT en particulier :
     //
     if (
       filters.typePerimetreInitialDeRecherche === "departement" &&
@@ -105,7 +105,7 @@ const searchAides = async (filters, sort) => {
           aides: aides
         });
 
-        // récupérer toutes les données concernant la commune auprès de la Geo Api
+        // on récupère les données du département en question pour obtenir sa région
         const geoApiResponse = await axios.get(
           `https://geo.api.gouv.fr/departements/${
             filters.codePerimetreInitialDeRecherche
@@ -128,13 +128,13 @@ const searchAides = async (filters, sort) => {
       }
     }
     //
-    // si on a demandé une région en particulier :
+    // * si on a demandé une REGION en particulier :
     //
     if (
       filters.typePerimetreInitialDeRecherche === "region" &&
       filters.codePerimetreInitialDeRecherche
     ) {
-      // d'abord rechercher les aides pour cette commune
+      // d'abord rechercher les aides pour cette région
       aides = await getAllAidesByTerritoire(
         filters.typePerimetreInitialDeRecherche,
         filters,
@@ -148,6 +148,30 @@ const searchAides = async (filters, sort) => {
           aides: aides
         });
       }
+      // on récupère tous les dépatements du territoire en fonction
+      // et on regarde si ils ont des aides !
+      const geoApiResponse = await axios.get(
+        `https://geo.api.gouv.fr/regions/${
+          filters.codePerimetreInitialDeRecherche
+        }/departements`
+      );
+      geoApiResponse.data.map(async departement => {
+        aides = await getAllAidesByTerritoire(
+          "departement",
+          filters,
+          departement.code
+        );
+        if (aides.length > 0) {
+          GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
+            nombreAides: Object.keys(aides).length,
+            type: "votre_region",
+            label: "Pour votre région",
+            aides: aides
+          });
+        }
+      });
+
+      // ajouter au résultats obtenus sur les territoires proches
       groupesDeResultats.push(GroupeVosTerritoires);
     }
   }
@@ -275,10 +299,12 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   // n'est n'est pas explicitement demandé
   if (code === null) {
     delete newFilters.codePerimetreInitialDeRecherche;
-    delete newFilters.perimetreApplicationCode;
+    // s'assurer qu'on ne récupère que les aides qui s'appliquent partout
+    // (et pas uniquement sur un territoire particulier), lorsque le code est null
+    newFilters.perimetreApplicationCode = "";
   }
 
-  console.log(JSON.stringify(newFilters, 0, 2));
+  // console.log(JSON.stringify(newFilters, 0, 2));
   return await getAides(newFilters);
 };
 

@@ -19,9 +19,20 @@ function getGroupTitleFromGroupType(groupType) {
   return title;
 }
 
-const GroupeDeResultat = ({ groupeDeResultat }) => {
+const GroupeDeResultat = ({ groupeDeResultat, displayGroupLabel }) => {
   return (
     <div>
+      {displayGroupLabel && (
+        <div
+          style={{
+            textAlign: "right",
+            margin: "0.5rem",
+            borderBottom: "solid rgb(240,240,240) 1px"
+          }}
+        >
+          <em>{groupeDeResultat.label}</em>
+        </div>
+      )}
       {groupeDeResultat.aidesParTypeDeTerritoires.map(territoire => {
         return (
           <AideList
@@ -60,6 +71,8 @@ const SearchResults = ({ results, filters }) => {
       {results.groupesDeResultats.map(groupeDeResultat => {
         return (
           <GroupeDeResultat
+            // o naffiche les labels de groupes de résutlats si on a au moins 2 groupes de résultats
+            displayGroupLabel={results.groupesDeResultats.length > 1}
             key={groupeDeResultat.type}
             groupeDeResultat={groupeDeResultat}
           />
