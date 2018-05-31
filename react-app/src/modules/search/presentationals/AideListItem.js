@@ -13,8 +13,10 @@ import EuroIcon from "material-ui/svg-icons/action/euro-symbol";
 
 const styles = {
   root: {
-    paddingBottom: "2.5rem"
+    paddingBottom: "2.5rem",
+    position: "relative"
   },
+  categorieParticuliere: {},
   showMoreButton: {
     "&:hover": {
       color: "white"
@@ -63,6 +65,22 @@ const DateEcheance = ({ date }) => (
   </div>
 );
 
+const AAP = () => (
+  <div
+    style={{
+      padding: "0.5rem",
+      right: "0",
+      position: "absolute",
+      background: "red",
+      color: "white",
+      textAlign: "center",
+      borderRadius: "3px"
+    }}
+  >
+    AAP
+  </div>
+);
+
 class AideListItem extends React.Component {
   state = {
     showDetails: false
@@ -80,6 +98,7 @@ class AideListItem extends React.Component {
     const { aide, classes } = this.props;
     return (
       <div className={this.props.classes.root}>
+        {aide.categorieParticuliere.includes("AAP") && <AAP />}
         <div className={classes.perimetre}>
           [{getLabelFromEnumValue(
             "aide",
@@ -114,7 +133,6 @@ class AideListItem extends React.Component {
             </animated.div>
           )}
         </Spring>
-
         <div
           className={classnames("button", classes.showMoreButton)}
           onClick={this.handleMoreButtonClick}

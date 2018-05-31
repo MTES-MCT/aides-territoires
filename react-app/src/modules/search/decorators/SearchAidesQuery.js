@@ -57,6 +57,7 @@ const query = gql`
             destination
             thematiques
             dateEcheance
+            categorieParticuliere
           }
         }
       }
