@@ -154,7 +154,14 @@ let SearchAidePage = class extends React.Component {
               <SearchResultsTopText />
               <SearchAidesQuery filters={this.props.filters}>
                 {({ results }) => (
-                  <div>{<SearchResults results={results} />}</div>
+                  <div>
+                    {
+                      <SearchResults
+                        filters={this.props.filters}
+                        results={results}
+                      />
+                    }
+                  </div>
                 )}
               </SearchAidesQuery>
             </div>

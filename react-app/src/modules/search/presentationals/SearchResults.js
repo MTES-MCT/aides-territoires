@@ -47,14 +47,14 @@ const GroupeDeResultat = ({ groupeDeResultat }) => {
 
 /**
  */
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, filters }) => {
   if (!results) return null;
   return (
     <div>
       <div className="message is-info">
         <div className="message-body" style={{ border: "none" }}>
           <strong>{results.totalNombreAides}</strong> aides correspondent à
-          votre recherche
+          votre recherche <strong>{filters.texte && `${filters.texte}`}</strong>
         </div>
       </div>
       {results.groupesDeResultats.map(groupeDeResultat => {
