@@ -10,6 +10,7 @@ import { blue300 } from "material-ui/styles/colors";
 import moment from "moment";
 import CalendarIcon from "material-ui/svg-icons/action/event";
 import EuroIcon from "material-ui/svg-icons/action/euro-symbol";
+import SettingsIcon from "material-ui/svg-icons/action/settings";
 
 const styles = {
   root: {
@@ -27,10 +28,16 @@ const styles = {
     color: "white"
   },
   perimetre: {
+    position: "relative",
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: "25px",
     color: "gray"
+  },
+  icons: {
+    position: "absolute",
+    right: "0",
+    padding: "0.5rem"
   },
   title: {
     fontWeight: "bold",
@@ -96,6 +103,7 @@ class AideListItem extends React.Component {
   };
   render() {
     const { aide, classes } = this.props;
+    console.log(aide);
     return (
       <div className={this.props.classes.root}>
         {aide.categorieParticuliere.includes("AAP") && <AAP />}
@@ -105,6 +113,9 @@ class AideListItem extends React.Component {
             "perimetreApplicationType",
             aide.perimetreApplicationType
           )}]
+          <div className={classes.icons}>
+            {aide.type === "financement" ? <EuroIcon /> : <SettingsIcon />}
+          </div>
         </div>
         {/*<EuroIcon />*/}
         <h2 className={classes.title}>{aide.nom}</h2>
