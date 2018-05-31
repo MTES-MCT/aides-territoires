@@ -103,7 +103,6 @@ class AideListItem extends React.Component {
   };
   render() {
     const { aide, classes } = this.props;
-    console.log(aide);
     return (
       <div className={this.props.classes.root}>
         {aide.categorieParticuliere.includes("AAP") && <AAP />}

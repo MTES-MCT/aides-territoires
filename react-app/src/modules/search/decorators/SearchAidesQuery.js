@@ -69,6 +69,8 @@ export default compose(
   graphql(query, {
     options: ({ filters }) => {
       filters = cleanSearchFilters(filters);
+      // seulement les aides publiées
+      filters.statusPublication = "published";
       return {
         variables: {
           filters
