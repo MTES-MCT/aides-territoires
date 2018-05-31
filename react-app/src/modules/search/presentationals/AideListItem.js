@@ -129,7 +129,7 @@ class AideListItem extends React.Component {
               aide.description.substring(DESCRIPTION_CHARS_LIMIT)}
           </p>
         )}
-        {aide.dateEcheance && <DateEcheance data={aide.dateEcheance} />}
+        {aide.dateEcheance && <DateEcheance date={aide.dateEcheance} />}
         <Spring
           native
           from={{ maxHeight: 0, overflow: "hidden" }}

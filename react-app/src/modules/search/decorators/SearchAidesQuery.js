@@ -70,6 +70,7 @@ export default compose(
     options: ({ filters }) => {
       filters = cleanSearchFilters(filters);
       // seulement les aides publiées
+      // ! à mettre côté serveur par défaut
       filters.statusPublication = "published";
       return {
         variables: {
