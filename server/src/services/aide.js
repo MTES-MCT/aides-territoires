@@ -18,14 +18,6 @@ const searchAides = async (filters, sort) => {
     filters.typePerimetreInitialDeRecherche &&
     filters.codePerimetreInitialDeRecherche
   ) {
-    // on créer un groupe de résultats pour les aides qu'on trouve
-    // pour le territoire demandé
-    const GroupeVosTerritoires = {
-      label: "Pour votre territoire",
-      type: "vos_territoires",
-      aidesParTypeDeTerritoires: []
-    };
-
     //
     // * si on a demandé une COMMUNE en particulier :
     //
@@ -33,6 +25,13 @@ const searchAides = async (filters, sort) => {
       filters.typePerimetreInitialDeRecherche === "commune" &&
       filters.codePerimetreInitialDeRecherche
     ) {
+      // on créer un groupe de résultats pour les aides qu'on trouve
+      // pour le territoire demandé
+      let GroupeVosTerritoires = {
+        label: "Pour votre territoire",
+        type: "vos_territoires",
+        aidesParTypeDeTerritoires: []
+      };
       // d'abord rechercher les aides pour cette commune
       aides = await getAllAidesByTerritoire(
         filters.typePerimetreInitialDeRecherche,
@@ -60,12 +59,14 @@ const searchAides = async (filters, sort) => {
         filters,
         geoApiResponse.data.codeDepartement
       );
-      GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
-        nombreAides: Object.keys(aides).length,
-        type: "votre_departement",
-        label: "Pour votre département",
-        aides: aides
-      });
+      if (aides.length > 0) {
+        GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
+          nombreAides: Object.keys(aides).length,
+          type: "votre_departement",
+          label: "Pour votre département",
+          aides: aides
+        });
+      }
 
       // récupérer les aides de la région correspondante
       aides = await getAllAidesByTerritoire(
@@ -73,15 +74,19 @@ const searchAides = async (filters, sort) => {
         filters,
         geoApiResponse.data.codeRegion
       );
-      GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
-        nombreAides: Object.keys(aides).length,
-        type: "votre_region",
-        label: "Pour votre région",
-        aides: aides
-      });
+      if (aides.length > 0) {
+        GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
+          nombreAides: Object.keys(aides).length,
+          type: "votre_region",
+          label: "Pour votre région",
+          aides: aides
+        });
+      }
 
       // enregistrer les résultats
-      groupesDeResultats.push(GroupeVosTerritoires);
+      if (GroupeVosTerritoires.aidesParTypeDeTerritoires.length > 0) {
+        groupesDeResultats.push(GroupeVosTerritoires);
+      }
     }
 
     //
@@ -91,6 +96,13 @@ const searchAides = async (filters, sort) => {
       filters.typePerimetreInitialDeRecherche === "departement" &&
       filters.codePerimetreInitialDeRecherche
     ) {
+      // on créer un groupe de résultats pour les aides qu'on trouve
+      // pour le territoire demandé
+      let GroupeVosTerritoires = {
+        label: "Pour votre territoire",
+        type: "vos_territoires",
+        aidesParTypeDeTerritoires: []
+      };
       // d'abord rechercher les aides pour cette commune
       aides = await getAllAidesByTerritoire(
         filters.typePerimetreInitialDeRecherche,
@@ -100,33 +112,37 @@ const searchAides = async (filters, sort) => {
       if (aides.length > 0) {
         GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
           nombreAides: Object.keys(aides).length,
-          type: "votre_departement",
+          type: "departement_de_recherche",
           label: "Pour votre département",
           aides: aides
         });
+      }
 
-        // on récupère les données du département en question pour obtenir sa région
-        const geoApiResponse = await axios.get(
-          `https://geo.api.gouv.fr/departements/${
-            filters.codePerimetreInitialDeRecherche
-          }`
-        );
-        // récupérer les aides de la région correspondante
-        aides = await getAllAidesByTerritoire(
-          "region",
-          filters,
-          geoApiResponse.data.codeRegion
-        );
+      // on récupère les données du département en question pour obtenir sa région
+      const geoApiResponse = await axios.get(
+        `https://geo.api.gouv.fr/departements/${
+          filters.codePerimetreInitialDeRecherche
+        }`
+      );
+      // récupérer les aides de la région correspondante
+      aides = await getAllAidesByTerritoire(
+        "region",
+        filters,
+        geoApiResponse.data.codeRegion
+      );
+      if (aides.length > 0) {
         GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
           nombreAides: Object.keys(aides).length,
-          type: "votre_region",
-          label: "Pour votre région",
+          type: "departement_de_recherche_region",
+          label: "Pour la région de votre déparement",
           aides: aides
         });
-
+      }
+      if (GroupeVosTerritoires.aidesParTypeDeTerritoires.length > 0) {
         groupesDeResultats.push(GroupeVosTerritoires);
       }
     }
+
     //
     // * si on a demandé une REGION en particulier :
     //
@@ -134,6 +150,13 @@ const searchAides = async (filters, sort) => {
       filters.typePerimetreInitialDeRecherche === "region" &&
       filters.codePerimetreInitialDeRecherche
     ) {
+      // on créer un groupe de résultats pour les aides qu'on trouve
+      // pour le territoire demandé
+      const GroupeVosTerritoires = {
+        label: "Pour votre territoire",
+        type: "vos_territoires",
+        aidesParTypeDeTerritoires: []
+      };
       // d'abord rechercher les aides pour cette région
       aides = await getAllAidesByTerritoire(
         filters.typePerimetreInitialDeRecherche,
@@ -143,7 +166,7 @@ const searchAides = async (filters, sort) => {
       if (aides.length > 0) {
         GroupeVosTerritoires.aidesParTypeDeTerritoires.push({
           nombreAides: Object.keys(aides).length,
-          type: "votre_region",
+          type: "region_de_recherche",
           label: "Pour votre région",
           aides: aides
         });
@@ -155,7 +178,9 @@ const searchAides = async (filters, sort) => {
           filters.codePerimetreInitialDeRecherche
         }/departements`
       );
-      geoApiResponse.data.map(async departement => {
+      //console.log(JSON.stringify(geoApiResponse.data, 0, 2));
+
+      const promisesArray = await geoApiResponse.data.map(async departement => {
         aides = await getAllAidesByTerritoire(
           "departement",
           filters,
@@ -169,10 +194,14 @@ const searchAides = async (filters, sort) => {
             aides: aides
           });
         }
+        return aides;
       });
-
-      // ajouter au résultats obtenus sur les territoires proches
-      groupesDeResultats.push(GroupeVosTerritoires);
+      // make sure all promises from our .map are resolved before continue
+      const reponse = await Promise.all(promisesArray);
+      if (GroupeVosTerritoires.aidesParTypeDeTerritoires.length > 0) {
+        // ajouter aux résultats de recherche
+        groupesDeResultats.push(GroupeVosTerritoires);
+      }
     }
   }
   //
