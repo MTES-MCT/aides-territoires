@@ -17,7 +17,6 @@ const styles = {
     paddingBottom: "2.5rem",
     position: "relative"
   },
-  categorieParticuliere: {},
   showMoreButton: {
     "&:hover": {
       color: "white"
@@ -27,17 +26,21 @@ const styles = {
     background: blue300,
     color: "white"
   },
-  perimetre: {
-    position: "relative",
-    fontWeight: "bold",
+  structurePorteuse: {
     textTransform: "uppercase",
+    color: "gray",
     fontSize: "25px",
-    color: "gray"
+    fontWeight: "bold"
+  },
+  perimetre: {
+    textTransform: "uppercase",
+    color: "gray",
+    fontSize: "21px",
+    fontWeight: "normal"
   },
   icons: {
     position: "absolute",
-    right: "0",
-    padding: "0.5rem"
+    right: "0"
   },
   title: {
     fontWeight: "bold",
@@ -76,17 +79,60 @@ const AAP = () => (
   <div
     style={{
       padding: "0.5rem",
-      right: "0",
-      position: "absolute",
       background: "red",
       color: "white",
-      textAlign: "center",
-      borderRadius: "3px"
+      textAlign: "center"
     }}
   >
     AAP
   </div>
 );
+
+const IconRound = ({ children, top = "8px", left = "0", title }) => {
+  return (
+    <div
+      title={title}
+      style={{
+        border: "solid silver 1px",
+        background: "white",
+        borderRadius: "1000px",
+        width: "43px",
+        height: "43px",
+        textAlign: "center"
+      }}
+    >
+      <span style={{ position: "relative", top, left }}>{children}</span>
+    </div>
+  );
+};
+
+const IconsBarItem = ({ children }) => (
+  <div style={{ marginLeft: "0.5rem" }}>{children}</div>
+);
+
+const IconsBar = ({ aide }) => {
+  const itemStyle = {
+    margin: "1rem"
+  };
+  return (
+    <div style={{ display: "flex" }}>
+      <IconsBarItem>
+        {aide.type === "financement" ? (
+          <IconRound title="Aide financière" left="-2px">
+            <EuroIcon />
+          </IconRound>
+        ) : (
+          <IconRound title="Aide non financière">
+            <SettingsIcon />
+          </IconRound>
+        )}
+      </IconsBarItem>
+      <IconsBarItem>
+        {aide.categorieParticuliere.includes("AAP") && <AAP />}
+      </IconsBarItem>
+    </div>
+  );
+};
 
 class AideListItem extends React.Component {
   state = {
@@ -105,16 +151,19 @@ class AideListItem extends React.Component {
     const { aide, classes } = this.props;
     return (
       <div className={this.props.classes.root}>
-        {aide.categorieParticuliere.includes("AAP") && <AAP />}
-        <div className={classes.perimetre}>
-          [{getLabelFromEnumValue(
-            "aide",
-            "perimetreApplicationType",
-            aide.perimetreApplicationType
-          )}]
-          <div className={classes.icons}>
-            {aide.type === "financement" ? <EuroIcon /> : <SettingsIcon />}
-          </div>
+        <div className={classes.icons}>
+          <IconsBar aide={aide} />
+        </div>
+        <div className={classes.structurePorteuse}>
+          {aide.structurePorteuse}
+          <span className={classes.perimetre}>
+            {" - "}
+            {getLabelFromEnumValue(
+              "aide",
+              "perimetreApplicationType",
+              aide.perimetreApplicationType
+            )}
+          </span>
         </div>
         {/*<EuroIcon />*/}
         <h2 className={classes.title}>{aide.nom}</h2>

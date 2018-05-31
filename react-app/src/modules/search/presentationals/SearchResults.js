@@ -60,7 +60,6 @@ const GroupeDeResultat = ({ groupeDeResultat, displayGroupLabel }) => {
  */
 const SearchResults = ({ results, filters }) => {
   if (!results) return null;
-  console.log(results);
   return (
     <div>
       <div className="message is-info">
