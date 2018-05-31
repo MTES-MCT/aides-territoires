@@ -157,7 +157,7 @@ module.exports = {
               type: GraphQLString
             },
             categorieParticuliere: {
-              type: GraphQLString
+              type: new GraphQLList(GraphQLString)
             },
             demandeTiersPossible: {
               type: GraphQLBoolean

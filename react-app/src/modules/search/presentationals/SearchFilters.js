@@ -168,6 +168,31 @@ let SearchFilters = class extends React.Component {
             />
           </SlideDown>
         </div>
+
+        {/***  CATEGORIE PARTICULIER ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("categorieParticuliere")}
+          >
+            {this.state.activeFilters.categorieParticuliere ? (
+              <ArrowUp />
+            ) : (
+              <ArrowDown />
+            )}
+            {enums.categorieParticuliere.name}
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.categorieParticuliere}
+          >
+            <CheckboxGroup
+              name="categorieParticuliere"
+              options={enums.categorieParticuliere.values}
+            />
+          </SlideDown>
+        </div>
       </form>
     );
   }
