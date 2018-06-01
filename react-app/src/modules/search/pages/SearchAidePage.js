@@ -33,11 +33,21 @@ const SearchResultsTopText = () => (
   </div>
 );
 
+/**
+ * add a shadow on sticky bar when active
+ */
+const StickyActiveStyles = () => (
+  <style>
+    {
+      ".sticky-outer-wrapper.active .sticky-inner-wrapper {box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);}"
+    }
+  </style>
+);
+
 let SearchAidePage = class extends React.Component {
   state = {
     showModal: false
   };
-
   constructor(props) {
     super(props);
     /*
@@ -47,24 +57,6 @@ let SearchAidePage = class extends React.Component {
     };
     */
   }
-
-  // désactiver le filtre cliqué
-  handleRequestDelete = (fieldId, filterValue) => {
-    const currentFilters = this.props.filters;
-    if (currentFilters[fieldId]) {
-      let newFilterValue = currentFilters[fieldId].filter(value => {
-        return value !== filterValue;
-      });
-      if (newFilterValue.length === 0) {
-        newFilterValue = null;
-      }
-      this.props.change("searchFilters", fieldId, newFilterValue);
-    }
-  };
-  handleRequestReset = () => {
-    // remet à zéro le formulaire des filtres de recherche via le store
-    this.props.reset();
-  };
   handleButtonClick = () => {
     this.setState({
       showModal: true
@@ -128,6 +120,7 @@ let SearchAidePage = class extends React.Component {
                 "container"
               )}
             >
+              <StickyActiveStyles />
               <SearchActiveFilters
                 onRequestDelete={this.handleRequestDelete}
                 onRequestReset={this.handleRequestReset}

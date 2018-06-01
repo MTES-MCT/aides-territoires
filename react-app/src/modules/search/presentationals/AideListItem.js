@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
-import RaisedButton from "material-ui/RaisedButton";
-import { Spring, animated } from "react-spring";
 import SlideDown from "../../ui-kit/reactSpring/SlideDown";
 import { getLabelFromEnumValue } from "modules/enums";
 import injectSheet from "react-jss";
@@ -220,9 +218,6 @@ const AideIconsBarItem = ({ children }) => (
  * AideIconsBar
  */
 const AideIconsBar = ({ aide }) => {
-  const itemStyle = {
-    margin: "1rem"
-  };
   return (
     <div style={{ display: "flex" }}>
       <AideIconsBarItem>

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AideListItem from "./AideListItem";
-import { Transition, animated } from "react-spring";
 import injectSheet from "react-jss";
 
 const styles = {

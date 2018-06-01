@@ -1,24 +1,6 @@
 import React from "react";
 import AideList from "modules/search/presentationals/AideList";
 
-function getGroupTitleFromGroupType(groupType) {
-  let title = "";
-  switch (groupType) {
-    case "votre_commune":
-      title = "Dans votre commun";
-      break;
-    case "votre_departement":
-      title = "Dans votre département";
-      break;
-    case "votre_region":
-      title = "Dans votre région";
-      break;
-    default:
-      title = null;
-  }
-  return title;
-}
-
 const GroupeDeResultat = ({ groupeDeResultat, displayGroupLabel }) => {
   return (
     <div>

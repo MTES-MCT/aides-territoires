@@ -5,84 +5,140 @@ import PropTypes from "prop-types";
 import { getLabelFromEnumValue, getEnumName } from "modules/enums";
 import FlatButton from "material-ui/FlatButton";
 import injectSheet from "react-jss";
+import { connect } from "react-redux";
+import { change, reset } from "redux-form";
 
-const styles = {
-  chip: {
-    margin: 4
-  },
-  wrapper: {
-    display: "flex",
-    flexWrap: "wrap"
-  }
-};
-
-const DeleteAllFilters = ({ onRequestReset }) => (
+/**
+ * Bouton pour effacer tous les filtres
+ */
+const DeleteAllFilters = ({ classes, onClick }) => (
   <FlatButton
     primary={true}
     style={{ marginRight: "20px" }}
     label="Effacer les filtres"
-    onClick={onRequestReset}
+    onClick={onClick}
   />
 );
 
-const ChipFilter = ({ filterId, filterValue, onRequestDelete }) => (
-  <Chip
-    key={`${filterId} - ${filterValue}`}
-    style={styles.chip}
-    backgroundColor={blue300}
-    onRequestDelete={() => onRequestDelete(filterId, filterValue)}
-  >
-    <em>{getEnumName("aide", filterId)}</em> :{" "}
-    {getLabelFromEnumValue("aide", filterId, filterValue)}
-  </Chip>
-);
-
-const StickyActiveStyles = () => (
-  <style>
-    {
-      ".sticky-outer-wrapper.active .sticky-inner-wrapper {box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);}"
+/**
+ * Affiche tous les filtres actifs
+ * @param {*} param0
+ */
+let SearchActiveFilters = class extends React.Component {
+  static propTypes = {
+    // {type:["autre","financement"],etape:["pre_operationnel"]}
+    filters: PropTypes.object
+  };
+  /**
+   * Désactivé le filtre cliqué
+   * @param {string} fieldId
+   * @param {string} filterValue
+   */
+  handleRequestDeleteCheckbox = (fieldId, filterValue) => {
+    const currentFilters = this.props.filters;
+    if (currentFilters[fieldId]) {
+      let newFilterValue = currentFilters[fieldId].filter(value => {
+        return value !== filterValue;
+      });
+      if (newFilterValue.length === 0) {
+        newFilterValue = null;
+      }
+      this.props.change("searchFilters", fieldId, newFilterValue);
     }
-  </style>
-);
-
-const SearchActiveFilters = ({ filters, onRequestDelete, onRequestReset }) => {
-  return (
-    <div style={styles.wrapper}>
-      <StickyActiveStyles />
-      <DeleteAllFilters onRequestReset={onRequestReset} />
-      {Object.keys(filters).map(filterId => {
-        return (
-          filters[filterId] &&
-          filters[filterId].constructor === Array && (
-            <span key={filterId} style={styles.wrapper}>
-              {filters[filterId].map(filterValue => {
-                const label = getLabelFromEnumValue(
-                  "aide",
-                  filterId,
-                  filterValue
-                );
-                return (
-                  <ChipFilter
+  };
+  handleRequestDelete = (fieldId, filterValue) => {
+    const currentFilters = this.props.filters;
+    if (currentFilters[fieldId]) {
+      let newFilterValue = currentFilters[fieldId].filter(value => {
+        return value !== filterValue;
+      });
+      if (newFilterValue.length === 0) {
+        newFilterValue = null;
+      }
+      this.props.change("searchFilters", fieldId, newFilterValue);
+    }
+  };
+  /**
+   * Remettre à zéro tous les filtres activés par l'utilisateur
+   */
+  handleDeleteAllClick = () => {
+    // remet à zéro le formulaire des filtres de recherche via le store
+    this.props.reset();
+  };
+  render() {
+    const { classes, filters, onRequestDelete, onRequestReset } = this.props;
+    return (
+      <div className={classes.root}>
+        <DeleteAllFilters onClick={this.handleDeleteAllClick} />
+        <span className={classes.chips}>
+          {Object.keys(filters).map(filterId => {
+            if (!filters[filterId]) return null;
+            /*
+            if (typeof filters[filterId] === "string") {
+              <ChipFilterString
+                key={filterId}
+                filterId={filterId}
+                label={filters[filterId]}
+                onRequestDelete={this.handleRequestDelete}
+              />;
+            }
+            */
+            // affichage des filtres pour les checboxs, une Chip par valeur
+            if (filters[filterId].constructor === Array) {
+              {
+                return filters[filterId].map(filterValue => (
+                  <Chip
                     key={filterId + "-" + filterValue}
-                    filterId={filterId}
-                    filterValue={filterValue}
-                    onRequestDelete={onRequestDelete}
-                  />
-                );
-              })}
-            </span>
-          )
-        );
-      })}
-    </div>
-  );
+                    style={{ margin: 4 }}
+                    backgroundColor={blue300}
+                    onRequestDelete={() =>
+                      this.handleRequestDeleteCheckbox(filterId, filterValue)
+                    }
+                  >
+                    <em>{getEnumName("aide", filterId)}</em> :{" "}
+                    {getLabelFromEnumValue("aide", filterId, filterValue)}
+                  </Chip>
+                ));
+              }
+            }
+          })}
+        </span>
+      </div>
+    );
+  }
 };
+SearchActiveFilters = injectSheet({
+  root: {
+    display: "flex"
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap"
+  }
+})(SearchActiveFilters);
 
-SearchActiveFilters.propTypes = {
-  // {type:["autre","financement"],etape:["pre_operationnel"]}
-  filters: PropTypes.object,
-  onRequestDelete: PropTypes.func.isRequired,
-  onRequestReset: PropTypes.func
-};
+function mapStateToProps(state) {
+  if (state.form.searchFilters && state.form.searchFilters.values) {
+    return {
+      // les filtres sélectionnés par l'utilisateur pour sa recherche
+      // ainsi que les données de périmètre qui ont été enregistré
+      // par le moteur de recherche pas territoire
+      filters: state.form.searchFilters.values
+    };
+  }
+  // éviter une erreur pour cause de filters undefined
+  return { filters: {} };
+}
 
-export default injectSheet(styles)(SearchActiveFilters);
+function mapDispatchToProps(dispatch) {
+  return {
+    change: (form, field, value) => {
+      dispatch(change(form, field, value));
+    },
+    reset: () => dispatch(reset("searchFilters"))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SearchActiveFilters
+);
