@@ -9,7 +9,7 @@ export default class SlideDown extends React.Component {
   };
   static propTypes = {
     maxHeight: PropTypes.number,
-    show: PropTypes.bool
+    show: PropTypes.bool.isRequired
   };
   render() {
     return (
