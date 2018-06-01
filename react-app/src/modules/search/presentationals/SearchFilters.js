@@ -1,9 +1,14 @@
 import React from "react";
-import { reduxForm } from "redux-form";
+import { reduxForm, Field, change } from "redux-form";
 import SlideDown from "modules/ui-kit/reactSpring/SlideDown";
 import CheckboxGroup from "modules/ui-kit/reduxForm/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "modules/ui-kit/bulma/Icons";
+import { connect } from "react-redux";
 import allEnums from "modules/enums";
+import moment from "moment";
+import PropTypes from "prop-types";
+import "moment/locale/fr";
+moment.locale("fr");
 
 const enums = allEnums.aide;
 
@@ -23,10 +28,104 @@ const styles = {
   }
 };
 
+const DateEcheanceField = class extends React.Component {
+  state = {
+    month: "",
+    year: "",
+    date: ""
+  };
+  static propTypes = {
+    onChange: PropTypes.func.isRequired
+  };
+  yearsArray = [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ];
+  buildDate = (year, month) => {
+    const date = new Date(this.state.year, this.state.month);
+    return date;
+  };
+  handleChangeMonth = event => {
+    this.setState({ month: event.target.value }, state => {
+      if (this.state.year && this.state.month) {
+        this.props.onChange(this.buildDate());
+      }
+    });
+  };
+  handleChangeYear = event => {
+    this.setState({ year: event.target.value }, state => {
+      if (this.state.year && this.state.month) {
+        if (this.state.year && this.state.month) {
+          this.props.onChange(this.buildDate());
+        }
+      }
+    });
+  };
+  render() {
+    return (
+      <div>
+        <pre>{JSON.stringify(this.state)}</pre>
+        {/* Mois */}
+        <div className="field">
+          <label className="label">Mois</label>
+          <div className="control">
+            <div className="select">
+              <select
+                value={this.state.month}
+                onChange={this.handleChangeMonth}
+              >
+                <option>Sélectionnez le mois</option>
+                {moment.months().map((month, index) => (
+                  <option value={index + 1} key={month}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Année */}
+        <div className="field">
+          <label className="label">Année</label>
+          <div className="control">
+            <div className="select">
+              <select value={this.state.year} onChange={this.handleChangeYear}>
+                <option>Sélectionnez l'année</option>
+                {this.yearsArray.map(year => {
+                  return (
+                    <option value={year} key={year}>
+                      {year}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
 let SearchFilters = class extends React.Component {
   state = {
+    month: "",
+    year: "",
     activeFilters: {
       perimetreApplicationType: true,
+      dateEcheance: true,
       type: false,
       etape: false,
       formeDeDiffusion: false,
@@ -39,14 +138,45 @@ let SearchFilters = class extends React.Component {
       ...this.state.activeFilters,
       [filterId]: !this.state.activeFilters[filterId]
     };
+    // ce sont ne sont pas filtres, juste des champs
+    // que l'on combine pour composer "dateEcheance"
+    // (qui lui est un vrai champ sur l'entité aide)
+    delete newFilters.dateEcheanceMois;
+    delete newFilters.dateEcheanceAnnee;
     this.setState({
       activeFilters: newFilters
     });
+  };
+  handleChangeDateEcheance = date => {
+    this.props.change("searchFilters", "dateEcheance", date);
   };
   render() {
     // const { handleSubmit, pristine, reset, submitting } = props;
     return (
       <form style={styles.searchFilters}>
+        {<pre>{JSON.stringify(this.state, 0, 2)}</pre>}
+        {/***  DATE D'ECHEANCE  ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("dateEcheance")}
+          >
+            {this.state.activeFilters.dateEcheance ? (
+              <ArrowUp />
+            ) : (
+              <ArrowDown />
+            )}
+            Date d'échéance
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.dateEcheance}
+          >
+            <DateEcheanceField onChange={this.handleChangeDateEcheance} />
+          </SlideDown>
+        </div>
+
         {/***  PERIMETRE D'APPLICATION  ***/}
         <div style={styles.filter} className="field filter">
           <label
@@ -169,7 +299,7 @@ let SearchFilters = class extends React.Component {
           </SlideDown>
         </div>
 
-        {/***  CATEGORIE PARTICULIER ***/}
+        {/***  CATEGORIE PARTICULIERE ***/}
         <div style={styles.filter} className="field filter">
           <label
             style={styles.label}
@@ -207,18 +337,32 @@ const validate = values => {
   return errors;
 };
 */
-
 SearchFilters = reduxForm({
   // a unique name for the form
   form: "searchFilters"
 })(SearchFilters);
 
-/*
-SearchFilters = connect(state => {
+function mapDispatchToProps(dispatch) {
   return {
-    formValues: state.form.searchFilters ? state.form.searchFilters.values : {}
+    change: (form, field, value) => {
+      dispatch(change(form, field, value));
+    }
   };
-})(SearchFilters);
-*/
+}
+
+function mapStateToProps(state) {
+  if (state.form.searchFilters && state.form.searchFilters.values) {
+    return {
+      // les filtres sélectionnés par l'utilisateur pour sa recherche
+      // ainsi que les données de périmètre qui ont été enregistré
+      // par le moteur de recherche pas territoire
+      filters: state.form.searchFilters.values
+    };
+  }
+  // éviter une erreur pour cause de filters undefined
+  return { filters: {} };
+}
+
+SearchFilters = connect(mapDispatchToProps)(SearchFilters);
 
 export default SearchFilters;

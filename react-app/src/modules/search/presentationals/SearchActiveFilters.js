@@ -65,7 +65,7 @@ let SearchActiveFilters = class extends React.Component {
   };
   render() {
     const { classes, filters } = this.props;
-    console.log(filters);
+    console.log("activeFilters", filters);
     return (
       <div className={classes.root}>
         <DeleteAllFilters onClick={this.handleDeleteAllClick} />

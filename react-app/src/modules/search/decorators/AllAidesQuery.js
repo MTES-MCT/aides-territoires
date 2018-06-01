@@ -54,9 +54,13 @@ class allAidesQuery extends Component {
 export default compose(
   graphql(query, {
     options: ({ filters }) => {
+      const queryFilters = { ...filters };
+
+      delete queryFilters.dateEcheanceMois;
+      console.log(queryFilters);
       return {
         variables: {
-          filters
+          filters: queryFilters
         }
       };
     }

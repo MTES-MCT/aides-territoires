@@ -167,6 +167,9 @@ module.exports = {
             },
             codeDepartement: {
               type: GraphQLString
+            },
+            dateEcheance: {
+              type: GraphQLString
             }
           }
         })
