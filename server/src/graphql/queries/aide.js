@@ -270,7 +270,8 @@ module.exports = {
       }
     },
     resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
-      return getAides(filters, sort);
+      const showUnpublished = true;
+      return getAides(filters, sort, showUnpublished);
     }
   }
 };

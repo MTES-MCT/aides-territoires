@@ -29,6 +29,12 @@ let SearchActiveFilters = class extends React.Component {
     // {type:["autre","financement"],etape:["pre_operationnel"]}
     filters: PropTypes.object
   };
+  filtersStringToExclude = [
+    "typePerimetreInitialDeRecherche",
+    "codePerimetreInitialDeRecherche",
+    "statusPublication",
+    "codePerimetreInitialDeRecherche"
+  ];
   /**
    * Désactivé le filtre cliqué
    * @param {string} fieldId
@@ -46,17 +52,9 @@ let SearchActiveFilters = class extends React.Component {
       this.props.change("searchFilters", fieldId, newFilterValue);
     }
   };
-  handleRequestDelete = (fieldId, filterValue) => {
+  handleRequestDelete = fieldId => {
     const currentFilters = this.props.filters;
-    if (currentFilters[fieldId]) {
-      let newFilterValue = currentFilters[fieldId].filter(value => {
-        return value !== filterValue;
-      });
-      if (newFilterValue.length === 0) {
-        newFilterValue = null;
-      }
-      this.props.change("searchFilters", fieldId, newFilterValue);
-    }
+    this.props.change("searchFilters", fieldId, null);
   };
   /**
    * Remettre à zéro tous les filtres activés par l'utilisateur
@@ -66,24 +64,30 @@ let SearchActiveFilters = class extends React.Component {
     this.props.reset();
   };
   render() {
-    const { classes, filters, onRequestDelete, onRequestReset } = this.props;
+    const { classes, filters } = this.props;
+    console.log(filters);
     return (
       <div className={classes.root}>
         <DeleteAllFilters onClick={this.handleDeleteAllClick} />
         <span className={classes.chips}>
           {Object.keys(filters).map(filterId => {
-            if (!filters[filterId]) return null;
-            /*
-            if (typeof filters[filterId] === "string") {
-              <ChipFilterString
-                key={filterId}
-                filterId={filterId}
-                label={filters[filterId]}
-                onRequestDelete={this.handleRequestDelete}
-              />;
+            // POUR LES FILTRES DE TYPE STRING
+            if (
+              typeof filters[filterId] === "string" &&
+              !this.filtersStringToExclude.includes(filterId)
+            ) {
+              return (
+                <Chip
+                  key={filterId}
+                  style={{ margin: 4 }}
+                  backgroundColor={blue300}
+                  onRequestDelete={() => this.handleRequestDelete(filterId)}
+                >
+                  {filters[filterId]}
+                </Chip>
+              );
             }
-            */
-            // affichage des filtres pour les checboxs, une Chip par valeur
+            // POUR LES FILTRES DE TYPE ARRAY
             if (filters[filterId].constructor === Array) {
               {
                 return filters[filterId].map(filterValue => (

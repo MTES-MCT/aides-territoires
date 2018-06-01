@@ -337,7 +337,7 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   return await getAides(newFilters);
 };
 
-const getAides = (filters = {}, sort = {}) => {
+const getAides = (filters = {}, sort = {}, showUnpublished = false) => {
   // convert all array to mongoose $in syntax
   // example : {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
   for (filter in filters) {
@@ -347,6 +347,10 @@ const getAides = (filters = {}, sort = {}) => {
   }
   if (filters.motsCles) {
     filters.motsCles = { $regex: filters.motsCles, $options: "i" };
+  }
+  // * only show published aides by default
+  if (showUnpublished === false) {
+    filters.statusPublication = "published";
   }
   //  { "authors": /Alex/i },
   const query = AideModel.find(filters);
