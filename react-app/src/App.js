@@ -12,7 +12,7 @@ import AideCreatePage from "./modules/admin/pages/AideCreatePage";
 import AideEditPage from "./modules/admin/pages/AideEditPage";
 import AideListPage from "./modules/admin/pages/AideListPage";
 
-class App extends Component {
+class App extends React.PureComponent {
   render() {
     return (
       <ApolloProvider client={apolloClient}>

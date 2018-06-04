@@ -337,23 +337,49 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   return await getAides(newFilters);
 };
 
-const getAides = (filters = {}, sort = {}, showUnpublished = false) => {
-  // convert all array to mongoose $in syntax
-  // example : {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
+const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {
+  const filters = { ...queryFilters };
+  const or = [];
+  // convert ['operationnel', 'pre_operationnel', 'fonctionnement']
+  // to {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
   for (filter in filters) {
     if (Array.isArray(filters[filter])) {
       filters[filter] = { $in: filters[filter] };
     }
   }
+
+  //  { "authors": /Alex/i },
   if (filters.motsCles) {
     filters.motsCles = { $regex: filters.motsCles, $options: "i" };
   }
+
   // * only show published aides by default
   if (showUnpublished === false) {
     filters.statusPublication = "published";
   }
-  //  { "authors": /Alex/i },
+
+  // convert dateEchance to mongodb filter
+  // convert {dateEcheance:{lte:"Mon Jan 01 2018 00:00:00 GMT+0100"}} to
+  // { dateEcheance: { $lte: "Mon Jan 01 2018 00:00:00 GMT+0100" } },
+  // or([
+  // { dateEcheance: null },
+  // { dateEcheance: { $exists: false } }
+  // ])
+  if (filters.dateEcheance) {
+    or.push({
+      dateEcheance: {
+        ["$" + filters.dateEcheance.operator]: filters.dateEcheance.value
+      }
+    });
+    // on veut aussi les dates nulles ou non-existantes
+    or.push({ dateEcheance: null });
+    or.push({ dateEcheance: { $exists: false } });
+  }
+  // remove dateEchance graphQL filter
+  delete filters.dateEcheance;
+
   const query = AideModel.find(filters);
+  query.or(or);
   query.sort(sort);
   return query;
 };

@@ -24,7 +24,6 @@ export default function searchFiltersReducer(state = {}, action) {
               : null
         }
       };
-      console.log(newState);
       return newState;
     default:
       return state;

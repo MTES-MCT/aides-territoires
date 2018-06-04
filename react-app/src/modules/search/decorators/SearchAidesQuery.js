@@ -68,10 +68,15 @@ const query = gql`
 export default compose(
   graphql(query, {
     options: ({ filters }) => {
-      filters = cleanSearchFilters(filters);
+      let variableFilters = { ...filters };
+      variableFilters = cleanSearchFilters(variableFilters);
+      // ces champs sont concaténés pour créer le champ dateEcheance,
+      // on ne veut pas les envoyer en tant que filtres
+      delete variableFilters.dateEcheanceMonth;
+      delete variableFilters.dateEcheanceYear;
       return {
         variables: {
-          filters
+          filters: variableFilters
         }
       };
     }

@@ -13,6 +13,8 @@ const {
   GraphQLEnumType,
   GraphQLNonNull
 } = require("graphql");
+
+const { GraphQLDate } = require("graphql-iso-date");
 const { searchAides, getAides, getAide } = require("../../services/aide");
 
 const searchAideGeoApiDataType = new GraphQLInputObjectType({
@@ -167,16 +169,27 @@ module.exports = {
             },
             codeDepartement: {
               type: GraphQLString
-            } /*
+            },
             dateEcheance: {
               type: new GraphQLInputObjectType({
                 name: "rechercheAidesDateEcheance",
                 fields: {
-                  $lte: GraphQLString
+                  operator: {
+                    type: new GraphQLEnumType({
+                      name: "rechercheAidesDateEcheanceOperator",
+                      values: {
+                        eq: { value: "eq" },
+                        lt: { value: "lt" },
+                        gt: { value: "gt" },
+                        lte: { value: "lte" },
+                        gte: { value: "gte" }
+                      }
+                    })
+                  },
+                  value: { type: GraphQLString }
                 }
               })
             }
-            */
           }
         })
       }
@@ -272,9 +285,6 @@ module.exports = {
               type: GraphQLBoolean
             },
             motsCles: {
-              type: GraphQLString
-            },
-            dateEcheanceAnteriorTo: {
               type: GraphQLString
             }
           }
