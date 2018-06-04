@@ -1,6 +1,6 @@
 import React from "react";
 import Chip from "material-ui/Chip";
-import { blue300 } from "material-ui/styles/colors";
+import { blue300, green300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
 import { getLabelFromEnumValue, getEnumName } from "modules/enums";
 import FlatButton from "material-ui/FlatButton";
@@ -33,7 +33,9 @@ let SearchActiveFilters = class extends React.Component {
     "typePerimetreInitialDeRecherche",
     "codePerimetreInitialDeRecherche",
     "statusPublication",
-    "codePerimetreInitialDeRecherche"
+    "codePerimetreInitialDeRecherche",
+    "dateEcheanceMonth",
+    "dateEcheanceYear"
   ];
   /**
    * Désactivé le filtre cliqué
@@ -56,6 +58,11 @@ let SearchActiveFilters = class extends React.Component {
     const currentFilters = this.props.filters;
     this.props.change("searchFilters", fieldId, null);
   };
+  handleRequestDeleteDateEcheance = fieldId => {
+    const currentFilters = this.props.filters;
+    this.props.change("searchFilters", "dateEcheanceMonth", null);
+    this.props.change("searchFilters", "dateEcheanceYear", null);
+  };
   /**
    * Remettre à zéro tous les filtres activés par l'utilisateur
    */
@@ -65,12 +72,25 @@ let SearchActiveFilters = class extends React.Component {
   };
   render() {
     const { classes, filters } = this.props;
-    console.log("activeFilters", filters);
     return (
       <div className={classes.root}>
         <DeleteAllFilters onClick={this.handleDeleteAllClick} />
         <span className={classes.chips}>
           {Object.keys(filters).map(filterId => {
+            if (filterId === "dateEcheance") {
+              return (
+                <Chip
+                  key={filterId}
+                  style={{ margin: 4 }}
+                  backgroundColor={green300}
+                  onRequestDelete={() =>
+                    this.handleRequestDeleteDateEcheance(filterId)
+                  }
+                >
+                  Avant le {filters[filterId].format("LL")}
+                </Chip>
+              );
+            }
             // POUR LES FILTRES DE TYPE STRING
             if (
               typeof filters[filterId] === "string" &&

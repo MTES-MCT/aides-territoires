@@ -167,10 +167,16 @@ module.exports = {
             },
             codeDepartement: {
               type: GraphQLString
-            },
+            } /*
             dateEcheance: {
-              type: GraphQLString
+              type: new GraphQLInputObjectType({
+                name: "rechercheAidesDateEcheance",
+                fields: {
+                  $lte: GraphQLString
+                }
+              })
             }
+            */
           }
         })
       }
@@ -267,6 +273,9 @@ module.exports = {
             },
             motsCles: {
               type: GraphQLString
+            },
+            dateEcheanceAnteriorTo: {
+              type: GraphQLString
             }
           }
         })
@@ -274,7 +283,15 @@ module.exports = {
     },
     resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
       const showUnpublished = true;
-      return getAides(filters, sort, showUnpublished);
+      /*
+      filters = {
+        dateEcheance: { $lte: new Date(2018, 12, 31) }
+      };
+      */
+      console.log(new Date());
+      const aides = await getAides(filters, sort, showUnpublished);
+      //console.log(JSON.stringify(aides, 0, 2));
+      return aides;
     }
   }
 };

@@ -52,31 +52,29 @@ const DateEcheanceField = class extends React.Component {
     2029,
     2030
   ];
-  buildDate = (year, month) => {
-    const date = new Date(this.state.year, this.state.month);
-    return date;
-  };
-  handleChangeMonth = event => {
-    this.setState({ month: event.target.value }, state => {
-      if (this.state.year && this.state.month) {
-        this.props.onChange(this.buildDate());
-      }
-    });
-  };
-  handleChangeYear = event => {
-    this.setState({ year: event.target.value }, state => {
-      if (this.state.year && this.state.month) {
-        if (this.state.year && this.state.month) {
-          this.props.onChange(this.buildDate());
-        }
-      }
-    });
-  };
   render() {
     return (
       <div>
-        <pre>{JSON.stringify(this.state)}</pre>
-        {/* Mois */}
+        <Field name="dateEcheanceMonth" component="select">
+          <option />
+          {moment.months().map((month, index) => (
+            <option value={index + 1} key={month}>
+              {month}
+            </option>
+          ))}
+        </Field>
+
+        <Field name="dateEcheanceYear" component="select">
+          <option />
+          {this.yearsArray.map(year => {
+            return (
+              <option value={year} key={year}>
+                {year}
+              </option>
+            );
+          })}
+        </Field>
+        {/*
         <div className="field">
           <label className="label">Mois</label>
           <div className="control">
@@ -96,7 +94,6 @@ const DateEcheanceField = class extends React.Component {
           </div>
         </div>
 
-        {/* Année */}
         <div className="field">
           <label className="label">Année</label>
           <div className="control">
@@ -114,6 +111,7 @@ const DateEcheanceField = class extends React.Component {
             </div>
           </div>
         </div>
+        */}
       </div>
     );
   }
@@ -147,14 +145,9 @@ let SearchFilters = class extends React.Component {
       activeFilters: newFilters
     });
   };
-  handleChangeDateEcheance = date => {
-    this.props.change("searchFilters", "dateEcheance", date);
-  };
   render() {
-    // const { handleSubmit, pristine, reset, submitting } = props;
     return (
       <form style={styles.searchFilters}>
-        {<pre>{JSON.stringify(this.state, 0, 2)}</pre>}
         {/***  DATE D'ECHEANCE  ***/}
         <div style={styles.filter} className="field filter">
           <label

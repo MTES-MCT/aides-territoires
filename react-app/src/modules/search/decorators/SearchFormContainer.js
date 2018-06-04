@@ -1,6 +1,6 @@
 import React from "react";
 import SearchForm from "../presentationals/SearchForm";
-import { isPostalCode } from "../../../services/searchLib";
+import { isPostalCode } from "../lib/search";
 import { change } from "redux-form";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";

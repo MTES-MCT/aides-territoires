@@ -10,7 +10,7 @@ import Sticky from "react-stickynode";
 import injectSheet from "react-jss";
 import classnames from "classnames";
 import SearchAidesQuery from "modules/search/decorators/SearchAidesQuery";
-import { cleanSearchFilters } from "../../../services/searchLib";
+import { cleanSearchFilters } from "../lib/search";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
 

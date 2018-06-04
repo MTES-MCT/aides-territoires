@@ -6,7 +6,7 @@ import { change } from "redux-form";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import injectSheet from "react-jss";
-import { buildUrlParamsFromFilters } from "../../../services/searchLib";
+import { buildUrlParamsFromFilters } from "../lib/search";
 
 const styles = {
   title: {

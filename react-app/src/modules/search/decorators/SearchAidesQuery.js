@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import AppLoader from "modules/ui-kit/AppLoader";
 import PropTypes from "prop-types";
 import GraphQLError from "modules/ui-kit/GraphQLError";
-import { cleanSearchFilters } from "../../../services/searchLib";
+import { cleanSearchFilters } from "../lib/search";
 import queryString from "qs";
 
 class SearchAideQuery extends Component {
