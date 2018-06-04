@@ -20,7 +20,7 @@ export default function searchFiltersReducer(state = {}, action) {
               ? moment({
                   year: state.values.dateEcheanceYear,
                   month: state.values.dateEcheanceMonth
-                })
+                }).endOf("month")
               : null
         }
       };

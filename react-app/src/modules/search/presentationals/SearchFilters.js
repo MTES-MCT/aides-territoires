@@ -63,7 +63,7 @@ const DateEcheanceField = class extends React.Component {
                     <select {...props.input}>
                       <option>Sélectionnez le mois</option>
                       {moment.months().map((month, index) => (
-                        <option value={index + 1} key={month}>
+                        <option value={index} key={month}>
                           {month}
                         </option>
                       ))}
