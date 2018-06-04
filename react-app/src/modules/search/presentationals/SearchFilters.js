@@ -34,9 +34,6 @@ const DateEcheanceField = class extends React.Component {
     year: "",
     date: ""
   };
-  static propTypes = {
-    onChange: PropTypes.func.isRequired
-  };
   yearsArray = [
     2018,
     2019,
@@ -55,63 +52,50 @@ const DateEcheanceField = class extends React.Component {
   render() {
     return (
       <div>
-        <Field name="dateEcheanceMonth" component="select">
-          <option />
-          {moment.months().map((month, index) => (
-            <option value={index + 1} key={month}>
-              {month}
-            </option>
-          ))}
-        </Field>
-
-        <Field name="dateEcheanceYear" component="select">
-          <option />
-          {this.yearsArray.map(year => {
+        <Field
+          name="dateEcheanceMonth"
+          component={props => {
             return (
-              <option value={year} key={year}>
-                {year}
-              </option>
+              <div className="field">
+                {/*<label className="label">Mois</label>*/}
+                <div className="control">
+                  <div className="select">
+                    <select {...props.input}>
+                      <option>Sélectionnez le mois</option>
+                      {moment.months().map((month, index) => (
+                        <option value={index + 1} key={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
             );
-          })}
-        </Field>
-        {/*
-        <div className="field">
-          <label className="label">Mois</label>
-          <div className="control">
-            <div className="select">
-              <select
-                value={this.state.month}
-                onChange={this.handleChangeMonth}
-              >
-                <option>Sélectionnez le mois</option>
-                {moment.months().map((month, index) => (
-                  <option value={index + 1} key={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Année</label>
-          <div className="control">
-            <div className="select">
-              <select value={this.state.year} onChange={this.handleChangeYear}>
-                <option>Sélectionnez l'année</option>
-                {this.yearsArray.map(year => {
-                  return (
-                    <option value={year} key={year}>
-                      {year}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </div>
-        </div>
-        */}
+          }}
+        />
+        <Field
+          name="dateEcheanceYear"
+          component={props => {
+            return (
+              <div className="field">
+                {/*<label className="label">Année</label>*/}
+                <div className="control">
+                  <div className="select">
+                    <select {...props.input}>
+                      <option>Sélectionnez l'année</option>
+                      {this.yearsArray.map(year => (
+                        <option value={year} key={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        />
       </div>
     );
   }

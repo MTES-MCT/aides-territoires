@@ -7,7 +7,10 @@ export default class Select extends Component {
     const attributes = {};
     // ajout de l'attribut multiple sur le select
     // si la classe is-multiple est présente
-    if (this.props.className.indexOf("is-multiple") !== -1) {
+    if (
+      this.props.className &&
+      this.props.className.indexOf("is-multiple") !== -1
+    ) {
       attributes.multiple = true;
     }
     return (
