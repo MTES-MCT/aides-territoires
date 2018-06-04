@@ -365,6 +365,7 @@ const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {
   // { dateEcheance: null },
   // { dateEcheance: { $exists: false } }
   // ])
+  console.log(filters.dateEcheance);
   if (filters.dateEcheance) {
     or.push({
       dateEcheance: {
@@ -379,7 +380,9 @@ const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {
   delete filters.dateEcheance;
 
   const query = AideModel.find(filters);
-  query.or(or);
+  if (or.length > 0) {
+    query.or(or);
+  }
   query.sort(sort);
   return query;
 };
