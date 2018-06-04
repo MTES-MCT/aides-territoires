@@ -1,6 +1,6 @@
 import React from "react";
 import Chip from "material-ui/Chip";
-import { blue300, lightGreen300 } from "material-ui/styles/colors";
+import { blue300 } from "material-ui/styles/colors";
 import PropTypes from "prop-types";
 import { getLabelFromEnumValue, getEnumName } from "modules/enums";
 import FlatButton from "material-ui/FlatButton";
@@ -82,7 +82,7 @@ let SearchActiveFilters = class extends React.Component {
                 <Chip
                   key={filterId}
                   style={{ margin: 4 }}
-                  backgroundColor={lightGreen300}
+                  backgroundColor={blue300}
                   onRequestDelete={() =>
                     this.handleRequestDeleteDateEcheance(filterId)
                   }

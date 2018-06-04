@@ -51,7 +51,7 @@ const DateEcheanceField = class extends React.Component {
   ];
   render() {
     return (
-      <div style={{ paddingLeft: "20px" }}>
+      <div style={{ paddingLeft: "40px" }}>
         <Field
           name="dateEcheanceMonth"
           component={props => {
