@@ -51,7 +51,7 @@ const DateEcheanceField = class extends React.Component {
   ];
   render() {
     return (
-      <div>
+      <div style={{ paddingLeft: "20px" }}>
         <Field
           name="dateEcheanceMonth"
           component={props => {
@@ -61,7 +61,7 @@ const DateEcheanceField = class extends React.Component {
                 <div className="control">
                   <div className="select">
                     <select {...props.input}>
-                      <option>Sélectionnez le mois</option>
+                      <option value="">Sélectionnez le mois</option>
                       {moment.months().map((month, index) => (
                         <option value={index} key={month}>
                           {month}
@@ -83,7 +83,7 @@ const DateEcheanceField = class extends React.Component {
                 <div className="control">
                   <div className="select">
                     <select {...props.input}>
-                      <option>Sélectionnez l'année</option>
+                      <option value="">Sélectionnez l'année</option>
                       {this.yearsArray.map(year => (
                         <option value={year} key={year}>
                           {year}

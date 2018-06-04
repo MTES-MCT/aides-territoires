@@ -336,7 +336,8 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   }
 
   // console.log(JSON.stringify(newFilters, 0, 2));
-  return await getAides(newFilters);
+  const sort = [["dateEcheance", -1]];
+  return await getAides(newFilters, sort);
 };
 
 const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {

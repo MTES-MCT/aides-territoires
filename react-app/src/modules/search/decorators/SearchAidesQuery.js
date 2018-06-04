@@ -75,12 +75,12 @@ export default compose(
       // filter by dat echeance
       if (newFilters.dateEcheance) {
         newFilters.dateEcheance = {
-          operator: "lte",
+          operator: "gte",
           value: newFilters.dateEcheance
         };
-        delete newFilters.dateEcheanceMonth;
-        delete newFilters.dateEcheanceYear;
       }
+      delete newFilters.dateEcheanceMonth;
+      delete newFilters.dateEcheanceYear;
       return {
         variables: {
           filters: newFilters

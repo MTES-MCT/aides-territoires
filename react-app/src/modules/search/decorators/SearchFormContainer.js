@@ -181,6 +181,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SearchFormContainer
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchFormContainer);
