@@ -324,9 +324,11 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
     newFilters.perimetreApplicationCode = code;
     delete newFilters.codePerimetreInitialDeRecherche;
   }
-  // enlever la localisation sur par code si ce
-  // n'est n'est pas explicitement demandé
-  if (code === null) {
+
+  // si on a d'abord affiché des aides localisées (présence de "codePerimetreInitialDeRecherche")
+  // alors il n faut afficher ensuite QUE les aides qui ne sont pas localisées (perimetreApplicationCode vide),
+  // sinon la même aide apparaitra à la fois en localisée et en non localisées
+  if (code === null && filters.codePerimetreInitialDeRecherche) {
     delete newFilters.codePerimetreInitialDeRecherche;
     // s'assurer qu'on ne récupère que les aides qui s'appliquent partout
     // (et pas uniquement sur un territoire particulier), lorsque le code est null
