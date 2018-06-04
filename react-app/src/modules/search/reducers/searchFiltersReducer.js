@@ -18,7 +18,7 @@ export default function searchFiltersReducer(state = {}, action) {
             state.values.dateEcheanceYear &&
             state.values.dateEcheanceMonth
               ? moment({
-                  year: state.values.dateEchanceYear,
+                  year: state.values.dateEcheanceYear,
                   month: state.values.dateEcheanceMonth
                 })
               : null
