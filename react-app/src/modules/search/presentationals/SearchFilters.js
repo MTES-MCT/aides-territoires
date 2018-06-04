@@ -340,6 +340,9 @@ function mapStateToProps(state) {
   return { filters: {} };
 }
 
-SearchFilters = connect(mapDispatchToProps)(SearchFilters);
+SearchFilters = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchFilters);
 
 export default SearchFilters;

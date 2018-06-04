@@ -87,7 +87,7 @@ let SearchActiveFilters = class extends React.Component {
                     this.handleRequestDeleteDateEcheance(filterId)
                   }
                 >
-                  Avant le {filters[filterId].format("LL")}
+                  Date d'échéance : {filters[filterId].format("LLLL")}
                 </Chip>
               );
             }
@@ -163,6 +163,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SearchActiveFilters
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchActiveFilters);
