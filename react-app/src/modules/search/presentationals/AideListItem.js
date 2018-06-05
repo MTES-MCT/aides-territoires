@@ -96,7 +96,8 @@ let AidePerimetre = ({ classes, aide }) => (
       "aide",
       "perimetreApplicationType",
       aide.perimetreApplicationType
-    )}
+    )}{" "}
+    {aide.perimetreApplicationNom}
   </span>
 );
 AidePerimetre = injectSheet({
