@@ -13,6 +13,12 @@ import {
 
 const SUGGESTIONS_LIMIT = 5;
 
+// 01 : Guadeloupe
+// 02 : Martinique
+// 04 : La Réunion
+// 06 : Mayotte
+const codesGeoAPIOutreMer = ["01", "02", "03", "04", "05", "06"];
+
 class SearchFormContainer extends React.Component {
   static propTypes = {
     onSearchSubmit: PropTypes.string.isRequired
@@ -72,12 +78,15 @@ class SearchFormContainer extends React.Component {
       promises.push(
         getDepartementsByName(text).then(result => {
           const departements = result.data;
-          const suggestions = departements.map(function(departement) {
-            return {
-              texte: `${departement.nom} (département)`,
-              typePerimetreInitialDeRecherche: "departement",
-              codePerimetreInitialDeRecherche: departement.code
-            };
+          const suggestions = [];
+          departements.forEach(departement => {
+            if (!codesGeoAPIOutreMer.includes(departement.codeRegion)) {
+              suggestions.push({
+                texte: `${departement.nom} (département)`,
+                typePerimetreInitialDeRecherche: "departement",
+                codePerimetreInitialDeRecherche: departement.code
+              });
+            }
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
         })

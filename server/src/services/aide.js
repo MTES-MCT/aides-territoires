@@ -6,7 +6,7 @@ const axios = require("axios");
 // 02 : Martinique
 // 04 : La Réunion
 // 06 : Mayotte
-const codesGeoAPIOutreMer = ["01", "02", "04", "05"];
+const codesGeoAPIOutreMer = ["01", "02", "03", "04", "05", "06"];
 
 const getAide = id => {
   return AideModel.findById(id);
