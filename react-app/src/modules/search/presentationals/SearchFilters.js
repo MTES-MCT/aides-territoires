@@ -154,31 +154,6 @@ let SearchFilters = class extends React.Component {
           </SlideDown>
         </div>
 
-        {/***  PERIMETRE D'APPLICATION  ***/}
-        <div style={styles.filter} className="field filter">
-          <label
-            style={styles.label}
-            className="label"
-            onClick={() => this.handleLabelClick("perimetreApplicationType")}
-          >
-            {this.state.activeFilters.perimetreApplicationType ? (
-              <ArrowUp />
-            ) : (
-              <ArrowDown />
-            )}
-            Échelle
-          </label>
-          <SlideDown
-            maxHeight={400}
-            show={this.state.activeFilters.perimetreApplicationType}
-          >
-            <CheckboxGroup
-              name="perimetreApplicationType"
-              options={enums.perimetreApplicationType.values}
-            />
-          </SlideDown>
-        </div>
-
         {/*** TYPE D'AIDE ***/}
         <div style={styles.filter} className="field filter">
           <label
@@ -297,6 +272,31 @@ let SearchFilters = class extends React.Component {
             <CheckboxGroup
               name="categorieParticuliere"
               options={enums.categorieParticuliere.values}
+            />
+          </SlideDown>
+        </div>
+
+        {/***  PERIMETRE D'APPLICATION  ***/}
+        <div style={styles.filter} className="field filter">
+          <label
+            style={styles.label}
+            className="label"
+            onClick={() => this.handleLabelClick("perimetreApplicationType")}
+          >
+            {this.state.activeFilters.perimetreApplicationType ? (
+              <ArrowUp />
+            ) : (
+              <ArrowDown />
+            )}
+            Échelle
+          </label>
+          <SlideDown
+            maxHeight={400}
+            show={this.state.activeFilters.perimetreApplicationType}
+          >
+            <CheckboxGroup
+              name="perimetreApplicationType"
+              options={enums.perimetreApplicationType.values}
             />
           </SlideDown>
         </div>
