@@ -8,7 +8,7 @@ const { buildSchema, GraphQLSchema } = require("graphql");
 const mongoose = require("mongoose");
 const logger = require("./services/logger");
 const ipfilter = require("express-ipfilter").IpFilter;
-mongoose.set("debug", true);
+// mongoose.set("debug", true);
 
 connectToMongodb()
   .then(() => {

@@ -2,6 +2,12 @@
 const AideModel = require("../mongoose/Aide");
 const axios = require("axios");
 
+// 01 : Guadeloupe
+// 02 : Martinique
+// 04 : La Réunion
+// 06 : Mayotte
+const codesGeoAPIOutreMer = ["01", "02", "04", "05"];
+
 const getAide = id => {
   return AideModel.findById(id);
 };
@@ -245,14 +251,22 @@ const searchAides = async (filters, sort) => {
       aides: aides
     });
   }
-  aides = await getAllAidesByTerritoire("outre_mer", filters);
-  if (aides.length > 0) {
-    GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
-      count: Object.keys(aides).length,
-      type: "outre_mer",
-      label: "Outre mer",
-      aides: aides
-    });
+
+  // Ne pas afficher si on on est en train de chercher pour une région de métropole !
+  if (
+    !filters.codePerimetreInitialDeRecherche ||
+    (filters.codePerimetreInitialDeRecherche &&
+      codesGeoAPIOutreMer.includes(filters.codePerimetreInitialDeRecherche))
+  ) {
+    aides = await getAllAidesByTerritoire("outre_mer", filters);
+    if (aides.length > 0) {
+      GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
+        count: Object.keys(aides).length,
+        type: "outre_mer",
+        label: "Outre mer",
+        aides: aides
+      });
+    }
   }
 
   if (aides.length > 0) {
