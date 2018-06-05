@@ -37,6 +37,19 @@ let SearchActiveFilters = class extends React.Component {
     "dateEcheanceMonth",
     "dateEcheanceYear"
   ];
+  // filtres supprimés quand on clique sur "effacer tout"
+  filtersToReset = [
+    "categorieParticuliere",
+    "dateEcheance",
+    "dateEcheanceMonth",
+    "dateEcheanceYear",
+    "categorieParticuliere",
+    "destination",
+    "formeDeDiffusion",
+    "perimetreApplicationType",
+    "thematiques",
+    "type"
+  ];
   /**
    * Désactivé le filtre cliqué
    * @param {string} fieldId
@@ -79,8 +92,11 @@ let SearchActiveFilters = class extends React.Component {
    * Remettre à zéro tous les filtres activés par l'utilisateur
    */
   handleDeleteAllClick = () => {
-    // remet à zéro le formulaire des filtres de recherche via le store
-    this.props.reset();
+    // on ne veut pas effacer le territoire actuel de recherche
+    // donc on n'efface seulement les filtres indiqués dans notre liste blanche
+    this.filtersToReset.map(filterId => {
+      this.props.change("searchFilters", filterId, null);
+    });
   };
   render() {
     const { classes, filters } = this.props;

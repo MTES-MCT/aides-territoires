@@ -27,7 +27,7 @@ class SearchPage extends React.Component {
   render() {
     if (Object.keys(this.state.filters).length > 0) {
       const params = buildUrlParamsFromFilters(this.state.filters);
-      return <Redirect push to={`/aides?${params}`} />;
+      return <Redirect push to={`/aides`} />;
     }
     return (
       <Layout>
@@ -56,5 +56,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-SearchPage = connect(mapStateToProps, mapDispatchToProps)(SearchPage);
+SearchPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPage);
 export default injectSheet(styles)(SearchPage);
