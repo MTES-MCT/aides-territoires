@@ -55,6 +55,10 @@ let SearchActiveFilters = class extends React.Component {
     }
   };
   handleRequestDelete = fieldId => {
+    if (fieldId === "texte") {
+      delete this.props.filters.codePerimetreInitialDeRecherche;
+      delete this.props.filters.typePerimetreInitialDeRecherche;
+    }
     const currentFilters = this.props.filters;
     this.props.change("searchFilters", fieldId, null);
   };
