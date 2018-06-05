@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 import allEnums from "modules/enums";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { blue300, indigo100 } from "material-ui/styles/colors";
+import HelpIcon from "material-ui/svg-icons/action/help";
+import InjectSheet from "react-jss";
 import "moment/locale/fr";
 moment.locale("fr");
 
@@ -22,82 +25,10 @@ const styles = {
     padding: "1rem"
   },
   label: {
+    position: "relative",
     paddingBottom: "0.5 rem",
     cursor: "pointer",
     textTransform: "uppercase"
-  }
-};
-
-const DateEcheanceField = class extends React.Component {
-  state = {
-    month: "",
-    year: "",
-    date: ""
-  };
-  yearsArray = [
-    2018,
-    2019,
-    2020,
-    2021,
-    2022,
-    2023,
-    2024,
-    2025,
-    2026,
-    2027,
-    2028,
-    2029,
-    2030
-  ];
-  render() {
-    return (
-      <div style={{ paddingLeft: "40px" }}>
-        <Field
-          name="dateEcheanceMonth"
-          component={props => {
-            return (
-              <div className="field">
-                {/*<label className="label">Mois</label>*/}
-                <div className="control">
-                  <div className="select">
-                    <select {...props.input}>
-                      <option value="">Sélectionnez le mois</option>
-                      {moment.months().map((month, index) => (
-                        <option value={index} key={month}>
-                          {month}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        />
-        <Field
-          name="dateEcheanceYear"
-          component={props => {
-            return (
-              <div className="field">
-                {/*<label className="label">Année</label>*/}
-                <div className="control">
-                  <div className="select">
-                    <select {...props.input}>
-                      <option value="">Sélectionnez l'année</option>
-                      {this.yearsArray.map(year => (
-                        <option value={year} key={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        />
-      </div>
-    );
   }
 };
 
@@ -305,6 +236,95 @@ let SearchFilters = class extends React.Component {
   }
 };
 
+const DateEcheanceField = class extends React.Component {
+  state = {
+    month: "",
+    year: "",
+    date: ""
+  };
+  yearsArray = [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ];
+  render() {
+    return (
+      <div style={{ paddingLeft: "40px" }}>
+        <Field
+          name="dateEcheanceMonth"
+          component={props => {
+            return (
+              <div className="field">
+                {/*<label className="label">Mois</label>*/}
+                <div className="control">
+                  <div className="select">
+                    <select {...props.input}>
+                      <option value="">Sélectionnez le mois</option>
+                      {moment.months().map((month, index) => (
+                        <option value={index} key={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        />
+        <Field
+          name="dateEcheanceYear"
+          component={props => {
+            return (
+              <div className="field">
+                {/*<label className="label">Année</label>*/}
+                <div className="control">
+                  <div className="select">
+                    <select {...props.input}>
+                      <option value="">Sélectionnez l'année</option>
+                      {this.yearsArray.map(year => (
+                        <option value={year} key={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        />
+      </div>
+    );
+  }
+};
+
+let Help = ({ classes, text }) => (
+  <div
+    className={`${classes.root} tooltip is-tooltip-bottom is-tooltip-multiline`}
+    data-tooltip={text}
+  >
+    <HelpIcon color={blue300} />
+  </div>
+);
+Help = InjectSheet({
+  root: {
+    position: "absolute",
+    right: 0,
+    top: "3px",
+    color: "blue"
+  }
+})(Help);
 /*
 const validate = values => {
   const errors = {};

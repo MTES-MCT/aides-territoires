@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "../presentationals/Navigation";
 import "bulma/css/bulma.css";
+import "bulma-tooltip/dist/bulma-tooltip.min.css";
 import "./Layout.css";
 
 export default class DefaultLayout extends React.PureComponent {
