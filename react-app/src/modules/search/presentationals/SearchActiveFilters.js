@@ -56,8 +56,16 @@ let SearchActiveFilters = class extends React.Component {
   };
   handleRequestDelete = fieldId => {
     if (fieldId === "texte") {
-      delete this.props.filters.codePerimetreInitialDeRecherche;
-      delete this.props.filters.typePerimetreInitialDeRecherche;
+      // effacer le perimetre et type initial de recherche si il existe
+      // et qu'on est en train d'effacer le filtre "texte"
+      // Sinon les résultats sont encore filtrées sur la base de ces filtres
+      // alors que l'utilisateur aura bien effacé un filtre qui dit "Commune 44000" (par ex)
+      if (this.props.filters.codePerimetreInitialDeRecherche) {
+        delete this.props.filters.codePerimetreInitialDeRecherche;
+      }
+      if (this.props.filters.typePerimetreInitialDeRecherche) {
+        delete this.props.filters.typePerimetreInitialDeRecherche;
+      }
     }
     const currentFilters = this.props.filters;
     this.props.change("searchFilters", fieldId, null);
