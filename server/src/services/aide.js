@@ -335,14 +335,28 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
     newFilters.perimetreApplicationCode = "";
   }
 
-  // console.log(JSON.stringify(newFilters, 0, 2));
-  const sort = [["dateEcheance", -1]];
-  return await getAides(newFilters, sort);
+  const sort = [["dateEcheance", 1]];
+  const aides = await getAides(newFilters, sort, false, false);
+  // on met les "null" ou "undefined" après les aides qui ont une date
+  // d'échéance renseignée
+  aides.sort(function(a, b) {
+    if (a.dateEcheance && !b.dateEcheance) {
+      return -1;
+    }
+    return 1;
+  });
+  return aides;
 };
 
-const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {
+const getAides = (
+  queryFilters = {},
+  sort = {},
+  showUnpublished = false,
+  showExpired = true
+) => {
   const filters = { ...queryFilters };
-  const or = [];
+  // contiendra nos différents groupes de "or"
+  const $and = [];
   // convert ['operationnel', 'pre_operationnel', 'fonctionnement']
   // to {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
   for (filter in filters) {
@@ -368,25 +382,47 @@ const getAides = (queryFilters = {}, sort = {}, showUnpublished = false) => {
   // { dateEcheance: null },
   // { dateEcheance: { $exists: false } }
   // ])
-  console.log(filters.dateEcheance);
+  const orDateEcheance = [];
   if (filters.dateEcheance) {
-    or.push({
+    orDateEcheance.push({
       dateEcheance: {
         ["$" + filters.dateEcheance.operator]: filters.dateEcheance.value
       }
     });
     // on veut aussi les dates nulles ou non-existantes
-    or.push({ dateEcheance: null });
-    or.push({ dateEcheance: { $exists: false } });
+    orDateEcheance.push({ dateEcheance: null });
+    orDateEcheance.push({ dateEcheance: { $exists: false } });
+    // on récupère aussi les aides avec une date undefined (dans le doute)
+    // orDateEcheance.push({ dateEcheance: { $type: 6 } });
   }
-  // remove dateEchance graphQL filter
+  // remove dateEchance sent by graphQL filter
   delete filters.dateEcheance;
 
   const query = AideModel.find(filters);
-  if (or.length > 0) {
-    query.or(or);
-  }
   query.sort(sort);
+  // ne montrer que les aides dont la date de fin est supérieur à la date d'échéance
+  // demandée par l'utilisateur. Autrement dit, ne montrer que les aides encore
+  // existante à cette date.
+  if (orDateEcheance.length > 0) {
+    $and.push({ ["$or"]: orDateEcheance });
+  }
+  if (showExpired === false) {
+    //ne pas afficher les aides qui sont expirées
+    $and.push({
+      ["$or"]: [
+        { dateEcheance: { ["$gte"]: new Date() } },
+        // il faut faire attentation à ne pas virer les aides avec les dates null, undefined
+        // ou avec une clef non-définnies
+        { dateEcheance: null },
+        { dateEcheance: { $exists: false } }
+        // on récupère aussi les aides avec une date undefined (dans le doute)
+        // { dateEcheance: { $type: 6 } }
+      ]
+    });
+  }
+  if ($and.length > 0) {
+    query.and($and);
+  }
   return query;
 };
 
