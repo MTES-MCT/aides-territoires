@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 /**
  * Display details about encountered GraphQLErrors from react-apollo
@@ -7,6 +8,7 @@ import React from "react";
  * @param {Object} error : this.props.data.error
  */
 const GraphQLError = error => {
+  console.log(error);
   let networkErrorMessage = "";
   let errorMessage = error.error.message;
   if (error.error.networkError && error.error.networkError.result) {

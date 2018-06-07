@@ -6,25 +6,25 @@ import headerBackground from "../../images/header-5.png";
 
 const Header = ({ classes, title, subtitle, callToActionText }) => {
   return (
-    <BrowserRouter>
-      <header className={classes.header} id="aides-territoires">
-        <div className={classes.headerOverlay}>
-          <h1 className={classes.title}>{title}</h1>
-          <h2 className={classes.subtitle}>{subtitle}</h2>
+    <header className={classes.header} id="aides-territoires">
+      <div className={classes.headerOverlay}>
+        <h1 className={classes.title}>{title}</h1>
+        <h2 className={classes.subtitle}>{subtitle}</h2>
+        {callToActionText && (
           <div className="button is-large is-primary">
             <Link className={classes.button} to="/recherche">
               {callToActionText}
             </Link>
           </div>
-        </div>
-      </header>
-    </BrowserRouter>
+        )}
+      </div>
+    </header>
   );
 };
 
 Header.propTypes = {
   title: PropTypes.string,
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   callToActionText: PropTypes.string
 };
 

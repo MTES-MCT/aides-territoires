@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import SlideDown from "../components/ui/reactSpring/SlideDown";
 import { purple200 } from "material-ui/styles/colors";
+import { withInfo } from "@storybook/addon-info";
 
 const links = [
   {
@@ -19,18 +20,21 @@ const links = [
   }
 ];
 
-storiesOf("reactSpring", module).add("SlideDown", () => (
-  <div>
-    <SlideDown
-      maxHeight={400}
-      show={() => {
-        setTimeout(() => {
-          return true;
-        }, 3000);
-        return false;
-      }}
-    >
-      <div style={{ height: "400px", background: purple200 }}>Sliding</div>
-    </SlideDown>
-  </div>
-));
+storiesOf("reactSpring", module).add(
+  "SlideDown",
+  withInfo()(() => (
+    <div>
+      <SlideDown
+        maxHeight={400}
+        show={() => {
+          setTimeout(() => {
+            return true;
+          }, 3000);
+          return false;
+        }}
+      >
+        <div style={{ height: "400px", background: purple200 }}>Sliding</div>
+      </SlideDown>
+    </div>
+  ))
+);

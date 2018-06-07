@@ -6,7 +6,7 @@ export default {
       to: "/"
     },
     {
-      title: "Rechercher un aide",
+      title: "Rechercher une aide",
       to: "/recherche"
     },
     {
