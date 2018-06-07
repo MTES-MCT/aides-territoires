@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ApolloProvider } from "react-apollo";
-import apolloClient from "./services/apolloClient";
+import apolloClient from "./lib/apolloClient";
 import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import HomePage from "./modules/homepage/pages/HomePage";
-import SearchByTerritoirePage from "./modules/search/pages/SearchByTerritoirePage";
-import SearchAidePage from "./modules/search/pages/SearchAidePage";
-import AideCreatePage from "./modules/admin/pages/AideCreatePage";
-import AideEditPage from "./modules/admin/pages/AideEditPage";
-import AideListPage from "./modules/admin/pages/AideListPage";
+import HomePage from "./components/homepage/Homepage";
+import SearchByTerritoirePage from "./components/search/SearchByTerritoirePage";
+import SearchAidePage from "./components/search/SearchAidePage";
+import AdminAideCreatePage from "./components/admin/AdminAideCreatePage";
+import AdminAideEditPage from "./components/admin/AdminAideEditPage";
+import AdminAideListPage from "./components/admin/AdminAideListPage";
 
 class App extends React.PureComponent {
   render() {
@@ -28,10 +28,22 @@ class App extends React.PureComponent {
                     component={SearchByTerritoirePage}
                   />
                   <Route exact path="/aides" component={SearchAidePage} />
-                  <Route exact path="/admin" component={AideListPage} />
-                  <Route exact path="/aide/create" component={AideCreatePage} />
-                  <Route exact path="/aide/list" component={AideListPage} />
-                  <Route exact path="/aide/:id/edit" component={AideEditPage} />
+                  <Route exact path="/admin" component={AdminAideListPage} />
+                  <Route
+                    exact
+                    path="/aide/create"
+                    component={AdminAideCreatePage}
+                  />
+                  <Route
+                    exact
+                    path="/aide/list"
+                    component={AdminAideListPage}
+                  />
+                  <Route
+                    exact
+                    path="/aide/:id/edit"
+                    component={AdminAideEditPage}
+                  />
                   <Route component={() => <div>Oups ! Page non trouvée</div>} />
                 </Switch>
               </div>
