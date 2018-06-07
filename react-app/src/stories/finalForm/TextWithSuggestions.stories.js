@@ -17,7 +17,6 @@ storiesOf("Final form", module).add("TextWithSuggestions", () => (
           label="code territoire"
           component={Text}
           className="is-large"
-          disabled={false}
           autocompleteCallback={getDepartementsByName}
         />
       </form>
