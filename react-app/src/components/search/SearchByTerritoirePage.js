@@ -8,12 +8,6 @@ import classnames from "classnames";
 import injectSheet from "react-jss";
 import { buildUrlParamsFromFilters } from "../../lib/search";
 
-const styles = {
-  title: {
-    paddingBottom: "3rem"
-  }
-};
-
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +38,12 @@ class SearchPage extends React.Component {
   }
 }
 
+const styles = {
+  title: {
+    paddingBottom: "3rem"
+  }
+};
+
 function mapStateToProps() {
   return {};
 }
@@ -60,4 +60,5 @@ SearchPage = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SearchPage);
+
 export default injectSheet(styles)(SearchPage);
