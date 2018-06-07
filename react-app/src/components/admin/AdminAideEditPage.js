@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../../layouts/AdminLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import AideForm from "./AdminAideForm";
 import AppLoader from "../ui/AppLoader";
 import { graphql, compose } from "react-apollo";

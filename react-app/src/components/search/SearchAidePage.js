@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../../layouts/Layout";
+import Layout from "../layouts/Layout";
 import SearchFilters from "./SearchFilters";
 import SearchActiveFilters from "./SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";

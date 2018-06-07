@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../../layouts/Layout";
+import Layout from "../layouts/Layout";
 import SearchFormContainer from "./SearchFormContainer";
 import { Redirect } from "react-router-dom";
 import { change } from "redux-form";
