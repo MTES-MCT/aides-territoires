@@ -1,9 +1,10 @@
 import React from "react";
-import AppNavigation from "../ui/AppNavigation";
+import Navigation from "../ui/bulma/Navigation";
 import AdminSideMenu from "../admin/AdminSideMenu";
 import injectSheet from "react-jss";
 import classnames from "classnames";
 import "bulma/css/bulma.css";
+import withConfig from "../decorators/withConfig";
 
 const styles = {
   column: {
@@ -26,7 +27,7 @@ class DefaultLayout extends React.Component {
     return (
       <div className="AdminLayout">
         <div className={classes.appMainMenu}>
-          <AppNavigation />
+          <Navigation links={this.props.config.navigationLinks} />
         </div>
         <div className="columns">
           <div
@@ -47,4 +48,4 @@ class DefaultLayout extends React.Component {
   }
 }
 
-export default injectSheet(styles)(DefaultLayout);
+export default injectSheet(styles)(withConfig(DefaultLayout));

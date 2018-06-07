@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Benefices extends React.Component {
+export default class HomepageBenefices extends React.Component {
   render() {
     return (
       <section id="benefices" className="section ">

@@ -4,6 +4,7 @@ import "./AppLoader.css";
 const AppLoader = ({ children }) => {
   return (
     <div className="lds-roller-wraper">
+      {children && <div className="lds-roller-message">{children}</div>}
       <div className="lds-roller">
         <div />
         <div />

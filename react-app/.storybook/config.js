@@ -1,7 +1,7 @@
 import { configure } from "@storybook/react";
 import "bulma/css/bulma.css";
 
-const req = require.context("../src", true, /Stories\.js$/);
+const req = require.context("../src/stories", true, /stories\.js$/);
 function loadStories() {
   req.keys().forEach(req);
 }

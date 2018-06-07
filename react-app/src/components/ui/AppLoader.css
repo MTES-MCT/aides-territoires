@@ -1,11 +1,17 @@
 .lds-roller-wraper {
   text-align: center;
   position: relative;
+  padding: 1rem;
+}
+
+.lds-roller-message {
+  text-align: center;
+  background: none;
+  padding: 1rem;
 }
 
 .lds-roller {
   display: inline-block;
-  position: absolute;
   width: 64px;
   height: 64px;
   margin: auto;

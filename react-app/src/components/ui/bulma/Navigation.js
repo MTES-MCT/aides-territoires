@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./Logo";
+import LogoAidesTerritoires from "../brand/LogoAidesTerritoires";
+import PropTypes from "prop-types";
 
-class AppNavigation extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mobileMenuIsActive: false
-    };
-  }
+class Navigation extends React.PureComponent {
+  state = {
+    mobileMenuIsActive: false
+  };
+  static propTypes = {
+    links: PropTypes.arrayOf(
+      PropTypes.shape({
+        to: PropTypes.string,
+        title: PropTypes.string
+      }).isRequired
+    )
+  };
   handleClick = () => {
     this.setState({
       mobileMenuIsActive: !this.state.mobileMenuIsActive
@@ -24,7 +30,7 @@ class AppNavigation extends React.PureComponent {
       <nav className="navbar app-main-menu" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
-            <Logo />
+            <LogoAidesTerritoires />
           </Link>
           <div
             className={
@@ -49,22 +55,13 @@ class AppNavigation extends React.PureComponent {
           id="navMenu "
         >
           <div className="navbar-end">
-            <Link className="navbar-item" onClick={this.handleLinkClick} to="/">
-              Aides-territoires
-            </Link>
-            <Link
-              className="navbar-item"
-              onClick={this.handleLinkClick}
-              to="/recherche"
-            >
-              Rechercher une aide
-            </Link>
-            <a
-              className="navbar-item"
-              href="https://www.aides-territoires.beta.gouv.fr/#contact"
-            >
-              Contact
-            </a>
+            {this.props.links.map(link => {
+              return (
+                <Link className="navbar-item" to={link.to}>
+                  {link.title}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </nav>
@@ -72,4 +69,4 @@ class AppNavigation extends React.PureComponent {
   }
 }
 
-export default AppNavigation;
+export default Navigation;

@@ -1,10 +1,12 @@
 import React from "react";
-import AppNavigation from "../ui/AppNavigation";
+import Navigation from "../ui/bulma/Navigation";
 import "bulma/css/bulma.css";
 import "bulma-tooltip/dist/bulma-tooltip.min.css";
 import "./Layout.css";
+import withConfig from "../decorators/withConfig";
+import LogoAidesTerritoires from "../ui/brand/LogoAidesTerritoires";
 
-export default class DefaultLayout extends React.PureComponent {
+const DefaultLayout = class extends React.PureComponent {
   render() {
     return (
       <div className="default-layout">
@@ -21,9 +23,11 @@ export default class DefaultLayout extends React.PureComponent {
           />
         </Head>
         */}
-        <AppNavigation />
+        <Navigation links={this.props.config.navigationLinks} />
         {this.props.children}
       </div>
     );
   }
-}
+};
+
+export default withConfig(DefaultLayout);
