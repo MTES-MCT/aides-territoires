@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./TextSuggestions.css";
+import injectSheet from "react-jss";
+import classNames from "classnames";
+// import "./TextSuggestions.css";
 
-export default class extends React.Component {
+const TextSuggestions = class extends React.Component {
   static propTypes = {
     onSuggestionClick: PropTypes.func.isRequired,
     suggestions: PropTypes.arrayOf(
@@ -40,13 +42,15 @@ export default class extends React.Component {
     return prevState;
   }
   render() {
-    const { suggestions } = this.props;
+    const { suggestions, classes } = this.props;
     return (
-      <div className="TextSuggestions dropdown is-active">
-        <ul className="suggestionsWrapper">
+      <div className={classes.root}>
+        <ul className={classes.ul}>
           {suggestions.map((suggestion, index) => (
             <li
-              className={this.state.selectedIndex === index ? "active" : ""}
+              className={classNames(classes.li, {
+                [classes.liActive]: this.state.selectedIndex === index
+              })}
               onClick={e => this.props.onSuggestionClick(suggestion)}
               key={index}
             >
@@ -57,4 +61,25 @@ export default class extends React.Component {
       </div>
     );
   }
-}
+};
+
+const styles = {
+  ul: {
+    boxShadow: "0px 0px 40px 0px rgba(0, 0, 0, 0.3);"
+  },
+  li: {
+    borderBottom: "solid silver 1px",
+    borderLeft: "solid silver 1px",
+    borderRight: "solid silver 1px",
+    padding: "1rem",
+    "&:hover": {
+      background: "rgb(240, 240, 240)",
+      cursor: "pointer"
+    }
+  },
+  liActive: {
+    background: "rgba(144, 238, 144, 0.3)"
+  }
+};
+
+export default injectSheet(styles)(TextSuggestions);
