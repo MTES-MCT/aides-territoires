@@ -3,11 +3,17 @@ import PropTypes from "prop-types";
 import "./TextSuggestions.css";
 
 export default class extends React.Component {
+  static propTypes = {
+    onSuggestionClick: PropTypes.func.isRequired,
+    suggestions: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+      })
+    )
+  };
   state = {
     selectedIndex: 0
-  };
-  static propTypes = {
-    onSuggestionClick: PropTypes.func.isRequired
   };
   static getDerivedStateFromProps(nextProps, prevState) {
     const max = nextProps.suggestions.length - 1;

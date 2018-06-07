@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 export default class Select extends Component {
+  static propTypes = {
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.label
+      })
+    )
+  };
   render() {
     const classes = classNames("select", this.props.className);
     const attributes = {};
