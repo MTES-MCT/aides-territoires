@@ -30,7 +30,13 @@ export default class CheckboxGroup extends Component {
       };
       const checked = inputValue.includes(value);
       return (
-        <div key={index} style={styles.checkbox}>
+        <div
+          key={index}
+          style={{
+            display: "block",
+            marginBottom: "1rem"
+          }}
+        >
           <Checkbox
             label={label}
             name={`${name}[${index}]`}
@@ -53,10 +59,3 @@ export default class CheckboxGroup extends Component {
     return <Field {...this.props} type="checkbox" component={this.field} />;
   }
 }
-
-const styles = {
-  checkbox: {
-    display: "block",
-    marginBottom: "1rem"
-  }
-};
