@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import SlideDown from "../components/ui/reactSpring/SlideDown";
+import { purple200 } from "material-ui/styles/colors";
 
 const links = [
   {
@@ -18,17 +19,18 @@ const links = [
   }
 ];
 
-storiesOf("reactSpring", module).add("SlideDown", () => {
-  return class extends React.PureComponent {
-    render() {
-      return (
-        <SlideDown
-          maxHeight={100}
-          show={this.state.activeFilters.formeDeDiffusion}
-        >
-          Hello slide down
-        </SlideDown>
-      );
-    }
-  };
-});
+storiesOf("reactSpring", module).add("SlideDown", () => (
+  <div>
+    <SlideDown
+      maxHeight={400}
+      show={() => {
+        setTimeout(() => {
+          return true;
+        }, 3000);
+        return false;
+      }}
+    >
+      <div style={{ height: "400px", background: purple200 }}>Sliding</div>
+    </SlideDown>
+  </div>
+));

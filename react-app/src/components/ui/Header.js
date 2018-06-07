@@ -1,25 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import headerBackground from "../../images/header-5.png";
 
-const Header = ({ classes, data }) => {
+const Header = ({ classes, title, subtitle, callToActionText }) => {
   return (
-    <header className={classes.header} id="aides-territoires">
-      <div className={classes.headerOverlay}>
-        <h1 className={classes.title}>{data.headertitre}</h1>
-        <h2
-          className={classes.subtitle}
-          dangerouslySetInnerHTML={{ __html: data.header }}
-        />
-        <div className="button is-large is-primary">
-          <Link className={classes.button} to="/recherche">
-            Lancer la recherche
-          </Link>
+    <BrowserRouter>
+      <header className={classes.header} id="aides-territoires">
+        <div className={classes.headerOverlay}>
+          <h1 className={classes.title}>{title}</h1>
+          <h2 className={classes.subtitle}>{subtitle}</h2>
+          <div className="button is-large is-primary">
+            <Link className={classes.button} to="/recherche">
+              {callToActionText}
+            </Link>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </BrowserRouter>
   );
 };
 

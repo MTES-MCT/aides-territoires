@@ -38,13 +38,19 @@ class HomePage extends React.Component {
     });
   }
   render() {
-    const Pagedaccueil = this.state.Pagedaccueil;
+    const content = this.state.Pagedaccueil;
     return (
       <Layout>
-        <Header data={Pagedaccueil} />
-        <CommentCaMarche data={Pagedaccueil} />
-        <Chronophage data={Pagedaccueil} />
-        <Benefices data={Pagedaccueil} />
+        <Header
+          title={content.headertitre}
+          subtitle={
+            <div dangerouslySetInnerHTML={{ __html: content.header }} />
+          }
+          callToActionText={content.headercalltoaction}
+        />
+        <CommentCaMarche data={content} />
+        <Chronophage data={content} />
+        <Benefices data={content} />
       </Layout>
     );
   }
