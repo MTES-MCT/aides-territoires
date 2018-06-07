@@ -57,7 +57,7 @@ class Navigation extends React.PureComponent {
           <div className="navbar-end">
             {this.props.links.map(link => {
               return (
-                <Link className="navbar-item" to={link.to}>
+                <Link key={link.to} className="navbar-item" to={link.to}>
                   {link.title}
                 </Link>
               );
