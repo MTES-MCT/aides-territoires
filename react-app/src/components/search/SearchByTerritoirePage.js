@@ -15,13 +15,13 @@ class SearchPage extends React.Component {
       filters: {}
     };
   }
-  onSearchSubmit = values => {
-    this.setState({ filters: values });
+  handleSubmit = suggestion => {
+    this.setState({ filters: suggestion.value });
   };
   render() {
     if (Object.keys(this.state.filters).length > 0) {
       const params = buildUrlParamsFromFilters(this.state.filters);
-      return <Redirect push to={`/aides`} />;
+      return <Redirect push to={`/aides?${params}`} />;
     }
     return (
       <Layout>
@@ -30,7 +30,7 @@ class SearchPage extends React.Component {
             <h2 className={classnames("title is-2", this.props.classes.title)}>
               Je veux connaître les aides disponibles sur mon territoire :
             </h2>
-            <SearchFormContainer onSearchSubmit={this.onSearchSubmit} />
+            <SearchFormContainer onSubmit={this.handleSubmit} />
           </div>
         </section>
       </Layout>

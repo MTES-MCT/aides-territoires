@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import SearchForm from "./SearchForm";
-import { isPostalCode } from "../../lib/search";
 import { change } from "redux-form";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import SuggestionList from "../ui/SuggestionList";
+import { isPostalCode } from "../../lib/search";
 import {
   getCommunesFromPostalCode,
   getCommunesFromName,
@@ -20,27 +21,49 @@ const SUGGESTIONS_LIMIT = 5;
 const codesGeoAPIOutreMer = ["01", "02", "03", "04", "05", "06"];
 
 class SearchFormContainer extends React.Component {
-  static propTypes = {
-    onSearchSubmit: PropTypes.string.isRequired
+  state = {
+    value: "",
+    suggestions: [],
+    selectedSuggestion: null
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedSuggestion: null,
-      suggestions: [],
-      // searchForm textfield value.
-      text: props.text ? props.text : ""
-    };
-  }
-  static propTypes = {
-    onSearchSubmit: PropTypes.func.isRequired,
-    text: PropTypes.string
+  // ! FIXME suggestions should be returned by graphQL and not computed here.
+  handleSubmit = event => {
+    event.preventDefault();
+    //this.resetSuggestions();
+    console.log(this.state.selectedSuggestion);
+    if (this.state.selectedSuggestion) {
+      this.props.change(
+        "searchFilters",
+        "texte",
+        this.state.selectedSuggestion.label
+      );
+      if (this.state.selectedSuggestion.value.typePerimetreInitialDeRecherche) {
+        this.props.change(
+          "searchFilters",
+          "typePerimetreInitialDeRecherche",
+          this.state.selectedSuggestion.value.typePerimetreInitialDeRecherche
+        );
+      }
+      if (this.state.selectedSuggestion.value.codePerimetreInitialDeRecherche) {
+        this.props.change(
+          "searchFilters",
+          "codePerimetreInitialDeRecherche",
+          this.state.selectedSuggestion.value.codePerimetreInitialDeRecherche
+        );
+      }
+    }
+    if (this.state.selectedSuggestion) {
+      this.props.onSubmit(this.state.selectedSuggestion);
+    } else {
+      alert(
+        "Vous devez sélectionner un territoire depuis la liste déroulante."
+      );
+    }
   };
-  handleSuggestionClick = suggestionData => {
-    this.setState({ selectedSuggestion: suggestionData });
-    this.resetSuggestions();
-  };
-  handleSearchChange = text => {
+  handleChange = event => {
+    const text = event.target.value;
+    this.setState({ value: text });
+
     const promises = [];
     // typing a postal code ?
     // suggest communes corresponding to the postal code
@@ -50,9 +73,13 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
-              typePerimetreInitialDeRecherche: "commune",
-              codePerimetreInitialDeRecherche: commune.code
+              label: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
+              value: {
+                type: "territoire",
+                typePerimetreInitialDeRecherche: "commune",
+                codePerimetreInitialDeRecherche: commune.code,
+                data: commune
+              }
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -66,9 +93,13 @@ class SearchFormContainer extends React.Component {
           const communes = result.data;
           const suggestions = communes.map(function(commune) {
             return {
-              texte: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
-              typePerimetreInitialDeRecherche: "commune",
-              codePerimetreInitialDeRecherche: commune.code
+              label: `${commune.nom} (commune - ${commune.codesPostaux[0]})`,
+              value: {
+                type: "territoire",
+                typePerimetreInitialDeRecherche: "commune",
+                codePerimetreInitialDeRecherche: commune.code,
+                data: commune
+              }
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -82,9 +113,13 @@ class SearchFormContainer extends React.Component {
           departements.forEach(departement => {
             if (!codesGeoAPIOutreMer.includes(departement.codeRegion)) {
               suggestions.push({
-                texte: `${departement.nom} (département)`,
-                typePerimetreInitialDeRecherche: "departement",
-                codePerimetreInitialDeRecherche: departement.code
+                label: `${departement.nom} (département)`,
+                value: {
+                  type: "territoire",
+                  typePerimetreInitialDeRecherche: "departement",
+                  codePerimetreInitialDeRecherche: departement.code,
+                  data: departement
+                }
               });
             }
           });
@@ -97,9 +132,13 @@ class SearchFormContainer extends React.Component {
           const regions = result.data;
           const suggestions = regions.map(function(region) {
             return {
-              texte: `${region.nom} (Région)`,
-              typePerimetreInitialDeRecherche: "region",
-              codePerimetreInitialDeRecherche: region.code
+              label: `${region.nom} (Région)`,
+              value: {
+                type: "territoire",
+                typePerimetreInitialDeRecherche: "region",
+                codePerimetreInitialDeRecherche: region.code,
+                data: region
+              }
             };
           });
           return suggestions.slice(0, SUGGESTIONS_LIMIT);
@@ -113,41 +152,11 @@ class SearchFormContainer extends React.Component {
       promisesResults.map(function(result) {
         suggestions = [...suggestions, ...result];
       });
+      // remove existing suggestions
       this.resetSuggestions();
+      // add new suggestions
       this.addSuggestions(suggestions);
     });
-  };
-  handleSearchSubmit = text => {
-    this.resetSuggestions();
-    if (this.state.selectedSuggestion) {
-      this.props.change(
-        "searchFilters",
-        "texte",
-        this.state.selectedSuggestion.texte
-      );
-      if (this.state.selectedSuggestion.typePerimetreInitialDeRecherche) {
-        this.props.change(
-          "searchFilters",
-          "typePerimetreInitialDeRecherche",
-          this.state.selectedSuggestion.typePerimetreInitialDeRecherche
-        );
-      }
-      if (this.state.selectedSuggestion.codePerimetreInitialDeRecherche) {
-        this.props.change(
-          "searchFilters",
-          "codePerimetreInitialDeRecherche",
-          this.state.selectedSuggestion.codePerimetreInitialDeRecherche
-        );
-      }
-    }
-    if (this.state.selectedSuggestion) {
-      this.props.onSearchSubmit(this.state.selectedSuggestion);
-    } else {
-      alert(
-        "Vous devez sélectionner un territoire depuis la liste déroulante."
-      );
-      // this.props.onSearchSubmit(text);
-    }
   };
   resetSuggestions() {
     this.setState({
@@ -162,21 +171,40 @@ class SearchFormContainer extends React.Component {
       suggestions: [...this.state.suggestions, ...newSuggestions]
     });
   }
+  handleClickSuggestion = suggestion => {
+    this.setState({
+      selectedSuggestion: suggestion,
+      value: suggestion.label
+    });
+    if (this.props.onClick) {
+      this.props.onClick(suggestion);
+    }
+    this.resetSuggestions();
+  };
   render() {
     return (
-      <div className="search-form-container">
+      <div>
         <SearchForm
-          {...this.props}
-          text={this.state.text}
+          value={this.state.value}
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          placeholder={
+            "Entrez un code postal, une ville, un département ou une région"
+          }
+        />
+        <SuggestionList
+          onClick={this.handleClickSuggestion}
           suggestions={this.state.suggestions}
-          onSearchSubmit={this.handleSearchSubmit}
-          onSearchChange={this.handleSearchChange}
-          onSuggestionClick={this.handleSuggestionClick}
         />
       </div>
     );
   }
 }
+
+SearchFormContainer.propTypes = {
+  onClick: PropTypes.func,
+  onSubmit: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {};
