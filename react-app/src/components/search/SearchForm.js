@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 /**
- * Ce composant est entièrement controlé par le parent, qui doit lui implémenter
- * onChange pour faire un setState de la valeur et la lui repasser en props.
+ * Ce composant est entièrement controlé par le parent, qui maintient
+ * l'état de la variable value et la repasse en props à ce composant.
  *
- * Cela permet d'implémenter plus facilement la liste de suggestion
+ * Cela permet d'implémenter plus facilement la liste de suggestion et de se
+ * passer d'une implémentation de getDerivedStateFromProps dans ce composant.
  * @param {*} param0
  */
 const SearchForm = ({ onChange, onSubmit, value, placeholder = "" }) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layouts/Layout";
-import SearchFormContainer from "./SearchFormContainer";
+import SearchFormWithSuggestions from "./SearchFormWithSuggestions";
 import { Redirect } from "react-router-dom";
 import { change } from "redux-form";
 import { connect } from "react-redux";
@@ -35,7 +35,7 @@ class SearchPage extends React.Component {
             >
               Je veux connaître les aides disponibles sur mon territoire :
             </h2>
-            <SearchFormContainer onSubmit={this.handleSubmit} />
+            <SearchFormWithSuggestions onSubmit={this.handleSubmit} />
           </div>
         </section>
       </Layout>
