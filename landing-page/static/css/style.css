@@ -46,8 +46,11 @@ header .subtitle strong {
 }
 
 /* MENU */
-.app-main-menu .navbar-brand img {
+.app-main-menu .navbar-brand img#logo-aides-territoires {
   max-height: 50px;
+}
+.app-main-menu .navbar-brand img#logo-fabrique-numerique {
+  max-height: 80px;
 }
 
 /* HEADER */

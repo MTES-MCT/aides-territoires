@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import LogoFabNum from "./LogoFabNum";
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Navigation extends React.Component {
           <Link href="/#aides-territoires">
             <a className="navbar-item">
               <Logo />
+              <LogoFabNum />
             </a>
           </Link>
           <div
