@@ -30,7 +30,10 @@ class SearchFormAidesTerritoires extends React.Component {
       this.props.onSubmit(this.state.selectedSuggestion);
     }
   };
-  handleChange = text => {
+  handleChange = event => {
+    const text = event.target.value;
+    this.setState({ value: text });
+
     const promises = [];
     // typing a postal code ?
     // suggest communes corresponding to the postal code
