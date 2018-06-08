@@ -4,7 +4,7 @@ const LogoFabNum = props => {
   return (
     <img
       id="logo-fabrique-numerique"
-      style={{ paddingLeft: "1rem", height: "200px" }}
+      style={{ paddingLeft: "1rem" }}
       {...props}
       alt="logo fabrique numérique"
       src={"../../static/images/logo-fabnum.svg"}

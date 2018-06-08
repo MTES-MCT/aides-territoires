@@ -52,6 +52,14 @@ header .subtitle strong {
 .app-main-menu .navbar-brand img#logo-fabrique-numerique {
   max-height: 80px;
 }
+@media screen and (max-width: 800px) {
+  .app-main-menu .navbar-brand img#logo-aides-territoires {
+    max-height: 1.75rem;
+  }
+  .app-main-menu .navbar-brand img#logo-fabrique-numerique {
+    max-height: 1.75rem;
+  }
+}
 
 /* HEADER */
 
