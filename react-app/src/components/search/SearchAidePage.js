@@ -48,15 +48,6 @@ let SearchAidePage = class extends React.Component {
   state = {
     showModal: false
   };
-  constructor(props) {
-    super(props);
-    /*
-    const urlParams = queryString.parse(props.location.search);
-    this.props = {
-      ...urlParams
-    };
-    */
-  }
   handleButtonClick = () => {
     this.setState({
       showModal: true

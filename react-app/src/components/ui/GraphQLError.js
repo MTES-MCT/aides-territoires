@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 /**
  * Display details about encountered GraphQLErrors from react-apollo

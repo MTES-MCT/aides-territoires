@@ -4,7 +4,6 @@ import "bulma/css/bulma.css";
 import "bulma-tooltip/dist/bulma-tooltip.min.css";
 import "./Layout.css";
 import withConfig from "../decorators/withConfig";
-import LogoAidesTerritoires from "../ui/brand/LogoAidesTerritoires";
 
 const DefaultLayout = class extends React.PureComponent {
   render() {

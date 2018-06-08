@@ -1,17 +1,8 @@
 import React from "react";
 import image from "../../../images/logo-fabnum.svg";
-import PropTypes from "prop-types";
 
-const LogoFabNum = ({ width }) => {
-  return <img width={width} alt="logo fabrique numérique" src={image} />;
-};
-
-LogoFabNum.propTypes = {
-  width: PropTypes.string
-};
-
-LogoFabNum.defaultProps = {
-  width: "100px"
+const LogoFabNum = props => {
+  return <img {...props} alt="logo fabrique numérique" src={image} />;
 };
 
 export default LogoFabNum;

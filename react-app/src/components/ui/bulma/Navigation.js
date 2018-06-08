@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LogoAidesTerritoires from "../brand/LogoAidesTerritoires";
+import LogoFabNum from "../brand/LogoFabNum";
 import PropTypes from "prop-types";
+import injectSheet from "react-jss";
 
 class Navigation extends React.PureComponent {
   state = {
@@ -26,11 +28,13 @@ class Navigation extends React.PureComponent {
     });
   };
   render() {
+    const { classes } = this.props;
     return (
       <nav className="navbar app-main-menu" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
-            <LogoAidesTerritoires />
+            <LogoAidesTerritoires className={classes.logoAidesTerritoires} />
+            <LogoFabNum className={classes.logoFabNum} />
           </Link>
           <div
             className={
@@ -56,11 +60,17 @@ class Navigation extends React.PureComponent {
         >
           <div className="navbar-end">
             {this.props.links.map(link => {
-              return (
-                <Link key={link.to} className="navbar-item" to={link.to}>
-                  {link.title}
-                </Link>
-              );
+              {
+                return /^https?:\/\//.test(link.to) ? (
+                  <a class="navbar-item" href={link.to}>
+                    {link.title}
+                  </a>
+                ) : (
+                  <Link key={link.to} className="navbar-item" to={link.to}>
+                    {link.title}
+                  </Link>
+                );
+              }
             })}
           </div>
         </div>
@@ -69,4 +79,13 @@ class Navigation extends React.PureComponent {
   }
 }
 
-export default Navigation;
+export default injectSheet({
+  logoAidesTerritoires: {
+    maxHeight: "50px !important"
+  },
+  // override Bulma max-height img in navigation
+  logoFabNum: {
+    maxHeight: "80px !important",
+    paddingLeft: "2rem"
+  }
+})(Navigation);

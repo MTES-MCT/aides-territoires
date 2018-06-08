@@ -4,7 +4,6 @@
   --primary-color-button: rgb(136, 204, 34);
   --primary-color-button-dark: #6ba01b;
   --primary-color-button-light: #a6e14c;
-  --menu-height: 50px;
   --paragraph-font-size: 24px;
 }
 
@@ -33,10 +32,6 @@ strong {
   font-weight: 400;
 }
 
-.has-navbar-fixed-top {
-  padding-top: var(--menu-height);
-}
-
 /* BUTTONS */
 .button.is-primary {
   background: var(--primary-color-button);
@@ -47,55 +42,9 @@ strong {
   background: var(--primary-color-button-light);
 }
 
-/* MENU */
-.app-main-menu .navbar-brand img {
-  max-height: 50px;
-}
 .page-accueil .container {
   max-width: 1000px;
 }
-
-/* HEADER 
-
-.header {
-  background: url("../images/header-3.png");
-  background-position: bottom;
-  background-size: cover;
-  text-align: center;
-  height: var(--header-height);
-}
-
-.header .hero-body {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-.header .title {
-  color: white;
-  padding-bottom: 1rem;
-  font-size: 45px;
-}
-
-.header .content {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.header .subtitle {
-  color: white;
-  font-weight: 400;
-  font-size: 26px;
-}
-
-
-.header-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-}
-
-.button-lancez-la-recherche,
-.button-lancez-la-recherche:hover {
-  color: white;
-}*/
 
 .app-name {
   color: var(--primary-color-background);

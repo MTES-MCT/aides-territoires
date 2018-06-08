@@ -80,11 +80,9 @@ let SearchActiveFilters = class extends React.Component {
         delete this.props.filters.typePerimetreInitialDeRecherche;
       }
     }
-    const currentFilters = this.props.filters;
     this.props.change("searchFilters", fieldId, null);
   };
   handleRequestDeleteDateEcheance = fieldId => {
-    const currentFilters = this.props.filters;
     this.props.change("searchFilters", "dateEcheanceMonth", null);
     this.props.change("searchFilters", "dateEcheanceYear", null);
   };
@@ -137,21 +135,19 @@ let SearchActiveFilters = class extends React.Component {
             }
             // POUR LES FILTRES DE TYPE ARRAY
             if (filters[filterId].constructor === Array) {
-              {
-                return filters[filterId].map(filterValue => (
-                  <Chip
-                    key={filterId + "-" + filterValue}
-                    style={{ margin: 4 }}
-                    backgroundColor={blue300}
-                    onRequestDelete={() =>
-                      this.handleRequestDeleteCheckbox(filterId, filterValue)
-                    }
-                  >
-                    <em>{getEnumName("aide", filterId)}</em> :{" "}
-                    {getLabelFromEnumValue("aide", filterId, filterValue)}
-                  </Chip>
-                ));
-              }
+              return filters[filterId].map(filterValue => (
+                <Chip
+                  key={filterId + "-" + filterValue}
+                  style={{ margin: 4 }}
+                  backgroundColor={blue300}
+                  onRequestDelete={() =>
+                    this.handleRequestDeleteCheckbox(filterId, filterValue)
+                  }
+                >
+                  <em>{getEnumName("aide", filterId)}</em> :{" "}
+                  {getLabelFromEnumValue("aide", filterId, filterValue)}
+                </Chip>
+              ));
             }
           })}
         </span>
