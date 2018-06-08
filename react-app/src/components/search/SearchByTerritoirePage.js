@@ -26,8 +26,13 @@ class SearchPage extends React.Component {
     return (
       <Layout>
         <section className="section container">
-          <div className="has-text-centered">
-            <h2 className={classnames("title is-2", this.props.classes.title)}>
+          <div>
+            <h2
+              className={classnames(
+                "title is-2 has-text-centered",
+                this.props.classes.title
+              )}
+            >
               Je veux connaître les aides disponibles sur mon territoire :
             </h2>
             <SearchFormContainer onSubmit={this.handleSubmit} />
