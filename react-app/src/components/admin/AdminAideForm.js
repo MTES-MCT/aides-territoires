@@ -3,7 +3,7 @@ import { Form, Field } from "react-final-form";
 import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import Text from "../ui/finalForm/Text";
+import Text from "../ui/finalFormBulma/Text";
 import FormErrors from "../ui/finalFormBulma/FormErrors";
 import TextArea from "../ui/finalFormBulma/TextArea";
 // import DatePicker from "modules/ui-kit/finalForm/DatePicker";

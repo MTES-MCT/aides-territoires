@@ -32,6 +32,12 @@ strong {
   font-weight: 400;
 }
 
+@media screen and (max-width: 800px) {
+  .app-main-menu .navbar-brand img {
+    max-height: 1.75rem !important;
+  }
+}
+
 /* BUTTONS */
 .button.is-primary {
   background: var(--primary-color-button);
