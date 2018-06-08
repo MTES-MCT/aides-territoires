@@ -1,30 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-# INSTALL AND RUN DEV VERSION
+# GETTING STARTED
 
-clone the git repository, then
+Cloner le répertoire puis :
 
 ```
 yarn install
-yarn start
+yarn dev
 ```
 
-See presentationals components in the storybook
+Les composants réutilisables sont dans le storybook
 
 ```
 yarn storybook
+# se rendre sur http://localhost:9009/ pour voir le storybook
 ```
 
-# DEPLOY
+# Build
 
-Create the build with
+Compiler avec
 
 ```
 yarn build
 ```
 
-Deploy on now
-
-```
-yarn deploy
-```
+Il faut ensuite servir le dossier build, avec nginx ou autre.
