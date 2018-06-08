@@ -1,7 +1,7 @@
 import React from "react";
 import { reduxForm, Field, change } from "redux-form";
 import SlideDown from "../ui/reactSpring/SlideDown";
-import CheckboxGroup from "../ui/reduxForm/CheckboxGroup";
+import CheckboxGroup from "../ui/reduxFormMaterialUI/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "../ui/bulma/Icons";
 import { connect } from "react-redux";
 import allEnums from "../../enums";
