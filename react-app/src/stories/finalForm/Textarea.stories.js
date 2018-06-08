@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Form, Field } from "react-final-form";
 
-storiesOf("Final form", module).add("TextArea", () => (
+storiesOf("Final form & Bulma", module).add("TextArea", () => (
   <Form
     onSubmit={() => {
       action("submitted");

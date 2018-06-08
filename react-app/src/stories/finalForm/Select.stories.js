@@ -11,7 +11,7 @@ const options = [
   { label: "option 4", value: "option_4" }
 ];
 
-storiesOf("Final form", module).add("Select", () => (
+storiesOf("Final form & Bulma", module).add("Select", () => (
   <Form
     onSubmit={() => {
       action("submitted");
@@ -29,7 +29,7 @@ storiesOf("Final form", module).add("Select", () => (
   />
 ));
 
-storiesOf("Final form", module).add("Select multiple", () => (
+storiesOf("Final form & Bulma", module).add("Select multiple", () => (
   <Form
     onSubmit={() => {
       action("submitted");

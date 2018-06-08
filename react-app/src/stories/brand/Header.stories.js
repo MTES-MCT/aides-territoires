@@ -1,11 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Header from "../components/ui/Header";
+import Header from "../../components/ui/brand/Header";
 import { withInfo } from "@storybook/addon-info";
 import { BrowserRouter } from "react-router-dom";
 
-storiesOf("Header", module)
+storiesOf("brand", module)
   .addDecorator(story => <BrowserRouter>{story()}</BrowserRouter>)
   .add(
     "Header",

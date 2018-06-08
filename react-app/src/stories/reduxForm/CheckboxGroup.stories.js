@@ -15,7 +15,7 @@ const options = [
   { label: "option 4", value: "option_4" }
 ];
 
-storiesOf("Redux form", module).add("CheckboxGroup", () => {
+storiesOf("Redux form & Material ui", module).add("CheckboxGroup", () => {
   let ExampleForm = () => {
     return (
       <MuiThemeProvider>

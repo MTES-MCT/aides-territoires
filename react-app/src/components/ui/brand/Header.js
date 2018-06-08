@@ -2,7 +2,7 @@ import React from "react";
 import { Link, BrowserRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import headerBackground from "../../images/header-5.png";
+import headerBackground from "../../../images/header-5.png";
 
 const Header = ({ classes, title, subtitle, callToActionText }) => {
   return (

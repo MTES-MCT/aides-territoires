@@ -4,8 +4,5 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { withInfo } from "@storybook/addon-info";
 
-storiesOf("Bulma icons", module).add(
-  "ArrowDown",
-  withInfo()(() => <ArrowDown />)
-);
-storiesOf("Bulma icons", module).add("ArrowUp", withInfo()(() => <ArrowUp />));
+storiesOf("Bulma", module).add("ArrowDown", withInfo()(() => <ArrowDown />));
+storiesOf("Bulma", module).add("ArrowUp", withInfo()(() => <ArrowUp />));

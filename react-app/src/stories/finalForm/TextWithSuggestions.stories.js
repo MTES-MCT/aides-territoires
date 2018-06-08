@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { Form, Field } from "react-final-form";
 import { getDepartementsByName } from "../../lib/geoApi";
 
-storiesOf("Final form", module).add("TextWithSuggestions", () => (
+storiesOf("Final form & Bulma", module).add("TextWithSuggestions", () => (
   <Form
     onSubmit={() => {
       action("submitted");
