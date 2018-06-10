@@ -13,7 +13,7 @@ Les composants réutilisables sont dans le storybook
 
 ```
 yarn storybook
-# se rendre sur http://localhost:9009/ pour voir le storybook
+# se rendre sur http://localhost:9009/ pour voir le storybook.
 ```
 
 # Build
