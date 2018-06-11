@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layouts/Layout";
-import Header from "../ui/brand/Header";
+import Header from "../ui/Header";
 import Benefices from "./HomepageBenefices";
 import CommentCaMarche from "./HomepageCommentCaMarche";
 import Chronophage from "./HomepageChronophage";
