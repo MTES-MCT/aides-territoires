@@ -5,7 +5,7 @@ header :
   callToAction: 
     text: Lancer la recherche
     link:  https://recherche.aides-territoires.beta.gouv.fr
-SectionCommentCaMarche:
+sectionCommentCaMarche:
   title: Comment ça marche
   points:
   - title: Un territoire, un projet
@@ -14,10 +14,10 @@ SectionCommentCaMarche:
     description: Nous vous aidons à identifier les meilleures aides publiques mobilisables
   - title: Du temps gagné
     description: Gagnez du temps sur la recherche des aides pertinentes, au profit de votre projet
-SectionPainPoint: 
+sectionPainPoint: 
   title: 75% des porteurs de projets se plaignent du temps passé à rechercher les aides publiques disponibles et pertinentes pour leurs projets
   question: Vous aussi, vous partagez ce constat ?
-SectionBenefices: 
+sectionBenefices: 
   title: Avec Aides-territoires
   points:
   - Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import ButtonLink from "../ui/ButtonLink";
+import Container from "./Container";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import uiConfig from "../../ui.config";
@@ -16,11 +17,15 @@ const Header = ({
     <header className={classes.header} id="aides-territoires">
       <div className={classes.headerOverlay}>
         <div className={classes.content}>
-          <h1 className={classes.title}>{title}</h1>
-          <h2 className={classes.subtitle}>{subtitle}</h2>
-          {callToActionText && (
-            <ButtonLink href={callToActionLink}>{callToActionText}</ButtonLink>
-          )}
+          <Container>
+            <h1 className={classes.title}>{title}</h1>
+            <h2 className={classes.subtitle}>{subtitle}</h2>
+            {callToActionText && (
+              <ButtonLink href={callToActionLink}>
+                {callToActionText}
+              </ButtonLink>
+            )}
+          </Container>
         </div>
       </div>
     </header>
@@ -35,6 +40,11 @@ Header.propTypes = {
   callToActionLink: PropTypes.string
 };
 
+Header.defaultProps = {
+  callToActionText: null,
+  callToActionLink: null
+};
+
 const styles = {
   header: {
     color: "white",
@@ -45,6 +55,14 @@ const styles = {
     textAlign: "center",
     height: "400px"
   },
+  title: {
+    fontSize: "40px",
+    marginTop: "65px",
+    fontWeight: "700"
+  },
+  subtitle: {
+    marginBottom: "70px"
+  },
   content: {
     padding: "1rem"
   },
@@ -52,8 +70,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
     top: 0,
     left: 0,
     height: "100%",
@@ -61,8 +77,13 @@ const styles = {
     background: "rgba(20, 20, 20, 0.4)"
   },
   [uiConfig.breakpoints.smallScreen]: {
-    content: {
-      fontSize: "14px"
+    title: {
+      marginTop: "20px",
+      fontSize: "25px"
+    },
+    subtitle: {
+      fontSize: "20px",
+      marginBottom: "80px"
     }
   }
   /*

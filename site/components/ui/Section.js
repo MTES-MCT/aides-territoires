@@ -9,10 +9,17 @@ const Section = ({ classes, children }) => {
 
 const styles = {
   root: {
-    padding: "4rem",
+    padding: "8rem 1rem",
     background: ({ type }) => {
       let color = uiConfig.colors.primary;
       if (type === "secondary") {
+        color = uiConfig.colors.secondary;
+      }
+      return color;
+    },
+    color: ({ type }) => {
+      let color = uiConfig.colors.primary;
+      if (type === "primary") {
         color = uiConfig.colors.secondary;
       }
       return color;

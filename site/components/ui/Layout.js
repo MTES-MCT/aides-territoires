@@ -1,5 +1,6 @@
 import React from "react";
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 import Head from "next/head";
 import injectSheet from "react-jss";
 import { meta } from "../../content/_config.md";
@@ -14,14 +15,9 @@ const Layout = ({ children }) => {
       </Head>
       {<Navigation links={meta.navigationLinks} />}
       {children}
+      <Footer />
     </div>
   );
 };
 
-const styles = {
-  "@global": {
-    border: "solid red 1px"
-  }
-};
-
-export default injectSheet(styles)(Layout);
+export default Layout;

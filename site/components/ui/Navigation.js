@@ -24,8 +24,12 @@ let Navigation = class extends React.Component {
     return (
       <div className={classes.root}>
         <div className={classes.regionLogos}>
-          <MenuLogoAidesTerritoires />
-          <MenuLogoFabriqueNumerique />
+          <Link href="/">
+            <a>
+              <MenuLogoAidesTerritoires />
+              <MenuLogoFabriqueNumerique />
+            </a>
+          </Link>
         </div>
         <div className={classes.regionLinks}>
           <MenuRight links={links} />
@@ -80,6 +84,7 @@ MenuRight = InjectSheet({
   a: {
     color: "black",
     textDecoration: "none",
+    borderRadius: "5px",
     padding: "1rem",
     fontSize: "18px",
     "&:hover": {
