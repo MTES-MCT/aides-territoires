@@ -3,7 +3,7 @@ export default {
   colors: {
     dark: "#333",
     light: "white",
-    primary: "#a1d273",
+    primary: "rgb(136, 204, 34)",
     primaryLight: "#a6e14c",
     secondary: "rgb(230, 230, 230)",
     secondaryDark: "rgb(240, 240, 240)"

@@ -22,7 +22,7 @@ const Index = ({ classes }) => {
       <Section>
         <Container>
           <h3 style={{ textAlign: "center", color: uiConfig.colors.primary }}>
-            {meta.sectionCommentCaMarche.title} 
+            {meta.sectionCommentCaMarche.title}
           </h3>
           <Steps steps={meta.sectionCommentCaMarche.steps} />
         </Container>

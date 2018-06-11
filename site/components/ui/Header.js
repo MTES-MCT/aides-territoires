@@ -57,7 +57,7 @@ const styles = {
   },
   title: {
     fontSize: "40px",
-    marginTop: "10px",
+    marginTop: "20px",
     fontWeight: "700"
   },
   subtitle: {
@@ -74,7 +74,7 @@ const styles = {
     left: 0,
     height: "100%",
     width: "100%",
-    background: "rgba(20, 20, 20, 0.4)"
+    background: "rgba(20, 20, 20, 0.45)"
   },
   [uiConfig.breakpoints.smallScreen]: {
     title: {

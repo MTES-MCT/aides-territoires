@@ -30,7 +30,7 @@ const styles = {
     display: "inline-block",
     padding: "1.5rem 1.5rem",
     background: ({ type }) => {
-      let color = uiConfig.colors.primaryLight;
+      let color = uiConfig.colors.primary;
       if (type === "secondary") {
         color = uiConfig.colors.secondary;
       }
@@ -39,7 +39,7 @@ const styles = {
     color: ({ type }) => {
       let color = uiConfig.colors.primary;
       if (type === "primary") {
-        color = uiConfig.colors.secondary;
+        color = uiConfig.colors.light;
       }
       return color;
     }
