@@ -16,7 +16,7 @@ const styles = {
         color = uiConfig.colors.light;
       }
       if (backgroundColor === "primary") {
-        color = uiConfig.colors.primary;
+        color = uiConfig.colors.primaryLight;
       }
       if (backgroundColor === "secondary") {
         color = uiConfig.colors.secondary;

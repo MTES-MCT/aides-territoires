@@ -1,4 +1,5 @@
 import Document, { meta } from "../content/index.md";
+import DocumentContact from "../content/contactez-nous.md";
 import Header from "../components/ui/Header";
 import ButtonLink from "../components/ui/ButtonLink";
 import Section from "../components/ui/Section";
@@ -45,6 +46,15 @@ const Index = ({ classes }) => {
               return <li key={index}>{point}</li>;
             })}
           </ul>
+        </Container>
+      </Section>
+      <Section backgroundColor="primary">
+        <Container>
+          <div id="contact">
+            <div style={{ color: uiConfig.colors.light, textAlign: "center" }}>
+              <DocumentContact />
+            </div>
+          </div>
         </Container>
       </Section>
     </Layout>

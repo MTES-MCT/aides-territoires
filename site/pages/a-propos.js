@@ -22,6 +22,10 @@ const Index = ({ classes }) => {
       <Container>
         <Section>
           <Document1 />
+          <ButtonLink href="/#contact">Contactez nous</ButtonLink>
+          <ButtonLink href="https://docs.google.com/forms/d/e/1FAIpQLSd5dkHPbETqMP35SoTPUCwv96cjKvpBckErkh7pBcUzps-Nnw/viewform">
+            Référencer une aide
+          </ButtonLink>
           <Document2 />
           <div>
             <h3>{metaEquipe.title}</h3>
