@@ -74,15 +74,15 @@ let MenuRight = ({ links, classes }) => (
 );
 MenuRight = InjectSheet({
   linksUl: {
-    margin: 0,
+    marginRight: "1rem",
     padding: 0,
-    paddingTop: "1rem",
     listStyleType: "none",
     display: "flex",
     justifyContent: "space-around"
   },
   a: {
     color: "black",
+    fontWeight: "200",
     textDecoration: "none",
     borderRadius: "5px",
     padding: "1rem",
@@ -120,6 +120,7 @@ let MenuLogoAidesTerritoires = ({ classes }) => {
 };
 MenuLogoAidesTerritoires = InjectSheet({
   image: {
+    padding: "0 1rem",
     height: "50px"
   },
   [uiConfig.breakpoints.smallScreen]: {
@@ -142,8 +143,7 @@ let MenuLogoFabriqueNumerique = ({ classes }) => {
 };
 MenuLogoFabriqueNumerique = InjectSheet({
   image: {
-    width: "50px",
-    paddingLeft: "2rem"
+    width: "50px"
   },
   [uiConfig.breakpoints.smallScreen]: {
     image: {

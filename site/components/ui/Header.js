@@ -57,11 +57,11 @@ const styles = {
   },
   title: {
     fontSize: "40px",
-    marginTop: "65px",
+    marginTop: "10px",
     fontWeight: "700"
   },
   subtitle: {
-    marginBottom: "70px"
+    marginBottom: "60px"
   },
   content: {
     padding: "1rem"
@@ -79,10 +79,10 @@ const styles = {
   [uiConfig.breakpoints.smallScreen]: {
     title: {
       marginTop: "20px",
-      fontSize: "25px"
+      fontSize: "22px"
     },
     subtitle: {
-      fontSize: "20px",
+      fontSize: "18px",
       marginBottom: "80px"
     }
   }

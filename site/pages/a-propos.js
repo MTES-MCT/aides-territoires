@@ -16,9 +16,9 @@ const Index = ({ classes }) => {
         subtitle={meta.header.subtitle}
       />
       <Container>
-        <div style={{ padding: "4rem 0" }}>
+        <Section>
           <Document />
-        </div>
+        </Section>
       </Container>
     </Layout>
   );

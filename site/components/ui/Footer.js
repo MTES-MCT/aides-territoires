@@ -19,7 +19,7 @@ const styles = {
     color: uiConfig.colors.secondary,
     textAlign: "center",
     fontSize: "12px",
-    background: "#333",
+    background: "#444",
     padding: "2rem"
   }
 };

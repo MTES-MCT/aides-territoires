@@ -1,10 +1,12 @@
 export default {
   // interactive elements
   colors: {
+    dark: "#333",
+    light: "white",
     primary: "#a1d273",
     primaryLight: "#a6e14c",
-    secondary: "white",
-    secondaryDark: "rgb(240, 240, 240)",
+    secondary: "rgb(230, 230, 230)",
+    secondaryDark: "rgb(240, 240, 240)"
   },
   breakpoints: {
     smallScreen: "@media (max-width: 1000px)"

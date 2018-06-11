@@ -6,8 +6,8 @@ header :
     text: Lancer la recherche
     link:  https://recherche.aides-territoires.beta.gouv.fr
 sectionCommentCaMarche:
-  title: Comment ça marche
-  points:
+  title: Comment ça marche ?
+  steps:
   - title: Un territoire, un projet
     description: Indiquez-nous où est situé votre projet
   - title: Des aides

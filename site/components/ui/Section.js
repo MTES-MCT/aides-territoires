@@ -9,17 +9,16 @@ const Section = ({ classes, children }) => {
 
 const styles = {
   root: {
-    padding: "8rem 1rem",
-    background: ({ type }) => {
-      let color = uiConfig.colors.primary;
-      if (type === "secondary") {
-        color = uiConfig.colors.secondary;
+    padding: "6rem 1rem",
+    background: ({ backgroundColor }) => {
+      let color = backgroundColor;
+      if (backgroundColor === "default") {
+        color = uiConfig.colors.light;
       }
-      return color;
-    },
-    color: ({ type }) => {
-      let color = uiConfig.colors.primary;
-      if (type === "primary") {
+      if (backgroundColor === "primary") {
+        color = uiConfig.colors.primary;
+      }
+      if (backgroundColor === "secondary") {
         color = uiConfig.colors.secondary;
       }
       return color;
@@ -28,7 +27,11 @@ const styles = {
 };
 
 Section.propTypes = {
-  type: PropTypes.oneOf(["primary", "secondary"])
+  backgroundColor: PropTypes.oneOf(["default", "primary", "secondary"])
+};
+
+Section.defaultProps = {
+  backgroundColor: "default"
 };
 
 export default injectSheet(styles)(Section);

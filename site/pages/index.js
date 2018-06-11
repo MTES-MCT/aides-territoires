@@ -5,6 +5,8 @@ import Section from "../components/ui/Section";
 import backgroundImageUrl from "../static/images/header.png";
 import Layout from "../components/ui/Layout";
 import Container from "../components/ui/Container";
+import Steps from "../components/ui/Steps";
+import uiConfig from "../ui.config";
 import injectSheet from "react-jss";
 
 const Index = ({ classes }) => {
@@ -17,20 +19,30 @@ const Index = ({ classes }) => {
         callToActionText={meta.header.callToAction.text}
         callToActionLink={meta.header.callToAction.link}
       />
-      <Section type="primary">
+      <Section>
         <Container>
-          <div style={{ fontSize: "25px" }}>{meta.sectionPainPoint.title}</div>
-          <div style={{ fontSize: "25px" }}>
-            {meta.sectionPainPoint.question}
-          </div>
+          <h3 style={{ textAlign: "center", color: uiConfig.colors.primary }}>
+            {meta.sectionCommentCaMarche.title} 
+          </h3>
+          <Steps steps={meta.sectionCommentCaMarche.steps} />
         </Container>
       </Section>
-      <Section type="secondary">
+      <Section backgroundColor="primary">
+        <Container>
+          <p style={{ fontSize: "25px", fontWeight: "500" }}>
+            {meta.sectionPainPoint.title}
+          </p>
+          <p style={{ fontSize: "25px", color: "white", fontWeight: "500" }}>
+            {meta.sectionPainPoint.question}
+          </p>
+        </Container>
+      </Section>
+      <Section>
         <Container>
           <div style={{ fontSize: "25px" }}>{meta.sectionBenefices.title}</div>
           <ul style={{ fontSize: "25px" }}>
-            {meta.sectionBenefices.points.map(point => {
-              return <li>{point}</li>;
+            {meta.sectionBenefices.points.map((point, index) => {
+              return <li key={index}>{point}</li>;
             })}
           </ul>
         </Container>
