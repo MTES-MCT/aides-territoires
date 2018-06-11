@@ -24,11 +24,12 @@ ButtonLink.defaultProps = {
 const styles = {
   a: {
     textDecoration: "none",
-    borderRadius: "5px",
+    borderRadius: "3px",
     color: "white",
     fontSize: "24px",
+    fontWeight: "300",
     display: "inline-block",
-    padding: "1.5rem 1.5rem",
+    padding: "1rem 1rem",
     background: ({ type }) => {
       let color = uiConfig.colors.primary;
       if (type === "secondary") {

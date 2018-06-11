@@ -8,10 +8,8 @@ import backgroundImageUrl from "../static/images/header.png";
 import Layout from "../components/ui/Layout";
 import Container from "../components/ui/Container";
 import MemberList from "../components/ui/MemberList";
-import injectSheet from "react-jss";
 
-const Index = ({ classes }) => {
-  console.log(metaEquipe);
+let APropos = ({ classes }) => {
   return (
     <Layout>
       <Header
@@ -22,10 +20,18 @@ const Index = ({ classes }) => {
       <Container>
         <Section>
           <Document1 />
-          <ButtonLink href="/#contact">Contactez nous</ButtonLink>
-          <ButtonLink href="https://docs.google.com/forms/d/e/1FAIpQLSd5dkHPbETqMP35SoTPUCwv96cjKvpBckErkh7pBcUzps-Nnw/viewform">
-            Référencer une aide
-          </ButtonLink>
+          <div
+            style={{
+              padding: "3rem",
+              display: "flex",
+              justifyContent: "space-around"
+            }}
+          >
+            <ButtonLink href="/#contact">Contactez nous</ButtonLink>
+            <ButtonLink href="https://docs.google.com/forms/d/e/1FAIpQLSd5dkHPbETqMP35SoTPUCwv96cjKvpBckErkh7pBcUzps-Nnw/viewform">
+              Référencer une aide
+            </ButtonLink>
+          </div>
           <Document2 />
           <div>
             <h3>{metaEquipe.title}</h3>
@@ -38,4 +44,4 @@ const Index = ({ classes }) => {
   );
 };
 
-export default Index;
+export default APropos;
