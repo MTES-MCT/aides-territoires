@@ -1,6 +1,6 @@
 ---
 navigationLinks:
-- title: Aides Territoires
+- title: Aides-territoires
   to: /
 - title: À propos
   to: /a-propos

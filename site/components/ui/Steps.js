@@ -2,6 +2,7 @@ import React from "react";
 import injectSheet from "react-jss";
 import PropTypes from "prop-types";
 import Container from "../ui/Container";
+import uiConfig from "../../ui.config";
 
 const StepType = PropTypes.shape({
   title: PropTypes.string.isRequired,
@@ -12,7 +13,11 @@ let Steps = ({ classes, children, steps }) => {
   return (
     <div className={classes.root}>
       {steps.map((step, index) => {
-        return <StepItem key={step.title} number={index + 1} step={step} />;
+        return (
+          <div className={classes.step}>
+            <StepItem key={step.title} number={index + 1} step={step} />
+          </div>
+        );
       })}
     </div>
   );
@@ -26,6 +31,15 @@ Steps = injectSheet({
     display: "flex",
     margin: "auto",
     justifyContent: "space-between"
+  },
+  [uiConfig.breakpoints.smallScreen]: {
+    root: {
+      display: "block",
+      textAlign: "center",
+      margin: "auto",
+      width: "100%"
+    },
+    step: {}
   }
 })(Steps);
 
@@ -44,6 +58,7 @@ StepItem.propTypes = {
 StepItem = injectSheet({
   root: {
     textAlign: "center",
+    margin: "auto",
     width: "280px"
   },
   number: {
@@ -54,6 +69,12 @@ StepItem = injectSheet({
     width: "50px",
     height: "45px",
     margin: "auto"
+  },
+  [uiConfig.breakpoints.smallScreen]: {
+    root: {
+      paddingTop: "3rem"
+    },
+    step: {}
   }
 })(StepItem);
 

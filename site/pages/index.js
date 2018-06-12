@@ -47,8 +47,12 @@ const Index = ({ classes }) => {
       </Section>
       <Section>
         <Container>
-          <div style={{ fontSize: "25px" }}>{meta.sectionBenefices.title}</div>
-          <ul style={{ fontSize: "25px" }}>
+          <div
+            style={{ fontSize: "25px", color: uiConfig.colors.primaryLight }}
+          >
+            {meta.sectionBenefices.title}
+          </div>
+          <ul style={{ fontSize: "25px", color: uiConfig.colors.primaryLight }}>
             {meta.sectionBenefices.points.map((point, index) => {
               return <li key={index}>{point}</li>;
             })}
@@ -63,8 +67,7 @@ const Index = ({ classes }) => {
       >
         <p
           style={{
-            fontSize: "20px",
-            fontWeight: "800",
+            fontSize: "25px",
             color: uiConfig.colors.light,
             textAlign: "center"
           }}
