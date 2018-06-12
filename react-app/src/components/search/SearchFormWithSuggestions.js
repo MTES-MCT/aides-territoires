@@ -11,6 +11,8 @@ import {
   getDepartementsByName,
   getRegionsByName
 } from "../../lib/geoApi";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
 const SUGGESTIONS_LIMIT = 5;
 
@@ -24,9 +26,14 @@ class SearchFormContainer extends React.Component {
   state = {
     value: "",
     suggestions: [],
-    selectedSuggestion: null
+    selectedSuggestion: null,
+    showModal: false
   };
   // ! FIXME suggestions should be returned by graphQL and not computed here.
+  handleSubmitAlert = event => {
+    event.preventDefault();
+    this.setState({ showModal: true });
+  };
   handleSubmit = event => {
     event.preventDefault();
     //this.resetSuggestions();
@@ -184,9 +191,30 @@ class SearchFormContainer extends React.Component {
   render() {
     return (
       <div>
+        <Dialog
+          title=""
+          actions={[
+            <FlatButton
+              label="J'ai compris"
+              primary={true}
+              keyboardFocused={true}
+              onClick={this.handleSubmit}
+            />
+          ]}
+          modal={false}
+          open={this.state.showModal}
+          onRequestClose={this.handleClose}
+        >
+          <div className="has-text-centered">
+            La base de données Aides territoires est en construction, toutes les
+            aides disponibles ne sont pas encore référencées dans notre outil,
+            n'hésitez pas à revenir et à vous inscrire à notre newsletter pour
+            vous tenir informés!
+          </div>
+        </Dialog>
         <SearchForm
           value={this.state.value}
-          onSubmit={this.handleSubmit}
+          onSubmit={this.handleSubmitAlert}
           onChange={this.handleChange}
           placeholder={
             "Entrez un code postal, une ville, un département ou une région"
