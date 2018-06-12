@@ -4,7 +4,7 @@ header :
   subtitle: Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'aménagement durable
   callToAction: 
     text: Lancer la recherche
-    link:  https://recherche.aides-territoires.beta.gouv.fr
+    link:  https://recherche.aides-territoires.beta.gouv.fr/recherche
 sectionCommentCaMarche:
   title: Comment ça marche ?
   steps:
