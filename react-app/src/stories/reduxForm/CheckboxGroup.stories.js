@@ -1,5 +1,5 @@
 import React from "react";
-import CheckboxGroup from "../../components/ui/reduxForm/CheckboxGroup";
+import CheckboxGroup from "../../components/ui/reduxFormMaterialUI/CheckboxGroup";
 import { Provider } from "react-redux";
 import store from "../../store";
 import { reduxForm, Field, change } from "redux-form";

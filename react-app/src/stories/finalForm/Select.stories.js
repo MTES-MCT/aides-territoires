@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "../../components/ui/finalForm/Select";
+import Select from "../../components/ui/finalFormBulma/Select";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Form, Field } from "react-final-form";

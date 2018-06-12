@@ -1,5 +1,5 @@
 import React from "react";
-import Number from "../../components/ui/finalForm/Number";
+import Number from "../../components/ui/finalFormBulma/Number";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Form, Field } from "react-final-form";
