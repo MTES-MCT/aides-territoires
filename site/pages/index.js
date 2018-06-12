@@ -9,6 +9,7 @@ import Container from "../components/ui/Container";
 import Steps from "../components/ui/Steps";
 import uiConfig from "../ui.config";
 import injectSheet from "react-jss";
+import SendInBlueInscrivezVous from "../components/ui/SendInBlueInscrivezVous";
 
 const Index = ({ classes }) => {
   return (
@@ -22,7 +23,13 @@ const Index = ({ classes }) => {
       />
       <Section>
         <Container>
-          <h3 style={{ textAlign: "center", color: uiConfig.colors.primary }}>
+          <h3
+            style={{
+              textAlign: "center",
+              color: uiConfig.colors.primary,
+              paddingBottom: "2rem"
+            }}
+          >
             {meta.sectionCommentCaMarche.title}
           </h3>
           <Steps steps={meta.sectionCommentCaMarche.steps} />
@@ -48,10 +55,33 @@ const Index = ({ classes }) => {
           </ul>
         </Container>
       </Section>
-      <Section backgroundColor="primary">
+      <div
+        style={{
+          background: "linear-gradient(#3585A7, #021D58)",
+          paddingTop: "2rem"
+        }}
+      >
+        <p
+          style={{
+            fontSize: "20px",
+            fontWeight: "800",
+            color: uiConfig.colors.light,
+            textAlign: "center"
+          }}
+        >
+          {meta.sendInBlueForm.description}
+        </p>
+        <SendInBlueInscrivezVous />
+      </div>
+      <Section>
         <Container>
           <div id="contact">
-            <div style={{ color: uiConfig.colors.light, textAlign: "center" }}>
+            <div
+              style={{
+                color: uiConfig.colors.dark,
+                textAlign: "center"
+              }}
+            >
               <DocumentContact />
             </div>
           </div>

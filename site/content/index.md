@@ -23,4 +23,6 @@ sectionBenefices:
   - Gagnez du temps dans votre recherche d'aides, de l'accompagnement au financement
   - Ne passez plus à côté des aides qui correspondent à votre projet
   - Bénéficiez d'une sélection pertinente à chaque étape de votre projet
+sendInBlueForm:
+  description: Soyez les premiers informés de l'actualité Aides-territoires, laissez nous votre contact
 ---

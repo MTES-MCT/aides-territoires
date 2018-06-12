@@ -9,7 +9,7 @@ const Section = ({ classes, children }) => {
 
 const styles = {
   root: {
-    padding: "6rem 1rem",
+    padding: "6rem 0rem",
     background: ({ backgroundColor }) => {
       let color = backgroundColor;
       if (backgroundColor === "default") {
