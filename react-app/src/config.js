@@ -3,7 +3,7 @@ export default {
   navigationLinks: [
     {
       title: "Aide-territoires",
-      to: "/"
+      to: "https://www.aides-territoires.beta.gouv.fr"
     },
     {
       title: "Rechercher une aide",
