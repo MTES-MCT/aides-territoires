@@ -5,6 +5,7 @@
   "dependencies": {
     "@storybook/addon-info": "^3.4.6",
     "apollo-client-preset": "^1.0.8",
+    "apollo-link-context": "^1.0.8",
     "axios": "^0.18.0",
     "bulma": "^0.6.2",
     "bulma-tooltip": "^1.0.5",
@@ -16,6 +17,8 @@
     "graphql": "^0.13.2",
     "graphql-request": "^1.5.1",
     "graphql-tag": "^2.9.1",
+    "hoist-non-react-statics": "^2.5.4",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "moment": "^2.22.1",
@@ -54,6 +57,7 @@
     "@storybook/addons": "^3.3.15",
     "@storybook/react": "^3.3.15",
     "babel-core": "^6.26.0",
+    "prettier": "^1.13.5",
     "storybook": "^1.0.0"
   }
 }

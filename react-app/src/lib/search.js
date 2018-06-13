@@ -29,7 +29,7 @@ export const isPostalCode = string => {
  * @param {Object} filters
  */
 export function cleanSearchFilters(filters) {
-  Object.keys(filters).map(filterId => {
+  Object.keys(filters).forEach(filterId => {
     if (filters[filterId] && filters[filterId].length === 0) {
       delete filters[filterId];
     }

@@ -60,7 +60,7 @@ export default class extends React.Component {
         <label className="label">{label}</label>
         <input
           onKeyDown={this.handleInputKeyDown}
-          type="textfield"
+          type="text"
           className={classNames("input", className)}
           // autoComplete={this.props.onSuggestionClick ? "off" : "on"}
           autoComplete="off"

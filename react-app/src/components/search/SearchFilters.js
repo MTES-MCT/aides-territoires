@@ -6,9 +6,9 @@ import { ArrowDown, ArrowUp } from "../ui/bulma/Icons";
 import { connect } from "react-redux";
 import allEnums from "../../enums";
 import moment from "moment";
-import { blue300 } from "material-ui/styles/colors";
-import HelpIcon from "material-ui/svg-icons/action/help";
-import InjectSheet from "react-jss";
+// import { blue300 } from "material-ui/styles/colors";
+// import HelpIcon from "material-ui/svg-icons/action/help";
+// import InjectSheet from "react-jss";
 import "moment/locale/fr";
 moment.locale("fr");
 
@@ -308,22 +308,22 @@ const DateEcheanceField = class extends React.Component {
   }
 };
 
-let Help = ({ classes, text }) => (
-  <div
-    className={`${classes.root} tooltip is-tooltip-bottom is-tooltip-multiline`}
-    data-tooltip={text}
-  >
-    <HelpIcon color={blue300} />
-  </div>
-);
-Help = InjectSheet({
-  root: {
-    position: "absolute",
-    right: 0,
-    top: "3px",
-    color: "blue"
-  }
-})(Help);
+// let Help = ({ classes, text }) => (
+//   <div
+//     className={`${classes.root} tooltip is-tooltip-bottom is-tooltip-multiline`}
+//     data-tooltip={text}
+//   >
+//     <HelpIcon color={blue300} />
+//   </div>
+// );
+// Help = InjectSheet({
+//   root: {
+//     position: "absolute",
+//     right: 0,
+//     top: "3px",
+//     color: "blue"
+//   }
+// })(Help);
 /*
 const validate = values => {
   const errors = {};

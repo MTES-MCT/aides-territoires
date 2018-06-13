@@ -8,6 +8,8 @@ import GraphQLError from "../ui/GraphQLError";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 
+import withUser from "../decorators/withUser";
+
 const AideListPage = class extends React.Component {
   state = {
     // will contain aide we want to delete
@@ -105,6 +107,7 @@ const deleteAideMutation = gql`
 `;
 
 export default compose(
+  withUser({ mandatory: true }),
   graphql(allAidesQuery),
   graphql(deleteAideMutation, { name: "deleteAide" })
 )(AideListPage);

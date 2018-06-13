@@ -16,31 +16,6 @@ module.exports = {
         type: GraphQLID
       }
     },
-    resolve: (_, args, context) => {
-      return {
-        id: "56789YHJKNKL",
-        name: "Yann"
-      };
-    }
-  },
-  users: {
-    type: new GraphQLList(types.User),
-    args: {
-      limit: {
-        type: GraphQLInt
-      }
-    },
-    resolve: (_, args, context) => {
-      return [
-        {
-          id: "56789YHJKNKL",
-          name: "Yann"
-        },
-        {
-          id: "56789YHJKNKl",
-          name: "Samuel"
-        }
-      ];
-    }
+    resolve: (_, args, { user }) => user
   }
 };

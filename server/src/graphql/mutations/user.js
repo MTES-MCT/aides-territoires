@@ -1,5 +1,9 @@
 const types = require("../types");
+const User = require("../../mongoose/User");
+const { getUserByPassword, getJwt } = require("../../services/user");
+
 const {
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
@@ -9,28 +13,32 @@ const {
 } = require("graphql");
 
 module.exports = {
-  saveUser: {
-    type: types.user,
+  login: {
+    type: new GraphQLObjectType({
+      name: "LoginResult",
+      fields: () => ({
+        jwt: {
+          type: new GraphQLNonNull(GraphQLString),
+          description: "The Json Web Token"
+        },
+        user: {
+          type: types.User
+        }
+      })
+    }),
     args: {
-      id: {type: GraphQLString},
-      name: { type: GraphQLString },
-      email: { type: GraphQLString },
-      password: { type: GraphQLString }
+      email: { type: new GraphQLNonNull(GraphQLString) },
+      password: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { from, text }, context) => {
-      // pas d'id : on créer une nouvelle aide
-      let result = null;
-      if (!args.id) {
-        const user = new UserModel(args);
-        result = await user.save();
-      }
-      // un id, on le cherche puis on met à jour si on trouve
-      let user = await UserModel.findById(args.id);
-      if (user) {
-        user = Object.assign(aide, args);
-        result = user.save();
-      }
-      return result;
+    resolve: async (_, { email, password }, context) => {
+      const user = await getUserByPassword(email, password);
+
+      if (!user) throw new Error("Wrong login / password");
+
+      return {
+        jwt: await getJwt(user),
+        user
+      };
     }
   }
 };

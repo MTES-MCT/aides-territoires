@@ -92,7 +92,7 @@ let SearchActiveFilters = class extends React.Component {
   handleDeleteAllClick = () => {
     // on ne veut pas effacer le territoire actuel de recherche
     // donc on n'efface seulement les filtres indiqués dans notre liste blanche
-    this.filtersToReset.map(filterId => {
+    this.filtersToReset.forEach(filterId => {
       this.props.change("searchFilters", filterId, null);
     });
   };
@@ -149,6 +149,8 @@ let SearchActiveFilters = class extends React.Component {
                 </Chip>
               ));
             }
+
+            return null;
           })}
         </span>
       </div>
