@@ -34,7 +34,7 @@ class Navigation extends React.PureComponent {
         <div className="navbar-brand">
           <Link className="navbar-item" to="/#aides-territoires">
             <LogoAidesTerritoires className={classes.logoAidesTerritoires} />
-            <LogoFabNum className={classes.logoFabNum} />
+            <LogoFabNum className={classes.logoFabNum} />{" "}
           </Link>
           <div
             className={
@@ -59,6 +59,9 @@ class Navigation extends React.PureComponent {
           id="navMenu "
         >
           <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="tag is-warning">Version bêta</div>
+            </div>
             {this.props.links.map(link => {
               {
                 return /^https?:\/\//.test(link.to) ? (
@@ -81,11 +84,11 @@ class Navigation extends React.PureComponent {
 
 export default injectSheet({
   logoAidesTerritoires: {
-    maxHeight: "50px !important"
+    maxHeight: "45px !important"
   },
   // override Bulma max-height img in navigation
   logoFabNum: {
     maxHeight: "80px !important",
-    paddingLeft: "2rem"
+    paddingLeft: "1rem"
   }
 })(Navigation);
