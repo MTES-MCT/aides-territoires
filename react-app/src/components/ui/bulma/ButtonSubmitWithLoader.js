@@ -10,15 +10,16 @@ export default class ButtonSubmitWithLoader extends React.Component {
     isLoading: PropTypes.bool.isRequired,
     onClick: PropTypes.func
   };
+
   render() {
+    const { isLoading, ...props } = this.props;
+
     return (
       <button
-        onClick={e => this.props.onClick(e)}
         type="submit"
-        className={`button is-info ${this.props.isLoading ? "is-loading" : ""}`}
-      >
-        {this.props.children}
-      </button>
+        className={`button is-info ${isLoading ? "is-loading" : ""}`}
+        {...props}
+      />
     );
   }
 }

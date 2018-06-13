@@ -12,6 +12,7 @@
     "express-ipfilter": "^0.3.1",
     "graphql": "^0.12.3",
     "graphql-iso-date": "^3.5.0",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.5",
     "mongoose": "^5.0.10",
     "nconf": "^0.10.0",
@@ -21,13 +22,17 @@
     "sib-api-v3-sdk": "^6.0.0",
     "winston": "next"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "prettier": "^1.13.5"
+  },
   "scripts": {
     "dev": "nodemon src/index.js",
     "pm2-dev": "pm2 start ecosystem.config.js --log-date-format \"YYYY-MM-DD HH:mm:ss Z\" --watch",
     "start": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop aides-territoires-server",
-    "restart": "pm2 delete aides-territoires-server && yarn start"
+    "restart": "pm2 delete aides-territoires-server && yarn start",
+    "lint": "eslint src"
   },
   "author": "",
   "license": "ISC"

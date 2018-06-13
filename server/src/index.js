@@ -8,6 +8,7 @@ const { buildSchema, GraphQLSchema } = require("graphql");
 const mongoose = require("mongoose");
 const logger = require("./services/logger");
 const ipfilter = require("express-ipfilter").IpFilter;
+const { getUserFromJwt } = require("./services/user");
 // mongoose.set("debug", true);
 
 connectToMongodb()
@@ -30,7 +31,8 @@ function buildGraphQLSchema() {
       name: "Query",
       fields: {
         ...require("./graphql/queries/hello"),
-        ...require("./graphql/queries/aide")
+        ...require("./graphql/queries/aide"),
+        ...require("./graphql/queries/user")
       }
     }),
     // "mutation" type contains all our mutations types
@@ -38,11 +40,28 @@ function buildGraphQLSchema() {
       name: "Mutation",
       fields: {
         ...require("./graphql/mutations/email"),
-        ...require("./graphql/mutations/aide")
+        ...require("./graphql/mutations/aide"),
+        ...require("./graphql/mutations/user")
       }
     })
   });
   return schema;
+}
+
+function auth() {
+  return async (req, res, next) => {
+    try {
+      if (!req.headers.authorization) return next();
+
+      const [type, jwt] = req.headers.authorization.split(" ");
+      if (type !== "Bearer") return next();
+
+      req.user = await getUserFromJwt(jwt);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 function startExpressServer(schema) {
@@ -51,11 +70,16 @@ function startExpressServer(schema) {
   // to support JSON-encoded bodies
   // app.use(express.json());
 
+  app.use(auth());
+
   app.use(
     "/graphql",
-    graphqlHTTP({
+    graphqlHTTP(req => ({
       schema,
-      rootValue: root,
+      rootValue: {},
+      context: {
+        user: req.user
+      },
       // always display graphiql explorer for now
       graphiql: true,
       formatError: error => {
@@ -68,7 +92,7 @@ function startExpressServer(schema) {
               : null
         };
       }
-    })
+    }))
   );
 
   app.use("/", (req, res) => {

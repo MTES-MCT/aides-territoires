@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { compose } from "react-apollo";
 import LogoAidesTerritoires from "../brand/LogoAidesTerritoires";
 import LogoFabNum from "../brand/LogoFabNum";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
+import withUser from "../../decorators/withUser";
 
 class Navigation extends React.PureComponent {
   state = {
@@ -28,7 +30,7 @@ class Navigation extends React.PureComponent {
     });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     return (
       <nav className="navbar app-main-menu" aria-label="main navigation">
         <div className="navbar-brand">
@@ -63,18 +65,25 @@ class Navigation extends React.PureComponent {
               <div className="tag is-warning">Version bêta</div>
             </div>
             {this.props.links.map(link => {
-              {
-                return /^https?:\/\//.test(link.to) ? (
-                  <a class="navbar-item" href={link.to}>
-                    {link.title}
-                  </a>
-                ) : (
-                  <Link key={link.to} className="navbar-item" to={link.to}>
-                    {link.title}
-                  </Link>
-                );
-              }
+              return /^https?:\/\//.test(link.to) ? (
+                <a key={link.to} className="navbar-item" href={link.to}>
+                  {link.title}
+                </a>
+              ) : (
+                <Link key={link.to} className="navbar-item" to={link.to}>
+                  {link.title}
+                </Link>
+              );
             })}
+            {!!user ? (
+              <Link className="navbar-item" to="/logout">
+                Logout
+              </Link>
+            ) : (
+              <Link className="navbar-item" to="/login">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>
@@ -82,13 +91,16 @@ class Navigation extends React.PureComponent {
   }
 }
 
-export default injectSheet({
-  logoAidesTerritoires: {
-    maxHeight: "45px !important"
-  },
-  // override Bulma max-height img in navigation
-  logoFabNum: {
-    maxHeight: "80px !important",
-    paddingLeft: "1rem"
-  }
-})(Navigation);
+export default compose(
+  withUser(),
+  injectSheet({
+    logoAidesTerritoires: {
+      maxHeight: "45px !important"
+    },
+    // override Bulma max-height img in navigation
+    logoFabNum: {
+      maxHeight: "80px !important",
+      paddingLeft: "1rem"
+    }
+  })
+)(Navigation);

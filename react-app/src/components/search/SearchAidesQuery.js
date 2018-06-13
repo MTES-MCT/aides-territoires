@@ -5,7 +5,6 @@ import AppLoader from "../ui/AppLoader";
 import PropTypes from "prop-types";
 import GraphQLError from "../ui/GraphQLError";
 import { cleanSearchFilters } from "../../lib/search";
-import queryString from "qs";
 
 class SearchAideQuery extends Component {
   static propTypes = {

@@ -11,6 +11,8 @@ import SearchAidePage from "./components/search/SearchAidePage";
 import AdminAideCreatePage from "./components/admin/AdminAideCreatePage";
 import AdminAideEditPage from "./components/admin/AdminAideEditPage";
 import AdminAideListPage from "./components/admin/AdminAideListPage";
+import LoginPage from "./components/auth/LoginPage";
+import LogoutPage from "./components/auth/LogoutPage";
 
 class App extends React.PureComponent {
   render() {
@@ -44,6 +46,8 @@ class App extends React.PureComponent {
                     path="/aide/:id/edit"
                     component={AdminAideEditPage}
                   />
+                  <Route exact path="/login" component={LoginPage} />
+                  <Route exact path="/logout" component={LogoutPage} />
                   <Route component={() => <div>Oups ! Page non trouvée</div>} />
                 </Switch>
               </div>
