@@ -9,12 +9,13 @@ import PropTypes from "prop-types";
  * passer d'une implémentation de getDerivedStateFromProps dans ce composant.
  * @param {*} param0
  */
-const SearchForm = ({ onChange, onSubmit, value, placeholder = "" }) => {
+const SearchForm = ({ onChange, onSubmit, value, handleInputKeyDown }) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="field has-addons">
         <div className="control is-expanded">
           <input
+            onKeyDown={handleInputKeyDown}
             onChange={onChange}
             className="input is-large"
             type="text"
@@ -38,7 +39,13 @@ SearchForm.propTypes = {
   onSubmit: PropTypes.func,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  handleInputKeyDown: PropTypes.func
+};
+
+SearchForm.defaultProps = {
+  placeholder: "",
+  handleInputKeyDown: () => {}
 };
 
 export default SearchForm;
