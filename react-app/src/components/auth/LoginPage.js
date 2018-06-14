@@ -38,14 +38,29 @@ class LoginPage extends React.Component {
 
     return (
       <Layout className="LoginPage">
-        <form onSubmit={handleSubmit(this.handleSubmit)}>
-          <Field name="email" component={Text} />
-          <Field name="password" component={Text} type="password" />
+        <section className="section">
+          <div className="container">
+            <section className="section">
+              <form onSubmit={handleSubmit(this.handleSubmit)}>
+                <Field className="is-large" name="email" component={Text} />
+                <Field
+                  className="is-large"
+                  name="password"
+                  component={Text}
+                  type="password"
+                />
 
-          <ButtonSubmitWithLoader type="submit" isLoading={submitting}>
-            Login
-          </ButtonSubmitWithLoader>
-        </form>
+                <ButtonSubmitWithLoader
+                  className="button is-large is-info"
+                  type="submit"
+                  isLoading={submitting}
+                >
+                  Se connecter
+                </ButtonSubmitWithLoader>
+              </form>
+            </section>
+          </div>
+        </section>
       </Layout>
     );
   }

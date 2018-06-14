@@ -5,6 +5,8 @@ import injectSheet from "react-jss";
 import classnames from "classnames";
 import "bulma/css/bulma.css";
 import withConfig from "../decorators/withConfig";
+import withUser from "../decorators/withUser";
+import { compose } from "react-apollo";
 
 const styles = {
   column: {
@@ -37,6 +39,7 @@ class DefaultLayout extends React.Component {
               classes.sideMenu
             )}
           >
+            <h3 className="title is-4">Bienvenue {this.props.user.name}</h3>
             <AdminSideMenu />
           </div>
           <div className={classnames("column is-9", classes.column)}>
@@ -48,4 +51,8 @@ class DefaultLayout extends React.Component {
   }
 }
 
-export default injectSheet(styles)(withConfig(DefaultLayout));
+export default compose(
+  withConfig,
+  withUser({ mandatory: true }),
+  injectSheet(styles)
+)(DefaultLayout);

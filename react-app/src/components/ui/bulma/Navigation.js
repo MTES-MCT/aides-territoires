@@ -75,13 +75,9 @@ class Navigation extends React.PureComponent {
                 </Link>
               );
             })}
-            {!!user ? (
+            {!!user && (
               <Link className="navbar-item" to="/logout">
-                Logout
-              </Link>
-            ) : (
-              <Link className="navbar-item" to="/login">
-                Login
+                Se déconnecter
               </Link>
             )}
           </div>
