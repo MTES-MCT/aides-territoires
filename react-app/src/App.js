@@ -5,7 +5,6 @@ import { ApolloProvider } from "react-apollo";
 import apolloClient from "./lib/apolloClient";
 import store from "./store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import HomePage from "./components/homepage/Homepage";
 import SearchByTerritoirePage from "./components/search/SearchByTerritoirePage";
 import SearchAidePage from "./components/search/SearchAidePage";
 import AdminAideCreatePage from "./components/admin/AdminAideCreatePage";
@@ -23,12 +22,7 @@ class App extends React.PureComponent {
             <MuiThemeProvider>
               <div className="App">
                 <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route
-                    exact
-                    path="/recherche"
-                    component={SearchByTerritoirePage}
-                  />
+                  <Route exact path="/" component={SearchByTerritoirePage} />
                   <Route exact path="/aides" component={SearchAidePage} />
                   <Route exact path="/admin" component={AdminAideListPage} />
                   <Route

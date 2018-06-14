@@ -7,7 +7,7 @@ export default {
     },
     {
       title: "Rechercher une aide",
-      to: "/recherche"
+      to: "/"
     },
     {
       title: "Contact",
