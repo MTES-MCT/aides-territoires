@@ -2,6 +2,7 @@ const types = require("../types");
 const enums = require("../../enums/aide");
 const AideModel = require("../../mongoose/Aide");
 const { formatEnumForGraphQL } = require("../../services/enums");
+const { permissionDenied, userHasPermission } = require("../../services/user");
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -89,6 +90,9 @@ module.exports = {
       }
     },
     resolve: async (_, args, context) => {
+      if (!userHasPermission(context.user, "deleteAide")) {
+        return permissionDenied();
+      }
       // pas d'id : on créer une nouvelle aide
       let result = null;
       if (!args.id) {
@@ -119,6 +123,9 @@ module.exports = {
       }
     },
     resolve: async (_, { id }, context) => {
+      if (!userHasPermission(context.user, "deleteAide")) {
+        permissionDenied();
+      }
       const result = await AideModel.remove({ _id: id });
       return { id, ...result };
     }

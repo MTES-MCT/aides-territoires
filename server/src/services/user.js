@@ -1,13 +1,16 @@
 const crypto = require("crypto");
-const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 
 const User = require("../mongoose/User");
 
+const ForbiddenError = "Forbidden";
+
 module.exports = {
   getUserByPassword,
   getJwt,
-  getUserFromJwt
+  getUserFromJwt,
+  userHasPermission,
+  permissionDenied
 };
 
 function hashPassword(password) {
@@ -47,4 +50,21 @@ async function getUserFromJwt(token) {
   });
 
   return User.findById(id);
+}
+
+/**
+ * Vérifie si un utilisateur a une permission données.
+ * Pour le moment on se contente de vérifier su l'utilisateur est connecté ou non.
+ * @param {*} user
+ */
+function userHasPermission(user, permissionUniqName = "") {
+  if (user && user._id) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function permissionDenied() {
+  throw new Error(ForbiddenError);
 }
