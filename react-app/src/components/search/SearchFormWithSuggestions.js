@@ -188,6 +188,7 @@ class SearchFormContainer extends React.Component {
     }
     this.resetSuggestions();
   };
+  handleKeyDown = event => {};
   render() {
     return (
       <div>
@@ -215,6 +216,7 @@ class SearchFormContainer extends React.Component {
         <SearchForm
           value={this.state.value}
           onSubmit={this.handleSubmitAlert}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           placeholder={
             "Entrez un code postal, une ville, un département ou une région"

@@ -6,49 +6,26 @@ import classNames from "classnames";
 const SuggestionList = class extends React.Component {
   static propTypes = {
     onClick: PropTypes.func,
-    activeSuggestion: PropTypes.string,
     suggestions: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
       })
-    )
+    ),
+    // index de la suggestion active, en partant de zéro
+    activeSuggestionIndex: PropTypes.number
   };
-  state = {
-    selectedIndex: 0,
-    value: ""
+  static defaultProps = {
+    onClick: null,
+    activeSuggestionIndex: 0
   };
   handleClick = (index, suggestion) => {
-    this.setState({ selectedIndex: index });
     if (this.props.onClick) {
       this.props.onClick(suggestion);
     }
   };
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const max = nextProps.suggestions.length - 1;
-    if (nextProps.inputKeyDown === "Enter") {
-      nextProps.onSuggestionClick(
-        nextProps.suggestions[prevState.selectedIndex]
-      );
-      return prevState;
-    }
-    if (nextProps.inputKeyDown === "ArrowDown") {
-      return {
-        ...prevState,
-        selectedIndex:
-          ++prevState.selectedIndex < max ? prevState.selectedIndex : max
-      };
-    }
-    if (nextProps.inputKeyDown === "ArrowUp") {
-      return {
-        ...prevState,
-        selectedIndex:
-          --prevState.selectedIndex > 0 ? prevState.selectedIndex : 0
-      };
-    }
-    return prevState;
-  }
   render() {
+    console.log(this.props);
     const { suggestions, classes } = this.props;
     return (
       <div className={classes.root}>
@@ -56,7 +33,7 @@ const SuggestionList = class extends React.Component {
           {suggestions.map((suggestion, index) => (
             <li
               className={classNames(classes.li, {
-                [classes.liActive]: this.state.selectedIndex === index
+                [classes.liActive]: this.props.activeSuggestionIndex === index
               })}
               onClick={() => this.handleClick(index, suggestion)}
               key={index}
