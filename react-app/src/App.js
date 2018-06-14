@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, Redirect, BrowserRouter, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ApolloProvider } from "react-apollo";
 import apolloClient from "./lib/apolloClient";
@@ -23,6 +23,8 @@ class App extends React.PureComponent {
               <div className="App">
                 <Switch>
                   <Route exact path="/" component={SearchByTerritoirePage} />
+                  {/*backward compatibiliy*/}
+                  <Redirect from="/recherche" to="/" />
                   <Route exact path="/aides" component={SearchAidePage} />
                   <Route exact path="/admin" component={AdminAideListPage} />
                   <Route
