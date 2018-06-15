@@ -65,11 +65,6 @@ function userHasPermission(user, permissionId = "") {
     return false;
   }
   const userPermissions = getPermissionsFromRoles(user.roles);
-  console.log(
-    "permission",
-    permissionId,
-    JSON.stringify(userPermissions, 0, 2)
-  );
   if (permissionExists(permissionId)) {
     console.log("error : la permission " + permissionId + " n'existe pas");
     return false;
@@ -79,7 +74,6 @@ function userHasPermission(user, permissionId = "") {
   if (userPermissions.includes(permissionId)) {
     return true;
   }
-  console.log("OH NO !");
   return false;
 }
 
