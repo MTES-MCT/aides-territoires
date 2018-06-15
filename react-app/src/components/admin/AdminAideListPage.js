@@ -13,7 +13,7 @@ import withUser from "../decorators/withUser";
 const AideListPage = class extends React.Component {
   state = {
     // will contain aide we want to delete
-    requestAideDeletion: null
+    requestAideDeletion: false
   };
   deleteAide = aide => {
     this.props.deleteAide({

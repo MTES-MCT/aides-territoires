@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import hoistNonReactStatic from "hoist-non-react-statics";
+import AppLoader from "../ui/AppLoader";
 
 import GraphQLError from "../ui/GraphQLError";
 
@@ -19,7 +20,7 @@ export default function withUser(options = {}) {
           data: { loading, error, user }
         } = this.props;
 
-        if (loading) return "Loading...";
+        if (loading) return <AppLoader />;
         if (error) return <GraphQLError error={error} />;
 
         if (options.mandatory && !user) return <Redirect to="/login" />;
@@ -35,6 +36,7 @@ export default function withUser(options = {}) {
             id
             email
             name
+            roles
           }
         }
       `,

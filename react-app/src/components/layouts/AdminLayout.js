@@ -40,6 +40,7 @@ class DefaultLayout extends React.Component {
             )}
           >
             <h3 className="title is-4">Bienvenue {this.props.user.name}</h3>
+            <h4 className="subtitle is-5">{this.props.user.roles.join(",")}</h4>
             <AdminSideMenu />
           </div>
           <div className={classnames("column is-9", classes.column)}>

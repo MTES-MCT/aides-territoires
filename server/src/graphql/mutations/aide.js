@@ -8,7 +8,6 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLBoolean,
-  GraphQLList,
   GraphQLInt
 } = require("graphql");
 
@@ -90,7 +89,7 @@ module.exports = {
       }
     },
     resolve: async (_, args, context) => {
-      if (!userHasPermission(context.user, "deleteAide")) {
+      if (!userHasPermission(context.user, "delete_any_aide")) {
         return permissionDenied();
       }
       // pas d'id : on créer une nouvelle aide
@@ -99,12 +98,14 @@ module.exports = {
         const aide = new AideModel(args);
         result = await aide.save();
       }
+      /*
       // un id, on le cherche puis on met à jour si on trouve
       let aide = await AideModel.findById(args.id);
       if (aide) {
         aide = Object.assign(aide, args);
         result = aide.save();
       }
+      */
       return result;
     }
   },
@@ -123,7 +124,7 @@ module.exports = {
       }
     },
     resolve: async (_, { id }, context) => {
-      if (!userHasPermission(context.user, "deleteAide")) {
+      if (!userHasPermission(context.user, "delete_any_aide")) {
         permissionDenied();
       }
       const result = await AideModel.remove({ _id: id });

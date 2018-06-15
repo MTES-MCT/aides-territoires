@@ -1,8 +1,8 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-
+const roles = require("../config/permissions").roles;
+const allPermissions = require("../config/permissions").permissions;
 const User = require("../mongoose/User");
-
 const ForbiddenError = "Forbidden";
 
 // generate a hashpassword :
@@ -13,7 +13,8 @@ module.exports = {
   getJwt,
   getUserFromJwt,
   userHasPermission,
-  permissionDenied
+  permissionDenied,
+  getRoleById
 };
 
 function hashPassword(password) {
@@ -56,18 +57,50 @@ async function getUserFromJwt(token) {
 }
 
 /**
- * Vérifie si un utilisateur a une permission données.
- * Pour le moment on se contente de vérifier su l'utilisateur est connecté ou non.
+ * Vérifie si un utilisateur a une permission donnée.
  * @param {*} user
  */
-function userHasPermission(user, permissionUniqName = "") {
-  if (user && user._id) {
-    return true;
-  } else {
+function userHasPermission(user, permissionId = "") {
+  if (!user || !user._id || user.roles.length === 0) {
     return false;
   }
+  const userPermissions = getPermissionsFromRoles(user.roles);
+  // on vérifie que cette permission existe puis que l'utilisateur
+  // possède bien cette permission sur l'un des rôles qui lui sont attribués
+  if (
+    allPermissions.includes(permissionId) &&
+    userPermissions.includes(permissionId)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function permissionDenied() {
   throw new Error(ForbiddenError);
+}
+
+function getRoleById(roleId) {
+  let matchedRole = null;
+  roles.forEach(role => {
+    if (role.id === roleId) {
+      matchedRole = role;
+    }
+  });
+  return matchedRole;
+}
+// un utilisateur peut avoir plusieurs roles
+// et chaque role contient une liste de permission.
+// Ce qui nous intéresse c'est la liste de toutes les permissions, tous roles
+// de l'utilisateur confondus
+function getPermissionsFromRoles(rolesIds = []) {
+  let permissions = [];
+  rolesIds.forEach(roleId => {
+    const role = getRoleById(roleId);
+    if (role && role.permissions.length > 0) {
+      permissions = [...permissions, ...role.permissions];
+    }
+  });
+  const dedupedPermissions = Array.from(new Set(permissions));
+  return dedupedPermissions;
 }

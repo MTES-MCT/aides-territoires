@@ -2,14 +2,10 @@ module.exports = {};
 const enums = require("../../enums/aide");
 const { formatEnumForGraphQL } = require("../../services/enums");
 const {
-  GraphQLID,
   GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLEnumType,
   GraphQLInt,
   GraphQLString,
-  GraphQLBoolean,
-  GraphQLList
+  GraphQLBoolean
 } = require("graphql");
 
 const Aide = new GraphQLObjectType({

@@ -1,16 +1,7 @@
 const types = require("../types");
-const User = require("../../mongoose/User");
 const { getUserByPassword, getJwt } = require("../../services/user");
 
-const {
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLBoolean,
-  GraphQLList,
-  GraphQLInt
-} = require("graphql");
+const { GraphQLNonNull, GraphQLObjectType, GraphQLString } = require("graphql");
 
 module.exports = {
   login: {
