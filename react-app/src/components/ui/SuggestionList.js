@@ -13,7 +13,7 @@ const SuggestionList = class extends React.Component {
       })
     ),
     // index de la suggestion active, en partant de zéro
-    activeSuggestionIndex: PropTypes.number
+    selectedSuggestionIndex: PropTypes.number
   };
   static defaultProps = {
     onClick: null,
@@ -21,11 +21,10 @@ const SuggestionList = class extends React.Component {
   };
   handleClick = (index, suggestion) => {
     if (this.props.onClick) {
-      this.props.onClick(suggestion);
+      this.props.onClick(index, suggestion);
     }
   };
   render() {
-    console.log(this.props);
     const { suggestions, classes } = this.props;
     return (
       <div className={classes.root}>
@@ -33,7 +32,7 @@ const SuggestionList = class extends React.Component {
           {suggestions.map((suggestion, index) => (
             <li
               className={classNames(classes.li, {
-                [classes.liActive]: this.props.activeSuggestionIndex === index
+                [classes.liActive]: this.props.selectedSuggestionIndex === index
               })}
               onClick={() => this.handleClick(index, suggestion)}
               key={index}
@@ -58,7 +57,7 @@ const styles = {
     padding: "1rem",
     "&:hover": {
       cursor: "pointer",
-      background: "rgba(144, 238, 144, 0.1)"
+      background: "rgba(144, 238, 144, 0.3)"
     }
   },
   liActive: {

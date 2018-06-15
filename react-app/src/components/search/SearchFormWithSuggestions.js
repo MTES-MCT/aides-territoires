@@ -27,6 +27,7 @@ class SearchFormContainer extends React.Component {
     value: "",
     suggestions: [],
     selectedSuggestion: null,
+    selectedSuggestionIndex: 0,
     showModal: false
   };
   // ! FIXME suggestions should be returned by graphQL and not computed here.
@@ -37,7 +38,6 @@ class SearchFormContainer extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     //this.resetSuggestions();
-    console.log(this.state.selectedSuggestion);
     if (this.state.selectedSuggestion) {
       this.props.change(
         "searchFilters",
@@ -178,8 +178,9 @@ class SearchFormContainer extends React.Component {
       suggestions: [...this.state.suggestions, ...newSuggestions]
     });
   }
-  handleClickSuggestion = suggestion => {
+  handleClickSuggestion = (index, suggestion) => {
     this.setState({
+      selectedSuggestionIndex: index,
       selectedSuggestion: suggestion,
       value: suggestion.label
     });
@@ -188,7 +189,35 @@ class SearchFormContainer extends React.Component {
     }
     this.resetSuggestions();
   };
-  handleKeyDown = event => {};
+  handleKeyDown = event => {
+    const suggestionsLength = this.state.suggestions.length;
+    if (event.key === "Enter") {
+      // quand on appuie sur entrée, sélectionner la suggestion actuellement active
+      this.setState({
+        selectedSuggestion: this.state.suggestions[
+          this.state.selectedSuggestionIndex
+        ]
+      });
+    }
+    if (event.key === "ArrowDown") {
+      let nextIndex = ++this.state.selectedSuggestionIndex;
+      if (nextIndex >= suggestionsLength) {
+        nextIndex = suggestionsLength - 1;
+      }
+      this.setState({
+        selectedSuggestionIndex: nextIndex
+      });
+    }
+    if (event.key === "ArrowUp") {
+      let prevIndex = --this.state.selectedSuggestionIndex;
+      if (prevIndex < 0) {
+        prevIndex = 0;
+      }
+      this.setState({
+        selectedSuggestionIndex: prevIndex
+      });
+    }
+  };
   render() {
     return (
       <div>
@@ -223,6 +252,7 @@ class SearchFormContainer extends React.Component {
           }
         />
         <SuggestionList
+          selectedSuggestionIndex={this.state.selectedSuggestionIndex}
           onClick={this.handleClickSuggestion}
           suggestions={this.state.suggestions}
         />
