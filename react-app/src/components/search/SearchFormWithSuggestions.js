@@ -200,7 +200,7 @@ class SearchFormContainer extends React.Component {
       });
     }
     if (event.key === "ArrowDown") {
-      let nextIndex = ++this.state.selectedSuggestionIndex;
+      let nextIndex = this.state.selectedSuggestionIndex + 1;
       if (nextIndex >= suggestionsLength) {
         nextIndex = suggestionsLength - 1;
       }
@@ -209,7 +209,7 @@ class SearchFormContainer extends React.Component {
       });
     }
     if (event.key === "ArrowUp") {
-      let prevIndex = --this.state.selectedSuggestionIndex;
+      let prevIndex = this.state.selectedSuggestionIndex - 1;
       if (prevIndex < 0) {
         prevIndex = 0;
       }
