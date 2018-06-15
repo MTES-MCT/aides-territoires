@@ -65,19 +65,35 @@ function userHasPermission(user, permissionId = "") {
     return false;
   }
   const userPermissions = getPermissionsFromRoles(user.roles);
+  console.log(
+    "permission",
+    permissionId,
+    JSON.stringify(userPermissions, 0, 2)
+  );
+  if (permissionExists(permissionId)) {
+    console.log("error : la permission " + permissionId + " n'existe pas");
+    return false;
+  }
   // on vérifie que cette permission existe puis que l'utilisateur
   // possède bien cette permission sur l'un des rôles qui lui sont attribués
-  if (
-    allPermissions.includes(permissionId) &&
-    userPermissions.includes(permissionId)
-  ) {
+  if (userPermissions.includes(permissionId)) {
     return true;
   }
+  console.log("OH NO !");
   return false;
 }
 
 function permissionDenied() {
   throw new Error(ForbiddenError);
+}
+
+function permissionExists(permissionId) {
+  allPermissions.forEach(permission => {
+    if (permission.id === permissionId) {
+      return true;
+    }
+  });
+  return false;
 }
 
 function getRoleById(roleId) {
