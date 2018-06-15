@@ -21,6 +21,9 @@ Installer les serveur GraphQL
 ```sh
 cd server
 yarn install
+# configurer les variables d'environnement : copier coller le fichier
+# d'exemple et renseigner les variables secrètes
+cp .env.example .env
 # lancer le serveur de dev
 yarn dev
 # le serveur écoute sur http://localhost:8100/
