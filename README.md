@@ -47,6 +47,13 @@ yarn dev
 # le serveur écoute sur http://localhost:3000/
 ```
 
+Les composants réutilisables sont dans le storybook
+
+```sh
+yarn storybook
+# se rendre sur http://localhost:9009/ pour voir le storybook
+```
+
 ### site : installer le site vitrine
 
 Le site est généré statiquement par Next.js (du React exporter en html pour le SEO )
@@ -58,29 +65,21 @@ Node js ^8.9.3 est requis.
 #### installation
 
 ```sh
+cd site
 # yarn est utilisé comment gestionnaire de paquet
 npm install yarn -g
 yarn install
-```
-
-## développer
-
-```sh
 yarn dev
 ```
 
-### Générer le site statique
-
-sur le serveur cible :
+#### Générer le site statique dans un dossier "out"
 
 ```sh
 # à la racine du répertoire:
 yarn export
 # le code html est alors généré dans le dossier "out".
-# il suffit de servir ces fichiers avec un serveur http
+# il suffit de servir ces fichiers avec le serveur http de votre choix
 ```
-
-### exemple de configuration nginx
 
 ## Support Navigateur
 
