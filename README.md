@@ -80,7 +80,3 @@ yarn export
 # le code html est alors généré dans le dossier "out".
 # il suffit de servir ces fichiers avec le serveur http de votre choix
 ```
-
-## Support Navigateur
-
-Firefox : >= 40
