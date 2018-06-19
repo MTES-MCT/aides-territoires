@@ -4,11 +4,9 @@
 
 Il s'agit d'un mono-repository qui contient 3 projets :
 
-- site : le site vitrine visible https://www.aides-territoires.beta.gouv.fr/ , généré statiquement par Next.js (React avec rendu serveur pour le SEO)
-- react-app : l'application de recherche d'aides, qui est disponible sur https://recherche.aides-territoires.beta.gouv.fr/
-- server : https://api.aides-territoires.beta.gouv.fr/ le serveur node fournissant les webservices / API en GraphQL consommées par la recherche de react-app
-
-Chaque répertoire dispose de son propre README concernant l'installation et le déploiement.
+- **site** : le site vitrine visible https://www.aides-territoires.beta.gouv.fr/ , généré statiquement par Next.js (React avec rendu serveur pour le SEO)
+- **react-app** : l'application de recherche d'aides, qui est disponible sur https://recherche.aides-territoires.beta.gouv.fr/
+- server : https://api.aides-territoires.beta.gouv.fr/ le serveur node fournissant les webservices / API en GraphQL consommés par la recherche de **react-app**
 
 ## Getting started
 
@@ -17,7 +15,16 @@ git clone https://github.com/MTES-MCT/aides-territoires
 cd aides-territoires
 ```
 
-Installer le serveur GraphQL
+### server : installer les webservices GraphQL
+
+#### pré-requis
+
+Node js ^8.9.3 est requis.
+
+#### installation
+
+Attention : le serveur dépend, pour la dev ou pour la prod, d'un fichier .env
+qui contient des variables secrètes pour des services externes, ni la dev ni la prod ne peuvent tourner correctement sans ce fichier.
 
 ```sh
 cd server
@@ -30,7 +37,7 @@ yarn dev
 # le serveur écoute sur http://localhost:8100/
 ```
 
-Installer l'application React de recherche
+### react-app : installer l'application React de recherche
 
 ```sh
 cd react-app
@@ -39,6 +46,41 @@ yarn install
 yarn dev
 # le serveur écoute sur http://localhost:3000/
 ```
+
+### site : installer le site vitrine
+
+Le site est généré statiquement par Next.js (du React exporter en html pour le SEO )
+
+#### pré-requis
+
+Node js ^8.9.3 est requis.
+
+#### installation
+
+```sh
+# yarn est utilisé comment gestionnaire de paquet
+npm install yarn -g
+yarn install
+```
+
+## développer
+
+```sh
+yarn dev
+```
+
+### Générer le site statique
+
+sur le serveur cible :
+
+```sh
+# à la racine du répertoire:
+yarn export
+# le code html est alors généré dans le dossier "out".
+# il suffit de servir ces fichiers avec un serveur http
+```
+
+### exemple de configuration nginx
 
 ## Support Navigateur
 
