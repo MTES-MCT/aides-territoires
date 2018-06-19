@@ -8,7 +8,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLBoolean,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLNonNull
 } = require("graphql");
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
     type: types.Aide,
     args: {
       id: { type: GraphQLString },
+      auteur: { type: GraphQLNonNull(GraphQLID) },
       nom: { type: GraphQLString },
       createdAt: { type: GraphQLString },
       updatedAt: { type: GraphQLString },

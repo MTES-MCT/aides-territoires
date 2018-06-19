@@ -24,14 +24,13 @@ export default function withUser(options = {}) {
         if (error) return <GraphQLError error={error} />;
 
         if (options.mandatory && !user) return <Redirect to="/login" />;
-
         return <WrappedComponent {...this.props} user={user} />;
       }
     }
 
     WithUser = graphql(
       gql`
-        query withUser {
+        query getUser {
           user {
             id
             email
@@ -42,6 +41,8 @@ export default function withUser(options = {}) {
       `,
       {
         options: {
+          // notre composant peut être appelé de multiple fois, il vaut mieux
+          // garder en cache le résultat.
           fetchPolicy: "cache-first"
         }
       }

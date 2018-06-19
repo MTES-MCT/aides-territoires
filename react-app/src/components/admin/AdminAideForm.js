@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 import { Redirect } from "react-router";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import Text from "../ui/finalFormBulma/Text";
 import FormErrors from "../ui/finalFormBulma/FormErrors";
@@ -13,6 +13,7 @@ import { getDepartementsByName, getRegionsByName } from "../../lib/geoApi";
 import propTypes from "prop-types";
 import GraphQLError from "../ui/GraphQLError";
 import allEnums from "../../enums";
+import withUser from "../decorators/withUser";
 const enums = allEnums.aide;
 
 const SUBMISSION_STATUS_NOT_STARTED = "not_started";
@@ -35,6 +36,7 @@ const validate = values => {
 
 const defaultValues = {
   nom: "",
+  auteur: "",
   description: "",
   structurePorteuse: "",
   perimetreApplicationType: "france",
@@ -106,6 +108,12 @@ class AideForm extends React.Component {
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
+                <Field
+                  className="is-large"
+                  name="auteur"
+                  component={Text}
+                  label="Créateur de l'aide"
+                />
                 <Field
                   className="is-large"
                   name="nom"
@@ -661,4 +669,7 @@ const saveAide = gql`
   }
 `;
 
-export default graphql(saveAide, { name: "saveAide" })(AideForm);
+export default compose(
+  withUser({ mandatory: true }),
+  graphql(saveAide, { name: "saveAide" })
+)(AideForm);

@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 const { formatEnumForMongoose } = require("../services/enums");
 const enums = require("../enums/aide");
 
 const schema = new mongoose.Schema(
   {
+    auteur: { type: Schema.Types.ObjectId, ref: "User", required: true },
     nom: String,
     description: String,
     criteresEligibilite: String,
