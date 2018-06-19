@@ -6,17 +6,18 @@ Il s'agit d'un mono-repository qui contient 3 projets :
 
 - site : le site vitrine visible https://www.aides-territoires.beta.gouv.fr/ , généré statiquement par Next.js (React avec rendu serveur pour le SEO)
 - react-app : l'application de recherche d'aides, qui est disponible sur https://recherche.aides-territoires.beta.gouv.fr/
-- server : https://api.aides-territoires.beta.gouv.fr/ le serveur node fournissant ls webservices / API en GraphQL consommées par la recherche de react-app
+- server : https://api.aides-territoires.beta.gouv.fr/ le serveur node fournissant les webservices / API en GraphQL consommées par la recherche de react-app
 
 Chaque répertoire dispose de son propre README concernant l'installation et le déploiement.
 
 ## Getting started
 
 ```
-git clone git@github.com:MTES-MCT/aides-territoires.git
+git clone https://github.com/MTES-MCT/aides-territoires
+cd aides-territoires
 ```
 
-Installer les serveur GraphQL
+Installer le serveur GraphQL
 
 ```sh
 cd server
@@ -29,7 +30,7 @@ yarn dev
 # le serveur écoute sur http://localhost:8100/
 ```
 
-installer l'application React de recherche
+Installer l'application React de recherche
 
 ```sh
 cd react-app
