@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import withUser from "../decorators/withUser";
 
 class AdminAideList extends React.Component {
   static propTypes = {
@@ -67,4 +68,4 @@ class AdminAideList extends React.Component {
   }
 }
 
-export default AdminAideList;
+export default withUser({ mandatory: true })(AdminAideList);
