@@ -1,5 +1,4 @@
 const types = require("../types");
-const AideModel = require("../../mongoose/Aide");
 const enums = require("../../enums/aide");
 const { formatEnumForGraphQL } = require("../../services/enums");
 const {
@@ -10,25 +9,10 @@ const {
   GraphQLBoolean,
   GraphQLList,
   GraphQLInt,
-  GraphQLEnumType,
-  GraphQLNonNull
+  GraphQLEnumType
 } = require("graphql");
 
-const { GraphQLDate } = require("graphql-iso-date");
 const { searchAides, getAides, getAide } = require("../../services/aide");
-
-const searchAideGeoApiDataType = new GraphQLInputObjectType({
-  name: "searchAideGeoApiData",
-  fields: {
-    code: { type: GraphQLString },
-    nom: { type: GraphQLString },
-    population: { type: GraphQLString },
-    codeDepartement: { type: GraphQLString },
-    codeRegion: { type: GraphQLString },
-    _score: { type: GraphQLString },
-    codesPostaux: { type: new GraphQLList(GraphQLString) }
-  }
-});
 
 const searchAideTypeDeTerritoireType = new GraphQLObjectType({
   name: "searchAideTypesDeTerritoires",
@@ -59,7 +43,7 @@ module.exports = {
         type: GraphQLID
       }
     },
-    resolve: async (_, { id }, context) => {
+    resolve: async (_, { id }) => {
       return await getAide(id);
     }
   },
@@ -84,6 +68,9 @@ module.exports = {
         type: new GraphQLInputObjectType({
           name: "searchAidesFilters",
           fields: {
+            auteur: {
+              type: GraphQLString
+            },
             etape: {
               type: formatEnumForGraphQL("searchAidesEtape", enums.etape)
             },
@@ -194,7 +181,7 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, { filters = {}, sort }, context) => {
+    resolve: async (_, { filters = {}, sort }) => {
       return searchAides(filters, sort);
     }
   },
@@ -224,6 +211,7 @@ module.exports = {
         type: new GraphQLInputObjectType({
           name: "allAidesFilters",
           fields: {
+            auteur: { type: GraphQLString },
             etape: {
               type: formatEnumForGraphQL("allAidesEtape", enums.etape)
             },
@@ -291,16 +279,9 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
+    resolve: async (_, { filters, sort = "-updatedAt" }) => {
       const showUnpublished = true;
-      /*
-      filters = {
-        dateEcheance: { $lte: new Date(2018, 12, 31) }
-      };
-      */
-      console.log(new Date());
       const aides = await getAides(filters, sort, showUnpublished);
-      //console.log(JSON.stringify(aides, 0, 2));
       return aides;
     }
   }

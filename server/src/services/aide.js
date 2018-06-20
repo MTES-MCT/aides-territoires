@@ -373,7 +373,7 @@ const getAides = (
   const $and = [];
   // convert ['operationnel', 'pre_operationnel', 'fonctionnement']
   // to {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
-  for (filter in filters) {
+  for (let filter in filters) {
     if (Array.isArray(filters[filter])) {
       filters[filter] = { $in: filters[filter] };
     }
@@ -437,6 +437,7 @@ const getAides = (
   if ($and.length > 0) {
     query.and($and);
   }
+  query.populate("auteur", ["name", "roles"]);
   return query;
 };
 

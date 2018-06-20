@@ -5,7 +5,7 @@ const enums = require("../enums/aide");
 
 const schema = new mongoose.Schema(
   {
-    auteur: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    auteur: { type: Schema.Types.ObjectId, ref: "User" },
     nom: String,
     description: String,
     criteresEligibilite: String,

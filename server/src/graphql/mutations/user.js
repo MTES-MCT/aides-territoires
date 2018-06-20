@@ -21,7 +21,7 @@ module.exports = {
       email: { type: new GraphQLNonNull(GraphQLString) },
       password: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: async (_, { email, password }, context) => {
+    resolve: async (_, { email, password }) => {
       const user = await getUserByPassword(email, password);
 
       if (!user) throw new Error("Wrong login / password");

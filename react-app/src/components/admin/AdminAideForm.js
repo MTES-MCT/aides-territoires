@@ -34,25 +34,6 @@ const validate = values => {
   return errors;
 };
 
-const defaultValues = {
-  nom: "",
-  auteur: "",
-  description: "",
-  structurePorteuse: "",
-  perimetreApplicationType: "france",
-  perimetreApplicationNom: "",
-  perimetreApplicationCode: "",
-  perimetreDiffusionType: "france",
-  lien: "",
-  criteresEligibilite: "",
-  statusPublication: "published",
-  type: "financement",
-  etape: "pre_operationnel",
-  beneficiaires: ["commune"],
-  formeDeDiffusion: ["subvention"],
-  status: "ouvert"
-};
-
 class AideForm extends React.Component {
   state = {
     formValues: [],
@@ -63,6 +44,24 @@ class AideForm extends React.Component {
     // si une aide est passée en props, on considèrera
     // qu'on est en mode édition
     aide: propTypes.object
+  };
+  defaultValues = {
+    nom: "",
+    auteur: this.props.user.id,
+    description: "",
+    structurePorteuse: "",
+    perimetreApplicationType: "france",
+    perimetreApplicationNom: "",
+    perimetreApplicationCode: "",
+    perimetreDiffusionType: "france",
+    lien: "",
+    criteresEligibilite: "",
+    statusPublication: "published",
+    type: "financement",
+    etape: "pre_operationnel",
+    beneficiaires: ["commune"],
+    formeDeDiffusion: ["subvention"],
+    status: "ouvert"
   };
   handleSubmit = values => {
     this.setState({
@@ -90,8 +89,8 @@ class AideForm extends React.Component {
       return <Redirect push to="/aide/list" />;
     }
     const initialValues = !this.props.aide
-      ? defaultValues
-      : Object.assign({}, defaultValues, this.props.aide);
+      ? this.defaultValues
+      : Object.assign({}, this.defaultValues, this.props.aide);
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -108,11 +107,13 @@ class AideForm extends React.Component {
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
+                {/* caché : contient l'id de l'utilisateur connecté */}
                 <Field
+                  disabled={true}
+                  style={{ display: "none" }}
                   className="is-large"
                   name="auteur"
                   component={Text}
-                  label="Créateur de l'aide"
                 />
                 <Field
                   className="is-large"
@@ -226,7 +227,9 @@ class AideForm extends React.Component {
                   {(values.perimetreApplicationType === "region" ||
                     values.perimetreApplicationType === "departement") && (
                     <div className="column">
+                      {/*caché : contient le code identifiant du type de territoire sélectionné*/}
                       <Field
+                        style={{ display: "none" }}
                         name="perimetreApplicationCode"
                         label="code territoire"
                         component={Text}
@@ -600,6 +603,7 @@ class AideForm extends React.Component {
 const saveAide = gql`
   mutation saveAide(
     $id: String
+    $auteur: String
     $nom: String!
     $description: String!
     $type: String!
@@ -633,6 +637,7 @@ const saveAide = gql`
   ) {
     saveAide(
       id: $id
+      auteur: $auteur
       nom: $nom
       description: $description
       type: $type

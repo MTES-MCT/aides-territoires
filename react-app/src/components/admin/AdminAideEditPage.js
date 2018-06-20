@@ -20,6 +20,7 @@ const editAideQuery = gql`
   query editAide($id: ID) {
     aide: getAide(id: $id) {
       id
+      auteur
       nom
       description
       criteresEligibilite

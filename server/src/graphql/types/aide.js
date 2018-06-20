@@ -1,5 +1,6 @@
 module.exports = {};
 const enums = require("../../enums/aide");
+const types = require("../types");
 const { formatEnumForGraphQL } = require("../../services/enums");
 const {
   GraphQLObjectType,
@@ -12,6 +13,7 @@ const Aide = new GraphQLObjectType({
   name: "Aide",
   fields: () => ({
     id: { type: GraphQLString },
+    auteur: { type: types.User },
     nom: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     updatedAt: { type: GraphQLString },
