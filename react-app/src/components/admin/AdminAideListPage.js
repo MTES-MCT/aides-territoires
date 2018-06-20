@@ -94,6 +94,7 @@ const allAidesQuery = gql`
       categorieParticuliere
       demandeTiersPossible
       auteur {
+        id
         name
         roles
       }

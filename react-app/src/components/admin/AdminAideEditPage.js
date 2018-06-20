@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 import GraphQLError from "../ui/GraphQLError";
 
 const AideEditPage = ({ data: { aide, error, loading } }) => {
-  console.log(aide);
   return (
     <AdminLayout>
       {error && <GraphQLError error={error} />}

@@ -91,7 +91,9 @@ class AideForm extends React.Component {
     const initialValues = !this.props.aide
       ? this.defaultValues
       : Object.assign({}, this.defaultValues, this.props.aide);
-    console.log(this.props);
+    if (initialValues.auteur) {
+      initialValues.auteur = initialValues.auteur.id;
+    }
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -109,12 +111,8 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 {/* caché : contient l'id de l'utilisateur connecté */}
-                <Field
-                  className="is-large"
-                  name="auteur"
-                  component={Text}
-                  format={auteur => auteur.id}
-                />
+                <Field className="is-large" name="auteur" component={Text} />
+
                 <Field
                   className="is-large"
                   name="nom"
