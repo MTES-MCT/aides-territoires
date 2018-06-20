@@ -9,10 +9,14 @@ const axios = require("axios");
 const codesGeoAPIOutreMer = ["01", "02", "03", "04", "05", "06"];
 
 const getAide = id => {
-  return AideModel.findById(id);
+  return AideModel.findById(id).populate("auteur", {
+    name: 1,
+    id: 1,
+    roles: 1
+  });
 };
 
-const searchAides = async (filters, sort) => {
+const searchAides = async (filters, { sort = null, context = null }) => {
   const groupesDeResultats = [];
   let totalNombreAides = 0;
   let newFilters = {};
@@ -350,7 +354,12 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   }
 
   const sort = [["dateEcheance", 1]];
-  const aides = await getAides(newFilters, sort, false, false);
+  const aides = await getAides(newFilters, {
+    sort,
+    context,
+    showExpired: false,
+    showUnpublished: false
+  });
   // on met les "null" ou "undefined" après les aides qui ont une date
   // d'échéance renseignée
   aides.sort(function(a, b) {
@@ -364,11 +373,15 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
 
 const getAides = (
   queryFilters = {},
-  sort = {},
-  showUnpublished = false,
-  showExpired = true
+  options = {
+    context: null,
+    showUnpublished: false,
+    showExpired: true,
+    sort: {}
+  }
 ) => {
   const filters = { ...queryFilters };
+  const { showUnpublished, showExpired, sort, context } = options;
   // contiendra nos différents groupes de "or"
   const $and = [];
   // convert ['operationnel', 'pre_operationnel', 'fonctionnement']
@@ -437,7 +450,13 @@ const getAides = (
   if ($and.length > 0) {
     query.and($and);
   }
-  query.populate("auteur", ["name", "roles"]);
+  // ajouter le champ auteur. N'ajouter le champ email que si l'utilisateur
+  // connecté est l'admin
+  const auteurFields = { name: 1, roles: 1, id: 1 };
+  if (context && context.user && context.user.roles.includes("admin")) {
+    auteurFields.email = 1;
+  }
+  query.populate("auteur", auteurFields);
   return query;
 };
 

@@ -93,6 +93,10 @@ const allAidesQuery = gql`
       beneficiaires
       categorieParticuliere
       demandeTiersPossible
+      auteur {
+        name
+        roles
+      }
     }
   }
 `;

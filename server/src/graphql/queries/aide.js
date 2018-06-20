@@ -181,8 +181,8 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, { filters = {}, sort }) => {
-      return searchAides(filters, sort);
+    resolve: async (_, { filters = {}, sort }, context) => {
+      return searchAides(filters, { sort, context });
     }
   },
   allAides: {
@@ -279,9 +279,12 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, { filters, sort = "-updatedAt" }) => {
-      const showUnpublished = true;
-      const aides = await getAides(filters, sort, showUnpublished);
+    resolve: async (_, { filters, sort = "-updatedAt", context }) => {
+      const aides = await getAides(filters, {
+        sort,
+        showUnpublished: true,
+        context
+      });
       return aides;
     }
   }

@@ -14,7 +14,7 @@ const User = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
     email: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     roles: {
       type: new GraphQLList(GraphQLString),

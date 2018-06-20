@@ -7,6 +7,7 @@ import gql from "graphql-tag";
 import GraphQLError from "../ui/GraphQLError";
 
 const AideEditPage = ({ data: { aide, error, loading } }) => {
+  console.log(aide);
   return (
     <AdminLayout>
       {error && <GraphQLError error={error} />}
@@ -20,7 +21,11 @@ const editAideQuery = gql`
   query editAide($id: ID) {
     aide: getAide(id: $id) {
       id
-      auteur
+      auteur {
+        id
+        name
+        roles
+      }
       nom
       description
       criteresEligibilite

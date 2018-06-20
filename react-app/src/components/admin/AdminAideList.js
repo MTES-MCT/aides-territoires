@@ -12,12 +12,14 @@ class AdminAideList extends React.Component {
     this.state = {};
   }
   render() {
+    console.log(this.props);
     return (
       <div className="AideList">
         <table className="table">
           <thead>
             <tr>
               <th>Nom</th>
+              <th>Auteur</th>
               <th>Mis à jour</th>
               <th>type</th>
               <th>Périmètre d'application type</th>
@@ -31,6 +33,10 @@ class AdminAideList extends React.Component {
               return (
                 <tr key={aide.id}>
                   <td>{aide.nom}</td>
+                  <td>
+                    {aide.auteur && aide.auteur.name} -
+                    {aide.auteur && aide.auteur.roles.join(",")}
+                  </td>
                   <td>{aide.updatedAt}</td>
                   <td>{aide.type}</td>
                   <td>{aide.perimetreApplicationType}</td>

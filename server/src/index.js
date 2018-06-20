@@ -5,10 +5,8 @@ const graphqlHTTP = require("express-graphql");
 // middleware express pour ajouter les headers CORS
 const cors = require("cors");
 const graphql = require("graphql");
-const { buildSchema, GraphQLSchema } = require("graphql");
 const mongoose = require("mongoose");
 const logger = require("./services/logger");
-const ipfilter = require("express-ipfilter").IpFilter;
 const { getUserFromJwt } = require("./services/user");
 // mongoose.set("debug", true);
 
@@ -68,11 +66,7 @@ function auth() {
 function startExpressServer(schema) {
   const app = express();
   app.use(cors());
-  // to support JSON-encoded bodies
-  // app.use(express.json());
-
   app.use(auth());
-
   app.use(
     "/graphql",
     graphqlHTTP(req => ({
@@ -84,7 +78,6 @@ function startExpressServer(schema) {
       // always display graphiql explorer for now
       graphiql: true,
       formatError: error => {
-        console.log(error);
         return {
           message: error.message,
           stack:
@@ -100,9 +93,6 @@ function startExpressServer(schema) {
     res.json("server is running. Go to /graphql.");
   });
 
-  if (!process.env.PORT) {
-    logger.error("warning : MISSING PORT VARIABLE");
-  }
   const port = process.env.PORT ? process.env.PORT : 8100;
 
   app.listen(port);
