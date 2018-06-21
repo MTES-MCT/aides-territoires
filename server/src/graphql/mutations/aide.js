@@ -105,7 +105,7 @@ module.exports = {
       if (
         !(
           userHasPermission(context.user, "edit_own_aide", { aide: aide }) ||
-          userHasPermission(context.user, "edit_any_aide", { aide: aide })
+          userHasPermission(context.user, "edit_any_aide")
         )
       ) {
         permissionDenied();

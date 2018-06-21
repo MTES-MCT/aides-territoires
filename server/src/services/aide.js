@@ -316,7 +316,7 @@ const searchAides = async (filters, { sort = null, context = null }) => {
 
 function getTotalCountFromResultsGroups(groupesDeResultats) {
   const count = groupesDeResultats.reduce((accumulator, groupeDeResultat) => {
-    for (territoire of groupeDeResultat.aidesParTypeDeTerritoires) {
+    for (let territoire of groupeDeResultat.aidesParTypeDeTerritoires) {
       accumulator += territoire.aides.length;
     }
     return accumulator;
@@ -355,7 +355,6 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
   const sort = [["dateEcheance", 1]];
   const aides = await getAides(newFilters, {
     sort,
-    context,
     showExpired: false,
     showUnpublished: false
   });
@@ -450,9 +449,14 @@ const getAides = (
     query.and($and);
   }
   // ajouter le champ auteur. N'ajouter le champ email que si l'utilisateur
-  // connecté est l'admin
+  // connecté est l'admin ou un contributeur
   const auteurFields = { name: 1, roles: 1, id: 1 };
-  if (context && context.user && context.user.roles.includes("admin")) {
+  if (
+    context &&
+    context.user &&
+    (context.user.roles.includes("admin") ||
+      context.user.roles.includes("contributeur"))
+  ) {
     auteurFields.email = 1;
   }
   query.populate("auteur", auteurFields);

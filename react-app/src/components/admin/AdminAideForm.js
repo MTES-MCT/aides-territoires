@@ -10,7 +10,7 @@ import TextArea from "../ui/finalFormBulma/TextArea";
 import Number from "../ui/finalFormBulma/Number";
 import moment from "moment";
 import { getDepartementsByName, getRegionsByName } from "../../lib/geoApi";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import GraphQLError from "../ui/GraphQLError";
 import allEnums from "../../enums";
 import withUser from "../decorators/withUser";
@@ -41,9 +41,7 @@ class AideForm extends React.Component {
     error: null
   };
   static propTypes = {
-    // si une aide est passée en props, on considèrera
-    // qu'on est en mode édition
-    aide: propTypes.object
+    operation: PropTypes.oneOf(["edition", "creation"])
   };
   // values lors de la création d'une nouvelle aide
   getDefaultValues() {
@@ -66,7 +64,7 @@ class AideForm extends React.Component {
       status: "ouvert"
     };
   }
-  // le formulaire est pré-remplie soit avec les valeurs par défaut
+  // le formulaire est pré-rempli soit avec les valeurs par défaut
   // (lors de la création d'une aide), soit avec une aide (édition)
   getInitialValues() {
     let values = {};
@@ -101,21 +99,19 @@ class AideForm extends React.Component {
       .catch(e => this.setState({ error: e }));
   };
   renderAuteur() {
-    // si on a une aide et que la clef auteur est bien un objet,
-    // on affiche les infos concernant l'utilisateur
-    return (
-      this.props.aide &&
-      this.props.aide.auteur !== null &&
-      this.props.aide.auteur === "object" && (
+    // si on a une aide et que la clef auteur est un objet,
+    // on affiche les infos concernant l'utilisateur.
+    const { aide } = this.props;
+    if (aide.auteur !== null && typeof aide.auteur === "object") {
+      return (
         <div>
           <em>
-            Crée par {this.props.aide.auteur.name} -{" "}
-            {this.props.aide.auteur.roles.join(",")} -{" "}
-            {this.props.aide.auteur.email}
+            Crée par {aide.auteur.name} - {aide.auteur.roles.join(",")}
           </em>
         </div>
-      )
-    );
+      );
+    }
+    return null;
   }
   render() {
     if (this.state.error) {
