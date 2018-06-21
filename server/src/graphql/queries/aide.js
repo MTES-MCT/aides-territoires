@@ -186,7 +186,32 @@ module.exports = {
     }
   },
   allAides: {
-    type: new GraphQLList(types.Aide),
+    //type: new GraphQLList(types.Aide),
+    type: new GraphQLObjectType({
+      name: "allAides",
+      fields: {
+        edges: {
+          type: new GraphQLList(
+            new GraphQLObjectType({
+              name: "allAideEdges",
+              fields: {
+                meta: {
+                  type: new GraphQLObjectType({
+                    name: "allAideNodeMeta",
+                    fields: {
+                      userPermissions: {
+                        type: new GraphQLList(GraphQLString)
+                      }
+                    }
+                  })
+                },
+                node: { type: types.Aide }
+              }
+            })
+          )
+        }
+      }
+    }),
     args: {
       sort: {
         type: new GraphQLEnumType({
@@ -285,7 +310,19 @@ module.exports = {
         showUnpublished: true,
         context
       });
-      return aides;
+
+      const edges = aides.map(aide => {
+        const userPermissions = [];
+        return {
+          meta: {
+            userPermissions
+          },
+          node: aide
+        };
+      });
+      return {
+        edges
+      };
     }
   }
 };

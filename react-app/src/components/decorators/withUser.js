@@ -4,7 +4,6 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import hoistNonReactStatic from "hoist-non-react-statics";
 import AppLoader from "../ui/AppLoader";
-
 import GraphQLError from "../ui/GraphQLError";
 
 const getDisplayName = WrappedComponent =>
