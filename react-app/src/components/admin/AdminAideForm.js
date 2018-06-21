@@ -6,7 +6,6 @@ import gql from "graphql-tag";
 import Text from "../ui/finalFormBulma/Text";
 import FormErrors from "../ui/finalFormBulma/FormErrors";
 import TextArea from "../ui/finalFormBulma/TextArea";
-// import DatePicker from "modules/ui-kit/finalForm/DatePicker";
 import Number from "../ui/finalFormBulma/Number";
 import moment from "moment";
 import { getDepartementsByName, getRegionsByName } from "../../lib/geoApi";
@@ -268,36 +267,6 @@ class AideForm extends React.Component {
                   )}
                 </div>
               </div>
-              {/*
-              <div className="column">
-                <div className="field">
-                  <label className="label"> Périmètre de diffusion </label>
-                  {PERIMETRE_DIFFUSION_OPTIONS.map(option => {
-                    return (
-                      <div key={option.value}>
-                        <label className="checkbox">
-                          <Field
-                            name="perimetreDiffusionType"
-                            component="input"
-                            type="radio"
-                            value={option.value}
-                          />{" "}
-                          {option.label}
-                        </label>
-                      </div>
-                    );
-                  })}
-                  {values.perimetreDiffusionType === "autre" && (
-                    <Field
-                      name="perimetreDiffusionTypeAutre"
-                      className="is-large"
-                      component={Text}
-                      label="Autre"
-                    />
-                  )}
-                </div>
-              </div>
-              */}
             </div>
 
             <hr />
