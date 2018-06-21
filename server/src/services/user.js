@@ -141,7 +141,7 @@ function getAllPermissions() {
 }
 
 function userHasRole(user, roleId) {
-  if (user.roles && user.roles.includes(roleId)) {
+  if (user && user.roles && user.roles.includes(roleId)) {
     return true;
   }
   return false;

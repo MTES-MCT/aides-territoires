@@ -2,7 +2,12 @@ const roles = [
   {
     id: "admin",
     label: "Admin",
-    permissions: ["create_aide", "delete_any_aide", "edit_any_aide"]
+    permissions: [
+      "create_aide",
+      "delete_any_aide",
+      "edit_any_aide",
+      "see_permissions_overview"
+    ]
   },
   {
     id: "contributeur",

@@ -1,31 +1,40 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const AdminSideMenu = () => {
+import gql from "graphql-tag";
+import { graphql, compose } from "react-apollo";
+import GraphQLError from "../ui/GraphQLError";
+import AppLoader from "../ui/AppLoader";
+
+const AdminSideMenu = ({ data: { error, loading, menu } }) => {
+  if (error) return <GraphQLError />;
+  if (loading) return <AppLoader />;
   return (
     <div className="SideMenu">
       <aside className="menu">
         <p className="menu-label">AIDES</p>
         <ul className="menu-list">
-          <li>
-            <NavLink to="/admin/aide/create">Créer une aide</NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/aide/list">Liste des aides</NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/aide/permissions">Permissions et rôles</NavLink>
-          </li>
-          {/*
-          <li>
-            <NavLink to="/type-de-territoire/create">
-              Créer un type de territoire
-            </NavLink>
-          </li>
-          */}
+          {menu.links.map(link => (
+            <li key={link.href}>
+              <NavLink to={link.href}>{link.title}</NavLink>
+            </li>
+          ))}
         </ul>
       </aside>
     </div>
   );
 };
 
-export default AdminSideMenu;
+const query = gql`
+  query menu {
+    menu(id: "adminMenu") {
+      id
+      label
+      links {
+        href
+        title
+      }
+    }
+  }
+`;
+
+export default compose(graphql(query))(AdminSideMenu);

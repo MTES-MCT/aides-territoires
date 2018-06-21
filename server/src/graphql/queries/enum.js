@@ -1,5 +1,5 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
-const { getAllMenus, getMenuById } = require("../../config/menus");
+const { getAllMenus } = require("../../config/menus");
 const { userHasPermission, permissionDenied } = require("../../services/user");
 
 const MenuLinkType = new GraphQLObjectType({
@@ -25,17 +25,6 @@ module.exports = {
     type: new GraphQLList(MenuType),
     resolve: (_, args, context) => {
       return getAllMenus(context.user);
-    }
-  },
-  menu: {
-    type: MenuType,
-    args: {
-      id: {
-        type: GraphQLString
-      }
-    },
-    resolve: (_, { id }, { user }) => {
-      return getMenuById(id, user);
     }
   }
 };

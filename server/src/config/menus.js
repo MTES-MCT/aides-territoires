@@ -26,10 +26,15 @@ function getAdminMenu(user) {
 
 function getAllMenus(user) {
   const allMenus = [];
-  if (userHasRole("admin") || userHasRole("contributeur")) {
+  if (userHasRole(user, "admin") || userHasRole(user, "contributeur")) {
     allMenus.push(getAdminMenu(user));
   }
   return allMenus;
 }
 
-module.exports = { getAllMenus };
+function getMenuById(id, user) {
+  const allMenus = getAllMenus(user);
+  return allMenus.find(menu => menu.id === id);
+}
+
+module.exports = { getAllMenus, getMenuById };
