@@ -102,7 +102,7 @@ class AideForm extends React.Component {
     // si on a une aide et que la clef auteur est un objet,
     // on affiche les infos concernant l'utilisateur.
     const { aide } = this.props;
-    if (aide.auteur !== null && typeof aide.auteur === "object") {
+    if (aide && aide.auteur !== null && typeof aide.auteur === "object") {
       return (
         <div>
           <em>
@@ -257,7 +257,6 @@ class AideForm extends React.Component {
                     <div className="column">
                       {/*caché : contient le code identifiant du type de territoire sélectionné*/}
                       <Field
-                        style={{ display: "none" }}
                         name="perimetreApplicationCode"
                         label="code territoire"
                         component={Text}
