@@ -89,26 +89,27 @@ module.exports = {
       }
     },
     resolve: async (_, args, context) => {
-      // autoriser la sauvegarde seulement à ceux qui ont le droit de créer une
-      // nouvelle aide, d'éditer leur propre aide ou d'éditer n'importe quel aide
-      if (
-        !(
-          userHasPermission(context.user, "create_aide") ||
-          userHasPermission(context.user, "edit_own_aide", { aide: args }) ||
-          userHasPermission(context.user, "edit_any_aide", { aide: args })
-        )
-      ) {
-        return permissionDenied();
-      }
-      // pas d'id : on créer une nouvelle aide
+      // pas d'id : on est en train de créer une nouvelle aide
       let result = null;
       if (!args.id) {
+        if (!userHasPermission(context.user, "create_aide")) {
+          permissionDenied();
+        }
         const aide = new AideModel(args);
         result = await aide.save();
       }
 
-      // un id, on le cherche puis on met à jour si on trouve
-      let aide = await AideModel.findById(args.id);
+      // un id, c'est une mise à jour
+      // on le cherche puis on met à jour si on trouve
+      let aide = await AideModel.findById(args.id).populate("auteur");
+      if (
+        !(
+          userHasPermission(context.user, "edit_own_aide", { aide: aide }) ||
+          userHasPermission(context.user, "edit_any_aide", { aide: aide })
+        )
+      ) {
+        permissionDenied();
+      }
       if (aide) {
         aide = Object.assign(aide, args);
         result = aide.save();
@@ -132,10 +133,13 @@ module.exports = {
     },
     resolve: async (_, { id }, context) => {
       // autoriser l'opération seulement à ceux qui la permission
-      // d'effacer leur propre aide ou n'impote quelle aide
+      // d'effacer leur propre aide ou d'effacer n'importe quelle aide
+      let aide = await AideModel.findById(id);
       if (
-        !userHasPermission(context.user, "delete_any_aide") ||
-        userHasPermission(context.user, "delete_own_aide")
+        !(
+          userHasPermission(context.user, "delete_any_aide") ||
+          userHasPermission(context.user, "delete_own_aide", { aide })
+        )
       ) {
         permissionDenied();
       }
