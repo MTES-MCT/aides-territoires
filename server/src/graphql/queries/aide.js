@@ -14,7 +14,6 @@ const {
 
 const { searchAides, getAides, getAide } = require("../../services/aide");
 const { userHasPermission } = require("../../services/user");
-const User = require("../../mongoose/User");
 
 const searchAideTypeDeTerritoireType = new GraphQLObjectType({
   name: "searchAideTypesDeTerritoires",

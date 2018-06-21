@@ -89,7 +89,15 @@ module.exports = {
       }
     },
     resolve: async (_, args, context) => {
-      if (!userHasPermission(context.user, "delete_any_aide")) {
+      // autoriser la sauvegarde seulement à ceux qui ont le droit de créer une
+      // nouvelle aide, d'éditer leur propre aide ou d'éditer n'importe quel aide
+      if (
+        !(
+          userHasPermission(context.user, "create_aide") ||
+          userHasPermission(context.user, "edit_own_aide", { aide: args }) ||
+          userHasPermission(context.user, "edit_any_aide", { aide: args })
+        )
+      ) {
         return permissionDenied();
       }
       // pas d'id : on créer une nouvelle aide
@@ -123,7 +131,12 @@ module.exports = {
       }
     },
     resolve: async (_, { id }, context) => {
-      if (!userHasPermission(context.user, "delete_any_aide")) {
+      // autoriser l'opération seulement à ceux qui la permission
+      // d'effacer leur propre aide ou n'impote quelle aide
+      if (
+        !userHasPermission(context.user, "delete_any_aide") ||
+        userHasPermission(context.user, "delete_own_aide")
+      ) {
         permissionDenied();
       }
       const result = await AideModel.remove({ _id: id });
