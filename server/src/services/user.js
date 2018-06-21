@@ -15,7 +15,9 @@ module.exports = {
   userHasPermission,
   permissionDenied,
   getRoleById,
-  getPermissionById
+  getPermissionById,
+  getAllRoles,
+  getAllPermissions
 };
 
 function hashPassword(password) {
@@ -116,6 +118,7 @@ function getRoleById(roleId) {
   });
   return matchedRole;
 }
+
 // un utilisateur peut avoir plusieurs roles
 // et chaque role contient une liste de permission.
 // Ce qui nous intéresse c'est la liste de toutes les permissions, tous roles
@@ -130,4 +133,20 @@ function getPermissionsFromRoles(rolesIds = []) {
   });
   const dedupedPermissions = Array.from(new Set(permissions));
   return dedupedPermissions;
+}
+
+function getAllPermissions() {
+  return allPermissions;
+}
+
+function getAllRoles() {
+  let results = [];
+  roles.forEach(role => {
+    let newRole = {
+      ...role,
+      permissions: role.permissions.map(getPermissionById)
+    };
+    results.push(newRole);
+  });
+  return results;
 }
