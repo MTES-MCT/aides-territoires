@@ -25,16 +25,15 @@ function connectToMongodb() {
 
 function buildGraphQLSchema() {
   const schema = new graphql.GraphQLSchema({
-    // "query" type contains all our queries types
     query: new graphql.GraphQLObjectType({
       name: "Query",
       fields: {
         ...require("./graphql/queries/hello"),
         ...require("./graphql/queries/aide"),
-        ...require("./graphql/queries/user")
+        ...require("./graphql/queries/user"),
+        ...require("./graphql/queries/role")
       }
     }),
-    // "mutation" type contains all our mutations types
     mutation: new graphql.GraphQLObjectType({
       name: "Mutation",
       fields: {
