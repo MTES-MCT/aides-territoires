@@ -45,24 +45,41 @@ class AideForm extends React.Component {
     // qu'on est en mode édition
     aide: propTypes.object
   };
-  defaultValues = {
-    nom: "",
-    auteur: "",
-    description: "",
-    structurePorteuse: "",
-    perimetreApplicationType: "france",
-    perimetreApplicationNom: "",
-    perimetreApplicationCode: "",
-    perimetreDiffusionType: "france",
-    lien: "",
-    criteresEligibilite: "",
-    statusPublication: "published",
-    type: "financement",
-    etape: "pre_operationnel",
-    beneficiaires: ["commune"],
-    formeDeDiffusion: ["subvention"],
-    status: "ouvert"
-  };
+  // values lors de la création d'une nouvelle aide
+  getDefaultValues() {
+    return {
+      nom: "",
+      auteur: this.props.user.id,
+      description: "",
+      structurePorteuse: "",
+      perimetreApplicationType: "france",
+      perimetreApplicationNom: "",
+      perimetreApplicationCode: "",
+      perimetreDiffusionType: "france",
+      lien: "",
+      criteresEligibilite: "",
+      statusPublication: "published",
+      type: "financement",
+      etape: "pre_operationnel",
+      beneficiaires: ["commune"],
+      formeDeDiffusion: ["subvention"],
+      status: "ouvert"
+    };
+  }
+  // le formulaire est pré-remplie soit avec les valeurs par défaut
+  // (lors de la création d'une aide), soit avec une aide (édition)
+  getInitialValues() {
+    let values = {};
+    if (this.props.aide) {
+      values = { ...this.props.aide };
+      // l'auteur renvoyé par le serveur n'est pas un id mais l'objet complet
+      values.auteur = values.auteur.id;
+    } else {
+      values = this.getDefaultValues();
+    }
+    return values;
+  }
+
   handleSubmit = values => {
     this.setState({
       submissionStatus: SUBMISSION_STATUS_PENDING
@@ -88,17 +105,11 @@ class AideForm extends React.Component {
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
       return <Redirect push to="/aide/list" />;
     }
-    const initialValues = !this.props.aide
-      ? this.defaultValues
-      : Object.assign({}, this.defaultValues, this.props.aide);
-    if (initialValues.auteur) {
-      initialValues.auteur = initialValues.auteur.id;
-    }
     return (
       <Form
         onSubmit={this.handleSubmit}
         validate={validate}
-        initialValues={initialValues}
+        initialValues={this.getInitialValues()}
         render={({
           handleSubmit,
           submitting,
@@ -111,7 +122,19 @@ class AideForm extends React.Component {
             <div className="columns">
               <div className="column">
                 {/* caché : contient l'id de l'utilisateur connecté */}
-                <Field className="is-large" name="auteur" component={Text} />
+                <div>
+                  <em>
+                    Crée par {this.props.user.name} -{" "}
+                    {this.props.user.roles.join(",")} - {this.props.user.email}
+                  </em>
+                </div>
+                <Field
+                  disabled={true}
+                  className="is-large"
+                  name="auteur"
+                  format={value => (value.id ? value.id : value)}
+                  component={Text}
+                />
 
                 <Field
                   className="is-large"

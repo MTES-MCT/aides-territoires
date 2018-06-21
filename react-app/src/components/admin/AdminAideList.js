@@ -12,7 +12,6 @@ class AdminAideList extends React.Component {
     this.state = {};
   }
   render() {
-    console.log(this.props);
     return (
       <div className="AideList">
         <table className="table">
