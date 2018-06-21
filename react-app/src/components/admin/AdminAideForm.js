@@ -70,10 +70,12 @@ class AideForm extends React.Component {
   // (lors de la création d'une aide), soit avec une aide (édition)
   getInitialValues() {
     let values = {};
-    if (this.props.aide) {
-      values = { ...this.props.aide };
-      // l'auteur renvoyé par le serveur n'est pas un id mais l'objet complet
-      values.auteur = values.auteur.id;
+    if (this.props.operation === "edition") {
+      const { aide } = this.props;
+      values = {
+        ...aide,
+        auteur: aide.auteur && aide.auteur.id ? aide.auteur.id : null
+      };
     } else {
       values = this.getDefaultValues();
     }
@@ -98,6 +100,23 @@ class AideForm extends React.Component {
       })
       .catch(e => this.setState({ error: e }));
   };
+  renderAuteur() {
+    // si on a une aide et que la clef auteur est bien un objet,
+    // on affiche les infos concernant l'utilisateur
+    return (
+      this.props.aide &&
+      this.props.aide.auteur !== null &&
+      this.props.aide.auteur === "object" && (
+        <div>
+          <em>
+            Crée par {this.props.aide.auteur.name} -{" "}
+            {this.props.aide.auteur.roles.join(",")} -{" "}
+            {this.props.aide.auteur.email}
+          </em>
+        </div>
+      )
+    );
+  }
   render() {
     if (this.state.error) {
       return <GraphQLError error={this.state.error} />;
@@ -121,21 +140,13 @@ class AideForm extends React.Component {
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
-                {/* caché : contient l'id de l'utilisateur connecté */}
-                <div>
-                  <em>
-                    Crée par {this.props.user.name} -{" "}
-                    {this.props.user.roles.join(",")} - {this.props.user.email}
-                  </em>
-                </div>
+                {this.renderAuteur()}
                 <Field
                   disabled={true}
                   className="is-large"
                   name="auteur"
-                  format={value => (value.id ? value.id : value)}
                   component={Text}
                 />
-
                 <Field
                   className="is-large"
                   name="nom"
