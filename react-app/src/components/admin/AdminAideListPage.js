@@ -23,7 +23,7 @@ const AideListPage = class extends React.Component {
     this.setState({ requestAideDeletion: null });
   };
   render() {
-    const { loading, aides, error } = this.props.data;
+    const { loading, allAides, error } = this.props.data;
     return (
       <AdminLayout>
         <Dialog
@@ -57,11 +57,11 @@ const AideListPage = class extends React.Component {
         </Dialog>
         <h1 className="title is-1">Liste des aides</h1>
         {error && <GraphQLError error={error} />}
-        {!aides && loading && <Loader />}
-        {aides && (
+        {!allAides && loading && <Loader />}
+        {allAides && (
           <AdminAideList
             onDeleteClick={aide => this.setState({ requestAideDeletion: aide })}
-            aides={aides}
+            aides={allAides}
           />
         )}
       </AdminLayout>
@@ -71,32 +71,39 @@ const AideListPage = class extends React.Component {
 
 const allAidesQuery = gql`
   query adminAllAides {
-    aides: allAides {
-      id
-      createdAt
-      updatedAt
-      nom
-      description
-      perimetreApplicationType
-      perimetreApplicationNom
-      perimetreApplicationCode
-      perimetreDiffusionType
-      etape
-      structurePorteuse
-      statusPublication
-      lien
-      type
-      destination
-      destinationAutre
-      formeDeDiffusion
-      formeDeDiffusionAutre
-      beneficiaires
-      categorieParticuliere
-      demandeTiersPossible
-      auteur {
-        id
-        name
-        roles
+    allAides {
+      edges {
+        meta {
+          userPermissions
+        }
+        node {
+          id
+          createdAt
+          updatedAt
+          nom
+          description
+          perimetreApplicationType
+          perimetreApplicationNom
+          perimetreApplicationCode
+          perimetreDiffusionType
+          etape
+          structurePorteuse
+          statusPublication
+          lien
+          type
+          destination
+          destinationAutre
+          formeDeDiffusion
+          formeDeDiffusionAutre
+          beneficiaires
+          categorieParticuliere
+          demandeTiersPossible
+          auteur {
+            id
+            name
+            roles
+          }
+        }
       }
     }
   }

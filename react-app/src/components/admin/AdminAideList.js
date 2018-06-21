@@ -5,7 +5,6 @@ import withUser from "../decorators/withUser";
 
 class AdminAideList extends React.Component {
   static propTypes = {
-    aides: PropTypes.array.isRequired,
     onDeleteClick: PropTypes.func
   };
   constructor(props) {
@@ -30,33 +29,37 @@ class AdminAideList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.aides.map(aide => {
+            {this.props.aides.edges.map(aide => {
               return (
-                <tr key={aide.id}>
-                  <td>{aide.nom}</td>
+                <tr key={aide.node.id}>
+                  <td>{aide.node.nom}</td>
                   <td>
-                    {aide.auteur && aide.auteur.name} -
-                    {aide.auteur && aide.auteur.roles.join(",")}
+                    {aide.node.auteur && aide.node.auteur.name} -
+                    {aide.node.auteur && aide.node.auteur.roles.join(",")}
                   </td>
-                  <td>{aide.updatedAt}</td>
-                  <td>{aide.type}</td>
-                  <td>{aide.perimetreApplicationType}</td>
-                  <td>{aide.statusPublication}</td>
+                  <td>{aide.node.updatedAt}</td>
+                  <td>{aide.node.type}</td>
+                  <td>{aide.node.perimetreApplicationType}</td>
+                  <td>{aide.node.statusPublication}</td>
                   <td>
-                    <NavLink
-                      to={`/aide/${aide.id}/edit`}
-                      className="button is-success"
-                    >
-                      Editer
-                    </NavLink>
+                    {aide.meta.userPermissions.includes("edit") && (
+                      <NavLink
+                        to={`/aide/${aide.node.id}/edit`}
+                        className="button is-success"
+                      >
+                        Editer
+                      </NavLink>
+                    )}
                   </td>
                   <td>
-                    <span
-                      onClick={e => this.props.onDeleteClick(aide)}
-                      className="button is-danger"
-                    >
-                      Supprimer
-                    </span>
+                    {aide.meta.userPermissions.includes("delete") && (
+                      <span
+                        onClick={e => this.props.onDeleteClick(aide)}
+                        className="button is-danger"
+                      >
+                        Supprimer
+                      </span>
+                    )}
                   </td>
                 </tr>
               );
