@@ -188,7 +188,6 @@ const searchAides = async (filters, { sort = null, context = null }) => {
           filters.codePerimetreInitialDeRecherche
         }/departements`
       );
-      //console.log(JSON.stringify(geoApiResponse.data, 0, 2));
 
       const promisesArray = await geoApiResponse.data.map(async departement => {
         aides = await getAllAidesByTerritoire(
