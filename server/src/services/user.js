@@ -58,9 +58,15 @@ async function getUserFromJwt(token) {
 
 /**
  * Vérifie si un utilisateur a une permission donnée.
- * @param {*} user
+ * @param {Object} user
+ * @param {String} permissionId
+ * @param {Object } permissionRevolverArgs
  */
-function userHasPermission(user, permissionId = "") {
+function userHasPermission(
+  user,
+  permissionId = "",
+  permissionRevolverArgs = {}
+) {
   if (!user || !user._id || user.roles.length === 0) {
     return false;
   }
@@ -71,7 +77,13 @@ function userHasPermission(user, permissionId = "") {
   }
   // on vérifie que cette permission existe puis que l'utilisateur
   // possède bien cette permission sur l'un des rôles qui lui sont attribués
+  // si la permission possède un resolver , on le fait tourner avec les arguments qui vont bien
   if (userPermissions.includes(permissionId)) {
+    let permission = getPermissionById(permissionId);
+    if (permission.resolver) {
+      const result = permission.resolver(user, permissionRevolverArgs);
+      return result;
+    }
     return true;
   }
   return false;
@@ -88,6 +100,10 @@ function permissionExists(permissionId) {
     }
   });
   return false;
+}
+
+function getPermissionById(id) {
+  return allPermissions.find(permission => permission.id === id);
 }
 
 function getRoleById(roleId) {

@@ -13,6 +13,8 @@ const {
 } = require("graphql");
 
 const { searchAides, getAides, getAide } = require("../../services/aide");
+const { userHasPermission } = require("../../services/user");
+const User = require("../../mongoose/User");
 
 const searchAideTypeDeTerritoireType = new GraphQLObjectType({
   name: "searchAideTypesDeTerritoires",
@@ -304,15 +306,19 @@ module.exports = {
         })
       }
     },
-    resolve: async (_, { filters, sort = "-updatedAt", context }) => {
+    resolve: async (_, { filters, sort = "-updatedAt" }, context) => {
       const aides = await getAides(filters, {
         sort,
         showUnpublished: true,
         context
       });
 
+      context.user = await User.findById("5b2a64dbe7179a5892856dd2");
       const edges = aides.map(aide => {
         const userPermissions = [];
+        if (userHasPermission(context.user, "edit_own_aide", { aide })) {
+          userPermissions.push("edit");
+        }
         return {
           meta: {
             userPermissions
