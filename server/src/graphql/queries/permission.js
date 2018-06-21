@@ -1,6 +1,10 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
 const permissionsAndRoles = require("../../config/permissions");
-const { userHasPermission, permissionDenied } = require("../../services/user");
+const {
+  userHasPermission,
+  permissionDenied,
+  getPermissionById
+} = require("../../services/user");
 // a simple query to test our graphql API
 module.exports = {
   allRoles: {
@@ -26,17 +30,18 @@ module.exports = {
     ),
     resolve: (_, args, context) => {
       if (!userHasPermission(context.user, "see_permission_overview")) {
-        permissionDenied();
+        //permissionDenied();
       }
-      let { roles, permissions } = permissionsAndRoles;
+      let { roles } = permissionsAndRoles;
+      let results = [];
       roles.forEach(role => {
-        role.permissions.forEach((permissionId, index) => {
-          role.permissions[index] = permissions.find(
-            permission => permission.id === permissionId
-          );
-        });
+        let newRole = {
+          ...role,
+          permissions: role.permissions.map(getPermissionById)
+        };
+        results.push(newRole);
       });
-      return roles;
+      return results;
     }
   }
 };

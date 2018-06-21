@@ -14,7 +14,8 @@ module.exports = {
   getUserFromJwt,
   userHasPermission,
   permissionDenied,
-  getRoleById
+  getRoleById,
+  getPermissionById
 };
 
 function hashPassword(password) {

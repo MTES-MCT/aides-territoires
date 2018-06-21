@@ -7,10 +7,13 @@ const AdminSideMenu = () => {
         <p className="menu-label">AIDES</p>
         <ul className="menu-list">
           <li>
-            <NavLink to="/aide/create">Créer une aide</NavLink>
+            <NavLink to="/admin/aide/create">Créer une aide</NavLink>
           </li>
           <li>
-            <NavLink to="/aide/list">Liste des aides</NavLink>
+            <NavLink to="/admin/aide/list">Liste des aides</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/aide/permissions">Permissions et rôles</NavLink>
           </li>
           {/*
           <li>

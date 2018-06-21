@@ -10,6 +10,7 @@ import SearchAidePage from "./components/search/SearchAidePage";
 import AdminAideCreatePage from "./components/admin/AdminAideCreatePage";
 import AdminAideEditPage from "./components/admin/AdminAideEditPage";
 import AdminAideListPage from "./components/admin/AdminAideListPage";
+import AdminPermissionsOverview from "./components/admin/AdminPermissionsOverview";
 import LoginPage from "./components/auth/LoginPage";
 import LogoutPage from "./components/auth/LogoutPage";
 
@@ -29,17 +30,22 @@ class App extends React.PureComponent {
                   <Route exact path="/admin" component={AdminAideListPage} />
                   <Route
                     exact
-                    path="/aide/create"
+                    path="/admin/aide/permissions"
+                    component={AdminPermissionsOverview}
+                  />
+                  <Route
+                    exact
+                    path="/admin/aide/create"
                     component={AdminAideCreatePage}
                   />
                   <Route
                     exact
-                    path="/aide/list"
+                    path="/admin/aide/list"
                     component={AdminAideListPage}
                   />
                   <Route
                     exact
-                    path="/aide/:id/edit"
+                    path="/admin/aide/:id/edit"
                     component={AdminAideEditPage}
                   />
                   <Route exact path="/login" component={LoginPage} />
