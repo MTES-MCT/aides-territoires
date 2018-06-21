@@ -2,7 +2,8 @@ const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
 const {
   userHasPermission,
   permissionDenied,
-  getAllRoles
+  getAllRoles,
+  getAllPermissions
 } = require("../../services/user");
 
 const PermissionType = new GraphQLObjectType({
@@ -33,6 +34,15 @@ module.exports = {
         permissionDenied();
       }
       return getAllRoles();
+    }
+  },
+  allPermissions: {
+    type: new GraphQLList(PermissionType),
+    resolve: (_, args, context) => {
+      if (!userHasPermission(context.user, "see_permission_overview")) {
+        permissionDenied();
+      }
+      return getAllPermissions();
     }
   }
 };

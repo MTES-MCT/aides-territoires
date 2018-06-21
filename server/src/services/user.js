@@ -12,12 +12,13 @@ module.exports = {
   getUserByPassword,
   getJwt,
   getUserFromJwt,
-  userHasPermission,
   permissionDenied,
+  getAllRoles,
   getRoleById,
   getPermissionById,
-  getAllRoles,
-  getAllPermissions
+  getAllPermissions,
+  userHasPermission,
+  userHasRole
 };
 
 function hashPassword(password) {
@@ -137,6 +138,13 @@ function getPermissionsFromRoles(rolesIds = []) {
 
 function getAllPermissions() {
   return allPermissions;
+}
+
+function userHasRole(user, roleId) {
+  if (user.roles && user.roles.includes(roleId)) {
+    return true;
+  }
+  return false;
 }
 
 function getAllRoles() {

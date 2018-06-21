@@ -31,7 +31,8 @@ function buildGraphQLSchema() {
         ...require("./graphql/queries/hello"),
         ...require("./graphql/queries/aide"),
         ...require("./graphql/queries/user"),
-        ...require("./graphql/queries/permission")
+        ...require("./graphql/queries/permission"),
+        ...require("./graphql/queries/menu")
       }
     }),
     mutation: new graphql.GraphQLObjectType({

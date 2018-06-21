@@ -12,7 +12,7 @@ class AdminPermissionsOverview extends React.Component {
   }
   render() {
     console.log(this.props);
-    const { loading, allRoles, error } = this.props.data;
+    const { loading, allRoles, allPermissions, error } = this.props.data;
     if (error) return <GraphQLError error={error} />;
     if (loading) return <AppLoader />;
     return (
@@ -34,6 +34,10 @@ const query = gql`
         id
         label
       }
+    }
+    allPermissions {
+      id
+      label
     }
   }
 `;
