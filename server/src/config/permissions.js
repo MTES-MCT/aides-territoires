@@ -29,7 +29,7 @@ const permissions = [
     label: "Supprimer ses propres aides",
     resolver: (user, args) => {
       const { aide } = args;
-      if (!aide.auteur) return false;
+      if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
         return true;
       }
@@ -41,9 +41,8 @@ const permissions = [
     label: "éditer ses propres aides",
     resolver: (user, args) => {
       const { aide } = args;
-      if (!aide.auteur) return false;
+      if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
-        console.log(user.id, aide.auteur.id);
         return true;
       }
       return false;

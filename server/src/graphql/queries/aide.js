@@ -312,9 +312,6 @@ module.exports = {
         showUnpublished: true,
         context
       });
-      context.user = await User.findById("5b2a64dbe7179a5892856dd2").populate(
-        "auteur"
-      );
       // ajouter les permission : l'utilisateur peut voir les boutons
       // effacer et éditer seulement si il a les permission ci-dessous
       const edges = aides.map(aide => {
