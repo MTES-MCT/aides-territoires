@@ -27,7 +27,7 @@ const permissions = [
   {
     id: "delete_own_aide",
     label: "Supprimer ses propres aides",
-    resolver: (user, args) => {
+    resolve: (user, args) => {
       const { aide } = args;
       if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
@@ -39,7 +39,7 @@ const permissions = [
   {
     id: "edit_own_aide",
     label: "éditer ses propres aides",
-    resolver: (user, args) => {
+    resolve: (user, args) => {
       const { aide } = args;
       if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
@@ -47,7 +47,8 @@ const permissions = [
       }
       return false;
     }
-  }
+  },
+  { id: "see_permissions_overview", label: "voir les permissions et rôles" }
 ];
 
 module.exports = { roles, permissions };

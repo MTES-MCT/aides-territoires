@@ -80,8 +80,8 @@ function userHasPermission(
   // si la permission possède un resolver , on le fait tourner avec les arguments qui vont bien
   if (userPermissions.includes(permissionId)) {
     let permission = getPermissionById(permissionId);
-    if (permission.resolver) {
-      const result = permission.resolver(user, permissionRevolverArgs);
+    if (permission.resolve) {
+      const result = permission.resolve(user, permissionRevolverArgs);
       return result;
     }
     return true;
