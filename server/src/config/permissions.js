@@ -6,7 +6,8 @@ const roles = [
       "create_aide",
       "delete_any_aide",
       "edit_any_aide",
-      "see_permissions_overview"
+      "see_permissions_overview",
+      "publish_aide"
     ]
   },
   {
@@ -53,7 +54,8 @@ const permissions = [
       return false;
     }
   },
-  { id: "see_permissions_overview", label: "voir les permissions et rôles" }
+  { id: "see_permissions_overview", label: "voir les permissions et rôles" },
+  { id: "publish_aide", label: "publier une aide" }
 ];
 
 module.exports = { roles, permissions };
