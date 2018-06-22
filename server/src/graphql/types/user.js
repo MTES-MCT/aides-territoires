@@ -1,5 +1,4 @@
 module.exports = {};
-const { getRoleById } = require("../../services/user");
 const {
   GraphQLID,
   GraphQLObjectType,
@@ -17,11 +16,9 @@ const User = new GraphQLObjectType({
       type: GraphQLString
     },
     roles: {
-      type: new GraphQLList(GraphQLString),
-      resolve: user => {
-        return user.roles.map(role => getRoleById(role).label);
-      }
-    }
+      type: new GraphQLList(GraphQLString)
+    },
+    permissions: { type: new GraphQLList(GraphQLString) }
   })
 });
 

@@ -18,7 +18,8 @@ module.exports = {
   getPermissionById,
   getAllPermissions,
   userHasPermission,
-  userHasRole
+  userHasRole,
+  getPermissionsFromRoles
 };
 
 function hashPassword(password) {
@@ -50,14 +51,18 @@ function getJwt(user) {
   });
 }
 
+/**
+ * Vérifie que le token est valide et retourne le user associé si c'est le cas.
+ * @param {*} token
+ */
 async function getUserFromJwt(token) {
   const { id } = await new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET, {}, (err, res) => {
       err ? reject(err) : resolve(res);
     });
   });
-
-  return User.findById(id);
+  const user = await User.findById(id);
+  return user;
 }
 
 /**
@@ -120,10 +125,12 @@ function getRoleById(roleId) {
   return matchedRole;
 }
 
+// récupère toutes les permissions d'un utilisateur, tous rôles confondus
+//
 // un utilisateur peut avoir plusieurs roles
 // et chaque role contient une liste de permission.
-// Ce qui nous intéresse c'est la liste de toutes les permissions, tous roles
-// de l'utilisateur confondus
+// Ce qui nous intéresse c'est la liste de toutes les permissions, tous roles confondus
+// de l'utilisateur
 function getPermissionsFromRoles(rolesIds = []) {
   let permissions = [];
   rolesIds.forEach(roleId => {

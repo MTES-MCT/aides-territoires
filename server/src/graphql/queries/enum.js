@@ -1,6 +1,4 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
-const { getAllMenus } = require("../../config/menus");
-const { userHasPermission, permissionDenied } = require("../../services/user");
 const enumsAide = require("../../enums/aide");
 
 const enumType = new GraphQLObjectType({

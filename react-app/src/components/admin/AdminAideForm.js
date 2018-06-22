@@ -55,7 +55,7 @@ class AideForm extends React.Component {
       perimetreDiffusionType: "france",
       lien: "",
       criteresEligibilite: "",
-      statusPublication: "published",
+      statusPublication: "review_required",
       type: "financement",
       etape: "pre_operationnel",
       beneficiaires: ["commune"],
@@ -190,7 +190,6 @@ class AideForm extends React.Component {
                 />
               </div>
             </div>
-
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -268,9 +267,7 @@ class AideForm extends React.Component {
                 </div>
               </div>
             </div>
-
             <hr />
-
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -501,7 +498,6 @@ class AideForm extends React.Component {
               </div>
             </div>
             <hr />
-
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -539,9 +535,10 @@ class AideForm extends React.Component {
                 </div>
               </div>
             </div>
-
             <hr />
             <div className="columns">
+              {JSON.stringify(this.props.user.roles)}
+
               <div className="column">
                 <div className="field">
                   <label className="label"> Statut de publication </label>
@@ -562,6 +559,7 @@ class AideForm extends React.Component {
                   })}
                 </div>
               </div>
+
               <div className="column">
                 <Field
                   name="motsCles"
@@ -587,7 +585,6 @@ class AideForm extends React.Component {
             </button>
             <br />
             <br />
-
             <pre>{JSON.stringify(values, null, 2)}</pre>
           </form>
         )}

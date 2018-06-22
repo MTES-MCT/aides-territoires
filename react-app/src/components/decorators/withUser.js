@@ -35,6 +35,7 @@ export default function withUser(options = {}) {
             email
             name
             roles
+            permissions
           }
         }
       `,
