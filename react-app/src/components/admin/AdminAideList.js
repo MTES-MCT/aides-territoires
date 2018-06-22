@@ -43,7 +43,7 @@ class AdminAideList extends React.Component {
                   <td>
                     {aide.meta.userPermissions.includes("edit") && (
                       <NavLink
-                        to={`/aide/${aide.node.id}/edit`}
+                        to={`/admin/aide/${aide.node.id}/edit`}
                         className="button is-success"
                       >
                         Editer

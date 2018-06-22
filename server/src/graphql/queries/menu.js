@@ -1,6 +1,5 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
 const { getAllMenus, getMenuById } = require("../../config/menus");
-const { userHasPermission, permissionDenied } = require("../../services/user");
 
 const MenuLinkType = new GraphQLObjectType({
   name: "menuLink",
