@@ -13,6 +13,15 @@
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+  <script src="https://cdn.ravenjs.com/3.26.2/raven.min.js" crossorigin="anonymous"></script>
+  <script>Raven.config('https://ba44729431a044d6915d8012e94d8a56@sentry.io/1230983', {
+      // send reports only in production mode
+      shouldSendCallback: () => "%NODE_ENV%" === "production",
+      environment: "%NODE_ENV%"
+    }).install();
+  </script>
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
