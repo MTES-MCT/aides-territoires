@@ -16,7 +16,7 @@ const AideEditPage = ({ data: { aide, error, loading } }) => {
   );
 };
 
-const editAideQuery = gql`
+const query = gql`
   query editAide($id: ID) {
     aide: getAide(id: $id) {
       id
@@ -62,7 +62,7 @@ const editAideQuery = gql`
 `;
 
 export default compose(
-  graphql(editAideQuery, {
+  graphql(query, {
     options: props => {
       return {
         variables: {

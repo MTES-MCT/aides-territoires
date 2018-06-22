@@ -24,15 +24,15 @@ const permissions = [
   },
   {
     id: "edit_any_aide",
-    label: "Créer une aide"
+    label: "Editer n'importe quelle aide"
   },
   {
     id: "delete_any_aide",
-    label: "Supprimer un aide"
+    label: "Supprimer n'importe quelle aide"
   },
   {
     id: "delete_own_aide",
-    label: "Supprimer ses propres aides",
+    label: "Supprimer uniquement ses propres aides",
     resolve: (user, args) => {
       const { aide } = args;
       if (!aide.auteur || !aide.auteur.id) return false;
@@ -44,7 +44,7 @@ const permissions = [
   },
   {
     id: "edit_own_aide",
-    label: "éditer ses propres aides",
+    label: "éditer uniquement ses propres aides",
     resolve: (user, args) => {
       const { aide } = args;
       if (!aide.auteur || !aide.auteur.id) return false;

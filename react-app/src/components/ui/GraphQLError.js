@@ -7,7 +7,7 @@ import React from "react";
  * @param {Object} error : this.props.data.error
  */
 const GraphQLError = error => {
-  console.log(error);
+  console.log("error", error);
   let networkErrorMessage = "";
   let errorMessage = error.error.message;
   if (error.error.networkError && error.error.networkError.result) {

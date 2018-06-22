@@ -30,7 +30,7 @@ module.exports = {
   allRoles: {
     type: new GraphQLList(RoleType),
     resolve: (_, args, context) => {
-      if (!userHasPermission(context.user, "see_permission_overview")) {
+      if (!userHasPermission(context.user, "see_permissions_overview")) {
         permissionDenied();
       }
       return getAllRoles();
@@ -39,7 +39,7 @@ module.exports = {
   allPermissions: {
     type: new GraphQLList(PermissionType),
     resolve: (_, args, context) => {
-      if (!userHasPermission(context.user, "see_permission_overview")) {
+      if (!userHasPermission(context.user, "see_permissions_overview")) {
         permissionDenied();
       }
       return getAllPermissions();
