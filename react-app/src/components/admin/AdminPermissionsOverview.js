@@ -12,12 +12,18 @@ class AdminPermissionsOverview extends React.Component {
     super(props);
     this.state = {};
   }
+  roleHasPermission(role, permissionId) {
+    return role.permissions.find(
+      rolePermission => rolePermission.id === permissionId
+    );
+  }
   render() {
     const { loading, allRoles, allPermissions, error } = this.props.data;
     if (error) return <GraphQLError error={error} />;
     if (loading) return <AppLoader />;
     return (
       <AdminLayout>
+        <h1 className="title is-3">Permissions et rôles</h1>
         <table className={classnames("table", this.props.classes.table)}>
           <thead>
             <tr>
@@ -29,16 +35,9 @@ class AdminPermissionsOverview extends React.Component {
             {allPermissions.map(permission => (
               <tr key={permission.id}>
                 <td>{permission.label}</td>
-                <td>
-                  {allRoles[0].permissions.find(
-                    rolePermission => rolePermission.id === permission.id
-                  ) && "X"}
-                </td>
-                <td>
-                  {allRoles[1].permissions.find(
-                    rolePermission => rolePermission.id === permission.id
-                  ) && "X"}
-                </td>
+                {allRoles.map(role => (
+                  <td>{this.roleHasPermission(role, permission.id) && "X"}</td>
+                ))}
               </tr>
             ))}
           </tbody>
