@@ -117,7 +117,7 @@ class AideForm extends React.Component {
       return <GraphQLError error={this.state.error} />;
     }
     if (this.state.submissionStatus === SUBMISSION_STATUS_FINISHED) {
-      return <Redirect push to="/aide/list" />;
+      return <Redirect push to="/admin/aide/list" />;
     }
     return (
       <Form
@@ -537,28 +537,28 @@ class AideForm extends React.Component {
             </div>
             <hr />
             <div className="columns">
-              {JSON.stringify(this.props.user.roles)}
-
-              <div className="column">
-                <div className="field">
-                  <label className="label"> Statut de publication </label>
-                  {enums.statusPublication.values.map(option => {
-                    return (
-                      <div key={option.value}>
-                        <label className="checkbox">
-                          <Field
-                            name="statusPublication"
-                            component="input"
-                            type="radio"
-                            value={option.value}
-                          />{" "}
-                          {option.label}
-                        </label>
-                      </div>
-                    );
-                  })}
+              {this.props.user.permissions.includes("publish_aide") && (
+                <div className="column">
+                  <div className="field">
+                    <label className="label"> Statut de publication </label>
+                    {enums.statusPublication.values.map(option => {
+                      return (
+                        <div key={option.value}>
+                          <label className="checkbox">
+                            <Field
+                              name="statusPublication"
+                              component="input"
+                              type="radio"
+                              value={option.value}
+                            />{" "}
+                            {option.label}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="column">
                 <Field

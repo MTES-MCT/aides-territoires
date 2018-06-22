@@ -1,5 +1,5 @@
 const types = require("../types");
-const { GraphQLID, GraphQLBoolean } = require("graphql");
+const { GraphQLID } = require("graphql");
 const { getPermissionsFromRoles } = require("../../services/user");
 
 module.exports = {
@@ -17,7 +17,8 @@ module.exports = {
         roles: user.roles,
         // on ajoute les permissions, qui seront utiles en front pour afficher ou
         // pas certains élements de l'UI
-        permissions: getPermissionsFromRoles(["admin"])
+        // avec un code de type : if(user.permission.includes('publish_aide'))
+        permissions: getPermissionsFromRoles(user.roles)
       };
       return result;
     }
