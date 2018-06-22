@@ -1,30 +1,41 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
 const { getAllMenus } = require("../../config/menus");
 const { userHasPermission, permissionDenied } = require("../../services/user");
+const enumsAide = require("../../enums/aide");
 
-const MenuLinkType = new GraphQLObjectType({
-  name: "menuLink",
-  fields: {
-    href: { type: GraphQLString },
-    title: { type: GraphQLString }
-  }
-});
-
-const MenuType = new GraphQLObjectType({
-  name: "menu",
+const enumType = new GraphQLObjectType({
+  name: "allEnums",
   fields: {
     id: { type: GraphQLString },
-    label: { type: GraphQLString },
-    links: { type: new GraphQLList(MenuLinkType) }
+    name: { type: GraphQLString },
+    enums: {
+      type: GraphQLList(
+        new GraphQLObjectType({
+          name: "enum",
+          fields: {
+            value: { type: GraphQLString },
+            label: { type: GraphQLString }
+          }
+        })
+      )
+    }
   }
 });
 
 // a simple query to test our graphql API
 module.exports = {
-  allMenus: {
-    type: new GraphQLList(MenuType),
+  allEnums: {
+    type: GraphQLList(enumType),
     resolve: (_, args, context) => {
-      return getAllMenus(context.user);
+      const results = [];
+      Object.keys(enumsAide).forEach(key => {
+        results.push({
+          id: key,
+          name: key,
+          enums: enumsAide[key]
+        });
+      });
+      return results;
     }
   }
 };
