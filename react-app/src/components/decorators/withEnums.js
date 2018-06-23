@@ -1,8 +1,7 @@
 import React from "react";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import hoistNonReactStatic from "hoist-non-react-statics";
-import AppLoader from "../ui/AppLoader";
 import GraphQLError from "../ui/GraphQLError";
 
 const getDisplayName = WrappedComponent =>
@@ -38,7 +37,7 @@ export default function withEnums(options = {}) {
 
       render() {
         const {
-          data: { loading, error, allEnums }
+          data: { loading, error }
         } = this.props;
         if (loading) return null;
         if (error) return <GraphQLError error={error} />;

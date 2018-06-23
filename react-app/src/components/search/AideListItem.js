@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import AideListItemDetails from "./AideListItemDetails";
 import SlideDown from "../ui/reactSpring/SlideDown";
-import { getLabelFromEnumValue } from "../../enums";
+import withEnums from "../decorators/withEnums";
+import { compose } from "react-apollo";
 import injectSheet from "react-jss";
 import classnames from "classnames";
 import { blue300 } from "material-ui/styles/colors";
@@ -96,24 +97,28 @@ const AideTitleUnderline = ({ aide }) => (
 /********************
  * AidePerimetre
  ********************/
-let AidePerimetre = ({ classes, aide }) => (
+let AidePerimetre = ({ classes, aide, getEnumValueFromId }) => (
   <span className={classes.root}>
-    {getLabelFromEnumValue(
-      "aide",
-      "perimetreApplicationType",
-      aide.perimetreApplicationType
-    )}{" "}
+    {
+      getEnumValueFromId(
+        "perimetreApplicationType",
+        aide.perimetreApplicationType
+      ).label
+    }{" "}
     {aide.perimetreApplicationNom}
   </span>
 );
-AidePerimetre = injectSheet({
-  root: {
-    textTransform: "uppercase",
-    color: "gray",
-    fontSize: "21px",
-    fontWeight: "normal"
-  }
-})(AidePerimetre);
+AidePerimetre = compose(
+  injectSheet({
+    root: {
+      textTransform: "uppercase",
+      color: "gray",
+      fontSize: "21px",
+      fontWeight: "normal"
+    }
+  }),
+  withEnums()
+)(AidePerimetre);
 
 /********************
  * AideShowMoreButton
@@ -245,4 +250,4 @@ const AideIconsBar = ({ aide }) => {
   );
 };
 
-export default AideListItem;
+export default compose(withEnums())(AideListItem);

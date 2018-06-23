@@ -2,14 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import classnames from "classnames";
-import { getLabelFromEnumValue } from "../../enums";
+import { compose } from "react-apollo";
+import withEnums from "../decorators/withEnums";
 
 class AideListItemDetails extends React.Component {
   static propTypes = {
     aide: PropTypes.object.isRequired
   };
   render() {
-    const { aide, classes } = this.props;
+    const { aide, classes, getEnumValueFromId, enums } = this.props;
     return (
       <div className="AideListItemDetails">
         <table className={classnames("table", classes.table)}>
@@ -27,8 +28,9 @@ class AideListItemDetails extends React.Component {
                 <td>Bénéficiaires </td>
                 <td>
                   {aide.beneficiaires
-                    .map(option =>
-                      getLabelFromEnumValue("aide", "beneficiaires", option)
+                    .map(
+                      option =>
+                        getEnumValueFromId("beneficiaires", option).label
                     )
                     .join(", ")}
                 </td>
@@ -42,8 +44,9 @@ class AideListItemDetails extends React.Component {
               <td>Modalité de diffusion</td>
               <td>
                 {aide.formeDeDiffusion
-                  .map(option =>
-                    getLabelFromEnumValue("aide", "formeDeDiffusion", option)
+                  .map(
+                    option =>
+                      getEnumValueFromId("formeDeDiffusion", option).label
                   )
                   .join(", ")}
               </td>
@@ -56,7 +59,7 @@ class AideListItemDetails extends React.Component {
               <td>Temporalité dans le projet</td>
               <td>
                 {aide.etape
-                  .map(option => getLabelFromEnumValue("aide", "etape", option))
+                  .map(option => getEnumValueFromId("etape", option).label)
                   .join(", ")}
               </td>
             </tr>
@@ -64,8 +67,8 @@ class AideListItemDetails extends React.Component {
               <td>Destination de l'aide</td>
               <td>
                 {aide.destination
-                  .map(option =>
-                    getLabelFromEnumValue("aide", "destination", option)
+                  .map(
+                    option => getEnumValueFromId("destination", option).label
                   )
                   .join(", ")}
               </td>
@@ -81,7 +84,7 @@ class AideListItemDetails extends React.Component {
                   className="tag"
                   style={{ marginRight: "20px" }}
                 >
-                  {getLabelFromEnumValue("aide", "thematiques", thematique)}
+                  {getEnumValueFromId("thematiques", thematique).label}
                 </div>
               );
             })}
@@ -101,4 +104,7 @@ const styles = {
   }
 };
 
-export default injectSheet(styles)(AideListItemDetails);
+export default compose(
+  injectSheet(styles),
+  withEnums()
+)(AideListItemDetails);
