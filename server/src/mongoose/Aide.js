@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const { formatEnumForMongoose } = require("../services/enums");
-const enums = require("../enums/aide");
+const { getEnumByIdForMongoose } = require("../services/enums");
 
 const schema = new mongoose.Schema(
   {
@@ -11,11 +10,11 @@ const schema = new mongoose.Schema(
     criteresEligibilite: String,
     type: {
       type: String,
-      enum: formatEnumForMongoose(enums.type)
+      enum: getEnumByIdForMongoose("type")
     },
     perimetreApplicationType: {
       type: String,
-      enum: formatEnumForMongoose(enums.perimetreApplicationType)
+      enum: getEnumByIdForMongoose("perimetreApplicationType")
     },
     perimetreApplicationNom: {
       type: String
@@ -25,15 +24,15 @@ const schema = new mongoose.Schema(
     },
     etape: {
       type: [String],
-      enum: formatEnumForMongoose(enums.etape)
+      enum: getEnumByIdForMongoose("etape")
     },
     statusPublication: {
       type: String,
-      enum: formatEnumForMongoose(enums.statusPublication)
+      enum: getEnumByIdForMongoose("statusPublication")
     },
     perimetreDiffusionType: {
       type: String,
-      enum: formatEnumForMongoose(enums.perimetreDiffusionType)
+      enum: getEnumByIdForMongoose("perimetreDiffusionType")
     },
     perimetreDiffusionTypeAutre: {
       type: String
@@ -52,28 +51,28 @@ const schema = new mongoose.Schema(
     },
     beneficiaires: {
       type: [String],
-      enum: formatEnumForMongoose(enums.beneficiaires)
+      enum: getEnumByIdForMongoose("beneficiaires")
     },
     beneficiairesAutre: {
       type: String
     },
     formeDeDiffusion: {
       type: [String],
-      enum: formatEnumForMongoose(enums.formeDeDiffusion)
+      enum: getEnumByIdForMongoose("formeDeDiffusion")
     },
     formeDeDiffusionAutre: {
       type: String
     },
     destination: {
       type: [String],
-      enum: formatEnumForMongoose(enums.destination)
+      enum: getEnumByIdForMongoose("destination")
     },
     destinationAutre: {
       type: String
     },
     thematiques: {
       type: [String],
-      enum: formatEnumForMongoose(enums.thematiques)
+      enum: getEnumByIdForMongoose("thematiques")
     },
     dateDebut: {
       type: Date
@@ -89,13 +88,13 @@ const schema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: formatEnumForMongoose(enums.status)
+      enum: getEnumByIdForMongoose("status")
     },
     motsCles: {
       type: String
     },
     categorieParticuliere: {
-      type: formatEnumForMongoose(enums.categorieParticuliere)
+      type: getEnumByIdForMongoose("categorieParticuliere")
     },
     //  La demande peut être faite par un tiers pour le compte du porteur de projet
     // ou bien doit-elle être faite par le porteur de projet lui même

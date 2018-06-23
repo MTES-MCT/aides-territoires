@@ -4,33 +4,33 @@ module.exports = [
   {
     id: "perimetreApplicationType",
     label: "Échelle",
-    options: [
+    values: [
       {
-        value: "commune",
+        id: "commune",
         label: "Commune"
       },
       {
-        value: "departement",
+        id: "departement",
         label: "Département"
       },
       {
-        value: "region",
+        id: "region",
         label: "Région"
       },
       {
-        value: "metropole",
+        id: "metropole",
         label: "France métropole et Corse"
       },
       {
-        value: "outre_mer",
+        id: "outre_mer",
         label: "Outre mer"
       },
       {
-        value: "france",
+        id: "france",
         label: "France"
       },
       {
-        value: "europe",
+        id: "europe",
         label: "Europe"
       }
     ]
@@ -38,33 +38,33 @@ module.exports = [
   {
     id: "perimetreDiffusionType",
     label: "Périmètre de diffusion",
-    options: [
+    values: [
       {
-        value: "france",
+        id: "france",
         label: "France"
       },
       {
-        value: "region",
+        id: "region",
         label: "Région"
       },
       {
-        value: "departement",
+        id: "departement",
         label: "Département"
       },
       {
-        value: "metropole",
+        id: "metropole",
         label: "France métropole et Corse"
       },
       {
-        value: "outre_mer",
+        id: "outre_mer",
         label: "Outre mer"
       },
       {
-        value: "europe",
+        id: "europe",
         label: "Europe"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -72,17 +72,17 @@ module.exports = [
   {
     id: "type",
     label: "Type d'aide",
-    options: [
+    values: [
       {
-        value: "financement",
+        id: "financement",
         label: "Financement"
       },
       {
-        value: "ingenierie",
+        id: "ingenierie",
         label: "Ingénierie"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -90,21 +90,21 @@ module.exports = [
   {
     id: "etape",
     label: "Étape",
-    options: [
+    values: [
       {
-        value: "pre_operationnel",
+        id: "pre_operationnel",
         label: "Pré-opérationnel"
       },
       {
-        value: "operationnel",
+        id: "operationnel",
         label: "Opérationnel"
       },
       {
-        value: "fonctionnement",
+        id: "fonctionnement",
         label: "Fonctionnement"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -112,17 +112,17 @@ module.exports = [
   {
     id: "statusPublication",
     label: "Statut de publication",
-    options: [
+    values: [
       {
-        value: "draft",
+        id: "draft",
         label: "Brouillon"
       },
       {
-        value: "published",
+        id: "published",
         label: "Publiée"
       },
       {
-        value: "review_required",
+        id: "review_required",
         label: "A valider"
       }
     ]
@@ -134,73 +134,73 @@ module.exports = [
   {
     id: "formeDeDiffusion",
     label: "Modalité de diffusion",
-    options: [
+    values: [
       {
-        value: "subvention",
+        id: "subvention",
         label: "Subvention"
       },
       {
-        value: "convention",
+        id: "convention",
         label: "Convention"
       },
       {
-        value: "formation",
+        id: "formation",
         label: "Formation"
       },
       {
-        value: "bonification_interet",
+        id: "bonification_interet",
         label: "Bonification d'intérêt"
       },
       {
-        value: "pret",
+        id: "pret",
         label: "prêt"
       },
       {
-        value: "avance_recuperable",
+        id: "avance_recuperable",
         label: "avance récupérable"
       },
       {
-        value: "garantie",
+        id: "garantie",
         label: "Garantie"
       },
       {
-        value: "pret_taux_reduit",
+        id: "pret_taux_reduit",
         label: "Prêt à taux réduit"
       },
       {
-        value: "investissement_en_capital",
+        id: "investissement_en_capital",
         label: "Investissement en capital"
       },
       {
-        value: "avantage_fiscal",
+        id: "avantage_fiscal",
         label: "avantage fiscal"
       },
       {
-        value: "fonds_de_retour",
+        id: "fonds_de_retour",
         label: "Fonds de retour"
       },
       {
-        value: "ingenierie",
+        id: "ingenierie",
         label: "Ingénierie de projet"
       },
       {
-        value: "conseil",
+        id: "conseil",
         label: "Conseil"
       },
       {
-        value: "accompagnement",
+        id: "accompagnement",
         label: "Accompagnement"
       },
       {
-        value: "valorisation",
+        id: "valorisation",
         label: "Valorisation"
       },
       {
-        value: "communication",
+        id: "communication",
         label: "Communication"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -208,29 +208,29 @@ module.exports = [
   {
     id: "beneficiaires",
     label: "Bénéficiaires",
-    options: [
+    values: [
       {
-        value: "commune",
+        id: "commune",
         label: "Commune"
       },
       {
-        value: "EPCI",
+        id: "EPCI",
         label: "EPCI"
       },
       {
-        value: "entreprises",
+        id: "entreprises",
         label: "Entreprises"
       },
       {
-        value: "societe_civile",
+        id: "societe_civile",
         label: "Société civile"
       },
       {
-        value: "associations",
+        id: "associations",
         label: "Associations"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -238,33 +238,33 @@ module.exports = [
   {
     id: "destination",
     label: "Destination",
-    options: [
+    values: [
       {
-        value: "etude",
+        id: "etude",
         label: "Etude"
       },
       {
-        value: "investissement",
+        id: "investissement",
         label: "Investissement"
       },
       {
-        value: "fourniture",
+        id: "fourniture",
         label: "Fourniture"
       },
       {
-        value: "fonctionnement",
+        id: "fonctionnement",
         label: "Fonctionnement"
       },
       {
-        value: "service",
+        id: "service",
         label: "Service"
       },
       {
-        value: "travaux",
+        id: "travaux",
         label: "Travaux"
       },
       {
-        value: "autre",
+        id: "autre",
         label: "Autre"
       }
     ]
@@ -272,21 +272,21 @@ module.exports = [
   {
     id: "thematiques",
     label: "Thématiques",
-    options: [
+    values: [
       {
-        value: "amenagement_durable",
+        id: "amenagement_durable",
         label: "Aménagement Durable"
       },
       {
-        value: "developpement_local",
+        id: "developpement_local",
         label: "Développement local"
       },
       {
-        value: "infrastructures_reseaux_et_deplacements",
+        id: "infrastructures_reseaux_et_deplacements",
         label: "Infrastructures, réseaux et déplacements"
       },
       {
-        value: "solidarite_et_cohesion_sociale",
+        id: "solidarite_et_cohesion_sociale",
         label: "Solidarité et Cohésion sociale"
       }
     ]
@@ -294,17 +294,17 @@ module.exports = [
   {
     id: "status",
     label: "Calendrier",
-    options: [
+    values: [
       {
-        value: "ouvert",
+        id: "ouvert",
         label: "Ouvert"
       },
       {
-        value: "projete",
+        id: "projete",
         label: "Projeté"
       },
       {
-        value: "ferme",
+        id: "ferme",
         label: "Fermé"
       }
     ]
@@ -312,13 +312,13 @@ module.exports = [
   {
     id: "categorieParticuliere",
     label: "Catégorie particulière",
-    options: [
+    values: [
       {
-        value: "AAP",
+        id: "AAP",
         label: "AAP"
       },
       {
-        value: "AMI",
+        id: "AMI",
         label: "AMI"
       }
     ]
