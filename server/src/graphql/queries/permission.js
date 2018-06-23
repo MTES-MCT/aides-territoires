@@ -81,7 +81,7 @@ module.exports = {
     type: AllPermissionsEdgesType,
     resolve: (_, args, context) => {
       if (!userHasPermission(context.user, "see_permissions_overview")) {
-        // permissionDenied();
+        permissionDenied();
       }
       const result = {};
       result.edges = getAllPermissions().map(permission => {

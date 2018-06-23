@@ -1,6 +1,5 @@
 const types = require("../types");
-const enums = require("../../enums/aide");
-const { formatEnumForGraphQL } = require("../../services/enums");
+const { getEnumByIdForGraphQL } = require("../../services/enums");
 const {
   GraphQLObjectType,
   GraphQLInputObjectType,
@@ -78,16 +77,22 @@ module.exports = {
               type: GraphQLString
             },
             etape: {
-              type: formatEnumForGraphQL("searchAidesEtape", enums.etape)
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("searchAidesEtape", "etape")
+              )
             },
             statusPublication: {
-              type: formatEnumForGraphQL(
-                "searchAidesStatusPublication",
-                enums.statusPublication
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "searchAidesStatusPublication",
+                  "statusPublication"
+                )
               )
             },
             type: {
-              type: formatEnumForGraphQL("searchAidesType", enums.type)
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("searchAidesType", "type")
+              )
             },
             // texte entré pour la recherche libre (par mots clefs)
             texte: {
@@ -95,10 +100,11 @@ module.exports = {
             },
             // le perimetre initial de recherche: ex: département
             typePerimetreInitialDeRecherche: {
-              type: formatEnumForGraphQL(
-                "searchAidesTypePerimetreInitialDeRecherche",
-                enums.perimetreApplicationType,
-                false
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "searchAidesTypePerimetreInitialDeRecherche",
+                  "perimetreApplicationType"
+                )
               )
             },
             // le code insee ou identifiant unique associé au périmètre de recherche
@@ -110,15 +116,16 @@ module.exports = {
             // le perimetre d'application enregistré pour l'aide
             // (département, région, EPCI, etc)
             perimetreApplicationType: {
-              type: formatEnumForGraphQL(
-                "searchAidesPerimetreApplicationType",
-                enums.perimetreApplicationType
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "searchAidesPerimetreApplicationType",
+                  "perimetreApplicationType"
+                )
               )
             },
             destination: {
-              type: formatEnumForGraphQL(
-                "searchAidesDestination",
-                enums.destination
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("searchAidesDestination", "destination")
               )
             },
             destinationAutre: {
@@ -128,24 +135,27 @@ module.exports = {
               type: GraphQLString
             },
             beneficiaires: {
-              type: formatEnumForGraphQL(
-                "searchAidesBeneficiaires",
-                enums.beneficiaires
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "searchAidesBeneficiaires",
+                  "beneficiaires"
+                )
               )
             },
             perimetreApplicationCode: {
               type: GraphQLString
             },
             formeDeDiffusion: {
-              type: formatEnumForGraphQL(
-                "searchAidesFormeDeDiffusion",
-                enums.formeDeDiffusion
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "searchAidesFormeDeDiffusion",
+                  "formeDeDiffusion"
+                )
               )
             },
             thematiques: {
-              type: formatEnumForGraphQL(
-                "searchAidesThematiques",
-                enums.thematiques
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("searchAidesThematiques", "thematiques")
               )
             },
             status: {
@@ -237,27 +247,32 @@ module.exports = {
           fields: {
             auteur: { type: GraphQLString },
             etape: {
-              type: formatEnumForGraphQL("allAidesEtape", enums.etape)
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("allAidesEtape", "etape")
+              )
             },
             statusPublication: {
-              type: formatEnumForGraphQL(
+              type: getEnumByIdForGraphQL(
                 "allAidesStatusPublication",
-                enums.statusPublication
+                "statusPublication"
               )
             },
             type: {
-              type: formatEnumForGraphQL("allAidesType", enums.type)
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("allAidesType", "type")
+              )
             },
             perimetreApplicationType: {
-              type: formatEnumForGraphQL(
-                "allAidesPerimetreApplicationType",
-                enums.perimetreApplicationType
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "allAidesPerimetreApplicationType",
+                  "perimetreApplicationType"
+                )
               )
             },
             destination: {
-              type: formatEnumForGraphQL(
-                "allAidesDestination",
-                enums.destination
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("allAidesDestination", "destination")
               )
             },
             destinationAutre: {
@@ -267,24 +282,24 @@ module.exports = {
               type: GraphQLString
             },
             beneficiaires: {
-              type: formatEnumForGraphQL(
-                "allAidesBeneficiaires",
-                enums.beneficiaires
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("allAidesBeneficiaires", "beneficiaires")
               )
             },
             perimetreApplicationCode: {
               type: GraphQLString
             },
             formeDeDiffusion: {
-              type: formatEnumForGraphQL(
-                "allAidesFormeDeDiffusion",
-                enums.formeDeDiffusion
+              type: new GraphQLList(
+                getEnumByIdForGraphQL(
+                  "allAidesFormeDeDiffusion",
+                  "formeDeDiffusion"
+                )
               )
             },
             thematiques: {
-              type: formatEnumForGraphQL(
-                "allAidesThematiques",
-                enums.thematiques
+              type: new GraphQLList(
+                getEnumByIdForGraphQL("allAidesThematiques", "thematiques")
               )
             },
             status: {

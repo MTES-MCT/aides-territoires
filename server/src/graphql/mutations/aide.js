@@ -1,19 +1,7 @@
 const types = require("../types");
-const enums = require("../../enums/aide");
 const AideModel = require("../../mongoose/Aide");
-const {
-  formatEnumForGraphQL,
-  getEnumByIdForGraphQL
-} = require("../../services/enums");
+const { getEnumByIdForGraphQL } = require("../../services/enums");
 const { permissionDenied, userHasPermission } = require("../../services/user");
-
-console.log(
-  JSON.stringify(
-    formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires),
-    0,
-    2
-  )
-);
 
 const {
   GraphQLObjectType,
@@ -48,29 +36,29 @@ module.exports = {
       },
       lien: { type: GraphQLString },
       etape: {
-        type: formatEnumForGraphQL("saveAideEtape", enums.etape)
+        type: getEnumByIdForGraphQL("saveAideEtape", "etape")
       },
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
       formeDeDiffusionAutre: { type: GraphQLString },
       beneficiaires: {
-        type: formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires)
+        type: getEnumByIdForGraphQL("saveAideBeneficiaires", "beneficiaires")
       },
       beneficiairesAutre: { type: GraphQLString },
       destination: {
-        type: formatEnumForGraphQL("saveAideDestination", enums.destination)
+        type: getEnumByIdForGraphQL("saveAideDestination", "destination")
       },
       destinationAutre: { type: GraphQLString },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt },
       formeDeDiffusion: {
-        type: formatEnumForGraphQL(
+        type: getEnumByIdForGraphQL(
           "saveAideFormeDeDiffusion",
-          enums.formeDeDiffusion
+          "formeDeDiffusion"
         )
       },
       thematiques: {
-        type: formatEnumForGraphQL("saveAideThematiques", enums.thematiques)
+        type: getEnumByIdForGraphQL("saveAideThematiques", "thematiques")
       },
       dateEcheance: {
         type: GraphQLString
@@ -85,12 +73,12 @@ module.exports = {
         type: GraphQLString
       },
       status: {
-        type: formatEnumForGraphQL("saveAideStatus", enums.status)
+        type: getEnumByIdForGraphQL("saveAideStatus", "status")
       },
       categorieParticuliere: {
-        type: formatEnumForGraphQL(
+        type: getEnumByIdForGraphQL(
           "saveAideCategorieParticuliere",
-          enums.categorieParticuliere
+          "categorieParticuliere"
         )
       },
       demandeTiersPossible: {

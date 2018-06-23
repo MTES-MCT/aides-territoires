@@ -42,12 +42,16 @@ function getEnumByIdForMongoose(enumId) {
  * @param {String} enumId
  * @param {String} graphQLName - attribut name unique GraphQ
  */
-function getEnumByIdForGraphQL(enumId, graphQLName) {
+function getEnumByIdForGraphQL(graphQLName, enumId) {
   const enumeration = getEnumById(enumId);
+  if (!enumeration) {
+    throw new Error("aucune énumération trouvée pour l'id " + enumId);
+  }
   const result = {
-    name: graphQLName
+    name: graphQLName,
+    values: {}
   };
-  enumeration.options.forEach(value => {
+  enumeration.values.forEach(value => {
     result.values[value.id] = { value: value.id };
   });
   return new GraphQLEnumType(result);
