@@ -38,14 +38,19 @@ const searchAideResultsGroupType = new GraphQLObjectType({
 
 module.exports = {
   getAide: {
-    type: types.Aide,
+    type: new GraphQLObjectType({
+      name: "getAideNode",
+      fields: {
+        node: { type: types.Aide }
+      }
+    }),
     args: {
       id: {
         type: GraphQLID
       }
     },
     resolve: async (_, { id }) => {
-      return await getAide(id);
+      return await { node: getAide(id) };
     }
   },
   /**

@@ -11,7 +11,7 @@ const AideEditPage = ({ data: { aide, error, loading } }) => {
     <AdminLayout>
       {error && <GraphQLError error={error} />}
       {loading && <AppLoader />}
-      {aide && <AideForm operation={"edition"} aide={aide} />}
+      {aide && <AideForm operation={"edition"} aide={aide.node} />}
     </AdminLayout>
   );
 };
@@ -19,44 +19,46 @@ const AideEditPage = ({ data: { aide, error, loading } }) => {
 const query = gql`
   query editAide($id: ID) {
     aide: getAide(id: $id) {
-      id
-      auteur {
+      node {
         id
-        name
-        roles
+        auteur {
+          id
+          name
+          roles
+        }
+        nom
+        description
+        criteresEligibilite
+        etape
+        type
+        updatedAt
+        createdAt
+        structurePorteuse
+        perimetreApplicationType
+        perimetreApplicationNom
+        perimetreApplicationCode
+        populationMin
+        populationMax
+        perimetreDiffusionType
+        perimetreDiffusionTypeAutre
+        statusPublication
+        lien
+        beneficiaires
+        beneficiairesAutre
+        destination
+        destinationAutre
+        formeDeDiffusion
+        formeDeDiffusionAutre
+        thematiques
+        dateDebut
+        dateEcheance
+        tauxSubvention
+        contact
+        status
+        categorieParticuliere
+        demandeTiersPossible
+        motsCles
       }
-      nom
-      description
-      criteresEligibilite
-      etape
-      type
-      updatedAt
-      createdAt
-      structurePorteuse
-      perimetreApplicationType
-      perimetreApplicationNom
-      perimetreApplicationCode
-      populationMin
-      populationMax
-      perimetreDiffusionType
-      perimetreDiffusionTypeAutre
-      statusPublication
-      lien
-      beneficiaires
-      beneficiairesAutre
-      destination
-      destinationAutre
-      formeDeDiffusion
-      formeDeDiffusionAutre
-      thematiques
-      dateDebut
-      dateEcheance
-      tauxSubvention
-      contact
-      status
-      categorieParticuliere
-      demandeTiersPossible
-      motsCles
     }
   }
 `;
