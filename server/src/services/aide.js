@@ -18,8 +18,6 @@ const getAide = id => {
 
 const searchAides = async (filters, { sort = null, context = null }) => {
   const groupesDeResultats = [];
-  let totalNombreAides = 0;
-  let newFilters = {};
   let aides = {};
 
   // si on a un code insee, on cherche d'abord des aides
@@ -206,7 +204,7 @@ const searchAides = async (filters, { sort = null, context = null }) => {
         return aides;
       });
       // make sure all promises from our .map are resolved before continue
-      const reponse = await Promise.all(promisesArray);
+      await Promise.all(promisesArray);
       if (GroupeVosTerritoires.aidesParTypeDeTerritoires.length > 0) {
         // ajouter aux résultats de recherche
         groupesDeResultats.push(GroupeVosTerritoires);
