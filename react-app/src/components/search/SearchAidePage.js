@@ -14,36 +14,6 @@ import { cleanSearchFilters } from "../../lib/search";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
 
-const styles = {
-  activeFilters: {
-    background: " white",
-    paddingBottom: "1rem",
-    paddingTop: "1rem"
-  },
-  filtersAndResults: {
-    zIndex: 1
-  }
-};
-
-const SearchResultsTopText = () => (
-  <div className="notification">
-    Par défaut, le moteur de recherche présente toutes les aides disponibles sur
-    votre territoire.Vous pouvez utiliser les filtres ci-contre pour préciser
-    votre recherche et sélectionner vos critères
-  </div>
-);
-
-/**
- * add a shadow on sticky bar when active
- */
-const StickyActiveStyles = () => (
-  <style>
-    {
-      ".sticky-outer-wrapper.active .sticky-inner-wrapper {box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);}"
-    }
-  </style>
-);
-
 let SearchAidePage = class extends React.Component {
   state = {
     showModal: false
@@ -155,6 +125,36 @@ let SearchAidePage = class extends React.Component {
     );
   }
 };
+
+const styles = {
+  activeFilters: {
+    background: " white",
+    paddingBottom: "1rem",
+    paddingTop: "1rem"
+  },
+  filtersAndResults: {
+    zIndex: 1
+  }
+};
+
+const SearchResultsTopText = () => (
+  <div className="notification">
+    Par défaut, le moteur de recherche présente toutes les aides disponibles sur
+    votre territoire.Vous pouvez utiliser les filtres ci-contre pour préciser
+    votre recherche et sélectionner vos critères
+  </div>
+);
+
+/**
+ * add a shadow on sticky bar when active
+ */
+const StickyActiveStyles = () => (
+  <style>
+    {
+      ".sticky-outer-wrapper.active .sticky-inner-wrapper {box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);}"
+    }
+  </style>
+);
 
 function mapStateToProps(state) {
   if (state.form.searchFilters && state.form.searchFilters.values) {
