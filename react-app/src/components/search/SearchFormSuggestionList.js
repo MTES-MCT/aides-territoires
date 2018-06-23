@@ -3,20 +3,6 @@ import SearchFormSuggestion from "./SearchFormSuggestion";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 
-const styles = {
-  dropdown: {
-    width: "100%"
-  },
-  dropdownMenu: {
-    width: "100%",
-    position: "relative"
-  },
-  dropdownContent: {
-    width: "100%",
-    padding: 0
-  }
-};
-
 const SearchFormSuggestionList = ({
   classes,
   suggestions,
@@ -39,6 +25,20 @@ const SearchFormSuggestionList = ({
       </div>
     </div>
   );
+};
+
+const styles = {
+  dropdown: {
+    width: "100%"
+  },
+  dropdownMenu: {
+    width: "100%",
+    position: "relative"
+  },
+  dropdownContent: {
+    width: "100%",
+    padding: 0
+  }
 };
 
 SearchFormSuggestionList.propTypes = {

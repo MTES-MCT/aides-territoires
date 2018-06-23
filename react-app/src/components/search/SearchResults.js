@@ -1,6 +1,36 @@
 import React from "react";
 import AideList from "./AideList";
 
+/**
+ * Affiche les résultats pour la recherche par territoire.
+ * Il y a en résultats des "groupes de résultats" :
+ * - les résultats trouvés pres de la localisation demandées
+ * - puis un groupe de résultat par type de territoire
+ */
+const SearchResults = ({ results, filters }) => {
+  if (!results) return null;
+  return (
+    <div>
+      <div className="message is-info">
+        <div className="message-body" style={{ border: "none" }}>
+          <strong>{results.totalNombreAides}</strong> aides correspondent à
+          votre recherche <strong>{filters.texte && `${filters.texte}`}</strong>
+        </div>
+      </div>
+      {results.groupesDeResultats.map(groupeDeResultat => {
+        return (
+          <GroupeDeResultat
+            // o naffiche les labels de groupes de résutlats si on a au moins 2 groupes de résultats
+            displayGroupLabel={results.groupesDeResultats.length > 1}
+            key={groupeDeResultat.type}
+            groupeDeResultat={groupeDeResultat}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 const GroupeDeResultat = ({ groupeDeResultat, displayGroupLabel }) => {
   return (
     <div>
@@ -21,42 +51,6 @@ const GroupeDeResultat = ({ groupeDeResultat, displayGroupLabel }) => {
             groupeDeResultat={groupeDeResultat}
             key={territoire.type}
             aides={territoire.aides}
-          />
-        );
-      })}
-      {/*
-      {groupeDeResultat.aidesParTypeDeTerritoires.aides.map(aide => {
-        return (
-          <AideList
-            key={groupeDeResultat.type}
-            aides={aide}
-          />
-        );
-      })}
-      */}
-    </div>
-  );
-};
-
-/**
- */
-const SearchResults = ({ results, filters }) => {
-  if (!results) return null;
-  return (
-    <div>
-      <div className="message is-info">
-        <div className="message-body" style={{ border: "none" }}>
-          <strong>{results.totalNombreAides}</strong> aides correspondent à
-          votre recherche <strong>{filters.texte && `${filters.texte}`}</strong>
-        </div>
-      </div>
-      {results.groupesDeResultats.map(groupeDeResultat => {
-        return (
-          <GroupeDeResultat
-            // o naffiche les labels de groupes de résutlats si on a au moins 2 groupes de résultats
-            displayGroupLabel={results.groupesDeResultats.length > 1}
-            key={groupeDeResultat.type}
-            groupeDeResultat={groupeDeResultat}
           />
         );
       })}

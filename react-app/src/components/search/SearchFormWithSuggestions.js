@@ -30,11 +30,11 @@ class SearchFormContainer extends React.Component {
     selectedSuggestionIndex: 0,
     showModal: false
   };
-  // ! FIXME suggestions should be returned by graphQL and not computed here.
   handleSubmitAlert = event => {
     event.preventDefault();
     this.setState({ showModal: true });
   };
+  // TODO : suggestions should be returned by graphQL and not computed here.
   handleSubmit = event => {
     event.preventDefault();
     //this.resetSuggestions();
