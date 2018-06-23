@@ -2,7 +2,7 @@ import React from "react";
 import AdminLayout from "../layouts/AdminLayout";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
-import Loader from "../ui/AppLoader";
+import AppLoader from "../ui/AppLoader";
 import AdminAideList from "./AdminAideList";
 import GraphQLError from "../ui/GraphQLError";
 import Dialog from "material-ui/Dialog";
@@ -12,8 +12,8 @@ import withUser from "../decorators/withUser";
 
 const AideListPage = class extends React.Component {
   state = {
-    // will contain aide we want to delete
-    requestAideDeletion: false
+    showDeleteModal: false,
+    aideToDelete: null
   };
   deleteAide = aide => {
     this.props.deleteAide({
@@ -22,54 +22,93 @@ const AideListPage = class extends React.Component {
     });
     this.setState({ requestAideDeletion: null });
   };
+  // quand on clique sur "supprimer", afficher la modale
+  // de confirmation de suppression
+  handleClickDelete = aide => {
+    this.setState({
+      showDeleteModal: true,
+      aideToDelete: aide
+    });
+  };
+  // quand on clique sur le bouton "annuler" de la modale de
+  // confirmation de suppresion d'aide
+  handleDeleteModalCancel = () => {
+    this.setState({
+      showDeleteModal: false,
+      aideToDelete: null
+    });
+  };
+  // quand on clique sur le bouton "supprimer" de la modale de
+  // confirmation de suppression d'aide
+  handleDeleteModalDelete = aide => {
+    this.deleteAide({ id: aide.node.id });
+    this.setState({
+      showDeleteModal: false
+    });
+  };
+  handleClickCancel = () => {
+    //this.setState({ requestAideDeletion: null })
+  };
   render() {
     const { loading, allAides, error } = this.props.data;
+    if (error) return <GraphQLError error={error} />;
+    if (loading) return <AppLoader />;
     return (
       <AdminLayout>
-        <Dialog
-          title=""
-          actions={[
-            <FlatButton
-              label="ANNULER"
-              primary={true}
-              onClick={() => this.setState({ requestAideDeletion: null })}
-            />,
-            <FlatButton
-              label="SUPPRIMER"
-              secondary={true}
-              keyboardFocused={true}
-              onClick={() => this.deleteAide(this.state.requestAideDeletion)}
-            />
-          ]}
-          modal={false}
-          open={this.state.requestAideDeletion}
-          onRequestClose={this.handleClose}
-        >
-          <div className="has-text-centered">
-            Etes vous sûr de vouloir supprimer l'aide{" "}
-            {this.state.requestAideDeletion && (
-              <div>
-                <strong>{this.state.requestAideDeletion.nom}</strong> ? Cette
-                action est irréversible
-              </div>
-            )}
-          </div>
-        </Dialog>
         <h1 className="title is-1">Liste des aides</h1>
-        {error && <GraphQLError error={error} />}
-        {!allAides && loading && <Loader />}
-        {allAides && (
-          <AdminAideList
-            onDeleteClick={aide => this.setState({ requestAideDeletion: aide })}
-            aides={allAides}
-          />
-        )}
+        <DeleteModal
+          show={this.state.showDeleteModal}
+          aideToDelete={this.state.aideToDelete}
+          onClickCancel={this.handleDeleteModalCancel}
+          onClickDelete={this.handleDeleteModalDelete}
+        />
+        <AdminAideList
+          onDeleteClick={this.handleClickDelete}
+          aides={allAides}
+        />
       </AdminLayout>
     );
   }
 };
 
-const allAidesQuery = gql`
+/**
+ * Modale de confirmation de la suppression d'une aide
+ */
+const DeleteModal = ({
+  show,
+  onClickCancel,
+  onClickDelete,
+  onRequestClose,
+  aideToDelete
+}) => (
+  <Dialog
+    title=""
+    actions={[
+      <FlatButton label="ANNULER" primary={true} onClick={onClickCancel} />,
+      <FlatButton
+        label="SUPPRIMER"
+        secondary={true}
+        keyboardFocused={true}
+        onClick={() => onClickDelete(aideToDelete)}
+      />
+    ]}
+    modal={false}
+    open={show}
+    onRequestClose={onRequestClose}
+  >
+    {aideToDelete && (
+      <div className="has-text-centered">
+        <p>
+          Etes vous sûr de vouloir supprimer l'aide <br />
+          <strong style={{ color: "black" }}> {aideToDelete.node.nom}</strong> ?
+        </p>
+        <p> Cette action est irréversible.</p>
+      </div>
+    )}
+  </Dialog>
+);
+
+const query = gql`
   query adminAllAides {
     allAides {
       edges {
@@ -120,6 +159,6 @@ const deleteAideMutation = gql`
 
 export default compose(
   withUser({ mandatory: true }),
-  graphql(allAidesQuery),
+  graphql(query),
   graphql(deleteAideMutation, { name: "deleteAide" })
 )(AideListPage);

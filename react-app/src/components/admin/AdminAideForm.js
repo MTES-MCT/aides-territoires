@@ -593,7 +593,7 @@ class AideForm extends React.Component {
   }
 }
 
-const saveAide = gql`
+const query = gql`
   mutation saveAide(
     $id: String
     $auteur: String
@@ -669,5 +669,5 @@ const saveAide = gql`
 
 export default compose(
   withUser({ mandatory: true }),
-  graphql(saveAide, { name: "saveAide" })
+  graphql(query, { name: "saveAide" })
 )(AideForm);
