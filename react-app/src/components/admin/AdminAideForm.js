@@ -113,7 +113,6 @@ class AideForm extends React.Component {
     return null;
   }
   render() {
-    console.log(this.props);
     if (this.state.error) {
       return <GraphQLError error={this.state.error} />;
     }

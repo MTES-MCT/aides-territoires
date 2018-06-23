@@ -19,7 +19,6 @@ class AdminPermissionsOverview extends React.Component {
     );
   }
   render() {
-    console.log(this.props);
     const { loading, allRoles, allPermissions, error } = this.props.data;
     return (
       <AdminLayout>
@@ -42,7 +41,7 @@ class AdminPermissionsOverview extends React.Component {
                   <tr key={permission.node.id}>
                     <td>{permission.node.label}</td>
                     {allRoles.edges.map(role => (
-                      <td>
+                      <td key={role.node.id}>
                         {this.roleHasPermission(
                           role.node,
                           permission.node.id

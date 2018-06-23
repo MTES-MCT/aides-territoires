@@ -7,9 +7,11 @@ import React from "react";
  * @param {Object} error : this.props.data.error
  */
 const GraphQLError = error => {
-  console.log("error", error);
   let networkErrorMessage = "";
-  let errorMessage = error.error.message;
+  let errorMessage = "";
+  if (error && error.message) {
+    errorMessage += error.error.message;
+  }
   if (error.error.networkError && error.error.networkError.result) {
     networkErrorMessage = error.error.networkError.result.errors
       .map(error => {
@@ -17,7 +19,7 @@ const GraphQLError = error => {
       })
       .join(". ");
   }
-  errorMessage = errorMessage + ". " + networkErrorMessage;
+  errorMessage += ". " + networkErrorMessage;
   return (
     <div style={{ padding: "2rem" }} className="message is-danger">
       {errorMessage}
