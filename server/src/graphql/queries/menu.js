@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLList } = require("graphql");
+const { GraphQLList, GraphQLID } = require("graphql");
 const { getAllMenus, getMenuById } = require("../../config/menus");
 const types = require("../types");
 
@@ -9,11 +9,11 @@ module.exports = {
       return getAllMenus(context.user);
     }
   },
-  menu: {
+  getMenu: {
     type: types.Menu,
     args: {
       id: {
-        type: GraphQLString
+        type: GraphQLID
       }
     },
     resolve: (_, { id }, { user }) => {
