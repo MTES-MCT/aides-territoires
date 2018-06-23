@@ -9,19 +9,7 @@ import { connect } from "react-redux";
 import { change, reset } from "redux-form";
 
 /**
- * Bouton pour effacer tous les filtres
- */
-const DeleteAllFilters = ({ classes, onClick }) => (
-  <FlatButton
-    primary={true}
-    style={{ marginRight: "20px" }}
-    label="Effacer les filtres"
-    onClick={onClick}
-  />
-);
-
-/**
- * Affiche tous les filtres actifs
+ * Affiche tous les filtres actifs en haut de la page
  * @param {*} param0
  */
 let SearchActiveFilters = class extends React.Component {
@@ -37,7 +25,7 @@ let SearchActiveFilters = class extends React.Component {
     "dateEcheanceMonth",
     "dateEcheanceYear"
   ];
-  // filtres supprimés quand on clique sur "effacer tout"
+  // les filtres à supprimer quand on clique sur "effacer tout"
   filtersToReset = [
     "categorieParticuliere",
     "dateEcheance",
@@ -167,12 +155,21 @@ SearchActiveFilters = injectSheet({
   }
 })(SearchActiveFilters);
 
+/**
+ * Bouton pour effacer tous les filtres
+ */
+const DeleteAllFilters = ({ classes, onClick }) => (
+  <FlatButton
+    primary={true}
+    style={{ marginRight: "20px" }}
+    label="Effacer les filtres"
+    onClick={onClick}
+  />
+);
+
 function mapStateToProps(state) {
   if (state.form.searchFilters && state.form.searchFilters.values) {
     return {
-      // les filtres sélectionnés par l'utilisateur pour sa recherche
-      // ainsi que les données de périmètre qui ont été enregistré
-      // par le moteur de recherche pas territoire
       filters: state.form.searchFilters.values
     };
   }
