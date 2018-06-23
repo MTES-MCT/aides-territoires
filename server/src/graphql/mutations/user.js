@@ -1,6 +1,5 @@
 const types = require("../types");
 const { getUserByPassword, getJwt } = require("../../services/user");
-
 const { GraphQLNonNull, GraphQLObjectType, GraphQLString } = require("graphql");
 
 module.exports = {
@@ -23,9 +22,7 @@ module.exports = {
     },
     resolve: async (_, { email, password }) => {
       const user = await getUserByPassword(email, password);
-
       if (!user) throw new Error("Wrong login / password");
-
       return {
         jwt: await getJwt(user),
         user

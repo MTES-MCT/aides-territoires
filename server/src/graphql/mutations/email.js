@@ -1,13 +1,6 @@
 const { sendContactFormEmail } = require("../../services/email");
 const types = require("../types");
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLBoolean,
-  GraphQLList,
-  GraphQLInt
-} = require("graphql");
+const { GraphQLString } = require("graphql");
 
 module.exports = {
   sendContactFormEmail: {
