@@ -13,6 +13,9 @@ import SettingsIcon from "material-ui/svg-icons/action/settings";
 
 const DESCRIPTION_CHARS_LIMIT = 300;
 
+/********************
+ * AideListItem
+ ********************/
 class AideListItem extends React.Component {
   state = {
     showDetails: false
@@ -78,6 +81,9 @@ AideListItem = injectSheet({
   }
 })(AideListItem);
 
+/********************
+ * AideTitleUnderline
+ ********************/
 const AideTitleUnderline = ({ aide }) => (
   <div
     style={{
@@ -87,9 +93,9 @@ const AideTitleUnderline = ({ aide }) => (
   />
 );
 
-/**
+/********************
  * AidePerimetre
- */
+ ********************/
 let AidePerimetre = ({ classes, aide }) => (
   <span className={classes.root}>
     {getLabelFromEnumValue(
@@ -109,9 +115,9 @@ AidePerimetre = injectSheet({
   }
 })(AidePerimetre);
 
-/**
+/********************
  * AideShowMoreButton
- */
+ ********************/
 let AideShowMoreButton = ({ showDetails, classes, onClick }) => (
   <div className={classnames("button", classes.root)} onClick={onClick}>
     {!showDetails ? "Voir plus" : "cacher les détails"}
@@ -129,9 +135,9 @@ AideShowMoreButton = injectSheet({
   }
 })(AideShowMoreButton);
 
-/**
+/********************
  * AideDescription
- */
+ ********************/
 let AideDescription = ({ aide, classes, showDetails = false }) => (
   <div className={classes.root}>
     {aide.description.substring(0, DESCRIPTION_CHARS_LIMIT)}
@@ -146,9 +152,9 @@ AideDescription = injectSheet({
   }
 })(AideDescription);
 
-/**
+/********************
  * AideDateEcheance
- */
+ ********************/
 let AideDateEcheance = ({ date, classes }) => (
   <div style={{ paddingTop: "1rem" }}>
     <span className={classes.iconWrapper}>
@@ -169,9 +175,9 @@ AideDateEcheance = injectSheet({
   }
 })(AideDateEcheance);
 
-/**
- * APP
- */
+/********************
+ * AAP (appel à projet)
+ ********************/
 let AAP = ({ classes }) => <div className={classes.root}>AAP</div>;
 AAP = injectSheet({
   root: {
@@ -182,9 +188,9 @@ AAP = injectSheet({
   }
 })(AAP);
 
-/**
+/********************
  * IconRound
- */
+ ********************/
 let IconRound = ({ classes, title, children }) => (
   <div title={title} className={classes.root}>
     <span className={classes.span}>{children}</span>
@@ -208,16 +214,16 @@ IconRound = injectSheet({
   }
 })(IconRound);
 
-/**
+/********************
  * AideIconsBarItem
- */
+ ********************/
 const AideIconsBarItem = ({ children }) => (
   <div style={{ marginLeft: "0.5rem" }}>{children}</div>
 );
 
-/**
+/********************
  * AideIconsBar
- */
+ ********************/
 const AideIconsBar = ({ aide }) => {
   return (
     <div style={{ display: "flex" }}>
