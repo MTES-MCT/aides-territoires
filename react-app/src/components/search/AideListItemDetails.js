@@ -1,36 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import injectSheet from "react-jss";
+import classnames from "classnames";
 import { getLabelFromEnumValue } from "../../enums";
-
-const styles = {
-  table: {
-    width: "100%",
-    marginTop: "2rem",
-    position: "relative",
-    left: "-0.5rem",
-    color: "#555"
-  }
-};
 
 class AideListItemDetails extends React.Component {
   static propTypes = {
     aide: PropTypes.object.isRequired
   };
   render() {
-    const { aide } = this.props;
+    const { aide, classes } = this.props;
     return (
       <div className="AideListItemDetails">
-        <table className="table" style={styles.table}>
+        <table className={classnames("table", classes.table)}>
           <tbody>
-            {/*}
-            <tr>
-              <td>Date d'échéance</td>
-              <td>
-                {!aide.dateEcheance && "Non renseignée"}
-                {aide.dateEcheance && moment(aide.dateEcheance).format("LLLL")}
-              </td>
-            </tr>
-            */}
             <tr>
               <td>Lien vers le site</td>
               <td>
@@ -108,4 +91,14 @@ class AideListItemDetails extends React.Component {
   }
 }
 
-export default AideListItemDetails;
+const styles = {
+  table: {
+    width: "100%",
+    marginTop: "2rem",
+    position: "relative",
+    left: "-0.5rem",
+    color: "#555"
+  }
+};
+
+export default injectSheet(styles)(AideListItemDetails);
