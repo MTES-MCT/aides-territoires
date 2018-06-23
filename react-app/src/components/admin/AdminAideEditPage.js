@@ -11,7 +11,7 @@ const AideEditPage = ({ data: { aide, error, loading } }) => {
     <AdminLayout>
       {error && <GraphQLError error={error} />}
       {loading && <AppLoader />}
-      {aide && <AideForm operation={"edition"} aide={aide.node} />}
+      {!loading && aide && <AideForm operation={"edition"} aide={aide.node} />}
     </AdminLayout>
   );
 };
