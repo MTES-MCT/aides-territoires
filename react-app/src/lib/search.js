@@ -18,9 +18,9 @@ export const isPostalCode = string => {
 };
 
 /**
- * Souvent le formulaire de filtres de recherche nous renvoie ce genre d'objet
+ * Souvent le formulaire de filtres de recherche reduxForm nous renvoie ce genre d'objet
  * qui n'est pas considéré comme vide en terme de code alors
- * qu'il signifie bien qu'ils sont vides côté métier
+ * qu'il signifie bien pour nous qu'ils sont vides :
  * {
  *    type:[],
  *    etape: null
@@ -37,15 +37,20 @@ export function cleanSearchFilters(filters) {
       delete filters[filterId];
     }
   });
-  // delete filters.perimetreAdditionalData for now, not handled by graphQL query
+  // contient toutes les données d'un lieu renvoyés par le geoAPI
+  // pour l'instant on ne s'en sert pas côté serveur
   if (filters.perimetreAdditionalData) {
     delete filters.perimetreAdditionalData;
   }
   return filters;
 }
 
+/**
+ * Créer une url à partir des filtres filtres sélectionnés, pour qu'on soit
+ * en mesure de partager l'aide.
+ */
 export function buildUrlParamsFromFilters(filters) {
-  // je ne sais pas ce que fait cette clef data fait là, en attendant je la vire
+  // je ne sais plus que cette clef data fait là, en attendant je la vire
   if (filters.data && Object.keys(filters.data).length === 0) {
     delete filters.data;
   }
