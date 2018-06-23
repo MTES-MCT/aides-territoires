@@ -5,9 +5,9 @@ import searchFiltersReducer from "./reducers/searchFiltersReducer";
 import thunkMiddleware from "redux-thunk";
 
 const rootReducer = combineReducers({
-  // ...your other reducers here
-  // you have to pass formReducer under 'form' key,
-  // for custom keys look up the docs for 'getFormState'
+  // you have to pass formReducer under 'form' key for reduxForm
+  // searchFiltersReducer permet de manipuler les données du formulaire "searchFilters"
+  // pour ajuster la manière dont elles sont stockée dans le store.
   form: formReducer.plugin({
     searchFilters: searchFiltersReducer
   })

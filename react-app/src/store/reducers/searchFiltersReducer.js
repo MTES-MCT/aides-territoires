@@ -5,7 +5,6 @@ import moment from "moment";
  * @param {*} action
  */
 export default function searchFiltersReducer(state = {}, action) {
-  // <----- 'login' is name of form given to reduxForm()
   switch (action.type) {
     case "@@redux-form/CHANGE":
       const newState = {
