@@ -106,7 +106,7 @@ module.exports = [
   },
   {
     id: "etape",
-    label: "Étape",
+    label: "Quand mobiliser l'aide ?",
     values: [
       {
         id: "pre_operationnel",
@@ -248,7 +248,7 @@ module.exports = [
   },
   {
     id: "beneficiaires",
-    label: "Bénéficiaires",
+    label: "Public visé",
     values: [
       {
         id: "commune",
@@ -284,7 +284,7 @@ module.exports = [
   },
   {
     id: "destination",
-    label: "Destination",
+    label: "Destination de l'aide",
     values: [
       {
         id: "etude",

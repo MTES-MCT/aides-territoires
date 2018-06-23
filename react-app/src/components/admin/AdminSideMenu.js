@@ -40,4 +40,10 @@ const query = gql`
   }
 `;
 
-export default compose(graphql(query))(AdminSideMenu);
+export default compose(
+  graphql(query, {
+    options: {
+      fetchPolicy: "cache-first"
+    }
+  })
+)(AdminSideMenu);
