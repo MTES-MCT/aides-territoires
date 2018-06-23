@@ -20,6 +20,9 @@ const httpLink = new HttpLink({
   uri: config.REACT_APP_AIDES_TERRITOIRES_API_URL
 });
 
+// ce middleware est chargé d'envoyé à chaque requête GraphQL
+// notre token JWT stocké en local storage, permettant ainsi
+// d'authentifié les requêtes auprès du serveur
 const authMiddleware = setContext(async (operation, { headers }) => {
   try {
     const token = getToken();

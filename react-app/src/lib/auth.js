@@ -1,11 +1,18 @@
 import decode from "jwt-decode";
 
+// le token sera rangé dans un variable du localStorage nommée ainsi :
 const STORAGE_KEY = "auth";
 
 /**
- *
+ * Enregistré le token JWT dans le localStorage
  */
+export function setToken(token) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ token }));
+}
 
+/**
+ * Récupérer le token JWT depuis le localte storage
+ */
 export function getToken() {
   let data = {};
   try {
@@ -17,29 +24,15 @@ export function getToken() {
 }
 
 /**
- *
+ * Retourne la date d'expiration du token JWT, si il y en a une
  */
-
-export function setToken(token) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ token }));
-}
-
-/**
- *
- */
-
 function getTokenExpirationDate(token) {
   const decoded = decode(token);
   if (!decoded.exp) return null;
-
   const date = new Date(0); // The 0 here is the key, which sets the date to the epoch
   date.setUTCSeconds(decoded.exp);
   return date;
 }
-
-/**
- *
- */
 
 function isTokenExpired(token) {
   const date = getTokenExpirationDate(token);
