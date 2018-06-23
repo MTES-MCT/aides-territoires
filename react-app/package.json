@@ -15,7 +15,6 @@
     "es7-shim": "^6.0.0",
     "final-form": "^4.6.1",
     "graphql": "^0.13.2",
-    "graphql-request": "^1.5.1",
     "graphql-tag": "^2.9.1",
     "hoist-non-react-statics": "^2.5.4",
     "jwt-decode": "^2.2.0",
