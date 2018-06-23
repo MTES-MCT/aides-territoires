@@ -51,21 +51,26 @@ const AideListPage = class extends React.Component {
   };
   render() {
     const { loading, allAides, error } = this.props.data;
-    if (error) return <GraphQLError error={error} />;
-    if (loading) return <AppLoader />;
     return (
       <AdminLayout>
         <h1 className="title is-1">Liste des aides</h1>
-        <DeleteModal
-          show={this.state.showDeleteModal}
-          aideToDelete={this.state.aideToDelete}
-          onClickCancel={this.handleDeleteModalCancel}
-          onClickDelete={this.handleDeleteModalDelete}
-        />
-        <AdminAideList
-          onDeleteClick={this.handleClickDelete}
-          aides={allAides}
-        />
+        {error && <GraphQLError error={error} />}
+        {loading && <AppLoader />}
+        {!loading &&
+          allAides && (
+            <div>
+              <DeleteModal
+                show={this.state.showDeleteModal}
+                aideToDelete={this.state.aideToDelete}
+                onClickCancel={this.handleDeleteModalCancel}
+                onClickDelete={this.handleDeleteModalDelete}
+              />
+              <AdminAideList
+                onDeleteClick={this.handleClickDelete}
+                aides={this.props.data.allAides}
+              />
+            </div>
+          )}
       </AdminLayout>
     );
   }

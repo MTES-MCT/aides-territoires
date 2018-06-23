@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import withUser from "../decorators/withUser";
+import RaisedButton from "material-ui/RaisedButton";
 
 class AdminAideList extends React.Component {
   static propTypes = {
@@ -42,21 +43,15 @@ class AdminAideList extends React.Component {
                   <td>{aide.node.statusPublication}</td>
                   <td>
                     {aide.meta.userPermissions.includes("edit") && (
-                      <NavLink
-                        to={`/admin/aide/${aide.node.id}/edit`}
-                        className="button is-success"
-                      >
-                        Editer
+                      <NavLink to={`/admin/aide/${aide.node.id}/edit`}>
+                        <RaisedButton label="Editer" primary={true} />
                       </NavLink>
                     )}
                   </td>
                   <td>
                     {aide.meta.userPermissions.includes("delete") && (
-                      <span
-                        onClick={e => this.props.onDeleteClick(aide)}
-                        className="button is-danger"
-                      >
-                        Supprimer
+                      <span onClick={e => this.props.onDeleteClick(aide)}>
+                        <RaisedButton label="Supprimer" secondary={true} />
                       </span>
                     )}
                   </td>

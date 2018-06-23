@@ -6,6 +6,7 @@ import GraphQLError from "../ui/GraphQLError";
 import AppLoader from "../ui/AppLoader";
 import injectSheet from "react-jss";
 import classnames from "classnames";
+import IconChecked from "material-ui/svg-icons/action/done";
 
 class AdminPermissionsOverview extends React.Component {
   constructor(props) {
@@ -19,29 +20,36 @@ class AdminPermissionsOverview extends React.Component {
   }
   render() {
     const { loading, allRoles, allPermissions, error } = this.props.data;
-    if (error) return <GraphQLError error={error} />;
-    if (loading) return <AppLoader />;
     return (
       <AdminLayout>
-        <h1 className="title is-3">Permissions et rôles</h1>
-        <table className={classnames("table", this.props.classes.table)}>
-          <thead>
-            <tr>
-              <th> </th>
-              {allRoles.map(role => <th key={role.id}>{role.label}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {allPermissions.map(permission => (
-              <tr key={permission.id}>
-                <td>{permission.label}</td>
-                {allRoles.map(role => (
-                  <td>{this.roleHasPermission(role, permission.id) && "X"}</td>
+        <h1 className="title is-1">Permissions et rôles</h1>
+        {error && <GraphQLError error={error} />}
+        {loading && <AppLoader />}
+        {!loading &&
+          allPermissions && (
+            <table className={classnames("table", this.props.classes.table)}>
+              <thead>
+                <tr>
+                  <th> </th>
+                  {allRoles.map(role => <th key={role.id}>{role.label}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {allPermissions.map(permission => (
+                  <tr key={permission.id}>
+                    <td>{permission.label}</td>
+                    {allRoles.map(role => (
+                      <td>
+                        {this.roleHasPermission(role, permission.id) && (
+                          <IconChecked />
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          )}
       </AdminLayout>
     );
   }
