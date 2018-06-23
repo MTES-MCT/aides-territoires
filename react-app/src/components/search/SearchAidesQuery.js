@@ -71,7 +71,6 @@ export default compose(
       newFilters = cleanSearchFilters(newFilters);
       // ces champs sont concaténés pour créer le champ dateEcheance,
       // on ne veut pas les envoyer en tant que filtres
-      // filter by dat echeance
       if (newFilters.dateEcheance) {
         newFilters.dateEcheance = {
           operator: "gte",
