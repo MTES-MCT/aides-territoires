@@ -113,6 +113,7 @@ class AideForm extends React.Component {
     return null;
   }
   render() {
+    console.log(this.props);
     if (this.state.error) {
       return <GraphQLError error={this.state.error} />;
     }
@@ -623,7 +624,7 @@ const query = gql`
     $populationMin: Int
     $populationMax: Int
     $contact: String
-    $status: [saveAideStatus]
+    $status: saveAideStatus
     $categorieParticuliere: [saveAideCategorieParticuliere]
     $demandeTiersPossible: Boolean
     $motsCles: String

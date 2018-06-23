@@ -13,8 +13,7 @@ const { getUserFromJwt } = require("./services/user");
 connectToMongodb()
   .then(() => {
     console.log(`connected successfully to ${process.env.MONGODB_URL} ! `);
-    const schema = buildGraphQLSchema();
-    startExpressServer(schema);
+    startExpressServer();
   })
   .catch(e => console.error(e));
 
@@ -63,8 +62,9 @@ function auth() {
   };
 }
 
-function startExpressServer(schema) {
+function startExpressServer() {
   const app = express();
+  const schema = buildGraphQLSchema();
   app.use(cors());
   app.use(auth());
   app.use(

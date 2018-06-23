@@ -94,7 +94,8 @@ const schema = new mongoose.Schema(
       type: String
     },
     categorieParticuliere: {
-      type: getEnumByIdForMongoose("categorieParticuliere")
+      type: [String],
+      enum: getEnumByIdForMongoose("categorieParticuliere")
     },
     //  La demande peut être faite par un tiers pour le compte du porteur de projet
     // ou bien doit-elle être faite par le porteur de projet lui même

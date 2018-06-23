@@ -8,7 +8,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLBoolean,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } = require("graphql");
 
 module.exports = {
@@ -36,29 +37,34 @@ module.exports = {
       },
       lien: { type: GraphQLString },
       etape: {
-        type: getEnumByIdForGraphQL("saveAideEtape", "etape")
+        type: GraphQLList(getEnumByIdForGraphQL("saveAideEtape", "etape"))
       },
       statusPublication: { type: GraphQLString },
       structurePorteuse: { type: GraphQLString },
       formeDeDiffusionAutre: { type: GraphQLString },
       beneficiaires: {
-        type: getEnumByIdForGraphQL("saveAideBeneficiaires", "beneficiaires")
+        type: GraphQLList(
+          getEnumByIdForGraphQL("saveAideBeneficiaires", "beneficiaires")
+        )
       },
       beneficiairesAutre: { type: GraphQLString },
       destination: {
-        type: getEnumByIdForGraphQL("saveAideDestination", "destination")
+        type: GraphQLList(
+          getEnumByIdForGraphQL("saveAideDestination", "destination")
+        )
       },
       destinationAutre: { type: GraphQLString },
       populationMin: { type: GraphQLInt },
       populationMax: { type: GraphQLInt },
       formeDeDiffusion: {
-        type: getEnumByIdForGraphQL(
-          "saveAideFormeDeDiffusion",
-          "formeDeDiffusion"
+        type: GraphQLList(
+          getEnumByIdForGraphQL("saveAideFormeDeDiffusion", "formeDeDiffusion")
         )
       },
       thematiques: {
-        type: getEnumByIdForGraphQL("saveAideThematiques", "thematiques")
+        type: GraphQLList(
+          getEnumByIdForGraphQL("saveAideThematiques", "thematiques")
+        )
       },
       dateEcheance: {
         type: GraphQLString
@@ -76,9 +82,11 @@ module.exports = {
         type: getEnumByIdForGraphQL("saveAideStatus", "status")
       },
       categorieParticuliere: {
-        type: getEnumByIdForGraphQL(
-          "saveAideCategorieParticuliere",
-          "categorieParticuliere"
+        type: GraphQLList(
+          getEnumByIdForGraphQL(
+            "saveAideCategorieParticuliere",
+            "categorieParticuliere"
+          )
         )
       },
       demandeTiersPossible: {

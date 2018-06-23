@@ -1,14 +1,13 @@
 module.exports = {};
-const enums = require("../../enums/aide");
 const types = require("../types");
-const { formatEnumForGraphQL } = require("../../services/enums");
+const { getEnumByIdForGraphQL } = require("../../services/enums");
 const {
   GraphQLObjectType,
+  GraphQLList,
   GraphQLInt,
   GraphQLString,
   GraphQLBoolean
 } = require("graphql");
-
 const Aide = new GraphQLObjectType({
   name: "Aide",
   fields: () => ({
@@ -30,27 +29,33 @@ const Aide = new GraphQLObjectType({
     },
     perimetreDiffusionTypeAutre: { type: GraphQLString },
     lien: { type: GraphQLString },
-    etape: { type: formatEnumForGraphQL("etape", enums.etape) },
+    etape: { type: GraphQLList(getEnumByIdForGraphQL("aideEtape", "etape")) },
     statusPublication: { type: GraphQLString },
     structurePorteuse: { type: GraphQLString },
     beneficiaires: {
-      type: formatEnumForGraphQL("beneficiaires", enums.beneficiaires)
+      type: GraphQLList(
+        getEnumByIdForGraphQL("aideBeneficiaires", "beneficiaires")
+      )
     },
     beneficiairesAutre: {
       type: GraphQLString
     },
     destination: {
-      type: formatEnumForGraphQL("destination", enums.destination)
+      type: GraphQLList(getEnumByIdForGraphQL("aideDestination", "destination"))
     },
     destinationAutre: { type: GraphQLString },
     populationMin: { type: GraphQLInt },
     populationMax: { type: GraphQLInt },
     formeDeDiffusion: {
-      type: formatEnumForGraphQL("formeDeDiffusion", enums.formeDeDiffusion)
+      type: GraphQLList(
+        getEnumByIdForGraphQL("aideFormeDeDiffusion", "formeDeDiffusion")
+      )
     },
     formeDeDiffusionAutre: { type: GraphQLString },
     thematiques: {
-      type: formatEnumForGraphQL("thematiques", enums.thematiques)
+      type: new GraphQLList(
+        getEnumByIdForGraphQL("aideThematiques", "thematiques")
+      )
     },
     dateEcheance: {
       type: GraphQLString
@@ -65,15 +70,17 @@ const Aide = new GraphQLObjectType({
       type: GraphQLString
     },
     status: {
-      type: GraphQLString
+      type: getEnumByIdForGraphQL("aideStatus", "status")
     },
     motsCles: {
       type: GraphQLString
     },
     categorieParticuliere: {
-      type: formatEnumForGraphQL(
-        "categorieParticuliere",
-        enums.categorieParticuliere
+      type: GraphQLList(
+        getEnumByIdForGraphQL(
+          "aideCategorieParticuliere",
+          "categorieParticuliere"
+        )
       )
     },
     demandeTiersPossible: {
