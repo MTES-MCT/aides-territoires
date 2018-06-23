@@ -1,18 +1,17 @@
 import React from "react";
 import { reduxForm, Field, change } from "redux-form";
+import { compose } from "react-apollo";
 import SlideDown from "../ui/reactSpring/SlideDown";
 import CheckboxGroup from "../ui/reduxFormMaterialUI/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "../ui/bulma/Icons";
 import { connect } from "react-redux";
-import allEnums from "../../enums";
 import moment from "moment";
 // import { blue300 } from "material-ui/styles/colors";
 // import HelpIcon from "material-ui/svg-icons/action/help";
 // import InjectSheet from "react-jss";
 import "moment/locale/fr";
+import withEnums from "../decorators/withEnums";
 moment.locale("fr");
-
-const enums = allEnums.aide;
 
 const styles = {
   searchFilters: {
@@ -60,6 +59,7 @@ let SearchFilters = class extends React.Component {
     });
   };
   render() {
+    const { enums } = this.props;
     return (
       <form style={styles.searchFilters}>
         {/***  DATE D'ECHEANCE  ***/}
@@ -92,7 +92,7 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("type")}
           >
             {this.state.activeFilters.type ? <ArrowUp /> : <ArrowDown />}
-            {enums.type.name}
+            {enums.type.label}
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.type}>
             <CheckboxGroup name="type" options={enums.type.values} />
@@ -107,7 +107,7 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("etape")}
           >
             {this.state.activeFilters.etape ? <ArrowUp /> : <ArrowDown />}
-            {enums.etape.name}
+            {enums.etape.label}
           </label>
           <SlideDown maxHeight={400} show={this.state.activeFilters.etape}>
             <CheckboxGroup name="etape" options={enums.etape.values} />
@@ -126,7 +126,7 @@ let SearchFilters = class extends React.Component {
             ) : (
               <ArrowDown />
             )}
-            {enums.formeDeDiffusion.name}
+            {enums.formeDeDiffusion.label}
           </label>
           <SlideDown
             maxHeight={400}
@@ -147,7 +147,7 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("destination")}
           >
             {this.state.activeFilters.destination ? <ArrowUp /> : <ArrowDown />}
-            {enums.destination.name}
+            {enums.destination.label}
           </label>
           <SlideDown
             maxHeight={400}
@@ -168,7 +168,7 @@ let SearchFilters = class extends React.Component {
             onClick={() => this.handleLabelClick("thematiques")}
           >
             {this.state.activeFilters.thematiques ? <ArrowUp /> : <ArrowDown />}
-            {enums.thematiques.name}
+            {enums.thematiques.label}
           </label>
           <SlideDown
             maxHeight={400}
@@ -193,7 +193,7 @@ let SearchFilters = class extends React.Component {
             ) : (
               <ArrowDown />
             )}
-            {enums.categorieParticuliere.name}
+            {enums.categorieParticuliere.label}
           </label>
           <SlideDown
             maxHeight={400}
@@ -218,7 +218,7 @@ let SearchFilters = class extends React.Component {
             ) : (
               <ArrowDown />
             )}
-            Échelle
+            {enums.perimetreApplicationType.label}
           </label>
           <SlideDown
             maxHeight={400}
@@ -359,9 +359,10 @@ function mapStateToProps(state) {
   return { filters: {} };
 }
 
-SearchFilters = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withEnums()
 )(SearchFilters);
-
-export default SearchFilters;

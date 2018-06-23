@@ -8,7 +8,7 @@ export default class CheckboxGroup extends Component {
     options: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
+        id: PropTypes.string.isRequired
       })
     ).isRequired
   };
@@ -17,18 +17,18 @@ export default class CheckboxGroup extends Component {
     const { touched, error } = meta;
     const inputValue = input.value;
 
-    const checkboxes = options.map(({ label, value }, index) => {
+    const checkboxes = options.map(({ label, id }, index) => {
       const handleChange = event => {
         const arr = [...inputValue];
         if (event.target.checked) {
-          arr.push(value);
+          arr.push(id);
         } else {
-          arr.splice(arr.indexOf(value), 1);
+          arr.splice(arr.indexOf(id), 1);
         }
         onBlur(arr);
         return onChange(arr);
       };
-      const checked = inputValue.includes(value);
+      const checked = inputValue.includes(id);
       return (
         <div
           key={index}
