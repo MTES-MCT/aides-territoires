@@ -1,54 +1,28 @@
 const { GraphQLString, GraphQLObjectType, GraphQLList } = require("graphql");
 const { getAllEnums } = require("../../services/enums");
-
-function getAllEnumsType() {
-  return new GraphQLObjectType({
-    name: "allEnums",
-    fields: {
-      edges: { type: new GraphQLList(getAllEnumsEdgesType()) }
-    }
-  });
-}
-
-function getAllEnumsEdgesType() {
-  return new GraphQLObjectType({
-    name: "allEnumsEdges",
-    fields: {
-      userNodePermissions: { type: GraphQLList(GraphQLString) },
-      node: { type: getEnumNodeType() }
-    }
-  });
-}
-
-function getEnumNodeType() {
-  return new GraphQLObjectType({
-    name: "enumNodeType",
-    fields: {
-      id: { type: GraphQLString },
-      label: { type: GraphQLString },
-      values: { type: GraphQLList(getEnumValueType()) }
-    }
-  });
-}
-
-function getEnumValueType() {
-  return new GraphQLObjectType({
-    name: "enumValueType",
-    fields: {
-      id: { type: GraphQLString },
-      label: { type: GraphQLString },
-      description: { type: GraphQLString }
-    }
-  });
-}
+const types = require("../types");
 
 module.exports = {
   allEnums: {
-    type: getAllEnumsType(),
+    type: new GraphQLObjectType({
+      name: "allEnums",
+      fields: {
+        edges: {
+          type: new GraphQLList(
+            new GraphQLObjectType({
+              name: "allEnumsEdges",
+              fields: {
+                userNodePermissions: { type: GraphQLList(GraphQLString) },
+                node: { type: types.Enum }
+              }
+            })
+          )
+        }
+      }
+    }),
     resolve: (_, args, context) => {
-      const allEnums = getAllEnums();
       const results = {};
-      results.edges = allEnums.map(enumeration => {
+      results.edges = getAllEnums().map(enumeration => {
         return {
           userNodePermissions: [],
           node: {
@@ -56,7 +30,6 @@ module.exports = {
           }
         };
       });
-
       return results;
     }
   }
