@@ -6,7 +6,6 @@ const {
   getAllPermissions
 } = require("../../services/user");
 
-// a simple query to test our graphql AP
 module.exports = {
   allPermissions: {
     type: new GraphQLObjectType({

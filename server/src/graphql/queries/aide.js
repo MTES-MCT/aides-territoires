@@ -202,7 +202,6 @@ module.exports = {
     }
   },
   allAides: {
-    //type: new GraphQLList(types.Aide),
     type: new GraphQLObjectType({
       name: "allAides",
       fields: {
@@ -328,17 +327,19 @@ module.exports = {
       // effacer et éditer seulement si il a les permission ci-dessous
       const edges = aides.map(aide => {
         const userPermissions = [];
-        if (
-          userHasPermission(context.user, "edit_any_aide") ||
-          userHasPermission(context.user, "edit_own_aide", { aide })
-        ) {
-          userPermissions.push("edit");
-        }
-        if (
-          userHasPermission(context.user, "delete_any_aide") ||
-          userHasPermission(context.user, "delete_own_aide", { aide })
-        ) {
-          userPermissions.push("delete");
+        if (context.user) {
+          if (
+            userHasPermission(context.user, "edit_any_aide") ||
+            userHasPermission(context.user, "edit_own_aide", { aide })
+          ) {
+            userPermissions.push("edit");
+          }
+          if (
+            userHasPermission(context.user, "delete_any_aide") ||
+            userHasPermission(context.user, "delete_own_aide", { aide })
+          ) {
+            userPermissions.push("delete");
+          }
         }
         return {
           userNodePermissions: userPermissions,
