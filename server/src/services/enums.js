@@ -1,5 +1,4 @@
-const { GraphQLEnumType, GraphQLList } = require("graphql");
-const logger = require("../services/logger");
+const { GraphQLEnumType } = require("graphql");
 const allEnumerations = require("../config/enums");
 
 module.exports = {

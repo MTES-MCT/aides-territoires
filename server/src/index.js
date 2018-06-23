@@ -30,6 +30,7 @@ function buildGraphQLSchema() {
         ...require("./graphql/queries/aide"),
         ...require("./graphql/queries/user"),
         ...require("./graphql/queries/permission"),
+        ...require("./graphql/queries/role"),
         ...require("./graphql/queries/menu"),
         ...require("./graphql/queries/enum")
       }

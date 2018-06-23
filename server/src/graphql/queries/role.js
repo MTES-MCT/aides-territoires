@@ -3,18 +3,18 @@ const types = require("../types");
 const {
   userHasPermission,
   permissionDenied,
-  getAllPermissions
+  getAllRoles
 } = require("../../services/user");
 
-const AllPermissionsEdgesType = new GraphQLObjectType({
-  name: "allPermissions",
+const AllRolesEdgesType = new GraphQLObjectType({
+  name: "allRoles",
   fields: {
     edges: {
       type: new GraphQLList(
         new GraphQLObjectType({
-          name: "allPermissionsEdge",
+          name: "allRolesEdge",
           fields: {
-            node: { type: types.Permission }
+            node: { type: types.Role }
           }
         })
       )
@@ -24,17 +24,18 @@ const AllPermissionsEdgesType = new GraphQLObjectType({
 
 // a simple query to test our graphql AP
 module.exports = {
-  allPermissions: {
-    type: AllPermissionsEdgesType,
+  allRoles: {
+    type: AllRolesEdgesType,
     resolve: (_, args, context) => {
       if (!userHasPermission(context.user, "see_permissions_overview")) {
         permissionDenied();
       }
       const result = {};
-      result.edges = getAllPermissions().map(permission => {
+      const allRoles = getAllRoles();
+      result.edges = allRoles.map(role => {
         return {
           node: {
-            ...permission
+            ...role
           }
         };
       });
