@@ -1,12 +1,13 @@
 import React from "react";
 import Chip from "material-ui/Chip";
 import { blue300 } from "material-ui/styles/colors";
+import { compose } from "react-apollo";
 import PropTypes from "prop-types";
-import { getLabelFromEnumValue, getEnumName } from "../../enums";
 import FlatButton from "material-ui/FlatButton";
 import injectSheet from "react-jss";
 import { connect } from "react-redux";
 import { change, reset } from "redux-form";
+import withEnums from "../decorators/withEnums";
 
 /**
  * Affiche tous les filtres actifs en haut de la page
@@ -85,7 +86,7 @@ let SearchActiveFilters = class extends React.Component {
     });
   };
   render() {
-    const { classes, filters } = this.props;
+    const { classes, filters, getEnumValueFromId, enums } = this.props;
     return (
       <div className={classes.root}>
         <DeleteAllFilters onClick={this.handleDeleteAllClick} />
@@ -121,7 +122,7 @@ let SearchActiveFilters = class extends React.Component {
                 </Chip>
               );
             }
-            // POUR LES FILTRES DE TYPE ARRAY
+            // POUR LES FILTRES DE TYPE ARRAY / enumerations
             if (filters[filterId].constructor === Array) {
               return filters[filterId].map(filterValue => (
                 <Chip
@@ -132,8 +133,8 @@ let SearchActiveFilters = class extends React.Component {
                     this.handleRequestDeleteCheckbox(filterId, filterValue)
                   }
                 >
-                  <em>{getEnumName("aide", filterId)}</em> :{" "}
-                  {getLabelFromEnumValue("aide", filterId, filterValue)}
+                  <em>{enums[filterId].label}</em> :{" "}
+                  {getEnumValueFromId(filterId, filterValue).label}
                 </Chip>
               ));
             }
@@ -162,7 +163,7 @@ const DeleteAllFilters = ({ classes, onClick }) => (
   <FlatButton
     primary={true}
     style={{ marginRight: "20px" }}
-    label="Effacer les filtres"
+    label="Effacer"
     onClick={onClick}
   />
 );
@@ -186,7 +187,10 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withEnums()
 )(SearchActiveFilters);

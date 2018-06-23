@@ -13,6 +13,11 @@ export default function withEnums(options = {}) {
     class WithEnums extends React.Component {
       static displayName = `WithEnums(${getDisplayName(WrappedComponent)})`;
 
+      getEnumValueFromId = (enumId, valueId) => {
+        const enums = this.formatEnums();
+        return enums[enumId].values.find(value => value.id === valueId);
+      };
+
       // formater les enums pour que le composant décorés
       // puisse simple ecrires enums.perimetre.label, pour avoir
       // le label de l'enum perimetre, et enums.perimetre.values pour avoir les valeurs
@@ -37,7 +42,13 @@ export default function withEnums(options = {}) {
         } = this.props;
         if (loading) return null;
         if (error) return <GraphQLError error={error} />;
-        return <WrappedComponent {...this.props} enums={this.formatEnums()} />;
+        return (
+          <WrappedComponent
+            {...this.props}
+            getEnumValueFromId={this.getEnumValueFromId}
+            enums={this.formatEnums()}
+          />
+        );
       }
     }
 
