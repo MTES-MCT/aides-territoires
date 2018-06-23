@@ -5,7 +5,6 @@ function getAllEnumsType() {
   return new GraphQLObjectType({
     name: "allEnums",
     fields: {
-      hello: { type: GraphQLString },
       edges: { type: new GraphQLList(getAllEnumsEdgesType()) }
     }
   });

@@ -19,6 +19,7 @@ class AdminPermissionsOverview extends React.Component {
     );
   }
   render() {
+    console.log(this.props);
     const { loading, allRoles, allPermissions, error } = this.props.data;
     return (
       <AdminLayout>
@@ -31,18 +32,21 @@ class AdminPermissionsOverview extends React.Component {
               <thead>
                 <tr>
                   <th> </th>
-                  {allRoles.map(role => <th key={role.id}>{role.label}</th>)}
+                  {allRoles.edges.map(role => (
+                    <th key={role.node.id}>{role.node.label}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {allPermissions.map(permission => (
-                  <tr key={permission.id}>
-                    <td>{permission.label}</td>
-                    {allRoles.map(role => (
+                {allPermissions.edges.map(permission => (
+                  <tr key={permission.node.id}>
+                    <td>{permission.node.label}</td>
+                    {allRoles.edges.map(role => (
                       <td>
-                        {this.roleHasPermission(role, permission.id) && (
-                          <IconChecked />
-                        )}
+                        {this.roleHasPermission(
+                          role.node,
+                          permission.node.id
+                        ) && <IconChecked />}
                       </td>
                     ))}
                   </tr>
@@ -64,16 +68,24 @@ const styles = {
 const query = gql`
   {
     allRoles {
-      label
-      id
-      permissions {
-        id
-        label
+      edges {
+        node {
+          label
+          id
+          permissions {
+            label
+            id
+          }
+        }
       }
     }
     allPermissions {
-      id
-      label
+      edges {
+        node {
+          label
+          id
+        }
+      }
     }
   }
 `;

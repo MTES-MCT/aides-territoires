@@ -25,24 +25,73 @@ const RoleType = new GraphQLObjectType({
   }
 });
 
-// a simple query to test our graphql API
+const AllRolesEdgesType = new GraphQLObjectType({
+  name: "allRoles",
+  fields: {
+    edges: {
+      type: new GraphQLList(
+        new GraphQLObjectType({
+          name: "allRolesEdge",
+          fields: {
+            node: { type: RoleType }
+          }
+        })
+      )
+    }
+  }
+});
+
+const AllPermissionsEdgesType = new GraphQLObjectType({
+  name: "allPermissions",
+  fields: {
+    edges: {
+      type: new GraphQLList(
+        new GraphQLObjectType({
+          name: "allPermissionsEdge",
+          fields: {
+            node: { type: PermissionType }
+          }
+        })
+      )
+    }
+  }
+});
+
+// a simple query to test our graphql AP
 module.exports = {
   allRoles: {
-    type: new GraphQLList(RoleType),
+    type: AllRolesEdgesType,
     resolve: (_, args, context) => {
       if (!userHasPermission(context.user, "see_permissions_overview")) {
-        permissionDenied();
+        // permissionDenied();
       }
-      return getAllRoles();
+      const result = {};
+      const allRoles = getAllRoles();
+      result.edges = allRoles.map(role => {
+        return {
+          node: {
+            ...role
+          }
+        };
+      });
+      return result;
     }
   },
   allPermissions: {
-    type: new GraphQLList(PermissionType),
+    type: AllPermissionsEdgesType,
     resolve: (_, args, context) => {
       if (!userHasPermission(context.user, "see_permissions_overview")) {
-        permissionDenied();
+        // permissionDenied();
       }
-      return getAllPermissions();
+      const result = {};
+      result.edges = getAllPermissions().map(permission => {
+        return {
+          node: {
+            ...permission
+          }
+        };
+      });
+      return result;
     }
   }
 };

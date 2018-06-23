@@ -33,8 +33,7 @@ const permissions = [
   {
     id: "delete_own_aide",
     label: "Supprimer uniquement ses propres aides",
-    resolve: (user, args) => {
-      const { aide } = args;
+    resolve: (user, { aide }) => {
       if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
         return true;
@@ -45,8 +44,7 @@ const permissions = [
   {
     id: "edit_own_aide",
     label: "éditer uniquement ses propres aides",
-    resolve: (user, args) => {
-      const { aide } = args;
+    resolve: (user, { aide }) => {
       if (!aide.auteur || !aide.auteur.id) return false;
       if (user.id === aide.auteur.id) {
         return true;
