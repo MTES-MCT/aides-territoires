@@ -196,15 +196,8 @@ module.exports = {
             new GraphQLObjectType({
               name: "allAideEdges",
               fields: {
-                meta: {
-                  type: new GraphQLObjectType({
-                    name: "allAideNodeMeta",
-                    fields: {
-                      userPermissions: {
-                        type: new GraphQLList(GraphQLString)
-                      }
-                    }
-                  })
+                userNodePermissions: {
+                  type: new GraphQLList(GraphQLString)
                 },
                 node: { type: types.Aide }
               }
@@ -328,9 +321,7 @@ module.exports = {
           userPermissions.push("delete");
         }
         return {
-          meta: {
-            userPermissions
-          },
+          userNodePermissions: userPermissions,
           node: aide
         };
       });

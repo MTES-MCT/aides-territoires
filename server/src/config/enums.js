@@ -7,31 +7,38 @@ module.exports = [
     values: [
       {
         id: "commune",
-        label: "Commune"
+        label: "Commune",
+        description: ""
       },
       {
         id: "departement",
-        label: "Département"
+        label: "Département",
+        description: ""
       },
       {
         id: "region",
-        label: "Région"
+        label: "Région",
+        description: ""
       },
       {
         id: "metropole",
-        label: "France métropole et Corse"
+        label: "France métropole et Corse",
+        description: ""
       },
       {
         id: "outre_mer",
-        label: "Outre mer"
+        label: "Outre mer",
+        description: ""
       },
       {
         id: "france",
-        label: "France"
+        label: "France",
+        description: ""
       },
       {
         id: "europe",
-        label: "Europe"
+        label: "Europe",
+        description: ""
       }
     ]
   },
@@ -41,31 +48,38 @@ module.exports = [
     values: [
       {
         id: "france",
-        label: "France"
+        label: "France",
+        description: ""
       },
       {
         id: "region",
-        label: "Région"
+        label: "Région",
+        description: ""
       },
       {
         id: "departement",
-        label: "Département"
+        label: "Département",
+        description: ""
       },
       {
         id: "metropole",
-        label: "France métropole et Corse"
+        label: "France métropole et Corse",
+        description: ""
       },
       {
         id: "outre_mer",
-        label: "Outre mer"
+        label: "Outre mer",
+        description: ""
       },
       {
         id: "europe",
-        label: "Europe"
+        label: "Europe",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -75,15 +89,18 @@ module.exports = [
     values: [
       {
         id: "financement",
-        label: "Financement"
+        label: "Financement",
+        description: ""
       },
       {
         id: "ingenierie",
-        label: "Ingénierie"
+        label: "Ingénierie",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -93,19 +110,23 @@ module.exports = [
     values: [
       {
         id: "pre_operationnel",
-        label: "Pré-opérationnel"
+        label: "Pré-opérationnel",
+        description: ""
       },
       {
         id: "operationnel",
-        label: "Opérationnel"
+        label: "Opérationnel",
+        description: ""
       },
       {
         id: "fonctionnement",
-        label: "Fonctionnement"
+        label: "Fonctionnement",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -115,15 +136,18 @@ module.exports = [
     values: [
       {
         id: "draft",
-        label: "Brouillon"
+        label: "Brouillon",
+        description: ""
       },
       {
         id: "published",
-        label: "Publiée"
+        label: "Publiée",
+        description: ""
       },
       {
         id: "review_required",
-        label: "A valider"
+        label: "A valider",
+        description: ""
       }
     ]
   },
@@ -137,71 +161,88 @@ module.exports = [
     values: [
       {
         id: "subvention",
-        label: "Subvention"
+        label: "Subvention",
+        description: ""
       },
       {
         id: "convention",
-        label: "Convention"
+        label: "Convention",
+        description: ""
       },
       {
         id: "formation",
-        label: "Formation"
+        label: "Formation",
+        description: ""
       },
       {
         id: "bonification_interet",
-        label: "Bonification d'intérêt"
+        label: "Bonification d'intérêt",
+        description: ""
       },
       {
         id: "pret",
-        label: "prêt"
+        label: "prêt",
+        description: ""
       },
       {
         id: "avance_recuperable",
-        label: "avance récupérable"
+        label: "avance récupérable",
+        description: ""
       },
       {
         id: "garantie",
-        label: "Garantie"
+        label: "Garantie",
+        description: ""
       },
       {
         id: "pret_taux_reduit",
-        label: "Prêt à taux réduit"
+        label: "Prêt à taux réduit",
+        description: ""
       },
       {
         id: "investissement_en_capital",
-        label: "Investissement en capital"
+        label: "Investissement en capital",
+        description: ""
       },
       {
         id: "avantage_fiscal",
-        label: "avantage fiscal"
+        label: "avantage fiscal",
+        description: ""
       },
       {
         id: "fonds_de_retour",
-        label: "Fonds de retour"
+        label: "Fonds de retour",
+        description: ""
       },
       {
         id: "ingenierie",
-        label: "Ingénierie de projet"
+        label: "Ingénierie de projet",
+        description: ""
       },
       {
         id: "conseil",
-        label: "Conseil"
+        label: "Conseil",
+        description: ""
       },
       {
         id: "accompagnement",
-        label: "Accompagnement"
+        label: "Accompagnement",
+        description: ""
       },
       {
         id: "valorisation",
-        label: "Valorisation"
+        label: "Valorisation",
+        description: ""
       },
       {
         id: "communication",
-        label: "Communication"
+        label: "Communication",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -211,27 +252,33 @@ module.exports = [
     values: [
       {
         id: "commune",
-        label: "Commune"
+        label: "Commune",
+        description: ""
       },
       {
         id: "EPCI",
-        label: "EPCI"
+        label: "EPCI",
+        description: ""
       },
       {
         id: "entreprises",
-        label: "Entreprises"
+        label: "Entreprises",
+        description: ""
       },
       {
         id: "societe_civile",
-        label: "Société civile"
+        label: "Société civile",
+        description: ""
       },
       {
         id: "associations",
-        label: "Associations"
+        label: "Associations",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -241,31 +288,38 @@ module.exports = [
     values: [
       {
         id: "etude",
-        label: "Etude"
+        label: "Etude",
+        description: ""
       },
       {
         id: "investissement",
-        label: "Investissement"
+        label: "Investissement",
+        description: ""
       },
       {
         id: "fourniture",
-        label: "Fourniture"
+        label: "Fourniture",
+        description: ""
       },
       {
         id: "fonctionnement",
-        label: "Fonctionnement"
+        label: "Fonctionnement",
+        description: ""
       },
       {
         id: "service",
-        label: "Service"
+        label: "Service",
+        description: ""
       },
       {
         id: "travaux",
-        label: "Travaux"
+        label: "Travaux",
+        description: ""
       },
       {
         id: "autre",
-        label: "Autre"
+        label: "Autre",
+        description: ""
       }
     ]
   },
@@ -275,19 +329,23 @@ module.exports = [
     values: [
       {
         id: "amenagement_durable",
-        label: "Aménagement Durable"
+        label: "Aménagement Durable",
+        description: ""
       },
       {
         id: "developpement_local",
-        label: "Développement local"
+        label: "Développement local",
+        description: ""
       },
       {
         id: "infrastructures_reseaux_et_deplacements",
-        label: "Infrastructures, réseaux et déplacements"
+        label: "Infrastructures, réseaux et déplacements",
+        description: ""
       },
       {
         id: "solidarite_et_cohesion_sociale",
-        label: "Solidarité et Cohésion sociale"
+        label: "Solidarité et Cohésion sociale",
+        description: ""
       }
     ]
   },
@@ -297,15 +355,18 @@ module.exports = [
     values: [
       {
         id: "ouvert",
-        label: "Ouvert"
+        label: "Ouvert",
+        description: ""
       },
       {
         id: "projete",
-        label: "Projeté"
+        label: "Projeté",
+        description: ""
       },
       {
         id: "ferme",
-        label: "Fermé"
+        label: "Fermé",
+        description: ""
       }
     ]
   },
@@ -315,11 +376,13 @@ module.exports = [
     values: [
       {
         id: "AAP",
-        label: "AAP"
+        label: "AAP",
+        description: ""
       },
       {
         id: "AMI",
-        label: "AMI"
+        label: "AMI",
+        description: ""
       }
     ]
   }

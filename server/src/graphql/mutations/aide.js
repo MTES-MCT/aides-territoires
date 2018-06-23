@@ -1,8 +1,20 @@
 const types = require("../types");
 const enums = require("../../enums/aide");
 const AideModel = require("../../mongoose/Aide");
-const { formatEnumForGraphQL } = require("../../services/enums");
+const {
+  formatEnumForGraphQL,
+  getEnumByIdForGraphQL
+} = require("../../services/enums");
 const { permissionDenied, userHasPermission } = require("../../services/user");
+
+console.log(
+  JSON.stringify(
+    formatEnumForGraphQL("saveAideBeneficiaires", enums.beneficiaires),
+    0,
+    2
+  )
+);
+
 const {
   GraphQLObjectType,
   GraphQLString,

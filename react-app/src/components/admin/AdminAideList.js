@@ -42,14 +42,14 @@ class AdminAideList extends React.Component {
                   <td>{aide.node.perimetreApplicationType}</td>
                   <td>{aide.node.statusPublication}</td>
                   <td>
-                    {aide.meta.userPermissions.includes("edit") && (
+                    {aide.userNodePermissions.includes("edit") && (
                       <NavLink to={`/admin/aide/${aide.node.id}/edit`}>
                         <RaisedButton label="Editer" primary={true} />
                       </NavLink>
                     )}
                   </td>
                   <td>
-                    {aide.meta.userPermissions.includes("delete") && (
+                    {aide.userNodePermissions.includes("delete") && (
                       <span onClick={e => this.props.onDeleteClick(aide)}>
                         <RaisedButton label="Supprimer" secondary={true} />
                       </span>

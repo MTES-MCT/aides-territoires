@@ -1,5 +1,6 @@
 // les enums pour les aides
 // !FIXME replace by server webservices
+
 const aide = {
   perimetreApplicationType: {
     name: "Échelle",

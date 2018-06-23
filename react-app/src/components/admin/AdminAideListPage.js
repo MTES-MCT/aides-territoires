@@ -117,9 +117,7 @@ const query = gql`
   query adminAllAides {
     allAides {
       edges {
-        meta {
-          userPermissions
-        }
+        userNodePermissions
         node {
           id
           createdAt

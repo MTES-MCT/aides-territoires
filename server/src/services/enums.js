@@ -6,12 +6,18 @@ module.exports = {
   formatEnumForMongoose,
   formatEnumForGraphQL,
   getEnumByIdForMongoose,
-  getEnumByIdForGraphQL
+  getEnumByIdForGraphQL,
+  getAllEnums
 };
 
 function getEnumById(enumId) {
   return allEnumerations.find(value => enumId === value.id);
 }
+
+function getAllEnums() {
+  return allEnumerations;
+}
+
 /**
  * Formater nos enums pour mongoose, qui attend un array de la forme suivante :
  * ['Coffee', 'Tea'],
