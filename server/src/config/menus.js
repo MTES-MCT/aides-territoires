@@ -8,11 +8,11 @@ function getAdminMenu(user) {
   });
   links.push({
     href: "/admin/aide/list",
-    title: "List des aides"
+    title: "Liste des aides"
   });
   if (userHasPermission(user, "see_permissions_overview")) {
     links.push({
-      href: "/admin/aide/permissions",
+      href: "/admin/permissions",
       title: "Permissions et rôles"
     });
   }

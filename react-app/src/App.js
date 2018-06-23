@@ -24,13 +24,11 @@ class App extends React.PureComponent {
               <div className="App">
                 <Switch>
                   <Route exact path="/" component={SearchByTerritoirePage} />
-                  {/*backward compatibiliy*/}
-                  <Redirect from="/recherche" to="/" />
                   <Route exact path="/aides" component={SearchAidePage} />
                   <Route exact path="/admin" component={AdminAideListPage} />
                   <Route
                     exact
-                    path="/admin/aide/permissions"
+                    path="/admin/permissions"
                     component={AdminPermissionsOverview}
                   />
                   <Route
@@ -51,6 +49,8 @@ class App extends React.PureComponent {
                   <Route exact path="/login" component={LoginPage} />
                   <Route exact path="/logout" component={LogoutPage} />
                   <Route component={() => <div>Oups ! Page non trouvée</div>} />
+                  {/*backward compatibiliy*/}
+                  <Redirect from="/recherche" to="/" />
                 </Switch>
               </div>
             </MuiThemeProvider>

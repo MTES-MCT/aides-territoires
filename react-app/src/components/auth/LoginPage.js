@@ -13,29 +13,24 @@ import apolloClient from "../../lib/apolloClient";
 class LoginPage extends React.Component {
   handleSubmit = async values => {
     const { login, history } = this.props;
-
     try {
       const {
         data: {
           login: { jwt }
         }
       } = await login({ variables: values });
-
       setToken(jwt);
-
       await apolloClient.resetStore();
-
       history.push("/admin");
     } catch (err) {
       throw new SubmissionError({
-        _err: "NONONONONONO"
+        _err: "Login error"
       });
     }
   };
 
   render() {
     const { handleSubmit, submitting } = this.props;
-
     return (
       <Layout className="LoginPage">
         <section className="section">
@@ -49,7 +44,6 @@ class LoginPage extends React.Component {
                   component={Text}
                   type="password"
                 />
-
                 <ButtonSubmitWithLoader
                   className="button is-large is-info"
                   type="submit"
@@ -66,28 +60,25 @@ class LoginPage extends React.Component {
   }
 }
 
+const query = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      jwt
+      user {
+        id
+      }
+    }
+  }
+`;
+
 export default compose(
   withRouter,
   reduxForm({
     form: "login",
     initialValues: {
-      email: "yannb@protonmail.com",
-      password: "hello"
+      email: "",
+      password: ""
     }
   }),
-  graphql(
-    gql`
-      mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-          jwt
-          user {
-            id
-          }
-        }
-      }
-    `,
-    {
-      name: "login"
-    }
-  )
+  graphql(query, { name: "login" })
 )(LoginPage);
