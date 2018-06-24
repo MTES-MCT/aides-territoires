@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { compose } from "react-apollo";
 import withUser from "../decorators/withUser";
+import withEnums from "../decorators/withEnums";
 import RaisedButton from "material-ui/RaisedButton";
+import moment from "moment";
 
 class AdminAideList extends React.Component {
   static propTypes = {
@@ -13,6 +16,7 @@ class AdminAideList extends React.Component {
     this.state = {};
   }
   render() {
+    const { getEnumValueFromId } = this.props;
     return (
       <div className="AideList">
         <table className="table">
@@ -22,10 +26,10 @@ class AdminAideList extends React.Component {
               <th>Auteur</th>
               <th>Mis à jour</th>
               <th>type</th>
-              <th>Périmètre d'application type</th>
-              <th>Status</th>
-              <th>Editer</th>
-              <th>Supprimer</th>
+              <th>Périmètre d'application</th>
+              <th>Statut</th>
+              <th />
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -33,14 +37,25 @@ class AdminAideList extends React.Component {
               return (
                 <tr key={aide.node.id}>
                   <td>{aide.node.nom}</td>
+                  <td>{aide.node.auteur && aide.node.auteur.name}</td>
+                  <td>{moment(aide.node.updatedAt).format("LLLL")}</td>
+                  <td>{getEnumValueFromId("type", aide.node.type).label}</td>
                   <td>
-                    {aide.node.auteur && aide.node.auteur.name} -
-                    {aide.node.auteur && aide.node.auteur.roles.join(",")}
+                    {
+                      getEnumValueFromId(
+                        "perimetreApplicationType",
+                        aide.node.perimetreApplicationType
+                      ).label
+                    }
                   </td>
-                  <td>{aide.node.updatedAt}</td>
-                  <td>{aide.node.type}</td>
-                  <td>{aide.node.perimetreApplicationType}</td>
-                  <td>{aide.node.statusPublication}</td>
+                  <td>
+                    {
+                      getEnumValueFromId(
+                        "statusPublication",
+                        aide.node.statusPublication
+                      ).label
+                    }
+                  </td>
                   <td>
                     {aide.meta.userPermissions.includes("edit_aide") && (
                       <NavLink to={`/admin/aide/${aide.node.id}/edit`}>
@@ -65,4 +80,7 @@ class AdminAideList extends React.Component {
   }
 }
 
-export default withUser({ mandatory: true })(AdminAideList);
+export default compose(
+  withUser({ mandatory: true }),
+  withEnums()
+)(AdminAideList);
