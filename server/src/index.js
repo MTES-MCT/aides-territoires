@@ -2,12 +2,11 @@ require("dotenv").config();
 require("dotenv-safe").config();
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
-// middleware express pour ajouter les headers CORS
 const cors = require("cors");
-const graphql = require("graphql");
 const mongoose = require("mongoose");
 const logger = require("./services/logger");
 const { getUserFromJwt } = require("./services/user");
+const schema = require("./graphql/schema");
 // mongoose.set("debug", true);
 
 connectToMongodb()
@@ -20,31 +19,6 @@ connectToMongodb()
 function connectToMongodb() {
   mongoose.Promise = global.Promise;
   return mongoose.connect(process.env.MONGODB_URL);
-}
-
-function buildGraphQLSchema() {
-  const schema = new graphql.GraphQLSchema({
-    query: new graphql.GraphQLObjectType({
-      name: "Query",
-      fields: {
-        ...require("./graphql/queries/aide"),
-        ...require("./graphql/queries/user"),
-        ...require("./graphql/queries/permission"),
-        ...require("./graphql/queries/role"),
-        ...require("./graphql/queries/menu"),
-        ...require("./graphql/queries/enum")
-      }
-    }),
-    mutation: new graphql.GraphQLObjectType({
-      name: "Mutation",
-      fields: {
-        ...require("./graphql/mutations/email"),
-        ...require("./graphql/mutations/aide"),
-        ...require("./graphql/mutations/user")
-      }
-    })
-  });
-  return schema;
 }
 
 function auth() {
@@ -65,7 +39,6 @@ function auth() {
 
 function startExpressServer() {
   const app = express();
-  const schema = buildGraphQLSchema();
   app.use(cors());
   app.use(auth());
   app.use(
