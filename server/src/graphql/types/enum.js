@@ -7,9 +7,9 @@ const {
 } = require("graphql");
 
 const EnumValue = new GraphQLObjectType({
-  name: "EnumType",
+  name: "EnumValue",
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     label: { type: GraphQLString },
     description: { type: GraphQLString }
   }
