@@ -117,7 +117,9 @@ const query = gql`
   query adminAllAides {
     allAides {
       edges {
-        userNodePermissions
+        meta {
+          userPermissions
+        }
         node {
           id
           createdAt
@@ -151,7 +153,7 @@ const query = gql`
   }
 `;
 
-const deleteAideMutation = gql`
+const mutation = gql`
   mutation deleteAide($id: ID) {
     deleteAide(id: $id) {
       n
@@ -163,5 +165,5 @@ const deleteAideMutation = gql`
 export default compose(
   withUser({ mandatory: true }),
   graphql(query),
-  graphql(deleteAideMutation, { name: "deleteAide" })
+  graphql(mutation, { name: "deleteAide" })
 )(AideListPage);

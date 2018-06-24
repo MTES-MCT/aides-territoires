@@ -38,8 +38,16 @@ const searchAideResultsGroupType = new GraphQLObjectType({
 module.exports = {
   getAide: {
     type: new GraphQLObjectType({
-      name: "getAideNode",
+      name: "getAide",
       fields: {
+        meta: {
+          type: new GraphQLObjectType({
+            name: "getAideMeta",
+            fields: {
+              userPermissions: { type: new GraphQLList(GraphQLString) }
+            }
+          })
+        },
         node: { type: types.Aide }
       }
     }),
@@ -49,7 +57,12 @@ module.exports = {
       }
     },
     resolve: async (_, { id }) => {
-      return await { node: getAide(id) };
+      return await {
+        meta: {
+          userPermissions: []
+        },
+        node: getAide(id)
+      };
     }
   },
   /**
@@ -59,13 +72,11 @@ module.exports = {
   rechercheAides: {
     type: new GraphQLObjectType({
       name: "searchAidesResults",
-      fields: () => {
-        return {
-          totalNombreAides: { type: GraphQLInt },
-          groupesDeResultats: {
-            type: new GraphQLList(searchAideResultsGroupType)
-          }
-        };
+      fields: {
+        totalNombreAides: { type: GraphQLInt },
+        groupesDeResultats: {
+          type: new GraphQLList(searchAideResultsGroupType)
+        }
       }
     }),
     args: {
@@ -210,8 +221,13 @@ module.exports = {
             new GraphQLObjectType({
               name: "allAideEdges",
               fields: {
-                userNodePermissions: {
-                  type: new GraphQLList(GraphQLString)
+                meta: {
+                  type: new GraphQLObjectType({
+                    name: "allAidesEdgesMeta",
+                    fields: {
+                      userPermissions: { type: new GraphQLList(GraphQLString) }
+                    }
+                  })
                 },
                 node: { type: types.Aide }
               }
@@ -332,17 +348,19 @@ module.exports = {
             userHasPermission(context.user, "edit_any_aide") ||
             userHasPermission(context.user, "edit_own_aide", { aide })
           ) {
-            userPermissions.push("edit");
+            userPermissions.push("edit_aide");
           }
           if (
             userHasPermission(context.user, "delete_any_aide") ||
             userHasPermission(context.user, "delete_own_aide", { aide })
           ) {
-            userPermissions.push("delete");
+            userPermissions.push("delete_aide");
           }
         }
         return {
-          userNodePermissions: userPermissions,
+          meta: {
+            userPermissions
+          },
           node: aide
         };
       });
