@@ -45,6 +45,7 @@ faire un load-balancing entre ces différents process
 
 ```sh
 cd server
+yarn install
 yarn start
 ```
 
@@ -53,7 +54,6 @@ yarn start
 ```sh
 cd react-app
 yarn install
-# lancer le serveur de dev
 yarn dev
 # le serveur écoute sur http://localhost:3000/
 ```
@@ -69,6 +69,7 @@ yarn storybook
 
 ```sh
 cd react-app
+yarn install
 yarn build
 ```
 
@@ -99,6 +100,7 @@ Générer le site statique dans un dossier "out"
 
 ```sh
 cd site
+yarn install
 yarn export
 ```
 
