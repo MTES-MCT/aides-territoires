@@ -1,6 +1,11 @@
 const types = require("../types");
-const { GraphQLID } = require("graphql");
-const { getPermissionsFromRoles } = require("../../services/user");
+const { GraphQLID, GraphQLObjectType, GraphQLString } = require("graphql");
+const {
+  getPermissionsFromRoles,
+  userHasRole,
+  permissionDenied,
+  hashPassword
+} = require("../../services/user");
 
 // query pour le user actuellement connecté
 module.exports = {
@@ -20,11 +25,32 @@ module.exports = {
         // on ajoute les permissions, qui peuvent être parfois utiles en front
         // pour afficher ou pas certains élements de l'UI
         // exemple : this.props.user.permission.includes('publish_aide') && <Component />
-        // !DEPRECATED mauvaise pratique, certaines permissions ont besoin d'un argument,
-        // !seule la fonction userHasPermission() permet une vérification complètement
+        // !DEPRECATED certaines permissions ont besoin d'un argument
+        // !seule la fonction userHasPermission() permet une vérification complète
         permissions: getPermissionsFromRoles(user.roles)
       };
       return result;
+    }
+  },
+  generatePassword: {
+    type: new GraphQLObjectType({
+      name: "generatePassword",
+      description:
+        "générer un hash de password à partir d'un password en clair. ",
+      fields: {
+        hash: { type: GraphQLString }
+      }
+    }),
+    args: {
+      password: {
+        type: GraphQLString
+      }
+    },
+    resolve: (_, { password }, { user }) => {
+      if (!userHasRole(user, "admin")) {
+        permissionDenied();
+      }
+      return { hash: hashPassword(password) };
     }
   }
 };

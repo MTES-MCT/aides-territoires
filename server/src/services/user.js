@@ -19,7 +19,8 @@ module.exports = {
   getAllPermissions,
   userHasPermission,
   userHasRole,
-  getPermissionsFromRoles
+  getPermissionsFromRoles,
+  hashPassword
 };
 
 function hashPassword(password) {
