@@ -104,6 +104,11 @@ module.exports = {
           permissionDenied();
         }
         const aide = new AideModel(args);
+        // si la personne n'a pas la permission de de publier, on
+        // force la publication en "review_required"
+        if (!userHasPermission(context.user, "publish_aide")) {
+          aide.statusPublication = "review_required";
+        }
         result = await aide.save();
       }
 
