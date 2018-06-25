@@ -3,7 +3,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLID
+  GraphQLID,
+  GraphQLBoolean
 } = require("graphql");
 
 const EnumValue = new GraphQLObjectType({
@@ -11,7 +12,8 @@ const EnumValue = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     label: { type: GraphQLString },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
+    deprecated: { type: GraphQLBoolean }
   }
 });
 

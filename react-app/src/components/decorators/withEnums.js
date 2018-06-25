@@ -25,7 +25,16 @@ export default function withEnums(options = {}) {
         // stored in apollo cache
         const enumerations = {};
         if (this.props.data.loading) return enumerations;
+        //console.log(this.props.data.enums.edges);
         this.props.data.enums.edges.forEach(edge => {
+          /*
+          const values = edge.node.values.filter(value => {
+            if (value.deprecated === true) {
+              console.log(value);
+            }
+            return !(value.deprecated === true);
+          });
+          */
           enumerations[edge.node.id] = {
             id: edge.node.id,
             label: edge.node.label,
@@ -62,6 +71,8 @@ export default function withEnums(options = {}) {
                 values {
                   id
                   label
+                  description
+                  deprecated
                 }
               }
             }
