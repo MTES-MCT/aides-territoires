@@ -543,8 +543,7 @@ class AideForm extends React.Component {
             </div>
             <hr />
             <div className="columns">
-              {(this.props.user.permissions.includes("publish_aide") ||
-                true) && (
+              {this.props.user.permissions.includes("publish_aide") && (
                 <div className="column">
                   <div className="field">
                     <label className="label">

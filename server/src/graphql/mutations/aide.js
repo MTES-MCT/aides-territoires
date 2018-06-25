@@ -4,7 +4,8 @@ const { getEnumByIdForGraphQL } = require("../../services/enums");
 const {
   permissionDenied,
   userHasPermission,
-  notifyRoleByEmail
+  notifyRoleByEmail,
+  userHasRole
 } = require("../../services/user");
 const config = require("../../../config");
 
@@ -116,13 +117,15 @@ module.exports = {
           aide.statusPublication = "review_required";
         }
         result = await aide.save();
-        notifyRoleByEmail("admin", {
-          subject: "Aides-territoires - nouvelle aide : " + aide.nom,
-          text: `Bonjour, une nouvelle aide a été créée sur aides-territoires.<br /> 
+        if (userHasRole(context.user, "contributeur")) {
+          notifyRoleByEmail("admin", {
+            subject: "Aides-territoires - nouvelle aide : " + aide.nom,
+            text: `Bonjour, une nouvelle aide a été créée sur aides-territoires.<br /> 
           Vous pouvez la consulter en <a href="${
             config.aidesTerritoiresUrl
           }/admin/aide/${aide.id}/edit">cliquant sur ce lien.</a>`
-        });
+          });
+        }
       }
 
       // EDITION D'UNE AIDE EXISTANTE
@@ -149,13 +152,15 @@ module.exports = {
           }
         }
         result = aide.save();
-        notifyRoleByEmail("admin", {
-          subject: "Aides-territoires - édition d'une aide : " + aide.nom,
-          text: `Bonjour, une aide a été édité sur aides-territoires.<br /> 
+        if (userHasRole(context.user, "contributeur")) {
+          notifyRoleByEmail("admin", {
+            subject: "Aides-territoires - édition d'une aide : " + aide.nom,
+            text: `Bonjour, une aide a été édité sur aides-territoires.<br /> 
           Vous pouvez la consulter en <a href="${
             config.aidesTerritoiresUrl
           }/admin/aide/${aide.id}/edit">cliquant sur ce lien.</a>`
-        });
+          });
+        }
       }
       return result;
     }
