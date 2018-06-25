@@ -30,6 +30,10 @@ const styles = {
   }
 };
 
+/**
+ * SearchFiltersForm.
+ * Please @see  /src/reducers/searchFiltersReducer
+ */
 let SearchFilters = class extends React.Component {
   state = {
     month: "",
