@@ -37,6 +37,17 @@ yarn dev
 # le serveur écoute sur http://localhost:8100/
 ```
 
+#### mettre en production
+
+Pour lancer serveur de production, utiliser "yarn start".
+En coulisse, il lance pm2 qui va lancer un process node par CPU disponible et
+faire un load-balancing entre ces différents process
+
+```sh
+cd server
+yarn start
+```
+
 ### react-app : installer l'application React de recherche
 
 ```sh
@@ -53,6 +64,16 @@ Les composants réutilisables sont dans le storybook
 yarn storybook
 # se rendre sur http://localhost:9009/ pour voir le storybook
 ```
+
+#### mettre en production
+
+```sh
+cd react-app
+yarn build
+```
+
+Le code compilé se retrouve dans le dossier **build**
+Ce répertoire peut ensuite être déployé et servi par le serveur http de votre choix
 
 ### site : installer le site vitrine
 
@@ -72,11 +93,14 @@ yarn install
 yarn dev
 ```
 
-#### Générer le site statique dans un dossier "out"
+#### mettre en production
+
+Générer le site statique dans un dossier "out"
 
 ```sh
-# à la racine du répertoire:
+cd site
 yarn export
-# le code html est alors généré dans le dossier "out".
-# il suffit de servir ces fichiers avec le serveur http de votre choix
 ```
+
+Le code compilé se retrouve dans le dossier **out**
+Ce répertoire peut ensuite être déployé et servi par le serveur http de votre choix
