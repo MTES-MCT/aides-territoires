@@ -1,11 +1,9 @@
-// ! config for pm2 package
+// ! config for pm2 node process manager
 module.exports = {
   apps: [
     {
       name: "aides-territoires-server",
-      script: "./src/index.js",
-      instances: 0,
-      exec_mode: "cluster"
+      script: "./src/index.js"
     }
   ]
 };
