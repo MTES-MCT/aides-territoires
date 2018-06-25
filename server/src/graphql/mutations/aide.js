@@ -126,12 +126,13 @@ module.exports = {
         permissionDenied();
       }
       if (aide) {
+        const previousStatusPublication = aide.statusPublication;
         aide = Object.assign(aide, args);
         // si la personne n'a pas la permission de de publier, on
         // force la publication en "review_required", sauf il l'aide
         // est déjà publiée
         if (!userHasPermission(context.user, "publish_aide")) {
-          if (aide.statusPublication !== "published") {
+          if (previousStatusPublication.statusPublication !== "published") {
             aide.statusPublication = "review_required";
           }
         }
