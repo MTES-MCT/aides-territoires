@@ -99,6 +99,7 @@ module.exports = {
     resolve: async (_, args, context) => {
       // pas d'id : on est en train de créer une nouvelle aide
       let result = null;
+      // CREATION D'UNE NOUVELLE AIDE
       if (!args.id) {
         if (!userHasPermission(context.user, "create_aide")) {
           permissionDenied();
@@ -112,6 +113,7 @@ module.exports = {
         result = await aide.save();
       }
 
+      // EDITION D'UNE AIDE EXISTANTE
       // un id, c'est une mise à jour
       // on le cherche puis on met à jour si on trouve
       let aide = await AideModel.findById(args.id).populate("auteur");
@@ -125,6 +127,14 @@ module.exports = {
       }
       if (aide) {
         aide = Object.assign(aide, args);
+        // si la personne n'a pas la permission de de publier, on
+        // force la publication en "review_required", sauf il l'aide
+        // est déjà publiée
+        if (!userHasPermission(context.user, "publish_aide")) {
+          if (aide.statusPublication !== "published") {
+            aide.statusPublication = "review_required";
+          }
+        }
         result = aide.save();
       }
       return result;
