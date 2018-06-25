@@ -47,6 +47,19 @@ faire un load-balancing entre ces différents process
 cd server
 yarn install
 yarn start
+# le serveur écoute sur http://localhost:8100/
+```
+
+Côté server, avec Nginx il faudra utiliser la directive proxy_pass pour lié le nom de domaine au port 8100. Exemple :
+
+```
+# API.AIDES-TERRITOIRES (nodejs server)
+server {
+	server_name api.aides-territoires.beta.gouv.fr;
+	location / {
+		proxy_pass http://localhost:8100;
+	}
+}
 ```
 
 ### react-app : installer l'application React de recherche
