@@ -93,13 +93,8 @@ module.exports = [
         description: ""
       },
       {
-        id: "ingenierie",
-        label: "Ingénierie",
-        description: ""
-      },
-      {
         id: "autre",
-        label: "Autre",
+        label: "Non financier",
         description: ""
       }
     ]
@@ -121,11 +116,6 @@ module.exports = [
       {
         id: "fonctionnement",
         label: "Fonctionnement",
-        description: ""
-      },
-      {
-        id: "autre",
-        label: "Autre",
         description: ""
       }
     ]

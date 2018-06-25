@@ -4,6 +4,7 @@ const roles = require("../config/permissions").roles;
 const allPermissions = require("../config/permissions").permissions;
 const User = require("../mongoose/User");
 const ForbiddenError = "Forbidden";
+const { sendEmail } = require("../services/email");
 
 // generate a hashpassword :
 // console.log(hashPassword("your password"));
@@ -20,7 +21,8 @@ module.exports = {
   userHasPermission,
   userHasRole,
   getPermissionsFromRoles,
-  hashPassword
+  hashPassword,
+  notifyRoleByEmail
 };
 
 function hashPassword(password) {
@@ -165,4 +167,19 @@ function getAllRoles() {
     results.push(newRole);
   });
   return results;
+}
+
+/**
+ * Envoyer un email à tous les utilisateur qui ont un compte
+ */
+function notifyRoleByEmail(roleId, { text, subject }) {
+  User.find({ roles: roleId }).then(users => {
+    const destinataires = users.map(user => user.email);
+    sendEmail({
+      from: process.env.SITE_EMAIL,
+      destinataires,
+      subject,
+      text
+    }).catch(result => console.log(result));
+  });
 }

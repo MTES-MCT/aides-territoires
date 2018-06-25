@@ -1,9 +1,15 @@
 const sendInBlueClient = require("./send-in-blue-client");
+const User = require("../mongoose/User");
 
-module.exports.sendContactFormEmail = ({ from, text }) => {
+module.exports = {
+  sendContactFormEmail,
+  sendEmail
+};
+
+function sendContactFormEmail({ from, text }) {
   if (!process.env.CONTACT_FORM_TO) {
     console.log(
-      "sendContactFormEmail : Le mail n'a pas été envoyé. La variable d'environnement CONTACT_FORM_TO doit être configurée avec l'adresse mail du destinataire"
+      "sendContactFormEmail : Le mail n'a pas pu être envoyé. La variable d'environnement CONTACT_FORM_TO doit être configurée avec l'adresse mail du destinataire"
     );
     return;
   }
@@ -16,9 +22,21 @@ module.exports.sendContactFormEmail = ({ from, text }) => {
     htmlContent: text,
     subject: "Formulaire de contact de Aides-territoires"
   };
-  console.log(
-    "ap/contactForm - sending email with following params : ",
-    params
-  );
   return api.sendTransacEmail(params);
-};
+}
+
+function sendEmail({ from, destinataires = [], text, subject }) {
+  const to = destinataires.map(destinataire => {
+    return { email: destinataire };
+  });
+  var api = new sendInBlueClient.SMTPApi();
+  const params = {
+    sender: {
+      email: from
+    },
+    to: to,
+    htmlContent: text,
+    subject
+  };
+  return api.sendTransacEmail(params);
+}

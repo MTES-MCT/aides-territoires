@@ -1,4 +1,4 @@
-// this file is for pm2 package
+// ! config for pm2 package
 module.exports = {
   apps: [
     {
