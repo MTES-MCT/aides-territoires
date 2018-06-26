@@ -119,3 +119,31 @@ yarn export
 
 Le code compilé se retrouve dans le dossier **out**
 Ce répertoire peut ensuite être déployé et servi par le serveur http de votre choix
+
+## Architecture technique
+
+### recherche d'aides
+
+### authentification
+
+### côté serveur
+
+Côté serveur, la mutation GraphQL _login_ permet de générer un token en partir d'un email et un password.
+la validité du token est vérifié à chaque requête par le middleware express, qui injecte
+en cas de succès l'utilisateur connecté dans le "context" GraphQL.
+Cette variable context est disponible ensuite dans tous les resolvers GraphQL, qui peuvent alors
+agir en fonction des permissions et rôles de l'utilisateur connecté.
+
+### côté client
+
+Côté client, le jsonwebtoken est enregistré en local par le composan loginPage.
+Il est envoyé à chaque requête http vers le serveur graphQL via le fichier _src/lib/apolloClient_ pour authentifié la requête via une entête http.
+
+pour récupérer l'utilisteur connecté côté client, il faut utiliser le decorateur (hoc)
+withUser. exemple :
+
+```js
+export default compose(withUser({ mandatory: true }))(DefaultLayout);
+```
+
+Si la clef mandatory est à true, le composant ne s'affichera pas si l'utisateur n'est pas connecté, et il y aura une réduction vers la page de login.
