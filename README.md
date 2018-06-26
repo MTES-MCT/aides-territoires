@@ -122,8 +122,6 @@ Ce répertoire peut ensuite être déployé et servi par le serveur http de votr
 
 ## Architecture technique
 
-### recherche d'aides
-
 ### authentification
 
 ### côté serveur
