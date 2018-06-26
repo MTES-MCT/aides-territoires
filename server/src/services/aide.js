@@ -19,21 +19,12 @@ const getAide = id => {
 const searchAides = async (filters, { sort = null, context = null }) => {
   const groupesDeResultats = [];
   let aides = {};
-  console.log("====== debug ======");
-  console.log("begin search");
-  filters.typePerimetreInitialDeRecherche =
-    filters.typePerimetreInitialDeRecherche[0];
   // si on a un code insee, on cherche d'abord des aides
   // sur les territoires spécifiés et alentour
   if (
     filters.typePerimetreInitialDeRecherche &&
     filters.codePerimetreInitialDeRecherche
   ) {
-    console.log(
-      "filtres localisés",
-      filters.typePerimetreInitialDeRecherche,
-      filters.codePerimetreInitialDeRecherche
-    );
     //
     // * si on a demandé une COMMUNE en particulier :
     //
@@ -166,7 +157,6 @@ const searchAides = async (filters, { sort = null, context = null }) => {
       filters.typePerimetreInitialDeRecherche === "region" &&
       filters.codePerimetreInitialDeRecherche
     ) {
-      console.log("aide pour la région", JSON.stringify(aides));
       // on créer un groupe de résultats pour les aides qu'on trouve
       // pour le territoire demandé
       const GroupeVosTerritoires = {

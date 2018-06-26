@@ -111,11 +111,9 @@ module.exports = {
             },
             // le perimetre initial de recherche: ex: département
             typePerimetreInitialDeRecherche: {
-              type: new GraphQLList(
-                getEnumByIdForGraphQL(
-                  "searchAidesTypePerimetreInitialDeRecherche",
-                  "perimetreApplicationType"
-                )
+              type: getEnumByIdForGraphQL(
+                "searchAidesTypePerimetreInitialDeRecherche",
+                "perimetreApplicationType"
               )
             },
             // le code insee ou identifiant unique associé au périmètre de recherche
