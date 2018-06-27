@@ -56,6 +56,7 @@ const query = gql`
             destination
             thematiques
             dateEcheance
+            datePredepot
             categorieParticuliere
           }
         }
@@ -69,14 +70,16 @@ export default compose(
     options: ({ filters }) => {
       let newFilters = { ...filters };
       newFilters = cleanSearchFilters(newFilters);
-      // ces champs sont concaténés pour créer le champ dateEcheance,
-      // on ne veut pas les envoyer en tant que filtres
+
       if (newFilters.dateEcheance) {
         newFilters.dateEcheance = {
           operator: "gte",
           value: newFilters.dateEcheance
         };
       }
+      // ces champs sont concaténés par le reducer custom pour créer
+      // le champ dateEcheance,
+      // on ne veut pas les envoyer en tant que filtres à notre requête
       delete newFilters.dateEcheanceMonth;
       delete newFilters.dateEcheanceYear;
       return {

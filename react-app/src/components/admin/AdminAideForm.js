@@ -486,6 +486,25 @@ class AideForm extends React.Component {
                 </div>
 
                 <div className="field">
+                  <label className="label">Date de Pré-dépôt</label>
+                  <Field
+                    name="datePredepot"
+                    // from input value to store
+                    parse={value => {
+                      return value ? new Date(value) : "";
+                    }}
+                    // from store to input value
+                    format={value => {
+                      return value ? moment(value).format("YYYY-MM-DD") : "";
+                    }}
+                    className="date input is-large"
+                    component="input"
+                    type="date"
+                    placeholder="Date"
+                  />
+                </div>
+
+                <div className="field">
                   <label className="label">Date d'échéance</label>
                   <Field
                     name="dateEcheance"
@@ -631,6 +650,7 @@ const query = gql`
     $thematiques: [saveAideThematiques]
     $dateEcheance: String
     $dateDebut: String
+    $datePredepot: String
     $tauxSubvention: String
     $populationMin: Int
     $populationMax: Int
@@ -665,6 +685,7 @@ const query = gql`
       thematiques: $thematiques
       dateDebut: $dateDebut
       dateEcheance: $dateEcheance
+      datePredepot: $datePredepot
       tauxSubvention: $tauxSubvention
       populationMin: $populationMin
       populationMax: $populationMax

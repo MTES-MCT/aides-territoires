@@ -64,6 +64,9 @@ const Aide = new GraphQLObjectType({
     dateDebut: {
       type: GraphQLString
     },
+    datePredepot: {
+      type: GraphQLString
+    },
     tauxSubvention: {
       type: GraphQLString
     },

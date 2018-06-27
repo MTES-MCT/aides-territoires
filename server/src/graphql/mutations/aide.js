@@ -78,6 +78,9 @@ module.exports = {
       dateDebut: {
         type: GraphQLString
       },
+      datePredepot: {
+        type: GraphQLString
+      },
       tauxSubvention: {
         type: GraphQLString
       },

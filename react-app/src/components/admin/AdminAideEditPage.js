@@ -52,6 +52,7 @@ const query = gql`
         thematiques
         dateDebut
         dateEcheance
+        datePredepot
         tauxSubvention
         contact
         status

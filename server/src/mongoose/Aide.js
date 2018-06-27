@@ -77,6 +77,9 @@ const schema = new mongoose.Schema(
     dateDebut: {
       type: Date
     },
+    datePredepot: {
+      type: Date
+    },
     dateEcheance: {
       type: Date
     },

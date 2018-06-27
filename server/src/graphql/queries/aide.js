@@ -201,6 +201,26 @@ module.exports = {
                   value: { type: GraphQLString }
                 }
               })
+            },
+            datePredepot: {
+              type: new GraphQLInputObjectType({
+                name: "rechercheAidesDatePreDepot",
+                fields: {
+                  operator: {
+                    type: new GraphQLEnumType({
+                      name: "rechercheAidesDatePreDepotOperators",
+                      values: {
+                        eq: { value: "eq" },
+                        lt: { value: "lt" },
+                        gt: { value: "gt" },
+                        lte: { value: "lte" },
+                        gte: { value: "gte" }
+                      }
+                    })
+                  },
+                  value: { type: GraphQLString }
+                }
+              })
             }
           }
         })
