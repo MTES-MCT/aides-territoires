@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 import AppLoader from "../ui/AppLoader";
 import PropTypes from "prop-types";
 import GraphQLError from "../ui/GraphQLError";
-import { cleanSearchFilters } from "../../lib/search";
 
 class AdminAllAidesQuery extends Component {
   static propTypes = {
@@ -17,7 +16,11 @@ class AdminAllAidesQuery extends Component {
     if (this.props.data.error) {
       return <GraphQLError error={this.props.data.error} />;
     }
-    return <div>{this.props.children(this.props.data.allAides)}</div>;
+    if (this.props.data.allAides) {
+      return <div>{this.props.children(this.props.data.allAides)}</div>;
+    } else {
+      return <div>Aucune aide trouvée</div>;
+    }
   }
 }
 
@@ -26,63 +29,62 @@ const query = gql`
     allAides(filters: $filters) {
       edges {
         meta {
-          userPermissions
+          userUiPermissions
         }
         node {
           id
-          createdAt
-          updatedAt
-          nom
-          description
-          perimetreApplicationType
-          perimetreApplicationNom
-          perimetreApplicationCode
-          perimetreDiffusionType
-          etape
-          structurePorteuse
-          statusPublication
-          lien
-          type
-          destination
-          destinationAutre
-          formeDeDiffusion
-          formeDeDiffusionAutre
-          beneficiaires
-          categorieParticuliere
-          demandeTiersPossible
           auteur {
             id
             name
             roles
           }
+          nom
+          description
+          criteresEligibilite
+          etape
+          type
+          updatedAt
+          createdAt
+          structurePorteuse
+          perimetreApplicationType
+          perimetreApplicationNom
+          perimetreApplicationCode
+          populationMin
+          populationMax
+          perimetreDiffusionType
+          perimetreDiffusionTypeAutre
+          statusPublication
+          lien
+          beneficiaires
+          beneficiairesAutre
+          destination
+          destinationAutre
+          formeDeDiffusion
+          formeDeDiffusionAutre
+          thematiques
+          dateDebut
+          dateEcheance
+          datePredepot
+          tauxSubvention
+          contact
+          status
+          categorieParticuliere
+          demandeTiersPossible
+          motsCles
         }
       }
     }
   }
 `;
 
-export default compose(
-  graphql(query, {
-    options: ({ filters }) => {
-      let newFilters = { ...filters };
-      newFilters = cleanSearchFilters(newFilters);
-
-      if (newFilters.dateEcheance) {
-        newFilters.dateEcheance = {
-          operator: "gte",
-          value: newFilters.dateEcheance
-        };
+const queryOptions = {
+  options: ({ filters }) => {
+    return {
+      variables: {
+        filters
       }
-      // ces champs sont concaténés par le reducer custom pour créer
-      // le champ dateEcheance,
-      // on ne veut pas les envoyer en tant que filtres à notre requête
-      delete newFilters.dateEcheanceMonth;
-      delete newFilters.dateEcheanceYear;
-      return {
-        variables: {
-          filters: newFilters
-        }
-      };
-    }
-  })
-)(AdminAllAidesQuery);
+    };
+  }
+};
+
+export default compose(graphql(query, queryOptions))(AdminAllAidesQuery);

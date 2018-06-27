@@ -28,8 +28,9 @@ class AdminAideList extends React.Component {
               <th>type</th>
               <th>Périmètre d'application</th>
               <th>Statut</th>
-              <th />
-              <th />
+              <th /> {/* éditer */}
+              <th /> {/* cloner */}
+              <th /> {/* supprimer */}
             </tr>
           </thead>
           <tbody>
@@ -57,14 +58,26 @@ class AdminAideList extends React.Component {
                     }
                   </td>
                   <td>
-                    {aide.meta.userPermissions.includes("edit_aide") && (
+                    {aide.meta.userUiPermissions.includes("edit_aide") && (
                       <NavLink to={`/admin/aide/${aide.node.id}/edit`}>
                         <RaisedButton label="Editer" primary={true} />
                       </NavLink>
                     )}
                   </td>
                   <td>
-                    {aide.meta.userPermissions.includes("delete_aide") && (
+                    {aide.meta.userUiPermissions.includes("clone_aide") && (
+                      <NavLink
+                        to={{
+                          pathname: "/admin/aide/create",
+                          state: { aide: aide.node }
+                        }}
+                      >
+                        <RaisedButton label="Cloner l'aide" primary={true} />
+                      </NavLink>
+                    )}
+                  </td>
+                  <td>
+                    {aide.meta.userUiPermissions.includes("delete_aide") && (
                       <span onClick={e => this.props.onDeleteClick(aide)}>
                         <RaisedButton label="Supprimer" secondary={true} />
                       </span>

@@ -50,33 +50,25 @@ const AideListPage = class extends React.Component {
     //this.setState({ requestAideDeletion: null })
   };
   render() {
-    const { loading, allAides, error } = this.props.data;
     return (
       <AdminLayout>
         <h1 className="title is-1">Liste des aides</h1>
-        {error && <GraphQLError error={error} />}
-        {loading && <AppLoader />}
-        {!loading &&
-          allAides && (
-            <div>
-              <DeleteModal
-                show={this.state.showDeleteModal}
-                aideToDelete={this.state.aideToDelete}
-                onClickCancel={this.handleDeleteModalCancel}
-                onClickDelete={this.handleDeleteModalDelete}
+        <DeleteModal
+          show={this.state.showDeleteModal}
+          aideToDelete={this.state.aideToDelete}
+          onClickCancel={this.handleDeleteModalCancel}
+          onClickDelete={this.handleDeleteModalDelete}
+        />
+        <AdminAllAidesQuery filters={{}}>
+          {aides => {
+            return (
+              <AdminAideList
+                onDeleteClick={this.handleClickDelete}
+                aides={aides}
               />
-              <AdminAllAidesQuery filters={{}}>
-                {aides => {
-                  return (
-                    <AdminAideList
-                      onDeleteClick={this.handleClickDelete}
-                      aides={aides}
-                    />
-                  );
-                }}
-              </AdminAllAidesQuery>
-            </div>
-          )}
+            );
+          }}
+        </AdminAllAidesQuery>
       </AdminLayout>
     );
   }
@@ -119,46 +111,6 @@ const DeleteModal = ({
   </Dialog>
 );
 
-const query = gql`
-  query adminAllAides {
-    allAides {
-      edges {
-        meta {
-          userPermissions
-        }
-        node {
-          id
-          createdAt
-          updatedAt
-          nom
-          description
-          perimetreApplicationType
-          perimetreApplicationNom
-          perimetreApplicationCode
-          perimetreDiffusionType
-          etape
-          structurePorteuse
-          statusPublication
-          lien
-          type
-          destination
-          destinationAutre
-          formeDeDiffusion
-          formeDeDiffusionAutre
-          beneficiaires
-          categorieParticuliere
-          demandeTiersPossible
-          auteur {
-            id
-            name
-            roles
-          }
-        }
-      }
-    }
-  }
-`;
-
 const mutation = gql`
   mutation deleteAide($id: ID) {
     deleteAide(id: $id) {
@@ -170,6 +122,5 @@ const mutation = gql`
 
 export default compose(
   withUser({ mandatory: true }),
-  graphql(query),
   graphql(mutation, { name: "deleteAide" })
 )(AideListPage);

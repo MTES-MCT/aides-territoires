@@ -39,7 +39,11 @@ class AideForm extends React.Component {
     error: null
   };
   static propTypes = {
-    operation: PropTypes.oneOf(["edition", "creation"])
+    operation: PropTypes.oneOf(["edition", "creation"]),
+    cloning: PropTypes.bool
+  };
+  static defaultProps = {
+    cloning: false
   };
   // values lors de la création d'une nouvelle aide
   getDefaultValues() {
@@ -66,16 +70,36 @@ class AideForm extends React.Component {
   // (lors de la création d'une aide), soit avec une aide (édition)
   getInitialValues() {
     let values = {};
+    // si c'est une création et qu'on est pas en train de cloner une aide,
+    // on renvoie simplement les valeurs par défaut
+    if (this.props.operation === "creation" && this.props.cloning === false) {
+      values = this.getDefaultValues();
+      return values;
+    }
+    // si c'est un clone en cours, on pré-remplit avec l'objet aide passé en props
+    if (this.props.operation === "creation" && this.props.cloning === true) {
+      const { aide } = this.props;
+      values = {
+        ...aide,
+        nom: "clone de " + aide.nom,
+        auteur: aide.auteur && aide.auteur.id ? aide.auteur.id : null,
+        // forcer à "brouillon par défaut"
+        statusPublication: "draft"
+      };
+      // si on efface pas l'id, on va en réalité simplement éditer une aide
+      // au lieu d'un créer une nouvelle
+      delete values.id;
+      return values;
+    }
+    // si c'est une edition, on pré-remplit avec l'aide passée en props
     if (this.props.operation === "edition") {
       const { aide } = this.props;
       values = {
         ...aide,
         auteur: aide.auteur && aide.auteur.id ? aide.auteur.id : null
       };
-    } else {
-      values = this.getDefaultValues();
+      return values;
     }
-    return values;
   }
 
   handleSubmit = values => {
