@@ -135,13 +135,16 @@ class AideForm extends React.Component {
           <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
-                {this.renderAuteur()}
-                <Field
-                  disabled={true}
-                  className="is-large"
-                  name="auteur"
-                  component={Text}
-                />
+                {/* hidden field*/}
+                <div style={{ display: "none" }}>
+                  {this.renderAuteur()}
+                  <Field
+                    disabled={true}
+                    className="is-large"
+                    name="auteur"
+                    component={Text}
+                  />
+                </div>
                 <Field
                   className="is-large"
                   name="nom"
@@ -255,15 +258,17 @@ class AideForm extends React.Component {
                   {(values.perimetreApplicationType === "region" ||
                     values.perimetreApplicationType === "departement") && (
                     <div className="column">
-                      {/*caché : contient le code identifiant du type de territoire sélectionné*/}
-                      <Field
-                        name="perimetreApplicationCode"
-                        label="code territoire"
-                        component={Text}
-                        className="is-large"
-                        disabled={true}
-                        autocompleteCallback={getDepartementsByName}
-                      />
+                      <div style={{ display: "none" }}>
+                        {/*caché : contient le code identifiant du type de territoire sélectionné*/}
+                        <Field
+                          name="perimetreApplicationCode"
+                          label="code territoire"
+                          component={Text}
+                          className="is-large"
+                          disabled={true}
+                          autocompleteCallback={getDepartementsByName}
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
