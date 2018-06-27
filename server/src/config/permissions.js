@@ -7,13 +7,19 @@ const roles = [
       "delete_any_aide",
       "edit_any_aide",
       "see_permissions_overview",
-      "publish_aide"
+      "publish_aide",
+      "clone_aide"
     ]
   },
   {
     id: "contributeur",
     label: "Contributeur",
-    permissions: ["create_aide", "delete_own_aide", "edit_own_aide"]
+    permissions: [
+      "create_aide",
+      "delete_own_aide",
+      "edit_own_aide",
+      "clone_aide"
+    ]
   }
 ];
 
