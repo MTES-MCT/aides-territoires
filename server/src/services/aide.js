@@ -212,7 +212,7 @@ const searchAides = async (filters, { sort = null, context = null }) => {
     }
   }
   //
-  // les aides pour tous le territoires
+  // les aides pour tous les territoires
   //
   const GroupeTousLesTerritoires = {
     label: "Pour tous les territoires",
@@ -232,7 +232,6 @@ const searchAides = async (filters, { sort = null, context = null }) => {
   }
 
   // toutes les aides départementales
-
   aides = await getAllAidesByTerritoire("departement", filters);
   if (aides.length > 0) {
     GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
@@ -281,7 +280,6 @@ const searchAides = async (filters, { sort = null, context = null }) => {
   }
 
   // metropole + outre_mer
-
   aides = await getAllAidesByTerritoire("france", filters);
   if (aides.length > 0) {
     GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
@@ -292,6 +290,7 @@ const searchAides = async (filters, { sort = null, context = null }) => {
     });
   }
 
+  // toutes les aides pour l'Europe
   aides = await getAllAidesByTerritoire("europe", filters);
   if (aides.length > 0) {
     GroupeTousLesTerritoires.aidesParTypeDeTerritoires.push({
@@ -303,7 +302,6 @@ const searchAides = async (filters, { sort = null, context = null }) => {
   }
 
   groupesDeResultats.push(GroupeTousLesTerritoires);
-
   // toutes les aides régionales
   const response = {
     totalNombreAides: getTotalCountFromResultsGroups(groupesDeResultats),
