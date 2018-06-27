@@ -4,10 +4,8 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { SubmissionError } from "redux-form";
 import { compose } from "react-apollo";
-import Layout from "../layouts/Layout";
 import { setToken } from "../../lib/auth";
 import apolloClient from "../../lib/apolloClient";
-import LoginForm from "../../components/auth/LoginForm";
 
 /**
  * Logs user to the serveur from a LoginForm returning
