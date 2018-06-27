@@ -7,7 +7,7 @@ import AdminAideList from "./AdminAideList";
 import GraphQLError from "../ui/GraphQLError";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-
+import AdminAllAidesQuery from "./AdminAllAidesQuery";
 import withUser from "../decorators/withUser";
 
 const AideListPage = class extends React.Component {
@@ -65,10 +65,16 @@ const AideListPage = class extends React.Component {
                 onClickCancel={this.handleDeleteModalCancel}
                 onClickDelete={this.handleDeleteModalDelete}
               />
-              <AdminAideList
-                onDeleteClick={this.handleClickDelete}
-                aides={this.props.data.allAides}
-              />
+              <AdminAllAidesQuery filters={{}}>
+                {aides => {
+                  return (
+                    <AdminAideList
+                      onDeleteClick={this.handleClickDelete}
+                      aides={aides}
+                    />
+                  );
+                }}
+              </AdminAllAidesQuery>
             </div>
           )}
       </AdminLayout>
