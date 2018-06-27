@@ -470,12 +470,14 @@ class AideForm extends React.Component {
                   <label className="label">Date de début</label>
                   <Field
                     name="dateDebut"
-                    // value displayed
-                    parse={value => (value ? moment(value).toString() : "")}
-                    // value registered
-                    format={value =>
-                      value ? moment(value).format("Y-MM-DD") : ""
-                    }
+                    // from input value to store
+                    parse={value => {
+                      return value ? new Date(value) : "";
+                    }}
+                    // from store to input value
+                    format={value => {
+                      return value ? moment(value).format("YYYY-MM-DD") : "";
+                    }}
                     className="date input is-large"
                     component="input"
                     type="date"
@@ -487,12 +489,14 @@ class AideForm extends React.Component {
                   <label className="label">Date d'échéance</label>
                   <Field
                     name="dateEcheance"
-                    // value displayed
-                    parse={value => (value ? moment(value).toString() : "")}
-                    // value registered
-                    format={value =>
-                      value ? moment(value).format("Y-MM-DD") : ""
-                    }
+                    // from input value to store
+                    parse={value => {
+                      return value ? new Date(value) : "";
+                    }}
+                    // from store to input value
+                    format={value => {
+                      return value ? moment(value).format("YYYY-MM-DD") : "";
+                    }}
                     className="date input is-large"
                     component="input"
                     type="date"
