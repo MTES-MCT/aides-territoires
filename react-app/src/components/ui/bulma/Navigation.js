@@ -36,10 +36,13 @@ class Navigation extends React.PureComponent {
     return (
       <nav className="navbar app-main-menu" aria-label="main navigation">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/#aides-territoires">
+          <a
+            className="navbar-item"
+            href="https://www.aides-territoires.beta.gouv.fr"
+          >
             <LogoAidesTerritoires className={classes.logoAidesTerritoires} />
             <LogoFabNum className={classes.logoFabNum} />{" "}
-          </Link>
+          </a>
           <div
             className={
               this.state.mobileMenuIsActive
