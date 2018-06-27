@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import Container from "./Container";
 import imageLogoAidesTerritoires from "../../static/images/logo-aides-territoires.png";
 import imageLogoFabriqueNumerique from "../../static/images/logo-fabrique-numerique.svg";
 import InjectSheet from "react-jss";
 import uiConfig from "../../ui.config";
+import Beta from "./Beta";
 
 let Navigation = class extends React.Component {
   state = {
@@ -23,7 +23,7 @@ let Navigation = class extends React.Component {
     const { classes, links } = this.props;
     return (
       <div className={classes.root}>
-        <div className={classes.regionLogos}>
+        <div className={classes.navRegion}>
           <Link href="/">
             <a>
               <MenuLogoAidesTerritoires />
@@ -31,7 +31,10 @@ let Navigation = class extends React.Component {
             </a>
           </Link>
         </div>
-        <div className={classes.regionLinks}>
+        <div className={classes.navRegion}>
+          <Beta />
+        </div>
+        <div className={classes.navRegion}>
           <MenuRight links={links} />
         </div>
       </div>
@@ -44,6 +47,9 @@ Navigation = InjectSheet({
     display: "flex",
     justifyContent: "space-between",
     position: "relative"
+  },
+  navRegion: {
+    //border: "solid red 1px"
   },
   [uiConfig.breakpoints.smallScreen]: {
     root: {

@@ -4,8 +4,10 @@ import { compose } from "react-apollo";
 import LogoAidesTerritoires from "../brand/LogoAidesTerritoires";
 import LogoFabNum from "../brand/LogoFabNum";
 import PropTypes from "prop-types";
+import Beta from "../../ui/Beta";
 import injectSheet from "react-jss";
 import withUser from "../../decorators/withUser";
+import classnames from "classnames";
 
 class Navigation extends React.PureComponent {
   state = {
@@ -60,10 +62,8 @@ class Navigation extends React.PureComponent {
           }
           id="navMenu "
         >
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="tag is-warning">Version bêta</div>
-            </div>
+          <div className="navbar-end has-text-centered">
+            <Beta />
             {this.props.links.map(link => {
               return /^https?:\/\//.test(link.to) ? (
                 <a key={link.to} className="navbar-item" href={link.to}>
