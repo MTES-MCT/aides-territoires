@@ -44,7 +44,7 @@ module.exports = {
           type: new GraphQLObjectType({
             name: "getAideMeta",
             fields: {
-              userPermissions: { type: new GraphQLList(GraphQLString) }
+              userUiPermissions: { type: new GraphQLList(GraphQLString) }
             }
           })
         },
@@ -59,7 +59,7 @@ module.exports = {
     resolve: async (_, { id }) => {
       return await {
         meta: {
-          userPermissions: []
+          userUiPermissions: []
         },
         node: getAide(id)
       };
@@ -243,7 +243,9 @@ module.exports = {
                   type: new GraphQLObjectType({
                     name: "allAidesEdgesMeta",
                     fields: {
-                      userPermissions: { type: new GraphQLList(GraphQLString) }
+                      userUiPermissions: {
+                        type: new GraphQLList(GraphQLString)
+                      }
                     }
                   })
                 },
@@ -360,24 +362,31 @@ module.exports = {
       // ajouter les permission : l'utilisateur peut voir les boutons
       // effacer et éditer seulement si il a les permission ci-dessous
       const edges = aides.map(aide => {
-        const userPermissions = [];
+        // envoyer des informations au front pour savoir si l'utilisateur
+        // à le droit de voir le bouton éditer, effacer, clone, en fonction de
+        // l'aide (les droits peuvent différerer d'une aude sur l'autre en fonction
+        // du rôle)
+        const userUiPermissions = [];
         if (context.user) {
+          if (userHasPermission(context.user, "clone_aide")) {
+            userUiPermissions.push("clone_aide");
+          }
           if (
             userHasPermission(context.user, "edit_any_aide") ||
             userHasPermission(context.user, "edit_own_aide", { aide })
           ) {
-            userPermissions.push("edit_aide");
+            userUiPermissions.push("edit_aide");
           }
           if (
             userHasPermission(context.user, "delete_any_aide") ||
             userHasPermission(context.user, "delete_own_aide", { aide })
           ) {
-            userPermissions.push("delete_aide");
+            userUiPermissions.push("delete_aide");
           }
         }
         return {
           meta: {
-            userPermissions
+            userUiPermissions
           },
           node: aide
         };

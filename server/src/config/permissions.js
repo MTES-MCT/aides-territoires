@@ -31,6 +31,10 @@ const permissions = [
     label: "Supprimer n'importe quelle aide"
   },
   {
+    id: "clone_aide",
+    label: "Cloner une aide"
+  },
+  {
     id: "delete_own_aide",
     label: "Supprimer uniquement ses propres aides",
     resolve: (user, { aide }) => {
