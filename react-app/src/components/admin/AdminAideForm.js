@@ -205,18 +205,21 @@ class AideForm extends React.Component {
                   className="is-large"
                   component={Text}
                 />
-                <Field
-                  name="populationMin"
-                  className="is-large"
-                  component={Number}
-                  label="population minimum (nombre d'habitant)"
-                />
-                <Field
-                  name="populationMax"
-                  className="is-large"
-                  component={Number}
-                  label="population maximum"
-                />
+                {/* cacher ces champs pour le moment */}
+                <div style={{ display: "none" }}>
+                  <Field
+                    name="populationMin"
+                    className="is-large"
+                    component={Number}
+                    label="population minimum (nombre d'habitant)"
+                  />
+                  <Field
+                    name="populationMax"
+                    className="is-large"
+                    component={Number}
+                    label="population maximum"
+                  />
+                </div>
                 <Field
                   name="criteresEligibilite"
                   component={TextArea}
