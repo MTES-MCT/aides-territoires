@@ -23,6 +23,15 @@ module.exports = {
     resolve: (_, args, context) => {
       const results = {};
       results.edges = getAllEnums().map(enumeration => {
+        // on générer pour chaque EnumValue type un identifiant unique "apolloCacheKey",
+        // qui assurera qu'il n'y aura pas de conflit de mise en cache côté client.
+        // Côté client, on créera un identificant de cache custom qui utilise apolloCacheKey.
+        enumeration.values = enumeration.values.map(value => {
+          return {
+            ...value,
+            apolloCacheKey: `${enumeration.id}_${value.id}`
+          };
+        });
         return {
           userNodePermissions: [],
           node: {

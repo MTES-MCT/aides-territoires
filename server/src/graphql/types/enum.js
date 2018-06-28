@@ -4,16 +4,16 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLID,
-  GraphQLBoolean
+  GraphQLNonNull
 } = require("graphql");
 
 const EnumValue = new GraphQLObjectType({
   name: "EnumValue",
   fields: {
-    id: { type: GraphQLID },
-    label: { type: GraphQLString },
+    id: { type: GraphQLNonNull(GraphQLID) },
+    label: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
-    deprecated: { type: GraphQLBoolean }
+    apolloCacheKey: { type: GraphQLNonNull(GraphQLString) }
   }
 });
 

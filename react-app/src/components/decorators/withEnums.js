@@ -69,10 +69,10 @@ export default function withEnums(options = {}) {
                 id
                 label
                 values {
+                  apolloCacheKey
                   id
                   label
                   description
-                  deprecated
                 }
               }
             }

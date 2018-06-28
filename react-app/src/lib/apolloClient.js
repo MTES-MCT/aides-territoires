@@ -1,7 +1,7 @@
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache, defaultDataIdFromObject } from "apollo-cache-inmemory";
 import { getToken } from "./auth";
 import config from "../config";
 
@@ -46,7 +46,16 @@ const client = new ApolloClient({
   // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
   // to a different host
   link: authMiddleware.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    dataIdFromObject: object => {
+      switch (object.__typename) {
+        case "EnumValue":
+          return object.apolloCacheKey; // use `key` as the primary key
+        default:
+          return defaultDataIdFromObject(object); // fall back to default handling
+      }
+    }
+  }),
   defaultOptions
 });
 

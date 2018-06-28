@@ -1,9 +1,15 @@
 // Déclaration des énumérations, utilisées à la fois pour
 // la validation de mongoose et graphQL
-// !!! @todo utiliser "id" pour les values peut rendre confus le cache client d'apollo
-// qui va partir du principe qu'un id ne peut existe qu'une seule fois à travers
-// l'ensemble de toutes les values du site. Or il est possible d'avoir deux
-// values "autre" dans deux enums différents.
+//
+// example d'objet value :
+// {
+//   # la value qui sera utilisée comme valeur du champ
+//   id: "autre",
+//   # le label du champ
+//   label: "Non financier",
+//   # une description optionnelle pour le front
+//   description: "",
+// }
 module.exports = [
   {
     id: "perimetreApplicationType",
