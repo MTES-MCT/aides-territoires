@@ -115,17 +115,17 @@ module.exports = [
     values: [
       {
         id: "pre_operationnel",
-        label: "Pré-opérationnel",
+        label: "Pré-opérationnel (Avant-projet, faisabilité)",
         description: ""
       },
       {
         id: "operationnel",
-        label: "Opérationnel",
+        label: "Opérationnel (Programmation-conception-réalisation)",
         description: ""
       },
       {
         id: "fonctionnement",
-        label: "Fonctionnement",
+        label: "Fonctionnement (Fonctionnement,Phase de vie)",
         description: ""
       }
     ]
@@ -297,18 +297,8 @@ module.exports = [
     label: "Destination de l'aide",
     values: [
       {
-        id: "etude",
-        label: "Etude",
-        description: ""
-      },
-      {
         id: "investissement",
         label: "Investissement",
-        description: ""
-      },
-      {
-        id: "fourniture",
-        label: "Fourniture",
         description: ""
       },
       {
@@ -317,8 +307,18 @@ module.exports = [
         description: ""
       },
       {
+        id: "etude",
+        label: "Etude",
+        description: ""
+      },
+      {
+        id: "fourniture",
+        label: "Fourniture",
+        description: ""
+      },
+      {
         id: "service",
-        label: "Service",
+        label: "Service ( AMO, ...)",
         description: ""
       },
       {
