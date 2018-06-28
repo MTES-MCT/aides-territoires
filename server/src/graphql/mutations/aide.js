@@ -7,6 +7,7 @@ const {
   notifyRoleByEmail,
   userHasRole
 } = require("../../services/user");
+const { getAide } = require("../../services/aide");
 const config = require("../../../config");
 
 const {
@@ -134,7 +135,7 @@ module.exports = {
       // EDITION D'UNE AIDE EXISTANTE
       // un id, c'est une mise à jour
       // on le cherche puis on met à jour si on trouve
-      let aide = await AideModel.findById(args.id).populate("auteur");
+      let aide = await getAide(args.id);
       if (
         !(
           userHasPermission(context.user, "edit_own_aide", { aide: aide }) ||
@@ -185,7 +186,7 @@ module.exports = {
     resolve: async (_, { id }, context) => {
       // autoriser l'opération seulement à ceux qui la permission
       // d'effacer leur propre aide ou d'effacer n'importe quelle aide
-      let aide = await AideModel.findById(id);
+      let aide = await getAide(id);
       if (
         !(
           userHasPermission(context.user, "delete_any_aide") ||
