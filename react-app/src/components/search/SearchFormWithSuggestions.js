@@ -59,13 +59,7 @@ class SearchFormContainer extends React.Component {
         );
       }
     }
-    if (this.state.selectedSuggestion) {
-      this.props.onSubmit(this.state.selectedSuggestion);
-    } else {
-      alert(
-        "Vous devez sélectionner un territoire depuis la liste déroulante."
-      );
-    }
+    this.props.onSubmit(this.state.selectedSuggestion);
   };
   handleChange = event => {
     const text = event.target.value;
