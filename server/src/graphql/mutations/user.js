@@ -22,7 +22,7 @@ module.exports = {
     },
     resolve: async (_, { email, password }) => {
       const user = await getUserByPassword(email, password);
-      if (!user) throw new Error("Wrong login / password");
+      if (!user) throw new Error("Erreur de mot de passe ou d'identifiant");
       return {
         jwt: await getJwt(user),
         user

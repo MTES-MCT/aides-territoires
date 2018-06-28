@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import { SubmissionError } from "redux-form";
 import { compose } from "react-apollo";
 import { setToken } from "../../lib/auth";
 import apolloClient from "../../lib/apolloClient";
@@ -14,24 +13,19 @@ import apolloClient from "../../lib/apolloClient";
  */
 export default function withLoginToServer(LoginForm) {
   class LoginFormContainer extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    state = {
+      graphQLErrors: null
+    };
     handleSubmit = async ({ password, email }) => {
       const { login, history } = this.props;
       try {
-        const {
-          data: {
-            login: { jwt }
-          }
-        } = await login({ variables: { password, email } });
-        setToken(jwt);
+        const result = await login({ variables: { password, email } });
+        setToken(result.data.login.jwt);
         await apolloClient.resetStore();
         history.push("/admin");
-      } catch (err) {
-        throw new SubmissionError({
-          _err: "Login error"
+      } catch (error) {
+        this.setState({
+          errors: error.graphQLErrors
         });
       }
     };
@@ -45,7 +39,12 @@ export default function withLoginToServer(LoginForm) {
     }
 
     render() {
-      return <LoginForm onSubmit={this.handleSubmit} />;
+      return (
+        <div>
+          {this.state.errors && <LoginErrors errors={this.state.errors} />}
+          <LoginForm onSubmit={this.handleSubmit} />
+        </div>
+      );
     }
   }
 
@@ -65,3 +64,15 @@ export default function withLoginToServer(LoginForm) {
     graphql(query, { name: "login" })
   )(LoginFormContainer);
 }
+
+const LoginErrors = ({ errors }) => {
+  return (
+    <div className="message is-danger">
+      <div className="message-body">
+        {errors.map(error => {
+          return <p key={error.message}>{error.message}</p>;
+        })}
+      </div>
+    </div>
+  );
+};
