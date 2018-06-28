@@ -79,8 +79,13 @@ class AideForm extends React.Component {
     // si c'est un clone en cours, on pré-remplit avec l'objet aide passé en props
     if (this.props.operation === "creation" && this.props.cloning === true) {
       const { aide } = this.props;
+      // on clone l'aide pour se débarasser de propriétés
+      // définies sur l'object aide comme non-effacable / writable.
+      let values = JSON.parse(JSON.stringify(aide));
       values = {
-        ...aide,
+        ...values,
+        createdAt: new Date(),
+        updatedAt: new Date(),
         nom: "clone de " + aide.nom,
         // le nouveau propriétaire de l'aide est celui qui est en train de cloner
         auteur: this.props.user.id,
@@ -108,9 +113,10 @@ class AideForm extends React.Component {
       submissionStatus: SUBMISSION_STATUS_PENDING
     });
     const aide = { ...values };
+    delete aide.__typename;
     this.props
       .saveAide({
-        variables: aide,
+        variables: { aide },
         // mettre à jour la liste des aides dans l'admin
         refetchQueries: ["adminAllAides"]
       })
@@ -655,76 +661,9 @@ class AideForm extends React.Component {
 }
 
 const query = gql`
-  mutation saveAide(
-    $id: String
-    $auteur: String
-    $nom: String!
-    $description: String!
-    $type: String!
-    $perimetreDiffusionType: String
-    $perimetreApplicationType: String!
-    $perimetreApplicationNom: String
-    $perimetreApplicationCode: String!
-    $etape: [saveAideEtape]
-    $structurePorteuse: String!
-    $statusPublication: String!
-    $lien: String!
-    $criteresEligibilite: String
-    $beneficiaires: [saveAideBeneficiaires]
-    $beneficiairesAutre: String
-    $formeDeDiffusion: [saveAideFormeDeDiffusion]
-    $formeDeDiffusionAutre: String
-    $perimetreDiffusionTypeAutre: String
-    $destination: [saveAideDestination]
-    $destinationAutre: String
-    $thematiques: [saveAideThematiques]
-    $dateEcheance: String
-    $dateDebut: String
-    $datePredepot: String
-    $tauxSubvention: String
-    $populationMin: Int
-    $populationMax: Int
-    $contact: String
-    $status: saveAideStatus
-    $categorieParticuliere: [saveAideCategorieParticuliere]
-    $demandeTiersPossible: Boolean
-    $motsCles: String
-  ) {
-    saveAide(
-      id: $id
-      auteur: $auteur
-      nom: $nom
-      description: $description
-      type: $type
-      perimetreDiffusionType: $perimetreDiffusionType
-      perimetreDiffusionTypeAutre: $perimetreDiffusionTypeAutre
-      perimetreApplicationType: $perimetreApplicationType
-      perimetreApplicationNom: $perimetreApplicationNom
-      perimetreApplicationCode: $perimetreApplicationCode
-      etape: $etape
-      structurePorteuse: $structurePorteuse
-      statusPublication: $statusPublication
-      lien: $lien
-      criteresEligibilite: $criteresEligibilite
-      beneficiaires: $beneficiaires
-      beneficiairesAutre: $beneficiairesAutre
-      formeDeDiffusion: $formeDeDiffusion
-      formeDeDiffusionAutre: $formeDeDiffusionAutre
-      destination: $destination
-      destinationAutre: $destinationAutre
-      thematiques: $thematiques
-      dateDebut: $dateDebut
-      dateEcheance: $dateEcheance
-      datePredepot: $datePredepot
-      tauxSubvention: $tauxSubvention
-      populationMin: $populationMin
-      populationMax: $populationMax
-      contact: $contact
-      status: $status
-      categorieParticuliere: $categorieParticuliere
-      demandeTiersPossible: $demandeTiersPossible
-      motsCles: $motsCles
-    ) {
+  mutation saveAide($aide: saveAideInput!) {
+    saveAide(aide: $aide) {
+      id
       nom
     }
   }

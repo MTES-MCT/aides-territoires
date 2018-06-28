@@ -16,94 +16,105 @@ const {
   GraphQLID,
   GraphQLBoolean,
   GraphQLInt,
-  GraphQLList
+  GraphQLList,
+  GraphQLInputObjectType
 } = require("graphql");
 
 module.exports = {
   saveAide: {
     type: types.Aide,
     args: {
-      id: { type: GraphQLString },
-      auteur: { type: GraphQLString },
-      nom: { type: GraphQLString },
-      createdAt: { type: GraphQLString },
-      updatedAt: { type: GraphQLString },
-      description: { type: GraphQLString },
-      criteresEligibilite: { type: GraphQLString },
-      type: { type: GraphQLString },
-      perimetreApplicationType: {
-        type: GraphQLString
-      },
-      perimetreApplicationNom: { type: GraphQLString },
-      perimetreApplicationCode: { type: GraphQLString },
-      perimetreDiffusionType: {
-        type: GraphQLString
-      },
-      perimetreDiffusionTypeAutre: {
-        type: GraphQLString
-      },
-      lien: { type: GraphQLString },
-      etape: {
-        type: GraphQLList(getEnumByIdForGraphQL("saveAideEtape", "etape"))
-      },
-      statusPublication: { type: GraphQLString },
-      structurePorteuse: { type: GraphQLString },
-      formeDeDiffusionAutre: { type: GraphQLString },
-      beneficiaires: {
-        type: GraphQLList(
-          getEnumByIdForGraphQL("saveAideBeneficiaires", "beneficiaires")
-        )
-      },
-      beneficiairesAutre: { type: GraphQLString },
-      destination: {
-        type: GraphQLList(
-          getEnumByIdForGraphQL("saveAideDestination", "destination")
-        )
-      },
-      destinationAutre: { type: GraphQLString },
-      populationMin: { type: GraphQLInt },
-      populationMax: { type: GraphQLInt },
-      formeDeDiffusion: {
-        type: GraphQLList(
-          getEnumByIdForGraphQL("saveAideFormeDeDiffusion", "formeDeDiffusion")
-        )
-      },
-      thematiques: {
-        type: GraphQLList(
-          getEnumByIdForGraphQL("saveAideThematiques", "thematiques")
-        )
-      },
-      dateEcheance: {
-        type: GraphQLString
-      },
-      dateDebut: {
-        type: GraphQLString
-      },
-      datePredepot: {
-        type: GraphQLString
-      },
-      tauxSubvention: {
-        type: GraphQLString
-      },
-      contact: {
-        type: GraphQLString
-      },
-      status: {
-        type: getEnumByIdForGraphQL("saveAideStatus", "status")
-      },
-      categorieParticuliere: {
-        type: GraphQLList(
-          getEnumByIdForGraphQL(
-            "saveAideCategorieParticuliere",
-            "categorieParticuliere"
-          )
-        )
-      },
-      demandeTiersPossible: {
-        type: GraphQLBoolean
-      },
-      motsCles: {
-        type: GraphQLString
+      aide: {
+        type: new GraphQLInputObjectType({
+          name: "saveAideInput",
+          fields: {
+            id: { type: GraphQLString },
+            auteur: { type: GraphQLString },
+            nom: { type: GraphQLString },
+            createdAt: { type: GraphQLString },
+            updatedAt: { type: GraphQLString },
+            description: { type: GraphQLString },
+            criteresEligibilite: { type: GraphQLString },
+            type: { type: GraphQLString },
+            perimetreApplicationType: {
+              type: GraphQLString
+            },
+            perimetreApplicationNom: { type: GraphQLString },
+            perimetreApplicationCode: { type: GraphQLString },
+            perimetreDiffusionType: {
+              type: GraphQLString
+            },
+            perimetreDiffusionTypeAutre: {
+              type: GraphQLString
+            },
+            lien: { type: GraphQLString },
+            etape: {
+              type: GraphQLList(getEnumByIdForGraphQL("saveAideEtape", "etape"))
+            },
+            statusPublication: { type: GraphQLString },
+            structurePorteuse: { type: GraphQLString },
+            formeDeDiffusionAutre: { type: GraphQLString },
+            beneficiaires: {
+              type: GraphQLList(
+                getEnumByIdForGraphQL("saveAideBeneficiaires", "beneficiaires")
+              )
+            },
+            beneficiairesAutre: { type: GraphQLString },
+            destination: {
+              type: GraphQLList(
+                getEnumByIdForGraphQL("saveAideDestination", "destination")
+              )
+            },
+            destinationAutre: { type: GraphQLString },
+            populationMin: { type: GraphQLInt },
+            populationMax: { type: GraphQLInt },
+            formeDeDiffusion: {
+              type: GraphQLList(
+                getEnumByIdForGraphQL(
+                  "saveAideFormeDeDiffusion",
+                  "formeDeDiffusion"
+                )
+              )
+            },
+            thematiques: {
+              type: GraphQLList(
+                getEnumByIdForGraphQL("saveAideThematiques", "thematiques")
+              )
+            },
+            dateEcheance: {
+              type: GraphQLString
+            },
+            dateDebut: {
+              type: GraphQLString
+            },
+            datePredepot: {
+              type: GraphQLString
+            },
+            tauxSubvention: {
+              type: GraphQLString
+            },
+            contact: {
+              type: GraphQLString
+            },
+            status: {
+              type: getEnumByIdForGraphQL("saveAideStatus", "status")
+            },
+            categorieParticuliere: {
+              type: GraphQLList(
+                getEnumByIdForGraphQL(
+                  "saveAideCategorieParticuliere",
+                  "categorieParticuliere"
+                )
+              )
+            },
+            demandeTiersPossible: {
+              type: GraphQLBoolean
+            },
+            motsCles: {
+              type: GraphQLString
+            }
+          }
+        })
       }
     },
     resolve: async (_, args, { user }) => {
@@ -113,8 +124,8 @@ module.exports = {
       let result = null;
       // pas d'id ? on est en train de créer une nouvelle aide
       // CREATION D'UNE NOUVELLE AIDE
-      if (!args.id) {
-        const aide = new AideModel(args);
+      if (!args.aide.id) {
+        const aide = new AideModel(args.aide);
         // si la personne n'a pas la permission de de publier, on
         // force la publication en "review_required"
         if (!userHasPermission(user, "publish_aide")) {
@@ -136,11 +147,11 @@ module.exports = {
       // EDITION D'UNE AIDE EXISTANTE
       // un id, c'est une mise à jour
       // on le cherche puis on met à jour si on trouve
-      let aide = await getAide(args.id);
+      let aide = await getAide(args.aide.id);
       //console.log(aide);
       if (
         !(
-          userHasPermission(user, "edit_own_aide", { aide: aide }) ||
+          userHasPermission(user, "edit_own_aide", { aide }) ||
           userHasPermission(user, "edit_any_aide")
         )
       ) {
@@ -148,7 +159,7 @@ module.exports = {
       }
       if (aide) {
         const previousStatusPublication = aide.statusPublication;
-        aide = Object.assign(aide, args);
+        aide = Object.assign(aide, args.aide);
         // si la personne n'a pas la permission de de publier, on
         // force la publication en "review_required", sauf il l'aide
         // est déjà publiée
