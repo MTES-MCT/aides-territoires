@@ -7,11 +7,13 @@ import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import AdminAllAidesQuery from "./AdminAllAidesQuery";
 import withUser from "../decorators/withUser";
+import AdminAideSearchForm from "./AdminAideSearchForm";
 
 const AideListPage = class extends React.Component {
   state = {
     showDeleteModal: false,
-    aideToDelete: null
+    aideToDelete: null,
+    filters: {}
   };
   deleteAide = aide => {
     this.props.deleteAide({
@@ -44,8 +46,14 @@ const AideListPage = class extends React.Component {
       showDeleteModal: false
     });
   };
-  handleClickCancel = () => {
-    //this.setState({ requestAideDeletion: null })
+  handleFormSubmit = values => {
+    const filters = { ...values };
+    if (filters.nom.length === 0) {
+      delete filters.nom;
+    }
+    this.setState({
+      filters
+    });
   };
   render() {
     return (
@@ -57,7 +65,10 @@ const AideListPage = class extends React.Component {
           onClickCancel={this.handleDeleteModalCancel}
           onClickDelete={this.handleDeleteModalDelete}
         />
-        <AdminAllAidesQuery filters={{}}>
+        <div style={{ marginBottom: "3rem" }}>
+          <AdminAideSearchForm onSubmit={this.handleFormSubmit} />
+        </div>
+        <AdminAllAidesQuery filters={this.state.filters}>
           {aides => {
             return (
               <AdminAideList

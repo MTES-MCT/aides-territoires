@@ -387,8 +387,7 @@ const getAides = (
     }
   }
 
-  //  { "authors": /Alex/i },
-  if (filters.nom) {
+  if (filters.nom && filters.nom.trim().length > 0 && filters.nom) {
     filters.nom = { $regex: filters.nom, $options: "i" };
   }
 
