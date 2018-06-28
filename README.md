@@ -145,3 +145,13 @@ export default compose(withUser({ mandatory: true }))(DefaultLayout);
 ```
 
 Si la clef mandatory est à true, le composant ne s'affichera pas si l'utisateur n'est pas connecté, et il y aura une réduction vers la page de login.
+
+## Administration de l'application de recherche
+
+### Configuration des listes d'options
+
+éditer le fichier _/server/src/config/enums_
+
+### Configuration des permissions et rôles
+
+éditer le fichier _/server/src/config/permissions_
