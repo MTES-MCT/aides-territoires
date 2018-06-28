@@ -28,9 +28,9 @@ class AdminAideList extends React.Component {
               <th>type</th>
               <th>Périmètre d'application</th>
               <th>Statut</th>
-              <th /> {/* éditer */}
-              <th /> {/* cloner */}
-              <th /> {/* supprimer */}
+              <th>{/* éditer */}</th>
+              <th> {/* cloner */}</th>
+              <th> {/* supprimer */}</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +72,7 @@ class AdminAideList extends React.Component {
                           state: { aide: aide.node }
                         }}
                       >
-                        <RaisedButton label="Cloner l'aide" primary={true} />
+                        <RaisedButton label="Cloner" />
                       </NavLink>
                     )}
                   </td>

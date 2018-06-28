@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import Beta from "../../ui/Beta";
 import injectSheet from "react-jss";
 import withUser from "../../decorators/withUser";
-import classnames from "classnames";
 
 class Navigation extends React.PureComponent {
   state = {

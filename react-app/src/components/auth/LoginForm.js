@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, Field, SubmissionError } from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import { compose } from "react-apollo";
 import Text from "../ui/finalFormBulma/Text";
 import withLoginToServer from "./withLoginToServer";

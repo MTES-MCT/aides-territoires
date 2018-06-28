@@ -1,6 +1,4 @@
 import React from "react";
-import { compose } from "react-apollo";
-import { withRouter } from "react-router";
 import LoginForm from "./LoginForm";
 import Layout from "../layouts/Layout";
 

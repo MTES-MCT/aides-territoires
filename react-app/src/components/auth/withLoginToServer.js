@@ -19,7 +19,7 @@ export default function withLoginToServer(LoginForm) {
       this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit = async ({ password, email }) => {
-      const { login, history, refetch } = this.props;
+      const { login, history } = this.props;
       try {
         const {
           data: {

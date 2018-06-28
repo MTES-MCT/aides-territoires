@@ -10,7 +10,7 @@ class AideListItemDetails extends React.Component {
     aide: PropTypes.object.isRequired
   };
   render() {
-    const { aide, classes, getEnumValueFromId, enums } = this.props;
+    const { aide, classes, getEnumValueFromId } = this.props;
     return (
       <div className="AideListItemDetails">
         <table className={classnames("table", classes.table)}>
