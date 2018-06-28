@@ -106,22 +106,22 @@ module.exports = {
         type: GraphQLString
       }
     },
-    resolve: async (_, args, context) => {
-      // pas d'id : on est en train de créer une nouvelle aide
+    resolve: async (_, args, { user }) => {
+      if (!userHasPermission(user, "create_aide")) {
+        permissionDenied();
+      }
       let result = null;
+      // pas d'id ? on est en train de créer une nouvelle aide
       // CREATION D'UNE NOUVELLE AIDE
       if (!args.id) {
-        if (!userHasPermission(context.user, "create_aide")) {
-          permissionDenied();
-        }
         const aide = new AideModel(args);
         // si la personne n'a pas la permission de de publier, on
         // force la publication en "review_required"
-        if (!userHasPermission(context.user, "publish_aide")) {
+        if (!userHasPermission(user, "publish_aide")) {
           aide.statusPublication = "review_required";
         }
         result = await aide.save();
-        if (userHasRole(context.user, "contributeur")) {
+        if (userHasRole(user, "contributeur")) {
           notifyRoleByEmail("admin", {
             subject: "Aides-territoires - nouvelle aide : " + aide.nom,
             text: `Bonjour, une nouvelle aide a été créée sur aides-territoires.<br /> 
@@ -130,16 +130,18 @@ module.exports = {
           }/admin/aide/${aide.id}/edit">cliquant sur ce lien.</a>`
           });
         }
+        return result;
       }
 
       // EDITION D'UNE AIDE EXISTANTE
       // un id, c'est une mise à jour
       // on le cherche puis on met à jour si on trouve
       let aide = await getAide(args.id);
+      //console.log(aide);
       if (
         !(
-          userHasPermission(context.user, "edit_own_aide", { aide: aide }) ||
-          userHasPermission(context.user, "edit_any_aide")
+          userHasPermission(user, "edit_own_aide", { aide: aide }) ||
+          userHasPermission(user, "edit_any_aide")
         )
       ) {
         permissionDenied();
@@ -150,13 +152,13 @@ module.exports = {
         // si la personne n'a pas la permission de de publier, on
         // force la publication en "review_required", sauf il l'aide
         // est déjà publiée
-        if (!userHasPermission(context.user, "publish_aide")) {
+        if (!userHasPermission(user, "publish_aide")) {
           if (previousStatusPublication.statusPublication !== "published") {
             aide.statusPublication = "review_required";
           }
         }
         result = aide.save();
-        if (userHasRole(context.user, "contributeur")) {
+        if (userHasRole(user, "contributeur")) {
           notifyRoleByEmail("admin", {
             subject: "Aides-territoires - édition d'une aide : " + aide.nom,
             text: `Bonjour, une aide a été édité sur aides-territoires.<br /> 

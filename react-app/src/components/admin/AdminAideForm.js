@@ -82,7 +82,8 @@ class AideForm extends React.Component {
       values = {
         ...aide,
         nom: "clone de " + aide.nom,
-        auteur: aide.auteur && aide.auteur.id ? aide.auteur.id : null,
+        // le nouveau propriétaire de l'aide est celui qui est en train de cloner
+        auteur: this.props.user.id,
         // forcer à "brouillon par défaut"
         statusPublication: "draft"
       };
