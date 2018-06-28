@@ -281,6 +281,9 @@ module.exports = {
           name: "allAidesFilters",
           fields: {
             auteur: { type: GraphQLString },
+            nom: {
+              type: GraphQLString
+            },
             etape: {
               type: new GraphQLList(
                 getEnumByIdForGraphQL("allAidesEtape", "etape")

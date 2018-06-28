@@ -328,6 +328,7 @@ const getAllAidesByTerritoire = async (perimetreId, filters, code = null) => {
     return [];
   }
   const newFilters = { ...filters };
+  // effacer des filtres qui ont pu etre envoyés par le moteur de recherche
   delete newFilters.texte;
   if (perimetreId) {
     newFilters.perimetreApplicationType = [perimetreId];
@@ -384,6 +385,11 @@ const getAides = (
     if (Array.isArray(filters[filter])) {
       filters[filter] = { $in: filters[filter] };
     }
+  }
+
+  //  { "authors": /Alex/i },
+  if (filters.nom) {
+    filters.nom = { $regex: filters.nom, $options: "i" };
   }
 
   //  { "authors": /Alex/i },
