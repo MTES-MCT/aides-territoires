@@ -2,7 +2,7 @@ export default {
   ...process.env,
   navigationLinks: [
     {
-      title: "Aide-territoires",
+      title: "Aides-territoires",
       to: "https://www.aides-territoires.beta.gouv.fr"
     },
     {
