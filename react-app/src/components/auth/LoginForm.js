@@ -10,9 +10,15 @@ class LoginForm extends React.Component {
     const { handleSubmit, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <Field className="is-large" name="email" component={Text} />
         <Field
           className="is-large"
+          label="Email"
+          name="email"
+          component={Text}
+        />
+        <Field
+          className="is-large"
+          label="Mot de passe"
           name="password"
           component={Text}
           type="password"
