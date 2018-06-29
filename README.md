@@ -4,12 +4,10 @@
 
 Il s'agit d'un mono-repository qui contient 3 projets :
 
-- **site** : https://www.aides-territoires.beta.gouv.fr/
+- **site** : https://www.aides-territoires.beta.gouv.fr :
   Le site vitrine visible, généré statiquement par Next.js (React avec rendu serveur pour le SEO)
-- **react-app** : https://recherche.aides-territoires.beta.gouv.fr/
-  l'application de recherche d'aide et d'administration des aides
-- **server¨** : https://api.aides-territoires.beta.gouv.fr/
-  L'API GraphQL consommée par la recherche de **react-app**
+- **react-app** : https://recherche.aides-territoires.beta.gouv.fr : l'application de recherche d'aide et d'administration des aides
+- **server¨** : https://api.aides-territoires.beta.gouv.fr : L'API GraphQL consommée par la recherche de **react-app**
 
 ## Getting started
 
