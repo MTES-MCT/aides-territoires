@@ -379,16 +379,34 @@ const getAides = (
   const { showUnpublished, showExpired, sort, context } = options;
   // contiendra nos différents groupes de "or"
   const $and = [];
-  // convert ['operationnel', 'pre_operationnel', 'fonctionnement']
-  // to {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
+  // convert js array ['operationnel', 'pre_operationnel', 'fonctionnement']
+  // to mongoose syntax :  {etape:{$in:["operationnel", "pre_operationnel", "fonctionnement"]}}
   for (let filter in filters) {
     if (Array.isArray(filters[filter])) {
       filters[filter] = { $in: filters[filter] };
     }
   }
 
-  if (filters.nom && filters.nom.trim().length > 0 && filters.nom) {
-    filters.nom = { $regex: filters.nom, $options: "i" };
+  // FULL TEXT SEARCH
+  let $fullTextSearchOr = [];
+  if (filters.fullTextSearch && filters.fullTextSearch.length > 0) {
+    // recherche par structure porteuse et nom
+    $fullTextSearchOr.push({
+      nom: {
+        $regex: queryFilters.fullTextSearch,
+        $options: "i"
+      }
+    });
+    $fullTextSearchOr.push({
+      structurePorteuse: {
+        $regex: queryFilters.fullTextSearch,
+        $options: "i"
+      }
+    });
+    // ne correspond pas un champ de base de données, on efface
+    delete filters.fullTextSearch;
+  } else {
+    delete filters.fullTextSearch;
   }
 
   //  { "authors": /Alex/i },
@@ -426,11 +444,14 @@ const getAides = (
 
   const query = AideModel.find(filters);
   query.sort(sort);
-  // ne montrer que les aides dont la date de fin est supérieur à la date d'échéance
+  // ne montrer que les aides dont la date de fin est supérieure à la date d'échéance
   // demandée par l'utilisateur. Autrement dit, ne montrer que les aides encore
   // existante à cette date.
   if (orDateEcheance.length > 0) {
     $and.push({ ["$or"]: orDateEcheance });
+  }
+  if ($fullTextSearchOr.length > 0) {
+    $and.push({ ["$or"]: $fullTextSearchOr });
   }
   if (showExpired === false) {
     //ne pas afficher les aides qui sont expirées

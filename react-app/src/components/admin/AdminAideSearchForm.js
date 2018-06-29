@@ -15,7 +15,12 @@ class AdminAideSearchForm extends React.Component {
       <form onSubmit={handleSubmit}>
         <div className="columns">
           <div className="column">
-            <Field className="" label="nom" name="nom" component={Text} />
+            <Field
+              className=""
+              label="Recherche"
+              name="fullTextSearch"
+              component={Text}
+            />
           </div>
           <div className="column">
             <ButtonSubmitWithLoader
@@ -37,7 +42,7 @@ export default compose(
   reduxForm({
     form: "adminSearchAide",
     initialValues: {
-      nom: ""
+      fullTextSearch: ""
     }
   })
 )(AdminAideSearchForm);

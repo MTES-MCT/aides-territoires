@@ -280,10 +280,10 @@ module.exports = {
         type: new GraphQLInputObjectType({
           name: "allAidesFilters",
           fields: {
-            auteur: { type: GraphQLString },
-            nom: {
+            fullTextSearch: {
               type: GraphQLString
             },
+            auteur: { type: GraphQLID },
             etape: {
               type: new GraphQLList(
                 getEnumByIdForGraphQL("allAidesEtape", "etape")

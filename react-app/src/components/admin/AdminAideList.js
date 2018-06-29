@@ -6,6 +6,13 @@ import withUser from "../decorators/withUser";
 import withEnums from "../decorators/withEnums";
 import RaisedButton from "material-ui/RaisedButton";
 import moment from "moment";
+import ButtonSubmitWithLoader from "../ui/bulma/ButtonSubmitWithLoader";
+
+const styles = {
+  button: {
+    width: "120px"
+  }
+};
 
 class AdminAideList extends React.Component {
   static propTypes = {
@@ -28,9 +35,8 @@ class AdminAideList extends React.Component {
               <th>type</th>
               <th>Périmètre d'application</th>
               <th>Statut</th>
-              <th>{/* éditer */}</th>
-              <th> {/* cloner */}</th>
-              <th> {/* supprimer */}</th>
+              <th>Structure porteuse</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -57,14 +63,17 @@ class AdminAideList extends React.Component {
                       ).label
                     }
                   </td>
+                  <td>{aide.node.structurePorteuse}</td>
                   <td>
                     {aide.meta.userUiPermissions.includes("edit_aide") && (
                       <NavLink to={`/admin/aide/${aide.node.id}/edit`}>
-                        <RaisedButton label="Editer" primary={true} />
+                        <RaisedButton
+                          style={styles.button}
+                          label="Editer"
+                          primary={true}
+                        />
                       </NavLink>
                     )}
-                  </td>
-                  <td>
                     {aide.meta.userUiPermissions.includes("clone_aide") && (
                       <NavLink
                         to={{
@@ -72,14 +81,17 @@ class AdminAideList extends React.Component {
                           state: { aide: aide.node }
                         }}
                       >
-                        <RaisedButton label="Cloner" />
+                        <RaisedButton style={styles.button} label="Cloner" />
                       </NavLink>
                     )}
-                  </td>
-                  <td>
+                    <br />
                     {aide.meta.userUiPermissions.includes("delete_aide") && (
                       <span onClick={e => this.props.onDeleteClick(aide)}>
-                        <RaisedButton label="Supprimer" secondary={true} />
+                        <RaisedButton
+                          style={styles.button}
+                          label="Supprimer"
+                          secondary={true}
+                        />
                       </span>
                     )}
                   </td>

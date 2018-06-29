@@ -48,9 +48,6 @@ const AideListPage = class extends React.Component {
   };
   handleFormSubmit = values => {
     const filters = { ...values };
-    if (filters.nom.length === 0) {
-      delete filters.nom;
-    }
     this.setState({
       filters
     });
