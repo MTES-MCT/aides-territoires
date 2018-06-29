@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layouts/Layout";
-import SearchFilters from "./SearchFilters";
+import SearchFiltersForm from "./SearchFiltersForm";
 import SearchActiveFilters from "./SearchActiveFilters";
 import RaisedButton from "material-ui/RaisedButton";
 import SearchResults from "./SearchResults";
@@ -14,7 +14,7 @@ import { cleanSearchFilters } from "../../lib/search";
 import { change, reset } from "redux-form";
 import { connect } from "react-redux";
 
-let SearchAidePage = class extends React.Component {
+let SearchAidePage = class extends React.PureComponent {
   state = {
     showModal: false
   };
@@ -98,8 +98,8 @@ let SearchAidePage = class extends React.Component {
         >
           <div className="columns">
             <div className="column is-one-quarter">
-              <SearchFilters
-                defaultValues={this.props}
+              <SearchFiltersForm
+                // defaultValues={this.props}
                 onFiltersChange={this.handlFiltersChange}
               />
             </div>

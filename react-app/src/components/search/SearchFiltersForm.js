@@ -34,7 +34,7 @@ const styles = {
  * SearchFiltersForm.
  * Please @see  /src/reducers/searchFiltersReducer
  */
-let SearchFilters = class extends React.Component {
+let SearchFiltersForm = class extends React.Component {
   state = {
     month: "",
     year: "",
@@ -312,61 +312,10 @@ const DateEcheanceField = class extends React.Component {
   }
 };
 
-// let Help = ({ classes, text }) => (
-//   <div
-//     className={`${classes.root} tooltip is-tooltip-bottom is-tooltip-multiline`}
-//     data-tooltip={text}
-//   >
-//     <HelpIcon color={blue300} />
-//   </div>
-// );
-// Help = InjectSheet({
-//   root: {
-//     position: "absolute",
-//     right: 0,
-//     top: "3px",
-//     color: "blue"
-//   }
-// })(Help);
-/*
-const validate = values => {
-  const errors = {};
-  if (!values.nom || values.nom.trim().length === 0) {
-    errors.nom = "Le champ nom est requis";
-  }
-  return errors;
-};
-*/
-SearchFilters = reduxForm({
-  // a unique name for the form
-  form: "searchFilters"
-})(SearchFilters);
-
-function mapDispatchToProps(dispatch) {
-  return {
-    change: (form, field, value) => {
-      dispatch(change(form, field, value));
-    }
-  };
-}
-
-function mapStateToProps(state) {
-  if (state.form.searchFilters && state.form.searchFilters.values) {
-    return {
-      // les filtres sélectionnés par l'utilisateur pour sa recherche
-      // ainsi que les données de périmètre qui ont été enregistré
-      // par le moteur de recherche pas territoire
-      filters: state.form.searchFilters.values
-    };
-  }
-  // éviter une erreur pour cause de filters undefined
-  return { filters: {} };
-}
-
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  withEnums()
-)(SearchFilters);
+  withEnums(),
+  reduxForm({
+    // a unique name for the form
+    form: "searchFilters"
+  })
+)(SearchFiltersForm);
