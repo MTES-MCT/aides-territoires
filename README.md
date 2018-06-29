@@ -4,9 +4,12 @@
 
 Il s'agit d'un mono-repository qui contient 3 projets :
 
-- **site** : le site vitrine visible https://www.aides-territoires.beta.gouv.fr/ , généré statiquement par Next.js (React avec rendu serveur pour le SEO)
-- **react-app** : l'application de recherche d'aides, qui est disponible sur https://recherche.aides-territoires.beta.gouv.fr/
-- server : https://api.aides-territoires.beta.gouv.fr/ le serveur node fournissant les webservices / API en GraphQL consommés par la recherche de **react-app**
+- **site** : https://www.aides-territoires.beta.gouv.fr/
+  Le site vitrine visible, généré statiquement par Next.js (React avec rendu serveur pour le SEO)
+- **react-app** : https://recherche.aides-territoires.beta.gouv.fr/
+  l'application de recherche d'aide et d'administration des aides
+- **server¨** : https://api.aides-territoires.beta.gouv.fr/
+  L'API GraphQL consommée par la recherche de **react-app**
 
 ## Getting started
 
@@ -40,8 +43,8 @@ yarn dev
 #### mettre en production
 
 Pour lancer serveur de production, utiliser "yarn start".
-En coulisse, il lance pm2 qui va lancer un process node par CPU disponible et
-faire un load-balancing entre ces différents process
+En coulisse, il utilise pm2 qui est chargé de relancer les process node
+et de monitorer l'application.
 
 ```sh
 cd server
@@ -145,13 +148,3 @@ export default compose(withUser({ mandatory: true }))(DefaultLayout);
 ```
 
 Si la clef mandatory est à true, le composant ne s'affichera pas si l'utisateur n'est pas connecté, et il y aura une réduction vers la page de login.
-
-## Administration de l'application de recherche
-
-### Configuration des listes d'options
-
-éditer le fichier _/server/src/config/enums_
-
-### Configuration des permissions et rôles
-
-éditer le fichier _/server/src/config/permissions_
