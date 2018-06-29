@@ -629,15 +629,6 @@ class AideForm extends React.Component {
                   </div>
                 </div>
               )}
-
-              <div className="column">
-                <Field
-                  name="motsCles"
-                  className="is-large"
-                  component={Text}
-                  label="Mots clefs (séparés par des virgules)"
-                />
-              </div>
             </div>
             <FormErrors errors={errors} />
             <button
