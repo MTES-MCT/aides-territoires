@@ -1,10 +1,9 @@
 import React from "react";
-import { reduxForm, Field, change } from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import { compose } from "react-apollo";
 import SlideDown from "../ui/reactSpring/SlideDown";
 import CheckboxGroup from "../ui/reduxFormMaterialUI/CheckboxGroup";
 import { ArrowDown, ArrowUp } from "../ui/bulma/Icons";
-import { connect } from "react-redux";
 import moment from "moment";
 // import { blue300 } from "material-ui/styles/colors";
 // import HelpIcon from "material-ui/svg-icons/action/help";
