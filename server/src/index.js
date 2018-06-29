@@ -3,7 +3,6 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const logger = require("./services/logger");
 const { getUserFromJwt } = require("./services/user");
 const schema = require("./graphql/schema");
 // mongoose.set("debug", true);
@@ -69,5 +68,5 @@ function startExpressServer() {
   const port = process.env.PORT ? process.env.PORT : 8100;
 
   app.listen(port);
-  logger.info(`Running a GraphQL API server at localhost:${port}/graphql`);
+  console.log(`Running a GraphQL API server at localhost:${port}/graphql`);
 }

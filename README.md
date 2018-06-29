@@ -7,7 +7,7 @@ Il s'agit d'un mono-repository qui contient 3 projets :
 - **site** : https://www.aides-territoires.beta.gouv.fr :
   Le site vitrine visible, généré statiquement par Next.js (React avec rendu serveur pour le SEO)
 - **react-app** : https://recherche.aides-territoires.beta.gouv.fr : l'application de recherche d'aide et d'administration des aides
-- **server¨** : https://api.aides-territoires.beta.gouv.fr : L'API GraphQL consommée par la recherche de **react-app**
+- **server** : https://api.aides-territoires.beta.gouv.fr : L'API GraphQL consommée par la recherche de **react-app**
 
 ## Getting started
 
@@ -146,3 +146,31 @@ export default compose(withUser({ mandatory: true }))(DefaultLayout);
 ```
 
 Si la clef mandatory est à true, le composant ne s'affichera pas si l'utisateur n'est pas connecté, et il y aura une réduction vers la page de login.
+
+### Services utilisés
+
+- Mlab : service mongob
+- Send in blue : envoi des mails transationnels et formulaire d'inscription
+- Sentry: login des erreurs sur l'application React en prod
+
+## Créer un nouvel utilisateur
+
+Il n'y a pas encore d'interface pour créer un nouvelle utilisateur. Vous devez suivre la procédure suivante. Assurez-vous d'avoir dans votre fichier .env la variable PASSWORD_HASH_SECRET **identique** à celle du serveur de production !
+
+```sh
+cd server
+npm run generate-password-hash VOTRE_MOT_DE_PASSE
+```
+
+Conserver ce mot de passe, il servira à renseigner le champ password du nouvel utilisateur.
+Rendez vous dans la base de données, ajoutez un nouveau document dans la collection "Users", en donnant. Exemple :
+
+```json
+{
+  "email": "email@email.fr",
+  "name": "John",
+  "password":
+    "c7a47cf4923363877601259e49fa485f19014a3d1f7a8fd787edc7aba2a40ade",
+  "roles": ["contributeur"]
+}
+```

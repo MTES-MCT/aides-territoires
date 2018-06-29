@@ -6,9 +6,6 @@ const User = require("../mongoose/User");
 const ForbiddenError = "Forbidden";
 const { sendEmail } = require("../services/email");
 
-// generate a hashpassword :
-// console.log(hashPassword("your password"));
-
 module.exports = {
   getUserByPassword,
   getJwt,
