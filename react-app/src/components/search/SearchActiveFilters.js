@@ -11,7 +11,6 @@ import withEnums from "../decorators/withEnums";
 
 /**
  * Affiche tous les filtres actifs en haut de la page
- * @param {*} param0
  */
 let SearchActiveFilters = class extends React.Component {
   static propTypes = {
@@ -26,9 +25,12 @@ let SearchActiveFilters = class extends React.Component {
     "dateEcheanceMonth",
     "dateEcheanceYear"
   ];
-  // les filtres à supprimer quand on clique sur "effacer tout"
+  // les filtres à supprimer quand on clique sur "effacer tout".
+  // on ne veut pas effacer les filtres filtersStringToExclude,
+  // et on veut également ne pas effacer le territoire de recherche
   filtersToReset = [
     "categorieParticuliere",
+    "etape",
     "dateEcheance",
     "dateEcheanceMonth",
     "dateEcheanceYear",
