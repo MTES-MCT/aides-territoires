@@ -34,8 +34,9 @@ class SearchFormContainer extends React.Component {
     event.preventDefault();
     this.setState({ showModal: true });
   };
-  // TODO : suggestions should be returned by graphQL and not computed here.
+  // TODO : suggestions should be returned by graphQL and not computed here (héritage du premier proto)
   handleSubmit = event => {
+    this.setState({ showModal: false });
     event.preventDefault();
     //this.resetSuggestions();
     if (this.state.selectedSuggestion) {

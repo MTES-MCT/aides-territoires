@@ -16,7 +16,9 @@ class SearchPage extends React.Component {
     };
   }
   handleSubmit = suggestion => {
-    this.setState({ filters: suggestion.value });
+    if (suggestion) {
+      this.setState({ filters: suggestion.value });
+    }
   };
   render() {
     if (Object.keys(this.state.filters).length > 0) {
