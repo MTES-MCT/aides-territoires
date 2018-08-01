@@ -1,4 +1,5 @@
 from .base import *  # noqa
+from .base import DJANGO_ROOT
 
 DEBUG = True
 
@@ -7,9 +8,10 @@ SECRET_KEY = 'hg_1)(oo53y2ow1bvlr6k2mv#hk1lo4%6qf1pdf*02%$203kmt'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [DJANGO_ROOT.child('templates')],
+        'APP_DIRS': False,
         'OPTIONS': {
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
