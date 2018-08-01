@@ -1,6 +1,7 @@
 language: python
 python:
   - "3.6"
-install: "make"
+install:
+ - "cd src && make init"
 script:
- - "make test"
+ - "cd src && make test"
