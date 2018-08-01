@@ -88,6 +88,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     DJANGO_ROOT.child('static'),
+    DJANGO_ROOT.child('node_modules'),
 ]
 
 STATICFILES_FINDERS = [
@@ -97,3 +98,9 @@ STATICFILES_FINDERS = [
 ]
 
 STATIC_ROOT = PUBLIC_ROOT.child('static')
+
+SASS_PATH = DJANGO_ROOT.child('node_modules', '.bin', 'sass')
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', SASS_PATH + ' {infile} {outfile}'),
+)
