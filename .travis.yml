@@ -4,4 +4,5 @@ python:
 install:
  - "cd src && make init"
 script:
+ - "cd src && make checkstyle"
  - "cd src && make test"

@@ -5,3 +5,5 @@ init:
 test:
 	pipenv run py.test
 
+checkstyle:
+	pipenv run flake8
