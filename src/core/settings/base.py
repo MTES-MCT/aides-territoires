@@ -99,8 +99,11 @@ STATICFILES_FINDERS = [
 
 STATIC_ROOT = PUBLIC_ROOT.child('static')
 
-SASS_PATH = DJANGO_ROOT.child('node_modules', '.bin', 'sass')
+NODE_MODULES_PATH = DJANGO_ROOT.child('node_modules')
+
+SASS_PATH = NODE_MODULES_PATH.child('.bin', 'sass')
 
 COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', SASS_PATH + ' {infile} {outfile}'),
+    ('text/x-scss', '{} -I {} {{infile}} {{outfile}}'.format(
+        SASS_PATH, NODE_MODULES_PATH)),
 )

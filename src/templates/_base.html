@@ -11,7 +11,6 @@
         </title>
 
         {% compress css %}
-            <link rel="stylesheet" href="/static/bootstrap/scss/bootstrap.scss" type="text/x-scss" charset="utf-8">
             <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
             {% block extra_css %}{% endblock %}
         {% endcompress %}
@@ -20,11 +19,13 @@
 
     </head>
     <body>
-        <div class="container">
-            {% block content %}
 
-            {% endblock content %}
-        </div>
+        {% include '_header.html' %}
+
+        <main role="main">
+            {% block main %}
+            {% endblock %}
+        </main>
 
         {% compress js %}
             {% block extra_js %}{% endblock %}

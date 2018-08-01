@@ -1,0 +1,16 @@
+@import 'bootstrap/scss/bootstrap';
+
+nav#main-navbar {
+    @extend .navbar;
+    @extend .navbar-dark;
+    @extend .bg-dark;
+
+    .homelink {
+        @extend .navbar-brand;
+    }
+
+    span {
+        @extend .text-right;
+        @extend .navbar-text;
+    }
+}
