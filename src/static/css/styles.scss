@@ -14,3 +14,41 @@ nav#main-navbar {
         @extend .navbar-text;
     }
 }
+
+section#landing-value {
+    @extend .jumbotron;
+    @extend .text-center;
+
+    p {
+        @extend .lead;
+        @extend .text-muted;
+    }
+}
+
+section#howitworks {
+    h1 {
+        @extend .text-center;
+        margin-bottom: $paragraph-margin-bottom;
+    }
+
+    div#steps {
+        @extend .card-deck;
+
+        div.step {
+            @extend .card;
+            @extend .shadow-sm;
+
+            div.step-content {
+                @extend .card-body;
+
+                h2 {
+                    @extend .card-title;
+                }
+
+                p {
+                    @extend .card-text;
+                }
+            }
+        }
+    }
+}
