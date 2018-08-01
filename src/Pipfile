@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 unipath = "*"
 "psycopg2-binary" = "*"
+django-compressor = "*"
 
 [dev-packages]
 pytest = "*"

@@ -6,10 +6,13 @@ PROJECT_ROOT = Path(__file__).ancestor(4)
 # Absolute path to the Django subdirectory
 DJANGO_ROOT = PROJECT_ROOT.child('src')
 
+# Path to the directory where public files will be served
+PUBLIC_ROOT = PROJECT_ROOT.child('public')
+
 ALLOWED_HOSTS = []
 
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -17,6 +20,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = [
+    'compressor',
+]
+
+LOCAL_APPS = [
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -34,6 +46,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
+
 VALIDATORS_PATH = 'django.contrib.auth.password_validation'
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -70,4 +83,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    DJANGO_ROOT.child('static'),
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+STATIC_ROOT = PUBLIC_ROOT.child('static')
