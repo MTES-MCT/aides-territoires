@@ -9,3 +9,6 @@ test:
 
 checkstyle:
 	pipenv run flake8
+
+makemessages:
+	pipenv run python manage.py makemessages --all --no-location --no-obsolete
