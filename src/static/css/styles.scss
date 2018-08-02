@@ -1,5 +1,16 @@
 @import 'bootstrap/scss/bootstrap';
 
+body {
+    >footer {
+        @extend .container;
+        @extend .border-top;
+        @extend .mt-5;
+        @extend .pt-3;
+    }
+
+}
+
+
 nav#main-navbar {
     @extend .navbar;
     @extend .navbar-dark;
@@ -15,9 +26,9 @@ nav#main-navbar {
     }
 }
 
-body>footer {
-    @extend .container;
-    margin-top: $paragraph-margin-bottom * 2;
+main {
+    >section {
+    }
 }
 
 section#landing-value {
@@ -31,6 +42,9 @@ section#landing-value {
 }
 
 section#howitworks {
+    @extend .container;
+    @extend .my-5;
+
     h1 {
         @extend .text-center;
         margin-bottom: $paragraph-margin-bottom;
@@ -55,5 +69,14 @@ section#howitworks {
                 }
             }
         }
+    }
+}
+
+section#contact {
+    @extend .bg-dark;
+    @extend .py-5;
+
+    h1 {
+        @extend .text-light;
     }
 }
