@@ -58,6 +58,11 @@ section#contact {
     form#mailing-list-form {
         max-width: 30rem;
         margin: 0 auto;
+
+        button[type=submit] {
+            margin: 0 auto;
+            display: flex-block;
+        }
     }
 }
 

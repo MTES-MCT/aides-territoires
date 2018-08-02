@@ -56,4 +56,9 @@ form {
             @extend .text-white-50;
         }
     }
+
+    button[type=submit] {
+        @extend .btn;
+        @extend .btn-primary;
+    }
 }
