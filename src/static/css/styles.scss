@@ -1,3 +1,9 @@
+/**
+ * Only application wide styles should go here.
+ *
+ * For custom styling, go to the custom.scss file.
+ *
+ */
 @import 'bootstrap/scss/bootstrap';
 
 body {
@@ -36,64 +42,18 @@ form {
         @extend .form-text;
         @extend .text-muted;
     }
-}
 
-form.dark-form {
-    label {
-        @extend .text-light;
+    .form-group.required label:after {
+        content:"*";
     }
 
-    span.field-help {
-        @extend .text-white-50;
-    }
-}
-
-section#landing-value {
-    @extend .jumbotron;
-    @extend .text-center;
-
-    p {
-        @extend .lead;
-        @extend .text-muted;
-    }
-}
-
-section#howitworks {
-    @extend .container;
-    @extend .my-5;
-
-    h1 {
-        @extend .text-center;
-        margin-bottom: $paragraph-margin-bottom;
-    }
-
-    div#steps {
-        @extend .card-deck;
-
-        div.step {
-            @extend .card;
-            @extend .shadow-sm;
-
-            div.step-content {
-                @extend .card-body;
-
-                h2 {
-                    @extend .card-title;
-                }
-
-                p {
-                    @extend .card-text;
-                }
-            }
+    &.dark-form {
+        label {
+            @extend .text-light;
         }
-    }
-}
 
-section#contact {
-    @extend .bg-dark;
-    @extend .py-5;
-
-    h1 {
-        @extend .text-light;
+        span.field-help {
+            @extend .text-white-50;
+        }
     }
 }

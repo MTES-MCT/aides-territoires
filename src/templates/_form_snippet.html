@@ -13,7 +13,7 @@
 
 {% for field in form.visible_fields %}
 
-    <div class="form-group">
+    <div class="form-group{% if field.field.required %} required{% endif %}">
 
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
 
