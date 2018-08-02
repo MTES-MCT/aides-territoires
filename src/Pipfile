@@ -13,6 +13,7 @@ django-widget-tweaks = "*"
 [dev-packages]
 pytest = "*"
 "flake8" = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.6"

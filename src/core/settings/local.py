@@ -1,5 +1,5 @@
 from .base import *  # noqa
-from .base import DJANGO_ROOT
+from .base import DJANGO_ROOT, INSTALLED_APPS, MIDDLEWARE
 
 DEBUG = True
 
@@ -38,3 +38,16 @@ DATABASES = {
 }
 
 ALLOWED_HOSTS = ['aides-territoires.local']
+
+INSTALLED_APPS += [
+    'debug_toolbar',
+]
+
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+] + MIDDLEWARE
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    '10.0.3.1',
+]
