@@ -39,6 +39,10 @@
 <section id="contact">
     <div class="container">
         <h1>Soyez les premiers informés de notre actualité, laissez-nous votre contact.</h1>
+
+        <form method="post" action="" class="dark-form">
+            {% include '_form_snippet.html' with form=form %}
+        </form>
     </div>
 </section>
 {% endblock %}
