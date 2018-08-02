@@ -101,7 +101,7 @@ STATIC_ROOT = PUBLIC_ROOT.child('static')
 
 NODE_MODULES_PATH = DJANGO_ROOT.child('node_modules')
 
-SASS_PATH = NODE_MODULES_PATH.child('.bin', 'sass')
+SASS_PATH = 'sass'
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', '{} -I {} {{infile}} {{outfile}}'.format(
