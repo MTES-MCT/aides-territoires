@@ -23,6 +23,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'compressor',
+    'widget_tweaks',
 ]
 
 LOCAL_APPS = [

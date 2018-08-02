@@ -8,6 +8,7 @@ django = "*"
 unipath = "*"
 "psycopg2-binary" = "*"
 django-compressor = "*"
+django-widget-tweaks = "*"
 
 [dev-packages]
 pytest = "*"
