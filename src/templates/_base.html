@@ -27,6 +27,20 @@
             {% endblock %}
         </main>
 
+        {% block footer %}
+        <footer>
+            <hr />
+            <p>
+            Une <a href="https://github.com/MTES-MCT/aides-territoires/">solution open-source</a> propulsée avec ❤
+            par <a href="https://beta.gouv.fr/incubateur/mtes.html">le Ministère de la Transition écologique et
+            solidaire & Cohésion des territoires</a> et <a href="https://beta.gouv.fr/">incubé grâce à
+            beta.gouv.fr</a>.
+            </p>
+            <p>Contactez-nous sur <a href="mailto:aides-territoires@beta.gouv.fr">aides-territoires@beta.gouv.fr</a>,
+            nous vous répondrons dans les meilleurs délais.</p>
+        </footer>
+        {% endblock %}
+
         {% compress js %}
             {% block extra_js %}{% endblock %}
         {% endcompress %}

@@ -15,6 +15,11 @@ nav#main-navbar {
     }
 }
 
+body>footer {
+    @extend .container;
+    margin-top: $paragraph-margin-bottom * 2;
+}
+
 section#landing-value {
     @extend .jumbotron;
     @extend .text-center;
