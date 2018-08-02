@@ -1,0 +1,35 @@
+{% load widget_tweaks form_utils %}
+{{ form.media }}
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger" role="alert">
+    {{ form.non_field_errors.0 }}
+</div>
+{% endif %}
+
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+
+    <div class="form-group">
+
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+        {% render_field field class+="form-control" %}
+
+        {% if field.help_text %}
+            <span class="field-help">{{ field.help_text }}</span>
+        {% endif %}
+
+        {% if field.errors %}
+        <p class="alert alert-danger">
+            ↑
+            {{ field.errors.0 }}
+            ↑
+        </p>
+        {% endif %}
+    </div>
+{% endfor %}
+

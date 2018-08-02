@@ -18,6 +18,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'form_utils': 'core.templatetags.form_utils',
+            }
         },
     },
 ]

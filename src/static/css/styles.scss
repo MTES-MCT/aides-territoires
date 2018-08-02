@@ -31,6 +31,23 @@ main {
     }
 }
 
+form {
+    span.field-help {
+        @extend .form-text;
+        @extend .text-muted;
+    }
+}
+
+form.dark-form {
+    label {
+        @extend .text-light;
+    }
+
+    span.field-help {
+        @extend .text-white-50;
+    }
+}
+
 section#landing-value {
     @extend .jumbotron;
     @extend .text-center;
