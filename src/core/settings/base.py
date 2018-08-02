@@ -109,3 +109,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', '{} -I {} {{infile}} {{outfile}}'.format(
         SASS_PATH, NODE_MODULES_PATH)),
 )
+
+LOCALE_PATHS = [
+    DJANGO_ROOT.child('locales'),
+]
