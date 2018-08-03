@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block content %}
+<p class="warning">
+    {{ _('One more step is required before your registration is complete.') }}
+</p>
+
+<p>
+{% blocktrans %}
+Your mailing-list registration was taken into account. You still need to click
+the confirmation link in the mail you are about to receive.
+{% endblocktrans %}
+</p>
+
+<p>
+<a href="{% url 'legal_mentions' %}">
+    {{ _('Check for our legal mentions for informations about our data protection policy.') }}
+</a>
+
+<a href="{% url 'home' %}">{{ _('Or go back to the home page.') }}</a>
+</p>
+{% endblock %}
+

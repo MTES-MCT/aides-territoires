@@ -25,6 +25,10 @@
 
         <main role="main">
             {% block main %}
+            <section class="main-content">
+                {% block content %}
+                {% endblock %}
+            </section>
             {% endblock %}
         </main>
 

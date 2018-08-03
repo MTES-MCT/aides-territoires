@@ -33,7 +33,9 @@ nav#main-navbar {
 }
 
 main {
-    >section {
+    section.main-content {
+        @extend .container;
+        @extend .mt-4;
     }
 }
 
@@ -60,5 +62,17 @@ form {
     button[type=submit] {
         @extend .btn;
         @extend .btn-primary;
+    }
+}
+
+p {
+    &.info {
+        @extend .alert;
+        @extend .alert-primary;
+    }
+
+    &.warning {
+        @extend .alert;
+        @extend .alert-warning;
     }
 }
