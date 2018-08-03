@@ -1,6 +1,6 @@
 # Définition du fini
 
-Ce document liste les éléments à vérifier afin de vérifier qu'une
+Ce document liste les éléments à vérifier afin de déclarer qu'une
 fonctionnalité est terminée et peut être déployée.
 
  - [ ] La *feature* est couverte par des tests automatisés
