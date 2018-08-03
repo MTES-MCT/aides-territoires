@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<form id="mailing-list-form" method="post" action="" class="dark-form">
+    {% include '_form_snippet.html' with form=form %}
+
+    <p>
+{% blocktrans %}
+We will only send updates about our service. By submitting this page, you
+acknowledge that the information you provide will be transferred to SendInBlue,
+our email management platform.
+{% endblocktrans %}
+    </p>
+    <button type="submit">{{ _('Register ') }}</button>
+</form>

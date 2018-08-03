@@ -39,11 +39,7 @@
 <section id="contact">
     <div class="container">
         <h1>Soyez les premiers informés de notre actualité, laissez-nous votre contact.</h1>
-
-        <form id="mailing-list-form" method="post" action="" class="dark-form">
-            {% include '_form_snippet.html' with form=form %}
-            <button type="submit">{{ _('Register ') }}</button>
-        </form>
+        {% include 'home/_mailing_list_form.html' %}
     </div>
 </section>
 {% endblock %}

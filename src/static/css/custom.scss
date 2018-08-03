@@ -66,3 +66,9 @@ section#contact {
     }
 }
 
+
+form#mailing-list-form {
+    p {
+        @extend .text-white-50;
+    }
+}
