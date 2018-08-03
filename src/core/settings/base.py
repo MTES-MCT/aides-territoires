@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from unipath import Path
 
 # Absolute filesystem path to the project directory
@@ -113,3 +115,6 @@ COMPRESS_PRECOMPILERS = (
 LOCALE_PATHS = [
     DJANGO_ROOT.child('locales'),
 ]
+
+MAILING_LIST_LIST_ID = 2
+MAILING_LIST_FORM_ACTION = 'https://my.sendinblue.com/users/subscribeembed/js_id/3n5yg/id/1'

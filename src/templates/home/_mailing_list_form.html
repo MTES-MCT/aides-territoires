@@ -1,12 +1,16 @@
-{% load i18n %}
+{% load i18n mailing_list %}
 
-<form id="mailing-list-form" method="post" action="" class="dark-form">
+<form id="mailing-list-form" method="post" class="dark-form"
+    action="{% mailing_list_form_action %}">
+
+    {% mailing_list_hidden_fields %}
+
     {% include '_form_snippet.html' with form=form %}
 
     <p>
 {% blocktrans %}
 We will only send updates about our service. By submitting this page, you
-acknowledge that the information you provide will be transferred to SendInBlue,
+acknowledge that the information you provide will be transferred to SendinBlue,
 our email management platform.
 {% endblocktrans %}
     </p>
