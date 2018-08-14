@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    'accounts',
     'home',
     'aids',
 ]
@@ -70,6 +71,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': VALIDATORS_PATH + '.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Internationalization

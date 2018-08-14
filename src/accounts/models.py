@@ -1,0 +1,59 @@
+from django.db import models
+from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
+                                        BaseUserManager)
+from djanog.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+
+class UserManager(BaseUserManager):
+    """Custom manager for our custom User model."""
+
+    def _create_user(self, email, full_name, password, **extra_fields):
+        """Create and save the user object."""
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, full_name=full_name, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, full_name, password=None, **extra_fields):
+        """Creates a simple user."""
+
+        extra_fields['is_superuser'] = False
+        return self._create_user(email, full_name, password, **extra_fields)
+
+    def create_superuser(self, email, full_name, password, **extra_fields):
+        """Creates a superuser."""
+
+        extra_fields['is_superuser'] = True
+        return self._create_user(email, full_name, password, **extra_fields)
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    """Represents a single user account (one physical person)."""
+
+    objects = UserManager()
+
+    email = models.EmailField(
+        _('Email address'),
+        unique=True)
+    full_name = models.CharField(
+        _('Full name'),
+        max_length=256)
+    date_joined = models.DateTimeField(
+        _('Date joined'),
+        default=timezone.now)
+
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['full_name']
+
+    @property
+    def is_staff(self):
+        """Only the admin user can access the admin site."""
+        return self.is_admin
+
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
