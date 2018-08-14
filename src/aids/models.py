@@ -108,11 +108,12 @@ class Aid(models.Model):
         _('Application perimeter'),
         max_length=32,
         choices=PERIMETERS)
-    mobilization_step = models.CharField(
-        _('Mobilization step'),
-        max_length=32,
-        choices=STEPS,
-        default=STEPS.preop)
+    mobilization_steps = ArrayField(
+        verbose_name=_('Mobilization step'),
+        base_field=models.CharField(
+            max_length=32,
+            choices=STEPS,
+            default=STEPS.preop))
     status = models.CharField(
         _('Status'),
         max_length=23,
