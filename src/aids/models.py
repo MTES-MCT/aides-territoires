@@ -114,11 +114,6 @@ class Aid(models.Model):
             max_length=32,
             choices=STEPS,
             default=STEPS.preop))
-    status = models.CharField(
-        _('Status'),
-        max_length=23,
-        choices=STATUSES,
-        default=STATUSES.draft)
     url = models.URLField(
         _('URL'),
         blank=True)
@@ -206,6 +201,12 @@ class Aid(models.Model):
     open_to_third_party = models.BooleanField(
         _('Open to third party?'),
         default=True)
+
+    status = models.CharField(
+        _('Status'),
+        max_length=23,
+        choices=STATUSES,
+        default=STATUSES.draft)
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
