@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         """Only the admin user can access the admin site."""
-        return self.is_admin
+        return self.is_superuser
 
     class Meta:
         verbose_name = _('User')
