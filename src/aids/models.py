@@ -209,19 +209,6 @@ class Aid(models.Model):
         _('Date created'),
         default=timezone.now)
 
-    # Auteur : fk vers User?
-    # Intérêt de la dualité financement / nature ?
-    # Différence périmètre d'application / périmètre de diffusion
-    # Lien vers périmètres ?
-    # structurePorteuse
-    # critèreEligibilité
-    # perimetreDiffusionTypeAutre ?
-    # beneficiaireAUtre ?
-    # Fonds de retour -> retour de fonds ?
-    # Distinction conseil / accompagnement ?
-    # Distinction -> Nature de l'aide / destination ?
-    # Signification du champ `date de début`
-    # dateEcheance = Date limite de rendu des dossiers ?
-    # sens du champ "status"
-    # sens de la valeur "projeté" pour le champ "status"
-    # intérêt du champ "categorie particulière"
+    class Meta:
+        verbose_name = _('Aid')
+        verbose_name_plural = _('Aids')
