@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-03 10:55+0200\n"
+"POT-Creation-Date: 2018-08-14 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,255 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+msgid "Full name"
+msgstr "Nom complet"
+
+msgid "Date joined"
+msgstr "Date de création du compte"
+
+msgid "User"
+msgstr "Utilisateur·ice"
+
+msgid "Users"
+msgstr "Utilisateur·ices"
+
+msgid "Grant"
+msgstr "Subvention"
+
+msgid "Convention"
+msgstr "Convention"
+
+msgid "Training"
+msgstr "Formation"
+
+msgid "Interest subsidy"
+msgstr "Bonification d'intérêt"
+
+msgid "Loan"
+msgstr "Prêt"
+
+msgid "Recoverable advance"
+msgstr "Avance récupérable"
+
+msgid "Guarantee"
+msgstr "Garantie"
+
+msgid "Low interest rate loan"
+msgstr "Prêt à taux réduit"
+
+msgid "Capital investment"
+msgstr "Investissement en capital"
+
+msgid "Tax benefit"
+msgstr "Avantage fiscal"
+
+msgid "Return fund"
+msgstr "Retour de fonds"
+
+msgid "Engineering"
+msgstr "Ingénierie"
+
+msgid "Guidance"
+msgstr "Conseil"
+
+msgid "Valorisation"
+msgstr "Valorisation"
+
+msgid "Communication"
+msgstr "Communication"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Europe"
+msgstr "Europe"
+
+msgid "France"
+msgstr "France"
+
+msgid "Region"
+msgstr "Région"
+
+msgid "Department"
+msgstr "Département"
+
+msgid "Commune"
+msgstr "Commune"
+
+msgid "Mainland"
+msgstr "Métropole"
+
+msgid "Overseas"
+msgstr "Outre-mer"
+
+msgid "Preoperational"
+msgstr "Pré-opérationnel"
+
+msgid "Operational"
+msgstr "Opérationel"
+
+msgid "Postoperation"
+msgstr "Fonctionnement"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "Review required"
+msgstr "À valider"
+
+msgid "Published"
+msgstr "Publié·e"
+
+msgid "EPCI"
+msgstr "EPCI"
+
+msgid "Company"
+msgstr "Entreprise"
+
+msgid "Civil society"
+msgstr "Société civile"
+
+msgid "Association"
+msgstr "Association"
+
+msgid "Investment"
+msgstr "Investissement"
+
+msgid "Operation"
+msgstr "Fonctionnement"
+
+msgid "Survey"
+msgstr "Étude"
+
+msgid "Supply"
+msgstr "Fourniture"
+
+msgid "Service (AMO)"
+msgstr "Service (AMO)"
+
+msgid "Works"
+msgstr "Travaux"
+
+msgid "Sustainable management"
+msgstr "Aménagement durable"
+
+msgid "Local development"
+msgstr "Développement local"
+
+msgid "Infrastructure and networks"
+msgstr "Infrastructure, réseaux et déplacements"
+
+msgid "Solidarity and social cohesion"
+msgstr "Solidarité et cohésion sociale"
+
+msgid "Open"
+msgstr "Ouvert·e"
+
+msgid "Planned"
+msgstr "Projeté·e"
+
+msgid "closed"
+msgstr "Fermé·e"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Diffusion perimeter"
+msgstr "Périmètre de diffusion"
+
+msgid "Diffusion perimeter detail"
+msgstr "Périmètre de diffusion (détail)"
+
+msgid "Application perimeter"
+msgstr "Périmètre d'application"
+
+msgid "Mobilization step"
+msgstr "Étape de mobilisation"
+
+msgid "URL"
+msgstr "Url"
+
+msgid "Minimal population"
+msgstr "Population min."
+
+msgid "Maximal population"
+msgstr "Population max."
+
+msgid "Targeted audiances"
+msgstr "Publics ciblés"
+
+msgid "Targeted audiances detail"
+msgstr "Publics ciblés (détail)"
+
+msgid "Is this a funding aid?"
+msgstr "S'agit-il d'un financement ?"
+
+msgid "Aid types"
+msgstr "Types d'aide"
+
+msgid "Aid types detail"
+msgstr "Types d'aide (détail)"
+
+msgid "Destinations"
+msgstr "Destinations"
+
+msgid "Destinations detail"
+msgstr "Destinations (détail)"
+
+msgid "Thematics"
+msgstr "Thématiques"
+
+msgid "Thematics detail"
+msgstr "Thématiques (détail)"
+
+msgid "Start date"
+msgstr "Date de début"
+
+msgid "Predeposit date"
+msgstr "Date de pré-dépôt"
+
+msgid "Submission deadline"
+msgstr "Date d'échéance"
+
+msgid "Subvention rate"
+msgstr "Taux de subvention"
+
+msgid "Contact email"
+msgstr "Adresse e-mail de contact"
+
+msgid "Contact phone number"
+msgstr "Téléphone de contact"
+
+msgid "Contact detail"
+msgstr "Contact (détail)"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Keywords"
+msgstr "Mots-clés"
+
+msgid "Open to third party?"
+msgstr "Ouvert aux tiers ?"
+
+msgid "Date created"
+msgstr "Date de création"
+
+msgid "Aid"
+msgstr "Aide"
+
+msgid "Aids"
+msgstr "Aides"
 
 msgid "Email"
 msgstr "Courriel"
@@ -53,7 +302,8 @@ msgstr ""
 "\n"
 "Nous enverrons uniquement des informations à propos de notre service. En\n"
 "validant votre inscription, vous acceptez que vos coordonnées soient\n"
-"transmises à SendinBlue, notre prestataire de gestion de marketing par email.\n"
+"transmises à SendinBlue, notre prestataire de gestion de marketing par "
+"email.\n"
 
 msgid "Register "
 msgstr "S'inscrire"
