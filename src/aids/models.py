@@ -89,6 +89,10 @@ class Aid(models.Model):
         _('Name'),
         max_length=256,
         null=False, blank=False)
+    author = models.ForeignKey(
+        'accounts.User',
+        on_delete=models.PROTECT,
+        verbose_name=_('Author'))
     description = models.TextField(
         _('Description'),
         null=False, blank=False)
