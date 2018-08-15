@@ -1,9 +1,11 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.postgres.fields import ArrayField
 
 from model_utils import Choices
+
+from core.fields import ChoiceArrayField
 
 
 class Aid(models.Model):
@@ -93,9 +95,16 @@ class Aid(models.Model):
         'accounts.User',
         on_delete=models.PROTECT,
         verbose_name=_('Author'))
+    backer = models.ForeignKey(
+        'backers.Backer',
+        on_delete=models.PROTECT,
+        verbose_name=_('Backer'))
     description = models.TextField(
         _('Description'),
-        null=False, blank=False)
+        blank=False)
+    eligibility = models.TextField(
+        _('Eligibility'),
+        blank=False)
     diffusion_perimeter = models.CharField(
         _('Diffusion perimeter'),
         max_length=32,
@@ -108,7 +117,7 @@ class Aid(models.Model):
         _('Application perimeter'),
         max_length=32,
         choices=PERIMETERS)
-    mobilization_steps = ArrayField(
+    mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
         base_field=models.CharField(
             max_length=32,
@@ -121,7 +130,7 @@ class Aid(models.Model):
         _('Minimal population'))
     maximal_population = models.PositiveIntegerField(
         _('Maximal population'))
-    targeted_audiances = ArrayField(
+    targeted_audiances = ChoiceArrayField(
         verbose_name=_('Targeted audiances'),
         base_field=models.CharField(
             max_length=32,
@@ -134,7 +143,7 @@ class Aid(models.Model):
     is_funding = models.BooleanField(
         _('Is this a funding aid?'),
         default=True)
-    aid_types = ArrayField(
+    aid_types = ChoiceArrayField(
         verbose_name=_('Aid types'),
         base_field=models.CharField(
             max_length=32,
@@ -144,7 +153,7 @@ class Aid(models.Model):
         _('Aid types detail'),
         max_length=256,
         blank=True)
-    destinations = ArrayField(
+    destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         base_field=models.CharField(
             max_length=32,
@@ -154,7 +163,7 @@ class Aid(models.Model):
         _('Destinations detail'),
         max_length=256,
         blank=True)
-    thematics = ArrayField(
+    thematics = ChoiceArrayField(
         verbose_name=_('Thematics'),
         base_field=models.CharField(
             max_length=32,
