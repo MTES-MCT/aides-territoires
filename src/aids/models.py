@@ -127,15 +127,16 @@ class Aid(models.Model):
         _('URL'),
         blank=True)
     minimal_population = models.PositiveIntegerField(
-        _('Minimal population'))
+        _('Minimal population'),
+        null=True, blank=True)
     maximal_population = models.PositiveIntegerField(
-        _('Maximal population'))
+        _('Maximal population'),
+        null=True, blank=True)
     targeted_audiances = ChoiceArrayField(
         verbose_name=_('Targeted audiances'),
         base_field=models.CharField(
             max_length=32,
-            choices=AUDIANCES),
-        blank=True)
+            choices=AUDIANCES))
     targeted_audiances_detail = models.CharField(
         _('Targeted audiances detail'),
         max_length=256,
@@ -147,8 +148,7 @@ class Aid(models.Model):
         verbose_name=_('Aid types'),
         base_field=models.CharField(
             max_length=32,
-            choices=TYPES),
-        blank=True)
+            choices=TYPES))
     aid_types_detail = models.CharField(
         _('Aid types detail'),
         max_length=256,
@@ -157,8 +157,7 @@ class Aid(models.Model):
         verbose_name=_('Destinations'),
         base_field=models.CharField(
             max_length=32,
-            choices=DESTINATIONS),
-        blank=True)
+            choices=DESTINATIONS))
     destinations_detail = models.CharField(
         _('Destinations detail'),
         max_length=256,
@@ -181,7 +180,8 @@ class Aid(models.Model):
     subvention_rate = models.DecimalField(
         _('Subvention rate'),
         max_digits=6,
-        decimal_places=2)
+        decimal_places=2,
+        null=True, blank=True)
     contact_email = models.EmailField(
         _('Contact email'),
         blank=True)

@@ -25,6 +25,7 @@ class AidAdmin(admin.ModelAdmin):
                 'is_funding',
                 'aid_types',
                 'aid_types_detail',
+                'mobilization_steps',
                 'destinations',
                 'destinations_detail',
                 'thematics',
@@ -38,7 +39,6 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'eligibility',
                 'application_perimeter',
-                'mobilization_steps',
                 'targeted_audiances',
                 'targeted_audiances_detail',
                 'minimal_population',
