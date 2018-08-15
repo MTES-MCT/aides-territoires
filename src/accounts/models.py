@@ -49,11 +49,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
 
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
+    def __str__(self):
+        return '{} ({})'.format(self.full_name, self.email)
+
     @property
     def is_staff(self):
         """Only the admin user can access the admin site."""
         return self.is_superuser
-
-    class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
