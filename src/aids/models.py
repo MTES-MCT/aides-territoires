@@ -219,3 +219,6 @@ class Aid(models.Model):
     class Meta:
         verbose_name = _('Aid')
         verbose_name_plural = _('Aids')
+
+    def __str__(self):
+        return self.name

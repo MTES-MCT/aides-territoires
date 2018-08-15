@@ -9,6 +9,7 @@ class AidAdmin(admin.ModelAdmin):
     """Admin module for aids."""
 
     form = AidAdminForm
+    list_display = ['name', 'author', 'backer']
     fieldsets = [
         (None, {
             'fields': (
