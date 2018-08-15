@@ -28,7 +28,6 @@ class AidAdmin(admin.ModelAdmin):
                 'destinations',
                 'destinations_detail',
                 'thematics',
-                'thematics_detail',
                 'subvention_rate',
                 'keywords',
 

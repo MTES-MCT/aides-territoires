@@ -169,10 +169,6 @@ class Aid(models.Model):
             max_length=32,
             choices=THEMATICS),
         blank=True)
-    thematics_detail = models.CharField(
-        _('Thematics detail'),
-        max_length=256,
-        blank=True)
     start_date = models.DateField(
         _('Start date'),
         null=True, blank=True)
