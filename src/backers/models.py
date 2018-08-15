@@ -12,3 +12,6 @@ class Backer(models.Model):
     class Meta:
         verbose_name = _('Backer')
         verbose_name_plural = _('Backers')
+
+    def __str__(self):
+        return self.name
