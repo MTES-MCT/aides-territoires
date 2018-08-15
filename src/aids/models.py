@@ -202,7 +202,7 @@ class Aid(models.Model):
         verbose_name=_('Keywords'),
         base_field=models.CharField(max_length=64),
         size=20,
-        blank=True)
+        null=True, blank=True)
     open_to_third_party = models.BooleanField(
         _('Open to third party?'),
         default=True)
