@@ -44,6 +44,7 @@ class AidAdmin(admin.ModelAdmin):
                 'targeted_audiances_detail',
                 'minimal_population',
                 'maximal_population',
+                'open_to_third_party',
             )
         }),
 
