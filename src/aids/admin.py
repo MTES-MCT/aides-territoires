@@ -11,6 +11,7 @@ class AidAdmin(admin.ModelAdmin):
     form = AidAdminForm
     list_display = ['name', 'author', 'backer']
     autocomplete_fields = ['author', 'backer']
+    search_fields = ['name']
     fieldsets = [
         (None, {
             'fields': (
