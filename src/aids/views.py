@@ -11,4 +11,3 @@ class SearchView(ListView):
     def get_queryset(self):
         qs = Aid.objects.all()
         return qs
-

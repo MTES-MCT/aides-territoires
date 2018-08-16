@@ -1,1 +1,18 @@
 {% extends '_base.html' %}
+
+{% block content %}
+<section id="search">
+    <div class="search-engine">
+        search engine
+    </div>
+
+    <div class="search-results">
+        {% for aid in objects %}
+        {% empty %}
+        <div class="empty-result">
+            <p class="warning">{{ _('We could not find any results.') }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

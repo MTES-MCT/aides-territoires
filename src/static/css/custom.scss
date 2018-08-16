@@ -72,3 +72,15 @@ form#mailing-list-form {
         @extend .text-white-50;
     }
 }
+
+section#search {
+    @extend .row;
+
+    div.search-engine {
+        @extend .col-3;
+    }
+
+    div.search-results {
+        @extend .col;
+    }
+}
