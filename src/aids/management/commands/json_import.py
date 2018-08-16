@@ -135,13 +135,18 @@ class Command(BaseCommand):
         self.import_field(data, 'tauxSubvention', aid, 'subvention_rate')
         self.import_field(data, 'contact', aid, 'contact_detail')
 
-        aid.application_perimeter = self.get_application_perimeter(data)  # XXX
         aid.mobilization_steps = self.get_mobilization_steps(data)
         aid.targeted_audiances = self.get_audiances(data)
         aid.aid_types = self.get_types(data)
         aid.destinations = self.get_destinations(data)
         aid.thematics = self.get_thematics(data)
         aid.publication_status = self.get_status(data)
+
+        aid.application_perimeter = self.get_application_perimeter(data)
+        if aid.application_perimeter == 'region':
+            aid.application_region = data['perimetreApplicationCode']
+        elif aid.application_perimeter == 'department':
+            aid.application_department = data['perimetreApplicationCode']
 
         aid.is_funding = data['type'] == 'financement'
 
