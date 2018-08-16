@@ -41,6 +41,8 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'eligibility',
                 'application_perimeter',
+                'application_region',
+                'application_department',
                 'targeted_audiances',
                 'targeted_audiances_detail',
                 'minimal_population',
