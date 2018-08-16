@@ -2,6 +2,12 @@
 <nav id="main-navbar">
     <div class="container">
         <a class="homelink" href="{% url 'home' %}">Aides Territoires</a>
+
+        <ul class="homenav">
+            <li>
+                <a href="{% url 'search_view' %}">{{ _('Search') }}</a>
+            </li>
+        </ul>
         <span>Beta</span>
     </div>
 </nav>

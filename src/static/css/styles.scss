@@ -9,13 +9,10 @@
 body {
     >footer {
         @extend .container;
-        @extend .border-top;
-        @extend .mt-5;
-        @extend .pt-3;
+        @extend .my-5;
+        @extend .py-3;
     }
-
 }
-
 
 nav#main-navbar {
     @extend .navbar;
@@ -24,6 +21,19 @@ nav#main-navbar {
 
     .homelink {
         @extend .navbar-brand;
+    }
+
+    ul.homenav {
+        @extend .navbar-nav;
+        @extend .mr-auto;
+
+        li {
+            @extend .nav-item;
+
+            a {
+                @extend .nav-link;
+            }
+        }
     }
 
     span {
