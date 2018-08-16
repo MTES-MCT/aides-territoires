@@ -19,6 +19,10 @@ REGIONS = (
     ('94', 'Corse'),
 )
 
+REGIONS_WITH_CODES = (
+    (code, '{} – {}'.format(code, name)) for code, name in REGIONS
+)
+
 DEPARTMENTS = (
     ('01', 'Ain'),
     ('02', 'Aisne'),
@@ -121,4 +125,8 @@ DEPARTMENTS = (
     ('973', 'Guyane'),
     ('974', 'La Réunion'),
     ('976', 'Mayotte'),
+)
+
+DEPARTMENTS_WITH_CODES = (
+    (code, '{} – {}'.format(code, name)) for code, name in DEPARTMENTS
 )

@@ -1,6 +1,6 @@
 from django.db import models
 
-from geofr.constants import REGIONS, DEPARTMENTS
+from geofr.constants import REGIONS_WITH_CODES, DEPARTMENTS_WITH_CODES
 
 
 class RegionField(models.CharField):
@@ -9,7 +9,7 @@ class RegionField(models.CharField):
     def __init__(self, *args, **kwargs):
 
         kwargs['max_length'] = kwargs.get('max_length', 2)
-        kwargs['choices'] = REGIONS
+        kwargs['choices'] = REGIONS_WITH_CODES
         super().__init__(*args, **kwargs)
 
 
@@ -19,5 +19,5 @@ class DepartmentField(models.CharField):
     def __init__(self, *args, **kwargs):
 
         kwargs['max_length'] = kwargs.get('max_length', 3)
-        kwargs['choices'] = DEPARTMENTS
+        kwargs['choices'] = DEPARTMENTS_WITH_CODES
         super().__init__(*args, **kwargs)
