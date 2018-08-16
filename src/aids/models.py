@@ -25,6 +25,7 @@ class Aid(models.Model):
         ('return_fund', _('Return fund')),
         ('engineering', _('Engineering')),
         ('guidance', _('Guidance')),
+        ('accompaniment', _('Accompaniment')),
         ('valorisation', _('Valorisation')),
         ('communication', _('Communication')),
         ('other', _('Other')),
@@ -85,6 +86,7 @@ class Aid(models.Model):
         ('open', _('Open')),
         ('planned', _('Planned')),
         ('closed', _('closed')),
+        ('unknown', _('Unknown')),
     )
 
     name = models.CharField(
