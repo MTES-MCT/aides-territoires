@@ -116,7 +116,7 @@ class Command(BaseCommand):
         aid = Aid()
         aid.author_id = 1
         aid.backer = backer
-        aid.publication_status = 'published'
+        aid.status = 'published'
 
         self.import_field(data, 'nom', aid, 'name')
         self.import_field(data, 'description', aid, 'description')
