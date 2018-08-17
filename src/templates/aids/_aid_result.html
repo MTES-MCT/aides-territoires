@@ -1,0 +1,69 @@
+{% load i18n %}
+
+<div class="aid">
+    <h2>{{ aid.name }}
+        {% if aid.url %}
+            <br /><small><a href="{{ aid.url }}">{{ aid.url|truncatechars:60 }}</a></small>
+        {% endif %}
+    </h2>
+
+    <p>
+        {% if aid.description %}
+            {{ aid.description }}
+        {% else %}
+            {{ _('No detailed description was submitted.') }}
+        {% endif %}
+    </p>
+
+    {% if aid.submission_deadline %}
+    <span class="deadline">
+        {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}
+            Deadline on the {{ deadline }}
+        {% endblocktrans %}
+    </span>
+    {% endif %}
+
+    <table>
+        <caption>{{ _('Details about the aid') }}</caption>
+        <tbody>
+            <tr>
+                <th>{{ _('Backer') }}</th>
+                <td>{{ aid.backer.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ _('Beneficiaries') }}</th>
+                <td>
+                    {{ aid.targeted_audiances }}
+                    {{ aid.targeted_audiances_detail|default_if_none:'' }}
+                </td>
+            </tr>
+            <tr>
+                <th>{{ _('Aid type') }}</th>
+                <td>{{ aid.aid_types }}</td>
+            </tr>
+            <tr>
+                <th>{{ _('Mobilization steps') }}</th>
+                <td>{{ aid.mobilization_steps }}</td>
+            </tr>
+            <tr>
+                <th>{{ _('Aid destination') }}</th>
+                <td>{{ aid.destinations }}</td>
+            </tr>
+
+            {% if aid.url %}
+            <tr>
+                <th>{{ _('Link') }}</th>
+                <td><a href="{{ aid.url }}">{{ aid.url }}</a></td>
+            </tr>
+            {% endif %}
+
+            {% if aid.keywords %}
+            <tr>
+                <th>{{ _('Keywords') }}</th>
+                <td>{{ aid.keywords|join:', ' }}</td>
+            </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>

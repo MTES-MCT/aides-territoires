@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load i18n %}
 
 {% block content %}
 <section id="search">
@@ -8,7 +9,15 @@
 
     <div class="search-results">
         {% for aid in aids %}
-            {{ aid }}
+            {% if forloop.first %}
+                <p class="info">
+                    {% blocktrans with aids.count as nb_aids %}
+                    We found <strong>{{ nb_aids }}</strong> results corresponding to your search query.
+                    {% endblocktrans %}
+                </p>
+            {% endif %}
+
+            {% include 'aids/_aid_result.html' with aid=aid %}
         {% empty %}
         <div class="empty-result">
             <p class="warning">{{ _('We could not find any results.') }}</p>

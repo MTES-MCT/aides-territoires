@@ -83,4 +83,27 @@ section#search {
     div.search-results {
         @extend .col;
     }
+
+    div.search-results {
+        div.aid {
+            @extend .mt-4;
+            @extend .mb-4;
+
+            h2 {
+                @extend .h4;
+            }
+
+            table {
+                @extend .table;
+                @extend .table-sm;
+
+                caption {
+                    @extend .sr-only;
+                }
+
+                th {
+                }
+            }
+        }
+    }
 }

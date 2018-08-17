@@ -10,5 +10,7 @@ class SearchView(ListView):
     context_object_name = 'aids'
 
     def get_queryset(self):
-        qs = Aid.objects.published()
+        qs = Aid.objects \
+            .published() \
+            .select_related('backer')
         return qs
