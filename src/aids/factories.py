@@ -35,7 +35,7 @@ class AidFactory(DjangoModelFactory):
     description = factory.Faker('text')
     eligibility = factory.Faker('text')
     diffusion_perimeter = Aid.PERIMETERS.france
-    application_perimeter = FuzzyMultipleChoice(Aid.PERIMETERS)
+    application_perimeter = fuzzy.FuzzyChoice(dict(Aid.PERIMETERS).keys())
     mobilization_steps = FuzzyMultipleChoice(Aid.STEPS)
     url = factory.Faker('url')
     targeted_audiances = FuzzyMultipleChoice(Aid.AUDIANCES)
