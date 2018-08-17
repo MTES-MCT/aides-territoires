@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n aids %}
 
 <div class="aid">
     <h2>{{ aid.name }}
@@ -33,21 +33,33 @@
             <tr>
                 <th>{{ _('Beneficiaries') }}</th>
                 <td>
-                    {{ aid.targeted_audiances }}
-                    {{ aid.targeted_audiances_detail|default_if_none:'' }}
+                    {% choices_display aid 'targeted_audiances' %}
+                    {% if aid.targeted_audiances_detail %}
+                        ({{ aid.targeted_audiances_detail }})
+                    {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>{{ _('Aid type') }}</th>
-                <td>{{ aid.aid_types }}</td>
+                <td>
+                    {% choices_display aid 'aid_types' %}
+                    {% if aid.aid_types_detail %}
+                        ({{ aid.aid_types_detail }})
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>{{ _('Mobilization steps') }}</th>
-                <td>{{ aid.mobilization_steps }}</td>
+                <td>{% choices_display aid 'mobilization_steps' %}</td>
             </tr>
             <tr>
                 <th>{{ _('Aid destination') }}</th>
-                <td>{{ aid.destinations }}</td>
+                <td>
+                    {% choices_display aid 'destinations' %}
+                    {% if aid.destinations_detail %}
+                        ({{ aid.destinations_detail }})
+                    {% endif %}
+                </td>
             </tr>
 
             {% if aid.url %}
