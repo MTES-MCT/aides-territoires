@@ -18,7 +18,7 @@ def test_seach_engine_view(client):
 
 
 def test_only_published_aids_are_listed(client):
-    """Test that aids with a status different than `published` are not shown."""
+    """Test that unpublished aids are not shown."""
 
     AidFactory.create_batch(3)
     url = reverse('search_view')
