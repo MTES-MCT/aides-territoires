@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "629d32c8550a433500dd9344e5e40f03cadc0f6d5c6ce343dc49cd7331f57c3b"
+            "sha256": "601c73bfdbe5cf5b6c273db9058cd40d3324d476f22d9210bc12fd6625248792"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -177,7 +177,6 @@
                 "sha256:ea7cfd3aeb1544732d08bd9cfba40c5b78e3a91e17b1a0698ab81bfc5554c628",
                 "sha256:f6d67f04abfb2b4bea7afc7fa6c18cf4c523a67956e455668be9ae42bccc21ad"
             ],
-            "markers": "python_version != '3.1.*' and python_version != '3.0.*' and python_version >= '2.7' and python_version != '3.2.*'",
             "version": "==0.9.0"
         },
         "flake8": {
@@ -252,7 +251,6 @@
                 "sha256:6e3836e39f4d36ae72840833db137f7b7d35105079aee6ec4a62d9f80d594dd1",
                 "sha256:95eb8364a4708392bae89035f45341871286a333f749c3141c20573d2b3876e1"
             ],
-            "markers": "python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.3.*' and python_version != '3.1.*' and python_version >= '2.7'",
             "version": "==0.7.1"
         },
         "prompt-toolkit": {
@@ -275,7 +273,6 @@
                 "sha256:3fd59af7435864e1a243790d322d763925431213b6b8529c6ca71081ace3bbf7",
                 "sha256:e31fb2767eb657cbde86c454f02e99cb846d3cd9d61b318525140214fdc0e98e"
             ],
-            "markers": "python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.3.*' and python_version != '3.1.*' and python_version >= '2.7'",
             "version": "==1.5.4"
         },
         "pycodestyle": {
@@ -306,6 +303,14 @@
             ],
             "index": "pypi",
             "version": "==3.7.1"
+        },
+        "pytest-django": {
+            "hashes": [
+                "sha256:37e9bcfc2e21b0d1ddbc505c716a8a6073f9037756fe124df2bc58ccc625544b",
+                "sha256:85f840e319d7b4271d6f1a3d95c0fb900c7183f7a4414e0cceed75f92bf3bc75"
+            ],
+            "index": "pypi",
+            "version": "==3.4.1"
         },
         "python-dateutil": {
             "hashes": [

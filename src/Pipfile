@@ -17,6 +17,7 @@ pytest = "*"
 django-debug-toolbar = "*"
 factory-boy = "*"
 ipython = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.6"
