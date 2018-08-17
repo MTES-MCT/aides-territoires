@@ -4,11 +4,12 @@ python:
 addons:
   - postgresql: "9.5"
 before_install:
- - "cd $TRAVIS_BUILD_DIR/src"
+ - cd $TRAVIS_BUILD_DIR/src
 install:
- - "make init"
+ - npm install -g sass
+ - make init
 before_script:
   - psql -c "CREATE USER aidesterritoires WITH CREATEDB PASSWORD 'aidesterritoires';" -U postgres
 script:
- - "make checkstyle"
- - "make test"
+ - make checkstyle
+ - make test
