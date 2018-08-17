@@ -9,6 +9,15 @@ from core.fields import ChoiceArrayField
 from geofr.fields import RegionField, DepartmentField
 
 
+class AidQuerySet(models.QuerySet):
+    """Custom queryset with additional filtering methods for aids."""
+
+    def published(self):
+        """Only returns published objects."""
+
+        return self.filter(status='published')
+
+
 class Aid(models.Model):
     """Represents a single Aid."""
 
@@ -89,6 +98,8 @@ class Aid(models.Model):
         ('closed', _('closed')),
         ('unknown', _('Unknown')),
     )
+
+    objects = AidQuerySet.as_manager()
 
     name = models.CharField(
         _('Name'),

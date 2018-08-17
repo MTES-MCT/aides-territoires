@@ -7,7 +7,8 @@ class SearchView(ListView):
     """Search and display aids."""
 
     template_name = 'aids/search.html'
+    context_object_name = 'aids'
 
     def get_queryset(self):
-        qs = Aid.objects.all()
+        qs = Aid.objects.published()
         return qs

@@ -7,7 +7,8 @@
     </div>
 
     <div class="search-results">
-        {% for aid in objects %}
+        {% for aid in aids %}
+            {{ aid }}
         {% empty %}
         <div class="empty-result">
             <p class="warning">{{ _('We could not find any results.') }}</p>
