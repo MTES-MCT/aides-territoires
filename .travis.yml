@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6"
 install:
- - "cd src && make init"
+ - "cd $TRAVIS_BUILD_DIR/src && make init"
 script:
- - "cd src && make checkstyle"
- - "cd src && make test"
+ - "cd $TRAVIS_BUILD_DIR/src && make checkstyle"
+ - "cd $TRAVIS_BUILD_DIR/src && make test"
