@@ -104,6 +104,16 @@ section#search {
                 th {
                     width: 33%;
                 }
+
+                span.contact {
+                    &:after {
+                        content: ' / ';
+                    }
+
+                    &:last-child:after {
+                        content: '';
+                    }
+                }
             }
         }
     }

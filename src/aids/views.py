@@ -12,5 +12,6 @@ class SearchView(ListView):
     def get_queryset(self):
         qs = Aid.objects \
             .published() \
-            .select_related('backer')
+            .select_related('backer') \
+            .order_by('-id')
         return qs

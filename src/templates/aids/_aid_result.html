@@ -79,6 +79,25 @@
             </tr>
             {% endif %}
 
+            {% if aid.contact_email or aid.contact_phone or aid.contact_detail %}
+            <tr>
+                <th>{{ _('Contact') }}</th>
+                <td>
+                    {% if aid.contact_email %}
+                        <span class="contact email">{{ aid.contact_email }}</span>
+                    {% endif %}
+
+                    {% if aid.contact_phone %}
+                        <span class="contact phone">{{ aid.contact_phone }}</span>
+                    {% endif %}
+
+                    {% if aid.contact_detail %}
+                        <span class="contact other">{{ aid.contact_detail }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+
             {% if aid.keywords %}
             <tr>
                 <th>{{ _('Keywords') }}</th>
