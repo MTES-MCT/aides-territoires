@@ -62,10 +62,20 @@
                 </td>
             </tr>
 
+            {% if aid.eligibility %}
+            <tr>
+                <th>{{ _('Eligibility conditions') }}</th>
+                <td>
+                    {{ aid.eligibility }}
+                </td>
+            </tr>
+
+            {% endif %}
+
             {% if aid.url %}
             <tr>
                 <th>{{ _('Link') }}</th>
-                <td><a href="{{ aid.url }}">{{ aid.url }}</a></td>
+                <td class="url"><a href="{{ aid.url }}">{{ _('Access the web site') }}</a></td>
             </tr>
             {% endif %}
 
