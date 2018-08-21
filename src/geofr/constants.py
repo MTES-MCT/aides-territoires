@@ -23,6 +23,9 @@ REGIONS_WITH_CODES = (
     (code, '{} – {}'.format(code, name)) for code, name in REGIONS
 )
 
+
+OVERSEAS_REGIONS = ('01', '02', '03', '04', '06')
+
 DEPARTMENTS = (
     ('01', 'Ain'),
     ('02', 'Aisne'),
@@ -130,3 +133,7 @@ DEPARTMENTS = (
 DEPARTMENTS_WITH_CODES = (
     (code, '{} – {}'.format(code, name)) for code, name in DEPARTMENTS
 )
+
+OVERSEAS_DEPARTMENTS = ('971', '972', '973', '974', '976')
+
+OVERSEAS_PREFIX = '97'
