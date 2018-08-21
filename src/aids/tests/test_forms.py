@@ -70,26 +70,74 @@ def aid_form_data(user, backer):
 def aids(user, backer):
     """Generates a few aids and return the corresponding queryset."""
 
-    AidFactory(author=user, backer=backer, application_perimeter='europe')
-    AidFactory(author=user, backer=backer, application_perimeter='france')
-    AidFactory(author=user, backer=backer, application_perimeter='mainland')
-    AidFactory(author=user, backer=backer, application_perimeter='overseas')
-    AidFactory(author=user, backer=backer, application_perimeter='region',
-               application_region='01')  # Guadeloupe
-    AidFactory(author=user, backer=backer, application_perimeter='region',
-               application_region='02')  # Martinique
-    AidFactory(author=user, backer=backer, application_perimeter='region',
-               application_region='28')  # Normandie
-    AidFactory(author=user, backer=backer, application_perimeter='region',
-               application_region='76')  # Occitanie
-    AidFactory(author=user, backer=backer, application_perimeter='department',
-               application_department='972')  # Martinique
-    AidFactory(author=user, backer=backer, application_perimeter='department',
-               application_department='973')  # Guyane
-    AidFactory(author=user, backer=backer, application_perimeter='department',
-               application_department='27')  # Eure
-    AidFactory(author=user, backer=backer, application_perimeter='department',
-               application_department='34')  # Hérault
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=True,
+        application_perimeter='europe')
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=True,
+        application_perimeter='france')
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=True,
+        application_perimeter='mainland')
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=True,
+        application_perimeter='overseas')
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='region',
+        application_region='01')  # Guadeloupe
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='region',
+        application_region='02')  # Martinique
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='region',
+        application_region='28')  # Normandie
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='region',
+        application_region='76')  # Occitanie
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='department',
+        application_department='972')  # Martinique
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='department',
+        application_department='973')  # Guyane
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='department',
+        application_department='27')  # Eure
+    AidFactory(
+        author=user,
+        backer=backer,
+        is_funding=False,
+        application_perimeter='department',
+        application_department='34')  # Hérault
 
     qs = Aid.objects.all().order_by('id')
     return qs
@@ -225,3 +273,17 @@ def test_form_filter_overseas_zipcode(aids):
     assert qs[0].application_perimeter == 'europe'
     assert qs[1].application_perimeter == 'france'
     assert qs[2].application_perimeter == 'overseas'
+
+
+def test_form_filter_aid_types(aids):
+    form = AidSearchForm({'aid_type': 'funding'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 4
+    for aid in qs:
+        assert aid.is_funding
+
+    form = AidSearchForm({'aid_type': 'non-funding'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 8
+    for aid in qs:
+        assert not aid.is_funding

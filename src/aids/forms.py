@@ -103,4 +103,11 @@ class AidSearchForm(forms.Form):
                 Q(application_perimeter=Aid.PERIMETERS.region) &
                 ~Q(application_region=region_code))
 
+        aid_type = self.cleaned_data.get('aid_type', None)
+        if aid_type:
+            if aid_type == 'funding':
+                qs = qs.filter(is_funding=True)
+            else:
+                qs = qs.filter(is_funding=False)
+
         return qs
