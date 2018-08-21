@@ -8,7 +8,7 @@ PAGINATION_KEY = 'page'
 
 @register.simple_tag(takes_context=True)
 def url_to_page(context, page_number):
-    """Link to a page without loosing existing GET parameters."""
+    """Link to a page without losing existing GET parameters."""
 
     page_str = '{}'.format(page_number)
 

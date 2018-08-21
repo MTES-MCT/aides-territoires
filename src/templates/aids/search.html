@@ -4,7 +4,11 @@
 {% block content %}
 <section id="search">
     <div class="search-engine">
-        search engine
+        <form action="" method="GET">
+            {% include '_form_snippet.html' with form=form %}
+
+            <button type="submit">{{ _('Filtrer results') }}</button>
+        </form>
     </div>
 
     <div class="search-results">
