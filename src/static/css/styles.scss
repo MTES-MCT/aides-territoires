@@ -88,11 +88,18 @@ p {
 }
 
 nav#pagination {
-    li {
-        @extend .page-item;
+    @extend .pagination-lg;
 
-        a {
-            @extend .page-link;
+    ul {
+        @extend .justify-content-center;
+        @extend .mt-5;
+
+        li {
+            @extend .page-item;
+
+            a {
+                @extend .page-link;
+            }
         }
     }
 }

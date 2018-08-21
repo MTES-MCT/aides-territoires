@@ -1,6 +1,6 @@
 {% load i18n pagination %}
 {% if is_paginated %}
-<nav id="pagination" aria-label="{{ _('Pagination') }}">
+<nav id="pagination" aria-label="{{ _('Search results pages') }}">
     <ul class="pagination">
         {% if page_obj.has_previous %}
             <li><a href="{% url_to_page 1 %}">
