@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -51,10 +53,28 @@ class AidAdminForm(forms.ModelForm):
 class AidSearchForm(forms.Form):
     """Main form for search engine."""
 
+    AID_TYPE_CHOICES = (
+        ('', ''),
+        ('funding', _('Funding')),
+        ('non-funding', _('Non-funding')),
+    )
+
     zipcode = forms.CharField(
         label=_('Zip code'),
         required=False,
         max_length=8)
+    aid_type = forms.ChoiceField(
+        label=_('Aid type'),
+        required=False,
+        choices=AID_TYPE_CHOICES)
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data['zipcode']
+        if re.match('\d{5}', zipcode) is None:
+            msg = _('This zipcode seems invalid')
+            raise forms.ValidationError(msg)
+
+        return zipcode
 
     def filter_queryset(self, qs):
         """Filter querysets depending of input data."""
