@@ -1,4 +1,4 @@
-"""Application wide template helpers."""
+"""Form template helpers."""
 
 from django import template
 from django.forms import CheckboxInput

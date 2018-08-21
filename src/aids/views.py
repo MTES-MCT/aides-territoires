@@ -8,6 +8,7 @@ class SearchView(ListView):
 
     template_name = 'aids/search.html'
     context_object_name = 'aids'
+    paginate_by = 20
 
     def get_queryset(self):
         qs = Aid.objects \

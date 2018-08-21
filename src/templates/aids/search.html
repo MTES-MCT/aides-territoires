@@ -23,6 +23,8 @@
             <p class="warning">{{ _('We could not find any results.') }}</p>
         </div>
         {% endfor %}
+
+        {% include '_pagination.html' %}
     </div>
 </section>
 {% endblock %}

@@ -1,0 +1,45 @@
+{% load i18n pagination %}
+{% if is_paginated %}
+<nav id="pagination" aria-label="{{ _('Pagination') }}">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="{% url_to_page 1 %}">
+                {{ _('First') }}
+            </a></li>
+            <li><a href="{% url_to_page page_obj.previous_page_number %}">
+                {{ _('Previous') }}
+            </a></li>
+        {% else %}
+            <li class="disabled"><a href="#">
+                {{ _('First') }}
+            </a></li>
+            <li class="disabled"><a href="#">
+                {{ _('Previous') }}
+            </a></li>
+        {% endif %}
+
+        <li class="disabled"><a href="#">
+            {% blocktrans with current_page=page_obj.number total_pages=paginator.num_pages %}
+            Page {{ current_page }} of {{ total_pages }}
+            {% endblocktrans %}
+
+        </a></li>
+
+        {% if page_obj.has_next %}
+            <li><a href="{% url_to_page page_obj.next_page_number %}">
+                {{ _('Next') }}
+            </a></li>
+            <li><a href="{% url_to_page paginator.num_pages %}">
+                {{ _('Last') }}
+            </a></li>
+        {% else %}
+            <li class="disabled"><a href="#">
+                {{ _('Next') }}
+            </a></li>
+            <li class="disabled"><a href="#">
+                {{ _('Last') }}
+            </a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

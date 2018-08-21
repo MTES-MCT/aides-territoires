@@ -86,3 +86,13 @@ p {
         @extend .alert-warning;
     }
 }
+
+nav#pagination {
+    li {
+        @extend .page-item;
+
+        a {
+            @extend .page-link;
+        }
+    }
+}
