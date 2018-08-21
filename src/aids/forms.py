@@ -70,7 +70,7 @@ class AidSearchForm(forms.Form):
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
-        if re.match('\d{5}', zipcode) is None:
+        if zipcode and re.match('\d{5}', zipcode) is None:
             msg = _('This zipcode seems invalid')
             raise forms.ValidationError(msg)
 
