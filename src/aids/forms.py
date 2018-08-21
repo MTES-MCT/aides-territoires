@@ -1,7 +1,10 @@
 from django import forms
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from aids.models import Aid
+from geofr.utils import (is_overseas, department_from_zipcode,
+                         region_from_zipcode)
 
 
 class AidAdminForm(forms.ModelForm):
@@ -55,5 +58,29 @@ class AidSearchForm(forms.Form):
 
     def filter_queryset(self, qs):
         """Filter querysets depending of input data."""
+
+        if not self.is_bound:
+            return qs
+
+        # Populate cleaned_data
+        if self.errors:
+            pass
+
+        zipcode = self.cleaned_data.get('zipcode', None)
+        if zipcode:
+            if is_overseas(zipcode):
+                qs = qs.exclude(application_perimeter=Aid.PERIMETERS.mainland)
+            else:
+                qs = qs.exclude(application_perimeter=Aid.PERIMETERS.overseas)
+
+            department_code = department_from_zipcode(zipcode)
+            qs = qs.exclude(
+                Q(application_perimeter=Aid.PERIMETERS.department) &
+                ~Q(application_department=department_code))
+
+            region_code = region_from_zipcode(zipcode)
+            qs = qs.exclude(
+                Q(application_perimeter=Aid.PERIMETERS.region) &
+                ~Q(application_region=region_code))
 
         return qs

@@ -175,7 +175,7 @@ def test_form_filter_mainland_zipcode(aids):
     assert qs[3].application_perimeter == 'region'
     assert qs[3].application_region == '76'
     assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_region == '34'
+    assert qs[4].application_department == '34'
 
     form = AidSearchForm({'zipcode': '27370'})  # St Cyr la Campagne
     qs = form.filter_queryset(aids)
@@ -186,14 +186,16 @@ def test_form_filter_mainland_zipcode(aids):
     assert qs[3].application_perimeter == 'region'
     assert qs[3].application_region == '28'
     assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_region == '27'
+    assert qs[4].application_department == '27'
 
     form = AidSearchForm({'zipcode': '46800'})
     qs = form.filter_queryset(aids)
-    assert qs.count() == 3
+    assert qs.count() == 4
     assert qs[0].application_perimeter == 'europe'
     assert qs[1].application_perimeter == 'france'
     assert qs[2].application_perimeter == 'mainland'
+    assert qs[3].application_perimeter == 'region'
+    assert qs[3].application_region == '76'
 
 
 def test_form_filter_overseas_zipcode(aids):
@@ -206,18 +208,16 @@ def test_form_filter_overseas_zipcode(aids):
     assert qs[3].application_perimeter == 'region'
     assert qs[3].application_region == '02'
     assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_region == '972'
+    assert qs[4].application_department == '972'
 
     form = AidSearchForm({'zipcode': '97300'})  # Cayenne
     qs = form.filter_queryset(aids)
-    assert qs.count() == 5
+    assert qs.count() == 4
     assert qs[0].application_perimeter == 'europe'
     assert qs[1].application_perimeter == 'france'
     assert qs[2].application_perimeter == 'overseas'
-    assert qs[3].application_perimeter == 'region'
-    assert qs[3].application_region == '03'
-    assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_region == '973'
+    assert qs[3].application_perimeter == 'department'
+    assert qs[3].application_department == '973'
 
     form = AidSearchForm({'zipcode': '97400'})  # St-Denis
     qs = form.filter_queryset(aids)
