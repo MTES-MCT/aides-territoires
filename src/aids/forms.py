@@ -53,7 +53,7 @@ class AidAdminForm(forms.ModelForm):
 class AidSearchForm(forms.Form):
     """Main form for search engine."""
 
-    AID_TYPE_CHOICES = (
+    AID_CATEGORY_CHOICES = (
         ('', ''),
         ('funding', _('Funding')),
         ('non-funding', _('Non-funding')),
@@ -67,10 +67,10 @@ class AidSearchForm(forms.Form):
         label=_('Zip code'),
         required=False,
         max_length=8)
-    aid_type = forms.ChoiceField(
+    aid_category = forms.ChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=AID_TYPE_CHOICES)
+        choices=AID_CATEGORY_CHOICES)
     mobilization_step = forms.ChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
@@ -111,9 +111,9 @@ class AidSearchForm(forms.Form):
                 Q(application_perimeter=Aid.PERIMETERS.region) &
                 ~Q(application_region=region_code))
 
-        aid_type = self.cleaned_data.get('aid_type', None)
-        if aid_type:
-            if aid_type == 'funding':
+        aid_category = self.cleaned_data.get('aid_category', None)
+        if aid_category:
+            if aid_category == 'funding':
                 qs = qs.filter(is_funding=True)
             else:
                 qs = qs.filter(is_funding=False)
