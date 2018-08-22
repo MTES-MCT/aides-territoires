@@ -21,7 +21,7 @@ body {
             @extend .container;
         }
 
-        svg#svg-marianne {
+        svg.marianne-logo {
             max-height: $font-size-base * 3.7;
             @extend .float-right;
         }

@@ -11,9 +11,10 @@ section#landing-value {
     @extend .jumbotron;
     @extend .text-center;
 
-    p {
+    p.tagline {
         @extend .lead;
-        @extend .text-muted;
+        @extend .mb-5;
+        color: $gray-700;
     }
 
     div#steps {
@@ -26,6 +27,7 @@ section#landing-value {
                 @extend .card-body;
 
                 h2 {
+                    @extend .h3;
                     @extend .card-title;
                 }
 
