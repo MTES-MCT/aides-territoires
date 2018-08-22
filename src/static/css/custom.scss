@@ -171,4 +171,8 @@ div.search-engine form {
     button[type=submit] {
         @extend .btn-lg;
     }
+
+    p {
+        @extend .text-muted;
+    }
 }

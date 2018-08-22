@@ -7,6 +7,10 @@
         <form action="" method="GET">
             {% include '_form_snippet.html' with form=form nest_field_class="field" %}
             <button type="submit">{{ _('Filter results') }}</button>
+            <p>{% blocktrans %}
+            As this is a beta service, some aids are yet to be referenced here.
+            Feel free to contact us if you see that something is missing.
+            {% endblocktrans %}</p>
         </form>
     </div>
 
