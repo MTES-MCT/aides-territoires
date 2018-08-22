@@ -15,6 +15,7 @@ ALLOWED_HOSTS = []
 
 
 DJANGO_APPS = [
+    'django.forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,6 +121,8 @@ COMPRESS_PRECOMPILERS = (
 LOCALE_PATHS = [
     DJANGO_ROOT.child('locales'),
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MAILING_LIST_LIST_ID = 2
 MAILING_LIST_FORM_ACTION = 'https://my.sendinblue.com/users/subscribeembed/js_id/3n5yg/id/1'
