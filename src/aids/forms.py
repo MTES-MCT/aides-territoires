@@ -68,7 +68,7 @@ class AidSearchForm(forms.Form):
         required=False,
         max_length=8)
     aid_category = forms.ChoiceField(
-        label=_('Aid category'),
+        label=_('Funding / non-funding'),
         required=False,
         choices=AID_CATEGORY_CHOICES)
     mobilization_step = forms.ChoiceField(
