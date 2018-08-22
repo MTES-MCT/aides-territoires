@@ -167,4 +167,8 @@ div.search-engine form {
             @extend .card-body;
         }
     }
+
+    button[type=submit] {
+        @extend .btn-lg;
+    }
 }
