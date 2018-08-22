@@ -40,6 +40,21 @@ section#landing-value {
 section#cta {
     @extend .container;
     @extend .my-5;
+    @extend .py-4;
+
+    div.search-control {
+        @extend .input-group;
+        @extend .input-group-lg;
+
+        div.search-control-btn {
+            @extend .input-group-append;
+
+            button {
+                @extend .btn;
+                @extend .btn-primary;
+            }
+        }
+    }
 }
 
 section#contact {

@@ -33,7 +33,16 @@
 </section>
 
 <section id="cta">
-    <a href="" class="btn btn-lg btn-primary">Lancer la recherche</a>
+    <form method="get" action="{% url 'search_view' %}">
+        <div class="search-control">
+            <input type="text" name="zipcode" class="form-control" placeholder="{{ _('Votre code postal') }}" aria-label="{{ _('Votre code postal') }}" aria-describedby="search-btn">
+            <div class="search-control-btn">
+                <button type="submit" id="search-btn">
+                    {{ _('Start searching for aids') }}
+                </button>
+            </div>
+        </div>
+    </form>
 </section>
 
 <section id="contact">
