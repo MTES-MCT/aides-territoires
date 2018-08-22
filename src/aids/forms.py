@@ -68,13 +68,19 @@ class AidSearchForm(forms.Form):
         required=False,
         max_length=8)
     aid_category = forms.ChoiceField(
-        label=_('Aid type'),
+        label=_('Aid category'),
         required=False,
         choices=AID_CATEGORY_CHOICES)
     mobilization_step = forms.ChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
         choices=STEPS)
+    aid_types = forms.MultipleChoiceField(
+        label=_('Aid type'),
+        required=False,
+        choices=Aid.TYPES,
+        widget=forms.CheckboxSelectMultiple,
+    )
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
@@ -121,5 +127,9 @@ class AidSearchForm(forms.Form):
         mobilization_step = self.cleaned_data.get('mobilization_step', None)
         if mobilization_step:
             qs = qs.filter(mobilization_steps__contains=[mobilization_step])
+
+        aid_types = self.cleaned_data.get('aid_types', None)
+        if aid_types:
+            qs = qs.filter(aid_types__overlap=aid_types)
 
         return qs

@@ -75,30 +75,35 @@ def aids(user, backer):
         backer=backer,
         is_funding=True,
         mobilization_steps=['preop'],
+        aid_types=['grant', 'loan'],
         application_perimeter='europe')
     AidFactory(
         author=user,
         backer=backer,
         is_funding=True,
         mobilization_steps=['preop'],
+        aid_types=['grant', 'loan'],
         application_perimeter='france')
     AidFactory(
         author=user,
         backer=backer,
         is_funding=True,
         mobilization_steps=['preop'],
+        aid_types=['grant', 'loan'],
         application_perimeter='mainland')
     AidFactory(
         author=user,
         backer=backer,
         is_funding=True,
         mobilization_steps=['preop'],
+        aid_types=['grant', 'loan'],
         application_perimeter='overseas')
     AidFactory(
         author=user,
         backer=backer,
         is_funding=False,
         mobilization_steps=['preop'],
+        aid_types=['grant', 'loan'],
         application_perimeter='region',
         application_region='01')  # Guadeloupe
     AidFactory(
@@ -106,6 +111,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['preop', 'op'],
+        aid_types=['grant', 'loan'],
         application_perimeter='region',
         application_region='02')  # Martinique
     AidFactory(
@@ -113,6 +119,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['preop', 'op'],
+        aid_types=['grant', 'loan'],
         application_perimeter='region',
         application_region='28')  # Normandie
     AidFactory(
@@ -120,6 +127,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['preop', 'op'],
+        aid_types=['grant', 'loan'],
         application_perimeter='region',
         application_region='76')  # Occitanie
     AidFactory(
@@ -127,6 +135,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['preop', 'op', 'postop'],
+        aid_types=['loan'],
         application_perimeter='department',
         application_department='972')  # Martinique
     AidFactory(
@@ -134,6 +143,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['op', 'postop'],
+        aid_types=['loan'],
         application_perimeter='department',
         application_department='973')  # Guyane
     AidFactory(
@@ -141,6 +151,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['op', 'postop'],
+        aid_types=[],
         application_perimeter='department',
         application_department='27')  # Eure
     AidFactory(
@@ -148,6 +159,7 @@ def aids(user, backer):
         backer=backer,
         is_funding=False,
         mobilization_steps=['postop'],
+        aid_types=['tax_benefit', 'return_fund'],
         application_perimeter='department',
         application_department='34')  # Hérault
 
@@ -319,3 +331,17 @@ def test_form_filter_mobilization_step(aids):
     assert qs.count() == 4
     for aid in qs:
         assert 'postop' in aid.mobilization_steps
+
+
+def test_form_filter_by_types(aids):
+    form = AidSearchForm({'aid_types': ['grant']})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 8
+    for aid in qs:
+        assert 'grant' in aid.aid_types
+
+    form = AidSearchForm({'aid_types': ['grant', 'tax_benefit']})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 9
+    for aid in qs:
+        assert 'grant' in aid.aid_types or 'tax_benefit' in aid.aid_types
