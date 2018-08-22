@@ -133,7 +133,7 @@ p {
 }
 
 nav#pagination {
-    @extend .pagination-lg;
+    @extend .mb-5;
 
     ul {
         @extend .justify-content-center;
