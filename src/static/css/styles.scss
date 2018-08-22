@@ -72,6 +72,7 @@ form {
     button[type=submit] {
         @extend .btn;
         @extend .btn-primary;
+        @extend .btn-block;
     }
 
     input[type=text],
