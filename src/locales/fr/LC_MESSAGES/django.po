@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-14 16:20+0200\n"
+"POT-Creation-Date: 2018-08-22 11:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,57 @@ msgstr "Utilisateur·ice"
 
 msgid "Users"
 msgstr "Utilisateur·ices"
+
+msgid "Aid description"
+msgstr "Description"
+
+msgid "Eligibility"
+msgstr "Éligibilité"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Calendar"
+msgstr "Calendrier"
+
+msgid "You must provided the application department."
+msgstr "Vous devez renseigner le département d'application."
+
+msgid "This value must be blank."
+msgstr "Cette valeur doit rester vide."
+
+msgid "You must provided the application region."
+msgstr "Vous devez renseigner la région d'application."
+
+msgid "Funding"
+msgstr "Financement"
+
+msgid "Non-funding"
+msgstr "Non-financement"
+
+msgid "Zip code"
+msgstr "Code postal"
+
+msgid "Aid category"
+msgstr "Catégorie"
+
+msgid "When to mobilize the aid?"
+msgstr "Quand mobiliser l'aide ?"
+
+msgid "Aid type"
+msgstr "Types d'aide"
+
+msgid "Destinations"
+msgstr "Destinations"
+
+msgid "Thematics"
+msgstr "Thématiques"
+
+msgid "Scale"
+msgstr "Échelle"
+
+msgid "This zipcode seems invalid"
+msgstr "Ce code postal semble invalide."
 
 msgid "Grant"
 msgstr "Subvention"
@@ -71,6 +122,9 @@ msgstr "Ingénierie"
 
 msgid "Guidance"
 msgstr "Conseil"
+
+msgid "Accompaniment"
+msgstr "Accompagnement"
 
 msgid "Valorisation"
 msgstr "Valorisation"
@@ -171,11 +225,17 @@ msgstr "Projeté·e"
 msgid "closed"
 msgstr "Fermé·e"
 
+msgid "Unknown"
+msgstr "Inconnu·e"
+
 msgid "Name"
 msgstr "Nom"
 
 msgid "Author"
 msgstr "Auteur"
+
+msgid "Backer"
+msgstr "Apporteur"
 
 msgid "Description"
 msgstr "Description"
@@ -188,6 +248,12 @@ msgstr "Périmètre de diffusion (détail)"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
+
+msgid "Application region"
+msgstr "Région d'application"
+
+msgid "Application department"
+msgstr "Département d'application"
 
 msgid "Mobilization step"
 msgstr "Étape de mobilisation"
@@ -216,17 +282,8 @@ msgstr "Types d'aide"
 msgid "Aid types detail"
 msgstr "Types d'aide (détail)"
 
-msgid "Destinations"
-msgstr "Destinations"
-
 msgid "Destinations detail"
 msgstr "Destinations (détail)"
-
-msgid "Thematics"
-msgstr "Thématiques"
-
-msgid "Thematics detail"
-msgstr "Thématiques (détail)"
 
 msgid "Start date"
 msgstr "Date de début"
@@ -267,6 +324,12 @@ msgstr "Aide"
 msgid "Aids"
 msgstr "Aides"
 
+msgid "Backers"
+msgstr "Apporteurs"
+
+msgid "aids/"
+msgstr "aides/"
+
 msgid "Email"
 msgstr "Courriel"
 
@@ -280,9 +343,6 @@ msgid "Tell us the name and nature of your organization."
 msgstr ""
 "Nom et nature de votre organisation : collectivité, EPCI, aménageur, AMO…"
 
-msgid "Zip code"
-msgstr "Code postal"
-
 msgid "legal-mentions/"
 msgstr "mentions-légales/"
 
@@ -291,6 +351,86 @@ msgstr "inscription-liste/"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search results pages"
+msgstr "Pages de résultats"
+
+msgid "First"
+msgstr "Premier"
+
+msgid "Previous"
+msgstr "Précédent"
+
+#, python-format
+msgid ""
+"\n"
+"            Page %(current_page)s of %(total_pages)s\n"
+"            "
+msgstr ""
+"\n"
+"            Page %(current_page)s sur %(total_pages)s\n"
+"            "
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Last"
+msgstr "Dernier"
+
+msgid "No detailed description was submitted."
+msgstr "Aucune description détaillée n'a été renseignée."
+
+#, python-format
+msgid ""
+"\n"
+"            Deadline on the %(deadline)s\n"
+"        "
+msgstr ""
+"\n"
+"            Date d'échéance le %(deadline)s\n"
+"        "
+
+msgid "Details about the aid"
+msgstr "Détails à propos de l'aide"
+
+msgid "Beneficiaries"
+msgstr "Bénéficiaires"
+
+msgid "Mobilization steps"
+msgstr "Étapes de mobilisation"
+
+msgid "Aid destinations"
+msgstr "Destinations"
+
+msgid "Eligibility conditions"
+msgstr "Conditions d'élégibilité"
+
+msgid "Link"
+msgstr "Lien"
+
+msgid "Access the web site"
+msgstr "Accéder au site Web"
+
+msgid "Filter results"
+msgstr "Filtrer les résultats"
+
+#, python-format
+msgid ""
+"\n"
+"                    We found <strong>%(nb_aids)s</strong> results "
+"corresponding to your search query.\n"
+"                    "
+msgstr ""
+"\n"
+"                    Nous avons trouvé <strong>%(nb_aids)s</strong> résultats "
+"correspondants à votre recherche."
+"                    "
+
+msgid "We could not find any results."
+msgstr "Nous n'avons pu trouver aucun résultat."
 
 msgid ""
 "\n"
