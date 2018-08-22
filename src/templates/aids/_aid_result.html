@@ -14,13 +14,15 @@
         {% endif %}
     </p>
 
+    <p class="deadline">
     {% if aid.submission_deadline %}
-    <span class="deadline">
         {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}
-            Deadline on the {{ deadline }}
+            Deadline on the {{ deadline }}.
         {% endblocktrans %}
-    </span>
+    {% else %}
+        {{ _('No known deadline.') }}
     {% endif %}
+    </p>
 
     <table>
         <caption>{{ _('Details about the aid') }}</caption>
