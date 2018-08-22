@@ -5,9 +5,8 @@
 <section id="search">
     <div class="search-engine">
         <form action="" method="GET">
-            {% include '_form_snippet.html' with form=form %}
-
-            <button type="submit">{{ _('Filtrer results') }}</button>
+            {% include '_form_snippet.html' with form=form nest_field_class="field" %}
+            <button type="submit">{{ _('Filter results') }}</button>
         </form>
     </div>
 

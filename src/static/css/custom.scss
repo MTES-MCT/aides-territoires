@@ -118,3 +118,31 @@ section#search {
         }
     }
 }
+
+div.search-engine form {
+    .form-group {
+        @extend .card;
+        @include border-radius(0);
+
+        &:first-of-type {
+            @include border-top-radius($card-border-radius);
+        }
+
+        &:last-of-type {
+            @include border-bottom-radius($card-border-radius);
+        }
+
+        &:not(:last-of-type) {
+            margin-bottom: 0;
+            border-bottom: 0;
+        }
+
+        &>label {
+            @extend .card-header;
+        }
+
+        div.field {
+            @extend .card-body;
+        }
+    }
+}
