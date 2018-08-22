@@ -61,16 +61,34 @@ section#contact {
     @extend .py-5;
     background-color: $jumbotron-bg;
 
-    h1 {
-    }
+    div.contact-form {
+        @extend .card;
+        @extend .bg-dark;
+        @extend .text-white;
+        @extend .mx-auto;
+        max-width: 40rem;
 
-    form#mailing-list-form {
-        max-width: 30rem;
-        margin: 0 auto;
+        h1 {
+            @extend .h3;
+            @extend .card-header;
+            text-align: center;
+            font-style: italic;
+        }
 
-        button[type=submit] {
-            margin: 0 auto;
-            display: flex-block;
+        form#mailing-list-form {
+            @extend .card-body;
+
+            span.field-help {
+                color: $gray-500 !important;;
+            }
+
+            p {
+                color: $gray-500 !important;;
+            }
+
+            button[type=submit] {
+                @extend .btn-lg;
+            }
         }
     }
 }
