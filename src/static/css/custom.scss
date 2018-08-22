@@ -113,6 +113,10 @@ section#search {
 
             h2 {
                 @extend .h4;
+
+                small {
+                    @extend .text-muted;
+                }
             }
 
             table {

@@ -1,10 +1,9 @@
 {% load i18n aids %}
 
 <div class="aid">
-    <h2>{{ aid.name }}
-        {% if aid.url %}
-            <br /><small><a href="{{ aid.url }}">{{ aid.url|truncatechars:60 }}</a></small>
-        {% endif %}
+    <h2>
+        {{ aid.name }}
+        <br /><small>{{ aid.backer }}</small>
     </h2>
 
     <p>
@@ -26,10 +25,6 @@
     <table>
         <caption>{{ _('Details about the aid') }}</caption>
         <tbody>
-            <tr>
-                <th>{{ _('Backer') }}</th>
-                <td>{{ aid.backer.name }}</td>
-            </tr>
             <tr>
                 <th>{{ _('Beneficiaries') }}</th>
                 <td>
