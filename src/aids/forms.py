@@ -79,8 +79,22 @@ class AidSearchForm(forms.Form):
         label=_('Aid type'),
         required=False,
         choices=Aid.TYPES,
-        widget=forms.CheckboxSelectMultiple,
-    )
+        widget=forms.CheckboxSelectMultiple)
+    destinations = forms.MultipleChoiceField(
+        label=_('Destinations'),
+        required=False,
+        choices=Aid.DESTINATIONS,
+        widget=forms.CheckboxSelectMultiple)
+    thematics = forms.MultipleChoiceField(
+        label=_('Thematics'),
+        required=False,
+        choices=Aid.THEMATICS,
+        widget=forms.CheckboxSelectMultiple)
+    scale = forms.MultipleChoiceField(
+        label=_('Scale'),
+        required=False,
+        choices=Aid.PERIMETERS,
+        widget=forms.CheckboxSelectMultiple)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
@@ -131,5 +145,17 @@ class AidSearchForm(forms.Form):
         aid_types = self.cleaned_data.get('aid_types', None)
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
+
+        destinations = self.cleaned_data.get('destinations', None)
+        if destinations:
+            qs = qs.filter(destinations__overlap=destinations)
+
+        thematics = self.cleaned_data.get('thematics', None)
+        if thematics:
+            qs = qs.filter(thematics__overlap=thematics)
+
+        scale = self.cleaned_data.get('scale', None)
+        if scale:
+            qs = qs.filter(application_perimeter__in=scale)
 
         return qs
