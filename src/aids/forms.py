@@ -59,6 +59,10 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
+    STEPS = (
+        ('', ''),
+    ) + Aid.STEPS
+
     zipcode = forms.CharField(
         label=_('Zip code'),
         required=False,
@@ -67,6 +71,10 @@ class AidSearchForm(forms.Form):
         label=_('Aid type'),
         required=False,
         choices=AID_TYPE_CHOICES)
+    mobilization_step = forms.ChoiceField(
+        label=_('When to mobilize the aid?'),
+        required=False,
+        choices=STEPS)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
@@ -109,5 +117,9 @@ class AidSearchForm(forms.Form):
                 qs = qs.filter(is_funding=True)
             else:
                 qs = qs.filter(is_funding=False)
+
+        mobilization_step = self.cleaned_data.get('mobilization_step', None)
+        if mobilization_step:
+            qs = qs.filter(mobilization_steps__contains=[mobilization_step])
 
         return qs
