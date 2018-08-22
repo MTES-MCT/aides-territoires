@@ -40,6 +40,10 @@
                 </td>
             </tr>
             <tr>
+                <th>{{ _('Mobilization steps') }}</th>
+                <td>{% choices_display aid 'mobilization_steps' %}</td>
+            </tr>
+            <tr>
                 <th>{{ _('Aid type') }}</th>
                 <td>
                     {% choices_display aid 'aid_types' %}
@@ -49,15 +53,30 @@
                 </td>
             </tr>
             <tr>
-                <th>{{ _('Mobilization steps') }}</th>
-                <td>{% choices_display aid 'mobilization_steps' %}</td>
-            </tr>
-            <tr>
-                <th>{{ _('Aid destination') }}</th>
+                <th>{{ _('Aid destinations') }}</th>
                 <td>
                     {% choices_display aid 'destinations' %}
                     {% if aid.destinations_detail %}
                         ({{ aid.destinations_detail }})
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Thematics') }}</th>
+                <td>
+                    {% choices_display aid 'thematics' %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Application perimeter') }}</th>
+                <td>
+                    {{ aid.get_application_perimeter_display }}
+                    {% if aid.application_department %}
+                        ({{aid.get_application_department_display }})
+                    {% elif aid.application_region %}
+                        ({{aid.get_application_region_display }})
                     {% endif %}
                 </td>
             </tr>
