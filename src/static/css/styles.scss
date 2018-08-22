@@ -73,6 +73,26 @@ form {
         @extend .btn;
         @extend .btn-primary;
     }
+
+    input[type=text],
+    select,
+    textarea {
+        @extend .form-control;
+    }
+
+    div.multiple-input {
+        div.single-input {
+            @extend .form-check;
+
+            input {
+                @extend .form-check-input;
+            }
+
+            label {
+                @extend .form-check-label;
+            }
+        }
+    }
 }
 
 p {

@@ -1,4 +1,4 @@
-{% load widget_tweaks form_utils %}
+{% load form_utils %}
 {{ form.media }}
 
 {% if form.non_field_errors %}
@@ -17,7 +17,7 @@
 
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
 
-        {% render_field field class+="form-control" %}
+        {{ field }}
 
         {% if field.help_text %}
             <span class="field-help">{{ field.help_text }}</span>
