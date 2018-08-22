@@ -8,9 +8,42 @@
 
 body {
     >footer {
-        @extend .container;
-        @extend .my-5;
-        @extend .py-3;
+        @extend .py-5;
+        @extend .bg-dark;
+        @extend .text-light;
+
+        a {
+            @extend .text-light;
+        }
+
+
+        div {
+            @extend .container;
+        }
+
+        svg#svg-marianne {
+            max-height: $font-size-base * 3.7;
+            @extend .float-right;
+        }
+
+        h1 {
+            @extend .h3;
+
+            small {
+                @extend .text-muted;
+            }
+
+        }
+
+        nav {
+            @extend .nav;
+            @extend .flex-column;
+
+            a {
+                @extend .nav-link;
+                padding-left: 0;
+            }
+        }
     }
 }
 
@@ -57,16 +90,6 @@ form {
 
     .form-group.required label:after {
         content:"*";
-    }
-
-    &.dark-form {
-        label {
-            @extend .text-light;
-        }
-
-        span.field-help {
-            @extend .text-white-50;
-        }
     }
 
     button[type=submit] {
