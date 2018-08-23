@@ -70,7 +70,7 @@ msgid "When to mobilize the aid?"
 msgstr "Quand mobiliser l'aide ?"
 
 msgid "Aid type"
-msgstr "Types d'aide"
+msgstr "Nature de l'aide"
 
 msgid "Destinations"
 msgstr "Destinations"
@@ -409,7 +409,7 @@ msgid "Aid destinations"
 msgstr "Destinations"
 
 msgid "Eligibility conditions"
-msgstr "Conditions d'élégibilité"
+msgstr "Conditions d'éligibilité"
 
 msgid "Link"
 msgstr "Lien"
