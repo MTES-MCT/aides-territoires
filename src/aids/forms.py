@@ -50,6 +50,16 @@ class AidAdminForm(forms.ModelForm):
         return data
 
 
+class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
+    """A basic multi checkbox widget with a custom template.
+
+    We can't override the default template because it would mess with the django
+    admin.
+    """
+
+    template_name = 'forms/widgets/multiple_input.html'
+
+
 class AidSearchForm(forms.Form):
     """Main form for search engine."""
 
@@ -79,22 +89,22 @@ class AidSearchForm(forms.Form):
         label=_('Aid type'),
         required=False,
         choices=Aid.TYPES,
-        widget=forms.CheckboxSelectMultiple)
+        widget=MultipleChoiceFilterWidget)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
         required=False,
         choices=Aid.DESTINATIONS,
-        widget=forms.CheckboxSelectMultiple)
+        widget=MultipleChoiceFilterWidget)
     thematics = forms.MultipleChoiceField(
         label=_('Thematics'),
         required=False,
         choices=Aid.THEMATICS,
-        widget=forms.CheckboxSelectMultiple)
+        widget=MultipleChoiceFilterWidget)
     scale = forms.MultipleChoiceField(
         label=_('Scale'),
         required=False,
         choices=Aid.PERIMETERS,
-        widget=forms.CheckboxSelectMultiple)
+        widget=MultipleChoiceFilterWidget)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
