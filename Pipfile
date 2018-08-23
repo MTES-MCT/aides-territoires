@@ -17,6 +17,7 @@ django-debug-toolbar = "*"
 factory-boy = "*"
 ipython = "*"
 pytest-django = "*"
+ansible = "*"
 
 [requires]
 python_version = "3.6"
