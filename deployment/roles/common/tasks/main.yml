@@ -2,7 +2,7 @@
 - name: Pin package priorities
   template: src=stablepin.j2 dest=/etc/apt/preferences.d/stablepin
 
-- name: Add Debian unstable apt repository to install Python 3.6
+- name: Add Debian testing apt repository to install Python 3.6
   apt_repository:
     repo: deb http://ftp.fr.debian.org/debian testing main contrib non-free
     state: present
@@ -13,11 +13,20 @@
   notify: Upgrade debian packages
 
 - name: Install required packages
-  apt: state=present name={{ item }}
+  apt: state=latest name={{ item }}
   with_items:
     - sudo
+    - acl
     - postgresql
+    - git
+
+- name: Install python3.6 (testing)
+  apt: state=latest name={{ item }} default_release=testing
+  with_items:
     - python3.6
+    - python3-pip
+    - python3-distutils
+    - python3-virtualenv
 
 - name: Make sure ssh agent forwarding works
   lineinfile:

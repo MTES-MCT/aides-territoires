@@ -1,3 +1,9 @@
 ---
-- name: Install python packages
-  pip: requirements={{ project_root }}/requirements.txt virtualenv={{ venv_dir }}
+
+- name: Create the virtualenv
+  command: virtualenv {{ venv_dir }} -p python3.6 creates={{ venv_dir }}
+
+- name: Install pipenv
+  pip:
+    name: pipenv
+    virtualenv: "{{ venv_dir }}"

@@ -1,2 +1,2 @@
 ---
-- include: appservers.yml
+- import_playbook: appservers.yml
