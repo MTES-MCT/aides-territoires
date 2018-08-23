@@ -1,0 +1,5 @@
+[staging]
+staging.aides-territoires.myserver.com
+
+[production]
+aides-territoires.myserver.com

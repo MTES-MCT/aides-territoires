@@ -1,0 +1,8 @@
+---
+- include: user.yml
+- include: crontab.yml
+- include: git.yml
+- include: pip.yml
+- include: database.yml
+- include: cache.yml
+- include: restart.yml

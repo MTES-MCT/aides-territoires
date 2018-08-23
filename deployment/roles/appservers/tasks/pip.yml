@@ -1,0 +1,3 @@
+---
+- name: Install python packages
+  pip: requirements={{ project_root }}/requirements.txt virtualenv={{ venv_dir }}

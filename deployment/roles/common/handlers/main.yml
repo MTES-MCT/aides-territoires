@@ -1,0 +1,3 @@
+---
+- name: Upgrade debian packages
+  apt: upgrade=safe

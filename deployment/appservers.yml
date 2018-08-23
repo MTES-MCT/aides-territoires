@@ -1,0 +1,6 @@
+---
+- name: Configure all application servers
+  hosts: appservers
+  roles:
+    - { role: common }
+    - { role: appservers, become: yes, become_user: aides }

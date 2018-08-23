@@ -1,0 +1,9 @@
+project_name: aides
+user_name: aides
+project_repo: https://github.com/MTES-MCT/aides-territoires.git
+install_root: /home/aides
+project_root: "{{ install_root }}/{{ project_name }}"
+django_root: "{{ project_root }}/src"
+venv_dir: "{{ install_root }}/.virtualenvs/{{ project_name }}"
+python_bin: "{{ venv_dir }}/bin/python"
+django_settings: "core.settings.production"
