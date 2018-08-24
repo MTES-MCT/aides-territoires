@@ -6,6 +6,13 @@
     virtualenv: "{{ venv_dir }}"
     settings: "{{ django_settings }}"
 
+- name: Compress assets
+  django_manage:
+    command: compress
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ venv_dir }}"
+    settings: "{{ django_settings }}"
+
 - name: Restart django
   become: no
   supervisorctl: name={{ project_name }} state=restarted

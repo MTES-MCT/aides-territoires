@@ -8,6 +8,8 @@ INSTALLED_APPS += [
     'raven.contrib.django.raven_compat',
 ]
 
+COMPRESS_OFFLINE = True
+
 # Create a .env.production file in django's root
 environ.Env.read_env('.env.production')
 env = environ.Env()
