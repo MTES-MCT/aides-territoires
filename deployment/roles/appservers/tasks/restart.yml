@@ -5,7 +5,6 @@
     app_path: "{{ django_root }}"
     virtualenv: "{{ venv_dir }}"
     settings: "{{ django_settings }}"
-  notify: Restart django
 
 - name: Restart django
   become: no

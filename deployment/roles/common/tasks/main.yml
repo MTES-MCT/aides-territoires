@@ -1,4 +1,11 @@
 ---
+- name: Make sure ssh agent forwarding works
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: SSH_AUTH_SOCK
+    line: Defaults env_keep+=SSH_AUTH_SOCK
+
 - name: Pin package priorities
   template: src=stablepin.j2 dest=/etc/apt/preferences.d/stablepin
 
@@ -31,6 +38,7 @@
     - python-psycopg2
     - git
     - nginx
+    - supervisor
     - nodejs
 
 - name: Install python3.6 (testing)
@@ -42,9 +50,7 @@
     - python3-distutils
     - python3-virtualenv
 
-- name: Make sure ssh agent forwarding works
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: SSH_AUTH_SOCK
-    line: Defaults env_keep+=SSH_AUTH_SOCK
+- name: Create supervisor configuration
+  template:
+    src: supervisor.j2
+    dest: /etc/supervisor/conf.d/django.conf

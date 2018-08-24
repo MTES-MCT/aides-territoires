@@ -12,3 +12,4 @@
     . {{ activate_bin }} && {{ pipenv_bin }} install --deploy
   args:
     chdir: "{{ django_root }}"
+

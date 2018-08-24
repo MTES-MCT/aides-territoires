@@ -1,0 +1,4 @@
+---
+- name: Install static assets
+  npm:
+    path: "{{ django_root }}"

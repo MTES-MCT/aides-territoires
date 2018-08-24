@@ -3,4 +3,5 @@
 - include: git.yml
 - include: pip.yml
 - include: database.yml
+- include: npm.yml
 - include: restart.yml
