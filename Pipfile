@@ -11,6 +11,7 @@ django-compressor = "*"
 django-model-utils = "*"
 django-environ = "*"
 gunicorn = "*"
+raven = "*"
 
 [dev-packages]
 pytest = "*"
