@@ -10,8 +10,3 @@
 - name: Restart django
   become: no
   supervisorctl: name=django state=restarted
-  notify: Restart celery
-
-- name: Restart celery
-  become: no
-  supervisorctl: name=celery state=restarted

@@ -1,4 +1,23 @@
 ---
+- name: Create database user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: aides
+    password: aides
+
+- name: Create postgres Database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: aides
+    owner: aides
+
+- name: Copy private production settings to the remote
+  copy:
+    src: ../../../src/.env.production
+    dest: "{{ django_root }}"
+
 - name: Run Django database migrations
   django_manage:
     command: migrate

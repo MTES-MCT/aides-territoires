@@ -1,7 +1,0 @@
----
-- name: Clear Django cache
-  django_manage:
-    command: clearcache
-    app_path: "{{ django_root }}"
-    virtualenv: "{{ venv_dir }}"
-    settings: "{{ django_settings }}"
