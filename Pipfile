@@ -10,6 +10,7 @@ unipath = "*"
 django-compressor = "*"
 django-model-utils = "*"
 django-environ = "*"
+gunicorn = "*"
 
 [dev-packages]
 pytest = "*"
