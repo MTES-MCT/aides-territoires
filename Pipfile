@@ -9,6 +9,7 @@ unipath = "*"
 "psycopg2-binary" = "*"
 django-compressor = "*"
 django-model-utils = "*"
+django-environ = "*"
 
 [dev-packages]
 pytest = "*"
