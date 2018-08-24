@@ -23,5 +23,5 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 INTERNAL_IPS = env.list('INTERNAL_IPS')
 
 RAVEN_CONFIG = {
-    'dsn': env.url('RAVEN_URL'),
+    'dsn': env('RAVEN_URL'),
 }
