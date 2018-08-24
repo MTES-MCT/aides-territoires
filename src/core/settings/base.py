@@ -2,6 +2,8 @@
 
 from unipath import Path
 
+DEBUG = False
+
 # Absolute filesystem path to the project directory
 PROJECT_ROOT = Path(__file__).ancestor(4)
 
@@ -122,6 +124,26 @@ LOCALE_PATHS = [
 ]
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [DJANGO_ROOT.child('templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': False,
+            'context_processors': [
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'libraries': {
+                'form_utils': 'core.templatetags.form_utils',
+            }
+        },
+    },
+]
 
 MAILING_LIST_LIST_ID = 2
 MAILING_LIST_FORM_ACTION = 'https://my.sendinblue.com/users/subscribeembed/js_id/3n5yg/id/1'
