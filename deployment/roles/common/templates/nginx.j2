@@ -1,0 +1,39 @@
+upstream {{ project_name }} {
+    server localhost:8042;
+}
+
+server {
+    listen 80;
+    server_name {{ project_domain }};
+
+    access_log /var/log/nginx/{{ project_name }}.access.log;
+    error_log /var/log/nginx/{{ project_name }}.error.log;
+    client_max_body_size 150m;
+
+    # Security options
+    add_header X-XSS-Protection "1; mode=block";
+    # add_header X-Frame-Options "SAMEORIGIN";  # Set by Django
+    add_header X-Content-Type-Options "nosniff";
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+    # add_header Content-Security-Policy "script-src 'self'; object-src 'none'";
+
+    location /static/ {
+        root {{ project_root }}/public/;
+        expires 1y;
+        access_log off;
+    }
+
+    location / {
+        error_page 418 = @django;
+        return 418;
+    }
+
+    location @django {
+        proxy_pass http://{{ project_name }};
+        proxy_redirect off;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass_header Authorization;
+    }
+}

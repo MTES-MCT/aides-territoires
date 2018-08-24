@@ -54,3 +54,14 @@
   template:
     src: supervisor.j2
     dest: /etc/supervisor/conf.d/django.conf
+
+- name: Create nginx configuration
+  template:
+    src: nginx.j2
+    dest: /etc/nginx/sites-available/{{ project_name }}
+
+- name: create nginx symlink
+  file:
+    src: /etc/nginx/sites-available/{{ project_name }}
+    dest: /etc/nginx/sites-enabled/{{ project_name }}
+    state: link

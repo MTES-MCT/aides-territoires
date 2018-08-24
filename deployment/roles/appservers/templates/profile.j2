@@ -11,4 +11,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export DJANGO_SETTINGS_MODULE=core.settings.production
+export DJANGO_SETTINGS_MODULE={{ django_settings }}
