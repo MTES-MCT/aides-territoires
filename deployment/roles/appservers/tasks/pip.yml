@@ -1,5 +1,4 @@
 ---
-
 - name: Create the virtualenv
   command: virtualenv {{ venv_dir }} -p python3.6 creates={{ venv_dir }}
 
@@ -7,3 +6,9 @@
   pip:
     name: pipenv
     virtualenv: "{{ venv_dir }}"
+
+- name: Install python packages
+  shell: |
+    . {{ activate_bin }} && {{ pipenv_bin }} install --deploy
+  args:
+    chdir: "{{ django_root }}"

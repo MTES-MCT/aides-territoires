@@ -24,6 +24,7 @@
   apt: state=latest name={{ item }} default_release=testing
   with_items:
     - python3.6
+    - python3.6-dev
     - python3-pip
     - python3-distutils
     - python3-virtualenv
