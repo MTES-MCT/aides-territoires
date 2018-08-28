@@ -3,3 +3,7 @@ staging.aides-territoires.myserver.com
 
 [production]
 aides-territoires.myserver.com
+
+[aidesterritoires:children]
+staging
+production
