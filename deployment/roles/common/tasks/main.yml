@@ -1,6 +1,9 @@
 ---
 - name: Install required packages
-  apt: state=latest name={{ item }} update_cache=true
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
   with_items:
     - sudo
     - acl

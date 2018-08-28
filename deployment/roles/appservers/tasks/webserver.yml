@@ -9,7 +9,7 @@
     src: nginx.j2
     dest: /etc/nginx/sites-available/{{ project_name }}
 
-- name: create nginx symlink
+- name: Create nginx symlink
   file:
     src: /etc/nginx/sites-available/{{ project_name }}
     dest: /etc/nginx/sites-enabled/{{ project_name }}

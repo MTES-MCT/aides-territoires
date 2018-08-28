@@ -1,9 +1,10 @@
 ---
 - name: Restart django
-  supervisorctl: name={{ project_name }} state=restarted
+  supervisorctl:
+    name: "{{ project_name }}"
+    state: restarted
 
 - name: Restart nginx
   service:
     name: nginx
     state: restarted
-

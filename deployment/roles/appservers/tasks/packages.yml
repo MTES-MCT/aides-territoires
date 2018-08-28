@@ -1,9 +1,13 @@
 ---
 - name: Pin package priorities
-  template: src=stablepin.j2 dest=/etc/apt/preferences.d/stablepin
+  template:
+    src: stablepin.j2
+    dest: /etc/apt/preferences.d/stablepin
 
 - name: Install apt https driver
-  apt: name=apt-transport-https state=present
+  apt:
+    name: apt-transport-https
+    state: present
 
 - name: Install nodesource apt key
   apt_key:
@@ -22,7 +26,10 @@
     filename: nodesource
 
 - name: Install required packages
-  apt: state=latest name={{ item }} update_cache=true
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
   with_items:
     - gettext
     - postgresql
@@ -34,7 +41,10 @@
     - nodejs
 
 - name: Install python3.6 (testing)
-  apt: state=latest name={{ item }} default_release=testing update_cache=true
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: true
   with_items:
     - python3.6
     - python3.6-dev

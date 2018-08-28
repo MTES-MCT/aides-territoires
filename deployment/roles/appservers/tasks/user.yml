@@ -12,4 +12,7 @@
   changed_when: false
 
 - name: Create .profile file
-  template: src=profile.j2 dest={{ install_root }}/.profile owner={{ user_name }}
+  template:
+    src: profile.j2
+    dest: "{{ install_root }}/.profile"
+    owner: "{{ user_name }}"
