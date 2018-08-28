@@ -53,8 +53,8 @@ class AidAdminForm(forms.ModelForm):
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
     """A basic multi checkbox widget with a custom template.
 
-    We can't override the default template because it would mess with the django
-    admin.
+    We can't override the default template because it would mess with the
+    django admin.
     """
 
     template_name = 'forms/widgets/multiple_input.html'
