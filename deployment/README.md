@@ -30,6 +30,14 @@ entièrement configurer un serveur et installer le projet dessus. Le seul
 pré-requis est d'avoir un accès ssh à l'utilisateur root sur le serveur.
 
 
+## Configuration de production
+
+Les paramètres de production ne peuvent être embarquées dans le dépôt git. Pour
+cette raison, les valeurs sensibles doivent être embarqués dans un fichier
+`.env.production` placé à la racine de projet Django. Ce fichier sera
+automatiquement copié par le script de déploiement.
+
+
 ## Déploiement rapide
 
 En exécutant le livre de recette principal `site.yml`, Ansible va exécuter
