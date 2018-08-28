@@ -1,70 +1,67 @@
-# Deployment Ansible playbooks
+# Recettes de déploiement Ansible
 
-Here is a set of [Ansible playbooks](https://www.ansible.com/) to provision,
-install and update the project.
+Ce répertoire contient un [jeu de recettes Ansible
+complet](https://www.ansible.com/) permettant de déployer le projet
+AIdes-Territoires en une seule commande sur un serveur.
 
 
-## Quickstart
+## Démarrage rapide
 
-Use `./hosts.example` as a blueprint for an [Ansible inventory
-file](http://docs.ansible.com/ansible/intro_inventory.html). You can edit the
-`/etc/ansible/hosts` file (Ansible default) or create a local `hosts` file and
-reference it with the `-i` option.
+Utiliser `./hosts.example` comme point de départ pour configurer [l'inventaire
+Ansible](http://docs.ansible.com/ansible/intro_inventory.html). Il est possible
+d'éditer le fichier `/etc/ansible/hosts` ou de créer un fichier local à
+référencer à chaque fois avec l'option `-i`.
 
-Make sure your ssh public key is uploaded on every server you try to run a task
-on.
+Il est également important de s'assurer que sa clé ssh a bien été envoyée sur
+le serveur.
 
-Configure the servers and install the project on staging:
+Pour déployer en production:
 
-    ansible-playbook -i hosts -l staging site.yml
-
-To deploy on production:
-
-    ansible-playbook -i hosts -l production site.yml
+    ansible-playbook -i hosts site.yml
 
 
 ## Playbooks
 
-We tried to structure playbooks according to [Ansible's best
-practices](http://docs.ansible.com/ansible/playbooks_best_practices.html),
-splitting top-level playbooks into roles.
+Le répertoire est structuré en respectant les [Bonnes pratiques
+Ansible](http://docs.ansible.com/ansible/playbooks_best_practices.html).
 
-The top level playbook is `site.yml`. Running this playbook will entirely
-configure the server and install the project on it. Check the file content to
-see what top-level playbooks are available.
-
-
-## Delivering different versions to different environments
-
-What if you to run instances with different versions, e.g you want master
-deployed in staging, and a specific tag in production? Simply define different
-groups in your inventory, create a `/etc/ansible/group_vars/<group>.yml`, and
-give the `project_version` variable the git commit name you want to fetch (can
-be a branch or a tag).
-
-You can also install additional applications using the `document_apps`
-variable.
-
-In `/etc/ansible/hosts`:
-
-    [staging]
-    staging.project.com
-
-    [production]
-    production.project.com
-
-In `/etc/ansible/group_vars/staging.yml`:
-
-    project_version: master
-
-`project_version`'s default value is `master`.
+Le fichier de recette principal est `site.yml`. Lancer cette recette va
+entièrement configurer un serveur et installer le projet dessus. Le seul
+pré-requis est d'avoir un accès ssh à l'utilisateur root sur le serveur.
 
 
-## Local configuration
+## Déploiement rapide
+
+En exécutant le livre de recette principal `site.yml`, Ansible va exécuter
+toutes les étapes de déploiement, y compris les tâches de configuration du
+serveur, ce qui peut prendre un certain temps.
+
+Dans le cas de livraisons fréquentes, il est possible de n'exécuter que les
+dernières tâches, i.e mise à jour de la base de code, installation des paquets,
+migrations de la base de données, recompilation des fichiers css, etc.
+
+    ansible-playbook -i hosts site.yml --start-at-task="Build"
+
+
+## Différentes versions pour différents environnements
+
+Il est souvent d'usage d'effectuer des livraisons de versions différentes sur
+différents environnements, par exemple pour faire tourner la branche `master`
+sur le serveur de recette mais un tag spécifique sur le serveur de production.
+
+Pour ce faire, il suffit de définir [des variables de groupes
+spécifiques](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html).
+
+Créer `/etc/ansible/group_vars/<group>.yml`, et configurer la variable
+`project_version` qui peut prendre pour valeur une branche, un tag ou un nom de
+commit git.
+
+
+## Configuration locale
 
 ### SSH Config
 
-Here is a sample `~/.ssh/config`:
+Voici un exemple de fichier `~/.ssh/config`:
 
     # Physical host
     Host myserver

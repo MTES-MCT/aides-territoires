@@ -4,6 +4,18 @@
   become_user: "{{ user_name }}"
   block:
 
+    - name: Build
+      debug:
+        msg: "Starting building tasks"
+        verbosity: 3
+
+    - name: Pull / clone main project repo
+      git:
+        repo: "{{ project_repo }}"
+        dest: "{{ project_root }}"
+        version: "{{ project_version }}"
+        accept_hostkey: yes
+
     - name: Copy private production settings to the remote
       copy:
         src: ../../../src/.env.production
