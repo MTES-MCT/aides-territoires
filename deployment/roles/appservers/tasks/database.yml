@@ -12,16 +12,3 @@
   postgresql_db:
     name: aides
     owner: aides
-
-- name: Copy private production settings to the remote
-  copy:
-    src: ../../../src/.env.production
-    dest: "{{ django_root }}"
-
-- name: Run Django database migrations
-  django_manage:
-    command: migrate
-    app_path: "{{ django_root }}"
-    virtualenv: "{{ venv_dir }}"
-    settings: "{{ django_settings }}"
-  notify: Restart django

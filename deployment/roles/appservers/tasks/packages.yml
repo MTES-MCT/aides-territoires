@@ -1,0 +1,48 @@
+---
+- name: Pin package priorities
+  template: src=stablepin.j2 dest=/etc/apt/preferences.d/stablepin
+
+- name: Install apt https driver
+  apt: name=apt-transport-https state=present
+
+- name: Install nodesource apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+- name: Add Debian testing apt repository to install Python 3.6
+  apt_repository:
+    repo: deb http://ftp.fr.debian.org/debian testing main contrib non-free
+    state: present
+    filename: python
+
+- name: Add nodesource apt repository to install NodeJs
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_8.x stretch main
+    state: present
+    filename: nodesource
+
+- name: Install required packages
+  apt: state=latest name={{ item }} update_cache=true
+  with_items:
+    - gettext
+    - postgresql
+    - libpq-dev
+    - python-psycopg2
+    - git
+    - nginx
+    - supervisor
+    - nodejs
+
+- name: Install python3.6 (testing)
+  apt: state=latest name={{ item }} default_release=testing update_cache=true
+  with_items:
+    - python3.6
+    - python3.6-dev
+    - python3-pip
+    - python3-distutils
+    - python3-virtualenv
+
+- name: Install sass
+  npm:
+    name: sass
+    global: yes

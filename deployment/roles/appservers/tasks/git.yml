@@ -1,5 +1,7 @@
 ---
 - name: Pull / clone main project repo
+  become: yes
+  become_user: "{{ user_name }}"
   git:
     repo: "{{ project_repo }}"
     dest: "{{ project_root }}"

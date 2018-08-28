@@ -1,0 +1,41 @@
+---
+- block:
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: Copy private production settings to the remote
+  copy:
+    src: ../../../src/.env.production
+    dest: "{{ django_root }}"
+
+  - name: Install python packages
+    shell: |
+      . {{ activate_bin }} && {{ pipenv_bin }} install --deploy
+    args:
+      chdir: "{{ django_root }}"
+
+- name: Install js packages assets
+  npm:
+    path: "{{ django_root }}"
+
+- name: Run Django database migrations
+  django_manage:
+    command: migrate
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ venv_dir }}"
+    settings: "{{ django_settings }}"
+
+- name: Collect static
+  django_manage:
+    command: collectstatic
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ venv_dir }}"
+    settings: "{{ django_settings }}"
+
+- name: Compress assets
+  django_manage:
+    command: compress
+    app_path: "{{ django_root }}"
+    virtualenv: "{{ venv_dir }}"
+    settings: "{{ django_settings }}"
+

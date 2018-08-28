@@ -1,0 +1,14 @@
+---
+- name: Create the virtualenv
+  become: yes
+  become_user: "{{ user_name }}"
+  command: virtualenv {{ venv_dir }} -p python3.6
+  args:
+    creates: "{{ venv_dir }}"
+
+- name: Install pipenv
+  become: yes
+  become_user: "{{ user_name }}"
+  pip:
+    name: pipenv
+    virtualenv: "{{ venv_dir }}"
