@@ -115,7 +115,7 @@ msgid "Tax benefit"
 msgstr "Avantage fiscal"
 
 msgid "Return fund"
-msgstr "Retour de fonds"
+msgstr "Fonds de retour"
 
 msgid "Engineering"
 msgstr "Ingénierie"
