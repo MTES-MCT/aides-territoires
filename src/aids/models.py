@@ -119,14 +119,6 @@ class Aid(models.Model):
     eligibility = models.TextField(
         _('Eligibility'),
         blank=False)
-    diffusion_perimeter = models.CharField(
-        _('Diffusion perimeter'),
-        max_length=32,
-        choices=PERIMETERS)
-    diffusion_perimeter_detail = models.CharField(
-        _('Diffusion perimeter detail'),
-        max_length=256,
-        blank=True)
     application_perimeter = models.CharField(
         _('Application perimeter'),
         max_length=32,
