@@ -16,6 +16,25 @@ cd aides-territoires
 ```
 
 
+## Gestion des dépendances avec Pipenv
+
+Le projet utilise [Pipenv pour gérer les dépendances de paquets
+Python](https://pipenv.readthedocs.io/en/latest/) et produire des *builds*
+déterministes.
+
+Pour installer les dépendances du projet :
+
+    pipenv install --dev
+
+Pour installer un nouveau paquet et l'ajouter aux dépendances :
+
+    pipenv install <paquet>
+
+Pour un paquet ne servant que pour le développement, e.g *debug-toolbar* :
+
+    pipenv install --dev <paquet>
+
+
 ## Configuration locale, production
 
 Le projet utilise [django-environ](http://django-environ.readthedocs.io/) pour
@@ -117,8 +136,8 @@ qui permet de gérer la `pipeline` de compression des fichiers statiques.
 [Django-compressor propose plusieurs modes de
 déploiement](https://django-compressor.readthedocs.io/en/latest/scenarios/) :
 
- * 1) la compilation / compression se fait manuellement une fois pour toute ;
- * 2) la compilation / compression se fait automatiquement à chaque requête.
+ 1) la compilation / compression se fait manuellement une fois pour toute ;
+ 2) la compilation / compression se fait automatiquement à chaque requête.
 
 Le premier mode de fonctionnement est adapté à un déploiement en production. Le
 second dans un environnement de développement.
@@ -131,7 +150,9 @@ possibilités :
    la version en pure js ;
  * Désactiver en local la compression par requête dans le fichier `.env.local`.
 
-    COMPRESS_OFFLINE=False
+```
+COMPRESS_OFFLINE=False
+```
 
 Il faudra alors manuellement lancer la compression en cas de besoin.
 
