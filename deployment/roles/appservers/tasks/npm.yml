@@ -2,3 +2,9 @@
 - name: Install static assets
   npm:
     path: "{{ django_root }}"
+
+- name: Install sass
+  become: no
+  npm:
+    name: sass
+    global: yes
