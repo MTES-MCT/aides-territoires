@@ -15,7 +15,3 @@ class MailingListForm(forms.Form):
         label=_('Structure'),
         help_text=_('Tell us the name and nature of your organization.'),
     )
-    zipcode = forms.CharField(
-        required=True,
-        label=_('Zip code')
-    )
