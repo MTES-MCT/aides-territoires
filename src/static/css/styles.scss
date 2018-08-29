@@ -21,8 +21,8 @@ body {
             @extend .container;
         }
 
-        svg.marianne-logo {
-            max-height: $font-size-base * 3.7;
+        svg.fabnum-logo {
+            max-height: $font-size-base * 11;
             @extend .float-right;
             @extend .ml-3;
             @extend .mb-3;
@@ -54,8 +54,14 @@ nav#main-navbar {
     @extend .navbar-dark;
     @extend .bg-dark;
 
+
     .homelink {
         @extend .navbar-brand;
+
+        svg.marianne-logo {
+            max-height: $font-size-base * 2.5;
+            @extend .pr-1;
+        }
     }
 
     ul.homenav {

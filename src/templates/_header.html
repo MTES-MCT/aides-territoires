@@ -1,7 +1,10 @@
 {% block header %}
 <nav id="main-navbar">
     <div class="container">
-        <a class="homelink" href="{% url 'home' %}">Aides-Territoires</a>
+        <a class="homelink" href="{% url 'home' %}">
+            {% include '_marianne.html' %}
+            aides-territoires.<strong>beta.gouv</strong><em>.fr</em>
+        </a>
         <span>Beta</span>
     </div>
 </nav>
