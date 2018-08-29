@@ -24,15 +24,17 @@ body {
         svg.marianne-logo {
             max-height: $font-size-base * 3.7;
             @extend .float-right;
+            @extend .ml-3;
+            @extend .mb-3;
         }
 
         h1 {
             @extend .h3;
+            max-width: 45rem;
 
             small {
                 @extend .text-muted;
             }
-
         }
 
         nav {
