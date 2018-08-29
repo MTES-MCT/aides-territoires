@@ -17,6 +17,12 @@ server {
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
     # add_header Content-Security-Policy "script-src 'self'; object-src 'none'";
 
+    gzip on;
+    gzip_proxied any;
+    gzip_types text/plain text/xml text/css application/x-javascript;
+    gzip_vary on;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
     location /favicon {
         root {{ project_root }}/public/static/favicons/;
         expires 1m;
