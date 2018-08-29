@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 15:57+0200\n"
+"POT-Creation-Date: 2018-08-29 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,15 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
+msgid "…one month"
+msgstr "…un mois"
+
+msgid "…three months"
+msgstr "…trois mois"
+
+msgid "…six months"
+msgstr "…six mois"
+
 msgid "Zip code"
 msgstr "Code postal"
 
@@ -80,6 +89,12 @@ msgstr "Thématiques"
 
 msgid "Scale"
 msgstr "Échelle"
+
+msgid "Deadline in less than…"
+msgstr "Échéance dans moins de…"
+
+msgid "Deadline before…"
+msgstr "Échéance avant le…"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -122,9 +137,6 @@ msgstr "Ingénierie"
 
 msgid "Guidance"
 msgstr "Conseil"
-
-msgid "Accompaniment"
-msgstr "Accompagnement"
 
 msgid "Valorisation"
 msgstr "Valorisation"
@@ -186,12 +198,6 @@ msgstr "Société civile"
 msgid "Association"
 msgstr "Association"
 
-msgid "Investment"
-msgstr "Investissement"
-
-msgid "Operation"
-msgstr "Fonctionnement"
-
 msgid "Survey"
 msgstr "Étude"
 
@@ -239,12 +245,6 @@ msgstr "Apporteur"
 
 msgid "Description"
 msgstr "Description"
-
-msgid "Diffusion perimeter"
-msgstr "Périmètre de diffusion"
-
-msgid "Diffusion perimeter detail"
-msgstr "Périmètre de diffusion (détail)"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
@@ -402,9 +402,6 @@ msgstr "Détails à propos de l'aide"
 msgid "Beneficiaries"
 msgstr "Bénéficiaires"
 
-msgid "Mobilization steps"
-msgstr "Étapes de mobilisation"
-
 msgid "Aid destinations"
 msgstr "Destinations"
 
@@ -422,11 +419,14 @@ msgstr "Filtrer les résultats"
 
 msgid ""
 "\n"
-"            As this is a beta service, some aids are yet to be referenced "
+"            as this is a beta service, some aids are yet to be referenced "
 "here.\n"
-"            Feel free to contact us if you see that something is missing.\n"
+"            feel free to contact us if you see that something is missing.\n"
 "            "
 msgstr ""
+"\n"
+"Ce service étant en version bêta, toutes les aides publiques ne sont pas "
+"encore référencées dans l'outil. Contactez-nous si vous relevez un manque."
 
 #, python-format
 msgid ""
