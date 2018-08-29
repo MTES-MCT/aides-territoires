@@ -311,20 +311,6 @@ def test_form_filter_overseas_zipcode(aids):
     assert qs[2].application_perimeter == 'overseas'
 
 
-def test_form_filter_aid_categories(aids):
-    form = AidSearchForm({'aid_category': 'funding'})
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 4
-    for aid in qs:
-        assert aid.is_funding
-
-    form = AidSearchForm({'aid_category': 'non-funding'})
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 8
-    for aid in qs:
-        assert not aid.is_funding
-
-
 def test_form_filter_mobilization_step(aids):
     form = AidSearchForm({'mobilization_step': 'preop'})
     qs = form.filter_queryset(aids)

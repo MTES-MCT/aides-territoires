@@ -92,10 +92,6 @@ class AidSearchForm(forms.Form):
         label=_('Zip code'),
         required=False,
         max_length=8)
-    aid_category = forms.ChoiceField(
-        label=_('Funding / non-funding'),
-        required=False,
-        choices=AID_CATEGORY_CHOICES)
     mobilization_step = forms.ChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
@@ -160,13 +156,6 @@ class AidSearchForm(forms.Form):
             qs = qs.exclude(
                 Q(application_perimeter=Aid.PERIMETERS.region) &
                 ~Q(application_region=region_code))
-
-        aid_category = self.cleaned_data.get('aid_category', None)
-        if aid_category:
-            if aid_category == 'funding':
-                qs = qs.filter(is_funding=True)
-            else:
-                qs = qs.filter(is_funding=False)
 
         mobilization_step = self.cleaned_data.get('mobilization_step', None)
         if mobilization_step:
