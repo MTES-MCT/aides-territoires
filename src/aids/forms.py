@@ -123,7 +123,8 @@ class AidSearchForm(forms.Form):
     apply_before = forms.DateField(
         label=_('Apply before…'),
         required=False,
-        widget=forms.TextInput(attrs={'type': 'date'}))
+        widget=forms.TextInput(
+            attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
