@@ -82,7 +82,7 @@ msgid "Guidance"
 msgstr "Conseil"
 
 msgid "Networking"
-msgstr ""
+msgstr "Mise en réseau"
 
 msgid "Valorisation"
 msgstr "Valorisation"
