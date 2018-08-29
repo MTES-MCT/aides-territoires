@@ -59,7 +59,7 @@ def aid_form_data(user, backer):
         'mobilization_steps': ['preop'],
         'targeted_audiances': ['department'],
         'aid_types': ['grant', 'loan'],
-        'destinations': ['operation'],
+        'destinations': ['supply'],
         'thematics': ['local_development'],
         'publication_status': 'open',
         'status': 'published',
