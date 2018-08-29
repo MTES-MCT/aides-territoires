@@ -75,8 +75,6 @@ class Aid(models.Model):
     )
 
     DESTINATIONS = Choices(
-        ('investment', _('Investment')),
-        ('operation', _('Operation')),
         ('survey', _('Survey')),
         ('supply', _('Supply')),
         ('service', _('Service (AMO)')),
