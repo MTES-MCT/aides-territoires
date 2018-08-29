@@ -73,6 +73,13 @@ class AidSearchForm(forms.Form):
         ('', ''),
     ) + Aid.STEPS
 
+    DEADLINES = (
+        ('', ''),
+        ('1month', _('…one month')),
+        ('3month', _('…three months')),
+        ('6month', _('…six months')),
+    )
+
     zipcode = forms.CharField(
         label=_('Zip code'),
         required=False,
@@ -105,6 +112,14 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.PERIMETERS,
         widget=MultipleChoiceFilterWidget)
+    deadline = forms.ChoiceField(
+        label=_('Deadline in less than…'),
+        required=False,
+        choices=DEADLINES)
+    deadline_before = forms.DateField(
+        label=_('Deadline before…'),
+        required=False,
+        widget=forms.TextInput(attrs={'type': 'date'}))
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
