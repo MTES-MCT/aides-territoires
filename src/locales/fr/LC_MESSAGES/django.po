@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-29 14:24+0200\n"
+"POT-Creation-Date: 2018-08-29 17:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,14 +60,32 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "…one month"
-msgstr "…un mois"
+msgid "Funding aids"
+msgstr "Aides financières"
 
-msgid "…three months"
-msgstr "…trois mois"
+msgid "Grant"
+msgstr "Subvention"
 
-msgid "…six months"
-msgstr "…six mois"
+msgid "Loan"
+msgstr "Prêt"
+
+msgid "Recoverable advance"
+msgstr "Avance récupérable"
+
+msgid "Interest subsidy"
+msgstr "Bonification d'intérêt"
+
+msgid "Technical and methodological aids"
+msgstr "Aides méthodologiques & techniques"
+
+msgid "Guidance"
+msgstr "Conseil"
+
+msgid "Networking"
+msgstr ""
+
+msgid "Valorisation"
+msgstr "Valorisation"
 
 msgid "Zip code"
 msgstr "Code postal"
@@ -96,23 +114,11 @@ msgstr "Candidater avant…"
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
-msgid "Grant"
-msgstr "Subvention"
-
 msgid "Convention"
 msgstr "Convention"
 
 msgid "Training"
 msgstr "Formation"
-
-msgid "Interest subsidy"
-msgstr "Bonification d'intérêt"
-
-msgid "Loan"
-msgstr "Prêt"
-
-msgid "Recoverable advance"
-msgstr "Avance récupérable"
 
 msgid "Guarantee"
 msgstr "Garantie"
@@ -131,12 +137,6 @@ msgstr "Fonds de retour"
 
 msgid "Engineering"
 msgstr "Ingénierie"
-
-msgid "Guidance"
-msgstr "Conseil"
-
-msgid "Valorisation"
-msgstr "Valorisation"
 
 msgid "Communication"
 msgstr "Communication"

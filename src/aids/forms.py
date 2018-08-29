@@ -73,6 +73,21 @@ class AidSearchForm(forms.Form):
         ('', ''),
     ) + Aid.STEPS
 
+    # Subset of aid types
+    TYPES = (
+        (_('Funding aids'), (
+            ('grant', _('Grant')),
+            ('loan', _('Loan')),
+            ('recoverable_advance', _('Recoverable advance')),
+            ('interest_subsidy', _('Interest subsidy')),
+        )),
+        (_('Technical and methodological aids'), (
+            ('guidance', _('Guidance')),
+            ('networking', _('Networking')),
+            ('valorisation', _('Valorisation')),
+        )),
+    )
+
     zipcode = forms.CharField(
         label=_('Zip code'),
         required=False,
@@ -88,7 +103,7 @@ class AidSearchForm(forms.Form):
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=Aid.TYPES,
+        choices=TYPES,
         widget=MultipleChoiceFilterWidget)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
