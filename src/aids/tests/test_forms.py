@@ -74,6 +74,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=True,
+        submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         application_perimeter='europe')
@@ -81,6 +82,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=True,
+        submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         application_perimeter='france')
@@ -88,6 +90,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=True,
+        submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         application_perimeter='mainland')
@@ -95,6 +98,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=True,
+        submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         application_perimeter='overseas')
@@ -102,6 +106,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         application_perimeter='region',
@@ -110,6 +115,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         application_perimeter='region',
@@ -118,6 +124,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         application_perimeter='region',
@@ -126,6 +133,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         application_perimeter='region',
@@ -134,6 +142,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
         aid_types=['loan'],
         application_perimeter='department',
@@ -142,6 +151,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=['loan'],
         application_perimeter='department',
@@ -150,6 +160,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=[],
         application_perimeter='department',
@@ -158,6 +169,7 @@ def aids(user, backer):
         author=user,
         backer=backer,
         is_funding=False,
+        submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
         aid_types=['tax_benefit', 'return_fund'],
         application_perimeter='department',
@@ -345,3 +357,25 @@ def test_form_filter_by_types(aids):
     assert qs.count() == 9
     for aid in qs:
         assert 'grant' in aid.aid_types or 'tax_benefit' in aid.aid_types
+
+
+def test_form_filter_by_deadline(aids):
+    form = AidSearchForm({'apply_before': '2018-12-01'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 12
+
+    form = AidSearchForm({'apply_before': '2018-08-01'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 8
+
+    form = AidSearchForm({'apply_before': '2018-04-01'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 4
+
+    form = AidSearchForm({'apply_before': '2018-01-01'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 0
+
+    form = AidSearchForm({'apply_before': '2017-12-31'})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 0

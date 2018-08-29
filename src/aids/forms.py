@@ -73,13 +73,6 @@ class AidSearchForm(forms.Form):
         ('', ''),
     ) + Aid.STEPS
 
-    DEADLINES = (
-        ('', ''),
-        ('1month', _('…one month')),
-        ('3month', _('…three months')),
-        ('6month', _('…six months')),
-    )
-
     zipcode = forms.CharField(
         label=_('Zip code'),
         required=False,
@@ -178,5 +171,9 @@ class AidSearchForm(forms.Form):
         scale = self.cleaned_data.get('scale', None)
         if scale:
             qs = qs.filter(application_perimeter__in=scale)
+
+        apply_before = self.cleaned_data.get('apply_before', None)
+        if apply_before:
+            qs = qs.filter(submission_deadline__lt=apply_before)
 
         return qs
