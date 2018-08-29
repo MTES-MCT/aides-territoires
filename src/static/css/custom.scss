@@ -179,4 +179,11 @@ div.search-engine form {
     p {
         @extend .text-muted;
     }
+
+    a.reset {
+        @extend .btn;
+        @extend .btn-block;
+        @extend .btn-dark;
+        @extend .my-1;
+    }
 }
