@@ -112,12 +112,8 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.PERIMETERS,
         widget=MultipleChoiceFilterWidget)
-    deadline = forms.ChoiceField(
-        label=_('Deadline in less than…'),
-        required=False,
-        choices=DEADLINES)
-    deadline_before = forms.DateField(
-        label=_('Deadline before…'),
+    apply_before = forms.DateField(
+        label=_('Apply before…'),
         required=False,
         widget=forms.TextInput(attrs={'type': 'date'}))
 
