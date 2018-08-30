@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-29 17:50+0200\n"
+"POT-Creation-Date: 2018-08-30 15:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "Funding aids"
+msgid "Financial aids"
 msgstr "Aides financières"
 
 msgid "Grant"
@@ -89,9 +89,6 @@ msgstr "Valorisation"
 
 msgid "Zip code"
 msgstr "Code postal"
-
-msgid "Funding / non-funding"
-msgstr "Financière / non-financière"
 
 msgid "When to mobilize the aid?"
 msgstr "Quand mobiliser l'aide ?"
@@ -333,9 +330,6 @@ msgstr "aides/"
 msgid "Email"
 msgstr "Courriel"
 
-msgid "We will send a validation link to this address."
-msgstr "Nous enverrons un e-mail de confirmation à cette adresse."
-
 msgid "Structure"
 msgstr "Structure"
 
@@ -380,21 +374,17 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
+msgid "Technical / methodological aid"
+msgstr "Aides méthodologiques & techniques"
+
+msgid "Financial aid"
+msgstr "Aide financière"
+
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
 
-#, python-format
-msgid ""
-"\n"
-"            Deadline on the %(deadline)s.\n"
-"        "
-msgstr ""
-"\n"
-"            Date d'échéance le %(deadline)s.\n"
-"        "
-
-msgid "No known deadline."
-msgstr "Date d'échéance non renseignée."
+msgid "Deadline on the %(deadline)s."
+msgstr "Date d'échéance le %(deadline)s."
 
 msgid "Details about the aid"
 msgstr "Détails à propos de l'aide"
@@ -444,19 +434,6 @@ msgstr ""
 
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
-
-msgid ""
-"\n"
-"We will only send updates about our service. By submitting this page, you\n"
-"acknowledge that the information you provide will be transferred to "
-"SendinBlue,\n"
-"our email management platform.\n"
-msgstr ""
-"\n"
-"Nous enverrons uniquement des informations à propos de notre service. En\n"
-"validant votre inscription, vous acceptez que vos coordonnées soient\n"
-"transmises à SendinBlue, notre prestataire de gestion de marketing par "
-"email.\n"
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
