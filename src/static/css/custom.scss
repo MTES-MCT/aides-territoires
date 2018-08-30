@@ -132,7 +132,9 @@ section#search {
     div.search-results {
         div.aid {
             @extend .mt-4;
-            @extend .mb-4;
+            @extend .mb-5;
+            @extend .pb-3;
+            border-bottom: 1px solid $gray-800;
 
             h1 {
                 @extend .h2;
