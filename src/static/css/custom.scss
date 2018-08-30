@@ -62,6 +62,8 @@ section#landing-value {
 
                 p {
                     @extend .card-text;
+                    font-size: $font-size-base * 1.2;
+                    font-weight: 200;
                 }
             }
         }
