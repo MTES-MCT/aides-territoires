@@ -132,11 +132,23 @@ section#search {
             @extend .mt-4;
             @extend .mb-4;
 
-            h2 {
-                @extend .h4;
+            h1 {
+                @extend .h2;
 
                 small {
                     @extend .text-muted;
+                }
+            }
+
+            span.deadline {
+                font-size: 1.2rem;
+                @extend .badge;
+                @extend .badge-primary;
+                @include fa-icon;
+                @extend .fas;
+
+                &:before {
+                    content: fa-content($fa-var-clock);
                 }
             }
 

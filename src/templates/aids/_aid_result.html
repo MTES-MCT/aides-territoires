@@ -1,10 +1,10 @@
 {% load i18n aids %}
 
 <div class="aid">
-    <h2>
+    <h1>
         {{ aid.name }}
         <br /><small>{{ aid.backer }}</small>
-    </h2>
+    </h1>
 
     <p>
         {% if aid.description %}
@@ -14,15 +14,13 @@
         {% endif %}
     </p>
 
-    <p class="deadline">
     {% if aid.submission_deadline %}
-        {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}
-            Deadline on the {{ deadline }}.
-        {% endblocktrans %}
-    {% else %}
-        {{ _('No known deadline.') }}
-    {% endif %}
+    <p>
+    <span class="deadline" title="{% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}Deadline on the {{ deadline }}.{% endblocktrans %}">
+        {{ aid.submission_deadline|date:'SHORT_DATE_FORMAT' }}
+    </span>
     </p>
+    {% endif %}
 
     <table>
         <caption>{{ _('Details about the aid') }}</caption>
