@@ -40,6 +40,11 @@ class Aid(models.Model):
         ('other', _('Other')),
     )
 
+    FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
+                      'interest_subsidy')
+
+    TECHNICAL_AIDS = ('guidance', 'networking', 'valorisation')
+
     PERIMETERS = Choices(
         ('europe', _('Europe')),
         ('france', _('France')),
@@ -231,3 +236,9 @@ class Aid(models.Model):
 
     def __str__(self):
         return self.name
+
+    def is_financial(self):
+        return bool(set(self.aid_types) & set(self.FINANCIAL_AIDS))
+
+    def is_technical(self):
+        return bool(set(self.aid_types) & set(self.TECHNICAL_AIDS))

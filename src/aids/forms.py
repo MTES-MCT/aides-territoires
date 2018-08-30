@@ -75,7 +75,7 @@ class AidSearchForm(forms.Form):
 
     # Subset of aid types
     TYPES = (
-        (_('Funding aids'), (
+        (_('Financial aids'), (
             ('grant', _('Grant')),
             ('loan', _('Loan')),
             ('recoverable_advance', _('Recoverable advance')),

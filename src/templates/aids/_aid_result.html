@@ -2,6 +2,21 @@
 
 <div class="aid">
     <h1>
+        {% spaceless %}
+        <div class="status-icons">
+            {% if aid.is_technical %}
+                <span class="icon">
+                    <i class="fas fa-cog" title="{{ _('Technical / methodological aid') }}"></i>
+                </span>
+            {% endif %}
+            {% if aid.is_financial %}
+                <span class="icon">
+                    <i class="fas fa-euro-sign" title="{{ _('Financial aid') }}"></i>
+                </span>
+            {% endif %}
+        </div>
+        {% endspaceless %}
+
         {{ aid.name }}
         <br /><small>{{ aid.backer }}</small>
     </h1>

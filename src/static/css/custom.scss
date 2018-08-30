@@ -135,6 +135,22 @@ section#search {
             h1 {
                 @extend .h2;
 
+                div.status-icons {
+                    @extend .pl-4;
+                    @extend .float-right;
+
+                    span.icon {
+                        @extend .pl-1;
+
+                        &:not(:first-of-type) {
+                        }
+
+                        i.fas {
+                            color: $primary;
+                        }
+                    }
+                }
+
                 small {
                     @extend .text-muted;
                 }
