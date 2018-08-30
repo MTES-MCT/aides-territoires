@@ -6,12 +6,5 @@
 
     {% include '_form_snippet.html' with form=form %}
 
-    <p>
-{% blocktrans %}
-We will only send updates about our service. By submitting this page, you
-acknowledge that the information you provide will be transferred to SendinBlue,
-our email management platform.
-{% endblocktrans %}
-    </p>
     <button type="submit">{{ _('Register to the mailing-list') }}</button>
 </form>

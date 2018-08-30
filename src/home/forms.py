@@ -8,7 +8,6 @@ class MailingListForm(forms.Form):
     email = forms.EmailField(
         required=True,
         label=_('Email'),
-        help_text=_('We will send a validation link to this address.'),
     )
     organization = forms.CharField(
         required=True,

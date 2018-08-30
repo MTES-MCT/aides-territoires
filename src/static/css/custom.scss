@@ -92,9 +92,8 @@ section#contact {
         max-width: 40rem;
 
         h1 {
-            @extend .h3;
+            @extend .h2;
             text-align: center;
-            font-style: italic;
         }
 
         form#mailing-list-form {
