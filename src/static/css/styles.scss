@@ -104,7 +104,7 @@ form {
 
     button[type=submit] {
         @extend .btn;
-        @extend .btn-danger;
+        @extend .btn-success;
         @extend .btn-block;
     }
 
