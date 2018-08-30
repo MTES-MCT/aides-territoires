@@ -4,6 +4,8 @@
  * For custom styling, go to the custom.scss file.
  *
  */
+
+@import 'theme';
 @import 'bootstrap/scss/bootstrap';
 
 body {
@@ -102,7 +104,7 @@ form {
 
     button[type=submit] {
         @extend .btn;
-        @extend .btn-primary;
+        @extend .btn-danger;
         @extend .btn-block;
     }
 
@@ -145,7 +147,7 @@ form {
 p {
     &.info {
         @extend .alert;
-        @extend .alert-primary;
+        @extend .alert-success;
     }
 
     &.warning {

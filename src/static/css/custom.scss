@@ -5,16 +5,31 @@
  * the styles.scss file.
  *
  */
+
+@import 'theme';
 @import 'bootstrap/scss/bootstrap';
 
 section#landing-value {
     @extend .jumbotron;
     @extend .text-center;
+    @extend .bg-dark;
+    border-radius: 0;
+
+    background: url('/static/img/lead-header2.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    h1 {
+        @extend .text-white;
+    }
+
 
     p.tagline {
         @extend .lead;
         @extend .mb-5;
-        color: $gray-700;
+        @extend .text-white;
     }
 
     div#steps {
@@ -22,14 +37,23 @@ section#landing-value {
 
         div.step {
             @extend .card;
+            @extend .shadow-sm;
+            border-radius: 0;
+            border: 0;
+
+            h2 {
+                @extend .h3;
+                @extend .card-header;
+                @extend .text-white;
+                @extend .bg-primary;
+
+                &:first-child {
+                    border-radius: 0;
+                }
+            }
 
             div.step-content {
                 @extend .card-body;
-
-                h2 {
-                    @extend .h3;
-                    @extend .card-title;
-                }
 
                 p {
                     @extend .card-text;
@@ -53,7 +77,6 @@ section#cta {
 
             button {
                 @extend .btn;
-                @extend .btn-primary;
             }
         }
     }
@@ -61,31 +84,25 @@ section#cta {
 
 section#contact {
     @extend .py-5;
-    background-color: $jumbotron-bg;
+    @extend .bg-light;
 
     div.contact-form {
-        @extend .card;
-        @extend .bg-dark;
-        @extend .text-white;
         @extend .mx-auto;
+        @extend .pb-4;
         max-width: 40rem;
 
         h1 {
             @extend .h3;
-            @extend .card-header;
             text-align: center;
             font-style: italic;
         }
 
         form#mailing-list-form {
-            @extend .card-body;
 
             span.field-help {
-                color: $gray-500 !important;;
             }
 
             p {
-                color: $gray-500 !important;;
             }
 
             button[type=submit] {
