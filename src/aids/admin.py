@@ -28,6 +28,7 @@ class AidAdmin(admin.ModelAdmin):
                 'is_funding',
                 'aid_types',
                 'aid_types_detail',
+                'recurrence',
                 'mobilization_steps',
                 'destinations',
                 'destinations_detail',

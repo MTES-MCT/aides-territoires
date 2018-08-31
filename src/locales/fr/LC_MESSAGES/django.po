@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 15:54+0200\n"
+"POT-Creation-Date: 2018-08-31 14:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,6 +231,15 @@ msgstr "Fermé·e"
 msgid "Unknown"
 msgstr "Inconnu·e"
 
+msgid "One off"
+msgstr "Ponctuelle"
+
+msgid "Ongoing"
+msgstr "Permanente"
+
+msgid "Recurring"
+msgstr "Récurrente"
+
 msgid "Name"
 msgstr "Nom"
 
@@ -312,6 +321,9 @@ msgstr "Mots-clés"
 msgid "Open to third party?"
 msgstr "Ouvert aux tiers ?"
 
+msgid "Recurrence"
+msgstr "Répétition"
+
 msgid "Date created"
 msgstr "Date de création"
 
@@ -383,6 +395,7 @@ msgstr "Aide financière"
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
 
+#, python-format
 msgid "Deadline on the %(deadline)s."
 msgstr "Date d'échéance le %(deadline)s."
 

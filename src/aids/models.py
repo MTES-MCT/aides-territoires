@@ -109,6 +109,12 @@ class Aid(models.Model):
         ('unknown', _('Unknown')),
     )
 
+    RECURRENCE = Choices(
+        ('oneoff', _('One off')),
+        ('ongoing', _('Ongoing')),
+        ('recurring', _('Recurring')),
+    )
+
     objects = AidQuerySet.as_manager()
 
     name = models.CharField(
@@ -228,6 +234,11 @@ class Aid(models.Model):
     open_to_third_party = models.BooleanField(
         _('Open to third party?'),
         default=True)
+    recurrence = models.CharField(
+        _('Recurrence'),
+        max_length=16,
+        choices=RECURRENCE,
+        blank=True)
 
     status = models.CharField(
         _('Status'),
