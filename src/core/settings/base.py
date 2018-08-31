@@ -145,7 +145,7 @@ TEMPLATES = [
     },
 ]
 
-MAILING_LIST_LIST_ID = 2
-MAILING_LIST_FORM_ACTION = 'https://my.sendinblue.com/users/subscribeembed/js_id/3n5yg/id/1'
+MAILING_LIST_LIST_ID = None
+MAILING_LIST_FORM_ACTION = None
 
 APPROACHING_DEADLINE_DELTA = 30  # days
