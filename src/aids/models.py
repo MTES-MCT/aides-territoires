@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
+from django.conf import settings
 
 from model_utils import Choices
 
@@ -257,7 +258,16 @@ class Aid(models.Model):
         return self.name
 
     def is_financial(self):
+        """Does this aid have financial parts?"""
         return bool(set(self.aid_types) & set(self.FINANCIAL_AIDS))
 
     def is_technical(self):
+        """Does this aid have technical parts?"""
         return bool(set(self.aid_types) & set(self.TECHNICAL_AIDS))
+
+    def has_appreaching_deadline(self):
+        if not self.submission_deadline:
+            return False
+
+        delta = self.submission_deadline - timezone.now().date()
+        return delta.days <= settings.APPROACHING_DEADLINE_DELTA

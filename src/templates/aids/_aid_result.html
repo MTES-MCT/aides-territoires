@@ -17,7 +17,13 @@
         </div>
         {% endspaceless %}
 
+        {% if aid.has_appreaching_deadline %}
+        <span class="icon">
+            <i class="fas fa-exclamation-circle" title="{{ _('Warning! The submission deadline is imminent.') }}"></i>
+        </span>
+        {% endif %}
         {{ aid.name }}
+
         <br /><small>{{ aid.backer }}</small>
     </h1>
 
