@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@etalab/api-communes": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.2.0",
     "bootstrap": "^4.1.3"
   },
