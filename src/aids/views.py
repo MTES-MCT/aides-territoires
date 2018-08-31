@@ -29,6 +29,7 @@ class SearchView(FormMixin, ListView):
 
         qs = Aid.objects \
             .published() \
+            .open() \
             .select_related('backer') \
             .order_by('-id')
 

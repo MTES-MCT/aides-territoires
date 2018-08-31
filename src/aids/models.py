@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
@@ -16,6 +17,13 @@ class AidQuerySet(models.QuerySet):
         """Only returns published objects."""
 
         return self.filter(status='published')
+
+    def open(self):
+        """Returns aids that may appear in the search results (unexpired)."""
+
+        today = timezone.now().date()
+        return self.filter(Q(submission_deadline__gte=today) |
+                           Q(submission_deadline__isnull=True))
 
 
 class Aid(models.Model):
