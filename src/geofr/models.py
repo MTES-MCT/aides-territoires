@@ -28,11 +28,6 @@ class Perimeter(models.Model):
         _('Name'),
         max_length=128)
 
-    country = models.CharField(
-        _('Country'),
-        max_length=8,
-        blank=True,
-        default='99100')  # France
     region = models.CharField(
         _('Region'),
         max_length=2,
@@ -57,3 +52,6 @@ class Perimeter(models.Model):
     class Meta:
         verbose_name = _('Perimeter')
         verbose_name_plural = _('Perimeters')
+        unique_together = (
+            ('scale', 'code'),
+        )
