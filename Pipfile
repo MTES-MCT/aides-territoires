@@ -12,6 +12,7 @@ django-model-utils = "*"
 django-environ = "*"
 gunicorn = "*"
 raven = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"

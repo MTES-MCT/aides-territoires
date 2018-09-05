@@ -10,7 +10,7 @@ class AidAdmin(admin.ModelAdmin):
 
     form = AidAdminForm
     list_display = ['name', 'author', 'backer']
-    autocomplete_fields = ['author', 'backer']
+    autocomplete_fields = ['author', 'backer', 'perimeter']
     search_fields = ['name']
     fieldsets = [
         (None, {
@@ -42,6 +42,7 @@ class AidAdmin(admin.ModelAdmin):
         (_('Eligibility'), {
             'fields': (
                 'eligibility',
+                'perimeter',
                 'application_perimeter',
                 'application_region',
                 'application_department',

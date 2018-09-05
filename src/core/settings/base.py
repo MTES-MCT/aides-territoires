@@ -34,6 +34,7 @@ LOCAL_APPS = [
     'core',
     'accounts',
     'home',
+    'geofr',
     'backers',
     'aids',
 ]
