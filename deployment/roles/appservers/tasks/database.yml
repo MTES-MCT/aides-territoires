@@ -12,3 +12,7 @@
   postgresql_db:
     name: aides
     owner: aides
+
+- postgresql_ext:
+    name: btree_gin
+    db: aides
