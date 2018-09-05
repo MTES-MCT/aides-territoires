@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
 
 from model_utils import Choices
 
@@ -68,6 +69,9 @@ class Perimeter(models.Model):
         unique_together = (
             ('scale', 'code'),
         )
+        indexes = [
+            GinIndex(fields=['name']),
+        ]
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.get_scale_display())
