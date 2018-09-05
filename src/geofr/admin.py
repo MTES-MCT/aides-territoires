@@ -8,7 +8,7 @@ class PerimeterAdmin(admin.ModelAdmin):
 
     list_display = ('scale', 'name', 'code', 'region', 'department', 'epci',
                     'zipcodes')
-    search_fields = ['name__search']
+    search_fields = ['name']
     list_filter = ('scale',)
     ordering = ('-scale', 'name')
 
