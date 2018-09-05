@@ -13,6 +13,9 @@
     name: aides
     owner: aides
 
-- postgresql_ext:
+- name: Install required Postgres extensions
+  become: yes
+  become_user: postgres
+  postgresql_ext:
     name: btree_gin
     db: aides
