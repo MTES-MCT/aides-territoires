@@ -68,3 +68,6 @@ class Perimeter(models.Model):
         unique_together = (
             ('scale', 'code'),
         )
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.get_scale_display())
