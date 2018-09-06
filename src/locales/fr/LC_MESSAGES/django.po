@@ -295,13 +295,13 @@ msgid "Destinations detail"
 msgstr "Destinations (détail)"
 
 msgid "Start date"
-msgstr "Date de début"
+msgstr "Date d'ouverture"
 
 msgid "Predeposit date"
 msgstr "Date de pré-dépôt"
 
 msgid "Submission deadline"
-msgstr "Date d'échéance"
+msgstr "Date de clôture"
 
 msgid "Subvention rate"
 msgstr "Taux de subvention"
