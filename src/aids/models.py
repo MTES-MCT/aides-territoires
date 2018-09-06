@@ -161,21 +161,11 @@ class Aid(models.Model):
     url = models.URLField(
         _('URL'),
         blank=True)
-    minimal_population = models.PositiveIntegerField(
-        _('Minimal population'),
-        null=True, blank=True)
-    maximal_population = models.PositiveIntegerField(
-        _('Maximal population'),
-        null=True, blank=True)
     targeted_audiances = ChoiceArrayField(
         verbose_name=_('Targeted audiances'),
         base_field=models.CharField(
             max_length=32,
             choices=AUDIANCES))
-    targeted_audiances_detail = models.CharField(
-        _('Targeted audiances detail'),
-        max_length=256,
-        blank=True)
     is_funding = models.BooleanField(
         _('Is this a funding aid?'),
         default=True)
@@ -184,19 +174,11 @@ class Aid(models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=TYPES))
-    aid_types_detail = models.CharField(
-        _('Aid types detail'),
-        max_length=256,
-        blank=True)
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         base_field=models.CharField(
             max_length=32,
             choices=DESTINATIONS))
-    destinations_detail = models.CharField(
-        _('Destinations detail'),
-        max_length=256,
-        blank=True)
     thematics = ChoiceArrayField(
         verbose_name=_('Thematics'),
         base_field=models.CharField(

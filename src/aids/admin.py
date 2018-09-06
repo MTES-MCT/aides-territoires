@@ -27,11 +27,8 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'is_funding',
                 'aid_types',
-                'aid_types_detail',
-                'recurrence',
                 'mobilization_steps',
                 'destinations',
-                'destinations_detail',
                 'thematics',
                 'subvention_rate',
                 'keywords',
@@ -47,9 +44,6 @@ class AidAdmin(admin.ModelAdmin):
                 'application_region',
                 'application_department',
                 'targeted_audiances',
-                'targeted_audiances_detail',
-                'minimal_population',
-                'maximal_population',
                 'open_to_third_party',
             )
         }),
