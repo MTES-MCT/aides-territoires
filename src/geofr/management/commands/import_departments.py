@@ -2,6 +2,7 @@ import requests
 from django.core.management.base import BaseCommand, CommandError
 
 from geofr.models import Perimeter
+from geofr.constants import OVERSEAS_REGIONS
 
 
 API_URL = 'https://geo.api.gouv.fr/departements/'
@@ -24,10 +25,10 @@ class Command(BaseCommand):
                 scale=Perimeter.TYPES.department,
                 code=entry['code'],
                 name=entry['nom'],
-                region=entry['codeRegion'])
+                region=entry['codeRegion'],
+                is_overseas=(entry['codeRegion'] in OVERSEAS_REGIONS))
             departments.append(department)
 
         results = Perimeter.objects.bulk_create(departments)
         self.stdout.write(self.style.SUCCESS(
             '%d departments imported.' % len(results)))
-
