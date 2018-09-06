@@ -61,6 +61,9 @@ class Perimeter(models.Model):
         verbose_name=_('Zip codes'),
         base_field=models.CharField(max_length=8),
         null=True, blank=True)
+    is_overseas = models.BooleanField(
+        verbose_name=_('Is overseas?'),
+        null=True)
 
     class Meta:
         verbose_name = _('Perimeter')
