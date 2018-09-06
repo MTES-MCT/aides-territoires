@@ -155,6 +155,10 @@ section#search {
                     }
                 }
 
+                i.fa-clock {
+                    color: $danger;
+                }
+
                 small {
                     @extend .text-muted;
                 }
