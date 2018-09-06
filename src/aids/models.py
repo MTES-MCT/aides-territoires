@@ -132,6 +132,7 @@ class Aid(models.Model):
         verbose_name=_('Backer'))
     description = models.TextField(
         _('Description'),
+        max_length=500,
         blank=False)
     eligibility = models.TextField(
         _('Eligibility'),
