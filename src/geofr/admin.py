@@ -12,5 +12,14 @@ class PerimeterAdmin(admin.ModelAdmin):
     list_filter = ('scale', 'is_overseas')
     ordering = ('-scale', 'name')
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request):
+        return False
+
 
 admin.site.register(Perimeter, PerimeterAdmin)
