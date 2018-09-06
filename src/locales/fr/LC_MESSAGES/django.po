@@ -325,7 +325,7 @@ msgid "Open to third party?"
 msgstr "Ouvert aux tiers ?"
 
 msgid "Recurrence"
-msgstr "Répétition"
+msgstr "Récurrence"
 
 msgid "Date created"
 msgstr "Date de création"
