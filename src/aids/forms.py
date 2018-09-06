@@ -21,34 +21,6 @@ class AidAdminForm(forms.ModelForm):
             'thematics': forms.CheckboxSelectMultiple,
         }
 
-    def clean(self):
-        data = super().clean()
-
-        application_perimeter = data.get('application_perimeter')
-        department = data.get('application_department')
-        region = data.get('application_region')
-
-        # Let's make sure that all the required data is set
-        if application_perimeter == Aid.PERIMETERS.department:
-            if not department:
-                msg = _('You must provided the application department.')
-                self.add_error('application_department', msg)
-        else:
-            if department:
-                msg = _('This value must be blank.')
-                self.add_error('application_department', msg)
-
-        if application_perimeter == Aid.PERIMETERS.region:
-            if not region:
-                msg = _('You must provided the application region.')
-                self.add_error('application_region', msg)
-        else:
-            if region:
-                msg = _('This value must be blank.')
-                self.add_error('application_region', msg)
-
-        return data
-
 
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
     """A basic multi checkbox widget with a custom template.

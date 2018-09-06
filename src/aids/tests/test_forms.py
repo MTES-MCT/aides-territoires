@@ -168,54 +168,6 @@ def test_form_default(aid_form_class, aid_form_data):
     assert form.is_valid()
 
 
-def test_form_application_department(aid_form_class, aid_form_data):
-    """Test that the department is a mandatory field."""
-
-    # Department perimeter selected, but no department selected
-    aid_form_data['application_perimeter'] = 'department'
-    form = aid_form_class(aid_form_data)
-    assert not form.is_valid()
-    assert 'application_department' in form.errors
-
-    aid_form_data['application_department'] = '34'
-    form = aid_form_class(aid_form_data)
-    assert form.is_valid()
-
-    # Department selected but perimeter is not set to department
-    aid_form_data['application_perimeter'] = 'france'
-    form = aid_form_class(aid_form_data)
-    assert not form.is_valid()
-    assert 'application_department' in form.errors
-
-    aid_form_data['application_department'] = ''
-    form = aid_form_class(aid_form_data)
-    assert form.is_valid()
-
-
-def test_form_application_region(aid_form_class, aid_form_data):
-    """Test that the region is a mandatory field."""
-
-    # Region perimeter selected, but no region selected
-    aid_form_data['application_perimeter'] = 'region'
-    form = aid_form_class(aid_form_data)
-    assert not form.is_valid()
-    assert 'application_region' in form.errors
-
-    aid_form_data['application_region'] = '76'
-    form = aid_form_class(aid_form_data)
-    assert form.is_valid()
-
-    # Region selected, but perimeter is not set to region
-    aid_form_data['application_perimeter'] = 'france'
-    form = aid_form_class(aid_form_data)
-    assert not form.is_valid()
-    assert 'application_region' in form.errors
-
-    aid_form_data['application_region'] = ''
-    form = aid_form_class(aid_form_data)
-    assert form.is_valid()
-
-
 def test_form_filter_with_no_zipcode(aids):
     form = AidSearchForm({'zipcode': ''})
     qs = form.filter_queryset(aids)

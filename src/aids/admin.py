@@ -35,9 +35,6 @@ class AidAdmin(admin.ModelAdmin):
         (_('Perimeter'), {
             'fields': (
                 'perimeter',
-                'application_perimeter',
-                'application_region',
-                'application_department',
             )
         }),
 
