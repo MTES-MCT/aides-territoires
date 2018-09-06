@@ -7,27 +7,9 @@ from aids.models import Aid
 from aids.admin import AidAdmin
 from aids.forms import AidSearchForm
 from aids.factories import AidFactory
-from accounts.factories import UserFactory
-from backers.factories import BackerFactory
 
 
 pytestmark = pytest.mark.django_db
-
-
-@pytest.fixture
-def user():
-    """Generates a valid and active user."""
-
-    user = UserFactory()
-    return user
-
-
-@pytest.fixture
-def backer():
-    """Generates a valid Backer."""
-
-    backer = BackerFactory()
-    return backer
 
 
 @pytest.fixture

@@ -17,61 +17,50 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'description',
-                'author',
                 'backer',
+                'author',
                 'status',
+            )
+        }),
+
+        (_('Calendar'), {
+            'fields': (
+                'recurrence',
+                'start_date',
+                'predeposit_date',
+                'submission_deadline',
+            )
+        }),
+
+        (_('Perimeter'), {
+            'fields': (
+                'perimeter',
+                'application_perimeter',
+                'application_region',
+                'application_department',
             )
         }),
 
         (_('Aid description'), {
             'fields': (
-                'is_funding',
                 'aid_types',
-                'aid_types_detail',
-                'recurrence',
                 'mobilization_steps',
                 'destinations',
-                'destinations_detail',
                 'thematics',
-                'subvention_rate',
                 'keywords',
-
-            )
-        }),
-
-        (_('Eligibility'), {
-            'fields': (
-                'eligibility',
-                'perimeter',
-                'application_perimeter',
-                'application_region',
-                'application_department',
                 'targeted_audiances',
-                'targeted_audiances_detail',
-                'minimal_population',
-                'maximal_population',
-                'open_to_third_party',
+                'eligibility',
             )
         }),
 
-        (_('Contact'), {
+        (_('Misc.'), {
             'fields': (
                 'url',
+                'contact_detail',
                 'contact_email',
                 'contact_phone',
-                'contact_detail'
             )
         }),
-
-
-        (_('Calendar'), {
-            'fields': (
-                'publication_status',
-                'start_date',
-                'predeposit_date',
-                'submission_deadline',
-            )
-        })
     ]
 
 
