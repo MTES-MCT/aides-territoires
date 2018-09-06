@@ -14,4 +14,8 @@ urlpatterns = [
         _('mailing-list-registration/'),
         TemplateView.as_view(template_name='home/ml_registration.html'),
         name='mailing_list_registration'),
+    path(
+        _('mailing-list-confirmation/'),
+        TemplateView.as_view(template_name='home/ml_confirmation.html'),
+        name='mailing_list_confirmation'),
 ]
