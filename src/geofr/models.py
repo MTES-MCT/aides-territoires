@@ -18,12 +18,11 @@ class Perimeter(models.Model):
 
     TYPES = Choices(
         (1, 'commune', _('Commune')),
-        (2, 'epci', _('EPCI')),
-        (3, 'department', _('Department')),
-        (4, 'region', _('Region')),
-        (5, 'cluster', _('Cluster')),  # Group of regions
-        (6, 'country', _('Country')),
-        (7, 'continent', _('Continent')),
+        (5, 'epci', _('EPCI')),
+        (10, 'department', _('Department')),
+        (15, 'region', _('Region')),
+        (20, 'country', _('Country')),
+        (25, 'continent', _('Continent')),
     )
 
     scale = models.PositiveIntegerField(
