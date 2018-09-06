@@ -6,9 +6,9 @@ DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aidesterritoires',
-        'USER': 'aidesterritoires',
-        'PASSWORD': 'aidesterritoires',
+        'NAME': 'aides',
+        'USER': 'aides',
+        'PASSWORD': 'aides',
         'HOST': 'localhost',
         'PORT': '',
     }
