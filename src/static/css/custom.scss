@@ -75,16 +75,23 @@ section#cta {
     @extend .my-5;
     @extend .py-4;
 
-    div.search-control {
-        @extend .input-group;
-        @extend .input-group-lg;
+    form.search-form {
 
-        div.search-control-btn {
-            @extend .input-group-append;
+        display: flex;
 
-            button {
-                @extend .btn;
+        div.search-control {
+            flex-grow: 1;
+            margin-bottom: 0;
+
+            .select2-selection {
+                @include border-right-radius(0);
+                border-right: 0;
             }
+        }
+
+        button {
+            @extend .btn-lg;
+            @include border-left-radius(0);
         }
     }
 }
@@ -113,6 +120,7 @@ section#contact {
 
             button[type=submit] {
                 @extend .btn-lg;
+                @extend .btn-block;
             }
         }
     }

@@ -34,15 +34,15 @@
 </section>
 
 <section id="cta">
-    <form method="get" action="{% url 'search_view' %}">
-        <div class="search-control">
-            <input type="text" name="zipcode" class="form-control" placeholder="{{ _('Your zipcode') }}" aria-label="{{ _('Your zipcode') }}" aria-describedby="search-btn">
-            <div class="search-control-btn">
-                <button type="submit" id="search-btn">
-                    {{ _('Start searching for aids') }}
-                </button>
-            </div>
+    <form class="search-form" method="get" action="{% url 'search_view' %}">
+        <div class="search-control form-group form-group-lg">
+            <select name="zipcode" aria-label="{{ _('Your zipcode') }}" aria-describedby="search-btn">
+            </select>
         </div>
+
+        <button type="submit" id="search-btn">
+            {{ _('Start searching for aids') }}
+        </button>
     </form>
 </section>
 
@@ -53,4 +53,27 @@
         {% include 'home/_mailing_list_form.html' %}
     </div>
 </section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/select2/dist/js/select2.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.search-control select').select2({
+            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            ajax: {
+                url: '{% url 'perimeters-list' %}',
+                dataType: 'json',
+                delay: 100,
+            },
+            theme: 'bootstrap4',
+            width: '',
+        });
+    });
+</script>
 {% endblock %}

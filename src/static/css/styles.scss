@@ -105,7 +105,6 @@ form {
     button[type=submit] {
         @extend .btn;
         @extend .btn-success;
-        @extend .btn-block;
     }
 
     input[type=text],
