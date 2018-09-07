@@ -249,6 +249,7 @@ div.search-engine form {
 
     button[type=submit] {
         @extend .btn-lg;
+        @extend .btn-block;
     }
 
     p {

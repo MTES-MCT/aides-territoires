@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from aids.models import Aid
+from geofr.models import Perimeter
 from geofr.utils import (is_overseas, department_from_zipcode,
                          region_from_zipcode)
 
@@ -60,10 +61,9 @@ class AidSearchForm(forms.Form):
         )),
     )
 
-    zipcode = forms.CharField(
-        label=_('Zip code'),
-        required=False,
-        max_length=8)
+    perimeter = forms.ChoiceField(
+        label=_('Perimeter'),
+        required=False)
     mobilization_step = forms.ChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
@@ -93,6 +93,14 @@ class AidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
+
+    def __init__(self, *args, **kwargs):
+        self.perimeter = kwargs.pop('perimeter')
+        super().__init__(*args, **kwargs)
+
+        if self.perimeter:
+            self.fields['perimeter'].choices = ((
+                self.perimeter.id, self.perimeter),)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
