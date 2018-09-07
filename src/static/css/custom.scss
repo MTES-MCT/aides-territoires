@@ -77,21 +77,31 @@ section#cta {
 
     form.search-form {
 
-        display: flex;
-
-        div.search-control {
-            flex-grow: 1;
-            margin-bottom: 0;
-
-            .select2-selection {
-                @include border-right-radius(0);
-                border-right: 0;
-            }
-        }
-
         button {
             @extend .btn-lg;
-            @include border-left-radius(0);
+            width: 100%;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        form.search-form {
+
+            display: flex;
+
+            div.search-control {
+                flex-grow: 1;
+                margin-bottom: 0;
+
+                .select2-selection {
+                    @include border-right-radius(0);
+                    border-right: 0;
+                }
+            }
+
+            button {
+                @include border-left-radius(0);
+                width: inherit;
+            }
         }
     }
 }
