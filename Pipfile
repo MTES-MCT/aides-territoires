@@ -13,6 +13,7 @@ django-environ = "*"
 gunicorn = "*"
 raven = "*"
 requests = "*"
+django-rest-framework = "*"
 
 [dev-packages]
 pytest = "*"

@@ -29,6 +29,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'compressor',
+    'rest_framework',
 ]
 
 LOCAL_APPS = [
@@ -146,6 +147,11 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 15
+}
 
 MAILING_LIST_LIST_ID = None
 MAILING_LIST_FORM_ACTION = None
