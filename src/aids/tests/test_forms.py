@@ -153,7 +153,7 @@ def aids(user, backer):
         is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
-        aid_types=['tax_benefit', 'return_fund'],
+        aid_types=['networking', 'return_fund'],
         application_perimeter='department',
         application_department='34')  # Hérault
 
@@ -166,83 +166,6 @@ def test_form_default(aid_form_class, aid_form_data):
 
     form = aid_form_class(aid_form_data)
     assert form.is_valid()
-
-
-def test_form_filter_with_no_zipcode(aids):
-    form = AidSearchForm({'zipcode': ''})
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 12
-
-
-def test_form_with_invalid_zipcode(aids):
-    form = AidSearchForm({'zipcode': 'blah'})
-    assert not form.is_valid()
-    assert 'zipcode' in form.errors
-
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 12
-
-
-def test_form_filter_mainland_zipcode(aids):
-    form = AidSearchForm({'zipcode': '34110'})  # Vic la Gardiole
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 5
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'mainland'
-    assert qs[3].application_perimeter == 'region'
-    assert qs[3].application_region == '76'
-    assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_department == '34'
-
-    form = AidSearchForm({'zipcode': '27370'})  # St Cyr la Campagne
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 5
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'mainland'
-    assert qs[3].application_perimeter == 'region'
-    assert qs[3].application_region == '28'
-    assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_department == '27'
-
-    form = AidSearchForm({'zipcode': '46800'})
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 4
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'mainland'
-    assert qs[3].application_perimeter == 'region'
-    assert qs[3].application_region == '76'
-
-
-def test_form_filter_overseas_zipcode(aids):
-    form = AidSearchForm({'zipcode': '97200'})  # Fort de France
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 5
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'overseas'
-    assert qs[3].application_perimeter == 'region'
-    assert qs[3].application_region == '02'
-    assert qs[4].application_perimeter == 'department'
-    assert qs[4].application_department == '972'
-
-    form = AidSearchForm({'zipcode': '97300'})  # Cayenne
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 4
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'overseas'
-    assert qs[3].application_perimeter == 'department'
-    assert qs[3].application_department == '973'
-
-    form = AidSearchForm({'zipcode': '97400'})  # St-Denis
-    qs = form.filter_queryset(aids)
-    assert qs.count() == 3
-    assert qs[0].application_perimeter == 'europe'
-    assert qs[1].application_perimeter == 'france'
-    assert qs[2].application_perimeter == 'overseas'
 
 
 def test_form_filter_mobilization_step(aids):
@@ -272,11 +195,13 @@ def test_form_filter_by_types(aids):
     for aid in qs:
         assert 'grant' in aid.aid_types
 
-    form = AidSearchForm({'aid_types': ['grant', 'tax_benefit']})
+    form = AidSearchForm({'aid_types': ['grant', 'networking']})
     qs = form.filter_queryset(aids)
+    for aid in qs:
+        print(aid.aid_types)
     assert qs.count() == 9
     for aid in qs:
-        assert 'grant' in aid.aid_types or 'tax_benefit' in aid.aid_types
+        assert 'grant' in aid.aid_types or 'networking' in aid.aid_types
 
 
 def test_form_filter_by_deadline(aids):
