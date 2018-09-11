@@ -120,22 +120,8 @@ class AidSearchForm(forms.Form):
         if self.errors:
             pass
 
-        zipcode = self.cleaned_data.get('zipcode', None)
-        if zipcode:
-            if is_overseas(zipcode):
-                qs = qs.exclude(application_perimeter=Aid.PERIMETERS.mainland)
-            else:
-                qs = qs.exclude(application_perimeter=Aid.PERIMETERS.overseas)
-
-            department_code = department_from_zipcode(zipcode)
-            qs = qs.exclude(
-                Q(application_perimeter=Aid.PERIMETERS.department) &
-                ~Q(application_department=department_code))
-
-            region_code = region_from_zipcode(zipcode)
-            qs = qs.exclude(
-                Q(application_perimeter=Aid.PERIMETERS.region) &
-                ~Q(application_region=region_code))
+        if self.perimeter:
+            qs = self.perimeter_filter(qs)
 
         mobilization_step = self.cleaned_data.get('mobilization_step', None)
         if mobilization_step:
@@ -160,5 +146,71 @@ class AidSearchForm(forms.Form):
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
             qs = qs.filter(submission_deadline__lt=apply_before)
+
+        return qs
+
+    def perimeter_filter(self, qs):
+        """Filter queryset depending on the given perimeter.
+
+        When we search for a given perimeter, we must return all aids:
+         - where the perimeter is wider and contains the searched perimeter ;
+         - where the perimeter is smaller and contained by the search
+         perimeter ;
+
+        E.g if we search for aids in "Hérault (department), we must display all
+        aids that are applicable to:
+
+         - Hérault ;
+         - Occitanie ;
+         - France ;
+         - Europe ;
+         - M3M (and all other epcis in Hérault) ;
+         - Montpellier (and all other communes in Hérault) ;
+        """
+
+        # Since we only handle french aids, searching for european or
+        # national aids will return all results
+        if self.perimeter.scale in (Perimeter.TYPES.country,
+                                    Perimeter.TYPES.continent):
+            return qs
+
+        # Exclude all other perimeters from the same scale.
+        # E.g We search for aids in "Herault", exclude all aids from other
+        # departments.
+        q_same_scale = Q(perimeter__scale=self.perimeter.scale)
+        q_different_code = ~Q(perimeter__code=self.perimeter.code)
+        qs = qs.exclude(q_same_scale & q_different_code)
+
+        # Exclude all perimeters that are more granular and that are not
+        # contained in the search perimeter.
+        # E.g we search for aids in "Hérault", exclude communes and epcis that
+        # are not in Hérault.
+        if self.perimeter.scale > Perimeter.TYPES.commune:
+
+            # Which fields should we use for filtering?
+            # E.g if the current search perimeter is the department "Hérault",
+            # we must exclude epcis and communes where the field
+            # "department" is different from "34".
+            filter_fields = {
+                Perimeter.TYPES.epci: 'perimeter__epci',
+                Perimeter.TYPES.department: 'perimeter__department',
+                Perimeter.TYPES.region: 'perimeter__region',
+            }
+            filter_field = filter_fields[self.perimeter.scale]
+            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+            q_not_contained = ~Q(**{filter_field: self.perimeter.code})
+            qs = qs.exclude(q_smaller_scale & q_not_contained)
+
+        # Exclude all perimeters that are wider and that does not
+        # contain our search perimeter.
+        # E.g we search for aids in "Hérault", exclude regions that are not
+        # Occitanie.
+        for scale in ('region', 'department', 'epci'):
+
+            if getattr(self.perimeter, scale):
+                q_scale = Q(perimeter__scale=getattr(Perimeter.TYPES, scale))
+                q_different_code = ~Q(
+                    perimeter__code=getattr(self.perimeter, scale))
+                qs = qs.exclude(q_scale & q_different_code)
 
         return qs

@@ -19,6 +19,8 @@ class SearchView(FormMixin, ListView):
             perimeter_id = self.request.GET.get('perimeter', None)
             if perimeter_id:
                 self.perimeter = Perimeter.objects.get(pk=perimeter_id)
+            else:
+                self.perimeter = None
 
         return self.perimeter
 
@@ -40,8 +42,8 @@ class SearchView(FormMixin, ListView):
         qs = Aid.objects \
             .published() \
             .open() \
-            .select_related('backer') \
-            .order_by('-id')
+            .select_related('backer', 'perimeter') \
+            .order_by('perimeter__scale')
 
         filter_form = self.get_form()
         results = filter_form.filter_queryset(qs)
