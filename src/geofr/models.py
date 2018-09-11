@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
 
 from model_utils import Choices
@@ -73,3 +74,7 @@ class Perimeter(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.get_scale_display())
+
+    @property
+    def id_slug(self):
+        return '{}-{}'.format(self.id, slugify(self.name))

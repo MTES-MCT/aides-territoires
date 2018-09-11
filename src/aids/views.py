@@ -16,7 +16,8 @@ class SearchView(FormMixin, ListView):
 
     def get_selected_perimeter(self):
         if not hasattr(self, 'perimeter'):
-            perimeter_id = self.request.GET.get('perimeter', None)
+            perimeter_slug = self.request.GET.get('perimeter', None)
+            perimeter_id = perimeter_slug.split('-')[0]
             if perimeter_id:
                 self.perimeter = Perimeter.objects.get(pk=perimeter_id)
             else:
@@ -29,8 +30,17 @@ class SearchView(FormMixin, ListView):
 
         kwargs = super().get_form_kwargs()
         if self.request.method == 'GET':
+
+            # Clean the "perimeter" field value: removes the slug before
+            # sending data to the form
+            mutable_GET = self.request.GET.copy()
+            if 'perimeter' in self.request.GET:
+                perimeter_slug = self.request.GET.get('perimeter')
+                perimeter_id = perimeter_slug.split('-')[0]
+                mutable_GET['perimeter'] = perimeter_id
+
             kwargs.update({
-                'data': self.request.GET,
+                'data': mutable_GET,
                 'perimeter': self.get_selected_perimeter(),
             })
 
