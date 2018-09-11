@@ -88,7 +88,7 @@ class AidSearchForm(forms.Form):
         widget=MultipleChoiceFilterWidget)
 
     def __init__(self, *args, **kwargs):
-        self.perimeter = kwargs.pop('perimeter')
+        self.perimeter = kwargs.pop('perimeter', None)
         super().__init__(*args, **kwargs)
 
         if self.perimeter:
