@@ -6,8 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from aids.models import Aid
 from geofr.models import Perimeter
-from geofr.utils import (is_overseas, department_from_zipcode,
-                         region_from_zipcode)
 
 
 class AidAdminForm(forms.ModelForm):
