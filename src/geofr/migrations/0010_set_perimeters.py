@@ -17,8 +17,13 @@ def set_perimeters(apps, schema_editor):
     Perimeter = apps.get_model('geofr', 'Perimeter')
     aids = Aid.objects.all()
 
-    europe = Perimeter.objects.get(scale=SCALES.continent)
-    france = Perimeter.objects.get(scale=SCALES.country)
+    try:
+        europe = Perimeter.objects.get(scale=SCALES.continent)
+        france = Perimeter.objects.get(scale=SCALES.country)
+    except Perimeter.DoesNotExist:
+        # This exception only occurs on the testing database
+        europe = None
+        france = None
 
     for aid in aids:
 
