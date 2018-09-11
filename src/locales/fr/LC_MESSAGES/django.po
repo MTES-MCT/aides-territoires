@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-06 10:54+0200\n"
+"POT-Creation-Date: 2018-09-11 15:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,26 +33,17 @@ msgstr "Utilisateur·ice"
 msgid "Users"
 msgstr "Utilisateur·ices"
 
-msgid "Aid description"
-msgstr "Description"
-
-msgid "Eligibility"
-msgstr "Éligibilité"
-
-msgid "Contact"
-msgstr "Contact"
-
 msgid "Calendar"
 msgstr "Calendrier"
 
-msgid "You must provided the application department."
-msgstr "Vous devez renseigner le département d'application."
+msgid "Perimeter"
+msgstr "Périmètre"
 
-msgid "This value must be blank."
-msgstr "Cette valeur doit rester vide."
+msgid "Aid description"
+msgstr "Description"
 
-msgid "You must provided the application region."
-msgstr "Vous devez renseigner la région d'application."
+msgid "Misc."
+msgstr "Divers"
 
 msgid "Funding"
 msgstr "Financière"
@@ -86,9 +77,6 @@ msgstr "Mise en réseau"
 
 msgid "Valorisation"
 msgstr "Valorisation"
-
-msgid "Zip code"
-msgstr "Code postal"
 
 msgid "When to mobilize the aid?"
 msgstr "Quand mobiliser l'aide ?"
@@ -252,8 +240,8 @@ msgstr "Apporteur"
 msgid "Description"
 msgstr "Description"
 
-msgid "Perimeter"
-msgstr "Périmètre"
+msgid "Eligibility"
+msgstr "Éligibilité"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
@@ -270,29 +258,14 @@ msgstr "Étape de mobilisation"
 msgid "URL"
 msgstr "Url"
 
-msgid "Minimal population"
-msgstr "Population min."
-
-msgid "Maximal population"
-msgstr "Population max."
-
 msgid "Targeted audiances"
 msgstr "Publics ciblés"
-
-msgid "Targeted audiances detail"
-msgstr "Publics ciblés (détail)"
 
 msgid "Is this a funding aid?"
 msgstr "S'agit-il d'un financement ?"
 
 msgid "Aid types"
 msgstr "Types d'aide"
-
-msgid "Aid types detail"
-msgstr "Types d'aide (détail)"
-
-msgid "Destinations detail"
-msgstr "Destinations (détail)"
 
 msgid "Start date"
 msgstr "Date d'ouverture"
@@ -342,9 +315,6 @@ msgstr "Apporteurs"
 msgid "aids/"
 msgstr "aides/"
 
-msgid "Cluster"
-msgstr "Groupe de régions"
-
 msgid "Country"
 msgstr "Pays"
 
@@ -356,6 +326,9 @@ msgstr "Code"
 
 msgid "Zip codes"
 msgstr "Codes postaux"
+
+msgid "Is overseas?"
+msgstr "En Outre-mer ?"
 
 msgid "Perimeters"
 msgstr "Périmètres"
@@ -381,6 +354,9 @@ msgstr "confirmation-inscription-liste/"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
+
+msgid "Contact"
+msgstr "Contact"
 
 msgid "Source code"
 msgstr "Code source"
@@ -475,11 +451,11 @@ msgstr ""
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
+msgid "City, department, region, EPCI…"
+msgstr "Ville, département, région, EPCI…"
+
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
-
-msgid "Your zipcode"
-msgstr "Votre code postal"
 
 msgid "Start searching for aids"
 msgstr "Trouver les aides disponibles sur mon territoire"
