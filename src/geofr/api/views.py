@@ -27,4 +27,6 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
+        qs = qs.order_by('-scale')
+
         return qs
