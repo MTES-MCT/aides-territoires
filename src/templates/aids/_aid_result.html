@@ -88,12 +88,7 @@
             <tr>
                 <th>{{ _('Application perimeter') }}</th>
                 <td>
-                    {{ aid.get_application_perimeter_display }}
-                    {% if aid.application_department %}
-                        ({{aid.get_application_department_display }})
-                    {% elif aid.application_region %}
-                        ({{aid.get_application_region_display }})
-                    {% endif %}
+                    {{ aid.perimeter }}
                 </td>
             </tr>
 
