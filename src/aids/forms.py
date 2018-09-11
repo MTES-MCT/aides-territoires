@@ -62,35 +62,30 @@ class AidSearchForm(forms.Form):
     perimeter = forms.ChoiceField(
         label=_('Perimeter'),
         required=False)
-    mobilization_step = forms.ChoiceField(
-        label=_('When to mobilize the aid?'),
+    apply_before = forms.DateField(
+        label=_('Apply before…'),
         required=False,
-        choices=STEPS)
+        widget=forms.TextInput(
+            attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
         choices=TYPES,
         widget=MultipleChoiceFilterWidget)
+    mobilization_step = forms.ChoiceField(
+        label=_('When to mobilize the aid?'),
+        required=False,
+        choices=STEPS)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
         required=False,
         choices=Aid.DESTINATIONS,
-        widget=MultipleChoiceFilterWidget)
-    thematics = forms.MultipleChoiceField(
-        label=_('Thematics'),
-        required=False,
-        choices=Aid.THEMATICS,
         widget=MultipleChoiceFilterWidget)
     scale = forms.MultipleChoiceField(
         label=_('Scale'),
         required=False,
         choices=Aid.PERIMETERS,
         widget=MultipleChoiceFilterWidget)
-    apply_before = forms.DateField(
-        label=_('Apply before…'),
-        required=False,
-        widget=forms.TextInput(
-            attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
 
     def __init__(self, *args, **kwargs):
         self.perimeter = kwargs.pop('perimeter')
@@ -132,10 +127,6 @@ class AidSearchForm(forms.Form):
         destinations = self.cleaned_data.get('destinations', None)
         if destinations:
             qs = qs.filter(destinations__overlap=destinations)
-
-        thematics = self.cleaned_data.get('thematics', None)
-        if thematics:
-            qs = qs.filter(thematics__overlap=thematics)
 
         scale = self.cleaned_data.get('scale', None)
         if scale:
