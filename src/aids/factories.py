@@ -41,7 +41,6 @@ class AidFactory(DjangoModelFactory):
     is_funding = factory.Faker('boolean')
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
-    thematics = FuzzyMultipleChoice(Aid.THEMATICS)
     contact_email = factory.Faker('email')
     contact_phone = factory.Faker('phone_number')
     publication_status = Aid.AID_STATUSES.open

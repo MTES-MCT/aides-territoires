@@ -42,7 +42,6 @@ def aid_form_data(user, backer):
         'targeted_audiances': ['department'],
         'aid_types': ['grant', 'loan'],
         'destinations': ['supply'],
-        'thematics': ['local_development'],
         'publication_status': 'open',
         'status': 'published',
     }
