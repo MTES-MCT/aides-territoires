@@ -18,8 +18,8 @@
 
     - name: Copy private production settings to the remote
       copy:
-        src: ../../../src/.env.production
-        dest: "{{ django_root }}"
+        src: ../../../src/{{ env_file }}
+        dest: "{{ django_root }}/{{ env_target }}"
 
     - name: Install python packages
       shell: |

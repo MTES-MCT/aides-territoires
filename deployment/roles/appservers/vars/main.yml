@@ -12,4 +12,4 @@ pipenv_bin: "{{ bin_dir }}/pipenv"
 activate_bin: "{{ bin_dir }}/activate"
 gunicorn_bin: "{{ bin_dir }}/gunicorn"
 django_settings: "core.settings.production"
-project_domain: aides-territoires.jouannic.fr
+env_target: ".env.production"
