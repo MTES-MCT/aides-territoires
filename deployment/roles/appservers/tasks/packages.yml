@@ -45,6 +45,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: true
+    default_release: testing
   with_items:
     - python3.6
     - python3.6-dev
