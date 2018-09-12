@@ -40,5 +40,3 @@ class Command(BaseCommand):
         results = Perimeter.objects.bulk_create(communes)
         self.stdout.write(self.style.SUCCESS(
             '%d communes imported.' % len(results)))
-
-
