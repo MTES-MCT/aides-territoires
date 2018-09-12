@@ -73,7 +73,13 @@ class Perimeter(models.Model):
         )
 
     def __str__(self):
-        return '{} ({})'.format(self.name, self.get_scale_display())
+        if self.scale == self.TYPES.commune:
+            _str = '{} ({} – {})'.format(
+                self.name, self.get_scale_display(), ', '.join(self.zipcodes))
+        else:
+            _str = '{} ({})'.format(self.name, self.get_scale_display())
+
+        return _str
 
     @property
     def id_slug(self):
