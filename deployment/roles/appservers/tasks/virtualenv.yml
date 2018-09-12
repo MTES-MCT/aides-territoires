@@ -1,4 +1,11 @@
 ---
+- name: Create virtualenv directory
+  become: yes
+  become_user: "{{ user_name }}"
+  file:
+    path: "{{ venv_root }}"
+    state: directory
+
 - name: Create the virtualenv
   become: yes
   become_user: "{{ user_name }}"

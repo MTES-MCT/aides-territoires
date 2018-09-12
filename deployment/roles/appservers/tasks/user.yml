@@ -4,6 +4,7 @@
     name: "{{ user_name }}"
     state: present
     password_lock: true
+    shell: /bin/bash
 
 - name: Allow sudo_user to access Ansible's SSH_AUTH_SOCK
   shell: >

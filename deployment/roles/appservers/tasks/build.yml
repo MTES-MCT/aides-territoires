@@ -28,8 +28,9 @@
         chdir: "{{ django_root }}"
 
     - name: Install js packages assets
-      npm:
-        path: "{{ django_root }}"
+      shell: npm ci
+      args:
+        chdir: "{{ django_root }}"
 
     - name: Run Django database migrations
       django_manage:
