@@ -42,8 +42,8 @@ destination.
 Certains paramètres de configuration (clés d'accès aux apis, mots de passe,
 etc.) ne peuvent être embarquées dans le dépôt git. Pour cette raison, les
 valeurs sensibles doivent être embarqués dans un fichier `.env.quelquechose`
-placé à la racine de projet Django. Ce fichier sera automatiquement copié par
-le script de déploiement.
+placé à [la racine du projet Django](../src/). Ce fichier sera automatiquement
+copié par le script de déploiement.
 
 Par ailleurs, les variables spécifiques au déploiement sont configurées dans le
 répertoire [group_vars](./group_vars/).
