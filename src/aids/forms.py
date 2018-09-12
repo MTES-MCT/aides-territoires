@@ -17,7 +17,6 @@ class AidAdminForm(forms.ModelForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-            'thematics': forms.CheckboxSelectMultiple,
         }
 
 

@@ -96,13 +96,6 @@ class Aid(models.Model):
         ('other', _('Other')),
     )
 
-    THEMATICS = Choices(
-        ('sustainable_management', _('Sustainable management')),
-        ('local_development', _('Local development')),
-        ('infrastructure_networks', _('Infrastructure and networks')),
-        ('solidarity_social_cohesion', _('Solidarity and social cohesion')),
-    )
-
     AID_STATUSES = Choices(
         ('open', _('Open')),
         ('planned', _('Planned')),
@@ -179,12 +172,6 @@ class Aid(models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=DESTINATIONS))
-    thematics = ChoiceArrayField(
-        verbose_name=_('Thematics'),
-        base_field=models.CharField(
-            max_length=32,
-            choices=THEMATICS),
-        blank=True)
     start_date = models.DateField(
         _('Start date'),
         null=True, blank=True)
@@ -215,11 +202,6 @@ class Aid(models.Model):
         max_length=23,
         choices=AID_STATUSES,
         default=AID_STATUSES.open)
-    keywords = ArrayField(
-        verbose_name=_('Keywords'),
-        base_field=models.CharField(max_length=64),
-        size=20,
-        null=True, blank=True)
     open_to_third_party = models.BooleanField(
         _('Open to third party?'),
         default=True)

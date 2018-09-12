@@ -43,8 +43,6 @@ class AidAdmin(admin.ModelAdmin):
                 'aid_types',
                 'mobilization_steps',
                 'destinations',
-                'thematics',
-                'keywords',
                 'targeted_audiances',
                 'eligibility',
             )
