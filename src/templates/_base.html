@@ -1,4 +1,4 @@
-{% load compress %}
+{% load compress analytics %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -10,7 +10,6 @@
         <link rel="icon" sizes="32x32" href="/favicon-32.png" type="image/png">
         <link rel="icon" sizes="64x64" href="/favicon-64.png" type="image/png">
         <link rel="icon" sizes="96x96" href="/favicon-96.png" type="image/png">
-
 
         <title>
             {% block title %}Aides Territoires{% endblock %}
@@ -25,6 +24,7 @@
 
         {% block extra_head %}{% endblock %}
 
+        {% analytics_tag %}
     </head>
     <body>
 
