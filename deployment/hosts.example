@@ -1,9 +1,9 @@
-[staging]
-staging.aides-territoires.myserver.com
+[stage]
+aides.stage
 
-[production]
-aides-territoires.myserver.com
+[prod]
+aides.prod
 
 [aidesterritoires:children]
-staging
-production
+stage
+prod
