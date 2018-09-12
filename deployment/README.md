@@ -2,40 +2,51 @@
 
 Ce répertoire contient un [jeu de recettes Ansible
 complet](https://www.ansible.com/) permettant de déployer le projet
-AIdes-Territoires en une seule commande sur un serveur.
+Aides-Territoires en une seule commande sur les serveurs de staging et
+production.
 
 
 ## Démarrage rapide
 
-Utiliser `./hosts.example` comme point de départ pour configurer [l'inventaire
-Ansible](http://docs.ansible.com/ansible/intro_inventory.html). Il est possible
-d'éditer le fichier `/etc/ansible/hosts` ou de créer un fichier local à
-référencer à chaque fois avec l'option `-i`.
+Utiliser le fichier [hosts](./hosts) comme point de départ pour configurer
+[l'inventaire Ansible](http://docs.ansible.com/ansible/intro_inventory.html).
+Il est possible de copier ce fichier vers `/etc/ansible/hosts` ou de le
+référencer systématiquement avec l'option `-i`.
 
 Il est également important de s'assurer que sa clé ssh a bien été envoyée sur
 le serveur.
 
-Pour déployer en production:
+Pour mettre à jour tous les environnements :
 
     ansible-playbook -i hosts site.yml
+
+Pour déployer en recette uniquement :
+
+    ansible-playbook -i hosts -l stage site.yml
 
 
 ## Playbooks
 
-Le répertoire est structuré en respectant les [Bonnes pratiques
+Le répertoire est structuré en respectant les [bonnes pratiques
 Ansible](http://docs.ansible.com/ansible/playbooks_best_practices.html).
 
 Le fichier de recette principal est `site.yml`. Lancer cette recette va
-entièrement configurer un serveur et installer le projet dessus. Le seul
-pré-requis est d'avoir un accès ssh à l'utilisateur root sur le serveur.
+entièrement configurer tous les serveurs listés dans l'inventaire Ansible et
+installer le projet dessus. Le seul pré-requis est d'avoir un accès ssh à
+l'utilisateur root sur le serveur, et que Python soit installé sur la machine
+destination.
 
 
-## Configuration de production
+## Configuration des environnements
 
-Les paramètres de production ne peuvent être embarquées dans le dépôt git. Pour
-cette raison, les valeurs sensibles doivent être embarqués dans un fichier
-`.env.production` placé à la racine de projet Django. Ce fichier sera
-automatiquement copié par le script de déploiement.
+Certains paramètres de configuration (clés d'accès aux apis, mots de passe,
+etc.) ne peuvent être embarquées dans le dépôt git. Pour cette raison, les
+valeurs sensibles doivent être embarqués dans un fichier `.env.quelquechose`
+placé à la racine de projet Django. Ce fichier sera automatiquement copié par
+le script de déploiement.
+
+Par ailleurs, les variables spécifiques au déploiement sont configurées dans le
+répertoire [group_vars](./group_vars/).
 
 
 ## Déploiement rapide
@@ -57,15 +68,17 @@ Il est souvent d'usage d'effectuer des livraisons de versions différentes sur
 différents environnements, par exemple pour faire tourner la branche `master`
 sur le serveur de recette mais un tag spécifique sur le serveur de production.
 
-Pour ce faire, il suffit de définir [des variables de groupes
+Pour ce faire, nous utilisons [les variables de groupes
 spécifiques](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html).
 
-Créer `/etc/ansible/group_vars/<group>.yml`, et configurer la variable
-`project_version` qui peut prendre pour valeur une branche, un tag ou un nom de
-commit git.
+Cf. la variable `project_version` du [répertoire group_vars](./group_vars/).
 
 
 ## Configuration locale
+
+Le [fichier d'inventaire "hosts"](./hosts) dans le dépôt ne contient pas de
+noms de domaines. Pour le faire fonctionner tel quel, il est possible de
+définir des alias ssh.
 
 ### SSH Config
 
@@ -76,14 +89,16 @@ Voici un exemple de fichier `~/.ssh/config`:
         HostName myserver.com
         User root
 
-    # The production instance on a LXC virtual machine and a public ip
-    Host www.myserver.com
-        HostName 1.2.3.4
+    # The staging instance on a LXC virtual machine and a public ip
+    Host aides.stage
         User root
+        Port 22
+        HostName 51.15.144.197
         ForwardAgent yes
 
-    # The staging instance on a LXC virtual machine and a local ip only
-    Host staging.myserver.com
+    # The production instance on a LXC virtual machine and a public ip
+    Host aides.prod
         User root
-        ProxyCommand ssh myserver nc lxc_staging_machine_name 22
+        Port 22
+        HostName 62.4.14.127
         ForwardAgent yes
