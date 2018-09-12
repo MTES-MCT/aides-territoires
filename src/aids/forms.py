@@ -40,10 +40,6 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
-    STEPS = (
-        ('', ''),
-    ) + Aid.STEPS
-
     # Subset of aid types
     TYPES = (
         (_('Financial aids'), (
@@ -72,10 +68,11 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=TYPES,
         widget=MultipleChoiceFilterWidget)
-    mobilization_step = forms.ChoiceField(
+    mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
-        choices=STEPS)
+        choices=Aid.STEPS,
+        widget=MultipleChoiceFilterWidget)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
         required=False,
@@ -116,9 +113,9 @@ class AidSearchForm(forms.Form):
         if self.perimeter:
             qs = self.perimeter_filter(qs)
 
-        mobilization_step = self.cleaned_data.get('mobilization_step', None)
-        if mobilization_step:
-            qs = qs.filter(mobilization_steps__contains=[mobilization_step])
+        mobilization_steps = self.cleaned_data.get('mobilization_step', None)
+        if mobilization_steps:
+            qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
 
         aid_types = self.cleaned_data.get('aid_types', None)
         if aid_types:

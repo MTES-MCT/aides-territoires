@@ -169,23 +169,31 @@ def test_form_default(aid_form_class, aid_form_data):
 
 
 def test_form_filter_mobilization_step(aids):
-    form = AidSearchForm({'mobilization_step': 'preop'})
+    form = AidSearchForm({'mobilization_step': ['preop']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 9
     for aid in qs:
         assert 'preop' in aid.mobilization_steps
 
-    form = AidSearchForm({'mobilization_step': 'op'})
+    form = AidSearchForm({'mobilization_step': ['op']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 6
     for aid in qs:
         assert 'op' in aid.mobilization_steps
 
-    form = AidSearchForm({'mobilization_step': 'postop'})
+    form = AidSearchForm({'mobilization_step': ['postop']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 4
     for aid in qs:
         assert 'postop' in aid.mobilization_steps
+
+    form = AidSearchForm({'mobilization_step': ['preop', 'postop']})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 12
+    for aid in qs:
+        assert any((
+            'preop' in aid.mobilization_steps,
+            'postop' in aid.mobilization_steps))
 
 
 def test_form_filter_by_types(aids):
