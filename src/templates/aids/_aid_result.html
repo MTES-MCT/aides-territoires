@@ -79,13 +79,6 @@
             </tr>
 
             <tr>
-                <th>{{ _('Thematics') }}</th>
-                <td>
-                    {% choices_display aid 'thematics' %}
-                </td>
-            </tr>
-
-            <tr>
                 <th>{{ _('Application perimeter') }}</th>
                 <td>
                     {{ aid.perimeter }}
@@ -125,13 +118,6 @@
                         <span class="contact other">{{ aid.contact_detail }}</span>
                     {% endif %}
                 </td>
-            </tr>
-            {% endif %}
-
-            {% if aid.keywords %}
-            <tr>
-                <th>{{ _('Keywords') }}</th>
-                <td>{{ aid.keywords|join:', ' }}</td>
             </tr>
             {% endif %}
 
