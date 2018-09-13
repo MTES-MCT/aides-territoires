@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-11 15:21+0200\n"
+"POT-Creation-Date: 2018-09-13 10:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,26 +78,20 @@ msgstr "Mise en réseau"
 msgid "Valorisation"
 msgstr "Valorisation"
 
-msgid "When to mobilize the aid?"
-msgstr "Quand mobiliser l'aide ?"
-
-msgid "Aid type"
-msgstr "Nature de l'aide"
-
-msgid "Destinations"
-msgstr "Destinations"
-
-msgid "Thematics"
-msgstr "Thématiques"
-
-msgid "Scale"
-msgstr "Échelle"
-
 msgid "Apply before…"
 msgstr "Candidater avant…"
 
 msgid "yyyy-mm-dd"
 msgstr "jj/mm/aaaa"
+
+msgid "Aid type"
+msgstr "Nature de l'aide"
+
+msgid "When to mobilize the aid?"
+msgstr "Quand mobiliser l'aide ?"
+
+msgid "Destinations"
+msgstr "Destinations"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -174,38 +168,14 @@ msgstr "Publié·e"
 msgid "EPCI"
 msgstr "EPCI"
 
-msgid "Company"
-msgstr "Entreprise"
-
-msgid "Civil society"
-msgstr "Société civile"
-
-msgid "Association"
-msgstr "Association"
-
-msgid "Survey"
-msgstr "Étude"
-
-msgid "Supply"
-msgstr "Fourniture"
-
-msgid "Service (AMO)"
-msgstr "Service (AMO)"
+msgid "Service (AMO, survey)"
+msgstr "Service (AMO, étude, etc.)"
 
 msgid "Works"
 msgstr "Travaux"
 
-msgid "Sustainable management"
-msgstr "Aménagement durable"
-
-msgid "Local development"
-msgstr "Développement local"
-
-msgid "Infrastructure and networks"
-msgstr "Infrastructure, réseaux et déplacements"
-
-msgid "Solidarity and social cohesion"
-msgstr "Solidarité et cohésion sociale"
+msgid "Supply"
+msgstr "Fourniture"
 
 msgid "Open"
 msgstr "Ouvert·e"
@@ -291,9 +261,6 @@ msgstr "Contact (détail)"
 msgid "Status"
 msgstr "Statut"
 
-msgid "Keywords"
-msgstr "Mots-clés"
-
 msgid "Open to third party?"
 msgstr "Ouvert aux tiers ?"
 
@@ -320,6 +287,9 @@ msgstr "Pays"
 
 msgid "Continent"
 msgstr "Continent"
+
+msgid "Scale"
+msgstr "Échelle"
 
 msgid "Code"
 msgstr "Code"
