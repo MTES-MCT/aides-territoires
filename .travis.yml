@@ -9,7 +9,7 @@ install:
  - npm install -g sass
  - make init
 before_script:
-  - psql -c "CREATE USER aidesterritoires WITH CREATEDB PASSWORD 'aidesterritoires';" -U postgres
+  - psql -c "CREATE USER aides WITH CREATEDB PASSWORD 'aides';" -U postgres
 script:
  - make checkstyle
  - make test
