@@ -154,13 +154,13 @@ msgid "Overseas"
 msgstr "Outre-mer"
 
 msgid "Preoperational"
-msgstr "Pré-opérationnel"
+msgstr "Conception (études, programmation)"
 
 msgid "Operational"
-msgstr "Opérationel"
+msgstr "Réalisation"
 
 msgid "Postoperation"
-msgstr "Fonctionnement"
+msgstr "Fonctionnement, usage"
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -253,13 +253,13 @@ msgid "Application department"
 msgstr "Département d'application"
 
 msgid "Mobilization step"
-msgstr "Étape de mobilisation"
+msgstr "L'aide s'applique en phase de…"
 
 msgid "URL"
 msgstr "Url"
 
 msgid "Targeted audiances"
-msgstr "Publics ciblés"
+msgstr "Destinataires de l'aide"
 
 msgid "Is this a funding aid?"
 msgstr "S'agit-il d'un financement ?"

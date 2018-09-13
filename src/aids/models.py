@@ -81,18 +81,12 @@ class Aid(models.Model):
         ('department', _('Department')),
         ('region', _('Region')),
         ('epci', _('EPCI')),
-        ('company', _('Company')),
-        ('civil_society', _('Civil society')),
-        ('association', _('Association')),
-        ('other', _('Other')),
     )
 
     DESTINATIONS = Choices(
-        ('survey', _('Survey')),
-        ('supply', _('Supply')),
-        ('service', _('Service (AMO)')),
+        ('service', _('Service (AMO, survey)')),
         ('works', _('Works')),
-        ('other', _('Other')),
+        ('supply', _('Supply')),
     )
 
     AID_STATUSES = Choices(
