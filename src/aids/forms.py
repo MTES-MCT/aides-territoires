@@ -77,11 +77,6 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.DESTINATIONS,
         widget=MultipleChoiceFilterWidget)
-    scale = forms.MultipleChoiceField(
-        label=_('Scale'),
-        required=False,
-        choices=Aid.PERIMETERS,
-        widget=MultipleChoiceFilterWidget)
 
     def __init__(self, *args, **kwargs):
         self.perimeter = kwargs.pop('perimeter', None)
@@ -123,10 +118,6 @@ class AidSearchForm(forms.Form):
         destinations = self.cleaned_data.get('destinations', None)
         if destinations:
             qs = qs.filter(destinations__overlap=destinations)
-
-        scale = self.cleaned_data.get('scale', None)
-        if scale:
-            qs = qs.filter(application_perimeter__in=scale)
 
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
