@@ -14,6 +14,7 @@ gunicorn = "*"
 raven = "*"
 requests = "*"
 django-rest-framework = "*"
+xlrd = "*"
 
 [dev-packages]
 pytest = "*"

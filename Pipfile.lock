@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "56ac6966949bb9df85a2764c1256ce159bc6ce56403e5af800ed899e0bab1ad1"
+            "sha256": "2fe8089ce2844106851ed4b056fe3b377e299d9920b751e994ac60c18850959b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -185,15 +185,23 @@
             ],
             "markers": "python_version != '3.1.*' and python_version != '3.3.*' and python_version >= '2.6' and python_version != '3.2.*' and python_version != '3.0.*' and python_version < '4'",
             "version": "==1.23"
+        },
+        "xlrd": {
+            "hashes": [
+                "sha256:83a1d2f1091078fb3f65876753b5302c5cfb6a41de64b9587b74cefa75157148",
+                "sha256:8a21885513e6d915fe33a8ee5fdfa675433b61405ba13e2a69e62ee36828d7e2"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         }
     },
     "develop": {
         "ansible": {
             "hashes": [
-                "sha256:1027f627e6d8a2d51f3a79abb01447716a78aa646e0c2f9860cfde273256a28c"
+                "sha256:e06b795372fd7a6d0b46b8f105497fb637fbd323f5aec1d8e51fd60cd98047e1"
             ],
             "index": "pypi",
-            "version": "==2.6.3"
+            "version": "==2.6.4"
         },
         "asn1crypto": {
             "hashes": [
@@ -341,11 +349,11 @@
         },
         "django-debug-toolbar": {
             "hashes": [
-                "sha256:136e23d8e01d4d94992478f54b330de8cce0276545d970478c10a115db6b38e3",
-                "sha256:b1cfaf65bd6f48bf1e790d25685190073e8035b4bf3d80741b4beb5efd5a992c"
+                "sha256:08e0e43f6c1fd9820af4cbdcd54b5fb80bf83a2e08b2cc952547a671174999b8",
+                "sha256:1dcae28d430522debafde2602b3450eb784410b78e16c29a00448032df2a4c90"
             ],
             "index": "pypi",
-            "version": "==1.10"
+            "version": "==1.10.1"
         },
         "factory-boy": {
             "hashes": [
