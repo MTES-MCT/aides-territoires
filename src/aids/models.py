@@ -111,13 +111,15 @@ class Aid(models.Model):
     author = models.ForeignKey(
         'accounts.User',
         on_delete=models.PROTECT,
-        verbose_name=_('Author'))
+        verbose_name=_('Author'),
+        help_text=_('Who is submitting the aid?'))
     backer = models.ForeignKey(
         'backers.Backer',
         on_delete=models.PROTECT,
-        verbose_name=_('Backer'))
+        verbose_name=_('Backer'),
+        help_text=_('On a national level if appropriate'))
     description = models.TextField(
-        _('Description'),
+        _('Short description'),
         max_length=500,
         blank=False)
     eligibility = models.TextField(
@@ -127,7 +129,8 @@ class Aid(models.Model):
         'geofr.Perimeter',
         verbose_name=_('Perimeter'),
         on_delete=models.PROTECT,
-        null=True, blank=True)
+        null=True, blank=True,
+        help_text=_('What is the aid broadcasting perimeter?'))
     application_perimeter = models.CharField(
         _('Application perimeter'),
         max_length=32,
@@ -159,7 +162,8 @@ class Aid(models.Model):
         verbose_name=_('Aid types'),
         base_field=models.CharField(
             max_length=32,
-            choices=TYPES))
+            choices=TYPES),
+        help_text=_('Specify the help type or types.'))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         base_field=models.CharField(
@@ -167,18 +171,22 @@ class Aid(models.Model):
             choices=DESTINATIONS))
     start_date = models.DateField(
         _('Start date'),
-        null=True, blank=True)
+        null=True, blank=True,
+        help_text=_('When is the application opening?'))
     predeposit_date = models.DateField(
         _('Predeposit date'),
-        null=True, blank=True)
+        null=True, blank=True,
+        help_text=_('When is the pre-deposit date, if applicable?'))
     submission_deadline = models.DateField(
         _('Submission deadline'),
-        null=True, blank=True)
+        null=True, blank=True,
+        help_text=_('When is the submission deadline?'))
     subvention_rate = models.DecimalField(
         _('Subvention rate'),
         max_digits=6,
         decimal_places=2,
-        null=True, blank=True)
+        null=True, blank=True,
+        help_text=_('If this is a subvention aid, specify the rate.'))
     contact_email = models.EmailField(
         _('Contact email'),
         blank=True)
@@ -200,6 +208,7 @@ class Aid(models.Model):
         default=True)
     recurrence = models.CharField(
         _('Recurrence'),
+        help_text=_('Is this a one-off aid, is it recurring or ongoing?'),
         max_length=16,
         choices=RECURRENCE,
         blank=True)

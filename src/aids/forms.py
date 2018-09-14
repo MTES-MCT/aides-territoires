@@ -19,6 +19,23 @@ class AidAdminForm(forms.ModelForm):
             'destinations': forms.CheckboxSelectMultiple,
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        custom_labels = {
+            'name': _('Aid title'),
+            'targeted_audiances': _('Who can apply to this aid?'),
+            'backer': _('Aid backer'),
+            'destinations': _('The aid is destined to…'),
+            'eligibility': _('Are the any other eligibility criterias?'),
+            'url': _('Link to a full description'),
+            'contact_detail': _('Name of a contact in charge'),
+            'contact_email': _('E-mail address of a contact in charge'),
+            'contact_phone': _('Phone number of a contact in charge'),
+        }
+        for field, label in custom_labels.items():
+            self.fields[field].label = label
+
 
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
     """A basic multi checkbox widget with a custom template.

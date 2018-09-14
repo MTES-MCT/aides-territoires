@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-13 10:48+0200\n"
+"POT-Creation-Date: 2018-09-14 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,17 +33,50 @@ msgstr "Utilisateur·ice"
 msgid "Users"
 msgstr "Utilisateur·ices"
 
-msgid "Calendar"
-msgstr "Calendrier"
+msgid "Aid presentation"
+msgstr "Présentation de l'aide"
 
-msgid "Perimeter"
-msgstr "Périmètre"
+msgid "Aid calendar"
+msgstr "Calendrier de l'aide"
+
+msgid "Aid perimeter"
+msgstr "Périmètre de l'aide"
 
 msgid "Aid description"
-msgstr "Description"
+msgstr "Description de l'aide"
 
-msgid "Misc."
-msgstr "Divers"
+msgid "Contact and actions"
+msgstr "Contact et démarches"
+
+msgid "Aid admin"
+msgstr "Administration de l'aide"
+
+msgid "Aid title"
+msgstr "Nom de l'aide"
+
+msgid "Who can apply to this aid?"
+msgstr "Qui peut prétendre à cette aide ?"
+
+msgid "Aid backer"
+msgstr "Apporteur de l'aide"
+
+msgid "The aid is destined to…"
+msgstr "L'aide est destinée à…"
+
+msgid "Are the any other eligibility criterias?"
+msgstr "Y a-t-il d'autres critères d'éligibilité ?"
+
+msgid "Link to a full description"
+msgstr "Lien vers un descriptif complet"
+
+msgid "Name of a contact in charge"
+msgstr "Nom d'un contact en charge de l'aide"
+
+msgid "E-mail address of a contact in charge"
+msgstr "Adresse e-mail d'un contact en charge"
+
+msgid "Phone number of a contact in charge"
+msgstr "Téléphone d'un contact en charge de l'aide"
 
 msgid "Funding"
 msgstr "Financière"
@@ -77,6 +110,9 @@ msgstr "Mise en réseau"
 
 msgid "Valorisation"
 msgstr "Valorisation"
+
+msgid "Perimeter"
+msgstr "Périmètre"
 
 msgid "Apply before…"
 msgstr "Candidater avant…"
@@ -204,14 +240,23 @@ msgstr "Nom"
 msgid "Author"
 msgstr "Auteur"
 
+msgid "Who is submitting the aid?"
+msgstr "Qui renseigne cette aide ?"
+
 msgid "Backer"
 msgstr "Apporteur"
 
-msgid "Description"
-msgstr "Description"
+msgid "On a national level if appropriate"
+msgstr "Au niveau national le cas échéant"
+
+msgid "Short description"
+msgstr "Brève description"
 
 msgid "Eligibility"
 msgstr "Éligibilité"
+
+msgid "What is the aid broadcasting perimeter?"
+msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
@@ -237,17 +282,32 @@ msgstr "S'agit-il d'un financement ?"
 msgid "Aid types"
 msgstr "Types d'aide"
 
+msgid "Specify the help type or types."
+msgstr "Précisez le ou les types de l'aide."
+
 msgid "Start date"
 msgstr "Date d'ouverture"
+
+msgid "When is the application opening?"
+msgstr "À quelle date l'aide est-elle ouverte aux candidatures ?"
 
 msgid "Predeposit date"
 msgstr "Date de pré-dépôt"
 
+msgid "When is the pre-deposit date, if applicable?"
+msgstr "Quelle est la date de pré-dépôt des dossiers, si applicable ?"
+
 msgid "Submission deadline"
 msgstr "Date de clôture"
 
+msgid "When is the submission deadline?"
+msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
+
 msgid "Subvention rate"
 msgstr "Taux de subvention"
+
+msgid "If this is a subvention aid, specify the rate."
+msgstr "S'il s'agit d'une subvention, précisez le taux."
 
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
@@ -266,6 +326,9 @@ msgstr "Ouvert aux tiers ?"
 
 msgid "Recurrence"
 msgstr "Récurrence"
+
+msgid "Is this a one-off aid, is it recurring or ongoing?"
+msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
 msgid "Date created"
 msgstr "Date de création"

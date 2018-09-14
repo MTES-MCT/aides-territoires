@@ -13,17 +13,17 @@ class AidAdmin(admin.ModelAdmin):
     autocomplete_fields = ['author', 'backer', 'perimeter']
     search_fields = ['name']
     fieldsets = [
-        (None, {
+        (_('Aid presentation'), {
             'fields': (
                 'name',
                 'description',
+                'targeted_audiances',
                 'backer',
                 'author',
-                'status',
             )
         }),
 
-        (_('Calendar'), {
+        (_('Aid calendar'), {
             'fields': (
                 'recurrence',
                 'start_date',
@@ -32,7 +32,7 @@ class AidAdmin(admin.ModelAdmin):
             )
         }),
 
-        (_('Perimeter'), {
+        (_('Aid perimeter'), {
             'fields': (
                 'perimeter',
             )
@@ -41,19 +41,25 @@ class AidAdmin(admin.ModelAdmin):
         (_('Aid description'), {
             'fields': (
                 'aid_types',
+                'subvention_rate',
                 'mobilization_steps',
                 'destinations',
-                'targeted_audiances',
                 'eligibility',
             )
         }),
 
-        (_('Misc.'), {
+        (_('Contact and actions'), {
             'fields': (
                 'url',
                 'contact_detail',
                 'contact_email',
                 'contact_phone',
+            )
+        }),
+
+        (_('Aid admin'), {
+            'fields': (
+                'status',
             )
         }),
     ]
