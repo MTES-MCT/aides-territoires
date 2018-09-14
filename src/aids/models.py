@@ -145,6 +145,9 @@ class Aid(models.Model):
     url = models.URLField(
         _('URL'),
         blank=True)
+    application_url = models.URLField(
+        _('Application url'),
+        blank=True)
     targeted_audiances = ChoiceArrayField(
         verbose_name=_('Targeted audiances'),
         base_field=models.CharField(

@@ -29,6 +29,7 @@ class AidAdminForm(forms.ModelForm):
             'destinations': _('The aid is destined to…'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'url': _('Link to a full description'),
+            'application_url': _('Link to an online application form'),
             'contact_detail': _('Name of a contact in charge'),
             'contact_email': _('E-mail address of a contact in charge'),
             'contact_phone': _('Phone number of a contact in charge'),

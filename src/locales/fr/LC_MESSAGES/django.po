@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-14 12:48+0200\n"
+"POT-Creation-Date: 2018-09-14 13:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,9 @@ msgstr "Y a-t-il d'autres critères d'éligibilité ?"
 
 msgid "Link to a full description"
 msgstr "Lien vers un descriptif complet"
+
+msgid "Link to an online application form"
+msgstr "Lien vers une démarche en ligne"
 
 msgid "Name of a contact in charge"
 msgstr "Nom d'un contact en charge de l'aide"
@@ -132,36 +135,6 @@ msgstr "Destinations"
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
-msgid "Convention"
-msgstr "Convention"
-
-msgid "Training"
-msgstr "Formation"
-
-msgid "Guarantee"
-msgstr "Garantie"
-
-msgid "Low interest rate loan"
-msgstr "Prêt à taux réduit"
-
-msgid "Capital investment"
-msgstr "Investissement en capital"
-
-msgid "Tax benefit"
-msgstr "Avantage fiscal"
-
-msgid "Return fund"
-msgstr "Fonds de retour"
-
-msgid "Engineering"
-msgstr "Ingénierie"
-
-msgid "Communication"
-msgstr "Communication"
-
-msgid "Other"
-msgstr "Autre"
-
 msgid "Europe"
 msgstr "Europe"
 
@@ -182,6 +155,9 @@ msgstr "Métropole"
 
 msgid "Overseas"
 msgstr "Outre-mer"
+
+msgid "Other"
+msgstr "Autre"
 
 msgid "Preoperational"
 msgstr "Conception (études, programmation)"
@@ -272,6 +248,9 @@ msgstr "L'aide s'applique en phase de…"
 
 msgid "URL"
 msgstr "Url"
+
+msgid "Application url"
+msgstr "Lien vers une démarche en ligne"
 
 msgid "Targeted audiances"
 msgstr "Destinataires de l'aide"
