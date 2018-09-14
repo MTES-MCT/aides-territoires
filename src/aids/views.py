@@ -19,7 +19,10 @@ class SearchView(FormMixin, ListView):
             perimeter_slug = self.request.GET.get('perimeter', '')
             perimeter_id = perimeter_slug.split('-')[0]
             if perimeter_id:
-                self.perimeter = Perimeter.objects.get(pk=perimeter_id)
+                try:
+                    self.perimeter = Perimeter.objects.get(pk=perimeter_id)
+                except Perimeter.DoesNotExist:
+                    self.perimeter = None
             else:
                 self.perimeter = None
 
