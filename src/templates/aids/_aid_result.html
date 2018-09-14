@@ -62,7 +62,7 @@
             <tr>
                 <th>{{ _('Aid type') }}</th>
                 <td>
-                    {% choices_display aid 'aid_types' %}
+                    {% grouped_choices_display aid 'aid_types' %}
                     {% if aid.aid_types_detail %}
                         ({{ aid.aid_types_detail }})
                     {% endif %}
