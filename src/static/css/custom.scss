@@ -141,6 +141,50 @@ section#search {
 
     div.search-engine {
         @extend .col-3;
+
+        form {
+            .form-group {
+                @extend .card;
+                @include border-radius(0);
+
+                &:first-of-type {
+                    @include border-top-radius($card-border-radius);
+                }
+
+                &:last-of-type {
+                    @include border-bottom-radius($card-border-radius);
+                }
+
+                &:not(:last-of-type) {
+                    margin-bottom: 0;
+                    border-bottom: 0;
+                }
+
+                &>label {
+                    @extend .card-header;
+                }
+
+                div.field {
+                    @extend .card-body;
+                }
+            }
+
+            button[type=submit] {
+                @extend .btn-lg;
+                @extend .btn-block;
+            }
+
+            p {
+                @extend .text-muted;
+            }
+
+            a.reset {
+                @extend .btn;
+                @extend .btn-block;
+                @extend .btn-dark;
+                @extend .my-1;
+            }
+        }
     }
 
     div.search-results {
@@ -217,49 +261,5 @@ section#search {
                 }
             }
         }
-    }
-}
-
-div.search-engine form {
-    .form-group {
-        @extend .card;
-        @include border-radius(0);
-
-        &:first-of-type {
-            @include border-top-radius($card-border-radius);
-        }
-
-        &:last-of-type {
-            @include border-bottom-radius($card-border-radius);
-        }
-
-        &:not(:last-of-type) {
-            margin-bottom: 0;
-            border-bottom: 0;
-        }
-
-        &>label {
-            @extend .card-header;
-        }
-
-        div.field {
-            @extend .card-body;
-        }
-    }
-
-    button[type=submit] {
-        @extend .btn-lg;
-        @extend .btn-block;
-    }
-
-    p {
-        @extend .text-muted;
-    }
-
-    a.reset {
-        @extend .btn;
-        @extend .btn-block;
-        @extend .btn-dark;
-        @extend .my-1;
     }
 }
