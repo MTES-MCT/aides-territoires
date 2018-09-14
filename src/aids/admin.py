@@ -8,6 +8,11 @@ from aids.forms import AidAdminForm
 class AidAdmin(admin.ModelAdmin):
     """Admin module for aids."""
 
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
+
     form = AidAdminForm
     list_display = ['name', 'author', 'backer']
     autocomplete_fields = ['author', 'backer', 'perimeter']
