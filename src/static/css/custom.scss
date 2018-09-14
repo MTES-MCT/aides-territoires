@@ -184,6 +184,26 @@ section#search {
                 @extend .btn-dark;
                 @extend .my-1;
             }
+
+            fieldset#id_aid_types_0 legend {
+                &:before {
+                    @include fa-icon;
+                    @extend .fas;
+                    @extend .pr-1;
+                    vertical-align: inherit;
+                    content: fa-content($fa-var-euro-sign);
+                }
+            }
+
+            fieldset#id_aid_types_1 legend {
+                &:before {
+                    @include fa-icon;
+                    @extend .fas;
+                    @extend .pr-1;
+                    vertical-align: inherit;
+                    content: fa-content($fa-var-cog);
+                }
+            }
         }
     }
 
