@@ -29,23 +29,18 @@ class AidQuerySet(models.QuerySet):
 class Aid(models.Model):
     """Represents a single Aid."""
 
-    TYPES = Choices(
-        ('grant', _('Grant')),
-        ('convention', _('Convention')),
-        ('training', _('Training')),
-        ('interest_subsidy', _('Interest subsidy')),
-        ('loan', _('Loan')),
-        ('recoverable_advance', _('Recoverable advance')),
-        ('guarantee', _('Guarantee')),
-        ('low_interest_rate_loan', _('Low interest rate loan')),
-        ('capital investment', _('Capital investment')),
-        ('tax_benefit', _('Tax benefit')),
-        ('return_fund', _('Return fund')),
-        ('engineering', _('Engineering')),
-        ('guidance', _('Guidance')),
-        ('valorisation', _('Valorisation')),
-        ('communication', _('Communication')),
-        ('other', _('Other')),
+    TYPES = (
+        (_('Financial aids'), (
+            ('grant', _('Grant')),
+            ('loan', _('Loan')),
+            ('recoverable_advance', _('Recoverable advance')),
+            ('interest_subsidy', _('Interest subsidy')),
+        )),
+        (_('Technical and methodological aids'), (
+            ('guidance', _('Guidance')),
+            ('networking', _('Networking')),
+            ('valorisation', _('Valorisation')),
+        )),
     )
 
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
