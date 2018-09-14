@@ -108,3 +108,5 @@ TODO
 .env.local
 .env.production
 .env.staging
+
+*.xls
