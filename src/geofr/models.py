@@ -15,6 +15,9 @@ class Perimeter(models.Model):
     E.g: the commune of Montpellier is located in Hérault, Occitanie, France,
     Europe.
 
+    Since nothing is simple when administration is involved, some perimeters
+    e.g epcis can be spread over several departments / regions.
+
     """
 
     TYPES = Choices(
@@ -49,10 +52,18 @@ class Perimeter(models.Model):
         _('Region'),
         max_length=2,  # INSEE COG
         blank=True)
+    regions = ArrayField(  # Array of region codes (INSEE COG)
+        verbose_name=_('Regions'),
+        base_field=models.CharField(max_length=2),
+        null=True, blank=True)
     department = models.CharField(
         _('Department'),
         max_length=3,  # INSEE COG
         blank=True)
+    departments = ArrayField(  # Array of depts codes (INSEE COG)
+        verbose_name=_('Departments'),
+        base_field=models.CharField(max_length=3),
+        null=True, blank=True)
     epci = models.CharField(
         _('EPCI'),
         max_length=32,  # INSEE COG
