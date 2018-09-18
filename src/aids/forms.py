@@ -8,6 +8,21 @@ from aids.models import Aid
 from geofr.models import Perimeter
 
 
+AID_TYPES = (
+    (_('Financial aids'), (
+        ('grant', _('Grant')),
+        ('loan', _('Loan')),
+        ('recoverable_advance', _('Recoverable advance')),
+        ('interest_subsidy', _('Interest subsidy')),
+    )),
+    (_('Technical and methodological aids'), (
+        ('guidance', _('Guidance')),
+        ('networking', _('Networking')),
+        ('valorisation', _('Valorisation')),
+    )),
+)
+
+
 class AidAdminForm(forms.ModelForm):
     """Custom form form Aids in admin."""
 
@@ -21,6 +36,8 @@ class AidAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['aid_types'].choices = AID_TYPES
 
         custom_labels = {
             'name': _('Aid title'),
@@ -57,21 +74,6 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
-    # Subset of aid types
-    TYPES = (
-        (_('Financial aids'), (
-            ('grant', _('Grant')),
-            ('loan', _('Loan')),
-            ('recoverable_advance', _('Recoverable advance')),
-            ('interest_subsidy', _('Interest subsidy')),
-        )),
-        (_('Technical and methodological aids'), (
-            ('guidance', _('Guidance')),
-            ('networking', _('Networking')),
-            ('valorisation', _('Valorisation')),
-        )),
-    )
-
     perimeter = forms.ChoiceField(
         label=_('Perimeter'),
         required=False)
@@ -83,7 +85,7 @@ class AidSearchForm(forms.Form):
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=TYPES,
+        choices=AID_TYPES,
         widget=MultipleChoiceFilterWidget)
     mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
