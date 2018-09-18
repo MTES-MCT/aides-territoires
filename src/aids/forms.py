@@ -181,32 +181,41 @@ class AidSearchForm(forms.Form):
         # contained in the search perimeter.
         # E.g we search for aids in "Hérault", exclude communes and epcis that
         # are not in Hérault.
-        if self.perimeter.scale > Perimeter.TYPES.commune:
-
-            # Which fields should we use for filtering?
-            # E.g if the current search perimeter is the department "Hérault",
-            # we must exclude epcis and communes where the field
-            # "department" is different from "34".
-            filter_fields = {
-                Perimeter.TYPES.epci: 'perimeter__epci',
-                Perimeter.TYPES.department: 'perimeter__department',
-                Perimeter.TYPES.region: 'perimeter__region',
-            }
-            filter_field = filter_fields[self.perimeter.scale]
+        if self.perimeter.scale == Perimeter.TYPES.region:
             q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
-            q_not_contained = ~Q(**{filter_field: self.perimeter.code})
+            q_not_contained = ~Q(
+                perimeter__regions__contains=[self.perimeter.code])
+            qs = qs.exclude(q_smaller_scale & q_not_contained)
+
+        if self.perimeter.scale == Perimeter.TYPES.department:
+            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+            q_not_contained = ~Q(
+                perimeter__departments__contains=[self.perimeter.code])
+            qs = qs.exclude(q_smaller_scale & q_not_contained)
+
+        if self.perimeter.scale == Perimeter.TYPES.epci:
+            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+            q_not_contained = ~Q(perimeter__epci=self.perimeter.code)
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
         # Exclude all perimeters that are wider and that does not
         # contain our search perimeter.
         # E.g we search for aids in "Hérault", exclude regions that are not
         # Occitanie.
-        for scale in ('region', 'department', 'epci'):
+        if self.perimeter.regions:
+            q_scale_region = Q(perimeter__scale=Perimeter.TYPES.region)
+            q_different_region = ~Q(perimeter__code__in=self.perimeter.regions)
+            qs = qs.exclude(q_scale_region & q_different_region)
 
-            if getattr(self.perimeter, scale):
-                q_scale = Q(perimeter__scale=getattr(Perimeter.TYPES, scale))
-                q_different_code = ~Q(
-                    perimeter__code=getattr(self.perimeter, scale))
-                qs = qs.exclude(q_scale & q_different_code)
+        if self.perimeter.departments:
+            q_scale_department = Q(perimeter__scale=Perimeter.TYPES.department)
+            q_different_department = ~Q(
+                perimeter__code__in=self.perimeter.departments)
+            qs = qs.exclude(q_scale_department & q_different_department)
+
+        if self.perimeter.epci:
+            q_scale_epci = Q(perimeter__scale=Perimeter.TYPES.epci)
+            q_different_epci = ~Q(perimeter__code=self.perimeter.epci)
+            qs = qs.exclude(q_scale_epci & q_different_epci)
 
         return qs
