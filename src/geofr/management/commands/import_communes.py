@@ -31,8 +31,8 @@ class Command(BaseCommand):
                     scale=Perimeter.TYPES.commune,
                     code=entry['code'],
                     name=entry['nom'],
-                    department=entry['codeDepartement'],
-                    region=entry['codeRegion'],
+                    departments=[entry['codeDepartement']],
+                    regions=[entry['codeRegion']],
                     zipcodes=entry['codesPostaux'],
                     is_overseas=(entry['codeRegion'] in OVERSEAS_REGIONS))
                 communes.append(commune)

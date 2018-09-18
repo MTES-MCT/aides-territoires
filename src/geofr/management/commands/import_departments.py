@@ -25,7 +25,7 @@ class Command(BaseCommand):
                 scale=Perimeter.TYPES.department,
                 code=entry['code'],
                 name=entry['nom'],
-                region=entry['codeRegion'],
+                regions=[entry['codeRegion']],
                 is_overseas=(entry['codeRegion'] in OVERSEAS_REGIONS))
             departments.append(department)
 
