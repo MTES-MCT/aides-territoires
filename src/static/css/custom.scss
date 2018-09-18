@@ -261,13 +261,18 @@ section#search {
             table {
                 @extend .table;
                 @extend .table-sm;
+                table-layout: fixed;
 
                 caption {
                     @extend .sr-only;
                 }
 
-                th {
-                    width: 33%;
+                col.header {
+                    width: 15rem;
+                }
+
+                td {
+                    word-wrap: break-word;
                 }
 
                 span.contact {

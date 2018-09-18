@@ -4,7 +4,7 @@ import xlrd
 from django.core.management.base import BaseCommand
 
 from geofr.models import Perimeter
-from geofr.constants import OVERSEAS_DEPARTMENTS
+from geofr.constants import OVERSEAS_DEPARTMENTS, DEPARTMENT_TO_REGION
 
 
 # Field column indexes
@@ -45,6 +45,7 @@ class Command(BaseCommand):
         """
         epci_name = self.xls_sheet.cell_value(row_index, NAME)
         epci_department = self.xls_sheet.cell_value(row_index, DEPARTMENT)
+        epci_region = DEPARTMENT_TO_REGION[epci_department]
         epci_code = '{:d}'.format(
             int(self.xls_sheet.cell_value(row_index, CODE)))
         member_code = self.xls_sheet.cell_value(row_index, MEMBER)
@@ -53,8 +54,12 @@ class Command(BaseCommand):
             scale=Perimeter.TYPES.epci,
             code=epci_code,
             name=epci_name,
-            department=epci_department,
+            departments=[epci_department],
+            regions=[epci_region],
             is_overseas=bool(epci_department in OVERSEAS_DEPARTMENTS))
+
+        epci.save()
+
         Perimeter.objects.filter(code=member_code).update(epci=epci_code)
 
         if created:

@@ -32,30 +32,30 @@ def perimeters():
             scale=Perimeter.TYPES.department,
             name='Hérault',
             code='34',
-            region='76'),
+            regions=['76']),
         'montpellier': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
             name='Montpellier',
             code='34172',
-            region='76',
-            department='34'),
+            regions=['76'],
+            departments=['34']),
         'vic': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
             name='Vic-la-Gardiole',
             code='34333',
-            region='76',
-            department='34'),
+            regions=['76'],
+            departments=['34']),
         'aveyron': PerimeterFactory(
             scale=Perimeter.TYPES.department,
             name='Aveyron',
             code='12',
-            region='76'),
+            regions=['76']),
         'rodez': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
             name='Rodez',
             code='12202',
-            region='76',
-            department='12'),
+            regions=['76'],
+            departments=['12']),
         'normandie': PerimeterFactory(
             scale=Perimeter.TYPES.region,
             name='Normandie',
@@ -64,13 +64,13 @@ def perimeters():
             scale=Perimeter.TYPES.department,
             name='Eure',
             code='28',
-            region='28'),
+            regions=['28']),
         'st-cyr': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
             name='Saint-Cyr-la-Campagne',
             code='27529',
-            region='28',
-            department='27'),
+            regions=['28'],
+            departments=['27']),
 
     }
     return perimeters

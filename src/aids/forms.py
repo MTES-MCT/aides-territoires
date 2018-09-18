@@ -8,6 +8,21 @@ from aids.models import Aid
 from geofr.models import Perimeter
 
 
+AID_TYPES = (
+    (_('Financial aids'), (
+        ('grant', _('Grant')),
+        ('loan', _('Loan')),
+        ('recoverable_advance', _('Recoverable advance')),
+        ('interest_subsidy', _('Interest subsidy')),
+    )),
+    (_('Technical and methodological aids'), (
+        ('guidance', _('Guidance')),
+        ('networking', _('Networking')),
+        ('valorisation', _('Valorisation')),
+    )),
+)
+
+
 class AidAdminForm(forms.ModelForm):
     """Custom form form Aids in admin."""
 
@@ -21,6 +36,8 @@ class AidAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['aid_types'].choices = AID_TYPES
 
         custom_labels = {
             'name': _('Aid title'),
@@ -57,21 +74,6 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
-    # Subset of aid types
-    TYPES = (
-        (_('Financial aids'), (
-            ('grant', _('Grant')),
-            ('loan', _('Loan')),
-            ('recoverable_advance', _('Recoverable advance')),
-            ('interest_subsidy', _('Interest subsidy')),
-        )),
-        (_('Technical and methodological aids'), (
-            ('guidance', _('Guidance')),
-            ('networking', _('Networking')),
-            ('valorisation', _('Valorisation')),
-        )),
-    )
-
     perimeter = forms.ChoiceField(
         label=_('Perimeter'),
         required=False)
@@ -83,7 +85,7 @@ class AidSearchForm(forms.Form):
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=TYPES,
+        choices=AID_TYPES,
         widget=MultipleChoiceFilterWidget)
     mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
@@ -94,6 +96,11 @@ class AidSearchForm(forms.Form):
         label=_('Destinations'),
         required=False,
         choices=Aid.DESTINATIONS,
+        widget=MultipleChoiceFilterWidget)
+    scale = forms.MultipleChoiceField(
+        label=_('Diffusion'),
+        required=False,
+        choices=Perimeter.TYPES,
         widget=MultipleChoiceFilterWidget)
 
     def __init__(self, *args, **kwargs):
@@ -137,6 +144,10 @@ class AidSearchForm(forms.Form):
         if destinations:
             qs = qs.filter(destinations__overlap=destinations)
 
+        scale = self.cleaned_data.get('scale', None)
+        if scale:
+            qs = qs.filter(perimeter__scale__in=scale)
+
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
             qs = qs.filter(submission_deadline__lt=apply_before)
@@ -179,32 +190,41 @@ class AidSearchForm(forms.Form):
         # contained in the search perimeter.
         # E.g we search for aids in "Hérault", exclude communes and epcis that
         # are not in Hérault.
-        if self.perimeter.scale > Perimeter.TYPES.commune:
-
-            # Which fields should we use for filtering?
-            # E.g if the current search perimeter is the department "Hérault",
-            # we must exclude epcis and communes where the field
-            # "department" is different from "34".
-            filter_fields = {
-                Perimeter.TYPES.epci: 'perimeter__epci',
-                Perimeter.TYPES.department: 'perimeter__department',
-                Perimeter.TYPES.region: 'perimeter__region',
-            }
-            filter_field = filter_fields[self.perimeter.scale]
+        if self.perimeter.scale == Perimeter.TYPES.region:
             q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
-            q_not_contained = ~Q(**{filter_field: self.perimeter.code})
+            q_not_contained = ~Q(
+                perimeter__regions__contains=[self.perimeter.code])
+            qs = qs.exclude(q_smaller_scale & q_not_contained)
+
+        if self.perimeter.scale == Perimeter.TYPES.department:
+            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+            q_not_contained = ~Q(
+                perimeter__departments__contains=[self.perimeter.code])
+            qs = qs.exclude(q_smaller_scale & q_not_contained)
+
+        if self.perimeter.scale == Perimeter.TYPES.epci:
+            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+            q_not_contained = ~Q(perimeter__epci=self.perimeter.code)
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
         # Exclude all perimeters that are wider and that does not
         # contain our search perimeter.
         # E.g we search for aids in "Hérault", exclude regions that are not
         # Occitanie.
-        for scale in ('region', 'department', 'epci'):
+        if self.perimeter.regions:
+            q_scale_region = Q(perimeter__scale=Perimeter.TYPES.region)
+            q_different_region = ~Q(perimeter__code__in=self.perimeter.regions)
+            qs = qs.exclude(q_scale_region & q_different_region)
 
-            if getattr(self.perimeter, scale):
-                q_scale = Q(perimeter__scale=getattr(Perimeter.TYPES, scale))
-                q_different_code = ~Q(
-                    perimeter__code=getattr(self.perimeter, scale))
-                qs = qs.exclude(q_scale & q_different_code)
+        if self.perimeter.departments:
+            q_scale_department = Q(perimeter__scale=Perimeter.TYPES.department)
+            q_different_department = ~Q(
+                perimeter__code__in=self.perimeter.departments)
+            qs = qs.exclude(q_scale_department & q_different_department)
+
+        if self.perimeter.epci:
+            q_scale_epci = Q(perimeter__scale=Perimeter.TYPES.epci)
+            q_different_epci = ~Q(perimeter__code=self.perimeter.epci)
+            qs = qs.exclude(q_scale_epci & q_different_epci)
 
         return qs

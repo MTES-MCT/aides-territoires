@@ -2,13 +2,15 @@ language: python
 python:
   - "3.6"
 addons:
-  - postgresql: "9.5"
+  - postgresql: "9.6"
 before_install:
  - cd $TRAVIS_BUILD_DIR/src
 install:
  - npm install -g sass
  - make init
 before_script:
+  - psql --version
+  - psql -c 'SELECT version();' -U postgres
   - psql -c "CREATE USER aides WITH CREATEDB PASSWORD 'aides';" -U postgres
 script:
  - make checkstyle
