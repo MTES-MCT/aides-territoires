@@ -48,18 +48,10 @@ class Perimeter(models.Model):
         _('Country'),
         max_length=3,
         default='FRA')  # ISO_3166-3 codes
-    region = models.CharField(
-        _('Region'),
-        max_length=2,  # INSEE COG
-        blank=True)
     regions = ArrayField(  # Array of region codes (INSEE COG)
         verbose_name=_('Regions'),
         base_field=models.CharField(max_length=2),
         null=True, blank=True)
-    department = models.CharField(
-        _('Department'),
-        max_length=3,  # INSEE COG
-        blank=True)
     departments = ArrayField(  # Array of depts codes (INSEE COG)
         verbose_name=_('Departments'),
         base_field=models.CharField(max_length=3),
