@@ -9,6 +9,8 @@ install:
  - npm install -g sass
  - make init
 before_script:
+  - psql --version
+  - psql -c 'SELECT version();' -U postgres
   - psql -c "CREATE USER aides WITH CREATEDB PASSWORD 'aides';" -U postgres
 script:
  - make checkstyle
