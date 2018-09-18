@@ -51,11 +51,13 @@ class Perimeter(models.Model):
     regions = ArrayField(  # Array of region codes (INSEE COG)
         verbose_name=_('Regions'),
         base_field=models.CharField(max_length=2),
-        null=True, blank=True)
+        default=list,
+        blank=True)
     departments = ArrayField(  # Array of depts codes (INSEE COG)
         verbose_name=_('Departments'),
         base_field=models.CharField(max_length=3),
-        null=True, blank=True)
+        default=list,
+        blank=True)
     epci = models.CharField(
         _('EPCI'),
         max_length=32,  # INSEE COG
