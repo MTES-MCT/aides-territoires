@@ -54,13 +54,9 @@ class Command(BaseCommand):
             scale=Perimeter.TYPES.epci,
             code=epci_code,
             name=epci_name,
+            departments=[epci_department],
+            regions=[epci_region],
             is_overseas=bool(epci_department in OVERSEAS_DEPARTMENTS))
-
-        if epci_department not in epci.departments:
-            epci.departments.append(epci_department)
-
-        if epci_region not in epci.regions:
-            epci.regions.append(epci_region)
 
         epci.save()
 
