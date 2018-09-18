@@ -9,7 +9,7 @@ class MailingListForm(forms.Form):
         required=True,
         label=_('Email'),
     )
-    structure = forms.CharField(
+    STRUCTURE = forms.CharField(
         required=True,
         label=_('Structure'),
         help_text=_('Tell us the name and nature of your organization.'),
