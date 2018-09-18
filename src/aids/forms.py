@@ -98,9 +98,9 @@ class AidSearchForm(forms.Form):
         choices=Aid.DESTINATIONS,
         widget=MultipleChoiceFilterWidget)
     scale = forms.MultipleChoiceField(
-        label=_('Scale'),
+        label=_('Diffusion'),
         required=False,
-        choices=Aid.PERIMETERS,
+        choices=Perimeter.TYPES,
         widget=MultipleChoiceFilterWidget)
 
     def __init__(self, *args, **kwargs):
@@ -146,7 +146,7 @@ class AidSearchForm(forms.Form):
 
         scale = self.cleaned_data.get('scale', None)
         if scale:
-            qs = qs.filter(application_perimeter__in=scale)
+            qs = qs.filter(perimeter__scale__in=scale)
 
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
