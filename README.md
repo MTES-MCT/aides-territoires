@@ -21,6 +21,12 @@ cd aides-territoires
 ```
 
 
+## Définition du fini
+
+Avant chaque mise en production, les intervenant·es sont prié·es de [passer
+cette liste en revue](./DOD.md).
+
+
 ## Gestion des dépendances avec Pipenv
 
 Le projet utilise [Pipenv pour gérer les dépendances de paquets
