@@ -1,3 +1,5 @@
 project_domain: aides-territoires.jouannic.fr
 env_file: .env.staging
 project_version: master
+certbot_admin_email: certbot@thibault.miximum.fr
+certbot_domains: "{{ project_domain }}"

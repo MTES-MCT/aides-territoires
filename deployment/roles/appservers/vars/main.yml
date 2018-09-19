@@ -14,5 +14,3 @@ activate_bin: "{{ bin_dir }}/activate"
 gunicorn_bin: "{{ bin_dir }}/gunicorn"
 django_settings: "core.settings.production"
 env_target: ".env.production"
-certbot_admin_email: certbot@thibault.miximum.fr
-certbot_output_dir: "/etc/letsencrypt/live/{{ project_domain }}"

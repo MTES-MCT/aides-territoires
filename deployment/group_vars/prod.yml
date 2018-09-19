@@ -1,3 +1,5 @@
 project_domain: aides-territoires.beta.gouv.fr
 env_file: .env.production
 project_version: production
+certbot_admin_email: elise.marion@developpement-durable.gouv.fr
+certbot_domains: "{{ project_domain }},www.{{ project_domain }},recherche.{{ project_domain }}"

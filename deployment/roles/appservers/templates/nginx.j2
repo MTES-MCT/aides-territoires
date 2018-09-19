@@ -3,25 +3,31 @@ upstream {{ project_name }} {
 }
 
 server {
-    listen 80;
     listen 443 ssl;
     server_name www.{{ project_domain }} recherche.{{ project_domain }};
-    return 302 http://{{ project_domain }}$request_uri;
-}
 
-server {
-    listen 443 ssl;
-    server_name {{ project_domain }};
-    return 302 http://$server_name$request_uri;
+    ssl_certificate /etc/letsencrypt/live/{{ project_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ project_domain }}/privkey.pem;
+
+    return 301 https://{{ project_domain }}$request_uri;
 }
 
 server {
     listen 80;
+    server_name {{ project_domain }};
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
     server_name {{ project_domain }};
 
     access_log /var/log/nginx/{{ project_name }}.access.log;
     error_log /var/log/nginx/{{ project_name }}.error.log;
     client_max_body_size 150m;
+
+    ssl_certificate /etc/letsencrypt/live/{{ project_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ project_domain }}/privkey.pem;
 
     # Security options
     add_header X-XSS-Protection "1; mode=block";
