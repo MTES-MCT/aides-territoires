@@ -2,10 +2,15 @@
 
 [![Build Status](https://travis-ci.com/MTES-MCT/aides-territoires.svg?branch=master)](https://travis-ci.com/MTES-MCT/aides-territoires)
 
+Dépôt du projet
+[Aides-territoires.beta.gouv.fr](https://aides-territoires.beta.gouv.fr/).
+
 Identifiez en quelques clics toutes les aides disponibles sur votre territoire
 pour vos projets d'aménagement durable.
 
-Dépôt du projet Aides-territoires : https://aides-territoires.beta.gouv.fr/
+Ce document s'adresse aux intervenant·es techniques sur le projet
+Aides-territoires. Pour plus d'infos en tant qu'utilisateur·ice, se reporter
+[directement au site](https://aides-territoires.beta.gouv.fr/).
 
 
 ## Démarrage
