@@ -1,0 +1,33 @@
+---
+- name: Ensure Nginx is stopped
+  service:
+    name: nginx
+    state: stopped
+
+- name: Install certbot and generate cert
+  command:
+  args:
+    argv:
+      - certbot
+      - certbonly
+      - --noninteractive
+      - --agree-tos
+      - --standalone
+      - --email
+      - "{{ certbot_admin_email }}"
+      - -d {{ project_domain }}
+      - -d "*.{{ project_domain }}"
+  creates: "{{ certbot_output_dir }}"
+
+- name: Ensure Nginx is running
+  service:
+    name: nginx
+    state: started
+
+
+- name: Install the certificate renewal cronjob
+  cron:
+    name: Daily certificate renewal
+    special_time: daily
+    job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
+    state: present

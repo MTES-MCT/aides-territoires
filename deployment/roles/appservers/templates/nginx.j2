@@ -4,6 +4,19 @@ upstream {{ project_name }} {
 
 server {
     listen 80;
+    listen 443 ssl;
+    server_name www.{{ project_domain }} recherche.{{ project_domain }};
+    return 302 http://{{ project_domain }}$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name {{ project_domain }};
+    return 302 http://$server_name$request_uri;
+}
+
+server {
+    listen 80;
     server_name {{ project_domain }};
 
     access_log /var/log/nginx/{{ project_name }}.access.log;

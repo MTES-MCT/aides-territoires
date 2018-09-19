@@ -1,4 +1,8 @@
 ---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
 - name: Pin package priorities
   template:
     src: stablepin.j2
@@ -25,11 +29,14 @@
     state: present
     filename: nodesource
 
+- name: Update apt cache again
+  apt:
+    update_cache: yes
+
 - name: Install required packages
   apt:
     name: "{{ item }}"
     state: latest
-    update_cache: true
   with_items:
     - gettext
     - postgresql
@@ -40,12 +47,12 @@
     - nginx
     - supervisor
     - nodejs
+    - certbot
 
 - name: Install python3.6 (testing)
   apt:
     name: "{{ item }}"
     state: latest
-    update_cache: true
     default_release: testing
   with_items:
     - python3.6

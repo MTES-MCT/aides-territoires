@@ -3,6 +3,7 @@
 - import_tasks: user.yml
 - import_tasks: database.yml
 - import_tasks: webserver.yml
+- import_tasks: certbot.yml
 - import_tasks: virtualenv.yml
 - import_tasks: build.yml
 - import_tasks: restart.yml
