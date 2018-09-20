@@ -109,6 +109,10 @@ class Aid(models.Model):
         on_delete=models.PROTECT,
         verbose_name=_('Backer'),
         help_text=_('On a national level if appropriate'))
+    backers = models.ManyToManyField(
+        'backers.Backer',
+        related_name='aids',
+        verbose_name=_('Backers'))
     description = models.TextField(
         _('Short description'),
         max_length=500,
