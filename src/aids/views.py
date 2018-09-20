@@ -56,7 +56,7 @@ class SearchView(FormMixin, ListView):
             .published() \
             .open() \
             .select_related('backer', 'perimeter') \
-            .order_by('perimeter__scale')
+            .order_by('perimeter__scale', 'submission_deadline')
 
         filter_form = self.get_form()
         results = filter_form.filter_queryset(qs)
