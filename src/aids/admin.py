@@ -14,8 +14,8 @@ class AidAdmin(admin.ModelAdmin):
         }
 
     form = AidAdminForm
-    list_display = ['name', 'author', 'backer']
-    autocomplete_fields = ['author', 'backer', 'perimeter']
+    list_display = ['name', 'author']
+    autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
     fieldsets = [
         (_('Aid presentation'), {
@@ -23,7 +23,7 @@ class AidAdmin(admin.ModelAdmin):
                 'name',
                 'description',
                 'targeted_audiances',
-                'backer',
+                'backers',
                 'author',
             )
         }),

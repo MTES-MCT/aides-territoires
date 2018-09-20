@@ -42,7 +42,7 @@ class AidAdminForm(forms.ModelForm):
         custom_labels = {
             'name': _('Aid title'),
             'targeted_audiances': _('Who can apply to this aid?'),
-            'backer': _('Aid backer'),
+            'backers': _('Aid backers'),
             'destinations': _('The aid is destined to…'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'url': _('Link to a full description'),
