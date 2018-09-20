@@ -104,15 +104,11 @@ class Aid(models.Model):
         on_delete=models.PROTECT,
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'))
-    backer = models.ForeignKey(
-        'backers.Backer',
-        on_delete=models.PROTECT,
-        verbose_name=_('Backer'),
-        help_text=_('On a national level if appropriate'))
     backers = models.ManyToManyField(
         'backers.Backer',
         related_name='aids',
-        verbose_name=_('Backers'))
+        verbose_name=_('Backers'),
+        help_text=_('On a national level if appropriate'))
     description = models.TextField(
         _('Short description'),
         max_length=500,
