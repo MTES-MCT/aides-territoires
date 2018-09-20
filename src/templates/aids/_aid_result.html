@@ -24,7 +24,7 @@
         {% endif %}
         {{ aid.name }}
 
-        <br /><small>{{ aid.backer }}</small>
+        <br /><small>{{ aid.backers.all|join:', ' }}</small>
     </h1>
 
     <p>

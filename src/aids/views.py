@@ -55,7 +55,8 @@ class SearchView(FormMixin, ListView):
         qs = Aid.objects \
             .published() \
             .open() \
-            .select_related('backer', 'perimeter') \
+            .select_related('perimeter') \
+            .prefetch_related('backers') \
             .order_by('perimeter__scale', 'submission_deadline')
 
         filter_form = self.get_form()
