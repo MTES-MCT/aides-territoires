@@ -25,6 +25,7 @@ class Perimeter(models.Model):
         (5, 'epci', _('EPCI')),
         (10, 'department', _('Department')),
         (15, 'region', _('Region')),
+        (18, 'basin', _('Drainage basin')),
         (20, 'country', _('Country')),
         (25, 'continent', _('Continent')),
     )
@@ -61,6 +62,10 @@ class Perimeter(models.Model):
     epci = models.CharField(
         _('EPCI'),
         max_length=32,  # INSEE COG
+        blank=True)
+    basin = models.CharField(
+        _('Drainage basin'),
+        max_length=32,  # Sandre code
         blank=True)
     zipcodes = ArrayField(
         verbose_name=_('Zip codes'),

@@ -1,6 +1,5 @@
 import os
 
-import xlrd
 from django.core.management.base import BaseCommand
 
 from geofr.models import Perimeter
@@ -14,20 +13,18 @@ CODE = 1
 MEMBER = 9
 
 DRAINAGE_BASINS = {
-    'A': 'Escaut
-    'B1':
-    'B2':
-    'C':
-    'D':
-    'E':
-    'F':
-    'G':
-    'H':
-    'I':
-    'J':
-    'K':
-    'L':
-    'M':
+    'FR000001': 'Rhin-Meuse',
+    'FR000002': 'Artois-Picardie',
+    'FR000003': 'Seine-Normandie',
+    'FR000004': 'Loire-Bretagne',
+    'FR000005': 'Adour-Garonne',
+    'FR000006': 'Rhône- Méditérannée',
+    'FR000007': 'Corse',
+    'FR000008': 'Guadeloupe',
+    'FR000009': 'Martinique',
+    'FR000010': 'Guyane',
+    'FR000011': 'Réunion',
+    'FR000012': 'Mayotte',
 }
 
 
@@ -45,6 +42,13 @@ class Command(BaseCommand):
         parser.add_argument('csv_file', nargs=1, type=str)
 
     def handle(self, *args, **options):
+
+        for code, basin_name in DRAINAGE_BASINS.items():
+            Perimeter.objects.create(
+                scale=Perimeter.TYPES.basin,
+                code=code,
+                name=basin)
+
 
         csv_path = os.path.abspath(options['csv_file'])
 
