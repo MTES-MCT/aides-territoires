@@ -19,6 +19,7 @@ section#landing-value {
     @extend .text-center;
     @extend .bg-dark;
     border-radius: 0;
+    margin-bottom: 0;
 
     background: url('/static/img/lead-header3.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -36,44 +37,6 @@ section#landing-value {
         @extend .mb-5;
         @extend .text-white;
     }
-
-    div#steps {
-        @extend .card-deck;
-
-        div.step {
-            @extend .card;
-            @extend .shadow-sm;
-            border-radius: 0;
-            border: 0;
-
-            h2 {
-                @extend .h3;
-                @extend .card-header;
-                @extend .text-white;
-                @extend .bg-primary;
-
-                &:first-child {
-                    border-radius: 0;
-                }
-            }
-
-            div.step-content {
-                @extend .card-body;
-
-                p {
-                    @extend .card-text;
-                    font-size: $font-size-base * 1.2;
-                    font-weight: 200;
-                }
-            }
-        }
-    }
-}
-
-section#cta {
-    @extend .container;
-    @extend .my-5;
-    @extend .py-4;
 
     form.search-form {
 

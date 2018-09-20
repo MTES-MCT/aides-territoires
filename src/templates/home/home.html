@@ -10,30 +10,6 @@
             pertinentes pour leurs projets. Vous aussi, vous partagez ce constat ?
         </p>
 
-        <div id="steps">
-            <div class="step">
-                <h2><i class="fas fa-map-marker-alt" title="Un projet"></i></h2>
-                <div class="step-content">
-                    <p>Indiquez-nous où est situé votre projet.</p>
-                </div>
-            </div>
-            <div class="step">
-                <h2><i class="fas fa-hands-helping" title="Des aides"></i></h2>
-                <div class="step-content">
-                    <p>Nous vous aidons à accéder aux meilleures aides publiques mobilisables.</p>
-                </div>
-            </div>
-            <div class="step">
-                <h2><i class="fas fa-clock" title="Du temps gagné"></i></h2>
-                <div class="step-content">
-                    <p>Gagnez du temps sur la recherche d'aides pertinentes au profit de votre projet.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="cta">
     <form class="search-form" method="get" action="{% url 'search_view' %}">
         <div class="search-control form-group form-group-lg">
             <select name="perimeter" aria-label="{{ _('City, department, region, EPCI…') }}" aria-describedby="search-btn">
