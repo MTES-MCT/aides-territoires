@@ -74,6 +74,15 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
+    SCALES = (
+        (1, _('Commune')),
+        (5, _('EPCI')),
+        (10, _('Department')),
+        (15, _('Region')),
+        (20, _('France')),
+        (25, _('Europe')),
+    )
+
     perimeter = forms.ChoiceField(
         label=_('Perimeter'),
         required=False)
@@ -100,7 +109,7 @@ class AidSearchForm(forms.Form):
     scale = forms.MultipleChoiceField(
         label=_('Diffusion'),
         required=False,
-        choices=Perimeter.TYPES,
+        choices=SCALES,
         widget=MultipleChoiceFilterWidget)
 
     def __init__(self, *args, **kwargs):
