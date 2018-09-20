@@ -34,7 +34,7 @@ def aid_form_data(user, backer):
     return {
         'name': 'Test aid',
         'author': user.id,
-        'backer': backer.id,
+        'backers': [backer.id],
         'description': 'My aid description',
         'eligibility': 'Aid eligibility info',
         'application_perimeter': 'france',
@@ -53,7 +53,7 @@ def aids(user, backer):
 
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
@@ -61,7 +61,7 @@ def aids(user, backer):
         application_perimeter='europe')
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
@@ -69,7 +69,7 @@ def aids(user, backer):
         application_perimeter='france')
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
@@ -77,7 +77,7 @@ def aids(user, backer):
         application_perimeter='mainland')
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
@@ -85,7 +85,7 @@ def aids(user, backer):
         application_perimeter='overseas')
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
@@ -94,7 +94,7 @@ def aids(user, backer):
         application_region='01')  # Guadeloupe
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
@@ -103,7 +103,7 @@ def aids(user, backer):
         application_region='02')  # Martinique
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
@@ -112,7 +112,7 @@ def aids(user, backer):
         application_region='28')  # Normandie
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
@@ -121,7 +121,7 @@ def aids(user, backer):
         application_region='76')  # Occitanie
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
@@ -130,7 +130,7 @@ def aids(user, backer):
         application_department='972')  # Martinique
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
@@ -139,7 +139,7 @@ def aids(user, backer):
         application_department='973')  # Guyane
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
@@ -148,7 +148,7 @@ def aids(user, backer):
         application_department='27')  # Eure
     AidFactory(
         author=user,
-        backer=backer,
+        backers=[backer],
         is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],

@@ -4,7 +4,6 @@ from factory.django import DjangoModelFactory
 
 from aids.models import Aid
 from accounts.factories import UserFactory
-from backers.factories import BackerFactory
 
 
 class FuzzyMultipleChoice(fuzzy.BaseFuzzyAttribute):
@@ -31,7 +30,6 @@ class AidFactory(DjangoModelFactory):
 
     name = factory.Faker('company')
     author = factory.SubFactory(UserFactory)
-    backer = factory.SubFactory(BackerFactory)
     description = factory.Faker('text')
     eligibility = factory.Faker('text')
     application_perimeter = fuzzy.FuzzyChoice(dict(Aid.PERIMETERS).keys())
@@ -46,3 +44,14 @@ class AidFactory(DjangoModelFactory):
     publication_status = Aid.AID_STATUSES.open
     open_to_third_party = True
     status = Aid.STATUSES.published
+
+    @factory.post_generation
+    def backers(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of groups were passed in, use them
+            for backer in extracted:
+                self.backers.add(backer)
