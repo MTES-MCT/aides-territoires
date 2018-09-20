@@ -8,6 +8,10 @@
 @import 'theme';
 @import 'bootstrap/scss/bootstrap';
 
+html {
+    @extend .bg-dark;
+}
+
 body {
     >footer {
         @extend .py-5;
