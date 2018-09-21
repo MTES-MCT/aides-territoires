@@ -115,7 +115,7 @@ class Aid(models.Model):
         blank=False)
     eligibility = models.TextField(
         _('Eligibility'),
-        blank=False)
+        blank=True)
     perimeter = models.ForeignKey(
         'geofr.Perimeter',
         verbose_name=_('Perimeter'),

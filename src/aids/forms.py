@@ -269,6 +269,8 @@ class AidCreateForm(BaseAidForm):
             'contact_phone',
         ]
         widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+            'eligibility': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
             'aid_types': MultipleChoiceFilterWidget,
