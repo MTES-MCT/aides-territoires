@@ -17,6 +17,7 @@ class AidAdmin(admin.ModelAdmin):
     list_display = ['name', 'author']
     autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
+    list_filter = ['status']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
