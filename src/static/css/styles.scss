@@ -115,6 +115,7 @@ form {
     input[type=email],
     input[type=date],
     input[type=url],
+    input[type=number],
     select,
     textarea {
         @extend .form-control;
