@@ -5,6 +5,8 @@ from backers.models import Backer
 
 class BackerSerializer(serializers.ModelSerializer):
 
+    text = serializers.CharField(source='name')
+
     class Meta:
         model = Backer
-        fields = ('id', 'name')
+        fields = ('id', 'text')
