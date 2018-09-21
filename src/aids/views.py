@@ -1,8 +1,8 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.views.generic.edit import FormMixin
 
 from aids.models import Aid
-from aids.forms import AidSearchForm
+from aids.forms import AidSearchForm, AidCreateForm
 from geofr.models import Perimeter
 
 
@@ -62,3 +62,14 @@ class SearchView(FormMixin, ListView):
         filter_form = self.get_form()
         results = filter_form.filter_queryset(qs)
         return results
+
+
+class AidCreateView(CreateView):
+    """Allows publishers to submit their own aids."""
+
+    template_name = 'aids/create.html'
+    form_class = AidCreateForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        return form

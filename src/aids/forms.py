@@ -4,8 +4,9 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from aids.models import Aid
+from backers.models import Backer
 from geofr.models import Perimeter
+from aids.models import Aid
 
 
 AID_TYPES = (
@@ -23,9 +24,7 @@ AID_TYPES = (
 )
 
 
-class AidAdminForm(forms.ModelForm):
-    """Custom form form Aids in admin."""
-
+class BaseAidForm(forms.ModelForm):
     class Meta:
         widgets = {
             'mobilization_steps': forms.CheckboxSelectMultiple,
@@ -53,6 +52,11 @@ class AidAdminForm(forms.ModelForm):
         }
         for field, label in custom_labels.items():
             self.fields[field].label = label
+
+
+class AidAdminForm(BaseAidForm):
+    """Custom form form Aids in admin."""
+    pass
 
 
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
@@ -237,3 +241,47 @@ class AidSearchForm(forms.Form):
             qs = qs.exclude(q_scale_epci & q_different_epci)
 
         return qs
+
+
+class AidCreateForm(BaseAidForm):
+    class Meta(BaseAidForm.Meta):
+        model = Aid
+        fields = [
+            'name',
+            'description',
+            'targeted_audiances',
+            'backers',
+            'author',
+            'recurrence',
+            'start_date',
+            'predeposit_date',
+            'submission_deadline',
+            'perimeter',
+            'aid_types',
+            'subvention_rate',
+            'mobilization_steps',
+            'destinations',
+            'eligibility',
+            'application_url',
+            'url',
+            'contact_detail',
+            'contact_email',
+            'contact_phone',
+        ]
+        widgets = {
+            'mobilization_steps': MultipleChoiceFilterWidget,
+            'targeted_audiances': MultipleChoiceFilterWidget,
+            'aid_types': MultipleChoiceFilterWidget,
+            'destinations': MultipleChoiceFilterWidget,
+            'start_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'predeposit_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'submission_deadline': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['perimeter'].queryset = Perimeter.objects.none()
+        self.fields['backers'].queryset = Backer.objects.none()

@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{{ _('Use this form to publish your own aid') }}</h1>
+<form method="post" action="">
+    {% csrf_token %}
+    {% include '_form_snippet.html' with form=form %}
+    <button type="submit">{{ _('Publish a new aid') }}</button>
+</form>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/select2/dist/js/select2.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select#id_backers').select2({
+            placeholder: '{{ _('Backers') }}',
+            ajax: {
+                url: '{% url 'backers-list' %}',
+                dataType: 'json',
+                delay: 100,
+            },
+            theme: 'bootstrap4',
+            width: '',
+        });
+
+        $('select#id_perimeter').select2({
+            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            ajax: {
+                url: '{% url 'perimeters-list' %}',
+                dataType: 'json',
+                delay: 100,
+            },
+            theme: 'bootstrap4',
+            width: '',
+        });
+    });
+</script>
+{% endblock %}
