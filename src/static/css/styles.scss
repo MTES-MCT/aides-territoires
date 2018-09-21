@@ -102,7 +102,7 @@ form {
         @extend .text-muted;
     }
 
-    .form-group.required label:after {
+    .form-group.required > label:after {
         content:"*";
     }
 
