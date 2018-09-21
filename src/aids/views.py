@@ -1,5 +1,8 @@
 from django.views.generic import ListView, CreateView
 from django.views.generic.edit import FormMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 from aids.models import Aid
 from aids.forms import AidSearchForm, AidCreateForm
@@ -64,11 +67,14 @@ class SearchView(FormMixin, ListView):
         return results
 
 
-class AidCreateView(CreateView):
+class AidCreateView(SuccessMessageMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
     template_name = 'aids/create.html'
     form_class = AidCreateForm
+    success_url = reverse_lazy('aid_create_view')
+    success_message = _('Your aid was sucessfully created. \
+                        It will be reviewed by an admin soon.')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
