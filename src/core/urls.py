@@ -9,7 +9,8 @@ router = routers.DefaultRouter()
 
 api_patterns = [
     path('', include(router.urls)),
-    path('', include('geofr.api.urls')),
+    path('perimeters', include('geofr.api.urls')),
+    path('backers', include('backers.api.urls')),
 ]
 
 urlpatterns = [
