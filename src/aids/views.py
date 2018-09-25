@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from aids.models import Aid
 from aids.forms import AidSearchForm, AidCreateForm
-from geofr.models import Perimeter
 
 
 class SearchView(FormMixin, ListView):
@@ -17,38 +16,13 @@ class SearchView(FormMixin, ListView):
     paginate_by = 20
     form_class = AidSearchForm
 
-    def get_selected_perimeter(self):
-        if not hasattr(self, 'perimeter'):
-            perimeter_slug = self.request.GET.get('perimeter', '')
-            perimeter_id = perimeter_slug.split('-')[0]
-            if perimeter_id:
-                try:
-                    self.perimeter = Perimeter.objects.get(pk=perimeter_id)
-                except Perimeter.DoesNotExist:
-                    self.perimeter = None
-            else:
-                self.perimeter = None
-
-        return self.perimeter
-
     def get_form_kwargs(self):
         """Take input data from the GET values."""
 
         kwargs = super().get_form_kwargs()
-        if self.request.method == 'GET':
-
-            # Clean the "perimeter" field value: removes the slug before
-            # sending data to the form
-            mutable_GET = self.request.GET.copy()
-            if 'perimeter' in self.request.GET:
-                perimeter_slug = self.request.GET.get('perimeter')
-                perimeter_id = perimeter_slug.split('-')[0]
-                mutable_GET['perimeter'] = perimeter_id
-
-            kwargs.update({
-                'data': mutable_GET,
-                'perimeter': self.get_selected_perimeter(),
-            })
+        kwargs.update({
+            'data': self.request.GET
+        })
 
         return kwargs
 
