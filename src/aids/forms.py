@@ -4,8 +4,10 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
+from core.forms.widgets import AutocompleteSelectMultiple
 from backers.models import Backer
 from geofr.models import Perimeter
+from geofr.forms.fields import PerimeterChoiceField
 from aids.models import Aid
 
 
@@ -244,6 +246,12 @@ class AidSearchForm(forms.Form):
 
 
 class AidCreateForm(BaseAidForm):
+
+    backers = forms.ModelMultipleChoiceField(
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple)
+    perimeter = PerimeterChoiceField()
+
     class Meta(BaseAidForm.Meta):
         model = Aid
         fields = [
@@ -251,7 +259,7 @@ class AidCreateForm(BaseAidForm):
             'description',
             'targeted_audiances',
             'backers',
-            'author',
+            # 'author',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -281,9 +289,5 @@ class AidCreateForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'submission_deadline': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
-        }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['perimeter'].queryset = Perimeter.objects.none()
-        self.fields['backers'].queryset = Backer.objects.none()
+        }
