@@ -41,19 +41,6 @@ section#landing-value {
 
     form.search-form {
 
-        fieldset {
-
-            &:not(:last-of-type) {
-                @extend .mb-3;
-            }
-
-            legend {
-                font-size: 1em;
-                font-weight: bold;
-                margin-bottom: 0;
-            }
-        }
-
         button {
             @extend .btn-lg;
             width: 100%;

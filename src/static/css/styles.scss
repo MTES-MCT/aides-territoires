@@ -144,6 +144,19 @@ form {
                 @extend .form-check-label;
             }
         }
+
+        fieldset {
+
+            &:not(:last-of-type) {
+                @extend .mb-3;
+            }
+
+            legend {
+                font-size: 1em;
+                font-weight: bold;
+                margin-bottom: 0;
+            }
+        }
     }
 }
 
