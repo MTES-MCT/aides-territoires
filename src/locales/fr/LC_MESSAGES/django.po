@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-14 13:50+0200\n"
+"POT-Creation-Date: 2018-09-25 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,14 +51,41 @@ msgstr "Contact et démarches"
 msgid "Aid admin"
 msgstr "Administration de l'aide"
 
+msgid "Financial aids"
+msgstr "Aides financières"
+
+msgid "Grant"
+msgstr "Subvention"
+
+msgid "Loan"
+msgstr "Prêt"
+
+msgid "Recoverable advance"
+msgstr "Avance récupérable"
+
+msgid "Interest subsidy"
+msgstr "Bonification d'intérêt"
+
+msgid "Technical and methodological aids"
+msgstr "Aides méthodologiques & techniques"
+
+msgid "Guidance"
+msgstr "Conseil"
+
+msgid "Networking"
+msgstr "Mise en réseau"
+
+msgid "Valorisation"
+msgstr "Valorisation"
+
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
 msgid "Who can apply to this aid?"
 msgstr "Qui peut prétendre à cette aide ?"
 
-msgid "Aid backer"
-msgstr "Apporteur de l'aide"
+msgid "Aid backers"
+msgstr "Apporteurs de l'aide"
 
 msgid "The aid is destined to…"
 msgstr "L'aide est destinée à…"
@@ -87,32 +114,23 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "Financial aids"
-msgstr "Aides financières"
+msgid "Commune"
+msgstr "Commune"
 
-msgid "Grant"
-msgstr "Subvention"
+msgid "EPCI"
+msgstr "EPCI"
 
-msgid "Loan"
-msgstr "Prêt"
+msgid "Department"
+msgstr "Département"
 
-msgid "Recoverable advance"
-msgstr "Avance récupérable"
+msgid "Region"
+msgstr "Région"
 
-msgid "Interest subsidy"
-msgstr "Bonification d'intérêt"
+msgid "France"
+msgstr "France"
 
-msgid "Technical and methodological aids"
-msgstr "Aides méthodologiques & techniques"
-
-msgid "Guidance"
-msgstr "Conseil"
-
-msgid "Networking"
-msgstr "Mise en réseau"
-
-msgid "Valorisation"
-msgstr "Valorisation"
+msgid "Europe"
+msgstr "Europe"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -132,23 +150,11 @@ msgstr "Quand mobiliser l'aide ?"
 msgid "Destinations"
 msgstr "Destinations"
 
+msgid "Diffusion"
+msgstr "Diffusion"
+
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
-
-msgid "Europe"
-msgstr "Europe"
-
-msgid "France"
-msgstr "France"
-
-msgid "Region"
-msgstr "Région"
-
-msgid "Department"
-msgstr "Département"
-
-msgid "Commune"
-msgstr "Commune"
 
 msgid "Mainland"
 msgstr "Métropole"
@@ -176,9 +182,6 @@ msgstr "À valider"
 
 msgid "Published"
 msgstr "Publié·e"
-
-msgid "EPCI"
-msgstr "EPCI"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -219,8 +222,8 @@ msgstr "Auteur"
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
-msgid "Backer"
-msgstr "Apporteur"
+msgid "Backers"
+msgstr "Apporteurs"
 
 msgid "On a national level if appropriate"
 msgstr "Au niveau national le cas échéant"
@@ -282,8 +285,8 @@ msgstr "Date de clôture"
 msgid "When is the submission deadline?"
 msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 
-msgid "Subvention rate"
-msgstr "Taux de subvention"
+msgid "Subvention rate (in %)"
+msgstr "Taux de subvention (en %)"
 
 msgid "If this is a subvention aid, specify the rate."
 msgstr "S'il s'agit d'une subvention, précisez le taux."
@@ -318,8 +321,15 @@ msgstr "Aide"
 msgid "Aids"
 msgstr "Aides"
 
-msgid "Backers"
-msgstr "Apporteurs"
+msgid ""
+"Your aid was sucessfully created.                         It will be "
+"reviewed by an admin soon."
+msgstr ""
+"Votre aide a été enregistrée. Elle sera revue par un·e "
+"administrateur·ice incessamment."
+
+msgid "Backer"
+msgstr "Apporteur"
 
 msgid "aids/"
 msgstr "aides/"
@@ -335,6 +345,12 @@ msgstr "Échelle"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Regions"
+msgstr "Régions"
+
+msgid "Departments"
+msgstr "Départements"
 
 msgid "Zip codes"
 msgstr "Codes postaux"
@@ -432,6 +448,18 @@ msgstr "Lien"
 msgid "Access the web site"
 msgstr "Accéder au site Web"
 
+msgid "Use this form to publish your own aid"
+msgstr "Utilisez ce formulaire pour publier votre aide"
+
+msgid "Cancel and go back to home"
+msgstr "Annuler et revenir à l'accueil"
+
+msgid "Save your aid"
+msgstr "Enregistrer votre aide"
+
+msgid "City, department, region, EPCI…"
+msgstr "Ville, département, région, EPCI…"
+
 msgid "Filter results"
 msgstr "Filtrer les résultats"
 
@@ -462,9 +490,6 @@ msgstr ""
 
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
-
-msgid "City, department, region, EPCI…"
-msgstr "Ville, département, région, EPCI…"
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
