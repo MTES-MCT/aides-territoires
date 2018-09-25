@@ -265,3 +265,15 @@ section#search {
         }
     }
 }
+
+form#aid-create {
+    @include clearfix;
+
+    div.form-actions {
+        @extend .pt-2;
+
+        button[type=submit] {
+            float: right;
+        }
+    }
+}
