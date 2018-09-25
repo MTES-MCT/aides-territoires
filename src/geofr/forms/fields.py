@@ -36,8 +36,8 @@ class PerimeterChoiceField(forms.ModelChoiceField):
         return super().__init__(queryset, *args, widget=widget, **kwargs)
 
     def to_python(self, value):
-        perimeter_id = value.split('-')[0]
-        return super().to_python(perimeter_id)
+        value = self.prepare_value(value)
+        return super().to_python(value)
 
     def prepare_value(self, value):
         if isinstance(value, str):
