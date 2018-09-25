@@ -90,7 +90,8 @@ class AidSearchForm(forms.Form):
     )
 
     perimeter = PerimeterChoiceField(
-        label=_('Perimeter'))
+        label=_('Perimeter'),
+        required=False)
     apply_before = forms.DateField(
         label=_('Apply before…'),
         required=False,
@@ -135,7 +136,7 @@ class AidSearchForm(forms.Form):
         if self.errors:
             pass
 
-        perimeter = self.cleaned_data['perimeter']
+        perimeter = self.cleaned_data.get('perimeter', None)
         if perimeter:
             qs = self.perimeter_filter(qs, perimeter)
 
