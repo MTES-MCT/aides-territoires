@@ -16,7 +16,6 @@ $fa-font-path: '../@fortawesome/fontawesome-free/webfonts/';
 
 section#landing-value {
     @extend .jumbotron;
-    @extend .text-center;
     @extend .bg-dark;
     border-radius: 0;
     margin-bottom: 0;
@@ -29,6 +28,7 @@ section#landing-value {
 
     h1 {
         @extend .text-white;
+        @extend .text-center;
     }
 
 
@@ -36,6 +36,7 @@ section#landing-value {
         @extend .lead;
         @extend .mb-5;
         @extend .text-white;
+        @extend .text-center;
     }
 
     form.search-form {
