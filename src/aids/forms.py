@@ -4,8 +4,11 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from aids.models import Aid
+from core.forms.widgets import AutocompleteSelectMultiple
+from backers.models import Backer
 from geofr.models import Perimeter
+from geofr.forms.fields import PerimeterChoiceField
+from aids.models import Aid
 
 
 AID_TYPES = (
@@ -23,9 +26,7 @@ AID_TYPES = (
 )
 
 
-class AidAdminForm(forms.ModelForm):
-    """Custom form form Aids in admin."""
-
+class BaseAidForm(forms.ModelForm):
     class Meta:
         widgets = {
             'mobilization_steps': forms.CheckboxSelectMultiple,
@@ -53,6 +54,11 @@ class AidAdminForm(forms.ModelForm):
         }
         for field, label in custom_labels.items():
             self.fields[field].label = label
+
+
+class AidAdminForm(BaseAidForm):
+    """Custom form form Aids in admin."""
+    pass
 
 
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
@@ -83,7 +89,7 @@ class AidSearchForm(forms.Form):
         (25, _('Europe')),
     )
 
-    perimeter = forms.ChoiceField(
+    perimeter = PerimeterChoiceField(
         label=_('Perimeter'),
         required=False)
     apply_before = forms.DateField(
@@ -112,14 +118,6 @@ class AidSearchForm(forms.Form):
         choices=SCALES,
         widget=MultipleChoiceFilterWidget)
 
-    def __init__(self, *args, **kwargs):
-        self.perimeter = kwargs.pop('perimeter', None)
-        super().__init__(*args, **kwargs)
-
-        if self.perimeter:
-            self.fields['perimeter'].choices = ((
-                self.perimeter.id, self.perimeter),)
-
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
         if zipcode and re.match('\d{5}', zipcode) is None:
@@ -138,8 +136,9 @@ class AidSearchForm(forms.Form):
         if self.errors:
             pass
 
-        if self.perimeter:
-            qs = self.perimeter_filter(qs)
+        perimeter = self.cleaned_data.get('perimeter', None)
+        if perimeter:
+            qs = self.perimeter_filter(qs, perimeter)
 
         mobilization_steps = self.cleaned_data.get('mobilization_step', None)
         if mobilization_steps:
@@ -163,7 +162,7 @@ class AidSearchForm(forms.Form):
 
         return qs
 
-    def perimeter_filter(self, qs):
+    def perimeter_filter(self, qs, perimeter):
         """Filter queryset depending on the given perimeter.
 
         When we search for a given perimeter, we must return all aids:
@@ -184,56 +183,155 @@ class AidSearchForm(forms.Form):
 
         # Since we only handle french aids, searching for european or
         # national aids will return all results
-        if self.perimeter.scale in (Perimeter.TYPES.country,
-                                    Perimeter.TYPES.continent):
+        if perimeter.scale in (Perimeter.TYPES.country,
+                               Perimeter.TYPES.continent):
             return qs
 
         # Exclude all other perimeters from the same scale.
         # E.g We search for aids in "Herault", exclude all aids from other
         # departments.
-        q_same_scale = Q(perimeter__scale=self.perimeter.scale)
-        q_different_code = ~Q(perimeter__code=self.perimeter.code)
+        q_same_scale = Q(perimeter__scale=perimeter.scale)
+        q_different_code = ~Q(perimeter__code=perimeter.code)
         qs = qs.exclude(q_same_scale & q_different_code)
 
         # Exclude all perimeters that are more granular and that are not
         # contained in the search perimeter.
         # E.g we search for aids in "Hérault", exclude communes and epcis that
         # are not in Hérault.
-        if self.perimeter.scale == Perimeter.TYPES.region:
-            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+        if perimeter.scale == Perimeter.TYPES.region:
+            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
             q_not_contained = ~Q(
-                perimeter__regions__contains=[self.perimeter.code])
+                perimeter__regions__contains=[perimeter.code])
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
-        if self.perimeter.scale == Perimeter.TYPES.department:
-            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
+        if perimeter.scale == Perimeter.TYPES.department:
+            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
             q_not_contained = ~Q(
-                perimeter__departments__contains=[self.perimeter.code])
+                perimeter__departments__contains=[perimeter.code])
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
-        if self.perimeter.scale == Perimeter.TYPES.epci:
-            q_smaller_scale = Q(perimeter__scale__lt=self.perimeter.scale)
-            q_not_contained = ~Q(perimeter__epci=self.perimeter.code)
+        if perimeter.scale == Perimeter.TYPES.epci:
+            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
+            q_not_contained = ~Q(perimeter__epci=perimeter.code)
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
         # Exclude all perimeters that are wider and that does not
         # contain our search perimeter.
         # E.g we search for aids in "Hérault", exclude regions that are not
         # Occitanie.
-        if self.perimeter.regions:
+        if perimeter.regions:
             q_scale_region = Q(perimeter__scale=Perimeter.TYPES.region)
-            q_different_region = ~Q(perimeter__code__in=self.perimeter.regions)
+            q_different_region = ~Q(perimeter__code__in=perimeter.regions)
             qs = qs.exclude(q_scale_region & q_different_region)
 
-        if self.perimeter.departments:
+        if perimeter.departments:
             q_scale_department = Q(perimeter__scale=Perimeter.TYPES.department)
             q_different_department = ~Q(
-                perimeter__code__in=self.perimeter.departments)
+                perimeter__code__in=perimeter.departments)
             qs = qs.exclude(q_scale_department & q_different_department)
 
-        if self.perimeter.epci:
+        if perimeter.epci:
             q_scale_epci = Q(perimeter__scale=Perimeter.TYPES.epci)
-            q_different_epci = ~Q(perimeter__code=self.perimeter.epci)
+            q_different_epci = ~Q(perimeter__code=perimeter.epci)
             qs = qs.exclude(q_scale_epci & q_different_epci)
 
         return qs
+
+
+class AidCreateForm(BaseAidForm):
+
+    backers = forms.ModelMultipleChoiceField(
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple)
+    perimeter = PerimeterChoiceField()
+
+    class Meta(BaseAidForm.Meta):
+        model = Aid
+        fields = [
+            'name',
+            'description',
+            'targeted_audiances',
+            'backers',
+            # 'author',
+            'recurrence',
+            'start_date',
+            'predeposit_date',
+            'submission_deadline',
+            'perimeter',
+            'aid_types',
+            'subvention_rate',
+            'mobilization_steps',
+            'destinations',
+            'eligibility',
+            'application_url',
+            'url',
+            'contact_detail',
+            'contact_email',
+            'contact_phone',
+        ]
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+            'eligibility': forms.Textarea(attrs={'rows': 3}),
+            'mobilization_steps': MultipleChoiceFilterWidget,
+            'targeted_audiances': MultipleChoiceFilterWidget,
+            'aid_types': MultipleChoiceFilterWidget,
+            'destinations': MultipleChoiceFilterWidget,
+            'start_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'predeposit_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'submission_deadline': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+
+        }
+        fieldsets = [
+            (_('Aid presentation'), {
+                'fields': (
+                    'name',
+                    'description',
+                    'targeted_audiances',
+                    'backers',
+                )
+            }),
+
+            (_('Aid calendar'), {
+                'fields': (
+                    'recurrence',
+                    'start_date',
+                    'predeposit_date',
+                    'submission_deadline',
+                )
+            }),
+
+            (_('Aid perimeter'), {
+                'fields': (
+                    'perimeter',
+                )
+            }),
+
+            (_('Aid description'), {
+                'fields': (
+                    'aid_types',
+                    'subvention_rate',
+                    'mobilization_steps',
+                    'destinations',
+                    'eligibility',
+                )
+            }),
+
+            (_('Contact and actions'), {
+                'fields': (
+                    'application_url',
+                    'url',
+                    'contact_detail',
+                    'contact_email',
+                    'contact_phone',
+                )
+            }),
+
+            (_('Aid admin'), {
+                'fields': (
+                    'status',
+                )
+            }),
+        ]

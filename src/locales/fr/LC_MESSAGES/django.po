@@ -285,8 +285,8 @@ msgstr "Date de clôture"
 msgid "When is the submission deadline?"
 msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 
-msgid "Subvention rate"
-msgstr "Taux de subvention"
+msgid "Subvention rate (in %)"
+msgstr "Taux de subvention (en %)"
 
 msgid "If this is a subvention aid, specify the rate."
 msgstr "S'il s'agit d'une subvention, précisez le taux."
@@ -323,6 +323,13 @@ msgstr "Aides"
 
 msgid "Backer"
 msgstr "Apporteur"
+
+msgid ""
+"Your aid was sucessfully created.                         It will be "
+"reviewed by an admin soon."
+msgstr ""
+"Votre aide a été enregistrée. Elle sera revue par un·e "
+"administrateur·ice incessamment."
 
 msgid "aids/"
 msgstr "aides/"
@@ -441,6 +448,18 @@ msgstr "Lien"
 msgid "Access the web site"
 msgstr "Accéder au site Web"
 
+msgid "Use this form to publish your own aid"
+msgstr "Utilisez ce formulaire pour publier votre aide"
+
+msgid "Cancel and go back to home"
+msgstr "Annuler et revenir à l'accueil"
+
+msgid "Save your aid"
+msgstr "Enregistrer votre aide"
+
+msgid "City, department, region, EPCI…"
+msgstr "Ville, département, région, EPCI…"
+
 msgid "Filter results"
 msgstr "Filtrer les résultats"
 
@@ -471,9 +490,6 @@ msgstr ""
 
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
-
-msgid "City, department, region, EPCI…"
-msgstr "Ville, département, région, EPCI…"
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"

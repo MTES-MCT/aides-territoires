@@ -101,6 +101,7 @@ class Aid(models.Model):
         null=False, blank=False)
     author = models.ForeignKey(
         'accounts.User',
+        null=True,
         on_delete=models.PROTECT,
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'))
@@ -115,7 +116,7 @@ class Aid(models.Model):
         blank=False)
     eligibility = models.TextField(
         _('Eligibility'),
-        blank=False)
+        blank=True)
     perimeter = models.ForeignKey(
         'geofr.Perimeter',
         verbose_name=_('Perimeter'),
@@ -176,7 +177,7 @@ class Aid(models.Model):
         null=True, blank=True,
         help_text=_('When is the submission deadline?'))
     subvention_rate = models.DecimalField(
-        _('Subvention rate'),
+        _('Subvention rate (in %)'),
         max_digits=6,
         decimal_places=2,
         null=True, blank=True,

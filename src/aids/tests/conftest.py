@@ -4,6 +4,7 @@ import pytest
 
 from accounts.factories import UserFactory
 from backers.factories import BackerFactory
+from geofr.factories import PerimeterFactory
 
 
 @pytest.fixture
@@ -20,3 +21,11 @@ def backer():
 
     backer = BackerFactory()
     return backer
+
+
+@pytest.fixture
+def perimeter():
+    """Generates a valid Perimetes."""
+
+    perimeter = PerimeterFactory()
+    return perimeter

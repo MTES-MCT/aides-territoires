@@ -7,7 +7,8 @@ class Backer(models.Model):
 
     name = models.CharField(
         _('Name'),
-        max_length=256)
+        max_length=256,
+        db_index=True)
 
     class Meta:
         verbose_name = _('Backer')

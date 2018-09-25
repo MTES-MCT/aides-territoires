@@ -5,7 +5,7 @@ from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm
+from aids.forms import AidSearchForm, AidCreateForm
 from aids.factories import AidFactory
 
 
@@ -13,7 +13,7 @@ pytestmark = pytest.mark.django_db
 
 
 @pytest.fixture
-def aid_form_class():
+def aid_admin_form_class():
     """Generates a valid form class.
 
     Since `AidFormAdmin` is an admin form, is is declared without the usual
@@ -28,7 +28,7 @@ def aid_form_class():
 
 
 @pytest.fixture
-def aid_form_data(user, backer):
+def aid_form_data(user, backer, perimeter):
     """Returns valid data to create an Aid object."""
 
     return {
@@ -37,7 +37,7 @@ def aid_form_data(user, backer):
         'backers': [backer.id],
         'description': 'My aid description',
         'eligibility': 'Aid eligibility info',
-        'application_perimeter': 'france',
+        'perimeter': perimeter.id,
         'mobilization_steps': ['preop'],
         'targeted_audiances': ['department'],
         'aid_types': ['grant', 'loan'],
@@ -160,14 +160,14 @@ def aids(user, backer):
     return qs
 
 
-def test_form_default(aid_form_class, aid_form_data):
+def test_admin_form_default(aid_admin_form_class, aid_form_data):
     """Test the form with default values."""
 
-    form = aid_form_class(aid_form_data)
+    form = aid_admin_form_class(aid_form_data)
     assert form.is_valid()
 
 
-def test_form_filter_mobilization_step(aids):
+def test_seach_form_filter_mobilization_step(aids):
     form = AidSearchForm({'mobilization_step': ['preop']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 9
@@ -195,7 +195,7 @@ def test_form_filter_mobilization_step(aids):
             'postop' in aid.mobilization_steps))
 
 
-def test_form_filter_by_types(aids):
+def test_search_form_filter_by_types(aids):
     form = AidSearchForm({'aid_types': ['grant']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 8
@@ -211,7 +211,7 @@ def test_form_filter_by_types(aids):
         assert 'grant' in aid.aid_types or 'networking' in aid.aid_types
 
 
-def test_form_filter_by_deadline(aids):
+def test_search_form_filter_by_deadline(aids):
     form = AidSearchForm({'apply_before': '2018-12-01'})
     qs = form.filter_queryset(aids)
     assert qs.count() == 12
@@ -231,3 +231,18 @@ def test_form_filter_by_deadline(aids):
     form = AidSearchForm({'apply_before': '2017-12-31'})
     qs = form.filter_queryset(aids)
     assert qs.count() == 0
+
+
+def test_create_form(aid_form_data):
+    qs = Aid.objects.all()
+    assert qs.count() == 0
+
+    form = AidCreateForm(aid_form_data)
+    assert form.is_valid()
+
+    form.save()
+    assert qs.count() == 1
+
+    aid = qs[0]
+    assert aid.status == 'draft'
+    assert aid.author is None

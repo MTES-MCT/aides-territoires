@@ -92,7 +92,7 @@ nav#main-navbar {
 main {
     section.main-content {
         @extend .container;
-        @extend .mt-4;
+        @extend .my-4;
     }
 }
 
@@ -102,7 +102,7 @@ form {
         @extend .text-muted;
     }
 
-    .form-group.required label:after {
+    .form-group.required > label:after {
         content:"*";
     }
 
@@ -114,23 +114,23 @@ form {
     input[type=text],
     input[type=email],
     input[type=date],
+    input[type=url],
+    input[type=number],
     select,
     textarea {
         @extend .form-control;
     }
 
-    fieldset {
-
-        &:not(:last-of-type) {
-            @extend .mb-3;
-        }
-
-        legend {
-            font-size: 1em;
-            font-weight: bold;
-            margin-bottom: 0;
+    &>fieldset {
+        &>legend {
+            background-color: $blue;
+            color: white;
+            @extend .px-2;
+            @extend .pt-1;
+            @extend .pb-0;
         }
     }
+
 
     div.multiple-input {
         div.single-input {
@@ -142,6 +142,19 @@ form {
 
             label {
                 @extend .form-check-label;
+            }
+        }
+
+        fieldset {
+
+            &:not(:last-of-type) {
+                @extend .mb-3;
+            }
+
+            legend {
+                font-size: 1em;
+                font-weight: bold;
+                margin-bottom: 0;
             }
         }
     }
