@@ -13,31 +13,7 @@
 
 {% for field in form.visible_fields %}
 
-    <div class="form-group{% if field.field.required %} required{% endif %}">
+    {% include '_field_snippet.html' with field=field %}
 
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-
-        {% if nest_field_class %}
-        <div class="{{ nest_field_class }}">
-        {% endif %}
-
-        {{ field }}
-
-        {% if nest_field_class %}
-        </div>
-        {% endif %}
-
-        {% if field.help_text %}
-            <span class="field-help">{{ field.help_text }}</span>
-        {% endif %}
-
-        {% if field.errors %}
-        <p class="alert alert-danger">
-            ↑
-            {{ field.errors.0 }}
-            ↑
-        </p>
-        {% endif %}
-    </div>
 {% endfor %}
 
