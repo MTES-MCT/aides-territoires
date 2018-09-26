@@ -26,16 +26,16 @@
     </fieldset>
 
     <fieldset>
+        <legend>{{ _('Aid perimeter') }}</legend>
+        {% include '_field_snippet.html' with field=form.perimeter %}
+    </fieldset>
+
+    <fieldset>
         <legend>{{ _('Aid calendar') }}</legend>
         {% include '_field_snippet.html' with field=form.recurrence %}
         {% include '_field_snippet.html' with field=form.start_date %}
         {% include '_field_snippet.html' with field=form.predeposit_date %}
         {% include '_field_snippet.html' with field=form.submission_deadline %}
-    </fieldset>
-
-    <fieldset>
-        <legend>{{ _('Aid perimeter') }}</legend>
-        {% include '_field_snippet.html' with field=form.perimeter %}
     </fieldset>
 
     <fieldset>

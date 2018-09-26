@@ -29,18 +29,18 @@ class AidAdmin(admin.ModelAdmin):
             )
         }),
 
+        (_('Aid perimeter'), {
+            'fields': (
+                'perimeter',
+            )
+        }),
+
         (_('Aid calendar'), {
             'fields': (
                 'recurrence',
                 'start_date',
                 'predeposit_date',
                 'submission_deadline',
-            )
-        }),
-
-        (_('Aid perimeter'), {
-            'fields': (
-                'perimeter',
             )
         }),
 
