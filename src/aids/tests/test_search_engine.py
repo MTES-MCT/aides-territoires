@@ -102,6 +102,9 @@ def aids(perimeters):
         AidFactory.create_batch(9, perimeter=perimeters['normandie']),
         AidFactory.create_batch(10, perimeter=perimeters['eure']),
         AidFactory.create_batch(11, perimeter=perimeters['st-cyr']),
+        AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
+        AidFactory.create_batch(13,
+                                perimeter=perimeters['rhone-mediterannee']),
     ]
     return aids
 
@@ -173,14 +176,14 @@ def test_search_european_aids(client, perimeters, aids):
     """Display ALL the aids."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
-    assert res.context['paginator'].count == 66
+    assert res.context['paginator'].count == 91
 
 
 def test_search_french_aids(client, perimeters, aids):
     """Display ALL the aids again."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
-    assert res.context['paginator'].count == 66
+    assert res.context['paginator'].count == 91
 
 
 def test_search_aids_form_occitanie(client, perimeters, aids):
@@ -201,7 +204,7 @@ def test_search_aids_from_montpellier(client, perimeters, aids):
     """Only display aids in Hérault and above."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['montpellier'].pk})
-    assert res.context['paginator'].count == 15
+    assert res.context['paginator'].count == 28
 
 
 def test_search_aids_from_rhone_mediterannee_basin(client, perimeters, aids):
@@ -210,7 +213,7 @@ def test_search_aids_from_rhone_mediterannee_basin(client, perimeters, aids):
     url = reverse('search_view')
     res = client.get(url, data={
         'perimeter': perimeters['rhone-mediterannee'].pk})
-    assert res.context['paginator'].count == 14
+    assert res.context['paginator'].count == 27
 
 
 def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
@@ -219,4 +222,4 @@ def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
     url = reverse('search_view')
     res = client.get(url, data={
         'perimeter': perimeters['adour-garonne'].pk})
-    assert res.context['paginator'].count == 11
+    assert res.context['paginator'].count == 23
