@@ -18,14 +18,18 @@ class Perimeter(models.Model):
     Since nothing is simple when administration is involved, some perimeters
     e.g epcis can be spread over several departments / regions.
 
+    Drainage basins are another edge case, since they are independant from any
+    existing legal borders.
+    https://fr.wikipedia.org/wiki/Bassin_hydrographique
+
     """
 
     TYPES = Choices(
         (1, 'commune', _('Commune')),
         (5, 'epci', _('EPCI')),
+        (8, 'basin', _('Drainage basin')),
         (10, 'department', _('Department')),
         (15, 'region', _('Region')),
-        (18, 'basin', _('Drainage basin')),
         (20, 'country', _('Country')),
         (25, 'continent', _('Continent')),
     )
