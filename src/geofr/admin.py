@@ -7,8 +7,8 @@ class PerimeterAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
 
     list_display = ('scale', 'name', 'code', 'is_overseas', 'regions',
-                    'departments', 'epci', 'zipcodes')
-    search_fields = ['name']
+                    'departments', 'epci', 'zipcodes', 'basin')
+    search_fields = ['name', 'code']
     list_filter = ('scale', 'is_overseas')
     ordering = ('-scale', 'name')
 
