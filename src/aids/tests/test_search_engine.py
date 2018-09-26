@@ -38,13 +38,15 @@ def perimeters():
             name='Montpellier',
             code='34172',
             regions=['76'],
-            departments=['34']),
+            departments=['34'],
+            basin='FR000006'),
         'vic': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
             name='Vic-la-Gardiole',
             code='34333',
             regions=['76'],
-            departments=['34']),
+            departments=['34'],
+            basin='FR000006'),
         'aveyron': PerimeterFactory(
             scale=Perimeter.TYPES.department,
             name='Aveyron',
@@ -55,7 +57,8 @@ def perimeters():
             name='Rodez',
             code='12202',
             regions=['76'],
-            departments=['12']),
+            departments=['12'],
+            basin='FR000005'),
         'normandie': PerimeterFactory(
             scale=Perimeter.TYPES.region,
             name='Normandie',
@@ -71,7 +74,16 @@ def perimeters():
             code='27529',
             regions=['28'],
             departments=['27']),
-
+        'rhone-mediterannee': PerimeterFactory(
+            scale=Perimeter.TYPES.basin,
+            name='Rhône-Méditerannée',
+            country='FRA',
+            code='FR000006'),
+        'adour-garonne': PerimeterFactory(
+            scale=Perimeter.TYPES.basin,
+            name='Adour-Garonne',
+            country='FRA',
+            code='FR000005'),
     }
     return perimeters
 
@@ -190,3 +202,21 @@ def test_search_aids_from_montpellier(client, perimeters, aids):
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['montpellier'].pk})
     assert res.context['paginator'].count == 15
+
+
+def test_search_aids_from_rhone_mediterannee_basin(client, perimeters, aids):
+    """Only display aids in the selected basin."""
+
+    url = reverse('search_view')
+    res = client.get(url, data={
+        'perimeter': perimeters['rhone-mediterannee'].pk})
+    assert res.context['paginator'].count == 14
+
+
+def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
+    """Only display aids in the selected basin."""
+
+    url = reverse('search_view')
+    res = client.get(url, data={
+        'perimeter': perimeters['adour-garonne'].pk})
+    assert res.context['paginator'].count == 11
