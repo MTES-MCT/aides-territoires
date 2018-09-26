@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-26 09:52+0200\n"
+"POT-Creation-Date: 2018-09-26 14:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,11 +36,11 @@ msgstr "Utilisateur·ices"
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
 
-msgid "Aid calendar"
-msgstr "Calendrier de l'aide"
-
 msgid "Aid perimeter"
 msgstr "Périmètre de l'aide"
+
+msgid "Aid calendar"
+msgstr "Calendrier de l'aide"
 
 msgid "Aid description"
 msgstr "Description de l'aide"
@@ -156,6 +156,9 @@ msgstr "Diffusion"
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
+msgid "Backers"
+msgstr "Apporteurs"
+
 msgid "Mainland"
 msgstr "Métropole"
 
@@ -221,9 +224,6 @@ msgstr "Auteur"
 
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
-
-msgid "Backers"
-msgstr "Apporteurs"
 
 msgid "On a national level if appropriate"
 msgstr "Au niveau national le cas échéant"
@@ -336,6 +336,9 @@ msgstr "Apporteur"
 
 msgid "aids/"
 msgstr "aides/"
+
+msgid "Drainage basin"
+msgstr "Bassin hydrographique"
 
 msgid "Country"
 msgstr "Pays"

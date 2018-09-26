@@ -18,11 +18,16 @@ class Perimeter(models.Model):
     Since nothing is simple when administration is involved, some perimeters
     e.g epcis can be spread over several departments / regions.
 
+    Drainage basins are another edge case, since they are independant from any
+    existing legal borders.
+    https://fr.wikipedia.org/wiki/Bassin_hydrographique
+
     """
 
     TYPES = Choices(
         (1, 'commune', _('Commune')),
         (5, 'epci', _('EPCI')),
+        (8, 'basin', _('Drainage basin')),
         (10, 'department', _('Department')),
         (15, 'region', _('Region')),
         (20, 'country', _('Country')),
@@ -61,6 +66,10 @@ class Perimeter(models.Model):
     epci = models.CharField(
         _('EPCI'),
         max_length=32,  # INSEE COG
+        blank=True)
+    basin = models.CharField(
+        _('Drainage basin'),
+        max_length=32,  # Sandre code
         blank=True)
     zipcodes = ArrayField(
         verbose_name=_('Zip codes'),

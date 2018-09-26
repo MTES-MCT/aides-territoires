@@ -198,21 +198,31 @@ class AidSearchForm(forms.Form):
         # contained in the search perimeter.
         # E.g we search for aids in "Hérault", exclude communes and epcis that
         # are not in Hérault.
-        if perimeter.scale == Perimeter.TYPES.region:
-            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
-            q_not_contained = ~Q(
-                perimeter__regions__contains=[perimeter.code])
-            qs = qs.exclude(q_smaller_scale & q_not_contained)
+        if perimeter.scale > Perimeter.TYPES.commune:
 
-        if perimeter.scale == Perimeter.TYPES.department:
             q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
-            q_not_contained = ~Q(
-                perimeter__departments__contains=[perimeter.code])
-            qs = qs.exclude(q_smaller_scale & q_not_contained)
 
-        if perimeter.scale == Perimeter.TYPES.epci:
-            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
-            q_not_contained = ~Q(perimeter__epci=perimeter.code)
+            if perimeter.scale == Perimeter.TYPES.region:
+                q_not_contained = ~Q(
+                    perimeter__regions__contains=[perimeter.code])
+
+            if perimeter.scale == Perimeter.TYPES.department:
+                q_not_contained = ~Q(
+                    perimeter__departments__contains=[perimeter.code])
+
+            if perimeter.scale == Perimeter.TYPES.basin:
+                # Edge case, when we search by drainage basins, don't
+                # show aids from departments and regions, because that poorly
+                # overlaps.
+                qs = qs.exclude(perimeter__scale__in=(
+                    Perimeter.TYPES.department,
+                    Perimeter.TYPES.region))
+
+                q_not_contained = ~Q(perimeter__basin=perimeter.code)
+
+            if perimeter.scale == Perimeter.TYPES.epci:
+                q_not_contained = ~Q(perimeter__epci=perimeter.code)
+
             qs = qs.exclude(q_smaller_scale & q_not_contained)
 
         # Exclude all perimeters that are wider and that does not
@@ -229,6 +239,11 @@ class AidSearchForm(forms.Form):
             q_different_department = ~Q(
                 perimeter__code__in=perimeter.departments)
             qs = qs.exclude(q_scale_department & q_different_department)
+
+        if perimeter.basin:
+            q_scale_basin = Q(perimeter__scale=Perimeter.TYPES.basin)
+            q_different_basin = ~Q(perimeter__code=perimeter.basin)
+            qs = qs.exclude(q_scale_basin & q_different_basin)
 
         if perimeter.epci:
             q_scale_epci = Q(perimeter__scale=Perimeter.TYPES.epci)
