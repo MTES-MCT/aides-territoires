@@ -1,4 +1,5 @@
 import os
+import csv
 
 from django.core.management.base import BaseCommand
 
@@ -27,6 +28,8 @@ DRAINAGE_BASINS = {
     'FR000012': 'Mayotte',
 }
 
+OVERSEAS_BASINS = ('FR000008', 'FR000009', 'FR000010', 'FR000011', 'FR000012')
+
 
 class Command(BaseCommand):
     """Import the list of drainage basins.
@@ -43,22 +46,43 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        # Create basin perimeters
+        basin_to_commune = {}
+        basin_to_epci = {}
         for code, basin_name in DRAINAGE_BASINS.items():
-            Perimeter.objects.create(
+            Perimeter.objects.get_or_create(
                 scale=Perimeter.TYPES.basin,
                 code=code,
-                name=basin)
+                name=basin_name,
+                is_overseas=code in OVERSEAS_BASINS)
+            basin_to_commune[code] = list()
+            basin_to_epci[code] = list()
 
+        # Import data from csv file
+        csv_path = os.path.abspath(options['csv_file'][0])
+        with open(csv_path) as csv_file:
+            reader = csv.DictReader(csv_file, delimiter=',')
+            for row in reader:
+                commune_code = row['CdCommune']
+                basin_code = row['CdComiteBassin']
+                basin_to_commune[basin_code].append(commune_code)
 
-        csv_path = os.path.abspath(options['csv_file'])
+        # Update communes with the correct basin codes
+        for basin_code in basin_to_commune.keys():
+            Perimeter.objects \
+                .filter(scale=Perimeter.TYPES.commune) \
+                .filter(code__in=basin_to_commune[basin_code]) \
+                .update(basin=basin_code)
 
+        # Update epcis with basin codes
+        epcis = Perimeter.objects \
+            .filter(scale=Perimeter.TYPES.commune) \
+            .values_list('epci', 'basin')
+        for epci_code, basin_code in epcis:
+            basin_to_epci[basin_code].append(epci_code)
 
-    def import_epci_member(self, row_index):
-        """Process a single line in the file.
-
-        Every line describes one member (e.g a commune) for one EPCI.
-
-        Hence, EPCI description is duplicated in several lines.
-
-        """
-        pass
+        for basin_code in basin_to_epci.keys():
+            Perimeter.objects \
+                .filter(scale=Perimeter.TYPES.epci) \
+                .filter(code__in=basin_to_epci[basin_code]) \
+                .update(basin=basin_code)
