@@ -241,9 +241,11 @@ class AidSearchForm(forms.Form):
 class AidCreateForm(BaseAidForm):
 
     backers = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple)
-    perimeter = PerimeterChoiceField()
+    perimeter = PerimeterChoiceField(
+        label=_('Perimeter'))
 
     class Meta(BaseAidForm.Meta):
         model = Aid
