@@ -211,6 +211,13 @@ class AidSearchForm(forms.Form):
                     perimeter__departments__contains=[perimeter.code])
 
             if perimeter.scale == Perimeter.TYPES.basin:
+                # Edge case, when we search by drainage basins, don't
+                # show aids from departments and regions, because that poorly
+                # overlaps.
+                qs = qs.exclude(perimeter__scale__in=(
+                    Perimeter.TYPES.department,
+                    Perimeter.TYPES.region))
+
                 q_not_contained = ~Q(perimeter__basin=perimeter.code)
 
             if perimeter.scale == Perimeter.TYPES.epci:
