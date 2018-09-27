@@ -4,7 +4,6 @@ import csv
 from django.core.management.base import BaseCommand
 
 from geofr.models import Perimeter
-from geofr.constants import OVERSEAS_DEPARTMENTS, DEPARTMENT_TO_REGION
 
 
 # Field column indexes
