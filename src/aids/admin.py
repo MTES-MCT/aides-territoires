@@ -14,7 +14,8 @@ class AidAdmin(admin.ModelAdmin):
         }
 
     form = AidAdminForm
-    list_display = ['name', 'author', 'recurrence', 'date_updated', 'status']
+    list_display = ['name', 'all_backers', 'author', 'recurrence',
+                    'date_updated', 'status']
     autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
     list_filter = ['status', 'recurrence']
@@ -70,6 +71,17 @@ class AidAdmin(admin.ModelAdmin):
             )
         }),
     ]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.prefetch_related('backers')
+        qs = qs.select_related('author')
+        return qs
+
+    def all_backers(self, aid):
+        backers = [backer.name for backer in aid.backers.all()]
+        return ', '.join(backers)
+    all_backers.short_description = _('Backers')
 
 
 admin.site.register(Aid, AidAdmin)
