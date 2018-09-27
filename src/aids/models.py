@@ -161,6 +161,7 @@ class Aid(models.Model):
         help_text=_('Specify the help type or types.'))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
+        blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=DESTINATIONS))
