@@ -20,7 +20,7 @@ server {
 
 server {
     listen 80;
-    server_name integration.{{ project_domain }};
+    server_name integration-{{ project_domain }};
 
     location /static/ {
         root {{ project_root }}/public/;
