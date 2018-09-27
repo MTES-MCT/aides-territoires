@@ -118,6 +118,12 @@ class AidSearchForm(forms.Form):
         choices=SCALES,
         widget=MultipleChoiceFilterWidget)
 
+    # This field is not related to the search, but is submitted
+    # in views embedded through an iframe.
+    integration = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput)
+
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
         if zipcode and re.match('\d{5}', zipcode) is None:
