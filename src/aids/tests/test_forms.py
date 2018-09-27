@@ -245,4 +245,4 @@ def test_create_form(aid_form_data):
 
     aid = qs[0]
     assert aid.status == 'draft'
-    assert aid.author is None
+    assert aid.author.id == aid_form_data['author']
