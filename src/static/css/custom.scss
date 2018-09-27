@@ -264,3 +264,24 @@ form#aid-create {
         }
     }
 }
+
+html.integration {
+    background-color: white !important;
+
+    body {
+        nav#main-navbar {
+            display: none;
+        }
+
+        &>footer {
+            display: none;
+        }
+
+        main {
+            section.main-content {
+                @extend .container-fluid;
+                max-width: 100%;
+            }
+        }
+    }
+}
