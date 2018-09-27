@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-26 14:34+0200\n"
+"POT-Creation-Date: 2018-09-27 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,9 @@ msgstr "Contact et démarches"
 
 msgid "Aid admin"
 msgstr "Administration de l'aide"
+
+msgid "Backers"
+msgstr "Apporteurs"
 
 msgid "Financial aids"
 msgstr "Aides financières"
@@ -155,9 +158,6 @@ msgstr "Diffusion"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
-
-msgid "Backers"
-msgstr "Apporteurs"
 
 msgid "Mainland"
 msgstr "Métropole"
@@ -314,6 +314,9 @@ msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
 msgid "Date created"
 msgstr "Date de création"
+
+msgid "Date updated"
+msgstr "Date de mise à jour"
 
 msgid "Aid"
 msgstr "Aide"
