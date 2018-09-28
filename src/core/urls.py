@@ -11,6 +11,7 @@ api_patterns = [
     path('', include(router.urls)),
     path('perimeters', include('geofr.api.urls')),
     path('backers', include('backers.api.urls')),
+    path('aids', include('aids.api.urls')),
 ]
 
 urlpatterns = [
