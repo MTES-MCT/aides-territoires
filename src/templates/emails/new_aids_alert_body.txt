@@ -1,0 +1,8 @@
+{% regroup new_aids by author as authors %}
+
+Voici la liste des aides crées lors des dernières 24h :
+{% for author, aids in authors %}
+  * {{ author }}
+{% for aid in aids %}
+    - {{ aid.name }}{% endfor %}
+{% endfor %}
