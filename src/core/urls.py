@@ -19,6 +19,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path(_('aids/'), include('aids.urls')),
     path(_('integration/'), include('integration.urls')),
+    path(_('stats/'), include('stats.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),
