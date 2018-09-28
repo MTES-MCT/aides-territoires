@@ -18,6 +18,6 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             .prefetch_related('backers') \
             .order_by('perimeter__scale', 'submission_deadline')
 
-        filter_form = AidSearchForm({'data': self.request.GET})
+        filter_form = AidSearchForm(data=self.request.GET)
         filtered_qs = filter_form.filter_queryset(qs)
         return filtered_qs
