@@ -161,3 +161,8 @@ APPROACHING_DEADLINE_DELTA = 30  # days
 
 ANALYTICS_ENABLED = False
 ANALYTICS_SITEID = 0
+
+CONTACT_EMAIL = 'nowhere@example.org'
+EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
+DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
