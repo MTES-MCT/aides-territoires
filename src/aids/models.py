@@ -7,7 +7,6 @@ from django.conf import settings
 from model_utils import Choices
 
 from core.fields import ChoiceArrayField
-from geofr.fields import RegionField, DepartmentField
 
 
 class AidQuerySet(models.QuerySet):
@@ -123,16 +122,6 @@ class Aid(models.Model):
         on_delete=models.PROTECT,
         null=True, blank=True,
         help_text=_('What is the aid broadcasting perimeter?'))
-    application_perimeter = models.CharField(
-        _('Application perimeter'),
-        max_length=32,
-        choices=PERIMETERS)
-    application_region = RegionField(
-        _('Application region'),
-        null=True, blank=True)
-    application_department = DepartmentField(
-        _('Application department'),
-        null=True, blank=True)
     mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
         base_field=models.CharField(
@@ -150,9 +139,6 @@ class Aid(models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=AUDIANCES))
-    is_funding = models.BooleanField(
-        _('Is this a funding aid?'),
-        default=True)
     aid_types = ChoiceArrayField(
         verbose_name=_('Aid types'),
         base_field=models.CharField(
@@ -194,14 +180,6 @@ class Aid(models.Model):
         _('Contact detail'),
         max_length=256,
         blank=True)
-    publication_status = models.CharField(
-        _('Status'),
-        max_length=23,
-        choices=AID_STATUSES,
-        default=AID_STATUSES.open)
-    open_to_third_party = models.BooleanField(
-        _('Open to third party?'),
-        default=True)
     recurrence = models.CharField(
         _('Recurrence'),
         help_text=_('Is this a one-off aid, is it recurring or ongoing?'),
