@@ -285,3 +285,27 @@ html.integration {
         }
     }
 }
+
+section#stats {
+    @extend .card-deck;
+
+    div.stat {
+        @extend .card;
+        min-width: 18rem;
+        margin-bottom: $card-group-margin;
+
+        span.stat-title {
+            @extend .card-header;
+        }
+
+        div.stat-body {
+            @extend .card-body;
+
+            &.number-stat {
+                @extend .h1;
+                text-align: center;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
