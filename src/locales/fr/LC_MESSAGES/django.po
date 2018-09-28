@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-27 12:18+0200\n"
+"POT-Creation-Date: 2018-09-28 14:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -340,6 +340,12 @@ msgstr "Apporteur"
 msgid "aids/"
 msgstr "aides/"
 
+msgid "integration/"
+msgstr "integration/"
+
+msgid "stats/"
+msgstr "stats/"
+
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
 
@@ -538,3 +544,15 @@ msgstr ""
 "\n"
 "Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
 "confirmation présent dans l'e-mail que vous allez recevoir.\n"
+
+msgid "Total number of aids"
+msgstr "Toutes les aides"
+
+msgid "Number of active aids"
+msgstr "Aides actives"
+
+msgid "Aids updated those 31 days"
+msgstr "Mises à jour durant les 31 derniers jours"
+
+msgid "Number of active users"
+msgstr "Utilisateur·ices actif·ves"
