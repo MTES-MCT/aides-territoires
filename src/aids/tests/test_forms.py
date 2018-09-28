@@ -54,107 +54,75 @@ def aids(user, backer):
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='europe')
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='france')
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='mainland')
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=True,
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='overseas')
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='region',
-        application_region='01')  # Guadeloupe
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='region',
-        application_region='02')  # Martinique
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='region',
-        application_region='28')  # Normandie
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'],
-        application_perimeter='region',
-        application_region='76')  # Occitanie
+        aid_types=['grant', 'loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
-        aid_types=['loan'],
-        application_perimeter='department',
-        application_department='972')  # Martinique
+        aid_types=['loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
-        aid_types=['loan'],
-        application_perimeter='department',
-        application_department='973')  # Guyane
+        aid_types=['loan'])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
-        aid_types=[],
-        application_perimeter='department',
-        application_department='27')  # Eure
+        aid_types=[])
     AidFactory(
         author=user,
         backers=[backer],
-        is_funding=False,
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
-        aid_types=['networking', 'return_fund'],
-        application_perimeter='department',
-        application_department='34')  # Hérault
+        aid_types=['networking', 'return_fund'])
 
     qs = Aid.objects.all().order_by('id')
     return qs

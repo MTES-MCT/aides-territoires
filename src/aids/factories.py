@@ -32,17 +32,13 @@ class AidFactory(DjangoModelFactory):
     author = factory.SubFactory(UserFactory)
     description = factory.Faker('text')
     eligibility = factory.Faker('text')
-    application_perimeter = fuzzy.FuzzyChoice(dict(Aid.PERIMETERS).keys())
     mobilization_steps = FuzzyMultipleChoice(Aid.STEPS)
     url = factory.Faker('url')
     targeted_audiances = FuzzyMultipleChoice(Aid.AUDIANCES)
-    is_funding = factory.Faker('boolean')
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
     contact_email = factory.Faker('email')
     contact_phone = factory.Faker('phone_number')
-    publication_status = Aid.AID_STATUSES.open
-    open_to_third_party = True
     status = Aid.STATUSES.published
 
     @factory.post_generation
