@@ -3,8 +3,10 @@
 <div class="aid">
     <section>
         <h1>
+            <a href="{% url 'aid_detail_view' aid.slug %}">
             {{ aid.name }}
             <br /><small>{{ aid.backers.all|join:', ' }}</small>
+            </a>
         </h1>
 
         <p>
