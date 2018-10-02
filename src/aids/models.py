@@ -94,6 +94,10 @@ class Aid(models.Model):
 
     objects = AidQuerySet.as_manager()
 
+    slug = models.SlugField(
+        _('Slug'),
+        help_text=_('Let it empty so it will be autopopulated.'),
+        blank=True)
     name = models.CharField(
         _('Name'),
         max_length=256,
