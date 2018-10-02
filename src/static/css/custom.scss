@@ -300,4 +300,37 @@ section#aid {
             @extend .text-muted;
         }
     }
+
+    table {
+        @extend .table;
+        @extend .table-bordered;
+
+        caption {
+            @extend .sr-only;
+        }
+
+        th.header {
+            text-align: center;
+            color: white;
+            background-color: $primary;
+            border-color: $table-border-color;
+        }
+    }
+
+    div.aid-data {
+        @extend .card;
+
+        h2 {
+            @extend .card-body;
+        }
+
+        ul {
+            @extend .list-group;
+            @extend .list-group-flush;
+
+            li {
+                @extend .list-group-item;
+            }
+        }
+    }
 }

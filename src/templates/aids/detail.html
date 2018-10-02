@@ -1,11 +1,138 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n aids %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Aid detail') }}</li>
+    </ol>
+</nav>
+
 <section id="aid">
     <h1>
         {{ aid.name }}
         <br /><small>{{ aid.backers.all|join:', ' }}</small>
     </h1>
+
+    <p>
+        {% if aid.description %}
+            {{ aid.description }}
+        {% else %}
+            {{ _('No detailed description was submitted.') }}
+        {% endif %}
+    </p>
+
+    <table class="aid-data">
+        <caption>{{ _('Details about the aid') }}</caption>
+        <tbody>
+
+            <tr>
+                <th class="header" colspan="4">
+                    {{ _('Aid presentation') }}
+                </th>
+            </tr>
+
+            <tr>
+                <th>{{ _('Who can apply to this aid?') }}</th>
+                <td>{% choices_display aid 'targeted_audiances' %}</td>
+                <th>{{ _('Application perimeter') }}</th>
+                <td>{{ aid.perimeter }}</td>
+            </tr>
+
+            <tr>
+                <th class="header" colspan="4">
+                    {{ _('Aid calendar') }}
+                </th>
+            </tr>
+
+            <tr>
+                <th>{{ _('Recurrence') }}</th>
+                <td>{{ aid.get_recurrence_display|default:'ND' }}</td>
+                <th>{{ _('Start date') }}</th>
+                <td>{{ aid.start_date|date|default:'ND' }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Predeposit date') }}</th>
+                <td>{{ aid.predeposit_date|date|default:'ND' }}</td>
+                <th>{{ _('Submission deadline') }}</th>
+                <td>{{ aid.submission_deadline|date|default:'ND' }}</td>
+            </tr>
+
+            <tr>
+                <th class="header" colspan="4">
+                    {{ _('Aid description') }}
+                </th>
+            </tr>
+
+            <tr>
+                <th>{{ _('Aid type') }}</th>
+                <td>{% choices_display aid 'aid_types' %}</td>
+                <th>{{ _('Subvention rate') }}</th>
+                <td>{{ aid.subvention_rate|default:'ND' }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ _('When to mobilize the aid?') }}</th>
+                <td>{% choices_display aid 'mobilization_steps' %}</td>
+                <th>{{ _('The aid is destined to…') }}</th>
+                <td>{% choices_display aid 'destinations' %}</td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Other eligibility criterias') }}</th>
+                <td colspan="3">{{ aid.eligibility }}</td>
+            </tr>
+
+            <tr>
+                <th class="header" colspan="4">
+                    {{ _('Contact and actions') }}
+                </th>
+            </tr>
+
+            <tr>
+                <th>{{ _('Link to full description') }}</th>
+                <td colspan="3">
+                    {% if aid.url %}
+                    <a href="{{ aid.url }}">
+                        {{ aid.url }}
+                    </a>
+                    {% else %}
+                        ND
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Link to an online application form') }}</th>
+                <td colspan="3">
+                    {% if aid.application_url %}
+                        <a href="{{ aid.application_url }}">
+                            {{ aid.application_url }}
+                        </a>
+                    {% else %}
+                        ND
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Contact (name)') }}</th>
+                <td>{{ aid.contact_detail|default:'ND' }}</td>
+                <th>{{ _('Contact (email)') }}</th>
+                <td>{{ aid.contact_email|default:'ND' }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ _('Contact (phone)') }}</th>
+                <td>{{ aid.contact_phone|default:'ND' }}</td>
+                <td colspan="2"></td>
+            </tr>
+
+
+        </tbody>
+    </table>
 </section>
 {% endblock %}
