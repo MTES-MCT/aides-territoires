@@ -187,3 +187,9 @@ nav#pagination {
         }
     }
 }
+
+ol.breadcrumb {
+    li {
+        @extend .breadcrumb-item;
+    }
+}

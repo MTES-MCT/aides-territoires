@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -57,3 +57,17 @@ class AidCreateView(SuccessMessageMixin, CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         return form
+
+
+class AidDetailView(DetailView):
+    """Display an aid detail."""
+
+    template_name = 'aids/detail.html'
+
+    def get_queryset(self):
+        qs = Aid.objects \
+            .published() \
+            .open() \
+            .select_related('perimeter') \
+            .prefetch_related('backers')
+        return qs

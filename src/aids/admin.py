@@ -24,6 +24,7 @@ class AidAdmin(admin.ModelAdmin):
         (_('Aid presentation'), {
             'fields': (
                 'name',
+                'slug',
                 'description',
                 'targeted_audiances',
                 'backers',

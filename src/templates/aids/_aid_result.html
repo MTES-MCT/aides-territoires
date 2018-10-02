@@ -1,130 +1,61 @@
 {% load i18n aids %}
 
 <div class="aid">
-    <h1>
-        {% spaceless %}
-        <div class="status-icons">
-            {% if aid.is_technical %}
-                <span class="icon">
-                    <i class="fas fa-cog" title="{{ _('Technical / methodological aid') }}"></i>
-                </span>
+    <section>
+        <h1>
+            <a href="{% url 'aid_detail_view' aid.slug %}">
+            {{ aid.name }}
+            <br /><small>{{ aid.backers.all|join:', ' }}</small>
+            </a>
+        </h1>
+
+        <p>
+            {% if aid.description %}
+                {{ aid.description }}
+            {% else %}
+                {{ _('No detailed description was submitted.') }}
             {% endif %}
-            {% if aid.is_financial %}
-                <span class="icon">
-                    <i class="fas fa-euro-sign" title="{{ _('Financial aid') }}"></i>
-                </span>
-            {% endif %}
-        </div>
-        {% endspaceless %}
+        </p>
+    </section>
+
+    <ul>
+        {% if aid.is_technical %}
+            <li>
+                <i class="fas fa-cog"></i>
+                {{ _('Technical / methodological aid') }}
+            </li>
+        {% endif %}
+
+        {% if aid.is_financial %}
+            <li>
+                <i class="fas fa-euro-sign"></i>
+                {{ _('Financial aid') }}
+            </li>
+        {% endif %}
+
+        {% if aid.start_date %}
+            <li>
+                <i class="fa fa-clock"></i>
+                {% blocktrans with aid.start_date|date:'SHORT_DATE_FORMAT' as start_date %}
+                    Application opening date on the {{ start_date }}
+                {% endblocktrans %}
+            </li>
+        {% endif %}
+
+        {% if aid.submission_deadline %}
+            <li>
+                <i class="fa fa-clock"></i>
+                {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}
+                    Submission deadline on the {{ deadline }}
+                {% endblocktrans %}
+            </li>
+        {% endif %}
 
         {% if aid.has_appreaching_deadline %}
-        <span class="icon">
-            <i class="fas fa-clock" title="{{ _('Warning! The submission deadline is imminent.') }}"></i>
-        </span>
+            <li class="warning">
+                <i class="fas fa-exclamation-triangle" title="{{ _('Warning! The submission deadline is imminent.') }}"></i>
+                {{ _('Warning! The submission deadline is imminent') }}
+            </li>
         {% endif %}
-        {{ aid.name }}
-
-        <br /><small>{{ aid.backers.all|join:', ' }}</small>
-    </h1>
-
-    <p>
-        {% if aid.description %}
-            {{ aid.description }}
-        {% else %}
-            {{ _('No detailed description was submitted.') }}
-        {% endif %}
-    </p>
-
-    {% if aid.submission_deadline %}
-    <p>
-    <span class="deadline" title="{% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}Deadline on the {{ deadline }}.{% endblocktrans %}">
-        {{ aid.submission_deadline|date:'SHORT_DATE_FORMAT' }}
-    </span>
-    </p>
-    {% endif %}
-
-    <table>
-        <caption>{{ _('Details about the aid') }}</caption>
-        <colgroup>
-            <col class="header" />
-            <col class="content" />
-        </colgroup>
-        <tbody>
-            <tr>
-                <th>{{ _('Beneficiaries') }}</th>
-                <td>
-                    {% choices_display aid 'targeted_audiances' %}
-                    {% if aid.targeted_audiances_detail %}
-                        ({{ aid.targeted_audiances_detail }})
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{{ _('When to mobilize the aid?') }}</th>
-                <td>{% choices_display aid 'mobilization_steps' %}</td>
-            </tr>
-            <tr>
-                <th>{{ _('Aid type') }}</th>
-                <td>
-                    {% choices_display aid 'aid_types' %}
-                    {% if aid.aid_types_detail %}
-                        ({{ aid.aid_types_detail }})
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{{ _('Aid destinations') }}</th>
-                <td>
-                    {% choices_display aid 'destinations' %}
-                    {% if aid.destinations_detail %}
-                        ({{ aid.destinations_detail }})
-                    {% endif %}
-                </td>
-            </tr>
-
-            <tr>
-                <th>{{ _('Application perimeter') }}</th>
-                <td>
-                    {{ aid.perimeter }}
-                </td>
-            </tr>
-
-            {% if aid.eligibility %}
-            <tr>
-                <th>{{ _('Eligibility conditions') }}</th>
-                <td>
-                    {{ aid.eligibility }}
-                </td>
-            </tr>
-
-            {% endif %}
-
-            {% if aid.url %}
-            <tr>
-                <th>{{ _('Link') }}</th>
-                <td class="url"><a href="{{ aid.url }}">{{ _('Access the web site') }}</a></td>
-            </tr>
-            {% endif %}
-
-            {% if aid.contact_email or aid.contact_phone or aid.contact_detail %}
-            <tr>
-                <th>{{ _('Contact') }}</th>
-                <td>
-                    {% if aid.contact_email %}
-                        <span class="contact email">{{ aid.contact_email }}</span>
-                    {% endif %}
-
-                    {% if aid.contact_phone %}
-                        <span class="contact phone">{{ aid.contact_phone }}</span>
-                    {% endif %}
-
-                    {% if aid.contact_detail %}
-                        <span class="contact other">{{ aid.contact_detail }}</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endif %}
-
-        </tbody>
-    </table>
+    </ul>
 </div>

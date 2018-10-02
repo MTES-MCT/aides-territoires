@@ -2,6 +2,14 @@
 {% load i18n form_utils %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Add a new aid') }}</li>
+    </ol>
+</nav>
+
 <h1>{{ _('Use this form to publish your own aid') }}</h1>
 <form method="post" action="" id="aid-create">
     {% csrf_token %}
