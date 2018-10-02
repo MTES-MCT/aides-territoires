@@ -173,80 +173,63 @@ section#search {
 
     div.search-results {
         @extend .col;
-    }
 
-    div.search-results {
         div.aid {
-            @extend .mt-4;
-            @extend .mb-5;
-            @extend .pb-3;
-            border-bottom: 1px solid $gray-800;
+            @extend .card;
+            @extend .mb-3;
 
-            h1 {
-                @extend .h2;
+            section {
+                @extend .card-body;
 
-                div.status-icons {
-                    @extend .pl-4;
-                    @extend .float-right;
+                h1 {
+                    @extend .h3;
+                    @extend .card-title;
 
-                    span.icon {
-                        @extend .pl-1;
+                    small {
+                        @extend .card-subtitle;
+                    }
 
-                        &:not(:first-of-type) {
+                    div.status-icons {
+                        @extend .pl-4;
+                        @extend .float-right;
+
+                        span.icon {
+                            @extend .pl-1;
+
+                            &:not(:first-of-type) {
+                            }
+
+                            i.fas {
+                                color: $primary;
+                            }
                         }
+                    }
 
-                        i.fas {
-                            color: $primary;
-                        }
+                    i.fa-clock {
+                        color: $danger;
+                    }
+
+                    small {
+                        @extend .text-muted;
                     }
                 }
 
-                i.fa-clock {
-                    color: $danger;
-                }
-
-                small {
-                    @extend .text-muted;
+                p {
+                    @extend .card-text;
                 }
             }
 
-            span.deadline {
-                font-size: 1.2rem;
-                @extend .badge;
-                @extend .badge-primary;
-                @include fa-icon;
-                @extend .fas;
+            ul {
+                @extend .list-group;
+                @extend .list-group-flush;
 
-                &:before {
-                    content: fa-content($fa-var-clock);
-                }
-            }
-
-            table {
-                @extend .table;
-                @extend .table-sm;
-                table-layout: fixed;
-
-                caption {
-                    @extend .sr-only;
+                li {
+                    @extend .list-group-item;
                 }
 
-                col.header {
-                    width: 15rem;
-                }
-
-                td {
-                    word-wrap: break-word;
-                }
-
-                span.contact {
-                    &:after {
-                        content: ' / ';
-                    }
-
-                    &:last-child:after {
-                        content: '';
-                    }
+                li.warning {
+                    @extend .bg-danger;
+                    @extend .text-white;
                 }
             }
         }
