@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block content %}
+<section id="aid">
+    <h1>
+        {{ aid.name }}
+        <br /><small>{{ aid.backers.all|join:', ' }}</small>
+    </h1>
+</section>
+{% endblock %}

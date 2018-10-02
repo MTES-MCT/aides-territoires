@@ -292,3 +292,12 @@ section#stats {
         }
     }
 }
+
+section#aid {
+    h1 {
+        @extend .h2;
+        small {
+            @extend .text-muted;
+        }
+    }
+}
