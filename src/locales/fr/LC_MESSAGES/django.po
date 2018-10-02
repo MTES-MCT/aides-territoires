@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 14:32+0200\n"
+"POT-Creation-Date: 2018-10-02 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,6 +216,12 @@ msgstr "Permanente"
 msgid "Recurring"
 msgstr "Récurrente"
 
+msgid "Slug"
+msgstr "Fragment d'URL"
+
+msgid "Let it empty so it will be autopopulated."
+msgstr "Laisser vide pour autoremplir."
+
 msgid "Name"
 msgstr "Nom"
 
@@ -237,15 +243,6 @@ msgstr "Éligibilité"
 msgid "What is the aid broadcasting perimeter?"
 msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 
-msgid "Application perimeter"
-msgstr "Périmètre d'application"
-
-msgid "Application region"
-msgstr "Région d'application"
-
-msgid "Application department"
-msgstr "Département d'application"
-
 msgid "Mobilization step"
 msgstr "L'aide s'applique en phase de…"
 
@@ -257,9 +254,6 @@ msgstr "Lien vers une démarche en ligne"
 
 msgid "Targeted audiances"
 msgstr "Destinataires de l'aide"
-
-msgid "Is this a funding aid?"
-msgstr "S'agit-il d'un financement ?"
 
 msgid "Aid types"
 msgstr "Types d'aide"
@@ -300,17 +294,14 @@ msgstr "Téléphone de contact"
 msgid "Contact detail"
 msgstr "Contact (détail)"
 
-msgid "Status"
-msgstr "Statut"
-
-msgid "Open to third party?"
-msgstr "Ouvert aux tiers ?"
-
 msgid "Recurrence"
 msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
+
+msgid "Status"
+msgstr "Statut"
 
 msgid "Date created"
 msgstr "Date de création"
@@ -429,39 +420,38 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
+msgid "No detailed description was submitted."
+msgstr "Aucune description détaillée n'a été renseignée."
+
 msgid "Technical / methodological aid"
 msgstr "Aides méthodologiques & techniques"
 
 msgid "Financial aid"
 msgstr "Aide financière"
 
+#, python-format
+msgid ""
+"\n"
+"                    Application opening date on the %(start_date)s\n"
+"                "
+msgstr ""
+"\n"
+"Ouverture des dépôts de dossier le %(start_date)s"
+
+#, python-format
+msgid ""
+"\n"
+"                    Submission deadline on the %(deadline)s\n"
+"                "
+msgstr ""
+"\n"
+"Date de clôture le %(deadline)s"
+
 msgid "Warning! The submission deadline is imminent."
 msgstr "Attention ! La date de soumission est imminente."
 
-msgid "No detailed description was submitted."
-msgstr "Aucune description détaillée n'a été renseignée."
-
-#, python-format
-msgid "Deadline on the %(deadline)s."
-msgstr "Date d'échéance le %(deadline)s."
-
-msgid "Details about the aid"
-msgstr "Détails à propos de l'aide"
-
-msgid "Beneficiaries"
-msgstr "Bénéficiaires"
-
-msgid "Aid destinations"
-msgstr "Destinations"
-
-msgid "Eligibility conditions"
-msgstr "Conditions d'éligibilité"
-
-msgid "Link"
-msgstr "Lien"
-
-msgid "Access the web site"
-msgstr "Accéder au site Web"
+msgid "Warning! The submission deadline is imminent"
+msgstr "Attention ! La date de soumission est imminente"
 
 msgid "Use this form to publish your own aid"
 msgstr "Utilisez ce formulaire pour publier votre aide"
