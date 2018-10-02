@@ -436,7 +436,7 @@ msgid "Financial aid"
 msgstr "Aide financière"
 
 msgid "Warning! The submission deadline is imminent."
-msgstr "Attentio ! La date de soumission est imminente."
+msgstr "Attention ! La date de soumission est imminente."
 
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
