@@ -1,5 +1,8 @@
+from uuid import uuid4
+
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
 from aids.models import Aid
 from aids.forms import AidAdminForm
@@ -24,6 +27,7 @@ class AidAdmin(admin.ModelAdmin):
         (_('Aid presentation'), {
             'fields': (
                 'name',
+                'slug',
                 'description',
                 'targeted_audiances',
                 'backers',
@@ -83,6 +87,17 @@ class AidAdmin(admin.ModelAdmin):
         backers = [backer.name for backer in aid.backers.all()]
         return ', '.join(backers)
     all_backers.short_description = _('Backers')
+
+    def save_model(self, request, obj, form, change):
+        """Populate the slug field.
+
+        Lots of aids have duplicate name, so we prefix the slug with random
+        characters.
+        """
+        if not change and obj.slug == '':
+            full_title = '{}-{}'.format(str(uuid4())[:4], obj.name)
+            obj.slug = slugify(full_title)[:50]
+        obj.save()
 
 
 admin.site.register(Aid, AidAdmin)
