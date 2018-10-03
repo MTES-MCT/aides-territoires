@@ -61,19 +61,32 @@
     // so the current search remains bookmarkable.
     var results_div = $('div#search-results');
     var results_url = '{% url 'results_view' %}';
+    var searchXHR = undefined;
+    var pendingRequest = false;
+
     var renderSearchResults = function(event) {
         var $form = $(this);
         var search_parameters = $form.serialize();
 
-        $.ajax({
+        // If a pending request exists, abort it before we start a new one
+        if (pendingRequest && searchXHR) {
+            searchXHR.abort();
+        }
+
+        searchXHR = $.ajax({
             url: results_url,
             data: search_parameters,
             dataType: 'html',
+            beforeSend: function() {
+                pendingRequest = true;
+            }
         }).done(function(result) {
             results_div.html(result)
 
             var new_url = '?' + search_parameters;
             history.replaceState(null, null, new_url);
+        }).always(function() {
+            pendingRequest = false;
         });
     };
 </script>
