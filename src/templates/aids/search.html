@@ -49,8 +49,16 @@
         });
 
         $('div#search-engine form').change(renderSearchResults);
+
+        // Since we use js to dynamically fetch new results, it's better
+        // to hide the useless submit button. We do it using js, so
+        // the search feature remains fully working when js is not available.
+        $('div#search-engine button[type=submit]').hide();
     });
 
+    // When the search filter form is used, we dynamically fetch new
+    // results and display them on the spot. We also update the url,
+    // so the current search remains bookmarkable.
     var results_div = $('div#search-results');
     var results_url = '{% url 'results_view' %}';
     var renderSearchResults = function(event) {
