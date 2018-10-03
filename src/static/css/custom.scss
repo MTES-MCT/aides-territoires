@@ -103,7 +103,7 @@ section#contact {
 section#search {
     @extend .row;
 
-    div.search-engine {
+    div#search-engine {
         @extend .col-3;
 
         form {
@@ -171,8 +171,12 @@ section#search {
         }
     }
 
-    div.search-results {
+    div#search-results {
         @extend .col;
+
+        &.loading {
+            opacity: 0.3;
+        }
 
         div.aid {
             @extend .card;
