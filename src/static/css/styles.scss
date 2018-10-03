@@ -169,6 +169,10 @@ p {
         @extend .alert;
         @extend .alert-warning;
     }
+
+    &.center {
+        text-align: center;
+    }
 }
 
 nav#pagination {
@@ -191,5 +195,37 @@ nav#pagination {
 ol.breadcrumb {
     li {
         @extend .breadcrumb-item;
+    }
+}
+
+div.modal {
+    @extend .fade;
+
+    .modal-dialog {
+
+        section {
+            @extend .modal-content;
+
+            header {
+                @extend .modal-header;
+
+                h1 {
+                    @extend .h3;
+                }
+            }
+
+            footer {
+                @extend .modal-footer;
+
+                button {
+                    @extend .btn;
+                    @extend .btn-primary;
+                }
+            }
+
+            div.content {
+                @extend .modal-body;
+            }
+        }
     }
 }
