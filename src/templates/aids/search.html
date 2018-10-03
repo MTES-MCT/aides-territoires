@@ -10,7 +10,7 @@
 </nav>
 
 <section id="search">
-    <div class="search-engine">
+    <div id="search-engine">
         <form action="" method="GET">
             {% include '_form_snippet.html' with form=form nest_field_class="field" %}
             <button type="submit">{{ _('Filter results') }}</button>
@@ -22,24 +22,8 @@
         </form>
     </div>
 
-    <div class="search-results">
-        {% for aid in aids %}
-            {% if forloop.first %}
-                <p class="info">
-                    {% blocktrans with paginator.count as nb_aids %}
-                    We found <strong>{{ nb_aids }}</strong> results corresponding to your search query.
-                    {% endblocktrans %}
-                </p>
-            {% endif %}
-
-            {% include 'aids/_aid_result.html' with aid=aid %}
-        {% empty %}
-        <div class="empty-result">
-            <p class="warning">{{ _('We could not find any results.') }}</p>
-        </div>
-        {% endfor %}
-
-        {% include '_pagination.html' %}
+    <div id="search-results">
+        {% include 'aids/_results.html' %}
     </div>
 </section>
 {% endblock %}
@@ -69,6 +53,23 @@
             theme: 'bootstrap4',
             width: '',
         });
+
+        $('div#search-engine form').change(renderSearchResults);
     });
+
+    var results_div = $('div#search-results');
+    var results_url = '{% url 'results_view' %}';
+    var renderSearchResults = function(event) {
+        var $form = $(this);
+        var search_parameters = $form.serialize();
+
+        $.ajax({
+            url: results_url,
+            data: search_parameters,
+            dataType: 'html',
+        }).done(function(result) {
+            results_div.html(result)
+        });
+    };
 </script>
 {% endblock %}

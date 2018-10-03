@@ -45,6 +45,15 @@ class SearchView(FormMixin, ListView):
         return results
 
 
+class ResultsView(SearchView):
+    """Only display search results.
+
+    This view is designed to be called via ajax, and only renders html
+    fragment of search engine results.
+    """
+    template_name = 'aids/_results.html'
+
+
 class AidCreateView(SuccessMessageMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
