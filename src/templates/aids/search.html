@@ -79,6 +79,7 @@
             dataType: 'html',
             beforeSend: function() {
                 pendingRequest = true;
+                results_div.addClass('loading');
             }
         }).done(function(result) {
             results_div.html(result)
@@ -87,6 +88,7 @@
             history.replaceState(null, null, new_url);
         }).always(function() {
             pendingRequest = false;
+                results_div.removeClass('loading');
         });
     };
 </script>
