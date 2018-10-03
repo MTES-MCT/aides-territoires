@@ -305,6 +305,20 @@ section#aid {
         }
     }
 
+    button.report-error {
+        @extend .btn;
+        @extend .btn-danger;
+        float: right;
+        @extend .ml-3;
+
+        &:before {
+            @include fa-icon;
+            @extend .fas;
+            content: fa-content($fa-var-bullhorn);
+            @extend .mr-1;
+        }
+    }
+
     table {
         @extend .table;
         @extend .table-bordered;
@@ -335,6 +349,16 @@ section#aid {
             li {
                 @extend .list-group-item;
             }
+        }
+    }
+}
+
+div#error-report {
+    p.center {
+        a {
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-block;
         }
     }
 }

@@ -1,0 +1,39 @@
+{% load i18n %}
+<div id="error-report" class="modal">
+    <div class="modal-dialog">
+        <section>
+            <header>
+                <h1>{{ _('Report a problem') }}</h1>
+            </header>
+
+            <div class="content">
+                <p>
+                {% blocktrans %}
+                If you noticed an error on this page, please let us know and we
+                will do our best to fix the problem as soon as possible.
+                {% endblocktrans %}
+                </p>
+
+                <p>
+                {% blocktrans %}
+                Help us fixing it quickly by being as precise as possible in
+                your problem report.
+                {% endblocktrans %}
+                </p>
+
+                <p>
+                {% blocktrans %}
+                You can contact us by sending an email at this address :
+                {% endblocktrans %}
+                </p>
+
+                <p class="center">
+                    <a
+                        href="mailto:aides-territoires@beta.gouv.fr?subject=Rapport d'erreur [aide {{ aid.id }}]">
+                    aides-territoires@beta.gouv.fr</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
