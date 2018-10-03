@@ -63,6 +63,9 @@
             dataType: 'html',
         }).done(function(result) {
             results_div.html(result)
+
+            var new_url = '?' + search_parameters;
+            history.replaceState(null, null, new_url);
         });
     };
 </script>
