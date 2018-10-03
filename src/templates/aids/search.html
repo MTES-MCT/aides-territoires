@@ -35,12 +35,6 @@
 {% block extra_js %}
 <script src="/static/jquery/dist/jquery.js"></script>
 <script src="/static/select2/dist/js/select2.js"></script>
-{% if debug %}
-    <script src="/static/vue/dist/vue.runtime.js"></script>
-{% else %}
-    <script src="/static/vue/dist/vue.runtime.min.js"></script>
-{% endif %}
-
 <script>
     $(document).ready(function() {
         $('select#id_perimeter').select2({
