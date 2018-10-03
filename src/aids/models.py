@@ -82,13 +82,6 @@ class Aid(models.Model):
         ('supply', _('Supply')),
     )
 
-    AID_STATUSES = Choices(
-        ('open', _('Open')),
-        ('planned', _('Planned')),
-        ('closed', _('closed')),
-        ('unknown', _('Unknown')),
-    )
-
     RECURRENCE = Choices(
         ('oneoff', _('One off')),
         ('ongoing', _('Ongoing')),
