@@ -60,7 +60,7 @@ server {
     # add_header X-Frame-Options "SAMEORIGIN";  # Set by Django
     add_header X-Content-Type-Options "nosniff";
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
-    add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self'; frame-src https://stats.data.gouv.fr; img-src 'self' https://stats.data.gouv.fr; script-src 'self' https://stats.data.gouv.fr/piwik.js; style-src 'self'; base-uri 'self'; form-action 'self';"
+    add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self'; frame-src https://stats.data.gouv.fr; img-src 'self' https://stats.data.gouv.fr; script-src 'self' https://stats.data.gouv.fr/piwik.js; style-src 'self'; base-uri 'self'; form-action 'self'";
 
     gzip on;
     gzip_proxied any;
