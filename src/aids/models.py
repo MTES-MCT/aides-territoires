@@ -73,7 +73,7 @@ class Aid(models.Model):
         ('commune', _('Commune')),
         ('department', _('Department')),
         ('region', _('Region')),
-        ('epci', _('EPCI')),
+        ('epci', _('Audiance EPCI')),
     )
 
     DESTINATIONS = Choices(
