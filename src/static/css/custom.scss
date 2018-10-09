@@ -356,9 +356,12 @@ section#aid {
 div#error-report {
     p.center {
         a {
-            @extend .btn;
-            @extend .btn-primary;
-            @extend .btn-block;
+            &:before {
+                @include fa-icon;
+                @extend .fas;
+                @extend .pr-1;
+                content: fa-content($fa-var-envelope);
+            }
         }
     }
 }
