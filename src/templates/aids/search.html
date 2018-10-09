@@ -38,9 +38,9 @@
 <script>
     $(document).ready(function() {
         $('select#id_perimeter').select2({
-            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            placeholder: '{{ _("City, department, region, EPCI…") }}',
             ajax: {
-                url: '{% url 'perimeters-list' %}',
+                url: '{% url "perimeters-list" %}',
                 dataType: 'json',
                 delay: 100,
             },
@@ -60,7 +60,7 @@
     // results and display them on the spot. We also update the url,
     // so the current search remains bookmarkable.
     var results_div = $('div#search-results');
-    var results_url = '{% url 'results_view' %}';
+    var results_url = '{% url "results_view" %}';
     var searchXHR = undefined;
     var pendingRequest = false;
 
