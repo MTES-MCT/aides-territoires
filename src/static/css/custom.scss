@@ -94,10 +94,10 @@ section#contact {
     }
 }
 
-section#search {
+section.aid-list {
     @extend .row;
 
-    div#search-engine {
+    div.aid-sidebar {
         @extend .col-3;
 
         form {
@@ -163,9 +163,27 @@ section#search {
                 }
             }
         }
+
+        nav {
+            @extend .card;
+
+            h2 {
+                @extend .card-header;
+                font-size: 1rem;
+            }
+
+            ul {
+                @extend .list-group;
+                @extend .list-group-flush;
+
+                li {
+                    @extend .list-group-item;
+                }
+            }
+        }
     }
 
-    div#search-results {
+    div.aid-results {
         @extend .col;
 
         &.loading {

@@ -9,8 +9,8 @@
     </ol>
 </nav>
 
-<section id="search">
-    <div id="search-engine">
+<section id="search" class="aid-list">
+    <div id="search-engine" class="aid-sidebar">
         <form action="" method="GET">
             {% include '_form_snippet.html' with form=form nest_field_class="field" %}
             <button type="submit">{{ _('Filter results') }}</button>
@@ -22,7 +22,7 @@
         </form>
     </div>
 
-    <div id="search-results">
+    <div id="search-results" class="aid-results">
         {% include 'aids/_results.html' %}
     </div>
 </section>
