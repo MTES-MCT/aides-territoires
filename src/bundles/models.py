@@ -25,3 +25,6 @@ class Bundle(models.Model):
     class Meta:
         verbose_name = _('Bundle')
         verbose_name_plural = _('Bundles')
+
+    def __str__(self):
+        return self.name
