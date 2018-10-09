@@ -86,12 +86,6 @@ section#contact {
 
         form#mailing-list-form {
 
-            span.field-help {
-            }
-
-            p {
-            }
-
             button[type=submit] {
                 @extend .btn-lg;
                 @extend .btn-block;
@@ -199,9 +193,6 @@ section#search {
 
                         span.icon {
                             @extend .pl-1;
-
-                            &:not(:first-of-type) {
-                            }
 
                             i.fas {
                                 color: $primary;
