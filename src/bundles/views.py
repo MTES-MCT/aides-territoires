@@ -14,6 +14,7 @@ class BundleListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Bundle.objects \
             .filter(owner=self.request.user) \
+            .select_related('owner') \
             .order_by('name')
 
     def get_context_data(self, **kwargs):
@@ -24,6 +25,9 @@ class BundleListView(LoginRequiredMixin, ListView):
         if slug:
             bundle = get_object_or_404(self.object_list, slug=slug)
             context['selected_bundle'] = bundle
-            context['aids'] = bundle.aids.all()
+            context['aids'] = bundle.aids \
+                .published() \
+                .select_related('author') \
+                .prefetch_related('backers')
 
         return context
