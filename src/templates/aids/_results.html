@@ -1,6 +1,6 @@
 {% load i18n %}
 {% for aid in aids %}
-    {% if forloop.first and nb_aids %}
+    {% if forloop.first and paginator %}
         <p class="info">
             {% blocktrans with paginator.count as nb_aids %}
             We found <strong>{{ nb_aids }}</strong> results corresponding to your search query.
