@@ -5,7 +5,12 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My aid bundles') }}</li>
+        {% if selected_bundle %}
+            <li><a href="{% url 'bundle_list_view' %}">{{ _('My aid bundles') }}</a></li>
+            <li class="active" aria-current="page">{{ selected_bundle.name }}</li>
+        {% else %}
+            <li class="active" aria-current="page">{{ _('My aid bundles') }}</li>
+        {% endif %}
     </ol>
 </nav>
 
