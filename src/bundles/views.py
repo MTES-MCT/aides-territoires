@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 
 from bundles.models import Bundle
 
@@ -13,3 +14,15 @@ class BundleListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Bundle.objects \
             .filter(owner=self.request.user)
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        slug = self.kwargs.get('slug', None)
+        if slug:
+            bundle = get_object_or_404(self.object_list, slug=slug)
+            context['selected_bundle'] = bundle
+            context['aids'] = bundle.aids.all()
+
+        return context

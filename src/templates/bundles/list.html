@@ -15,7 +15,8 @@
             <h2>{{ _('My aid bundles') }}</h2>
             <ul>
             {% for bundle in bundles %}
-                <li><a href="#">{{ bundle }}</a></li>
+                <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
+                    href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
             {% endfor %}
             </ul>
         </nav>
