@@ -8,6 +8,11 @@
 @import 'theme';
 @import 'bootstrap/scss/bootstrap';
 
+$fa-font-path: '../@fortawesome/fontawesome-free/webfonts/';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+
+
 html {
     @extend .bg-dark;
 }
@@ -228,4 +233,12 @@ div.modal {
             }
         }
     }
+}
+
+a[href^='http']:after {
+    @include fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-external-link-alt);
+    vertical-align: baseline;
+    @extend .ml-1;
 }

@@ -103,9 +103,7 @@
                 <th>{{ _('Link to full description') }}</th>
                 <td colspan="3">
                     {% if aid.url %}
-                    <a href="{{ aid.url }}">
-                        {{ aid.url }}
-                    </a>
+                    <a href="{{ aid.url }}">{{ aid.url }}</a>
                     {% else %}
                         ND
                     {% endif %}
@@ -116,9 +114,7 @@
                 <th>{{ _('Link to an online application form') }}</th>
                 <td colspan="3">
                     {% if aid.application_url %}
-                        <a href="{{ aid.application_url }}">
-                            {{ aid.application_url }}
-                        </a>
+                        <a href="{{ aid.application_url }}">{{ aid.application_url }}</a>
                     {% else %}
                         ND
                     {% endif %}

@@ -329,6 +329,7 @@ section#aid {
             @extend .fas;
             content: fa-content($fa-var-bullhorn);
             @extend .mr-1;
+            vertical-align: baseline;
         }
     }
 
