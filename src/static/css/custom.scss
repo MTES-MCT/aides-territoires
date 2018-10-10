@@ -86,12 +86,6 @@ section#contact {
 
         form#mailing-list-form {
 
-            span.field-help {
-            }
-
-            p {
-            }
-
             button[type=submit] {
                 @extend .btn-lg;
                 @extend .btn-block;
@@ -100,10 +94,10 @@ section#contact {
     }
 }
 
-section#search {
+section.aid-list {
     @extend .row;
 
-    div#search-engine {
+    div.aid-sidebar {
         @extend .col-3;
 
         form {
@@ -169,9 +163,31 @@ section#search {
                 }
             }
         }
+
+        nav {
+            @extend .card;
+
+            h2 {
+                @extend .card-header;
+                font-size: 1rem;
+            }
+
+            ul {
+                @extend .list-group;
+                @extend .list-group-flush;
+
+                li {
+                    @extend .list-group-item;
+
+                    a.active {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
     }
 
-    div#search-results {
+    div.aid-results {
         @extend .col;
 
         &.loading {
@@ -199,9 +215,6 @@ section#search {
 
                         span.icon {
                             @extend .pl-1;
-
-                            &:not(:first-of-type) {
-                            }
 
                             i.fas {
                                 color: $primary;

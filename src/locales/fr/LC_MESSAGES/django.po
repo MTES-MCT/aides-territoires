@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-09 11:37+0200\n"
+"POT-Creation-Date: 2018-10-10 11:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,6 +322,18 @@ msgstr ""
 msgid "Backer"
 msgstr "Apporteur"
 
+msgid "Owner"
+msgstr "Auteur"
+
+msgid "Bundle name"
+msgstr "Nom de la liste"
+
+msgid "Bundle"
+msgstr "Liste"
+
+msgid "Bundles"
+msgstr "Listes"
+
 msgid "aids/"
 msgstr "aides/"
 
@@ -330,6 +342,9 @@ msgstr "integration/"
 
 msgid "stats/"
 msgstr "stats/"
+
+msgid "bundles/"
+msgstr "listes/"
 
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
@@ -571,6 +586,15 @@ msgstr ""
 "\n"
 "Ce service étant en version bêta, toutes les aides publiques ne sont pas "
 "encore référencées dans l'outil. Contactez-nous si vous relevez un manque."
+
+msgid "My aid bundles"
+msgstr "Mes listes d'aides"
+
+msgid "You don't have any aid bundle yet."
+msgstr "Vous n'avez créé aucune liste d'aides personnalisée pour le moment."
+
+msgid "Select a bundle on the menu to see the associated aids."
+msgstr "Sélectionnez une liste dans le menu pour consulter les aides associées."
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
