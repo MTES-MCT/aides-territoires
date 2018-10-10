@@ -46,16 +46,16 @@
         virtualenv: "{{ venv_dir }}"
         settings: "{{ django_settings }}"
 
-    - name: Compress assets
+    - name: Compile locale files
       django_manage:
-        command: compress
+        command: compilemessages
         app_path: "{{ django_root }}"
         virtualenv: "{{ venv_dir }}"
         settings: "{{ django_settings }}"
 
-    - name: Compile locale files
+    - name: Compress assets
       django_manage:
-        command: compilemessages
+        command: compress
         app_path: "{{ django_root }}"
         virtualenv: "{{ venv_dir }}"
         settings: "{{ django_settings }}"
