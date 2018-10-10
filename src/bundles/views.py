@@ -13,7 +13,8 @@ class BundleListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Bundle.objects \
-            .filter(owner=self.request.user)
+            .filter(owner=self.request.user) \
+            .order_by('name')
 
     def get_context_data(self, **kwargs):
 
