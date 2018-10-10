@@ -178,6 +178,10 @@ section.aid-list {
 
                 li {
                     @extend .list-group-item;
+
+                    a.active {
+                        font-weight: bold;
+                    }
                 }
             }
         }
