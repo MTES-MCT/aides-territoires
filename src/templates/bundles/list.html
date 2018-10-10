@@ -17,6 +17,8 @@
             {% for bundle in bundles %}
                 <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
                     href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
+            {% empty %}
+                <li class="empty">{{ _("You don't have any aid bundle yet.") }}</li>
             {% endfor %}
             </ul>
         </nav>
