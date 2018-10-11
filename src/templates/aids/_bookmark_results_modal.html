@@ -3,22 +3,39 @@
     <div class="modal-dialog">
         <section>
             <header>
-                <h1>{{ _('Share search results') }}</h1>
+                <h1>{{ _('Share current search results') }}</h1>
             </header>
 
             <div class="content">
+                <h2>{{ _('Bookmark this search') }}</h2>
                 <p>
                 {% blocktrans %}
-                Use the following buttons to bookmark those search results.
+                To save your current search filters, just bookmark the current url.
                 {% endblocktrans %}
                 </p>
 
-                <form>
-                    <button id="bookmark-btn">
-                        {{ _('Bookmark this search') }}
-                    </button>
+                <p class="tip">
+                    <i class="fas fa-lightbulb"></i>
+                {% blocktrans %}
+                On most web browser, you can just type Ctrl+D or Cmd+D, or click on the star icon
+                "<i class="fa fa-star"></i>" in you url bar.
+                {% endblocktrans %}
+                </p>
 
-                    <button id="clipboard-butn">
+                <h2>{{ _('Copy to clipboard ') }}</h2>
+
+                <p>
+                {% blocktrans %}
+                    Use the following button to copy the current search url to
+                    your clipboard.
+                {% endblocktrans %}
+                </p>
+
+                <form id="copy-to-clipboard-form">
+                    <div class="form-group">
+                        <input type="text" name="current-url" value="" />
+                    </div>
+                    <button id="clipboard-btn">
                         {{ _('Copy the current url to clipboard') }}
                     </button>
                 </form>
