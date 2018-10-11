@@ -194,6 +194,21 @@ section.aid-list {
             opacity: 0.3;
         }
 
+        nav.search-actions {
+            @extend .mb-2;
+            @extend .navbar;
+            background-color: $card-cap-bg;
+
+            span {
+                @extend .navbar-text;
+            }
+
+            button {
+                @extend .btn;
+                @extend .btn-primary;
+            }
+        }
+
         div.aid {
             @extend .card;
             @extend .mb-3;

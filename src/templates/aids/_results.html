@@ -1,13 +1,21 @@
 {% load i18n %}
-{% for aid in aids %}
-    {% if forloop.first and paginator %}
-        <p class="info">
-            {% blocktrans with paginator.count as nb_aids %}
-            We found <strong>{{ nb_aids }}</strong> results corresponding to your search query.
-            {% endblocktrans %}
-        </p>
-    {% endif %}
 
+{% if search_actions %}
+<nav class="search-actions">
+    <span>
+        {% blocktrans with paginator.count as nb_aids %}
+        We found <strong>{{ nb_aids }}</strong> results.
+        {% endblocktrans %}
+    </span>
+
+    <button id="share" data-toggle="modal" data-target="#error-report">
+        <i class="fas fa-share"></i>
+        {{ _('Share these results') }}
+    </button>
+</nav>
+{% endif %}
+
+{% for aid in aids %}
     {% include 'aids/_aid_result.html' with aid=aid %}
 {% empty %}
 <div class="empty-result">
