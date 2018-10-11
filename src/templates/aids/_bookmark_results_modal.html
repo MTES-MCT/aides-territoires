@@ -1,0 +1,28 @@
+{% load i18n %}
+<div id="bookmark-modal" class="modal">
+    <div class="modal-dialog">
+        <section>
+            <header>
+                <h1>{{ _('Share search results') }}</h1>
+            </header>
+
+            <div class="content">
+                <p>
+                {% blocktrans %}
+                Use the following buttons to bookmark those search results.
+                {% endblocktrans %}
+                </p>
+
+                <form>
+                    <button id="bookmark-btn">
+                        {{ _('Bookmark this search') }}
+                    </button>
+
+                    <button id="clipboard-butn">
+                        {{ _('Copy the current url to clipboard') }}
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
