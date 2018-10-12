@@ -15,6 +15,7 @@ raven = "*"
 requests = "*"
 django-rest-framework = "*"
 xlrd = "*"
+celery = "*"
 
 [dev-packages]
 pytest = "*"
