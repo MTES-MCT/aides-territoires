@@ -10,6 +10,8 @@ INSTALLED_APPS += [
 
 COMPRESS_OFFLINE = True
 
+CELERY_BROKER_URL = 'redis://localhost'
+
 # Create a .env.production file in django's root
 environ.Env.read_env('.env.production')
 env = environ.Env()
