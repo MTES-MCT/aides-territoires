@@ -30,7 +30,7 @@
     </div>
 
     <div id="search-results" class="aid-results">
-        {% if aids %}
+        {% if selected_bundle %}
             {% include 'aids/_results.html' %}
         {% else %}
             <p>{{ _('Select a bundle on the menu to see the associated aids.') }}</p>

@@ -53,6 +53,10 @@ class ResultsView(SearchView):
     """
     template_name = 'aids/_results.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['search_actions'] = True
+        return super().get_context_data(**kwargs)
+
 
 class AidCreateView(SuccessMessageMixin, CreateView):
     """Allows publishers to submit their own aids."""

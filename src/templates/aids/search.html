@@ -23,9 +23,14 @@
     </div>
 
     <div id="search-results" class="aid-results">
-        {% include 'aids/_results.html' %}
+        {% include 'aids/_results.html' with search_actions="yes" %}
     </div>
 </section>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+{% include 'aids/_bookmark_results_modal.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -34,62 +39,19 @@
 
 {% block extra_js %}
 <script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="/static/select2/dist/js/select2.js"></script>
 <script>
-    $(document).ready(function() {
-        $('select#id_perimeter').select2({
-            placeholder: '{{ _("City, department, region, EPCI…") }}',
-            ajax: {
-                url: '{% url "perimeters-list" %}',
-                dataType: 'json',
-                delay: 100,
-            },
-            theme: 'bootstrap4',
-            width: '',
-        });
-
-        $('div#search-engine form').change(renderSearchResults);
-
-        // Since we use js to dynamically fetch new results, it's better
-        // to hide the useless submit button. We do it using js, so
-        // the search feature remains fully working when js is not available.
-        $('div#search-engine button[type=submit]').hide();
-    });
-
-    // When the search filter form is used, we dynamically fetch new
-    // results and display them on the spot. We also update the url,
-    // so the current search remains bookmarkable.
-    var results_div = $('div#search-results');
-    var results_url = '{% url "results_view" %}';
-    var searchXHR = undefined;
-    var pendingRequest = false;
-
-    var renderSearchResults = function(event) {
-        var $form = $(this);
-        var search_parameters = $form.serialize();
-
-        // If a pending request exists, abort it before we start a new one
-        if (pendingRequest && searchXHR) {
-            searchXHR.abort();
-        }
-
-        searchXHR = $.ajax({
-            url: results_url,
-            data: search_parameters,
-            dataType: 'html',
-            beforeSend: function() {
-                pendingRequest = true;
-                results_div.addClass('loading');
-            }
-        }).done(function(result) {
-            results_div.html(result)
-
-            var new_url = '?' + search_parameters;
-            history.replaceState(null, null, new_url);
-        }).always(function() {
-            pendingRequest = false;
-                results_div.removeClass('loading');
-        });
+    // Translations strings
+    var catalog = {
+        perimeter_placeholder: '{{ _("City, department, region, EPCI…") }}',
+        perimeter_url: '{% url "perimeters-list" %}',
+        search_url: '{% url "results_view" %}',
+        copy_to_clipboard_success: '{{ _("The current url was successfully copied to clipboard.") }}',
+        copy_to_clipboard_error: '{{ _("Sorry, we could not copy automatically.") }}',
     };
 </script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/dynamic_search_engine.js"></script>
+<script src="/static/js/aids/bookmark_results.js"></script>
 {% endblock %}

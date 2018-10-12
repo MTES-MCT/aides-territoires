@@ -175,6 +175,11 @@ p {
         @extend .alert-warning;
     }
 
+    &.tip {
+        @extend .alert;
+        @extend .alert-warning;
+    }
+
     &.center {
         text-align: center;
     }
