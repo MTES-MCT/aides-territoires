@@ -39,6 +39,22 @@
                         {{ _('Copy the current url to clipboard') }}
                     </button>
                 </form>
+
+                {% if user.is_authenticated %}
+                <h2>{{ _('Send results by email') }}</h2>
+
+                <p>
+                {% blocktrans %}
+                Click on the following button and we will send the current results to your email address.
+                {% endblocktrans %}
+                </p>
+
+                <form id="send-results-by-email-form">
+                    <button id="send-by-email-btn">
+                        {{ _('Send those results to my email address') }}
+                    </button>
+                </form>
+                {% endif %}
             </div>
         </section>
     </div>
