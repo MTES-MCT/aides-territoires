@@ -64,32 +64,45 @@ nav#main-navbar {
     @extend .navbar-dark;
     @extend .bg-dark;
 
-
     .homelink {
         @extend .navbar-brand;
+        @extend .mr-auto;
 
         svg.marianne-logo {
             max-height: $font-size-base * 2.5;
             @extend .pr-1;
         }
+
+        span {
+            text-transform: uppercase;
+            color: $navbar-dark-color;
+        }
     }
 
-    ul.homenav {
+    ul.navbar-menu {
         @extend .navbar-nav;
-        @extend .mr-auto;
 
         li {
             @extend .nav-item;
 
+            &.user-menu {
+                @extend .dropdown;
+
+                &>a {
+                    @extend .dropdown-toggle;
+                }
+            }
+
             a {
                 @extend .nav-link;
             }
-        }
-    }
 
-    span {
-        @extend .text-right;
-        @extend .navbar-text;
+            div.dropdown-menu {
+                a {
+                    @extend .dropdown-item;
+                }
+            }
+        }
     }
 }
 

@@ -141,11 +141,5 @@
 {% endblock %}
 
 {% block footer %}
-{{ block.super }}
 {% include 'aids/_problem_report_modal.html' %}
-{% endblock %}
-
-{% block extra_js %}
-<script src="/static/jquery/dist/jquery.js"></script>
-<script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
 {% endblock %}

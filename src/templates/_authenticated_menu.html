@@ -1,0 +1,19 @@
+<ul class="navbar-menu">
+    <li class="user-menu">
+        <a href="#" data-toggle="dropdown">
+            {{ user.full_name }}
+        </a>
+        <div class="dropdown-menu">
+            <a href="{% url 'bundle_list_view' %}">
+                  {{ _('My aid bundles') }}
+            </a>
+            <a href="{% url 'aid_create_view' %}">
+                {{ _('Create a new aid') }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'logout' %}">
+                {{ _('Log out') }}
+            </a>
+        </div>
+    </li>
+</ul>

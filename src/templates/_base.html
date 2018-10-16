@@ -69,7 +69,9 @@
         {% endblock %}
 
         {% compress js %}
-            {% block extra_js %}{% endblock %}
+        <script src="/static/jquery/dist/jquery.js"></script>
+        <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        {% block extra_js %}{% endblock %}
         {% endcompress %}
     </body>
 </html>
