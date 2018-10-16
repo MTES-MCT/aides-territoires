@@ -53,22 +53,40 @@
         event.preventDefault();
 
         var $receiveForm = $(this);
+        var $submitButton = $receiveForm.find('button[type=submit]');
         var formAction = $receiveForm.attr('action');
         var queryString = window.location.search.substring(1);
-        var csrfTokenField = $receiveForm.find('input[name=csrfmiddlewaretoken]');
-        var token = csrfTokenField.attr('value');
+        var $csrfTokenField = $receiveForm.find('input[name=csrfmiddlewaretoken]');
+        var token = $csrfTokenField.attr('value');
         var fullQueryString = queryString + '&csrfmiddlewaretoken=' + token;
+
+        var onSendSuccess = function () {
+            $submitButton.tooltip({
+                placement: 'bottom',
+                title: catalog.send_by_email_success
+            }).tooltip('show');
+        };
+
+        var onSendError = function () {
+            $submitButton.tooltip({
+                placement: 'bottom',
+                title: catalog.send_by_email_error
+            }).tooltip('show');
+        };
 
         searchXHR = $.ajax({
             method: 'post',
             url: formAction,
             data: fullQueryString,
             beforeSend: function () {
+                $submitButton.attr('disabled', 'disabled');
+                $submitButton.html(catalog.send_by_email_message);
+            },
+            success: onSendSuccess,
+            error: onSendError,
+            complete: function() {
+                $submitButton.html(catalog.send_by_email_done);
             }
-        }).done(function (result) {
-            console.log('done');
-        }).always(function () {
-            console.log('always');
         });
     };
 

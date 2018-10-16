@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-12 11:36+0200\n"
+"POT-Creation-Date: 2018-10-16 11:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,8 +309,18 @@ msgstr "Aides"
 msgid "results/"
 msgstr "resultats/"
 
+#, fuzzy
+#| msgid "results/"
+msgid "results/receive/"
+msgstr "resultats/"
+
 msgid "add/"
 msgstr "ajouter/"
+
+#, fuzzy
+#| msgid "Share current search results"
+msgid "Your search results"
+msgstr "Partager les résultats courants"
 
 msgid ""
 "Your aid was sucessfully created.                         It will be "
@@ -569,10 +579,14 @@ msgstr ""
 "Merci de votre vigilance et de votre contribution à l'amélioration du "
 "service !"
 
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        We found <strong>%(nb_aids)s</strong> results.\n"
+#| "        "
 msgid ""
 "\n"
-"        We found <strong>%(nb_aids)s</strong> results.\n"
+"        <strong>%(nb_aids)s</strong> results\n"
 "        "
 msgstr ""
 "\n"
@@ -659,6 +673,18 @@ msgstr "L\\'url courante a été copiée dans le presse-papier."
 # the quote with a slash
 msgid "Sorry, we could not copy automatically."
 msgstr "Désolé, nous n\\'avons pu effectuer la copie automatiqument."
+
+msgid "Please wait"
+msgstr "Merci de patienter"
+
+msgid "Done"
+msgstr "Fait"
+
+msgid "Done! Check your mailbox for search results."
+msgstr "Vous devriez avoir reçu votre recherche par e-mail."
+
+msgid "It seems something went wrong. Please try again in a few seconds."
+msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 
 msgid "My aid bundles"
 msgstr "Mes listes d'aides"
