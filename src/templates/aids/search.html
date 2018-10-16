@@ -49,6 +49,10 @@
         search_url: '{% url "results_view" %}',
         copy_to_clipboard_success: '{{ _("The current url was successfully copied to clipboard.") }}',
         copy_to_clipboard_error: '{{ _("Sorry, we could not copy automatically.") }}',
+        send_by_email_message: '{{ _("Please wait") }} <span class="fas fa-spinner fa-spin"></span>',
+        send_by_email_done: '{{ _("Done") }}',
+        send_by_email_success: '{{ _("Done! Check your mailbox for search results.") }}',
+        send_by_email_error: '{{ _("It seems something went wrong. Please try again in a few seconds.") }}',
     };
 </script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>

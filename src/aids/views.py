@@ -1,11 +1,17 @@
-from django.views.generic import ListView, CreateView, DetailView
-from django.views.generic.edit import FormMixin
+from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.http import HttpResponse, QueryDict
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic.edit import FormMixin
 
+from aids.forms import AidCreateForm, AidSearchForm
 from aids.models import Aid
-from aids.forms import AidSearchForm, AidCreateForm
 
 
 class SearchView(FormMixin, ListView):
@@ -56,6 +62,60 @@ class ResultsView(SearchView):
     def get_context_data(self, **kwargs):
         kwargs['search_actions'] = True
         return super().get_context_data(**kwargs)
+
+
+class ResultsReceiveView(LoginRequiredMixin, SearchView):
+    """Send the search results by email."""
+
+    http_method_names = ['post']
+    EMAIL_SUBJECT = _('Your search results')
+
+    def get_form_data(self):
+        querydict = self.request.POST.copy()
+        for key in ('csrfmiddlewaretoken', 'integration'):
+            try:
+                querydict.pop(key)
+            except KeyError:
+                pass
+        return querydict
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['data'] = self.get_form_data()
+        return kwargs
+
+    def post(self, request, *args, **kwargs):
+        """Send those search results by email to the user.
+
+        We do it synchronously, but this view is meant to be called from an
+        ajax query, so it should not be a problem.
+        """
+
+        results = self.get_queryset()
+        nb_results = results.count()
+        first_results = results[:10]
+        site = get_current_site(self.request)
+        querystring = self.get_form_data().urlencode()
+        scheme = 'https' if self.request.is_secure() else 'http'
+        full_url = '{scheme}://{domain}?{querystring}'.format(
+            scheme=scheme,
+            domain=site.domain,
+            querystring=querystring)
+        results_body = render_to_string('emails/search_results.txt', {
+            'user_name': self.request.user.full_name,
+            'aids': first_results,
+            'nb_results': nb_results,
+            'full_url': full_url,
+            'scheme': scheme,
+            'domain': site.domain,
+        })
+        send_mail(
+            self.EMAIL_SUBJECT,
+            results_body,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.request.user.email],
+            fail_silently=False)
+        return HttpResponse('')
 
 
 class AidCreateView(SuccessMessageMixin, CreateView):

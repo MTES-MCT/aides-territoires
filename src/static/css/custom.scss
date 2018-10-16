@@ -401,6 +401,8 @@ div#bookmark-modal {
     }
 
     form {
+        @extend .mb-3;
+
         button {
             @extend .btn;
             @extend .btn-primary;
