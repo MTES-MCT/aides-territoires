@@ -25,6 +25,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
@@ -166,3 +167,5 @@ CONTACT_EMAIL = 'nowhere@example.org'
 EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
 DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
