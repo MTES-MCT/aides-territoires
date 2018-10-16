@@ -8,10 +8,12 @@
         {% endblocktrans %}
     </span>
 
+    {% if not integration %}
     <button id="share" data-toggle="modal" data-target="#bookmark-modal">
         <i class="fas fa-share"></i>
         {{ _('Share these results') }}
     </button>
+    {% endif %}
 </nav>
 {% endif %}
 
