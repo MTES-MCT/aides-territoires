@@ -49,8 +49,9 @@
                 {% endblocktrans %}
                 </p>
 
-                <form id="send-results-by-email-form">
-                    <button id="send-by-email-btn">
+                <form id="send-results-by-email-form" method="post" action="{% url 'results_receive_view' %}">
+                    {% csrf_token %}
+                    <button id="send-by-email-btn" type="submit">
                         {{ _('Send those results to my email address') }}
                     </button>
                 </form>

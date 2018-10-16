@@ -518,7 +518,7 @@ msgid ""
 msgstr ""
 "\n"
 "Cliquez sur le bouton suivant et nous vous enverrons les résultats de la "
-"recherche actuelle par e-mail.""
+"recherche actuelle par e-mail."
 
 msgid "Send those results to my email address"
 msgstr "M'envoyer ces résultats par e-mail"
