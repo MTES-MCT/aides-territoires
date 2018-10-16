@@ -2,10 +2,17 @@
 
 import pytest
 from django.urls import reverse
+from django.utils.translation import activate
+
 
 from aids.factories import AidFactory
 
 pytestmark = pytest.mark.django_db
+
+
+@pytest.fixture(autouse=True)
+def set_default_language():
+    activate('fr')
 
 
 def test_share_button_is_hidden_for_anonymous_users(client):
