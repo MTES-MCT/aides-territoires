@@ -247,3 +247,28 @@ a[href^='http']:after {
     vertical-align: baseline;
     @extend .ml-1;
 }
+
+html.integration {
+    background-color: white !important;
+
+    body {
+        nav#main-navbar {
+            display: none;
+        }
+
+        nav[aria-label=breadcrumb] {
+            display: none;
+        }
+
+        &>footer {
+            display: none;
+        }
+
+        main {
+            section.main-content {
+                @extend .container-fluid;
+                max-width: 100%;
+            }
+        }
+    }
+}

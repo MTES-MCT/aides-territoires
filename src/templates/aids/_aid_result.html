@@ -3,7 +3,7 @@
 <div class="aid">
     <section>
         <h1>
-            <a href="{% url 'aid_detail_view' aid.slug %}">
+            <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
             {{ aid.name }}
             <br /><small>{{ aid.backers.all|join:', ' }}</small>
             </a>

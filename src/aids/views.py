@@ -32,10 +32,6 @@ class SearchView(FormMixin, ListView):
 
         return kwargs
 
-    def get_context_data(self, **kwargs):
-        kwargs['integration'] = self.request.GET.get('integration', False)
-        return super().get_context_data(**kwargs)
-
     def get_queryset(self):
         """Return the list of results to display."""
 
