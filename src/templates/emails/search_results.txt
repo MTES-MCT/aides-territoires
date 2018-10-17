@@ -8,7 +8,7 @@ Cette recherche renvoie {{ nb_results }} résultats.
 
 Voici les premières aides correspondantes :
 {% for aid in aids %}
-  - {{ aid.name }}
+  - {{ aid.name|safe }}
     {{ scheme }}://{{ domain }}{{ aid.get_absolute_url }}
 {% endfor %}
 
