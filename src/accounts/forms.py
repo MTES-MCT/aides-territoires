@@ -6,5 +6,5 @@ class LoginForm(forms.Form):
     """Simple login form with no password."""
 
     email = forms.EmailField(
-        label=_('Your email adress'),
+        label=_('Your email address'),
         required=True)
