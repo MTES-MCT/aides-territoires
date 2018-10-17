@@ -17,6 +17,12 @@ html {
     @extend .bg-dark;
 }
 
+html.light {
+    main {
+        @extend .bg-light;
+    }
+}
+
 body {
     >footer {
         @extend .py-5;
@@ -109,7 +115,7 @@ nav#main-navbar {
 main {
     section.main-content {
         @extend .container;
-        @extend .my-4;
+        @extend .py-4;
     }
 }
 
@@ -180,7 +186,7 @@ form {
 p {
     &.info {
         @extend .alert;
-        @extend .alert-success;
+        @extend .alert-primary;
     }
 
     &.warning {
@@ -282,6 +288,24 @@ html.integration {
                 @extend .container-fluid;
                 max-width: 100%;
             }
+        }
+    }
+}
+
+.narrow-form {
+    @extend .mx-auto;
+    max-width: 40rem;
+
+    h1 {
+        @extend .h2;
+        text-align: center;
+    }
+
+    form {
+
+        button[type=submit] {
+            @extend .btn-lg;
+            @extend .btn-block;
         }
     }
 }

@@ -74,23 +74,8 @@ section#contact {
     @extend .py-5;
     @extend .bg-light;
 
-    div.contact-form {
-        @extend .mx-auto;
+    div.narrow-form {
         @extend .pb-4;
-        max-width: 40rem;
-
-        h1 {
-            @extend .h2;
-            text-align: center;
-        }
-
-        form#mailing-list-form {
-
-            button[type=submit] {
-                @extend .btn-lg;
-                @extend .btn-block;
-            }
-        }
     }
 }
 
@@ -388,4 +373,10 @@ div#bookmark-modal {
             @extend .btn-block;
         }
     }
+}
+
+section#login-form {
+    @extend .pt-4;
+    @extend .pb-5;
+    @extend .bg-light;
 }
