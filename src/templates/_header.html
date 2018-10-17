@@ -9,6 +9,7 @@
         {% if user.is_authenticated %}
             {% include '_authenticated_menu.html' %}
         {% else %}
+            {% include '_anonymous_menu.html' %}
         {% endif %}
     </div>
 </nav>
