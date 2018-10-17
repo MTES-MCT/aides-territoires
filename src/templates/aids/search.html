@@ -1,14 +1,16 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
-{% block content %}
+{% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
         <li class="active" aria-current="page">{{ _('All aids') }}</li>
     </ol>
 </nav>
+{% endblock %}
 
+{% block content %}
 <section id="search" class="aid-list">
     <div id="search-engine" class="aid-sidebar">
         <form action="" method="GET">

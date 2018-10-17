@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n form_utils %}
 
-{% block content %}
+{% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
@@ -9,7 +9,9 @@
         <li class="active" aria-current="page">{{ _('Add a new aid') }}</li>
     </ol>
 </nav>
+{% endblock %}
 
+{% block content %}
 <h1>{{ _('Use this form to publish your own aid') }}</h1>
 <form method="post" action="" id="aid-create">
     {% csrf_token %}

@@ -34,6 +34,9 @@
             {% block main %}
             <section class="main-content">
 
+                {% block breadcrumbs %}{% endblock %}
+
+                {% block messages %}
                 {% if messages %}
                     <div class="messages">
                         {% for message in messages %}
@@ -41,9 +44,10 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-
-                {% block content %}
                 {% endblock %}
+
+
+                {% block content %}{% endblock %}
             </section>
             {% endblock %}
         </main>

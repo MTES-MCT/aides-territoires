@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
-{% block content %}
+{% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
@@ -13,7 +13,9 @@
         {% endif %}
     </ol>
 </nav>
+{% endblock %}
 
+{% block content %}
 <section id="bundles" class="aid-list">
     <div id="bundle-list" class="aid-sidebar">
         <nav>
