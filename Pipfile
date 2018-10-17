@@ -16,6 +16,7 @@ requests = "*"
 django-rest-framework = "*"
 xlrd = "*"
 celery = "*"
+django-braces = "*"
 
 [dev-packages]
 pytest = "*"
