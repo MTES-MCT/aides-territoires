@@ -64,7 +64,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
     """Send the search results by email."""
 
     http_method_names = ['post']
-    EMAIL_SUBJECT = _('Your search results')
+    EMAIL_SUBJECT = 'Vos résultats de recherche'
 
     def get_form_data(self):
         querydict = self.request.POST.copy()
