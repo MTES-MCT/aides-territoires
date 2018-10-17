@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.edit import FormMixin
+from django.urls import reverse
 
 from aids.forms import AidCreateForm, AidSearchForm
 from aids.models import Aid
@@ -93,9 +94,11 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
         site = get_current_site(self.request)
         querystring = self.get_form_data().urlencode()
         scheme = 'https' if self.request.is_secure() else 'http'
-        full_url = '{scheme}://{domain}?{querystring}'.format(
+        search_url = reverse('search_view')
+        full_url = '{scheme}://{domain}{search_url}?{querystring}'.format(
             scheme=scheme,
             domain=site.domain,
+            search_url=search_url,
             querystring=querystring)
         results_body = render_to_string('emails/search_results.txt', {
             'user_name': self.request.user.full_name,
