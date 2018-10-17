@@ -18,5 +18,5 @@ SECRET_KEY = 'Stupid and not very secret key used for tests.'
 
 # Makes Celery working synchronously and in memory
 CELERY_BROKER_URL = "memory://"
-CELERY_ALWAYS_EAGER = True
-CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
