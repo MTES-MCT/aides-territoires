@@ -69,6 +69,7 @@ nav#main-navbar {
     @extend .navbar;
     @extend .navbar-dark;
     @extend .bg-dark;
+    @extend .navbar-expand;
 
     .homelink {
         @extend .navbar-brand;

@@ -11,6 +11,12 @@ from accounts.tasks import send_connection_email
 from accounts.models import User
 
 
+class RegisterView(AnonymousRequiredMixin, TemplateView):
+    """Simple message for users who wants to register."""
+
+    template_name = 'accounts/register.html'
+
+
 class LoginRequestView(AnonymousRequiredMixin, FormView):
     """Implement a simple login form."""
 
