@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block content %}
+<section id="login-form">
+    <div class="narrow-form">
+        <h1>{{ _("Something went wrong") }}</h1>
+        <p>{% blocktrans %}
+            Nooooo
+        {% endblocktrans %}</p>
+</section>
+{% endblock %}
