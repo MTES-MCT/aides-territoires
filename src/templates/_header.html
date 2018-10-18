@@ -4,8 +4,13 @@
         <a class="homelink" href="{% url 'home' %}">
             {% include '_marianne.html' %}
             aides-territoires.<strong>beta.gouv</strong><em>.fr</em>
+            <span><sup>Beta</sup></span>
         </a>
-        <span>Beta</span>
+        {% if user.is_authenticated %}
+            {% include '_authenticated_menu.html' %}
+        {% else %}
+            {% include '_anonymous_menu.html' %}
+        {% endif %}
     </div>
 </nav>
 {% endblock %}

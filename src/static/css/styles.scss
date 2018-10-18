@@ -17,6 +17,12 @@ html {
     @extend .bg-dark;
 }
 
+html.light {
+    main {
+        @extend .bg-light;
+    }
+}
+
 body {
     >footer {
         @extend .py-5;
@@ -63,40 +69,54 @@ nav#main-navbar {
     @extend .navbar;
     @extend .navbar-dark;
     @extend .bg-dark;
-
+    @extend .navbar-expand;
 
     .homelink {
         @extend .navbar-brand;
+        @extend .mr-auto;
 
         svg.marianne-logo {
             max-height: $font-size-base * 2.5;
             @extend .pr-1;
         }
+
+        span {
+            text-transform: uppercase;
+            color: $navbar-dark-color;
+        }
     }
 
-    ul.homenav {
+    ul.navbar-menu {
         @extend .navbar-nav;
-        @extend .mr-auto;
 
         li {
             @extend .nav-item;
 
+            &.user-menu {
+                @extend .dropdown;
+
+                &>a {
+                    @extend .dropdown-toggle;
+                }
+            }
+
             a {
                 @extend .nav-link;
             }
-        }
-    }
 
-    span {
-        @extend .text-right;
-        @extend .navbar-text;
+            div.dropdown-menu {
+                a {
+                    @extend .dropdown-item;
+                }
+            }
+        }
     }
 }
 
 main {
     section.main-content {
         @extend .container;
-        @extend .my-4;
+        @extend .py-4;
     }
 }
 
@@ -167,7 +187,7 @@ form {
 p {
     &.info {
         @extend .alert;
-        @extend .alert-success;
+        @extend .alert-primary;
     }
 
     &.warning {
@@ -269,6 +289,24 @@ html.integration {
                 @extend .container-fluid;
                 max-width: 100%;
             }
+        }
+    }
+}
+
+.narrow-form {
+    @extend .mx-auto;
+    max-width: 40rem;
+
+    h1 {
+        @extend .h2;
+        text-align: center;
+    }
+
+    form {
+
+        button[type=submit] {
+            @extend .btn-lg;
+            @extend .btn-block;
         }
     }
 }

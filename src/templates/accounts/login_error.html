@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block content %}
+<section id="login-form">
+    <div class="narrow-form">
+        <h1>{{ _("Something went wrong") }}</h1>
+        <p>{% blocktrans %}
+            Sorry, it looks like something went wrong. We could not log you in.
+        {% endblocktrans %}</p>
+
+        {% url 'login_request' as login_url %}
+        <p>{% blocktrans %}
+            You will <a href="{{ login_url }}">have to try again.</a>
+        {% endblocktrans %}</p>
+
+</section>
+{% endblock %}

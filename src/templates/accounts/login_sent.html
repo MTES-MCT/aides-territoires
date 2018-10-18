@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block content %}
+<section id="login-form">
+    <div class="narrow-form">
+        <h1>{{ _("An email is on it's way") }}</h1>
+        <p>{% blocktrans %}
+            We just sent an email with an access link. Check your mailbox and click
+            on the link to log in to your account.
+        {% endblocktrans %}</p>
+
+        {% url 'login_request' as login_url %}
+        <p>{% blocktrans %}
+            Don't see the email? Try the following:<ul>
+                <li>make sure you logged in with the correct address;</li>
+                <li>check your spam folder;</li>
+                <li>wait a few minutes <a href="{{ login_url }}">and try again</a>;</li>
+            </ul>
+        {% endblocktrans %}</p>
+
+        <p>{% blocktrans %}
+            If you can't log in, <a href="mailto:aides-territoires@beta.gouv.fr">contact us</a>.
+        {% endblocktrans %}</p>
+    </div>
+</section>
+{% endblock %}

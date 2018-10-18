@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _("Register a new account") }}</h1>
+    <p>{% blocktrans %}
+        As our service is still in beta, you can't register a new account yet.
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans %}
+        If you want an account to participate in our public beta,
+        <a href="mailto:aides-territoires@beta.gouv.fr">please contact us</a>.
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}

@@ -170,3 +170,6 @@ DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
