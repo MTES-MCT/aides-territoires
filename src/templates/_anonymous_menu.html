@@ -1,12 +1,7 @@
 <ul class="navbar-menu">
-    <li class="user-menu">
-        <a href="#" data-toggle="dropdown">
-            {{ _('Hello') }}
+    <li>
+        <a href="{% url 'login_request' %}">
+            {{ _('Login') }}
         </a>
-        <div class="dropdown-menu">
-            <a href="{% url 'login_request' %}">
-                  {{ _('Login') }}
-            </a>
-        </div>
     </li>
 </ul>
