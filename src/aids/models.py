@@ -101,7 +101,6 @@ class Aid(models.Model):
         null=False, blank=False)
     author = models.ForeignKey(
         'accounts.User',
-        null=True,
         on_delete=models.PROTECT,
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'))
