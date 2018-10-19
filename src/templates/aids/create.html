@@ -12,7 +12,13 @@
 {% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Use this form to publish your own aid') }}</h1>
+    <h1>{{ _('Publish a new aid') }}</h1>
+{% endblock %}
+
+{% block form_header %}
+<p class="info">{% blocktrans %}
+    Your aid will not be published until it is reviewed by an admin.
+{% endblocktrans %}</p>
 {% endblock %}
 
 {% block form_actions %}

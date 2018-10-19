@@ -5,7 +5,7 @@ from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm, AidCreateForm
+from aids.forms import AidSearchForm, AidEditForm
 from aids.factories import AidFactory
 
 
@@ -205,7 +205,7 @@ def test_create_form(aid_form_data):
     qs = Aid.objects.all()
     assert qs.count() == 0
 
-    form = AidCreateForm(aid_form_data)
+    form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
     form.save()

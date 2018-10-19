@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -149,14 +150,24 @@ class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
     paginate_by = 30
 
 
-class AidCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class AidCreateView(LoginRequiredMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
     template_name = 'aids/create.html'
     form_class = AidEditForm
     success_url = reverse_lazy('aid_draft_list_view')
-    success_message = _('Your aid was sucessfully created. \
-                        It will be reviewed by an admin soon.'                                                              )
+
+    def form_valid(self, form):
+        aid = form.save(commit=False)
+        aid.author = self.request.user
+        aid.save()
+
+        edit_url = reverse('aid_edit_view', args=[aid.slug])
+        msg = _('Your aid was sucessfully created. It will be reviewed \
+                 by an admin soon. You can <a href="%(url)s">keep editing \
+                 it</a>.') % {'url': edit_url}
+        messages.success(self.request, msg)
+        return HttpResponseRedirect(self.success_url)
 
 
 class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
@@ -168,4 +179,4 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
     form_class = AidEditForm
     success_url = reverse_lazy('aid_draft_list_view')
     success_message = _('Your aid was sucessfully edited. \
-                        It will be reviewed by an admin soon.'                                                              )
+                        It will be reviewed by an admin soon.')

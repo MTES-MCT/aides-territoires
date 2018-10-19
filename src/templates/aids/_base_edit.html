@@ -3,6 +3,7 @@
 
 {% block content %}
 {% block page_title %}{% endblock %}
+{% block form_header %}{% endblock %}
 <form method="post" action="" id="aid-create">
     {% csrf_token %}
     {{ form.media }}
