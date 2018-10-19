@@ -62,7 +62,9 @@ def test_login_with_wrong_token(client, user, mailoutbox):
 
     mail_body = mailoutbox[0].body
     re_match = re.search(
-        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$', mail_body, re.MULTILINE)
+        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$',
+        mail_body,
+        re.MULTILINE)
     uidb64 = re_match.group(1)
     url = reverse('login', args=[uidb64, 'wrong_token'])
     res = client.get(url, follow=True)
@@ -78,7 +80,9 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
 
     mail_body = mailoutbox[0].body
     re_match = re.search(
-        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$', mail_body, re.MULTILINE)
+        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$',
+        mail_body,
+        re.MULTILINE)
     token = re_match.group(2)
     url = reverse('login', args=['wrong_uid', token])
     res = client.get(url, follow=True)
