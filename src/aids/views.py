@@ -161,6 +161,7 @@ class AidCreateView(LoginRequiredMixin, CreateView):
         aid = form.save(commit=False)
         aid.author = self.request.user
         aid.save()
+        form.save_m2m()
 
         edit_url = reverse('aid_edit_view', args=[aid.slug])
         msg = _('Your aid was sucessfully created. It will be reviewed \
