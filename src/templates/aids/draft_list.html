@@ -1,8 +1,14 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<h1>{{ _('Your published aids') }}</h1>
 <section id="draft-list">
+
+<a class="main-action action-add" href="{% url 'aid_create_view' %}">
+    {{ _('Add a new aid') }}
+</a>
+
+<h1>{{ _('Your published aids') }}</h1>
+
 <table class="data-table">
     <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
     <thead>
