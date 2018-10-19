@@ -1,0 +1,95 @@
+{% extends '_base.html' %}
+{% load i18n form_utils %}
+
+{% block content %}
+{% block page_title %}{% endblock %}
+<form method="post" action="" id="aid-create">
+    {% csrf_token %}
+    {{ form.media }}
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors.0 }}
+    </div>
+    {% endif %}
+
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+
+    <fieldset>
+        <legend>{{ _('Aid presentation') }}</legend>
+        {% include '_field_snippet.html' with field=form.name %}
+        {% include '_field_snippet.html' with field=form.description %}
+        {% include '_field_snippet.html' with field=form.targeted_audiances %}
+        {% include '_field_snippet.html' with field=form.backers %}
+        {% include '_field_snippet.html' with field=form.author %}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{ _('Aid perimeter') }}</legend>
+        {% include '_field_snippet.html' with field=form.perimeter %}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{ _('Aid calendar') }}</legend>
+        {% include '_field_snippet.html' with field=form.recurrence %}
+        {% include '_field_snippet.html' with field=form.start_date %}
+        {% include '_field_snippet.html' with field=form.predeposit_date %}
+        {% include '_field_snippet.html' with field=form.submission_deadline %}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{ _('Aid description') }}</legend>
+        {% include '_field_snippet.html' with field=form.aid_types %}
+        {% include '_field_snippet.html' with field=form.subvention_rate %}
+        {% include '_field_snippet.html' with field=form.mobilization_steps %}
+        {% include '_field_snippet.html' with field=form.destinations %}
+        {% include '_field_snippet.html' with field=form.eligibility %}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{ _('Contact and actions') }}</legend>
+        {% include '_field_snippet.html' with field=form.application_url %}
+        {% include '_field_snippet.html' with field=form.url %}
+        {% include '_field_snippet.html' with field=form.contact_detail %}
+        {% include '_field_snippet.html' with field=form.contact_email %}
+        {% include '_field_snippet.html' with field=form.contact_phone %}
+    </fieldset>
+
+    {% block form_actions %}{% endblock %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/select2/dist/js/select2.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select#id_backers').select2({
+            placeholder: '{{ _('Backers') }}',
+            ajax: {
+                url: '{% url 'backers-list' %}',
+                dataType: 'json',
+                delay: 100,
+            },
+            theme: 'bootstrap4',
+            width: '',
+        });
+
+        $('select#id_perimeter').select2({
+            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            ajax: {
+                url: '{% url 'perimeters-list' %}',
+                dataType: 'json',
+                delay: 100,
+            },
+            theme: 'bootstrap4',
+            width: '',
+        });
+    });
+</script>
+{% endblock %}

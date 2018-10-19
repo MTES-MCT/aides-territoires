@@ -6,15 +6,14 @@
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
         <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My aid drafts') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Add a new aid') }}</li>
+        <li class="active" aria-current="page">{{ aid.name|truncatechars:30 }}</li>
     </ol>
 </nav>
 {% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Use this form to publish your own aid') }}</h1>
+    <h1>{{ _('Edit aid') }}</h1>
 {% endblock %}
-
 
 {% block form_actions %}
     <div class="form-actions">
