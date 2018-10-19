@@ -1,17 +1,18 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
-from aids.forms import AidCreateForm, AidSearchForm
+from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid
 
 
@@ -117,20 +118,6 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
         return HttpResponse('')
 
 
-class AidCreateView(SuccessMessageMixin, CreateView):
-    """Allows publishers to submit their own aids."""
-
-    template_name = 'aids/create.html'
-    form_class = AidCreateForm
-    success_url = reverse_lazy('aid_create_view')
-    success_message = _('Your aid was sucessfully created. \
-                        It will be reviewed by an admin soon.')
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        return form
-
-
 class AidDetailView(DetailView):
     """Display an aid detail."""
 
@@ -143,3 +130,54 @@ class AidDetailView(DetailView):
             .select_related('perimeter') \
             .prefetch_related('backers')
         return qs
+
+
+class AidEditMixin:
+    """Common code to aid editing views."""
+
+    def get_queryset(self):
+        qs = Aid.objects \
+            .filter(author=self.request.user) \
+            .order_by('name')
+        return qs
+
+
+class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
+    """Display the list of aids published by the user."""
+
+    template_name = 'aids/draft_list.html'
+    context_object_name = 'aids'
+    paginate_by = 30
+
+
+class AidCreateView(LoginRequiredMixin, CreateView):
+    """Allows publishers to submit their own aids."""
+
+    template_name = 'aids/create.html'
+    form_class = AidEditForm
+    success_url = reverse_lazy('aid_draft_list_view')
+
+    def form_valid(self, form):
+        aid = form.save(commit=False)
+        aid.author = self.request.user
+        aid.save()
+        form.save_m2m()
+
+        edit_url = reverse('aid_edit_view', args=[aid.slug])
+        msg = _('Your aid was sucessfully created. It will be reviewed \
+                 by an admin soon. You can <a href="%(url)s">keep editing \
+                 it</a>.') % {'url': edit_url}
+        messages.success(self.request, msg)
+        return HttpResponseRedirect(self.success_url)
+
+
+class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
+                  UpdateView):
+    """Edit an existing aid."""
+
+    template_name = 'aids/edit.html'
+    context_object_name = 'aid'
+    form_class = AidEditForm
+    success_url = reverse_lazy('aid_draft_list_view')
+    success_message = _('Your aid was sucessfully edited. \
+                        It will be reviewed by an admin soon.')

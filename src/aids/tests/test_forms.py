@@ -5,7 +5,7 @@ from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm, AidCreateForm
+from aids.forms import AidSearchForm, AidEditForm
 from aids.factories import AidFactory
 
 
@@ -25,26 +25,6 @@ def aid_admin_form_class():
     admin = AidAdmin(Aid, site)
     form_class = admin.get_form(None)
     return form_class
-
-
-@pytest.fixture
-def aid_form_data(user, backer, perimeter):
-    """Returns valid data to create an Aid object."""
-
-    return {
-        'name': 'Test aid',
-        'author': user.id,
-        'backers': [backer.id],
-        'description': 'My aid description',
-        'eligibility': 'Aid eligibility info',
-        'perimeter': perimeter.id,
-        'mobilization_steps': ['preop'],
-        'targeted_audiances': ['department'],
-        'aid_types': ['grant', 'loan'],
-        'destinations': ['supply'],
-        'publication_status': 'open',
-        'status': 'published',
-    }
 
 
 @pytest.fixture
@@ -205,7 +185,7 @@ def test_create_form(aid_form_data):
     qs = Aid.objects.all()
     assert qs.count() == 0
 
-    form = AidCreateForm(aid_form_data)
+    form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
     form.save()

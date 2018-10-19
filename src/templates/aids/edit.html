@@ -6,19 +6,13 @@
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
         <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My aid drafts') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Add a new aid') }}</li>
+        <li class="active" aria-current="page">{{ aid.name|truncatechars:30 }}</li>
     </ol>
 </nav>
 {% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Publish a new aid') }}</h1>
-{% endblock %}
-
-{% block form_header %}
-<p class="info">{% blocktrans %}
-    Your aid will not be published until it is reviewed by an admin.
-{% endblocktrans %}</p>
+    <h1>{{ _('Edit an existing aid') }}</h1>
 {% endblock %}
 
 {% block form_actions %}

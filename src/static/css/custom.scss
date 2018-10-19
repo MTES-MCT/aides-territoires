@@ -298,10 +298,7 @@ section#aid {
     }
 
     button.report-error {
-        @extend .btn;
         @extend .btn-danger;
-        float: right;
-        @extend .ml-3;
 
         &:before {
             @include fa-icon;

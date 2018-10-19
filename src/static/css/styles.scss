@@ -117,6 +117,28 @@ main {
     section.main-content {
         @extend .container;
         @extend .py-4;
+
+        h1 {
+            @extend .h2;
+            @extend .mb-3;
+        }
+
+        a.main-action,
+        button.main-action {
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .ml-3;
+
+            float: right;
+
+            &.action-add:before {
+                @include fa-icon;
+                @extend .fas;
+                content: fa-content($fa-var-plus);
+                @extend .mr-1;
+                vertical-align: baseline;
+            }
+        }
     }
 }
 
@@ -309,4 +331,9 @@ html.integration {
             @extend .btn-block;
         }
     }
+}
+
+table.data-table {
+    @extend .table;
+    @extend .table-sm;
 }

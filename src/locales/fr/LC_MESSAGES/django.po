@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 13:50+0200\n"
+"POT-Creation-Date: 2018-10-19 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,12 +336,21 @@ msgstr "resultats/recevoir/"
 msgid "add/"
 msgstr "ajouter/"
 
-msgid "Your search results"
-msgstr "Vos résultats de recherche"
+msgid "drafts/"
+msgstr "brouillons/"
+
+msgid "drafts/<slug:slug>"
+msgstr "brouillons/<slug:slug>"
+
+#, python-format
+msgid ""
+"Your aid was sucessfully created. It will be reviewed                  by an "
+"admin soon. You can <a href=\"%(url)s\">keep editing                  it</a>."
+msgstr ""
 
 msgid ""
-"Your aid was sucessfully created.                         It will be "
-"reviewed by an admin soon."
+"Your aid was sucessfully edited.                         It will be reviewed "
+"by an admin soon."
 msgstr ""
 "Votre aide a été enregistrée. Elle sera revue par un·e administrateur·ice "
 "incessamment."
@@ -431,11 +440,14 @@ msgstr "Connexion"
 msgid "Register"
 msgstr "Inscription"
 
-msgid "My aid bundles"
-msgstr "Mes listes d'aides"
+msgid "My aids"
+msgstr "Mes aides"
 
 msgid "Create a new aid"
 msgstr "Ajouter une aide"
+
+msgid "My aid bundles"
+msgstr "Mes listes d'aides"
 
 msgid "Log out"
 msgstr "Déconnexion"
@@ -579,7 +591,8 @@ msgid ""
 "yet.\n"
 "    "
 msgstr ""
-"\nNotre service étant encore en bêta, l'inscription n'est pas ouverte."
+"\n"
+"Notre service étant encore en bêta, l'inscription n'est pas ouverte."
 
 msgid ""
 "\n"
@@ -625,6 +638,9 @@ msgstr "Attention ! La date de soumission est imminente."
 
 msgid "Warning! The submission deadline is imminent"
 msgstr "Attention ! La date de soumission est imminente"
+
+msgid "City, department, region, EPCI…"
+msgstr "Ville, département, région, EPCI…"
 
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
@@ -751,23 +767,31 @@ msgstr "Nous n'avons pu trouver aucun résultat."
 msgid "Home"
 msgstr "Accueil"
 
-msgid "All aids"
-msgstr "Toutes les aides"
+msgid "My aid drafts"
+msgstr "Mes aides publiées"
 
 msgid "Add a new aid"
 msgstr "Ajouter une aide"
 
-msgid "Use this form to publish your own aid"
-msgstr "Utilisez ce formulaire pour publier votre aide"
+msgid "Publish a new aid"
+msgstr "Publier une aide"
 
-msgid "Cancel and go back to home"
-msgstr "Annuler et revenir à l'accueil"
+msgid ""
+"\n"
+"    Your aid will not be published until it is reviewed by an admin.\n"
+msgstr ""
+"\n"
+"Votre aide ne sera pas publiée sur le site avant d'être validée par un "
+"administrateur.\n"
+
+msgid "Cancel and go back to draft list"
+msgstr "Annuler et revenir à vos aides"
 
 msgid "Save your aid"
 msgstr "Enregistrer votre aide"
 
-msgid "City, department, region, EPCI…"
-msgstr "Ville, département, région, EPCI…"
+msgid "All aids"
+msgstr "Toutes les aides"
 
 msgid "Aid detail"
 msgstr "Détail de l'aide"
@@ -795,6 +819,24 @@ msgstr "Contact (e-mail)"
 
 msgid "Contact (phone)"
 msgstr "Contact (téléphone)"
+
+msgid "List of submitted aids"
+msgstr "Liste des aides proposées"
+
+msgid "Your list of created aids"
+msgstr "Vos aides créées"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Published on"
+msgstr "Publié le"
+
+msgid "Last modified"
+msgstr "Dernière modif."
+
+msgid "Edit an existing aid"
+msgstr "Modifiez une aide existante"
 
 msgid "Filter results"
 msgstr "Filtrer les résultats"

@@ -259,7 +259,7 @@ class AidSearchForm(forms.Form):
         return qs
 
 
-class AidCreateForm(BaseAidForm):
+class AidEditForm(BaseAidForm):
 
     backers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
@@ -275,7 +275,6 @@ class AidCreateForm(BaseAidForm):
             'description',
             'targeted_audiances',
             'backers',
-            'author',
             'recurrence',
             'start_date',
             'predeposit_date',
