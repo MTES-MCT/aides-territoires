@@ -11,7 +11,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
-from aids.forms import AidCreateForm, AidSearchForm
+from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid
 
 
@@ -153,18 +153,19 @@ class AidCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
     template_name = 'aids/create.html'
-    form_class = AidCreateForm
-    success_url = reverse_lazy('aid_create_view')
+    form_class = AidEditForm
+    success_url = reverse_lazy('aid_draft_list_view')
     success_message = _('Your aid was sucessfully created. \
-                        It will be reviewed by an admin soon.')
+                        It will be reviewed by an admin soon.'                                                              )
 
 
-class AidEditView(LoginRequiredMixin, AidEditMixin, UpdateView):
+class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
+                  UpdateView):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
     context_object_name = 'aid'
-    form_class = AidCreateForm
+    form_class = AidEditForm
     success_url = reverse_lazy('aid_draft_list_view')
-    success_message = _('Your aid was sucessfully created. \
-                        It will be reviewed by an admin soon.')
+    success_message = _('Your aid was sucessfully edited. \
+                        It will be reviewed by an admin soon.'                                                              )
