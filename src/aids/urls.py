@@ -2,7 +2,7 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 
 from aids.views import (SearchView, ResultsView, ResultsReceiveView,
-                        AidDetailView, AidCreateView)
+                        AidDetailView, AidCreateView, AidDraftListView)
 
 urlpatterns = [
     path('', SearchView.as_view(), name='search_view'),
@@ -10,5 +10,7 @@ urlpatterns = [
     path(_('results/receive/'), ResultsReceiveView.as_view(),
          name='results_receive_view'),
     path(_('add/'), AidCreateView.as_view(), name='aid_create_view'),
+    path(_('drafts/'), AidDraftListView.as_view(),
+         name='aid_draft_list_view'),
     path('<slug:slug>/', AidDetailView.as_view(), name='aid_detail_view'),
 ]

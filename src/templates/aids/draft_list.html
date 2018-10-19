@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<h1>{{ _('Your published aids') }}</h1>
+<section id="draft-list">
+<table class="data-table">
+    <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
+    <thead>
+        <tr>
+            <th>{{ _('Name') }}</th>
+            <th>{{ _('Description') }}</th>
+            <th>{{ _('Published on') }}</th>
+            <th>{{ _('Last modified') }}</th>
+            <th>{{ _('Status') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for aid in aids %}
+        <tr>
+            <td>{{ aid.name|truncatechars:50 }}</td>
+            <td>{{ aid.description|truncatechars:30 }}</td>
+            <td>{{ aid.date_updated|date:'SHORT_DATE_FORMAT' }}</td>
+            <td>{{ aid.date_created|date:'SHORT_DATE_FORMAT' }}</td>
+            <td>{{ aid.get_status_display }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% include '_pagination.html' %}
+</section>
+{% endblock %}

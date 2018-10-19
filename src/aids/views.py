@@ -143,3 +143,18 @@ class AidDetailView(DetailView):
             .select_related('perimeter') \
             .prefetch_related('backers')
         return qs
+
+
+class AidDraftListView(LoginRequiredMixin, ListView):
+    """Display the list of aids published by the user."""
+
+    template_name = 'aids/draft_list.html'
+    context_object_name = 'aids'
+    paginate_by = 30
+
+    def get_queryset(self):
+        qs = Aid.objects \
+            .filter(author=self.request.user) \
+            .order_by('name')
+
+        return qs

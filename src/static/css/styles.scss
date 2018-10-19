@@ -310,3 +310,8 @@ html.integration {
         }
     }
 }
+
+table.data-table {
+    @extend .table;
+    @extend .table-sm;
+}
