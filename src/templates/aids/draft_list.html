@@ -1,5 +1,14 @@
 {% extends '_base.html' %}
 
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('My aid drafts') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
 <section id="draft-list">
 
