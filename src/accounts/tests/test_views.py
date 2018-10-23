@@ -51,7 +51,7 @@ def test_login_email_token_works(client, user, mailoutbox):
     url = re_match.group(1)
     res = client.get(url, follow=True)
     assert res.status_code == 200
-    assert 'You are now logged in' in res.content.decode()
+    assert 'Vous êtes maintenant connecté·e' in res.content.decode()
     assert res.wsgi_request.user.is_authenticated
 
 
@@ -62,14 +62,14 @@ def test_login_with_wrong_token(client, user, mailoutbox):
 
     mail_body = mailoutbox[0].body
     re_match = re.search(
-        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$',
+        r'^https://[\w.-]*/comptes/connexion/(.*)/(.*)/$',
         mail_body,
         re.MULTILINE)
     uidb64 = re_match.group(1)
     url = reverse('login', args=[uidb64, 'wrong_token'])
     res = client.get(url, follow=True)
     assert res.status_code == 200
-    assert 'Something went wrong' in res.content.decode()
+    assert 'Quelque chose s\'est mal passé' in res.content.decode()
     assert not res.wsgi_request.user.is_authenticated
 
 
@@ -80,12 +80,12 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
 
     mail_body = mailoutbox[0].body
     re_match = re.search(
-        r'^https://[\w.-]*/accounts/login/(.*)/(.*)/$',
+        r'^https://[\w.-]*/comptes/connexion/(.*)/(.*)/$',
         mail_body,
         re.MULTILINE)
     token = re_match.group(2)
     url = reverse('login', args=['wrong_uid', token])
     res = client.get(url, follow=True)
     assert res.status_code == 200
-    assert 'Something went wrong' in res.content.decode()
+    assert 'Quelque chose s\'est mal passé' in res.content.decode()
     assert not res.wsgi_request.user.is_authenticated
