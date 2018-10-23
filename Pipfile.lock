@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "17802f86b7b0ddf31a156795ee7c467a540cf62d7d14cb2d8ef36b48e43a65fe"
+            "sha256": "41239ee455b45e27272175de5b7b7d3652a1514aecb3cf96d9ec4ab777bd684b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -105,13 +105,21 @@
             "index": "pypi",
             "version": "==0.1.0"
         },
+        "django-xworkflows": {
+            "hashes": [
+                "sha256:4054382e87f844d92ea5af16c3bb58cf659cc1df9e706d880ec3bb9c0a9affed",
+                "sha256:48adfd811ca2f0420ce08c3c2d16326fb23033ef1c8186b373b58d5466492d5f"
+            ],
+            "index": "pypi",
+            "version": "==0.12.3"
+        },
         "djangorestframework": {
             "hashes": [
-                "sha256:b6714c3e4b0f8d524f193c91ecf5f5450092c2145439ac2769711f7eba89a9d9",
-                "sha256:c375e4f95a3a64fccac412e36fb42ba36881e52313ec021ef410b40f67cddca4"
+                "sha256:607865b0bb1598b153793892101d881466bd5a991de12bd6229abb18b1c86136",
+                "sha256:63f76cbe1e7d12b94c357d7e54401103b2e52aef0f7c1650d6c820ad708776e5"
             ],
-            "markers": "python_version != '3.0.*' and python_version != '3.3.*' and python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.1.*'",
-            "version": "==3.8.2"
+            "markers": "python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.2.*'",
+            "version": "==3.9.0"
         },
         "gunicorn": {
             "hashes": [
@@ -194,11 +202,11 @@
         },
         "requests": {
             "hashes": [
-                "sha256:63b52e3c866428a224f97cab011de738c36aec0185aa91cfacd418b5d58911d1",
-                "sha256:ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a"
+                "sha256:99dcfdaaeb17caf6e526f32b6a7b780461512ab3f1d992187801694cba42770c",
+                "sha256:a84b8c9ab6239b578f22d1c21d51b696dcfe004032bb80ea832398d6909d7279"
             ],
             "index": "pypi",
-            "version": "==2.19.1"
+            "version": "==2.20.0"
         },
         "rjsmin": {
             "hashes": [
@@ -216,11 +224,11 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
-                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+                "sha256:41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae",
+                "sha256:8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"
             ],
-            "markers": "python_version != '3.1.*' and python_version != '3.3.*' and python_version >= '2.6' and python_version != '3.2.*' and python_version != '3.0.*' and python_version < '4'",
-            "version": "==1.23"
+            "markers": "python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.0.*' and python_version < '4' and python_version != '3.3.*' and python_version != '3.2.*'",
+            "version": "==1.24"
         },
         "vine": {
             "hashes": [
@@ -236,6 +244,12 @@
             ],
             "index": "pypi",
             "version": "==1.1.0"
+        },
+        "xworkflows": {
+            "hashes": [
+                "sha256:bac76b991d65cb880c671d3f577e1c949bda18bff58d6b9d692ccd2aa7792caf"
+            ],
+            "version": "==1.0.4"
         }
     },
     "develop": {
@@ -602,11 +616,11 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:10e59f84267370ab20cec9305bafe7505ba4d6b93ecbf66a1cce86193ed511d5",
-                "sha256:8c827e7d4816dfe13e9329c8226aef8e6e75d65b939bc74fda894143b6d1df59"
+                "sha256:212be78a6fa5352c392738a49b18f74ae9aeec1040f47c81cadbfd8d1233c310",
+                "sha256:6f6c1efc8d0ccc21f8f6c34d8330baca883cf109b66b3df954b0a117e5528fb4"
             ],
             "index": "pypi",
-            "version": "==3.9.1"
+            "version": "==3.9.2"
         },
         "pytest-django": {
             "hashes": [
