@@ -150,11 +150,18 @@ class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
     context_object_name = 'aids'
     paginate_by = 30
     sortable_columns = ['name', 'description', 'date_created', 'date_updated']
+    default_ordering = 'date_created'
 
     def get_ordering(self):
         order = self.request.GET.get('order', '')
         order_field = order.lstrip('-')
-        return order if order_field in self.sortable_columns else None
+        if order_field not in self.sortable_columns:
+            order = self.default_ordering
+        return order
+
+    def get_context_data(self, **kwargs):
+        kwargs['ordering'] = self.get_ordering()
+        return super().get_context_data(**kwargs)
 
 
 class AidCreateView(LoginRequiredMixin, CreateView):

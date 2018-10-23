@@ -41,7 +41,7 @@ def sortable_header(context, name, field):
     # Extract url and sort parameters from request
     current_url = context['request'].path
     get_params = context['request'].GET.copy()
-    order_value = get_params.get('order', '')
+    order_value = context['ordering']
     order_field = order_value.lstrip('-')
     icon = ''
 
