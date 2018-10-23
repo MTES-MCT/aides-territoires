@@ -66,8 +66,10 @@ class Aid(models.Model):
 
     STATUSES = Choices(
         ('draft', _('Draft')),
-        ('reviewable', _('Review required')),
+        ('reviewable', _('Ready to be published')),
         ('published', _('Published')),
+        ('unpublished', _('Un-published')),
+        ('deleted', _('Deleted')),
     )
 
     AUDIANCES = Choices(
