@@ -139,7 +139,8 @@ class AidEditMixin:
         qs = Aid.objects \
             .filter(author=self.request.user) \
             .order_by('name')
-        return qs
+        self.queryset = qs
+        return super().get_queryset()
 
 
 class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
@@ -148,6 +149,12 @@ class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
     template_name = 'aids/draft_list.html'
     context_object_name = 'aids'
     paginate_by = 30
+    sortable_columns = ['name', 'description', 'date_created', 'date_updated']
+
+    def get_ordering(self):
+        order = self.request.GET.get('order', '')
+        order_field = order.lstrip('-')
+        return order if order_field in self.sortable_columns else None
 
 
 class AidCreateView(LoginRequiredMixin, CreateView):
