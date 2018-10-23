@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from model_utils import Choices
+from django_xworkflows import models as xwf_models
 
 from core.fields import ChoiceArrayField
 
@@ -27,6 +28,24 @@ class AidQuerySet(models.QuerySet):
         today = timezone.now().date()
         return self.filter(Q(submission_deadline__gte=today) |
                            Q(submission_deadline__isnull=True))
+
+
+class AidWorkflow(xwf_models.Workflow):
+    """Defines statuses and transitions for Aids."""
+
+    log_model = ''
+
+    states = Choices(
+        ('draft', _('Draft')),
+        ('reviewable', _('Ready to be published')),
+        ('published', _('Published')),
+    )
+    initial_state = 'draft'
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+    )
 
 
 class Aid(models.Model):
@@ -62,14 +81,6 @@ class Aid(models.Model):
         ('preop', _('Preoperational')),
         ('op', _('Operational')),
         ('postop', _('Postoperation')),
-    )
-
-    STATUSES = Choices(
-        ('draft', _('Draft')),
-        ('reviewable', _('Ready to be published')),
-        ('published', _('Published')),
-        ('unpublished', _('Un-published')),
-        ('deleted', _('Deleted')),
     )
 
     AUDIANCES = Choices(
@@ -189,11 +200,9 @@ class Aid(models.Model):
         choices=RECURRENCE,
         blank=True)
 
-    status = models.CharField(
-        _('Status'),
-        max_length=23,
-        choices=STATUSES,
-        default=STATUSES.draft)
+    status = xwf_models.StateField(
+        AidWorkflow,
+        verbose_name=_('Status'))
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
