@@ -5,8 +5,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My aid drafts') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Add a new aid') }}</li>
+        <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My published aids') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Publish a new aid') }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -23,7 +23,7 @@
 
 {% block form_actions %}
     <div class="form-actions">
-        <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to draft list') }}</a>
+        <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
         <button type="submit">{{ _('Save your aid') }}</button>
     </div>
 </form>

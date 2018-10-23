@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My aid drafts') }}</li>
+        <li class="active" aria-current="page">{{ _('My published aids') }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -14,13 +14,13 @@
 <section id="draft-list">
 
 <a class="main-action action-add" href="{% url 'aid_create_view' %}">
-    {{ _('Add a new aid') }}
+    {{ _('Publish a new aid') }}
 </a>
 
-<h1>{{ _('List of submitted aids') }}</h1>
+<h1>{{ _('My published aids') }}</h1>
 
 <table class="data-table">
-    <caption class="sr-only">{{ _('Your list of created aids') }}</caption>
+    <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
     <thead>
         <tr>
             <th>{% sortable_header _('Name') 'name' %}</th>
