@@ -16,6 +16,22 @@
 {% endblock %}
 
 {% block form_header %}
+    {% if aid.is_draft %}
+    <p class="info">{% blocktrans %}
+        <span class="fas fa-exclamation-circle"></span>
+        You are editing a draft. This aid is currently not displayed on the
+        site.
+    {% endblocktrans %}</p>
+    {% endif %}
+
+    {% if aid.is_under_review %}
+    <p class="info">{% blocktrans %}
+        <span class="fas fa-exclamation-circle"></span>
+        This aid is under review, and will be published by an admin anytime
+        soon.
+    {% endblocktrans %}</p>
+    {% endif %}
+
     {% if aid.is_published %}
     <p class="warning">{% blocktrans %}
         <span class="fas fa-exclamation-circle"></span>

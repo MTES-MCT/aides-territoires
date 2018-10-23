@@ -231,6 +231,12 @@ class Aid(models.Model):
     def get_absolute_url(self):
         return reverse('aid_detail_view', args=[self.slug])
 
+    def is_draft(self):
+        return self.status == AidWorkflow.states.draft
+
+    def is_under_review(self):
+        return self.status == AidWorkflow.states.reviewable
+
     def is_published(self):
         return self.status == AidWorkflow.states.published
 
