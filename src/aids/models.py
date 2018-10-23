@@ -231,6 +231,9 @@ class Aid(models.Model):
     def get_absolute_url(self):
         return reverse('aid_detail_view', args=[self.slug])
 
+    def is_published(self):
+        return self.status == AidWorkflow.states.published
+
     def is_financial(self):
         """Does this aid have financial parts?"""
         return bool(set(self.aid_types) & set(self.FINANCIAL_AIDS))

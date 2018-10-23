@@ -253,11 +253,9 @@ section.aid-list {
     }
 }
 
-form#aid-create {
-    @include clearfix;
+form#aid-edit {
 
     div.form-actions {
-        @extend .pt-2;
 
         button[type=submit] {
             float: right;

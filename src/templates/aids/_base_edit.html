@@ -4,7 +4,7 @@
 {% block content %}
 {% block page_title %}{% endblock %}
 {% block form_header %}{% endblock %}
-<form method="post" action="" id="aid-create">
+<form method="post" action="" id="aid-edit">
     {% csrf_token %}
     {{ form.media }}
 
@@ -57,7 +57,9 @@
         {% include '_field_snippet.html' with field=form.contact_phone %}
     </fieldset>
 
+    <hr />
     {% block form_actions %}{% endblock %}
+</form>
 {% endblock %}
 
 {% block extra_css %}

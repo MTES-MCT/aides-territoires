@@ -15,10 +15,19 @@
     <h1>{{ _('Edit a published aid') }}</h1>
 {% endblock %}
 
+{% block form_header %}
+    {% if aid.is_published %}
+    <p class="warning">{% blocktrans %}
+        <span class="fas fa-exclamation-circle"></span>
+        You are editing a published aid. Your updates will immediately be
+        displayed on the site.
+    {% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}
+
 {% block form_actions %}
-    <div class="form-actions">
-        <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
-        <button type="submit">{{ _('Save your aid') }}</button>
-    </div>
-</form>
+<div class="form-actions">
+    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
+    <button type="submit">{{ _('Save your aid') }}</button>
+</div>
 {% endblock %}
