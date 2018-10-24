@@ -16,29 +16,37 @@
 {% endblock %}
 
 {% block form_sidebar %}
-    {% if aid.is_draft %}
-    <p class="info">{% blocktrans %}
-        <span class="fas fa-exclamation-circle"></span>
-        You are editing a draft. This aid is currently not displayed on the
-        site.
-    {% endblocktrans %}</p>
-    {% endif %}
 
-    {% if aid.is_under_review %}
-    <p class="info">{% blocktrans %}
-        <span class="fas fa-exclamation-circle"></span>
-        This aid is under review, and will be published by an admin anytime
-        soon.
-    {% endblocktrans %}</p>
-    {% endif %}
+    <div class="status-edition">
+        <h3>{{ aid.get_status_display }}</h3>
 
-    {% if aid.is_published %}
-    <p class="warning">{% blocktrans %}
-        <span class="fas fa-exclamation-circle"></span>
-        You are editing a published aid. Your updates will immediately be
-        displayed on the site.
-    {% endblocktrans %}</p>
-    {% endif %}
+        <div>
+        {% if aid.is_draft %}
+            <p>{% blocktrans %}
+            This aid is currently not displayed on the
+            site. You can send it to publication by requesting a review by an
+            administrator.
+            {% endblocktrans %}</p>
+            <button>{{ _('Submit for review') }}</button>
+        {% endif %}
+
+        {% if aid.is_under_review %}
+            <p>{% blocktrans %}
+            Pending approval by an administrator, this aid will be published
+            anytime soon.
+            {% endblocktrans %}</p>
+            <button>{{ _('Cancel review') }}</button>
+        {% endif %}
+
+        {% if aid.is_published %}
+            <p>{% blocktrans %}
+            You are editing a published aid. Please proceed with caution.
+        {% endblocktrans %}</p>
+        <button>{{ _('Unpublish ') }}</button>
+        {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block form_actions %}

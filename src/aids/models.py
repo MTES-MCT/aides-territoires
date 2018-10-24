@@ -37,7 +37,7 @@ class AidWorkflow(xwf_models.Workflow):
 
     states = Choices(
         ('draft', _('Draft')),
-        ('reviewable', _('Ready to be published')),
+        ('reviewable', _('Under review')),
         ('published', _('Published')),
     )
     initial_state = 'draft'

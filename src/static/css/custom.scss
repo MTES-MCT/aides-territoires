@@ -244,6 +244,25 @@ section#aid-edit {
 
     div.form-sidebar {
         @extend .col-3;
+
+        div.status-edition {
+            @extend .card;
+
+            h3 {
+                @extend .h5;
+                @extend .card-header;
+            }
+
+            div {
+                @extend .card-body;
+            }
+
+            button {
+                @extend .btn;
+                @extend .btn-block;
+                @extend .btn-primary;
+            }
+        }
     }
 
     form.main-form {
