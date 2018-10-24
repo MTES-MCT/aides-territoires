@@ -10,7 +10,7 @@ urlpatterns = [
     path(_('results/'), ResultsView.as_view(), name='results_view'),
     path(_('results/receive/'), ResultsReceiveView.as_view(),
          name='results_receive_view'),
-    path(_('add/'), AidCreateView.as_view(), name='aid_create_view'),
+    path(_('publish/'), AidCreateView.as_view(), name='aid_create_view'),
     path(_('published/'), AidDraftListView.as_view(),
          name='aid_draft_list_view'),
     path(_('published/<slug:slug>'), AidEditView.as_view(),
