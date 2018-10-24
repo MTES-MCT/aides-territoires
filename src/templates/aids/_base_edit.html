@@ -77,9 +77,9 @@
 <script>
     $(document).ready(function() {
         $('select#id_backers').select2({
-            placeholder: '{{ _('Backers') }}',
+            placeholder: '{{ _("Backers") }}',
             ajax: {
-                url: '{% url 'backers-list' %}',
+                url: '{% url "backers-list" %}',
                 dataType: 'json',
                 delay: 100,
             },
@@ -88,9 +88,9 @@
         });
 
         $('select#id_perimeter').select2({
-            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            placeholder: '{{ _("City, department, region, EPCI…") }}',
             ajax: {
-                url: '{% url 'perimeters-list' %}',
+                url: '{% url "perimeters-list" %}',
                 dataType: 'json',
                 delay: 100,
             },
