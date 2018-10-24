@@ -171,20 +171,20 @@ class AidCreateView(LoginRequiredMixin, CreateView):
 
     template_name = 'aids/create.html'
     form_class = AidEditForm
-    success_url = reverse_lazy('aid_draft_list_view')
 
     def form_valid(self, form):
-        aid = form.save(commit=False)
+        self.object = aid = form.save(commit=False)
         aid.author = self.request.user
         aid.save()
         form.save_m2m()
 
-        edit_url = reverse('aid_edit_view', args=[aid.slug])
-        msg = _('Your aid was sucessfully created. You can \
-                 <a href="%(url)s">keep editing \
-                 it</a>.') % {'url': edit_url}
+        msg = _('Your aid was sucessfully created. You can keep editing it.')
         messages.success(self.request, msg)
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        edit_url = reverse('aid_edit_view', args=[self.object.slug])
+        return edit_url
 
 
 class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
@@ -194,12 +194,11 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
     template_name = 'aids/edit.html'
     context_object_name = 'aid'
     form_class = AidEditForm
-    success_url = reverse_lazy('aid_draft_list_view')
-    success_message = _('Your aid was sucessfully edited. \
-                        It will be reviewed by an admin soon.')
+    success_message = _('Your aid was sucessfully updated.')
 
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+    def get_success_url(self):
+        edit_url = reverse('aid_edit_view', args=[self.object.slug])
+        return edit_url
 
 
 class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,

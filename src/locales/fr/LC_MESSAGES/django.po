@@ -337,7 +337,7 @@ msgid "publish/"
 msgstr "publier/"
 
 msgid "published/"
-msgstr "publiee/"
+msgstr "publications/"
 
 msgid "<slug:slug>/status/"
 msgstr "<slug:slug>/statut/"
