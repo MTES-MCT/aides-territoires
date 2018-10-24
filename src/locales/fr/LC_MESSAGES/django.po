@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-24 16:07+0200\n"
+"POT-Creation-Date: 2018-10-24 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -342,22 +342,11 @@ msgstr "publications/"
 msgid "<slug:slug>/status/"
 msgstr "<slug:slug>/statut/"
 
-#, python-format
-msgid ""
-"Your aid was sucessfully created. It will be reviewed                  by an "
-"admin soon. You can <a href=\"%(url)s\">keep editing                  it</a>."
-msgstr ""
+msgid "Your aid was sucessfully created. You can keep editing it."
+msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
 
-
-msgid ""
-"Your aid was sucessfully edited.                         It will be reviewed "
-"by an admin soon."
-msgstr ""
-"Votre aide a été enregistrée. Elle sera revue par un·e administrateur·ice "
-"incessamment."
-
-msgid "Done, chap!"
-msgstr ""
+msgid "Your aid was sucessfully updated."
+msgstr "Votre aide a été mise à jour."
 
 msgid "We updated your aid status."
 msgstr "Le changement de statut de votre aide a bien été pris en compte."
@@ -477,6 +466,7 @@ msgstr "Premier"
 msgid "Previous"
 msgstr "Précédent"
 
+#, python-format
 msgid "Page %(current_page)s of %(total_pages)s"
 msgstr "Page %(current_page)s sur %(total_pages)s"
 
@@ -494,9 +484,9 @@ msgstr ""
 "Désolé, il semble que quelque chose se soit mal passé. Nous n'avons pu "
 "accéder à votre demande de connexion."
 
+#, python-format
 msgid "You will <a href=\"%(login_url)s\">have to try again.</a>"
-msgstr ""
-"Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
+msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 
 msgid "Log in"
 msgstr "Connexion"
@@ -522,6 +512,7 @@ msgstr ""
 "Vérifiez votre messagerie et cliquez sur le lien reçu pour accéder à votre "
 "compte."
 
+#, python-format
 msgid ""
 "\n"
 "            Don't see the email? Try the following:<ul>\n"
@@ -587,9 +578,11 @@ msgstr "Aides méthodologiques & techniques"
 msgid "Financial aid"
 msgstr "Aide financière"
 
+#, python-format
 msgid "Application opening date on the %(start_date)s"
 msgstr "Ouverture des dépôts de dossier le %(start_date)s"
 
+#, python-format
 msgid "Submission deadline on the %(deadline)s"
 msgstr "Date de clôture le %(deadline)s"
 
@@ -668,14 +661,14 @@ msgstr ""
 "échéant."
 
 msgid "You can contact us by sending an email at this address :"
-msgstr ""
-"Vous pouvez nous contacter en envoyant un e-mail à cette adresse :"
+msgstr "Vous pouvez nous contacter en envoyant un e-mail à cette adresse :"
 
 msgid "Thank you for helping us improving the service."
 msgstr ""
 "Merci de votre vigilance et de votre contribution à l'amélioration du "
 "service !"
 
+#, python-format
 msgid "<strong>%(nb_aids)s</strong> results"
 msgstr "<strong>%(nb_aids)s</strong> résultats"
 
@@ -755,8 +748,8 @@ msgid ""
 "This aid is currently not displayed on the site. You can send it to "
 "publication by requesting a review by an administrator."
 msgstr ""
-"Cette aide n'est actuellement pas affichée sur le site. Vous pouvez l'envoyer "
-"pour publication en demandant une revue par un administrateur."
+"Cette aide n'est actuellement pas affichée sur le site. Vous pouvez "
+"l'envoyer pour publication en demandant une revue par un administrateur."
 
 msgid "Submit for review"
 msgstr "Envoyer pour revue"
@@ -778,15 +771,16 @@ msgid "You will be able to submit your aid for review later on."
 msgstr "Vous pourrez à nouveau demander une revue pour publication plus tard."
 
 msgid "You are editing a published aid. Please proceed with caution."
-msgstr "Vous éditez actuellement une aide publiée. Merci de procéder avec "
-"prudence."
+msgstr ""
+"Vous éditez actuellement une aide publiée. Merci de procéder avec prudence."
 
 msgid "Unpublish right now"
 msgstr "Dépublier immédiatement"
 
 msgid "You will need to request a new review to re-publish your aid."
-msgstr "Vous devrez demander une revue par un administrateur pour re-publier "
-"votre aide."
+msgstr ""
+"Vous devrez demander une revue par un administrateur pour re-publier votre "
+"aide."
 
 msgid "Filter results"
 msgstr "Filtrer les résultats"
