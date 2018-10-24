@@ -3,7 +3,7 @@
 {% if search_actions %}
 <div class="list-actions">
     <span>
-        {% blocktrans with paginator.count as nb_aids %}
+        {% blocktrans with paginator.count as nb_aids trimmed %}
         <strong>{{ nb_aids }}</strong> results
         {% endblocktrans %}
     </span>

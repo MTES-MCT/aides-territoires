@@ -180,8 +180,8 @@ class AidCreateView(LoginRequiredMixin, CreateView):
         form.save_m2m()
 
         edit_url = reverse('aid_edit_view', args=[aid.slug])
-        msg = _('Your aid was sucessfully created. It will be reviewed \
-                 by an admin soon. You can <a href="%(url)s">keep editing \
+        msg = _('Your aid was sucessfully created. You can \
+                 <a href="%(url)s">keep editing \
                  it</a>.') % {'url': edit_url}
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.success_url)
@@ -207,7 +207,6 @@ class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
     """Update an aid status."""
 
     http_method_names = ['post']
-    success_message = _('Done, chap!')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

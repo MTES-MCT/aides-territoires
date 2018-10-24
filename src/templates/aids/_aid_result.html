@@ -36,7 +36,7 @@
         {% if aid.start_date %}
             <li>
                 <i class="fa fa-clock"></i>
-                {% blocktrans with aid.start_date|date:'SHORT_DATE_FORMAT' as start_date %}
+                {% blocktrans with aid.start_date|date:'SHORT_DATE_FORMAT' as start_date trimmed %}
                     Application opening date on the {{ start_date }}
                 {% endblocktrans %}
             </li>
@@ -45,7 +45,7 @@
         {% if aid.submission_deadline %}
             <li>
                 <i class="fa fa-clock"></i>
-                {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline %}
+                {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline trimmed %}
                     Submission deadline on the {{ deadline }}
                 {% endblocktrans %}
             </li>
