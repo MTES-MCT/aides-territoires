@@ -2,9 +2,14 @@
 {% load i18n form_utils %}
 
 {% block content %}
-{% block page_title %}{% endblock %}
-{% block form_header %}{% endblock %}
-<form method="post" action="" id="aid-edit">
+<section id="aid-edit">
+
+<div class="form-sidebar">
+    {% block form_sidebar %}{% endblock %}
+</div>
+
+<form method="post" action="" class="main-form">
+    {% block form_header %}{% endblock %}
     {% csrf_token %}
     {{ form.media }}
 

@@ -179,20 +179,6 @@ section.aid-list {
             opacity: 0.3;
         }
 
-        nav.search-actions {
-            @extend .mb-2;
-            @extend .navbar;
-            background-color: $card-cap-bg;
-
-            span {
-                @extend .navbar-text;
-            }
-
-            button {
-                @extend .btn;
-                @extend .btn-primary;
-            }
-        }
 
         div.aid {
             @extend .card;
@@ -253,12 +239,21 @@ section.aid-list {
     }
 }
 
-form#aid-edit {
+section#aid-edit {
+    @extend .row;
 
-    div.form-actions {
+    div.form-sidebar {
+        @extend .col-3;
+    }
 
-        button[type=submit] {
-            float: right;
+    form.main-form {
+        @extend .col;
+
+        div.form-actions {
+
+            button[type=submit] {
+                float: right;
+            }
         }
     }
 }

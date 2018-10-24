@@ -337,3 +337,20 @@ table.data-table {
     @extend .table;
     @extend .table-sm;
 }
+
+div.list-actions {
+
+    @extend .mb-2;
+    @extend .navbar;
+    @extend .navbar-dark;
+    @extend .bg-primary;
+
+    span {
+        color: white;
+    }
+
+    button {
+        @extend .btn;
+        @extend .btn-outline-light;
+    }
+}
