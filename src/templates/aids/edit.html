@@ -20,39 +20,27 @@
     <div class="status-edition">
         <h3>{{ aid.get_status_display }}</h3>
 
-        <div>
         {% if aid.is_draft %}
-            <p>{% blocktrans %}
-            This aid is currently not displayed on the
-            site. You can send it to publication by requesting a review by an
-            administrator.
-            {% endblocktrans %}</p>
-            <button>{{ _('Submit for review') }}</button>
-            <span class="help">
-            {{ _('You will be able to keep editing your aid.') }}
-            </span>
+            {% trans 'This aid is currently not displayed on the site. You can send it to publication by requesting a review by an administrator.' as status_info %}
+            {% trans 'Submit for review' as btn_label %}
+            {% trans 'You will be able to keep editing your aid.' as status_help %}
+        {% elif aid.is_under_review %}
+            {% trans 'Pending approval by an administrator, this aid will be published anytime soon.' as status_info %}
+            {% trans 'Cancel review' as btn_label %}
+            {% trans 'You will be able to submit your aid for review later on.' as status_help %}
+        {% elif aid.is_published %}
+            {% trans 'You are editing a published aid. Please proceed with caution.' as status_info %}
+            {% trans 'Unpublish right now' as btn_label %}
+            {% trans 'You will need to request a new review to re-publish your aid.' as status_help %}
         {% endif %}
 
-        {% if aid.is_under_review %}
-            <p>{% blocktrans %}
-            Pending approval by an administrator, this aid will be published
-            anytime soon.
-            {% endblocktrans %}</p>
-            <button>{{ _('Cancel review') }}</button>
-            <span class="help">
-                {{ _('You will be able to submit your aid for review later on.') }}
-            </span>
-        {% endif %}
-
-        {% if aid.is_published %}
-            <p>{% blocktrans %}
-            You are editing a published aid. Please proceed with caution.
-            {% endblocktrans %}</p>
-            <button>{{ _('Unpublish right now') }}</button>
-            <span class="help">
-                {{ _('You will need to request a new review to re-publish your aid.') }}
-            </span>
-        {% endif %}
+        <div>
+            <p>{{ status_info}}</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <button type="submit">{{ btn_label }}</button>
+            </form>
+            <span class="help">{{ status_help }}</span>
         </div>
     </div>
 
@@ -63,4 +51,8 @@
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
     <button type="submit">{{ _('Save your aid') }}</button>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/aids/update_status_form_availability.js"></script>
 {% endblock %}

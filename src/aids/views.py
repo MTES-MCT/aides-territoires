@@ -195,6 +195,3 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
     success_url = reverse_lazy('aid_draft_list_view')
     success_message = _('Your aid was sucessfully edited. \
                         It will be reviewed by an admin soon.')
-
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
