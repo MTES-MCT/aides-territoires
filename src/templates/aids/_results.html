@@ -1,9 +1,9 @@
 {% load i18n %}
 
 {% if search_actions %}
-<nav class="search-actions">
+<div class="list-actions">
     <span>
-        {% blocktrans with paginator.count as nb_aids %}
+        {% blocktrans with paginator.count as nb_aids trimmed %}
         <strong>{{ nb_aids }}</strong> results
         {% endblocktrans %}
     </span>
@@ -14,7 +14,7 @@
         {{ _('Share these results') }}
     </button>
     {% endif %}
-</nav>
+</div   >
 {% endif %}
 
 {% for aid in aids %}

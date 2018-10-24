@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from model_utils import Choices
+from django_xworkflows import models as xwf_models
 
 from core.fields import ChoiceArrayField
 
@@ -29,7 +30,25 @@ class AidQuerySet(models.QuerySet):
                            Q(submission_deadline__isnull=True))
 
 
-class Aid(models.Model):
+class AidWorkflow(xwf_models.Workflow):
+    """Defines statuses and transitions for Aids."""
+
+    log_model = ''
+
+    states = Choices(
+        ('draft', _('Draft')),
+        ('reviewable', _('Under review')),
+        ('published', _('Published')),
+    )
+    initial_state = 'draft'
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+    )
+
+
+class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
     TYPES = Choices(
@@ -62,12 +81,6 @@ class Aid(models.Model):
         ('preop', _('Preoperational')),
         ('op', _('Operational')),
         ('postop', _('Postoperation')),
-    )
-
-    STATUSES = Choices(
-        ('draft', _('Draft')),
-        ('reviewable', _('Review required')),
-        ('published', _('Published')),
     )
 
     AUDIANCES = Choices(
@@ -187,11 +200,9 @@ class Aid(models.Model):
         choices=RECURRENCE,
         blank=True)
 
-    status = models.CharField(
-        _('Status'),
-        max_length=23,
-        choices=STATUSES,
-        default=STATUSES.draft)
+    status = xwf_models.StateField(
+        AidWorkflow,
+        verbose_name=_('Status'))
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
@@ -219,6 +230,15 @@ class Aid(models.Model):
 
     def get_absolute_url(self):
         return reverse('aid_detail_view', args=[self.slug])
+
+    def is_draft(self):
+        return self.status == AidWorkflow.states.draft
+
+    def is_under_review(self):
+        return self.status == AidWorkflow.states.reviewable
+
+    def is_published(self):
+        return self.status == AidWorkflow.states.published
 
     def is_financial(self):
         """Does this aid have financial parts?"""

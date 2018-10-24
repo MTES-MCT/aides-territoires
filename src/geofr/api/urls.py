@@ -4,7 +4,7 @@ from geofr.api.views import PerimeterViewSet
 
 
 router = routers.SimpleRouter()
-router.register('', PerimeterViewSet, base_name='perimeters')
+router.register('', PerimeterViewSet, basename='perimeters')
 
 
 urlpatterns = router.urls

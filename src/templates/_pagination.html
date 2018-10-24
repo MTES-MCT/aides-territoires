@@ -19,7 +19,7 @@
         {% endif %}
 
         <li class="disabled"><a href="#">
-            {% blocktrans with current_page=page_obj.number total_pages=paginator.num_pages %}
+            {% blocktrans with current_page=page_obj.number total_pages=paginator.num_pages trimmed %}
             Page {{ current_page }} of {{ total_pages }}
             {% endblocktrans %}
 

@@ -1,10 +1,11 @@
 {% extends '_base.html' %}
+{% load aids %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My aid drafts') }}</li>
+        <li class="active" aria-current="page">{{ _('My published aids') }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -13,19 +14,19 @@
 <section id="draft-list">
 
 <a class="main-action action-add" href="{% url 'aid_create_view' %}">
-    {{ _('Add a new aid') }}
+    {{ _('Publish a new aid') }}
 </a>
 
-<h1>{{ _('List of submitted aids') }}</h1>
+<h1>{{ _('My published aids') }}</h1>
 
 <table class="data-table">
-    <caption class="sr-only">{{ _('Your list of created aids') }}</caption>
+    <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
     <thead>
         <tr>
-            <th>{{ _('Name') }}</th>
-            <th>{{ _('Description') }}</th>
-            <th>{{ _('Published on') }}</th>
-            <th>{{ _('Last modified') }}</th>
+            <th>{% sortable_header _('Name') 'name' %}</th>
+            <th>{% sortable_header _('Description') 'description' %}</th>
+            <th>{% sortable_header _('Published on') 'date_created' %}</th>
+            <th>{% sortable_header _('Last modified') 'date_updated' %}</th>
             <th>{{ _('Status') }}</th>
         </tr>
     </thead>
@@ -37,8 +38,8 @@
                     {{ aid.name|truncatechars:50 }}
                 </a></td>
             <td>{{ aid.description|truncatechars:30 }}</td>
-            <td>{{ aid.date_updated|date:'SHORT_DATE_FORMAT' }}</td>
             <td>{{ aid.date_created|date:'SHORT_DATE_FORMAT' }}</td>
+            <td>{{ aid.date_updated|date:'SHORT_DATE_FORMAT' }}</td>
             <td>{{ aid.get_status_display }}</td>
         </tr>
         {% endfor %}

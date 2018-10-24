@@ -7,7 +7,7 @@
 <section id="login-form">
     <div class="narrow-form">
         <h1>{{ _("An email is on it's way") }}</h1>
-        <p>{% blocktrans %}
+        <p>{% blocktrans trimmed %}
             We just sent an email with an access link. Check your mailbox and click
             on the link to log in to your account.
         {% endblocktrans %}</p>
@@ -21,7 +21,7 @@
             </ul>
         {% endblocktrans %}</p>
 
-        <p>{% blocktrans %}
+        <p>{% blocktrans trimmed %}
             If you can't log in, <a href="mailto:aides-territoires@beta.gouv.fr">contact us</a>.
         {% endblocktrans %}</p>
     </div>

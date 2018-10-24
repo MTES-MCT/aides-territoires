@@ -39,7 +39,7 @@ class AidFactory(DjangoModelFactory):
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
     contact_email = factory.Faker('email')
     contact_phone = factory.Faker('phone_number')
-    status = Aid.STATUSES.published
+    status = 'published'
 
     @factory.post_generation
     def backers(self, create, extracted, **kwargs):

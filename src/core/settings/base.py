@@ -31,6 +31,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
+    'django_xworkflows',
 ]
 
 LOCAL_APPS = [

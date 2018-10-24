@@ -8,12 +8,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
+                                  RedirectView)
 from django.views.generic.edit import FormMixin
+from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 
 from aids.forms import AidEditForm, AidSearchForm
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 
 
 class SearchView(FormMixin, ListView):
@@ -139,7 +141,8 @@ class AidEditMixin:
         qs = Aid.objects \
             .filter(author=self.request.user) \
             .order_by('name')
-        return qs
+        self.queryset = qs
+        return super().get_queryset()
 
 
 class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
@@ -148,6 +151,19 @@ class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
     template_name = 'aids/draft_list.html'
     context_object_name = 'aids'
     paginate_by = 30
+    sortable_columns = ['name', 'description', 'date_created', 'date_updated']
+    default_ordering = 'date_created'
+
+    def get_ordering(self):
+        order = self.request.GET.get('order', '')
+        order_field = order.lstrip('-')
+        if order_field not in self.sortable_columns:
+            order = self.default_ordering
+        return order
+
+    def get_context_data(self, **kwargs):
+        kwargs['ordering'] = self.get_ordering()
+        return super().get_context_data(**kwargs)
 
 
 class AidCreateView(LoginRequiredMixin, CreateView):
@@ -155,20 +171,20 @@ class AidCreateView(LoginRequiredMixin, CreateView):
 
     template_name = 'aids/create.html'
     form_class = AidEditForm
-    success_url = reverse_lazy('aid_draft_list_view')
 
     def form_valid(self, form):
-        aid = form.save(commit=False)
+        self.object = aid = form.save(commit=False)
         aid.author = self.request.user
         aid.save()
         form.save_m2m()
 
-        edit_url = reverse('aid_edit_view', args=[aid.slug])
-        msg = _('Your aid was sucessfully created. It will be reviewed \
-                 by an admin soon. You can <a href="%(url)s">keep editing \
-                 it</a>.') % {'url': edit_url}
+        msg = _('Your aid was sucessfully created. You can keep editing it.')
         messages.success(self.request, msg)
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        edit_url = reverse('aid_edit_view', args=[self.object.slug])
+        return edit_url
 
 
 class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
@@ -178,6 +194,47 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
     template_name = 'aids/edit.html'
     context_object_name = 'aid'
     form_class = AidEditForm
-    success_url = reverse_lazy('aid_draft_list_view')
-    success_message = _('Your aid was sucessfully edited. \
-                        It will be reviewed by an admin soon.')
+    success_message = _('Your aid was sucessfully updated.')
+
+    def get_success_url(self):
+        edit_url = reverse('aid_edit_view', args=[self.object.slug])
+        return edit_url
+
+
+class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
+                      RedirectView):
+    """Update an aid status."""
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.update_aid_status()
+        return super().post(request, *args, **kwargs)
+
+    def update_aid_status(self):
+        """Move the aid to the next step in the workflow.
+
+        None of these transitions require any special permission, hence we
+        don't run any additional checks.
+        """
+        aid = self.object
+
+        # Check that submitted form data is still consistent
+        current_status = self.request.POST.get('current_status', None)
+        if aid.status != current_status:
+            return
+
+        STATES = AidWorkflow.states
+        if aid.status == STATES.draft:
+            aid.submit()
+        elif aid.status == STATES.reviewable:
+            aid.unpublish()
+        elif aid.status == STATES.published:
+            aid.unpublish()
+
+        msg = _('We updated your aid status.')
+        messages.success(self.request, msg)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('aid_edit_view', args=[self.object.slug])

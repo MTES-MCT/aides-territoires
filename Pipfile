@@ -17,6 +17,7 @@ django-rest-framework = "*"
 xlrd = "*"
 celery = "*"
 django-braces = "*"
+django-xworkflows = "*"
 
 [dev-packages]
 pytest = "*"

@@ -2,9 +2,14 @@
 {% load i18n form_utils %}
 
 {% block content %}
-{% block page_title %}{% endblock %}
-{% block form_header %}{% endblock %}
-<form method="post" action="" id="aid-create">
+<section id="aid-edit">
+
+<div class="form-sidebar">
+    {% block form_sidebar %}{% endblock %}
+</div>
+
+<form method="post" action="" class="main-form">
+    {% block form_header %}{% endblock %}
     {% csrf_token %}
     {{ form.media }}
 
@@ -57,7 +62,9 @@
         {% include '_field_snippet.html' with field=form.contact_phone %}
     </fieldset>
 
+    <hr />
     {% block form_actions %}{% endblock %}
+</form>
 {% endblock %}
 
 {% block extra_css %}
@@ -70,9 +77,9 @@
 <script>
     $(document).ready(function() {
         $('select#id_backers').select2({
-            placeholder: '{{ _('Backers') }}',
+            placeholder: '{{ _("Backers") }}',
             ajax: {
-                url: '{% url 'backers-list' %}',
+                url: '{% url "backers-list" %}',
                 dataType: 'json',
                 delay: 100,
             },
@@ -81,9 +88,9 @@
         });
 
         $('select#id_perimeter').select2({
-            placeholder: '{{ _('City, department, region, EPCI…') }}',
+            placeholder: '{{ _("City, department, region, EPCI…") }}',
             ajax: {
-                url: '{% url 'perimeters-list' %}',
+                url: '{% url "perimeters-list" %}',
                 dataType: 'json',
                 delay: 100,
             },

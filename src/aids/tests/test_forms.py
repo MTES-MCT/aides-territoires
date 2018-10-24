@@ -179,19 +179,3 @@ def test_search_form_filter_by_deadline(aids):
     form = AidSearchForm({'apply_before': '2017-12-31'})
     qs = form.filter_queryset(aids)
     assert qs.count() == 0
-
-
-def test_create_form(aid_form_data):
-    qs = Aid.objects.all()
-    assert qs.count() == 0
-
-    form = AidEditForm(aid_form_data)
-    assert form.is_valid()
-
-    form.save()
-    assert qs.count() == 1
-
-    aid = qs[0]
-    assert aid.status == 'draft'
-    assert aid.author.id == aid_form_data['author']
-    assert aid.slug != ''
