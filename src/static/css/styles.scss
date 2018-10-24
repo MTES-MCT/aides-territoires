@@ -172,8 +172,7 @@ form {
             background-color: $blue;
             color: white;
             @extend .px-2;
-            @extend .pt-1;
-            @extend .pb-0;
+            @extend .py-1;
         }
     }
 
