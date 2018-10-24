@@ -28,6 +28,9 @@
             administrator.
             {% endblocktrans %}</p>
             <button>{{ _('Submit for review') }}</button>
+            <span class="help">
+            {{ _('You will be able to keep editing your aid.') }}
+            </span>
         {% endif %}
 
         {% if aid.is_under_review %}
@@ -36,13 +39,19 @@
             anytime soon.
             {% endblocktrans %}</p>
             <button>{{ _('Cancel review') }}</button>
+            <span class="help">
+                {{ _('You will be able to submit your aid for review later on.') }}
+            </span>
         {% endif %}
 
         {% if aid.is_published %}
             <p>{% blocktrans %}
             You are editing a published aid. Please proceed with caution.
-        {% endblocktrans %}</p>
-        <button>{{ _('Unpublish ') }}</button>
+            {% endblocktrans %}</p>
+            <button>{{ _('Unpublish right now') }}</button>
+            <span class="help">
+                {{ _('You will need to request a new review to re-publish your aid.') }}
+            </span>
         {% endif %}
         </div>
     </div>
