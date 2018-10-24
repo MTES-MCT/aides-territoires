@@ -93,3 +93,32 @@ def test_edition_of_other_users_aid(client, user):
     client.force_login(user)
     res = client.get(form_url)
     assert res.status_code == 404
+
+
+def test_edition_of_aid_status(client, user):
+    """Test that the publication workflow works as expected."""
+
+    aid = AidFactory(status='draft', author=user)
+    client.force_login(user)
+
+    update_status_url = reverse('aid_status_update_view', args=[aid.slug])
+    res = client.get(update_status_url)
+    assert res.status_code == 405  # Method not allowed, only post
+
+    res = client.post(update_status_url, {'current_status': 'draft'})
+    aid.refresh_from_db()
+    assert res.status_code == 302
+    assert aid.status == 'reviewable'
+
+    res = client.post(update_status_url, {'current_status': 'reviewable'})
+    aid.refresh_from_db()
+    assert res.status_code == 302
+    assert aid.status == 'draft'
+
+    aid.status = 'published'
+    aid.save()
+
+    res = client.post(update_status_url, {'current_status': 'published'})
+    aid.refresh_from_db()
+    assert res.status_code == 302
+    assert aid.status == 'draft'

@@ -8,12 +8,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
+                                  RedirectView)
 from django.views.generic.edit import FormMixin
+from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 
 from aids.forms import AidEditForm, AidSearchForm
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 
 
 class SearchView(FormMixin, ListView):
@@ -195,3 +197,46 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
     success_url = reverse_lazy('aid_draft_list_view')
     success_message = _('Your aid was sucessfully edited. \
                         It will be reviewed by an admin soon.')
+
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+
+class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
+                      RedirectView):
+    """Update an aid status."""
+
+    http_method_names = ['post']
+    success_message = _('Done, chap!')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.update_aid_status()
+        return super().post(request, *args, **kwargs)
+
+    def update_aid_status(self):
+        """Move the aid to the next step in the workflow.
+
+        None of these transitions require any special permission, hence we
+        don't run any additional checks.
+        """
+        aid = self.object
+
+        # Check that submitted form data is still consistent
+        current_status = self.request.POST.get('current_status', None)
+        if aid.status != current_status:
+            return
+
+        STATES = AidWorkflow.states
+        if aid.status == STATES.draft:
+            aid.submit()
+        elif aid.status == STATES.reviewable:
+            aid.unpublish()
+        elif aid.status == STATES.published:
+            aid.unpublish()
+
+        msg = _('We updated your aid status.')
+        messages.success(self.request, msg)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('aid_edit_view', args=[self.object.slug])

@@ -36,8 +36,9 @@
 
         <div>
             <p>{{ status_info}}</p>
-            <form action="" method="post">
+            <form action="{% url 'aid_status_update_view' aid.slug %}" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="current_status" value="{{ aid.status }}" />
                 <button type="submit">{{ btn_label }}</button>
             </form>
             <span class="help">{{ status_help }}</span>

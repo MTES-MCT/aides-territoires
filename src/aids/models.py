@@ -48,7 +48,7 @@ class AidWorkflow(xwf_models.Workflow):
     )
 
 
-class Aid(models.Model):
+class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
     TYPES = Choices(
