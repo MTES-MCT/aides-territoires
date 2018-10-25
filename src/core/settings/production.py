@@ -10,7 +10,9 @@ INSTALLED_APPS += [
 
 COMPRESS_OFFLINE = True
 
-CELERY_BROKER_URL = 'redis://localhost'
+CELERY_BROKER_URL = "memory://"
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
 
 # Create a .env.production file in django's root
 environ.Env.read_env('.env.production')
