@@ -143,6 +143,16 @@ def test_only_published_aids_are_listed(client):
     assert len(res.context['aids']) == 14
 
 
+def test_deleted_aids_are_not_listed(client):
+    """Deleted aids must be excluded from all queries by default."""
+
+    AidFactory(status='deleted')
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.status_code == 200
+    assert len(res.context['aids']) == 0
+
+
 def test_expired_aids_are_not_listed(client):
 
     url = reverse('search_view')

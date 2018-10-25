@@ -36,6 +36,19 @@ def test_draft_list_only_display_authors_aids(client, user):
     assert 'Is this just fantasy?' not in content
 
 
+def test_draft_list_does_not_show_deleted_aids(client, user):
+    """Deleted aids must be excluded from all queries by default."""
+
+    AidFactory(name='Is this the real life?', author=user,
+               status='deleted')
+    client.force_login(user)
+    drafts_url = reverse('aid_draft_list_view')
+    res = client.get(drafts_url)
+
+    content = res.content.decode('utf-8')
+    assert 'Is this the real life?' not in content
+
+
 def test_aid_creation_view(client, user, aid_form_data):
     """Saving the form creates a new aid."""
 

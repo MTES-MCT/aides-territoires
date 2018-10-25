@@ -30,6 +30,18 @@ class AidQuerySet(models.QuerySet):
                            Q(submission_deadline__isnull=True))
 
 
+class BaseAidManager(models.Manager):
+    """Custom manager to exclude deleted aids from all queries."""
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.exclude(status='deleted')
+        return qs
+
+
+AidManager = BaseAidManager.from_queryset(AidQuerySet)
+
+
 class AidWorkflow(xwf_models.Workflow):
     """Defines statuses and transitions for Aids."""
 
@@ -46,7 +58,7 @@ class AidWorkflow(xwf_models.Workflow):
         ('submit', 'draft', 'reviewable'),
         ('publish', 'reviewable', 'published'),
         ('unpublish', ('reviewable', 'published'), 'draft'),
-        ('delete', ('draft', 'reviewable', 'published'), 'deleted')
+        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
     )
 
 
@@ -104,7 +116,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('recurring', _('Recurring')),
     )
 
-    objects = AidQuerySet.as_manager()
+    objects = AidManager()
 
     slug = models.SlugField(
         _('Slug'),
