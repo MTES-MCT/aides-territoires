@@ -17,7 +17,7 @@
 
 {% block form_sidebar %}
 
-    <div class="status-edition">
+    <div class="sidebar-actions">
         <h3>{{ aid.get_status_display }}</h3>
 
         {% if aid.is_draft %}
@@ -42,6 +42,26 @@
                 <button type="submit">{{ btn_label }}</button>
             </form>
             <span class="help">{{ status_help }}</span>
+        </div>
+    </div>
+
+    <div class="sidebar-actions danger">
+        <h3>{{ _('Danger Zone') }}</h3>
+        <div>
+            <p>{% blocktrans trimmed %}
+                You are about do delete this aid. This action cannot be undone.
+            {% endblocktrans %}</p>
+            <form action="">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="checkbox" name="confirm" />
+                    <label>{{ _('I understand') }}</label>
+                </div>
+                <button type="submit">
+                    {{ _('Delete this aid') }}
+                </button>
+            </form>
         </div>
     </div>
 
