@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.text import slugify
 from django.urls import reverse
 from django.conf import settings
@@ -50,8 +50,8 @@ class AidWorkflow(xwf_models.Workflow):
     states = Choices(
         ('draft', _('Draft')),
         ('reviewable', _('Under review')),
-        ('published', _('Published')),
-        ('deleted', _('Deleted')),
+        ('published', pgettext_lazy('Aid (nf)', 'Published')),
+        ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
     )
     initial_state = 'draft'
     transitions = (
