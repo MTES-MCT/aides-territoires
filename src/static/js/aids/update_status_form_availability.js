@@ -1,7 +1,5 @@
 (function (exports) {
 
-    var window = exports;
-
     // block the status edition button if some data was modified
     exports.checkStatusUpdateAvailability = function(aidEditForm, aidStatusBtn) {
 
