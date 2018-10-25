@@ -51,7 +51,7 @@
             <p>{% blocktrans trimmed %}
                 You are about do delete this aid. This action cannot be undone.
             {% endblocktrans %}</p>
-            <form action="">
+            <form action="{% url 'aid_delete_view' aid.slug %}" method="post">
                 {% csrf_token %}
 
                 <div class="form-group">

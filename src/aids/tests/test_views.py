@@ -135,3 +135,42 @@ def test_edition_of_aid_status(client, user):
     aid.refresh_from_db()
     assert res.status_code == 302
     assert aid.status == 'draft'
+
+
+def test_aid_deletion(client, user):
+    """Test aid deletion."""
+
+    aid = AidFactory(status='published', author=user)
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url, {'confirm': True})
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert aid.status == 'deleted'
+
+
+def test_deletion_requires_confirmation(client, user):
+    """Without confirmation, aid does not get deleted."""
+
+    aid = AidFactory(status='published', author=user)
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url)
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert aid.status == 'published'
+
+
+def test_only_aid_author_can_delete_it(client, user):
+    """One cannot delete other users' aids."""
+
+    aid = AidFactory(status='published')
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url, {'confirm': True})
+    assert res.status_code == 404
+
+    aid.refresh_from_db()
+    assert aid.status == 'published'

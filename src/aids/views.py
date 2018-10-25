@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  RedirectView)
+                                  RedirectView, DeleteView)
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
@@ -237,3 +237,19 @@ class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('aid_edit_view', args=[self.object.slug])
+
+
+class AidDeleteView(LoginRequiredMixin, AidEditMixin, DeleteView):
+    """Soft deletes an existing aid."""
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        confirmed = self.request.POST.get('confirm', False)
+        if confirmed:
+            self.object.soft_delete()
+            msg = _('Your aid was deleted.')
+            messages.success(self.request, msg)
+
+        success_url = reverse('aid_draft_list_view')
+        redirect = HttpResponseRedirect(success_url)
+        return redirect
