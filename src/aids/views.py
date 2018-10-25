@@ -6,7 +6,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   RedirectView)
