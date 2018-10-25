@@ -39,7 +39,7 @@ class BaseAidManager(models.Manager):
         return qs
 
 
-AidManager = BaseAidManager.from_queryset(AidQuerySet)
+ExistingAidsManager = BaseAidManager.from_queryset(AidQuerySet)
 
 
 class AidWorkflow(xwf_models.Workflow):
@@ -116,7 +116,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('recurring', _('Recurring')),
     )
 
-    objects = AidManager()
+    objects = ExistingAidsManager()
+    all_aids = AidQuerySet.as_manager()
 
     slug = models.SlugField(
         _('Slug'),
