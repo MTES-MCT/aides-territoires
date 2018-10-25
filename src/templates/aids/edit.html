@@ -22,7 +22,7 @@
 
         {% if aid.is_draft %}
             {% trans 'This aid is currently not displayed on the site. You can send it to publication by requesting a review by an administrator.' as status_info %}
-            {% trans 'Submit for review' as btn_label %}
+            {% trans 'Send to publication' as btn_label %}
             {% trans 'You will be able to keep editing your aid.' as status_help %}
         {% elif aid.is_under_review %}
             {% trans 'Pending approval by an administrator, this aid will be published anytime soon.' as status_info %}
