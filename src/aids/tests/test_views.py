@@ -174,3 +174,18 @@ def test_only_aid_author_can_delete_it(client, user):
 
     aid.refresh_from_db()
     assert aid.status == 'published'
+
+
+def test_aids_under_review_menu_is_for_admin_only(client, user):
+    AidFactory(status='reviewable')
+    client.force_login(user)
+    url = reverse('home')
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Aides en revue' not in res.content.decode('utf-8')
+
+    user.is_superuser = True
+    user.save()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Aides en revue' in res.content.decode('utf-8')

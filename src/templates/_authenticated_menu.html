@@ -1,4 +1,15 @@
 <ul class="navbar-menu">
+    {% if user.is_superuser %}
+    <li>
+        <a href="{% url 'admin:aids_aid_changelist' %}?status__exact=reviewable">
+            {{ _('Aids under review') }}
+            <span class="review_counter">
+                {{ nb_aids_under_review }}
+            </span>
+        </a>
+    </li>
+    {% endif %}
+
     <li class="user-menu">
         <a href="#" data-toggle="dropdown">
             {{ user.full_name }}

@@ -144,6 +144,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.integration',
+                'core.context_processors.admin_stats',
             ],
             'libraries': {
                 'form_utils': 'core.templatetags.form_utils',

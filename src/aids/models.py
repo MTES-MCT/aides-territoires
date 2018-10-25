@@ -22,6 +22,11 @@ class AidQuerySet(models.QuerySet):
 
         return self.filter(status='published')
 
+    def under_review(self):
+        """Return aids that need to be review before publication."""
+
+        return self.filter(status='reviewable')
+
     def open(self):
         """Returns aids that may appear in the search results (unexpired)."""
 
