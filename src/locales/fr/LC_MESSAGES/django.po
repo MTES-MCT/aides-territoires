@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-24 16:44+0200\n"
+"POT-Creation-Date: 2018-10-25 10:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,6 +189,9 @@ msgstr "En revue"
 msgid "Published"
 msgstr "Publié·e"
 
+msgid "Deleted"
+msgstr ""
+
 msgid "Mainland"
 msgstr "Métropole"
 
@@ -342,6 +345,9 @@ msgstr "publications/"
 msgid "<slug:slug>/status/"
 msgstr "<slug:slug>/statut/"
 
+msgid "<slug:slug>/delete/"
+msgstr "<slug:slug>/supprimer/"
+
 msgid "Your aid was sucessfully created. You can keep editing it."
 msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
 
@@ -350,6 +356,9 @@ msgstr "Votre aide a été mise à jour."
 
 msgid "We updated your aid status."
 msgstr "Le changement de statut de votre aide a bien été pris en compte."
+
+msgid "Your aid was deleted."
+msgstr "Votre aide a été supprimée."
 
 msgid "Backer"
 msgstr "Apporteur"
@@ -781,6 +790,19 @@ msgid "You will need to request a new review to re-publish your aid."
 msgstr ""
 "Vous devrez demander une revue par un administrateur pour re-publier votre "
 "aide."
+
+msgid "Danger Zone"
+msgstr "Danger Zone"
+
+msgid "You are about do delete this aid. This action cannot be undone."
+msgstr ""
+"Vous vous apprêtez à supprimer cette aide. Il n'y a pas d'annulation possible."
+
+msgid "I understand"
+msgstr "Je comprends"
+
+msgid "Delete this aid"
+msgstr "Supprimer cette aide"
 
 msgid "Filter results"
 msgstr "Filtrer les résultats"
