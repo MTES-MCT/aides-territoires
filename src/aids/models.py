@@ -39,12 +39,14 @@ class AidWorkflow(xwf_models.Workflow):
         ('draft', _('Draft')),
         ('reviewable', _('Under review')),
         ('published', _('Published')),
+        ('deleted', _('Deleted')),
     )
     initial_state = 'draft'
     transitions = (
         ('submit', 'draft', 'reviewable'),
         ('publish', 'reviewable', 'published'),
         ('unpublish', ('reviewable', 'published'), 'draft'),
+        ('delete', ('draft', 'reviewable', 'published'), 'deleted')
     )
 
 
