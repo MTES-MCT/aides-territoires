@@ -5,7 +5,7 @@ from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm, AidEditForm
+from aids.forms import AidSearchForm
 from aids.factories import AidFactory
 
 
