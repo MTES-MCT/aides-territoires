@@ -36,6 +36,19 @@ def test_draft_list_only_display_authors_aids(client, user):
     assert 'Is this just fantasy?' not in content
 
 
+def test_draft_list_does_not_show_deleted_aids(client, user):
+    """Deleted aids must be excluded from all queries by default."""
+
+    AidFactory(name='Is this the real life?', author=user,
+               status='deleted')
+    client.force_login(user)
+    drafts_url = reverse('aid_draft_list_view')
+    res = client.get(drafts_url)
+
+    content = res.content.decode('utf-8')
+    assert 'Is this the real life?' not in content
+
+
 def test_aid_creation_view(client, user, aid_form_data):
     """Saving the form creates a new aid."""
 
@@ -122,3 +135,42 @@ def test_edition_of_aid_status(client, user):
     aid.refresh_from_db()
     assert res.status_code == 302
     assert aid.status == 'draft'
+
+
+def test_aid_deletion(client, user):
+    """Test aid deletion."""
+
+    aid = AidFactory(status='published', author=user)
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url, {'confirm': True})
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert aid.status == 'deleted'
+
+
+def test_deletion_requires_confirmation(client, user):
+    """Without confirmation, aid does not get deleted."""
+
+    aid = AidFactory(status='published', author=user)
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url)
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert aid.status == 'published'
+
+
+def test_only_aid_author_can_delete_it(client, user):
+    """One cannot delete other users' aids."""
+
+    aid = AidFactory(status='published')
+    client.force_login(user)
+    delete_url = reverse('aid_delete_view', args=[aid.slug])
+    res = client.post(delete_url, {'confirm': True})
+    assert res.status_code == 404
+
+    aid.refresh_from_db()
+    assert aid.status == 'published'

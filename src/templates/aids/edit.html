@@ -17,7 +17,7 @@
 
 {% block form_sidebar %}
 
-    <div class="status-edition">
+    <div class="sidebar-actions">
         <h3>{{ aid.get_status_display }}</h3>
 
         {% if aid.is_draft %}
@@ -45,6 +45,26 @@
         </div>
     </div>
 
+    <div class="sidebar-actions danger">
+        <h3>{{ _('Danger Zone') }}</h3>
+        <div>
+            <p>{% blocktrans trimmed %}
+                You are about do delete this aid. This action cannot be undone.
+            {% endblocktrans %}</p>
+            <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="checkbox" name="confirm" />
+                    <label>{{ _('I understand') }}</label>
+                </div>
+                <button type="submit">
+                    {{ _('Delete this aid') }}
+                </button>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block form_actions %}
@@ -55,5 +75,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{{ block.super }}
 <script src="/static/js/aids/update_status_form_availability.js"></script>
+<script src="/static/js/aids/disable_delete_button.js"></script>
 {% endblock %}

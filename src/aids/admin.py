@@ -75,7 +75,7 @@ class AidAdmin(admin.ModelAdmin):
     ]
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        qs = Aid.all_aids.all()
         qs = qs.prefetch_related('backers')
         qs = qs.select_related('author')
         return qs

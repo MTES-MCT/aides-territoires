@@ -241,19 +241,33 @@ section.aid-list {
 
 section#aid-edit {
     @extend .row;
-
     div.form-sidebar {
         @extend .col-3;
 
-        div.status-edition {
+        div.sidebar-actions {
             @extend .card;
+            @include border-radius(0);
+
+            &:first-of-type {
+                @include border-top-radius($card-border-radius);
+            }
+
+            &:last-of-type {
+                @include border-bottom-radius($card-border-radius);
+            }
+
+            &:not(:last-of-type) {
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+
 
             h3 {
                 @extend .h5;
                 @extend .card-header;
             }
 
-            div {
+            &>div {
                 @extend .card-body;
             }
 
@@ -266,6 +280,12 @@ section#aid-edit {
                 @extend .btn-block;
                 @extend .btn-primary;
                 @extend .mb-1;
+            }
+
+            &.danger {
+                button {
+                    @extend .btn-danger;
+                }
             }
         }
     }
