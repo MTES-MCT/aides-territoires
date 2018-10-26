@@ -6,7 +6,17 @@
 {% block content %}
 <section id="login-form">
     <div class="narrow-form">
-        <h1>{{ _('Log in') }}</h1>
+        <h1>{{ _('Log in') }}<br />
+            <small>{{ _('Access to your account') }}</small>
+        </h1>
+
+
+        <p class="warning">{% blocktrans trimmed %}
+            Don't have an account yet? As our service is still in beta,
+            registrations are not open to the public.
+            <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us
+            </a> if you want to request an account.
+        {% endblocktrans %}</p>
         <form method="post" action="">
             {% csrf_token %}
 
