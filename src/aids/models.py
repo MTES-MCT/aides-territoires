@@ -107,6 +107,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('department', _('Department')),
         ('region', _('Region')),
         ('epci', _('Audiance EPCI')),
+        ('lessor', _('Audiance lessor')),
+        ('association', _('Association')),
+        ('private person', _('Private person')),
+        ('researcher', _('Researcher')),
     )
 
     DESTINATIONS = Choices(
