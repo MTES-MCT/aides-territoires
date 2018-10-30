@@ -26,6 +26,7 @@ class AidAdmin(admin.ModelAdmin):
                 'name',
                 'slug',
                 'description',
+                'tags',
                 'targeted_audiances',
                 'backers',
                 'author',
