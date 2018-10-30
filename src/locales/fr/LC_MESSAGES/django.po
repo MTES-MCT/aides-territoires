@@ -133,7 +133,7 @@ msgstr "Téléphone d'un contact en charge de l'aide"
 
 msgid "Add some keywords to describe your aid (separated by \",\")"
 msgstr ""
-"Ajouter des mots clés pour mieux décrire votre aide (séparés par des "
+"Ajoutez des mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
 msgid "Funding"
