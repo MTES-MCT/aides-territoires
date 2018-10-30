@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.db.models import Q
+from django.contrib.postgres.fields import ArrayField
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.text import slugify
@@ -107,6 +108,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('department', _('Department')),
         ('region', _('Region')),
         ('epci', _('Audiance EPCI')),
+        ('lessor', _('Audiance lessor')),
+        ('association', _('Association')),
+        ('private person', _('Private person')),
+        ('researcher', _('Researcher')),
     )
 
     DESTINATIONS = Choices(
@@ -218,6 +223,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text=_('Is this a one-off aid, is it recurring or ongoing?'),
         max_length=16,
         choices=RECURRENCE,
+        blank=True)
+    tags = ArrayField(
+        models.CharField(max_length=50, blank=True),
+        verbose_name=_('Tags'),
+        default=list,
+        size=16,
         blank=True)
 
     status = xwf_models.StateField(

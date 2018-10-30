@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-26 10:26+0200\n"
+"POT-Creation-Date: 2018-10-30 10:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,6 +131,11 @@ msgstr "Adresse e-mail d'un contact en charge"
 msgid "Phone number of a contact in charge"
 msgstr "Téléphone d'un contact en charge de l'aide"
 
+msgid "Add some keywords to describe your aid (separated by \",\")"
+msgstr ""
+"Ajouter des mots clés pour mieux décrire votre aide (séparés par des "
+"virgules « , »)."
+
 msgid "Funding"
 msgstr "Financière"
 
@@ -213,6 +218,18 @@ msgstr "Fonctionnement, usage"
 
 msgid "Audiance EPCI"
 msgstr "Intercommunalités (EPCI, métropole, EPT…)"
+
+msgid "Audiance lessor"
+msgstr "Bailleur, société d'économie mixte, aménageur"
+
+msgid "Association"
+msgstr "Association"
+
+msgid "Private person"
+msgstr "Particulier"
+
+msgid "Researcher"
+msgstr "Chercheur"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -315,6 +332,9 @@ msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
+
+msgid "Tags"
+msgstr "Mots clés"
 
 msgid "Status"
 msgstr "Statut"
