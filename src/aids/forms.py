@@ -55,6 +55,13 @@ class BaseAidForm(forms.ModelForm):
         for field, label in custom_labels.items():
             self.fields[field].label = label
 
+        custom_help_text = {
+            'tags': _('Add some keywords to describe your aid'
+                      ' (separated by ",")'),
+        }
+        for field, help_text in custom_help_text.items():
+            self.fields[field].help_text = help_text
+
 
 class AidAdminForm(BaseAidForm):
     """Custom form form Aids in admin."""
@@ -273,6 +280,7 @@ class AidEditForm(BaseAidForm):
         fields = [
             'name',
             'description',
+            'tags',
             'targeted_audiances',
             'backers',
             'recurrence',
