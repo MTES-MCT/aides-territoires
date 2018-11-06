@@ -217,7 +217,9 @@ msgid "Postoperation"
 msgstr "Fonctionnement, usage"
 
 msgid "Audiance EPCI"
-msgstr "Intercommunalités (EPCI, métropole, EPT…)"
+msgstr ""
+"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux "
+"et mixtes)"
 
 msgid "Audiance lessor"
 msgstr "Bailleur, société d'économie mixte, aménageur"
