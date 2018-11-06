@@ -73,13 +73,19 @@
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
         <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        {% if analytics_enabled %}
-            <script src="/static/js/analytics.js"></script>
-        {% endif %}
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            _paq.push(['setTrackerUrl', '//stats.data.gouv.fr/piwik.php']);
+            _paq.push(['setSiteId', '{% analytics_siteid %}']);
+        </script>
         {% block extra_js %}{% endblock %}
         {% endcompress %}
         {% if analytics_enabled %}
             <script src="//stats.data.gouv.fr/piwik.js" async defer></script>
+            <noscript><img src="//stats.data.gouv.fr/piwik.php?idsite={% analytics_siteid %}" style="border:0;" alt="" /></noscript>
         {% endif %}
     </body>
 </html>
