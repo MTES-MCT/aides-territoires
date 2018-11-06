@@ -83,6 +83,7 @@
         </script>
         {% block extra_js %}{% endblock %}
         {% endcompress %}
+        {% analytics_enabled as analytics_enabled %}
         {% if analytics_enabled %}
             <script src="//stats.data.gouv.fr/piwik.js" async defer></script>
             <noscript><img src="//stats.data.gouv.fr/piwik.php?idsite={% analytics_siteid %}" style="border:0;" alt="" /></noscript>
