@@ -23,8 +23,6 @@
         {% endcompress %}
 
         {% block extra_head %}{% endblock %}
-
-        {% analytics_tag %}
     </head>
     <body>
 
@@ -75,7 +73,13 @@
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
         <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        {% if analytics_enabled %}
+            <script src="/static/js/analytics.js"></script>
+        {% endif %}
         {% block extra_js %}{% endblock %}
         {% endcompress %}
+        {% if analytics_enabled %}
+            <script src="//stats.data.gouv.fr/piwik.js" async defer></script>
+        {% endif %}
     </body>
 </html>

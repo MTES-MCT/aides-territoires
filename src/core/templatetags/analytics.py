@@ -1,5 +1,3 @@
-# flake8: noqa
-
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
@@ -8,11 +6,21 @@ register = template.Library()
 
 
 @register.simple_tag
-def analytics_tag():
-    """"Embed the js tracking code, if it's enabled."""
+def analytics_enabled():
+    """"True if analytics in enabled in settings."""
 
-    if not settings.ANALYTICS_ENABLED:
-        return ''
+    return settings.ANALYTICS_ENABLED
+
+
+@register.simple_tag
+def analytics_siteid():
+
+    return settings.ANALYTICS_SITEID
+
+
+@register.simple_tag
+def analytics_setup():
+    """"Embed the js tracking code setup."""
 
     site_id = settings.ANALYTICS_SITEID
     tag = '''
@@ -21,14 +29,8 @@ def analytics_tag():
       _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
-      (function() {{
-        var u="//stats.data.gouv.fr/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '{siteid}']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      }})();
+      _paq.push(['setTrackerUrl', '//stats.data.gouv.fr/piwik.php']);
+      _paq.push(['setSiteId', '{siteid}']);
     </script>
-    <noscript><p><img src="//stats.data.gouv.fr/piwik.php?idsite={siteid}" style="border:0;" alt="" /></p></noscript>
     '''.format(siteid=site_id)
     return mark_safe(tag)
