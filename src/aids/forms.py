@@ -1,10 +1,9 @@
 import re
 
 from django import forms
-from django.db.models import Q
+from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.postgres.search import SearchQuery
-
+from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import AutocompleteSelectMultiple
 from backers.models import Backer
@@ -101,6 +100,9 @@ class AidSearchForm(forms.Form):
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'),
         required=False)
+    text = forms.CharField(
+        label=_('Text search'),
+        required=False)
     apply_before = forms.DateField(
         label=_('Apply before…'),
         required=False,
@@ -126,9 +128,6 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=SCALES,
         widget=MultipleChoiceFilterWidget)
-    text = forms.CharField(
-        label=_('Text search'),
-        required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -181,8 +180,23 @@ class AidSearchForm(forms.Form):
         text = self.cleaned_data.get('text', None)
         if text:
             query = SearchQuery(text, config='french')
-            qs = qs.filter(search_vector=query)
+            qs = qs \
+                .annotate(rank=SearchRank(F('search_vector'), query)) \
+                .filter(rank__gt=0)
 
+        return qs
+
+    def order_queryset(self, qs):
+        """Set the order value on the queryset.
+
+        We scale results by perimeter scale, unless the user submitted a
+        search query, then we sort by query relevance.
+        """
+        text = self.cleaned_data.get('text', None)
+        if text:
+            qs = qs.order_by('-rank', 'perimeter__scale', 'submission_deadline')
+        else:
+            qs = qs.order_by('perimeter__scale', 'submission_deadline')
         return qs
 
     def perimeter_filter(self, qs, perimeter):
