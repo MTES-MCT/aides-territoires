@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from django.db import models
+from django.db.models import F, Func, Value
 from django.db.models import Q
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
@@ -258,6 +259,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if not self.id:
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
+
+        self.search_vector = \
+            SearchVector('name', weight='A', config='french') + \
+            SearchVector(
+                Func(F('tags'), Value(' '), function='array_to_string'),
+                weight='A',
+                config='french') + \
+            SearchVector('description', weight='B', config='french') + \
+            SearchVector('eligibility', weight='D', config='french')
         return super().save(*args, **kwargs)
 
     def __str__(self):
