@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 11:18+0100\n"
+"POT-Creation-Date: 2018-11-07 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,6 +163,9 @@ msgstr "Europe"
 msgid "Perimeter"
 msgstr "Périmètre"
 
+msgid "Text search"
+msgstr "Recherche textuelle"
+
 msgid "Apply before…"
 msgstr "Candidater avant…"
 
@@ -218,8 +221,8 @@ msgstr "Fonctionnement, usage"
 
 msgid "Audiance EPCI"
 msgstr ""
-"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux "
-"et mixtes)"
+"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux et "
+"mixtes)"
 
 msgid "Audiance lessor"
 msgstr "Bailleur, société d'économie mixte, aménageur"
@@ -346,6 +349,9 @@ msgstr "Date de création"
 
 msgid "Date updated"
 msgstr "Date de mise à jour"
+
+msgid "Search vector"
+msgstr "Search vector"
 
 msgid "Aid"
 msgstr "Aide"
@@ -601,8 +607,7 @@ msgid "Register a new account"
 msgstr "Créer un nouveau compte"
 
 msgid "As our service is still in beta, you can't register a new account yet."
-msgstr ""
-"Notre service étant encore en bêta, l'inscription n'est pas ouverte."
+msgstr "Notre service étant encore en bêta, l'inscription n'est pas ouverte."
 
 msgid ""
 "\n"
@@ -751,6 +756,9 @@ msgstr "Toutes les aides"
 
 msgid "Aid detail"
 msgstr "Détail de l'aide"
+
+msgid "Keywords:"
+msgstr "Mots clés :"
 
 msgid "Details about the aid"
 msgstr "Détails de l'aide"
