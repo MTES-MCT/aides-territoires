@@ -43,7 +43,7 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#search-engine form').change(renderSearchResults);
+    $('div#search-engine form').on('change submit keyup', renderSearchResults);
 
     // Since we use js to dynamically fetch new results, it's better
     // to hide the useless submit button. We do it using js, so

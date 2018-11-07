@@ -42,12 +42,12 @@ class SearchView(FormMixin, ListView):
             .published() \
             .open() \
             .select_related('perimeter') \
-            .prefetch_related('backers') \
-            .order_by('perimeter__scale', 'submission_deadline')
+            .prefetch_related('backers')
 
         filter_form = self.get_form()
         results = filter_form.filter_queryset(qs)
-        return results
+        ordered_results = filter_form.order_queryset(results)
+        return ordered_results
 
 
 class ResultsView(SearchView):

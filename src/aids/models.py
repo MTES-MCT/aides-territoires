@@ -1,8 +1,10 @@
 from uuid import uuid4
 
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Value
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.text import slugify
@@ -240,10 +242,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     date_updated = models.DateTimeField(
         _('Date updated'),
         auto_now=True)
+    search_vector = SearchVectorField(
+        _('Search vector'),
+        null=True)
 
     class Meta:
         verbose_name = _('Aid')
         verbose_name_plural = _('Aids')
+        indexes = [
+            GinIndex(fields=['search_vector']),
+        ]
 
     def save(self, *args, **kwargs):
         """Populate the slug field.
@@ -254,6 +262,24 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if not self.id:
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
+
+        # Note: we use `SearchVector(Value(self.field))` instead of
+        # `SearchVector('field')` because the latter only works for updates,
+        # not when inserting new records.
+        self.search_vector = \
+            SearchVector(Value(self.name), weight='A', config='french') + \
+            SearchVector(
+                Value(self.eligibility),
+                weight='D',
+                config='french') + \
+            SearchVector(
+                Value(self.description),
+                weight='B',
+                config='french') + \
+            SearchVector(
+                Value(' '.join(self.tags)),
+                weight='A',
+                config='french')
         return super().save(*args, **kwargs)
 
     def __str__(self):

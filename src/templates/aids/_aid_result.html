@@ -26,6 +26,13 @@
             </li>
         {% endif %}
 
+        {% if aid.tags %}
+            <li>
+                <i class="fas fa-tags"></i>
+                {{ aid.tags|join:', ' }}
+            </li>
+        {% endif %}
+
         {% if aid.is_financial %}
             <li>
                 <i class="fas fa-euro-sign"></i>

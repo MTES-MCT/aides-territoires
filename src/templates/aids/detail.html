@@ -33,6 +33,14 @@
         {% endif %}
     </p>
 
+    {% if aid.tags %}
+    <p>
+        <i class="fas fa-tags"></i>
+        {{ _('Keywords:')}}
+        {{ aid.tags|join:', ' }}
+    </p>
+    {% endif %}
+
     <table class="aid-data">
         <caption>{{ _('Details about the aid') }}</caption>
         <tbody>
