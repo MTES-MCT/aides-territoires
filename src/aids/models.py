@@ -1,10 +1,10 @@
 from uuid import uuid4
 
 from django.db import models
-from django.db.models import F, Func, Value
-from django.db.models import Q
+from django.db.models import Q, Value
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.text import slugify
@@ -249,6 +249,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     class Meta:
         verbose_name = _('Aid')
         verbose_name_plural = _('Aids')
+        indexes = [
+            GinIndex(fields=['search_vector']),
+        ]
 
     def save(self, *args, **kwargs):
         """Populate the slug field.
