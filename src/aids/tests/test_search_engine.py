@@ -233,3 +233,57 @@ def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
     res = client.get(url, data={
         'perimeter': perimeters['adour-garonne'].pk})
     assert res.context['paginator'].count == 23
+
+
+def test_full_text_search(client, perimeters):
+    """Full text search return valid results."""
+
+    AidFactory(perimeter=perimeters['europe'], name='Mon Aide à Tester')
+    url = reverse('search_view')
+
+    # Words are correctly stemmed and lexemed
+    res = client.get(url, data={'text': 'aide'})
+    assert res.context['paginator'].count == 1
+
+    # Plurals are taken into account
+    res = client.get(url, data={'text': 'aides'})
+    assert res.context['paginator'].count == 1
+
+    # Verbs are too
+    res = client.get(url, data={'text': 'test'})
+    assert res.context['paginator'].count == 1
+
+    # Irrelevant results are not returned
+    res = client.get(url, data={'text': 'gloubiboulga'})
+    assert res.context['paginator'].count == 0
+
+
+def test_full_text_results_ordering(client, perimeters):
+    """Title terms have more weight."""
+
+    europe = perimeters['europe']
+    AidFactory(perimeter=europe, name='Pomme', description='Poire')
+    AidFactory(perimeter=europe, name='Poire', description='Pomme')
+    url = reverse('search_view')
+
+    res = client.get(url, data={'text': 'pomme'})
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Pomme'
+    assert res.context['aids'][1].name == 'Poire'
+
+    res = client.get(url, data={'text': 'poire'})
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Poire'
+    assert res.context['aids'][1].name == 'Pomme'
+
+
+def test_full_text_uses_tags(client, perimeters):
+    """Users can search in tags."""
+
+    AidFactory(
+        perimeter=perimeters['europe'],
+        tags=['tartiflette', 'camembert roti', 'gratin dauphinois'])
+    url = reverse('search_view')
+
+    res = client.get(url, data={'text': 'gratin'})
+    assert res.context['paginator'].count == 1

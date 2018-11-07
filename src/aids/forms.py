@@ -194,7 +194,8 @@ class AidSearchForm(forms.Form):
         """
         text = self.cleaned_data.get('text', None)
         if text:
-            qs = qs.order_by('-rank', 'perimeter__scale', 'submission_deadline')
+            qs = qs.order_by(
+                '-rank', 'perimeter__scale', 'submission_deadline')
         else:
             qs = qs.order_by('perimeter__scale', 'submission_deadline')
         return qs

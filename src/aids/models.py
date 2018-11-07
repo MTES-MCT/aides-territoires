@@ -260,14 +260,23 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
 
+        # Note: we use `SearchVector(Value(self.field))` instead of
+        # `SearchVector('field')` because the latter only works for updates,
+        # not when inserting new records.
         self.search_vector = \
-            SearchVector('name', weight='A', config='french') + \
+            SearchVector(Value(self.name), weight='A', config='french') + \
             SearchVector(
-                Func(F('tags'), Value(' '), function='array_to_string'),
-                weight='A',
+                Value(self.eligibility),
+                weight='D',
                 config='french') + \
-            SearchVector('description', weight='B', config='french') + \
-            SearchVector('eligibility', weight='D', config='french')
+            SearchVector(
+                Value(self.description),
+                weight='B',
+                config='french') + \
+            SearchVector(
+                Value(' '.join(self.tags)),
+                weight='A',
+                config='french')
         return super().save(*args, **kwargs)
 
     def __str__(self):
