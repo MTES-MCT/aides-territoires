@@ -3,6 +3,7 @@ from uuid import uuid4
 from django.db import models
 from django.db.models import Q
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.text import slugify
@@ -240,6 +241,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     date_updated = models.DateTimeField(
         _('Date updated'),
         auto_now=True)
+    search_vector = SearchVectorField(
+        _('Search vector'),
+        null=True)
 
     class Meta:
         verbose_name = _('Aid')
