@@ -23,6 +23,11 @@ html.light {
     }
 }
 
+// Disable smallests breakpoints
+.container {
+    min-width: map-get($container-max-widths, md);
+}
+
 body {
     >footer {
         @extend .py-5;
@@ -31,10 +36,6 @@ body {
 
         a {
             @extend .text-light;
-        }
-
-        div {
-            @extend .container;
         }
 
         svg.fabnum-logo {
@@ -69,7 +70,7 @@ nav#main-navbar {
     @extend .navbar;
     @extend .navbar-dark;
     @extend .bg-dark;
-    @extend .navbar-expand;
+    @extend .navbar-expand-sm;
 
     .homelink {
         @extend .navbar-brand;
@@ -122,9 +123,7 @@ nav#main-navbar {
 
 main {
     section.main-content {
-        @extend .container;
         @extend .py-4;
-        min-width: 778px;
 
         h1 {
             @extend .h2;
@@ -325,6 +324,7 @@ html.integration {
 .narrow-form {
     @extend .mx-auto;
     max-width: 40rem;
+    @extend .px-3;
 
     h1 {
         @extend .h2;
