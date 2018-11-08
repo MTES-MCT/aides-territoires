@@ -98,6 +98,14 @@
             theme: 'bootstrap4',
             width: '',
         });
+
+        $('select#id_tags').select2({
+            placeholder: '{{ _("Écologie, bla-bla-bla, test…") }}',
+            theme: 'bootstrap4',
+            width: '',
+            tags: true,
+            tokenSeparators: [',', ' '],
+        });
     });
 </script>
 {% endblock %}

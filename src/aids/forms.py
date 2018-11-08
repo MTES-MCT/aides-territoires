@@ -299,6 +299,9 @@ class AidEditForm(BaseAidForm):
         widget=AutocompleteSelectMultiple)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
+    tags = forms.MultipleChoiceField(
+        label=_('Tags'),
+        choices=list())
 
     class Meta(BaseAidForm.Meta):
         model = Aid
