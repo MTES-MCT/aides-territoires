@@ -1,6 +1,6 @@
-{% regroup new_aids by author as authors %}
+{% regroup reviewable_aids by author as authors %}
 
-Voici la liste des aides créées lors des dernières 24h :
+Voici la liste des aides en attente de revue:
 {% for author, aids in authors %}
   * {{ author }}
 {% for aid in aids %}
