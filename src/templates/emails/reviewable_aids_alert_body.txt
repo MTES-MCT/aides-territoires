@@ -1,0 +1,10 @@
+{% regroup reviewable_aids by author as authors %}
+
+Voici la liste des aides en attente de revue:
+{% for author, aids in authors %}
+  * {{ author }}
+{% for aid in aids %}
+    - {{ aid.name|safe }}
+      https://{{ domain }}{{ aid.get_admin_url }}
+{% endfor %}
+{% endfor %}
