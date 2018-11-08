@@ -1,8 +1,16 @@
 ---
-- name: Ensure the "new aids email alert" cronjob is setup
+- name: Ensure new aid email alert cronjob is setup
   cron:
-    name: "new aids email alert"
+    name: Send alert when new aids are created
     user: "{{ user_name }}"
     minute: "42"
     hour: "7"
-    job: "cd {{ django_root }} && {{ pipenv_bin }} run manage.py new_aids_alert --settings={{ django_settings }}"
+    job: "cd {{ django_root }} && source {{ activate_bin }} && {{ pipenv_bin }} run ./manage.py new_aids_alert --settings={{ django_settings }}"
+
+- name: Ensure the aids waiting for review email alert cronjob is setup
+  cron:
+    name: Send alert when aids are waiting for review
+    user: "{{ user_name }}"
+    minute: "44"
+    hour: "7"
+    job: "cd {{ django_root }} && source {{ activate_bin }} && {{ pipenv_bin }} run ./manage.py reviewable_aids_alert --settings={{ django_settings }}"
