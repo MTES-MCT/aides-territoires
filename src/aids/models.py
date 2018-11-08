@@ -288,6 +288,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def get_absolute_url(self):
         return reverse('aid_detail_view', args=[self.slug])
 
+    def get_admin_url(self):
+        return reverse('admin:aids_aid_change', args=[self.id])
+
     def is_draft(self):
         return self.status == AidWorkflow.states.draft
 
