@@ -7,7 +7,7 @@ from accounts.models import User
 class UserAdmin(BaseUserAdmin):
     """Admin module for users."""
 
-    list_display = ['email', 'full_name', 'date_joined']
+    list_display = ['email', 'full_name', 'date_joined', 'last_login']
     search_fields = ['email', 'full_name']
     ordering = ['full_name', 'email']
     list_filter = ['is_superuser']
