@@ -3,28 +3,31 @@
 
 {% block extraclasses %}light{% endblock %}
 
+{% block sectionid %}login-form{% endblock %}
+
 {% block content %}
-<section id="login-form">
-    <div class="narrow-form">
-        <h1>{{ _("Your log in request was acknowledged") }}</h1>
-        <p>{% blocktrans trimmed %}
-            <strong>Provided that the email you submitted is associated to an account</strong>,
-            we sent you an email with an access link. Check your mailbox and click
-            on the link to log in to your account.
-        {% endblocktrans %}</p>
+<div class="narrow-form">
+    <h1>{{ _("Your log in request was acknowledged") }}</h1>
+    <p>{% blocktrans trimmed %}
+        <strong>Provided that the email you submitted is associated to an account</strong>,
+        we sent you an email with an access link. Check your mailbox and click
+        on the link to log in to your account.
+    {% endblocktrans %}</p>
 
-        {% url 'login_request' as login_url %}
-        <p>{% blocktrans %}
-            Don't see the email? Try the following:<ul>
-                <li>make sure you logged in with the address associated with your account;</li>
-                <li>check your spam folder;</li>
-                <li>wait a few minutes <a href="{{ login_url }}">and try again</a>;</li>
-            </ul>
-        {% endblocktrans %}</p>
+    {% url 'login_request' as login_url %}
+    <p>{% blocktrans %}
+        Don't see the email? Try the following:<ul>
+            <li>make sure you logged in with the address associated with your account;</li>
+            <li>check your spam folder;</li>
+            <li>wait a few minutes <a href="{{ login_url }}">and try again</a>;</li>
+        </ul>
+    {% endblocktrans %}</p>
 
-        <p>{% blocktrans trimmed %}
-            If you can't log in, <a href="mailto:aides-territoires@beta.gouv.fr">contact us</a>.
-        {% endblocktrans %}</p>
-    </div>
-</section>
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        {% blocktrans trimmed %}
+        If you can't log in, <a href="mailto:aides-territoires@beta.gouv.fr">
+        please contact us</a>.
+    {% endblocktrans %}</p>
+</div>
 {% endblock %}
