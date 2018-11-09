@@ -23,7 +23,8 @@ def test_share_button_is_hidden_for_anonymous_users(client):
 
     assert res.status_code == 200
     content = res.content.decode('utf-8')
-    assert 'envoyer ces résultats par e-mail' not in content
+    assert 'envoyer ces résultats par e-mail' in content
+    assert '<form id="send-results-by-email-form" method="post"' not in content
 
 
 def test_share_button_is_displayed_for_logged_users(client, user):
@@ -38,3 +39,4 @@ def test_share_button_is_displayed_for_logged_users(client, user):
     assert res.status_code == 200
     content = res.content.decode('utf-8')
     assert 'envoyer ces résultats par e-mail' in content
+    assert '<form id="send-results-by-email-form" method="post"' in content
