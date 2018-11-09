@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}login-form{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _("Thank you for registering an account") }}</h1>
+
+    <p>{% blocktrans trimmed %}
+        <strong>One more step is required before your account is
+        active</strong> : check your mailbox and click on the confirmation link.
+     {% endblocktrans %}</p>
+
+    {% url 'register' as register_url %}
+    <p>{% blocktrans trimmed %}
+        Don't see the email? Try the following:<ul>
+            <li>make sure there was not any typo in the email address you
+                provided;</li>
+            <li>check your spam folder;</li>
+            <li>wait for a few minutes <a href="{{ register_url }}">and
+                try again</a>;</li>
+        </ul>
+    {% endblocktrans %}</p>
+
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        {% blocktrans trimmed %}
+        If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
+        please contact us</a>.
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}

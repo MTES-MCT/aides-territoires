@@ -23,6 +23,11 @@ html.light {
     }
 }
 
+// Disable smallests breakpoints
+.container {
+    min-width: map-get($container-max-widths, md);
+}
+
 body {
     >footer {
         @extend .py-5;
@@ -31,10 +36,6 @@ body {
 
         a {
             @extend .text-light;
-        }
-
-        div {
-            @extend .container;
         }
 
         svg.fabnum-logo {
@@ -69,7 +70,7 @@ nav#main-navbar {
     @extend .navbar;
     @extend .navbar-dark;
     @extend .bg-dark;
-    @extend .navbar-expand;
+    @extend .navbar-expand-sm;
 
     .homelink {
         @extend .navbar-brand;
@@ -122,9 +123,7 @@ nav#main-navbar {
 
 main {
     section.main-content {
-        @extend .container;
         @extend .py-4;
-        min-width: 778px;
 
         h1 {
             @extend .h2;
@@ -213,24 +212,32 @@ form {
     }
 }
 
-p {
+p, div {
     &.info {
-        @extend .alert;
         @extend .alert-primary;
     }
 
     &.warning {
-        @extend .alert;
         @extend .alert-warning;
     }
 
     &.tip {
-        @extend .alert;
         @extend .alert-warning;
     }
 
     &.center {
         text-align: center;
+    }
+
+    &.info,
+    &.warning,
+    &.tip {
+        @extend .alert;
+
+        ul:last-child,
+        p:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -325,6 +332,7 @@ html.integration {
 .narrow-form {
     @extend .mx-auto;
     max-width: 40rem;
+    @extend .px-3;
 
     h1 {
         @extend .h2;
@@ -336,6 +344,7 @@ html.integration {
         button[type=submit] {
             @extend .btn-lg;
             @extend .btn-block;
+            @extend .mb-3;
         }
     }
 }

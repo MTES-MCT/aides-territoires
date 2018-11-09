@@ -3,33 +3,34 @@
 
 {% block extraclasses %}light{% endblock %}
 
+{% block sectionid %}login-form{% endblock %}
+
 {% block content %}
-<section id="login-form">
-    <div class="narrow-form">
-        <h1>{{ _('Log in') }}<br />
-            <small>{{ _('Access to your account') }}</small>
-        </h1>
+<div class="narrow-form">
+    <h1>{{ _('Log in') }}<br />
+        <small>{{ _('Access to your account') }}</small>
+    </h1>
 
+    <form method="post" action="">
+        {% csrf_token %}
 
-        <p class="warning">{% blocktrans trimmed %}
-            Don't have an account yet? As our service is still in beta,
-            registrations are not open to the public.
-            <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us
-            </a> if you want to request an account.
-        {% endblocktrans %}</p>
-        <form method="post" action="">
-            {% csrf_token %}
+        {% include '_form_snippet.html' with form=form %}
+        <button type="submit">{{ _('Send connection link') }}</button>
+    </form>
 
-            {% include '_form_snippet.html' with form=form %}
+    <p class="info">
+        <span class="fas fa-lightbulb"></span>
+        {% blocktrans trimmed %}
+        You don't need any password to log in. Instead, we will send you a
+        connection link by email.
+    {% endblocktrans %}</p>
 
-            <p class="info">
-                <span class="fas fa-lightbulb"></span>
-                {% blocktrans trimmed %}
-                You don't need any password to log in. Instead, we will send you a
-                connection link by email.
-                {% endblocktrans %}</p>
-            <button type="submit">{{ _('Send connection link') }}</button>
-        </form>
-    </div>
-</section>
+    {% url 'register' as register_url %}
+    <p class="warning">
+        <span class="fas fa-key"></span>
+        {% blocktrans trimmed %}
+        Don't have an account yet? <a href="{{ register_url }}">Proceed to
+        the registration form.</a>
+    {% endblocktrans %}</p>
+</div>
 {% endblock %}

@@ -3,18 +3,18 @@
 
 {% block extraclasses %}light{% endblock %}
 
+{% block sectionid %}login-form{% endblock %}
+
 {% block content %}
-<section id="login-form">
-    <div class="narrow-form">
-        <h1>{{ _("Something went wrong") }}</h1>
-        <p>{% blocktrans trimmed %}
-            Sorry, it looks like something went wrong. We could not log you in.
-        {% endblocktrans %}</p>
+<div class="narrow-form">
+    <h1>{{ _("Something went wrong") }}</h1>
+    <p>{% blocktrans trimmed %}
+        Sorry, it looks like something went wrong. We could not log you in.
+    {% endblocktrans %}</p>
 
-        {% url 'login_request' as login_url %}
-        <p>{% blocktrans trimmed %}
-            You will <a href="{{ login_url }}">have to try again.</a>
-        {% endblocktrans %}</p>
-
-</section>
+    {% url 'login_request' as login_url %}
+    <p>{% blocktrans trimmed %}
+        You will <a href="{{ login_url }}">have to try again.</a>
+    {% endblocktrans %}</p>
+</div>
 {% endblock %}

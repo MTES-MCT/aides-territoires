@@ -13,6 +13,7 @@ from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 
+from accounts.mixins import ContributorRequiredMixin
 from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -144,7 +145,7 @@ class AidEditMixin:
         return super().get_queryset()
 
 
-class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
+class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
     """Display the list of aids published by the user."""
 
     template_name = 'aids/draft_list.html'
@@ -170,7 +171,7 @@ class AidDraftListView(LoginRequiredMixin, AidEditMixin, ListView):
         return super().get_context_data(**kwargs)
 
 
-class AidCreateView(LoginRequiredMixin, CreateView):
+class AidCreateView(ContributorRequiredMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
     template_name = 'aids/create.html'
@@ -191,7 +192,7 @@ class AidCreateView(LoginRequiredMixin, CreateView):
         return edit_url
 
 
-class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
+class AidEditView(ContributorRequiredMixin, SuccessMessageMixin, AidEditMixin,
                   UpdateView):
     """Edit an existing aid."""
 
@@ -205,8 +206,8 @@ class AidEditView(LoginRequiredMixin, SuccessMessageMixin, AidEditMixin,
         return edit_url
 
 
-class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
-                      RedirectView):
+class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
+                      SingleObjectMixin, RedirectView):
     """Update an aid status."""
 
     http_method_names = ['post']
@@ -244,7 +245,7 @@ class AidStatusUpdate(LoginRequiredMixin, AidEditMixin, SingleObjectMixin,
         return reverse('aid_edit_view', args=[self.object.slug])
 
 
-class AidDeleteView(LoginRequiredMixin, AidEditMixin, DeleteView):
+class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
     """Soft deletes an existing aid."""
 
     def delete(self, request, *args, **kwargs):
