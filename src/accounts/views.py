@@ -1,13 +1,17 @@
 from django.views.generic import (FormView, TemplateView, RedirectView,
-                                  CreateView)
+                                  CreateView, UpdateView)
 from django.urls import reverse_lazy
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.translation import ugettext_lazy as _
 from braces.views import AnonymousRequiredMixin
 
-from accounts.forms import LoginForm, RegisterForm
+from accounts.forms import LoginForm, RegisterForm, ContributorProfileForm
 from accounts.tasks import send_connection_email
 from accounts.models import User
 
@@ -100,3 +104,20 @@ class LoginResultView(TemplateView):
             names = ['accounts/login_error.html']
 
         return names
+
+
+class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
+                             UpdateView):
+    """Update contributor profile data."""
+
+    form_class = ContributorProfileForm
+    template_name = 'accounts/contributor_profile.html'
+    success_message = _('Your profile was updated successfully.')
+
+    def get_success_url(self):
+        current_url = reverse('contributor_profile')
+        next_url = self.request.GET.get('next', current_url)
+        return next_url
+
+    def get_object(self):
+        return self.request.user

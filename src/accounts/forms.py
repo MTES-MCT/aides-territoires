@@ -36,3 +36,11 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['full_name'].widget.attrs.update({'autofocus': True})
+
+
+class ContributorProfileForm(forms.ModelForm):
+    """Edit contributor related user data."""
+
+    class Meta:
+        model = User
+        fields = ['organization', 'role', 'contact_phone']
