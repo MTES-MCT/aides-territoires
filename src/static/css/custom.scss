@@ -410,7 +410,9 @@ div#bookmark-modal {
 }
 
 section#login-form {
-    @extend .pt-4;
-    @extend .pb-5;
-    @extend .bg-light;
+    @extend .py-5;
+}
+
+section#register-form {
+    @extend .py-5;
 }

@@ -212,24 +212,31 @@ form {
     }
 }
 
-p {
+p, div {
     &.info {
-        @extend .alert;
         @extend .alert-primary;
     }
 
     &.warning {
-        @extend .alert;
         @extend .alert-warning;
     }
 
     &.tip {
-        @extend .alert;
         @extend .alert-warning;
     }
 
     &.center {
         text-align: center;
+    }
+
+    &.info,
+    &.warning,
+    &.tip {
+        @extend .alert;
+
+        ul:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -336,6 +343,7 @@ html.integration {
         button[type=submit] {
             @extend .btn-lg;
             @extend .btn-block;
+            @extend .mb-3;
         }
     }
 }
