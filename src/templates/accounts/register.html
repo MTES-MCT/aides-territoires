@@ -8,23 +8,23 @@
 {% block content %}
 <div class="narrow-form">
     <h1>{{ _("Register") }}<br/>
-        <small>{{ _("create a new account") }}</small>
+        <small>{{ _("Create a new account") }}</small>
     </h1>
 
     <div class="info">
 
+        {% blocktrans trimmed %}
         <p>
             <span class="fas fa-lightbulb"></span>
-            {% blocktrans trimmed %}
             The site Aides-Territoires can be used anonymously. However,
             some additional features require an authenticated account.
-            {% endblocktrans %}
         </p>
         <ul>
             <li>Send your research results to your email address;</li>
             <li>Bookmark your favorite aids and build aid bundles;</li>
             <li>Become a contributor and publish your own aids.</li>
         </ul>
+        {% endblocktrans %}
     </div>
 
     <form method="post" action="" novalidate>
