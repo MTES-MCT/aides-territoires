@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-09 12:08+0100\n"
+"POT-Creation-Date: 2018-11-09 16:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,15 @@ msgstr "Nom complet"
 msgid "Date joined"
 msgstr "Date de création du compte"
 
+msgid "Organization"
+msgstr "Organisme"
+
+msgid "Role"
+msgstr "Rôle"
+
+msgid "Contact phone number"
+msgstr "Téléphone de contact"
+
 msgid "User"
 msgstr "Utilisateur·ice"
 
@@ -67,6 +76,12 @@ msgstr "connexion/<uidb64>/<token>/"
 
 msgid "login-result/"
 msgstr "connexion-resultat/"
+
+msgid "contributor-profile/"
+msgstr "profil-contributeur/"
+
+msgid "Your profile was updated successfully."
+msgstr "Votre profil na été mise à jour."
 
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
@@ -341,9 +356,6 @@ msgstr "S'il s'agit d'une subvention, précisez le taux."
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
 
-msgid "Contact phone number"
-msgstr "Téléphone de contact"
-
 msgid "Contact detail"
 msgstr "Contact (détail)"
 
@@ -483,6 +495,15 @@ msgstr "inscription-liste/"
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
 
+msgid "Actions"
+msgstr "Actions"
+
+msgid "My published aids"
+msgstr "Mes aides publiées"
+
+msgid "Publish a new aid"
+msgstr "Publier une aide"
+
 msgid "Login"
 msgstr "Connexion"
 
@@ -491,12 +512,6 @@ msgstr "Inscription"
 
 msgid "Aids under review"
 msgstr "Aides en revue"
-
-msgid "My published aids"
-msgstr "Mes aides publiées"
-
-msgid "Publish a new aid"
-msgstr "Publier une aide"
 
 msgid "Log out"
 msgstr "Déconnexion"
@@ -528,6 +543,20 @@ msgstr "Suivant"
 
 msgid "Last"
 msgstr "Dernier"
+
+msgid "Become a contributor"
+msgstr "Devenir contributeur"
+
+msgid "Fill out the required data"
+msgstr "Remplir les données requises"
+
+msgid "To become a contributor, you have to submit additional data."
+msgstr ""
+"Pour devenir contributeur·ice, vous devez renseigner des données "
+"supplémentaires."
+
+msgid "Update your personal data"
+msgstr "Mettre à jour vos données"
 
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
