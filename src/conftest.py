@@ -2,7 +2,7 @@
 
 import pytest
 
-from accounts.factories import UserFactory
+from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
 from geofr.factories import PerimeterFactory
 
@@ -12,6 +12,14 @@ def user():
     """Generates a valid and active user."""
 
     user = UserFactory()
+    return user
+
+
+@pytest.fixture
+def contributor():
+    """Generates a valid and active contributor."""
+
+    user = ContributorFactory()
     return user
 
 
