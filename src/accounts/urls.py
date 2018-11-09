@@ -3,11 +3,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import views as auth_views
 
 from accounts.views import (LoginRequestView, LoginSentView, LoginView,
-                            LoginResultView, RegisterView)
+                            LoginResultView, RegisterView, RegisterSuccessView)
 
 
 urlpatterns = [
     path(_('register/'), RegisterView.as_view(), name='register'),
+    path(_('register-success/'), RegisterSuccessView.as_view(),
+         name='register_success'),
     path(_('logout/'), auth_views.LogoutView.as_view(), name='logout'),
     path(_('login-request/'), LoginRequestView.as_view(),
          name='login_request'),
