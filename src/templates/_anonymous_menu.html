@@ -1,4 +1,17 @@
 <ul class="navbar-menu">
+    <li class="user-menu">
+        <a href="#" data-toggle="dropdown">
+            {{ _('Actions') }}
+        </a>
+        <div class="dropdown-menu">
+            <a href="{% url 'aid_draft_list_view' %}">
+                {{ _('My published aids') }}
+            </a>
+            <a href="{% url 'aid_create_view' %}">
+                {{ _('Publish a new aid') }}
+            </a>
+        </div>
+    </li>
     <li>
         <a href="{% url 'login_request' %}">
             {{ _('Login') }}
@@ -7,6 +20,7 @@
     <li>
         <a href="{% url 'register' %}">
             {{ _('Register') }}
+            <span class="fas fa-user-plus"></span>
         </a>
     </li>
 </ul>
