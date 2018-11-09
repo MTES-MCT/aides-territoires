@@ -234,7 +234,8 @@ p, div {
     &.tip {
         @extend .alert;
 
-        ul:last-child {
+        ul:last-child,
+        p:last-child {
             margin-bottom: 0;
         }
     }
