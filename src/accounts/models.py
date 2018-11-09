@@ -45,6 +45,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Date joined'),
         default=timezone.now)
 
+    ##
+    # Contributors related data
+    ##
+    organization = models.CharField(
+        _('Organization'),
+        max_length=128,
+        blank=True)
+    role = models.CharField(
+        _('Role'),
+        max_length=128,
+        blank=True)
+    contact_phone = models.CharField(
+        _('Contact phone number'),
+        max_length=20,
+        blank=True)
+
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
@@ -60,3 +76,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         """Only the admin user can access the admin site."""
         return self.is_superuser
+
+    @property
+    def is_contributor(self):
+        """Contributors need to specify more personal data."""
+        return self.organization and self.role and self.contact_phone
