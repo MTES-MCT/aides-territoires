@@ -226,13 +226,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         max_length=16,
         choices=RECURRENCE,
         blank=True)
-    tags = ArrayField(
-        models.CharField(max_length=50, blank=True),
-        verbose_name=_('Tags'),
-        default=list,
-        size=16,
-        blank=True)
-
     status = xwf_models.StateField(
         AidWorkflow,
         verbose_name=_('Status'))
@@ -242,9 +235,22 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     date_updated = models.DateTimeField(
         _('Date updated'),
         auto_now=True)
+
+    # This field is used to index searchable text content
     search_vector = SearchVectorField(
         _('Search vector'),
         null=True)
+
+    # This is where we store tags
+    tags = ArrayField(
+        models.CharField(max_length=50, blank=True),
+        verbose_name=_('Tags'),
+        default=list,
+        size=16,
+        blank=True)
+    _tags_m2m = models.ManyToManyField(
+        'tags.Tag',
+        verbose_name=_('Tags'))
 
     class Meta:
         verbose_name = _('Aid')
