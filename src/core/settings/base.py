@@ -40,6 +40,7 @@ LOCAL_APPS = [
     'home',
     'geofr',
     'backers',
+    'tags',
     'aids',
     'bundles',
 ]
