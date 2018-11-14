@@ -61,6 +61,11 @@ class BaseAidForm(forms.ModelForm):
 
         self.fields['aid_types'].choices = AID_TYPES
 
+        # We set the existing tags as the `choices` value so the existing
+        # tags will be displayed in the widget
+        self.fields['tags'].choices = zip(
+            self.instance.tags, self.instance.tags)
+
         custom_labels = {
             'name': _('Aid title'),
             'targeted_audiances': _('Who can apply to this aid?'),
@@ -104,7 +109,7 @@ class BaseAidForm(forms.ModelForm):
 
 
 class AidAdminForm(BaseAidForm):
-    """Custom form form Aids in admin."""
+    """Custom Aid edition admin form."""
 
     class Media:
         js = ['admin/js/tags_autocomplete.js']
