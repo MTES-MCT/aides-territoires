@@ -7,11 +7,6 @@ class Tag(models.Model):
         _('Name'),
         max_length=50,
         unique=True)
-    slug = models.SlugField(
-        _('Slug'),
-        max_length=50,
-        unique=True,
-        db_index=True)
 
     class Meta:
         verbose_name = _('Tag')
