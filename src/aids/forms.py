@@ -3,12 +3,14 @@ import re
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import AutocompleteSelectMultiple
 from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
+from tags.models import Tag
 from aids.models import Aid
 
 
@@ -291,6 +293,19 @@ class AidSearchForm(forms.Form):
         return qs
 
 
+class TagChoiceField(forms.MultipleChoiceField):
+    """Custom form field for tags."""
+
+    def valid_value(self, valid_value):
+        """Unexisting tags will be created. Hence, all values are valid."""
+        return True
+
+    def to_python(self, value):
+        """All tags must be represented as slugs."""
+        list_value = super().to_python(value)
+        return [slugify(value) for value in list_value]
+
+
 class AidEditForm(BaseAidForm):
 
     backers = forms.ModelMultipleChoiceField(
@@ -299,9 +314,10 @@ class AidEditForm(BaseAidForm):
         widget=AutocompleteSelectMultiple)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
-    tags = forms.MultipleChoiceField(
+    tags = TagChoiceField(
         label=_('Tags'),
-        choices=list())
+        choices=list,
+        required=False)
 
     class Meta(BaseAidForm.Meta):
         model = Aid
@@ -342,3 +358,22 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
 
         }
+
+    def _save_m2m(self):
+        super()._save_m2m()
+        self._save_tag_relations()
+
+    def _save_tag_relations(self):
+        """Updtate the m2m keys to tag objects.
+
+        Tag that do not exist must be created.
+        """
+        all_tag_names = self.instance.tags
+        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
+        existing_tag_names = [tag.name for tag in existing_tag_objects]
+        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
+        new_tags = [Tag(name=tag) for tag in missing_tag_names]
+        new_tag_objects = Tag.objects.bulk_create(new_tags)
+
+        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
+        self.instance._tags_m2m.set(all_tag_objects, clear=True)
