@@ -250,6 +250,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     _tags_m2m = models.ManyToManyField(
         'tags.Tag',
+        related_name='aids',
         verbose_name=_('Tags'))
 
     class Meta:
