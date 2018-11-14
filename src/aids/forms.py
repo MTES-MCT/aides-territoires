@@ -29,7 +29,25 @@ AID_TYPES = (
 )
 
 
+class TagChoiceField(forms.MultipleChoiceField):
+    """Custom form field for tags."""
+
+    def valid_value(self, valid_value):
+        """Unexisting tags will be created. Hence, all values are valid."""
+        return True
+
+    def to_python(self, value):
+        """All tags must be represented as slugs."""
+        list_value = super().to_python(value)
+        return [slugify(value) for value in list_value]
+
+
 class BaseAidForm(forms.ModelForm):
+    tags = TagChoiceField(
+        label=_('Tags'),
+        choices=list,
+        required=False)
+
     class Meta:
         widgets = {
             'mobilization_steps': forms.CheckboxSelectMultiple,
@@ -65,10 +83,35 @@ class BaseAidForm(forms.ModelForm):
         for field, help_text in custom_help_text.items():
             self.fields[field].help_text = help_text
 
+    def _save_m2m(self):
+        super()._save_m2m()
+        self._save_tag_relations()
+
+    def _save_tag_relations(self):
+        """Updtate the m2m keys to tag objects.
+
+        Tag that do not exist must be created.
+        """
+        all_tag_names = self.instance.tags
+        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
+        existing_tag_names = [tag.name for tag in existing_tag_objects]
+        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
+        new_tags = [Tag(name=tag) for tag in missing_tag_names]
+        new_tag_objects = Tag.objects.bulk_create(new_tags)
+
+        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
+        self.instance._tags_m2m.set(all_tag_objects, clear=True)
+
 
 class AidAdminForm(BaseAidForm):
     """Custom form form Aids in admin."""
-    pass
+
+    class Media:
+        js = ['admin/js/tags_autocomplete.js']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
 
 
 class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
@@ -293,19 +336,6 @@ class AidSearchForm(forms.Form):
         return qs
 
 
-class TagChoiceField(forms.MultipleChoiceField):
-    """Custom form field for tags."""
-
-    def valid_value(self, valid_value):
-        """Unexisting tags will be created. Hence, all values are valid."""
-        return True
-
-    def to_python(self, value):
-        """All tags must be represented as slugs."""
-        list_value = super().to_python(value)
-        return [slugify(value) for value in list_value]
-
-
 class AidEditForm(BaseAidForm):
 
     backers = forms.ModelMultipleChoiceField(
@@ -314,10 +344,6 @@ class AidEditForm(BaseAidForm):
         widget=AutocompleteSelectMultiple)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
-    tags = TagChoiceField(
-        label=_('Tags'),
-        choices=list,
-        required=False)
 
     class Meta(BaseAidForm.Meta):
         model = Aid
@@ -358,22 +384,3 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
 
         }
-
-    def _save_m2m(self):
-        super()._save_m2m()
-        self._save_tag_relations()
-
-    def _save_tag_relations(self):
-        """Updtate the m2m keys to tag objects.
-
-        Tag that do not exist must be created.
-        """
-        all_tag_names = self.instance.tags
-        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
-        existing_tag_names = [tag.name for tag in existing_tag_objects]
-        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
-        new_tags = [Tag(name=tag) for tag in missing_tag_names]
-        new_tag_objects = Tag.objects.bulk_create(new_tags)
-
-        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
-        self.instance._tags_m2m.set(all_tag_objects, clear=True)
