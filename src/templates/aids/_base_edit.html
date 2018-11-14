@@ -101,6 +101,11 @@
 
         $('select#id_tags').select2({
             placeholder: '{{ _("Écologie, bla-bla-bla, test…") }}',
+            ajax: {
+                url: '{% url "tags-list" %}',
+                dataType: 'json',
+                delay: 100,
+            },
             theme: 'bootstrap4',
             width: '',
             tags: true,
