@@ -16,3 +16,6 @@ class Tag(models.Model):
     class Meta:
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
+
+    def __str__(self):
+        return self.name
