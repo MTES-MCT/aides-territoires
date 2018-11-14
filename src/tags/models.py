@@ -3,8 +3,12 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Tag(models.Model):
-    tag = models.CharField(
-        _('Tag'),
+    name = models.CharField(
+        _('Name'),
+        max_length=50,
+        unique=True)
+    slug = models.SlugField(
+        _('Slug'),
         max_length=50,
         unique=True,
         db_index=True)
