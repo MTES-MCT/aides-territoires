@@ -62,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True)
     is_certified = models.BooleanField(
         _('Is certified'),
+        help_text=_('Display a badge next to this user\'s aids'),
         default=False)
 
     USERNAME_FIELD = 'email'
