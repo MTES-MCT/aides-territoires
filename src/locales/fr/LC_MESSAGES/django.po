@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-09 16:43+0100\n"
+"POT-Creation-Date: 2018-11-15 11:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,6 +130,9 @@ msgstr "Mise en réseau"
 
 msgid "Valorisation"
 msgstr "Valorisation"
+
+msgid "Tags"
+msgstr "Mots clés"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
@@ -365,9 +368,6 @@ msgstr "Récurrence"
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
-msgid "Tags"
-msgstr "Mots clés"
-
 msgid "Status"
 msgstr "Statut"
 
@@ -495,6 +495,12 @@ msgstr "inscription-liste/"
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
 
+msgid "Number of aids"
+msgstr "Nombre d'aides"
+
+msgid "Tag"
+msgstr "Mot clé"
+
 msgid "Actions"
 msgstr "Actions"
 
@@ -559,11 +565,11 @@ msgid ""
 "have to do is provide additional contact data. </p> <p>We will use this data "
 "to help validate the aids your contribute.</p>"
 msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités d'Aides-"
-"Territoires nécessitent un compte contributeur. Pour devenir contributeur, il "
-"vous suffit de fournir quelques informations de contact supplémentaires. </p> <p>"
-"Ces informations nous sont essentielles pour garantir la qualité des données "
-"présentes sur le site."
+"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
+"d'Aides-Territoires nécessitent un compte contributeur. Pour devenir "
+"contributeur, il vous suffit de fournir quelques informations de contact "
+"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
+"garantir la qualité des données présentes sur le site."
 
 msgid "Update your personal data"
 msgstr "Mettre à jour vos données"
@@ -737,6 +743,9 @@ msgstr "Attention ! La date de soumission est imminente"
 
 msgid "City, department, region, EPCI…"
 msgstr "Ville, département, région, EPCI…"
+
+msgid "Type a few characters to see some suggestions."
+msgstr "Saisissez quelques caractères pour des suggestions."
 
 msgid "Share current search results"
 msgstr "Partager les résultats courants"

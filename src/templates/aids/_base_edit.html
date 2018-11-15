@@ -100,7 +100,7 @@
         });
 
         $('select#id_tags').select2({
-            placeholder: '{{ _("Écologie, bla-bla-bla, test…") }}',
+            placeholder: '{{ _("Type a few characters to see some suggestions.") }}',
             ajax: {
                 url: '{% url "tags-list" %}',
                 dataType: 'json',
