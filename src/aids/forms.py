@@ -231,8 +231,8 @@ class AidSearchForm(forms.Form):
         if text:
             query = SearchQuery(text, config='french')
             qs = qs \
-                .annotate(rank=SearchRank(F('search_vector'), query)) \
-                .filter(rank__gt=0)
+                .filter(search_vector=query) \
+                .annotate(rank=SearchRank(F('search_vector'), query))
 
         return qs
 
