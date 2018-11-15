@@ -6,6 +6,8 @@ addons:
   apt_packages:
     - language-pack-fr
 before_install:
+ - sudo update-locale LANG="fr_FR.UTF-8" LANGUAGE="fr_FR"
+ - locale
  - cd $TRAVIS_BUILD_DIR/src
 install:
  - npm install -g sass
