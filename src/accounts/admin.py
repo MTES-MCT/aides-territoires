@@ -7,11 +7,11 @@ from accounts.models import User
 class UserAdmin(BaseUserAdmin):
     """Admin module for users."""
 
-    list_display = ['email', 'full_name', 'is_certified', 'date_joined',
-                    'last_login']
+    list_display = ['email', 'full_name', 'is_certified', 'ml_consent',
+                    'date_joined', 'last_login']
     search_fields = ['email', 'full_name']
     ordering = ['full_name', 'email']
-    list_filter = ['is_superuser', 'is_certified']
+    list_filter = ['is_superuser', 'is_certified', 'ml_consent']
     fieldsets = (
         (None, {'fields': ('email', 'password', 'is_certified')}),
         ('Personal info', {'fields': ('full_name',)}),

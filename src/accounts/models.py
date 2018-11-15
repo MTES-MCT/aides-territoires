@@ -64,6 +64,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Is certified'),
         help_text=_('Display a badge next to this user\'s aids'),
         default=False)
+    ml_consent = models.BooleanField(
+        _('Gave consent to receive communications'),
+        default=False)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

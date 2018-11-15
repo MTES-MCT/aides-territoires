@@ -28,10 +28,14 @@ class RegisterForm(forms.ModelForm):
         label=_('Your full name'),
         required=True,
         help_text=_('This is how we will address you in our communications.'))
+    ml_consent = forms.BooleanField(
+        label=_('I want to receive news and communications from the service.'),
+        required=False,
+        help_text=_('You will be able to unsubscribe at any time.'))
 
     class Meta:
         model = User
-        fields = ['full_name', 'email']
+        fields = ['full_name', 'email', 'ml_consent']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
