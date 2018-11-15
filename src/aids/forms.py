@@ -39,7 +39,7 @@ class TagChoiceField(forms.MultipleChoiceField):
     def to_python(self, value):
         """All tags must be represented as slugs."""
         list_value = super().to_python(value)
-        return [slugify(value) for value in list_value]
+        return [slugify(value, allow_unicode=True) for value in list_value]
 
 
 class BaseAidForm(forms.ModelForm):

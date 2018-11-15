@@ -11,7 +11,7 @@ class TagAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         """Make sure the tag name is a slug."""
-        obj.name = slugify(obj.name)
+        obj.name = slugify(obj.name, allow_unicode=True)
         return super().save_model(request, obj, form, change)
 
     def get_queryset(self, request):
