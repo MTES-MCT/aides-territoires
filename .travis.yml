@@ -1,3 +1,6 @@
+env:
+  - LANG=fr_FR.UTF-8
+  - LC_ALL=fr_FR.UTF-8
 language: python
 python:
   - "3.6"
@@ -6,7 +9,7 @@ addons:
   apt_packages:
     - language-pack-fr
 before_install:
- - sudo update-locale LANG="fr_FR.UTF-8" LANGUAGE="fr_FR"
+ - sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
  - locale
  - cd $TRAVIS_BUILD_DIR/src
 install:
