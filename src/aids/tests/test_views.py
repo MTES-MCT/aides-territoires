@@ -3,6 +3,8 @@
 import pytest
 from django.urls import reverse
 
+from tags.models import Tag
+from tags.factories import TagFactory
 from aids.factories import AidFactory
 from aids.models import Aid
 
@@ -114,6 +116,87 @@ def test_aid_edition_view(client, contributor, aid_form_data):
     assert aids.count() == 1
     assert aids[0].name == 'New title'
     assert aids[0].author == contributor
+
+
+def test_aid_edition_with_existing_tags(client, contributor, aid_form_data):
+    """Aid form uses existing tags."""
+
+    aid = AidFactory(name='First title', author=contributor)
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    client.force_login(contributor)
+
+    TagFactory(name='pizza')
+    TagFactory(name='tartiflette')
+    TagFactory(name='gratin')
+    tags = Tag.objects.all()
+    assert tags.count() == 3
+
+    aid_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert set(aid.tags) == set(['pizza', 'gratin', 'tartiflette'])
+
+    tag_names = aid._tags_m2m.values_list('name', flat=True)
+    assert set(tag_names) == set(['pizza', 'gratin', 'tartiflette'])
+    assert tags.count() == 3
+
+
+def test_aid_edition_with_new_tags(client, contributor, aid_form_data):
+    """Aid form can create new tags."""
+
+    aid = AidFactory(name='First title', author=contributor)
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    client.force_login(contributor)
+
+    TagFactory(name='pizza')
+    tags = Tag.objects.all()
+    assert tags.count() == 1
+
+    aid_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert set(aid.tags) == set(['pizza', 'gratin', 'tartiflette'])
+
+    aid_tags = aid._tags_m2m.values_list('name', flat=True)
+    assert set(aid_tags) == set(['pizza', 'gratin', 'tartiflette'])
+
+    all_tags = tags.values_list('name', flat=True)
+    assert tags.count() == 3
+    assert 'gratin' in all_tags
+    assert 'tartiflette' in all_tags
+
+
+def test_aid_edition_does_not_delete_tags(client, contributor, aid_form_data):
+    """Unused tags stay in db."""
+
+    TagFactory(name='pizza')
+    TagFactory(name='gratin')
+
+    aid = AidFactory(name='First title', author=contributor, tags=[
+        'pizza', 'gratin'])
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    client.force_login(contributor)
+
+    tags = Tag.objects.all()
+    assert tags.count() == 2
+
+    aid_form_data['tags'] = ['pizza']
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+
+    aid.refresh_from_db()
+    assert set(aid.tags) == set(['pizza'])
+    assert tags.count() == 2
+
+    aid_tags = aid._tags_m2m.values_list('name', flat=True)
+    assert set(aid_tags) == set(['pizza'])
+
+    all_tags = tags.values_list('name', flat=True)
+    assert set(all_tags) == set(['pizza', 'gratin'])
 
 
 def test_edition_of_other_users_aid(client, contributor):

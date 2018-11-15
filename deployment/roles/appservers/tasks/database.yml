@@ -17,5 +17,8 @@
   become: yes
   become_user: postgres
   postgresql_ext:
-    name: btree_gin
+    name: {{ item }}
     db: aides
+  with_items:
+    - btree_gin
+    - pg_trgm
