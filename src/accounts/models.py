@@ -60,6 +60,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Contact phone number'),
         max_length=20,
         blank=True)
+    is_certified = models.BooleanField(
+        _('Is certified'),
+        default=False)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
