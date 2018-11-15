@@ -1,7 +1,11 @@
 import factory
+from faker import Faker
 from factory.django import DjangoModelFactory
 
 from tags.models import Tag
+
+
+fake = Faker()
 
 
 class TagFactory(DjangoModelFactory):
@@ -10,4 +14,6 @@ class TagFactory(DjangoModelFactory):
     class Meta:
         model = Tag
 
-    name = factory.Faker('name')
+    @factory.sequence
+    def name(n):
+        return '{}{}'.format(fake.word(), n)
