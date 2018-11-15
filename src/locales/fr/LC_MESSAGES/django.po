@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 11:10+0100\n"
+"POT-Creation-Date: 2018-11-15 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,6 +49,12 @@ msgstr "Rôle"
 
 msgid "Contact phone number"
 msgstr "Téléphone de contact"
+
+msgid "Is certified"
+msgstr "Certifié·e ?"
+
+msgid "Display a badge next to this user's aids"
+msgstr "Afficher un badge à côté des aides publiées par ce compte."
 
 msgid "User"
 msgstr "Utilisateur·ice"
@@ -717,6 +723,9 @@ msgid ""
 msgstr ""
 "Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
+
+msgid "This aid was published by a certified account."
+msgstr "Cette aide est publiée par un compte certifié."
 
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
