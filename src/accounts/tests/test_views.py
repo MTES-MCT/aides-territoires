@@ -151,6 +151,23 @@ def test_register_form(client, mailoutbox):
     user = users[0]
     assert user.email == 'olga@test.com'
     assert user.full_name == 'Olga To'
+    assert not user.ml_consent
 
     mail = mailoutbox[0]
     assert mail.subject == 'Connexion à Aides-Territoires'
+
+
+def test_register_form_with_consent(client):
+    users = User.objects.all()
+    assert users.count() == 0
+
+    register_url = reverse('register')
+    res = client.post(
+        register_url,
+        {'full_name': 'Olga To', 'email': 'olga@test.com', 'ml_consent': True})
+
+    assert res.status_code == 302
+    assert users.count() == 1
+
+    user = users[0]
+    assert user.ml_consent
