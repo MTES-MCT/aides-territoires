@@ -798,7 +798,7 @@ msgid ""
 "a new account</a>."
 msgstr ""
 "Vous devez être identifé·e pour utiliser cette fonctionnalité. <a href="
-"\"%(login_url)s>Rendez-vous sur le formulaire de connexion</a> ou <a href="
+"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
 msgid "Report a problem"
