@@ -4,6 +4,9 @@
     <section>
         <h1>
             <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
+            {% if aid.author.is_certified %}
+                <span class="fas fa-award" title="{{ _('This aid was published by a certified account.') }}"></span>
+            {% endif %}
             {{ aid.name }}
             <br /><small>{{ aid.backers.all|join:', ' }}</small>
             </a>
