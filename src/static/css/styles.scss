@@ -159,6 +159,18 @@ form {
         content:"*";
     }
 
+    .form-group.checkbox {
+        @extend .form-check;
+
+        label {
+            @extend .form-check-label;
+        }
+
+        input {
+            @extend .form-check-input;
+        }
+    }
+
     button[type=submit] {
         @extend .btn;
         @extend .btn-success;

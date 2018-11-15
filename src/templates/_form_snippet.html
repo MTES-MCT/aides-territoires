@@ -13,7 +13,10 @@
 
 {% for field in form.visible_fields %}
 
-    {% include '_field_snippet.html' with field=field %}
+    {% if field|is_checkbox %}
+        {% include '_checkbox_snippet.html' with field=field %}
+    {% else %}
+        {% include '_field_snippet.html' with field=field %}
+    {% endif %}
 
 {% endfor %}
-
