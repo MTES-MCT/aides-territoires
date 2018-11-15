@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 16:14+0100\n"
+"POT-Creation-Date: 2018-11-15 17:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,12 @@ msgstr "Votre nom complet"
 msgid "This is how we will address you in our communications."
 msgstr "C'est ainsi que nous nous adresserons à vous dans nos communications."
 
+msgid "I want to receive news and communications from the service."
+msgstr "Vous souhaitez recevoir des actualités liées au service."
+
+msgid "You will be able to unsubscribe at any time."
+msgstr "Vous pourrez vous désabonner à tout moment."
+
 msgid "Email address"
 msgstr "Adresse e-mail"
 
@@ -55,6 +61,9 @@ msgstr "Certifié·e ?"
 
 msgid "Display a badge next to this user's aids"
 msgstr "Afficher un badge à côté des aides publiées par ce compte."
+
+msgid "Gave consent to receive communications"
+msgstr "A donné son consentement pour recevoir l'actualité"
 
 msgid "User"
 msgstr "Utilisateur·ice"
