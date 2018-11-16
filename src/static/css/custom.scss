@@ -391,7 +391,7 @@ section#aid {
     }
 }
 
-div#error-report {
+div#error-report-modal {
     p.center {
         a {
             &:before {
@@ -400,6 +400,28 @@ div#error-report {
                 @extend .pr-1;
                 content: fa-content($fa-var-envelope);
             }
+        }
+    }
+}
+
+div#bookmark-modal {
+    form {
+        div.single-input {
+            @extend .custom-control;
+            @extend .custom-checkbox;
+
+            label {
+                @extend .custom-control-label;
+            }
+
+            input {
+                @extend .custom-control-input;
+            }
+        }
+
+        button#bookmark-btn {
+            @extend .btn-block;
+            @extend .btn-primary;
         }
     }
 }

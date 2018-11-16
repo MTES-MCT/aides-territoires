@@ -22,17 +22,16 @@
     <div class="aid-actions">
         <button class="bookmark"
             data-toggle="modal"
-            data-target="#bookmark">
+            data-target="#bookmark-modal">
             {{ _('Bookmark this aid') }}
         </button>
 
         <button class="report-error"
             data-toggle="modal"
-            data-target="#error-report">
+            data-target="#error-report-modal">
             {{ _('Report a problem') }}
         </button>
     </div>
-
 
     <hr />
 
@@ -47,7 +46,7 @@
     {% if aid.tags %}
     <p>
         <i class="fas fa-tags"></i>
-        {{ _('Keywords:')}}
+        {{ _('Keywords:') }}
         {{ aid.tags|join:', ' }}
     </p>
     {% endif %}

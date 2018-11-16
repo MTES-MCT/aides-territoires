@@ -6,7 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import AutocompleteSelectMultiple
+from core.forms.widgets import (AutocompleteSelectMultiple,
+                                MultipleChoiceFilterWidget)
 from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
@@ -117,16 +118,6 @@ class AidAdminForm(BaseAidForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
-
-
-class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
-    """A basic multi checkbox widget with a custom template.
-
-    We can't override the default template because it would mess with the
-    django admin.
-    """
-
-    template_name = 'forms/widgets/multiple_input.html'
 
 
 class AidSearchForm(forms.Form):

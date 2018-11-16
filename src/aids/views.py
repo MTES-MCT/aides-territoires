@@ -14,6 +14,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 
 from accounts.mixins import ContributorRequiredMixin
+from bundles.forms import BookmarkForm
 from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -132,6 +133,11 @@ class AidDetailView(DetailView):
             .select_related('perimeter') \
             .prefetch_related('backers')
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bookmark_form'] = BookmarkForm(user=self.request.user)
+        return context
 
 
 class AidEditMixin:

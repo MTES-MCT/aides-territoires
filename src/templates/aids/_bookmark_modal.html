@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="bookmark" class="modal">
+<div id="bookmark-modal" class="modal">
     <div class="modal-dialog">
         <section>
             <header>
@@ -7,6 +7,13 @@
             </header>
             <div class="content">
                 {% if user.is_authenticated %}
+
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% include '_form_snippet.html' with form=bookmark_form %}
+                    <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
+                </form>
+
                 {% else %}
                     {% url 'login_request' as login_url %}
                     {% url 'register' as register_url %}
