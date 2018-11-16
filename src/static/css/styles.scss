@@ -78,6 +78,9 @@ nav#main-navbar {
 
         svg.marianne-logo {
             max-height: $font-size-base * 2.5;
+            // Prevent Chrome bug that does not limit the svg width
+            // 1.59 is the computed element's width / height ratio
+            max-width: $font-size-base * 2.5 * 1.59;
             @extend .pr-1;
         }
 
