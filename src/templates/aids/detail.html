@@ -14,16 +14,27 @@
 {% block content %}
 <section id="aid">
 
-    <button class="main-action report-error"
-        data-toggle="modal"
-        data-target="#error-report">
-        {{ _('Report a problem') }}
-    </button>
-
     <h1>
         {{ aid.name }}
         <br /><small>{{ aid.backers.all|join:', ' }}</small>
     </h1>
+
+    <div class="aid-actions">
+        <button class="bookmark"
+            data-toggle="modal"
+            data-target="#bookmark">
+            {{ _('Bookmark this aid') }}
+        </button>
+
+        <button class="report-error"
+            data-toggle="modal"
+            data-target="#error-report">
+            {{ _('Report a problem') }}
+        </button>
+    </div>
+
+
+    <hr />
 
     <p>
         {% if aid.description %}
@@ -152,4 +163,5 @@
 
 {% block footer %}
 {% include 'aids/_problem_report_modal.html' %}
+{% include 'aids/_bookmark_modal.html' %}
 {% endblock %}

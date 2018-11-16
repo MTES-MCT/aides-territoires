@@ -334,15 +334,26 @@ section#aid {
         }
     }
 
-    button.report-error {
-        @extend .btn-danger;
+    div.aid-actions {
+        button {
+            @extend .btn;
+            @extend .btn-light;
 
-        &:before {
-            @include fa-icon;
-            @extend .fas;
-            content: fa-content($fa-var-bullhorn);
-            @extend .mr-1;
-            vertical-align: baseline;
+            &.report-error:before {
+                @include fa-icon;
+                @extend .fas;
+                content: fa-content($fa-var-bullhorn);
+                @extend .mr-1;
+                vertical-align: baseline;
+            }
+
+            &.bookmark:before {
+                @include fa-icon;
+                @extend .fas;
+                content: fa-content($fa-var-bars);
+                @extend .mr-1;
+                vertical-align: baseline;
+            }
         }
     }
 
