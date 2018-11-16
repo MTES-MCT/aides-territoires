@@ -95,7 +95,7 @@
 $(document).ready(function () {
     // Setup the "copy to clipboard feature"
     var clipboardBtn = $('button#clipboard-btn');
-    var clipboardModal = $('div#bookmark-modal');
+    var clipboardModal = $('div#share-results-modal');
     var clipboardInput = clipboardModal.find('input[name=current-url]');
     clipboardModal.on('show.bs.modal', { clipboardInput: clipboardInput }, fillCurrentUrlField);
     clipboardBtn.on('click', { clipboardInput: clipboardInput }, copyUrlToClipboard);
