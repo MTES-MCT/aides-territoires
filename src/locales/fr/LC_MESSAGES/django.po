@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 17:04+0100\n"
+"POT-Creation-Date: 2018-11-20 10:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,6 +419,9 @@ msgstr "<slug:slug>/statut/"
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
+msgid "This aid was added to the selected bundles."
+msgstr "L'aide a été ajoutée aux listes sélectionnées."
+
 msgid "Your aid was sucessfully created. You can keep editing it."
 msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
 
@@ -433,6 +436,9 @@ msgstr "Votre aide a été supprimée."
 
 msgid "Backer"
 msgstr "Apporteur"
+
+msgid "Add this aid to the following bundles:"
+msgstr "Ajouter cette aide aux listes suivantes :"
 
 msgid "Owner"
 msgstr "Auteur"
@@ -519,12 +525,6 @@ msgstr "Mot clé"
 msgid "Actions"
 msgstr "Actions"
 
-msgid "My published aids"
-msgstr "Mes aides publiées"
-
-msgid "Publish a new aid"
-msgstr "Publier une aide"
-
 msgid "Login"
 msgstr "Connexion"
 
@@ -545,6 +545,15 @@ msgstr "Contact"
 
 msgid "Source code"
 msgstr "Code source"
+
+msgid "My published aids"
+msgstr "Mes aides publiées"
+
+msgid "Publish a new aid"
+msgstr "Publier une aide"
+
+msgid "My bundles"
+msgstr "Mes listes d'aides"
 
 msgid "Search results pages"
 msgstr "Pages de résultats"
@@ -764,6 +773,21 @@ msgstr "Ville, département, région, EPCI…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
+
+msgid "Bookmark this aid"
+msgstr "Ajouter à une liste"
+
+msgid "Bookmark"
+msgstr "Sauvegarder"
+
+msgid ""
+"You need to be logged in to save aids in custom bundles. <a href="
+"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
+"\">sign up for a new account</a>."
+msgstr ""
+"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
+"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
+"\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
