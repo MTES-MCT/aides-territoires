@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseRedirect,
+                         HttpResponseNotAllowed)
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
@@ -14,6 +15,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 
 from accounts.mixins import ContributorRequiredMixin
+from bundles.models import Bundle
 from bundles.forms import BookmarkForm
 from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
@@ -136,8 +138,44 @@ class AidDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['bookmark_form'] = BookmarkForm(user=self.request.user)
+
+        # Registered users see a "bookmark this aid" form.
+        if self.request.user.is_authenticated:
+            aid_bundles = Bundle.objects \
+                .filter(owner=self.request.user, aids=self.object)
+            context['bookmark_form'] = BookmarkForm(
+                user=self.request.user,
+                initial={'bundles': aid_bundles})
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseNotAllowed(permitted_methods=['get'])
+
+        self.object = self.get_object()
+
+        form = BookmarkForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            AidBookmark = Bundle._meta.get_field('aids').remote_field.through
+            AidBookmark.objects \
+                .filter(bundle__owner=request.user) \
+                .filter(aid=self.object) \
+                .delete()
+
+            bookmarks = []
+            bundles = form.cleaned_data['bundles']
+            for bundle in bundles:
+                bookmarks.append(AidBookmark(
+                    bundle=bundle,
+                    aid=self.object
+                ))
+            AidBookmark.objects.bulk_create(bookmarks)
+
+            msg = _('This aid was added to the selected bundles.')
+            messages.success(self.request, msg)
+
+        return HttpResponseRedirect(self.object.get_absolute_url())
 
 
 class AidEditMixin:
