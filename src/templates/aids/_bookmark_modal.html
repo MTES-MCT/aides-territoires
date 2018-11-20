@@ -12,6 +12,11 @@
                     {% csrf_token %}
                     {% include '_form_snippet.html' with form=bookmark_form %}
                     <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
+                    {% url 'bundle_create_view' as bundle_url %}
+                    <span class="field-help">{% blocktrans trimmed %}
+                        You can <a href="{{ bundle_url }}">create new bundles
+                        on the dedicated page</a>.
+                    {% endblocktrans %}</span>
                 </form>
 
                 {% else %}
