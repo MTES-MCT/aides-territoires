@@ -386,3 +386,9 @@ div.list-actions {
         @extend .btn-outline-light;
     }
 }
+
+iframe#stats-optout {
+    border: 0;
+    height: 200px;
+    width: 100%;
+}
