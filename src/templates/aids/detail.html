@@ -165,3 +165,15 @@
 {% include 'aids/_problem_report_modal.html' %}
 {% include 'aids/_bookmark_modal.html' %}
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    // Translations strings
+    var catalog = {
+        bookmark_waiting: '{{ _("Wait") }}',
+        bookmark_success: '{{ _("Yeah") }} <span class="fas fa-thumbs-up"></span>',
+        bookmark_error: '{{ _("Bouh") }}',
+    };
+</script>
+<script src="/static/js/aids/bookmark.js"></script>
+{% endblock %}

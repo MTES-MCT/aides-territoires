@@ -172,10 +172,15 @@ class AidDetailView(DetailView):
                 ))
             AidBookmark.objects.bulk_create(bookmarks)
 
-            msg = _('This aid was added to the selected bundles.')
-            messages.success(self.request, msg)
+            if not self.request.is_ajax():
+                msg = _('This aid was added to the selected bundles.')
+                messages.success(self.request, msg)
 
-        return HttpResponseRedirect(self.object.get_absolute_url())
+        if self.request.is_ajax():
+            response = HttpResponse('')
+        else:
+            response = HttpResponseRedirect(self.object.get_absolute_url())
+        return response
 
 
 class AidEditMixin:

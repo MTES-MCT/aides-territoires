@@ -8,7 +8,7 @@
             <div class="content">
                 {% if user.is_authenticated %}
 
-                <form method="post" action="">
+                <form method="post" action="" id="bookmark-form">
                     {% csrf_token %}
                     {% include '_form_snippet.html' with form=bookmark_form %}
                     <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
