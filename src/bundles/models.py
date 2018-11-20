@@ -33,6 +33,7 @@ class Bundle(models.Model):
     class Meta:
         verbose_name = _('Bundle')
         verbose_name_plural = _('Bundles')
+        unique_together = ['owner', 'name']
 
     def save(self, *args, **kwargs):
         """Populate the slug field.
