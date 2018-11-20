@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.shortcuts import get_object_or_404
 
+from bundles.forms import BundleCreateForm
 from bundles.models import Bundle
 
 
@@ -31,3 +32,10 @@ class BundleListView(LoginRequiredMixin, ListView):
                 .prefetch_related('backers')
 
         return context
+
+
+class BundleCreateView(LoginRequiredMixin, CreateView):
+    """Create new bundles."""
+
+    template_name = 'bundles/create.html'
+    form_class = BundleCreateForm

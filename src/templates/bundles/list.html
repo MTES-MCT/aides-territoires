@@ -18,6 +18,10 @@
 {% block content %}
 <section id="bundles" class="aid-list">
     <div id="bundle-list" class="aid-sidebar">
+        <a href="{% url 'bundle_create_view' %}" class="top-sidebar-btn">
+            <span class="fas fa-plus"></span>
+            {{ _('Create a new bundle') }}
+        </a>
         <nav>
             <h2>{{ _('My aid bundles') }}</h2>
             <ul>

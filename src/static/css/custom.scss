@@ -85,6 +85,13 @@ section.aid-list {
     div.aid-sidebar {
         @extend .col-3;
 
+        a.top-sidebar-btn {
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-block;
+            @extend .mb-2;
+        }
+
         form {
             .form-group {
                 @extend .card;

@@ -2,6 +2,15 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from core.forms.widgets import MultipleChoiceFilterWidget
+from bundles.models import Bundle
+
+
+class BundleCreateForm(forms.ModelForm):
+    """Form used to create a new bundle."""
+
+    class Meta:
+        model = Bundle
+        fields = ['name']
 
 
 class BookmarkForm(forms.Form):
