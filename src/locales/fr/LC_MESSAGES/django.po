@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-20 10:29+0100\n"
+"POT-Creation-Date: 2018-11-20 15:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -780,6 +780,7 @@ msgstr "Ajouter à une liste"
 msgid "Bookmark"
 msgstr "Sauvegarder"
 
+#, python-format
 msgid ""
 "You need to be logged in to save aids in custom bundles. <a href="
 "\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
@@ -935,6 +936,15 @@ msgstr "Contact (e-mail)"
 
 msgid "Contact (phone)"
 msgstr "Contact (téléphone)"
+
+msgid "Please stand by."
+msgstr "Merci de patienter"
+
+msgid "Done!"
+msgstr "Fait !"
+
+msgid "Something went wrong. Please refresh the page."
+msgstr "Erreur. Merci de réessayer."
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
