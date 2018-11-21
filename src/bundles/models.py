@@ -19,7 +19,8 @@ class Bundle(models.Model):
     owner = models.ForeignKey(
         'accounts.User',
         verbose_name=_('Owner'),
-        on_delete=models.PROTECT)
+        on_delete=models.PROTECT,
+        related_name='bundles')
     name = models.CharField(
         max_length=64,
         verbose_name=_('Bundle name'),

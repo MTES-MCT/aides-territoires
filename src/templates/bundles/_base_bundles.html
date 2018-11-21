@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        {% if selected_bundle %}
+            <li><a href="{% url 'bundle_list_view' %}">{{ _('My aid bundles') }}</a></li>
+            <li class="active" aria-current="page">{{ selected_bundle.name }}</li>
+        {% else %}
+            <li class="active" aria-current="page">{{ _('My aid bundles') }}</li>
+        {% endif %}
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="bundles" class="aid-list">
+    <div id="bundle-list" class="aid-sidebar">
+        <a href="{% url 'bundle_create_view' %}" class="top-sidebar-btn">
+            <span class="fas fa-plus"></span>
+            {{ _('Create a new bundle') }}
+        </a>
+        <nav>
+            <h2>{{ _('My aid bundles') }}</h2>
+            <ul>
+            {% for bundle in bundles %}
+                <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
+                    href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
+            {% empty %}
+                <li class="empty">{{ _("You don't have any aid bundle yet.") }}</li>
+            {% endfor %}
+            </ul>
+        </nav>
+    </div>
+
+    {% block main_column %}{% endblock %}
+</section>
+{% endblock %}

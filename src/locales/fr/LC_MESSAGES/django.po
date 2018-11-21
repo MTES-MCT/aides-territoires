@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 17:04+0100\n"
+"POT-Creation-Date: 2018-11-21 11:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,6 +419,9 @@ msgstr "<slug:slug>/statut/"
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
+msgid "This aid was added to the selected bundles."
+msgstr "L'aide a été ajoutée aux listes sélectionnées."
+
 msgid "Your aid was sucessfully created. You can keep editing it."
 msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
 
@@ -434,6 +437,9 @@ msgstr "Votre aide a été supprimée."
 msgid "Backer"
 msgstr "Apporteur"
 
+msgid "Add this aid to the following bundles:"
+msgstr "Ajouter cette aide aux listes suivantes :"
+
 msgid "Owner"
 msgstr "Auteur"
 
@@ -445,6 +451,12 @@ msgstr "Liste"
 
 msgid "Bundles"
 msgstr "Listes"
+
+msgid "create/"
+msgstr "créer/"
+
+msgid "The new bundle was created successfuly"
+msgstr "Votre nouvelle liste d'aide à été créée."
 
 msgid "accounts/"
 msgstr "comptes/"
@@ -519,12 +531,6 @@ msgstr "Mot clé"
 msgid "Actions"
 msgstr "Actions"
 
-msgid "My published aids"
-msgstr "Mes aides publiées"
-
-msgid "Publish a new aid"
-msgstr "Publier une aide"
-
 msgid "Login"
 msgstr "Connexion"
 
@@ -545,6 +551,15 @@ msgstr "Contact"
 
 msgid "Source code"
 msgstr "Code source"
+
+msgid "My published aids"
+msgstr "Mes aides publiées"
+
+msgid "Publish a new aid"
+msgstr "Publier une aide"
+
+msgid "My bundles"
+msgstr "Mes listes d'aides"
 
 msgid "Search results pages"
 msgstr "Pages de résultats"
@@ -765,6 +780,39 @@ msgstr "Ville, département, région, EPCI…"
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
+msgid "Bookmark this aid"
+msgstr "Ajouter à une liste"
+
+msgid "Bookmark"
+msgstr "Sauvegarder"
+
+#, python-format
+msgid ""
+"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
+"page</a>."
+msgstr ""
+"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la "
+"page dédiée</a>."
+
+
+#, python-format
+msgid ""
+"You don't have any bundle yet. <a href=\"%(bundle_url)s\"> You can create "
+"one on the dedicated page</a>."
+msgstr ""
+"Vous n'avez pas encore de liste d'aides. <a href=\"%(bundle_url)s\">Vous "
+"pouvez en créer une sur la page dédiée.</a>"
+
+#, python-format
+msgid ""
+"You need to be logged in to save aids in custom bundles. <a href="
+"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
+"\">sign up for a new account</a>."
+msgstr ""
+"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
+"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
+"\"%(register_url)s\">enregistrez un nouveau compte</a>."
+
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
 
@@ -912,6 +960,15 @@ msgstr "Contact (e-mail)"
 msgid "Contact (phone)"
 msgstr "Contact (téléphone)"
 
+msgid "Please stand by."
+msgstr "Merci de patienter"
+
+msgid "Done!"
+msgstr "Fait !"
+
+msgid "Something went wrong. Please refresh the page."
+msgstr "Erreur. Merci de réessayer."
+
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
 
@@ -1014,8 +1071,14 @@ msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 msgid "My aid bundles"
 msgstr "Mes listes d'aides"
 
+msgid "Create a new bundle"
+msgstr "Créer une nouvelle liste d'aide"
+
 msgid "You don't have any aid bundle yet."
 msgstr "Vous n'avez créé aucune liste d'aides personnalisée pour le moment."
+
+msgid "Create new bundle"
+msgstr "Créer une nouvelle liste"
 
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""

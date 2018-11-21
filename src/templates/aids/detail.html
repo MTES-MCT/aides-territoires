@@ -14,16 +14,26 @@
 {% block content %}
 <section id="aid">
 
-    <button class="main-action report-error"
-        data-toggle="modal"
-        data-target="#error-report">
-        {{ _('Report a problem') }}
-    </button>
-
     <h1>
         {{ aid.name }}
         <br /><small>{{ aid.backers.all|join:', ' }}</small>
     </h1>
+
+    <div class="aid-actions">
+        <button class="bookmark"
+            data-toggle="modal"
+            data-target="#bookmark-modal">
+            {{ _('Bookmark this aid') }}
+        </button>
+
+        <button class="report-error"
+            data-toggle="modal"
+            data-target="#error-report-modal">
+            {{ _('Report a problem') }}
+        </button>
+    </div>
+
+    <hr />
 
     <p>
         {% if aid.description %}
@@ -36,7 +46,7 @@
     {% if aid.tags %}
     <p>
         <i class="fas fa-tags"></i>
-        {{ _('Keywords:')}}
+        {{ _('Keywords:') }}
         {{ aid.tags|join:', ' }}
     </p>
     {% endif %}
@@ -151,5 +161,19 @@
 {% endblock %}
 
 {% block footer %}
+{{ block.super }}
 {% include 'aids/_problem_report_modal.html' %}
+{% include 'aids/_bookmark_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Translations strings
+    var catalog = {
+        bookmark_waiting: '{{ _("Please stand by.") }}',
+        bookmark_success: '{{ _("Done!") }} <span class="fas fa-thumbs-up"></span>',
+        bookmark_error: '{{ _("Something went wrong. Please refresh the page.") }}',
+    };
+</script>
+<script src="/static/js/aids/bookmark.js"></script>
 {% endblock %}

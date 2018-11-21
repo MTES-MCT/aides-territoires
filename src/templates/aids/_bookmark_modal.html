@@ -1,0 +1,45 @@
+{% load i18n %}
+<div id="bookmark-modal" class="modal">
+    <div class="modal-dialog">
+        <section>
+            <header>
+                <h1>{{ _('Bookmark this aid') }}</h1>
+            </header>
+            <div class="content">
+                {% if user.is_authenticated %}
+
+                {% if user_bundles %}
+                    <form id="bookmark-form" method="post" action="">
+                        {% csrf_token %}
+                        {% include '_form_snippet.html' with form=bookmark_form %}
+                        <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
+                        {% url 'bundle_list_view' as bundle_url %}
+                        <span class="field-help">{% blocktrans trimmed %}
+                            You can <a href="{{ bundle_url }}">manage your
+                            bundles on the dedicated page</a>.
+                        {% endblocktrans %}</span>
+                    </form>
+                {% else %}
+                    {% url 'bundle_create_view' as bundle_url %}
+                    <p>{%blocktrans trimmed %}
+                        You don't have any bundle yet. <a href="{{ bundle_url }}">
+                        You can create one on the dedicated page</a>.
+                    {% endblocktrans %}</p>
+                {% endif %}
+
+                {% else %}
+                    {% url 'login_request' as login_url %}
+                    {% url 'register' as register_url %}
+                    <p>{% blocktrans trimmed %}
+                        You need to be logged in to save aids in custom bundles.
+                        <a href="{{ login_url }}">Proceed to the login form</a>
+                        or <a href="{{ register_url }}">sign up for a new
+                        account</a>.
+                    {% endblocktrans %}</p>
+                    <p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</div>
+i

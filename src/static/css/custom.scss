@@ -85,6 +85,13 @@ section.aid-list {
     div.aid-sidebar {
         @extend .col-3;
 
+        a.top-sidebar-btn {
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-block;
+            @extend .mb-2;
+        }
+
         form {
             .form-group {
                 @extend .card;
@@ -334,15 +341,26 @@ section#aid {
         }
     }
 
-    button.report-error {
-        @extend .btn-danger;
+    div.aid-actions {
+        button {
+            @extend .btn;
+            @extend .btn-light;
 
-        &:before {
-            @include fa-icon;
-            @extend .fas;
-            content: fa-content($fa-var-bullhorn);
-            @extend .mr-1;
-            vertical-align: baseline;
+            &.report-error:before {
+                @include fa-icon;
+                @extend .fas;
+                content: fa-content($fa-var-bullhorn);
+                @extend .mr-1;
+                vertical-align: baseline;
+            }
+
+            &.bookmark:before {
+                @include fa-icon;
+                @extend .fas;
+                content: fa-content($fa-var-bars);
+                @extend .mr-1;
+                vertical-align: baseline;
+            }
         }
     }
 
@@ -380,7 +398,7 @@ section#aid {
     }
 }
 
-div#error-report {
+div#error-report-modal {
     p.center {
         a {
             &:before {
@@ -394,6 +412,28 @@ div#error-report {
 }
 
 div#bookmark-modal {
+    form {
+        div.single-input {
+            @extend .custom-control;
+            @extend .custom-checkbox;
+
+            label {
+                @extend .custom-control-label;
+            }
+
+            input {
+                @extend .custom-control-input;
+            }
+        }
+
+        button#bookmark-btn {
+            @extend .btn-block;
+            @extend .btn-primary;
+        }
+    }
+}
+
+div#share-results-modal {
     h2 {
         @extend .h5;
     }
