@@ -22,5 +22,7 @@ class BookmarkForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
+        self.user_bundles = kwargs.pop('bundles')
         super().__init__(*args, **kwargs)
-        self.fields['bundles'].queryset = self.user.bundles.order_by('name')
+
+        self.fields['bundles'].queryset = self.user_bundles

@@ -49,6 +49,7 @@ def test_bundle_modal_shows_selected_bundles(client, aid):
     assert 'Vous devez être identifé·e pour utiliser ' \
            'les listes d\'aides' not in content
 
+    assert '<form id="bookmark-form"' in content
     assert '<input type="checkbox" name="bundles" value="{}" ' \
            'id="id_bundles_0" checked>'.format(bundles[0].id) in content
     assert '<label for="id_bundles_0">Bundle_1</label>' in content
@@ -75,3 +76,14 @@ def test_bundle_selection_is_effective(client, aid):
     aid_bundles = aid.bundles.all()
     assert aid_bundles.count() == 1
     assert aid_bundles[0].id == bundles[2].id
+
+
+def test_modal_display_message_when_no_bundle_exists(client, aid):
+    """When no bundle are available, a warning message is displayed."""
+    user = aid.author
+    client.force_login(user)
+    aid_url = aid.get_absolute_url()
+    res = client.get(aid_url)
+    content = res.content.decode()
+    assert '<form id="bookmark-form"' not in content
+    assert "Vous n'avez pas encore de liste d'aides." in content

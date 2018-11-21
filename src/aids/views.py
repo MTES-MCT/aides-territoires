@@ -141,10 +141,15 @@ class AidDetailView(DetailView):
 
         # Registered users see a "bookmark this aid" form.
         if self.request.user.is_authenticated:
-            aid_bundles = Bundle.objects \
-                .filter(owner=self.request.user, aids=self.object)
+            user_bundles = Bundle.objects \
+                .filter(owner=self.request.user) \
+                .order_by('name')
+            context['user_bundles'] = user_bundles
+            aid_bundles = user_bundles \
+                .filter(aids=self.object)
             context['bookmark_form'] = BookmarkForm(
                 user=self.request.user,
+                bundles=user_bundles,
                 initial={'bundles': aid_bundles})
 
         return context
@@ -155,7 +160,11 @@ class AidDetailView(DetailView):
 
         self.object = self.get_object()
 
-        form = BookmarkForm(user=request.user, data=request.POST)
+        form = BookmarkForm(
+            user=request.user,
+            bundles=request.user.bundles,
+            data=request.POST)
+
         if form.is_valid():
             AidBookmark = Bundle._meta.get_field('aids').remote_field.through
             AidBookmark.objects \
