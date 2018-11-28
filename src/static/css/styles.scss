@@ -38,11 +38,21 @@ body {
             @extend .text-light;
         }
 
-        svg.fabnum-logo {
-            max-height: $font-size-base * 11;
-            @extend .float-right;
-            @extend .ml-3;
+        img#logo-fabnum {
+            max-width: 100%;
+            height: auto;
             @extend .mb-3;
+            @extend .mx-3;
+
+            @include media-breakpoint-up(sm) {
+                float: right;
+                width: 33%;
+                margin-right: 0 !important;
+            }
+
+            @include media-breakpoint-up(md) {
+                width: 25%;
+            }
         }
 
         h1 {
