@@ -7,7 +7,7 @@ from tags.models import Tag
 from tags.api.serializers import TagSerializer
 
 
-MIN_SEARCH_LENGTH = 3
+MIN_SEARCH_LENGTH = 2
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
