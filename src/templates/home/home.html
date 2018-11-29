@@ -12,7 +12,7 @@
 
     <form class="search-form" method="get" action="{% url 'search_view' %}">
         <div class="search-control form-group form-group-lg">
-            <select name="perimeter" aria-label="{{ _('City, department, region, EPCI…') }}" aria-describedby="search-btn">
+            <select id="id_perimeter" name="perimeter" aria-label="{{ _('City, department, region, EPCI…') }}">
             </select>
         </div>
 
@@ -38,18 +38,6 @@
 
 {% block extra_js %}
 <script src="/static/select2/dist/js/select2.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.search-control select').select2({
-            placeholder: '{{ _('City, department, region, EPCI…') }}',
-            ajax: {
-                url: '{% url 'perimeters-list' %}',
-                dataType: 'json',
-                delay: 100,
-            },
-            theme: 'bootstrap4',
-            width: '',
-        });
-    });
-</script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
 {% endblock %}

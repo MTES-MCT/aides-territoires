@@ -74,6 +74,22 @@
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
         <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script>
+            // Translations strings
+            var catalog = {
+                perimeter_placeholder: '{{ _("City, department, region, EPCI…") }}',
+                perimeter_url: '{% url "perimeters-list" %}',
+                tags_placeholder: '{{ _("Type a few characters to see some suggestions.") }}',
+                backers_placeholder: '{{ _("Backers") }}',
+                search_url: '{% url "results_view" %}',
+                copy_to_clipboard_success: '{{ _("The current url was successfully copied to clipboard.") }}',
+                copy_to_clipboard_error: '{{ _("Sorry, we could not copy automatically.") }}',
+                send_by_email_message: '{{ _("Please wait") }} <span class="fas fa-spinner fa-spin"></span>',
+                send_by_email_done: '{{ _("Done") }}',
+                send_by_email_success: '{{ _("Done! Check your mailbox for search results.") }}',
+                send_by_email_error: '{{ _("It seems something went wrong. Please try again in a few seconds.") }}',
+            };
+        </script>
         <script type="text/javascript">
             var _paq = _paq || [];
             _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);

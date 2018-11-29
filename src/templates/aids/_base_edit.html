@@ -73,44 +73,9 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="/static/jquery/dist/jquery.js"></script>
 <script src="/static/select2/dist/js/select2.js"></script>
-<script>
-    $(document).ready(function() {
-        $('select#id_backers').select2({
-            placeholder: '{{ _("Backers") }}',
-            ajax: {
-                url: '{% url "backers-list" %}',
-                dataType: 'json',
-                delay: 100,
-            },
-            theme: 'bootstrap4',
-            width: '',
-        });
-
-        $('select#id_perimeter').select2({
-            placeholder: '{{ _("City, department, region, EPCI…") }}',
-            ajax: {
-                url: '{% url "perimeters-list" %}',
-                dataType: 'json',
-                delay: 100,
-            },
-            theme: 'bootstrap4',
-            width: '',
-        });
-
-        $('select#id_tags').select2({
-            placeholder: '{{ _("Type a few characters to see some suggestions.") }}',
-            ajax: {
-                url: '{% url "tags-list" %}',
-                dataType: 'json',
-                delay: 100,
-            },
-            theme: 'bootstrap4',
-            width: '',
-            tags: true,
-            tokenSeparators: [',', ' '],
-        });
-    });
-</script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/backers_autocomplete.js"></script>
+<script src="/static/js/tags_autocomplete.js"></script>
 {% endblock %}
