@@ -129,6 +129,14 @@ nav#main-navbar {
                 a {
                     @extend .dropdown-item;
                 }
+
+                h6 {
+                    @extend .dropdown-header;
+                }
+
+                hr {
+                    @extend .dropdown-divider;
+                }
             }
         }
     }
