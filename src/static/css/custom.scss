@@ -367,6 +367,7 @@ section#aid {
     table {
         @extend .table;
         @extend .table-bordered;
+        table-layout: fixed;
 
         caption {
             @extend .sr-only;
