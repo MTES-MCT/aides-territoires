@@ -23,11 +23,6 @@ html.light {
     }
 }
 
-// Disable smallests breakpoints
-.container {
-    min-width: map-get($container-max-widths, md);
-}
-
 body {
     >footer {
         @extend .py-5;
