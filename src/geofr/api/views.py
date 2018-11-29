@@ -7,7 +7,7 @@ from geofr.models import Perimeter
 from geofr.api.serializers import PerimeterSerializer
 
 
-MIN_SEARCH_LENGTH = 3
+MIN_SEARCH_LENGTH = 1
 
 
 class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
@@ -27,6 +27,6 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
-        qs = qs.order_by('-scale')
+        qs = qs.order_by('-scale', 'name')
 
         return qs
