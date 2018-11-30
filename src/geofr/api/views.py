@@ -1,7 +1,5 @@
-import operator
-from functools import reduce
 from rest_framework import viewsets
-from django.db.models import Q
+from django.contrib.postgres.search import TrigramSimilarity
 
 from geofr.models import Perimeter
 from geofr.api.serializers import PerimeterSerializer
@@ -16,17 +14,12 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         """Filter data according to search query."""
 
-        qs = Perimeter.objects.all()
+        qs = Perimeter.objects.order_by('-scale', 'name')
         q = self.request.query_params.get('q', '')
-        terms = q.split()
-        q_filters = []
-        for term in terms:
-            if len(term) >= MIN_SEARCH_LENGTH:
-                q_filters.append(Q(name__icontains=term))
-
-        if q_filters:
-            qs = qs.filter(reduce(operator.and_, q_filters))
-
-        qs = qs.order_by('-scale', 'name')
+        if len(q) >= MIN_SEARCH_LENGTH:
+            qs = qs \
+                .annotate(similarity=TrigramSimilarity('name', q)) \
+                .filter(name__trigram_similar=q) \
+                .order_by('-similarity', '-scale', 'name')
 
         return qs

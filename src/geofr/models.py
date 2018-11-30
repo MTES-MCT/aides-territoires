@@ -5,6 +5,8 @@ from django.contrib.postgres.fields import ArrayField
 
 from model_utils import Choices
 
+from core.indexes import GinTrigramIndex
+
 
 class Perimeter(models.Model):
     """Represents a single application perimeter for an Aid.
@@ -42,8 +44,7 @@ class Perimeter(models.Model):
         max_length=16)
     name = models.CharField(
         _('Name'),
-        max_length=128,
-        db_index=True)
+        max_length=128)
 
     continent = models.CharField(
         _('Continent'),
@@ -85,6 +86,9 @@ class Perimeter(models.Model):
         unique_together = (
             ('scale', 'code'),
         )
+        indexes = [
+            GinTrigramIndex(fields=['name']),
+        ]
 
     def __str__(self):
         if self.scale == self.TYPES.commune and self.zipcodes:
