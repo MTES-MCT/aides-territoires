@@ -14,7 +14,7 @@
         <a href="#" data-toggle="dropdown">
             {{ user.full_name }}
         </a>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu dropdown-menu-right">
             {% include '_menu_actions.html' %}
             <hr />
             <a href="{% url 'logout' %}">
