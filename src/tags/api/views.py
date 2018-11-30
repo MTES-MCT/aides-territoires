@@ -1,7 +1,5 @@
-import operator
-from functools import reduce
+from django.contrib.postgres.search import TrigramSimilarity
 from rest_framework import viewsets
-from django.db.models import Q
 
 from tags.models import Tag
 from tags.api.serializers import TagSerializer
@@ -18,15 +16,10 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
         qs = Tag.objects.all()
         q = self.request.query_params.get('q', '')
-        terms = q.split()
-        q_filters = []
-        for term in terms:
-            if len(term) >= MIN_SEARCH_LENGTH:
-                q_filters.append(Q(name__contains=term.lower()))
-
-        if q_filters:
-            qs = qs.filter(reduce(operator.and_, q_filters))
-
-        qs = qs.order_by('name')
+        if len(q) >= MIN_SEARCH_LENGTH:
+            qs = qs \
+                .annotate(similarity=TrigramSimilarity('name', q)) \
+                .filter(name__trigram_similar=q) \
+                .order_by('-similarity', 'name')
 
         return qs
