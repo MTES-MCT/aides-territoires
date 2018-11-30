@@ -81,6 +81,15 @@ nav#main-navbar {
         @extend .navbar-brand;
         @extend .mr-auto;
 
+        div.short-title {
+            @extend .d-md-none;
+        }
+
+        div.long-title {
+            display: none;
+            @extend .d-md-block;
+        }
+
         svg.marianne-logo {
             max-height: $font-size-base * 2.5;
             // Prevent Chrome bug that does not limit the svg width
