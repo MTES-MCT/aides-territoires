@@ -1,4 +1,4 @@
-from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.indexes import GinIndex, GistIndex
 
 
 class GinTrigramIndex(GinIndex):
@@ -30,5 +30,20 @@ class GinTrigramIndex(GinIndex):
         statement.template = """
             CREATE INDEX %(name)s
             ON %(table)s%(using)s (%(columns)s gin_trgm_ops)%(extra)s
+        """
+        return statement
+
+
+class GistTrigramIndex(GistIndex):
+    """A Gist index with the Trigram operator class.
+
+    See above for details
+    """
+
+    def create_sql(self, model, schema_editor, using=''):
+        statement = super().create_sql(model, schema_editor, using=using)
+        statement.template = """
+            CREATE INDEX %(name)s
+            ON %(table)s%(using)s (%(columns)s gist_trgm_ops)%(extra)s
         """
         return statement
