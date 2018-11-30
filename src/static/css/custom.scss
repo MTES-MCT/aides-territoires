@@ -83,7 +83,8 @@ section.aid-list {
     @extend .row;
 
     div.aid-sidebar {
-        @extend .col-3;
+        @extend .col-md-3;
+        @extend .mb-3;
 
         a.top-sidebar-btn {
             @extend .btn;
@@ -180,7 +181,7 @@ section.aid-list {
     }
 
     div.aid-results {
-        @extend .col;
+        @extend .col-md-9;
 
         &.loading {
             opacity: 0.3;
@@ -249,7 +250,8 @@ section.aid-list {
 section#aid-edit {
     @extend .row;
     div.form-sidebar {
-        @extend .col-3;
+        @extend .col-md-3;
+        @extend .mb-3;
 
         div.sidebar-actions {
             @extend .card;
@@ -298,7 +300,7 @@ section#aid-edit {
     }
 
     form.main-form {
-        @extend .col-9;
+        @extend .col-md-9;
 
         div.form-actions {
 
@@ -367,6 +369,7 @@ section#aid {
     table {
         @extend .table;
         @extend .table-bordered;
+        table-layout: fixed;
 
         caption {
             @extend .sr-only;

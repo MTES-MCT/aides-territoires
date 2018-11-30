@@ -2,9 +2,14 @@
 <nav id="main-navbar">
     <div class="container">
         <a class="homelink" href="{% url 'home' %}">
-            {% include '_marianne.html' %}
-            aides-territoires.<strong>beta.gouv</strong><em>.fr</em>
-            <span><sup>Beta</sup></span>
+            <div class="long-title">
+                {% include '_marianne.html' %}
+                aides-territoires.<strong>beta.gouv</strong><em>.fr</em>
+                <span><sup>Beta</sup></span>
+            </div>
+            <div class="short-title">
+                Aides-Territoires
+            </div>
         </a>
         {% if user.is_authenticated %}
             {% include '_authenticated_menu.html' %}

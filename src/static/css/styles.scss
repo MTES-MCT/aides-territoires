@@ -23,11 +23,6 @@ html.light {
     }
 }
 
-// Disable smallests breakpoints
-.container {
-    min-width: map-get($container-max-widths, md);
-}
-
 body {
     >footer {
         @extend .py-5;
@@ -85,6 +80,15 @@ nav#main-navbar {
     .homelink {
         @extend .navbar-brand;
         @extend .mr-auto;
+
+        div.short-title {
+            @extend .d-md-none;
+        }
+
+        div.long-title {
+            display: none;
+            @extend .d-md-block;
+        }
 
         svg.marianne-logo {
             max-height: $font-size-base * 2.5;
