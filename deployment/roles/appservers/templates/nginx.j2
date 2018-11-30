@@ -60,7 +60,7 @@ server {
     # add_header X-Frame-Options "SAMEORIGIN";  # Superseded by csp settings
     add_header X-Content-Type-Options "nosniff";
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
-    add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self'; frame-src https://stats.data.gouv.fr; frame-ancestors 'self' *.gouv.fr; img-src 'self' https://stats.data.gouv.fr data:; script-src 'self' https://stats.data.gouv.fr/piwik.js; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' https://my.sendinblue.com;";
+    add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self'; frame-src https://stats.data.gouv.fr; frame-ancestors 'self' http://*.gouv.fr https://*.gouv.fr; img-src 'self' https://stats.data.gouv.fr data:; script-src 'self' https://stats.data.gouv.fr/piwik.js; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' https://my.sendinblue.com;";
 
     gzip on;
     gzip_proxied any;
