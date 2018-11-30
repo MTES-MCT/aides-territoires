@@ -33,26 +33,44 @@ body {
             @extend .text-light;
         }
 
-        img#logo-fabnum {
-            max-width: 100%;
-            height: auto;
-            @extend .mb-3;
-            @extend .mx-3;
+        div.logos {
+            text-align: center;
 
-            @include media-breakpoint-up(sm) {
-                float: right;
-                width: 33%;
-                margin-right: 0 !important;
+            img.logo {
+                @extend .mb-3;
+                @extend .mx-3;
+
+                &#logo-fabnum {
+                    max-height: 16rem;
+                }
+
+                &#logo-ministeres {
+                    @extend .ml-3;
+                    max-height: 16rem;
+                }
             }
 
             @include media-breakpoint-up(md) {
-                width: 25%;
+                float: right;
+                height: 16rem;
+
+                img.logo {
+                    height: 100%;
+                    margin-right: 0 !important;
+
+                    &#logo-fabnum {
+                        width: 16rem;
+                    }
+
+                    &#logo-ministeres {
+                        width: 16rem * 160 / 360;
+                    }
+                }
             }
         }
 
         h1 {
             @extend .h3;
-            max-width: 45rem;
 
             small {
                 @extend .text-muted;
