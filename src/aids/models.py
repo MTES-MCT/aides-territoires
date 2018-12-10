@@ -236,6 +236,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Date updated'),
         auto_now=True)
 
+    # Third-party data import related fields
+    is_imported = models.BooleanField(
+        _('Is imported?'),
+        default=False)
+
     # This field is used to index searchable text content
     search_vector = SearchVectorField(
         _('Search vector'),
