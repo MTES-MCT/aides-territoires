@@ -18,6 +18,7 @@ xlrd = "*"
 celery = "*"
 django-braces = "*"
 django-xworkflows = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 pytest = "*"
