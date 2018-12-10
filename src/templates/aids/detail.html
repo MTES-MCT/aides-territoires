@@ -37,7 +37,7 @@
 
     <p>
         {% if aid.description %}
-            {{ aid.description }}
+            {{ aid.description|safe }}
         {% else %}
             {{ _('No detailed description was submitted.') }}
         {% endif %}

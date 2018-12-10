@@ -151,7 +151,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text=_('On a national level if appropriate'))
     description = models.TextField(
         _('Short description'),
-        max_length=500,
         blank=False)
     eligibility = models.TextField(
         _('Eligibility'),
@@ -164,6 +163,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text=_('What is the aid broadcasting perimeter?'))
     mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
+        null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=STEPS,
@@ -176,17 +176,20 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     targeted_audiances = ChoiceArrayField(
         verbose_name=_('Targeted audiances'),
+        null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=AUDIANCES))
     aid_types = ChoiceArrayField(
         verbose_name=_('Aid types'),
+        null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=TYPES),
         help_text=_('Specify the help type or types.'))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
+        null=True,
         blank=True,
         base_field=models.CharField(
             max_length=32,
@@ -236,6 +239,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Date updated'),
         auto_now=True)
 
+    # Third-party data import related fields
+    is_imported = models.BooleanField(
+        _('Is imported?'),
+        default=False)
+    import_uniqueid = models.CharField(
+        _('Unique identifier for imported data'),
+        max_length=20,
+        blank=True)
+
     # This field is used to index searchable text content
     search_vector = SearchVectorField(
         _('Search vector'),
@@ -260,15 +272,17 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             GinIndex(fields=['search_vector']),
         ]
 
-    def save(self, *args, **kwargs):
-        """Populate the slug field.
+    def set_slug(self):
+        """Set the object's slug.
 
         Lots of aids have duplicate name, so we prefix the slug with random
-        characters.
-        """
+        characters."""
         if not self.id:
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
+
+    def set_search_vector(self):
+        """Update the full text cache field."""
 
         # Note: we use `SearchVector(Value(self.field))` instead of
         # `SearchVector('field')` because the latter only works for updates,
@@ -287,6 +301,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 Value(' '.join(self.tags)),
                 weight='A',
                 config='french')
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        self.set_search_vector()
         return super().save(*args, **kwargs)
 
     def __str__(self):
