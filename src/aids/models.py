@@ -112,8 +112,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('epci', _('Audiance EPCI')),
         ('lessor', _('Audiance lessor')),
         ('association', _('Association')),
-        ('private person', _('Private person')),
-        ('researcher', _('Researcher')),
+        ('private person', _('Individual')),
+        ('researcher', _('Research')),
+        ('private_sector', _('Private sector')),
     )
 
     DESTINATIONS = Choices(

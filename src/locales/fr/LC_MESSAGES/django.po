@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 15:36+0100\n"
+"POT-Creation-Date: 2018-12-18 11:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -278,11 +278,14 @@ msgstr "Bailleur, société d'économie mixte, aménageur"
 msgid "Association"
 msgstr "Association"
 
-msgid "Private person"
+msgid "Individual"
 msgstr "Particulier"
 
-msgid "Researcher"
-msgstr "Chercheur"
+msgid "Research"
+msgstr "Recherche"
+
+msgid "Private sector"
+msgstr "Secteur privé"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -391,6 +394,12 @@ msgstr "Date de création"
 
 msgid "Date updated"
 msgstr "Date de mise à jour"
+
+msgid "Is imported?"
+msgstr "Importé ?"
+
+msgid "Unique identifier for imported data"
+msgstr "Identifiant d'import unique"
 
 msgid "Search vector"
 msgstr "Search vector"
@@ -583,17 +592,17 @@ msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 msgid "You are an aid consumer"
 msgstr "Vous êtes chercheur·se d'aide"
 
-msgid "My published aids"
-msgstr "Mes aides publiées"
+msgid "My bundles"
+msgstr "Mes listes d'aides"
 
 msgid "You are a contributor"
 msgstr "Vous êtes contributeur·rice"
 
+msgid "My published aids"
+msgstr "Mes aides publiées"
+
 msgid "Publish a new aid"
 msgstr "Publier une aide"
-
-msgid "My bundles"
-msgstr "Mes listes d'aides"
 
 msgid "Search results pages"
 msgstr "Pages de résultats"
