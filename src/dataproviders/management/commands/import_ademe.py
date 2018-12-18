@@ -5,7 +5,6 @@ from xml.etree import ElementTree
 from html import unescape
 from unicodedata import normalize
 from bs4 import BeautifulSoup as bs
-import urllib.parse
 
 from django.core.management.base import BaseCommand
 
@@ -13,7 +12,7 @@ from geofr.models import Perimeter
 from aids.models import Aid
 
 
-FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'
+FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'  # noqa
 BACKER_ID = 22
 ADMIN_ID = 1
 
@@ -54,11 +53,11 @@ class Command(BaseCommand):
         data_id = xml.attrib['id']
         unique_id = 'ADEME_{}'.format(data_id)
         title = xml.find('.//titre').text
-        perimeter = xml.find('.//couverture_geographique').text
+        perimeter = xml.find('.//couverture_geographique').text  # noqa
         description = self.clean_description(xml.find('presentation').text)
 
         publication_date_text = xml.find('.//date_publication').text
-        publication_date = datetime.strptime(
+        publication_date = datetime.strptime(  # noqa
             publication_date_text,
             '%d/%m/%Y %H:%M:%S')
         closure_date_text = xml.find('.//date_cloture').text
