@@ -92,19 +92,19 @@ def perimeters():
 def aids(perimeters):
     aids = [
         AidFactory(perimeter=perimeters['europe']),
-        AidFactory.create_batch(2, perimeter=perimeters['france']),
-        AidFactory.create_batch(3, perimeter=perimeters['occitanie']),
-        AidFactory.create_batch(4, perimeter=perimeters['herault']),
-        AidFactory.create_batch(5, perimeter=perimeters['montpellier']),
-        AidFactory.create_batch(6, perimeter=perimeters['vic']),
-        AidFactory.create_batch(7, perimeter=perimeters['aveyron']),
-        AidFactory.create_batch(8, perimeter=perimeters['rodez']),
-        AidFactory.create_batch(9, perimeter=perimeters['normandie']),
-        AidFactory.create_batch(10, perimeter=perimeters['eure']),
-        AidFactory.create_batch(11, perimeter=perimeters['st-cyr']),
-        AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
-        AidFactory.create_batch(13,
-                                perimeter=perimeters['rhone-mediterannee']),
+        *AidFactory.create_batch(2, perimeter=perimeters['france']),
+        *AidFactory.create_batch(3, perimeter=perimeters['occitanie']),
+        *AidFactory.create_batch(4, perimeter=perimeters['herault']),
+        *AidFactory.create_batch(5, perimeter=perimeters['montpellier']),
+        *AidFactory.create_batch(6, perimeter=perimeters['vic']),
+        *AidFactory.create_batch(7, perimeter=perimeters['aveyron']),
+        *AidFactory.create_batch(8, perimeter=perimeters['rodez']),
+        *AidFactory.create_batch(9, perimeter=perimeters['normandie']),
+        *AidFactory.create_batch(10, perimeter=perimeters['eure']),
+        *AidFactory.create_batch(11, perimeter=perimeters['st-cyr']),
+        *AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
+        *AidFactory.create_batch(13,
+                                 perimeter=perimeters['rhone-mediterannee']),
     ]
     return aids
 
@@ -287,3 +287,18 @@ def test_full_text_uses_tags(client, perimeters):
 
     res = client.get(url, data={'text': 'gratin'})
     assert res.context['paginator'].count == 1
+
+
+def test_the_only_recent_filter(client, perimeters, aids):
+    """Display ALL the aids."""
+
+    url = reverse('search_view')
+    res = client.get(url, data={'recent_only': 'oui'})
+    assert res.context['paginator'].count == 91
+
+    long_ago = timezone.now() - timedelta(days=50)
+    for aid in aids[:5]:
+        aid.date_created = long_ago
+        aid.save()
+    res = client.get(url, data={'recent_only': 'oui'})
+    assert res.context['paginator'].count == 86
