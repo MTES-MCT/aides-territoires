@@ -783,7 +783,7 @@ msgstr ""
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "This aid was published by a certified account."
-msgstr "Cette aide est publiée par un compte certifié."
+msgstr "Cette aide est directement publiée par la structure qui la porte."
 
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
