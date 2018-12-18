@@ -10,6 +10,6 @@ $(document).ready(function() {
         tags: true,
         theme: 'bootstrap4',
         width: '',
-        tokenSeparators: [',', ' '],
+        tokenSeparators: [','],
     });
 });

@@ -11,7 +11,7 @@
             },
             tags: true,
             theme: 'admin-autocomplete',
-            tokenSeparators: [',', ' '],
+            tokenSeparators: [','],
         });
     });
 }(django.jQuery));

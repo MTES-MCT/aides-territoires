@@ -64,8 +64,10 @@ class BaseAidForm(forms.ModelForm):
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
-        self.fields['tags'].choices = zip(
-            self.instance.tags, self.instance.tags)
+        all_tags = self.instance.tags
+        if self.is_bound:
+            all_tags += self.data.getlist('tags')
+        self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
             'name': _('Aid title'),
