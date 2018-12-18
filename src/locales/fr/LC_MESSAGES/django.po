@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-18 11:44+0100\n"
+"POT-Creation-Date: 2018-12-18 16:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,6 +231,12 @@ msgstr "Destinations"
 
 msgid "Diffusion"
 msgstr "Diffusion"
+
+msgid "Recent aids only"
+msgstr "Aides récentes uniquement"
+
+msgid "Only display aids created less than 30 days ago"
+msgstr "N'afficher que les aides créées au cours des 30 derniers jours"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."

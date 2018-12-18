@@ -1,9 +1,11 @@
 import re
+from datetime import timedelta
 
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.utils import timezone
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import (AutocompleteSelectMultiple,
@@ -172,6 +174,15 @@ class AidSearchForm(forms.Form):
         choices=SCALES,
         widget=MultipleChoiceFilterWidget)
 
+    # With use a multiple choice field so the filter rendering remains
+    # consistent with the other filters
+    recent_only = forms.MultipleChoiceField(
+        label=_('Recent aids only'),
+        choices=(
+            ('oui', _('Only display aids created less than 30 days ago')),),
+        required=False,
+        widget=MultipleChoiceFilterWidget)
+
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
     integration = forms.CharField(
@@ -226,6 +237,11 @@ class AidSearchForm(forms.Form):
             qs = qs \
                 .filter(search_vector=query) \
                 .annotate(rank=SearchRank(F('search_vector'), query))
+
+        recent_only = self.cleaned_data.get('recent_only', False)
+        if recent_only:
+            a_month_ago = timezone.now() - timedelta(days=30)
+            qs = qs.filter(date_created__gte=a_month_ago.date())
 
         return qs
 
