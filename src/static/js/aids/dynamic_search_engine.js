@@ -7,14 +7,33 @@
     // When the search filter form is used, we dynamically fetch new
     // results and display them on the spot. We also update the url,
     // so the current search remains bookmarkable.
-    var results_div = $('div#search-results');
-    var results_url = catalog.search_url;
+    var resultsDiv = $('div#search-results');
+    var resultsUrl = catalog.search_url;
     var searchXHR = undefined;
     var pendingRequest = false;
 
-    exports.renderSearchResults = function (event) {
+    var markRequestAsPending = function() {
+        pendingRequest = true;
+        resultsDiv.addClass('loading');
+    };
+
+    var markRequestAsCompleted = function() {
+        pendingRequest = false;
+        resultsDiv.removeClass('loading');
+    };
+
+    var displaySearchResults = function(results) {
+        resultsDiv.html(results)
+    };
+
+    var updateUrl = function(searchParams) {
+        var newUrl = '?' + searchParams;
+        history.replaceState(null, null, newUrl);
+    };
+
+    exports.updateSearchResults = function (event) {
         var $form = $(this);
-        var search_parameters = $form.serialize();
+        var searchParams = $form.serialize();
 
         // If a pending request exists, abort it before we start a new one
         if (pendingRequest && searchXHR) {
@@ -22,28 +41,24 @@
         }
 
         searchXHR = $.ajax({
-            url: results_url,
-            data: search_parameters,
+            url: resultsUrl,
+            data: searchParams,
             dataType: 'html',
             beforeSend: function () {
-                pendingRequest = true;
-                results_div.addClass('loading');
+                markRequestAsPending();
             }
-        }).done(function (result) {
-            results_div.html(result)
-
-            var new_url = '?' + search_parameters;
-            history.replaceState(null, null, new_url);
+        }).done(function (results) {
+            displaySearchResults(results);
+            updateUrl(searchParams);
         }).always(function () {
-            pendingRequest = false;
-            results_div.removeClass('loading');
+            markRequestAsCompleted();
         });
     };
 
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#search-engine form').on('change submit keyup', renderSearchResults);
+    $('div#search-engine form').on('change submit keyup', updateSearchResults);
 
     // Since we use js to dynamically fetch new results, it's better
     // to hide the useless submit button. We do it using js, so
