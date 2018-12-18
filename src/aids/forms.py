@@ -68,7 +68,10 @@ class BaseAidForm(forms.ModelForm):
         # tags will be displayed in the widget
         all_tags = self.instance.tags
         if self.is_bound:
-            all_tags += self.data.getlist('tags')
+            if hasattr(self.data, 'getlist'):
+                all_tags += self.data.getlist('tags')
+            else:
+                all_tags += self.data.get('tags', [])
         self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
