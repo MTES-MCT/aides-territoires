@@ -85,7 +85,7 @@ class BaseAidForm(forms.ModelForm):
             self.fields[field].label = label
 
         custom_help_text = {
-            'tags': _('Add some keywords to describe your aid'
+            'tags': _('Add up to 16 keywords to describe your aid'
                       ' (separated by ",")'),
         }
         for field, help_text in custom_help_text.items():
