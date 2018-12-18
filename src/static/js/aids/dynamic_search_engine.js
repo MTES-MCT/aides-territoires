@@ -58,7 +58,8 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#search-engine form').on('change submit keyup', updateSearchResults);
+    $('div#search-engine form').on('change submit', updateSearchResults);
+    $('div#search-engine form').on('keyup', 'input[type=text]', updateSearchResults);
 
     // Since we use js to dynamically fetch new results, it's better
     // to hide the useless submit button. We do it using js, so
