@@ -43,7 +43,7 @@ AUDIANCES_DICT = {
 ELIGIBILITY_TXT = '''
 Il est vivement conseillé de contacter l'ADEME en amont du dépôt du dossier
 pour tous renseignements ou conseils relatifs au montage et à la soumission
-de votre dossier."
+de votre dossier.
 '''
 
 
@@ -56,6 +56,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         new_aids = []
         self.france = Perimeter.objects.get(code='FRA')
+
+        regions_qs = Perimeter.objects \
+            .filter(scale=Perimeter.TYPES.region)
+        self.regions = list(regions_qs)
 
         data_file = os.path.abspath(options['data-file'][0])
         xml_tree = ElementTree.parse(data_file)
@@ -83,7 +87,6 @@ class Command(BaseCommand):
         data_id = xml.attrib['id']
         unique_id = 'ADEME_{}'.format(data_id)
         title = xml.find('.//titre').text
-        perimeter = xml.find('.//couverture_geographique').text  # noqa
         description = self.clean_description(xml.find('presentation').text)
 
         publication_date_text = xml.find('.//date_publication').text
@@ -99,13 +102,14 @@ class Command(BaseCommand):
         clean_url = details_url.replace(' ', '%20')
 
         targets = self.extract_targets(xml)
+        perimeter = self.extract_perimeter(xml)
 
         aid = Aid(
             name=title,
             author_id=ADMIN_ID,
             description=description,
             eligibility=ELIGIBILITY_TXT,
-            perimeter=self.france,
+            perimeter=perimeter,
             url=clean_url,
             start_date=publication_date,
             submission_deadline=closure_date,
@@ -137,3 +141,38 @@ class Command(BaseCommand):
             our_targets = AUDIANCES_DICT[ademe_target]
             targets += our_targets
         return list(set(targets))
+
+    def extract_perimeter(self, xml):
+        """Extract the perimeter value.
+
+        In the Ademe feed, there is one xml tag `<couverture_geographique/>`
+        with two values: `Nationale` or `Régionale`.
+
+        When the perimeter is regional, the actual region is not given.
+        Our only way to extract it is to find the region name in the title
+        if we are lucky.
+        """
+        perimeter_choice = xml.find('.//couverture_geographique').text
+        aid_title = xml.find('.//titre').text
+
+        perimeter = None
+        if perimeter_choice == 'Nationale':
+            perimeter = self.france
+        else:
+            # This is a nasty hack
+            # Test all region names and see if they appear in the title
+            for region in self.regions:
+                if region.name in aid_title:
+                    perimeter = region
+                    self.stdout.write(
+                        '{} {} -> {}'.format(
+                            self.style.SUCCESS('✓'), aid_title, perimeter))
+
+                    break
+
+            if perimeter is None:
+                self.stdout.write('{} {} -> ???'.format(
+                    self.style.ERROR('✘'), aid_title))
+                perimeter = self.france
+
+        return perimeter
