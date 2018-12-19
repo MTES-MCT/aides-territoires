@@ -152,7 +152,20 @@ class AidDetailView(DetailView):
                 bundles=user_bundles,
                 initial={'bundles': aid_bundles})
 
+        context['similar_aids'] = self.find_similar_aids()
         return context
+
+    def find_similar_aids(self):
+        from django.db.models import Count
+        tags = self.object.tags
+        aids = Aid.objects \
+            .published() \
+            .open() \
+            .filter(_tags_m2m__name__in=tags) \
+            .annotate(nb_tags=Count('_tags_m2m')) \
+            .filter(nb_tags__gte=2) \
+            .exclude(id=self.object.id)
+        return aids
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
