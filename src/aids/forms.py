@@ -151,6 +151,14 @@ class AidSearchForm(forms.Form):
     text = forms.CharField(
         label=_('Text search'),
         required=False)
+    # With use a multiple choice field so the filter rendering remains
+    # consistent with the other filters
+    recent_only = forms.MultipleChoiceField(
+        label=_('Recent aids'),
+        choices=(
+            ('yes', _('Only display aids created less than 30 days ago')),),
+        required=False,
+        widget=MultipleChoiceFilterWidget)
     apply_before = forms.DateField(
         label=_('Apply before…'),
         required=False,
@@ -175,15 +183,6 @@ class AidSearchForm(forms.Form):
         label=_('Diffusion'),
         required=False,
         choices=SCALES,
-        widget=MultipleChoiceFilterWidget)
-
-    # With use a multiple choice field so the filter rendering remains
-    # consistent with the other filters
-    recent_only = forms.MultipleChoiceField(
-        label=_('Recent aids only'),
-        choices=(
-            ('oui', _('Only display aids created less than 30 days ago')),),
-        required=False,
         widget=MultipleChoiceFilterWidget)
 
     # This field is not related to the search, but is submitted
