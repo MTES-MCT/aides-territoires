@@ -80,7 +80,7 @@ class Command(BaseCommand):
         description = self.clean_description(xml.find('presentation').text)
 
         publication_date_text = xml.find('.//date_publication').text
-        publication_date = datetime.strptime(  # noqa
+        publication_date = datetime.strptime(
             publication_date_text,
             '%d/%m/%Y %H:%M:%S')
         closure_date_text = xml.find('.//date_cloture').text
@@ -100,6 +100,7 @@ class Command(BaseCommand):
             eligibility='',
             perimeter=self.france,
             url=clean_url,
+            start_date=publication_date,
             submission_deadline=closure_date,
             targeted_audiances=targets,
             is_imported=True,
