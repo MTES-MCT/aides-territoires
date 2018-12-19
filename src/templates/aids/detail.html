@@ -157,6 +157,18 @@
 
         </tbody>
     </table>
+
+    {% if similar_aids %}
+    <h2>{{ _('Similar aids') }}</h2>
+    <p>{% blocktrans trimmed %}
+    Those aids present some similarities and might be worth checking.
+    {% endblocktrans %}</p>
+    <ul>
+        {% for aid in similar_aids %}
+            <li><a href="{{ aid.get_absolute_url }}">{{ aid }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </section>
 {% endblock %}
 
