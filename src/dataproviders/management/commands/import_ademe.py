@@ -40,6 +40,13 @@ AUDIANCES_DICT = {
 }
 
 
+ELIGIBILITY_TXT = '''
+Il est vivement conseillé de contacter l'ADEME en amont du dépôt du dossier
+pour tous renseignements ou conseils relatifs au montage et à la soumission
+de votre dossier."
+'''
+
+
 class Command(BaseCommand):
     """Import data from the Ademe data feed."""
 
@@ -97,7 +104,7 @@ class Command(BaseCommand):
             name=title,
             author_id=ADMIN_ID,
             description=description,
-            eligibility='',
+            eligibility=ELIGIBILITY_TXT,
             perimeter=self.france,
             url=clean_url,
             start_date=publication_date,
