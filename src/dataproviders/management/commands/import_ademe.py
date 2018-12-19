@@ -16,6 +16,29 @@ FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_proje
 BACKER_ID = 22
 ADMIN_ID = 1
 
+# Convert Ademe's `cible` value to our value
+AUDIANCES_DICT = {
+    'Entreprises et Monde Agricole': [Aid.AUDIANCES.private_sector],
+    'Recherche et Innovation': [Aid.AUDIANCES.researcher],
+    'Collectivités et Secteur public': [
+        Aid.AUDIANCES.commune,
+        Aid.AUDIANCES.department,
+        Aid.AUDIANCES.region,
+        Aid.AUDIANCES.epci,
+    ],
+    'Tout Public': [
+        Aid.AUDIANCES.commune,
+        Aid.AUDIANCES.department,
+        Aid.AUDIANCES.region,
+        Aid.AUDIANCES.epci,
+        Aid.AUDIANCES.lessor,
+        Aid.AUDIANCES.association,
+        Aid.AUDIANCES.private_person,
+        Aid.AUDIANCES.researcher,
+        Aid.AUDIANCES.private_sector,
+    ]
+}
+
 
 class Command(BaseCommand):
     """Import data from the Ademe data feed."""
@@ -68,6 +91,8 @@ class Command(BaseCommand):
         details_url = xml.find('.//lien_page_edition').text
         clean_url = details_url.replace(' ', '%20')
 
+        targets = self.extract_targets(xml)
+
         aid = Aid(
             name=title,
             author_id=ADMIN_ID,
@@ -76,6 +101,7 @@ class Command(BaseCommand):
             perimeter=self.france,
             url=clean_url,
             submission_deadline=closure_date,
+            targeted_audiances=targets,
             is_imported=True,
             import_uniqueid=unique_id,
         )
@@ -94,3 +120,12 @@ class Command(BaseCommand):
         soup = bs(normalized)
         prettified = soup.prettify()
         return prettified
+
+    def extract_targets(self, xml):
+        targets = []
+        target_elts = xml.findall('.//cibles/cible')
+        for element in target_elts:
+            ademe_target = element.text
+            our_targets = AUDIANCES_DICT[ademe_target]
+            targets += our_targets
+        return list(set(targets))
