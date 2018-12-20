@@ -11,7 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
 from braces.views import AnonymousRequiredMixin
 
-from accounts.forms import LoginForm, RegisterForm, ContributorProfileForm
+from accounts.forms import LoginForm, RegisterForm, ProfileForm
 from accounts.tasks import send_connection_email
 from accounts.models import User
 
@@ -106,16 +106,15 @@ class LoginResultView(TemplateView):
         return names
 
 
-class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
-                             UpdateView):
-    """Update contributor profile data."""
+class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    """Update user profile data."""
 
-    form_class = ContributorProfileForm
-    template_name = 'accounts/contributor_profile.html'
+    form_class = ProfileForm
+    template_name = 'accounts/profile.html'
     success_message = _('Your profile was updated successfully.')
 
     def get_success_url(self):
-        current_url = reverse('contributor_profile')
+        current_url = reverse('profile')
         next_url = self.request.GET.get('next', current_url)
         return next_url
 

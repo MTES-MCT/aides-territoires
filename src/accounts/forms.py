@@ -42,9 +42,23 @@ class RegisterForm(forms.ModelForm):
         self.fields['full_name'].widget.attrs.update({'autofocus': True})
 
 
-class ContributorProfileForm(forms.ModelForm):
-    """Edit contributor related user data."""
+class ProfileForm(forms.ModelForm):
+    """Edit profile related user data."""
+
+    ml_consent = forms.BooleanField(
+        required=False,
+        label=_('Yes, I want to receive news about the service'),
+        help_text=_('We will send regular updates (no more than once a month) '
+                    'about the new features and updates about our service.'))
+    similar_aids_alert = forms.BooleanField(
+        required=False,
+        label=_('Yes, I want to receive alerts when similar new aids '
+                'are published'),
+        help_text=_('We will detect when newly published aids are similar to '
+                    'the ones you saved into one of your lists, and send you '
+                    'an e-mail alert when it happens.'))
 
     class Meta:
         model = User
-        fields = ['organization', 'role', 'contact_phone']
+        fields = ['organization', 'role', 'contact_phone', 'ml_consent',
+                  'similar_aids_alert']
