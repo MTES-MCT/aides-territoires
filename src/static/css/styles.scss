@@ -156,16 +156,16 @@ nav#main-navbar {
                 h6 {
                     @extend .dropdown-header;
 
-                    &#profile-menu:before {
-                        @include icon-before(user-circle);
+                    &#profile-menu {
+                        @include icon(before, $fa-var-user-circle);
                     }
 
-                    &#consumer-menu:before {
-                        @include icon-before(search);
+                    &#consumer-menu {
+                        @include icon(before, $fa-var-search);
                     }
 
-                    &#contributor-menu:before {
-                        @include icon-before(pencil-alt);
+                    &#contributor-menu {
+                        @include icon(before, $fa-var-pencil-alt);
                     }
                 }
 
@@ -194,12 +194,8 @@ main {
 
             float: right;
 
-            &.action-add:before {
-                @include fa-icon;
-                @extend .fas;
-                content: fa-content($fa-var-plus);
-                @extend .mr-1;
-                vertical-align: baseline;
+            &.action-add {
+                @include icon(before, plus);
             }
         }
     }
@@ -365,12 +361,8 @@ div.modal {
     }
 }
 
-a[href^='http']:after {
-    @include fa-icon;
-    @extend .fas;
-    content: fa-content($fa-var-external-link-alt);
-    vertical-align: baseline;
-    @extend .ml-1;
+a[href^='http'] {
+    @include icon(after, $fa-var-external-link-alt);
 }
 
 html.integration {
