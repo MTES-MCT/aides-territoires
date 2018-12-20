@@ -181,11 +181,6 @@ main {
     section.main-content {
         @extend .py-4;
 
-        h1 {
-            @extend .h2;
-            @extend .mb-3;
-        }
-
         a.main-action,
         button.main-action {
             @extend .btn;
@@ -396,7 +391,10 @@ html.integration {
     @extend .px-3;
 
     h1 {
-        @extend .h2;
+        text-align: center;
+    }
+
+    h2 {
         text-align: center;
     }
 
