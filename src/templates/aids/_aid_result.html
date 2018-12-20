@@ -14,7 +14,7 @@
 
         <p>
             {% if aid.description %}
-                {{ aid.description }}
+                {{ aid.description|striptags|truncatewords:128 }}
             {% else %}
                 {{ _('No detailed description was submitted.') }}
             {% endif %}
