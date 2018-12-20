@@ -293,12 +293,12 @@ def test_the_only_recent_filter(client, perimeters, aids):
     """Display ALL the aids."""
 
     url = reverse('search_view')
-    res = client.get(url, data={'recent_only': 'oui'})
+    res = client.get(url, data={'recent_only': 'yes'})
     assert res.context['paginator'].count == 91
 
     long_ago = timezone.now() - timedelta(days=50)
     for aid in aids[:5]:
         aid.date_created = long_ago
         aid.save()
-    res = client.get(url, data={'recent_only': 'oui'})
+    res = client.get(url, data={'recent_only': 'yes'})
     assert res.context['paginator'].count == 86
