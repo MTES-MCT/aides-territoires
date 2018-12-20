@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-19 10:14+0100\n"
+"POT-Creation-Date: 2018-12-19 16:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1001,6 +1001,12 @@ msgstr "Contact (e-mail)"
 
 msgid "Contact (phone)"
 msgstr "Contact (téléphone)"
+
+msgid "Similar aids"
+msgstr "Aides similaires"
+
+msgid "Those aids present some similarities and might be worth checking."
+msgstr "Ces aides présentes certaines similarités et pourraient vous intéresser."
 
 msgid "Please stand by."
 msgstr "Merci de patienter"
