@@ -152,8 +152,16 @@ class Command(BaseCommand):
         Our only way to extract it is to find the region name in the title
         if we are lucky.
         """
+        chars_to_replace = {
+            'é': 'e',
+            'è': 'e',
+            'î': 'i',
+            '-': ' '
+        }
         perimeter_choice = xml.find('.//couverture_geographique').text
-        aid_title = xml.find('.//titre').text
+        aid_title = xml.find('.//titre').text.lower()
+        for old_char, new_char in chars_to_replace.items():
+            aid_title = aid_title.replace(old_char, new_char)
 
         perimeter = None
         if perimeter_choice == 'Nationale':
@@ -162,7 +170,14 @@ class Command(BaseCommand):
             # This is a nasty hack
             # Test all region names and see if they appear in the title
             for region in self.regions:
-                if region.name in aid_title:
+
+                # We remove all special chars from region name and aid title
+                # in a futile atempt to increase our match rate.
+                region_name = region.name.lower()
+                for old_char, new_char in chars_to_replace.items():
+                    region_name = region_name.replace(old_char, new_char)
+
+                if region_name in aid_title:
                     perimeter = region
                     self.stdout.write(
                         '{} {} -> {}'.format(
