@@ -47,13 +47,13 @@ class ProfileForm(forms.ModelForm):
 
     ml_consent = forms.BooleanField(
         required=False,
-        label=_('Yes, I want to receive news about the service'),
+        label=_('Yes, I want to receive news about the service.'),
         help_text=_('We will send regular updates (no more than once a month) '
                     'about the new features and updates about our service.'))
     similar_aids_alert = forms.BooleanField(
         required=False,
         label=_('Yes, I want to receive alerts when similar new aids '
-                'are published'),
+                'are published.'),
         help_text=_('We will detect when newly published aids are similar to '
                     'the ones you saved into one of your lists, and send you '
                     'an e-mail alert when it happens.'))

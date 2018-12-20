@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-19 16:24+0100\n"
+"POT-Creation-Date: 2018-12-20 16:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,27 @@ msgstr "Vous souhaitez recevoir des actualités liées au service."
 msgid "You will be able to unsubscribe at any time."
 msgstr "Vous pourrez vous désabonner à tout moment."
 
+msgid "Yes, I want to receive news about the service."
+msgstr "Je souhaite recevoir des actualités liées au service."
+
+msgid ""
+"We will send regular updates (no more than once a month) about the new "
+"features and updates about our service."
+msgstr ""
+"Nous enverrons régulièmement (pas plus d'une fois par mois) des informations "
+"à propos des nouveautés sur le site."
+
+msgid "Yes, I want to receive alerts when similar new aids are published."
+msgstr "Je souhaite recevoir des alertes quand des aides similaires sont publiées."
+
+msgid ""
+"We will detect when newly published aids are similar to the ones you saved "
+"into one of your lists, and send you an e-mail alert when it happens."
+msgstr ""
+"Nous détecterons quand des aides récemment publiées seront similaires à l'une "
+"des aides enregistrées dans une de vos listes, et vous enverrons une alerte "
+"par e-mail le cas échéant."
+
 msgid "Email address"
 msgstr "Adresse e-mail"
 
@@ -46,6 +67,12 @@ msgstr "Nom complet"
 
 msgid "Date joined"
 msgstr "Date de création du compte"
+
+msgid "Gave consent to receive communications"
+msgstr "A donné son consentement pour recevoir l'actualité"
+
+msgid "Wants to receive alerts when similar aids are published"
+msgstr "Veut recevoir des alertes en cas de publication d'aides similaires"
 
 msgid "Organization"
 msgstr "Organisme"
@@ -61,9 +88,6 @@ msgstr "Certifié·e ?"
 
 msgid "Display a badge next to this user's aids"
 msgstr "Afficher un badge à côté des aides publiées par ce compte."
-
-msgid "Gave consent to receive communications"
-msgstr "A donné son consentement pour recevoir l'actualité"
 
 msgid "User"
 msgstr "Utilisateur·ice"
@@ -92,8 +116,8 @@ msgstr "connexion/<uidb64>/<token>/"
 msgid "login-result/"
 msgstr "connexion-resultat/"
 
-msgid "contributor-profile/"
-msgstr "profil-contributeur/"
+msgid "profile/"
+msgstr "profil/"
 
 msgid "Your profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
@@ -595,6 +619,12 @@ msgstr "Vous devriez avoir reçu votre recherche par e-mail."
 msgid "It seems something went wrong. Please try again in a few seconds."
 msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 
+msgid "Your profile"
+msgstr "Votre profil"
+
+msgid "Set up your account"
+msgstr "Configurer votre compte"
+
 msgid "You are an aid consumer"
 msgstr "Vous êtes chercheur·se d'aide"
 
@@ -628,30 +658,6 @@ msgstr "Suivant"
 
 msgid "Last"
 msgstr "Dernier"
-
-msgid "Update your profile"
-msgstr "Mettre à jour vos données"
-
-msgid "Become a contributor"
-msgstr "Devenir contributeur"
-
-msgid "Fill out the required data"
-msgstr "Remplir les données requises"
-
-msgid ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Some features on Aides-"
-"Territoires require a contributor account. To become a contributor, all you "
-"have to do is provide additional contact data. </p> <p>We will use this data "
-"to help validate the aids your contribute.</p>"
-msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
-"d'Aides-Territoires nécessitent un compte contributeur. Pour devenir "
-"contributeur, il vous suffit de fournir quelques informations de contact "
-"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
-"garantir la qualité des données présentes sur le site."
-
-msgid "Update your personal data"
-msgstr "Mettre à jour vos données"
 
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
@@ -728,6 +734,36 @@ msgstr "Vous êtes maintenant connecté·e"
 
 msgid "Congratulations!"
 msgstr "Félicitations !"
+
+msgid "Update your profile"
+msgstr "Mettre à jour votre profil"
+
+msgid "Notification and alerts preferences"
+msgstr "Préférences de notifications et d'alertes"
+
+msgid "Your contributor profile"
+msgstr "Votre profil"
+
+msgid "Become a contributor"
+msgstr "Devenir contributeur"
+
+msgid "Fill out the required data"
+msgstr "Remplir les données requises"
+
+msgid ""
+"<p> <span class=\"fas fa-lightbulb\"></span> Some features on Aides-"
+"Territoires require a contributor account. To become a contributor, all you "
+"have to do is provide additional contact data. </p> <p>We will use this data "
+"to help validate the aids your contribute.</p>"
+msgstr ""
+"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
+"d'Aides-Territoires nécessitent un compte contributeur. Pour devenir "
+"contributeur, il vous suffit de fournir quelques informations de contact "
+"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
+"garantir la qualité des données présentes sur le site."
+
+msgid "Update your personal data"
+msgstr "Mettre à jour vos données"
 
 msgid "Create a new account"
 msgstr "Créer un nouveau compte"
@@ -1006,7 +1042,8 @@ msgid "Similar aids"
 msgstr "Aides similaires"
 
 msgid "Those aids present some similarities and might be worth checking."
-msgstr "Ces aides présentes certaines similarités et pourraient vous intéresser."
+msgstr ""
+"Ces aides présentes certaines similarités et pourraient vous intéresser."
 
 msgid "Please stand by."
 msgstr "Merci de patienter"
