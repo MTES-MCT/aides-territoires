@@ -6,6 +6,7 @@
  */
 
 @import 'theme';
+@import 'mixins';
 @import 'bootstrap/scss/bootstrap';
 
 $fa-font-path: '../@fortawesome/fontawesome-free/webfonts/';
@@ -154,6 +155,18 @@ nav#main-navbar {
 
                 h6 {
                     @extend .dropdown-header;
+
+                    &#profile-menu {
+                        @include icon(before, $fa-var-user-circle);
+                    }
+
+                    &#consumer-menu {
+                        @include icon(before, $fa-var-search);
+                    }
+
+                    &#contributor-menu {
+                        @include icon(before, $fa-var-pencil-alt);
+                    }
                 }
 
                 hr {
@@ -168,11 +181,6 @@ main {
     section.main-content {
         @extend .py-4;
 
-        h1 {
-            @extend .h2;
-            @extend .mb-3;
-        }
-
         a.main-action,
         button.main-action {
             @extend .btn;
@@ -181,12 +189,8 @@ main {
 
             float: right;
 
-            &.action-add:before {
-                @include fa-icon;
-                @extend .fas;
-                content: fa-content($fa-var-plus);
-                @extend .mr-1;
-                vertical-align: baseline;
+            &.action-add {
+                @include icon(before, plus);
             }
         }
     }
@@ -352,12 +356,8 @@ div.modal {
     }
 }
 
-a[href^='http']:after {
-    @include fa-icon;
-    @extend .fas;
-    content: fa-content($fa-var-external-link-alt);
-    vertical-align: baseline;
-    @extend .ml-1;
+a[href^='http'] {
+    @include icon(after, $fa-var-external-link-alt);
 }
 
 html.integration {
@@ -391,7 +391,10 @@ html.integration {
     @extend .px-3;
 
     h1 {
-        @extend .h2;
+        text-align: center;
+    }
+
+    h2 {
         text-align: center;
     }
 

@@ -1,0 +1,16 @@
+@mixin icon($type, $icon) {
+    &:#{$type} {
+        @include fa-icon;
+        @extend .fas;
+        content: fa-content($icon);
+        vertical-align: baseline;
+
+        @if $type == 'before' {
+            @extend .mr-1;
+        }
+
+        @if $type == 'after' {
+            @extend .ml-1;
+        }
+    }
+}

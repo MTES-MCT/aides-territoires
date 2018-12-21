@@ -46,6 +46,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=timezone.now)
 
     ##
+    # Account settings fields
+    ##
+    ml_consent = models.BooleanField(
+        _('Gave consent to receive communications'),
+        default=False)
+    similar_aids_alert = models.BooleanField(
+        _('Wants to receive alerts when similar aids are published'),
+        default=False)
+
+    ##
     # Contributors related data
     ##
     organization = models.CharField(
@@ -63,9 +73,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_certified = models.BooleanField(
         _('Is certified'),
         help_text=_('Display a badge next to this user\'s aids'),
-        default=False)
-    ml_consent = models.BooleanField(
-        _('Gave consent to receive communications'),
         default=False)
 
     USERNAME_FIELD = 'email'
