@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-21 14:41+0100\n"
+"POT-Creation-Date: 2018-12-21 17:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,14 @@ msgstr "Vous souhaitez recevoir des actualités liées au service."
 
 msgid "You will be able to unsubscribe at any time."
 msgstr "Vous pourrez vous désabonner à tout moment."
+
+msgid "Your watched tags"
+msgstr "Vos mots-clés surveillés"
+
+msgid "This is the list of topics you are interested in."
+msgstr ""
+"Renseignez les sujets pour lesquels vous voudriez être alerté·e quand une "
+"nouvelle aide est publiée."
 
 msgid "Yes, I want to receive news about the service."
 msgstr "Je souhaite recevoir des actualités liées au service."
@@ -83,6 +91,9 @@ msgstr "A donné son consentement pour recevoir l'actualité"
 
 msgid "Wants to receive alerts when similar aids are published"
 msgstr "Veut recevoir des alertes en cas de publication d'aides similaires"
+
+msgid "Watched tags"
+msgstr "Mots-clés à surveiller"
 
 msgid "Organization"
 msgstr "Organisme"
@@ -681,6 +692,9 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
+msgid "Contributor profile"
+msgstr "Profil contributeur"
+
 msgid "Home"
 msgstr "Accueil"
 
@@ -884,6 +898,9 @@ msgstr "Attention ! La date de soumission est imminente."
 
 msgid "Warning! The submission deadline is imminent"
 msgstr "Attention ! La date de soumission est imminente"
+
+msgid "Aid edition"
+msgstr "Édition de l'aide"
 
 msgid "Bookmark this aid"
 msgstr "Ajouter à une liste"
@@ -1153,6 +1170,9 @@ msgid ""
 msgstr ""
 "Ce service étant en version bêta, toutes les aides publiques ne sont pas "
 "encore référencées dans l'outil. Contactez-nous si vous relevez un manque."
+
+msgid "Aid bundles"
+msgstr "Listes d'aides"
 
 msgid "My aid bundles"
 msgstr "Mes listes d'aides"

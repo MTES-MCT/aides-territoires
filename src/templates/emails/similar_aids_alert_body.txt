@@ -1,0 +1,17 @@
+Bonjour {{ user.full_name }},
+
+Voici la liste des aides correspondantes à vos centres
+d'intérêts et récemment publiées :
+
+{% for aid in aids %}
+    - {{ aid.name|safe }}
+      https://{{ domain }}{{ aid.get_absolute_url }}
+{% endfor %}
+
+{% url profile as profile_url %}
+Vous pouvez gérer vos préférences de notifications à cette adresse :
+
+https://{{ domain }}{{ profile_url }}
+
+Bien cordialement,
+l'équipe d'Aides-territoires.

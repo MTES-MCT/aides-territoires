@@ -4,7 +4,6 @@ from datetime import timedelta
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
-from django.utils.text import slugify
 from django.utils import timezone
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
@@ -14,6 +13,7 @@ from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
 from tags.models import Tag
+from tags.fields import TagChoiceField
 from aids.models import Aid
 
 
@@ -30,19 +30,6 @@ AID_TYPES = (
         ('valorisation', _('Valorisation')),
     )),
 )
-
-
-class TagChoiceField(forms.MultipleChoiceField):
-    """Custom form field for tags."""
-
-    def valid_value(self, valid_value):
-        """Unexisting tags will be created. Hence, all values are valid."""
-        return True
-
-    def to_python(self, value):
-        """All tags must be represented as slugs."""
-        list_value = super().to_python(value)
-        return [slugify(value, allow_unicode=True) for value in list_value]
 
 
 class BaseAidForm(forms.ModelForm):
