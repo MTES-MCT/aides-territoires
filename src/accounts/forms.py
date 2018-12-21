@@ -45,20 +45,35 @@ class RegisterForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     """Edit profile related user data."""
 
-    ml_consent = forms.BooleanField(
-        required=False,
-        label=_('Yes, I want to receive news about the service.'),
-        help_text=_('We will send regular updates (no more than once a month) '
-                    'about the new features and updates about our service.'))
-    similar_aids_alert = forms.BooleanField(
-        required=False,
-        label=_('Yes, I want to receive alerts when similar new aids '
-                'are published.'),
-        help_text=_('We will detect when newly published aids are similar to '
-                    'the ones you saved into one of your lists, and send you '
-                    'an e-mail alert when it happens.'))
+    class Meta:
+        model = User
+        fields = ['ml_consent', 'similar_aids_alert']
+        labels = {
+            'ml_consent': _('Yes, I want to receive news about the service.'),
+            'similar_aids_alert': _('Yes, I want to receive alerts when '
+                                    'similar new aids are published.'),
+        }
+        help_texts = {
+            'ml_consent':
+                _('We will send regular updates (no more than once a month) '
+                  'about the new features and updates about our service.'),
+            'similar_aids_alert':
+                _('We will detect when newly published aids are similar '
+                  'to the ones you saved into one of your lists, and send '
+                  'you an e-mail alert when it happens.')
+            }
+
+
+class ContributorProfileForm(forms.ModelForm):
+    """Edit contributor profile related user data."""
 
     class Meta:
         model = User
-        fields = ['organization', 'role', 'contact_phone', 'ml_consent',
-                  'similar_aids_alert']
+        fields = ['organization', 'role', 'contact_phone']
+        labels = {
+            'organization': _('Your organization'),
+            'role': _('Your position'),
+        }
+        help_texts = {
+            'organization': _('Where do you work?'),
+        }
