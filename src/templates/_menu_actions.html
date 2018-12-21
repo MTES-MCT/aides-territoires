@@ -2,15 +2,22 @@
 <a href="{% url 'profile' %}">
     {{ _('Set up your account') }}
 </a>
+<a href="{% url 'contributor_profile' %}">
+{% if user.is_contributor %}
+    {{ _('Update your contributor profile') }}
+{% else %}
+    {{ _('Become a contributor') }}
+{% endif %}
+</a>
 <hr />
 
-<h6 id="consumer-menu">{{ _('You are an aid consumer') }}</h6>
+<h6 id="consumer-menu">{{ _('Are you an aid consumer?') }}</h6>
 <a href="{% url 'bundle_list_view' %}">
     {{ _('My bundles') }}
 </a>
 <hr />
 
-<h6 id="contributor-menu">{{ _('You are a contributor') }}</h6>
+<h6 id="contributor-menu">{{ _('Are you a contributor?') }}</h6>
 <a href="{% url 'aid_draft_list_view' %}">
     {{ _('My published aids') }}
 </a>
