@@ -336,20 +336,12 @@ section#aid {
             @extend .btn;
             @extend .btn-light;
 
-            &.report-error:before {
-                @include fa-icon;
-                @extend .fas;
-                content: fa-content($fa-var-bullhorn);
-                @extend .mr-1;
-                vertical-align: baseline;
+            &.report-error {
+                @include icon(before, $fa-var-bullhorn);
             }
 
-            &.bookmark:before {
-                @include fa-icon;
-                @extend .fas;
-                content: fa-content($fa-var-bars);
-                @extend .mr-1;
-                vertical-align: baseline;
+            &.bookmark {
+                @include icon(before, $fa-var-bars);
             }
         }
     }
@@ -392,12 +384,7 @@ section#aid {
 div#error-report-modal {
     p.center {
         a {
-            &:before {
-                @include fa-icon;
-                @extend .fas;
-                @extend .pr-1;
-                content: fa-content($fa-var-envelope);
-            }
+            @include icon(before, $fa-var-envelope);
         }
     }
 }

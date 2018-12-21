@@ -190,7 +190,7 @@ main {
             float: right;
 
             &.action-add {
-                @include icon(before, plus);
+                @include icon(before, $fa-var-plus);
             }
         }
     }
