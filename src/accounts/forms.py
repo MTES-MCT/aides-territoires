@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from tags.fields import TagChoiceField
 from accounts.models import User
 
 
@@ -45,13 +46,20 @@ class RegisterForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     """Edit profile related user data."""
 
+    watched_tags = TagChoiceField(
+        label=_('Your watched tags'),
+        help_text=_('This is the list of topics you are interested in.')
+    )
+
     class Meta:
         model = User
-        fields = ['ml_consent', 'similar_aids_alert']
+        fields = ['ml_consent', 'similar_aids_alert', 'watched_tags']
         labels = {
-            'ml_consent': _('Yes, I want to receive news about the service.'),
-            'similar_aids_alert': _('Yes, I want to receive alerts when '
-                                    'similar new aids are published.'),
+            'ml_consent':
+                _('Yes, I want to receive news about the service.'),
+            'similar_aids_alert':
+                _('Yes, I want to receive alerts when similar new aids '
+                  'are published.'),
         }
         help_texts = {
             'ml_consent':
@@ -60,8 +68,21 @@ class ProfileForm(forms.ModelForm):
             'similar_aids_alert':
                 _('We will detect when newly published aids are similar '
                   'to the ones you saved into one of your lists, and send '
-                  'you an e-mail alert when it happens.')
-            }
+                  'you an e-mail alert when it happens.'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # We set the existing tags as the `choices` value so the existing
+        # tags will be displayed in the widget
+        all_tags = self.instance.watched_tags
+        if self.is_bound:
+            if hasattr(self.data, 'getlist'):
+                all_tags += self.data.getlist('watched_tags')
+            else:
+                all_tags += self.data.get('watched_tags', [])
+        self.fields['watched_tags'].choices = zip(all_tags, all_tags)
 
 
 class ContributorProfileForm(forms.ModelForm):
