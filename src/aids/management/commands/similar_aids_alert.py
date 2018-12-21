@@ -18,6 +18,9 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
+        self.last_week = timezone.now() - timedelta(days=7)
+        self.site = Site.objects.get_current()
+
         users = self.get_users()
         for user in users:
             relevent_new_aids = self.get_relevent_new_aids(user)
@@ -31,7 +34,27 @@ class Command(BaseCommand):
 
     def get_relevent_new_aids(self, user):
         """Find recent aids relevent to this user's interests."""
-        pass
+        tags = user.watched_tags
+        aids = Aid.objects \
+            .published() \
+            .open() \
+            .filter(date_created__gt=self.last_week) \
+            .filter(tags__overlap=tags)
+        return aids
 
-    def send_alert(self, user):
-        pass
+    def send_alert(self, user, aids):
+        email_body = render_to_string('emails/similar_aids_alert_body.txt', {
+            'user': user,
+            'aids': aids,
+            'domain': self.site.domain,
+        })
+        email_subject = 'Ces aides peuvent vous intéresser'
+        email_from = settings.DEFAULT_FROM_EMAIL
+        email_to = [user.email]
+
+        send_mail(
+            email_subject,
+            email_body,
+            email_from,
+            email_to,
+            fail_silently=False)
