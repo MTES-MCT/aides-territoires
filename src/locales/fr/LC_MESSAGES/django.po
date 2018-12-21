@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-20 16:51+0100\n"
+"POT-Creation-Date: 2018-12-21 09:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,10 @@ msgstr "Vous pourrez vous désabonner à tout moment."
 msgid "Yes, I want to receive news about the service."
 msgstr "Je souhaite recevoir des actualités liées au service."
 
+msgid "Yes, I want to receive alerts when similar new aids are published."
+msgstr ""
+"Je souhaite recevoir des alertes quand des aides similaires sont publiées."
+
 msgid ""
 "We will send regular updates (no more than once a month) about the new "
 "features and updates about our service."
@@ -48,16 +52,22 @@ msgstr ""
 "Nous enverrons régulièmement (pas plus d'une fois par mois) des informations "
 "à propos des nouveautés sur le site."
 
-msgid "Yes, I want to receive alerts when similar new aids are published."
-msgstr "Je souhaite recevoir des alertes quand des aides similaires sont publiées."
-
 msgid ""
 "We will detect when newly published aids are similar to the ones you saved "
 "into one of your lists, and send you an e-mail alert when it happens."
 msgstr ""
-"Nous détecterons quand des aides récemment publiées seront similaires à l'une "
-"des aides enregistrées dans une de vos listes, et vous enverrons une alerte "
-"par e-mail le cas échéant."
+"Nous détecterons quand des aides récemment publiées seront similaires à "
+"l'une des aides enregistrées dans une de vos listes, et vous enverrons une "
+"alerte par e-mail le cas échéant."
+
+msgid "Your organization"
+msgstr "Votre organisme de travail"
+
+msgid "Your position"
+msgstr "Votre poste"
+
+msgid "Where do you work?"
+msgstr ""
 
 msgid "Email address"
 msgstr "Adresse e-mail"
@@ -119,7 +129,13 @@ msgstr "connexion-resultat/"
 msgid "profile/"
 msgstr "profil/"
 
+msgid "contributor-profile/"
+msgstr "profil-contributeur/"
+
 msgid "Your profile was updated successfully."
+msgstr "Votre profil a été mise à jour."
+
+msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
 
 msgid "Aid presentation"
@@ -659,6 +675,35 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
+msgid "Home"
+msgstr "Accueil"
+
+#, fuzzy
+#| msgid "Your contributor profile"
+msgid "Update your contributor profile"
+msgstr "Votre profil contributeur"
+
+msgid "Become a contributor"
+msgstr "Devenir contributeur"
+
+msgid "Fill out the required data"
+msgstr "Remplir les données requises"
+
+msgid ""
+"<p> <span class=\"fas fa-lightbulb\"></span> Some features on Aides-"
+"Territoires require a contributor account. To become a contributor, all you "
+"have to do is provide additional contact data. </p> <p>We will use this data "
+"to help validate the aids your contribute.</p>"
+msgstr ""
+"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
+"d'Aides-Territoires nécessitent un compte contributeur. Pour devenir "
+"contributeur, il vous suffit de fournir quelques informations de contact "
+"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
+"garantir la qualité des données présentes sur le site."
+
+msgid "Update your personal data"
+msgstr "Mettre à jour vos données"
+
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
 
@@ -738,32 +783,15 @@ msgstr "Félicitations !"
 msgid "Update your profile"
 msgstr "Mettre à jour votre profil"
 
-msgid "Notification and alerts preferences"
-msgstr "Préférences de notifications et d'alertes"
-
-msgid "Your contributor profile"
-msgstr "Votre profil contributeur"
-
-msgid "Become a contributor"
-msgstr "Devenir contributeur"
-
-msgid "Fill out the required data"
-msgstr "Remplir les données requises"
-
+#, python-format
 msgid ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Some features on Aides-"
-"Territoires require a contributor account. To become a contributor, all you "
-"have to do is provide additional contact data. </p> <p>We will use this data "
-"to help validate the aids your contribute.</p>"
+"<p> <span class=\"fas fa-lightbulb\"></span> You have a contributor account. "
+"<a href=\"%(contributor_profile_url)s\"> To update your contributor profile, "
+"please proceed to the specific page. </a> </p>"
 msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
-"d'Aides-Territoires nécessitent un compte contributeur. Pour devenir "
-"contributeur, il vous suffit de fournir quelques informations de contact "
-"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
-"garantir la qualité des données présentes sur le site."
-
-msgid "Update your personal data"
-msgstr "Mettre à jour vos données"
+"<p> <span class=\"fas fa-lightbulb\"></span> Vous bénéficiez d'un compte "
+"contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour votre "
+"profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
 msgid "Create a new account"
 msgstr "Créer un nouveau compte"
@@ -983,9 +1011,6 @@ msgstr "Partager ces résultats"
 
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
-
-msgid "Home"
-msgstr "Accueil"
 
 msgid ""
 "\n"
