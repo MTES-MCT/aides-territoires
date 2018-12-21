@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-21 09:07+0100\n"
+"POT-Creation-Date: 2018-12-21 14:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -641,14 +641,20 @@ msgstr "Votre profil"
 msgid "Set up your account"
 msgstr "Configurer votre compte"
 
-msgid "You are an aid consumer"
-msgstr "Vous êtes chercheur·se d'aide"
+msgid "Update your contributor profile"
+msgstr "Mettre à jour votre profil contributeur"
+
+msgid "Become a contributor"
+msgstr "Devenir contributeur"
+
+msgid "Are you an aid consumer?"
+msgstr "Vous êtes chercheur·se d'aide ?"
 
 msgid "My bundles"
 msgstr "Mes listes d'aides"
 
-msgid "You are a contributor"
-msgstr "Vous êtes contributeur·rice"
+msgid "Are you a contributor?"
+msgstr "Vous êtes contributeur·ice ?"
 
 msgid "My published aids"
 msgstr "Mes aides publiées"
@@ -677,14 +683,6 @@ msgstr "Dernier"
 
 msgid "Home"
 msgstr "Accueil"
-
-#, fuzzy
-#| msgid "Your contributor profile"
-msgid "Update your contributor profile"
-msgstr "Votre profil contributeur"
-
-msgid "Become a contributor"
-msgstr "Devenir contributeur"
 
 msgid "Fill out the required data"
 msgstr "Remplir les données requises"
@@ -790,8 +788,8 @@ msgid ""
 "please proceed to the specific page. </a> </p>"
 msgstr ""
 "<p> <span class=\"fas fa-lightbulb\"></span> Vous bénéficiez d'un compte "
-"contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour votre "
-"profil contributeur, rendez-vous sur la page dédiée.</a></p>"
+"contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
+"votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
 msgid "Create a new account"
 msgstr "Créer un nouveau compte"
