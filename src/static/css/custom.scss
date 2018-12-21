@@ -447,3 +447,9 @@ section#login-form {
 section#register-form {
     @extend .py-5;
 }
+
+section#profile-form {
+    h1 {
+        @extend .mb-4;
+    }
+}

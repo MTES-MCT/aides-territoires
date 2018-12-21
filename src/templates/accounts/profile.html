@@ -5,7 +5,17 @@
 
 {% block extraclasses %}light{% endblock %}
 
-{% block sectionid %}register-form{% endblock %}
+{% block sectionid %}profile-form{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Update your profile') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
 
 {% block content %}
 <div class="narrow-form">
@@ -22,8 +32,6 @@
         </h2>
         {% include '_checkbox_snippet.html' with field=form.ml_consent %}
         {% include '_checkbox_snippet.html' with field=form.similar_aids_alert %}
-
-        <hr />
 
         {% if user.is_contributor %}
             <h2>

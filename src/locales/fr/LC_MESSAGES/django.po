@@ -742,7 +742,7 @@ msgid "Notification and alerts preferences"
 msgstr "Préférences de notifications et d'alertes"
 
 msgid "Your contributor profile"
-msgstr "Votre profil"
+msgstr "Votre profil contributeur"
 
 msgid "Become a contributor"
 msgstr "Devenir contributeur"
