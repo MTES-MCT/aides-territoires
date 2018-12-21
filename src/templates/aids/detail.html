@@ -1,6 +1,8 @@
 {% extends '_base.html' %}
 {% load i18n aids %}
 
+{% block extratitle %}{{ aid.name }}{% endblock %}
+
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
