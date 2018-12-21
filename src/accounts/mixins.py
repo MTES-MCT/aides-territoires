@@ -19,7 +19,7 @@ class ContributorRequiredMixin(UserPassesTestMixin):
         if not self.request.user.is_authenticated:
             login_url = settings.LOGIN_URL
         else:
-            login_url = 'profile'
+            login_url = 'contributor_profile'
         return login_url
 
     def handle_no_permission(self):
