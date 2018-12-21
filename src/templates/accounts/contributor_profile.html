@@ -1,8 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
-{% block extratitle %}{{ _('Update your profile') }}{% endblock %}
-
 {% block extraclasses %}light{% endblock %}
 
 {% block sectionid %}profile-form{% endblock %}
@@ -11,7 +9,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Update your profile') }}</li>
+        <li class="active" aria-current="page">{{ _('Update your contributor profile') }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -20,21 +18,25 @@
 {% block content %}
 <div class="narrow-form">
 
-    <h1>{{ _('Update your profile') }}</h1>
-
     {% if user.is_contributor %}
-    {% url 'contributor_profile' as contributor_profile_url %}
+        <h1>{{ _("Update your contributor profile") }}</h1>
+    {% else %}
+        <h1>{{ _("Become a contributor") }}<br/>
+            <small>{{ _("Fill out the required data") }}</small>
+        </h1>
+    {% endif %}
+
     <div class="info">
     {% blocktrans trimmed %}
         <p>
             <span class="fas fa-lightbulb"></span>
-            You have a contributor account. <a href="{{ contributor_profile_url }}">
-            To update your contributor profile, please proceed to the specific page.
-            </a>
+            Some features on Aides-Territoires require a contributor account.
+            To become a contributor, all you have to do is provide additional
+            contact data.
         </p>
+        <p>We will use this data to help validate the aids your contribute.</p>
     {% endblocktrans %}
     </div>
-    {% endif %}
 
     <form method="post" action="" novalidate>
         {% csrf_token %}
