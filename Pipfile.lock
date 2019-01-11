@@ -149,7 +149,7 @@
                 "sha256:52763f41077e25fe7e2f17b8319d8a7b7ab953a888c49d9e4e0464fceb716896",
                 "sha256:9bf7d37b93249b76a03afb7bbcf7149a358b6079ca2431e725414b1caa10922c"
             ],
-            "version": "==4.2.2"
+            "version": "==4.2.2.post1"
         },
         "psycopg2-binary": {
             "hashes": [
