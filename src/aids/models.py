@@ -218,7 +218,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     contact_phone = models.CharField(
         _('Contact phone number'),
-        max_length=20,
+        max_length=35,
         blank=True)
     contact_detail = models.CharField(
         _('Contact detail'),

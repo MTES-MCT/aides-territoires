@@ -75,7 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True)
     contact_phone = models.CharField(
         _('Contact phone number'),
-        max_length=20,
+        max_length=35,
         blank=True)
     is_certified = models.BooleanField(
         _('Is certified'),
