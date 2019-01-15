@@ -331,7 +331,22 @@ section#aid {
         }
     }
 
+    h2 {
+        border-bottom: 1px solid $gray-500;
+    }
+
+    div.column {
+        @extend .col-lg;
+
+        p {
+            @extend .mb-4;
+        }
+    }
+
     div.aid-actions {
+
+        @extend .mb-3;
+
         button {
             @extend .btn;
             @extend .btn-light;
@@ -343,23 +358,6 @@ section#aid {
             &.bookmark {
                 @include icon(before, $fa-var-bars);
             }
-        }
-    }
-
-    table {
-        @extend .table;
-        @extend .table-bordered;
-        table-layout: fixed;
-
-        caption {
-            @extend .sr-only;
-        }
-
-        th.header {
-            text-align: center;
-            color: white;
-            background-color: $primary;
-            border-color: $table-border-color;
         }
     }
 
