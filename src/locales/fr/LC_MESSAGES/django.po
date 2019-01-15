@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-21 17:29+0100\n"
+"POT-Creation-Date: 2019-01-15 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1051,14 +1051,17 @@ msgstr "Toutes les aides"
 msgid "Aid detail"
 msgstr "Détail de l'aide"
 
+msgid "Description"
+msgstr "Description de l'aide"
+
 msgid "Keywords:"
 msgstr "Mots clés :"
 
-msgid "Details about the aid"
-msgstr "Détails de l'aide"
-
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
+
+msgid "ND"
+msgstr "NA / NC"
 
 msgid "Subvention rate"
 msgstr "Taux de subvention (en %)"
