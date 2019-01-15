@@ -1083,7 +1083,7 @@ msgstr "Aides similaires"
 
 msgid "Those aids present some similarities and might be worth checking."
 msgstr ""
-"Ces aides présentes certaines similarités et pourraient vous intéresser."
+"Ces aides présentent certaines similarités et pourraient vous intéresser."
 
 msgid "Please stand by."
 msgstr "Merci de patienter"
