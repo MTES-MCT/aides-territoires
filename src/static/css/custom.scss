@@ -83,6 +83,33 @@ section#contact {
 section.aids {
     @extend .row;
 
+    div#search-engine {
+        @extend .container;
+        @extend .mb-3;
+
+        div.form-container {
+            @extend .card;
+
+            nav {
+                @extend .card-header;
+            }
+
+            form {
+                @extend .card-body;
+                @extend .tab-content;
+
+                div.form-group {
+                    @extend .col-md-4;
+                }
+            }
+
+            div.filters {
+                @extend .card-body;
+                padding-top: 0;
+            }
+        }
+    }
+
     div.aid-sidebar {
         @extend .col-md-3;
         @extend .mb-3;

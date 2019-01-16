@@ -14,6 +14,9 @@
 
 {% block content %}
 <section id="search" class="aids">
+    <div id="search-engine">
+        {% include 'aids/_search_form.html' %}
+    </div>
     <div id="search-results" class="aid-list">
         {% include 'aids/_results.html' with search_actions="yes" %}
     </div>

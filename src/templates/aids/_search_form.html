@@ -1,0 +1,44 @@
+<div class="form-container">
+    <nav>
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    {{ _('Refine your search') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    {{ _('Advanced search') }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <form action="" method="get" class="tab-content">
+        <div class="tab-pane show active">
+            <div class="row">
+            {% include '_field_snippet.html' with field=form.text %}
+            {% include '_field_snippet.html' with field=form.aid_types %}
+            {% include '_field_snippet.html' with field=form.apply_before %}
+            </div>
+        </div>
+    </form>
+
+    <div class="filters">
+        <button class="btn btn-success">
+            Périmètre : Vic-la-Gardiole
+            <i class="fas fa-times"></i>
+        </button>
+
+        <button class="btn btn-success">
+            Nature : Subvention
+            <i class="fas fa-times"></i>
+        </button>
+
+        <button class="btn btn-success">
+           Nature : Avance récupérable
+            <i class="fas fa-times"></i>
+        </button>
+
+    </div>
+</div>
