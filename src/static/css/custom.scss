@@ -80,7 +80,7 @@ section#contact {
     }
 }
 
-section.aid-list {
+section.aids {
     @extend .row;
 
     div.aid-sidebar {
@@ -169,8 +169,8 @@ section.aid-list {
         }
     }
 
-    div.aid-results {
-        @extend .col-md-9;
+    div.aid-list {
+        @extend .col-md;
 
         &.loading {
             opacity: 0.3;
