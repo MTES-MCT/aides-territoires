@@ -154,8 +154,7 @@ class AidSearchForm(forms.Form):
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=AID_TYPES,
-        widget=MultipleChoiceFilterWidget)
+        choices=AID_TYPES)
     mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
