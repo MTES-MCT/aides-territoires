@@ -1,4 +1,5 @@
 project_domain: aides-territoires.beta.gouv.fr
+ansible_env: production
 env_file: .env.production
 project_version: production
 certbot_admin_email: elise.marion@developpement-durable.gouv.fr

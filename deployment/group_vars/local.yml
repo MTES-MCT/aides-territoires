@@ -1,0 +1,4 @@
+project_domain: aides-territoires.local
+ansible_env: local
+env_file: .env.local
+project_version: master

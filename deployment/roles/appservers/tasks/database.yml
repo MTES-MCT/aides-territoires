@@ -3,22 +3,22 @@
   become: yes
   become_user: postgres
   postgresql_user:
-    name: aides
-    password: aides
+    name: "{{ user_name }}"
+    password: "{{ user_name }}"
 
 - name: Create postgres Database
   become: yes
   become_user: postgres
   postgresql_db:
-    name: aides
-    owner: aides
+    name: "{{ project_name }}"
+    owner: "{{ user_name }}"
 
 - name: Install required Postgres extensions
   become: yes
   become_user: postgres
   postgresql_ext:
     name: "{{ item }}"
-    db: aides
+    db: "{{ project_name }}"
   with_items:
     - btree_gin
     - pg_trgm
