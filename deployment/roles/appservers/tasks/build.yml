@@ -10,7 +10,11 @@
         verbosity: 3
 
     - name: Pull / clone main project repo
+<<<<<<< HEAD
       when: project_env == "production"
+=======
+      when: ansible_env == "production"
+>>>>>>> Update deployment recipes to handle local dev machine
       git:
         repo: "{{ project_repo }}"
         dest: "{{ project_root }}"
@@ -18,7 +22,11 @@
         accept_hostkey: yes
 
     - name: Copy private production settings to the remote
+<<<<<<< HEAD
       when: project_env == "production"
+=======
+      when: ansible_env == "production"
+>>>>>>> Update deployment recipes to handle local dev machine
       copy:
         src: ../../../src/{{ env_file }}
         dest: "{{ django_root }}/{{ env_target }}"
