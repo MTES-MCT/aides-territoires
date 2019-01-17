@@ -137,7 +137,9 @@ class AidSearchForm(forms.Form):
         required=False)
     text = forms.CharField(
         label=_('Text search'),
-        required=False)
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': _('Aid title, keyword, etc.')}))
     # With use a multiple choice field so the filter rendering remains
     # consistent with the other filters
     recent_only = forms.MultipleChoiceField(
@@ -158,18 +160,15 @@ class AidSearchForm(forms.Form):
     mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
-        choices=Aid.STEPS,
-        widget=MultipleChoiceFilterWidget)
+        choices=Aid.STEPS)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
         required=False,
-        choices=Aid.DESTINATIONS,
-        widget=MultipleChoiceFilterWidget)
+        choices=Aid.DESTINATIONS)
     scale = forms.MultipleChoiceField(
         label=_('Diffusion'),
         required=False,
-        choices=SCALES,
-        widget=MultipleChoiceFilterWidget)
+        choices=SCALES)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
