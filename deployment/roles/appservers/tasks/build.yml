@@ -25,7 +25,7 @@
 
     - name: Install python packages
       shell: |
-        . {{ activate_bin }} && {{ pipenv_bin }} install --deploy
+        . {{ activate_bin }} && {{ pipenv_bin }} install --deploy --dev
       args:
         chdir: "{{ django_root }}"
 
