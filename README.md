@@ -1,4 +1,4 @@
-# AIDES-TERRITOIRES
+# Aides-territoires
 
 [![Build Status](https://travis-ci.com/MTES-MCT/aides-territoires.svg?branch=master)](https://travis-ci.com/MTES-MCT/aides-territoires)
 
@@ -12,6 +12,11 @@ Ce document s'adresse aux intervenant·es techniques sur le projet
 Aides-territoires. Pour plus d'infos en tant qu'utilisateur·ice, se reporter
 [directement au site](https://aides-territoires.beta.gouv.fr/).
 
+## Intégration de l'équipe « *onboarding* »
+
+Les développeur·euses qui intègrent le projet et doivent
+monter un environnement de développement local pourront [consulter la documentation
+spécifique](./ONBOARDING.md).
 
 ## Démarrage
 
