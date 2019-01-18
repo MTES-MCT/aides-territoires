@@ -103,13 +103,15 @@ section.aids {
                 }
             }
 
-            div.filters {
+            div#filters {
                 @extend .card-body;
                 padding-top: 0;
                 @extend .pb-3;
 
                 button {
                     @extend .mb-1;
+                    @extend .btn;
+                    @extend .btn-success;
                 }
             }
         }
