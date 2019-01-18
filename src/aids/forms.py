@@ -145,7 +145,7 @@ class AidSearchForm(forms.Form):
     recent_only = forms.MultipleChoiceField(
         label=_('Recent aids'),
         choices=(
-            ('yes', _('Only display aids created less than 30 days ago')),),
+            (_('Yes'), _('Only display aids created less than 30 days ago')),),
         required=False,
         widget=MultipleChoiceFilterWidget)
     apply_before = forms.DateField(
