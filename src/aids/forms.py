@@ -140,7 +140,7 @@ class AidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': _('Aid title, keyword, etc.')}))
-    # With use a multiple choice field so the filter rendering remains
+    # We use a multiple choice field so the filter rendering remains
     # consistent with the other filters
     recent_only = forms.MultipleChoiceField(
         label=_('Recent aids'),
