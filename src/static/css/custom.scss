@@ -108,6 +108,10 @@ section.aids {
                 padding-top: 0;
                 @extend .pb-3;
 
+                &:empty {
+                    display: none;
+                }
+
                 button {
                     @extend .mb-1;
                     @extend .btn;
