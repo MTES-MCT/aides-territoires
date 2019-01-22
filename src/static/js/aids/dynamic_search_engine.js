@@ -103,10 +103,11 @@
         var textFields = searchForm.find('input[type=text], input[type=date]');
         for (var i = 0; i < textFields.length; i++) {
             var field = $(textFields[i]);
-            var label = field.attr('name');
+            var name = field.attr('name');
+            var label = field.siblings('label');
             var value = field.val();
             if (value !== '') {
-                var buttonHtml = filterButton(label, label, value, value);
+                var buttonHtml = filterButton(name, label.html(), value, value);
                 filterButtons.push(buttonHtml);
             }
         }
@@ -114,7 +115,8 @@
         var selectFields = searchForm.find('select');
         for (var i = 0; i < selectFields.length; i++) {
             var field = $(selectFields[i]);
-            var label = field.attr('name');
+            var name = field.attr('name');
+            var label = field.siblings('label');
             var values = field.select2('data');
 
             for (var j = 0; j < values.length; j++) {
@@ -122,7 +124,7 @@
                 var text = values[j].text;
 
                 if (value !== '') {
-                    var buttonHtml = filterButton(label, label, value, text);
+                    var buttonHtml = filterButton(name, label.html(), value, text);
                     filterButtons.push(buttonHtml);
                 }
             }
@@ -132,10 +134,11 @@
         for (var i = 0; i < checkboxFields.length; i++) {
             var field = $(checkboxFields[i]);
             if (field.is(':checked')) {
-                var label = field.attr('name');
+                var nane = field.attr('name');
+                var label = field.siblings('label');
                 var value = field.val();
                 if (value !== '') {
-                    var buttonHtml = filterButton(label, label, value, value);
+                    var buttonHtml = filterButton(name, label.html(), value, value);
                     filterButtons.push(buttonHtml);
                 }
             }
