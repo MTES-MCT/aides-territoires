@@ -21,7 +21,6 @@
         searchParams: searchForm.serialize(),
     }
 
-
     var fetchNewResults = function () {
         // If a pending request exists, abort it before we start a new one
         if (state['pendingRequest'] && searchXHR) {

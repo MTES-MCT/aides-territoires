@@ -24,17 +24,20 @@
         </div>
         <div id="advanced-search" class="tab-pane">
             <div class="row">
-                {% include '_field_snippet.html' with field=form.scale %}
                 {% include '_field_snippet.html' with field=form.perimeter %}
-                {% include '_field_snippet.html' with field=form.mobilization_step %}
+                {% include '_field_snippet.html' with field=form.scale %}
                 {% include '_field_snippet.html' with field=form.destinations %}
+                {% include '_field_snippet.html' with field=form.mobilization_step %}
                 {% include '_field_snippet.html' with field=form.recent_only %}
             </div>
         </div>
     </form>
 
-    <div id="filters">
-    </div>
+    {% comment %}
+    Filters are only useful when js is active and functional. Hence, they
+    are only displayed using javascript.
+    {% endcomment %}
+    <div id="filters"></div>
 </div>
 
 <nav class="navbar fixed-bottom navbar-light bg-primary d-lg-none">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 16:23+0100\n"
+"POT-Creation-Date: 2019-01-22 12:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,14 +259,20 @@ msgstr "France"
 msgid "Europe"
 msgstr "Europe"
 
-msgid "Perimeter"
-msgstr "Périmètre"
+msgid "Your project's location"
+msgstr "Emplacement de votre projet"
 
 msgid "Text search"
 msgstr "Recherche textuelle"
 
+msgid "Aid title, keyword, etc."
+msgstr "Titre, sujet, mot-clé, etc."
+
 msgid "Recent aids"
 msgstr "Aides récentes"
+
+msgid "Yes"
+msgstr "Oui"
 
 msgid "Only display aids created less than 30 days ago"
 msgstr "N'afficher que les aides référencées au cours des 30 derniers jours"
@@ -286,11 +292,14 @@ msgstr "Quand mobiliser l'aide ?"
 msgid "Destinations"
 msgstr "Destinations"
 
-msgid "Diffusion"
-msgstr "Diffusion"
+msgid "Diffusion scale"
+msgstr "Échelle de diffusion"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
+
+msgid "Perimeter"
+msgstr "Périmètre"
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -623,6 +632,18 @@ msgstr "Ville, département, région, EPCI…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
+
+msgctxt "js_catalog"
+msgid "What kind of aids are you looking for?"
+msgstr "Quel(s) type(s) d\\'aide cherchez-vous ?"
+
+msgctxt "js_catalog"
+msgid "When to mobilize the aid?"
+msgstr "Quand mobiliser l\\'aide ?"
+
+msgctxt "js_catalog"
+msgid "The aid is destined to…"
+msgstr "L\\'aide est destinée à…"
 
 # This line is embedded in a js string, hence we have to prefix
 # the quote with a slash
@@ -1027,6 +1048,15 @@ msgstr "Partager ces résultats"
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
+msgid "Refine your search"
+msgstr "Précisez votre recherche"
+
+msgid "Advanced search filters"
+msgstr "Recherche avancée"
+
+msgid "Filter your results"
+msgstr "Filtrer les résultats"
+
 msgid ""
 "\n"
 "    <span class=\"fas fa-exclamation-circle\"></span>\n"
@@ -1160,19 +1190,6 @@ msgstr "Je comprends"
 
 msgid "Delete this aid"
 msgstr "Supprimer cette aide"
-
-msgid "Filter results"
-msgstr "Filtrer les résultats"
-
-msgid "Reset all filters"
-msgstr "Annuler tous les filtres"
-
-msgid ""
-"As this is a beta service, some aids are yet to be referenced here. Feel "
-"free to contact us if you see that something is missing."
-msgstr ""
-"Ce service étant en version bêta, toutes les aides publiques ne sont pas "
-"encore référencées dans l'outil. Contactez-nous si vous relevez un manque."
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"

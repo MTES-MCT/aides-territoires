@@ -133,7 +133,7 @@ class AidSearchForm(forms.Form):
     )
 
     perimeter = PerimeterChoiceField(
-        label=_('Perimeter'),
+        label=_('Your project\'s location'),
         required=False)
     text = forms.CharField(
         label=_('Text search'),
@@ -166,7 +166,7 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.DESTINATIONS)
     scale = forms.MultipleChoiceField(
-        label=_('Diffusion'),
+        label=_('Diffusion scale'),
         required=False,
         choices=SCALES)
 
