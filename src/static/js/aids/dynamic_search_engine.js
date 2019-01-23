@@ -134,7 +134,7 @@
         for (var i = 0; i < checkboxFields.length; i++) {
             var field = $(checkboxFields[i]);
             if (field.is(':checked')) {
-                var nane = field.attr('name');
+                var name = field.attr('name');
                 var label = field.siblings('label');
                 var value = field.val();
                 if (value !== '') {
@@ -144,10 +144,11 @@
             }
         }
 
-        filtersDiv.html('');
+        var allFilters = '';
         for (var i = 0; i < filterButtons.length; i++) {
-            filtersDiv.append(filterButtons[i]);
+            allFilters += filterButtons[i];
         }
+        filtersDiv.html(allFilters);
     };
 
     /**
@@ -167,6 +168,8 @@
                 return elt != filterFieldValue;
             });
             field.val(filteredValue);
+        } else if (field.prop('checked')) {
+            field.prop('checked', false);
         } else {
             field.val('');
         }
