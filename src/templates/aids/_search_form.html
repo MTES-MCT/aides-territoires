@@ -1,0 +1,51 @@
+{% load pagination %}
+
+<div class="form-container">
+    <nav>
+        <ul class="nav nav-tabs card-header-tabs">
+            <li>
+                <a class="active" data-toggle="tab" href="#basic-search">
+                    {{ _('Refine your search') }}
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#advanced-search">
+                    {{ _('Advanced search filters') }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <form action="" method="get">
+        <div id="basic-search" class="show active">
+            <div class="row">
+                {% include '_field_snippet.html' with field=form.text %}
+                {% include '_field_snippet.html' with field=form.aid_types %}
+                {% include '_field_snippet.html' with field=form.apply_before %}
+            </div>
+        </div>
+        <div id="advanced-search">
+            <div class="row">
+                {% include '_field_snippet.html' with field=form.perimeter %}
+                {% include '_field_snippet.html' with field=form.scale %}
+                {% include '_field_snippet.html' with field=form.destinations %}
+                {% include '_field_snippet.html' with field=form.mobilization_step %}
+                {% include '_field_snippet.html' with field=form.recent_only %}
+            </div>
+        </div>
+    </form>
+
+    {% comment %}
+    Filters are only useful when js is active and functional. Hence, they
+    are only displayed using javascript.
+    {% endcomment %}
+    <div id="filters"></div>
+</div>
+
+<nav id="mobile-search-link">
+    <div class="container">
+        <a href="{% url 'advanced_search_view' %}{% querydict %}">
+            {{ _('Filter your results') }}
+        </a>
+    </di>
+</nav>

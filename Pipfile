@@ -29,6 +29,7 @@ ipython = "*"
 pytest-django = "*"
 ansible = "*"
 yapf = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.6"

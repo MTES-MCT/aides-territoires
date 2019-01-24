@@ -80,8 +80,83 @@ section#contact {
     }
 }
 
-section.aid-list {
+section.aids {
     @extend .row;
+
+    div#search-engine {
+        @extend .container;
+        @extend .mb-3;
+
+        div.form-container {
+            @extend .card;
+            @extend .d-none;
+            @extend .d-lg-block;
+
+            nav {
+                @extend .card-header;
+
+                ul {
+                    @extend .nav;
+                    @extend .nav-tabs;
+                    @extend .card-header-tabs;
+
+                    li {
+                        @extend .nav-item;
+
+                        a {
+                            @extend .nav-link;
+                        }
+                    }
+                }
+            }
+
+            form {
+                @extend .card-body;
+                @extend .tab-content;
+
+                div.form-group {
+                    @extend .col-md-4;
+                }
+
+                &>div {
+                    @extend .tab-pane;
+                }
+            }
+
+            div#filters {
+                @extend .card-body;
+                padding-top: 0;
+                @extend .pb-3;
+
+                &:empty {
+                    display: none;
+                }
+
+                button {
+                    @extend .mb-1;
+                    @extend .btn;
+                    @extend .btn-success;
+                }
+            }
+        }
+
+        nav#mobile-search-link {
+            @extend .navbar;
+            @extend .fixed-bottom;
+            @extend .navbar-light;
+            @extend .bg-primary;
+            @extend .d-lg-none;
+
+            a {
+                @extend .btn;
+                @extend .btn-block;
+                @extend .btn-primary;
+
+                @include icon(before, $fa-var-search);
+
+            }
+        }
+    }
 
     div.aid-sidebar {
         @extend .col-md-3;
@@ -169,8 +244,8 @@ section.aid-list {
         }
     }
 
-    div.aid-results {
-        @extend .col-md-9;
+    div.aid-list {
+        @extend .col-md;
 
         &.loading {
             opacity: 0.3;
@@ -296,6 +371,15 @@ section#aid-edit {
             button[type=submit] {
                 float: right;
             }
+        }
+    }
+}
+
+section#mobile-search {
+    form {
+        button[type=submit] {
+            @extend .btn-lg;
+            @extend .btn-block;
         }
     }
 }

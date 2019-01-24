@@ -133,17 +133,19 @@ class AidSearchForm(forms.Form):
     )
 
     perimeter = PerimeterChoiceField(
-        label=_('Perimeter'),
+        label=_('Your project\'s location'),
         required=False)
     text = forms.CharField(
         label=_('Text search'),
-        required=False)
-    # With use a multiple choice field so the filter rendering remains
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': _('Aid title, keyword, etc.')}))
+    # We use a multiple choice field so the filter rendering remains
     # consistent with the other filters
     recent_only = forms.MultipleChoiceField(
         label=_('Recent aids'),
         choices=(
-            ('yes', _('Only display aids created less than 30 days ago')),),
+            (_('Yes'), _('Only display aids created less than 30 days ago')),),
         required=False,
         widget=MultipleChoiceFilterWidget)
     apply_before = forms.DateField(
@@ -154,23 +156,19 @@ class AidSearchForm(forms.Form):
     aid_types = forms.MultipleChoiceField(
         label=_('Aid type'),
         required=False,
-        choices=AID_TYPES,
-        widget=MultipleChoiceFilterWidget)
+        choices=AID_TYPES)
     mobilization_step = forms.MultipleChoiceField(
         label=_('When to mobilize the aid?'),
         required=False,
-        choices=Aid.STEPS,
-        widget=MultipleChoiceFilterWidget)
+        choices=Aid.STEPS)
     destinations = forms.MultipleChoiceField(
         label=_('Destinations'),
         required=False,
-        choices=Aid.DESTINATIONS,
-        widget=MultipleChoiceFilterWidget)
+        choices=Aid.DESTINATIONS)
     scale = forms.MultipleChoiceField(
-        label=_('Diffusion'),
+        label=_('Diffusion scale'),
         required=False,
-        choices=SCALES,
-        widget=MultipleChoiceFilterWidget)
+        choices=SCALES)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.

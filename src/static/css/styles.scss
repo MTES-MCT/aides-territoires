@@ -435,3 +435,13 @@ iframe#stats-optout {
     height: 200px;
     width: 100%;
 }
+
+// Custom fix for a specific select2 unresolved issue
+// See https://github.com/select2/select2/pull/4898#issuecomment-408568031
+.select2-container .select2-selection__rendered>*:first-child.select2-search--inline {
+    width: 100% !important;
+
+    .select2-search__field {
+        width: 100% !important;
+    }
+}

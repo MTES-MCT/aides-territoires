@@ -7,6 +7,14 @@ PAGINATION_KEY = 'page'
 
 
 @register.simple_tag(takes_context=True)
+def querydict(context):
+    """Renders the current querydict."""
+    querydict = context['request'].GET
+    serialized = '?{}'.format(querydict.urlencode())
+    return serialized
+
+
+@register.simple_tag(takes_context=True)
 def url_to_page(context, page_number):
     """Link to a page without losing existing GET parameters."""
 

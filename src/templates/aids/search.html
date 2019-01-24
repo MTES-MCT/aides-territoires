@@ -13,20 +13,11 @@
 {% endblock %}
 
 {% block content %}
-<section id="search" class="aid-list">
-    <div id="search-engine" class="aid-sidebar">
-        <form action="" method="GET">
-            {% include '_form_snippet.html' with form=form nest_field_class="field" %}
-            <button type="submit">{{ _('Filter results') }}</button>
-            <a class="reset" href="{% url 'search_view' %}">{{ _('Reset all filters') }}</a>
-            <p>{% blocktrans trimmed %}
-            As this is a beta service, some aids are yet to be referenced here.
-            Feel free to contact us if you see that something is missing.
-            {% endblocktrans %}</p>
-        </form>
+<section id="search" class="aids">
+    <div id="search-engine">
+        {% include 'aids/_search_form.html' %}
     </div>
-
-    <div id="search-results" class="aid-results">
+    <div id="search-results" class="aid-list">
         {% include 'aids/_results.html' with search_actions="yes" %}
     </div>
 </section>
@@ -45,6 +36,7 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/search_fields_autocomplete.js"></script>
 <script src="/static/js/aids/dynamic_search_engine.js"></script>
 <script src="/static/js/aids/bookmark_results.js"></script>
 {% endblock %}
