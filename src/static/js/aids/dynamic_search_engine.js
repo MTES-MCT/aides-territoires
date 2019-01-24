@@ -82,12 +82,14 @@
      * Returns the html code of a single filter button.
      */
     var filterButton = function (fieldName, fieldLabel, fieldValue, fieldText) {
-        return `
-            <button data-field="${fieldName}" data-value="${fieldValue}">
-                ${fieldLabel} : ${fieldText}
-                <i class="fas fa-times"></i>
-            </button>
-        `
+        // Using template stings was nice. Too bad IE11 does not support them.
+        return '<button data-field="' +
+            fieldName +
+            '" data-value="' +
+            fieldValue +
+            '">' +
+            fieldLabel + ': ' + fieldText +
+            ' <i class="fas fa-times"></i></button> ';
     };
 
     /**
@@ -157,7 +159,8 @@
     var clearSingleFilter = function (button) {
         var filterFieldName = button.data('field');
         var filterFieldValue = button.data('value');
-        var field = searchForm.find(`input[name=${filterFieldName}], select[name=${filterFieldName}]`);
+        var fieldSelector = 'input[name=' + filterFieldName + '], select[name=' + filterFieldName + ']';
+        var field = searchForm.find(fieldSelector);
         var currentValue = field.val();
 
         // The filter can be for a single value field (input[type=text], checkbox, etc.)
