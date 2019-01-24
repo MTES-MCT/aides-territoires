@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-22 12:10+0100\n"
+"POT-Creation-Date: 2019-01-24 15:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -475,6 +475,9 @@ msgstr "Aide"
 
 msgid "Aids"
 msgstr "Aides"
+
+msgid "search/"
+msgstr "recherche/"
 
 msgid "results/"
 msgstr "resultats/"
@@ -1057,6 +1060,15 @@ msgstr "Recherche avancée"
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
 
+msgid "Advanced search"
+msgstr "Recherche avancée"
+
+msgid "All aids"
+msgstr "Toutes les aides"
+
+msgid "Find aids"
+msgstr "Trouver des aides"
+
 msgid ""
 "\n"
 "    <span class=\"fas fa-exclamation-circle\"></span>\n"
@@ -1074,9 +1086,6 @@ msgstr "Annuler et revenir à vos aides publiées"
 
 msgid "Save your aid"
 msgstr "Enregistrer votre aide"
-
-msgid "All aids"
-msgstr "Toutes les aides"
 
 msgid "Aid detail"
 msgstr "Détail de l'aide"
