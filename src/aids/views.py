@@ -21,14 +21,7 @@ from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
 
-class SearchView(FormMixin, ListView):
-    """Search and display aids."""
-
-    template_name = 'aids/search.html'
-    context_object_name = 'aids'
-    paginate_by = 20
-    form_class = AidSearchForm
-
+class SearchMixin:
     def get_form_kwargs(self):
         """Take input data from the GET values."""
 
@@ -38,6 +31,15 @@ class SearchView(FormMixin, ListView):
         })
 
         return kwargs
+
+
+class SearchView(SearchMixin, FormMixin, ListView):
+    """Search and display aids."""
+
+    template_name = 'aids/search.html'
+    context_object_name = 'aids'
+    form_class = AidSearchForm
+    paginate_by = 20
 
     def get_queryset(self):
         """Return the list of results to display."""
@@ -54,8 +56,12 @@ class SearchView(FormMixin, ListView):
         return ordered_results
 
 
-class AdvancedSearchView(FormView):
-    pass
+class AdvancedSearchView(SearchMixin, FormView):
+    """Only displays the search form, more suitable for mobile views."""
+
+    form_class = AidSearchForm
+
+    template_name = 'aids/advanced_search.html'
 
 
 class ResultsView(SearchView):

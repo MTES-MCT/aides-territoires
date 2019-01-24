@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}{{ _('Advanced search') }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Advanced search') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block sectionid %}mobile-search{% endblock %}
+
+{% block content %}
+    <form method="get" action="{% url 'search_view' %}">
+        {% include '_field_snippet.html' with field=form.text %}
+        {% include '_field_snippet.html' with field=form.perimeter %}
+        {% include '_field_snippet.html' with field=form.aid_types %}
+        {% include '_field_snippet.html' with field=form.apply_before %}
+        {% include '_field_snippet.html' with field=form.scale %}
+        {% include '_field_snippet.html' with field=form.destinations %}
+        {% include '_field_snippet.html' with field=form.mobilization_step %}
+        {% include '_field_snippet.html' with field=form.recent_only %}
+        <button type="submit">
+            {{ _('Find aids') }}
+        </button>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/search_fields_autocomplete.js"></script>
+{% endblock %}

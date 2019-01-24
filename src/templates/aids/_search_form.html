@@ -1,3 +1,5 @@
+{% load pagination %}
+
 <div class="form-container">
     <nav>
         <ul>
@@ -42,7 +44,7 @@
 
 <nav id="mobile-search-link">
     <div class="container">
-        <a href="{% url 'advanced_search_view' %}">
+        <a href="{% url 'advanced_search_view' %}{% querydict %}">
             {{ _('Filter your results') }}
         </a>
     </di>

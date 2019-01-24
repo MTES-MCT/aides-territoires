@@ -375,6 +375,15 @@ section#aid-edit {
     }
 }
 
+section#mobile-search {
+    form {
+        button[type=submit] {
+            @extend .btn-lg;
+            @extend .btn-block;
+        }
+    }
+}
+
 section#stats {
     @extend .card-deck;
 
