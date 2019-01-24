@@ -9,7 +9,7 @@ from django.http import (HttpResponse, HttpResponseRedirect,
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  RedirectView, DeleteView)
+                                  RedirectView, DeleteView, FormView)
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
@@ -52,6 +52,10 @@ class SearchView(FormMixin, ListView):
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results)
         return ordered_results
+
+
+class AdvancedSearchView(FormView):
+    pass
 
 
 class ResultsView(SearchView):

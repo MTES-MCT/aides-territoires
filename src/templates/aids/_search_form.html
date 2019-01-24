@@ -1,28 +1,28 @@
-<div class="form-container d-none d-lg-block">
+<div class="form-container">
     <nav>
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#basic-search">
+        <ul>
+            <li>
+                <a class="active" data-toggle="tab" href="#basic-search">
                     {{ _('Refine your search') }}
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#advanced-search">
+            <li>
+                <a data-toggle="tab" href="#advanced-search">
                     {{ _('Advanced search filters') }}
                 </a>
             </li>
         </ul>
     </nav>
 
-    <form action="" method="get" class="tab-content">
-        <div id="basic-search" class="tab-pane show active">
+    <form action="" method="get">
+        <div id="basic-search" class="show active">
             <div class="row">
                 {% include '_field_snippet.html' with field=form.text %}
                 {% include '_field_snippet.html' with field=form.aid_types %}
                 {% include '_field_snippet.html' with field=form.apply_before %}
             </div>
         </div>
-        <div id="advanced-search" class="tab-pane">
+        <div id="advanced-search">
             <div class="row">
                 {% include '_field_snippet.html' with field=form.perimeter %}
                 {% include '_field_snippet.html' with field=form.scale %}
@@ -40,10 +40,9 @@
     <div id="filters"></div>
 </div>
 
-<nav class="navbar fixed-bottom navbar-light bg-primary d-lg-none">
+<nav id="mobile-search-link">
     <div class="container">
-        <a href="#" class="btn btn-block btn-primary">
-            <span class="fas fa-search"></span>
+        <a href="{% url 'advanced_search_view' %}">
             {{ _('Filter your results') }}
         </a>
     </di>

@@ -1,12 +1,15 @@
 from django.urls import path, include
 from django.utils.translation import ugettext_lazy as _
 
-from aids.views import (SearchView, ResultsView, ResultsReceiveView,
-                        AidDetailView, AidCreateView, AidDraftListView,
-                        AidEditView, AidStatusUpdate, AidDeleteView)
+from aids.views import (SearchView, AdvancedSearchView, ResultsView,
+                        ResultsReceiveView, AidDetailView, AidCreateView,
+                        AidDraftListView, AidEditView, AidStatusUpdate,
+                        AidDeleteView)
 
 urlpatterns = [
     path('', SearchView.as_view(), name='search_view'),
+    path(_('search/'), AdvancedSearchView.as_view(),
+         name='advanced_search_view'),
     path(_('results/'), ResultsView.as_view(), name='results_view'),
     path(_('results/receive/'), ResultsReceiveView.as_view(),
          name='results_receive_view'),
