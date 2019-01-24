@@ -65,11 +65,12 @@ def test_clicking_a_filter_removes_the_search_criteria(live_server, browser):
 
     buttons = browser.find_elements_by_css_selector('div#filters button')
     assert len(buttons) == 1
+    assert buttons[0].is_displayed()
     assert 'Gloubiboulga' in buttons[0].get_attribute('innerHTML')
 
     buttons[0].click()
-    time.sleep(1)
-    browser.save_screenshot('/tmp/selenium.png')
+    time.sleep(0.5)
+
     assert 'text=Gloubiboulga' not in browser.current_url
 
     buttons = browser.find_elements_by_css_selector('div#filters button')
