@@ -51,3 +51,10 @@ class AidFactory(DjangoModelFactory):
             # A list of groups were passed in, use them
             for backer in extracted:
                 self.backers.add(backer)
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        obj = super()._create(model_class, *args, **kwargs)
+        obj.set_search_vector(backers=[])
+        obj.save()
+        return obj

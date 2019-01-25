@@ -238,7 +238,7 @@ def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
 def test_full_text_search(client, perimeters):
     """Full text search return valid results."""
 
-    AidFactory(perimeter=perimeters['europe'], name='Mon Aide à Tester')
+    aid = AidFactory(perimeter=perimeters['europe'], name='Mon Aide à Tester')
     url = reverse('search_view')
 
     # Words are correctly stemmed and lexemed
