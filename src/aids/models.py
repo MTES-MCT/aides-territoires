@@ -301,6 +301,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             SearchVector(
                 Value(' '.join(self.tags)),
                 weight='A',
+                config='french') + \
+            SearchVector(
+                Value(' '.join(str(backer) for backer in self.backers.all())),
+                weight='D',
                 config='french')
 
     def save(self, *args, **kwargs):
