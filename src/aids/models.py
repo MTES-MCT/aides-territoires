@@ -338,7 +338,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         """Does this aid have technical parts?"""
         return bool(set(self.aid_types) & set(self.TECHNICAL_AIDS))
 
-    def has_appreaching_deadline(self):
+    def has_approaching_deadline(self):
         if not self.submission_deadline:
             return False
 
