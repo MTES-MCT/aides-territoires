@@ -182,8 +182,11 @@
     };
 
     var updateSearch = function () {
-        state['searchParams'] = searchForm.serialize();
-        fetchNewResults();
+        var newSearchParams = searchForm.serialize();
+        if (state['searchParams'] != newSearchParams) {
+            state['searchParams'] = newSearchParams;
+            fetchNewResults();
+        }
     }
 
     /**
