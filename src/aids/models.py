@@ -301,6 +301,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             SearchVector(
                 Value(' '.join(self.tags)),
                 weight='A',
+                config='french') + \
+            SearchVector(
+                Value(' '.join(str(backer) for backer in self.backers.all())),
+                weight='D',
                 config='french')
 
     def save(self, *args, **kwargs):
@@ -334,7 +338,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         """Does this aid have technical parts?"""
         return bool(set(self.aid_types) & set(self.TECHNICAL_AIDS))
 
-    def has_appreaching_deadline(self):
+    def has_approaching_deadline(self):
         if not self.submission_deadline:
             return False
 
