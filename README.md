@@ -20,6 +20,21 @@ git clone https://github.com/MTES-MCT/aides-territoires
 cd aides-territoires
 ```
 
+## Tests
+
+Pour faire tourner les tests:
+
+```
+cd src && make test
+```
+
+À noter : certains tests utilisent [Selenium](https://selenium-python.readthedocs.io/index.html)
+qui dépend de [geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/).
+
+Pour les faire tourner, il conviendra donc d'en télécharger
+[la dernière version](https://github.com/mozilla/geckodriver/releases) pour
+l'intégrer dans son `$PATH`.
+
 
 ## Définition du fini
 
