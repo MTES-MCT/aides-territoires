@@ -282,12 +282,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
 
-    def set_search_vector(self):
+    def set_search_vector(self, backers):
         """Update the full text cache field."""
 
         # Note: we use `SearchVector(Value(self.field))` instead of
         # `SearchVector('field')` because the latter only works for updates,
         # not when inserting new records.
+        #
+        # Note 2: we have to pass the backers if parameter instead of using
+        # `self.backers.all()` because that last expression would not work
+        # during an object creation.
         self.search_vector = \
             SearchVector(Value(self.name), weight='A', config='french') + \
             SearchVector(
@@ -303,13 +307,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 weight='A',
                 config='french') + \
             SearchVector(
-                Value(' '.join(str(backer) for backer in self.backers.all())),
+                Value(' '.join(str(backer) for backer in backers)),
                 weight='D',
                 config='french')
 
     def save(self, *args, **kwargs):
         self.set_slug()
-        self.set_search_vector()
         return super().save(*args, **kwargs)
 
     def __str__(self):

@@ -83,6 +83,16 @@ class BaseAidForm(forms.ModelForm):
         for field, help_text in custom_help_text.items():
             self.fields[field].help_text = help_text
 
+    def save(self, commit=True):
+        """Saves the instance.
+
+        We update the aid search_vector here, because this is the only place
+        we gather all the necessary data (object + m2m related objects).
+        """
+        backers = self.cleaned_data['backers']
+        self.instance.set_search_vector(backers)
+        return super().save(commit=commit)
+
     def _save_m2m(self):
         super()._save_m2m()
         self._save_tag_relations()
