@@ -522,3 +522,11 @@ section#profile-form {
         @extend .mb-4;
     }
 }
+
+section#tags {
+    div.tag {
+        @extend .col-sm-6;
+        @extend .col-md-4;
+        @extend .col-lg-3;
+    }
+}
