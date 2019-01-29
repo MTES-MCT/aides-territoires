@@ -552,7 +552,7 @@ msgid "bundles/"
 msgstr "listes/"
 
 msgid "tags/"
-msgstr ""
+msgstr "mots-clés/"
 
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
