@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-24 15:01+0100\n"
+"POT-Creation-Date: 2019-01-29 15:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -550,6 +550,9 @@ msgstr "stats/"
 
 msgid "bundles/"
 msgstr "listes/"
+
+msgid "tags/"
+msgstr ""
 
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
@@ -1262,3 +1265,17 @@ msgstr "Mises à jour durant les 31 derniers jours"
 
 msgid "Number of active users"
 msgstr "Utilisateur·ices actif·ves"
+
+msgid "All tags"
+msgstr "Tous les mots clés"
+
+msgid "All known tags"
+msgstr "Tous les mots clés"
+
+msgid ""
+"A tag is a label associated with one or several aids. Using tags is a great "
+"way to browse the site for aids relevant to your specific interests."
+msgstr ""
+"Un mot clé est une étiquette associée à une ou plusieurs aides. Utiliser les "
+"mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
+"vos centres d'intérêts spécifiques."
