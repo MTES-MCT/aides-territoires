@@ -1,1 +1,1 @@
-from .utils import track_goal
+from .utils import track_goal  # noqa
