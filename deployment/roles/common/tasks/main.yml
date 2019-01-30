@@ -1,13 +1,14 @@
 ---
 - name: Install required packages
   apt:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
     update_cache: true
-  with_items:
-    - sudo
-    - acl
-    - vim
+  vars:
+    packages:
+      - sudo
+      - acl
+      - vim
 
 - name: Make sure ssh agent forwarding works
   lineinfile:
