@@ -97,8 +97,6 @@
                 send_by_email_error: '{{ _("It seems something went wrong. Please try again in a few seconds.") }}',
             };
         </script>
-        {% analytics_enabled as analytics_enabled %}
-        {% analytics_goalid as analytics_goalid %}
         <script type="text/javascript">
             var _paq = _paq || [];
             _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
@@ -106,13 +104,18 @@
             _paq.push(['enableLinkTracking']);
             _paq.push(['setTrackerUrl', 'https://stats.data.gouv.fr/piwik.php']);
             _paq.push(['setSiteId', '{% analytics_siteid %}']);
-            {% if analytics_goalid %}
-                _paq.push(['trackGoal', {{ analytics_goalid }}]);
-            {% endif %}
         </script>
         {% block extra_js %}{% endblock %}
         {% endcompress %}
+
+        {% analytics_enabled as analytics_enabled %}
+        {% analytics_goalid as analytics_goalid %}
         {% if analytics_enabled %}
+            {% if analytics_goalid %}
+                <script type="text/javascript">
+                    _paq.push(['trackGoal', {{ analytics_goalid }}]);
+                </script>
+            {% endif %}
             <script src="https://stats.data.gouv.fr/piwik.js" async defer></script>
             <noscript><img src="https://stats.data.gouv.fr/piwik.php?idsite={% analytics_siteid %}&idgoal={{ analytics_goalid }}" style="border:0;" alt="" /></noscript>
         {% endif %}
