@@ -20,3 +20,7 @@ SECRET_KEY = 'Stupid and not very secret key used for tests.'
 CELERY_BROKER_URL = "memory://"
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
+
+# Piwik goal tracking ids
+GOAL_REGISTER_ID = 1
+GOAL_FIRST_LOGIN_ID = 2
