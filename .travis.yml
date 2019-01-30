@@ -4,7 +4,7 @@ env:
     - LC_ALL=fr_FR.UTF-8
 language: python
 python:
-  - "3.6"
+  - "3.7"
 addons:
   postgresql: "9.6"
   firefox: "latest"
