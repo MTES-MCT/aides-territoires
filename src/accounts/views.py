@@ -11,10 +11,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
 from braces.views import AnonymousRequiredMixin
 
+from analytics import track_goal
 from accounts.forms import (LoginForm, RegisterForm, ProfileForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
+from django.conf import settings
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
@@ -29,6 +31,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         response = super().form_valid(form)
         user_email = form.cleaned_data['email']
         send_connection_email.delay(user_email)
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
         return response
 
     def form_invalid(self, form):
@@ -91,7 +94,10 @@ class LoginView(AnonymousRequiredMixin, RedirectView):
         if user:
             token = kwargs['token']
             if default_token_generator.check_token(user, token):
+                is_first_connection = user.last_login is None
                 login(self.request, user)
+                if is_first_connection:
+                    track_goal(request.session, settings.GOAL_FIRST_LOGIN_ID)
 
         return super().get(request, *args, **kwargs)
 
