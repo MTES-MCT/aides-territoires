@@ -9,7 +9,7 @@
 - name: Create the virtualenv
   become: yes
   become_user: "{{ user_name }}"
-  command: virtualenv {{ venv_dir }} -p python3.7
+  command: virtualenv {{ venv_dir }} -p python3
   args:
     creates: "{{ venv_dir }}"
 
