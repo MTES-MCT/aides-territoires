@@ -63,10 +63,10 @@ echo "Fin de création et configuration du container"
 echo ""
 
 
-echo "Récupération de aides-territoires depuis git"
-echo ""
-git clone -b ansible_local --single-branch https://github.com/MTES-MCT/aides-territoires
-echo ""
+#echo "Récupération de aides-territoires depuis git"
+#echo ""
+#git clone -b ansible_local --single-branch https://github.com/MTES-MCT/aides-territoires
+#echo ""
 
 
 
