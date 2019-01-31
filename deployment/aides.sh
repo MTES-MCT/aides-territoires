@@ -57,7 +57,8 @@ echo ""
 ip=$(lxc list AidesContainerDev -c 4| awk '!/IPV4/{ if ( $2 != "" ) print $2}')
 echo " L'ip du serveur est "$ip
 ssh-keyscan -H $ip >> ~/.ssh/known_hosts
-sshpass -p "aides" ssh-copy-id -i $HOME/.ssh/id_rsa.pub root@$ip
+lxc exec AidesContainerDev -- sh -c "mkdir /root/.ssh"
+lxc file push $HOME/.ssh/id_rsa.pub AidesContainerDev/root/.ssh/authorized_keys --uid=0 --gid=0
 echo ""
 echo "Fin de création et configuration du container"
 echo ""
