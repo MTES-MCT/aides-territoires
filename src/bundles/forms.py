@@ -19,6 +19,13 @@ class BookmarkForm(forms.Form):
         queryset=None,
         required=False,
         widget=MultipleChoiceFilterWidget)
+    new_bundle = forms.CharField(
+        label=_('Add this aid to a new bundle:'),
+        required=False,
+        max_length=64,
+        widget=forms.TextInput(attrs={
+            'placeholder': _('Give a name to your new bundle.'),
+            'autocomplete': 'off'}))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')

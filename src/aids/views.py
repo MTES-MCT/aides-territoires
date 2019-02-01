@@ -189,15 +189,29 @@ class AidDetailView(DetailView):
             data=request.POST)
 
         if form.is_valid():
+            # Get the m2m class that links bundles and aids
             AidBookmark = Bundle._meta.get_field('aids').remote_field.through
+
+            # Clear existing bookmarks. We will manually regenerate the
+            # entire list.
             AidBookmark.objects \
                 .filter(bundle__owner=request.user) \
                 .filter(aid=self.object) \
                 .delete()
 
             bookmarks = []
-            bundles = form.cleaned_data['bundles']
-            for bundle in bundles:
+            selected_bundles = list(form.cleaned_data['bundles'])
+
+            # If a new bundle name was provided, create it on the fly
+            new_bundle_name = form.cleaned_data['new_bundle']
+            if new_bundle_name:
+                selected_bundles.append(Bundle.objects.create(
+                    owner=request.user,
+                    name=new_bundle_name))
+
+            # Create m2m bookmark objects to link the aid
+            # to the selected bundles
+            for bundle in selected_bundles:
                 bookmarks.append(AidBookmark(
                     bundle=bundle,
                     aid=self.object

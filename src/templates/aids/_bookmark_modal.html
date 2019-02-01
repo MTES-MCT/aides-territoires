@@ -7,11 +7,14 @@
             </header>
             <div class="content">
                 {% if user.is_authenticated %}
-
-                {% if user_bundles %}
                     <form id="bookmark-form" method="post" action="">
                         {% csrf_token %}
-                        {% include '_form_snippet.html' with form=bookmark_form %}
+                        {% include '_form_header.html' with form=bookmark_form %}
+
+                        {% if user_bundles %}
+                            {% include '_field_snippet.html' with field=bookmark_form.bundles %}
+                        {% endif %}
+                        {% include '_field_snippet.html' with field=bookmark_form.new_bundle %}
                         <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
                         {% url 'bundle_list_view' as bundle_url %}
                         <span class="field-help">{% blocktrans trimmed %}
@@ -19,14 +22,6 @@
                             bundles on the dedicated page</a>.
                         {% endblocktrans %}</span>
                     </form>
-                {% else %}
-                    {% url 'bundle_create_view' as bundle_url %}
-                    <p>{%blocktrans trimmed %}
-                        You don't have any bundle yet. <a href="{{ bundle_url }}">
-                        You can create one on the dedicated page</a>.
-                    {% endblocktrans %}</p>
-                {% endif %}
-
                 {% else %}
                     {% url 'login_request' as login_url %}
                     {% url 'register' as register_url %}
