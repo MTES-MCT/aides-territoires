@@ -4,7 +4,13 @@
     name: nginx
     state: stopped
 
-- name: Generate certificate
+- name: Make sure certificate directory exists
+  file:
+    path: /etc/letsencrypt/live/{{ project_domain }}
+    state: directory
+
+- name: Generate certificate using Let's Encrypt (for production)
+  when: project_env == "production"
   command:
   args:
     argv:
@@ -18,6 +24,26 @@
       - "{{ certbot_admin_email }}"
       - -d
       - "{{ certbot_domains }}"
+
+- name: Generate a self-signed OpenSSL certificate (dev only)
+  when: project_env == "local"
+  command:
+  args:
+    argv:
+      - openssl
+      - req
+      - -x509
+      - -newkey
+      - rsa:2048
+      - -nodes
+      - -out
+      - "/etc/letsencrypt/live/{{ project_domain }}/fullchain.pem"
+      - -keyout
+      - "/etc/letsencrypt/live/{{ project_domain }}/privkey.pem"
+      - -subj
+      - "/CN={{ project_domain }}"
+      - -days
+      - "365"
 
 - name: Ensure Nginx is running
   service:
