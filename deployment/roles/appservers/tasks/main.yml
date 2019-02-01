@@ -4,8 +4,9 @@
 - import_tasks: database.yml
 - import_tasks: webserver.yml
 - import_tasks: certbot.yml
-  when: ansible_env == "production"
+  when: project_env == "production"
 - import_tasks: cron.yml
+when: project_env == "production"
 - import_tasks: virtualenv.yml
 - import_tasks: build.yml
 - import_tasks: restart.yml

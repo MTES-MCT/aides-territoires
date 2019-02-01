@@ -1,6 +1,8 @@
 project_domain: aides-territoires.jouannic.fr
-ansible_env: production
-env_file: .env.staging
 project_version: master
 certbot_admin_email: certbot@thibault.miximum.fr
 certbot_domains: "{{ project_domain }}"
+django_settings: core.settings.production
+project_env: production
+env_file: .env.staging
+env_target: .env.production

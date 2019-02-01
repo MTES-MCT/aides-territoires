@@ -1,4 +1,6 @@
 project_domain: aides-territoires.local
-ansible_env: local
-env_file: .env.local
 project_version: master
+django_settings: core.settings.local
+project_env: local
+env_file: .env.local
+env_target: ".env.local"

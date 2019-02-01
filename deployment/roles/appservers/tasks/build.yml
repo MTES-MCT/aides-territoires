@@ -10,7 +10,7 @@
         verbosity: 3
 
     - name: Pull / clone main project repo
-      when: ansible_env == "production"
+      when: project_env == "production"
       git:
         repo: "{{ project_repo }}"
         dest: "{{ project_root }}"
@@ -18,7 +18,7 @@
         accept_hostkey: yes
 
     - name: Copy private production settings to the remote
-      when: ansible_env == "production"
+      when: project_env == "production"
       copy:
         src: ../../../src/{{ env_file }}
         dest: "{{ django_root }}/{{ env_target }}"
@@ -56,7 +56,7 @@
         settings: "{{ django_settings }}"
 
     - name: Compress assets
-      when: ansible_env == "production"
+      when: project_env == "production"
       django_manage:
         command: compress
         app_path: "{{ django_root }}"
