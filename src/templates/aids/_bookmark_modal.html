@@ -17,11 +17,11 @@
                         {% include '_field_snippet.html' with field=bookmark_form.new_bundle %}
                         <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
                         {% url 'bundle_list_view' as bundle_url %}
-                        <span class="field-help">{% blocktrans trimmed %}
-                            You can <a href="{{ bundle_url }}">manage your
-                            bundles on the dedicated page</a>.
-                        {% endblocktrans %}</span>
                     </form>
+                    <span class="field-help">{% blocktrans trimmed %}
+                        You can <a href="{{ bundle_url }}">manage your
+                        bundles on the dedicated page</a>.
+                    {% endblocktrans %}</span>
                 {% else %}
                     {% url 'login_request' as login_url %}
                     {% url 'register' as register_url %}
