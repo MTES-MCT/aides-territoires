@@ -78,12 +78,19 @@ def test_bundle_selection_is_effective(client, aid):
     assert aid_bundles[0].id == bundles[2].id
 
 
-def test_modal_display_message_when_no_bundle_exists(client, aid):
-    """When no bundle are available, a warning message is displayed."""
+def test_bookmark_form_allows_for_bundle_creation(client, aid):
     user = aid.author
+    bundles = [
+        BundleFactory(name='Bundle_1', owner=user, aids=[aid]),
+        BundleFactory(name='Bundle_2', owner=user, aids=[aid]),
+        BundleFactory(name='Bundle_3', owner=user, aids=[])
+    ]
+
     client.force_login(user)
     aid_url = aid.get_absolute_url()
-    res = client.get(aid_url)
-    content = res.content.decode()
-    assert '<form id="bookmark-form"' not in content
-    assert "Vous n'avez pas encore de liste d'aides." in content
+    client.post(aid_url, {
+        'bundles': [bundles[2].id], 'new_bundle': 'Bundle_4'})
+    aid_bundles = list(aid.bundles.all())
+    assert len(aid_bundles) == 2
+    assert aid_bundles[0].id == bundles[2].id
+    assert aid_bundles[1].name == 'Bundle_4'

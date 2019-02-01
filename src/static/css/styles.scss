@@ -272,6 +272,10 @@ form {
 }
 
 p, div {
+    &.success {
+        @extend .alert-success;
+    }
+
     &.info {
         @extend .alert-primary;
     }
@@ -288,6 +292,7 @@ p, div {
         text-align: center;
     }
 
+    &.success,
     &.info,
     &.warning,
     &.tip {

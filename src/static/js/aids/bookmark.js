@@ -15,6 +15,13 @@
 
         var onSendSuccess = function () {
             $submitButton.html(catalog.bookmark_success);
+            $bookmarkForm.slideUp('fast', function() {
+                $('<div class="success"></div>')
+                .html(catalog.bookmark_success)
+                .insertAfter($bookmarkForm)
+                .hide()
+                .slideDown('fast');
+            });
         };
 
         var onSendError = function () {

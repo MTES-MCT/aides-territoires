@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-30 16:22+0100\n"
+"POT-Creation-Date: 2019-02-01 17:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -518,6 +518,12 @@ msgstr "Apporteur"
 msgid "Add this aid to the following bundles:"
 msgstr "Ajouter cette aide aux listes suivantes :"
 
+msgid "Add this aid to a new bundle:"
+msgstr "Ajouter cette aide à une nouvelle liste :"
+
+msgid "Give a name to your new bundle."
+msgstr "Donnez un nom à votre nouvelle liste."
+
 msgid "Owner"
 msgstr "Auteur"
 
@@ -948,14 +954,6 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You don't have any bundle yet. <a href=\"%(bundle_url)s\"> You can create "
-"one on the dedicated page</a>."
-msgstr ""
-"Vous n'avez pas encore de liste d'aides. <a href=\"%(bundle_url)s\">Vous "
-"pouvez en créer une sur la page dédiée.</a>"
-
-#, python-format
-msgid ""
 "You need to be logged in to save aids in custom bundles. <a href="
 "\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
 "\">sign up for a new account</a>."
@@ -1136,8 +1134,9 @@ msgstr ""
 msgid "Please stand by."
 msgstr "Merci de patienter"
 
-msgid "Done!"
-msgstr "Fait !"
+msgctxt "js_catalog"
+msgid "We added this aid to the selected bundles."
+msgstr "L\\'aide a été ajoutée aux listes sélectionnées."
 
 msgid "Something went wrong. Please refresh the page."
 msgstr "Erreur. Merci de réessayer."
@@ -1212,11 +1211,13 @@ msgstr "Listes d'aides"
 msgid "My aid bundles"
 msgstr "Mes listes d'aides"
 
-msgid "Create a new bundle"
-msgstr "Créer une nouvelle liste d'aide"
-
-msgid "You don't have any aid bundle yet."
-msgstr "Vous n'avez créé aucune liste d'aides personnalisée pour le moment."
+msgid ""
+"You don't have any aid bundle yet. To create one, just browse aids normally "
+"and use the \"Add to a bundle\" button."
+msgstr ""
+"Vous n'avez créé aucune liste d'aides personnalisée pour le moment. "
+"Pour en créer une, consultez la page de n'importe quelle aide et utilisez "
+"le bouton « Ajouter à une liste »."
 
 msgid "Create new bundle"
 msgstr "Créer une nouvelle liste"
