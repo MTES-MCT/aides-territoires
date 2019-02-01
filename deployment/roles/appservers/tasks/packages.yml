@@ -44,7 +44,25 @@
       - python3-pip
       - python3-virtualenv
 
-- name: Install sass
+- name: Removes sass js version
   npm:
     name: sass
     global: yes
+    state: absent
+
+- name: Download the sass binary
+  get_url:
+    url: https://github.com/sass/dart-sass/releases/download/1.16.1/dart-sass-1.16.1-linux-x64.tar.gz
+    dest: /tmp/sass.tgz
+
+- name: Extracts sass binary
+  unarchive:
+    src: /tmp/sass.tgz
+    dest: /opt/
+    remote_src: yes
+
+- name: Create symlink to sass binary
+  file:
+    src: /opt/dart-sass/sass
+    dest: /usr/local/bin/sass
+    state: link
