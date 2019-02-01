@@ -29,6 +29,7 @@
   when: project_env == "local"
   command:
   args:
+    creates: /etc/letsencrypt/live/{{ project_domain }}/fullchain.pem
     argv:
       - openssl
       - req
@@ -43,7 +44,7 @@
       - -subj
       - "/CN={{ project_domain }}"
       - -days
-      - "365"
+      - "1024"
 
 - name: Ensure Nginx is running
   service:
