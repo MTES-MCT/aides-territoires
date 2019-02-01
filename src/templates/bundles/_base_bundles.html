@@ -20,10 +20,6 @@
 {% block content %}
 <section id="bundles" class="aids">
     <div id="bundle-list" class="aid-sidebar">
-        <a href="{% url 'bundle_create_view' %}" class="top-sidebar-btn">
-            <span class="fas fa-plus"></span>
-            {{ _('Create a new bundle') }}
-        </a>
         <nav>
             <h2>{{ _('My aid bundles') }}</h2>
             <ul>
@@ -31,7 +27,10 @@
                 <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
                     href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
             {% empty %}
-                <li class="empty">{{ _("You don't have any aid bundle yet.") }}</li>
+                <li class="empty">{% blocktrans trimmed %}
+                    You don't have any aid bundle yet. To create one, just
+                    browse aids normally and use the "Add to a bundle" button.
+                {% endblocktrans %}</li>
             {% endfor %}
             </ul>
         </nav>
