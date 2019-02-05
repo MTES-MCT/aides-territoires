@@ -419,8 +419,16 @@ section#aid {
         border-bottom: 1px solid $gray-500;
     }
 
-    div.column {
-        @extend .col-lg;
+    div.aid-details {
+        @extend .row;
+
+        div.long-data {
+            @extend .col-md-12;
+        }
+
+        div.short-data {
+            @extend .col-md-6;
+        }
 
         p {
             @extend .mb-4;
@@ -428,7 +436,6 @@ section#aid {
     }
 
     div.aid-actions {
-
         @extend .mb-3;
 
         button {
