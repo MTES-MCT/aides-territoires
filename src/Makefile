@@ -13,3 +13,7 @@ checkstyle:
 
 makemessages:
 	pipenv run python manage.py makemessages --all --no-location --no-obsolete
+
+css:
+	sass -I $(include) $(infile) $(outfile)
+	./node_modules/.bin/postcss --use autoprefixer -r $(outfile)
