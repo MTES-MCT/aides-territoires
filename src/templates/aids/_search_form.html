@@ -17,6 +17,9 @@
     </nav>
 
     <form action="" method="get">
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
         <div id="basic-search" class="show active">
             <div class="row">
                 {% include '_field_snippet.html' with field=form.text %}

@@ -17,6 +17,9 @@
 
 {% block content %}
     <form method="get" action="{% url 'search_view' %}">
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
         {% include '_field_snippet.html' with field=form.text %}
         {% include '_field_snippet.html' with field=form.perimeter %}
         {% include '_field_snippet.html' with field=form.aid_types %}

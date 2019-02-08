@@ -84,13 +84,13 @@ section.aids {
     @extend .row;
 
     div#search-engine {
-        @extend .container;
         @extend .mb-3;
+        @extend .col-md-12;
 
         div.form-container {
             @extend .card;
             @extend .d-none;
-            @extend .d-lg-block;
+            @extend .d-md-block;
 
             nav {
                 @extend .card-header;
@@ -145,7 +145,7 @@ section.aids {
             @extend .fixed-bottom;
             @extend .navbar-light;
             @extend .bg-primary;
-            @extend .d-lg-none;
+            @extend .d-md-none;
 
             a {
                 @extend .btn;
