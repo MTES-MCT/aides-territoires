@@ -84,8 +84,8 @@ section.aids {
     @extend .row;
 
     div#search-engine {
-        @extend .container;
         @extend .mb-3;
+        @extend .col-md-12;
 
         div.form-container {
             @extend .card;
