@@ -6,6 +6,12 @@
     password_lock: true
     shell: /bin/bash
 
+- name: Change howner 
+  file:
+    path: /home/aides
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+
 - name: Allow sudo_user to access Ansible's SSH_AUTH_SOCK
   shell: >
     setfacl -m {{ user_name }}:x  $(dirname "$SSH_AUTH_SOCK") ;
