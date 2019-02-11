@@ -6,7 +6,7 @@
 - import_tasks: certbot.yml
   when: project_env == "production"
 - import_tasks: cron.yml
-when: project_env == "production"
+  when: project_env == "production"
 - import_tasks: virtualenv.yml
 - import_tasks: build.yml
 - import_tasks: restart.yml

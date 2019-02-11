@@ -8,3 +8,4 @@
   service:
     name: nginx
     state: restarted
+  when: project_env == "production"
