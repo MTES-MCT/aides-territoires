@@ -77,7 +77,7 @@ then
   echo "Suppression du bloque $debut - $fin"
   sed -i " $debut , $fin d" ~/.ssh/config
   echo " Ajout de aides.local avec l'ip $ip à la fin du fichier"
-  echo -e "# The local instance on a LXC virtual machine and a public ip 2\\nHost aides.local\\n\\tUser root\\n\\tPort 22\\n\\tHostName $ip\\n\\tForwardAgent yes" >> ~/.ssh/config
+  echo -e "# The local instance on a LXC virtual machine and a public ip\\nHost aides.local\\n\\tUser root\\n\\tPort 22\\n\\tHostName $ip\\n\\tForwardAgent yes" >> ~/.ssh/config
 else
   echo echo "aides.local n'existe pas."
   echo "Ajout de aides.local avec l'ip $ip à la fin du fichier "
@@ -100,7 +100,7 @@ echo "Fin d'exécution de ansible"
 echo "L'instalation et la configuration du container sont terminées"
 echo "Il restes quelques tâches à effectuer manuellement :"
 echo "En local :"
-echo "- modifier \"ALLOWED_HOSTS\" dans /home/msoldano/Documents/aides5/aides-territoires/src/.env.local avec l'ip du container ($ip)"
+echo "- modifier \"ALLOWED_HOSTS\" dans aides-territoires/src/.env.local avec l'ip du container ($ip)"
 echo ""
 echo "Dans le container :"
 echo "Accéder au container (ssh root@aides.local)"
