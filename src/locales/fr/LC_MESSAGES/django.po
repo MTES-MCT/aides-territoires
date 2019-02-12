@@ -619,10 +619,10 @@ msgid "Actions"
 msgstr "Actions"
 
 msgid "Login"
-msgstr "Connexion"
+msgstr "Me connecter"
 
 msgid "Register"
-msgstr "Inscription"
+msgstr "Créer mon compte"
 
 msgid "Aids under review"
 msgstr "Aides en revue"
