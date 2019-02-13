@@ -6,6 +6,8 @@ from aids.forms import AidSearchForm
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
+    """List all active aids that we know about."""
+
     serializer_class = AidSerializer
 
     def get_queryset(self):
