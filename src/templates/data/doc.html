@@ -1,0 +1,51 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ _('Data export and API') }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Data export and API') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ _('Data export and API') }}</h1>
+
+<h2>Introduction</h2>
+
+<p>Cette page décrit les modalités de réutilisation des données présentes
+sur Aides-territoires.</p>
+
+<h2>License</h2>
+
+<p>Les données présentes sur le site Aides-territoires sont placées sous
+« License Ouverte v2.0 » d'Etalab.</p>
+
+<p>Une description de la license peut être <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">
+trouvée sur le site d'Etalab</a>, tandis que le <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md">
+texte de la license elle-même est disponible sur Github</a>.</p>
+
+<p>Voici un résumé non exhaustif et sans validité juridique du contenu de la license :</p>
+
+<p>Le « réutilisateur » est libre de réutiliser les données :</p>
+<ul>
+    <li>de les communiquer, les reproduires, les copier ;</li>
+    <li>de les adapter, les modifier, les extraire et les transformer, notamment pour créer des « Informations dérivées » ;</li>
+    <li>de les diffuser, les redistribuer, les publier et les transmettre, de les
+    exploiter à titre commercial, par exemple en les combinant avec d'autres informations, ou en les incluant dans votre propre produit ou application.</li>
+</ul>
+
+<p><strong>Sous réserve</strong> de mentionner la paternité de l'information
+en incluant un lien vers le site d'Aides-territoires et en indiquant la date de
+la dernière mise à jour de l'information réutilisée.</p>
+
+<h2>API</h2>
+
+<p><a href="{% url 'aids-list' %}">La liste de toutes les aides actives présentes
+sur le site est accessible à cette adresse.</a></p>
+
+{% endblock %}
