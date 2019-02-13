@@ -8,6 +8,7 @@ fonctionnalité est terminée et peut être déployée.
  - [ ] Tous les éléments présents dans le code sont en anglais
  - [ ] Tous les éléments textuels sont correctement traduits et s'affichent en
    français
+ - [ ] Si des modèles ont été modifiés, l'API est-elle toujours fonctionnelle ?
  - [ ] L'application est conforme au [RGAA
    v3](https://references.modernisation.gouv.fr/rgaa-accessibilite/introduction-RGAA.html)
    - [ ] Les éléments de contenus non-textuels sont assortis d'équivalents
