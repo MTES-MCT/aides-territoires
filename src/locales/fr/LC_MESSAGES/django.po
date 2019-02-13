@@ -663,9 +663,6 @@ msgstr "Mentions légales"
 msgid "Contact"
 msgstr "Contact"
 
-msgid "Legal mentions"
-msgstr "Mentions légales"
-
 msgid "Source code"
 msgstr "Code source"
 
