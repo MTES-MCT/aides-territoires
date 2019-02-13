@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-12 16:08+0100\n"
+"POT-Creation-Date: 2019-02-13 16:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -401,8 +401,8 @@ msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 msgid "Mobilization step"
 msgstr "L'aide s'applique en phase de…"
 
-msgid "URL"
-msgstr "Url"
+msgid "Origin URL"
+msgstr "URL d'origine"
 
 msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
@@ -560,6 +560,9 @@ msgstr "listes/"
 msgid "tags/"
 msgstr "mots-clés/"
 
+msgid "data/"
+msgstr "data/"
+
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
 
@@ -650,6 +653,12 @@ msgstr "Déconnexion"
 
 msgid "Publish new aids"
 msgstr "Publier des aides"
+
+msgid "Data export and api"
+msgstr "Réutilisation des données et API"
+
+msgid "Legal mentions"
+msgstr "Mentions légales"
 
 msgid "Contact"
 msgstr "Contact"
@@ -1233,6 +1242,9 @@ msgstr "Créer une nouvelle liste"
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""
 "Sélectionnez une liste dans le menu pour consulter les aides associées."
+
+msgid "Data export and API"
+msgstr "API et réutilisation des données"
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
