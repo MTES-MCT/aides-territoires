@@ -123,11 +123,11 @@
         </div>
         {% endif %}
 
-        {% if aid.url %}
+        {% if aid.origin_url %}
         <div class="long-data">
             <h2>{{ _('Link to full description') }}</h2>
             <p>
-                <a href="{{ aid.url }}">{{ aid.url }}</a>
+                <a href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
             </p>
         </div>
         {% endif %}

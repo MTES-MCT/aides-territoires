@@ -30,7 +30,7 @@ class AidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aid
         fields = ('id', 'name', 'backers', 'description', 'eligibility',
-                  'tags', 'perimeter', 'mobilization_steps', 'url',
+                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
                   'application_url', 'targeted_audiances', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
                   'submission_deadline', 'subvention_rate', 'contact_email',

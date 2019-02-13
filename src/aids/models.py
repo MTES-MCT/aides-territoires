@@ -169,8 +169,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             max_length=32,
             choices=STEPS,
             default=STEPS.preop))
-    url = models.URLField(
-        _('URL'),
+    origin_url = models.URLField(
+        _('Origin URL'),
         blank=True)
     application_url = models.URLField(
         _('Application url'),
