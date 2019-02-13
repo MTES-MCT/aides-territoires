@@ -19,6 +19,7 @@ class ArrayField(serializers.ListField):
 
 class AidSerializer(serializers.ModelSerializer):
 
+    url = serializers.URLField(source='get_absolute_url')
     backers = serializers.StringRelatedField(many=True)
     perimeter = serializers.StringRelatedField()
     mobilization_steps = ArrayField(Aid.STEPS)
@@ -29,7 +30,7 @@ class AidSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Aid
-        fields = ('id', 'name', 'backers', 'description', 'eligibility',
+        fields = ('id', 'url', 'name', 'backers', 'description', 'eligibility',
                   'tags', 'perimeter', 'mobilization_steps', 'origin_url',
                   'application_url', 'targeted_audiances', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
