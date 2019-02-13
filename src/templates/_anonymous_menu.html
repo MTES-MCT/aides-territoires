@@ -1,21 +1,39 @@
+{% load i18n %}
 <ul class="navbar-menu">
     <li class="user-menu">
         <a href="#" data-toggle="dropdown">
-            {{ _('Actions') }}
+            {{ _('My account') }}
         </a>
-        <div class="dropdown-menu">
-            {% include '_menu_actions.html' %}
+        <div class="dropdown-menu dropdown-menu-right">
+
+            <h6 id="profile-menu">{{ _('Log in to access your account') }}</h6>
+            <form method="post" action="{% url 'login_request' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_email">{{ _('Your email address') }}</label>
+                    <input type="email" id="id_email" />
+                </div>
+                <button type="submit">{{ _('Receive connection link') }}</button>
+            </form>
+            <p>
+                <span class="fas fa-lightbulb"></span>
+                {% blocktrans trimmed %}
+                You don't need any password to log in. Instead, we will send you a
+                connection link by email.
+            {% endblocktrans %}</p>
+
+            <hr />
+
+            <h6 id="register-menu">{{ _('Create an account') }}</h6>
+
+            {% url 'register' as register_url %}
+            <p>{% blocktrans trimmed %}
+            You don't have any account yet?
+            <a class="menu-button" href="{{ register_url }}">
+                Create a new one
+            </a>
+            {% endblocktrans %}</p>
         </div>
-    </li>
-    <li>
-        <a href="{% url 'login_request' %}">
-            {{ _('Login') }}
-        </a>
-    </li>
-    <li>
-        <a href="{% url 'register' %}">
-            {{ _('Register') }}
-            <span class="fas fa-user-plus"></span>
-        </a>
     </li>
 </ul>

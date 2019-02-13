@@ -15,16 +15,14 @@ $fa-font-path: '../@fortawesome/fontawesome-free/webfonts/';
 @import '@fortawesome/fontawesome-free/scss/solid';
 
 
-section#landing-value {
+section#landing-value,
+section#contribute {
     @extend .jumbotron;
     @extend .bg-dark;
     border-radius: 0;
     margin-bottom: 0;
 
     background: url('/static/img/lead-header3.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 
     h1 {
@@ -35,17 +33,27 @@ section#landing-value {
 
     p.tagline {
         @extend .lead;
-        @extend .mb-5;
+        @extend .mb-3;
         @extend .text-white;
         @extend .text-center;
     }
 
     form.search-form {
 
+        @extend .mt-2;
+
         button {
             @extend .btn-lg;
             width: 100%;
         }
+    }
+
+    a.cta-btn {
+        @extend .btn;
+        @extend .btn-success;
+        @extend .btn-lg;
+        @extend .mt-3;
+        min-width: 20rem;
     }
 
     @include media-breakpoint-up(lg) {

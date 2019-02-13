@@ -134,10 +134,11 @@ nav#main-navbar {
 
                 &>a {
                     @extend .dropdown-toggle;
+                    @include icon(before, $fa-var-user);
                 }
             }
 
-            a {
+            &>a {
                 @extend .nav-link;
 
                 span.review_counter {
@@ -149,8 +150,32 @@ nav#main-navbar {
             }
 
             div.dropdown-menu {
-                a {
+                &>a {
                     @extend .dropdown-item;
+                }
+
+                form {
+                    @extend .px-4;
+                    @extend .py-2;
+
+                    button[type=submit] {
+                        @extend .btn-block;
+                    }
+                }
+
+                p {
+                    @extend .px-4;
+                    @extend .py-2;
+                    @extend .mb-0;
+                    @extend .text-muted;
+                    min-width: 20rem;
+                }
+
+                a.menu-button {
+                    @extend .btn;
+                    @extend .btn-success;
+                    @extend .btn-block;
+                    @extend .my-2;
                 }
 
                 h6 {
@@ -166,6 +191,10 @@ nav#main-navbar {
 
                     &#contributor-menu {
                         @include icon(before, $fa-var-pencil-alt);
+                    }
+
+                    &#register-menu {
+                        @include icon(before, $fa-var-user-plus);
                     }
                 }
 
