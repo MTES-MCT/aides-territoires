@@ -45,6 +45,7 @@ LOCAL_APPS = [
     'bundles',
     'dataproviders',
     'analytics',
+    'data',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

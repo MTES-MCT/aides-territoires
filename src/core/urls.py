@@ -25,6 +25,7 @@ urlpatterns = [
     path(_('stats/'), include('stats.urls')),
     path(_('bundles/'), include('bundles.urls')),
     path(_('tags/'), include('tags.urls')),
+    path(_('data/'), include('data.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),
