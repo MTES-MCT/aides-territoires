@@ -93,6 +93,27 @@ def test_aid_creation_view(client, contributor, aid_form_data):
     assert aids[0].author == contributor
 
 
+def test_aid_form_requires_a_backer(client, contributor, aid_form_data):
+    form_url = reverse('aid_create_view')
+    client.force_login(contributor)
+
+    aids = Aid.objects.filter(author=contributor)
+    assert aids.count() == 0
+
+    aid_form_data['backers'] = []
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 200  # Form not validated
+    assert aids.count() == 0
+
+    aid_form_data['new_backer'] = 'Casimir'
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+    assert aids.count() == 1
+
+    aid = aids[0]
+    assert aid.new_backer == 'Casimir'
+
+
 def test_aid_edition_view(client, contributor, aid_form_data):
     """Test the aid edition form and view."""
 

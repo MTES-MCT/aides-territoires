@@ -400,3 +400,14 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
 
         }
+
+    def clean(self):
+        """Make sure the aid backers were provided."""
+
+        data = self.cleaned_data
+        if not any((data.get('backers'), data.get('new_backer'))):
+            msg = _('You must select the aid backers, or create a new one '
+                    'below.')
+            self.add_error('backers', msg)
+
+        return data
