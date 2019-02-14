@@ -355,7 +355,8 @@ class AidEditForm(BaseAidForm):
     backers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple)
+        widget=AutocompleteSelectMultiple,
+        required=False)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
