@@ -1,0 +1,199 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ _('Data export and API') }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Data export and API') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ _('Data export and API') }}</h1>
+
+<h2>Introduction</h2>
+
+<p>Cette page décrit les modalités de réutilisation des données présentes
+sur Aides-territoires.</p>
+
+<h2>Avertissement</h2>
+
+<p>Ce service étant en cours de construction, il est possible que certaines
+données soient incomplètes, erronées ou manquantes. Il est également possible que
+certains champs soient rajoutés plus tard. Vous <a href="{% url 'legal_mentions' %}">
+utilisez cette API en accord avec nos conditions d'utilisation</a>.</p>
+
+<h2>License</h2>
+
+<p>Les données présentes sur le site Aides-territoires sont placées sous
+« License Ouverte v2.0 » d'Etalab.</p>
+
+<p>Une description de la licence peut être <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">
+trouvée sur le site d'Etalab</a>, tandis que le <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md">
+texte de la licence elle-même est disponible sur Github</a>.</p>
+
+<p>Voici un résumé non exhaustif et sans validité juridique du contenu de la licence :</p>
+
+<p>Le « réutilisateur » est libre de réutiliser les données :</p>
+<ul>
+    <li>de les communiquer, les reproduires, les copier ;</li>
+    <li>de les adapter, les modifier, les extraire et les transformer, notamment pour créer des « Informations dérivées » ;</li>
+    <li>de les diffuser, les redistribuer, les publier et les transmettre, de les
+    exploiter à titre commercial, par exemple en les combinant avec d'autres informations, ou en les incluant dans votre propre produit ou application.</li>
+</ul>
+
+<p><strong>Sous réserve</strong> de mentionner la paternité de l'information
+en incluant un lien vers le site d'Aides-territoires et en indiquant la date de
+la dernière mise à jour de l'information réutilisée.</p>
+
+<h2>API</h2>
+
+<p><a href="{% url 'aids-list' %}">La liste de toutes les aides actives présentes
+sur le site est accessible à cette adresse.</a></p>
+
+<h2>Données</h2>
+
+<p>Les différents champs présents dans l'API sont les suivants.</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Champ</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>id</td>
+            <td>integer</td>
+            <td>Identifiant numérique interne de l'aide</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>url</td>
+            <td>L'adresse de l'aide sur Aides-territoires</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>string</td>
+            <td>Nom de l'aide</td>
+        </tr>
+        <tr>
+            <td>backers</td>
+            <td>array</td>
+            <td>Liste des porteurs de l'aide</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>text</td>
+            <td>La description de l'aide</td>
+        </tr>
+        <tr>
+            <td>eligibility</td>
+            <td>text</td>
+            <td>Détaille les conditions d'éligibilité</td>
+        </tr>
+        <tr>
+            <td>tags</td>
+            <td>array</td>
+            <td>Liste de mots-clés associés</td>
+        </tr>
+        <tr>
+            <td>perimeter</td>
+            <td>string</td>
+            <td>Décrit le périmètre géographique d'application</td>
+        </tr>
+        <tr>
+            <td>mobilization_steps</td>
+            <td>array</td>
+            <td>Liste les étapes du projet durant lesquelles l'aide peut s'appliquer</td>
+        </tr>
+        <tr>
+            <td>origin_url</td>
+            <td>url</td>
+            <td>Adresse de publication officielle de l'aide</td>
+        </tr>
+        <tr>
+            <td>application_url</td>
+            <td>url</td>
+            <td>Adresse présentant les modalités de candidature</td>
+        </tr>
+        <tr>
+            <td>targeted_audiances</td>
+            <td>array</td>
+            <td>Liste les types d'audiances pouvant candidater</td>
+        </tr>
+        <tr>
+            <td>aid_types</td>
+            <td>array</td>
+            <td>Détaille de quel(s) type(s) d'aide il s'agit</td>
+        </tr>
+        <tr>
+            <td>destinations</td>
+            <td>array</td>
+            <td>À quel(s) service('s) s'adresse l'aide ?</td>
+        </tr>
+        <tr>
+            <td>start_date</td>
+            <td>date</td>
+            <td>Date d'ouverture du guichet pour les dépôts de candidatures</td>
+        </tr>
+        <tr>
+            <td>predeposit_date</td>
+            <td>date</td>
+            <td>Le cas échéant, date de pré-dépôt des dossiers</td>
+        </tr>
+        <tr>
+            <td>submission_deadline</td>
+            <td>date</td>
+            <td>Date butoir de dépôt des candidatures</td>
+        </tr>
+        <tr>
+            <td>subventionn_rate</td>
+            <td>decimal</td>
+            <td>Le cas échéant, le taux de subvention</td>
+        </tr>
+        <tr>
+            <td>contact_email</td>
+            <td>email</td>
+            <td>Une adresse e-mail de contact pour obtenir plus d'infos</td>
+        </tr>
+        <tr>
+            <td>contact_phone</td>
+            <td>string</td>
+            <td>Un numéro de téléphone pour obtenir plus d'infos</td>
+        </tr>
+        <tr>
+            <td>contact_detail</td>
+            <td>string</td>
+            <td>Un nom, un service, ou toute info de contact utile</td>
+        </tr>
+        <tr>
+            <td>recurrence</td>
+            <td>string</td>
+            <td>L'aide est-elle ponctuelle, récurrente, permanente ?</td>
+        </tr>
+        <tr>
+            <td>date_created</td>
+            <td>datetime</td>
+            <td>Date à laquelle l'aide a été saisie la première fois</td>
+        </tr>
+        <tr>
+            <td>date_updated</td>
+            <td>datetime</td>
+            <td>Date de la dernière mise à jour de l'aide</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Signaler un problème</h2>
+
+<p>Pour poser une question ou signaler un problème, vous pouvez nous contacter
+via le lien se trouvant dans le pied de page.</p>
+
+{% endblock %}
