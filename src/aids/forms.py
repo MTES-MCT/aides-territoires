@@ -65,6 +65,7 @@ class BaseAidForm(forms.ModelForm):
             'name': _('Aid title'),
             'targeted_audiances': _('Who can apply to this aid?'),
             'backers': _('Aid backers'),
+            'new_backer': _('…or add a new backer'),
             'destinations': _('The aid is destined to…'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
@@ -79,6 +80,8 @@ class BaseAidForm(forms.ModelForm):
         custom_help_text = {
             'tags': _('Add up to 16 keywords to describe your aid'
                       ' (separated by ",")'),
+            'new_backer': _('If the aid backer is not in the previous list, '
+                            'use this field to add a new one.'),
         }
         for field, help_text in custom_help_text.items():
             self.fields[field].help_text = help_text
@@ -364,6 +367,7 @@ class AidEditForm(BaseAidForm):
             'tags',
             'targeted_audiances',
             'backers',
+            'new_backer',
             'recurrence',
             'start_date',
             'predeposit_date',

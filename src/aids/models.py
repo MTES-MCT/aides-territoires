@@ -150,6 +150,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         related_name='aids',
         verbose_name=_('Backers'),
         help_text=_('On a national level if appropriate'))
+    new_backer = models.CharField(
+        _('New backer'),
+        max_length=256,
+        blank=True)
     description = models.TextField(
         _('Short description'),
         blank=False)
