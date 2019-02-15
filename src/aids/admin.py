@@ -29,6 +29,7 @@ class AidAdmin(admin.ModelAdmin):
                 'tags',
                 'targeted_audiances',
                 'backers',
+                'new_backer',
                 'author',
             )
         }),

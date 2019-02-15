@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-13 16:08+0100\n"
+"POT-Creation-Date: 2019-02-14 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,6 +209,9 @@ msgstr "Qui peut prétendre à cette aide ?"
 msgid "Aid backers"
 msgstr "Apporteurs de l'aide"
 
+msgid "…or add a new backer"
+msgstr "…ou ajouter un nouvel apporteur"
+
 msgid "The aid is destined to…"
 msgstr "L'aide est destinée à…"
 
@@ -234,6 +237,13 @@ msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
 msgstr ""
 "Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
+
+msgid ""
+"If the aid backer is not in the previous list, use this field to add a new "
+"one."
+msgstr ""
+"Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
+"vous pouvez utiliser ce champ pour nous le communiquer."
 
 msgid "Funding"
 msgstr "Financière"
@@ -300,6 +310,9 @@ msgstr "Ce code postal semble invalide."
 
 msgid "Perimeter"
 msgstr "Périmètre"
+
+msgid "You must select the aid backers, or create a new one below."
+msgstr "Vous devez sélectionner un apporteur existant ou en proposer un nouveau."
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -388,6 +401,9 @@ msgstr "Qui renseigne cette aide ?"
 
 msgid "On a national level if appropriate"
 msgstr "Au niveau national le cas échéant"
+
+msgid "New backer"
+msgstr "Nouvel apporteur"
 
 msgid "Short description"
 msgstr "Brève description"
