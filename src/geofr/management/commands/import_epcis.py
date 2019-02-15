@@ -1,66 +1,66 @@
-import os
+import json
+from unipath import Path
 
-import xlrd
 from django.core.management.base import BaseCommand
+from django.conf import settings
 
 from geofr.models import Perimeter
 from geofr.constants import OVERSEAS_DEPARTMENTS, DEPARTMENT_TO_REGION
 
 
-# Field column indexes
-NAME = 2
-DEPARTMENT = 0
-CODE = 1
-MEMBER = 9
+DATA_FILE = '@etalab/epci/data/epci.json'
 
 
 class Command(BaseCommand):
     """Import the list of all epcis.
 
     This task is highly inefficient (no batch saving, updating every row one by
-    one, etc.) but it will be ran only once, so it's not a big deal.
+    one, etc.) but it will be ran once per year, so it's not a big deal.
 
-    The file can be downloaded at this address:
-    https://www.collectivites-locales.gouv.fr/liste-et-composition-2018
+    We use epci data as provided by the geo api npm package.
+
+    Make sure you install js dev dependencies before running this task.
     """
-
-    def add_arguments(self, parser):
-        parser.add_argument('epci_file', nargs=1, type=str)
-
     def handle(self, *args, **options):
+        node_modules_path = settings.NODE_MODULES_PATH
+        data_file_path = Path(node_modules_path, Path(DATA_FILE))
 
-        xls_book = xlrd.open_workbook(os.path.abspath(options['epci_file'][0]))
-        self.xls_sheet = xls_book.sheet_by_index(0)
+        if not data_file_path.exists():
+            self.stdout.write(self.style.ERROR('File does not exist'))
 
-        for row_index in range(1, self.xls_sheet.nrows):
-            self.import_epci_member(row_index)
+        with open(data_file_path, 'r') as fp:
+            json_data = json.load(fp)
 
-    def import_epci_member(self, row_index):
-        """Process a single line in the file.
+        for epci_data in json_data:
+            self.import_epci(epci_data)
 
-        Every line describes one member (e.g a commune) for one EPCI.
+    def import_epci(self, data):
+        """Process a single EPCI data.
 
-        Hence, EPCI description is duplicated in several lines.
-
+        We must update the epci itself, then update it's members.
         """
-        epci_name = self.xls_sheet.cell_value(row_index, NAME)
-        epci_department = self.xls_sheet.cell_value(row_index, DEPARTMENT)
-        epci_region = DEPARTMENT_TO_REGION[epci_department]
-        epci_code = '{:d}'.format(
-            int(self.xls_sheet.cell_value(row_index, CODE)))
-        member_code = self.xls_sheet.cell_value(row_index, MEMBER)
+        member_codes = [m['code'] for m in data['membres']]
+        members = Perimeter.objects.filter(code__in=member_codes)
+        member_depts = []
+        for member in members:
+            member_depts += member.departments
+        unique_depts = list(set(member_depts))
+        regions = [DEPARTMENT_TO_REGION[dept] for dept in unique_depts]
+        unique_regions = list(set(regions))
+        is_overseas = bool(unique_depts[0] in OVERSEAS_DEPARTMENTS)
 
-        epci, created = Perimeter.objects.get_or_create(
+        epci_name = data['nom']
+        epci_code = data['code']
+        epci, created = Perimeter.objects.update_or_create(
             scale=Perimeter.TYPES.epci,
             code=epci_code,
-            name=epci_name,
-            departments=[epci_department],
-            regions=[epci_region],
-            is_overseas=bool(epci_department in OVERSEAS_DEPARTMENTS))
-
-        epci.save()
-
-        Perimeter.objects.filter(code=member_code).update(epci=epci_code)
+            defaults={
+                'name': epci_name,
+                'departments': unique_depts,
+                'regions': unique_regions,
+                'is_overseas': is_overseas
+            })
+        members.update(epci=epci_code)
 
         if created:
             self.stdout.write('New EPCI {}'.format(epci_name))
