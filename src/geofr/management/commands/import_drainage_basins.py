@@ -6,12 +6,6 @@ from django.core.management.base import BaseCommand
 from geofr.models import Perimeter
 
 
-# Field column indexes
-NAME = 2
-DEPARTMENT = 0
-CODE = 1
-MEMBER = 9
-
 DRAINAGE_BASINS = {
     'FR000001': 'Rhin-Meuse',
     'FR000002': 'Artois-Picardie',
@@ -37,7 +31,7 @@ class Command(BaseCommand):
     one, etc.) but it will be ran only once, so it's not a big deal.
 
     The file can be downloaded at this address:
-    http://www.data.eaufrance.fr/jdd/689a5b99-8d4e-488d-9305-c970b18ad64c
+    http://www.data.eaufrance.fr/jdd/176f23a8-8f4f-4eab-9f23-411e7490bbc5
     """
 
     def add_arguments(self, parser):
