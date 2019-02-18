@@ -54,7 +54,7 @@ echo ""
 
 echo "envoi de la clé publique au container"
 echo ""
-ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != "" ) print $2}')
+ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != ""  && $2 != "|") print $2}')
 echo " L'ip du serveur est "$ip
 ssh-keyscan -H $ip >> ~/.ssh/known_hosts
 lxc exec $ContainerName -- sh -c "mkdir /root/.ssh"

@@ -39,7 +39,7 @@
         command: migrate
         app_path: "{{ django_root }}"
         virtualenv: "{{ venv_dir }}"
-        settings: "{{ django_settings }}"
+        settings: "{{ django_settings }}" 
 
     - name: Collect static
       django_manage:

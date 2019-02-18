@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "362b99954cf0931a7e7ae5af9f0c35f70405a1b255ea2fff5564ec8692fa556c"
+            "sha256": "dde8970b962a216fabc5076ba45c6de5e98c1999e18af2300afb46fc2746ce95"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -521,10 +521,18 @@
         },
         "parso": {
             "hashes": [
-                "sha256:6ecf7244be8e7283ec9009c72d074830e7e0e611c974f813d76db0390a4e0dd6",
-                "sha256:8162be7570ffb34ec0b8d215d7f3b6c5fab24f51eb3886d6dee362de96b6db94"
+                "sha256:4580328ae3f548b358f4901e38c0578229186835f0fa0846e47369796dd5bcc9",
+                "sha256:68406ebd7eafe17f8e40e15a84b56848eccbf27d7c1feb89e93d8fca395706db"
             ],
-            "version": "==0.3.3"
+            "version": "==0.3.4"
+        },
+        "pathlib2": {
+            "hashes": [
+                "sha256:25199318e8cc3c25dcb45cbe084cc061051336d5a9ea2a12448d3d8cb748f742",
+                "sha256:5887121d7f7df3603bca2f710e7219f3eca0eb69e0b7cc6e0a022e155ac931a7"
+            ],
+            "markers": "python_version < '3.6'",
+            "version": "==2.3.3"
         },
         "pexpect": {
             "hashes": [
