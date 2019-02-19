@@ -110,7 +110,7 @@ class Command(BaseCommand):
             description=description,
             eligibility=ELIGIBILITY_TXT,
             perimeter=perimeter,
-            url=clean_url,
+            origin_url=clean_url,
             start_date=publication_date,
             submission_deadline=closure_date,
             targeted_audiances=targets,
