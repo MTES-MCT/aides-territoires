@@ -297,7 +297,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         # `SearchVector('field')` because the latter only works for updates,
         # not when inserting new records.
         #
-        # Note 2: we have to pass the backers if parameter instead of using
+        # Note 2: we have to pass the backers parameter instead of using
         # `self.backers.all()` because that last expression would not work
         # during an object creation.
         self.search_vector = \
