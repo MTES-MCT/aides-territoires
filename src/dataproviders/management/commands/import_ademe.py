@@ -129,7 +129,7 @@ class Command(BaseCommand):
             .replace('”', '"') \
             .replace('’', "'")
         normalized = normalize('NFKC', unquoted)
-        soup = bs(normalized)
+        soup = bs(normalized, features='html.parser')
         prettified = soup.prettify()
         return prettified
 
