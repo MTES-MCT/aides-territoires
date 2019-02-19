@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup as bs
 from django.core.management.base import BaseCommand
 
 from geofr.models import Perimeter
+from backers.models import Backer
 from aids.models import Aid
 
 
@@ -60,6 +61,8 @@ class Command(BaseCommand):
         regions_qs = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.region)
         self.regions = list(regions_qs)
+
+        self.ademe = Backer.objects.get(id=BACKER_ID)
 
         data_file = os.path.abspath(options['data-file'][0])
         xml_tree = ElementTree.parse(data_file)
@@ -118,7 +121,7 @@ class Command(BaseCommand):
             import_uniqueid=unique_id,
         )
         aid.set_slug()
-        aid.set_search_vector()
+        aid.set_search_vector(backers=[self.ademe])
         return aid
 
     def clean_description(self, raw_description):
