@@ -13,7 +13,7 @@ from aids.models import Aid
 
 
 FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'  # noqa
-BACKER_ID = 22
+BACKER_ID = 22  # The ID of Ademe in the backers database
 ADMIN_ID = 1
 
 # Convert Ademe's `cible` value to our value
