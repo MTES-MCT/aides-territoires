@@ -73,7 +73,7 @@ class Command(BaseCommand):
                 if aid is not None:
                     new_aids.append(aid)
 
-        Aid.objects.bulk_create(new_aids)
+        Aid.objects.bulk_create(new_aids, ignore_conflicts=True)
         AidBacker = Aid._meta.get_field('backers').remote_field.through
         aid_backers = []
         for aid in new_aids:
