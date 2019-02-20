@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Création du Container"
 
 echo "Test de la présence d'une clé publique"
