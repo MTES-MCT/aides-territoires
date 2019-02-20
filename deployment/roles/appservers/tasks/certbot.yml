@@ -13,6 +13,7 @@
       - --noninteractive
       - --agree-tos
       - --standalone
+      - --expand
       - --email
       - "{{ certbot_admin_email }}"
       - -d

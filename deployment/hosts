@@ -1,3 +1,6 @@
+[local]
+aides.local
+
 [stage]
 aides.stage
 
@@ -5,5 +8,6 @@ aides.stage
 aides.prod
 
 [aidesterritoires:children]
+local
 stage
 prod
