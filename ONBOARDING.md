@@ -24,7 +24,7 @@ production.
 
 Exécuter le script d'installation :
 
-    sudo ./local_vm_creation.sh
+    ./local_vm_creation.sh
 
 …qui effectue les actions suivantes :
 
