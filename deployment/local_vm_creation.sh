@@ -79,8 +79,9 @@ echo ""
 
 echo "Il restes quelques tâches à effectuer manuellement :"
 
-echo "Pour plus de facilité vous pouvez ajouter et/ou Modifier ~/.ssh/config pour pour pendre en compte aides.local avec l'IP du container"
+echo "Pour plus de facilité vous pouvez ajouter et/ou modifier ~/.ssh/config pour pour pendre en compte aides.local avec l'IP du container"
 echo "vous pouvez utiliser le modèle suivant :"
+echo ""
 echo "# The local instance on a LXC virtual machine and a public ip"
 echo "Host aides.local"
 echo -e "\tUser root"
