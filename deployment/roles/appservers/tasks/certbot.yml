@@ -4,7 +4,13 @@
     name: nginx
     state: stopped
 
-- name: Generate certificate
+- name: Make sure certificate directory exists
+  file:
+    path: /etc/letsencrypt/live/{{ project_domain }}
+    state: directory
+
+- name: Generate certificate using Let's Encrypt (for production)
+  when: project_env == "production"
   command:
   args:
     argv:
@@ -19,14 +25,36 @@
       - -d
       - "{{ certbot_domains }}"
 
-- name: Ensure Nginx is running
-  service:
-    name: nginx
-    state: started
-
 - name: Install the certificate renewal cronjob
+  when: project_env == "production"
   cron:
     name: Daily certificate renewal
     special_time: daily
     job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
     state: present
+
+- name: Generate a self-signed OpenSSL certificate (dev only)
+  when: project_env == "local"
+  command:
+  args:
+    creates: /etc/letsencrypt/live/{{ project_domain }}/fullchain.pem
+    argv:
+      - openssl
+      - req
+      - -x509
+      - -newkey
+      - rsa:2048
+      - -nodes
+      - -out
+      - "/etc/letsencrypt/live/{{ project_domain }}/fullchain.pem"
+      - -keyout
+      - "/etc/letsencrypt/live/{{ project_domain }}/privkey.pem"
+      - -subj
+      - "/CN={{ project_domain }}"
+      - -days
+      - "1024"
+
+- name: Ensure Nginx is running
+  service:
+    name: nginx
+    state: started

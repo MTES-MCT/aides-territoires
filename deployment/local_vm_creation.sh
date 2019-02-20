@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Création du Container"
 
 echo "Test de la présence d'une clé publique"
@@ -33,7 +35,7 @@ then
 fi
 
 echo ""
-lxc launch images:debian/stretch $ContainerName -c security.privileged=true
+sudo lxc launch images:debian/stretch $ContainerName -c security.privileged=true
 echo ""
 
 echo "Pause de 15 secondes pour laisser le container démarrer"
@@ -52,7 +54,7 @@ echo ""
 lxc exec $ContainerName  -- sh -c "echo "y\n" |apt-get install ssh"
 echo ""
 
-echo "envoi de la clé publique au container"
+echo "Envoi de la clé publique au container"
 echo ""
 ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != ""  && $2 != "|" ) print $2}')
 echo " L'ip du serveur est "$ip
@@ -77,8 +79,9 @@ echo ""
 
 echo "Il restes quelques tâches à effectuer manuellement :"
 
-echo "Pour plus de facilité vous pouvez ajouter et/ou Modifier ~/.ssh/config pour pour pendre en compte aides.local avec l'IP du container"
+echo "Pour plus de facilité vous pouvez ajouter et/ou modifier ~/.ssh/config pour pendre en compte aides.local avec l'IP du container."
 echo "vous pouvez utiliser le modèle suivant :"
+echo ""
 echo "# The local instance on a LXC virtual machine and a public ip"
 echo "Host aides.local"
 echo -e "\tUser root"
@@ -89,26 +92,14 @@ echo ""
 
 echo "En local :"
 echo ""
-echo "créer le fichier .env.local dans le répertoire aides-territoires/src/"
-echo "SECRET_KEY='hg_1)(oo53y2ow1bvlr6k2mv#hk1lo4%6qf1pdf*02%\$203kmt'"
-echo "DATABASE_URL='psql://aides:aides@localhost/aides'"
-echo "ALLOWED_HOSTS=aides.local,$ip"
-echo "INTERNAL_IPS=127.0.0.1,10.0.3.1"
-echo "COMPRESS_OFFLINE=True"
-echo "MAILING_LIST_LIST_ID=1"
-echo "MAILING_LIST_FORM_ACTION=https://my.sendinblue.com/users/subscribe/js_id/blablabla/id/1"
+echo "Créer le fichier .env.local dans le répertoire aides-territoires/src/"
+echo ""
+echo -e "\t$ cp ../src/.env.example ../src/.env.local"
 echo ""
 echo "Exécution de ansible pour déployer l'application dans le container"
-echo "Lancez la commande ansible-playbook -i hosts -l local site.yml"
 echo ""
+echo -e "\t$ ansible-playbook -i hosts -l local site.yml"
 echo ""
-echo "Sur la machine virtuelle :"
-echo "Accéder au container (ssh aides.local)"
-#echo "Arrêter le superviseur (???)"
-echo "se loguer avec le compte aides (su aides)"
-echo "Accéder au répertoire aides (cd ~/aides)"
-echo "Démarrer l'environnement virtuel Python (/home/aides/.virtualenvs/aides/bin/pipenv shell)"
-echo "Accéder au répertoire src (cd src)"
-echo "Installer les packages python nécessaires (/home/aides/.virtualenvs/aides/bin/pipenv install --dev)"
-echo "Lancer les serveur Django (python manage.py runserver 0.0.0.0:8080)"
-echo "Vous pouvez maintenant accéder à l'application via votre navigateur web ($ip:8080)"
+echo "Vous pouvez maintenant accéder à l'application via votre navigateur web."
+echo "https://aides-territoires.local/"
+echo ""
