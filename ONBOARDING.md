@@ -29,8 +29,8 @@ Exécuter le script d'installation :
 …qui effectue les actions suivantes :
 
 - Test de la présence d'une clé publique
- - Si elle n'existe pas la générer avec la commande *ssh-keygen -t rsa* puis relancer le script
- - Si il en existe une ou plusieurs saisir le nom de la clé à utiliser (si la saisie est incorrecte le script s'interrompt)
+  - Si elle n'existe pas la générer avec la commande *ssh-keygen -t rsa* puis relancer le script
+  - Si il en existe une ou plusieurs saisir le nom de la clé à utiliser (si la saisie est incorrecte le script s'interrompt)
 - Création et mise à jour de la machine virtuelle LXC.
 - Configuration de l'accès root ssh par clé rsa.
 - Installation de python.
