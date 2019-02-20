@@ -72,7 +72,8 @@ configuration très similaire à ce qui existe en recette et production.
 
 ## Serveur de développement
 
-Afin de bénéficier des fonctionnalités proposées par le serveur de développement de django, il faut effectuer quelques opérations manuelles :
+Afin de bénéficier des fonctionnalités proposées par le serveur de développement de django, il faut effectuer quelques opérations manuelles, à répéter à chaque
+démarrage de la VM :
 
     ssh aides.local
     supervisorctl stop aides
