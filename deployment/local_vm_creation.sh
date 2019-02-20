@@ -18,7 +18,7 @@ fi
 
 if [ -e "$HOME/.ssh/"$rsaKey ]
 then
-  echo "la clé publique utilisée serra -> "$rsaKey
+  echo "la clé publique utilisée sera -> "$rsaKey
 else
   echo "la clé publique saisie ($rsaKey) est incorrecte"
   echo "relancez le script"
@@ -54,7 +54,7 @@ echo ""
 
 echo "envoi de la clé publique au container"
 echo ""
-ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != "" ) print $2}')
+ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != ""  && $2 != "|" ) print $2}')
 echo " L'ip du serveur est "$ip
 ssh-keyscan -H $ip >> ~/.ssh/known_hosts
 lxc exec $ContainerName -- sh -c "mkdir /root/.ssh"
@@ -68,7 +68,7 @@ echo ""
 
 echo "Installation de python"
 echo ""
-lxc exec $ContainerName  -- sh -c "echo "y\n" |apt-get install python"
+lxc exec $ContainerName  -- sh -c "apt-get -y install python"
 echo ""
 
 echo "Fin de création et configuration du container"
@@ -99,7 +99,7 @@ echo "MAILING_LIST_LIST_ID=1"
 echo "MAILING_LIST_FORM_ACTION=https://my.sendinblue.com/users/subscribe/js_id/blablabla/id/1"
 echo ""
 echo "Exécution de ansible pour déployer l'application dans le container"
-echo "Lancez la commande ansible-playbook -i hosts -l local -vvv site.yml"
+echo "Lancez la commande ansible-playbook -i hosts -l local site.yml"
 echo ""
 echo ""
 echo "Sur la machine virtuelle :"

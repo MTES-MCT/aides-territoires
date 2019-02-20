@@ -4,11 +4,11 @@
 Afin d'avoir un environnement de travail le plus proche possible de la production,
 il est recommandé d'utiliser une machine virtuelle LXC qui contiendra l'intégralité
 du projet. 
-Ladite machine pourra être configurée automatiquement grâce a un script de déploiement qui génére la michine virtuelle LXC et la configure.
-Ce script exécute auss le même cript de déploiement que ceux utilisés pour la recette et la production.
+Ladite machine pourra être configurée automatiquement grâce a un script de déploiement qui génére la machine virtuelle LXC et la configure.
+Ce script exécute aussi le même script de déploiement que ceux utilisés pour la recette et la production.
 
 ## Prérequis 
-Le script de déploiement à été réalisé sur une machine fonctionne sous Ubuntu 18.04 possédant les paquets suivants :
+Le script de déploiement à été réalisé sur une machine fonctionnant sous Ubuntu 18.04 possédant les paquets suivants :
 
  - lxd
  - git
@@ -24,9 +24,9 @@ Le script de déploiement à été réalisé sur une machine fonctionne sous Ubu
 	 - Création et mise à jour de la machine virtuelle LXC.
 	 - Configuration de l'accès root ssh par clé rsa.
 	 - Installation de python.
-	 - Mise en place d'un répertoire partagé permettant la prise en compte du code modifier dans le répertoire de travail local.
+	 - Mise en place d'un répertoire partagé permettant la prise en compte du code modifié dans le répertoire de travail local.
  
- Si tout c'est bien passé vous devez avoir une machine virtuel presque fonctionnelle.
+ Si tout s'est bien passé vous devez avoir une machine virtuelle presque fonctionnelle.
  
  Il reste quelques manipulations à effectuer qui sont expliquées à la fin du script.
  - Sur la machine hôte :
