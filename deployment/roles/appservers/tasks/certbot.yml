@@ -25,6 +25,14 @@
       - -d
       - "{{ certbot_domains }}"
 
+- name: Install the certificate renewal cronjob
+  when: project_env == "production"
+  cron:
+    name: Daily certificate renewal
+    special_time: daily
+    job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
+    state: present
+
 - name: Generate a self-signed OpenSSL certificate (dev only)
   when: project_env == "local"
   command:
@@ -50,10 +58,3 @@
   service:
     name: nginx
     state: started
-
-- name: Install the certificate renewal cronjob
-  cron:
-    name: Daily certificate renewal
-    special_time: daily
-    job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
-    state: present
