@@ -105,8 +105,8 @@ section.aids {
 
                 ul {
                     @extend .nav;
-                    @extend .nav-pills;
-                    @extend .card-header-pills;
+                    @extend .nav-tabs;
+                    @extend .card-header-tabs;
 
                     li {
                         @extend .nav-item;
