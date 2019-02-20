@@ -113,6 +113,10 @@ section.aids {
 
                         a {
                             @extend .nav-link;
+                            font-weight: bolder;
+                        }
+                        a.active {
+                            font-weight: normal;
                         }
                     }
                 }
