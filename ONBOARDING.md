@@ -57,12 +57,11 @@ Modification du fichier `~/.ssh/config`.
 
 Création du fichier `.env.local` dans le répertoire *aides-territoires/src/*
 
-    cp aides-territoires/src
-    cp .env.example .env.local
+    cp ../src/.env.example ../src/.env.local
 
 Déploiement de l'application à l'aide d'ansible.
 
-    ansible-playbook -i ../deployment/hosts -l local ../deployment/site.yml
+    ansible-playbook -i hosts -l local site.yml
 
 Une fois ces étapes réalisées, votre version de dev sera accessible à l'adresse :
 
