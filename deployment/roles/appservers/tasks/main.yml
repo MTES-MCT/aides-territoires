@@ -9,3 +9,4 @@
 - import_tasks: virtualenv.yml
 - import_tasks: build.yml
 - import_tasks: restart.yml
+  when: project_env == "production"
