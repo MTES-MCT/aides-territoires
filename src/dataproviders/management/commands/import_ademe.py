@@ -1,16 +1,12 @@
 import os
-import re
 from datetime import datetime
 from xml.etree import ElementTree
-from html import unescape
-from unicodedata import normalize
-from bs4 import BeautifulSoup as bs
-import requests
 
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 from django.utils import timezone
 
+from dataproviders.utils import content_prettify
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
@@ -117,7 +113,7 @@ class Command(BaseCommand):
         data_id = xml.attrib['id']
         unique_id = 'ADEME_{}'.format(data_id)
         title = xml.find('.//titre').text
-        description = self.clean_description(xml.find('presentation').text)
+        description = content_prettify(xml.find('presentation').text)
 
         publication_date_text = xml.find('.//date_publication').text
         publication_date = datetime.strptime(
@@ -150,18 +146,6 @@ class Command(BaseCommand):
         aid.set_slug()
         aid.set_search_vector(backers=[self.ademe])
         return aid
-
-    def clean_description(self, raw_description):
-        unescaped = unescape(raw_description or '')
-        unstyled = re.sub(' style="[^"]+"', '', unescaped)
-        unquoted = unstyled \
-            .replace('“', '"') \
-            .replace('”', '"') \
-            .replace('’', "'")
-        normalized = normalize('NFKC', unquoted)
-        soup = bs(normalized, features='html.parser')
-        prettified = soup.prettify()
-        return prettified
 
     def extract_targets(self, xml):
         targets = []
