@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup as bs
 import requests
 
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
+from django.utils import timezone
 
 from geofr.models import Perimeter
 from backers.models import Backer
@@ -28,6 +30,7 @@ AUDIANCES_DICT = {
         Aid.AUDIANCES.region,
         Aid.AUDIANCES.epci,
     ],
+    'Particuliers et Eco-citoyens': Aid.AUDIANCES.private_person,
     'Tout Public': [
         Aid.AUDIANCES.commune,
         Aid.AUDIANCES.department,
@@ -52,6 +55,9 @@ de votre dossier.
 class Command(BaseCommand):
     """Import data from the Ademe data feed."""
 
+    def add_arguments(self, parser):
+        parser.add_argument('data-file', nargs='?', type=str)
+
     def handle(self, *args, **options):
         new_aids = []
         self.france = Perimeter.objects.get(code='FRA')
@@ -60,8 +66,16 @@ class Command(BaseCommand):
         self.regions = list(regions_qs)
         self.ademe = Backer.objects.get(id=BACKER_ID)
 
-        req = requests.get(FEED_URI)
-        xml_root = ElementTree.fromstring(req.text)
+        # If no file was passed as a parameter, download the original xml file
+        # on Ademe's website
+        if options['data-file']:
+            data_file = os.path.abspath(options['data-file'])
+            xml_tree = ElementTree.parse(data_file)
+            xml_root = xml_tree.getroot()
+        else:
+            req = requests.get(FEED_URI)
+            xml_root = ElementTree.fromstring(req.text)
+
         for xml_elt in xml_root:
             if xml_elt.tag == 'appel':
                 aid = self.create_aid(xml_elt)
@@ -72,15 +86,27 @@ class Command(BaseCommand):
         # create it. Otherwise, update it with new data, but keep some
         # existing fields untouched. For this reason, we cannot use some
         # bulk method and has to fall back on an unefficient loop
-        for aid in new_aids:
-            aid.save()
-
-        AidBacker = Aid._meta.get_field('backers').remote_field.through
         aid_backers = []
+        AidBacker = Aid._meta.get_field('backers').remote_field.through
         for aid in new_aids:
-            aid_backers.append(AidBacker(
-                aid=aid,
-                backer_id=BACKER_ID))
+            try:
+                aid.save()
+                self.stdout.write(self.style.SUCCESS(
+                    'New aid: {}'.format(aid.name)))
+                aid_backers.append(AidBacker(
+                    aid=aid,
+                    backer_id=BACKER_ID))
+            except IntegrityError:
+                Aid.objects \
+                    .filter(import_uniqueid=aid.import_uniqueid) \
+                    .update(
+                        origin_url=aid.origin_url,
+                        start_date=aid.start_date,
+                        submission_deadline=aid.submission_deadline,
+                        date_updated=timezone.now())
+                self.stdout.write(self.style.SUCCESS(
+                    'Updated aid: {}'.format(aid.name)))
+
         AidBacker.objects.bulk_create(aid_backers)
 
     def create_aid(self, xml):
@@ -183,15 +209,9 @@ class Command(BaseCommand):
 
                 if region_name in aid_title:
                     perimeter = region
-                    self.stdout.write(
-                        '{} {} -> {}'.format(
-                            self.style.SUCCESS('✓'), aid_title, perimeter))
-
                     break
 
             if perimeter is None:
-                self.stdout.write('{} {} -> ???'.format(
-                    self.style.ERROR('✘'), aid_title))
                 perimeter = self.france
 
         return perimeter
