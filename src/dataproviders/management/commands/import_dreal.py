@@ -14,6 +14,15 @@ from aids.models import Aid
 FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1'
 ADMIN_ID = 1
 
+# Convert Addna's `beneficiaire` value to our value
+AUDIANCES_DICT = {
+    'État': None,
+    'Association': Aid.AUDIANCES.association,
+    'Collectivité': Aid.AUDIANCES.epci,
+    'Entreprise': Aid.AUDIANCES.private_sector,
+    'Particulier / Citoyen': Aid.AUDIANCES.private_person,
+}
+
 
 class Command(BaseCommand):
     """Import data from the DREAL data feed."""
@@ -24,6 +33,8 @@ class Command(BaseCommand):
         self.nouvelle_aquitaine = Perimeter.objects.get(
             scale=Perimeter.TYPES.region,
             code='75')
+
+        self.beneficiaires = []
 
         req = requests.get(FEED_URI)
         req.encoding = 'utf-8-sig'  # We need this to take care of the bom
@@ -36,6 +47,9 @@ class Command(BaseCommand):
             new_aid = self.create_aid(csv_row)
             if new_aid:
                 new_aids.append(new_aid)
+
+        print(set(self.beneficiaires))
+        import pdb; pdb.set_trace()
 
     def create_aid(self, data):
         """Converts csv data into a valid aid object."""
@@ -56,12 +70,12 @@ class Command(BaseCommand):
         eligibility = data['publicsBeneficiairesDetails']
         origin_url = data['URL']
         perimeter = self.extract_perimeter(data['perimetres'])
+        audiances = self.extract_audiances(data['publicsBeneficiaires'])
 
         # thematique & sousThematique -> tags
         # nomAttribuant -> backers
         # publicsBeneficiaires -> targeted_audiances
         # import url (license)
-
 
         aid = Aid(
             name=title,
@@ -69,12 +83,12 @@ class Command(BaseCommand):
             description=description,
             eligibility=eligibility,
             perimeter=perimeter,
+            targeted_audiances=audiances,
             origin_url=origin_url,
             submission_deadline=closure_date,
 
             is_imported=True,
-            import_uniqueid=unique_id
-        )
+            import_uniqueid=unique_id)
         import pdb; pdb.set_trace()
         return aid
 
@@ -114,7 +128,7 @@ class Command(BaseCommand):
 
         # The ADDNA prefixes departments (and only departments) with their
         # INSEE code. Let's get rid of it.
-        if re.match(r'^\d{2}', perimeter_name):
+        if re.match(r'^\d{2} - ', perimeter_name):
             perimeter_name = perimeter_name.split(' - ')[1]
 
         # Is this a known perimeter?
@@ -128,3 +142,23 @@ class Command(BaseCommand):
             self.perimeters_cache[perimeter_name] = perimeter
 
         return perimeter
+
+    def extract_audiances(self, audiances_data):
+        """Converts the `beneficiaires` column into valid audiances values.
+
+        Cf. the ADDNA source code:
+        https://github.com/DREAL-NA/aides/blob/d783fce309baf487f4ab6282dc98bccfd1c04358/app/Beneficiary.php#L28-L38
+        """
+
+        target_audiances = []
+        all_audiances = []
+
+        audiances = audiances_data.split(', ')
+        for audiance in audiances:
+            all_audiances.extend(audiance.split(' | '))
+
+        for audiance in set(all_audiances):
+            if audiance in AUDIANCES_DICT:
+                target_audiances.append(AUDIANCES_DICT[audiance])
+
+        return target_audiances
