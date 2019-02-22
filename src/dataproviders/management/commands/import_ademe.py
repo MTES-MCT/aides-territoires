@@ -5,6 +5,7 @@ from xml.etree import ElementTree
 from html import unescape
 from unicodedata import normalize
 from bs4 import BeautifulSoup as bs
+import requests
 
 from django.core.management.base import BaseCommand
 
@@ -51,22 +52,16 @@ de votre dossier.
 class Command(BaseCommand):
     """Import data from the Ademe data feed."""
 
-    def add_arguments(self, parser):
-        parser.add_argument('data-file', nargs=1, type=str)
-
     def handle(self, *args, **options):
         new_aids = []
         self.france = Perimeter.objects.get(code='FRA')
-
         regions_qs = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.region)
         self.regions = list(regions_qs)
-
         self.ademe = Backer.objects.get(id=BACKER_ID)
 
-        data_file = os.path.abspath(options['data-file'][0])
-        xml_tree = ElementTree.parse(data_file)
-        xml_root = xml_tree.getroot()
+        req = requests.get(FEED_URI)
+        xml_root = ElementTree.fromstring(req.text)
         for xml_elt in xml_root:
             if xml_elt.tag == 'appel':
                 aid = self.create_aid(xml_elt)
