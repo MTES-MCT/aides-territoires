@@ -73,7 +73,13 @@ class Command(BaseCommand):
                 if aid is not None:
                     new_aids.append(aid)
 
-        Aid.objects.bulk_create(new_aids, ignore_conflicts=True)
+        # Our requirement is as follows: if an aid does not already exist,
+        # create it. Otherwise, update it with new data, but keep some
+        # existing fields untouched. For this reason, we cannot use some
+        # bulk method and has to fall back on an unefficient loop
+        for aid in new_aids:
+            aid.save()
+
         AidBacker = Aid._meta.get_field('backers').remote_field.through
         aid_backers = []
         for aid in new_aids:
