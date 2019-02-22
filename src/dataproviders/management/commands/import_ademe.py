@@ -5,15 +5,19 @@ from xml.etree import ElementTree
 from html import unescape
 from unicodedata import normalize
 from bs4 import BeautifulSoup as bs
+import requests
 
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
+from django.utils import timezone
 
 from geofr.models import Perimeter
+from backers.models import Backer
 from aids.models import Aid
 
 
 FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'  # noqa
-BACKER_ID = 22
+BACKER_ID = 22  # The ID of Ademe in the backers database
 ADMIN_ID = 1
 
 # Convert Ademe's `cible` value to our value
@@ -26,6 +30,7 @@ AUDIANCES_DICT = {
         Aid.AUDIANCES.region,
         Aid.AUDIANCES.epci,
     ],
+    'Particuliers et Eco-citoyens': Aid.AUDIANCES.private_person,
     'Tout Public': [
         Aid.AUDIANCES.commune,
         Aid.AUDIANCES.department,
@@ -51,32 +56,57 @@ class Command(BaseCommand):
     """Import data from the Ademe data feed."""
 
     def add_arguments(self, parser):
-        parser.add_argument('data-file', nargs=1, type=str)
+        parser.add_argument('data-file', nargs='?', type=str)
 
     def handle(self, *args, **options):
         new_aids = []
         self.france = Perimeter.objects.get(code='FRA')
-
         regions_qs = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.region)
         self.regions = list(regions_qs)
+        self.ademe = Backer.objects.get(id=BACKER_ID)
 
-        data_file = os.path.abspath(options['data-file'][0])
-        xml_tree = ElementTree.parse(data_file)
-        xml_root = xml_tree.getroot()
+        # If no file was passed as a parameter, download the original xml file
+        # on Ademe's website
+        if options['data-file']:
+            data_file = os.path.abspath(options['data-file'])
+            xml_tree = ElementTree.parse(data_file)
+            xml_root = xml_tree.getroot()
+        else:
+            req = requests.get(FEED_URI)
+            xml_root = ElementTree.fromstring(req.text)
+
         for xml_elt in xml_root:
             if xml_elt.tag == 'appel':
                 aid = self.create_aid(xml_elt)
                 if aid is not None:
                     new_aids.append(aid)
 
-        Aid.objects.bulk_create(new_aids)
-        AidBacker = Aid._meta.get_field('backers').remote_field.through
+        # Our requirement is as follows: if an aid does not already exist,
+        # create it. Otherwise, update it with new data, but keep some
+        # existing fields untouched. For this reason, we cannot use some
+        # bulk method and has to fall back on an unefficient loop
         aid_backers = []
+        AidBacker = Aid._meta.get_field('backers').remote_field.through
         for aid in new_aids:
-            aid_backers.append(AidBacker(
-                aid=aid,
-                backer_id=BACKER_ID))
+            try:
+                aid.save()
+                self.stdout.write(self.style.SUCCESS(
+                    'New aid: {}'.format(aid.name)))
+                aid_backers.append(AidBacker(
+                    aid=aid,
+                    backer_id=BACKER_ID))
+            except IntegrityError:
+                Aid.objects \
+                    .filter(import_uniqueid=aid.import_uniqueid) \
+                    .update(
+                        origin_url=aid.origin_url,
+                        start_date=aid.start_date,
+                        submission_deadline=aid.submission_deadline,
+                        date_updated=timezone.now())
+                self.stdout.write(self.style.SUCCESS(
+                    'Updated aid: {}'.format(aid.name)))
+
         AidBacker.objects.bulk_create(aid_backers)
 
     def create_aid(self, xml):
@@ -110,7 +140,7 @@ class Command(BaseCommand):
             description=description,
             eligibility=ELIGIBILITY_TXT,
             perimeter=perimeter,
-            url=clean_url,
+            origin_url=clean_url,
             start_date=publication_date,
             submission_deadline=closure_date,
             targeted_audiances=targets,
@@ -118,7 +148,7 @@ class Command(BaseCommand):
             import_uniqueid=unique_id,
         )
         aid.set_slug()
-        aid.set_search_vector()
+        aid.set_search_vector(backers=[self.ademe])
         return aid
 
     def clean_description(self, raw_description):
@@ -129,7 +159,7 @@ class Command(BaseCommand):
             .replace('”', '"') \
             .replace('’', "'")
         normalized = normalize('NFKC', unquoted)
-        soup = bs(normalized)
+        soup = bs(normalized, features='html.parser')
         prettified = soup.prettify()
         return prettified
 
@@ -179,15 +209,9 @@ class Command(BaseCommand):
 
                 if region_name in aid_title:
                     perimeter = region
-                    self.stdout.write(
-                        '{} {} -> {}'.format(
-                            self.style.SUCCESS('✓'), aid_title, perimeter))
-
                     break
 
             if perimeter is None:
-                self.stdout.write('{} {} -> ???'.format(
-                    self.style.ERROR('✘'), aid_title))
                 perimeter = self.france
 
         return perimeter

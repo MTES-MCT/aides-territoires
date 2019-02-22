@@ -16,7 +16,7 @@ class AidAdmin(admin.ModelAdmin):
     form = AidAdminForm
     save_as = True
     list_display = ['name', 'all_backers', 'author', 'recurrence',
-                    'date_updated', 'is_imported', 'status']
+                    'date_updated', 'is_imported', 'import_uniqueid', 'status']
     autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
     list_filter = ['status', 'recurrence', 'is_imported']

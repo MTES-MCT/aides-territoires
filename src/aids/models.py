@@ -248,10 +248,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     is_imported = models.BooleanField(
         _('Is imported?'),
         default=False)
+    # Even if this field is a CharField, we make it nullable with `null=True`
+    # because null values are not taken into account by postgresql when
+    # enforcing the `unique` constraint, which is very handy for us.
     import_uniqueid = models.CharField(
         _('Unique identifier for imported data'),
         max_length=20,
-        blank=True)
+        unique=True,
+        null=True, blank=True)
 
     # This field is used to index searchable text content
     search_vector = SearchVectorField(
@@ -293,7 +297,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         # `SearchVector('field')` because the latter only works for updates,
         # not when inserting new records.
         #
-        # Note 2: we have to pass the backers if parameter instead of using
+        # Note 2: we have to pass the backers parameter instead of using
         # `self.backers.all()` because that last expression would not work
         # during an object creation.
         self.search_vector = \
