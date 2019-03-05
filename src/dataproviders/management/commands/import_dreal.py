@@ -2,8 +2,11 @@ from datetime import date, datetime
 import re
 import requests
 import csv
+from functools import reduce
 
 from django.core.management.base import BaseCommand
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 from dataproviders.utils import content_prettify
 from geofr.models import Perimeter
@@ -30,6 +33,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         self.perimeters_cache = {}
+        self.backers_cache = {}
         self.nouvelle_aquitaine = Perimeter.objects.get(
             scale=Perimeter.TYPES.region,
             code='75')
@@ -71,11 +75,12 @@ class Command(BaseCommand):
         origin_url = data['URL']
         perimeter = self.extract_perimeter(data['perimetres'])
         audiances = self.extract_audiances(data['publicsBeneficiaires'])
+        backers = self.extract_backers(data['nomAttribuant'])
 
-        # thematique & sousThematique -> tags
         # nomAttribuant -> backers
-        # publicsBeneficiaires -> targeted_audiances
+        # thematique & sousThematique -> tags
         # import url (license)
+        # set search vector
 
         aid = Aid(
             name=title,
@@ -89,7 +94,6 @@ class Command(BaseCommand):
 
             is_imported=True,
             import_uniqueid=unique_id)
-        import pdb; pdb.set_trace()
         return aid
 
     def extract_perimeter(self, perimeters_data):
@@ -162,3 +166,45 @@ class Command(BaseCommand):
                 target_audiances.append(AUDIANCES_DICT[audiance])
 
         return target_audiances
+
+    def extract_backers(self, backers_data):
+        """Tries to convert the `nomAttribuant` column to backers.
+
+        Sometimes, there is a perfect match between our value and the one in
+        the imported file. E.g : "Région Nouvelle - Aquitaine".
+
+        Sometimes, we already have the backer in db, but it is spelled
+        differently. E.g : "AFB - Agence Française pour la Biodiversité" vs.
+        "Agence Française pour la Biodiversité".
+        """
+
+        backers = []
+        attribuants = backers_data.split(', ')
+        for attribuant in attribuants:
+            backer = self.backers_cache.get(attribuant, None)
+            if backer is None:
+                # Search for an existing backer with different name versions
+                possible_names = [attribuant] + attribuant.split(' - ')
+
+                # Here, we start a request like:
+                # SELECT * FROM backer WHERE
+                #     name ilike <name_1> OR
+                #     name ikike <name_2> OR…
+                q_filters = map(lambda n: Q(name__iexact=n), possible_names)
+                joined_filter = reduce(lambda q1, q2: q1 | q2, q_filters)
+                found_backers = Backer.objects.filter(joined_filter)
+
+                try:
+                    backer = found_backers.get()
+                except ObjectDoesNotExist:
+                    self.stdout.write(self.style.ERROR(
+                        'Creating backer {}'.format(attribuant)))
+                    backer = Backer.objects.create(name=attribuant)
+
+                # if len(backers) > 1:
+                #    self.stdout.write(self.style.ERROR(
+                #        'Several possible backers for {}'.format(attribuant)))
+
+            self.backers_cache[attribuant] = backer
+            backers.append(backer)
+        return backers
