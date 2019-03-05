@@ -258,6 +258,7 @@ form {
     input[type=date],
     input[type=url],
     input[type=number],
+    input[type=password],
     select,
     textarea {
         @extend .form-control;
