@@ -2,11 +2,12 @@ from datetime import date, datetime
 import re
 import requests
 import csv
-from functools import reduce
 
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
+from django.db import transaction
+from django.db.utils import IntegrityError
+from django.utils import timezone
+from django.contrib.postgres.search import TrigramSimilarity
 
 from dataproviders.utils import content_prettify
 from geofr.models import Perimeter
@@ -14,7 +15,7 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1'
+FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
@@ -47,13 +48,34 @@ class Command(BaseCommand):
             delimiter=';',
             lineterminator='\r\n')
         new_aids = []
+
         for csv_row in csv_reader:
             new_aid = self.create_aid(csv_row)
             if new_aid:
                 new_aids.append(new_aid)
 
-        print(set(self.beneficiaires))
-        import pdb; pdb.set_trace()
+        aid_backers = []
+        AidBacker = Aid._meta.get_field('backers').remote_field.through
+        aid_tags = []
+        AidTag = Aid._meta.get_field('_tag_m2m').remote_field.through
+
+        with transaction.atomic():
+            for aid in new_aids:
+                try:
+                    aid.save()
+                    self.stdout.write(self.style.SUCCESS(
+                        'New aid: {}'.format(aid.name)))
+                except IntegrityError:
+                    Aid.objects \
+                        .filter(import_uniqueid=aid.import_uniqueid) \
+                        .update(
+                            origin_url=aid.origin_url,
+                            start_date=aid.start_date,
+                            submission_deadline=aid.submission_deadline,
+                            date_updated=timezone.now(),
+                            tags=aid.tags)
+                    self.stdout.write(self.style.SUCCESS(
+                        'Updated aid: {}'.format(aid.name)))
 
     def create_aid(self, data):
         """Converts csv data into a valid aid object."""
@@ -76,9 +98,8 @@ class Command(BaseCommand):
         perimeter = self.extract_perimeter(data['perimetres'])
         audiances = self.extract_audiances(data['publicsBeneficiaires'])
         backers = self.extract_backers(data['nomAttribuant'])
+        tags = [data['sousThematique']]
 
-        # nomAttribuant -> backers
-        # thematique & sousThematique -> tags
         # import url (license)
         # set search vector
 
@@ -91,9 +112,14 @@ class Command(BaseCommand):
             targeted_audiances=audiances,
             origin_url=origin_url,
             submission_deadline=closure_date,
-
+            tags=tags,
             is_imported=True,
             import_uniqueid=unique_id)
+        aid.save()
+        aid.backers.set(backers)
+        aid.set_search_vector(backers)
+        aid.populate_tags()
+
         return aid
 
     def extract_perimeter(self, perimeters_data):
@@ -121,7 +147,7 @@ class Command(BaseCommand):
 
         """
         # Handle the "several perimeters in the column" scenario
-        perimeters = perimeters_data.split(', ')
+        perimeters = perimeters_data.split('<|>')
         if len(perimeters) > 1:
             perimeter_name = 'Nouvelle - Aquitaine'
         else:
@@ -157,7 +183,7 @@ class Command(BaseCommand):
         target_audiances = []
         all_audiances = []
 
-        audiances = audiances_data.split(', ')
+        audiances = audiances_data.split('<|>')
         for audiance in audiances:
             all_audiances.extend(audiance.split(' | '))
 
@@ -179,31 +205,24 @@ class Command(BaseCommand):
         """
 
         backers = []
-        attribuants = backers_data.split(', ')
+        attribuants = backers_data.split('<|>')
         for attribuant in attribuants:
             backer = self.backers_cache.get(attribuant, None)
             if backer is None:
-                # Search for an existing backer with different name versions
-                possible_names = [attribuant] + attribuant.split(' - ')
 
-                # Here, we start a request like:
-                # SELECT * FROM backer WHERE
-                #     name ilike <name_1> OR
-                #     name ikike <name_2> OR…
-                q_filters = map(lambda n: Q(name__iexact=n), possible_names)
-                joined_filter = reduce(lambda q1, q2: q1 | q2, q_filters)
-                found_backers = Backer.objects.filter(joined_filter)
-
+                # Since there are some differences between the spelling of
+                # the same backers between us and the search data, we
+                # perform a trigram similarity search.
+                found_backers = Backer.objects \
+                    .annotate(sml=TrigramSimilarity('name', attribuant)) \
+                    .filter(sml__gt=0.8) \
+                    .order_by('-sml')
                 try:
-                    backer = found_backers.get()
-                except ObjectDoesNotExist:
+                    backer = found_backers[0]
+                except IndexError:
                     self.stdout.write(self.style.ERROR(
                         'Creating backer {}'.format(attribuant)))
                     backer = Backer.objects.create(name=attribuant)
-
-                # if len(backers) > 1:
-                #    self.stdout.write(self.style.ERROR(
-                #        'Several possible backers for {}'.format(attribuant)))
 
             self.backers_cache[attribuant] = backer
             backers.append(backer)
