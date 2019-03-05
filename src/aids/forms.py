@@ -98,22 +98,7 @@ class BaseAidForm(forms.ModelForm):
 
     def _save_m2m(self):
         super()._save_m2m()
-        self._save_tag_relations()
-
-    def _save_tag_relations(self):
-        """Updtate the m2m keys to tag objects.
-
-        Tag that do not exist must be created.
-        """
-        all_tag_names = self.instance.tags
-        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
-        existing_tag_names = [tag.name for tag in existing_tag_objects]
-        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
-        new_tags = [Tag(name=tag) for tag in missing_tag_names]
-        new_tag_objects = Tag.objects.bulk_create(new_tags)
-
-        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
-        self.instance._tags_m2m.set(all_tag_objects, clear=True)
+        self.instance.populate_tags()
 
 
 class AidAdminForm(BaseAidForm):
