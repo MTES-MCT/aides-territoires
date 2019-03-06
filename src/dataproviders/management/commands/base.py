@@ -1,15 +1,9 @@
-import os
-from datetime import datetime
-from xml.etree import ElementTree
-
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.db.utils import IntegrityError
+from django.db.models import CharField
 from django.utils import timezone
 
-from dataproviders.utils import content_prettify
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
 from aids.forms import AidEditForm
 
@@ -23,10 +17,11 @@ class BaseImportCommand(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        data = self.fetch_data()
+        data = self.fetch_data(**options)
         aid_and_backers = []
         for line in data:
-            aid_and_backers.append(self.process_line(line))
+            if self.line_should_be_processed(line):
+                aid_and_backers.append(self.process_line(line))
 
         # Let's try to actually save the imported aid.
         #
@@ -44,13 +39,14 @@ class BaseImportCommand(BaseCommand):
         with transaction.atomic():
             for aid, backers in aid_and_backers:
                 try:
-                    aid.set_search_vector(backers)
-                    aid.save()
-                    aid.backers.set(backers)
-                    aid.populate_tags()
-                    created_counter += 1
-                    self.stdout.write(self.style.SUCCESS(
-                        'New aid: {}'.format(aid.name)))
+                    with transaction.atomic():
+                        aid.set_search_vector(backers)
+                        aid.save()
+                        aid.backers.set(backers)
+                        aid.populate_tags()
+                        created_counter += 1
+                        self.stdout.write(self.style.SUCCESS(
+                            'New aid: {}'.format(aid.name)))
 
                 except IntegrityError:
                     Aid.objects \
@@ -75,6 +71,9 @@ class BaseImportCommand(BaseCommand):
         """
         raise NotImplementedError
 
+    def line_should_be_processed(self, line):
+        return True
+
     def process_line(self, line):
         """Process a single entry from the data file.
 
@@ -84,7 +83,7 @@ class BaseImportCommand(BaseCommand):
 
         """
         form_fields = AidEditForm.Meta.fields
-        more_fields = ['extract_uniqueid']
+        more_fields = ['import_uniqueid', 'author_id']
         fields = form_fields + more_fields
 
         values = {
@@ -93,7 +92,9 @@ class BaseImportCommand(BaseCommand):
         for field in fields:
             extract_method_name = 'extract_{}'.format(field)
             extract_method = getattr(self, extract_method_name, None)
-            value = extract_method(self, line) if extract_method else None
+            model_field = Aid._meta.get_field(field)
+            empty_value = '' if isinstance(model_field, CharField) else None
+            value = extract_method(line) if extract_method else empty_value
             values[field] = value
 
         backers = values.pop('backers', [])
@@ -108,3 +109,6 @@ class BaseImportCommand(BaseCommand):
         was already processed and imported or not.
         """
         raise NotImplementedError
+
+    def extract_tags(self, line):
+        return []
