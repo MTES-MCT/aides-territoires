@@ -1,15 +1,16 @@
+import os
 from datetime import date, datetime
 import re
 import requests
 import csv
 
-from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.db.utils import IntegrityError
 from django.utils import timezone
 from django.contrib.postgres.search import TrigramSimilarity
 
 from dataproviders.utils import content_prettify
+from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
@@ -28,8 +29,33 @@ AUDIANCES_DICT = {
 }
 
 
-class Command(BaseCommand):
+class Command(BaseImportCommand):
     """Import data from the DREAL data feed."""
+
+    def add_arguments(self, parser):
+        parser.add_argument('data-file', nargs='?', type=str)
+
+    def fetch_data(self, **options):
+        if options['data-file']:
+            data_file = os.path.abspath(options['data-file'])
+            with open(data_file) as csvfile:
+                csv_reader = csv.DictReader(
+                    csvfile,
+                    delimiter=';',
+                    lineterminator='\r\n')
+                for csv_line in csv_reader:
+                    yield csv_line
+
+        else:
+            req = requests.get(FEED_URI)
+            req.encoding = 'utf-8-sig'  # We need this to take care of the bom
+            csv_reader = csv.DictReader(
+                req.iter_lines(decode_unicode=True),
+                delimiter=';',
+                lineterminator='\r\n')
+
+            for csv_line in csv_reader:
+                yield csv_line
 
     def handle(self, *args, **options):
 
@@ -38,91 +64,50 @@ class Command(BaseCommand):
         self.nouvelle_aquitaine = Perimeter.objects.get(
             scale=Perimeter.TYPES.region,
             code='75')
-
         self.beneficiaires = []
 
-        req = requests.get(FEED_URI)
-        req.encoding = 'utf-8-sig'  # We need this to take care of the bom
-        csv_reader = csv.DictReader(
-            req.iter_lines(decode_unicode=True),
-            delimiter=';',
-            lineterminator='\r\n')
-        new_aids = []
+        super().handle(*args, **options)
 
-        for csv_row in csv_reader:
-            new_aid = self.create_aid(csv_row)
-            if new_aid:
-                new_aids.append(new_aid)
+    def line_should_be_processed(self, line):
+        deadline = self.extract_submission_deadline(line)
+        return deadline is None or deadline > date.today()
 
-        aid_backers = []
-        AidBacker = Aid._meta.get_field('backers').remote_field.through
-        aid_tags = []
-        AidTag = Aid._meta.get_field('_tag_m2m').remote_field.through
+    def extract_import_uniqueid(self, line):
+        unique_id = 'DREAL_NA_{}'.format(line['createdAt'])
+        return unique_id
 
-        with transaction.atomic():
-            for aid in new_aids:
-                try:
-                    aid.save()
-                    self.stdout.write(self.style.SUCCESS(
-                        'New aid: {}'.format(aid.name)))
-                except IntegrityError:
-                    Aid.objects \
-                        .filter(import_uniqueid=aid.import_uniqueid) \
-                        .update(
-                            origin_url=aid.origin_url,
-                            start_date=aid.start_date,
-                            submission_deadline=aid.submission_deadline,
-                            date_updated=timezone.now(),
-                            tags=aid.tags)
-                    self.stdout.write(self.style.SUCCESS(
-                        'Updated aid: {}'.format(aid.name)))
+    def extract_author_id(self, line):
+        return ADMIN_ID
 
-    def create_aid(self, data):
-        """Converts csv data into a valid aid object."""
-
+    def extract_submission_deadline(self, line):
         try:
             closure_date = datetime.strptime(
-                data['dateCloture'], '%Y-%m-%d').date()
+                line['dateCloture'], '%Y-%m-%d').date()
         except ValueError:
             closure_date = None
+        return closure_date
 
-        if closure_date and closure_date < date.today():
-            return None
+    def extract_name(self, line):
+        title = line['titre']
+        return title
 
-        title = data['titre']
-        unique_id = 'DREAL_NA_'.format(data['createdAt'])
-        description = content_prettify(data['objet'])
-        # publication_date = datetime.strptime(data['createdAt'])
-        eligibility = data['publicsBeneficiairesDetails']
-        origin_url = data['URL']
-        perimeter = self.extract_perimeter(data['perimetres'])
-        audiances = self.extract_audiances(data['publicsBeneficiaires'])
-        backers = self.extract_backers(data['nomAttribuant'])
-        tags = [data['sousThematique']]
+    def extract_description(self, line):
+        description = content_prettify(line['objet'])
+        return content_prettify(description)
 
-        # import url (license)
-        # set search vector
+    def extract_eligibility(self, line):
+        eligibility = line['publicsBeneficiairesDetails']
+        return content_prettify(eligibility)
 
-        aid = Aid(
-            name=title,
-            author_id=ADMIN_ID,
-            description=description,
-            eligibility=eligibility,
-            perimeter=perimeter,
-            targeted_audiances=audiances,
-            origin_url=origin_url,
-            submission_deadline=closure_date,
-            tags=tags,
-            is_imported=True,
-            import_uniqueid=unique_id)
-        aid.save()
-        aid.backers.set(backers)
-        aid.set_search_vector(backers)
-        aid.populate_tags()
+    def extract_origin_url(self, line):
+        origin_url = line['URL']
+        return origin_url
 
-        return aid
+    def extract_tags(self, line):
+        tags = [line['sousThematique']]
+        return tags
 
-    def extract_perimeter(self, perimeters_data):
+    def extract_perimeter(self, line):
         """Converts the "perimetres" column value into a Perimeter object.
 
         The column can hold some fairly standard values:
@@ -146,6 +131,8 @@ class Command(BaseCommand):
         the region of Nouvelle - Aquitaine.
 
         """
+        perimeters_data = line['perimetres']
+
         # Handle the "several perimeters in the column" scenario
         perimeters = perimeters_data.split('<|>')
         if len(perimeters) > 1:
@@ -173,13 +160,14 @@ class Command(BaseCommand):
 
         return perimeter
 
-    def extract_audiances(self, audiances_data):
+    def extract_targeted_audiances(self, line):
         """Converts the `beneficiaires` column into valid audiances values.
 
         Cf. the ADDNA source code:
         https://github.com/DREAL-NA/aides/blob/d783fce309baf487f4ab6282dc98bccfd1c04358/app/Beneficiary.php#L28-L38
         """
 
+        audiances_data = line['publicsBeneficiaires']
         target_audiances = []
         all_audiances = []
 
@@ -193,7 +181,7 @@ class Command(BaseCommand):
 
         return target_audiances
 
-    def extract_backers(self, backers_data):
+    def extract_backers(self, line):
         """Tries to convert the `nomAttribuant` column to backers.
 
         Sometimes, there is a perfect match between our value and the one in
@@ -203,6 +191,8 @@ class Command(BaseCommand):
         differently. E.g : "AFB - Agence Française pour la Biodiversité" vs.
         "Agence Française pour la Biodiversité".
         """
+
+        backers_data = line['nomAttribuant']
 
         backers = []
         attribuants = backers_data.split('<|>')

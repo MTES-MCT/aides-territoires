@@ -60,6 +60,10 @@ class BaseImportCommand(BaseCommand):
                     self.stdout.write(self.style.SUCCESS(
                         'Updated aid: {}'.format(aid.name)))
 
+                except Exception as e:
+                    self.stdout.write(self.style.ERROR(
+                        'Cannot import aid {}: {}'.format(aid.name, e)))
+
         self.stdout.write(self.style.SUCCESS(
             '{} aids created, {} aids updated'.format(
                 created_counter, updated_counter)))
