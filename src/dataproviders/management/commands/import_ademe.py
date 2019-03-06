@@ -1,16 +1,10 @@
 import os
-import re
 from datetime import datetime
 from xml.etree import ElementTree
-from html import unescape
-from unicodedata import normalize
-from bs4 import BeautifulSoup as bs
 import requests
 
-from django.core.management.base import BaseCommand
-from django.db.utils import IntegrityError
-from django.utils import timezone
-
+from dataproviders.utils import content_prettify
+from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
@@ -52,20 +46,13 @@ de votre dossier.
 '''
 
 
-class Command(BaseCommand):
+class Command(BaseImportCommand):
     """Import data from the Ademe data feed."""
 
     def add_arguments(self, parser):
         parser.add_argument('data-file', nargs='?', type=str)
 
-    def handle(self, *args, **options):
-        new_aids = []
-        self.france = Perimeter.objects.get(code='FRA')
-        regions_qs = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region)
-        self.regions = list(regions_qs)
-        self.ademe = Backer.objects.get(id=BACKER_ID)
-
+    def fetch_data(self, **options):
         # If no file was passed as a parameter, download the original xml file
         # on Ademe's website
         if options['data-file']:
@@ -78,101 +65,69 @@ class Command(BaseCommand):
 
         for xml_elt in xml_root:
             if xml_elt.tag == 'appel':
-                aid = self.create_aid(xml_elt)
-                if aid is not None:
-                    new_aids.append(aid)
+                yield xml_elt
 
-        # Our requirement is as follows: if an aid does not already exist,
-        # create it. Otherwise, update it with new data, but keep some
-        # existing fields untouched. For this reason, we cannot use some
-        # bulk method and has to fall back on an unefficient loop
-        aid_backers = []
-        AidBacker = Aid._meta.get_field('backers').remote_field.through
-        for aid in new_aids:
-            try:
-                aid.save()
-                self.stdout.write(self.style.SUCCESS(
-                    'New aid: {}'.format(aid.name)))
-                aid_backers.append(AidBacker(
-                    aid=aid,
-                    backer_id=BACKER_ID))
-            except IntegrityError:
-                Aid.objects \
-                    .filter(import_uniqueid=aid.import_uniqueid) \
-                    .update(
-                        origin_url=aid.origin_url,
-                        start_date=aid.start_date,
-                        submission_deadline=aid.submission_deadline,
-                        date_updated=timezone.now())
-                self.stdout.write(self.style.SUCCESS(
-                    'Updated aid: {}'.format(aid.name)))
+    def handle(self, *args, **options):
+        self.france = Perimeter.objects.get(code='FRA')
+        regions_qs = Perimeter.objects \
+            .filter(scale=Perimeter.TYPES.region)
+        self.regions = list(regions_qs)
+        self.ademe = Backer.objects.get(id=BACKER_ID)
+        super().handle(*args, **options)
 
-        AidBacker.objects.bulk_create(aid_backers)
+    def line_should_be_processed(self, line):
+        """Ignore line with expired aids."""
+        closed = line.find('appel_cloture').text
+        return closed != '1'
 
-    def create_aid(self, xml):
-        closed = xml.find('appel_cloture').text
-        if closed == '1':
-            return None
-
-        data_id = xml.attrib['id']
+    def extract_import_uniqueid(self, line):
+        data_id = line.attrib['id']
         unique_id = 'ADEME_{}'.format(data_id)
-        title = xml.find('.//titre').text
-        description = self.clean_description(xml.find('presentation').text)
+        return unique_id
 
-        publication_date_text = xml.find('.//date_publication').text
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
+    def extract_name(self, line):
+        title = line.find('.//titre').text
+        return title
+
+    def extract_description(self, line):
+        description = content_prettify(line.find('presentation').text)
+        return description
+
+    def extract_start_date(self, line):
+        publication_date_text = line.find('.//date_publication').text
         publication_date = datetime.strptime(
             publication_date_text,
             '%d/%m/%Y %H:%M:%S')
-        closure_date_text = xml.find('.//date_cloture').text
+        return publication_date
+
+    def extract_submission_deadline(self, line):
+        closure_date_text = line.find('.//date_cloture').text
         closure_date = datetime.strptime(
             closure_date_text,
             '%d/%m/%Y').date()
+        return closure_date
 
-        details_url = xml.find('.//lien_page_edition').text
+    def extract_origin_url(self, line):
+        details_url = line.find('.//lien_page_edition').text
         clean_url = details_url.replace(' ', '%20')
+        return clean_url
 
-        targets = self.extract_targets(xml)
-        perimeter = self.extract_perimeter(xml)
+    def extract_eligibility(self, line):
+        return ELIGIBILITY_TXT
 
-        aid = Aid(
-            name=title,
-            author_id=ADMIN_ID,
-            description=description,
-            eligibility=ELIGIBILITY_TXT,
-            perimeter=perimeter,
-            origin_url=clean_url,
-            start_date=publication_date,
-            submission_deadline=closure_date,
-            targeted_audiances=targets,
-            is_imported=True,
-            import_uniqueid=unique_id,
-        )
-        aid.set_slug()
-        aid.set_search_vector(backers=[self.ademe])
-        return aid
-
-    def clean_description(self, raw_description):
-        unescaped = unescape(raw_description or '')
-        unstyled = re.sub(' style="[^"]+"', '', unescaped)
-        unquoted = unstyled \
-            .replace('“', '"') \
-            .replace('”', '"') \
-            .replace('’', "'")
-        normalized = normalize('NFKC', unquoted)
-        soup = bs(normalized, features='html.parser')
-        prettified = soup.prettify()
-        return prettified
-
-    def extract_targets(self, xml):
+    def extract_targeted_audiances(self, line):
         targets = []
-        target_elts = xml.findall('.//cibles/cible')
+        target_elts = line.findall('.//cibles/cible')
         for element in target_elts:
             ademe_target = element.text
             our_targets = AUDIANCES_DICT[ademe_target]
             targets += our_targets
         return list(set(targets))
 
-    def extract_perimeter(self, xml):
+    def extract_perimeter(self, line):
         """Extract the perimeter value.
 
         In the Ademe feed, there is one xml tag `<couverture_geographique/>`
@@ -188,8 +143,8 @@ class Command(BaseCommand):
             'î': 'i',
             '-': ' '
         }
-        perimeter_choice = xml.find('.//couverture_geographique').text
-        aid_title = xml.find('.//titre').text.lower()
+        perimeter_choice = line.find('.//couverture_geographique').text
+        aid_title = line.find('.//titre').text.lower()
         for old_char, new_char in chars_to_replace.items():
             aid_title = aid_title.replace(old_char, new_char)
 
@@ -215,3 +170,6 @@ class Command(BaseCommand):
                 perimeter = self.france
 
         return perimeter
+
+    def extract_backers(self, line):
+        return [self.ademe]

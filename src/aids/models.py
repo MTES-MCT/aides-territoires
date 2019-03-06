@@ -15,6 +15,7 @@ from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
 from core.fields import ChoiceArrayField
+from tags.models import Tag
 
 
 class AidQuerySet(models.QuerySet):
@@ -253,7 +254,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     # enforcing the `unique` constraint, which is very handy for us.
     import_uniqueid = models.CharField(
         _('Unique identifier for imported data'),
-        max_length=20,
+        max_length=200,
         unique=True,
         null=True, blank=True)
 
@@ -318,6 +319,23 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 Value(' '.join(str(backer) for backer in backers)),
                 weight='D',
                 config='french')
+
+    def populate_tags(self):
+        """Populates the `_tags_m2m` field.
+
+        cache `_tags_m2m` field with values from the `tags` field.
+
+        Tag that do not exist will be created.
+        """
+        all_tag_names = self.tags
+        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
+        existing_tag_names = [tag.name for tag in existing_tag_objects]
+        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
+        new_tags = [Tag(name=tag) for tag in missing_tag_names]
+        new_tag_objects = Tag.objects.bulk_create(new_tags)
+
+        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
+        self._tags_m2m.set(all_tag_objects, clear=True)
 
     def save(self, *args, **kwargs):
         self.set_slug()
