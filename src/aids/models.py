@@ -254,7 +254,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     # enforcing the `unique` constraint, which is very handy for us.
     import_uniqueid = models.CharField(
         _('Unique identifier for imported data'),
-        max_length=20,
+        max_length=200,
         unique=True,
         null=True, blank=True)
 
