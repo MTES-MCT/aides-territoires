@@ -85,6 +85,9 @@ class Command(BaseImportCommand):
         unique_id = 'ADEME_{}'.format(data_id)
         return unique_id
 
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
     def extract_name(self, line):
         title = line.find('.//titre').text
         return title
@@ -111,9 +114,6 @@ class Command(BaseImportCommand):
         details_url = line.find('.//lien_page_edition').text
         clean_url = details_url.replace(' ', '%20')
         return clean_url
-
-    def extract_author_id(self, line):
-        return ADMIN_ID
 
     def extract_eligibility(self, line):
         return ELIGIBILITY_TXT
