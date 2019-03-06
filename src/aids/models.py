@@ -325,7 +325,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
         cache `_tags_m2m` field with values from the `tags` field.
 
-        Tag that do not exist must be created.
+        Tag that do not exist will be created.
         """
         all_tag_names = self.tags
         existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
