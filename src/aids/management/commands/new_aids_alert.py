@@ -15,7 +15,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         yesterday = timezone.now() - timedelta(days=1)
         new_aids = Aid.objects \
-            .published() \
             .filter(date_created__gte=yesterday) \
             .order_by('author') \
             .select_related('author')
