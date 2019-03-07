@@ -4,9 +4,6 @@ import re
 import requests
 import csv
 
-from django.db import transaction
-from django.db.utils import IntegrityError
-from django.utils import timezone
 from django.contrib.postgres.search import TrigramSimilarity
 
 from dataproviders.utils import content_prettify
@@ -16,7 +13,7 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'
+FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'  # noqa
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value

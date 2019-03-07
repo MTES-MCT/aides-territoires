@@ -12,7 +12,6 @@ from core.forms.widgets import (AutocompleteSelectMultiple,
 from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
-from tags.models import Tag
 from tags.fields import TagChoiceField
 from aids.models import Aid
 
