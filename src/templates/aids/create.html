@@ -16,14 +16,21 @@
 {% endblock %}
 
 {% block form_sidebar %}
-<p class="info">{% blocktrans %}
+<p class="warning">{% blocktrans %}
     <span class="fas fa-exclamation-circle"></span>
-    Your aid will be saved with a "draft" status. It will not be published
-    until it is reviewed by an admin.
+    Your aid will be saved with a "draft" status <strong>and will not be
+    published</strong> until you request a review by an administrator, on
+    the following page.
 {% endblocktrans %}</p>
 {% endblock %}
 
 {% block form_actions %}
+<p class="warning">{% blocktrans trimmed %}
+<span class="fas fa-exclamation-circle"></span>
+Your aid <strong>will not be published</strong> until you send it for review on
+the following page.
+{% endblocktrans %}</p>
+
 <div class="form-actions">
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
     <button type="submit">{{ _('Save your aid') }}</button>
