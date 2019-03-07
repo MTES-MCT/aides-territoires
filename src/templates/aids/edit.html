@@ -15,17 +15,25 @@
     <h1>{{ _('Edit an aid') }}</h1>
 {% endblock %}
 
+{% block before-section %}
+    <p class="warning">{% blocktrans trimmed %}
+        <span class="fas fa-exclamation-circle"></span>
+        This aid is <strong>currently not published</strong> and does not appear
+        for Aides-territoires users (yet).
+    {% endblocktrans %}</p>
+{% endblock %}
+
 {% block form_sidebar %}
 
     <div class="sidebar-actions">
         <h3>{{ aid.get_status_display }}</h3>
 
         {% if aid.is_draft %}
-            {% trans 'This aid is currently not displayed on the site. You can send it to publication by requesting a review by an administrator.' as status_info %}
+            {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator.' as status_info %}
             {% trans 'Send to publication' as btn_label %}
             {% trans 'You will be able to keep editing your aid.' as status_help %}
         {% elif aid.is_under_review %}
-            {% trans 'Pending approval by an administrator, this aid will be published anytime soon.' as status_info %}
+            {% trans 'Pending approval by an administrator, this aid <strong>will be published anytime soon</strong>.' as status_info %}
             {% trans 'Cancel review' as btn_label %}
             {% trans 'You will be able to submit your aid for review later on.' as status_help %}
         {% elif aid.is_published %}
