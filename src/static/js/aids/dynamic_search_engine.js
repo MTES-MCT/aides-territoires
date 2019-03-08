@@ -6,6 +6,9 @@
  * When the search filter form is used, we dynamically fetch new
  * results and display them on the spot. We also update the url,
  * so the current search remains bookmarkable at all time.
+ *
+ * At last, we save the current search params in a cookie, so we can display
+ * the correct "Go back to your search" link in the aid detail page.
  */
 (function (exports, catalog) {
     'use strict';
@@ -47,6 +50,7 @@
         renderUrl();
         renderFilterButtons();
         renderPendingState();
+        renderSessionCookie();
     }
 
     /**
@@ -76,6 +80,14 @@
     var renderUrl = function () {
         var newUrl = '?' + state['searchParams'];
         history.replaceState(null, null, newUrl);
+    };
+
+    /**
+     * Saves the current search in a cookie for later retrieval.
+     */
+    exports.renderSessionCookie = function() {
+        var searchUrl = state['searchParams'];
+        document.cookie = catalog.SEARCH_COOKIE_NAME + '=' + searchUrl;
     };
 
     /**
@@ -212,6 +224,7 @@ $(document).ready(function () {
     $('div#search-engine form').on('keyup', 'input[type=text]', onSearchFormChanged);
     $('div#filters').on('click', 'button', onSearchFilterRemoved);
     renderFilterButtons();
+    renderSessionCookie();
 
     // Since we use js to dynamically fetch new results, it's better
     // to hide the useless submit button. We do it using js, so
