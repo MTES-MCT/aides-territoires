@@ -180,3 +180,5 @@ SITE_ID = 1
 LOGIN_URL = 'login_request'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
+
+SEARCH_COOKIE_NAME = 'currentsearch'
