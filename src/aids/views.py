@@ -168,6 +168,12 @@ class AidDetailView(DetailView):
                 initial={'bundles': aid_bundles})
 
         context['similar_aids'] = self.find_similar_aids()
+
+        current_search = self.request.COOKIES.get(
+            settings.SEARCH_COOKIE_NAME, None)
+        if current_search:
+            context['current_search'] = current_search
+
         return context
 
     def find_similar_aids(self):
