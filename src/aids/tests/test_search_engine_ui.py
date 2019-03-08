@@ -102,3 +102,25 @@ def test_updating_the_form_performs_a_new_search(live_server, browser):
     results = browser.find_elements_by_css_selector('div.aid h1')
     assert len(results) == 1
     assert 'Schtroumpf' in results[0].get_attribute('innerHTML')
+
+
+def test_aid_detail_shows_link_to_previous_search(live_server, browser):
+    aid = AidFactory(name='Gloubiboulga')
+    AidFactory(name='Schtroumpf')
+
+    search_url = reverse('search_view')
+    browser.get(live_server + search_url)
+
+    results = browser.find_elements_by_css_selector('div.aid h1')
+    assert len(results) == 2
+
+    search_input = browser.find_element_by_id('id_text')
+    search_input.send_keys('Gloubiboulga')
+    time.sleep(1)
+
+    results = browser.find_elements_by_css_selector('div.aid h1')
+    assert len(results) == 1
+
+    browser.get(live_server + aid.get_absolute_url())
+    breadcrumbs = browser.find_elements_by_css_selector('ol.breadcrumb')
+    assert 'text=Gloubiboulga' in breadcrumbs[0].get_attribute('innerHTML')

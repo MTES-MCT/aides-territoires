@@ -7,7 +7,11 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        {% if current_search %}
+            <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Your search') }}</a></li>
+        {% else %}
+            <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        {% endif %}
         <li class="active" aria-current="page">{{ _('Aid detail') }}</li>
     </ol>
 </nav>

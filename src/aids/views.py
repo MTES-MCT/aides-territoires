@@ -55,6 +55,11 @@ class SearchView(SearchMixin, FormMixin, ListView):
         ordered_results = filter_form.order_queryset(results)
         return ordered_results
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['SEARCH_COOKIE_NAME'] = settings.SEARCH_COOKIE_NAME
+        return context
+
 
 class AdvancedSearchView(SearchMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
@@ -163,6 +168,12 @@ class AidDetailView(DetailView):
                 initial={'bundles': aid_bundles})
 
         context['similar_aids'] = self.find_similar_aids()
+
+        current_search = self.request.COOKIES.get(
+            settings.SEARCH_COOKIE_NAME, None)
+        if current_search:
+            context['current_search'] = current_search
+
         return context
 
     def find_similar_aids(self):
