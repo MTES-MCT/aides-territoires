@@ -55,7 +55,8 @@ class BaseImportCommand(BaseCommand):
                             origin_url=aid.origin_url,
                             start_date=aid.start_date,
                             submission_deadline=aid.submission_deadline,
-                            date_updated=timezone.now())
+                            date_updated=timezone.now(),
+                            import_last_access=timezone.now())
                     updated_counter += 1
                     self.stdout.write(self.style.SUCCESS(
                         'Updated aid: {}'.format(aid.name)))
@@ -87,7 +88,10 @@ class BaseImportCommand(BaseCommand):
 
         """
         form_fields = AidEditForm.Meta.fields
-        more_fields = ['import_uniqueid', 'author_id']
+        more_fields = [
+            'author_id', 'is_imported', 'import_uniqueid', 'import_data_url',
+            'import_share_licence', 'import_last_access'
+        ]
         fields = form_fields + more_fields
 
         values = {
@@ -106,13 +110,25 @@ class BaseImportCommand(BaseCommand):
 
         return aid, backers
 
-    def extract_uniqueid(self, line):
+    def extract_is_imported(self, line):
+        return True
+
+    def extract_import_uniqueid(self, line):
         """Must return an unique import reference.
 
         This value is useful if we want to know if the current line
         was already processed and imported or not.
         """
         raise NotImplementedError
+
+    def extract_import_data_url(self, line):
+        raise NotImplementedError
+
+    def extract_import_share_licence(self, line):
+        raise NotImplementedError
+
+    def extract_import_last_access(self, line):
+        return timezone.now()
 
     def extract_tags(self, line):
         return []

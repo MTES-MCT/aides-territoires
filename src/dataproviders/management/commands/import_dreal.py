@@ -25,6 +25,8 @@ AUDIANCES_DICT = {
     'Particulier / Citoyen': Aid.AUDIANCES.private_person,
 }
 
+ADDNA_URL = 'http://aides-dd-na.fr/'
+
 
 class Command(BaseImportCommand):
     """Import data from the DREAL data feed."""
@@ -69,12 +71,18 @@ class Command(BaseImportCommand):
         deadline = self.extract_submission_deadline(line)
         return deadline is None or deadline > date.today()
 
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
     def extract_import_uniqueid(self, line):
         unique_id = 'DREAL_NA_{}'.format(line['createdAt'])
         return unique_id
 
-    def extract_author_id(self, line):
-        return ADMIN_ID
+    def extract_import_data_url(self, line):
+        return ADDNA_URL
+
+    def extract_import_share_licence(self, line):
+        return Aid.IMPORT_LICENCES.openlicence20
 
     def extract_submission_deadline(self, line):
         try:
