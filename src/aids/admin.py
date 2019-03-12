@@ -20,6 +20,9 @@ class AidAdmin(admin.ModelAdmin):
     autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
     list_filter = ['status', 'recurrence', 'is_imported']
+    readonly_fields = [
+        'is_imported', 'import_uniqueid', 'import_data_url',
+        'import_share_licence', 'import_last_access']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -74,6 +77,17 @@ class AidAdmin(admin.ModelAdmin):
                 'status',
             )
         }),
+
+        (_('Import related data'), {
+            'fields': (
+                'is_imported',
+                'import_uniqueid',
+                'import_data_url',
+                'import_share_licence',
+                'import_last_access',
+            )
+        }),
+
     ]
 
     def get_queryset(self, request):
