@@ -78,7 +78,9 @@
 {% block form_actions %}
 <div class="form-actions">
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
-    <button type="submit">{{ _('Save your aid') }}</button>
+    <div class="submit-buttons">
+        <button type="submit">{{ _('Save your aid') }}</button>
+    </div>
 </div>
 {% endblock %}
 
