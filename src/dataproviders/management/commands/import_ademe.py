@@ -45,6 +45,8 @@ pour tous renseignements ou conseils relatifs au montage et à la soumission
 de votre dossier.
 '''
 
+ADEME_URL = 'https://www.ademe.fr/'
+
 
 class Command(BaseImportCommand):
     """Import data from the Ademe data feed."""
@@ -80,13 +82,19 @@ class Command(BaseImportCommand):
         closed = line.find('appel_cloture').text
         return closed != '1'
 
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
     def extract_import_uniqueid(self, line):
         data_id = line.attrib['id']
         unique_id = 'ADEME_{}'.format(data_id)
         return unique_id
 
-    def extract_author_id(self, line):
-        return ADMIN_ID
+    def extract_import_data_url(self, line):
+        return ADEME_URL
+
+    def extract_import_share_licence(self, line):
+        return Aid.IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line.find('.//titre').text
