@@ -91,6 +91,31 @@ def test_aid_creation_view(client, contributor, aid_form_data):
     assert aids.count() == 1
     assert aids[0].name == 'Very unique title'
     assert aids[0].author == contributor
+    assert aids[0].status == 'draft'
+
+
+def test_aid_creation_status_as_draft(client, contributor, aid_form_data):
+
+    form_url = reverse('aid_create_view')
+    client.force_login(contributor)
+    aids = Aid.objects.filter(author=contributor)
+    aid_form_data['status'] = 'draft'
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+    assert aids.count() == 1
+    assert aids[0].status == 'draft'
+
+
+def test_aid_creation_status_as_review(client, contributor, aid_form_data):
+
+    form_url = reverse('aid_create_view')
+    client.force_login(contributor)
+    aids = Aid.objects.filter(author=contributor)
+    aid_form_data['status'] = 'review'
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+    assert aids.count() == 1
+    assert aids[0].status == 'reviewable'
 
 
 def test_aid_form_requires_a_backer(client, contributor, aid_form_data):
