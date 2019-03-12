@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 15:23+0100\n"
+"POT-Creation-Date: 2019-03-12 11:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,6 +166,9 @@ msgstr "Contact et démarches"
 
 msgid "Aid admin"
 msgstr "Administration de l'aide"
+
+msgid "Import related data"
+msgstr "Données liées à l'import"
 
 msgid "Backers"
 msgstr "Apporteurs"
@@ -385,6 +388,12 @@ msgstr "Permanente"
 msgid "Recurring"
 msgstr "Récurrente"
 
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Open licence 2.0"
+msgstr "Licence ouverte 2.0"
+
 msgid "Slug"
 msgstr "Fragment d'URL"
 
@@ -483,6 +492,15 @@ msgstr "Importé ?"
 
 msgid "Unique identifier for imported data"
 msgstr "Identifiant d'import unique"
+
+msgid "Origin url of the imported data"
+msgstr "Url d'origine de la donnée importée"
+
+msgid "Under which license was this aid shared?"
+msgstr "Sous quelle license cette aide a-t-elle été partagée ?"
+
+msgid "Date of the latest access"
+msgstr "Date du dernier accès"
 
 msgid "Search vector"
 msgstr "Search vector"
@@ -1166,6 +1184,21 @@ msgstr "Contact (e-mail)"
 
 msgid "Contact (phone)"
 msgstr "Contact (téléphone)"
+
+msgid "Data origin"
+msgstr "Origine de la donnée"
+
+msgid "This aid was imported from another data stream."
+msgstr "Cette aide provient d'une source de données tierce"
+
+msgid "Origin url"
+msgstr "URL d'origine"
+
+msgid "Import share license"
+msgstr "License de partage"
+
+msgid "Last data access"
+msgstr "Date du dernier accès"
 
 msgid "Similar aids"
 msgstr "Aides similaires"
