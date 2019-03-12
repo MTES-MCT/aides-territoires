@@ -130,6 +130,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('recurring', _('Recurring')),
     )
 
+    IMPORT_LICENCES = Choices(
+        ('unknown', _('Unknown')),
+        ('openlicence20', _('Open licence 2.0')),
+    )
+
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
 
@@ -256,6 +261,17 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Unique identifier for imported data'),
         max_length=200,
         unique=True,
+        null=True, blank=True)
+    import_data_url = models.URLField(
+        _('Origin url of the imported data'),
+        null=True, blank=True)
+    import_share_licence = models.CharField(
+        _('Under which license was this aid shared?'),
+        max_length=50,
+        choices=IMPORT_LICENCES,
+        blank=True)
+    import_last_access = models.DateField(
+        _('Date of the latest access'),
         null=True, blank=True)
 
     # This field is used to index searchable text content
