@@ -2,26 +2,7 @@ import time
 
 from django.urls import reverse
 
-import pytest
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-
 from aids.factories import AidFactory
-
-
-@pytest.fixture(scope="module")
-def browser():
-    opts = Options()
-    opts.headless = True
-    browser = webdriver.Firefox(options=opts)
-    browser.implicitly_wait(1)
-    browser.set_window_position(0, 0)
-    browser.set_window_size(1200, 800)
-
-    # This is equivalent to a `tearDown`.
-    # Sometimes, I admire Python's elegancy so much!
-    yield browser
-    browser.quit()
 
 
 def test_search_filters_are_displayed(live_server, browser):
