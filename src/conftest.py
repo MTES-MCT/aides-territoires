@@ -1,6 +1,8 @@
 """Global fixtures for tests."""
 
 import pytest
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
 from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
@@ -37,3 +39,18 @@ def perimeter():
 
     perimeter = PerimeterFactory()
     return perimeter
+
+
+@pytest.fixture(scope="module")
+def browser():
+    opts = Options()
+    opts.headless = True
+    browser = webdriver.Firefox(options=opts)
+    browser.implicitly_wait(1)
+    browser.set_window_position(0, 0)
+    browser.set_window_size(1200, 800)
+
+    # This is equivalent to a `tearDown`.
+    # Sometimes, I admire Python's elegancy so much!
+    yield browser
+    browser.quit()

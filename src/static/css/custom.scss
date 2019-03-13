@@ -379,9 +379,11 @@ section#aid-edit {
         @extend .col-md-9;
 
         div.form-actions {
+            display: flex;
+            align-items: baseline;
 
-            button[type=submit] {
-                float: right;
+            div.submit-buttons {
+                margin-left: auto;
             }
         }
     }

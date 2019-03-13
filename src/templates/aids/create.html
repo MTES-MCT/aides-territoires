@@ -19,20 +19,22 @@
 <p class="warning">{% blocktrans %}
     <span class="fas fa-exclamation-circle"></span>
     Your aid will be saved with a "draft" status <strong>and will not be
-    published</strong> until you request a review by an administrator, on
-    the following page.
+    published</strong> until you request a review by an administrator.
 {% endblocktrans %}</p>
 {% endblock %}
 
 {% block form_actions %}
 <p class="warning">{% blocktrans trimmed %}
 <span class="fas fa-exclamation-circle"></span>
-Your aid <strong>will not be published</strong> until you send it for review on
-the following page.
+Your aid <strong>will not be published</strong> until you send it for review.
 {% endblocktrans %}</p>
 
 <div class="form-actions">
-    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel and go back to published aids') }}</a>
-    <button type="submit">{{ _('Save your aid') }}</button>
+    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
+
+    <div class="submit-buttons">
+        <button name="status" value="draft" type="submit">{{ _('Save as a draft') }}</button>
+        <button name="status" value="review" type="submit">{{ _('Save and request publication') }}</button>
+    </div>
 </div>
 {% endblock %}
