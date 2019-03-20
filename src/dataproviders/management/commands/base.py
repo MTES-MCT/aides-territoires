@@ -16,7 +16,11 @@ class BaseImportCommand(BaseCommand):
     Dreal, etc.)
     """
 
+    def populate_cache(self, *args, **options):
+        pass
+
     def handle(self, *args, **options):
+        self.populate_cache(*args, **options)
         data = self.fetch_data(**options)
         aid_and_backers = []
         for line in data:
