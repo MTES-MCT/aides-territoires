@@ -1,4 +1,10 @@
 ---
+- name: Use Bash as the shell
+  cronvar:
+    name: SHELL
+    value: /bin/bash
+    user: "{{ user_name }}"
+
 - name: Ensure new aid email alert cronjob is setup
   cron:
     name: Send alert when new aids are created
