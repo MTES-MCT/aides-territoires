@@ -52,7 +52,8 @@ class BaseImportCommand(BaseCommand):
                         self.stdout.write(self.style.SUCCESS(
                             'New aid: {}'.format(aid.name)))
 
-                except IntegrityError:
+                except IntegrityError as e:
+                    self.stdout.write(self.style.ERROR(e))
                     Aid.objects \
                         .filter(import_uniqueid=aid.import_uniqueid) \
                         .update(
