@@ -236,6 +236,11 @@ class AidSearchForm(forms.Form):
             a_month_ago = timezone.now() - timedelta(days=30)
             qs = qs.filter(date_created__gte=a_month_ago.date())
 
+        call_for_projects_only = self.cleaned_data.get(
+            'call_for_projects_only', False)
+        if call_for_projects_only:
+            qs = qs.filter(is_call_for_project=True)
+
         return qs
 
     def order_queryset(self, qs):
