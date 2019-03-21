@@ -16,7 +16,11 @@ class BaseImportCommand(BaseCommand):
     Dreal, etc.)
     """
 
+    def populate_cache(self, *args, **options):
+        pass
+
     def handle(self, *args, **options):
+        self.populate_cache(*args, **options)
         data = self.fetch_data(**options)
         aid_and_backers = []
         for line in data:
@@ -48,7 +52,8 @@ class BaseImportCommand(BaseCommand):
                         self.stdout.write(self.style.SUCCESS(
                             'New aid: {}'.format(aid.name)))
 
-                except IntegrityError:
+                except IntegrityError as e:
+                    self.stdout.write(self.style.ERROR(e))
                     Aid.objects \
                         .filter(import_uniqueid=aid.import_uniqueid) \
                         .update(

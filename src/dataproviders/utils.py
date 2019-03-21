@@ -1,7 +1,11 @@
-import re
 from html import unescape
 from unicodedata import normalize
 from bs4 import BeautifulSoup as bs
+
+REMOVABLE_TAGS = ['script', 'style']
+ALLOWED_TAGS = [
+    'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+]
 
 
 def content_prettify(raw_text):
@@ -12,19 +16,29 @@ def content_prettify(raw_text):
     content beautification so we can safely include ugly data on our site:
 
      * removes escaped html characters
-     * removes manual styles from html tags
      * converts weird quote chars and use standard chars instead
      * normalize unicode characters
+     * removes all `script` html tags
+     * removes most of html tags (but leave their content)
+     * removes all html tag attributes
      * autoindent existing html
 
     """
     unescaped = unescape(raw_text or '')
-    unstyled = re.sub(' style="[^"]+"', '', unescaped)
-    unquoted = unstyled \
+    unquoted = unescaped \
         .replace('“', '"') \
         .replace('”', '"') \
         .replace('’', "'")
     normalized = normalize('NFKC', unquoted)
     soup = bs(normalized, features='html.parser')
+    tags = soup.find_all()
+    for tag in tags:
+        if tag.name in REMOVABLE_TAGS:
+            tag.decompose()
+        else:
+            if tag.name in ALLOWED_TAGS:
+                tag.attrs = {}
+            else:
+                tag.unwrap()
     prettified = soup.prettify()
     return prettified
