@@ -1,4 +1,4 @@
-    import scrapy
+import scrapy
 from dataproviders.utils import content_prettify
 
 
