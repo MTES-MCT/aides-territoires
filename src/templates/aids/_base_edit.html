@@ -53,6 +53,7 @@
 
     <fieldset>
         <legend>{{ _('Aid description') }}</legend>
+        {% include '_field_snippet.html' with field=form.is_call_for_project %}
         {% include '_field_snippet.html' with field=form.aid_types %}
         {% include '_field_snippet.html' with field=form.subvention_rate %}
         {% include '_field_snippet.html' with field=form.mobilization_steps %}

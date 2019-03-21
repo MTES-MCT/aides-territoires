@@ -72,6 +72,8 @@ class BaseAidForm(forms.ModelForm):
             'contact_detail': _('Name of a contact in charge'),
             'contact_email': _('E-mail address of a contact in charge'),
             'contact_phone': _('Phone number of a contact in charge'),
+            'is_call_for_project': _('Is this a call for project / expressions'
+                                     ' of interest?')
         }
         for field, label in custom_labels.items():
             self.fields[field].label = label
@@ -358,6 +360,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date',
             'submission_deadline',
             'perimeter',
+            'is_call_for_project',
             'aid_types',
             'subvention_rate',
             'mobilization_steps',
