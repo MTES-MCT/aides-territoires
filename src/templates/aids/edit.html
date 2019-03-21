@@ -16,11 +16,13 @@
 {% endblock %}
 
 {% block before-section %}
-    <p class="warning">{% blocktrans trimmed %}
-        <span class="fas fa-exclamation-circle"></span>
-        This aid is <strong>currently not published</strong> and does not appear
-        for Aides-territoires users (yet).
-    {% endblocktrans %}</p>
+    {% if not aid.is_published %}
+        <p class="warning">{% blocktrans trimmed %}
+            <span class="fas fa-exclamation-circle"></span>
+            This aid is <strong>currently not published</strong> and does not appear
+            for Aides-territoires users (yet).
+        {% endblocktrans %}</p>
+    {% endif %}
 {% endblock %}
 
 {% block form_sidebar %}
