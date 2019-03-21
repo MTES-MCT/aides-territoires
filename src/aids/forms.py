@@ -168,6 +168,13 @@ class AidSearchForm(forms.Form):
         label=_('Diffusion scale'),
         required=False,
         choices=SCALES)
+    call_for_projects_only = forms.MultipleChoiceField(
+        label=_('Call for projects'),
+        choices=((
+            _('Yes'),
+            _('Only show calls for project / expressions of interest')),),
+        required=False,
+        widget=MultipleChoiceFilterWidget)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
