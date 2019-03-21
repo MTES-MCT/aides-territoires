@@ -7,7 +7,6 @@ from aids.models import Aid
 from dataproviders.management.commands.base import BaseImportCommand
 from dataproviders.scrapers.rmc import RMCSpider
 
-DATA_URI = 'https://www.eaurmc.fr/jcms/gbr_5503/fr/les-aides-financieres-primes-et-appels-a-projets?histstate=1'
 ADMIN_ID = 1
 
 BASIN_RHONE_MED_CODE = '06'
