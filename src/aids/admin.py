@@ -54,6 +54,7 @@ class AidAdmin(admin.ModelAdmin):
 
         (_('Aid description'), {
             'fields': (
+                'is_call_for_project',
                 'aid_types',
                 'subvention_rate',
                 'mobilization_steps',

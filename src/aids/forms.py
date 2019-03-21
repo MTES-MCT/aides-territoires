@@ -72,6 +72,8 @@ class BaseAidForm(forms.ModelForm):
             'contact_detail': _('Name of a contact in charge'),
             'contact_email': _('E-mail address of a contact in charge'),
             'contact_phone': _('Phone number of a contact in charge'),
+            'is_call_for_project': _('Is this a call for project / expressions'
+                                     ' of interest?')
         }
         for field, label in custom_labels.items():
             self.fields[field].label = label
@@ -166,6 +168,13 @@ class AidSearchForm(forms.Form):
         label=_('Diffusion scale'),
         required=False,
         choices=SCALES)
+    call_for_projects_only = forms.MultipleChoiceField(
+        label=_('Call for projects'),
+        choices=((
+            _('Yes'),
+            _('Only show calls for project / expressions of interest')),),
+        required=False,
+        widget=MultipleChoiceFilterWidget)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -226,6 +235,11 @@ class AidSearchForm(forms.Form):
         if recent_only:
             a_month_ago = timezone.now() - timedelta(days=30)
             qs = qs.filter(date_created__gte=a_month_ago.date())
+
+        call_for_projects_only = self.cleaned_data.get(
+            'call_for_projects_only', False)
+        if call_for_projects_only:
+            qs = qs.filter(is_call_for_project=True)
 
         return qs
 
@@ -358,6 +372,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date',
             'submission_deadline',
             'perimeter',
+            'is_call_for_project',
             'aid_types',
             'subvention_rate',
             'mobilization_steps',

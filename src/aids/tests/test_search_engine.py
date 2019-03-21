@@ -302,3 +302,14 @@ def test_the_only_recent_filter(client, perimeters, aids):
         aid.save()
     res = client.get(url, data={'recent_only': 'Oui'})
     assert res.context['paginator'].count == 86
+
+
+def test_the_call_for_project_only_filter(client, perimeters, aids):
+
+    for aid in aids[:5]:
+        aid.is_call_for_project = True
+        aid.save()
+
+    url = reverse('search_view')
+    res = client.get(url, data={'call_for_projects_only': 'Oui'})
+    assert res.context['paginator'].count == 5
