@@ -147,8 +147,8 @@
 
         {% if aid.contact_detail %}
         <div class="short-data">
-            <h2>{{ _('Contact (name)') }}</h2>
-            <p>{{ aid.contact_detail }}</p>
+            <h2>{{ _('Contact') }}</h2>
+            <p>{{ aid.contact_detail|safe }}</p>
         </div>
         {% endif %}
 
