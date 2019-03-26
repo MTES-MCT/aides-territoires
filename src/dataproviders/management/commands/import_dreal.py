@@ -222,7 +222,3 @@ class Command(BaseImportCommand):
             self.backers_cache[attribuant] = backer
             backers.append(backer)
         return backers
-
-    def extract_is_call_for_project(self, line):
-        title = line['titre'].lower()
-        return 'appel à projet' in title or 'aap' in title
