@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import scrapy
 from dataproviders.utils import content_prettify
 
@@ -18,10 +20,31 @@ class GrandEstSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        links = response.css('a.card::attr("href")').getall()
+        links = response.css('a.card')
         for link in links:
-            absolute_url = self.BASE_URL + link
-            yield scrapy.Request(absolute_url, callback=self.aid_parse)
+            link_url = link.css('::attr("href")').get()
+            absolute_url = self.BASE_URL + link_url
+            request = scrapy.Request(absolute_url, callback=self.aid_parse)
+
+            card_header = link.css('div.txt.new_txt span.new_type::text').get()
+            if 'Date limite de dépôt' in card_header:
+                category = ''
+                is_call_for_project = True
+                deadline_string = link.css('span.new_type strong::text').get()
+                if deadline_string:
+                    submission_deadline = '{:%Y-%m-%d}'.format(
+                        datetime.strptime(deadline_string, '%d/%m/%Y'))
+                else:
+                    submission_deadline = ''
+            else:
+                category = card_header.strip()
+                is_call_for_project = False
+                submission_deadline = ''
+
+            request.meta['category'] = category
+            request.meta['is_call_for_project'] = is_call_for_project
+            request.meta['submission_deadline'] = submission_deadline
+            yield request
 
         # The web site pagination is completely broken without javascript
         # so we have to pass a weird combination of paramaters to the url
@@ -48,4 +71,7 @@ class GrandEstSpider(scrapy.Spider):
             'current_url': current_url,
             'uniqueid': unique_id,
             'contact': content_prettify(contact),
+            'category': response.meta['category'],
+            'is_call_for_project': response.meta['is_call_for_project'],
+            'submission_deadline': response.meta['submission_deadline'],
         }
