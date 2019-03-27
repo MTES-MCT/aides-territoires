@@ -1,10 +1,7 @@
-import scrapy
-from scrapy.crawler import CrawlerProcess
-
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
-from dataproviders.management.commands.base import BaseImportCommand
+from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.grand_est import GrandEstSpider
 
 ADMIN_ID = 1
@@ -17,8 +14,10 @@ obtenir les informations relatives aux conditions d'éligibilité.
 '''
 
 
-class Command(BaseImportCommand):
+class Command(CrawlerImportCommand):
     """Import data from the eaurmc.fr site."""
+
+    SPIDER_CLASS = GrandEstSpider
 
     def populate_cache(self, *args, **options):
         self.perimeter = Perimeter.objects \
@@ -28,25 +27,6 @@ class Command(BaseImportCommand):
 
         self.backer = Backer.objects.get(
             name="Région Grand Est")
-
-    def fetch_data(self, **options):
-        results = []
-        process = CrawlerProcess({
-            'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-            'LOG_LEVEL': 'INFO',
-        })
-        process.crawl(GrandEstSpider)
-
-        def add_to_results(item, response, spider):
-            results.append(item)
-
-        for p in process.crawlers:
-            p.signals.connect(
-                add_to_results, signal=scrapy.signals.item_scraped)
-        process.start()
-
-        for result in results:
-            yield result
 
     def extract_author_id(self, line):
         return ADMIN_ID
