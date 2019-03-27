@@ -1,6 +1,17 @@
 import json
 import scrapy
 from dataproviders.utils import content_prettify
+from bs4 import BeautifulSoup as bs
+
+
+def custom_prettify(raw_text):
+    """Prettify content and performs some specific cleaning tasks."""
+    soup = bs(raw_text, features='html.parser')
+    download_box = soup.select('div.boite_telechargements_libre')
+    for box in download_box:
+        box.decompose()
+
+    return content_prettify(soup.prettify())
 
 
 class OccitanieSpider(scrapy.Spider):
@@ -27,7 +38,7 @@ class OccitanieSpider(scrapy.Spider):
 
         yield {
             'title': content_prettify(title),
-            'description': content_prettify(description),
+            'description': custom_prettify(description),
             'url': fields['url'],
             'uniqueid': response.meta['uniqueid'],
             'thematique': fields.get('thematique', None),
