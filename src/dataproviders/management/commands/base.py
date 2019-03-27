@@ -8,6 +8,17 @@ from aids.models import Aid
 from aids.forms import AidEditForm
 
 
+# Call for projects will often contain those words
+AAP_SYNONYMS = [
+    'appel à projet',
+    'appel a projet',
+    'aap',
+    'appel à manifestation',
+    'appel a manifestation',
+    'ami',
+]
+
+
 class BaseImportCommand(BaseCommand):
     """Base data import command.
 
@@ -137,3 +148,13 @@ class BaseImportCommand(BaseCommand):
 
     def extract_tags(self, line):
         return []
+
+    def extract_is_call_for_project(self, line):
+        is_call_for_project = False
+        title = self.extract_name(line).lower()
+        for synonym in AAP_SYNONYMS:
+            if synonym in title:
+                is_call_for_project = True
+                break
+
+        return is_call_for_project
