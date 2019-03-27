@@ -1,3 +1,6 @@
+import scrapy
+from scrapy.crawler import CrawlerProcess
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -17,6 +20,8 @@ AAP_SYNONYMS = [
     'appel a manifestation',
     'ami',
 ]
+
+ADMIN_ID = 1
 
 
 class BaseImportCommand(BaseCommand):
@@ -129,6 +134,9 @@ class BaseImportCommand(BaseCommand):
     def extract_is_imported(self, line):
         return True
 
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
     def extract_import_uniqueid(self, line):
         """Must return an unique import reference.
 
@@ -158,3 +166,26 @@ class BaseImportCommand(BaseCommand):
                 break
 
         return is_call_for_project
+
+
+class CrawlerImportCommand(BaseImportCommand):
+    """An import task that uses a crawler to fetch data."""
+
+    def fetch_data(self, **options):
+        results = []
+        process = CrawlerProcess({
+            'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+            'LOG_LEVEL': 'INFO',
+        })
+        process.crawl(self.SPIDER_CLASS)
+
+        def add_to_results(item, response, spider):
+            results.append(item)
+
+        for p in process.crawlers:
+            p.signals.connect(
+                add_to_results, signal=scrapy.signals.item_scraped)
+        process.start()
+
+        for result in results:
+            yield result
