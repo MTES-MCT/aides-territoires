@@ -289,6 +289,40 @@ def test_full_text_uses_tags(client, perimeters):
     assert res.context['paginator'].count == 1
 
 
+def test_full_text_advanced_syntax(client, perimeters):
+    AidFactory(
+        perimeter=perimeters['europe'],
+        name='Dépollution des rejets urbains par temps de pluie')
+    url = reverse('search_view')
+
+    # Searching with several terms find the document
+    res = client.get(url, data={'text': 'dépollution temps pluie'})
+    assert res.context['paginator'].count == 1
+
+    # Search terms are ORed
+    res = client.get(url, data={'text': 'dépollution temps soleil'})
+    assert res.context['paginator'].count == 1
+
+    # Search terms can be excluded
+    res = client.get(url, data={'text': 'dépollution temps -pluie'})
+    assert res.context['paginator'].count == 0
+
+    res = client.get(url, data={'text': 'dépollution temps -soleil'})
+    assert res.context['paginator'].count == 1
+
+    # Search terms can be mandatory
+    res = client.get(url, data={'text': 'dépollution temps +soleil'})
+    assert res.context['paginator'].count == 0
+
+    # Several terms can be mandatory
+    res = client.get(url, data={'text': 'dépollution +temps +pluie'})
+    assert res.context['paginator'].count == 1
+
+    # Optional fields are optional
+    res = client.get(url, data={'text': 'gratin tartiflette +temps +pluie'})
+    assert res.context['paginator'].count == 1
+
+
 def test_the_only_recent_filter(client, perimeters, aids):
     """Display ALL the aids."""
 
