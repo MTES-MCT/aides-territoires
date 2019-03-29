@@ -268,7 +268,7 @@ class AidSearchForm(forms.Form):
         Terms with a "+" in between are made mandatory.
         Terms preceded with a "-" are filtered out.
         """
-        all_terms = raw_query.split(' ')
+        all_terms = filter(None, raw_query.split(' '))
         next_operator = operator.or_
         invert = False
         query = None
