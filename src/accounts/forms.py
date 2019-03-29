@@ -95,6 +95,3 @@ class ContributorProfileForm(forms.ModelForm):
             'organization': _('Your organization'),
             'role': _('Your position'),
         }
-        help_texts = {
-            'organization': _('Where do you work?'),
-        }
