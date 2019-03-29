@@ -1,4 +1,4 @@
-{% load compress analytics i18n %}
+{% load compress analytics i18n settings %}
 <!doctype html>
 <html lang="fr" class="{% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}">
     <head>
@@ -98,6 +98,7 @@
                 send_by_email_done: '{{ _("Done") }}',
                 send_by_email_success: '{{ _("Done! Check your mailbox for search results.") }}',
                 send_by_email_error: '{{ _("It seems something went wrong. Please try again in a few seconds.") }}',
+                SEARCH_COOKIE_NAME: '{% setting "SEARCH_COOKIE_NAME" %}',
             };
 
             // Piwik variables

@@ -233,6 +233,9 @@ msgstr "Adresse e-mail d'un contact en charge"
 msgid "Phone number of a contact in charge"
 msgstr "Téléphone d'un contact en charge de l'aide"
 
+msgid "Is this a call for project / expressions of interest?"
+msgstr "S'agit-il d'un AAP / AMI ?"
+
 msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
 msgstr ""
 "Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
@@ -304,6 +307,12 @@ msgstr "Destinations"
 
 msgid "Diffusion scale"
 msgstr "Échelle de diffusion"
+
+msgid "Call for projects"
+msgstr "Appel à projets"
+
+msgid "Only show calls for project / expressions of interest"
+msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -474,6 +483,9 @@ msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
+
+msgid "Call for project / Call for expressions of interest"
+msgstr "Appel à projet / manifestation d'intérêt"
 
 msgid "Status"
 msgstr "Statut"
@@ -1174,9 +1186,6 @@ msgstr "Autres critères d'éligibilité ?"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
-
-msgid "Contact (name)"
-msgstr "Contact (nom)"
 
 msgid "Contact (email)"
 msgstr "Contact (e-mail)"

@@ -19,6 +19,7 @@ celery = "*"
 django-braces = "*"
 django-xworkflows = "*"
 beautifulsoup4 = "*"
+scrapy = "*"
 
 [dev-packages]
 pytest = "*"

@@ -1,3 +1,6 @@
+import scrapy
+from scrapy.crawler import CrawlerProcess
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -8,6 +11,19 @@ from aids.models import Aid
 from aids.forms import AidEditForm
 
 
+# Call for projects will often contain those words
+AAP_SYNONYMS = [
+    'appel à projet',
+    'appel a projet',
+    'aap',
+    'appel à manifestation',
+    'appel a manifestation',
+    'ami',
+]
+
+ADMIN_ID = 1
+
+
 class BaseImportCommand(BaseCommand):
     """Base data import command.
 
@@ -16,7 +32,11 @@ class BaseImportCommand(BaseCommand):
     Dreal, etc.)
     """
 
+    def populate_cache(self, *args, **options):
+        pass
+
     def handle(self, *args, **options):
+        self.populate_cache(*args, **options)
         data = self.fetch_data(**options)
         aid_and_backers = []
         for line in data:
@@ -48,7 +68,8 @@ class BaseImportCommand(BaseCommand):
                         self.stdout.write(self.style.SUCCESS(
                             'New aid: {}'.format(aid.name)))
 
-                except IntegrityError:
+                except IntegrityError as e:
+                    self.stdout.write(self.style.ERROR(e))
                     Aid.objects \
                         .filter(import_uniqueid=aid.import_uniqueid) \
                         .update(
@@ -113,6 +134,9 @@ class BaseImportCommand(BaseCommand):
     def extract_is_imported(self, line):
         return True
 
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
     def extract_import_uniqueid(self, line):
         """Must return an unique import reference.
 
@@ -132,3 +156,36 @@ class BaseImportCommand(BaseCommand):
 
     def extract_tags(self, line):
         return []
+
+    def extract_is_call_for_project(self, line):
+        is_call_for_project = False
+        title = self.extract_name(line).lower()
+        for synonym in AAP_SYNONYMS:
+            if synonym in title:
+                is_call_for_project = True
+                break
+
+        return is_call_for_project
+
+
+class CrawlerImportCommand(BaseImportCommand):
+    """An import task that uses a crawler to fetch data."""
+
+    def fetch_data(self, **options):
+        results = []
+        process = CrawlerProcess({
+            'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+            'LOG_LEVEL': 'INFO',
+        })
+        process.crawl(self.SPIDER_CLASS)
+
+        def add_to_results(item, response, spider):
+            results.append(item)
+
+        for p in process.crawlers:
+            p.signals.connect(
+                add_to_results, signal=scrapy.signals.item_scraped)
+        process.start()
+
+        for result in results:
+            yield result

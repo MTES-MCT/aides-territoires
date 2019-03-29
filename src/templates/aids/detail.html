@@ -60,10 +60,12 @@
             {% endif %}
         </div>
 
+        {% if aid.targeted_audiances %}
         <div class="short-data">
             <h2>{{ _('Who can apply to this aid?') }}</h2>
             <p>{% choices_display aid 'targeted_audiances' %}</p>
         </div>
+        {% endif %}
 
         <div class="short-data">
             <h2>{{ _('Application perimeter') }}</h2>
@@ -98,10 +100,12 @@
         </div>
         {% endif %}
 
+        {% if aid.aid_types %}
         <div class="short-data">
             <h2>{{ _('Aid type') }}</h2>
             <p>{% choices_display aid 'aid_types' %}</p>
         </div>
+        {% endif %}
 
         {% if aid.subvention_rate %}
         <div class="short-data">
@@ -110,15 +114,19 @@
         </div>
         {% endif %}
 
+        {% if aid.mobilization_steps %}
         <div class="short-data">
             <h2>{{ _('When to mobilize the aid?') }}</h2>
             <p>{% choices_display aid 'mobilization_steps' %}</p>
         </div>
+        {% endif %}
 
+        {% if aid.destinations %}
         <div class="short-data">
             <h2>{{ _('The aid is destined to…') }}</h2>
             <p>{% choices_display aid 'destinations' %}</p>
         </div>
+        {% endif %}
 
         {% if aid.eligibility %}
         <div class="long-data">
@@ -147,8 +155,8 @@
 
         {% if aid.contact_detail %}
         <div class="short-data">
-            <h2>{{ _('Contact (name)') }}</h2>
-            <p>{{ aid.contact_detail }}</p>
+            <h2>{{ _('Contact') }}</h2>
+            <p>{{ aid.contact_detail|safe }}</p>
         </div>
         {% endif %}
 

@@ -1,4 +1,5 @@
 import re
+import operator
 from datetime import timedelta
 
 from django import forms
@@ -72,6 +73,8 @@ class BaseAidForm(forms.ModelForm):
             'contact_detail': _('Name of a contact in charge'),
             'contact_email': _('E-mail address of a contact in charge'),
             'contact_phone': _('Phone number of a contact in charge'),
+            'is_call_for_project': _('Is this a call for project / expressions'
+                                     ' of interest?')
         }
         for field, label in custom_labels.items():
             self.fields[field].label = label
@@ -166,6 +169,13 @@ class AidSearchForm(forms.Form):
         label=_('Diffusion scale'),
         required=False,
         choices=SCALES)
+    call_for_projects_only = forms.MultipleChoiceField(
+        label=_('Call for projects'),
+        choices=((
+            _('Yes'),
+            _('Only show calls for project / expressions of interest')),),
+        required=False,
+        widget=MultipleChoiceFilterWidget)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -215,19 +225,74 @@ class AidSearchForm(forms.Form):
         if apply_before:
             qs = qs.filter(submission_deadline__lt=apply_before)
 
-        text = self.cleaned_data.get('text', None)
-        if text:
-            query = SearchQuery(text, config='french')
-            qs = qs \
-                .filter(search_vector=query) \
-                .annotate(rank=SearchRank(F('search_vector'), query))
-
         recent_only = self.cleaned_data.get('recent_only', False)
         if recent_only:
             a_month_ago = timezone.now() - timedelta(days=30)
             qs = qs.filter(date_created__gte=a_month_ago.date())
 
+        call_for_projects_only = self.cleaned_data.get(
+            'call_for_projects_only', False)
+        if call_for_projects_only:
+            qs = qs.filter(is_call_for_project=True)
+
+        text = self.cleaned_data.get('text', None)
+        if text:
+            query = self.parse_query(text)
+            qs = qs \
+                .filter(search_vector=query) \
+                .annotate(rank=SearchRank(F('search_vector'), query))
+
         return qs
+
+    def parse_query(self, raw_query):
+        """Process a raw query and returns a `SearchQuery`.
+
+        In Postgres, you converts a search query into a `tsquery` object
+        that is matched against a `tsvector` object.
+
+        The main method to get a `tsquery` is to use
+        the function `plainto_tsquery` that is designed to transform
+        unformatted text and generates a `tsquery` with tokens separated by
+        `AND`. That is the default function used by Django when you create
+        a `SearchQuery` object.
+
+        If you want to create a `ts_query` with other boolean operators, you
+        have two main solutions:
+         - use the `to_tsquery` method that is not made to handle raw data
+         - create several `ts_query` objects and combine them using
+           boolean operators.
+
+        This is the second solution we are using.
+
+        By default, terms are optional.
+        Terms with a "+" in between are made mandatory.
+        Terms preceded with a "-" are filtered out.
+        """
+        all_terms = filter(None, raw_query.split(' '))
+        next_operator = operator.or_
+        invert = False
+        query = None
+
+        for term in all_terms:
+            if term == '+':
+                next_operator = operator.and_
+                continue
+
+            if term == '-':
+                next_operator = operator.and_
+                invert = True
+                continue
+
+            if query is None:
+                query = SearchQuery(term, config='french', invert=invert)
+            else:
+                query = next_operator(query, SearchQuery(
+                    term, config='french', invert=invert))
+
+            next_operator = operator.or_
+            invert = False
+
+        return query
 
     def order_queryset(self, qs):
         """Set the order value on the queryset.
@@ -358,6 +423,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date',
             'submission_deadline',
             'perimeter',
+            'is_call_for_project',
             'aid_types',
             'subvention_rate',
             'mobilization_steps',

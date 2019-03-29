@@ -289,6 +289,52 @@ def test_full_text_uses_tags(client, perimeters):
     assert res.context['paginator'].count == 1
 
 
+def test_full_text_advanced_syntax(client, perimeters):
+    AidFactory(
+        perimeter=perimeters['europe'],
+        name='Dépollution des rejets urbains par temps de pluie')
+    url = reverse('search_view')
+
+    # Searching with several terms find the document
+    res = client.get(url, data={'text': 'dépollution temps pluie'})
+    assert res.context['paginator'].count == 1
+
+    # Search terms are ORed
+    res = client.get(url, data={'text': 'dépollution temps soleil'})
+    assert res.context['paginator'].count == 1
+
+    # Search terms can be excluded
+    res = client.get(url, data={'text': 'dépollution temps - pluie'})
+    assert res.context['paginator'].count == 0
+
+    res = client.get(url, data={'text': 'dépollution temps - soleil'})
+    assert res.context['paginator'].count == 1
+
+    res = client.get(url, data={'text': '- pluie'})
+    assert res.context['paginator'].count == 0
+
+    # Search terms can be mandatory
+    res = client.get(url, data={'text': 'dépollution temps + soleil'})
+    assert res.context['paginator'].count == 0
+
+    # Several terms can be mandatory
+    res = client.get(url, data={'text': 'dépollution + temps + pluie'})
+    assert res.context['paginator'].count == 1
+
+    # Optional fields are optional
+    res = client.get(url, data={'text': 'gratin tartiflette temps + pluie'})
+    assert res.context['paginator'].count == 1
+
+    # "+" prefix makes left and right terms mandatory
+    res = client.get(url, data={'text': 'gratin tartiflette + temps + pluie'})
+    assert res.context['paginator'].count == 0
+
+    # "+" and "-" can be combined
+    res = client.get(url, data={
+        'text': '- tartiflette + temps + pluie - soleil'})
+    assert res.context['paginator'].count == 1
+
+
 def test_the_only_recent_filter(client, perimeters, aids):
     """Display ALL the aids."""
 
@@ -302,3 +348,14 @@ def test_the_only_recent_filter(client, perimeters, aids):
         aid.save()
     res = client.get(url, data={'recent_only': 'Oui'})
     assert res.context['paginator'].count == 86
+
+
+def test_the_call_for_project_only_filter(client, perimeters, aids):
+
+    for aid in aids[:5]:
+        aid.is_call_for_project = True
+        aid.save()
+
+    url = reverse('search_view')
+    res = client.get(url, data={'call_for_projects_only': 'Oui'})
+    assert res.context['paginator'].count == 5
