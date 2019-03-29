@@ -236,27 +236,6 @@ class AidSearchForm(forms.Form):
         if call_for_projects_only:
             qs = qs.filter(is_call_for_project=True)
 
-        # Here is where the "free text search" is handled, using postgresql's
-        # great fulltext features.
-        #
-        # In Postgres, you converts a search query into a `tsquery` object
-        # that is matched against a `tsvector` object.
-        #
-        # There are two main methods to get a `tsquery`. The first is to use
-        # the function `plainto_tsquery` that is designed to transform
-        # unformatted text and generates a `tsquery` with tokens separated by
-        # `AND`. That is the default function used by Django when you create
-        # a `SearchQuery` object.
-        #
-        # The second method is to use the `to_tsquery` method. This method
-        # takes a query that is already formatted with tokens and binary
-        # operators. You cannot pass raw user queries to this method or you
-        # *will* get errors. That is the method used by Django when you add the
-        # `search_type='raw' parameter.
-        #
-        # At the beginning, we used a simple `plainto_tsquery` but when the
-        # need to offer a more powerful search syntax arrised, we switched to
-        # `to_tsquery` and had to manually parse the users' queries.
         text = self.cleaned_data.get('text', None)
         if text:
             query = self.parse_query(text)
@@ -269,44 +248,50 @@ class AidSearchForm(forms.Form):
     def parse_query(self, raw_query):
         """Process a raw query and returns a `SearchQuery`.
 
-        By default, search terms are optional.
-        A term prefixed by "+" becomes mandatory.
-        A term prefixed by "-" is excluded from results.
+        In Postgres, you converts a search query into a `tsquery` object
+        that is matched against a `tsvector` object.
+
+        The main method to get a `tsquery` is to use
+        the function `plainto_tsquery` that is designed to transform
+        unformatted text and generates a `tsquery` with tokens separated by
+        `AND`. That is the default function used by Django when you create
+        a `SearchQuery` object.
+
+        If you want to create a `ts_query` with other boolean operators, you
+        have two main solutions:
+         - use the `to_tsquery` method that is not made to handle raw data
+         - create several `ts_query` objects and combine them using
+           boolean operators.
+
+        This is the second solution we are using.
+
+        By default, terms are optional.
+        Terms with a "+" in between are made mandatory.
+        Terms preceded with a "-" are filtered out.
         """
-        or_terms = []
-        and_terms = []
-        not_terms = []
         all_terms = raw_query.split(' ')
+        next_operator = operator.or_
+        invert = False
+        query = None
+
         for term in all_terms:
-            if term.startswith('+'):
-                and_terms.append(term.lstrip('+'))
-            elif term.startswith('-'):
-                not_terms.append(term.lstrip('-'))
+            if term == '+':
+                next_operator = operator.and_
+                continue
+
+            if term == '-':
+                next_operator = operator.and_
+                invert = True
+                continue
+
+            if query is None:
+                query = SearchQuery(term, config='french', invert=invert)
             else:
-                or_terms.append(term)
+                query = next_operator(query, SearchQuery(
+                    term, config='french', invert=invert))
 
-        or_query = reduce(
-            operator.or_,
-            [SearchQuery(or_term, config='french') for or_term in or_terms]
-        ) if or_terms else None
-
-        not_query = reduce(
-            operator.and_,
-            [~SearchQuery(not_term, config='french') for not_term in not_terms]
-        ) if not_terms else None
-
-        and_query = reduce(
-            operator.and_,
-            [SearchQuery(and_term, config='french') for and_term in and_terms]
-        ) if and_terms else None
-
-        search_query_parts = filter(None, [and_query, or_query])
-        search_query = reduce(operator.and_, search_query_parts)
-
-        if not_query:
-            query = not_query & search_query
-        else:
-            query = search_query
+            next_operator = operator.or_
+            invert = False
 
         return query
 

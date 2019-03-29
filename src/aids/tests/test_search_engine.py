@@ -304,22 +304,34 @@ def test_full_text_advanced_syntax(client, perimeters):
     assert res.context['paginator'].count == 1
 
     # Search terms can be excluded
-    res = client.get(url, data={'text': 'dépollution temps -pluie'})
+    res = client.get(url, data={'text': 'dépollution temps - pluie'})
     assert res.context['paginator'].count == 0
 
-    res = client.get(url, data={'text': 'dépollution temps -soleil'})
+    res = client.get(url, data={'text': 'dépollution temps - soleil'})
     assert res.context['paginator'].count == 1
 
+    res = client.get(url, data={'text': '- pluie'})
+    assert res.context['paginator'].count == 0
+
     # Search terms can be mandatory
-    res = client.get(url, data={'text': 'dépollution temps +soleil'})
+    res = client.get(url, data={'text': 'dépollution temps + soleil'})
     assert res.context['paginator'].count == 0
 
     # Several terms can be mandatory
-    res = client.get(url, data={'text': 'dépollution +temps +pluie'})
+    res = client.get(url, data={'text': 'dépollution + temps + pluie'})
     assert res.context['paginator'].count == 1
 
     # Optional fields are optional
-    res = client.get(url, data={'text': 'gratin tartiflette +temps +pluie'})
+    res = client.get(url, data={'text': 'gratin tartiflette temps + pluie'})
+    assert res.context['paginator'].count == 1
+
+    # "+" prefix makes left and right terms mandatory
+    res = client.get(url, data={'text': 'gratin tartiflette + temps + pluie'})
+    assert res.context['paginator'].count == 0
+
+    # "+" and "-" can be combined
+    res = client.get(url, data={
+        'text': '- tartiflette + temps + pluie - soleil'})
     assert res.context['paginator'].count == 1
 
 
