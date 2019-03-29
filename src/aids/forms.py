@@ -1,6 +1,5 @@
 import re
 import operator
-from functools import reduce
 from datetime import timedelta
 
 from django import forms
