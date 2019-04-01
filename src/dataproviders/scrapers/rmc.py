@@ -7,7 +7,7 @@ class RMCSpider(scrapy.Spider):
 
     BASE_URL = 'https://www.eaurmc.fr/'
     start_urls = [
-        'https://www.eaurmc.fr/jcms/gbr_5503/fr/les-aides-financieres-primes-et-appels-a-projets?PortalAction_ppi_6464_start=0&PortalAction_ppi_6464_pageSize=12&PortalAction_ppi_6464_pagerAll=true&PortalAction_ppi_6464_sort=&PortalAction_ppi_6464_reverse=false',  # noqa
+        'https://www.eaurmc.fr/jcms/gbr_5503/fr/les-aides-financieres-primes-et-appels-a-projets?cids=cbl_43675&PortalAction_ppi_6464_start=0&PortalAction_ppi_6464_pageSize=12&PortalAction_ppi_6464_pagerAll=true&PortalAction_ppi_6464_sort=&PortalAction_ppi_6464_reverse=false',  # noqa
     ]
 
     def parse(self, response):

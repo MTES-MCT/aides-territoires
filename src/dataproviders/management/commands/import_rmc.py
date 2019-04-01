@@ -76,3 +76,6 @@ class Command(BaseImportCommand):
 
     def extract_backers(self, line):
         return [self.backer]
+
+    def extract_targeted_audiances(self, line):
+        return [Aid.AUDIANCES.epci]

@@ -66,3 +66,6 @@ class Command(CrawlerImportCommand):
 
     def extract_submission_deadline(self, line):
         return line['submission_deadline'] or None
+
+    def extract_targeted_audiances(self, line):
+        return [Aid.AUDIANCES.epci]
