@@ -1,4 +1,4 @@
-{% load pagination %}
+{% load pagination i18n %}
 
 <div class="form-container">
     <nav>
@@ -11,6 +11,11 @@
             <li>
                 <a data-toggle="tab" href="#advanced-search">
                     {{ _('Advanced search filters') }}
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#help">
+                    {{ _('Help') }}
                 </a>
             </li>
         </ul>
@@ -36,6 +41,29 @@
                 {% include '_field_snippet.html' with field=form.recent_only %}
                 {% include '_field_snippet.html' with field=form.call_for_projects_only %}
             </div>
+        </div>
+        <div id="help">
+                <p>{% blocktrans trimmed %}
+                    Use advanced search syntax in the "Text search" field for
+                    more targeted search results.
+                {% endblocktrans %}</p>
+                <p>{% blocktrans trimmed %}
+                    By default, all search terms are optional. If you search for
+                    "ademe direccte", you will find all aids that are backed by
+                    Ademe <strong>OR</strong> the DIRECCTE.
+                {% endblocktrans %}</p>
+                <p>{% blocktrans trimmed %}
+                    You can make search terms mandadory by using a "+". Ex:
+                    "Ademe + recyclage" will find aids backed by Ademe
+                    <strong>AND</strong> that are related to recycling.
+                {% endblocktrans %}</p>
+                <p>{% blocktrans trimmed %}
+                    You can filter out some results by prefixing a term with
+                    "-". Ex: "Ademe -recyclage" will find aids backed by Ademe
+                    <strong>AND</strong> that are <strong>NOT</strong>
+                    related to recycling.
+                {% endblocktrans %}</p>
+
         </div>
     </form>
 
