@@ -56,6 +56,9 @@ class Command(BaseImportCommand):
     def extract_import_uniqueid(self, line):
         return line['uniqueid']
 
+    def extract_origin_url(self, line):
+        return line['current_url']
+
     def extract_import_data_url(self, line):
         return line['current_url']
 
