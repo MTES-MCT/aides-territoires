@@ -1,3 +1,7 @@
+# This code was made obsolete by Django 2.2
+# It has to stay there for now because it is still imported by migrations
+# It will be deleted as soon as existing migrations are squashed.
+
 from django.contrib.postgres.indexes import GinIndex, GistIndex
 
 
