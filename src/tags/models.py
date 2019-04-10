@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from core.indexes import GinTrigramIndex
+from django.contrib.postgres.indexes import GinIndex
 
 
 class Tag(models.Model):
@@ -14,7 +13,10 @@ class Tag(models.Model):
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
         indexes = [
-            GinTrigramIndex(fields=['name']),
+            GinIndex(
+                name='tag_name_trgm',
+                fields=['name'],
+                opclasses=['gin_trgm_ops']),
         ]
 
     def __str__(self):

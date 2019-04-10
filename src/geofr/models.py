@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
+
 
 from model_utils import Choices
-
-from core.indexes import GinTrigramIndex
 
 
 class Perimeter(models.Model):
@@ -87,7 +87,10 @@ class Perimeter(models.Model):
             ('scale', 'code'),
         )
         indexes = [
-            GinTrigramIndex(fields=['name']),
+            GinIndex(
+                name='name_trgm',
+                fields=['name'],
+                opclasses=['gin_trgm_ops']),
         ]
 
     def __str__(self):

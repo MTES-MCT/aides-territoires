@@ -34,7 +34,7 @@ def send_connection_email(user_email):
 
     site = Site.objects.get_current()
     scheme = 'https'
-    user_uid = urlsafe_base64_encode(force_bytes(user.pk)).decode()
+    user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
     login_url = reverse('login', args=[user_uid, login_token])
     full_login_url = '{scheme}://{domain}{url}'.format(
