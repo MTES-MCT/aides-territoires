@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-21 15:07+0100\n"
+"POT-Creation-Date: 2019-03-29 17:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,13 +69,10 @@ msgstr ""
 "alerte par e-mail le cas échéant."
 
 msgid "Your organization"
-msgstr "Votre structure"
+msgstr "Votre structure professionnelle"
 
 msgid "Your position"
 msgstr "Votre fonction"
-
-msgid "Where do you work?"
-msgstr "Votre lieu de travail"
 
 msgid "Email address"
 msgstr "Adresse e-mail"
@@ -102,7 +99,7 @@ msgid "Role"
 msgstr "Rôle"
 
 msgid "Contact phone number"
-msgstr "Téléphone de contact"
+msgstr "Numéro de téléphone de contact"
 
 msgid "Is certified"
 msgstr "Certifié·e ?"
