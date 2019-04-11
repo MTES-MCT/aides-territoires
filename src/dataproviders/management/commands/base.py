@@ -69,7 +69,7 @@ class BaseImportCommand(BaseCommand):
                             'New aid: {}'.format(aid.name)))
 
                 except IntegrityError as e:
-                    self.stdout.write(self.style.ERROR(e))
+                    self.stdout.write(self.style.ERROR(str(e)))
                     Aid.objects \
                         .filter(import_uniqueid=aid.import_uniqueid) \
                         .update(
