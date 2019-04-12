@@ -69,7 +69,7 @@ class BaseImportCommand(BaseCommand):
                             'New aid: {}'.format(aid.name)))
 
                 except IntegrityError as e:
-                    self.stdout.write(self.style.ERROR(e))
+                    self.stdout.write(self.style.ERROR(str(e)))
                     Aid.objects \
                         .filter(import_uniqueid=aid.import_uniqueid) \
                         .update(
@@ -156,6 +156,9 @@ class BaseImportCommand(BaseCommand):
 
     def extract_tags(self, line):
         return []
+
+    def extract_name(self, line):
+        raise NotImplementedError
 
     def extract_is_call_for_project(self, line):
         is_call_for_project = False
