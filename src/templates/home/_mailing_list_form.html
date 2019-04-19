@@ -1,10 +1,9 @@
 {% load i18n mailing_list %}
 
-<form id="mailing-list-form" method="post" action="{% mailing_list_form_action %}">
+<p>{% blocktrans trimmed %}
+Join our mailing-list to receive news and updates about our service on a regular basis.
+{% endblocktrans %}</p>
 
-    {% mailing_list_hidden_fields %}
-
-    {% include '_form_snippet.html' with form=form %}
-
-    <button type="submit">{{ _('Register to the mailing-list') }}</button>
-</form>
+<a class="ml-btn" href="{% mailing_list_url %}">
+    {{ _('Register to the mailing-list') }}
+</a>

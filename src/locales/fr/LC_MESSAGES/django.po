@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-10 11:19+0200\n"
+"POT-Creation-Date: 2019-04-19 15:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -701,11 +701,11 @@ msgstr "Publier des aides"
 msgid "Data export and api"
 msgstr "Réutilisation des données et API"
 
-msgid "Legal mentions"
-msgstr "Mentions légales"
-
 msgid "Contact"
 msgstr "Contact"
+
+msgid "Legal mentions"
+msgstr "Mentions légales"
 
 msgid "Source code"
 msgstr "Code source"
@@ -976,11 +976,11 @@ msgstr "Cette aide est directement publiée par la structure qui la porte."
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
 
-msgid "Technical / methodological aid"
-msgstr "Aides méthodologiques & techniques"
-
 msgid "Financial aid"
 msgstr "Aide financière"
+
+msgid "Technical / methodological aid"
+msgstr "Aides méthodologiques & techniques"
 
 #, python-format
 msgid "Application opening date on the %(start_date)s"
@@ -1363,6 +1363,13 @@ msgstr ""
 
 msgid "Data export and API"
 msgstr "API et réutilisation des données"
+
+msgid ""
+"Join our mailing-list to receive news and updates about our service on a "
+"regular basis."
+msgstr ""
+"Abonnez-vous à notre newsletter pour recevoir des informations régulières sur "
+"notre actualité."
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
