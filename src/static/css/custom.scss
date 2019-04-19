@@ -84,7 +84,19 @@ section#contact {
     @extend .bg-light;
 
     div.narrow-form {
-        @extend .pb-4;
+        @extend .pb-3;
+
+        p {
+            @extend .lead;
+        }
+
+        a.ml-btn {
+            @extend .btn;
+            @extend .btn-lg;
+            @extend .btn-block;
+            @extend .btn-success;
+            @extend .btn-block;
+        }
     }
 }
 
