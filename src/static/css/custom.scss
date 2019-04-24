@@ -268,6 +268,30 @@ section.aids {
         }
     }
 
+    div.list-actions {
+        span {
+            @extend .mr-auto;
+            @extend .ml-3;
+        }
+
+        div.sorting-menu {
+            button {
+                @extend .btn;
+                @extend .btn-primary;
+                @extend .btn-outline-light;
+                @extend .dropdown-toggle;
+            }
+
+            div {
+                @extend .dropdown-menu;
+
+                a {
+                    @extend .dropdown-item;
+                }
+            }
+        }
+    }
+
     div.aid-list {
         @extend .col-md;
 
