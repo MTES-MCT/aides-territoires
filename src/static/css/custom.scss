@@ -144,6 +144,7 @@ section.aids {
 
                 button {
                     @extend .mb-3;
+                    @extend .ml-3;
                     align-self: flex-end;
                 }
 
@@ -276,10 +277,11 @@ section.aids {
     div.list-actions {
         &>span {
             @extend .mr-auto;
-            @extend .ml-3;
         }
 
         div.sorting-menu {
+            @extend .mr-3;
+
             button {
                 @extend .btn;
                 @extend .btn-primary;

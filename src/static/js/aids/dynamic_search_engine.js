@@ -262,9 +262,4 @@ $(document).ready(function () {
     renderFilterButtons();
     renderSessionCookie();
     hideOrderField();
-
-    // Since we use js to dynamically fetch new results, it's better
-    // to hide the useless submit button. We do it using js, so
-    // the search feature remains fully working when js is not available.
-    $('div#search-engine button[type=submit]').hide();
 });
