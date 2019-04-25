@@ -22,7 +22,8 @@
     {% if not integration %}
     <button id="share" data-toggle="modal" data-target="#share-results-modal">
         <i class="fas fa-share"></i>
-        {{ _('Share these results') }}
+        <span class="long-label">{{ _('Share these results') }}</span>
+        <span class="short-label">{{ _('Share') }}</span>
     </button>
     {% endif %}
 </div>

@@ -481,3 +481,15 @@ iframe#stats-optout {
         width: 100% !important;
     }
 }
+
+
+// Allow for 
+span.long-label {
+    @extend .d-none;
+    @extend .d-md-inline;
+}
+
+span.short-label {
+    @extend .d-inline;
+    @extend .d-md-none;
+}

@@ -269,7 +269,7 @@ section.aids {
     }
 
     div.list-actions {
-        span {
+        &>span {
             @extend .mr-auto;
             @extend .ml-3;
         }
