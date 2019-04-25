@@ -23,7 +23,8 @@ class AidAdmin(admin.ModelAdmin):
                    'is_call_for_project']
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
-        'import_share_licence', 'import_last_access']
+        'import_share_licence', 'import_last_access', 'date_created',
+        'date_updated']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -89,7 +90,12 @@ class AidAdmin(admin.ModelAdmin):
                 'import_last_access',
             )
         }),
-
+        (_('Misc data'), {
+            'fields': (
+                'date_created',
+                'date_updated',
+            )
+        }),
     ]
 
     def get_queryset(self, request):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-19 15:09+0200\n"
+"POT-Creation-Date: 2019-04-25 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,6 +167,9 @@ msgstr "Administration de l'aide"
 msgid "Import related data"
 msgstr "Données liées à l'import"
 
+msgid "Misc data"
+msgstr "Données diverses"
+
 msgid "Backers"
 msgstr "Apporteurs"
 
@@ -272,6 +275,12 @@ msgstr "France"
 msgid "Europe"
 msgstr "Europe"
 
+msgid "Relevance"
+msgstr "Pertinence"
+
+msgid "Publication date"
+msgstr "Date de publication"
+
 msgid "Your project's location"
 msgstr "Emplacement de votre projet"
 
@@ -313,6 +322,9 @@ msgstr "Appel à projets"
 
 msgid "Only show calls for project / expressions of interest"
 msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
+
+msgid "Order by"
+msgstr ""
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -1106,12 +1118,18 @@ msgstr ""
 "Merci de votre vigilance et de votre contribution à l'amélioration du "
 "service !"
 
+msgid "Relevance "
+msgstr "Pertinence"
+
 #, python-format
 msgid "<strong>%(nb_aids)s</strong> results"
 msgstr "<strong>%(nb_aids)s</strong> résultats"
 
 msgid "Share these results"
 msgstr "Partager ces résultats"
+
+msgid "Share"
+msgstr "Partager"
 
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
@@ -1124,6 +1142,9 @@ msgstr "Recherche avancée"
 
 msgid "Help"
 msgstr "Aide"
+
+msgid "Search"
+msgstr "Rechercher"
 
 msgid ""
 "Use advanced search syntax in the \"Text search\" field for more targeted "
@@ -1368,8 +1389,8 @@ msgid ""
 "Join our mailing-list to receive news and updates about our service on a "
 "regular basis."
 msgstr ""
-"Abonnez-vous à notre newsletter pour recevoir des informations régulières sur "
-"notre actualité."
+"Abonnez-vous à notre newsletter pour recevoir des informations régulières "
+"sur notre actualité."
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"

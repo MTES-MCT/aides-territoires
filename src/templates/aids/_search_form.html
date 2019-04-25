@@ -8,12 +8,12 @@
                     {{ _('Refine your search') }}
                 </a>
             </li>
-            <li>
+            <li class="js">
                 <a data-toggle="tab" href="#advanced-search">
                     {{ _('Advanced search filters') }}
                 </a>
             </li>
-            <li>
+            <li class="js">
                 <a data-toggle="tab" href="#help">
                     {{ _('Help') }}
                 </a>
@@ -30,6 +30,8 @@
                 {% include '_field_snippet.html' with field=form.text %}
                 {% include '_field_snippet.html' with field=form.aid_types %}
                 {% include '_field_snippet.html' with field=form.apply_before %}
+                {% include '_field_snippet.html' with field=form.order_by %}
+                <button type="submit" class="nojs">{{ _('Search') }}</button>
             </div>
         </div>
         <div id="advanced-search">

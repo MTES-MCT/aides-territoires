@@ -132,6 +132,11 @@ class AidSearchForm(forms.Form):
         (25, _('Europe')),
     )
 
+    ORDER_BY = (
+        ('relevance', _('Relevance')),
+        ('publication_date', _('Publication date')),
+    )
+
     perimeter = PerimeterChoiceField(
         label=_('Your project\'s location'),
         required=False)
@@ -182,6 +187,12 @@ class AidSearchForm(forms.Form):
     integration = forms.CharField(
         required=False,
         widget=forms.HiddenInput)
+
+    # This field is used to sort results
+    order_by = forms.ChoiceField(
+        label=_('Order by'),
+        required=False,
+        choices=ORDER_BY)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
@@ -295,17 +306,23 @@ class AidSearchForm(forms.Form):
         return query
 
     def order_queryset(self, qs):
-        """Set the order value on the queryset.
+        """Set the order value on the queryset."""
 
-        We scale results by perimeter scale, unless the user submitted a
-        search query, then we sort by query relevance.
-        """
+        # Default results order
+        # We show the narrower perimet first, then aids with a deadline
+        order_fields = ['perimeter__scale', 'submission_deadline']
+
+        # If the user submitted a text query, we order by query rank first
         text = self.cleaned_data.get('text', None)
         if text:
-            qs = qs.order_by(
-                '-rank', 'perimeter__scale', 'submission_deadline')
-        else:
-            qs = qs.order_by('perimeter__scale', 'submission_deadline')
+            order_fields = ['-rank'] + order_fields
+
+        # If the user requested a manual order by publication date
+        manual_order = self.cleaned_data.get('order_by', 'relevance')
+        if manual_order == 'publication_date':
+            order_fields = ['-date_created'] + order_fields
+
+        qs = qs.order_by(*order_fields)
         return qs
 
     def perimeter_filter(self, qs, perimeter):

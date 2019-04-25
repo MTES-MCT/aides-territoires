@@ -1,6 +1,6 @@
 {% load compress analytics i18n settings %}
 <!doctype html>
-<html lang="fr" class="{% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}">
+<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -111,6 +111,10 @@
             // Hotjar variables
             var hotjar_siteid = {% hotjar_siteid %};
 
+            // Add html js detection class
+            $(document).ready(function() {
+                $('html').removeClass('nojs').addClass('js');
+            });
         </script>
         {% block extra_js %}{% endblock %}
         {% endcompress %}

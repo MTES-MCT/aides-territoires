@@ -481,3 +481,32 @@ iframe#stats-optout {
         width: 100% !important;
     }
 }
+
+
+span {
+    // Allow to set two labels in some places. The short label will
+    // only be displayed on small screens, the longer one will be
+    // displayed on bigger screens.
+
+    &.long-label {
+        @extend .d-none;
+        @extend .d-md-inline;
+    }
+
+    &.short-label {
+        @extend .d-inline;
+        @extend .d-md-none;
+    }
+}
+
+html {
+    // Hide some elements when js is detected
+    &.js .nojs {
+        display: none;
+    }
+
+    // Hide js specific elements when js is not detected
+    &.nojs .js {
+        display: none;
+    }
+}
