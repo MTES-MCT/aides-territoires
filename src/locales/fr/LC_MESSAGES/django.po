@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-25 10:09+0200\n"
+"POT-Creation-Date: 2019-04-25 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,6 +322,9 @@ msgstr "Appel à projets"
 
 msgid "Only show calls for project / expressions of interest"
 msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
+
+msgid "Order by"
+msgstr ""
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -1139,6 +1142,9 @@ msgstr "Recherche avancée"
 
 msgid "Help"
 msgstr "Aide"
+
+msgid "Search"
+msgstr "Rechercher"
 
 msgid ""
 "Use advanced search syntax in the \"Text search\" field for more targeted "
