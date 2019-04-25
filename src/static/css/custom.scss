@@ -142,6 +142,11 @@ section.aids {
                     @extend .col-md-4;
                 }
 
+                button {
+                    @extend .mb-3;
+                    align-self: flex-end;
+                }
+
                 &>div {
                     @extend .tab-pane;
                 }

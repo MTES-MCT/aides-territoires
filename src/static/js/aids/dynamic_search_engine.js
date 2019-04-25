@@ -18,7 +18,7 @@
     var searchXHR = undefined;
     var searchForm = $('div#search-engine form');
     var filtersDiv = $('div#search-engine div#filters');
-    var orderField = $('div#search-engine input#id_order_by');
+    var orderField = $('div#search-engine select#id_order_by');
 
     var state = {
         pendingRequest: false,
@@ -111,6 +111,9 @@
      *
      * Several filter buttons can be rendered for a single field, e.g for
      * select multiple fields.
+     *
+     * There is an exception for the "order by" field, that is not a filter
+     * and must be handled differently.
      */
     exports.renderFilterButtons = function (event) {
         var filterButtons = [];
@@ -127,7 +130,7 @@
             }
         }
 
-        var selectFields = searchForm.find('select');
+        var selectFields = searchForm.find('select').not('[name=order_by]');
         for (var i = 0; i < selectFields.length; i++) {
             var field = $(selectFields[i]);
             var name = field.attr('name');
@@ -229,6 +232,25 @@
         updateSearch();
     };
 
+    /**
+     * Converts the "order by" field into an hidden input.
+     *
+     * By default, we add a select field to let the user choose a specific
+     * results ordering.
+     *
+     * But since we will handle ordering dynamically with a specific dynamic
+     * widget, we convert the "order_by" select field into a hidden input.
+     *
+     * We make this conversion in javascript, so the ordering field remains
+     * functional when javascript is disabled.
+     */
+    exports.hideOrderField = function() {
+        var hiddenOrderField = $('<input type="hidden" name="order_by" id="id_order_by" />');
+        var enclosingDiv = orderField.parent('div');
+        enclosingDiv.replaceWith(hiddenOrderField);
+        orderField = hiddenOrderField;
+    };
+
 })(this, catalog);
 
 $(document).ready(function () {
@@ -239,6 +261,7 @@ $(document).ready(function () {
 
     renderFilterButtons();
     renderSessionCookie();
+    hideOrderField();
 
     // Since we use js to dynamically fetch new results, it's better
     // to hide the useless submit button. We do it using js, so

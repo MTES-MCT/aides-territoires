@@ -30,6 +30,8 @@
                 {% include '_field_snippet.html' with field=form.text %}
                 {% include '_field_snippet.html' with field=form.aid_types %}
                 {% include '_field_snippet.html' with field=form.apply_before %}
+                {% include '_field_snippet.html' with field=form.order_by %}
+                <button type="submit">{{ _('Search') }}</button>
             </div>
         </div>
         <div id="advanced-search">

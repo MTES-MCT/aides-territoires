@@ -190,9 +190,9 @@ class AidSearchForm(forms.Form):
 
     # This field is used to sort results
     order_by = forms.ChoiceField(
+        label=_('Order by'),
         required=False,
-        choices=ORDER_BY,
-        widget=forms.HiddenInput)
+        choices=ORDER_BY)
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
