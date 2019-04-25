@@ -130,9 +130,9 @@ def test_sorting_field(live_server, browser):
 
     sort_input.click()
     WebDriverWait(browser, 20) \
-    .until(EC.element_to_be_clickable(
-        (By.ID, "sort-publication-date"))) \
-    .click()
+        .until(EC.element_to_be_clickable(
+            (By.ID, "sort-publication-date"))) \
+        .click()
 
     time.sleep(0.5)
     browser.save_screenshot('/tmp/selenium.png')
