@@ -18,6 +18,7 @@
     var searchXHR = undefined;
     var searchForm = $('div#search-engine form');
     var filtersDiv = $('div#search-engine div#filters');
+    var orderField = $('div#search-engine input#id_order_by');
 
     var state = {
         pendingRequest: false,
@@ -199,7 +200,11 @@
             state['searchParams'] = newSearchParams;
             fetchNewResults();
         }
-    }
+    };
+
+    var updateSort = function(sortCriteria) {
+        orderField.val(sortCriteria);
+    };
 
     /**
      * Updating the search form triggers a new search query.
@@ -215,7 +220,14 @@
         var button = $(this);
         clearSingleFilter(button);
         updateSearch();
-    }
+    };
+
+    exports.onSortCriteraSelected = function() {
+        var a = $(this);
+        var sortCriteria = a.data('sort');
+        updateSort(sortCriteria);
+        updateSearch();
+    };
 
 })(this, catalog);
 
@@ -223,6 +235,8 @@ $(document).ready(function () {
     $('div#search-engine form').on('change submit', onSearchFormChanged);
     $('div#search-engine form').on('keyup', 'input[type=text]', onSearchFormChanged);
     $('div#filters').on('click', 'button', onSearchFilterRemoved);
+    $('div#search-results').on('click', 'div#sorting-menu a', onSortCriteraSelected);
+
     renderFilterButtons();
     renderSessionCookie();
 
