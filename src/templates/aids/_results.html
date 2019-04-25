@@ -3,14 +3,13 @@
 {% if search_actions %}
 <div class="list-actions">
 
-    <div class="sorting-menu">
-        <button type="button" id="sorting-btn" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            {{ _('Relevance') }}
+    <div id="sorting-menu" class="sorting-menu">
+        <button type="button" id="sorting-btn" data-toggle="dropdown">
+            {{ order_label }}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdown-btn">
+        <div class="dropdown-menu" >
             <a data-sort="relevance" href="#">{{ _('Relevance ') }}</a>
-            <a data-sort="publication-date" href="#">{{ _('Publication date') }}</a>
+            <a data-sort="publication_date" href="#">{{ _('Publication date') }}</a>
         </div>
     </div>
 
