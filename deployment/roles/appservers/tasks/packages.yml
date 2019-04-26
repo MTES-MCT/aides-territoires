@@ -31,9 +31,11 @@
     packages:
       - gettext
       - postgresql
+      - postgresql-contrib
       - libpq-dev
       - python-psycopg2
       - python-virtualenv
+      - build-essential
       - git
       - nginx
       - supervisor
@@ -43,6 +45,7 @@
       - python3-dev
       - python3-pip
       - python3-virtualenv
+      - python3-venv
 
 - name: Removes sass js version
   npm:

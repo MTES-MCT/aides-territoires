@@ -9,7 +9,7 @@
 - name: Create the virtualenv
   become: yes
   become_user: "{{ user_name }}"
-  command: virtualenv {{ venv_dir }} -p python3
+  command: python3 -m venv {{ venv_dir }}
   args:
     creates: "{{ venv_dir }}"
 
@@ -19,3 +19,4 @@
   pip:
     name: pipenv
     virtualenv: "{{ venv_dir }}"
+    virtualenv_command  : "{{ venv_dir }}/bin/python3 -m venv"
