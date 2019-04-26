@@ -123,15 +123,6 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
-    SCALES = (
-        (1, _('Commune')),
-        (5, _('EPCI')),
-        (10, _('Department')),
-        (15, _('Region')),
-        (20, _('France')),
-        (25, _('Europe')),
-    )
-
     ORDER_BY = (
         ('relevance', _('Relevance')),
         ('publication_date', _('Publication date')),
@@ -170,10 +161,6 @@ class AidSearchForm(forms.Form):
         label=_('Destinations'),
         required=False,
         choices=Aid.DESTINATIONS)
-    scale = forms.MultipleChoiceField(
-        label=_('Diffusion scale'),
-        required=False,
-        choices=SCALES)
     call_for_projects_only = forms.MultipleChoiceField(
         label=_('Call for projects'),
         choices=((
@@ -227,10 +214,6 @@ class AidSearchForm(forms.Form):
         destinations = self.cleaned_data.get('destinations', None)
         if destinations:
             qs = qs.filter(destinations__overlap=destinations)
-
-        scale = self.cleaned_data.get('scale', None)
-        if scale:
-            qs = qs.filter(perimeter__scale__in=scale)
 
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
