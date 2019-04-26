@@ -1,22 +1,27 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
+{% block extratitle %}{{ _('Subscription confirmed') }}{% endblock %}
+
 {% block content %}
 
 <h1>{{ _('Your subscription was confirmed') }}</h1>
 
-<p>
-{% blocktrans trimmed %}
-Your subscription to our mailing-list was confirmed.
-{% endblocktrans %}
-</p>
+<p>{% blocktrans trimmed %}
+Your subscription to the Aides-territoires mailing-list is now confirmed.
+{% endblocktrans %}</p>
 
-<p>
-<a href="{% url 'legal_mentions' %}">
-    {{ _('Check for our legal mentions for informations about our data protection policy.') }}
-</a>
+<p>{% blocktrans trimmed %}
+You will keep being among the first informed of our news.
+{% endblocktrans %}</p>
 
-<a href="{% url 'home' %}">{{ _('Or go back to the home page.') }}</a>
-</p>
+<p>{{ _('You can now:') }}</p>
+<ul>
+    <li><a href="{% url 'home' %}">
+        {{ _('go back to the home page;') }}
+    </a></li>
+    <li><a href="{% url 'legal_mentions' %}">
+        {{ _('check for our legal mentions for informations about our data protection policy.') }}
+    </a></li>
+</ul>
 {% endblock %}
-

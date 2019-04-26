@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-25 15:08+0200\n"
+"POT-Creation-Date: 2019-04-26 15:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -257,24 +257,6 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "Commune"
-msgstr "Commune"
-
-msgid "EPCI"
-msgstr "EPCI"
-
-msgid "Department"
-msgstr "Département"
-
-msgid "Region"
-msgstr "Région"
-
-msgid "France"
-msgstr "France"
-
-msgid "Europe"
-msgstr "Europe"
-
 msgid "Relevance"
 msgstr "Pertinence"
 
@@ -314,9 +296,6 @@ msgstr "Quand mobiliser l'aide ?"
 msgid "Destinations"
 msgstr "Destinations"
 
-msgid "Diffusion scale"
-msgstr "Échelle de diffusion"
-
 msgid "Call for projects"
 msgstr "Appel à projets"
 
@@ -324,7 +303,7 @@ msgid "Only show calls for project / expressions of interest"
 msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
 
 msgid "Order by"
-msgstr ""
+msgstr "Trier par"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -349,6 +328,21 @@ msgstr "Publiée"
 msgctxt "Aid (nf)"
 msgid "Deleted"
 msgstr "Supprimée"
+
+msgid "Europe"
+msgstr "Europe"
+
+msgid "France"
+msgstr "France"
+
+msgid "Region"
+msgstr "Région"
+
+msgid "Department"
+msgstr "Département"
+
+msgid "Commune"
+msgstr "Commune"
 
 msgid "Mainland"
 msgstr "Métropole"
@@ -618,6 +612,9 @@ msgstr "mots-clés/"
 
 msgid "data/"
 msgstr "data/"
+
+msgid "EPCI"
+msgstr "EPCI"
 
 msgid "Drainage basin"
 msgstr "Bassin hydrographique"
@@ -1398,21 +1395,31 @@ msgstr "S'inscrire à la mailing-list"
 msgid "Start searching for aids"
 msgstr "Trouver les aides disponibles sur mon territoire"
 
+msgid "Subscription confirmed"
+msgstr "Inscription confirmée"
+
 msgid "Your subscription was confirmed"
 msgstr "Votre inscription est confirmée"
 
-msgid "Your subscription to our mailing-list was confirmed."
-msgstr "Votre inscription à notre liste est confirmée."
+msgid ""
+"Your subscription to the Aides-territoires mailing-list is now confirmed."
+msgstr "Votre inscription à la newsletter Aides-territoires est confirmée."
+
+msgid "You will keep being among the first informed of our news."
+msgstr "Vous continuerez à être les premiers informés de l'actualité Aides-territoires."
+
+msgid "You can now:"
+msgstr "Vous pouvez désormais :"
+
+msgid "go back to the home page;"
+msgstr "retourner à la page d'accueil ;"
 
 msgid ""
-"Check for our legal mentions for informations about our data protection "
+"check for our legal mentions for informations about our data protection "
 "policy."
 msgstr ""
-"Consultez nos mentions légales pour obtenir des informations sur notre "
+"consulter nos mentions légales pour obtenir des informations sur notre "
 "politique de protection des données."
-
-msgid "Or go back to the home page."
-msgstr "Ou retournez à la page d'accueil."
 
 msgid "Please confirm your subscription"
 msgstr "Merci de confirmer votre inscription"
@@ -1423,6 +1430,16 @@ msgid ""
 msgstr ""
 "Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
 "confirmation présent dans l'e-mail que vous allez recevoir."
+
+msgid ""
+"Check for our legal mentions for informations about our data protection "
+"policy."
+msgstr ""
+"Consultez nos mentions légales pour obtenir des informations sur notre "
+"politique de protection des données."
+
+msgid "Or go back to the home page."
+msgstr "Ou retournez à la page d'accueil."
 
 msgid "Total number of aids"
 msgstr "Toutes les aides"
