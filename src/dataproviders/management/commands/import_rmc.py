@@ -1,10 +1,10 @@
-import scrapy
-from scrapy.crawler import CrawlerProcess
+from datetime import datetime
+from django.utils import timezone
 
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
-from dataproviders.management.commands.base import BaseImportCommand
+from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.rmc import RMCSpider
 
 ADMIN_ID = 1
@@ -19,8 +19,14 @@ obtenir les informations relatives aux conditions d'éligibilité.
 '''
 
 
-class Command(BaseImportCommand):
+# We consider that all RMC aids have the same deadline
+RMC_DEADLINE = timezone.make_aware(datetime(2025, 12, 31))
+
+
+class Command(CrawlerImportCommand):
     """Import data from the eaurmc.fr site."""
+
+    SPIDER_CLASS = RMCSpider
 
     def populate_cache(self, *args, **options):
         self.perimeter = Perimeter.objects \
@@ -30,25 +36,6 @@ class Command(BaseImportCommand):
 
         self.backer = Backer.objects.get(
             name="Agence de l'eau Rhône Méditerranée Corse")
-
-    def fetch_data(self, **options):
-        results = []
-        process = CrawlerProcess({
-            'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-            'LOG_LEVEL': 'INFO',
-        })
-        process.crawl(RMCSpider)
-
-        def add_to_results(item, response, spider):
-            results.append(item)
-
-        for p in process.crawlers:
-            p.signals.connect(
-                add_to_results, signal=scrapy.signals.item_scraped)
-        process.start()
-
-        for result in results:
-            yield result
 
     def extract_author_id(self, line):
         return ADMIN_ID
@@ -82,3 +69,6 @@ class Command(BaseImportCommand):
 
     def extract_targeted_audiances(self, line):
         return [Aid.AUDIANCES.epci]
+
+    def extract_submission_deadline(self, line):
+        return RMC_DEADLINE
