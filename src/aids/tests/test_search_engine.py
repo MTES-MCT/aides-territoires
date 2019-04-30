@@ -24,17 +24,28 @@ def perimeters():
             scale=Perimeter.TYPES.country,
             name='France',
             code='FRA'),
+        'métropole': PerimeterFactory(
+            scale=Perimeter.TYPES.mainland,
+            name='Métropole',
+            code='FRA-MET'),
+        'outre-mer': PerimeterFactory(
+            scale=Perimeter.TYPES.overseas,
+            name='Outre-mer',
+            code='FRA-OM'),
         'occitanie': PerimeterFactory(
             scale=Perimeter.TYPES.region,
+            is_overseas=False,
             name='Occitanie',
             code='76'),
         'herault': PerimeterFactory(
             scale=Perimeter.TYPES.department,
+            is_overseas=False,
             name='Hérault',
             code='34',
             regions=['76']),
         'montpellier': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
+            is_overseas=False,
             name='Montpellier',
             code='34172',
             regions=['76'],
@@ -42,6 +53,7 @@ def perimeters():
             basin='FR000006'),
         'vic': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
+            is_overseas=False,
             name='Vic-la-Gardiole',
             code='34333',
             regions=['76'],
@@ -49,11 +61,13 @@ def perimeters():
             basin='FR000006'),
         'aveyron': PerimeterFactory(
             scale=Perimeter.TYPES.department,
+            is_overseas=False,
             name='Aveyron',
             code='12',
             regions=['76']),
         'rodez': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
+            is_overseas=False,
             name='Rodez',
             code='12202',
             regions=['76'],
@@ -61,29 +75,40 @@ def perimeters():
             basin='FR000005'),
         'normandie': PerimeterFactory(
             scale=Perimeter.TYPES.region,
+            is_overseas=False,
             name='Normandie',
             code='28'),
         'eure': PerimeterFactory(
             scale=Perimeter.TYPES.department,
+            is_overseas=False,
             name='Eure',
             code='28',
             regions=['28']),
         'st-cyr': PerimeterFactory(
             scale=Perimeter.TYPES.commune,
+            is_overseas=False,
             name='Saint-Cyr-la-Campagne',
             code='27529',
             regions=['28'],
             departments=['27']),
         'rhone-mediterannee': PerimeterFactory(
             scale=Perimeter.TYPES.basin,
+            is_overseas=False,
             name='Rhône-Méditerannée',
             country='FRA',
             code='FR000006'),
         'adour-garonne': PerimeterFactory(
             scale=Perimeter.TYPES.basin,
+            is_overseas=False,
             name='Adour-Garonne',
-            country='FRA',
             code='FR000005'),
+        'fort-de-france': PerimeterFactory(
+            scale=Perimeter.TYPES.commune,
+            is_overseas=True,
+            name='Fort-de-France',
+            code='97209',
+            regions=['02'],
+            departments=['972']),
     }
     return perimeters
 
@@ -105,6 +130,8 @@ def aids(perimeters):
         *AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
         *AidFactory.create_batch(13,
                                  perimeter=perimeters['rhone-mediterannee']),
+        *AidFactory.create_batch(14, perimeter=perimeters['fort-de-france']),
+
     ]
     return aids
 
@@ -186,14 +213,14 @@ def test_search_european_aids(client, perimeters, aids):
     """Display ALL the aids."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
-    assert res.context['paginator'].count == 91
+    assert res.context['paginator'].count == 105
 
 
 def test_search_french_aids(client, perimeters, aids):
     """Display ALL the aids again."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
-    assert res.context['paginator'].count == 91
+    assert res.context['paginator'].count == 105
 
 
 def test_search_aids_form_occitanie(client, perimeters, aids):
@@ -233,6 +260,22 @@ def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
     res = client.get(url, data={
         'perimeter': perimeters['adour-garonne'].pk})
     assert res.context['paginator'].count == 23
+
+
+def test_search_mainland_aids(client, perimeters, aids):
+    """Only display overseas aids."""
+
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['outre-mer'].pk})
+    assert res.context['paginator'].count == 14
+
+
+def test_search_overseas_aids(client, perimeters, aids):
+    """Only display mainland aids."""
+
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['métropole'].pk})
+    assert res.context['paginator'].count == 88
 
 
 def test_full_text_search(client, perimeters):
@@ -340,14 +383,14 @@ def test_the_only_recent_filter(client, perimeters, aids):
 
     url = reverse('search_view')
     res = client.get(url, data={'recent_only': 'Oui '})
-    assert res.context['paginator'].count == 91
+    assert res.context['paginator'].count == 105
 
     long_ago = timezone.now() - timedelta(days=50)
     for aid in aids[:5]:
         aid.date_created = long_ago
         aid.save()
     res = client.get(url, data={'recent_only': 'Oui'})
-    assert res.context['paginator'].count == 86
+    assert res.context['paginator'].count == 100
 
 
 def test_the_call_for_project_only_filter(client, perimeters, aids):
