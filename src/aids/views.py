@@ -62,7 +62,8 @@ class SearchView(SearchMixin, FormMixin, ListView):
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
         order_labels = dict(AidSearchForm.ORDER_BY)
-        order_label = order_labels.get(order_value, order_labels[default_order])
+        order_label = order_labels.get(
+            order_value, order_labels[default_order])
         context['order_label'] = order_label
         return context
 
