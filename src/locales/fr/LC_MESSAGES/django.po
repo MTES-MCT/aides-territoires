@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-26 15:07+0200\n"
+"POT-Creation-Date: 2019-05-02 14:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,8 +290,8 @@ msgstr "jj/mm/aaaa"
 msgid "Aid type"
 msgstr "Nature de l'aide"
 
-msgid "When to mobilize the aid?"
-msgstr "Quand mobiliser l'aide ?"
+msgid "Project progress"
+msgstr "Avancement du projet"
 
 msgid "Destinations"
 msgstr "Destinations"
@@ -354,13 +354,13 @@ msgid "Other"
 msgstr "Autre"
 
 msgid "Preoperational"
-msgstr "Conception (études, programmation)"
+msgstr "En cours de réflexion / conception"
 
 msgid "Operational"
-msgstr "Réalisation"
+msgstr "En cours de mise en œuvre / réalisation"
 
 msgid "Postoperation"
-msgstr "Fonctionnement, usage"
+msgstr "Terminé, en cours de fonctionnement et d'usage"
 
 msgid "Audiance EPCI"
 msgstr ""
@@ -437,7 +437,7 @@ msgid "What is the aid broadcasting perimeter?"
 msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 
 msgid "Mobilization step"
-msgstr "L'aide s'applique en phase de…"
+msgstr "Dispositif applicable pour un projet…"
 
 msgid "Origin URL"
 msgstr "URL d'origine"
@@ -1235,6 +1235,9 @@ msgstr "Périmètre d'application"
 msgid "Subvention rate"
 msgstr "Taux de subvention (en %)"
 
+msgid "The aid can be mobilized during…"
+msgstr "Dispositif applicable pour un projet…"
+
 msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité ?"
 
@@ -1406,7 +1409,9 @@ msgid ""
 msgstr "Votre inscription à la newsletter Aides-territoires est confirmée."
 
 msgid "You will keep being among the first informed of our news."
-msgstr "Vous continuerez à être les premiers informés de l'actualité Aides-territoires."
+msgstr ""
+"Vous continuerez à être les premiers informés de l'actualité Aides-"
+"territoires."
 
 msgid "You can now:"
 msgstr "Vous pouvez désormais :"

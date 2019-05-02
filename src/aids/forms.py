@@ -154,7 +154,7 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=AID_TYPES)
     mobilization_step = forms.MultipleChoiceField(
-        label=_('When to mobilize the aid?'),
+        label=_('Project progress'),
         required=False,
         choices=Aid.STEPS)
     destinations = forms.MultipleChoiceField(
