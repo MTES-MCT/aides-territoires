@@ -325,12 +325,27 @@ class AidSearchForm(forms.Form):
          - Europe ;
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
+
+        Some perimeters must be handled as special cases:
+
+         - Overseas: every overseas perimeters ;
+         - Mailand: every perimeter that is NOT overseas.
         """
 
         # Since we only handle french aids, searching for european or
         # national aids will return all results
         if perimeter.scale in (Perimeter.TYPES.country,
                                Perimeter.TYPES.continent):
+            return qs
+
+        # Special case: overseas only
+        if perimeter.scale == Perimeter.TYPES.overseas:
+            qs = qs.filter(perimeter__is_overseas=True)
+            return qs
+
+        # Special case: mainland only
+        if perimeter.scale == Perimeter.TYPES.mainland:
+            qs = qs.filter(perimeter__is_overseas=False)
             return qs
 
         # Exclude all other perimeters from the same scale.

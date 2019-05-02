@@ -32,6 +32,8 @@ class Perimeter(models.Model):
         (8, 'basin', _('Drainage basin')),
         (10, 'department', _('Department')),
         (15, 'region', _('Region')),
+        (16, 'overseas', _('Overseas')),
+        (17, 'mainland', _('Mainland')),
         (20, 'country', _('Country')),
         (25, 'continent', _('Continent')),
     )
