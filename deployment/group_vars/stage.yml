@@ -1,4 +1,4 @@
-project_domain: aides-territoires.jouannic.fr
+project_domain: staging.aides-territoires.beta.gouv.fr
 project_version: master
 certbot_admin_email: certbot@thibault.miximum.fr
 certbot_domains: "{{ project_domain }}"

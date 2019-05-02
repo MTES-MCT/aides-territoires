@@ -66,7 +66,7 @@ class BaseAidForm(forms.ModelForm):
             'targeted_audiances': _('Who can apply to this aid?'),
             'backers': _('Aid backers'),
             'new_backer': _('…or add a new backer'),
-            'destinations': _('The aid is destined to…'),
+            'destinations': _('Types of expenses covered'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
             'application_url': _('Link to an online application form'),
@@ -154,11 +154,11 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=AID_TYPES)
     mobilization_step = forms.MultipleChoiceField(
-        label=_('When to mobilize the aid?'),
+        label=_('Project progress'),
         required=False,
         choices=Aid.STEPS)
     destinations = forms.MultipleChoiceField(
-        label=_('Destinations'),
+        label=_('Concerned actions'),
         required=False,
         choices=Aid.DESTINATIONS)
     call_for_projects_only = forms.MultipleChoiceField(

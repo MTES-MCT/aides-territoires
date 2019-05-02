@@ -116,14 +116,14 @@
 
         {% if aid.mobilization_steps %}
         <div class="short-data">
-            <h2>{{ _('When to mobilize the aid?') }}</h2>
+            <h2>{{ _('The aid can be mobilized during…') }}</h2>
             <p>{% choices_display aid 'mobilization_steps' %}</p>
         </div>
         {% endif %}
 
         {% if aid.destinations %}
         <div class="short-data">
-            <h2>{{ _('The aid is destined to…') }}</h2>
+            <h2>{{ _('Types of expenses covered') }}</h2>
             <p>{% choices_display aid 'destinations' %}</p>
         </div>
         {% endif %}
