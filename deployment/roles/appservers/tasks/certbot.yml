@@ -4,11 +4,6 @@
     name: nginx
     state: stopped
 
-- name: Make sure certificate directory exists
-  file:
-    path: /etc/letsencrypt/live/{{ project_domain }}
-    state: directory
-
 - name: Generate certificate using Let's Encrypt (for production)
   when: project_env == "production"
   command:
