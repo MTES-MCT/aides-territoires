@@ -24,3 +24,11 @@
   with_items:
     - fr_FR.UTF-8
     - en_US.UTF-8
+
+- name: Make sure the root prompt is readable enough
+  lineinfile:
+    path: /root/.bashrc
+    state: present
+    regexp: "^PS1="
+    insertafter: EOF
+    line: "{{ shell_prompt }}"
