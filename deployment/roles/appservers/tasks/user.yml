@@ -6,7 +6,7 @@
     password_lock: true
     shell: /bin/bash
 
-- name: Change owner 
+- name: Change owner
   file:
     path: /home/aides
     owner: "{{ user_name }}"
@@ -18,8 +18,10 @@
     setfacl -m {{ user_name }}:rwx "$SSH_AUTH_SOCK"
   changed_when: false
 
-- name: Create .profile file
-  template:
-    src: profile.j2
-    dest: "{{ install_root }}/.profile"
-    owner: "{{ user_name }}"
+- name: Make sure the django settings module env is set
+  lineinfile:
+    path: "{{ install_root }}/.bashrc"
+    state: present
+    regexp: "'^export DJANGO_SETTINGS_MODULE"
+    line: "export DJANGO_SETTINGS_MODULE={{ django_settings }}"
+    insertafter: EOF
