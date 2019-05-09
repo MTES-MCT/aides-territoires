@@ -1,5 +1,6 @@
 import json
 import scrapy
+from datetime import datetime
 from dataproviders.utils import content_prettify
 from bs4 import BeautifulSoup as bs
 
@@ -35,6 +36,10 @@ class OccitanieSpider(scrapy.Spider):
         title = response.css('h1.main-content__title::text').get()
         description = response.css('div.main-content__texte').get()
         fields = response.meta['fields']
+        date_updated_string = fields['date_modification']
+        date_updated_format = '%Y-%m-%d %H:%M:%S'
+        date_updated = datetime.strptime(
+            date_updated_string, date_updated_format)
 
         yield {
             'title': content_prettify(title),
@@ -43,4 +48,5 @@ class OccitanieSpider(scrapy.Spider):
             'uniqueid': response.meta['uniqueid'],
             'thematique': fields.get('thematique', None),
             'type': fields.get('type', None),
+            'date_updated': date_updated,
         }
