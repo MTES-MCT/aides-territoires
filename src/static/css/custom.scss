@@ -594,3 +594,58 @@ section#tags {
         @extend .col-lg-3;
     }
 }
+
+section#partner {
+    @extend .py-5;
+    @extend .text-light;
+
+    h1 {
+        @extend .text-dark;
+        @extend .text-center;
+    }
+
+
+
+    img.logo {
+        @extend .mb-3;
+        @extend .mx-3;
+
+        &#logo-afb {
+            max-height: 4rem;
+
+        }
+
+        &#logo-esn {
+            max-height: 5rem;
+            @extend .bg-dark;
+        }
+
+        &#logo-ademe {
+            max-height: 1rem;
+        }
+
+        &#logo-miqcp {
+            max-height: 8rem;
+        }
+
+        &#logo-seg {
+            max-height: 6rem;
+        }
+
+        &#logo-ge {
+            max-height: 4rem;
+        }
+
+        &#logo-admrmc {
+            max-height: 1rem;
+        }
+
+        &#logo-afd {
+            max-height: 5rem;
+        }
+
+        &#logo-bdt {
+            max-height: 4rem;
+        }
+    }
+}
