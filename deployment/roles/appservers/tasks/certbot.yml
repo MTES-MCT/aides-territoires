@@ -28,6 +28,12 @@
     job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
     state: present
 
+- name: Make sure certificate directory exists for OpenSSL
+  when: project_env == "local"
+  file:
+    path: /etc/letsencrypt/live/{{ project_domain }}
+    state: directory
+
 - name: Generate a self-signed OpenSSL certificate (dev only)
   when: project_env == "local"
   command:
