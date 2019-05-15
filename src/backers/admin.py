@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db.models import Count
+from django.utils.translation import ugettext_lazy as _
 
 from backers.models import Backer
 
@@ -15,6 +16,7 @@ class BackerAdmin(admin.ModelAdmin):
     list_display = ['name', 'nb_aids']
     search_fields = ['name']
     inlines = [AidInline]
+    ordering = ['name']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -23,6 +25,8 @@ class BackerAdmin(admin.ModelAdmin):
 
     def nb_aids(self, obj):
         return obj.nb_aids
+    nb_aids.short_description = _('Number of aids')
+    nb_aids.admin_order_field = 'nb_aids'
 
 
 admin.site.register(Backer, BackerAdmin)
