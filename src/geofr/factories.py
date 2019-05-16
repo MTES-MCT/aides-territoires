@@ -9,6 +9,7 @@ class PerimeterFactory(DjangoModelFactory):
 
     class Meta:
         model = Perimeter
+        django_get_or_create = ('scale', 'code')
 
     scale = Perimeter.TYPES.region
     code = factory.Sequence(lambda n: '%08d' % n)
