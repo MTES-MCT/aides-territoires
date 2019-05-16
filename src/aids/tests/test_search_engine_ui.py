@@ -135,7 +135,6 @@ def test_sorting_field(live_server, browser):
         .click()
 
     time.sleep(0.5)
-    browser.save_screenshot('/tmp/selenium.png')
 
     assert 'order_by=publication_date' in browser.current_url
 
