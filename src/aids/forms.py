@@ -126,6 +126,7 @@ class AidSearchForm(forms.Form):
     ORDER_BY = (
         ('relevance', _('Relevance')),
         ('publication_date', _('Publication date')),
+        ('submission_deadline', _('Submission deadline')),
     )
 
     perimeter = PerimeterChoiceField(
@@ -304,6 +305,8 @@ class AidSearchForm(forms.Form):
         manual_order = self.cleaned_data.get('order_by', 'relevance')
         if manual_order == 'publication_date':
             order_fields = ['-date_created'] + order_fields
+        elif manual_order == 'submission_deadline':
+            order_fields = ['submission_deadline'] + order_fields
 
         qs = qs.order_by(*order_fields)
         return qs
