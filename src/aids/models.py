@@ -321,21 +321,26 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         # `self.backers.all()` because that last expression would not work
         # during an object creation.
         self.search_vector = \
-            SearchVector(Value(self.name), weight='A', config='french') + \
             SearchVector(
-                Value(self.eligibility),
-                weight='D',
-                config='french') + \
-            SearchVector(
-                Value(self.description),
-                weight='B',
-                config='french') + \
-            SearchVector(
-                Value(' '.join(self.tags)),
+                Value(self.name, output_field=models.CharField()),
                 weight='A',
                 config='french') + \
             SearchVector(
-                Value(' '.join(str(backer) for backer in backers)),
+                Value(self.eligibility, output_field=models.CharField()),
+                weight='D',
+                config='french') + \
+            SearchVector(
+                Value(self.description, output_field=models.CharField()),
+                weight='B',
+                config='french') + \
+            SearchVector(
+                Value(' '.join(self.tags), output_field=models.CharField()),
+                weight='A',
+                config='french') + \
+            SearchVector(
+                Value(
+                    ' '.join(str(backer) for backer in backers),
+                    output_field=models.CharField()),
                 weight='D',
                 config='french')
 
