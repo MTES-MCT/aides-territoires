@@ -402,3 +402,28 @@ def test_the_call_for_project_only_filter(client, perimeters, aids):
     url = reverse('search_view')
     res = client.get(url, data={'call_for_projects_only': 'Oui'})
     assert res.context['paginator'].count == 5
+
+
+def test_submission_deadline_ordering(client, perimeters):
+    """Test that results can be sorted by approaching deadline."""
+
+    AidFactory(
+        name='Approaching aid',
+        perimeter=perimeters['europe'],
+        submission_deadline=timezone.now() + timedelta(days=5))
+    AidFactory(
+        name='Plenty of time aid',
+        perimeter=perimeters['france'],
+        submission_deadline=timezone.now() + timedelta(days=150))
+
+    url = reverse('search_view')
+
+    res = client.get(url)
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Plenty of time aid'
+    assert res.context['aids'][1].name == 'Approaching aid'
+
+    res = client.get(url, data={'order_by': 'submission_deadline'})
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Approaching aid'
+    assert res.context['aids'][1].name == 'Plenty of time aid'
