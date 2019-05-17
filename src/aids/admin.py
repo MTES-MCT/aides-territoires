@@ -15,6 +15,7 @@ class AidAdmin(admin.ModelAdmin):
 
     form = AidAdminForm
     save_as = True
+    actions = ['make_mark_as_CFP']
     list_display = ['name', 'all_backers', 'author', 'recurrence',
                     'date_updated', 'is_imported', 'import_uniqueid', 'status']
     autocomplete_fields = ['author', 'backers', 'perimeter']
@@ -108,6 +109,11 @@ class AidAdmin(admin.ModelAdmin):
         backers = [backer.name for backer in aid.backers.all()]
         return ', '.join(backers)
     all_backers.short_description = _('Backers')
+
+    def make_mark_as_CFP(self, request, queryset):
+        queryset.update(is_call_for_project=True)
+        self.message_user(request, _('The selected aids were set as CFP'))
+    make_mark_as_CFP.short_description = _('Set as CFP')
 
 
 admin.site.register(Aid, AidAdmin)
