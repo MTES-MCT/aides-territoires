@@ -25,18 +25,10 @@ def test_login_view_is_accessible_for_anonymous_users(client):
     assert res.status_code == 200
 
 
-def test_login_with_incorrect_email_does_not_send_any_email(
+def test_password_reset_with_existing_email_does_send_an_email(
         client, user, mailoutbox):
-    login_url = reverse('login')
-    res = client.post(login_url, {'email': 'fake@email.com'})
-    assert res.status_code == 302
-    assert len(mailoutbox) == 0
-
-
-def test_login_with_existing_email_does_send_an_email(
-        client, user, mailoutbox):
-    login_url = reverse('login')
-    res = client.post(login_url, {'email': user.email})
+    login_url = reverse('password_reset')
+    res = client.post(login_url, {'username': user.email})
     assert res.status_code == 302
     assert len(mailoutbox) == 1
 
@@ -45,8 +37,8 @@ def test_login_with_existing_email_does_send_an_email(
 
 
 def test_login_email_token_works(client, user, mailoutbox):
-    login_url = reverse('login')
-    res = client.post(login_url, {'email': user.email})
+    login_url = reverse('password_reset')
+    res = client.post(login_url, {'username': user.email})
     assert not res.wsgi_request.user.is_authenticated
 
     mail_body = mailoutbox[0].body
@@ -59,8 +51,8 @@ def test_login_email_token_works(client, user, mailoutbox):
 
 
 def test_login_with_wrong_token(client, user, mailoutbox):
-    login_url = reverse('login')
-    res = client.post(login_url, {'email': user.email})
+    login_url = reverse('password_reset')
+    res = client.post(login_url, {'username': user.email})
     assert not res.wsgi_request.user.is_authenticated
 
     mail_body = mailoutbox[0].body
@@ -69,7 +61,7 @@ def test_login_with_wrong_token(client, user, mailoutbox):
         mail_body,
         re.MULTILINE)
     uidb64 = re_match.group(1)
-    url = reverse('login', args=[uidb64, 'wrong_token'])
+    url = reverse('token_login', args=[uidb64, 'wrong_token'])
     res = client.get(url, follow=True)
     assert res.status_code == 200
     assert 'Quelque chose s\'est mal passé' in res.content.decode()
@@ -77,8 +69,8 @@ def test_login_with_wrong_token(client, user, mailoutbox):
 
 
 def test_login_with_wrong_user_id(client, user, mailoutbox):
-    login_url = reverse('login')
-    res = client.post(login_url, {'email': user.email})
+    login_url = reverse('password_reset')
+    res = client.post(login_url, {'username': user.email})
     assert not res.wsgi_request.user.is_authenticated
 
     mail_body = mailoutbox[0].body
@@ -87,7 +79,7 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
         mail_body,
         re.MULTILINE)
     token = re_match.group(2)
-    url = reverse('login', args=['wrong_uid', token])
+    url = reverse('token_login', args=['wrong_uid', token])
     res = client.get(url, follow=True)
     assert res.status_code == 200
     assert 'Quelque chose s\'est mal passé' in res.content.decode()
@@ -143,7 +135,7 @@ def test_register_form(client, mailoutbox):
     register_url = reverse('register')
     res = client.post(
         register_url,
-        {'full_name': 'Olga To', 'email': 'olga@test.com'})
+        {'full_name': 'Olga Tau', 'email': 'olga@test.com'})
 
     assert res.status_code == 302
     assert len(mailoutbox) == 1
@@ -151,7 +143,7 @@ def test_register_form(client, mailoutbox):
 
     user = users[0]
     assert user.email == 'olga@test.com'
-    assert user.full_name == 'Olga To'
+    assert user.full_name == 'Olga Tau'
     assert not user.ml_consent
 
     mail = mailoutbox[0]
@@ -165,7 +157,7 @@ def test_register_form_with_consent(client):
     register_url = reverse('register')
     res = client.post(
         register_url,
-        {'full_name': 'Olga To', 'email': 'olga@test.com', 'ml_consent': True})
+        {'full_name': 'Olga Tau', 'email': 'olga@test.com', 'ml_consent': True})
 
     assert res.status_code == 302
     assert users.count() == 1
