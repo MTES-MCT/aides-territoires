@@ -58,24 +58,24 @@ class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
     template_name = 'accounts/register_success.html'
 
 
-class LoginRequestView(AnonymousRequiredMixin, FormView):
-    """Implement a simple login form."""
+class PasswordResetView(AnonymousRequiredMixin, FormView):
+    """Implement a simple login form using email only."""
 
-    template_name = 'accounts/login_request.html'
-    form_class = LoginForm
-    success_url = reverse_lazy('login_sent')
+    template_name = 'accounts/password_reset.html'
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('password_reset_sent')
 
     def form_valid(self, form):
         """Send a login link by email."""
-        user_email = form.cleaned_data['email']
+        user_email = form.cleaned_data['username']
         send_connection_email.delay(user_email)
         return super().form_valid(form)
 
 
-class LoginSentView(AnonymousRequiredMixin, TemplateView):
+class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
     """Simple success confirmation message."""
 
-    template_name = 'accounts/login_sent.html'
+    template_name = 'accounts/password_reset_sent.html'
 
 
 class LoginView(AnonymousRequiredMixin, RedirectView):
