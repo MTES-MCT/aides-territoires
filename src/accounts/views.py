@@ -101,7 +101,8 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
                 if is_first_login:
                     msg = _('You are now logged in. Welcome! Please take a '
                             'few seconds to update your profile.')
-                    # XXX add track_goal here
+                    track_goal(
+                        self.request.session, settings.GOAL_FIRST_LOGIN_ID)
                 else:
                     msg = _('You are now logged in. Welcome back!')
 
