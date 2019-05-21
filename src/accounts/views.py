@@ -1,5 +1,5 @@
-from django.views.generic import (FormView, TemplateView, RedirectView,
-                                  CreateView, UpdateView)
+from django.views.generic import (FormView, TemplateView, CreateView,
+                                  UpdateView)
 from django.urls import reverse_lazy
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
@@ -9,10 +9,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
-from braces.views import AnonymousRequiredMixin
+from django.contrib.auth import update_session_auth_hash
+from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from analytics import track_goal
-from accounts.forms import (LoginForm, RegisterForm, ProfileForm,
+from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
@@ -20,7 +21,7 @@ from django.conf import settings
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
-    """Allow users to create new messages."""
+    """Allow users to create new accounts."""
 
     template_name = 'accounts/register.html'
     form_class = RegisterForm
@@ -58,30 +59,30 @@ class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
     template_name = 'accounts/register_success.html'
 
 
-class LoginRequestView(AnonymousRequiredMixin, FormView):
-    """Implement a simple login form."""
+class PasswordResetView(AnonymousRequiredMixin, FormView):
+    """Implement a simple login form using email only."""
 
-    template_name = 'accounts/login_request.html'
-    form_class = LoginForm
-    success_url = reverse_lazy('login_sent')
+    template_name = 'accounts/password_reset.html'
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('password_reset_sent')
 
     def form_valid(self, form):
         """Send a login link by email."""
-        user_email = form.cleaned_data['email']
+        user_email = form.cleaned_data['username']
         send_connection_email.delay(user_email)
         return super().form_valid(form)
 
 
-class LoginSentView(AnonymousRequiredMixin, TemplateView):
+class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
     """Simple success confirmation message."""
 
-    template_name = 'accounts/login_sent.html'
+    template_name = 'accounts/password_reset_sent.html'
 
 
-class LoginView(AnonymousRequiredMixin, RedirectView):
+class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
     """Check token and authenticates user."""
 
-    url = reverse_lazy('login_result')
+    template_name = 'accounts/login_error.html'
 
     def get(self, request, *args, **kwargs):
         uidb64 = kwargs['uidb64']
@@ -94,23 +95,22 @@ class LoginView(AnonymousRequiredMixin, RedirectView):
         if user:
             token = kwargs['token']
             if default_token_generator.check_token(user, token):
-                is_first_connection = user.last_login is None
+                is_first_login = user.last_login is None
                 login(self.request, user)
-                if is_first_connection:
-                    track_goal(request.session, settings.GOAL_FIRST_LOGIN_ID)
+
+                if is_first_login:
+                    msg = _('You are now logged in. Welcome! Please take a '
+                            'few seconds to update your profile.')
+                    track_goal(
+                        self.request.session, settings.GOAL_FIRST_LOGIN_ID)
+                else:
+                    msg = _('You are now logged in. Welcome back!')
+
+                self.messages.success(msg)
+                redirect_url = reverse(settings.LOGIN_REDIRECT_URL)
+                return HttpResponseRedirect(redirect_url)
 
         return super().get(request, *args, **kwargs)
-
-
-class LoginResultView(TemplateView):
-
-    def get_template_names(self):
-        if self.request.user.is_authenticated:
-            names = ['accounts/login_success.html']
-        else:
-            names = ['accounts/login_error.html']
-
-        return names
 
 
 class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -127,6 +127,13 @@ class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+    def form_valid(self, form):
+        """Make sure the user is not disconnected after password change."""
+
+        res = super().form_valid(form)
+        update_session_auth_hash(self.request, self.object)
+        return res
 
 
 class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,

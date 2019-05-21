@@ -12,7 +12,7 @@
         Sorry, it looks like something went wrong. We could not log you in.
     {% endblocktrans %}</p>
 
-    {% url 'login_request' as login_url %}
+    {% url 'login' as login_url %}
     <p>{% blocktrans trimmed %}
         You will <a href="{{ login_url }}">have to try again.</a>
     {% endblocktrans %}</p>

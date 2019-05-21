@@ -12,7 +12,7 @@ class UserFactory(DjangoModelFactory):
 
     full_name = factory.Faker('name')
     email = factory.Faker('email')
-    password = 'pass'
+    password = factory.PostGenerationMethodCall('set_password', 'pass')
 
 
 class ContributorFactory(UserFactory):

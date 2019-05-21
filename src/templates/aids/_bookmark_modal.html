@@ -23,7 +23,7 @@
                         bundles on the dedicated page</a>.
                     {% endblocktrans %}</span>
                 {% else %}
-                    {% url 'login_request' as login_url %}
+                    {% url 'login' as login_url %}
                     {% url 'register' as register_url %}
                     <p>{% blocktrans trimmed %}
                         You need to be logged in to save aids in custom bundles.
