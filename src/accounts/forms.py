@@ -1,20 +1,10 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import password_validation
 
 from tags.fields import TagChoiceField
 from accounts.models import User
-
-
-class LoginForm(forms.Form):
-    """Simple login form with no password."""
-
-    email = forms.EmailField(
-        label=_('Your email address'),
-        required=True)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs.update({'autofocus': True})
 
 
 class RegisterForm(forms.ModelForm):
@@ -41,6 +31,28 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['full_name'].widget.attrs.update({'autofocus': True})
+
+
+class LoginForm(AuthenticationForm):
+
+    """Simple login form with no password."""
+
+    username = forms.EmailField(
+        label=_('Your email address'),
+        required=True)
+    password = forms.CharField(
+        label=_('Your password'),
+        required=True,
+        strip=False,
+        widget=forms.PasswordInput)
+
+
+class PasswordResetForm(forms.Form):
+    """Password reset request form."""
+
+    username = forms.EmailField(
+        label=_('Your email address'),
+        required=True)
 
 
 class ProfileForm(forms.ModelForm):
