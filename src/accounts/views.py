@@ -9,10 +9,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
-from braces.views import AnonymousRequiredMixin
+from django.contrib.auth import update_session_auth_hash
+from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from analytics import track_goal
-from accounts.forms import (LoginForm, RegisterForm, ProfileForm,
+from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
@@ -125,6 +126,13 @@ class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+    def form_valid(self, form):
+        """Make sure the user is not disconnected after password change."""
+
+        res = super().form_valid(form)
+        update_session_auth_hash(self.request, self.object)
+        return res
 
 
 class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
