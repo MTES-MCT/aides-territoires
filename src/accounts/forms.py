@@ -30,6 +30,8 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['full_name'].widget.attrs.update({'autofocus': True})
+        self.fields['email'].widget.attrs.update({
+            'placeholder': _('Please double-check this value.')})
 
 
 class LoginForm(AuthenticationForm):

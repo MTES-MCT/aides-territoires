@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-21 11:57+0200\n"
+"POT-Creation-Date: 2019-05-21 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,9 @@ msgstr "Vous souhaitez recevoir des actualités liées au service."
 msgid "You will be able to unsubscribe at any time."
 msgstr "Vous pourrez vous désabonner à tout moment."
 
+msgid "Please double-check this value."
+msgstr "Merci de bien vérifier l'adresse saisie."
+
 msgid "Your password"
 msgstr "Votre mot de passe"
 
@@ -45,7 +48,7 @@ msgid "Choose a new password"
 msgstr "Choisissez un nouveau mot de passe"
 
 msgid "Leave empty to keep your existing password"
-msgstr "Laissez vide pour"
+msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
 msgid "Yes, I want to receive news about the service."
 msgstr "Je souhaite recevoir des actualités liées au service."
@@ -115,7 +118,7 @@ msgid "login/<uidb64>/<token>/"
 msgstr "connexion/<uidb64>/<token>/"
 
 msgid "password-reset/"
-msgstr "raz-mot-de-passe/"
+msgstr "nouveau-mot-de-passe/"
 
 msgid "password-reset-sent/"
 msgstr "mot-de-passe-envoyé/"
@@ -683,7 +686,7 @@ msgid "My account"
 msgstr "Mon compte"
 
 msgid "Log in to access your account"
-msgstr "Me connecter pour accéder à mon compte"
+msgstr "Accéder à mon compte"
 
 msgid "Login"
 msgstr "Connexion"
@@ -693,8 +696,8 @@ msgid ""
 "Forgot your password? <a href=\"%(password_reset_url)s\"> Request a new one."
 "</a>"
 msgstr ""
-"Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
-"\">Vous pouvez en demander un nouveau.</a>"
+"Mot de passe oublié ? <a href=\"%(password_reset_url)s\">En demander un "
+"nouveau.</a>"
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
@@ -842,7 +845,7 @@ msgid "Log in"
 msgstr "Connexion"
 
 msgid "Access to your account"
-msgstr "Accédez à votre compte"
+msgstr "Acceder à votre compte"
 
 #, python-format
 msgid ""
