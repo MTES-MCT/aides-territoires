@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}login-form{% endblock %}
+
+{% block extratitle %}{{ _('Login') }}{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _('Log in') }}<br />
+        <small>{{ _('Access to your account') }}</small>
+    </h1>
+
+    <form method="post" action="" novalidate>
+        {% csrf_token %}
+
+        {% include '_form_snippet.html' with form=form %}
+        <button type="submit">{{ _('Login') }}</button>
+    </form>
+
+    {% url 'password_reset' as password_reset_url %}
+    <p class="warning">
+        <span class="fas fa-key"></span>
+        {% blocktrans trimmed %}
+        Have you forgotten your password? <a href="{{ password_reset_url }}">
+        Request a new one.</a>
+    {% endblocktrans %}</p>
+
+    {% url 'register' as register_url %}
+    <p class="info">
+        <span class="fas fa-key"></span>
+        {% blocktrans trimmed %}
+        Don't have an account yet? <a href="{{ register_url }}">Proceed to
+        the registration form.</a>
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}
