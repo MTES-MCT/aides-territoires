@@ -46,43 +46,52 @@ class RegisterForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     """Edit profile related user data."""
 
-    watched_tags = TagChoiceField(
-        label=_('Your watched tags'),
-        help_text=_('This is the list of topics you are interested in.')
-    )
+    new_password = forms.CharField(
+        label=_('Choose a new password'),
+        required=False,
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+        widget=forms.PasswordInput(attrs={
+            'placeholder': _('Leave empty to keep your existing password')
+        }))
 
     class Meta:
         model = User
-        fields = ['ml_consent', 'similar_aids_alert', 'watched_tags']
+        fields = ['full_name', 'new_password', 'ml_consent']
         labels = {
+            'full_name': _('Your full name'),
             'ml_consent':
                 _('Yes, I want to receive news about the service.'),
-            'similar_aids_alert':
-                _('Yes, I want to receive alerts when similar new aids '
-                  'are published.'),
         }
         help_texts = {
+            'full_name':
+                _('This is how we will address you in our ' 'communications.'),
             'ml_consent':
                 _('We will send regular updates (no more than once a month) '
                   'about the new features and updates about our service.'),
-            'similar_aids_alert':
-                _('We will detect when newly published aids are similar '
-                  'to the ones you saved into one of your lists, and send '
-                  'you an e-mail alert when it happens.'),
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get('new_password')
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except forms.ValidationError as error:
+                self.add_error('new_password', error)
 
-        # We set the existing tags as the `choices` value so the existing
-        # tags will be displayed in the widget
-        all_tags = self.instance.watched_tags
-        if self.is_bound:
-            if hasattr(self.data, 'getlist'):
-                all_tags += self.data.getlist('watched_tags')
-            else:
-                all_tags += self.data.get('watched_tags', [])
-        self.fields['watched_tags'].choices = zip(all_tags, all_tags)
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        new_password = self.cleaned_data['new_password']
+        if new_password:
+            user.set_password(new_password)
+
+        if commit:
+            user.save()
+        return user
 
 
 class ContributorProfileForm(forms.ModelForm):

@@ -3,6 +3,7 @@
 import pytest
 import re
 from django.urls import reverse
+from django.contrib.auth import authenticate
 
 from accounts.models import User
 
@@ -171,3 +172,43 @@ def test_register_form_with_consent(client):
 
     user = users[0]
     assert user.ml_consent
+
+
+def test_profile_form_updates_profile(client, user):
+    """The profile forms updates the user's data."""
+    user.ml_consent = False
+    user.save()
+
+    client.force_login(user)
+    profile_url = reverse('profile')
+    data = {'ml_consent': True, 'full_name': 'Anna NanananaBatman'}
+    client.post(profile_url, data)
+
+    user.refresh_from_db()
+    assert user.ml_consent
+    assert user.full_name == 'Anna NanananaBatman'
+
+
+def test_profile_form_can_update_password(client, user):
+    """The profile form can update the user's password."""
+
+    new_password = 'New unpredictable passw0rd!'
+
+    client.force_login(user)
+    profile_url = reverse('profile')
+    data = {'full_name': user.full_name, 'new_password': new_password}
+    client.post(profile_url, data)
+
+    assert authenticate(username=user.email, password=new_password) is not None
+
+
+def test_profile_form_leaves_password_untouched(client, user):
+    """By default, the profile form does not update the password."""
+
+    client.force_login(user)
+    profile_url = reverse('profile')
+    data = {'full_name': user.full_name, 'new_password': ''}
+    client.post(profile_url, data)
+
+    # "pass" is UserFactory's default password
+    assert authenticate(username=user.email, password='pass') is not None
