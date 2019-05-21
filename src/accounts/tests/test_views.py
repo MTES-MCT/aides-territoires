@@ -155,9 +155,10 @@ def test_register_form_with_consent(client):
     assert users.count() == 0
 
     register_url = reverse('register')
-    res = client.post(
-        register_url,
-        {'full_name': 'Olga Tau', 'email': 'olga@test.com', 'ml_consent': True})
+    res = client.post(register_url, {
+        'full_name': 'Olga Tau',
+        'email': 'olga@test.com',
+        'ml_consent': True})
 
     assert res.status_code == 302
     assert users.count() == 1
