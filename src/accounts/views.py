@@ -78,10 +78,10 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
     template_name = 'accounts/password_reset_sent.html'
 
 
-class LoginView(AnonymousRequiredMixin, RedirectView):
+class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
     """Check token and authenticates user."""
 
-    url = reverse_lazy('login_result')
+    template_name = 'accounts/login_error.html'
 
     def get(self, request, *args, **kwargs):
         uidb64 = kwargs['uidb64']
@@ -94,23 +94,21 @@ class LoginView(AnonymousRequiredMixin, RedirectView):
         if user:
             token = kwargs['token']
             if default_token_generator.check_token(user, token):
-                is_first_connection = user.last_login is None
+                is_first_login = user.last_login is None
                 login(self.request, user)
-                if is_first_connection:
-                    track_goal(request.session, settings.GOAL_FIRST_LOGIN_ID)
+
+                if is_first_login:
+                    msg = _('Welcome! Please take a few seconds to update '
+                            'your profile.')
+                    # XXX add track_goal here
+                else:
+                    msg = _('You are now logged in. Welcome back!')
+
+                self.messages.success(msg)
+                redirect_url = reverse(settings.LOGIN_REDIRECT_URL)
+                return HttpResponseRedirect(redirect_url)
 
         return super().get(request, *args, **kwargs)
-
-
-class LoginResultView(TemplateView):
-
-    def get_template_names(self):
-        if self.request.user.is_authenticated:
-            names = ['accounts/login_success.html']
-        else:
-            names = ['accounts/login_error.html']
-
-        return names
 
 
 class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
