@@ -21,7 +21,7 @@ from django.conf import settings
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
-    """Allow users to create new messages."""
+    """Allow users to create new accounts."""
 
     template_name = 'accounts/register.html'
     form_class = RegisterForm
