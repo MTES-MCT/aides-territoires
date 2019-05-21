@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-17 12:38+0200\n"
+"POT-Creation-Date: 2019-05-21 11:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,20 +38,17 @@ msgstr "Vous souhaitez recevoir des actualités liées au service."
 msgid "You will be able to unsubscribe at any time."
 msgstr "Vous pourrez vous désabonner à tout moment."
 
-msgid "Your watched tags"
-msgstr "Vos mots-clés surveillés"
+msgid "Your password"
+msgstr "Votre mot de passe"
 
-msgid "This is the list of topics you are interested in."
-msgstr ""
-"Renseignez les sujets pour lesquels vous voudriez être alerté·e quand une "
-"nouvelle aide est publiée."
+msgid "Choose a new password"
+msgstr "Choisissez un nouveau mot de passe"
+
+msgid "Leave empty to keep your existing password"
+msgstr "Laissez vide pour"
 
 msgid "Yes, I want to receive news about the service."
 msgstr "Je souhaite recevoir des actualités liées au service."
-
-msgid "Yes, I want to receive alerts when similar new aids are published."
-msgstr ""
-"Je souhaite recevoir des alertes quand des aides similaires sont publiées."
 
 msgid ""
 "We will send regular updates (no more than once a month) about the new "
@@ -59,14 +56,6 @@ msgid ""
 msgstr ""
 "Nous enverrons régulièmement (pas plus d'une fois par mois) des informations "
 "à propos des nouveautés sur le site."
-
-msgid ""
-"We will detect when newly published aids are similar to the ones you saved "
-"into one of your lists, and send you an e-mail alert when it happens."
-msgstr ""
-"Nous détecterons quand des aides récemment publiées seront similaires à "
-"l'une des aides enregistrées dans une de vos listes, et vous enverrons une "
-"alerte par e-mail le cas échéant."
 
 msgid "Your organization"
 msgstr "Votre structure professionnelle"
@@ -119,26 +108,36 @@ msgstr "inscription/"
 msgid "register-success/"
 msgstr "inscription-succès/"
 
-msgid "logout/"
-msgstr "deconnexion/"
-
-msgid "login-request/"
-msgstr "demande-connexion/"
-
-msgid "login-sent/"
-msgstr "connexion-envoyee/"
+msgid "login/"
+msgstr "connexion/"
 
 msgid "login/<uidb64>/<token>/"
 msgstr "connexion/<uidb64>/<token>/"
 
-msgid "login-result/"
-msgstr "connexion-resultat/"
+msgid "password-reset/"
+msgstr "raz-mot-de-passe/"
+
+msgid "password-reset-sent/"
+msgstr "mot-de-passe-envoyé/"
 
 msgid "profile/"
 msgstr "profil/"
 
 msgid "contributor-profile/"
 msgstr "profil-contributeur/"
+
+msgid "logout/"
+msgstr "deconnexion/"
+
+msgid ""
+"You are now logged in. Welcome! Please take a few seconds to update your "
+"profile."
+msgstr ""
+"Vous êtes maintenant connecté·e. Bienvenue ! Pourriez-vous prendre quelques "
+"secondes pour mettre à jour votre profil ?"
+
+msgid "You are now logged in. Welcome back!"
+msgstr "Vous êtes maintenant connecté·e. Bienvenue !"
 
 msgid "Your profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
@@ -686,15 +685,16 @@ msgstr "Mon compte"
 msgid "Log in to access your account"
 msgstr "Me connecter pour accéder à mon compte"
 
-msgid "Receive connection link"
-msgstr "Recevoir le lien de connexion"
+msgid "Login"
+msgstr "Connexion"
 
+#, python-format
 msgid ""
-"You don't need any password to log in. Instead, we will send you a "
-"connection link by email."
+"Forgot your password? <a href=\"%(password_reset_url)s\"> Request a new one."
+"</a>"
 msgstr ""
-"Aucun mot de passe n'est nécessaire pour vous connecter. Nous allons vous "
-"envoyer un lien de connexion par e-mail."
+"Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
+"\">Vous pouvez en demander un nouveau.</a>"
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
@@ -838,6 +838,28 @@ msgstr ""
 msgid "Update your personal data"
 msgstr "Mettre à jour vos données"
 
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Access to your account"
+msgstr "Accédez à votre compte"
+
+#, python-format
+msgid ""
+"Have you forgotten your password? <a href=\"%(password_reset_url)s\"> "
+"Request a new one.</a>"
+msgstr ""
+"Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
+"\">Vous pouvez en demander un nouveau.</a>"
+
+#, python-format
+msgid ""
+"Don't have an account yet? <a href=\"%(register_url)s\">Proceed to the "
+"registration form.</a>"
+msgstr ""
+"Vous n'avez pas encore de compte ? <a href=\"%(register_url)s\">Rendez-vous "
+"au formulaire d'inscription.</a>"
+
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
 
@@ -850,19 +872,17 @@ msgstr ""
 msgid "You will <a href=\"%(login_url)s\">have to try again.</a>"
 msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 
-msgid "Log in"
-msgstr "Connexion"
+msgid "Password reset"
+msgstr "Récupération du mot de passe"
 
-msgid "Access to your account"
-msgstr "Accédez à votre compte"
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
 
-#, python-format
-msgid ""
-"Don't have an account yet? <a href=\"%(register_url)s\">Proceed to the "
-"registration form.</a>"
-msgstr ""
-"Vous n'avez pas encore de compte ? <a href=\"%(register_url)s\">Rendez-vous "
-"au formulaire d'inscription.</a>"
+msgid "Request a new one"
+msgstr "En demander un nouveau"
+
+msgid "Request a new password"
+msgstr "Demander un nouveau mot de passe"
 
 msgid "Your log in request was acknowledged"
 msgstr "Votre demande a été prise en compte"
@@ -897,12 +917,6 @@ msgid ""
 msgstr ""
 "Si vous n'arrivez pas à vous connecter, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
-
-msgid "You are now logged in"
-msgstr "Vous êtes maintenant connecté·e"
-
-msgid "Congratulations!"
-msgstr "Félicitations !"
 
 msgid "Update your profile"
 msgstr "Mettre à jour votre profil"
