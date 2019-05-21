@@ -22,7 +22,7 @@
 
     {% url 'password_reset' as password_reset_url %}
     <p class="warning">
-        <span class="fas fa-key"></span>
+        <span class="fas fa-lightbulb"></span>
         {% blocktrans trimmed %}
         Have you forgotten your password? <a href="{{ password_reset_url }}">
         Request a new one.</a>
@@ -30,7 +30,7 @@
 
     {% url 'register' as register_url %}
     <p class="info">
-        <span class="fas fa-key"></span>
+        <span class="fas fa-user-plus"></span>
         {% blocktrans trimmed %}
         Don't have an account yet? <a href="{{ register_url }}">Proceed to
         the registration form.</a>
