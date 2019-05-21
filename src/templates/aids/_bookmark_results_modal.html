@@ -56,7 +56,7 @@
                     </button>
                 </form>
                 {% else %}
-                    {% url 'login_request' as login_url %}
+                    {% url 'login' as login_url %}
                     {% url 'register' as register_url %}
                     <p>{% blocktrans trimmed %}
                         You need to be logged in to use this feature.
