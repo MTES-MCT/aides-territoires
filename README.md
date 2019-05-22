@@ -196,10 +196,26 @@ Le déploiement se fait avec
 [Ansible](https://docs.ansible.com/ansible/latest/index.html) et ne nécessite
 qu'une commande.
 
-À la racine du dépôt git:
+Un script `deploy.py`, à la racine du dépôt git, est fourni pour faciliter les
+opérations.
+
+Pour déployer le code et reconstruire le projet en recette :
 
 ```
-ansible-playbook deployment/site.yml
+python deploy.py build -e stage
+```
+
+Pour déployer en production :
+
+```
+python deploy.py build -e prod
+```
+
+Pour faire tourner l'intégralité du script de livraison (y compris mises à jour
+de paquets, installations de certificats, configuration de la stack, etc.) :
+
+```
+python deploy.py full -e stage prod
 ```
 
 [Plus de détails dans le répertoire
