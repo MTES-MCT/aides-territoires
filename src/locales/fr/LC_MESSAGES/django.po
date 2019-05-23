@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-21 12:20+0200\n"
+"POT-Creation-Date: 2019-05-23 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,11 +217,11 @@ msgstr "Nom de l'aide"
 msgid "Who can apply to this aid?"
 msgstr "Qui peut prétendre à cette aide ?"
 
-msgid "Aid backers"
-msgstr "Apporteurs de l'aide"
+msgid "Aid backer(s)"
+msgstr "Apporteur(s) de l'aide"
 
 msgid "…or add a new backer"
-msgstr "…ou ajouter un nouvel apporteur"
+msgstr "…ou ajoutez un nouvel apporteur"
 
 msgid "Types of expenses covered"
 msgstr "Types de dépenses / actions couvertes"
@@ -252,6 +252,9 @@ msgstr ""
 "Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
+msgid "Select one or several backers among the list…"
+msgstr "Sélectionnez un ou plusieurs apporteurs parmi la liste…"
+
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
 "one."
@@ -271,6 +274,9 @@ msgstr "Pertinence"
 msgid "Publication date"
 msgstr "Date de publication"
 
+msgid "Submission deadline"
+msgstr "Date de clôture"
+
 msgid "Your project's location"
 msgstr "Emplacement de votre projet"
 
@@ -279,15 +285,6 @@ msgstr "Recherche textuelle"
 
 msgid "Aid title, keyword, etc."
 msgstr "Titre, sujet, mot-clé, etc."
-
-msgid "Recent aids"
-msgstr "Aides récentes"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "Only display aids created less than 30 days ago"
-msgstr "N'afficher que les aides référencées au cours des 30 derniers jours"
 
 msgid "Apply before…"
 msgstr "Candidater avant…"
@@ -306,6 +303,9 @@ msgstr "Actions concernées"
 
 msgid "Call for projects"
 msgstr "Appel à projets"
+
+msgid "Yes"
+msgstr "Oui"
 
 msgid "Only show calls for project / expressions of interest"
 msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
@@ -477,9 +477,6 @@ msgstr "Date de pré-dépôt"
 msgid "When is the pre-deposit date, if applicable?"
 msgstr "Quelle est la date de pré-dépôt des dossiers, si applicable ?"
 
-msgid "Submission deadline"
-msgstr "Date de clôture"
-
 msgid "When is the submission deadline?"
 msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 
@@ -572,6 +569,9 @@ msgstr "Le changement de statut de votre aide a bien été pris en compte."
 
 msgid "Your aid was deleted."
 msgstr "Votre aide a été supprimée."
+
+msgid "Number of aids"
+msgstr "Nombre d'aides"
 
 msgid "Backer"
 msgstr "Apporteur"
@@ -675,9 +675,6 @@ msgstr "inscription-liste/"
 
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
-
-msgid "Number of aids"
-msgstr "Nombre d'aides"
 
 msgid "Tag"
 msgstr "Mot clé"
