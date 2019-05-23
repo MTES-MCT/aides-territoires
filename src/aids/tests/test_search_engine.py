@@ -378,21 +378,6 @@ def test_full_text_advanced_syntax(client, perimeters):
     assert res.context['paginator'].count == 1
 
 
-def test_the_only_recent_filter(client, perimeters, aids):
-    """Display ALL the aids."""
-
-    url = reverse('search_view')
-    res = client.get(url, data={'recent_only': 'Oui '})
-    assert res.context['paginator'].count == 105
-
-    long_ago = timezone.now() - timedelta(days=50)
-    for aid in aids[:5]:
-        aid.date_created = long_ago
-        aid.save()
-    res = client.get(url, data={'recent_only': 'Oui'})
-    assert res.context['paginator'].count == 100
-
-
 def test_the_call_for_project_only_filter(client, perimeters, aids):
 
     for aid in aids[:5]:
