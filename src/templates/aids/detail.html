@@ -182,9 +182,9 @@
             {% endblocktrans %}</p>
             <dl>
                 <dt>{{ _('Origin url') }}</dt>
-                <dd>{{ aid.import_data_url }}</dd>
+                <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
                 <dt>{{ _('Import share license') }}</dt>
-                <dd>{{ aid.get_import_share_licence_display }}</dd>
+                <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
                 <dt>{{ _('Last data access') }}</dt>
                 <dd>{{ aid.import_last_access|date }}</dd>
             </dl>

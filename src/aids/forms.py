@@ -1,11 +1,9 @@
 import re
 import operator
-from datetime import timedelta
 
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import (AutocompleteSelectMultiple,

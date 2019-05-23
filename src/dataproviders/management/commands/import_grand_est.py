@@ -37,6 +37,9 @@ class Command(CrawlerImportCommand):
     def extract_import_data_url(self, line):
         return line['current_url']
 
+    def extract_origin_url(self, line):
+        return line['current_url']
+
     def extract_import_share_licence(self, line):
         return Aid.IMPORT_LICENCES.unknown
 
