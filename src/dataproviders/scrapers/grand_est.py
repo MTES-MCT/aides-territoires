@@ -23,8 +23,7 @@ class GrandEstSpider(scrapy.Spider):
         links = response.css('a.card')
         for link in links:
             link_url = link.css('::attr("href")').get()
-            absolute_url = self.BASE_URL + link_url
-            request = scrapy.Request(absolute_url, callback=self.aid_parse)
+            request = scrapy.Request(link_url, callback=self.aid_parse)
 
             card_header = link.css('div.txt.new_txt span.new_type::text').get()
             if 'Date limite de dépôt' in card_header:
