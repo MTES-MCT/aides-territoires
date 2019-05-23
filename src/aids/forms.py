@@ -107,7 +107,10 @@ class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
     class Media:
-        js = ['admin/js/tags_autocomplete.js']
+        js = [
+            'admin/js/jquery.init.js',
+            'admin/js/tags_autocomplete.js'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
