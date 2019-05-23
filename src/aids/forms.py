@@ -137,14 +137,6 @@ class AidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': _('Aid title, keyword, etc.')}))
-    # We use a multiple choice field so the filter rendering remains
-    # consistent with the other filters
-    recent_only = forms.MultipleChoiceField(
-        label=_('Recent aids'),
-        choices=(
-            (_('Yes'), _('Only display aids created less than 30 days ago')),),
-        required=False,
-        widget=MultipleChoiceFilterWidget)
     apply_before = forms.DateField(
         label=_('Apply before…'),
         required=False,
@@ -219,11 +211,6 @@ class AidSearchForm(forms.Form):
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
             qs = qs.filter(submission_deadline__lt=apply_before)
-
-        recent_only = self.cleaned_data.get('recent_only', False)
-        if recent_only:
-            a_month_ago = timezone.now() - timedelta(days=30)
-            qs = qs.filter(date_created__gte=a_month_ago.date())
 
         call_for_projects_only = self.cleaned_data.get(
             'call_for_projects_only', False)
