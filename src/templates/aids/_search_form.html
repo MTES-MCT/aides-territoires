@@ -13,8 +13,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <input id="id_call_for_projects_only" name="call_for_projects_only" type="text"
-                        placeholder="{{ _('Apply before…') }}" />
+                    {% include '_search_field.html' with field=form.apply_before %}
                 </div>
 
                 <div class="col-md-3">
@@ -30,7 +29,12 @@
                     {% include '_search_field.html' with field=form.perimeter %}
                 </div>
                 <div class="col-md-3 col-checkbox">
-                    {% include '_search_field.html' with field=form.call_for_projects_only %}
+                    <div class="form-group">
+                        {{ form.call_for_projects_only }}
+                        <label>
+                            {{ form.call_for_projects_only.label }}
+                        </label>
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <btn class="btn btn-block btn-outline-primary">

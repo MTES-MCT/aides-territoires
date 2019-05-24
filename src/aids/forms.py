@@ -161,7 +161,6 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=TECHNICAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
-
     mobilization_step = forms.MultipleChoiceField(
         label=_('Project progress'),
         required=False,
@@ -172,17 +171,9 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.DESTINATIONS,
         widget=forms.CheckboxSelectMultiple)
-    call_for_projects_only = forms.MultipleChoiceField(
-        label=_('Call for projects'),
-        choices=((
-            _('Yes'),
-            _('AAP / AMI uniquement')),),
-        required=False,
-        widget=MultipleChoiceFilterWidget)
-    targeted_audiances = forms.MultipleChoiceField(
-        label=_('I am...'),
-        required=False,
-        choices=Aid.AUDIANCES)
+    call_for_projects_only = forms.BooleanField(
+        label=_('AAP / AMI uniquement'),
+        required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
