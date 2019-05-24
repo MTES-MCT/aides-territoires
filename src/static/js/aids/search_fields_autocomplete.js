@@ -24,4 +24,10 @@ $(document).ready(function () {
         width: '',
         placeholder: catalog.scale_placeholder,
     });
+    $('#id_targeted_audiances').select2({
+        language: 'fr',
+        theme: 'bootstrap4',
+        width: '',
+        placeholder: catalog.scale_placeholder,
+    });
 });
