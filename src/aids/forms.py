@@ -15,18 +15,22 @@ from tags.fields import TagChoiceField
 from aids.models import Aid
 
 
+FINANCIAL_AIDS = (
+    ('grant', _('Grant')),
+    ('loan', _('Loan')),
+    ('recoverable_advance', _('Recoverable advance')),
+    ('interest_subsidy', _('Interest subsidy')),
+)
+
+TECHNICAL_AIDS = (
+    ('guidance', _('Guidance')),
+    ('networking', _('Networking')),
+    ('valorisation', _('Valorisation')),
+)
+
 AID_TYPES = (
-    (_('Financial aids'), (
-        ('grant', _('Grant')),
-        ('loan', _('Loan')),
-        ('recoverable_advance', _('Recoverable advance')),
-        ('interest_subsidy', _('Interest subsidy')),
-    )),
-    (_('Technical and methodological aids'), (
-        ('guidance', _('Guidance')),
-        ('networking', _('Networking')),
-        ('valorisation', _('Valorisation')),
-    )),
+    (_('Financial aids'), FINANCIAL_AIDS),
+    (_('Technical and methodological aids'), TECHNICAL_AIDS),
 )
 
 
@@ -146,24 +150,33 @@ class AidSearchForm(forms.Form):
         label=_('Apply before…'),
         required=False,
         widget=forms.TextInput(
-            attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
-    aid_types = forms.MultipleChoiceField(
-        label=_('Aid type'),
+            attrs={'type': 'date', 'placeholder': _('Apply before…')}))
+    financial_aids = forms.MultipleChoiceField(
+        label=_('Financial aids'),
         required=False,
-        choices=AID_TYPES)
+        choices=FINANCIAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+    technical_aids = forms.MultipleChoiceField(
+        label=_('Technical aids'),
+        required=False,
+        choices=TECHNICAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+
     mobilization_step = forms.MultipleChoiceField(
         label=_('Project progress'),
         required=False,
-        choices=Aid.STEPS)
+        choices=Aid.STEPS,
+        widget=forms.CheckboxSelectMultiple)
     destinations = forms.MultipleChoiceField(
         label=_('Concerned actions'),
         required=False,
-        choices=Aid.DESTINATIONS)
+        choices=Aid.DESTINATIONS,
+        widget=forms.CheckboxSelectMultiple)
     call_for_projects_only = forms.MultipleChoiceField(
         label=_('Call for projects'),
         choices=((
             _('Yes'),
-            _('Only show calls for project / expressions of interest')),),
+            _('AAP / AMI uniquement')),),
         required=False,
         widget=MultipleChoiceFilterWidget)
     targeted_audiances = forms.MultipleChoiceField(
