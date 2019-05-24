@@ -126,7 +126,6 @@ class AidSearchForm(forms.Form):
     ORDER_BY = (
         ('relevance', _('Relevance')),
         ('publication_date', _('Publication date')),
-        ('submission_deadline', _('Submission deadline')),
     )
 
     perimeter = PerimeterChoiceField(
@@ -169,6 +168,10 @@ class AidSearchForm(forms.Form):
             _('Only show calls for project / expressions of interest')),),
         required=False,
         widget=MultipleChoiceFilterWidget)
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('Who can apply to this aid?'),
+        required=False,
+        choices=Aid.AUDIANCES)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -236,6 +239,10 @@ class AidSearchForm(forms.Form):
             qs = qs \
                 .filter(search_vector=query) \
                 .annotate(rank=SearchRank(F('search_vector'), query))
+
+        targeted_audiances = self.cleaned_data.get('targeted_audiances', None)
+        if targeted_audiances:
+            qs = qs.filter(targeted_audiances__overlap=targeted_audiances)
 
         return qs
 
