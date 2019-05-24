@@ -1,4 +1,6 @@
 .vscode
+.idea/
+aides.iml
 node_modules
 yarn-error.log
 
