@@ -112,60 +112,25 @@ section.aids {
             @extend .d-none;
             @extend .d-md-block;
 
-            nav {
-                @extend .card-header;
-
-                ul {
-                    @extend .nav;
-                    @extend .nav-tabs;
-                    @extend .card-header-tabs;
-
-                    li {
-                        @extend .nav-item;
-
-                        a {
-                            @extend .nav-link;
-                            font-weight: bolder;
-                        }
-                        a.active {
-                            font-weight: normal;
-                        }
-                    }
-                }
-            }
-
             form {
                 @extend .card-body;
-                @extend .tab-content;
 
-                div.form-group {
-                    @extend .col-md-4;
+                div.col-checkbox {
+                    display: flex;
+
+                    div.form-group {
+                        align-self: center;
+                    }
                 }
 
-                button {
-                    @extend .mb-3;
-                    @extend .ml-3;
-                    align-self: flex-end;
-                }
+                ul, li {
+                    display: inline;
+                    margin: 0;
+                    padding: 0;
 
-                &>div {
-                    @extend .tab-pane;
-                }
-            }
-
-            div#filters {
-                @extend .card-body;
-                padding-top: 0;
-                @extend .pb-3;
-
-                &:empty {
-                    display: none;
-                }
-
-                button {
-                    @extend .mb-1;
-                    @extend .btn;
-                    @extend .btn-success;
+                    label {
+                        @extend .mr-2;
+                    }
                 }
             }
         }
