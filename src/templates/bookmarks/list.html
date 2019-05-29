@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}{{ _('Bookmarks') }}{% endblock %}
+
+{% block sectionid %}bookmarks{% endblock %}
+
+{% block content %}
+<h1>{{ _('Your bookmarks') }}</h1>
+
+{% for bookmark in bookmarks %}
+<div class="bookmark">
+<div>
+    <h2>{{ bookmark.date_created|date:'SHORT_DATETIME_FORMAT' }}</h2>
+
+    <a href="{% url 'search_view' %}?{{ bookmark.querystring }}">
+        {{ _('See results') }}
+    </a>
+</div>
+</div>
+{% empty %}
+<p class="info">{% blocktrans trimmed %}
+    You don't have any bookmarks yet. You can save bookmarks by using the
+    search engine and clicking on the "save search" button.
+{% endblocktrans %}</p>
+{% endfor %}
+{% endblock %}
