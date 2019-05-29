@@ -36,73 +36,85 @@ def aids(user, backer):
         backers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['commune'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['department'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['region'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['epci'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['lessor'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['association'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['private_person'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
-        aid_types=['grant', 'loan'])
+        aid_types=['grant', 'loan'],
+        targeted_audiances=['researcher'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
-        aid_types=['loan'])
+        aid_types=['loan'],
+        targeted_audiances=['private_sector'])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
-        aid_types=['loan'])
+        aid_types=['loan'],
+        targeted_audiances=[])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
-        aid_types=[])
+        aid_types=[],
+        targeted_audiances=[])
     AidFactory(
         author=user,
         backers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
-        aid_types=['networking', 'return_fund'])
+        aid_types=['networking', 'return_fund'],
+        targeted_audiances=[])
 
     qs = Aid.objects.all().order_by('id')
     return qs
@@ -179,3 +191,122 @@ def test_search_form_filter_by_deadline(aids):
     form = AidSearchForm({'apply_before': '2017-12-31'})
     qs = form.filter_queryset(aids)
     assert qs.count() == 0
+
+
+def test_search_from_filter_by_audiances(aids):
+    form = AidSearchForm({'targeted_audiances': ['commune']})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 1
+    for aid in qs:
+        assert 'commune' in aid.targeted_audiances
+
+    form = AidSearchForm({'targeted_audiances': [
+        'commune', 'department'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 2
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+        'commune', 'department', 'region'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 3
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+            'commune', 'department', 'region', 'epci'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 4
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'lessor'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 5
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances,
+            'lessor' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'lessor', 'association'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 6
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances,
+            'lessor' in aid.targeted_audiances,
+            'association' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'lessor', 'association',
+            'private_person'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 7
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances,
+            'lessor' in aid.targeted_audiances,
+            'association' in aid.targeted_audiances,
+            'private_person' in aid.targeted_audiances))
+
+    form = AidSearchForm({'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'lessor', 'association',
+            'private_person', 'researcher'
+            ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 8
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances,
+            'lessor' in aid.targeted_audiances,
+            'association' in aid.targeted_audiances,
+            'private_person' in aid.targeted_audiances,
+            'researcher' in aid.targeted_audiances,))
+
+    form = AidSearchForm({'targeted_audiances': [
+        'commune', 'department', 'region', 'epci', 'lessor', 'association',
+        'private_person', 'researcher', 'private_sector'
+        ]})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 9
+    for aid in qs:
+        assert any((
+            'commune' in aid.targeted_audiances,
+            'department' in aid.targeted_audiances,
+            'region' in aid.targeted_audiances,
+            'epci' in aid.targeted_audiances,
+            'lessor' in aid.targeted_audiances,
+            'association' in aid.targeted_audiances,
+            'private_person' in aid.targeted_audiances,
+            'researcher' in aid.targeted_audiances,
+            'private_sector' in aid.targeted_audiances))
