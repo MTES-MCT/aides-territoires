@@ -1,9 +1,9 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
@@ -11,10 +11,7 @@ from bookmarks.models import Bookmark
 from aids.forms import AidSearchForm
 
 
-class BookmarkList(LoginRequiredMixin, ListView):
-    template_name = 'bookmarks/list.html'
-    context_object_name = 'bookmarks'
-
+class BookmarkMixin:
     def get_queryset(self):
         qs = Bookmark.objects \
             .filter(owner=self.request.user) \
@@ -22,8 +19,14 @@ class BookmarkList(LoginRequiredMixin, ListView):
         return qs
 
 
+class BookmarkList(LoginRequiredMixin, BookmarkMixin, ListView):
+    template_name = 'bookmarks/list.html'
+    context_object_name = 'bookmarks'
+
+
 @method_decorator(csrf_exempt, name='dispatch')
-class BookmarkCreate(LoginRequiredMixin, MessageMixin, CreateView):
+class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
+                     CreateView):
     """Create a bookmark by saving a search view querystring.
 
     Note: the search form, by default, uses the GET method. Hence, we
@@ -39,13 +42,22 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, CreateView):
     def form_valid(self, form):
         querystring = self.request.POST.urlencode()
         Bookmark.objects.create(
-            owner=self.request.user,
-            querystring=querystring)
+            owner=self.request.user, querystring=querystring)
         self.messages.success(_('Your new bookmark was successfully created.'))
-        redirect_url = reverse('bookmark_list_view')
-        return HttpResponseRedirect(redirect_url)
+        redirect_url = reverse('search_view')
+        return HttpResponseRedirect('{}?{}'.format(redirect_url, querystring))
 
     def form_invalid(self, form):
         self.messages.error(_('Something went wrong. Please try again.'))
         redirect_url = reverse('search_view')
         return HttpResponseRedirect(redirect_url)
+
+
+class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
+                     DeleteView):
+    success_url = reverse_lazy('bookmark_list_view')
+
+    def delete(self, *args, **kwargs):
+        res = super().delete(*args, **kwargs)
+        self.messages.success('Your bookmark was deleted.')
+        return res

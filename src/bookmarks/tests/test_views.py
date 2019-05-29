@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 
 from bookmarks.models import Bookmark
+from bookmarks.factories import BookmarkFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -35,3 +36,34 @@ def test_bookmark_create_view(user, client):
     bookmark = bookmarks[0]
     assert bookmark.owner == user
     assert bookmark.querystring == 'text=Ademe&call_for_projects_only=on'
+
+
+def test_delete_bookmark(user, client):
+    BookmarkFactory.create_batch(5, owner=user)
+    bookmarks = Bookmark.objects.all()
+    assert bookmarks.count() == 5
+
+    bookmark_id = bookmarks[0].id
+
+    url = reverse('bookmark_delete_view', args=[bookmark_id])
+    client.force_login(user)
+    res = client.post(url, data={'pk': bookmark_id})
+    assert res.status_code == 302
+    assert bookmarks.count() == 4
+
+    pks = bookmarks.values_list('id', flat=True)
+    assert bookmark_id not in pks
+
+
+def test_user_cannot_delete_someone_else_bookmark(user, client):
+    BookmarkFactory.create_batch(5)
+    bookmarks = Bookmark.objects.all()
+    assert bookmarks.count() == 5
+
+    bookmark_id = bookmarks[0].id
+
+    url = reverse('bookmark_delete_view', args=[bookmark_id])
+    client.force_login(user)
+    res = client.post(url, data={'pk': bookmark_id})
+    assert res.status_code == 404
+    assert bookmarks.count() == 5

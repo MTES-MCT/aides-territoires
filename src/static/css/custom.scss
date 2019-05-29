@@ -579,6 +579,15 @@ section#bookmarks {
                 @extend .btn;
                 @extend .btn-primary;
             }
+
+            form.delete-form {
+                float: right;
+
+                button {
+                    @extend .btn-danger;
+                    @include icon(before, $fa-var-exclamation-circle);
+                }
+            }
         }
     }
 }

@@ -16,6 +16,13 @@
     <a href="{% url 'search_view' %}?{{ bookmark.querystring }}">
         {{ _('See results') }}
     </a>
+
+    <form class="delete-form" action="{% url 'bookmark_delete_view' bookmark.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            {{ _('Delete this bookmark') }}
+        </button>
+    </form>
 </div>
 </div>
 {% empty %}
