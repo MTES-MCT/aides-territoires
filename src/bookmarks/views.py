@@ -27,7 +27,7 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, CreateView):
     """Create a bookmark by saving a search view querystring.
 
     Note: the search form, by default, uses the GET method. Hence, we
-    don't pass the form a csrf token and that's why we had to excempt this
+    don't pass the form a csrf token and that's why we had to exempt this
     view from csrf protection.
     """
 
