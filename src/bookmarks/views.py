@@ -13,7 +13,7 @@ from aids.forms import AidSearchForm
 
 class BookmarkList(LoginRequiredMixin, ListView):
     template_name = 'bookmarks/list.html'
-    context_ojbect_name = 'bookmarks'
+    context_object_name = 'bookmarks'
 
     def get_queryset(self):
         qs = Bookmark.objects \
