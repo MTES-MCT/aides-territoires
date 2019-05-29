@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 14:45+0200\n"
+"POT-Creation-Date: 2019-05-29 10:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,6 +309,9 @@ msgstr "Oui"
 
 msgid "Only show calls for project / expressions of interest"
 msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
+
+msgid "I am..."
+msgstr "Je suis..."
 
 msgid "Order by"
 msgstr "Trier par"
@@ -1284,6 +1287,9 @@ msgstr "Cette aide provient d'une source de données tierce"
 
 msgid "Origin url"
 msgstr "URL d'origine"
+
+msgid "NA"
+msgstr ""
 
 msgid "Import share license"
 msgstr "License de partage"
