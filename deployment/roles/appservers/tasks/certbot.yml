@@ -25,7 +25,7 @@
   cron:
     name: Daily certificate renewal
     special_time: daily
-    job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
+    job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\""
     state: present
 
 - name: Make sure certificate directory exists for OpenSSL
