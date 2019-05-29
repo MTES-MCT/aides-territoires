@@ -560,24 +560,25 @@ section#tags {
     }
 }
 
-section#partner {
-    @extend .py-5;
+section#bookmarks {
+    div.bookmark {
+        @extend .card;
+        @extend .shadow-sm;
+        @extend .rounded;
+        @extend .mb-3;
 
-    h1 {
-        @extend .text-center;
-    }
+        div {
+            @extend .card-body;
 
-    div {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+            h2 {
+                @extend .card-title;
+                @extend .h3;
+            }
 
-    img{
-        @extend .my-3;
-        @extend .mx-4;
-
-        height: 60px;
+            a {
+                @extend .btn;
+                @extend .btn-primary;
+            }
+        }
     }
 }
