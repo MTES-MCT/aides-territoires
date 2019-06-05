@@ -79,8 +79,8 @@ class BaseAidForm(forms.ModelForm):
 
         custom_help_text = {
             'tags':
-                 _('Add up to 16 keywords to describe your aid (separated '
-                   'by ",")'),
+                ('Add up to 16 keywords to describe your aid (separated '
+                    'by ",")'),
             'backers':
                 _('Select one or several backers among the list…'),
             'new_backer':
