@@ -110,7 +110,7 @@ section.aids {
         div.form-container {
             @extend .card;
             @extend .d-none;
-            @extend .d-md-block;
+            @extend .d-lg-block;
 
             form {
                 @extend .card-body;
@@ -120,6 +120,7 @@ section.aids {
 
                     div.form-group {
                         align-self: center;
+                        margin: 0;
                     }
                 }
 
@@ -132,6 +133,18 @@ section.aids {
                         @extend .mr-2;
                     }
                 }
+
+                button.search-btn {
+                    @extend .btn;
+                    @extend .btn-block;
+                    @extend .btn-success;
+                }
+
+                button.bookmark-btn {
+                    @extend .btn;
+                    @extend .btn-block;
+                    @extend .btn-outline-primary;
+                }
             }
         }
 
@@ -140,7 +153,7 @@ section.aids {
             @extend .fixed-bottom;
             @extend .navbar-light;
             @extend .bg-primary;
-            @extend .d-md-none;
+            @extend .d-lg-none;
 
             a {
                 @extend .btn;

@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <button class="search-btn" type="submit">
                         <span class="fas fa-search"></span>
                         {{ _('Search') }}
                     </button>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <button type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}" class="btn btn-block btn-outline-primary">
+                    <button class="bookmark-btn" type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}">
                         <span class="fas fa-bell"></span>
                         {{ _('Save bookmark') }}
                     </button>
