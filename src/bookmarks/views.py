@@ -2,13 +2,14 @@ from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
-from bookmarks.models import Bookmark
+from geofr.models import Perimeter
 from aids.forms import AidSearchForm
+from bookmarks.models import Bookmark
 
 
 class BookmarkMixin:
@@ -41,9 +42,13 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         return AidSearchForm(self.request.POST)
 
     def form_valid(self, form):
+
         querystring = self.request.POST.urlencode()
+        title = self.generate_user_friendly_title(form)
         Bookmark.objects.create(
-            owner=self.request.user, querystring=querystring)
+            owner=self.request.user,
+            title=title,
+            querystring=querystring)
 
         bookmarks_url = reverse('bookmark_list_view')
         message = _('Your new bookmark was successfully created. '
@@ -57,6 +62,24 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         self.messages.error(_('Something went wrong. Please try again.'))
         redirect_url = reverse('search_view')
         return HttpResponseRedirect(redirect_url)
+
+    def generate_user_friendly_title(self, form):
+        """Generates a readable title for the bookmark."""
+
+        title_elements = []
+
+        search = form.cleaned_data.get('text', None)
+        if search:
+            title_elements.append('« {} »'.format(search))
+
+        perimeter = form.cleaned_data.get('perimeter', None)
+        if perimeter:
+            title_elements.append(perimeter.name)
+
+        if len(title_elements) == 0:
+            title_elements = [ugettext('Misc')]
+
+        return ', '.join(title_elements)
 
 
 class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,

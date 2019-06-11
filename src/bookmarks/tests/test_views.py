@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 
+from geofr.factories import PerimeterFactory
 from bookmarks.models import Bookmark
 from bookmarks.factories import BookmarkFactory
 
@@ -36,6 +37,35 @@ def test_bookmark_create_view(user, client):
     bookmark = bookmarks[0]
     assert bookmark.owner == user
     assert bookmark.querystring == 'text=Ademe&call_for_projects_only=on'
+
+
+def test_bookmark_title(user, client):
+    url = reverse('bookmark_create_view')
+    client.force_login(user)
+    client.post(url, data={
+        'text': 'Ademe',
+    })
+    bookmarks = Bookmark.objects.order_by('id')
+    bookmark = bookmarks.last()
+    assert bookmark.title == '« Ademe »'
+
+    client.post(url, data={
+        'text': 'Test',
+        'perimeter': PerimeterFactory(name='Testville').pk,
+    })
+    bookmark = bookmarks.last()
+    assert bookmark.title == '« Test », Testville'
+
+    client.post(url, data={
+        'perimeter': PerimeterFactory(name='Testville2').pk,
+    })
+    bookmark = bookmarks.last()
+    assert bookmark.title == 'Testville2'
+
+    client.post(url, data={})
+    bookmarks = Bookmark.objects.all()
+    bookmark = bookmarks.last()
+    assert bookmark.title == 'Misc'
 
 
 def test_delete_bookmark(user, client):

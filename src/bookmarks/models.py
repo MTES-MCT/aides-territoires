@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import QueryDict
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -12,6 +13,9 @@ class Bookmark(models.Model):
         on_delete=models.CASCADE)
     querystring = models.TextField(
         _('Querystring'))
+    title = models.CharField(
+        _('Title'),
+        max_length=250)
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
