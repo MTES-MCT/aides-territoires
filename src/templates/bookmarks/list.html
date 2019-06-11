@@ -11,7 +11,10 @@
 {% for bookmark in bookmarks %}
 <div class="bookmark">
 <div>
-    <h2>{{ bookmark.date_created|date:'SHORT_DATETIME_FORMAT' }}</h2>
+    <h2>
+        {{ bookmark.title }}<br />
+        <small>{{ bookmark.date_created|date:'SHORT_DATETIME_FORMAT' }}</small>
+    </h2>
 
     <a href="{% url 'search_view' %}?{{ bookmark.querystring }}">
         {{ _('See results') }}
