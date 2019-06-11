@@ -12,6 +12,7 @@ from aids.forms import AidSearchForm
 
 
 class BookmarkMixin:
+
     def get_queryset(self):
         qs = Bookmark.objects \
             .filter(owner=self.request.user) \
@@ -43,7 +44,12 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         querystring = self.request.POST.urlencode()
         Bookmark.objects.create(
             owner=self.request.user, querystring=querystring)
-        self.messages.success(_('Your new bookmark was successfully created.'))
+
+        bookmarks_url = reverse('bookmark_list_view')
+        message = _('Your new bookmark was successfully created. '
+                    '<a href="%(url)s">You will find in in your bookmark '
+                    'list.</a>') % {'url': bookmarks_url}
+        self.messages.success(message)
         redirect_url = reverse('search_view')
         return HttpResponseRedirect('{}?{}'.format(redirect_url, querystring))
 
