@@ -26,7 +26,7 @@
             <label for="id_send_email_alert">
                 {{ _('Send email alerts upon new results') }}
             </label>
-            <input id="id_send_email_alert" type="checkbox" {{ bookmark.send_email_alert|yesno:"checked:" }} />
+            <input id="id_send_email_alert" name="send_email_alert" type="checkbox" {{ bookmark.send_email_alert|yesno:"checked," }} />
             <button type="submit">
                 {{ _('Update bookmark') }}
             </button>

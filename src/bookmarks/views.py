@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -92,7 +93,7 @@ class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         return res
 
 
-class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
+class BookmarkUpdate(LoginRequiredMixin, SuccessMessageMixin, BookmarkMixin,
                      UpdateView):
 
     form_class = BookmarkAlertForm
