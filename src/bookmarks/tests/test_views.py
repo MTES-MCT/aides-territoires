@@ -65,7 +65,7 @@ def test_bookmark_title(user, client):
     client.post(url, data={})
     bookmarks = Bookmark.objects.all()
     bookmark = bookmarks.last()
-    assert bookmark.title == 'Misc'
+    assert bookmark.title == 'Recherche diverse'
 
 
 def test_delete_bookmark(user, client):
@@ -97,3 +97,33 @@ def test_user_cannot_delete_someone_else_bookmark(user, client):
     res = client.post(url, data={'pk': bookmark_id})
     assert res.status_code == 404
     assert bookmarks.count() == 5
+
+
+def test_update_bookmark_alert_settings(user, client):
+    bookmark = BookmarkFactory(owner=user, send_email_alert=False)
+    url = reverse('bookmark_update_view', args=[bookmark.pk])
+    client.force_login(user)
+
+    client.post(url, data={
+        'send_email_alert': True
+    })
+    bookmark.refresh_from_db()
+    assert bookmark.send_email_alert
+
+    client.post(url, data={
+        'send_email_alert': False
+    })
+    bookmark.refresh_from_db()
+    assert not bookmark.send_email_alert
+
+
+def test_user_cannot_update_someone_else_bookmark(user, client):
+    bookmark = BookmarkFactory(send_email_alert=False)
+    url = reverse('bookmark_update_view', args=[bookmark.pk])
+    client.force_login(user)
+
+    client.post(url, data={
+        'send_email_alert': True
+    })
+    bookmark.refresh_from_db()
+    assert not bookmark.send_email_alert
