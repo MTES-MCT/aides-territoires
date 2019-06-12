@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
 from aids.forms import AidSearchForm
+from bookmarks.forms import BookmarkAlertForm
 from bookmarks.models import Bookmark
 
 
@@ -89,3 +90,12 @@ class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         res = super().delete(*args, **kwargs)
         self.messages.success('Your bookmark was deleted.')
         return res
+
+
+class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
+                     UpdateView):
+
+    form_class = BookmarkAlertForm
+    http_method_names = ['post']
+    success_url = reverse_lazy('bookmark_list_view')
+    success_message = _('The email notification settings was updated.')

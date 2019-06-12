@@ -1,7 +1,8 @@
 from django.urls import path, include
 from django.utils.translation import ugettext_lazy as _
 
-from bookmarks.views import BookmarkList, BookmarkCreate, BookmarkDelete
+from bookmarks.views import (BookmarkList, BookmarkCreate, BookmarkDelete,
+                             BookmarkUpdate)
 
 urlpatterns = [
     path('', BookmarkList.as_view(), name='bookmark_list_view'),
@@ -9,5 +10,7 @@ urlpatterns = [
     path('<int:pk>/', include([
         path(_('delete/'), BookmarkDelete.as_view(),
              name='bookmark_delete_view'),
+        path(_('update/'), BookmarkUpdate.as_view(),
+             name='bookmark_update_view'),
     ]))
 ]

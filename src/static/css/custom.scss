@@ -582,6 +582,7 @@ section#bookmarks {
 
         div {
             @extend .card-body;
+            position: relative;
 
             h2 {
                 @extend .card-title;
@@ -591,6 +592,12 @@ section#bookmarks {
             a {
                 @extend .btn;
                 @extend .btn-primary;
+            }
+
+            form.update-form {
+                position: absolute;
+                top: $card-spacer-x;
+                right: $card-spacer-x;
             }
 
             form.delete-form {
