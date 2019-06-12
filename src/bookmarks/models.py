@@ -15,6 +15,12 @@ class Bookmark(models.Model):
     title = models.CharField(
         _('Title'),
         max_length=250)
+    send_email_alert = models.BooleanField(
+        _('Send email alert'),
+        default=False)
+    latest_alert_date = models.DateTimeField(
+        _('Latest alert date'),
+        null=True)
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
