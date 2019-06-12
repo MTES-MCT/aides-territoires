@@ -1,21 +1,21 @@
 {% load i18n %}
-<div id="bookmark-modal" class="modal">
+<div id="bundle-modal" class="modal">
     <div class="modal-dialog">
         <section>
             <header>
-                <h1>{{ _('Bookmark this aid') }}</h1>
+                <h1>{{ _('Save this aid') }}</h1>
             </header>
             <div class="content">
                 {% if user.is_authenticated %}
-                    <form id="bookmark-form" method="post" action="">
+                    <form id="bundle-form" method="post" action="">
                         {% csrf_token %}
-                        {% include '_form_header.html' with form=bookmark_form %}
+                        {% include '_form_header.html' with form=bundle_form %}
 
                         {% if user_bundles %}
-                            {% include '_field_snippet.html' with field=bookmark_form.bundles %}
+                            {% include '_field_snippet.html' with field=bundle_form.bundles %}
                         {% endif %}
-                        {% include '_field_snippet.html' with field=bookmark_form.new_bundle %}
-                        <button id="bookmark-btn" type="submit">{{ _('Bookmark') }}</button>
+                        {% include '_field_snippet.html' with field=bundle_form.new_bundle %}
+                        <button id="bundle-btn" type="submit">{{ _('Save this aid') }}</button>
                         {% url 'bundle_list_view' as bundle_url %}
                     </form>
                     <span class="field-help">{% blocktrans trimmed %}

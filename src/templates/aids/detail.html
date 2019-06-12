@@ -26,10 +26,10 @@
     </h1>
 
     <div class="aid-actions js">
-        <button class="bookmark"
+        <button class="bundle"
             data-toggle="modal"
-            data-target="#bookmark-modal">
-            {{ _('Bookmark this aid') }}
+            data-target="#bundle-modal">
+            {{ _('Save to a bundle') }}
         </button>
 
         <button class="report-error"
@@ -209,17 +209,17 @@
 {% block footer %}
 {{ block.super }}
 {% include 'aids/_problem_report_modal.html' %}
-{% include 'aids/_bookmark_modal.html' %}
+{% include 'aids/_bundles_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script>
     // Translations strings
     var catalog = {
-        bookmark_waiting: '{{ _("Please stand by.") }}',
-        bookmark_success: '{% trans "We added this aid to the selected bundles." context 'js_catalog' %} <span class="fas fa-thumbs-up"></span>',
-        bookmark_error: '{{ _("Something went wrong. Please refresh the page.") }}',
+        bundle_waiting: '{{ _("Please stand by.") }}',
+        bundle_success: '{% trans "We added this aid to the selected bundles." context 'js_catalog' %} <span class="fas fa-thumbs-up"></span>',
+        bundle_error: '{{ _("Something went wrong. Please refresh the page.") }}',
     };
 </script>
-<script src="/static/js/aids/bookmark.js"></script>
+<script src="/static/js/aids/bundles.js"></script>
 {% endblock %}

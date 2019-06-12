@@ -481,7 +481,7 @@ section#aid {
                 @include icon(before, $fa-var-bullhorn);
             }
 
-            &.bookmark {
+            &.bundle {
                 @include icon(before, $fa-var-bars);
             }
         }
@@ -513,7 +513,7 @@ div#error-report-modal {
     }
 }
 
-div#bookmark-modal {
+div#bundle-modal {
     form {
         div.single-input {
             @extend .custom-control;
@@ -528,7 +528,7 @@ div#bookmark-modal {
             }
         }
 
-        button#bookmark-btn {
+        button#bundle-btn {
             @extend .btn-block;
             @extend .btn-primary;
         }
