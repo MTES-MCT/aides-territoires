@@ -7,7 +7,6 @@ from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
-from geofr.models import Perimeter
 from aids.forms import AidSearchForm
 from bookmarks.models import Bookmark
 
