@@ -26,7 +26,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        alert_threshold = timezone.now() - timedelta(days=60)
+        alert_threshold = timezone.now() - timedelta(
+            days=settings.BOOKMARK_ALERT_THRESHOLD)
         owner_bookmarks = self.get_bookmarks(alert_threshold)
 
         for owner, bookmarks in owner_bookmarks:
