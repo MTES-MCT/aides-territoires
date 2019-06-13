@@ -1,0 +1,22 @@
+De nouveaux résultats ont été trouvés pour vos recherches.
+
+Attention : il semble que votre messagerie ne prenne pas en compte les e-mails
+au format HTML. Il est possible que les liens ne s'affichent pas correctement.
+
+{% for bookmark, nb_aids, aids in new_aids %}
+{{ bookmark|safe }} : {{ nb_aids }} nouveaux résultats.
+https://{{ domain }}{{ bookmark.get_absolute_url|safe }}
+
+{% for aid in aids %}
+    * {{ aid.name|safe }}
+      https://{{ domain }}{{ aid.get_absolute_url|safe }}
+{% endfor %}{% if nb_aids > 3 %}
+    * Plus de résultats disponibles sur le site…
+{% endif %}
+{% endfor %}
+
+Configurez vos paramètres d'alerte :
+https://{{ domain }}{{ bookmarks_url|safe }}
+
+Bien cordialement,
+l'équipe d'Aides-territoires.

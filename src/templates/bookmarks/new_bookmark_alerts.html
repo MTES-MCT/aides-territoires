@@ -1,0 +1,45 @@
+{% extends 'emails/_base.html' %}
+
+{% block email_title %}Nouveaux résultats{% endblock %}
+
+{% block content %}
+
+<p>De nouveaux résultats ont été trouvés pour vos recherches.</p>
+
+{% for bookmark, nb_aids, aids in new_aids %}
+    <p>
+        <a href="https://{{ domain }}{{ bookmark.get_absolute_url|safe }}">
+            <strong>{{ bookmark|safe }}</strong> : {{ nb_aids }} nouveaux résultats.
+        </a>
+    </p>
+
+    <ul>
+    {% for aid in aids %}
+        <li>
+            <a href="https://{{ domain }}{{ aid.get_absolute_url|safe }}">
+                {{ aid.name|safe }}
+            </a>
+        </li>
+    {% endfor %}
+    {% if nb_aids > 3 %}
+        <li>
+            <a href="https://{{ domain }}{{ bookmark.get_absolute_url|safe }}">
+                Voir plus de résultats…
+            </a>
+        </li>
+    {% endif %}
+    </ul>
+
+{% endfor %}
+
+<p>
+    <a href="https://{{ domain }}{{ bookmarks_url|safe }}">
+        Voir vos recherches sauvegardées et configurer vos paramètres d'alerte.
+    </a>
+</p>
+
+<p>
+    Bien cordialement,<br />
+    l'équipe d'Aides-territoires.
+</p>
+{% endblock %}
