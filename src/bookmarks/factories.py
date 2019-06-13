@@ -11,3 +11,4 @@ class BookmarkFactory(DjangoModelFactory):
 
     owner = factory.SubFactory(UserFactory)
     querystring = 'text=ademe'
+    send_email_alert = True

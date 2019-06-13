@@ -1,3 +1,5 @@
+"""This is the "send email alerts upon new saved search results" feature."""
+
 from operator import attrgetter
 from itertools import groupby
 from datetime import timedelta
@@ -46,6 +48,7 @@ class Command(BaseCommand):
         """Returns bookmark with a latest alert date older than `threshold`."""
 
         bookmarks = Bookmark.objects \
+            .filter(send_email_alert=True) \
             .filter(
                 Q(latest_alert_date__isnull=True) |
                 Q(latest_alert_date__lte=threshold)) \

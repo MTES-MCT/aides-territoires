@@ -33,6 +33,16 @@ def test_command_with_matching_aids(user, mailoutbox):
     assert list(mailoutbox[0].to) == [user.email]
 
 
+def test_command_with_disabled_email_setting(user, mailoutbox):
+    BookmarkFactory(
+        owner=user,
+        send_email_alert=False,
+        querystring='text=test')
+    AidFactory.create_batch(5, name='test')
+    call_command('send_bookmarks_alerts')
+    assert len(mailoutbox) == 0
+
+
 def test_command_output_format(user, mailoutbox):
     BookmarkFactory(
         owner=user,
