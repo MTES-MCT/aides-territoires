@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 15:35+0200\n"
+"POT-Creation-Date: 2019-06-13 15:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,11 +247,6 @@ msgstr "Téléphone d'un contact en charge de l'aide"
 msgid "Is this a call for project / expressions of interest?"
 msgstr "S'agit-il d'un AAP / AMI ?"
 
-msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
-msgstr ""
-"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
-"virgules « , »)."
-
 msgid "Select one or several backers among the list…"
 msgstr "Sélectionnez un ou plusieurs apporteurs parmi la liste…"
 
@@ -261,6 +256,11 @@ msgid ""
 msgstr ""
 "Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
 "vous pouvez utiliser ce champ pour nous le communiquer."
+
+msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
+msgstr ""
+"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
+"virgules « , »)."
 
 msgid "Funding"
 msgstr "Financière"
@@ -585,6 +585,14 @@ msgstr "Querystring"
 msgid "Title"
 msgstr "Titre"
 
+msgid "Send email alert"
+msgstr ""
+
+#, fuzzy
+#| msgid "Start date"
+msgid "Latest alert date"
+msgstr "Date d'ouverture"
+
 msgid "Bookmark"
 msgstr "Sauvegarder"
 
@@ -596,6 +604,11 @@ msgstr "créer/"
 
 msgid "delete/"
 msgstr "supprimer/"
+
+#, fuzzy
+#| msgid "Date updated"
+msgid "update/"
+msgstr "Date de mise à jour"
 
 #, python-format
 msgid ""
@@ -610,6 +623,9 @@ msgstr "Une erreur est survenue. Merci de réessayer."
 
 msgid "Misc"
 msgstr "Recherche diverse"
+
+msgid "The email notification settings was updated."
+msgstr ""
 
 msgid "Add this aid to the following bundles:"
 msgstr "Ajouter cette aide aux listes suivantes :"
@@ -1066,27 +1082,6 @@ msgstr "Attention ! La date de soumission est imminente"
 msgid "Aid edition"
 msgstr "Édition de l'aide"
 
-msgid "Bookmark this aid"
-msgstr "Ajouter à une liste"
-
-#, python-format
-msgid ""
-"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
-"page</a>."
-msgstr ""
-"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
-"dédiée</a>."
-
-#, python-format
-msgid ""
-"You need to be logged in to save aids in custom bundles. <a href="
-"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
-"\">sign up for a new account</a>."
-msgstr ""
-"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
-"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
-"\"%(register_url)s\">enregistrez un nouveau compte</a>."
-
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
 
@@ -1138,6 +1133,29 @@ msgid ""
 "a new account</a>."
 msgstr ""
 "Vous devez être identifé·e pour utiliser cette fonctionnalité. <a href="
+"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
+"\"%(register_url)s\">enregistrez un nouveau compte</a>."
+
+#, fuzzy
+#| msgid "Delete this aid"
+msgid "Save this aid"
+msgstr "Supprimer cette aide"
+
+#, python-format
+msgid ""
+"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
+"page</a>."
+msgstr ""
+"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
+"dédiée</a>."
+
+#, python-format
+msgid ""
+"You need to be logged in to save aids in custom bundles. <a href="
+"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
+"\">sign up for a new account</a>."
+msgstr ""
+"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
@@ -1241,6 +1259,11 @@ msgstr "Votre recherche"
 
 msgid "Aid detail"
 msgstr "Détail de l'aide"
+
+#, fuzzy
+#| msgid "Save your aid"
+msgid "Save to a bundle"
+msgstr "Enregistrer votre aide"
 
 msgid "Description"
 msgstr "Description de l'aide"
@@ -1392,6 +1415,12 @@ msgstr "Vos recherches sauvegardées"
 msgid "See results"
 msgstr "Voir les résultats"
 
+msgid "Send email alerts upon new results"
+msgstr "M'alerter par e-mail"
+
+msgid "Update bookmark"
+msgstr "Sauvegarder"
+
 msgid "Delete this bookmark"
 msgstr "Supprimer cette recherche"
 
@@ -1399,8 +1428,9 @@ msgid ""
 "You don't have any bookmarks yet. You can save bookmarks by using the search "
 "engine and clicking on the \"save search\" button."
 msgstr ""
-"Vous n'avez sauvegardé aucune recherche. Vous pouvez sauvegarder des recherches "
-"en utilisant le moteur de recherche et en cliquant sur le bouton « Sauvegarder »."
+"Vous n'avez sauvegardé aucune recherche. Vous pouvez sauvegarder des "
+"recherches en utilisant le moteur de recherche et en cliquant sur le bouton "
+"« Sauvegarder »."
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"

@@ -598,7 +598,26 @@ section#bookmarks {
                 position: absolute;
                 top: $card-spacer-x;
                 right: $card-spacer-x;
+                @extend .form-inline;
+
+                div.alert_checkbox {
+                    @extend .custom-control;
+                    @extend .custom-switch;
+
+                    input {
+                        @extend .custom-control-input;
+                    }
+
+                    label {
+                        @extend .custom-control-label;
+                    }
+                }
+
+                button {
+                    @extend .ml-2;
+                }
             }
+
 
             form.delete-form {
                 float: right;
