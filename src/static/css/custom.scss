@@ -580,7 +580,7 @@ section#bookmarks {
         @extend .rounded;
         @extend .mb-3;
 
-        div {
+        &>div {
             @extend .card-body;
             position: relative;
 
