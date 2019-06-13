@@ -1,6 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.http import QueryDict
+from django.urls import reverse
+
+from aids.models import Aid
+from aids.forms import AidSearchForm
 
 
 class Bookmark(models.Model):
@@ -31,3 +36,24 @@ class Bookmark(models.Model):
     class Meta:
         verbose_name = _('Bookmark')
         verbose_name_plural = _('Bookmarks')
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return '{}?{}'.format(
+            reverse('search_view'),
+            self.querystring)
+
+    def get_aids(self, published_after):
+        """Get the list of aids that match the stored search params."""
+
+        querydict = QueryDict(self.querystring)
+        search_form = AidSearchForm(querydict)
+        base_qs = Aid.objects \
+            .published() \
+            .open() \
+            .select_related('perimeter', 'author') \
+            .filter(date_created__gte=published_after)
+        qs = search_form.filter_queryset(base_qs)
+        return qs
