@@ -84,9 +84,9 @@ class Command(BaseCommand):
         }
 
         text_body = render_to_string(
-            'bookmarks/new_bookmark_alerts.txt', email_context)
+            'bookmarks/alert_body.txt', email_context)
         html_body = render_to_string(
-            'bookmarks/new_bookmark_alerts.html', email_context)
+            'bookmarks/alert_body.html', email_context)
         email_subject = 'De nouvelles aides correspondent à vos recherches'
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [owner.email]
