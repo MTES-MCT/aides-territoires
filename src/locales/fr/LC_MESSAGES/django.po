@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-13 15:19+0200\n"
+"POT-Creation-Date: 2019-06-14 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,8 +298,8 @@ msgstr "Avancement du projet"
 msgid "Concerned actions"
 msgstr "Actions concernées"
 
-msgid "AAP / AMI uniquement"
-msgstr ""
+msgid "Call for projects only"
+msgstr "AAP / AMI uniquement"
 
 msgid "I am..."
 msgstr "Je suis…"
@@ -507,9 +507,6 @@ msgstr "Date de création"
 msgid "Date updated"
 msgstr "Date de mise à jour"
 
-msgid "First publication date"
-msgstr "Date de première publication"
-
 msgid "Is imported?"
 msgstr "Importé ?"
 
@@ -586,12 +583,10 @@ msgid "Title"
 msgstr "Titre"
 
 msgid "Send email alert"
-msgstr ""
+msgstr "Envoi d'alertes e-mail"
 
-#, fuzzy
-#| msgid "Start date"
 msgid "Latest alert date"
-msgstr "Date d'ouverture"
+msgstr "Dernière alerte"
 
 msgid "Bookmark"
 msgstr "Sauvegarder"
@@ -605,10 +600,8 @@ msgstr "créer/"
 msgid "delete/"
 msgstr "supprimer/"
 
-#, fuzzy
-#| msgid "Date updated"
 msgid "update/"
-msgstr "Date de mise à jour"
+msgstr "mise-à-jour/"
 
 #, python-format
 msgid ""
@@ -625,7 +618,7 @@ msgid "Misc"
 msgstr "Recherche diverse"
 
 msgid "The email notification settings was updated."
-msgstr ""
+msgstr "Configuration d'alerte mise à jour."
 
 msgid "Add this aid to the following bundles:"
 msgstr "Ajouter cette aide aux listes suivantes :"
@@ -1136,10 +1129,8 @@ msgstr ""
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
-#, fuzzy
-#| msgid "Delete this aid"
 msgid "Save this aid"
-msgstr "Supprimer cette aide"
+msgstr "Sauvegarder cette aide"
 
 #, python-format
 msgid ""
@@ -1211,7 +1202,7 @@ msgid "Search"
 msgstr "Rechercher"
 
 msgid "Save bookmark"
-msgstr "Sauvegarder"
+msgstr "Sauvegarder la recherche"
 
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
@@ -1260,10 +1251,8 @@ msgstr "Votre recherche"
 msgid "Aid detail"
 msgstr "Détail de l'aide"
 
-#, fuzzy
-#| msgid "Save your aid"
 msgid "Save to a bundle"
-msgstr "Enregistrer votre aide"
+msgstr "Enregistrer dans une liste"
 
 msgid "Description"
 msgstr "Description de l'aide"
@@ -1305,7 +1294,7 @@ msgid "Origin url"
 msgstr "URL d'origine"
 
 msgid "NA"
-msgstr "ND"
+msgstr "NA"
 
 msgid "Import share license"
 msgstr "License de partage"

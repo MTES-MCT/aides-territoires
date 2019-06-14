@@ -171,7 +171,7 @@ class AidSearchForm(forms.Form):
         choices=Aid.DESTINATIONS,
         widget=forms.CheckboxSelectMultiple)
     call_for_projects_only = forms.BooleanField(
-        label=_('AAP / AMI uniquement'),
+        label=_('Call for projects only'),
         required=False)
 
     # This field is not related to the search, but is submitted
