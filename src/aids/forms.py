@@ -79,8 +79,8 @@ class BaseAidForm(forms.ModelForm):
 
         custom_help_text = {
             'tags':
-                 _('Add up to 16 keywords to describe your aid (separated '
-                   'by ",")'),
+                _('Add up to 16 keywords to describe your aid (separated '
+                    'by ",")'),
             'backers':
                 _('Select one or several backers among the list…'),
             'new_backer':
@@ -166,6 +166,10 @@ class AidSearchForm(forms.Form):
             _('Only show calls for project / expressions of interest')),),
         required=False,
         widget=MultipleChoiceFilterWidget)
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('I am...'),
+        required=False,
+        choices=Aid.AUDIANCES)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -228,6 +232,10 @@ class AidSearchForm(forms.Form):
             qs = qs \
                 .filter(search_vector=query) \
                 .annotate(rank=SearchRank(F('search_vector'), query))
+
+        targeted_audiances = self.cleaned_data.get('targeted_audiances', None)
+        if targeted_audiances:
+            qs = qs.filter(targeted_audiances__overlap=targeted_audiances)
 
         return qs
 
