@@ -1,11 +1,10 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from braces.views import MessageMixin
 
 from aids.forms import AidSearchForm
@@ -93,10 +92,23 @@ class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         return res
 
 
-class BookmarkUpdate(LoginRequiredMixin, SuccessMessageMixin, BookmarkMixin,
+class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
                      UpdateView):
 
     form_class = BookmarkAlertForm
     http_method_names = ['post']
     success_url = reverse_lazy('bookmark_list_view')
     success_message = _('The email notification settings was updated.')
+
+    def form_valid(self, form):
+        """Handles the update response.
+
+        This view is meant to be called via ajax, but must also work with
+        a regular POST call, because progressive enhancement.
+        """
+        response = super().form_valid(form)
+        if self.request.is_ajax():
+            response = HttpResponse()
+        else:
+            self.messages.success(self.success_message)
+        return response

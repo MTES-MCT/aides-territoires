@@ -1,3 +1,4 @@
+import time
 import pytest
 from django.urls import reverse
 
@@ -127,3 +128,30 @@ def test_user_cannot_update_someone_else_bookmark(user, client):
     })
     bookmark.refresh_from_db()
     assert not bookmark.send_email_alert
+
+
+def test_update_bookmark_dynamic_ui(user, client, live_server, browser):
+    bookmark = BookmarkFactory(owner=user, send_email_alert=False)
+
+    # Browser login
+    client.force_login(user)
+    url = reverse('bookmark_list_view')
+    browser.get(live_server + url)
+    cookie = client.cookies['sessionid']
+    browser.add_cookie({
+        'name': 'sessionid',
+        'value': cookie.value,
+        'secure': False,
+        'path': '/'})
+    browser.refresh()
+
+    bookmarks_div = browser.find_elements_by_css_selector('div.bookmark')
+    assert len(bookmarks_div) == 1
+
+    checkbox = browser.find_element_by_id(
+        'id_send_email_alert_{}'.format(bookmark.id))
+    checkbox.click()
+    time.sleep(0.2)
+
+    bookmark.refresh_from_db()
+    assert bookmark.send_email_alert

@@ -23,8 +23,8 @@
     <form class="update-form" action="{% url 'bookmark_update_view' bookmark.id %}" method="post">
         {% csrf_token %}
         <div class="alert_checkbox">
-            <input id="id_send_email_alert" name="send_email_alert" type="checkbox" {{ bookmark.send_email_alert|yesno:"checked," }} />
-            <label for="id_send_email_alert">
+            <input id="id_send_email_alert_{{ bookmark.id }}" name="send_email_alert" type="checkbox" {{ bookmark.send_email_alert|yesno:"checked," }} />
+            <label for="id_send_email_alert_{{ bookmark.id }}">
                 {{ _('Send email alerts upon new results') }}
             </label>
         </div>
@@ -47,4 +47,8 @@
     search engine and clicking on the "save search" button.
 {% endblocktrans %}</p>
 {% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/bookmarks/bookmarks.js"></script>
 {% endblock %}
