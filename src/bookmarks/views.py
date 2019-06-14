@@ -17,7 +17,7 @@ class BookmarkMixin:
     def get_queryset(self):
         qs = Bookmark.objects \
             .filter(owner=self.request.user) \
-            .order_by('date_created')
+            .order_by('-date_created')
         return qs
 
 
