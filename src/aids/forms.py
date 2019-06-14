@@ -212,9 +212,13 @@ class AidSearchForm(forms.Form):
         if mobilization_steps:
             qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
 
-        aid_types = self.cleaned_data.get('aid_types', None)
-        if aid_types:
-            qs = qs.filter(aid_types__overlap=aid_types)
+        technical_aids = self.cleaned_data.get('technical_aids', None)
+        if technical_aids:
+            qs = qs.filter(aid_types__overlap=technical_aids)
+
+        financial_aids = self.cleaned_data.get('financial_aids', None)
+        if financial_aids:
+            qs = qs.filter(aid_types__overlap=financial_aids)
 
         destinations = self.cleaned_data.get('destinations', None)
         if destinations:

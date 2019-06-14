@@ -22,9 +22,9 @@
         {% endfor %}
         {% include '_field_snippet.html' with field=form.text %}
         {% include '_field_snippet.html' with field=form.perimeter %}
-        {% include '_field_snippet.html' with field=form.aid_types %}
+        {% include '_field_snippet.html' with field=form.technical_aids %}
+        {% include '_field_snippet.html' with field=form.financial_aids %}
         {% include '_field_snippet.html' with field=form.apply_before %}
-        {% include '_field_snippet.html' with field=form.scale %}
         {% include '_field_snippet.html' with field=form.destinations %}
         {% include '_field_snippet.html' with field=form.mobilization_step %}
         {% include '_field_snippet.html' with field=form.order_by %}
@@ -43,5 +43,4 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/search_fields_autocomplete.js"></script>
 {% endblock %}
