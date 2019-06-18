@@ -313,6 +313,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
 
+    def set_publication_date(self):
+        """Set the object's publication date.
+
+        We set the first publication date once and for all when the aid is
+        first published.
+        """
+        if self.is_published() and self.date_published is None:
+            self.date_published = timezone.now()
+
     def set_search_vector(self, backers):
         """Update the full text cache field."""
 
@@ -366,6 +375,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def save(self, *args, **kwargs):
         self.set_slug()
+        self.set_publication_date()
         return super().save(*args, **kwargs)
 
     def __str__(self):

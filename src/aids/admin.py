@@ -118,13 +118,5 @@ class AidAdmin(admin.ModelAdmin):
         self.message_user(request, _('The selected aids were set as CFP'))
     make_mark_as_CFP.short_description = _('Set as CFP')
 
-    def save_model(self, request, obj, form, change):
-
-        # Sets first publication date
-        if obj.is_published() and obj.date_published is None:
-            obj.date_published = timezone.now()
-
-        return super().save_model(request, obj, form, change)
-
 
 admin.site.register(Aid, AidAdmin)
