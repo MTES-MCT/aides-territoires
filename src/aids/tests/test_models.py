@@ -4,7 +4,6 @@ from datetime import timedelta
 from django.utils import timezone
 
 from aids.factories import AidFactory
-from aids.models import Aid
 
 
 pytestmark = pytest.mark.django_db
@@ -38,7 +37,7 @@ def test_set_published_status_does_set_published_date():
 
 
 def test_unpublish_aid_does_not_remove_published_date():
-    """when aid are unpublished, we keep the first publication date."""
+    """when aids are unpublished, we keep the first publication date."""
 
     aid = AidFactory(status='published', date_published=timezone.now())
 
@@ -51,7 +50,7 @@ def test_unpublish_aid_does_not_remove_published_date():
 
 
 def test_republish_aid_does_not_override_first_publication_date():
-    """when aid are republished, we keep the first publication date."""
+    """when aids are republished, we keep the first publication date."""
 
     last_month = timezone.now() - timedelta(days=30)
 
