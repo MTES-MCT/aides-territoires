@@ -252,6 +252,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     date_updated = models.DateTimeField(
         _('Date updated'),
         auto_now=True)
+    date_published = models.DateTimeField(
+        _('First publication date'),
+        null=True, blank=True)
 
     # Third-party data import related fields
     is_imported = models.BooleanField(

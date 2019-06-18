@@ -16,8 +16,9 @@ class AidAdmin(admin.ModelAdmin):
     form = AidAdminForm
     save_as = True
     actions = ['make_mark_as_CFP']
-    list_display = ['name', 'all_backers', 'author', 'recurrence',
-                    'date_updated', 'is_imported', 'import_uniqueid', 'status']
+    list_display = [
+        'name', 'all_backers', 'author', 'recurrence', 'date_updated',
+        'date_published', 'is_imported', 'import_uniqueid', 'status']
     autocomplete_fields = ['author', 'backers', 'perimeter']
     search_fields = ['name']
     list_filter = ['status', 'recurrence', 'is_imported',
@@ -25,7 +26,7 @@ class AidAdmin(admin.ModelAdmin):
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
-        'date_updated']
+        'date_updated', 'date_published']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -95,6 +96,7 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'date_created',
                 'date_updated',
+                'date_published',
             )
         }),
     ]
