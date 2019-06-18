@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-13 14:09+0200\n"
+"POT-Creation-Date: 2019-06-18 10:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -512,6 +512,9 @@ msgstr "Date de création"
 
 msgid "Date updated"
 msgstr "Date de mise à jour"
+
+msgid "First publication date"
+msgstr "Date de première publication"
 
 msgid "Is imported?"
 msgstr "Importé ?"
@@ -1289,7 +1292,7 @@ msgid "Origin url"
 msgstr "URL d'origine"
 
 msgid "NA"
-msgstr ""
+msgstr "ND"
 
 msgid "Import share license"
 msgstr "License de partage"
