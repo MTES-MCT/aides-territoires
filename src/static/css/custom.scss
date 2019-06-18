@@ -597,22 +597,21 @@ section#tags {
 
 section#partner {
     @extend .py-5;
-    @extend .text-light;
 
     h1 {
-        @extend .text-dark;
         @extend .text-center;
     }
 
-    img.logo {
-        @extend .mt-3;
-        @extend .mb-3;
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    img{
+        @extend .my-3;
         @extend .mx-4;
-        @extend .text-dark;
-        @extend .d-inline-flex;
-        @extend .flex-row;
-        @extend .flex-wrap;
-        @extend .align-content-center;
 
         height: 60px;
     }
