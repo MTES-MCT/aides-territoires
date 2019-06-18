@@ -5,3 +5,5 @@ yarn-error.log
 /public/
 
 site.retry
+.idea/
+aides.iml
