@@ -54,6 +54,6 @@ class Bookmark(models.Model):
             .published() \
             .open() \
             .select_related('perimeter', 'author') \
-            .filter(date_created__gte=published_after)
+            .filter(date_published__gte=published_after)
         qs = search_form.filter_queryset(base_qs)
         return qs

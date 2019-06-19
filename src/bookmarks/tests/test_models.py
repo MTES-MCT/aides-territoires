@@ -34,7 +34,7 @@ def test_get_aids_with_no_old_aids(last_month):
     AidFactory.create_batch(
         5,
         name='Test',
-        date_created=last_month - timedelta(days=10))
+        date_published=last_month - timedelta(days=10))
     aids = bookmark.get_aids(published_after=last_month)
     assert len(aids) == 0
 
@@ -46,7 +46,7 @@ def test_get_aids_with_no_matching_aids(last_month, last_week):
     AidFactory.create_batch(
         5,
         name='Test',
-        date_created=last_week)
+        date_published=last_week)
     aids = bookmark.get_aids(published_after=last_month)
     assert len(aids) == 0
 
@@ -58,7 +58,7 @@ def test_get_aids_with_matching_aids(last_month, last_week):
     AidFactory.create_batch(
         5,
         name='Test',
-        date_created=last_week)
+        date_published=last_week)
     aids = bookmark.get_aids(published_after=last_month)
     assert len(aids) == 5
 
@@ -70,7 +70,7 @@ def test_get_aids_with_unpublished_aids(last_month, last_week):
     AidFactory.create_batch(
         5,
         name='Test',
-        date_created=last_week,
+        date_published=last_week,
         status='draft')
     aids = bookmark.get_aids(published_after=last_month)
     assert len(aids) == 0

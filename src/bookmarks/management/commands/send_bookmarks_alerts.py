@@ -17,9 +17,6 @@ from django.conf import settings
 from bookmarks.models import Bookmark
 
 
-# XXX Issue We need to add a `date_published`
-
-
 logger = logging.getLogger(__name__)
 
 
