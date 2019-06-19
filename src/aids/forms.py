@@ -173,6 +173,11 @@ class AidSearchForm(forms.Form):
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('I am…'),
+        required=False,
+        choices=Aid.AUDIANCES,
+        widget=forms.CheckboxSelectMultiple)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -464,8 +469,6 @@ class AidEditForm(BaseAidForm):
             'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
-            'targeted_audiances': MultipleChoiceFilterWidget,
-            'aid_types': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
