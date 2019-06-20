@@ -10,86 +10,6 @@ from django.utils import timezone
 from aids.factories import AidFactory
 
 
-def test_search_filters_are_displayed(live_server, browser):
-    """Seach filters button must appear when loading the page."""
-
-    search_url = reverse('search_view')
-    search_params = '?text=my_search_query&aid_types=grant&aid_types=loan'
-    browser.get(live_server + search_url + search_params)
-    assert 'Toutes les aides' in browser.title
-    buttons = browser.find_elements_by_css_selector('div#filters button')
-    assert len(buttons) == 3
-
-
-def test_updating_the_form_displays_filters(live_server, browser):
-    """Search filters buttons are dynamically displayed."""
-
-    search_url = reverse('search_view')
-    browser.get(live_server + search_url)
-    assert 'Toutes les aides' in browser.title
-
-    buttons = browser.find_elements_by_css_selector('div#filters button')
-    assert len(buttons) == 0
-
-    search_input = browser.find_element_by_id('id_text')
-    search_input.send_keys('Gloubiboulga')
-
-    buttons = browser.find_elements_by_css_selector('div#filters button')
-    assert len(buttons) == 1
-
-    button_content = buttons[0].get_attribute('innerHTML')
-    assert 'Gloubiboulga' in button_content
-
-
-def test_clicking_a_filter_removes_the_search_criteria(live_server, browser):
-    """Clicking on a filter buttons removes the search filter."""
-
-    search_url = reverse('search_view')
-    search_params = '?text=Gloubiboulga'
-    browser.get(live_server + search_url + search_params)
-    assert 'text=Gloubiboulga' in browser.current_url
-
-    buttons = browser.find_elements_by_css_selector('div#filters button')
-    assert len(buttons) == 1
-    assert buttons[0].is_displayed()
-    assert 'Gloubiboulga' in buttons[0].get_attribute('innerHTML')
-
-    buttons[0].click()
-    time.sleep(0.5)
-
-    assert 'text=Gloubiboulga' not in browser.current_url
-
-    buttons = browser.find_elements_by_css_selector('div#filters button')
-    assert len(buttons) == 0
-
-
-def test_updating_the_form_performs_a_new_search(live_server, browser):
-    """Search form dynamically updates search results."""
-
-    AidFactory(name='Gloubiboulga')
-    AidFactory(name='Schtroumpf')
-
-    search_url = reverse('search_view')
-    browser.get(live_server + search_url)
-
-    results = browser.find_elements_by_css_selector('div.aid h1')
-    assert len(results) == 2
-
-    search_input = browser.find_element_by_id('id_text')
-    search_input.send_keys('Gloubiboulga')
-    time.sleep(1)
-    results = browser.find_elements_by_css_selector('div.aid h1')
-    assert len(results) == 1
-    assert 'Gloubiboulga' in results[0].get_attribute('innerHTML')
-
-    search_input.clear()
-    search_input.send_keys('Schtroumpf')
-    time.sleep(1)
-    results = browser.find_elements_by_css_selector('div.aid h1')
-    assert len(results) == 1
-    assert 'Schtroumpf' in results[0].get_attribute('innerHTML')
-
-
 def test_aid_detail_shows_link_to_previous_search(live_server, browser):
     aid = AidFactory(name='Gloubiboulga')
     AidFactory(name='Schtroumpf')
@@ -102,6 +22,10 @@ def test_aid_detail_shows_link_to_previous_search(live_server, browser):
 
     search_input = browser.find_element_by_id('id_text')
     search_input.send_keys('Gloubiboulga')
+
+    submit_btn = browser.find_element_by_css_selector(
+        'div#search-engine form button.search-btn')
+    submit_btn.click()
     time.sleep(1)
 
     results = browser.find_elements_by_css_selector('div.aid h1')
@@ -113,8 +37,10 @@ def test_aid_detail_shows_link_to_previous_search(live_server, browser):
 
 
 def test_sorting_field(live_server, browser):
+    """Test the dynamic sorting field."""
+
     yesterday = timezone.now() - timedelta(days=1)
-    AidFactory(name='Gloubiboulga', date_created=yesterday)
+    AidFactory(name='Gloubiboulga', date_published=yesterday)
     AidFactory(name='Schtroumpf')
 
     search_url = reverse('search_view')
@@ -126,7 +52,7 @@ def test_sorting_field(live_server, browser):
 
     sort_input = browser.find_element_by_id('sorting-btn')
     input_content = sort_input.get_attribute('innerHTML')
-    assert 'Pertinence' in input_content
+    assert 'pertinence' in input_content
 
     sort_input.click()
     WebDriverWait(browser, 20) \
