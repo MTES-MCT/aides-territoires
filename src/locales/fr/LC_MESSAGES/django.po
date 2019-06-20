@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-19 11:49+0200\n"
+"POT-Creation-Date: 2019-06-20 09:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,14 +268,14 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "Relevance"
-msgstr "Pertinence"
+msgid "Sort: relevance"
+msgstr "Tri : pertinence"
 
-msgid "Publication date"
-msgstr "Date de publication"
+msgid "Sort: publication date"
+msgstr "Tri : date de publication"
 
-msgid "Submission deadline"
-msgstr "Date de clôture"
+msgid "Sort: submission deadline"
+msgstr "Tri : date de clôture"
 
 msgid "Your project's location"
 msgstr "Emplacement de votre projet"
@@ -474,6 +474,9 @@ msgstr "Date de pré-dépôt"
 msgid "When is the pre-deposit date, if applicable?"
 msgstr "Quelle est la date de pré-dépôt des dossiers, si applicable ?"
 
+msgid "Submission deadline"
+msgstr "Date de clôture"
+
 msgid "When is the submission deadline?"
 msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 
@@ -506,6 +509,9 @@ msgstr "Date de création"
 
 msgid "Date updated"
 msgstr "Date de mise à jour"
+
+msgid "First publication date"
+msgstr "Première date de publication"
 
 msgid "Is imported?"
 msgstr "Importé ?"
@@ -1179,11 +1185,11 @@ msgstr ""
 "Merci de votre vigilance et de votre contribution à l'amélioration du "
 "service !"
 
-msgid "Sort:"
-msgstr "Tri :"
-
 msgid "Relevance "
 msgstr "Pertinence"
+
+msgid "Publication date"
+msgstr "Date de publication"
 
 #, python-format
 msgid "<strong>%(nb_aids)s</strong> results"

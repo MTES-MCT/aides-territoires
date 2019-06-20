@@ -48,16 +48,19 @@
         <div id="advanced-search">
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 label-col">
                     {{ form.financial_aids.label }}
                 </div>
-                <div class="col-md">
+                <div class="col-md-7">
                     {{ form.financial_aids }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.order_by }}
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 label-col">
                     {{ form.technical_aids.label }}
                 </div>
                 <div class="col-md">

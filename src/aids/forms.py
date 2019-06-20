@@ -132,9 +132,9 @@ class AidSearchForm(forms.Form):
     )
 
     ORDER_BY = (
-        ('relevance', _('Relevance')),
-        ('publication_date', _('Publication date')),
-        ('submission_deadline', _('Submission deadline')),
+        ('relevance', _('Sort: relevance')),
+        ('publication_date', _('Sort: publication date')),
+        ('submission_deadline', _('Sort: submission deadline')),
     )
 
     perimeter = PerimeterChoiceField(
