@@ -166,8 +166,6 @@ def test_search_form_filter_by_types(aids):
         'financial_aids': ['grant'],
         'technical_aids': ['networking']})
     qs = form.filter_queryset(aids)
-    for aid in qs:
-        print(aid.aid_types)
     assert qs.count() == 9
     for aid in qs:
         assert 'grant' in aid.aid_types or 'networking' in aid.aid_types

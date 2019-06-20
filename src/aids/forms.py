@@ -217,13 +217,13 @@ class AidSearchForm(forms.Form):
         if mobilization_steps:
             qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
 
-        technical_aids = self.cleaned_data.get('technical_aids', None)
-        if technical_aids:
-            qs = qs.filter(aid_types__overlap=technical_aids)
-
-        financial_aids = self.cleaned_data.get('financial_aids', None)
-        if financial_aids:
-            qs = qs.filter(aid_types__overlap=financial_aids)
+        # Those two form fields are split for form readability,
+        # but they relate to a single model field.
+        financial_aids = self.cleaned_data.get('financial_aids', [])
+        technical_aids = self.cleaned_data.get('technical_aids', [])
+        aid_types = financial_aids + technical_aids
+        if aid_types:
+            qs = qs.filter(aid_types__overlap=aid_types)
 
         destinations = self.cleaned_data.get('destinations', None)
         if destinations:
@@ -316,7 +316,7 @@ class AidSearchForm(forms.Form):
         # If the user requested a manual order by publication date
         manual_order = self.cleaned_data.get('order_by', 'relevance')
         if manual_order == 'publication_date':
-            order_fields = ['-date_created'] + order_fields
+            order_fields = ['-date_published'] + order_fields
         elif manual_order == 'submission_deadline':
             order_fields = ['submission_deadline'] + order_fields
 
