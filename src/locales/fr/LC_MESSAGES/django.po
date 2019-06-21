@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-18 10:41+0200\n"
+"POT-Creation-Date: 2019-06-20 09:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,9 +181,6 @@ msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
 msgid "Set as CFP"
 msgstr "Marquer en tant qu'AAP"
 
-msgid "Financial aids"
-msgstr "Aides financières"
-
 msgid "Grant"
 msgstr "Subvention"
 
@@ -196,9 +193,6 @@ msgstr "Avance récupérable"
 msgid "Interest subsidy"
 msgstr "Bonification d'intérêt"
 
-msgid "Technical and methodological aids"
-msgstr "Aides méthodologiques & techniques"
-
 msgid "Guidance"
 msgstr "Conseil"
 
@@ -207,6 +201,12 @@ msgstr "Mise en réseau"
 
 msgid "Valorisation"
 msgstr "Valorisation"
+
+msgid "Financial aids"
+msgstr "Aides financières"
+
+msgid "Technical and methodological aids"
+msgstr "Aides méthodologiques & techniques"
 
 msgid "Tags"
 msgstr "Mots clés"
@@ -247,11 +247,6 @@ msgstr "Téléphone d'un contact en charge de l'aide"
 msgid "Is this a call for project / expressions of interest?"
 msgstr "S'agit-il d'un AAP / AMI ?"
 
-msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
-msgstr ""
-"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
-"virgules « , »)."
-
 msgid "Select one or several backers among the list…"
 msgstr "Sélectionnez un ou plusieurs apporteurs parmi la liste…"
 
@@ -262,20 +257,25 @@ msgstr ""
 "Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
 "vous pouvez utiliser ce champ pour nous le communiquer."
 
+msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
+msgstr ""
+"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
+"virgules « , »)."
+
 msgid "Funding"
 msgstr "Financière"
 
 msgid "Non-funding"
 msgstr "Non-financière"
 
-msgid "Relevance"
-msgstr "Pertinence"
+msgid "Sort: relevance"
+msgstr "Tri : pertinence"
 
-msgid "Publication date"
-msgstr "Date de publication"
+msgid "Sort: publication date"
+msgstr "Tri : date de publication"
 
-msgid "Submission deadline"
-msgstr "Date de clôture"
+msgid "Sort: submission deadline"
+msgstr "Tri : date de clôture"
 
 msgid "Your project's location"
 msgstr "Emplacement de votre projet"
@@ -289,11 +289,8 @@ msgstr "Titre, sujet, mot-clé, etc."
 msgid "Apply before…"
 msgstr "Candidater avant…"
 
-msgid "yyyy-mm-dd"
-msgstr "jj/mm/aaaa"
-
-msgid "Aid type"
-msgstr "Nature de l'aide"
+msgid "Technical aids"
+msgstr "Aides techniques"
 
 msgid "Project progress"
 msgstr "Avancement du projet"
@@ -301,16 +298,10 @@ msgstr "Avancement du projet"
 msgid "Concerned actions"
 msgstr "Actions concernées"
 
-msgid "Call for projects"
-msgstr "Appel à projets"
+msgid "Call for projects only"
+msgstr "AAP / AMI uniquement"
 
-msgid "Yes"
-msgstr "Oui"
-
-msgid "Only show calls for project / expressions of interest"
-msgstr "Ne montrer que les appels à projets / manifestations d'intérêt"
-
-msgid "I am..."
+msgid "I am…"
 msgstr "Je suis…"
 
 msgid "Order by"
@@ -321,6 +312,9 @@ msgstr "Ce code postal semble invalide."
 
 msgid "Perimeter"
 msgstr "Périmètre"
+
+msgid "yyyy-mm-dd"
+msgstr "jj/mm/aaaa"
 
 msgid "You must select the aid backers, or create a new one below."
 msgstr ""
@@ -365,13 +359,13 @@ msgid "Other"
 msgstr "Autre"
 
 msgid "Preoperational"
-msgstr "En cours de réflexion / conception"
+msgstr "réflexion / conception"
 
 msgid "Operational"
-msgstr "En cours de mise en œuvre / réalisation"
+msgstr "mise en œuvre / réalisation"
 
 msgid "Postoperation"
-msgstr "Terminé, en cours de fonctionnement et d'usage"
+msgstr "fonctionnement / usage"
 
 msgid "Audiance EPCI"
 msgstr ""
@@ -480,6 +474,9 @@ msgstr "Date de pré-dépôt"
 msgid "When is the pre-deposit date, if applicable?"
 msgstr "Quelle est la date de pré-dépôt des dossiers, si applicable ?"
 
+msgid "Submission deadline"
+msgstr "Date de clôture"
+
 msgid "When is the submission deadline?"
 msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 
@@ -514,7 +511,7 @@ msgid "Date updated"
 msgstr "Date de mise à jour"
 
 msgid "First publication date"
-msgstr "Date de première publication"
+msgstr "Première date de publication"
 
 msgid "Is imported?"
 msgstr "Importé ?"
@@ -582,6 +579,53 @@ msgstr "Nombre d'aides"
 msgid "Backer"
 msgstr "Apporteur"
 
+msgid "Owner"
+msgstr "Auteur"
+
+msgid "Querystring"
+msgstr "Querystring"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Send email alert"
+msgstr "Envoi d'alertes e-mail"
+
+msgid "Latest alert date"
+msgstr "Dernière alerte"
+
+msgid "Bookmark"
+msgstr "Sauvegarder"
+
+msgid "Bookmarks"
+msgstr "Recherches sauvegardées"
+
+msgid "create/"
+msgstr "créer/"
+
+msgid "delete/"
+msgstr "supprimer/"
+
+msgid "update/"
+msgstr "mise-à-jour/"
+
+#, python-format
+msgid ""
+"Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
+"find in in your bookmark list.</a>"
+msgstr ""
+"Votre recherche a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
+"dans votre liste de recherches sauvegardées.</a>"
+
+msgid "Something went wrong. Please try again."
+msgstr "Une erreur est survenue. Merci de réessayer."
+
+msgid "Misc"
+msgstr "Recherche diverse"
+
+msgid "The email notification settings was updated."
+msgstr "Configuration d'alerte mise à jour."
+
 msgid "Add this aid to the following bundles:"
 msgstr "Ajouter cette aide aux listes suivantes :"
 
@@ -591,9 +635,6 @@ msgstr "Ajouter cette aide à une nouvelle liste :"
 msgid "Give a name to your new bundle."
 msgstr "Donnez un nom à votre nouvelle liste."
 
-msgid "Owner"
-msgstr "Auteur"
-
 msgid "Bundle name"
 msgstr "Nom de la liste"
 
@@ -602,9 +643,6 @@ msgstr "Liste"
 
 msgid "Bundles"
 msgstr "Listes"
-
-msgid "create/"
-msgstr "créer/"
 
 msgid "The new bundle was created successfuly"
 msgstr "Votre nouvelle liste d'aide à été créée."
@@ -623,6 +661,9 @@ msgstr "stats/"
 
 msgid "bundles/"
 msgstr "listes/"
+
+msgid "bookmarks/"
+msgstr "recherches-sauvegardées/"
 
 msgid "tags/"
 msgstr "mots-clés/"
@@ -791,6 +832,9 @@ msgstr "Vous êtes chercheur·se d'aide ?"
 
 msgid "My bundles"
 msgstr "Mes listes d'aides"
+
+msgid "My bookmarks"
+msgstr "Mes recherches sauvegardées"
 
 msgid "Are you a contributor?"
 msgstr "Vous êtes contributeur·ice ?"
@@ -1037,30 +1081,6 @@ msgstr "Attention ! La date de soumission est imminente"
 msgid "Aid edition"
 msgstr "Édition de l'aide"
 
-msgid "Bookmark this aid"
-msgstr "Ajouter à une liste"
-
-msgid "Bookmark"
-msgstr "Sauvegarder"
-
-#, python-format
-msgid ""
-"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
-"page</a>."
-msgstr ""
-"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
-"dédiée</a>."
-
-#, python-format
-msgid ""
-"You need to be logged in to save aids in custom bundles. <a href="
-"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
-"\">sign up for a new account</a>."
-msgstr ""
-"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
-"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
-"\"%(register_url)s\">enregistrez un nouveau compte</a>."
-
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
 
@@ -1115,6 +1135,27 @@ msgstr ""
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
+msgid "Save this aid"
+msgstr "Sauvegarder cette aide"
+
+#, python-format
+msgid ""
+"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
+"page</a>."
+msgstr ""
+"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
+"dédiée</a>."
+
+#, python-format
+msgid ""
+"You need to be logged in to save aids in custom bundles. <a href="
+"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
+"\">sign up for a new account</a>."
+msgstr ""
+"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
+"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
+"\"%(register_url)s\">enregistrez un nouveau compte</a>."
+
 msgid "Report a problem"
 msgstr "Signaler un problème"
 
@@ -1144,11 +1185,11 @@ msgstr ""
 "Merci de votre vigilance et de votre contribution à l'amélioration du "
 "service !"
 
-msgid "Sort:"
-msgstr "Tri :"
-
 msgid "Relevance "
 msgstr "Pertinence"
+
+msgid "Publication date"
+msgstr "Date de publication"
 
 #, python-format
 msgid "<strong>%(nb_aids)s</strong> results"
@@ -1163,50 +1204,11 @@ msgstr "Partager"
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
-msgid "Refine your search"
-msgstr "Précisez votre recherche"
-
-msgid "Advanced search filters"
-msgstr "Recherche avancée"
-
-msgid "Help"
-msgstr "Aide"
-
 msgid "Search"
 msgstr "Rechercher"
 
-msgid ""
-"Use advanced search syntax in the \"Text search\" field for more targeted "
-"search results."
-msgstr ""
-"Utilisez la recherche textuelle avancée pour des résultats plus précis."
-
-msgid ""
-"By default, all search terms are optional. If you search for \"ademe direccte"
-"\", you will find all aids that are backed by Ademe <strong>OR</strong> the "
-"DIRECCTE."
-msgstr ""
-"Par défaut, les termes de recherche sont optionnels. Une recherche \"Ademe "
-"Direccte\" renverra toutes les aides portées par l'ADEME <strong>ou</strong> "
-"la DIRECCTE."
-
-msgid ""
-"You can make search terms mandadory by using a \"+\". Ex: \"Ademe + recyclage"
-"\" will find aids backed by Ademe <strong>AND</strong> that are related to "
-"recycling."
-msgstr ""
-"Vous pouvez rendre des termes obligatoires en utilisant un « + ». Ex : "
-"\"Ademe + recyclage\" renverra les aides portées par l'Ademe <strong>et</"
-"strong> liées au recyclage."
-
-msgid ""
-"You can filter out some results by prefixing a term with \"-\". Ex: \"Ademe -"
-"recyclage\" will find aids backed by Ademe <strong>AND</strong> that are "
-"<strong>NOT</strong> related to recycling."
-msgstr ""
-"Vous pouvez exclure des résultats en prefixant un terme d'un « - ». Ex : "
-"\"Ademe -recyclage\" renverra les aides portées par l'Ademe <strong>et</"
-"strong> qui ne concernent pas le recyclage."
+msgid "Save bookmark"
+msgstr "Sauvegarder la recherche"
 
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
@@ -1255,6 +1257,9 @@ msgstr "Votre recherche"
 msgid "Aid detail"
 msgstr "Détail de l'aide"
 
+msgid "Save to a bundle"
+msgstr "Enregistrer dans une liste"
+
 msgid "Description"
 msgstr "Description de l'aide"
 
@@ -1263,6 +1268,9 @@ msgstr "Mots clés :"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
+
+msgid "Aid type"
+msgstr "Nature de l'aide"
 
 msgid "Subvention rate"
 msgstr "Taux de subvention (en %)"
@@ -1292,7 +1300,7 @@ msgid "Origin url"
 msgstr "URL d'origine"
 
 msgid "NA"
-msgstr "ND"
+msgstr "NA"
 
 msgid "Import share license"
 msgstr "License de partage"
@@ -1395,6 +1403,29 @@ msgstr "Annuler et revenir à vos aides publiées"
 
 msgid "Save your aid"
 msgstr "Enregistrer votre aide"
+
+msgid "Your bookmarks"
+msgstr "Vos recherches sauvegardées"
+
+msgid "See results"
+msgstr "Voir les résultats"
+
+msgid "Send email alerts upon new results"
+msgstr "M'alerter par e-mail"
+
+msgid "Update bookmark"
+msgstr "Sauvegarder"
+
+msgid "Delete this bookmark"
+msgstr "Supprimer cette recherche"
+
+msgid ""
+"You don't have any bookmarks yet. You can save bookmarks by using the search "
+"engine and clicking on the \"save search\" button."
+msgstr ""
+"Vous n'avez sauvegardé aucune recherche. Vous pouvez sauvegarder des "
+"recherches en utilisant le moteur de recherche et en cliquant sur le bouton "
+"« Sauvegarder »."
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"

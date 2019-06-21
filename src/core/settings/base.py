@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'dataproviders',
     'analytics',
     'data',
+    'bookmarks',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -164,6 +165,8 @@ REST_FRAMEWORK = {
 MAILING_LIST_URL = None
 
 APPROACHING_DEADLINE_DELTA = 30  # days
+BOOKMARK_ALERT_THRESHOLD = 7  # days
+
 
 ANALYTICS_ENABLED = False
 ANALYTICS_SITEID = 0

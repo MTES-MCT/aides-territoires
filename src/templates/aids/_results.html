@@ -3,9 +3,10 @@
 {% if search_actions %}
 <div class="list-actions">
 
+
     <div id="sorting-menu" class="sorting-menu js">
         <button type="button" id="sorting-btn" data-toggle="dropdown">
-            {{ _('Sort:') }} {{ order_label }}
+            {{ order_label }}
         </button>
         <div class="dropdown-menu" >
             <a id="sort-relevance" data-sort="relevance" href="#">{{ _('Relevance ') }}</a>

@@ -13,7 +13,7 @@ class BundleCreateForm(forms.ModelForm):
         fields = ['name']
 
 
-class BookmarkForm(forms.Form):
+class BundleForm(forms.Form):
     bundles = forms.ModelMultipleChoiceField(
         label=_('Add this aid to the following bundles:'),
         queryset=None,

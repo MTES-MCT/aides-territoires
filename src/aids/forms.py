@@ -15,18 +15,22 @@ from tags.fields import TagChoiceField
 from aids.models import Aid
 
 
+FINANCIAL_AIDS = (
+    ('grant', _('Grant')),
+    ('loan', _('Loan')),
+    ('recoverable_advance', _('Recoverable advance')),
+    ('interest_subsidy', _('Interest subsidy')),
+)
+
+TECHNICAL_AIDS = (
+    ('guidance', _('Guidance')),
+    ('networking', _('Networking')),
+    ('valorisation', _('Valorisation')),
+)
+
 AID_TYPES = (
-    (_('Financial aids'), (
-        ('grant', _('Grant')),
-        ('loan', _('Loan')),
-        ('recoverable_advance', _('Recoverable advance')),
-        ('interest_subsidy', _('Interest subsidy')),
-    )),
-    (_('Technical and methodological aids'), (
-        ('guidance', _('Guidance')),
-        ('networking', _('Networking')),
-        ('valorisation', _('Valorisation')),
-    )),
+    (_('Financial aids'), FINANCIAL_AIDS),
+    (_('Technical and methodological aids'), TECHNICAL_AIDS),
 )
 
 
@@ -78,14 +82,13 @@ class BaseAidForm(forms.ModelForm):
             self.fields[field].label = label
 
         custom_help_text = {
-            'tags':
-                _('Add up to 16 keywords to describe your aid (separated '
-                    'by ",")'),
             'backers':
                 _('Select one or several backers among the list…'),
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
+            'tags': _('Add up to 16 keywords to describe your aid (separated '
+                      'by ",")'),
         }
         for field, help_text in custom_help_text.items():
             self.fields[field].help_text = help_text
@@ -129,9 +132,9 @@ class AidSearchForm(forms.Form):
     )
 
     ORDER_BY = (
-        ('relevance', _('Relevance')),
-        ('publication_date', _('Publication date')),
-        ('submission_deadline', _('Submission deadline')),
+        ('relevance', _('Sort: relevance')),
+        ('publication_date', _('Sort: publication date')),
+        ('submission_deadline', _('Sort: submission deadline')),
     )
 
     perimeter = PerimeterChoiceField(
@@ -146,30 +149,35 @@ class AidSearchForm(forms.Form):
         label=_('Apply before…'),
         required=False,
         widget=forms.TextInput(
-            attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}))
-    aid_types = forms.MultipleChoiceField(
-        label=_('Aid type'),
+            attrs={'type': 'date', 'placeholder': _('Apply before…')}))
+    financial_aids = forms.MultipleChoiceField(
+        label=_('Financial aids'),
         required=False,
-        choices=AID_TYPES)
+        choices=FINANCIAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+    technical_aids = forms.MultipleChoiceField(
+        label=_('Technical aids'),
+        required=False,
+        choices=TECHNICAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
     mobilization_step = forms.MultipleChoiceField(
         label=_('Project progress'),
         required=False,
-        choices=Aid.STEPS)
+        choices=Aid.STEPS,
+        widget=forms.CheckboxSelectMultiple)
     destinations = forms.MultipleChoiceField(
         label=_('Concerned actions'),
         required=False,
-        choices=Aid.DESTINATIONS)
-    call_for_projects_only = forms.MultipleChoiceField(
-        label=_('Call for projects'),
-        choices=((
-            _('Yes'),
-            _('Only show calls for project / expressions of interest')),),
-        required=False,
-        widget=MultipleChoiceFilterWidget)
+        choices=Aid.DESTINATIONS,
+        widget=forms.CheckboxSelectMultiple)
+    call_for_projects_only = forms.BooleanField(
+        label=_('Call for projects only'),
+        required=False)
     targeted_audiances = forms.MultipleChoiceField(
-        label=_('I am...'),
+        label=_('I am…'),
         required=False,
-        choices=Aid.AUDIANCES)
+        choices=Aid.AUDIANCES,
+        widget=forms.CheckboxSelectMultiple)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -209,7 +217,11 @@ class AidSearchForm(forms.Form):
         if mobilization_steps:
             qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
 
-        aid_types = self.cleaned_data.get('aid_types', None)
+        # Those two form fields are split for form readability,
+        # but they relate to a single model field.
+        financial_aids = self.cleaned_data.get('financial_aids', [])
+        technical_aids = self.cleaned_data.get('technical_aids', [])
+        aid_types = financial_aids + technical_aids
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
 
@@ -304,7 +316,7 @@ class AidSearchForm(forms.Form):
         # If the user requested a manual order by publication date
         manual_order = self.cleaned_data.get('order_by', 'relevance')
         if manual_order == 'publication_date':
-            order_fields = ['-date_created'] + order_fields
+            order_fields = ['-date_published'] + order_fields
         elif manual_order == 'submission_deadline':
             order_fields = ['submission_deadline'] + order_fields
 
@@ -457,8 +469,6 @@ class AidEditForm(BaseAidForm):
             'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
-            'targeted_audiances': MultipleChoiceFilterWidget,
-            'aid_types': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),

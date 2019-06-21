@@ -16,7 +16,7 @@ def aid(user):
     return aid
 
 
-def test_anonymous_user_cannot_see_the_bookmark_form(client, aid):
+def test_anonymous_user_cannot_see_the_bundle_form(client, aid):
     """Aid bundles requires a logged in account."""
     aid_url = aid.get_absolute_url()
     res = client.get(aid_url)
@@ -26,7 +26,7 @@ def test_anonymous_user_cannot_see_the_bookmark_form(client, aid):
            'les listes d\'aides' in content
 
 
-def test_anonymous_user_cannot_bookmark_aids(client, aid):
+def test_anonymous_user_cannot_bundle_aids(client, aid):
     aid_url = aid.get_absolute_url()
     res = client.post(aid_url)
     assert res.status_code == 405  # method not allowed
@@ -52,11 +52,11 @@ def test_bundle_modal_shows_selected_bundles(
                         'secure': False, 'path': '/'})
     browser.refresh()
 
-    modal = browser.find_element_by_id('bookmark-modal')
+    modal = browser.find_element_by_id('bundle-modal')
     content = modal.get_attribute('innerHTML')
     assert 'Vous devez être identifé·e pour utiliser ' \
            'les listes d\'aides' not in content
-    assert '<form id="bookmark-form"' in content
+    assert '<form id="bundle-form"' in content
 
     input0 = browser.find_element_by_id('id_bundles_0')
     assert input0.is_selected()
@@ -85,7 +85,7 @@ def test_bundle_selection_is_effective(client, aid):
     assert aid_bundles[0].id == bundles[2].id
 
 
-def test_bookmark_form_allows_for_bundle_creation(client, aid):
+def test_bundle_form_allows_for_bundle_creation(client, aid):
     user = aid.author
     bundles = [
         BundleFactory(name='Bundle_1', owner=user, aids=[aid]),

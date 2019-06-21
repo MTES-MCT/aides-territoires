@@ -16,7 +16,7 @@ from django.urls import reverse
 
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
-from bundles.forms import BookmarkForm
+from bundles.forms import BundleForm
 from aids.forms import AidEditForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -161,7 +161,7 @@ class AidDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Registered users see a "bookmark this aid" form.
+        # Registered users see a "save this aid" form.
         if self.request.user.is_authenticated:
             user_bundles = Bundle.objects \
                 .filter(owner=self.request.user) \
@@ -169,7 +169,7 @@ class AidDetailView(DetailView):
             context['user_bundles'] = user_bundles
             aid_bundles = user_bundles \
                 .filter(aids=self.object)
-            context['bookmark_form'] = BookmarkForm(
+            context['bundle_form'] = BundleForm(
                 user=self.request.user,
                 bundles=user_bundles,
                 initial={'bundles': aid_bundles})
@@ -201,23 +201,26 @@ class AidDetailView(DetailView):
 
         self.object = self.get_object()
 
-        form = BookmarkForm(
+        form = BundleForm(
             user=request.user,
             bundles=request.user.bundles,
             data=request.POST)
 
         if form.is_valid():
             # Get the m2m class that links bundles and aids
-            AidBookmark = Bundle._meta.get_field('aids').remote_field.through
+            BundleAssociation = Bundle._meta \
+                .get_field('aids') \
+                .remote_field \
+                .through
 
-            # Clear existing bookmarks. We will manually regenerate the
-            # entire list.
-            AidBookmark.objects \
+            # Clear existing bundle associations. We will manually regenerate
+            # the entire list.
+            BundleAssociation.objects \
                 .filter(bundle__owner=request.user) \
                 .filter(aid=self.object) \
                 .delete()
 
-            bookmarks = []
+            associations = []
             selected_bundles = list(form.cleaned_data['bundles'])
 
             # If a new bundle name was provided, create it on the fly
@@ -230,11 +233,11 @@ class AidDetailView(DetailView):
             # Create m2m bookmark objects to link the aid
             # to the selected bundles
             for bundle in selected_bundles:
-                bookmarks.append(AidBookmark(
+                associations.append(BundleAssociation(
                     bundle=bundle,
                     aid=self.object
                 ))
-            AidBookmark.objects.bulk_create(bookmarks)
+            BundleAssociation.objects.bulk_create(associations)
 
             if not self.request.is_ajax():
                 msg = _('This aid was added to the selected bundles.')

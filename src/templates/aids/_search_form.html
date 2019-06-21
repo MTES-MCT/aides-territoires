@@ -1,78 +1,74 @@
 {% load pagination i18n %}
 
 <div class="form-container">
-    <nav>
-        <ul class="nav nav-tabs card-header-tabs">
-            <li>
-                <a class="active" data-toggle="tab" href="#basic-search">
-                    {{ _('Refine your search') }}
-                </a>
-            </li>
-            <li class="js">
-                <a data-toggle="tab" href="#advanced-search">
-                    {{ _('Advanced search filters') }}
-                </a>
-            </li>
-            <li class="js">
-                <a data-toggle="tab" href="#help">
-                    {{ _('Help') }}
-                </a>
-            </li>
-        </ul>
-    </nav>
-
     <form action="" method="get">
         {% for field in form.hidden_fields %}
-            {{ field }}
+        {{ field }}
         {% endfor %}
         <div id="basic-search" class="show active">
-            <div class="row">
-                {% include '_field_snippet.html' with field=form.text %}
-                {% include '_field_snippet.html' with field=form.aid_types %}
-                {% include '_field_snippet.html' with field=form.call_for_projects_only %}
-                {% include '_field_snippet.html' with field=form.order_by %}
-                <button type="submit" class="nojs">{{ _('Search') }}</button>
-            </div>
-        </div>
-        <div id="advanced-search">
-            <div class="row">
-                {% include '_field_snippet.html' with field=form.perimeter %}
-                {% include '_field_snippet.html' with field=form.destinations %}
-                {% include '_field_snippet.html' with field=form.mobilization_step %}
-                {% include '_field_snippet.html' with field=form.apply_before %}
-                {% include '_field_snippet.html' with field=form.targeted_audiances %}
-            </div>
-        </div>
-        <div id="help">
-                <p>{% blocktrans trimmed %}
-                    Use advanced search syntax in the "Text search" field for
-                    more targeted search results.
-                {% endblocktrans %}</p>
-                <p>{% blocktrans trimmed %}
-                    By default, all search terms are optional. If you search for
-                    "ademe direccte", you will find all aids that are backed by
-                    Ademe <strong>OR</strong> the DIRECCTE.
-                {% endblocktrans %}</p>
-                <p>{% blocktrans trimmed %}
-                    You can make search terms mandadory by using a "+". Ex:
-                    "Ademe + recyclage" will find aids backed by Ademe
-                    <strong>AND</strong> that are related to recycling.
-                {% endblocktrans %}</p>
-                <p>{% blocktrans trimmed %}
-                    You can filter out some results by prefixing a term with
-                    "-". Ex: "Ademe -recyclage" will find aids backed by Ademe
-                    <strong>AND</strong> that are <strong>NOT</strong>
-                    related to recycling.
-                {% endblocktrans %}</p>
 
+            <div class="row">
+                <div class="col-md-6">
+                    {% include '_search_field.html' with field=form.text %}
+                </div>
+
+                <div class="col-md-3">
+                    {% include '_search_field.html' with field=form.apply_before %}
+                </div>
+
+                <div class="col-md-3">
+                    <button class="search-btn" type="submit">
+                        <span class="fas fa-search"></span>
+                        {{ _('Search') }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    {% include '_search_field.html' with field=form.perimeter %}
+                </div>
+                <div class="col-md-3 col-checkbox">
+                    <div class="form-group">
+                        {{ form.call_for_projects_only }}
+                        <label>
+                            {{ form.call_for_projects_only.label }}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button class="bookmark-btn" type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}">
+                        <span class="fas fa-bell"></span>
+                        {{ _('Save bookmark') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="advanced-search">
+
+            <div class="row">
+                <div class="col-md-2 label-col">
+                    {{ form.financial_aids.label }}
+                </div>
+                <div class="col-md-7">
+                    {{ form.financial_aids }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.order_by }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2 label-col">
+                    {{ form.technical_aids.label }}
+                </div>
+                <div class="col-md">
+                    {{ form.technical_aids }}
+                </div>
+            </div>
         </div>
     </form>
-
-    {% comment %}
-    Filters are only useful when js is active and functional. Hence, they
-    are only displayed using javascript.
-    {% endcomment %}
-    <div id="filters"></div>
 </div>
 
 <nav id="mobile-search-link">
@@ -80,5 +76,5 @@
         <a href="{% url 'advanced_search_view' %}{% querydict %}">
             {{ _('Filter your results') }}
         </a>
-    </di>
+    </div>
 </nav>

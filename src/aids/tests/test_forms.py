@@ -156,16 +156,16 @@ def test_seach_form_filter_mobilization_step(aids):
 
 
 def test_search_form_filter_by_types(aids):
-    form = AidSearchForm({'aid_types': ['grant']})
+    form = AidSearchForm({'financial_aids': ['grant']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 8
     for aid in qs:
         assert 'grant' in aid.aid_types
 
-    form = AidSearchForm({'aid_types': ['grant', 'networking']})
+    form = AidSearchForm({
+        'financial_aids': ['grant'],
+        'technical_aids': ['networking']})
     qs = form.filter_queryset(aids)
-    for aid in qs:
-        print(aid.aid_types)
     assert qs.count() == 9
     for aid in qs:
         assert 'grant' in aid.aid_types or 'networking' in aid.aid_types

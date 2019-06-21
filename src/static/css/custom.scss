@@ -110,62 +110,44 @@ section.aids {
         div.form-container {
             @extend .card;
             @extend .d-none;
-            @extend .d-md-block;
-
-            nav {
-                @extend .card-header;
-
-                ul {
-                    @extend .nav;
-                    @extend .nav-tabs;
-                    @extend .card-header-tabs;
-
-                    li {
-                        @extend .nav-item;
-
-                        a {
-                            @extend .nav-link;
-                            font-weight: bolder;
-                        }
-                        a.active {
-                            font-weight: normal;
-                        }
-                    }
-                }
-            }
+            @extend .d-lg-block;
 
             form {
                 @extend .card-body;
-                @extend .tab-content;
 
-                div.form-group {
-                    @extend .col-md-4;
+                div.col-checkbox {
+                    display: flex;
+
+                    div.form-group {
+                        align-self: center;
+                        margin: 0;
+                    }
                 }
 
-                button {
-                    @extend .mb-3;
-                    @extend .ml-3;
-                    align-self: flex-end;
+                div.label-col {
+                    white-space: nowrap;
                 }
 
-                &>div {
-                    @extend .tab-pane;
-                }
-            }
+                ul, li {
+                    display: inline;
+                    margin: 0;
+                    padding: 0;
 
-            div#filters {
-                @extend .card-body;
-                padding-top: 0;
-                @extend .pb-3;
-
-                &:empty {
-                    display: none;
+                    label {
+                        @extend .mr-2;
+                    }
                 }
 
-                button {
-                    @extend .mb-1;
+                button.search-btn {
                     @extend .btn;
+                    @extend .btn-block;
                     @extend .btn-success;
+                }
+
+                button.bookmark-btn {
+                    @extend .btn;
+                    @extend .btn-block;
+                    @extend .btn-outline-primary;
                 }
             }
         }
@@ -175,7 +157,7 @@ section.aids {
             @extend .fixed-bottom;
             @extend .navbar-light;
             @extend .bg-primary;
-            @extend .d-md-none;
+            @extend .d-lg-none;
 
             a {
                 @extend .btn;
@@ -503,7 +485,7 @@ section#aid {
                 @include icon(before, $fa-var-bullhorn);
             }
 
-            &.bookmark {
+            &.bundle {
                 @include icon(before, $fa-var-bars);
             }
         }
@@ -535,7 +517,7 @@ div#error-report-modal {
     }
 }
 
-div#bookmark-modal {
+div#bundle-modal {
     form {
         div.single-input {
             @extend .custom-control;
@@ -550,7 +532,7 @@ div#bookmark-modal {
             }
         }
 
-        button#bookmark-btn {
+        button#bundle-btn {
             @extend .btn-block;
             @extend .btn-primary;
         }
@@ -592,6 +574,64 @@ section#tags {
         @extend .col-sm-6;
         @extend .col-md-4;
         @extend .col-lg-3;
+    }
+}
+
+section#bookmarks {
+    div.bookmark {
+        @extend .card;
+        @extend .shadow-sm;
+        @extend .rounded;
+        @extend .mb-3;
+
+        &>div {
+            @extend .card-body;
+            position: relative;
+
+            h2 {
+                @extend .card-title;
+                @extend .h3;
+            }
+
+            a {
+                @extend .btn;
+                @extend .btn-primary;
+            }
+
+            form.update-form {
+                position: absolute;
+                top: $card-spacer-x;
+                right: $card-spacer-x;
+                @extend .form-inline;
+
+                div.alert_checkbox {
+                    @extend .custom-control;
+                    @extend .custom-switch;
+
+                    input {
+                        @extend .custom-control-input;
+                    }
+
+                    label {
+                        @extend .custom-control-label;
+                    }
+                }
+
+                button {
+                    @extend .ml-2;
+                }
+            }
+
+
+            form.delete-form {
+                float: right;
+
+                button {
+                    @extend .btn-danger;
+                    @include icon(before, $fa-var-exclamation-circle);
+                }
+            }
+        }
     }
 }
 

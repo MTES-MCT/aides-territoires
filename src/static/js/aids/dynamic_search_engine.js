@@ -17,7 +17,6 @@
     var resultsUrl = catalog.search_url;
     var searchXHR = undefined;
     var searchForm = $('div#search-engine form');
-    var filtersDiv = $('div#search-engine div#filters');
     var orderField = $('div#search-engine select#id_order_by');
 
     var state = {
@@ -49,7 +48,6 @@
     var renderState = function (results) {
         renderResults(results);
         renderUrl();
-        renderFilterButtons();
         renderPendingState();
         renderSessionCookie();
     }
@@ -91,112 +89,6 @@
         document.cookie = catalog.SEARCH_COOKIE_NAME + '=' + searchUrl;
     };
 
-    /**
-     * Returns the html code of a single filter button.
-     */
-    var filterButton = function (fieldName, fieldLabel, fieldValue, fieldText) {
-        // Using template stings was nice. Too bad IE11 does not support them.
-        return '<button data-field="' +
-            fieldName +
-            '" data-value="' +
-            fieldValue +
-            '">' +
-            fieldLabel + ': ' + fieldText +
-            ' <i class="fas fa-times"></i></button> ';
-    };
-
-    /**
-     * Display all the buttons that visually represents all the filters that
-     * were selected to refine the search query.
-     *
-     * Several filter buttons can be rendered for a single field, e.g for
-     * select multiple fields.
-     *
-     * There is an exception for the "order by" field, that is not a filter
-     * and must be handled differently.
-     */
-    exports.renderFilterButtons = function (event) {
-        var filterButtons = [];
-
-        var textFields = searchForm.find('input[type=text], input[type=date]');
-        for (var i = 0; i < textFields.length; i++) {
-            var field = $(textFields[i]);
-            var name = field.attr('name');
-            var label = field.siblings('label');
-            var value = field.val();
-            if (value !== '') {
-                var buttonHtml = filterButton(name, label.html(), value, value);
-                filterButtons.push(buttonHtml);
-            }
-        }
-
-        var selectFields = searchForm.find('select').not('[name=order_by]');
-        for (var i = 0; i < selectFields.length; i++) {
-            var field = $(selectFields[i]);
-            var name = field.attr('name');
-            var label = field.siblings('label');
-            var values = field.select2('data');
-
-            for (var j = 0; j < values.length; j++) {
-                var value = values[j].id;
-                var text = values[j].text;
-
-                if (value !== '') {
-                    var buttonHtml = filterButton(name, label.html(), value, text);
-                    filterButtons.push(buttonHtml);
-                }
-            }
-        }
-
-        var checkboxFields = searchForm.find('input[type=checkbox]');
-        for (var i = 0; i < checkboxFields.length; i++) {
-            var field = $(checkboxFields[i]);
-            if (field.is(':checked')) {
-                var name = field.attr('name');
-                var label = field.siblings('label');
-                var value = field.val();
-                if (value !== '') {
-                    var buttonHtml = filterButton(name, label.html(), value, value);
-                    filterButtons.push(buttonHtml);
-                }
-            }
-        }
-
-        var allFilters = '';
-        for (var i = 0; i < filterButtons.length; i++) {
-            allFilters += filterButtons[i];
-        }
-        filtersDiv.html(allFilters);
-    };
-
-    /**
-     * Removes a single filter criteria.
-     */
-    var clearSingleFilter = function (button) {
-        var filterFieldName = button.data('field');
-        var filterFieldValue = button.data('value');
-        var fieldSelector = 'input[name=' + filterFieldName + '], select[name=' + filterFieldName + ']';
-        var field = searchForm.find(fieldSelector);
-        var currentValue = field.val();
-
-        // The filter can be for a single value field (input[type=text], checkbox, etc.)
-        // or it can be a single value for a multiple choice field, which is
-        // rendered with selecte2.
-        if (Array.isArray(currentValue)) {
-            var filteredValue = currentValue.filter(function (elt) {
-                return elt != filterFieldValue;
-            });
-            field.val(filteredValue);
-        } else if (field.prop('checked')) {
-            field.prop('checked', false);
-        } else {
-            field.val('');
-        }
-
-        // Here, we are telling select2 to update the rendering of the field.
-        field.trigger('change');
-    };
-
     var updateSearch = function () {
         var newSearchParams = searchForm.serialize();
         if (state['searchParams'] != newSearchParams) {
@@ -212,16 +104,19 @@
     /**
      * Updating the search form triggers a new search query.
      */
-    exports.onSearchFormChanged = function () {
-        updateSearch();
-    };
+    exports.onFormSubmit = function (event) {
 
-    /**
-     * Removing a search filter triggers a new search query.
-     */
-    exports.onSearchFilterRemoved = function () {
-        var button = $(this);
-        clearSingleFilter(button);
+        // if the "save bookmark" button was clicked, the form submission
+        // must proceed without interruption
+        var activeElement = document.activeElement;
+        if (activeElement) {
+            var formaction = activeElement.getAttribute('formaction');
+            if (formaction) {
+                return;
+            }
+        }
+
+        event.preventDefault();
         updateSearch();
     };
 
@@ -254,12 +149,9 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#search-engine form').on('change submit', onSearchFormChanged);
-    $('div#search-engine form').on('keyup', 'input[type=text]', onSearchFormChanged);
-    $('div#filters').on('click', 'button', onSearchFilterRemoved);
+    $('div#search-engine form').on('submit', onFormSubmit);
     $('div#search-results').on('click', 'div#sorting-menu a', onSortCriteraSelected);
 
-    renderFilterButtons();
     renderSessionCookie();
     hideOrderField();
 });
