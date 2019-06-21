@@ -634,3 +634,25 @@ section#bookmarks {
         }
     }
 }
+
+section#partner {
+    @extend .py-5;
+
+    h1 {
+        @extend .text-center;
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    img{
+        @extend .my-3;
+        @extend .mx-4;
+
+        height: 60px;
+    }
+}
