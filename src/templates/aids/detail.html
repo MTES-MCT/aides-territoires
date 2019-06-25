@@ -37,6 +37,10 @@
             data-target="#error-report-modal">
             {{ _('Report a problem') }}
         </button>
+
+        <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
+            {{ _('Suggest a modification') }}
+        </a>
     </div>
 
     <div class="aid-details">

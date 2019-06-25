@@ -489,7 +489,8 @@ section#aid {
     div.aid-actions {
         @extend .mb-3;
 
-        button {
+        button,
+        a {
             @extend .btn;
             @extend .btn-light;
 
@@ -499,6 +500,10 @@ section#aid {
 
             &.bundle {
                 @include icon(before, $fa-var-bars);
+            }
+
+            &.suggest-modification {
+                @include icon(before, $fa-var-pen);
             }
         }
     }
