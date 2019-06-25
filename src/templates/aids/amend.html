@@ -1,0 +1,48 @@
+{% extends 'aids/_base_edit.html' %}
+{% load i18n form_utils %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        {% if current_search %}
+            <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Your search') }}</a></li>
+        {% else %}
+            <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
+        {% endif %}
+        <li><a href="{{ aid.get_absolute_url }}">{{ _('Aid detail') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Amend') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block page_title %}
+    <h1>{{ _('Amend an aid') }}</h1>
+{% endblock %}
+
+{% block form_sidebar %}
+<div class="sidebar-actions">
+    <h3>{{ _('Info') }}</h3>
+    <div>
+        <p>{% blocktrans trimmed %}
+            You have the possibility to <strong>suggest amendments</strong>
+            to the present data.
+            Your modifications will not be published until they are <strong>
+            reviewed by an administrator</strong>.
+        {% endblocktrans %}</p>
+
+        <p>{% blocktrans trimmed %}
+            Thank you for your contribution.
+        {% endblocktrans %}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block form_actions %}
+<div class="form-actions">
+    <a href="{{ aid.get_absolute_url }}">{{ _('Cancel and go back to the aid detail') }}</a>
+    <div class="submit-buttons">
+        <button type="submit">{{ _('Suggest amendments') }}</button>
+    </div>
+</div>
+{% endblock %}

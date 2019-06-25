@@ -380,3 +380,20 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
+
+
+class AidAmendView(UpdateView):
+    """Offers a way to users to amend existing aids."""
+
+    template_name = 'aids/amend.html'
+    form_class = AidEditForm
+    context_object_name = 'aid'
+
+    def get_queryset(self):
+        return Aid.objects.published().open()
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.pk = None
+        self.object.save()
+        form.save_m2m()
