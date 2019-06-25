@@ -52,6 +52,15 @@ class BaseAidManager(models.Manager):
 ExistingAidsManager = BaseAidManager.from_queryset(AidQuerySet)
 
 
+class AmendmentManager(models.Manager):
+    """Custom manager to only get amendments."""
+
+    def get_queryset(self):
+        qs = super().get_queryset() \
+            .filter(is_amendment=True)
+        return qs
+
+
 class AidWorkflow(xwf_models.Workflow):
     """Defines statuses and transitions for Aids."""
 
@@ -138,6 +147,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
+    amendments = AmendmentManager()
 
     slug = models.SlugField(
         _('Slug'),
