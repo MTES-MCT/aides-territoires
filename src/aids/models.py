@@ -40,11 +40,12 @@ class AidQuerySet(models.QuerySet):
 
 
 class BaseAidManager(models.Manager):
-    """Custom manager to exclude deleted aids from all queries."""
+    """Custom manager to only keep existing aids."""
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.exclude(status='deleted')
+        qs = super().get_queryset() \
+            .exclude(status='deleted') \
+            .exclude(is_amendment=True)
         return qs
 
 
@@ -296,6 +297,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'tags.Tag',
         related_name='aids',
         verbose_name=_('Tags'))
+
+    # Those fields handle the "aid amendment" feature
+    is_amendment = models.BooleanField(
+        _('Is amendment'),
+        default=False)
+    amended_aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Amended aid'),
+        on_delete=models.CASCADE,
+        null=True)
 
     class Meta:
         verbose_name = _('Aid')
