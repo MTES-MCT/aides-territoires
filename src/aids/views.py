@@ -8,11 +8,14 @@ from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseNotAllowed)
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   RedirectView, DeleteView, FormView)
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
+
+from braces.views import MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
@@ -382,7 +385,7 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         return redirect
 
 
-class AidAmendView(UpdateView):
+class AidAmendView(MessageMixin, UpdateView):
     """Offers a way to users to amend existing aids."""
 
     template_name = 'aids/amend.html'
@@ -393,7 +396,26 @@ class AidAmendView(UpdateView):
         return Aid.objects.published().open()
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.pk = None
-        self.object.save()
+        amended_aid_pk = form.instance.pk
+        amended_aid_slug = form.instance.slug
+
+        aid = form.save(commit=False)
+        aid.pk = None
+        aid.date_created = timezone.now()
+        aid.date_updated = None
+        aid.is_amendment = True
+        aid.amended_aid_pk = amended_aid_pk
+
+        if self.request.user.is_authenticated:
+            aid.author = self.request.user
+        else:
+            aid.author = None
+
+        aid.save()
         form.save_m2m()
+
+        msg = _('Your amendment will be reviewed by an admin soon. '
+                'Thank you for contributing.')
+        self.messages.success(msg)
+        url = reverse('aid_detail_view', args=[amended_aid_slug])
+        return HttpResponseRedirect(url)

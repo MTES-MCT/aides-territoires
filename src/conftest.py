@@ -18,6 +18,12 @@ def user():
 
 
 @pytest.fixture
+def user_client(user, client):
+    client.force_login(user)
+    return client
+
+
+@pytest.fixture
 def contributor():
     """Generates a valid and active contributor."""
 

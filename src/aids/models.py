@@ -161,7 +161,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'accounts.User',
         on_delete=models.PROTECT,
         verbose_name=_('Author'),
-        help_text=_('Who is submitting the aid?'))
+        help_text=_('Who is submitting the aid?'),
+        null=True)
     backers = models.ManyToManyField(
         'backers.Backer',
         related_name='aids',

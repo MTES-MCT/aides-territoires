@@ -336,3 +336,60 @@ def test_aids_under_review_menu_is_for_admin_only(client, contributor):
     res = client.get(url)
     assert res.status_code == 200
     assert 'Aides en revue' in res.content.decode('utf-8')
+
+
+def test_amendment_form_is_accessible_by_anonymous_users(client):
+    aid = AidFactory(status='published')
+    amend_url = reverse('aid_amend_view', args=[aid.slug])
+    res = client.get(amend_url)
+
+    assert res.status_code == 200
+    assert 'suggest amendments' in res.content.decode()
+
+
+def test_amendment_form_is_only_accessible_for_published_aids(client):
+    aid = AidFactory(status='draft')
+    amend_url = reverse('aid_amend_view', args=[aid.slug])
+    res = client.get(amend_url)
+    assert res.status_code == 404
+
+    aid.status = 'reviewable'
+    res = client.get(amend_url)
+    assert res.status_code == 404
+
+
+def test_amendment_form(client, aid_form_data):
+    amendments = Aid.amendments.all()
+    assert amendments.count() == 0
+
+    aid = AidFactory(status='published')
+    assert amendments.count() == 0
+
+    amend_url = reverse('aid_amend_view', args=[aid.slug])
+    res = client.get(amend_url)
+    assert res.status_code == 200
+
+    aid_form_data.update({
+        'name': 'New name',
+        'description': 'New description',
+    })
+
+    res = client.post(amend_url, data=aid_form_data)
+    assert res.status_code == 302
+    assert amendments.count() == 1
+
+    amendment = amendments[0]
+    assert amendment.name == 'New name'
+    assert amendment.description == 'New description'
+    assert amendment.slug != aid.slug
+    assert amendment.author is None
+
+
+def test_amendment_form_for_logged_user(user, client, aid_form_data):
+    client.force_login(user)
+
+    aid = AidFactory(status='published')
+    amend_url = reverse('aid_amend_view', args=[aid.slug])
+    client.post(amend_url, data=aid_form_data)
+    amendment = Aid.amendments.all()[0]
+    assert amendment.author == user
