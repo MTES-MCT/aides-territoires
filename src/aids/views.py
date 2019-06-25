@@ -404,7 +404,7 @@ class AidAmendView(MessageMixin, UpdateView):
         aid.date_created = timezone.now()
         aid.date_updated = None
         aid.is_amendment = True
-        aid.amended_aid_pk = amended_aid_pk
+        aid.amended_aid_id = amended_aid_pk
 
         if self.request.user.is_authenticated:
             aid.author = self.request.user

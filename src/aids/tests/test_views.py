@@ -383,6 +383,7 @@ def test_amendment_form(client, aid_form_data):
     assert amendment.description == 'New description'
     assert amendment.slug != aid.slug
     assert amendment.author is None
+    assert amendment.amended_aid == aid
 
 
 def test_amendment_form_for_logged_user(user, client, aid_form_data):
