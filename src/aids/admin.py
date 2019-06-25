@@ -102,7 +102,7 @@ class AidAdmin(admin.ModelAdmin):
     ]
 
     def get_queryset(self, request):
-        qs = Aid.all_aids.all()
+        qs = Aid.all_aids.exclude(is_amendment=True)
         qs = qs.prefetch_related('backers')
         qs = qs.select_related('author')
         return qs
@@ -118,4 +118,23 @@ class AidAdmin(admin.ModelAdmin):
     make_mark_as_CFP.short_description = _('Set as CFP')
 
 
+class Amendment(Aid):
+    """We need this so we can register the same model twice."""
+    class Meta:
+        proxy = True
+        verbose_name = _('Amendment')
+        verbose_name_plural = _('Amendments')
+
+
+class AmendmentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'amended_aid', 'author', 'date_created']
+
+    def get_queryset(self, request):
+        qs = Aid.amendments.all()
+        qs = qs.prefetch_related('backers')
+        qs = qs.select_related('author')
+        return qs
+
+
 admin.site.register(Aid, AidAdmin)
+admin.site.register(Amendment, AmendmentAdmin)
