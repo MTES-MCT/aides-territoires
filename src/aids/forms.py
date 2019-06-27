@@ -122,6 +122,68 @@ class AidAdminForm(BaseAidForm):
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
 
 
+class AidEditForm(BaseAidForm):
+
+    backers = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple,
+        required=False)
+    perimeter = PerimeterChoiceField(
+        label=_('Perimeter'))
+
+    class Meta(BaseAidForm.Meta):
+        model = Aid
+        fields = [
+            'name',
+            'description',
+            'tags',
+            'targeted_audiances',
+            'backers',
+            'new_backer',
+            'recurrence',
+            'start_date',
+            'predeposit_date',
+            'submission_deadline',
+            'perimeter',
+            'is_call_for_project',
+            'aid_types',
+            'subvention_rate',
+            'mobilization_steps',
+            'destinations',
+            'eligibility',
+            'origin_url',
+            'application_url',
+            'contact_detail',
+            'contact_email',
+            'contact_phone',
+        ]
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+            'eligibility': forms.Textarea(attrs={'rows': 3}),
+            'mobilization_steps': MultipleChoiceFilterWidget,
+            'destinations': MultipleChoiceFilterWidget,
+            'start_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'predeposit_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'submission_deadline': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+
+        }
+
+    def clean(self):
+        """Make sure the aid backers were provided."""
+
+        data = self.cleaned_data
+        if not any((data.get('backers'), data.get('new_backer'))):
+            msg = _('You must select the aid backers, or create a new one '
+                    'below.')
+            self.add_error('backers', msg)
+
+        return data
+
+
 class AidSearchForm(forms.Form):
     """Main form for search engine."""
 
@@ -427,65 +489,3 @@ class AidSearchForm(forms.Form):
             qs = qs.exclude(q_scale_epci & q_different_epci)
 
         return qs
-
-
-class AidEditForm(BaseAidForm):
-
-    backers = forms.ModelMultipleChoiceField(
-        label=_('Backers'),
-        queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
-        required=False)
-    perimeter = PerimeterChoiceField(
-        label=_('Perimeter'))
-
-    class Meta(BaseAidForm.Meta):
-        model = Aid
-        fields = [
-            'name',
-            'description',
-            'tags',
-            'targeted_audiances',
-            'backers',
-            'new_backer',
-            'recurrence',
-            'start_date',
-            'predeposit_date',
-            'submission_deadline',
-            'perimeter',
-            'is_call_for_project',
-            'aid_types',
-            'subvention_rate',
-            'mobilization_steps',
-            'destinations',
-            'eligibility',
-            'origin_url',
-            'application_url',
-            'contact_detail',
-            'contact_email',
-            'contact_phone',
-        ]
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-            'eligibility': forms.Textarea(attrs={'rows': 3}),
-            'mobilization_steps': MultipleChoiceFilterWidget,
-            'destinations': MultipleChoiceFilterWidget,
-            'start_date': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
-            'predeposit_date': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
-            'submission_deadline': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
-
-        }
-
-    def clean(self):
-        """Make sure the aid backers were provided."""
-
-        data = self.cleaned_data
-        if not any((data.get('backers'), data.get('new_backer'))):
-            msg = _('You must select the aid backers, or create a new one '
-                    'below.')
-            self.add_error('backers', msg)
-
-        return data
