@@ -1,10 +1,19 @@
 {% extends '_base.html' %}
-{% load amendments %}
+{% load i18n amendments %}
+
+{% block extratitle %}{{ _('Amendment merge') }}{% endblock %}
 
 {% block sectionid %}amend-ui{% endblock %}
 
 {% block content %}
-<h1>{{ aid.name }}</h1>
+<h1>
+    {{ aid.name }}<br />
+    <small>
+        {% blocktrans trimmed with author_name=amendment.author.full_name date=amendment.date_created|date %}
+            By {{ author_name }} on {{ date }}
+        {% endblocktrans %}
+    </small>
+</h1>
 
 <form method="post" action="" class="main-form">
     {% csrf_token %}
@@ -34,4 +43,16 @@
         </div>
     </div>
 </form>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/backers_autocomplete.js"></script>
+<script src="/static/js/tags_autocomplete.js"></script>
 {% endblock %}

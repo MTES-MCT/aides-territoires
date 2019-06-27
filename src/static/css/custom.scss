@@ -708,6 +708,14 @@ section#marketing {
 }
 
 section#amend-ui {
+    h1 {
+        @extend .mb-3;
+
+        small {
+            @extend .text-muted;
+        }
+    }
+
     .field-diff {
         @extend .mb-3;
 
