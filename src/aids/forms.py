@@ -35,6 +35,10 @@ AID_TYPES = (
 
 
 class BaseAidForm(forms.ModelForm):
+    aid_types = forms.ChoiceField(
+        label=_('Aid types'),
+        choices=AID_TYPES,
+        help_text=_('Specify the aid type or types'))
     tags = TagChoiceField(
         label=_('Tags'),
         choices=list,
@@ -51,17 +55,16 @@ class BaseAidForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['aid_types'].choices = AID_TYPES
-
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
-        all_tags = self.instance.tags
-        if self.is_bound:
-            if hasattr(self.data, 'getlist'):
-                all_tags += self.data.getlist('tags')
-            else:
-                all_tags += self.data.get('tags', [])
-        self.fields['tags'].choices = zip(all_tags, all_tags)
+        if 'tags' in self.fields:
+            all_tags = self.instance.tags
+            if self.is_bound:
+                if hasattr(self.data, 'getlist'):
+                    all_tags += self.data.getlist('tags')
+                else:
+                    all_tags += self.data.get('tags', [])
+            self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
             'name': _('Aid title'),
@@ -79,7 +82,8 @@ class BaseAidForm(forms.ModelForm):
                                      ' of interest?')
         }
         for field, label in custom_labels.items():
-            self.fields[field].label = label
+            if field in self.fields:
+                self.fields[field].label = label
 
         custom_help_text = {
             'new_backer':
@@ -89,7 +93,8 @@ class BaseAidForm(forms.ModelForm):
                       'by ",")'),
         }
         for field, help_text in custom_help_text.items():
-            self.fields[field].help_text = help_text
+            if field in self.fields:
+                self.fields[field].help_text = help_text
 
     def save(self, commit=True):
         """Saves the instance.
