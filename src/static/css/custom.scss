@@ -709,10 +709,16 @@ section#marketing {
 
 section#amend-ui {
     h1 {
-        @extend .mb-3;
 
         small {
             @extend .text-muted;
+        }
+    }
+
+    nav {
+        @extend .mb-3;
+        a + a {
+            @extend .ml-3;
         }
     }
 
@@ -738,6 +744,7 @@ section#amend-ui {
             }
 
             &.common {
+                background-color: #dbedff;
             }
 
             span.prefix {

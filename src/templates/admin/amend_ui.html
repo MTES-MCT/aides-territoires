@@ -15,6 +15,11 @@
     </small>
 </h1>
 
+<nav>
+    <a href="{{ aid.get_absolute_url }}">{{ _('See the aid detail') }}</a>
+    <a href="{% url 'admin:aids_aid_change' aid.id %}">{{ _('Admin edit') }}</a>
+</nav>
+
 <form method="post" action="" class="main-form">
     {% csrf_token %}
     {{ form.media }}

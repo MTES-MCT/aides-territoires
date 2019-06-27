@@ -2,11 +2,14 @@ from django.views.generic import UpdateView
 from django.http import Http404
 from django.forms import modelform_factory
 
+from aids.templatetags.amendments import extract_value
 from aids.forms import AidEditForm
 from aids.models import Aid
 
 
 class AmendmentMerge(UpdateView):
+    """Display a form to merge an amendment data into the amended aid."""
+
     template_name = 'admin/amend_ui.html'
     pk_url_kwarg = 'object_id'
     context_object_name = 'aid'
@@ -17,6 +20,7 @@ class AmendmentMerge(UpdateView):
         return qs
 
     def get_object(self):
+        """The `object` edited in the form is the amended aid."""
         pk = self.kwargs.get(self.pk_url_kwarg)
         qs = Aid.amendments.all()
         try:
@@ -24,23 +28,29 @@ class AmendmentMerge(UpdateView):
         except Aid.DoesNotExist:
             raise Http404('')
 
+        # Also store the amendment targeted in the url
         self.amendment = amendment
         aid = amendment.amended_aid
         return aid
 
     def get_diff_fields(self):
-        """Return fields with a difference."""
+        """Return fields with a difference between the aid and the amendment."""
 
-        def filter_field(field_name):
-            v1 = getattr(self.object, field_name)
-            v2 = getattr(self.amendment, field_name)
+        def has_diff(field_name):
+            """Is there a difference for this value?.
+
+            Compares the value for `field_name`, for the aid and the amendment.
+            """
+            v1 = extract_value(self.object, field_name)
+            v2 = extract_value(self.amendment, field_name)
             return v1 != v2
 
         all_fields = AidEditForm._meta.fields
-        diff_fields = list(filter(filter_field, all_fields))
+        diff_fields = list(filter(has_diff, all_fields))
         return diff_fields
 
     def get_form_class(self):
+        """Build an aid edit form with only amended fields."""
         diff_fields = self.get_diff_fields()
         AidForm = modelform_factory(Aid, form=AidEditForm, fields=diff_fields)
         return AidForm
