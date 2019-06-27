@@ -706,3 +706,44 @@ section#marketing {
         }
     }
 }
+
+section#amend-ui {
+    .field-diff {
+        @extend .mb-3;
+
+        .diff-line {
+            margin: 0;
+            white-space: pre-wrap;
+            @extend .py-1;
+
+            &.add {
+                background-color: #e6ffed;
+            }
+
+            &.rm {
+                background-color: #ffeef0;
+            }
+
+            &.info {
+                background-color: $gray-100;
+                user-select: none;
+            }
+
+            &.common {
+            }
+
+            span.prefix {
+                user-select: none;
+            }
+        }
+    }
+
+    div.form-actions {
+        display: flex;
+        align-items: baseline;
+
+        div.submit-buttons {
+            margin-left: auto;
+        }
+    }
+}

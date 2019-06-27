@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 
+from aids.admin_views import AmendmentMerge
 from aids.models import Aid
 from aids.forms import AidAdminForm
 
@@ -134,6 +136,14 @@ class AmendmentAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related('backers')
         qs = qs.select_related('author')
         return qs
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(_('<path:object_id>/merge/'), self.admin_site.admin_view(
+                AmendmentMerge.as_view()), name='aids_amendment_list'),
+        ]
+        return my_urls + urls
 
 
 admin.site.register(Aid, AidAdmin)

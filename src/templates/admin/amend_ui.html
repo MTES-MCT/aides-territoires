@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+{% load amendments %}
+
+{% block sectionid %}amend-ui{% endblock %}
+
+{% block content %}
+<h1>{{ aid.name }}</h1>
+
+<form method="post" action="" class="main-form">
+    {% csrf_token %}
+    {{ form.media }}
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors.0 }}
+    </div>
+    {% endif %}
+
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+
+    {% for field in form %}
+        {% include '_field_snippet.html' with field=field %}
+        <div class="field-diff">{% field_diff aid amendment field.name %}</div>
+    {% endfor %}
+
+    <hr />
+
+    <div class="form-actions">
+        <a href="{% url 'admin:aids_amendment_changelist' %}">{{ _('Cancel and go back to the amendment list') }}</a>
+        <div class="submit-buttons">
+            <button type="submit">{{ _('Update the aid and discard the amendment') }}</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
