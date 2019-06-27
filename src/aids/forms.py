@@ -163,8 +163,8 @@ class AidEditForm(BaseAidForm):
             'eligibility': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
-            'targeted_audiances': forms.CheckboxSelectMultiple,
-            'aid_types': forms.CheckboxSelectMultiple,
+            'targeted_audiances': MultipleChoiceFilterWidget,
+            'aid_types': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'predeposit_date': forms.TextInput(
