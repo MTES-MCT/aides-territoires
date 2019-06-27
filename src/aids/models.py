@@ -209,7 +209,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=TYPES),
-        help_text=_('Specify the help type or types.'))
+        help_text=_('Specify the aid type or types.'))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
