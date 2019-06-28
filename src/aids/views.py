@@ -405,6 +405,8 @@ class AidAmendView(MessageMixin, UpdateView):
         aid.date_updated = None
         aid.is_amendment = True
         aid.amended_aid_id = amended_aid_pk
+        aid.is_imported = False
+        aid.import_uniqueid = None
 
         if self.request.user.is_authenticated:
             aid.author = self.request.user
