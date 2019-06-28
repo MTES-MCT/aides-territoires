@@ -35,25 +35,16 @@ AID_TYPES = (
 
 
 class BaseAidForm(forms.ModelForm):
-    aid_types = forms.ChoiceField(
-        label=_('Aid types'),
-        choices=AID_TYPES,
-        help_text=_('Specify the aid type or types'))
     tags = TagChoiceField(
         label=_('Tags'),
         choices=list,
         required=False)
 
-    class Meta:
-        widgets = {
-            'mobilization_steps': forms.CheckboxSelectMultiple,
-            'targeted_audiances': forms.CheckboxSelectMultiple,
-            'aid_types': forms.CheckboxSelectMultiple,
-            'destinations': forms.CheckboxSelectMultiple,
-        }
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if 'aid_types' in self.fields:
+            self.fields['aid_types'].choices = AID_TYPES
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
@@ -114,6 +105,14 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    class Meta:
+        widgets = {
+            'mobilization_steps': forms.CheckboxSelectMultiple,
+            'targeted_audiances': forms.CheckboxSelectMultiple,
+            'aid_types': forms.CheckboxSelectMultiple,
+            'destinations': forms.CheckboxSelectMultiple,
+        }
+
     class Media:
         js = [
             'admin/js/jquery.init.js',
@@ -135,7 +134,7 @@ class AidEditForm(BaseAidForm):
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
-    class Meta(BaseAidForm.Meta):
+    class Meta:
         model = Aid
         fields = [
             'name',
