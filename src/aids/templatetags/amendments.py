@@ -82,7 +82,7 @@ def make_html_diff_line(line):
     diff_class = {
         '+': 'add',
         '-': 'rm',
-        '?': 'info',
+        '?': 'context',
         ' ': 'common',
     }.get(prefix)
     html = format_html(
