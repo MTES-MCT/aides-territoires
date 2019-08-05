@@ -665,3 +665,27 @@ section#partner {
         height: 60px;
     }
 }
+
+section#comercial {
+    @extend .py-5;
+    @extend .text-center;
+
+    div{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    div.comercial{
+        width: 33.33%;
+        @extend .px-4;
+    }
+
+    img{
+        @extend .my-4;
+        @extend .mx-5;
+
+        height: 80px;
+    }
+}
