@@ -1,14 +1,14 @@
 {% extends '_base.html' %}
 
-{% block extratitle %}{{ _('Home') }}{% endblock %}
+{% block extratitle %}{{ _('Public Aid for Communities') }}{% endblock %}
 
 {% block main %}
 <section id="landing-value">
     <div class="container">
-        <h1>Réalisez vos projets locaux en trouvant des aides appropriées.</h1>
+        <h1>Réalisez vos projets locaux en trouvant des aides appropriées</h1>
         <p class="tagline">
-            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets
-            Recherchez dès maintenant les aides dont votre territoire peut bénéficier
+            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets.
+            Recherchez dès maintenant les aides dont votre territoire peut bénéficier.
         </p>
 
     <form class="search-form" method="get" action="{% url 'search_view' %}">
