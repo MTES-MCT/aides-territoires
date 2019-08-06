@@ -670,22 +670,18 @@ section#comercial {
     @extend .py-5;
     @extend .text-center;
 
-    div{
+    div.comercial{
+        @extend .row;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         justify-content: center;
     }
 
-    div.comercial{
-        width: 33.33%;
-        @extend .px-4;
+    div{
+        @extend .col;
     }
 
-    img{
+    i{
         @extend .my-4;
         @extend .mx-5;
-
-        height: 80px;
     }
 }
