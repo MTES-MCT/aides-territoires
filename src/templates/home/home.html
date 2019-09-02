@@ -65,4 +65,10 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script>
+$(document).ready(function () {
+    // Autofocus the perimeter search input
+    $('select#id_perimeter').select2('open');
+});
+</script>
 {% endblock %}

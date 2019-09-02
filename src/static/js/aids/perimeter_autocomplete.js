@@ -28,5 +28,4 @@ $(document).ready(function () {
         theme: 'bootstrap4',
         width: '',
     });
-    $('select#id_perimeter').select2('open');
 });
