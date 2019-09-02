@@ -15,10 +15,30 @@
     </small>
 </h1>
 
+<div class="info">
+<p>{% blocktrans trimmed %}
+This form makes it possible to edit the aid targeted by the amendment.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans trimmed %}
+Only the fields that are different between the original data and the amended
+data are shown. It means that the form can show some fields that were <strong>
+not amended</strong> by the user if the original aid was modified after the
+amendment was suggested.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans trimmed %}
+For each field, we show: 1/ the form input with the current data and 2/ the
+modification that was suggested.
+{% endblocktrans %}</p>
+</div>
+
 <nav>
     <a href="{{ aid.get_absolute_url }}">{{ _('See the aid detail') }}</a>
     <a href="{% url 'admin:aids_aid_change' aid.id %}">{{ _('Admin edit') }}</a>
 </nav>
+
+<hr />
 
 <form method="post" action="" class="main-form">
     {% csrf_token %}
