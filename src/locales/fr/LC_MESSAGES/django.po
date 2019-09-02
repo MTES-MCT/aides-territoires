@@ -1455,7 +1455,7 @@ msgid ""
 "Leave your email to be informed in priority about new aids for your "
 "territory."
 msgstr ""
-"Laissez votre email pour être informé.e en priorité des nouvelles aides pour "
+"Laissez votre email pour être informé·e en priorité des nouvelles aides pour "
 "votre territoire."
 
 msgid "Register to the mailing-list"
