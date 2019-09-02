@@ -25,6 +25,6 @@ urlpatterns = [
 
     path('<slug:slug>/', include([
         path('', AidDetailView.as_view(), name='aid_detail_view'),
-        path(_('amend'), AidAmendView.as_view(), name='aid_amend_view'),
+        path(_('amend/'), AidAmendView.as_view(), name='aid_amend_view'),
     ])),
 ]
