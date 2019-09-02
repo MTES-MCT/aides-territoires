@@ -87,7 +87,7 @@ section#contact {
     background-size: cover;
 
     div.narrow-form {
-        @extend .pb-3;        
+        @extend .pb-3;
 
         h1 {
             @extend .text-white;
@@ -666,22 +666,35 @@ section#partner {
     }
 }
 
-section#comercial {
+section#marketing {
     @extend .py-5;
     @extend .text-center;
 
-    div.comercial{
-        @extend .row;
+    h1 {
+        @extend .mb-3;
+    }
+
+    .container > p {
+        @extend .lead;
+
+        strong {
+            font-weight: bold;
+        }
+    }
+
+    div.marketing {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-    }
 
-    div{
-        @extend .col;
-    }
+        div{
+            @extend .px-3;
+            @extend .pt-3;
+            @extend .col;
 
-    i{
-        @extend .my-4;
-        @extend .mx-5;
+            i{
+                @extend .mb-3;
+            }
+        }
     }
 }
