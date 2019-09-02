@@ -81,13 +81,22 @@ section#contribute {
 
 section#contact {
     @extend .py-5;
-    @extend .bg-light;
+    @extend .bg-dark;
+
+    background: url('/static/img/lead-header3.jpg') no-repeat center center fixed;
+    background-size: cover;
 
     div.narrow-form {
         @extend .pb-3;
 
+        h1 {
+            @extend .text-white;
+            @extend .text-center;
+        }
+
         p {
             @extend .lead;
+            @extend .text-white;
         }
 
         a.ml-btn {
@@ -654,5 +663,38 @@ section#partner {
         @extend .mx-4;
 
         height: 60px;
+    }
+}
+
+section#marketing {
+    @extend .py-5;
+    @extend .text-center;
+
+    h1 {
+        @extend .mb-3;
+    }
+
+    .container > p {
+        @extend .lead;
+
+        strong {
+            font-weight: bold;
+        }
+    }
+
+    div.marketing {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        div{
+            @extend .px-3;
+            @extend .pt-3;
+            @extend .col;
+
+            i{
+                @extend .mb-3;
+            }
+        }
     }
 }

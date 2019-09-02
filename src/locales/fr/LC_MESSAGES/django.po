@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-20 09:43+0200\n"
+"POT-Creation-Date: 2019-08-06 14:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,6 +262,16 @@ msgstr ""
 "Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
+msgid "Perimeter"
+msgstr "Périmètre"
+
+msgid "yyyy-mm-dd"
+msgstr "jj/mm/aaaa"
+
+msgid "You must select the aid backers, or create a new one below."
+msgstr ""
+"Vous devez sélectionner un apporteur existant ou en proposer un nouveau."
+
 msgid "Funding"
 msgstr "Financière"
 
@@ -309,16 +319,6 @@ msgstr "Trier par"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
-
-msgid "Perimeter"
-msgstr "Périmètre"
-
-msgid "yyyy-mm-dd"
-msgstr "jj/mm/aaaa"
-
-msgid "You must select the aid backers, or create a new one below."
-msgstr ""
-"Vous devez sélectionner un apporteur existant ou en proposer un nouveau."
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -776,7 +776,7 @@ msgid "Source code"
 msgstr "Code source"
 
 msgid "City, department, region, EPCI…"
-msgstr "Ville, département, région, EPCI…"
+msgstr "Votre ville, EPCI, département…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
@@ -1452,17 +1452,20 @@ msgid "Data export and API"
 msgstr "API et réutilisation des données"
 
 msgid ""
-"Join our mailing-list to receive news and updates about our service on a "
-"regular basis."
+"Leave your email to be informed in priority about new aids for your "
+"territory."
 msgstr ""
-"Abonnez-vous à notre newsletter pour recevoir des informations régulières "
-"sur notre actualité."
+"Laissez votre email pour être informé·e en priorité des nouvelles aides pour "
+"votre territoire."
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
 
+msgid "Public Aid for Communities"
+msgstr "Aides publiques pour les collectivités"
+
 msgid "Start searching for aids"
-msgstr "Trouver les aides disponibles sur mon territoire"
+msgstr "Trouver les aides"
 
 msgid "Subscription confirmed"
 msgstr "Inscription confirmée"
