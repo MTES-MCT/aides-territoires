@@ -13,7 +13,8 @@ class Command(BaseCommand):
     """Send an email alert upon new aid creations."""
 
     def handle(self, *args, **options):
-        yesterday = timezone.now() - timedelta(days=1)
+        now = timezone.now()
+        yesterday = now - timedelta(days=1)
         new_aids = Aid.objects \
             .filter(date_created__gte=yesterday) \
             .order_by('author') \
@@ -30,7 +31,7 @@ class Command(BaseCommand):
             'domain': site.domain,
         })
         email_subject = '{} nouvelles aides au {:%d/%m/%Y}'.format(
-            nb_aids, yesterday)
+            nb_aids, now)
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [settings.CONTACT_EMAIL]
 
