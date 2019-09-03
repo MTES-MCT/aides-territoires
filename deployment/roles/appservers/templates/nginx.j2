@@ -50,7 +50,13 @@ server {
     # add_header X-Frame-Options "SAMEORIGIN";  # Superseded by csp settings
     add_header X-Content-Type-Options "nosniff";
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
-    add_header Content-Security-Policy "default-src 'none'; connect-src 'self' https://*.hotjar.com wss://*.hotjar.com; font-src 'self'; frame-src https://stats.data.gouv.fr https://*.hotjar.com; frame-ancestors 'self' http://*.gouv.fr https://*.gouv.fr; img-src 'self' https://stats.data.gouv.fr data:; script-src 'self' 'unsafe-inline' https://stats.data.gouv.fr/piwik.js https://*.hotjar.com; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self' https://my.sendinblue.com;";
+
+    # This is a quite complex CSP header, mainly because of the need to accomodate
+    # Hotjar's needs to load scripts from multiple places.
+    # See this: https://help.hotjar.com/hc/en-us/articles/115011640307-Content-Security-Policies
+    # Once we get rid of Hotjar, the following line should be simplified by removing
+    # all Hotjar related entries.
+    add_header Content-Security-Policy "default-src 'none'; connect-src 'self' http://*.hotjar.com:* https://*.hotjar.com:* http://*.hotjar.io https://*.hotjar.io wss://*.hotjar.com; font-src 'self' http://*.hotjar.com https://*.hotjar.com http://*.hotjar.io https://*.hotjar.io; frame-src https://stats.data.gouv.fr https://*.hotjar.com http://*.hotjar.io https://*.hotjar.io; frame-ancestors 'self' http://*.gouv.fr https://*.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr http://*.hotjar.com https://*.hotjar.com http://*.hotjar.io https://*.hotjar.io; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://stats.data.gouv.fr/piwik.js http://*.hotjar.com https://*.hotjar.com http://*.hotjar.io https://*.hotjar.io; style-src 'self' 'unsafe-inline'; base-uri 'self'; child-src https://*.hotjar.com http://*.hotjar.io https://*.hotjar.io; form-action 'self' https://my.sendinblue.com;";
 
     gzip on;
     gzip_proxied any;
