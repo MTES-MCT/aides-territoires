@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from aids.admin_views import AmendmentMerge
 from aids.models import Aid
@@ -128,6 +130,13 @@ class Amendment(Aid):
         verbose_name_plural = _('Amendments')
 
 
+class AmendmentChangeList(ChangeList):
+    def url_for_result(self, result):
+        pk = getattr(result, self.pk_attname)
+        url = reverse('admin:aids_amendment_merge', args=[pk])
+        return url
+
+
 class AmendmentAdmin(admin.ModelAdmin):
     list_display = ['name', 'amended_aid', 'author', 'date_created']
 
@@ -144,6 +153,9 @@ class AmendmentAdmin(admin.ModelAdmin):
                 AmendmentMerge.as_view()), name='aids_amendment_merge'),
         ]
         return my_urls + urls
+
+    def get_changelist(self, request, **kwargs):
+        return AmendmentChangeList
 
 
 admin.site.register(Aid, AidAdmin)
