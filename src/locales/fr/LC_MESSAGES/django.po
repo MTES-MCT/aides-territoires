@@ -1465,7 +1465,7 @@ msgid "Public Aid for Communities"
 msgstr "Aides publiques pour les collectivités"
 
 msgid "Start searching for aids"
-msgstr "Trouver les aides"
+msgstr "Trouver des aides"
 
 msgid "Subscription confirmed"
 msgstr "Inscription confirmée"

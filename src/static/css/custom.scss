@@ -44,6 +44,7 @@ section#contribute {
 
         button {
             @extend .btn-lg;
+            @include icon(before, $fa-var-search);
             width: 100%;
         }
     }
