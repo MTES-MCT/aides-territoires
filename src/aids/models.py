@@ -310,6 +310,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Tags'))
 
     # Those fields handle the "aid amendment" feature
+    # Users, including anonymous, can suggest amendments to existing aids.
+    # We store a suggested edit as a clone of the original aid, with the
+    # following field as True.
     is_amendment = models.BooleanField(
         _('Is amendment'),
         default=False)
