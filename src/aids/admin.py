@@ -141,7 +141,7 @@ class AmendmentAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path(_('<path:object_id>/merge/'), self.admin_site.admin_view(
-                AmendmentMerge.as_view()), name='aids_amendment_list'),
+                AmendmentMerge.as_view()), name='aids_amendment_merge'),
         ]
         return my_urls + urls
 

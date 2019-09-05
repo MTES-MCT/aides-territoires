@@ -32,6 +32,16 @@ def contributor():
 
 
 @pytest.fixture
+def superuser():
+    """Generates a valid and active superuser."""
+
+    user = UserFactory()
+    user.is_superuser = True
+    user.save()
+    return user
+
+
+@pytest.fixture
 def backer():
     """Generates a valid Backer."""
 
