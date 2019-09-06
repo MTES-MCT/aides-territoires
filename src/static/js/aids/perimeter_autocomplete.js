@@ -3,6 +3,9 @@ $(document).ready(function () {
         placeholder: catalog.perimeter_placeholder,
         language: 'fr',
         minimumInputLength: 1,
+        language: {
+            inputTooShort: function() { return ''; },
+        },
         ajax: {
             url: catalog.perimeter_url,
             dataType: 'json',

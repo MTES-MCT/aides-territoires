@@ -7,7 +7,7 @@
     <div class="container">
         <h1>Réalisez vos projets locaux en trouvant des aides appropriées</h1>
         <p class="tagline">
-            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets.
+            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets.<br>
             Recherchez dès maintenant les aides dont votre territoire peut bénéficier.
         </p>
 
@@ -24,9 +24,23 @@
     </div>
 </section>
 
+<section id="marketing">
+    <div class="container">
+        {% include 'home/_marketing.html' %}
+    </div>
+</section>
+
+<section id="contact">
+    <div class="narrow-form">
+        <h1>Restons en contact</h1>
+
+        {% include 'home/_mailing_list_form.html' %}
+    </div>
+</section>
+
 <section id="partner">
     <div class="container">
-        <h1>Retrouvez sur Aides-territoires les aides de :</h1>
+        <h1>Ils sont déjà sur Aides-territoires :</h1>
         <div>
             <img src="/static/img/partners/logo-afb.svg" alt="Logo de l'Agence Française pour la Biodiversité" />
             <img src="/static/img/partners/logo-aesn.png" alt="Logo de l'Agence de l'eau Seine Normandie" />
@@ -39,20 +53,6 @@
             <img src="/static/img/partners/logo-bdt.png" alt="Logo de la Banque des Territoires" />
 
         </div>
-    </div>
-</section>
-
-<section id="contact">
-    <div class="narrow-form">
-        <h1>Restons en contact</h1>
-
-        {% include 'home/_mailing_list_form.html' %}
-    </div>
-</section>
-
-<section id="marketing">
-    <div class="container">
-        {% include 'home/_marketing.html' %}
     </div>
 </section>
 {% endblock %}
