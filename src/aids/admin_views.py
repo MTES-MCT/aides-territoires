@@ -60,6 +60,23 @@ class AmendmentMerge(SuccessMessageMixin, UpdateView):
         AidForm = modelform_factory(Aid, form=AidEditForm, fields=diff_fields)
         return AidForm
 
+    def get_form(self):
+        """Return an instanciated form.
+
+        For some reasons, the `fields` paramameter of the `modelform_factory`
+        method is not enough to exclude unwanted fields. Fields that are added
+        declaratively in the original form class are still present. Hence,
+        we have to remove them manually. This is quite hackish.
+        """
+        form = super().get_form()
+        diff_fields = self.get_diff_fields()
+        fields = list(form.fields)
+        for field in fields:
+            if field not in diff_fields:
+                del form.fields[field]
+
+        return form
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({

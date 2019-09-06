@@ -93,8 +93,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        backers = self.cleaned_data['backers']
-        self.instance.set_search_vector(backers)
+        if 'backers' in self.fields:
+            backers = self.cleaned_data['backers']
+            self.instance.set_search_vector(backers)
         return super().save(commit=commit)
 
     def _save_m2m(self):
@@ -179,10 +180,12 @@ class AidEditForm(BaseAidForm):
         """Make sure the aid backers were provided."""
 
         data = self.cleaned_data
-        if not any((data.get('backers'), data.get('new_backer'))):
-            msg = _('You must select the aid backers, or create a new one '
-                    'below.')
-            self.add_error('backers', msg)
+
+        if 'backers' in self.fields:
+            if not any((data.get('backers'), data.get('new_backer'))):
+                msg = _('You must select the aid backers, or create a new one '
+                        'below.')
+                self.add_error('backers', msg)
 
         return data
 
