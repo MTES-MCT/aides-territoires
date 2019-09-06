@@ -89,10 +89,10 @@ section#contact {
 
     div.narrow-form {
         @extend .pb-3;
+        @extend .text-center;
 
         h1 {
             @extend .text-white;
-            @extend .text-center;
         }
 
         p {
