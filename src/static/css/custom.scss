@@ -727,8 +727,8 @@ section#amend-ui {
 
         .diff-line {
             margin: 0;
-            white-space: pre-wrap;
             @extend .py-1;
+            display: inline;
 
             &.add {
                 background-color: #cdffd8;

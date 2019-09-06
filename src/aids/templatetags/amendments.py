@@ -20,11 +20,11 @@ def field_diff(aid, amendment, field):
 
     try:
         diff = list(difflib.ndiff(v1, v2))
-    except Exception as e:
+    except Exception:
         diff = []
 
     html_diff = [make_html_diff_line(line) for line in diff]
-    return mark_safe('\n'.join(html_diff))
+    return mark_safe('<pre>{}</pre>'.format('\n'.join(html_diff)))
 
 
 def extract_value(obj, field):
@@ -78,7 +78,7 @@ def make_html_diff_line(line):
         return None
 
     prefix = line[0]
-    content = line[2:]
+    content = line[2:].rstrip('\n')
     diff_class = {
         '+': 'add',
         '-': 'rm',
@@ -86,6 +86,6 @@ def make_html_diff_line(line):
         ' ': 'common',
     }.get(prefix)
     html = format_html(
-        '<pre class="diff-line {}"><span class="prefix">{} </span>{}</pre>',
+        '<div class="diff-line {}"><span class="prefix">{} </span>{}</div>',
         diff_class, prefix, content)
     return html
