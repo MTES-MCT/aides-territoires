@@ -42,12 +42,16 @@ def extract_value(obj, field):
 
     Since difflib compares list of strings, we return a list.
     """
-
     raw_val = getattr(obj, field)
     model_field = obj._meta.get_field(field)
 
     if isinstance(raw_val, str):
-        val = raw_val.splitlines()
+        choices = model_field.choices
+        if choices:
+            data_dict = dict(choices)
+            val = [data_dict.get(raw_val, '')]
+        else:
+            val = raw_val.splitlines()
 
     elif isinstance(raw_val, list):
         if hasattr(model_field, 'base_field'):
