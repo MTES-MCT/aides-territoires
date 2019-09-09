@@ -82,8 +82,6 @@ class BaseAidForm(forms.ModelForm):
             self.fields[field].label = label
 
         custom_help_text = {
-            'backers':
-                _('Select one or several backers among the list…'),
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
