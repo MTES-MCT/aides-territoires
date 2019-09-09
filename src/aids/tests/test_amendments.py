@@ -13,7 +13,7 @@ def test_anonymous_can_amend_aids(client):
     res = client.get(amend_url)
     assert res.status_code == 200
 
-    text = 'You have the possibility to <strong>suggest amendments</strong>'
+    text = 'Vous avez la possibilité de <strong>suggérer des amendements</strong>'  # noqa
     content = res.content.decode()
     assert text in content
 

@@ -344,7 +344,7 @@ def test_amendment_form_is_accessible_by_anonymous_users(client):
     res = client.get(amend_url)
 
     assert res.status_code == 200
-    assert 'suggest amendments' in res.content.decode()
+    assert 'Suggérer des modifications' in res.content.decode()
 
 
 def test_amendment_form_is_only_accessible_for_published_aids(client):
