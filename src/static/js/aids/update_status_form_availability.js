@@ -17,7 +17,7 @@ $(document).ready(function () {
     // Prevent status update when edit form was modified
     // to prevent data loss.
     var aidEditForm = $('form.main-form');
-    var aidStatusBtn = $('div.form-sidebar form button[type=submit]');
+    var aidStatusBtn = $('form#unpublish-form button[type=submit]');
 
     checkStatusUpdateAvailability(aidEditForm, aidStatusBtn);
 });
