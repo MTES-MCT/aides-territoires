@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-06 14:04+0200\n"
+"POT-Creation-Date: 2019-09-09 15:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,9 +246,6 @@ msgstr "Téléphone d'un contact en charge de l'aide"
 
 msgid "Is this a call for project / expressions of interest?"
 msgstr "S'agit-il d'un AAP / AMI ?"
-
-msgid "Select one or several backers among the list…"
-msgstr "Sélectionnez un ou plusieurs apporteurs parmi la liste…"
 
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
@@ -780,6 +777,9 @@ msgstr "Votre ville, EPCI, département…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
+
+msgid "Choose backer(s) amoung the list."
+msgstr "Sélectionnez le(s) apporteur(s) parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"
