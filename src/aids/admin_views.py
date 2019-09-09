@@ -39,7 +39,7 @@ class AmendmentMerge(SuccessMessageMixin, UpdateView):
         return aid
 
     def get_diff_fields(self):
-        """Return fields with a difference between the aid and the amendment."""
+        """Return fields with differences between the aid and the amendment."""
 
         def has_diff(field_name):
             """Is there a difference for this value?.
