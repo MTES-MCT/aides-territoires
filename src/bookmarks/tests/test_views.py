@@ -37,7 +37,8 @@ def test_bookmark_create_view(user, client):
 
     bookmark = bookmarks[0]
     assert bookmark.owner == user
-    assert bookmark.querystring == 'text=Ademe&call_for_projects_only=on'
+    assert 'text=Ademe' in bookmark.querystring
+    assert 'call_for_projects_only=on' in bookmark.querystring
 
 
 def test_bookmark_title(user, client):

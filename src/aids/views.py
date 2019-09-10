@@ -8,11 +8,14 @@ from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseNotAllowed)
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   RedirectView, DeleteView, FormView)
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
+
+from braces.views import MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
@@ -380,3 +383,41 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
+
+
+class AidAmendView(MessageMixin, UpdateView):
+    """Offers a way to users to amend existing aids."""
+
+    template_name = 'aids/amend.html'
+    form_class = AidEditForm
+    context_object_name = 'aid'
+
+    def get_queryset(self):
+        return Aid.objects.published().open()
+
+    def form_valid(self, form):
+        amended_aid_pk = form.instance.pk
+        amended_aid_slug = form.instance.slug
+
+        aid = form.save(commit=False)
+        aid.pk = None
+        aid.date_created = timezone.now()
+        aid.date_updated = None
+        aid.is_amendment = True
+        aid.amended_aid_id = amended_aid_pk
+        aid.is_imported = False
+        aid.import_uniqueid = None
+
+        if self.request.user.is_authenticated:
+            aid.author = self.request.user
+        else:
+            aid.author = None
+
+        aid.save()
+        form.save_m2m()
+
+        msg = _('Your amendment will be reviewed by an admin soon. '
+                'Thank you for contributing.')
+        self.messages.success(msg)
+        url = reverse('aid_detail_view', args=[amended_aid_slug])
+        return HttpResponseRedirect(url)

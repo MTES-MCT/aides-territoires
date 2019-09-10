@@ -40,28 +40,22 @@ class BaseAidForm(forms.ModelForm):
         choices=list,
         required=False)
 
-    class Meta:
-        widgets = {
-            'mobilization_steps': forms.CheckboxSelectMultiple,
-            'targeted_audiances': forms.CheckboxSelectMultiple,
-            'aid_types': forms.CheckboxSelectMultiple,
-            'destinations': forms.CheckboxSelectMultiple,
-        }
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['aid_types'].choices = AID_TYPES
+        if 'aid_types' in self.fields:
+            self.fields['aid_types'].choices = AID_TYPES
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
-        all_tags = self.instance.tags
-        if self.is_bound:
-            if hasattr(self.data, 'getlist'):
-                all_tags += self.data.getlist('tags')
-            else:
-                all_tags += self.data.get('tags', [])
-        self.fields['tags'].choices = zip(all_tags, all_tags)
+        if 'tags' in self.fields:
+            all_tags = self.instance.tags
+            if self.is_bound:
+                if hasattr(self.data, 'getlist'):
+                    all_tags += self.data.getlist('tags')
+                else:
+                    all_tags += self.data.get('tags', [])
+            self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
             'name': _('Aid title'),
@@ -79,7 +73,8 @@ class BaseAidForm(forms.ModelForm):
                                      ' of interest?')
         }
         for field, label in custom_labels.items():
-            self.fields[field].label = label
+            if field in self.fields:
+                self.fields[field].label = label
 
         custom_help_text = {
             'new_backer':
@@ -89,7 +84,8 @@ class BaseAidForm(forms.ModelForm):
                       'by ",")'),
         }
         for field, help_text in custom_help_text.items():
-            self.fields[field].help_text = help_text
+            if field in self.fields:
+                self.fields[field].help_text = help_text
 
     def save(self, commit=True):
         """Saves the instance.
@@ -97,8 +93,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        backers = self.cleaned_data['backers']
-        self.instance.set_search_vector(backers)
+        if 'backers' in self.fields:
+            backers = self.cleaned_data['backers']
+            self.instance.set_search_vector(backers)
         return super().save(commit=commit)
 
     def _save_m2m(self):
@@ -108,6 +105,14 @@ class BaseAidForm(forms.ModelForm):
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
+
+    class Meta:
+        widgets = {
+            'mobilization_steps': forms.CheckboxSelectMultiple,
+            'targeted_audiances': forms.CheckboxSelectMultiple,
+            'aid_types': forms.CheckboxSelectMultiple,
+            'destinations': forms.CheckboxSelectMultiple,
+        }
 
     class Media:
         js = [
@@ -130,7 +135,7 @@ class AidEditForm(BaseAidForm):
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
-    class Meta(BaseAidForm.Meta):
+    class Meta:
         model = Aid
         fields = [
             'name',
@@ -175,10 +180,12 @@ class AidEditForm(BaseAidForm):
         """Make sure the aid backers were provided."""
 
         data = self.cleaned_data
-        if not any((data.get('backers'), data.get('new_backer'))):
-            msg = _('You must select the aid backers, or create a new one '
-                    'below.')
-            self.add_error('backers', msg)
+
+        if 'backers' in self.fields:
+            if not any((data.get('backers'), data.get('new_backer'))):
+                msg = _('You must select the aid backers, or create a new one '
+                        'below.')
+                self.add_error('backers', msg)
 
         return data
 

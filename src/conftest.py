@@ -18,10 +18,26 @@ def user():
 
 
 @pytest.fixture
+def user_client(user, client):
+    client.force_login(user)
+    return client
+
+
+@pytest.fixture
 def contributor():
     """Generates a valid and active contributor."""
 
     user = ContributorFactory()
+    return user
+
+
+@pytest.fixture
+def superuser():
+    """Generates a valid and active superuser."""
+
+    user = UserFactory()
+    user.is_superuser = True
+    user.save()
     return user
 
 

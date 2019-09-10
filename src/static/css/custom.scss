@@ -489,7 +489,8 @@ section#aid {
     div.aid-actions {
         @extend .mb-3;
 
-        button {
+        button,
+        a {
             @extend .btn;
             @extend .btn-light;
 
@@ -499,6 +500,10 @@ section#aid {
 
             &.bundle {
                 @include icon(before, $fa-var-bars);
+            }
+
+            &.suggest-modification {
+                @include icon(before, $fa-var-pen);
             }
         }
     }
@@ -698,6 +703,62 @@ section#marketing {
             i{
                 @extend .mb-3;
             }
+        }
+    }
+}
+
+section#amend-ui {
+    h1 {
+
+        small {
+            @extend .text-muted;
+        }
+    }
+
+    nav {
+        @extend .mb-3;
+        a + a {
+            @extend .ml-3;
+        }
+    }
+
+    .field-diff {
+        @extend .mb-3;
+
+        .diff-line {
+            margin: 0;
+            @extend .py-1;
+            display: inline;
+
+            &.add {
+                background-color: #cdffd8;
+            }
+
+            &.rm {
+                background-color: #ffdce0;
+            }
+
+            &.context {
+                background-color: $gray-100;
+                user-select: none;
+            }
+
+            &.common {
+                background-color: #dbedff;
+            }
+
+            span.prefix {
+                user-select: none;
+            }
+        }
+    }
+
+    div.form-actions {
+        display: flex;
+        align-items: baseline;
+
+        div.submit-buttons {
+            margin-left: auto;
         }
     }
 }

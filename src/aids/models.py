@@ -40,15 +40,25 @@ class AidQuerySet(models.QuerySet):
 
 
 class BaseAidManager(models.Manager):
-    """Custom manager to exclude deleted aids from all queries."""
+    """Custom manager to only keep existing aids."""
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.exclude(status='deleted')
+        qs = super().get_queryset() \
+            .exclude(status='deleted') \
+            .exclude(is_amendment=True)
         return qs
 
 
 ExistingAidsManager = BaseAidManager.from_queryset(AidQuerySet)
+
+
+class AmendmentManager(models.Manager):
+    """Custom manager to only get amendments."""
+
+    def get_queryset(self):
+        qs = super().get_queryset() \
+            .filter(is_amendment=True)
+        return qs
 
 
 class AidWorkflow(xwf_models.Workflow):
@@ -137,6 +147,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
+    amendments = AmendmentManager()
 
     slug = models.SlugField(
         _('Slug'),
@@ -150,7 +161,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'accounts.User',
         on_delete=models.PROTECT,
         verbose_name=_('Author'),
-        help_text=_('Who is submitting the aid?'))
+        help_text=_('Who is submitting the aid?'),
+        null=True)
     backers = models.ManyToManyField(
         'backers.Backer',
         related_name='aids',
@@ -197,7 +209,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=TYPES),
-        help_text=_('Specify the help type or types.'))
+        help_text=_('Specify the aid type or types.'))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
@@ -296,6 +308,19 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'tags.Tag',
         related_name='aids',
         verbose_name=_('Tags'))
+
+    # Those fields handle the "aid amendment" feature
+    # Users, including anonymous, can suggest amendments to existing aids.
+    # We store a suggested edit as a clone of the original aid, with the
+    # following field as True.
+    is_amendment = models.BooleanField(
+        _('Is amendment'),
+        default=False)
+    amended_aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Amended aid'),
+        on_delete=models.CASCADE,
+        null=True)
 
     class Meta:
         verbose_name = _('Aid')
