@@ -28,13 +28,11 @@
                 <div class="col-md-6">
                     {% include '_search_field.html' with field=form.perimeter %}
                 </div>
-                <div class="col-md-3 col-checkbox">
-                    <div class="form-group">
-                        {{ form.call_for_projects_only }}
-                        <label>
-                            {{ form.call_for_projects_only.label }}
-                        </label>
-                    </div>
+                <div class="col-md-3">
+                    {{ form.call_for_projects_only }}
+                    <label>
+                        {{ form.call_for_projects_only.label }}
+                    </label>
                 </div>
                 <div class="col-md-3">
                     <a href="{% url 'advanced_search_view' %}">
@@ -47,22 +45,19 @@
         <div id="advanced-search">
 
             <div class="row">
-                <div class="col-md-2 label-col">
-                    {{ form.financial_aids.label }}
-                </div>
-                <div class="col-md-7">
+                <div class="col">
+                    <label>
+                        {{ form.financial_aids.label }}
+                    </label>
                     {{ form.financial_aids }}
-                </div>
-                <div class="col-md-3">
-                    {{ form.order_by }}
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-2 label-col">
-                    {{ form.technical_aids.label }}
-                </div>
-                <div class="col-md">
+                <div class="col">
+                    <label>
+                        {{ form.technical_aids.label }}
+                    </label>
                     {{ form.technical_aids }}
                 </div>
             </div>
