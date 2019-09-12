@@ -12,8 +12,11 @@
                     {% include '_search_field.html' with field=form.text %}
                 </div>
 
-                <div class="col-md-4">
-                    {% include '_search_field.html' with field=form.apply_before %}
+                <div class="col-md-4 date-group">
+                    <label>
+                        {{ form.apply_before.label }}
+                    </label>
+                    {{ form.apply_before }}
                 </div>
             </div>
 

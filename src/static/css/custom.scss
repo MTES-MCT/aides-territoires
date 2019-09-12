@@ -140,6 +140,22 @@ section.aids {
                     }
                 }
 
+                div.date-group {
+                    @extend .form-inline;
+
+                    label {
+                        @extend .mr-2;
+                        margin-bottom: $form-group-margin-bottom;
+
+                    }
+
+                    input {
+                        width: auto;
+                        flex-grow: 1;
+                        margin-bottom: $form-group-margin-bottom;
+                    }
+                }
+
                 div.form-check-inline {
                     label {
                         @extend .form-check-label;
