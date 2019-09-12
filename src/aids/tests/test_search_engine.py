@@ -131,6 +131,7 @@ def aids(perimeters):
         *AidFactory.create_batch(13,
                                  perimeter=perimeters['rhone-mediterannee']),
         *AidFactory.create_batch(14, perimeter=perimeters['fort-de-france']),
+        *AidFactory.create_batch(15, perimeter=perimeters['outre-mer']),
 
     ]
     return aids
@@ -213,14 +214,14 @@ def test_search_european_aids(client, perimeters, aids):
     """Display ALL the aids."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
-    assert res.context['paginator'].count == 105
+    assert res.context['paginator'].count == 120
 
 
 def test_search_french_aids(client, perimeters, aids):
     """Display ALL the aids again."""
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
-    assert res.context['paginator'].count == 105
+    assert res.context['paginator'].count == 120
 
 
 def test_search_aids_form_occitanie(client, perimeters, aids):
@@ -262,15 +263,15 @@ def test_search_aids_from_adour_garonne_basin(client, perimeters, aids):
     assert res.context['paginator'].count == 23
 
 
-def test_search_mainland_aids(client, perimeters, aids):
+def test_search_overseas_aids(client, perimeters, aids):
     """Only display overseas aids."""
 
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['outre-mer'].pk})
-    assert res.context['paginator'].count == 14
+    assert res.context['paginator'].count == 29
 
 
-def test_search_overseas_aids(client, perimeters, aids):
+def test_search_mainland_aids(client, perimeters, aids):
     """Only display mainland aids."""
 
     url = reverse('search_view')

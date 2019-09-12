@@ -422,14 +422,25 @@ class AidSearchForm(forms.Form):
             return qs
 
         # Special case: overseas only
+        # If the user search for "France (Outre-mer), simply return all
+        # overseas perimeters.
         if perimeter.scale == Perimeter.TYPES.overseas:
             qs = qs.filter(perimeter__is_overseas=True)
             return qs
 
         # Special case: mainland only
+        # If the user search for "France (Métropole), simply return all
+        # mainland perimeters.
         if perimeter.scale == Perimeter.TYPES.mainland:
             qs = qs.filter(perimeter__is_overseas=False)
             return qs
+
+        # Another special case: exclude aids that directly targets
+        # "France (Outre-Mer)" or "France (Métropôle)".
+        if perimeter.is_overseas:
+            qs = qs.exclude(perimeter__is_overseas=False)
+        else:
+            qs = qs.exclude(perimeter__is_overseas=True)
 
         # Exclude all other perimeters from the same scale.
         # E.g We search for aids in "Herault", exclude all aids from other
