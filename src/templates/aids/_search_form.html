@@ -37,10 +37,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <button class="bookmark-btn" type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}">
-                        <span class="fas fa-bell"></span>
-                        {{ _('Save bookmark') }}
-                    </button>
+                    <a href="{% url 'advanced_search_view' %}">
+                        {{ _('Advanced search') }}
+                    </a>
                 </div>
             </div>
         </div>
