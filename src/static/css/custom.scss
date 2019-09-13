@@ -180,7 +180,7 @@ section.aids {
                         @extend .px-5;
                     }
 
-                    a.advanced-link {
+                    button.advanced-link {
                         @extend .btn;
                         @extend .btn-outline-primary;
                         @include icon(before, $fa-var-plus);

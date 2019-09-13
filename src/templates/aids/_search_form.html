@@ -64,9 +64,9 @@
                     <span class="fas fa-search"></span>
                     {{ _('Search') }}
                 </button>
-                <a class="advanced-link" href="{% url 'advanced_search_view' %}">
+                <button type="submit" class="advanced-link" formethod="GET" formaction="{% url 'advanced_search_view' %}">
                     {{ _('See more filters') }}
-                </a>
+                </button>
             </div>
         </div>
     </form>
