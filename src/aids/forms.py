@@ -190,6 +190,27 @@ class AidEditForm(BaseAidForm):
         return data
 
 
+class AidAmendForm(AidEditForm):
+    amendment_author = forms.CharField(
+        label=_('Who are you?'),
+        widget=forms.TextInput(attrs={
+            'maxlength': 256,
+            'placeholder': _('Your full name')}),
+        required=True,
+        max_length=256)
+    amendment_comment = forms.CharField(
+        label=_('Care to comment?'),
+        widget=forms.Textarea(attrs={'rows': 2}),
+        required=False,
+        help_text=_('If you want to pass additional details about your \
+                     amendment, please tell us here.'))
+
+    class Meta(AidEditForm.Meta):
+        fields = AidEditForm.Meta.fields + [
+            'amendment_author', 'amendment_comment'
+        ]
+
+
 class AidSearchForm(forms.Form):
     """Main form for search engine."""
 

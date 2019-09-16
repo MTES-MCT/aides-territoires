@@ -321,6 +321,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Amended aid'),
         on_delete=models.CASCADE,
         null=True)
+    amendment_author = models.CharField(
+        _('Amendment author'),
+        max_length=256,
+        blank=True)
+    amendment_comment = models.TextField(
+        _('Amendment comment'),
+        blank=True)
 
     class Meta:
         verbose_name = _('Aid')

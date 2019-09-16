@@ -138,7 +138,7 @@ class AmendmentChangeList(ChangeList):
 
 
 class AmendmentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'amended_aid', 'author', 'date_created']
+    list_display = ['name', 'amended_aid', 'amendment_author', 'date_created']
 
     def get_queryset(self, request):
         qs = Aid.amendments.all()

@@ -28,6 +28,7 @@
         {{ field }}
     {% endfor %}
 
+    {% block fields %}
     <fieldset>
         <legend>{{ _('Aid presentation') }}</legend>
         {% include '_field_snippet.html' with field=form.name %}
@@ -69,6 +70,7 @@
         {% include '_field_snippet.html' with field=form.contact_email %}
         {% include '_field_snippet.html' with field=form.contact_phone %}
     </fieldset>
+    {% endblock %}
 
     <hr />
     {% block form_actions %}{% endblock %}
