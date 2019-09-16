@@ -29,7 +29,8 @@ def test_aid_amendments_are_saved(client, aid_form_data):
     amend_url = reverse('aid_amend_view', args=[aid.slug])
     aid_form_data.update({
         'name': 'This is a better name',
-        'description': 'This is a correction'
+        'description': 'This is a correction',
+        'amendment_author': 'Coco rection',
     })
     res = client.post(amend_url, data=aid_form_data)
     assert res.status_code == 302
