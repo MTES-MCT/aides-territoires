@@ -217,7 +217,7 @@ class AidSearchForm(forms.Form):
         label=_('Apply before…'),
         required=False,
         widget=forms.TextInput(
-            attrs={'type': 'date', 'placeholder': _('Apply before…')}))
+            attrs={'type': 'date'}))
     financial_aids = forms.MultipleChoiceField(
         label=_('Financial aids'),
         required=False,

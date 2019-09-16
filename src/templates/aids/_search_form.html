@@ -7,65 +7,66 @@
         {% endfor %}
         <div id="basic-search" class="show active">
 
-            <div class="row">
-                <div class="col-md-6">
+            <div class="form-row">
+                <div class="col-md-8">
                     {% include '_search_field.html' with field=form.text %}
                 </div>
 
-                <div class="col-md-3">
-                    {% include '_search_field.html' with field=form.apply_before %}
-                </div>
-
-                <div class="col-md-3">
-                    <button class="search-btn" type="submit">
-                        <span class="fas fa-search"></span>
-                        {{ _('Search') }}
-                    </button>
+                <div class="col-md-4 date-group">
+                    <label>
+                        {{ form.apply_before.label }}
+                    </label>
+                    {{ form.apply_before }}
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
+            <div class="form-row">
+                <div class="col-md-8">
                     {% include '_search_field.html' with field=form.perimeter %}
                 </div>
-                <div class="col-md-3 col-checkbox">
-                    <div class="form-group">
+                <div class="col-md-4 form-group checkbox-group">
+                    <div class="form-check form-check-inline">
                         {{ form.call_for_projects_only }}
                         <label>
                             {{ form.call_for_projects_only.label }}
                         </label>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <button class="bookmark-btn" type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}">
-                        <span class="fas fa-bell"></span>
-                        {{ _('Save bookmark') }}
-                    </button>
-                </div>
             </div>
         </div>
 
         <div id="advanced-search">
 
-            <div class="row">
-                <div class="col-md-2 label-col">
-                    {{ form.financial_aids.label }}
-                </div>
-                <div class="col-md-7">
-                    {{ form.financial_aids }}
-                </div>
-                <div class="col-md-3">
-                    {{ form.order_by }}
+            <div class="form-group checkbox-group">
+                <div class="form-check form-check-inline">
+                    <label>
+                        {{ form.financial_aids.label }}
+                    </label>
+                    {% for choice in form.financial_aids %}
+                        {{ choice }}
+                    {% endfor %}
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-2 label-col">
-                    {{ form.technical_aids.label }}
+            <div class="form-group checkbox-group">
+                <div class="form-check form-check-inline">
+                    <label>
+                        {{ form.technical_aids.label }}
+                    </label>
+                    {% for choice in form.technical_aids %}
+                        {{ choice }}
+                    {% endfor %}
                 </div>
-                <div class="col-md">
-                    {{ form.technical_aids }}
-                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="search-btn" type="submit">
+                    <span class="fas fa-search"></span>
+                    {{ _('Search') }}
+                </button>
+                <button type="submit" class="advanced-link" formethod="GET" formaction="{% url 'advanced_search_view' %}">
+                    {{ _('See more filters') }}
+                </button>
             </div>
         </div>
     </form>
