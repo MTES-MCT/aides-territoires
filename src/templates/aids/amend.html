@@ -38,6 +38,16 @@
 </div>
 {% endblock %}
 
+{% block fields %}
+    {{ block.super }}
+    <fieldset>
+        <legend>{{ _('Tell us more about your amendment') }}</legend>
+            {% include '_field_snippet.html' with field=form.amendment_author %}
+            {% include '_field_snippet.html' with field=form.amendment_comment %}
+        </fieldset>
+    </legend>
+{% endblock %}
+
 {% block form_actions %}
 <div class="form-actions">
     <a href="{{ aid.get_absolute_url }}">{{ _('Cancel and go back to the aid detail') }}</a>

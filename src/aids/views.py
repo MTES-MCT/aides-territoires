@@ -20,7 +20,7 @@ from braces.views import MessageMixin
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
 from bundles.forms import BundleForm
-from aids.forms import AidEditForm, AidSearchForm
+from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
 
@@ -389,7 +389,7 @@ class AidAmendView(MessageMixin, UpdateView):
     """Offers a way to users to amend existing aids."""
 
     template_name = 'aids/amend.html'
-    form_class = AidEditForm
+    form_class = AidAmendForm
     context_object_name = 'aid'
 
     def get_queryset(self):
