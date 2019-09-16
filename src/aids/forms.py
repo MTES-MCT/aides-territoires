@@ -206,7 +206,9 @@ class AidAmendForm(AidEditForm):
                      amendment, please tell us here.'))
 
     class Meta(AidEditForm.Meta):
-        pass
+        fields = AidEditForm.Meta.fields + [
+            'amendment_author', 'amendment_comment'
+        ]
 
 
 class AidSearchForm(forms.Form):

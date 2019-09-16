@@ -9,7 +9,7 @@
 <h1>
     {{ aid.name }}<br />
     <small>
-        {% blocktrans trimmed with author_name=amendment.author.full_name date=amendment.date_created|date %}
+        {% blocktrans trimmed with author_name=amendment.amendment_author date=amendment.date_created|date %}
             By {{ author_name }} on {{ date }}
         {% endblocktrans %}
     </small>
@@ -60,6 +60,13 @@ modification that was suggested.
     {% endfor %}
 
     <hr />
+
+    {% if amendment.amendment_comment %}
+    <div class="info">
+        <p>{{ _('The user left this comment:') }}</p>
+        {{ amendment.amendment_comment|linebreaks }}
+    </div>
+    {% endif %}
 
     <div class="form-actions">
         <a href="{% url 'admin:aids_amendment_changelist' %}">{{ _('Cancel and go back to the amendment list') }}</a>
