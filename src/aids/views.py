@@ -395,6 +395,14 @@ class AidAmendView(MessageMixin, UpdateView):
     def get_queryset(self):
         return Aid.objects.published().open()
 
+    def get_initial(self):
+        initial = super().get_initial()
+        if self.request.user.is_authenticated:
+            initial.update({
+                'amendment_author': self.request.user.full_name
+            })
+        return initial
+
     def form_valid(self, form):
         amended_aid_pk = form.instance.pk
         amended_aid_slug = form.instance.slug
