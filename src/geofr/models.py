@@ -47,6 +47,10 @@ class Perimeter(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=128)
+    contained_in = models.ManyToManyField(
+        'geofr.Perimeter',
+        verbose_name=_('Contained in'),
+        blank=True)
 
     continent = models.CharField(
         _('Continent'),
