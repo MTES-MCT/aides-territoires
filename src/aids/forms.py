@@ -439,6 +439,6 @@ class AidSearchForm(forms.Form):
         q_exact_match = Q(perimeter=search_perimeter)
         q_contains = Q(perimeter__in=search_perimeter.contained_in.all())
         q_contained = Q(perimeter__contained_in=search_perimeter)
-        qs = qs.filter(q_exact_match | q_contains | q_contained)
+        qs = qs.filter(q_exact_match | q_contains | q_contained).distinct()
 
         return qs
