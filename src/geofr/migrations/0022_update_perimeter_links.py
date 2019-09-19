@@ -35,8 +35,13 @@ def update_links(apps, schema_editor):
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
 
-    france = Perimeter.objects.get(scale=TYPES.country)
-    europe = Perimeter.objects.get(scale=TYPES.continent)
+    try:
+        france = Perimeter.objects.get(scale=TYPES.country)
+        europe = Perimeter.objects.get(scale=TYPES.continent)
+    except:
+        # Don't raise exception to not prevent the creation of the
+        # test database
+        return
 
     nb_perimeters = perimeters.count()
     counter = 0
