@@ -29,7 +29,7 @@ def update_links(apps, schema_editor):
     """
     Perimeter = apps.get_model('geofr', 'Perimeter')
     perimeters = Perimeter.objects \
-        .exclude(scale__in=(TYPES.country, TYPES.europe)) \
+        .exclude(scale__in=(TYPES.country, TYPES.continent)) \
         .order_by('scale')
 
     PerimeterContainedIn = Perimeter.contained_in.through
