@@ -28,7 +28,9 @@ def update_links(apps, schema_editor):
 
     """
     Perimeter = apps.get_model('geofr', 'Perimeter')
-    perimeters = Perimeter.objects.all().order_by('scale')
+    perimeters = Perimeter.objects \
+        .exclude(scale__in=(TYPES.country, TYPES.europe)) \
+        .order_by('scale')
 
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
@@ -64,6 +66,10 @@ def update_links(apps, schema_editor):
             to_perimeter_id=europe.id))
 
         counter += 1
+
+    containments.append(PerimeterContainedIn(
+        from_perimeter_id=france.id,
+        to_perimeter_id=europe.id))
 
     PerimeterContainedIn.objects.bulk_create(containments)
 
