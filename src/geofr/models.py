@@ -51,6 +51,9 @@ class Perimeter(models.Model):
         'geofr.Perimeter',
         verbose_name=_('Contained in'),
         blank=True)
+    manually_created = models.BooleanField(
+        _('Manually created'),
+        default=False)
 
     continent = models.CharField(
         _('Continent'),
