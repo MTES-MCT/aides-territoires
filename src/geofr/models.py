@@ -103,8 +103,10 @@ class Perimeter(models.Model):
         if self.scale == self.TYPES.commune and self.zipcodes:
             _str = '{} ({} – {})'.format(
                 self.name, self.get_scale_display(), ', '.join(self.zipcodes))
-        else:
+        elif self.scale <= self.TYPES.region:
             _str = '{} ({})'.format(self.name, self.get_scale_display())
+        else:
+            _str = self.name
 
         return _str
 

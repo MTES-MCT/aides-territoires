@@ -429,11 +429,6 @@ class AidSearchForm(forms.Form):
          - Europe ;
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
-
-        Some perimeters must be handled as special cases:
-
-         - Overseas: every overseas perimeters ;
-         - Mailand: every perimeter that is NOT overseas.
         """
 
         q_exact_match = Q(perimeter=search_perimeter)
