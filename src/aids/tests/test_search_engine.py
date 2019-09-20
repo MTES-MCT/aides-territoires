@@ -26,44 +26,44 @@ def perimeters():
         name='France',
         code='FRA')
     metropole = PerimeterFactory(
-        scale=Perimeter.TYPES.mainland,
+        scale=Perimeter.TYPES.adhoc,
         contained_in=[europe, france],
         name='Métropole',
         code='FRA-MET')
     outre_mer = PerimeterFactory(
-        scale=Perimeter.TYPES.overseas,
+        scale=Perimeter.TYPES.adhoc,
         contained_in=[europe, france],
         name='Outre-mer',
         code='FRA-OM')
     rhonemed = PerimeterFactory(
         scale=Perimeter.TYPES.basin,
-        contained_in=[europe, france],
+        contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Rhône-Méditerannée',
         country='FRA',
         code='FR000006')
     adour_garonne = PerimeterFactory(
         scale=Perimeter.TYPES.basin,
-        contained_in=[europe, france],
+        contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Adour-Garonne',
         code='FR000005')
     occitanie = PerimeterFactory(
         scale=Perimeter.TYPES.region,
-        contained_in=[europe, france],
+        contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Occitanie',
         code='76')
     herault = PerimeterFactory(
         scale=Perimeter.TYPES.department,
-        contained_in=[europe, france, occitanie],
+        contained_in=[europe, france, occitanie, metropole],
         is_overseas=False,
         name='Hérault',
         code='34',
         regions=['76'])
     montpellier = PerimeterFactory(
         scale=Perimeter.TYPES.commune,
-        contained_in=[europe, france, occitanie, herault, rhonemed],
+        contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
         is_overseas=False,
         name='Montpellier',
         code='34172',
@@ -72,7 +72,7 @@ def perimeters():
         basin='FR000006')
     vic = PerimeterFactory(
         scale=Perimeter.TYPES.commune,
-        contained_in=[europe, france, occitanie, herault, rhonemed],
+        contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
         is_overseas=False,
         name='Vic-la-Gardiole',
         code='34333',
@@ -81,14 +81,15 @@ def perimeters():
         basin='FR000006')
     aveyron = PerimeterFactory(
         scale=Perimeter.TYPES.department,
-        contained_in=[europe, france, occitanie],
+        contained_in=[europe, france, occitanie, metropole],
         is_overseas=False,
         name='Aveyron',
         code='12',
         regions=['76'])
     rodez = PerimeterFactory(
         scale=Perimeter.TYPES.commune,
-        contained_in=[europe, france, occitanie, aveyron, adour_garonne],
+        contained_in=[europe, france, occitanie, aveyron, adour_garonne,
+                      metropole],
         is_overseas=False,
         name='Rodez',
         code='12202',
@@ -97,20 +98,20 @@ def perimeters():
         basin='FR000005')
     normandie = PerimeterFactory(
         scale=Perimeter.TYPES.region,
-        contained_in=[europe, france],
+        contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Normandie',
         code='28')
     eure = PerimeterFactory(
         scale=Perimeter.TYPES.department,
-        contained_in=[europe, france, normandie],
+        contained_in=[europe, france, normandie, metropole],
         is_overseas=False,
         name='Eure',
         code='28',
         regions=['28'])
     st_cyr = PerimeterFactory(
         scale=Perimeter.TYPES.commune,
-        contained_in=[europe, france, normandie, eure],
+        contained_in=[europe, france, normandie, eure, metropole],
         is_overseas=False,
         name='Saint-Cyr-la-Campagne',
         code='27529',
@@ -118,7 +119,7 @@ def perimeters():
         departments=['27'])
     fort_de_france = PerimeterFactory(
         scale=Perimeter.TYPES.commune,
-        contained_in=[europe, france],
+        contained_in=[europe, france, outre_mer],
         is_overseas=True,
         name='Fort-de-France',
         code='97209',
@@ -301,7 +302,7 @@ def test_search_overseas_aids(client, perimeters, aids):
 
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['outre-mer'].pk})
-    assert res.context['paginator'].count == 29
+    assert res.context['paginator'].count == 32
 
 
 def test_search_mainland_aids(client, perimeters, aids):
@@ -309,7 +310,7 @@ def test_search_mainland_aids(client, perimeters, aids):
 
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['métropole'].pk})
-    assert res.context['paginator'].count == 88
+    assert res.context['paginator'].count == 91
 
 
 def test_full_text_search(client, perimeters):

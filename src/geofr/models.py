@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 
-
 from model_utils import Choices
 
 
@@ -34,6 +33,7 @@ class Perimeter(models.Model):
         (15, 'region', _('Region')),
         (16, 'overseas', _('Overseas')),
         (17, 'mainland', _('Mainland')),
+        (18, 'adhoc', _('Ad-hoc')),
         (20, 'country', _('Country')),
         (25, 'continent', _('Continent')),
     )
