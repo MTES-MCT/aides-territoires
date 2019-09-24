@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm
+from geofr.utils import attach_perimeters
 
 
 class PerimeterUpload(SuccessMessageMixin, SingleObjectMixin, FormView):
@@ -31,35 +32,11 @@ class PerimeterUpload(SuccessMessageMixin, SingleObjectMixin, FormView):
         return context
 
     def form_valid(self, form):
-        # Delete existing link between this perimeter and others
-        current_perimeter = self.get_object()
-        PerimeterContainedIn = Perimeter.contained_in.through
-        PerimeterContainedIn.objects \
-            .filter(to_perimeter_id=current_perimeter.id) \
-            .delete()
-
         # Fetch the list of commune perimeters from the uploaded file
         city_codes = [
             c.decode().strip() for c in form.cleaned_data['city_list']]
-        perimeters = Perimeter.objects \
-            .filter(code__in=city_codes) \
-            .filter(scale=Perimeter.TYPES.commune) \
-            .prefetch_related('contained_in')
 
-        # Create the links between perimeters
-        containing = []
-        for perimeter in perimeters:
-            containing.append(PerimeterContainedIn(
-                from_perimeter_id=perimeter.id,
-                to_perimeter_id=current_perimeter.id))
-
-            for container in perimeter.contained_in.all():
-                if container != current_perimeter:
-                    containing.append(PerimeterContainedIn(
-                        from_perimeter_id=container.id,
-                        to_perimeter_id=current_perimeter.id))
-
-        PerimeterContainedIn.objects.bulk_create(
-            containing, ignore_conflicts=True)
+        current_perimeter = self.get_object()
+        attach_perimeters(current_perimeter, city_codes)
 
         return super().form_valid(form)
