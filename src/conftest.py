@@ -73,7 +73,6 @@ def browser():
     browser.quit()
 
 
-
 @pytest.fixture
 def perimeters():
 

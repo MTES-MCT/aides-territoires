@@ -9,7 +9,6 @@ from django.contrib.postgres.search import SearchQuery, SearchRank
 from core.forms.widgets import (AutocompleteSelectMultiple,
                                 MultipleChoiceFilterWidget)
 from backers.models import Backer
-from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
 from aids.models import Aid

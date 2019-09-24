@@ -1,1 +1,1 @@
-from geofr.forms.forms import PerimeterUploadForm
+from geofr.forms.forms import PerimeterUploadForm  # noqa

@@ -103,7 +103,8 @@ def test_aid_creation_view(client, contributor, amendment_form_data):
     assert aids[0].status == 'draft'
 
 
-def test_aid_creation_status_as_draft(client, contributor, amendment_form_data):
+def test_aid_creation_status_as_draft(client, contributor,
+                                      amendment_form_data):
 
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
@@ -115,7 +116,8 @@ def test_aid_creation_status_as_draft(client, contributor, amendment_form_data):
     assert aids[0].status == 'draft'
 
 
-def test_aid_creation_status_as_review(client, contributor, amendment_form_data):
+def test_aid_creation_status_as_review(client, contributor,
+                                       amendment_form_data):
 
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
@@ -173,7 +175,8 @@ def test_aid_edition_view(client, contributor, amendment_form_data):
     assert aids[0].author == contributor
 
 
-def test_aid_edition_with_existing_tags(client, contributor, amendment_form_data):
+def test_aid_edition_with_existing_tags(client, contributor,
+                                        amendment_form_data):
     """Aid form uses existing tags."""
 
     aid = AidFactory(name='First title', author=contributor)
@@ -225,7 +228,8 @@ def test_aid_edition_with_new_tags(client, contributor, amendment_form_data):
     assert 'tartiflette' in all_tags
 
 
-def test_aid_edition_does_not_delete_tags(client, contributor, amendment_form_data):
+def test_aid_edition_does_not_delete_tags(client, contributor,
+                                          amendment_form_data):
     """Unused tags stay in db."""
 
     TagFactory(name='pizza')
