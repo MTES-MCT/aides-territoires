@@ -11,6 +11,15 @@ from aids.models import Aid
 pytestmark = pytest.mark.django_db
 
 
+@pytest.fixture
+def amendment_form_data(aid_form_data):
+    aid_form_data.update({
+        'amendment_author': 'Éric Iki',
+        'amendment_comment': 'This is a comment',
+    })
+    return aid_form_data
+
+
 def test_draft_list_is_for_authenticated_users_only(client, contributor):
     """Anonymous users cannot access any draft list."""
 
@@ -72,7 +81,7 @@ def test_aid_creation_requires_contributor(client, user):
     assert res.redirect_chain[0][0].startswith('/comptes/profil-contributeur/')
 
 
-def test_aid_creation_view(client, contributor, aid_form_data):
+def test_aid_creation_view(client, contributor, amendment_form_data):
     """Saving the form creates a new aid."""
 
     form_url = reverse('aid_create_view')
@@ -85,8 +94,8 @@ def test_aid_creation_view(client, contributor, aid_form_data):
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 0
 
-    aid_form_data['name'] = 'Very unique title'
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['name'] = 'Very unique title'
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].name == 'Very unique title'
@@ -94,44 +103,44 @@ def test_aid_creation_view(client, contributor, aid_form_data):
     assert aids[0].status == 'draft'
 
 
-def test_aid_creation_status_as_draft(client, contributor, aid_form_data):
+def test_aid_creation_status_as_draft(client, contributor, amendment_form_data):
 
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
     aids = Aid.objects.filter(author=contributor)
-    aid_form_data['status'] = 'draft'
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['status'] = 'draft'
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].status == 'draft'
 
 
-def test_aid_creation_status_as_review(client, contributor, aid_form_data):
+def test_aid_creation_status_as_review(client, contributor, amendment_form_data):
 
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
     aids = Aid.objects.filter(author=contributor)
-    aid_form_data['status'] = 'review'
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['status'] = 'review'
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].status == 'reviewable'
 
 
-def test_aid_form_requires_a_backer(client, contributor, aid_form_data):
+def test_aid_form_requires_a_backer(client, contributor, amendment_form_data):
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
 
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 0
 
-    aid_form_data['backers'] = []
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['backers'] = []
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 200  # Form not validated
     assert aids.count() == 0
 
-    aid_form_data['new_backer'] = 'Casimir'
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['new_backer'] = 'Casimir'
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
 
@@ -139,7 +148,7 @@ def test_aid_form_requires_a_backer(client, contributor, aid_form_data):
     assert aid.new_backer == 'Casimir'
 
 
-def test_aid_edition_view(client, contributor, aid_form_data):
+def test_aid_edition_view(client, contributor, amendment_form_data):
     """Test the aid edition form and view."""
 
     aid = AidFactory(name='First title', author=contributor)
@@ -156,15 +165,15 @@ def test_aid_edition_view(client, contributor, aid_form_data):
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 1
 
-    aid_form_data['name'] = 'New title'
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['name'] = 'New title'
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].name == 'New title'
     assert aids[0].author == contributor
 
 
-def test_aid_edition_with_existing_tags(client, contributor, aid_form_data):
+def test_aid_edition_with_existing_tags(client, contributor, amendment_form_data):
     """Aid form uses existing tags."""
 
     aid = AidFactory(name='First title', author=contributor)
@@ -177,8 +186,8 @@ def test_aid_edition_with_existing_tags(client, contributor, aid_form_data):
     tags = Tag.objects.all()
     assert tags.count() == 3
 
-    aid_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
 
     aid.refresh_from_db()
@@ -189,7 +198,7 @@ def test_aid_edition_with_existing_tags(client, contributor, aid_form_data):
     assert tags.count() == 3
 
 
-def test_aid_edition_with_new_tags(client, contributor, aid_form_data):
+def test_aid_edition_with_new_tags(client, contributor, amendment_form_data):
     """Aid form can create new tags."""
 
     aid = AidFactory(name='First title', author=contributor)
@@ -200,8 +209,8 @@ def test_aid_edition_with_new_tags(client, contributor, aid_form_data):
     tags = Tag.objects.all()
     assert tags.count() == 1
 
-    aid_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
 
     aid.refresh_from_db()
@@ -216,7 +225,7 @@ def test_aid_edition_with_new_tags(client, contributor, aid_form_data):
     assert 'tartiflette' in all_tags
 
 
-def test_aid_edition_does_not_delete_tags(client, contributor, aid_form_data):
+def test_aid_edition_does_not_delete_tags(client, contributor, amendment_form_data):
     """Unused tags stay in db."""
 
     TagFactory(name='pizza')
@@ -230,8 +239,8 @@ def test_aid_edition_does_not_delete_tags(client, contributor, aid_form_data):
     tags = Tag.objects.all()
     assert tags.count() == 2
 
-    aid_form_data['tags'] = ['pizza']
-    res = client.post(form_url, data=aid_form_data)
+    amendment_form_data['tags'] = ['pizza']
+    res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
 
     aid.refresh_from_db()
@@ -358,7 +367,7 @@ def test_amendment_form_is_only_accessible_for_published_aids(client):
     assert res.status_code == 404
 
 
-def test_amendment_form(client, aid_form_data):
+def test_amendment_form(client, amendment_form_data):
     amendments = Aid.amendments.all()
     assert amendments.count() == 0
 
@@ -369,12 +378,12 @@ def test_amendment_form(client, aid_form_data):
     res = client.get(amend_url)
     assert res.status_code == 200
 
-    aid_form_data.update({
+    amendment_form_data.update({
         'name': 'New name',
         'description': 'New description',
     })
 
-    res = client.post(amend_url, data=aid_form_data)
+    res = client.post(amend_url, data=amendment_form_data)
     assert res.status_code == 302
     assert amendments.count() == 1
 
@@ -386,11 +395,11 @@ def test_amendment_form(client, aid_form_data):
     assert amendment.amended_aid == aid
 
 
-def test_amendment_form_for_logged_user(user, client, aid_form_data):
+def test_amendment_form_for_logged_user(user, client, amendment_form_data):
     client.force_login(user)
 
     aid = AidFactory(status='published')
     amend_url = reverse('aid_amend_view', args=[aid.slug])
-    client.post(amend_url, data=aid_form_data)
+    client.post(amend_url, data=amendment_form_data)
     amendment = Aid.amendments.all()[0]
     assert amendment.author == user
