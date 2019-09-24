@@ -21,7 +21,10 @@ class PerimeterAdmin(admin.ModelAdmin):
     list_filter = ('scale', 'is_overseas', 'manually_created')
     ordering = ('-scale', 'name')
     form = PerimeterAdminForm
-    readonly_fields = ['contained_in']
+    readonly_fields = [
+        'scale', 'is_overseas', 'contained_in', 'manually_created', 'regions',
+        'departments', 'epci', 'basin', 'zipcodes'
+    ]
 
     class Media:
         css = {
