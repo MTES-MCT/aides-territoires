@@ -21,6 +21,8 @@ def test_is_overseas():
 
 
 def test_attach_perimeters(perimeters):
+    """Attaching perimeters works as expected."""
+
     adhoc = PerimeterFactory(
         name='Communes littorales',
         scale=Perimeter.TYPES.adhoc)
@@ -33,11 +35,18 @@ def test_attach_perimeters(perimeters):
     assert adhoc in perimeters['occitanie'].contained_in.all()
     assert adhoc in perimeters['métropole'].contained_in.all()
     assert adhoc in perimeters['outre-mer'].contained_in.all()
+
+    # Make sure perimeter does not contain itself
+    assert adhoc not in adhoc.contained_in.all()
+
+    # Make sure france and europe are not contained in the adhoc perimeter
     assert adhoc not in perimeters['france'].contained_in.all()
     assert adhoc not in perimeters['europe'].contained_in.all()
 
 
 def test_attach_perimeters_cleans_old_data(perimeters):
+    """Attaching perimeters to a city list removes all other attachments."""
+
     adhoc = PerimeterFactory(
         name='Communes littorales',
         scale=Perimeter.TYPES.adhoc)
