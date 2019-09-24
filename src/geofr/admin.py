@@ -1,7 +1,10 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
+from django.urls import path
+from django.utils.translation import ugettext_lazy as _
 
 from geofr.models import Perimeter
+from geofr.admin_views import PerimeterUpload
 
 
 class PerimeterAdminForm(forms.ModelForm):
@@ -18,6 +21,12 @@ class PerimeterAdmin(admin.ModelAdmin):
     list_filter = ('scale', 'is_overseas', 'manually_created')
     ordering = ('-scale', 'name')
     form = PerimeterAdminForm
+    readonly_fields = ['contained_in']
+
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
 
     def has_add_permission(self, request):
         return True
@@ -53,6 +62,31 @@ class PerimeterAdmin(admin.ModelAdmin):
             obj.contained_in.add(*perimeters)
 
         super().save_related(request, form, formsets, change)
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                _('<path:object_id>/upload/'),
+                self.admin_site.admin_view(self.perimeter_upload_view),
+                name='geofr_perimeter_upload'),
+        ]
+        return my_urls + urls
+
+    def perimeter_upload_view(self, request, object_id=None):
+        opts = self.model._meta
+        app_label = opts.app_label
+        obj = self.get_object(request, object_id)
+
+        context = {
+            **self.admin_site.each_context(request),
+            'title': _('Perimeter upload'),
+            'opts': opts,
+            'app_label': app_label,
+            'original': obj,
+        }
+        return PerimeterUpload.as_view(
+            extra_context=context)(request, object_id=object_id)
 
 
 admin.site.register(Perimeter, PerimeterAdmin)

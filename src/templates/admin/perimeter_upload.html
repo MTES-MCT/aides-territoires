@@ -1,0 +1,34 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; <a href="{% url 'admin:geofr_perimeter_change' original.id %}">{{ original }}</a>
+    &rsaquo; {{ _('Upload') }}
+</div>
+{% endblock %}
+
+{% block content %}
+<form method='post' enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div>
+        <fieldset class="module aligned">
+            <div class="form-row">
+                <div>
+                    {{ form.city_list.label_tag }}
+                    {{ form.city_list }}
+                </div>
+            </div>
+        </fieldset>
+        <div class="submit-row">
+            <input class="default" type="submit" name="{{ _('Send file') }}" />
+        </div>
+    </div>
+</form>
+{% endblock %}

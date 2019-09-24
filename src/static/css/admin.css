@@ -2,3 +2,18 @@ form .aligned ul ul {
     margin-left: 0;
     padding-left: 1rem;
 }
+
+.submit-row a.uploadlink {
+    display: inline-block;
+    background-color: #79aec8;
+    border-radius: 4px;
+    padding: 10px 15px;
+    height: 15px;
+    line-height: 15px;
+    margin: 0 0 0 5px;
+    color: #fff;
+}
+
+.submit-row a.uploadlink:hover {
+    background: #609ab6;
+}
