@@ -9,7 +9,6 @@ from django.contrib.postgres.search import SearchQuery, SearchRank
 from core.forms.widgets import (AutocompleteSelectMultiple,
                                 MultipleChoiceFilterWidget)
 from backers.models import Backer
-from geofr.models import Perimeter
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
 from aids.models import Aid
@@ -412,7 +411,7 @@ class AidSearchForm(forms.Form):
         qs = qs.order_by(*order_fields)
         return qs
 
-    def perimeter_filter(self, qs, perimeter):
+    def perimeter_filter(self, qs, search_perimeter):
         """Filter queryset depending on the given perimeter.
 
         When we search for a given perimeter, we must return all aids:
@@ -429,101 +428,11 @@ class AidSearchForm(forms.Form):
          - Europe ;
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
-
-        Some perimeters must be handled as special cases:
-
-         - Overseas: every overseas perimeters ;
-         - Mailand: every perimeter that is NOT overseas.
         """
 
-        # Since we only handle french aids, searching for european or
-        # national aids will return all results
-        if perimeter.scale in (Perimeter.TYPES.country,
-                               Perimeter.TYPES.continent):
-            return qs
-
-        # Special case: overseas only
-        # If the user search for "France (Outre-mer), simply return all
-        # overseas perimeters.
-        if perimeter.scale == Perimeter.TYPES.overseas:
-            qs = qs.filter(perimeter__is_overseas=True)
-            return qs
-
-        # Special case: mainland only
-        # If the user search for "France (Métropole), simply return all
-        # mainland perimeters.
-        if perimeter.scale == Perimeter.TYPES.mainland:
-            qs = qs.filter(perimeter__is_overseas=False)
-            return qs
-
-        # Another special case: exclude aids that directly targets
-        # "France (Outre-Mer)" or "France (Métropôle)".
-        if perimeter.is_overseas:
-            qs = qs.exclude(perimeter__is_overseas=False)
-        else:
-            qs = qs.exclude(perimeter__is_overseas=True)
-
-        # Exclude all other perimeters from the same scale.
-        # E.g We search for aids in "Herault", exclude all aids from other
-        # departments.
-        q_same_scale = Q(perimeter__scale=perimeter.scale)
-        q_different_code = ~Q(perimeter__code=perimeter.code)
-        qs = qs.exclude(q_same_scale & q_different_code)
-
-        # Exclude all perimeters that are more granular and that are not
-        # contained in the search perimeter.
-        # E.g we search for aids in "Hérault", exclude communes and epcis that
-        # are not in Hérault.
-        if perimeter.scale > Perimeter.TYPES.commune:
-
-            q_smaller_scale = Q(perimeter__scale__lt=perimeter.scale)
-
-            if perimeter.scale == Perimeter.TYPES.region:
-                q_not_contained = ~Q(
-                    perimeter__regions__contains=[perimeter.code])
-
-            if perimeter.scale == Perimeter.TYPES.department:
-                q_not_contained = ~Q(
-                    perimeter__departments__contains=[perimeter.code])
-
-            if perimeter.scale == Perimeter.TYPES.basin:
-                # Edge case, when we search by drainage basins, don't
-                # show aids from departments and regions, because that poorly
-                # overlaps.
-                qs = qs.exclude(perimeter__scale__in=(
-                    Perimeter.TYPES.department,
-                    Perimeter.TYPES.region))
-
-                q_not_contained = ~Q(perimeter__basin=perimeter.code)
-
-            if perimeter.scale == Perimeter.TYPES.epci:
-                q_not_contained = ~Q(perimeter__epci=perimeter.code)
-
-            qs = qs.exclude(q_smaller_scale & q_not_contained)
-
-        # Exclude all perimeters that are wider and that does not
-        # contain our search perimeter.
-        # E.g we search for aids in "Hérault", exclude regions that are not
-        # Occitanie.
-        if perimeter.regions:
-            q_scale_region = Q(perimeter__scale=Perimeter.TYPES.region)
-            q_different_region = ~Q(perimeter__code__in=perimeter.regions)
-            qs = qs.exclude(q_scale_region & q_different_region)
-
-        if perimeter.departments:
-            q_scale_department = Q(perimeter__scale=Perimeter.TYPES.department)
-            q_different_department = ~Q(
-                perimeter__code__in=perimeter.departments)
-            qs = qs.exclude(q_scale_department & q_different_department)
-
-        if perimeter.basin:
-            q_scale_basin = Q(perimeter__scale=Perimeter.TYPES.basin)
-            q_different_basin = ~Q(perimeter__code=perimeter.basin)
-            qs = qs.exclude(q_scale_basin & q_different_basin)
-
-        if perimeter.epci:
-            q_scale_epci = Q(perimeter__scale=Perimeter.TYPES.epci)
-            q_different_epci = ~Q(perimeter__code=perimeter.epci)
-            qs = qs.exclude(q_scale_epci & q_different_epci)
+        q_exact_match = Q(perimeter=search_perimeter)
+        q_contains = Q(perimeter__in=search_perimeter.contained_in.all())
+        q_contained = Q(perimeter__contained_in=search_perimeter)
+        qs = qs.filter(q_exact_match | q_contains | q_contained).distinct()
 
         return qs

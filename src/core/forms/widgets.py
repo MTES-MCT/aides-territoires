@@ -25,6 +25,23 @@ class AutocompleteMixin:
             str(v) for v in value
             if str(v) not in self.choices.field.empty_values
         }
+
+        # Prevent a bug when a user submits an invalid perimeter value,
+        # e.g not an integer.
+        #
+        # Honestly, this problem should be handled on a higher level, by the
+        # Field instance, but for some reason it isn't and I already spent
+        # a few hours on this, so I decided to go for a somewhat quick
+        # fix here.
+        int_choices = set()
+        for choice in selected_choices:
+            try:
+                val = int(choice)
+                int_choices |= {val}
+            except ValueError:
+                pass
+        selected_choices = int_choices
+
         if not self.is_required and not self.allow_multiple_selected:
             default[1].append(self.create_option(name, '', '', False, 0))
         choices = (

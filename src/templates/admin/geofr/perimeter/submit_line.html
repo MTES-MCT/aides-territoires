@@ -1,0 +1,10 @@
+{% extends 'admin/submit_line.html' %}
+
+{% block submit-row %}
+    {% if show_delete_link %}
+        <a href="{% url 'admin:geofr_perimeter_upload' original.pk %}" class="uploadlink">
+            {{ _('Upload city list') }}
+        </a>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

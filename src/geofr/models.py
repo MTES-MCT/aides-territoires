@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 
-
 from model_utils import Choices
 
 
@@ -34,6 +33,7 @@ class Perimeter(models.Model):
         (15, 'region', _('Region')),
         (16, 'overseas', _('Overseas')),
         (17, 'mainland', _('Mainland')),
+        (18, 'adhoc', _('Ad-hoc')),
         (20, 'country', _('Country')),
         (25, 'continent', _('Continent')),
     )
@@ -47,6 +47,13 @@ class Perimeter(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=128)
+    contained_in = models.ManyToManyField(
+        'geofr.Perimeter',
+        verbose_name=_('Contained in'),
+        blank=True)
+    manually_created = models.BooleanField(
+        _('Manually created'),
+        default=False)
 
     continent = models.CharField(
         _('Continent'),
@@ -96,11 +103,16 @@ class Perimeter(models.Model):
         ]
 
     def __str__(self):
+        if not self.scale:
+            return ''
+
         if self.scale == self.TYPES.commune and self.zipcodes:
             _str = '{} ({} – {})'.format(
                 self.name, self.get_scale_display(), ', '.join(self.zipcodes))
-        else:
+        elif self.scale <= self.TYPES.region:
             _str = '{} ({})'.format(self.name, self.get_scale_display())
+        else:
+            _str = self.name
 
         return _str
 

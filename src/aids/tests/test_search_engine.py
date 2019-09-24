@@ -6,111 +6,9 @@ from django.urls import reverse
 from django.utils import timezone
 
 from aids.factories import AidFactory
-from geofr.factories import PerimeterFactory
-from geofr.models import Perimeter
 
 
 pytestmark = pytest.mark.django_db
-
-
-@pytest.fixture
-def perimeters():
-    perimeters = {
-        'europe': PerimeterFactory(
-            scale=Perimeter.TYPES.continent,
-            name='Europe',
-            code='EU'),
-        'france': PerimeterFactory(
-            scale=Perimeter.TYPES.country,
-            name='France',
-            code='FRA'),
-        'métropole': PerimeterFactory(
-            scale=Perimeter.TYPES.mainland,
-            name='Métropole',
-            code='FRA-MET'),
-        'outre-mer': PerimeterFactory(
-            scale=Perimeter.TYPES.overseas,
-            name='Outre-mer',
-            code='FRA-OM'),
-        'occitanie': PerimeterFactory(
-            scale=Perimeter.TYPES.region,
-            is_overseas=False,
-            name='Occitanie',
-            code='76'),
-        'herault': PerimeterFactory(
-            scale=Perimeter.TYPES.department,
-            is_overseas=False,
-            name='Hérault',
-            code='34',
-            regions=['76']),
-        'montpellier': PerimeterFactory(
-            scale=Perimeter.TYPES.commune,
-            is_overseas=False,
-            name='Montpellier',
-            code='34172',
-            regions=['76'],
-            departments=['34'],
-            basin='FR000006'),
-        'vic': PerimeterFactory(
-            scale=Perimeter.TYPES.commune,
-            is_overseas=False,
-            name='Vic-la-Gardiole',
-            code='34333',
-            regions=['76'],
-            departments=['34'],
-            basin='FR000006'),
-        'aveyron': PerimeterFactory(
-            scale=Perimeter.TYPES.department,
-            is_overseas=False,
-            name='Aveyron',
-            code='12',
-            regions=['76']),
-        'rodez': PerimeterFactory(
-            scale=Perimeter.TYPES.commune,
-            is_overseas=False,
-            name='Rodez',
-            code='12202',
-            regions=['76'],
-            departments=['12'],
-            basin='FR000005'),
-        'normandie': PerimeterFactory(
-            scale=Perimeter.TYPES.region,
-            is_overseas=False,
-            name='Normandie',
-            code='28'),
-        'eure': PerimeterFactory(
-            scale=Perimeter.TYPES.department,
-            is_overseas=False,
-            name='Eure',
-            code='28',
-            regions=['28']),
-        'st-cyr': PerimeterFactory(
-            scale=Perimeter.TYPES.commune,
-            is_overseas=False,
-            name='Saint-Cyr-la-Campagne',
-            code='27529',
-            regions=['28'],
-            departments=['27']),
-        'rhone-mediterannee': PerimeterFactory(
-            scale=Perimeter.TYPES.basin,
-            is_overseas=False,
-            name='Rhône-Méditerannée',
-            country='FRA',
-            code='FR000006'),
-        'adour-garonne': PerimeterFactory(
-            scale=Perimeter.TYPES.basin,
-            is_overseas=False,
-            name='Adour-Garonne',
-            code='FR000005'),
-        'fort-de-france': PerimeterFactory(
-            scale=Perimeter.TYPES.commune,
-            is_overseas=True,
-            name='Fort-de-France',
-            code='97209',
-            regions=['02'],
-            departments=['972']),
-    }
-    return perimeters
 
 
 @pytest.fixture
@@ -268,7 +166,7 @@ def test_search_overseas_aids(client, perimeters, aids):
 
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['outre-mer'].pk})
-    assert res.context['paginator'].count == 29
+    assert res.context['paginator'].count == 32
 
 
 def test_search_mainland_aids(client, perimeters, aids):
@@ -276,7 +174,7 @@ def test_search_mainland_aids(client, perimeters, aids):
 
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['métropole'].pk})
-    assert res.context['paginator'].count == 88
+    assert res.context['paginator'].count == 91
 
 
 def test_full_text_search(client, perimeters):
