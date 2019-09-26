@@ -27,3 +27,6 @@ class Program(models.Model):
     class Meta:
         verbose_name = _('Aid program')
         verbose_name_plural = _('Aid programs')
+
+    def __str__(self):
+        return self.name
