@@ -18,6 +18,7 @@ class AidAdmin(admin.ModelAdmin):
         }
 
     form = AidAdminForm
+    ordering = ['-id']
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
@@ -106,7 +107,7 @@ class AidAdmin(admin.ModelAdmin):
     ]
 
     def get_queryset(self, request):
-        qs = Aid.all_aids.exclude(is_amendment=True)
+        qs = Aid.objects.all()
         qs = qs.prefetch_related('backers')
         qs = qs.select_related('author')
         return qs
