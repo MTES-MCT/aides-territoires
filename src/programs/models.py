@@ -16,6 +16,8 @@ class Program(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=256)
+    slug = models.SlugField(
+        _('Slug'))
     aids = models.ManyToManyField(
         'aids.Aid',
         verbose_name=_('Aids'))
@@ -23,6 +25,12 @@ class Program(models.Model):
         'geofr.Perimeter',
         on_delete=models.PROTECT,
         verbose_name=_('Perimeter'))
+    short_description = models.CharField(
+        _('Short description'),
+        help_text=_('Will only appear in search results. 300 chars. max.'),
+        max_length=300)
+    description = models.TextField(
+        _('Description'))
 
     class Meta:
         verbose_name = _('Aid program')

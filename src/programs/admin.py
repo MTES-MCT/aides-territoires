@@ -11,9 +11,9 @@ class ProgramAidInline(admin.TabularInline):
 
 class ProgramAdmin(admin.ModelAdmin):
     list_display = ['name']
-    # prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {'slug': ('name',)}
     autocomplete_fields = ['perimeter']
-    fields = ['name', 'perimeter']
+    fields = ['name', 'slug', 'perimeter', 'short_description', 'description']
     inlines = [ProgramAidInline]
 
 
