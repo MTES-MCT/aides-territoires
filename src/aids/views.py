@@ -66,13 +66,23 @@ class SearchView(SearchMixin, FormMixin, ListView):
         return ordered_results
 
     def get_programs(self):
-        searched_perimeter = self.form.cleaned_data['perimeter']
+        """Get the aid programs that matched the search perimeter.
 
-        q_matching_perimeter = Q(perimeter=searched_perimeter)
-        q_contained_perimeter = Q(
+        We consider that there is a match in one of the two cases:
+
+         - the searched perimeter exactly matches some program's perimeter;
+         - the searched perimeter is contained in some program's perimeter.
+        """
+
+        searched_perimeter = self.form.cleaned_data['perimeter']
+        if not searched_perimeter:
+            return []
+
+        q_exact_match = Q(perimeter=searched_perimeter)
+        q_container_match = Q(
             perimeter__in=searched_perimeter.contained_in.all())
         programs = Program.objects \
-            .filter(q_matching_perimeter | q_contained_perimeter)
+            .filter(q_exact_match | q_container_match)
         return programs
 
     def get_context_data(self, **kwargs):
