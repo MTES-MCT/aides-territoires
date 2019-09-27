@@ -3,7 +3,6 @@
 {% if search_actions %}
 <div class="list-actions">
 
-
     <div id="sorting-menu" class="sorting-menu js">
         <button type="button" id="sorting-btn" data-toggle="dropdown">
             {{ order_label }}
@@ -30,6 +29,10 @@
     {% endif %}
 </div>
 {% endif %}
+
+{% for program in programs %}
+    {% include 'programs/_program_result.html' with program=program %}
+{% endfor %}
 
 {% for aid in aids %}
     {% include 'aids/_aid_result.html' with aid=aid %}

@@ -294,8 +294,8 @@ class AidSearchForm(forms.Form):
             return qs
 
         # Populate cleaned_data
-        if self.errors:
-            pass
+        if not hasattr(self, 'cleaned_data'):
+            self.full_clean()
 
         perimeter = self.cleaned_data.get('perimeter', None)
         if perimeter:

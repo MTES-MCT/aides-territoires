@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseNotAllowed)
 from django.template.loader import render_to_string
@@ -20,6 +21,7 @@ from braces.views import MessageMixin
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
 from bundles.forms import BundleForm
+from programs.models import Program
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -44,6 +46,11 @@ class SearchView(SearchMixin, FormMixin, ListView):
     form_class = AidSearchForm
     paginate_by = 20
 
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_form()
+        self.form.full_clean()
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         """Return the list of results to display."""
 
@@ -53,13 +60,24 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .select_related('perimeter', 'author') \
             .prefetch_related('backers')
 
-        filter_form = self.get_form()
+        filter_form = self.form
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results)
         return ordered_results
 
+    def get_programs(self):
+        searched_perimeter = self.form.cleaned_data['perimeter']
+
+        q_matching_perimeter = Q(perimeter=searched_perimeter)
+        q_contained_perimeter = Q(
+            perimeter__in=searched_perimeter.contained_in.all())
+        programs = Program.objects \
+            .filter(q_matching_perimeter | q_contained_perimeter)
+        return programs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['programs'] = self.get_programs()
         context['SEARCH_COOKIE_NAME'] = settings.SEARCH_COOKIE_NAME
 
         default_order = 'relevance'
@@ -68,6 +86,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         order_label = order_labels.get(
             order_value, order_labels[default_order])
         context['order_label'] = order_label
+
         return context
 
 

@@ -382,6 +382,25 @@ section.aids {
                 }
             }
         }
+
+        div.program {
+            @extend .card;
+            @extend .mb-3;
+            border-left: 5px solid $primary;
+
+            section {
+                @extend .card-body;
+
+                h1 {
+                    @extend .h3;
+                    @extend .card-title;
+                }
+
+                p {
+                    @extend .card-text;
+                }
+            }
+        }
     }
 }
 
