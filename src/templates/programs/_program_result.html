@@ -1,6 +1,6 @@
 <div class="program">
     <section>
-        <h1><a href="">
+        <h1><a href="{% url 'program_detail' program.slug %}">
             {{ program.name }}
         </a></h1>
         <p>{{ program.short_description }}</p>
