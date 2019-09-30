@@ -30,13 +30,9 @@
 </div>
 {% endif %}
 
-{% if programs %}
-    <div class="program-list">
-        {% for program in programs %}
-            {% include 'programs/_program_result.html' with program=program %}
-        {% endfor %}
-    </div>
-{% endif %}
+{% for program in programs %}
+    {% include 'programs/_program_result.html' with program=program %}
+{% endfor %}
 
 {% for aid in aids %}
     {% include 'aids/_aid_result.html' with aid=aid %}

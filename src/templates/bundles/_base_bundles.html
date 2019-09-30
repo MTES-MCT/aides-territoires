@@ -18,24 +18,20 @@
 {% endblock %}
 
 {% block content %}
-<section id="bundles" class="aids">
-    <div id="bundle-list" class="aid-sidebar">
-        <nav>
-            <h2>{{ _('My aid bundles') }}</h2>
-            <ul>
-            {% for bundle in bundles %}
-                <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
-                    href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
-            {% empty %}
-                <li class="empty">{% blocktrans trimmed %}
-                    You don't have any aid bundle yet. To create one, just
-                    browse aids normally and use the "Add to a bundle" button.
-                {% endblocktrans %}</li>
-            {% endfor %}
-            </ul>
-        </nav>
-    </div>
-
-    {% block main_column %}{% endblock %}
+<section id="bundles">
+    <nav>
+        <h2>{{ _('My aid bundles') }}</h2>
+        <ul>
+        {% for bundle in bundles %}
+            <li><a {% if bundle.slug == selected_bundle.slug %}class="active"{% endif %}
+                href="{% url 'bundle_list_view' bundle.slug %}">{{ bundle }}</a></li>
+        {% empty %}
+            <li class="empty">{% blocktrans trimmed %}
+                You don't have any aid bundle yet. To create one, just
+                browse aids normally and use the "Add to a bundle" button.
+            {% endblocktrans %}</li>
+        {% endfor %}
+        </ul>
+    </nav>
 </section>
 {% endblock %}
