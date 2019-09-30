@@ -430,11 +430,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_financial(self):
         """Does this aid have financial parts?"""
-        return bool(set(self.aid_types) & set(self.FINANCIAL_AIDS))
+        aid_types = self.aid_types or []
+        return bool(set(aid_types) & set(self.FINANCIAL_AIDS))
 
     def is_technical(self):
         """Does this aid have technical parts?"""
-        return bool(set(self.aid_types) & set(self.TECHNICAL_AIDS))
+        aid_types = self.aid_types or []
+        return bool(set(aid_types) & set(self.TECHNICAL_AIDS))
 
     def has_approaching_deadline(self):
         if not self.submission_deadline:
