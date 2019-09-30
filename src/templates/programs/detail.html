@@ -8,7 +8,7 @@
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
         <li><a href="{% url 'program_list' %}">{{ _('All aid programs') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Program detail') }}</li>
+        <li class="active" aria-current="page">{{ program.name }}</li>
     </ol>
 </nav>
 {% endblock %}
