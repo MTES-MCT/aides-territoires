@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% load i18n aids %}
+
+{% block extratitle %}{{ program.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'program_list' %}">{{ _('All aid programs') }}</a></li>
+        <li class="active" aria-current="page">{{ program.name }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="program">
+    <h1>
+        {{ program.name }}
+    </h1>
+    <div class="program-detail">
+        {{ program.description|linebreaks }}
+    </div>
+</section>
+
+<section id="aid-list">
+    {% for aid in program.aids.all %}
+        {% include 'aids/_aid_result.html' with aid=aid %}
+    {% endfor %}
+</section>
+{% endblock %}

@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path(_('accounts/'), include('accounts.urls')),
     path(_('aids/'), include('aids.urls')),
+    path(_('programs/'), include('programs.urls')),
     path(_('integration/'), include('integration.urls')),
     path(_('stats/'), include('stats.urls')),
     path(_('bundles/'), include('bundles.urls')),

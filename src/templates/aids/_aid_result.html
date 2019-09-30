@@ -1,7 +1,7 @@
 {% load i18n aids %}
 
-<div class="aid">
-    <section>
+<section class="aid">
+    <div>
         <h1>
             <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
             {% if aid.author.is_certified %}
@@ -19,7 +19,7 @@
                 {{ _('No detailed description was submitted.') }}
             {% endif %}
         </p>
-    </section>
+    </div>
 
     <ul>
         {% if aid.is_financial %}
@@ -68,4 +68,4 @@
             </li>
         {% endif %}
     </ul>
-</div>
+</section>

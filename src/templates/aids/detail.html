@@ -143,7 +143,7 @@
         <div class="long-data">
             <h2>{{ _('Link to full description') }}</h2>
             <p>
-                <a href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                <a target="_blank" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
             </p>
         </div>
         {% endif %}
@@ -152,7 +152,7 @@
         <div class="long-data">
             <h2>{{ _('Link to an online application form') }}</h2>
             <p>
-                <a href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                <a target="_blank" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
             </p>
         </div>
         {% endif %}

@@ -112,185 +112,164 @@ section#contact {
     }
 }
 
-section.aids {
-    @extend .row;
+section#search-engine {
+    @extend .mb-3;
 
-    div#search-engine {
-        @extend .mb-3;
-        @extend .col-md-12;
+    div.form-container {
+        @extend .card;
+        @extend .d-none;
+        @extend .d-lg-block;
 
-        div.form-container {
-            @extend .card;
-            @extend .d-none;
-            @extend .d-lg-block;
+        form {
+            @extend .card-body;
 
-            form {
-                @extend .card-body;
+            div.checkbox-group {
+                align-self: flex-end;
 
-                div.checkbox-group {
-                    align-self: flex-end;
+                label {
+                    @extend .mr-3;
 
-                    label {
-                        @extend .mr-3;
-
-                        &:first-child {
-                            display: inline-block;
-                            min-width: 10em;
-                        }
-                    }
-                }
-
-                div.date-group {
-                    @extend .form-inline;
-
-                    label {
-                        @extend .mr-2;
-                        margin-bottom: $form-group-margin-bottom;
-
-                    }
-
-                    input {
-                        width: auto;
-                        flex-grow: 1;
-                        margin-bottom: $form-group-margin-bottom;
-                    }
-                }
-
-                div.form-check-inline {
-                    label {
-                        @extend .form-check-label;
-                    }
-
-                    input {
-                        @extend .form-check-input;
-                    }
-                }
-
-                div.actions-row {
-                    text-align: center;
-
-                    button, a {
-                        min-width: 15em;
-                    }
-
-                    button.search-btn {
-                        @extend .btn;
-                        @extend .btn-success;
-                        @extend .mr-3;
-                        @extend .px-5;
-                    }
-
-                    button.advanced-link {
-                        @extend .btn;
-                        @extend .btn-outline-primary;
-                        @include icon(before, $fa-var-plus);
+                    &:first-child {
+                        display: inline-block;
+                        min-width: 10em;
                     }
                 }
             }
-        }
 
-        nav#mobile-search-link {
-            @extend .navbar;
-            @extend .fixed-bottom;
-            @extend .navbar-light;
-            @extend .bg-primary;
-            @extend .d-lg-none;
+            div.date-group {
+                @extend .form-inline;
 
-            a {
-                @extend .btn;
-                @extend .btn-block;
-                @extend .btn-primary;
+                label {
+                    @extend .mr-2;
+                    margin-bottom: $form-group-margin-bottom;
 
-                @include icon(before, $fa-var-search);
+                }
 
+                input {
+                    width: auto;
+                    flex-grow: 1;
+                    margin-bottom: $form-group-margin-bottom;
+                }
+            }
+
+            div.form-check-inline {
+                label {
+                    @extend .form-check-label;
+                }
+
+                input {
+                    @extend .form-check-input;
+                }
+            }
+
+            div.actions-row {
+                text-align: center;
+
+                button, a {
+                    min-width: 15em;
+                }
+
+                button.search-btn {
+                    @extend .btn;
+                    @extend .btn-success;
+                    @extend .mr-3;
+                    @extend .px-5;
+                }
+
+                button.advanced-link {
+                    @extend .btn;
+                    @extend .btn-outline-primary;
+                    @include icon(before, $fa-var-plus);
+                }
             }
         }
     }
 
-    div.aid-sidebar {
-        @extend .col-md-3;
+    nav#mobile-search-link {
+        @extend .navbar;
+        @extend .fixed-bottom;
+        @extend .navbar-light;
+        @extend .bg-primary;
+        @extend .d-lg-none;
+
+        a {
+            @extend .btn;
+            @extend .btn-block;
+            @extend .btn-primary;
+
+            @include icon(before, $fa-var-search);
+
+        }
+    }
+}
+
+section#aid-list,
+section#program-list {
+
+    &.loading {
+        opacity: 0.3;
+    }
+
+    section.aid,
+    section.program {
+        @extend .card;
         @extend .mb-3;
 
-        a.top-sidebar-btn {
-            @extend .btn;
-            @extend .btn-primary;
-            @extend .btn-block;
-            @extend .mb-2;
-        }
+        div {
+            @extend .card-body;
 
-        form {
-            .form-group {
-                @extend .card;
-                @include border-radius(0);
+            h1 {
+                @extend .h3;
+                @extend .card-title;
 
-                &:first-of-type {
-                    @include border-top-radius($card-border-radius);
+                small {
+                    @extend .card-subtitle;
                 }
 
-                &:last-of-type {
-                    @include border-bottom-radius($card-border-radius);
+                div.status-icons {
+                    @extend .pl-4;
+                    @extend .float-right;
+
+                    span.icon {
+                        @extend .pl-1;
+
+                        i.fas {
+                            color: $primary;
+                        }
+                    }
                 }
 
-                &:not(:last-of-type) {
-                    margin-bottom: 0;
-                    border-bottom: 0;
+                i.fa-clock {
+                    color: $danger;
                 }
 
-                &>label {
-                    @extend .card-header;
+                small {
+                    @extend .text-muted;
                 }
-
-                div.field {
-                    @extend .card-body;
-                }
-            }
-
-            button[type=submit] {
-                @extend .btn-lg;
-                @extend .btn-block;
             }
 
             p {
-                @extend .text-muted;
-            }
-
-            a.reset {
-                @extend .btn;
-                @extend .btn-block;
-                @extend .btn-dark;
-                @extend .my-1;
-            }
-
-            fieldset#id_aid_types_0 legend {
-                @include icon(before, $fa-var-euro-sign);
-            }
-
-            fieldset#id_aid_types_1 legend {
-                @include icon(before, $fa-var-cog);
+                @extend .card-text;
             }
         }
 
-        nav {
-            @extend .card;
+        ul {
+            @extend .list-group;
+            @extend .list-group-flush;
 
-            h2 {
-                @extend .card-header;
-                font-size: 1rem;
+            li {
+                @extend .list-group-item;
             }
 
-            ul {
-                @extend .list-group;
-                @extend .list-group-flush;
-
-                li {
-                    @extend .list-group-item;
-
-                    a.active {
-                        font-weight: bold;
-                    }
-                }
+            li.warning {
+                @extend .bg-danger;
+                @extend .text-white;
             }
         }
+    }
+
+    section.program {
+        border-left: 5px solid $primary;
     }
 
     div.list-actions {
@@ -317,68 +296,27 @@ section.aids {
             }
         }
     }
+}
 
-    div.aid-list {
-        @extend .col-md;
+section#bundles {
+    nav {
+        @extend .card;
+        @extend .my-3;
 
-        &.loading {
-            opacity: 0.3;
+        h2 {
+            @extend .card-header;
+            font-size: 1rem;
         }
 
+        ul {
+            @extend .list-group;
+            @extend .list-group-flush;
 
-        div.aid {
-            @extend .card;
-            @extend .mb-3;
+            li {
+                @extend .list-group-item;
 
-            section {
-                @extend .card-body;
-
-                h1 {
-                    @extend .h3;
-                    @extend .card-title;
-
-                    small {
-                        @extend .card-subtitle;
-                    }
-
-                    div.status-icons {
-                        @extend .pl-4;
-                        @extend .float-right;
-
-                        span.icon {
-                            @extend .pl-1;
-
-                            i.fas {
-                                color: $primary;
-                            }
-                        }
-                    }
-
-                    i.fa-clock {
-                        color: $danger;
-                    }
-
-                    small {
-                        @extend .text-muted;
-                    }
-                }
-
-                p {
-                    @extend .card-text;
-                }
-            }
-
-            ul {
-                @extend .list-group;
-                @extend .list-group-flush;
-
-                li {
-                    @extend .list-group-item;
-                }
-
-                li.warning {
-                    @extend .bg-danger;
-                    @extend .text-white;
+                a.active {
+                    font-weight: bold;
                 }
             }
         }
