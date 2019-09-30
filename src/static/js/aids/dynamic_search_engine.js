@@ -13,11 +13,11 @@
 (function (exports, catalog) {
     'use strict';
 
-    var resultsDiv = $('div#search-results');
+    var resultsDiv = $('section#aid-list');
     var resultsUrl = catalog.search_url;
     var searchXHR = undefined;
-    var searchForm = $('div#search-engine form');
-    var orderField = $('div#search-engine select#id_order_by');
+    var searchForm = $('section#search-engine form');
+    var orderField = $('section#search-engine select#id_order_by');
 
     var state = {
         pendingRequest: false,
@@ -149,8 +149,8 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#search-engine form').on('submit', onFormSubmit);
-    $('div#search-results').on('click', 'div#sorting-menu a', onSortCriteraSelected);
+    $('section#search-engine form').on('submit', onFormSubmit);
+    $('section#aid-list').on('click', 'div#sorting-menu a', onSortCriteraSelected);
 
     renderSessionCookie();
     hideOrderField();
