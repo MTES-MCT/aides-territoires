@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-24 11:52+0200\n"
+"POT-Creation-Date: 2019-09-30 11:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -696,6 +696,9 @@ msgstr "comptes/"
 msgid "aids/"
 msgstr "aides/"
 
+msgid "programs/"
+msgstr "programmes/"
+
 msgid "integration/"
 msgstr "integration/"
 
@@ -794,6 +797,18 @@ msgstr "inscription-liste/"
 
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
+
+msgid "Will only appear in search results. 300 chars. max."
+msgstr "300 caractères max. Résultats de recherche uniquement."
+
+msgid "Description"
+msgstr "Description de l'aide"
+
+msgid "Aid program"
+msgstr "Programme d'aides"
+
+msgid "Aid programs"
+msgstr "Programmes d'aides"
 
 msgid "Tag"
 msgstr "Mot clé"
@@ -1183,8 +1198,8 @@ msgid ""
 "for french cities."
 msgstr ""
 "Utilisez ce formulaire pour spécifier la liste des communes contenues dans "
-"le périmètre <em>ad-hoc</em>. Le fichier doit contenir les codes insee "
-"(un par ligne) des communes."
+"le périmètre <em>ad-hoc</em>. Le fichier doit contenir les codes insee (un "
+"par ligne) des communes."
 
 msgid "Send file"
 msgstr "Envoyer le fichier"
@@ -1429,9 +1444,6 @@ msgstr "Enregistrer dans une liste"
 
 msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
-
-msgid "Description"
-msgstr "Description de l'aide"
 
 msgid "Keywords:"
 msgstr "Mots clés :"
@@ -1684,6 +1696,9 @@ msgstr ""
 
 msgid "Or go back to the home page."
 msgstr "Ou retournez à la page d'accueil."
+
+msgid "All aid programs"
+msgstr "Tous les programmes d'aides"
 
 msgid "Total number of aids"
 msgstr "Toutes les aides"
