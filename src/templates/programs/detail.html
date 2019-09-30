@@ -15,13 +15,17 @@
 
 {% block content %}
 <section id="program">
-
     <h1>
         {{ program.name }}
     </h1>
-
-    <div class="program-details">
-
+    <div class="program-detail">
         {{ program.description|linebreaks }}
+    </div>
+</section>
+
+<section id="aid-list">
+    {% for aid in program.aids.all %}
+        {% include 'aids/_aid_result.html' with aid=aid %}
+    {% endfor %}
 </section>
 {% endblock %}
