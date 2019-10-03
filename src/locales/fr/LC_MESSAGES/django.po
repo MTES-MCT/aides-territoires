@@ -1314,35 +1314,6 @@ msgstr ""
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
-msgid "Report a problem"
-msgstr "Signaler un problème"
-
-msgid ""
-"If you noticed an error on this page, please let us know and we will do our "
-"best to fix the problem as soon as possible."
-msgstr ""
-"Si vous avez remarqué un problème sur cette page (mauvaise qualité des "
-"données, coquilles, etc.), vous pouvez nous le signaler et nous le réglerons "
-"aussi rapidement que possible."
-
-msgid ""
-"Help us fixing it quickly by being as precise as possible in your problem "
-"report, and don't forget to leave your contact information, so we can "
-"contact you if we need to."
-msgstr ""
-"Afin que nous puissions intervenir efficacement, merci d'être le plus "
-"détaillé possible dans votre rapport d'erreur, et n'oubliez pas de nous "
-"laisser vos coordonnées afin que nous puissions vous recontacter le cas "
-"échéant."
-
-msgid "You can contact us by sending an email at this address :"
-msgstr "Vous pouvez nous contacter en envoyant un e-mail à cette adresse :"
-
-msgid "Thank you for helping us improving the service."
-msgstr ""
-"Merci de votre vigilance et de votre contribution à l'amélioration du "
-"service !"
-
 msgid "Relevance "
 msgstr "Pertinence"
 
