@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-30 11:36+0200\n"
+"POT-Creation-Date: 2019-10-03 11:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,7 +288,7 @@ msgid "Care to comment?"
 msgstr "Voulez-vous ajouter un commentaire ?"
 
 msgid ""
-"If you want to pass additional details about your "
+"If you want to pass additional details about your                      "
 "amendment, please tell us here."
 msgstr ""
 "Vous pouvez nous communiquer des détails supplémentaires concernant votre "
@@ -618,6 +618,9 @@ msgstr ""
 
 msgid "Number of aids"
 msgstr "Nombre d'aides"
+
+msgid "Is a corporate backer?"
+msgstr "Apporteur privé ?"
 
 msgid "Backer"
 msgstr "Apporteur"
@@ -1361,6 +1364,9 @@ msgstr "Rechercher"
 
 msgid "See more filters"
 msgstr "Voir plus de critères"
+
+msgid "Save bookmark"
+msgstr "Sauvegarder la recherche"
 
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
