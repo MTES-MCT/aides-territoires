@@ -1,13 +1,13 @@
 {% extends '_base.html' %}
 {% load aids %}
 
-{% block extratitle %}{{ _('My published aids') }}{% endblock %}
+{% block extratitle %}{{ _('My portfolio') }}{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My published aids') }}</li>
+        <li class="active" aria-current="page">{{ _('My portfolio') }}</li>
     </ol>
 </nav>
 {% endblock %}
@@ -19,7 +19,7 @@
     {{ _('Publish a new aid') }}
 </a>
 
-<h1>{{ _('My published aids') }}</h1>
+<h1>{{ _('My portfolio') }}</h1>
 
 <table class="data-table">
     <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
