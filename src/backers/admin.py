@@ -13,10 +13,12 @@ class AidInline(admin.TabularInline):
 class BackerAdmin(admin.ModelAdmin):
     """Admin module for aid backers."""
 
-    list_display = ['name', 'nb_aids']
+    list_display = ['name', 'is_corporate', 'nb_aids']
     search_fields = ['name']
     inlines = [AidInline]
     ordering = ['name']
+    filter_fields = ['is_corporate']
+    list_editable = ['is_corporate']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

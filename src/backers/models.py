@@ -9,6 +9,9 @@ class Backer(models.Model):
         _('Name'),
         max_length=256,
         db_index=True)
+    is_corporate = models.BooleanField(
+        _('Is a corporate backer?'),
+        default=False)
 
     class Meta:
         verbose_name = _('Backer')
