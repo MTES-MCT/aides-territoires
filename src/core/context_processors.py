@@ -18,3 +18,14 @@ def admin_stats(request):
         context['nb_aids_under_review'] = aids.count()
 
     return context
+
+
+def contributor_stats(request):
+    """Injects contributor related stats."""
+
+    context = {}
+    if request.user.is_authenticated and request.user.is_contributor:
+        aids = Aid.objects.drafts()
+        context['nb_draft_aids'] = aids.count()
+
+    return context

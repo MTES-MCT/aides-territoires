@@ -26,6 +26,11 @@ class AidQuerySet(models.QuerySet):
 
         return self.filter(status='published')
 
+    def drafts(self):
+        """Only return draft objects."""
+
+        return self.filter(status='draft')
+
     def under_review(self):
         """Return aids that need to be review before publication."""
 
