@@ -65,11 +65,13 @@
 
             <div class="actions-row">
                 <button class="search-btn" type="submit">
-                    <span class="fas fa-search"></span>
                     {{ _('Search') }}
                 </button>
                 <button type="submit" class="advanced-link" formethod="GET" formaction="{% url 'advanced_search_view' %}">
                     {{ _('See more filters') }}
+                </button>
+                <button class="bookmark-btn" type="submit" formmethod="POST" formaction="{% url 'bookmark_create_view' %}">
+                    {{ _('Save bookmark') }}
                 </button>
             </div>
         </div>

@@ -163,23 +163,30 @@ section#search-engine {
             }
 
             div.actions-row {
-                text-align: center;
-
-                button, a {
-                    min-width: 15em;
-                }
+                @include clearfix;
 
                 button.search-btn {
                     @extend .btn;
                     @extend .btn-success;
-                    @extend .mr-3;
-                    @extend .px-5;
+                    @include icon(before, $fa-var-search);
+                    min-width: 15em;
+                    float: left;
                 }
 
                 button.advanced-link {
                     @extend .btn;
-                    @extend .btn-outline-primary;
+                    @extend .btn-link;
                     @include icon(before, $fa-var-plus);
+                    float: left;
+
+                }
+
+                button.bookmark-btn {
+                    @extend .btn;
+                    @extend .btn-outline-primary;
+                    @include icon(before, $fa-var-bell);
+                    min-width: 15em;
+                    float: right;
                 }
             }
         }
