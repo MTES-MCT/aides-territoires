@@ -150,6 +150,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.integration',
                 'core.context_processors.admin_stats',
+                'core.context_processors.contributor_stats',
             ],
             'libraries': {
                 'form_utils': 'core.templatetags.form_utils',
