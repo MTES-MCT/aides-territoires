@@ -288,10 +288,10 @@ msgid "Care to comment?"
 msgstr "Voulez-vous ajouter un commentaire ?"
 
 msgid ""
-"If you want to pass additional details about your                      "
+"If you want to pass additional details about your "
 "amendment, please tell us here."
 msgstr ""
-"Vous pouvez nous communiquer des détails supplémentainres concernant votre "
+"Vous pouvez nous communiquer des détails supplémentaires concernant votre "
 "amendement."
 
 msgid "Funding"
