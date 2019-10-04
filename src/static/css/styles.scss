@@ -116,11 +116,6 @@ nav#main-navbar {
             max-width: $font-size-base * 2.5 * 1.59;
             @extend .pr-1;
         }
-
-        span {
-            text-transform: uppercase;
-            color: $navbar-dark-color;
-        }
     }
 
     ul.navbar-menu {
