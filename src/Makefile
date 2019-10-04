@@ -16,4 +16,7 @@ makemessages:
 
 css:
 	sass -I $(include) $(infile) $(outfile)
+
+fullcss:
+	sass -I $(include) $(infile) $(outfile)
 	./node_modules/.bin/postcss --use autoprefixer -r $(outfile) --no-map

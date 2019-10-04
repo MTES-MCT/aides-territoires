@@ -58,3 +58,5 @@ CSRF_COOKIE_SECURE = True
 # Piwik goal tracking ids
 GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID')
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID')
+
+SASS_PATH = 'make fullcss'
