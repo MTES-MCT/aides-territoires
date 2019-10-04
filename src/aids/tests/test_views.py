@@ -175,6 +175,32 @@ def test_aid_edition_view(client, contributor, amendment_form_data):
     assert aids[0].author == contributor
 
 
+def test_aid_edition_save_as_new(client, contributor, amendment_form_data):
+    """Test the "save as new" button."""
+
+    aid = AidFactory(name='First title', status='published',
+                     author=contributor)
+    aids = Aid.objects.filter(author=contributor).order_by('id')
+    assert aids.count() == 1
+
+    client.force_login(contributor)
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    amendment_form_data['name'] = 'Second title'
+    amendment_form_data['_save_as_new'] = '_save_as_new'
+    res = client.post(form_url, data=amendment_form_data)
+    assert res.status_code == 302
+    assert aids.count() == 2
+
+    assert aids[0].name == 'First title'
+    assert aids[1].name == 'Second title'
+
+    assert aids[0].status == 'published'
+    assert aids[1].status == 'draft'
+
+    assert aids[0].author == aids[1].author == contributor
+    assert aids[0].slug != aids[1].slug
+
+
 def test_aid_edition_with_existing_tags(client, contributor,
                                         amendment_form_data):
     """Aid form uses existing tags."""
