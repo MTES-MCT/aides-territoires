@@ -17,18 +17,18 @@ def test_aid_detail_shows_link_to_previous_search(live_server, browser):
     search_url = reverse('search_view')
     browser.get(live_server + search_url)
 
-    results = browser.find_elements_by_css_selector('div.aid h1')
+    results = browser.find_elements_by_css_selector('section.aid h1')
     assert len(results) == 2
 
     search_input = browser.find_element_by_id('id_text')
     search_input.send_keys('Gloubiboulga')
 
     submit_btn = browser.find_element_by_css_selector(
-        'div#search-engine form button.search-btn')
+        'section#search-engine form button.search-btn')
     submit_btn.click()
     time.sleep(1)
 
-    results = browser.find_elements_by_css_selector('div.aid h1')
+    results = browser.find_elements_by_css_selector('section.aid h1')
     assert len(results) == 1
 
     browser.get(live_server + aid.get_absolute_url())
@@ -45,7 +45,7 @@ def test_sorting_field(live_server, browser):
 
     search_url = reverse('search_view')
     browser.get(live_server + search_url)
-    results = browser.find_elements_by_css_selector('div.aid h1')
+    results = browser.find_elements_by_css_selector('section.aid h1')
 
     assert len(results) == 2
     assert 'Gloubiboulga' in results[0].get_attribute('innerHTML')
@@ -64,6 +64,6 @@ def test_sorting_field(live_server, browser):
 
     assert 'order_by=publication_date' in browser.current_url
 
-    sorted_results = browser.find_elements_by_css_selector('div.aid h1')
+    sorted_results = browser.find_elements_by_css_selector('section.aid h1')
     assert len(sorted_results) == 2
     assert 'Schtroumpf' in sorted_results[0].get_attribute('innerHTML')
