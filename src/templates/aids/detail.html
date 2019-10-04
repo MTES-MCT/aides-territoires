@@ -217,6 +217,12 @@
         bundle_success: '{% trans "We added this aid to the selected bundles." context 'js_catalog' %} <span class="fas fa-thumbs-up"></span>',
         bundle_error: '{{ _("Something went wrong. Please refresh the page.") }}',
     };
+
+    $(document).ready(function() {
+        // Make sure all links contained in aid description open in
+        // a new tab.
+        $('section#aid div.aid-details a').attr('target', '_blank');
+    });
 </script>
 <script src="/static/js/aids/bundles.js"></script>
 {% endblock %}
