@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-03 12:00+0200\n"
+"POT-Creation-Date: 2019-10-04 16:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -600,6 +600,9 @@ msgstr "L'aide a été ajoutée aux listes sélectionnées."
 
 msgid "Your aid was sucessfully created. You can keep editing it."
 msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
+
+msgid "The new aid was added. You can keep editing it."
+msgstr "Une nouvelle aide a été créée. Vous pouvez poursuivre l'édition."
 
 msgid "Your aid was sucessfully updated."
 msgstr "Votre aide a été mise à jour."
@@ -1493,8 +1496,8 @@ msgstr "Erreur. Merci de réessayer."
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
 
-msgid "Published on"
-msgstr "Publié le"
+msgid "Created on"
+msgstr "Créée le"
 
 msgid "Last modified"
 msgstr "Dernière modif."
@@ -1563,11 +1566,11 @@ msgstr "Je comprends"
 msgid "Delete this aid"
 msgstr "Supprimer cette aide"
 
-msgid "Cancel and go back to published aids"
-msgstr "Annuler et revenir à vos aides publiées"
-
 msgid "Save your aid"
 msgstr "Enregistrer votre aide"
+
+msgid "Save as new"
+msgstr "Enregistrer en tant que nouveau"
 
 msgid "Your bookmarks"
 msgstr "Vos recherches sauvegardées"

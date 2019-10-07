@@ -345,14 +345,34 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
         return edit_url
 
 
-class AidEditView(ContributorRequiredMixin, SuccessMessageMixin, AidEditMixin,
+class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
                   UpdateView):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
     context_object_name = 'aid'
     form_class = AidEditForm
-    success_message = _('Your aid was sucessfully updated.')
+
+    def form_valid(self, form):
+
+        save_as_new = '_save_as_new' in self.request.POST
+        if save_as_new:
+            obj = form.save(commit=False)
+            obj.id = None
+            obj.slug = None
+            obj.date_created = timezone.now()
+            obj.date_published = None
+            obj.status = AidWorkflow.states.draft
+            obj.save()
+            form.save_m2m()
+            msg = _('The new aid was added. You can keep editing it.')
+            response = HttpResponseRedirect(self.get_success_url())
+        else:
+            msg = _('Your aid was sucessfully updated.')
+            response = super().form_valid(form)
+
+        self.messages.success(msg)
+        return response
 
     def get_success_url(self):
         edit_url = reverse('aid_edit_view', args=[self.object.slug])

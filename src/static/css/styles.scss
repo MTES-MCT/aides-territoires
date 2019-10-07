@@ -249,6 +249,10 @@ form {
         @extend .btn-success;
     }
 
+    button[type=submit].secondary {
+        @extend .btn-light;
+    }
+
     input[type=text],
     input[type=email],
     input[type=date],
