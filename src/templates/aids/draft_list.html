@@ -28,12 +28,13 @@
             <th>{% sortable_header _('Name') 'name' %}</th>
             <th>{% sortable_header _('Created on') 'date_created' %}</th>
             <th>{% sortable_header _('Last modified') 'date_updated' %}</th>
+            <th>{% sortable_header _('Deadline') 'submission_deadline' %}</th>
             <th>{{ _('Status') }}</th>
         </tr>
     </thead>
     <tbody>
         {% for aid in aids %}
-        <tr>
+        <tr {% if aid.has_expired %}class="expired"{% endif %}>
             <td>
                 <a href="{% url 'aid_edit_view' aid.slug %}">
                     {{ aid.name|truncatechars:50 }}
@@ -41,6 +42,7 @@
             </td>
             <td>{{ aid.date_created|date:'d/m/y' }}</td>
             <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+            <td class="deadline">{{ aid.submission_deadline|date:'d/m/y' }}</td>
             <td>{{ aid.get_status_display }}</td>
         </tr>
         {% endfor %}

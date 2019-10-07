@@ -297,8 +297,10 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
 
     template_name = 'aids/draft_list.html'
     context_object_name = 'aids'
-    paginate_by = 30
-    sortable_columns = ['name', 'date_created', 'date_updated']
+    paginate_by = 50
+    sortable_columns = [
+        'name', 'date_created', 'date_updated', 'submission_deadline'
+    ]
     default_ordering = 'date_created'
 
     def get_queryset(self):

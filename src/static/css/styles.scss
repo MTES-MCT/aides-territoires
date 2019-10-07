@@ -447,6 +447,7 @@ html.integration {
 table.data-table {
     @extend .table;
     @extend .table-sm;
+    @extend .mt-3;
 }
 
 div.list-actions {
