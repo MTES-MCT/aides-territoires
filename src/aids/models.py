@@ -449,3 +449,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
         delta = self.submission_deadline - timezone.now().date()
         return delta.days <= settings.APPROACHING_DEADLINE_DELTA
+
+    def has_expired(self):
+        if not self.submission_deadline:
+            return False
+
+        today = timezone.now().date()
+        return self.submission_deadline < today
