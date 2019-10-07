@@ -303,7 +303,6 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.prefetch_related('backers')
         return qs
 
     def get_ordering(self):
