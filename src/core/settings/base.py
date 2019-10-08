@@ -186,3 +186,6 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'profile'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
+
+SIB_API_KEY = ''
+SIB_LIST_ID = ''
