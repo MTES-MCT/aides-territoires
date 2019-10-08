@@ -63,4 +63,4 @@ SASS_PATH = 'make fullcss'
 
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
-SIB_LIST_ID = env('SIB_LIST_ID')
+SIB_LIST_ID = env.int('SIB_LIST_ID')
