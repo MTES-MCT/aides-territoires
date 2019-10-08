@@ -43,7 +43,8 @@ class Perimeter(models.Model):
         choices=TYPES)
     code = models.CharField(
         _('Code'),
-        max_length=16)
+        max_length=16,
+        help_text=_('Internal usage only, not relevant for Ad-hoc perimeters'))
     name = models.CharField(
         _('Name'),
         max_length=128)
