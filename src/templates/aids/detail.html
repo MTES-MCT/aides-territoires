@@ -22,7 +22,16 @@
 
     <h1>
         {{ aid.name }}
-        <br /><small>{{ aid.backers.all|join:', ' }}</small>
+        <br /><small>
+        {% for backer in aid.backers.all %}
+            <span class="backer-name">
+                {{ backer }}
+                {% if backer.is_corporate %}
+                    ({{ _('Corporate') }})
+                {% endif %}
+            </span>
+        {% endfor %}
+        </small>
     </h1>
 
     <div class="aid-actions js">

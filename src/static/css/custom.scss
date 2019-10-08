@@ -231,6 +231,10 @@ section#program-list {
 
                 small {
                     @extend .card-subtitle;
+
+                    span.backer-name + span.backer-name:before {
+                        content: '/';
+                    }
                 }
 
                 div.status-icons {
