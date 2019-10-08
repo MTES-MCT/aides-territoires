@@ -299,7 +299,11 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
     context_object_name = 'aids'
     paginate_by = 50
     sortable_columns = [
-        'name', 'date_created', 'date_updated', 'submission_deadline'
+        'name',
+        'date_created',
+        'date_updated',
+        'submission_deadline',
+        'status',
     ]
     default_ordering = 'date_created'
 

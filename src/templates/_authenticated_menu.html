@@ -12,7 +12,7 @@
 
     {% if user.is_contributor %}
     <li>
-        <a href="{% url 'aid_draft_list_view' %}">
+        <a href="{% url 'aid_draft_list_view' %}?order=status">
             {{ _('Draft aids') }}
             <span class="draft-counter">
                 {{ nb_draft_aids }}

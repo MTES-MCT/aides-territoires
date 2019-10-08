@@ -29,7 +29,7 @@
             <th>{% sortable_header _('Created on') 'date_created' %}</th>
             <th>{% sortable_header _('Last modified') 'date_updated' %}</th>
             <th>{% sortable_header _('Deadline') 'submission_deadline' %}</th>
-            <th>{{ _('Status') }}</th>
+            <th>{% sortable_header _('Status') 'status' %}</th>
         </tr>
     </thead>
     <tbody>
