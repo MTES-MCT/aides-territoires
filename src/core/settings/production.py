@@ -60,3 +60,7 @@ GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID')
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID')
 
 SASS_PATH = 'make fullcss'
+
+# Sendinblue api and settings
+SIB_API_KEY = env('SIB_API_KEY')
+SIB_LIST_ID = env('SIB_LIST_ID')

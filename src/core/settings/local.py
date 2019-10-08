@@ -45,3 +45,7 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # Piwik goal tracking ids
 GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID', 1)
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID', 2)
+
+# Sendinblue api and settings
+SIB_API_KEY = env('SIB_API_KEY')
+SIB_LIST_ID = env('SIB_LIST_ID')
