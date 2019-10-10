@@ -330,6 +330,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Amendment author'),
         max_length=256,
         blank=True)
+    amendment_author_email = models.EmailField(
+        _('Amendment author email'),
+        null=True, blank=True)
+    amendment_author_org = models.CharField(
+        _('Amendment author organization'),
+        max_length=255,
+        blank=True)
     amendment_comment = models.TextField(
         _('Amendment comment'),
         blank=True)
