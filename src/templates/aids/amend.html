@@ -42,7 +42,7 @@
     {{ block.super }}
     <fieldset>
         <legend>{{ _('Tell us more about your amendment') }}</legend>
-            {% include '_field_snippet.html' with field=form.amendment_author %}
+            {% include '_field_snippet.html' with field=form.amendment_author_name %}
             {% include '_field_snippet.html' with field=form.amendment_comment %}
         </fieldset>
     </legend>

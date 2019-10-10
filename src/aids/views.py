@@ -299,7 +299,11 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
     context_object_name = 'aids'
     paginate_by = 50
     sortable_columns = [
-        'name', 'date_created', 'date_updated', 'submission_deadline'
+        'name',
+        'date_created',
+        'date_updated',
+        'submission_deadline',
+        'status',
     ]
     default_ordering = 'date_created'
 
@@ -448,7 +452,7 @@ class AidAmendView(MessageMixin, UpdateView):
         initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial.update({
-                'amendment_author': self.request.user.full_name
+                'amendment_author_name': self.request.user.full_name
             })
         return initial
 

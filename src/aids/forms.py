@@ -190,7 +190,7 @@ class AidEditForm(BaseAidForm):
 
 
 class AidAmendForm(AidEditForm):
-    amendment_author = forms.CharField(
+    amendment_author_name = forms.CharField(
         label=_('Who are you?'),
         widget=forms.TextInput(attrs={
             'maxlength': 256,
@@ -206,7 +206,7 @@ class AidAmendForm(AidEditForm):
 
     class Meta(AidEditForm.Meta):
         fields = AidEditForm.Meta.fields + [
-            'amendment_author', 'amendment_comment'
+            'amendment_author_name', 'amendment_comment'
         ]
 
 

@@ -33,11 +33,12 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
     def form_valid(self, form):
         # Fetch the list of commune perimeters from the uploaded file
         city_codes = []
-        for city_code in form.cleaned_data['city_list']:
+        for line in form.cleaned_data['city_list']:
             try:
-                clean_code = city_code.decode().strip()
-                city_codes.append(clean_code)
-            except UnicodeDecodeError:
+                code = line.decode().strip().split(';')[0]
+                int_code = int(code)
+                city_codes.append(int_code)
+            except (UnicodeDecodeError, ValueError):
                 msg = _('This file seems invalid. \
                         Please double-check its content or contact the \
                         dev team if you feel like it\'s an error.')

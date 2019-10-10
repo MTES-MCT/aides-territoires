@@ -9,7 +9,7 @@
 <h1>
     {{ aid.name }}<br />
     <small>
-        {% blocktrans trimmed with author_name=amendment.amendment_author date=amendment.date_created|date %}
+        {% blocktrans trimmed with author_name=amendment.amendment_author_name date=amendment.date_created|date %}
             By {{ author_name }} on {{ date }}
         {% endblocktrans %}
     </small>
