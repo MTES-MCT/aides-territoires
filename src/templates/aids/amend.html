@@ -52,9 +52,9 @@
 
 {% block form_actions %}
 <div class="form-actions">
-    <a href="{{ aid.get_absolute_url }}">{{ _('Cancel and go back to the aid detail') }}</a>
     <div class="submit-buttons">
         <button type="submit">{{ _('Suggest amendments') }}</button>
     </div>
+    <a href="{{ aid.get_absolute_url }}">{{ _('Cancel and go back to the aid detail') }}</a>
 </div>
 {% endblock %}
