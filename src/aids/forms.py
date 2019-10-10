@@ -197,6 +197,14 @@ class AidAmendForm(AidEditForm):
             'placeholder': _('Your full name')}),
         required=True,
         max_length=256)
+    amendment_author_email = forms.EmailField(
+        label=_('Your email address'),
+        required=False,
+        help_text=_('Leave us an address if you want a followup.'))
+    amendment_author_org = forms.CharField(
+        label=_('Your organization'),
+        required=False,
+        help_text=_('Help us understand who you are.'))
     amendment_comment = forms.CharField(
         label=_('Care to comment?'),
         widget=forms.Textarea(attrs={'rows': 2}),
@@ -206,7 +214,8 @@ class AidAmendForm(AidEditForm):
 
     class Meta(AidEditForm.Meta):
         fields = AidEditForm.Meta.fields + [
-            'amendment_author_name', 'amendment_comment'
+            'amendment_author_name', 'amendment_author_email',
+            'amendment_author_org', 'amendment_comment'
         ]
 
 
