@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-08 15:15+0200\n"
+"POT-Creation-Date: 2019-10-10 10:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,6 +283,12 @@ msgstr ""
 
 msgid "Who are you?"
 msgstr "Qui êtes vous ?"
+
+msgid "Leave us an address if you want a followup."
+msgstr "Laissez nous votre adresse si vous souhaitez être notifié des suites que nous donnerons à votre amendement."
+
+msgid "Help us understand who you are."
+msgstr "Aidez-nous à savoir qui vous êtes."
 
 msgid "Care to comment?"
 msgstr "Voulez-vous ajouter un commentaire ?"
@@ -562,6 +568,12 @@ msgstr "Aide amendée"
 msgid "Amendment author"
 msgstr "Auteur de l'amendement"
 
+msgid "Amendment author email"
+msgstr "E-mail de l'auteur de l'amendement"
+
+msgid "Amendment author organization"
+msgstr "Structure de l'auteur de l'amendement"
+
 msgid "Amendment comment"
 msgstr "Commentaire"
 
@@ -763,6 +775,9 @@ msgstr "Échelle"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Internal usage only, not relevant for Ad-hoc perimeters"
+msgstr "Usage interne uniquement, non pertinent pour les périmètres Ad-hoc."
 
 msgid "Contained in"
 msgstr "Contenu dans"
@@ -1158,6 +1173,18 @@ msgstr "Intégration d'amendement"
 msgid "By %(author_name)s on %(date)s"
 msgstr "Par %(author_name)s le %(date)s"
 
+msgid "Author:"
+msgstr "Auteur "
+
+msgid "Email:"
+msgstr "Courriel :"
+
+msgid "ND"
+msgstr "NC"
+
+msgid "Organization:"
+msgstr "Organisme :"
+
 msgid "This form makes it possible to edit the aid targeted by the amendment."
 msgstr ""
 "Ce formulaire permet de modifier des aides touchées par des amendements."
@@ -1390,11 +1417,11 @@ msgstr "Merci pour votre contribution."
 msgid "Tell us more about your amendment"
 msgstr "Dites nous en plus"
 
-msgid "Cancel and go back to the aid detail"
-msgstr "Annuler et revenir au détail de l'aide"
-
 msgid "Suggest amendments"
 msgstr "Suggérer des modifications"
+
+msgid "Cancel and go back to the aid detail"
+msgstr "Annuler et revenir au détail de l'aide"
 
 msgid "My published aids"
 msgstr "Mes aides publiées"
