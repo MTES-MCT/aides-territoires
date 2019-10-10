@@ -823,7 +823,7 @@ msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
 msgid "Description"
-msgstr "Description de l'aide"
+msgstr "Description"
 
 msgid "Aid program"
 msgstr "Programme d'aides"
