@@ -15,6 +15,12 @@
     </small>
 </h1>
 
+<ul>
+    <li>{{ _('Author:') }} {{ amendment.amendment_author_name }}</li>
+    <li>{{ _('Email:') }} {{ amendment.amendment_author_email|default:_('ND') }}</li>
+    <li>{{ _('Organization:') }} {{ amendment.amendment_author_org|default:_('ND') }}</li>
+</ul>
+
 <div class="info">
 <p>{% blocktrans trimmed %}
 This form makes it possible to edit the aid targeted by the amendment.
