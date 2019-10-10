@@ -17,3 +17,18 @@ form .aligned ul ul {
 .submit-row a.uploadlink:hover {
     background: #609ab6;
 }
+
+div.field-aids div.selector {
+    width: 100%;
+}
+
+div.field-aids div.selector-available,
+div.field-aids div.selector-chosen {
+    width: 100%;
+}
+
+div.field-aids div.selector-available select,
+div.field-aids div.selector-chosen select {
+    width: 100%;
+    height: 15em;
+}
