@@ -452,7 +452,9 @@ class AidAmendView(MessageMixin, UpdateView):
         initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial.update({
-                'amendment_author_name': self.request.user.full_name
+                'amendment_author_name': self.request.user.full_name,
+                'amendment_author_email': self.request.user.email,
+                'amendment_author_org': self.request.user.organization,
             })
         return initial
 
