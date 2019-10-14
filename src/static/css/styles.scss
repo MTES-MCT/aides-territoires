@@ -244,6 +244,20 @@ form {
         }
     }
 
+    div.form-actions {
+        display: flex;
+        align-items: baseline;
+
+        div.submit-buttons {
+            margin-right: auto;
+
+            button + button {
+                @extend .ml-2;
+            }
+        }
+
+    }
+
     button[type=submit] {
         @extend .btn;
         @extend .btn-success;

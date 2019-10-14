@@ -75,10 +75,10 @@ modification that was suggested.
     {% endif %}
 
     <div class="form-actions">
-        <a href="{% url 'admin:aids_amendment_changelist' %}">{{ _('Cancel and go back to the amendment list') }}</a>
         <div class="submit-buttons">
             <button type="submit">{{ _('Update the aid and discard the amendment') }}</button>
         </div>
+        <a href="{% url 'admin:aids_amendment_changelist' %}">{{ _('Cancel and go back to the amendment list') }}</a>
     </div>
 </form>
 {% endblock %}
