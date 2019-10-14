@@ -25,7 +25,7 @@ def contributor_stats(request):
 
     context = {}
     if request.user.is_authenticated and request.user.is_contributor:
-        aids = Aid.objects.drafts()
+        aids = Aid.objects.drafts().filter(author=request.user)
         context['nb_draft_aids'] = aids.count()
 
     return context
