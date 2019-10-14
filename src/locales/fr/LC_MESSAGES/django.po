@@ -1533,7 +1533,7 @@ msgid "Last modified"
 msgstr "Dernière modif."
 
 msgid "Deadline"
-msgstr "Deadline"
+msgstr "Échéance"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
