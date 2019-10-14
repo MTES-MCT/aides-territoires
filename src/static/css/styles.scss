@@ -525,3 +525,14 @@ html {
         display: none;
     }
 }
+
+div#staging-warning {
+    background-color: $red;
+    color: white;
+
+    p {
+        @extend .py-2;
+        margin-bottom: 0;
+        @include icon(before, $fa-var-exclamation-triangle);
+    }
+}

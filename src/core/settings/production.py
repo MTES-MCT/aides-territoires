@@ -18,6 +18,8 @@ CELERY_TASK_EAGER_PROPAGATES = True
 environ.Env.read_env('.env.production')
 env = environ.Env()
 
+ENV_NAME = env('ENV_NAME')
+
 SECRET_KEY = env('SECRET_KEY')
 
 DATABASES = {

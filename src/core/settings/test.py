@@ -2,6 +2,8 @@ from .base import *  # noqa
 
 DEBUG = False
 
+ENV_NAME='test'
+
 # Django automatically prepends db name with "test_"
 DATABASES = {
     'default': {
