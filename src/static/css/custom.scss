@@ -388,15 +388,6 @@ section#aid-edit {
 
     form.main-form {
         @extend .col-md-9;
-
-        div.form-actions {
-            display: flex;
-            align-items: baseline;
-
-            div.submit-buttons {
-                margin-right: auto;
-            }
-        }
     }
 }
 
@@ -724,15 +715,6 @@ section#amend-ui {
             span.prefix {
                 user-select: none;
             }
-        }
-    }
-
-    div.form-actions {
-        display: flex;
-        align-items: baseline;
-
-        div.submit-buttons {
-            margin-left: auto;
         }
     }
 }

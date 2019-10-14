@@ -367,6 +367,8 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.date_created = timezone.now()
             obj.date_published = None
             obj.status = AidWorkflow.states.draft
+            obj.is_imported = False
+            obj.import_uniqueid = None
             obj.save()
             form.save_m2m()
             msg = _('The new aid was added. You can keep editing it.')
