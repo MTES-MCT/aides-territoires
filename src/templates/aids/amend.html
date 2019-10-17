@@ -39,7 +39,31 @@
 {% endblock %}
 
 {% block fields %}
+
+    <nav id="amendment" class="form-steps">
+        <a href="#amendment" class="active">
+            <span class="step-counter">1</span>
+            {{ _('Suggest some modifications') }}
+        </a>
+        <a href="#context" class="">
+            <span class="step-counter">2</span>
+            {{ _('Tell us about yourself') }}
+        </a>
+    </nav>
+
     {{ block.super }}
+
+    <nav id="context" class="form-steps">
+        <a href="#amendment" class="">
+            <span class="step-counter">1</span>
+            {{ _('Suggest some modifications') }}
+        </a>
+        <a href="#context" class="active">
+            <span class="step-counter">2</span>
+            {{ _('Tell us about yourself') }}
+        </a>
+    </nav>
+
     <fieldset>
         <legend>{{ _('Tell us more about your amendment') }}</legend>
             {% include '_field_snippet.html' with field=form.amendment_author_name %}
