@@ -307,7 +307,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         models.CharField(max_length=50, blank=True),
         verbose_name=_('Tags'),
         default=list,
-        size=16,
+        size=30,
         blank=True)
     _tags_m2m = models.ManyToManyField(
         'tags.Tag',
