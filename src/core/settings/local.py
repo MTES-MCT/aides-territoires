@@ -22,7 +22,7 @@ MIDDLEWARE = [
 environ.Env.read_env('.env.local')
 env = environ.Env()
 
-ENV_NAME='local'
+ENV_NAME = 'local'
 
 SECRET_KEY = env('SECRET_KEY', default='hg_1)(oo53y2ow1bvlr6k2mv#hk1lo4%6qf1pdf*02%$203kmt')
 
