@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 11:10+0200\n"
+"POT-Creation-Date: 2019-10-17 15:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -931,6 +931,9 @@ msgstr "Vous devriez avoir reçu votre recherche par e-mail."
 msgid "It seems something went wrong. Please try again in a few seconds."
 msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 
+msgid "Are you sure you want to quit? You might lose some changes."
+msgstr "Êtes-vous certain·e de vouloir quitter cette page ? Vos modifications seront perdues."
+
 msgid "Your profile"
 msgstr "Votre profil"
 
@@ -1218,11 +1221,11 @@ msgstr "Éditer dans l'admin"
 msgid "The user left this comment:"
 msgstr "L'utilisateur·ice a laissé ce commentaire :"
 
-msgid "Cancel and go back to the amendment list"
-msgstr "Annuler et revenir à la liste des amendements"
-
 msgid "Update the aid and discard the amendment"
 msgstr "Mettre à jour l'aide et supprimer l'amendement"
+
+msgid "Cancel and go back to the amendment list"
+msgstr "Annuler et revenir à la liste des amendements"
 
 msgid "Upload city list"
 msgstr "Télécharger la liste des communes"
@@ -1416,6 +1419,12 @@ msgstr ""
 msgid "Thank you for your contribution."
 msgstr "Merci pour votre contribution."
 
+msgid "Suggest some modifications"
+msgstr "Suggérez des modifications"
+
+msgid "Tell us about yourself"
+msgstr "Dites nous en plus sur vous"
+
 msgid "Tell us more about your amendment"
 msgstr "Dites nous en plus"
 
@@ -1448,14 +1457,14 @@ msgstr ""
 "Votre aide <strong>ne sera pas publiée</strong> tant que vous ne l'aurez pas "
 "envoyée en revue par un administrateur."
 
-msgid "Cancel"
-msgstr "Annuler"
-
 msgid "Save as a draft"
 msgstr "Enregistrer en brouillon"
 
 msgid "Save and request publication"
 msgstr "Enregister et demander la publication"
+
+msgid "Cancel"
+msgstr "Annuler"
 
 msgid "Save to a bundle"
 msgstr "Enregistrer dans une liste"
@@ -1663,9 +1672,6 @@ msgstr ""
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
-
-msgid "Public Aid for Communities"
-msgstr "Aides publiques pour les collectivités"
 
 msgid "Start searching for aids"
 msgstr "Trouver des aides"
