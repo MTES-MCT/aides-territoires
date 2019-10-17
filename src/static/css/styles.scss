@@ -536,3 +536,44 @@ div#staging-warning {
         @include icon(before, $fa-var-exclamation-triangle);
     }
 }
+
+nav.form-steps {
+    @extend .nav;
+    @extend .nav-pills;
+    @extend .nav-fill;
+    @extend .nav-justified;
+    @extend .mb-3;
+
+    &:not(:first-of-type) {
+        @extend .mt-4;
+    }
+
+    a {
+        @extend .nav-item;
+        @extend .nav-link;
+        background-color: $breadcrumb-bg;
+        @extend .mx-1;
+
+        &:first-child {
+            margin-left: 0 !important;
+        }
+
+        &:last-child {
+            margin-right: 0 !important;
+        }
+
+        span.step-counter {
+            @extend .badge;
+            @extend .badge-secondary;
+        }
+
+        &.active {
+            @extend .bg-dark;
+            @extend .text-light;
+
+            span.step-counter {
+                @extend .badge-light;
+            }
+        }
+    }
+}
