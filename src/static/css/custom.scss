@@ -388,6 +388,22 @@ section#aid-edit {
 
     form.main-form {
         @extend .col-md-9;
+
+        button[value='review'] {
+            @include icon(before, $fa-var-eye);
+        }
+
+        button[value='draft'] {
+            @include icon(before, $fa-var-save);
+        }
+
+        button[value='save'] {
+            @include icon(before, $fa-var-save);
+        }
+
+        button[value='_save_as_new'] {
+            @include icon(before, $fa-var-copy);
+        }
     }
 }
 

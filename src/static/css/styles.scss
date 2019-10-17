@@ -260,11 +260,15 @@ form {
 
     button[type=submit] {
         @extend .btn;
+    }
+
+    button[type=submit]:not(.secondary) {
         @extend .btn-success;
     }
 
     button[type=submit].secondary {
-        @extend .btn-light;
+        @extend .btn-outline-success;
+        @extend .text-dark;
     }
 
     input[type=text],
