@@ -390,7 +390,7 @@ section#aid-edit {
         @extend .col-md-9;
 
         button[value='review'] {
-            @include icon(before, $fa-var-eye);
+            @include icon(before, $fa-var-paper-plane);
         }
 
         button[value='draft'] {
