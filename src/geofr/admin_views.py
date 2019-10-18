@@ -38,10 +38,11 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
                 code = line.decode().strip().split(';')[0]
                 int_code = int(code)
                 city_codes.append(int_code)
-            except (UnicodeDecodeError, ValueError):
+            except (UnicodeDecodeError, ValueError) as e:
                 msg = _('This file seems invalid. \
                         Please double-check its content or contact the \
-                        dev team if you feel like it\'s an error.')
+                        dev team if you feel like it\'s an error. \
+                        Here is the original error: {}').format(e)
                 self.messages.error(msg)
                 return self.get(self.request, *self.args, **self.kwargs)
 
