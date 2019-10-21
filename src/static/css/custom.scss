@@ -181,7 +181,7 @@ section#search-engine {
 
                 }
 
-                button.bookmark-btn {
+                a.bookmark-btn {
                     @extend .btn;
                     @extend .btn-outline-primary;
                     @include icon(before, $fa-var-bell);

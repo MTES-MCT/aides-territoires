@@ -29,6 +29,7 @@ def test_bookmark_create_view(user, client):
     url = reverse('bookmark_create_view')
     client.force_login(user)
     res = client.post(url, data={
+        'title': 'My new search',
         'text': 'Ademe',
         'call_for_projects_only': 'on',
     })
@@ -37,37 +38,9 @@ def test_bookmark_create_view(user, client):
 
     bookmark = bookmarks[0]
     assert bookmark.owner == user
+    assert bookmark.title == 'My new search'
     assert 'text=Ademe' in bookmark.querystring
     assert 'call_for_projects_only=on' in bookmark.querystring
-
-
-def test_bookmark_title(user, client):
-    url = reverse('bookmark_create_view')
-    client.force_login(user)
-    client.post(url, data={
-        'text': 'Ademe',
-    })
-    bookmarks = Bookmark.objects.order_by('id')
-    bookmark = bookmarks.last()
-    assert bookmark.title == '« Ademe »'
-
-    client.post(url, data={
-        'text': 'Test',
-        'perimeter': PerimeterFactory(name='Testville').pk,
-    })
-    bookmark = bookmarks.last()
-    assert bookmark.title == '« Test », Testville'
-
-    client.post(url, data={
-        'perimeter': PerimeterFactory(name='Testville2').pk,
-    })
-    bookmark = bookmarks.last()
-    assert bookmark.title == 'Testville2'
-
-    client.post(url, data={})
-    bookmarks = Bookmark.objects.all()
-    bookmark = bookmarks.last()
-    assert bookmark.title == 'Recherche diverse'
 
 
 def test_delete_bookmark(user, client):

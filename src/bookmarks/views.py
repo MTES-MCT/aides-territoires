@@ -7,8 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from braces.views import MessageMixin
 
-from aids.forms import AidSearchForm
-from bookmarks.forms import BookmarkAlertForm
+from bookmarks.forms import BookmarkAlertForm, UserBookmarkForm
 from bookmarks.models import Bookmark
 
 
@@ -39,15 +38,22 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
     http_method_names = ['post']
 
     def get_form(self):
-        return AidSearchForm(self.request.POST)
+        return UserBookmarkForm(self.request.POST)
 
     def form_valid(self, form):
 
-        querystring = self.request.POST.urlencode()
-        title = self.generate_user_friendly_title(form)
+        # Extract search parameters and exclude the bookmark
+        # configuration fields.
+        post_data = self.request.POST.copy()
+        post_data.pop('title')
+        post_data.pop('send_email_alert', None)
+        querystring = post_data.urlencode()
+
+        # Create the bookmark object
         Bookmark.objects.create(
             owner=self.request.user,
-            title=title,
+            title=form.cleaned_data['title'],
+            send_email_alert=form.cleaned_data['send_email_alert'],
             querystring=querystring)
 
         bookmarks_url = reverse('bookmark_list_view')
@@ -62,24 +68,6 @@ class BookmarkCreate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
         self.messages.error(_('Something went wrong. Please try again.'))
         redirect_url = reverse('search_view')
         return HttpResponseRedirect(redirect_url)
-
-    def generate_user_friendly_title(self, form):
-        """Generates a readable title for the bookmark."""
-
-        title_elements = []
-
-        search = form.cleaned_data.get('text', None)
-        if search:
-            title_elements.append('« {} »'.format(search))
-
-        perimeter = form.cleaned_data.get('perimeter', None)
-        if perimeter:
-            title_elements.append(perimeter.name)
-
-        if len(title_elements) == 0:
-            title_elements = [ugettext('Misc')]
-
-        return ', '.join(title_elements)
 
 
 class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
