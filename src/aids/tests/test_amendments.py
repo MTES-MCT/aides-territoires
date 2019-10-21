@@ -30,7 +30,8 @@ def test_aid_amendments_are_saved(client, aid_form_data):
     aid_form_data.update({
         'name': 'This is a better name',
         'description': 'This is a correction',
-        'amendment_author': 'Coco rection',
+        'amendment_author_name': 'Coco rection',
+        'amendment_author_email': 'test@example.com',
     })
     res = client.post(amend_url, data=aid_form_data)
     assert res.status_code == 302

@@ -14,7 +14,8 @@ pytestmark = pytest.mark.django_db
 @pytest.fixture
 def amendment_form_data(aid_form_data):
     aid_form_data.update({
-        'amendment_author': 'Éric Iki',
+        'amendment_author_name': 'Éric Iki',
+        'amendment_author_email': 'eric.iki@example.com',
         'amendment_comment': 'This is a comment',
     })
     return aid_form_data
