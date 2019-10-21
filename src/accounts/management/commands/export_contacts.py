@@ -1,6 +1,6 @@
 import requests
 import json
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from accounts.models import User
@@ -33,8 +33,5 @@ class Command(BaseCommand):
             'listIds': [settings.SIB_LIST_ID],
             'updateEnabled': True,
         }
-        res = requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
-        status_code = res.status_code
+        requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
         self.stdout.write('Exporting {}'.format(user.email))
-        print(res.status_code)
-        print(res.text)

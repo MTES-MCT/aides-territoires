@@ -7,21 +7,24 @@ from programs.models import Program
 
 
 class AidMultipleChoiceField(forms.ModelMultipleChoiceField):
+
     def label_from_instance(self, obj):
         label_elements = [
-            obj.name,
-            obj.perimeter.name if obj.perimeter else '',
+            obj.name, obj.perimeter.name if obj.perimeter else '',
             ', '.join(b.name for b in obj.backers.all())
         ]
         return ' / '.join(filter(None, label_elements))
 
 
+published_aids_qs = Aid.objects \
+    .published() \
+    .select_related('perimeter') \
+    .prefetch_related('backers')
+
+
 class ProgramForm(forms.ModelForm):
     aids = AidMultipleChoiceField(
-        queryset=Aid.objects
-            .published()
-            .select_related('perimeter')
-            .prefetch_related('backers'),
+        queryset=published_aids_qs,
         widget=admin.widgets.FilteredSelectMultiple(
             _('Aids'),
             is_stacked=True,
@@ -29,10 +32,9 @@ class ProgramForm(forms.ModelForm):
 
 
 class ProgramAdmin(admin.ModelAdmin):
+
     class Media:
-        css = {
-            'all': ('css/admin.css',)
-        }
+        css = {'all': ('css/admin.css',)}
 
     form = ProgramForm
     list_display = ['name']

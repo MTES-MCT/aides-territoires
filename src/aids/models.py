@@ -40,8 +40,9 @@ class AidQuerySet(models.QuerySet):
         """Returns aids that may appear in the search results (unexpired)."""
 
         today = timezone.now().date()
-        return self.filter(Q(submission_deadline__gte=today) |
-                           Q(submission_deadline__isnull=True))
+        return self.filter(
+            Q(submission_deadline__gte=today)
+            | Q(submission_deadline__isnull=True))
 
 
 class BaseAidManager(models.Manager):
@@ -78,12 +79,11 @@ class AidWorkflow(xwf_models.Workflow):
         ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
     )
     initial_state = 'draft'
-    transitions = (
-        ('submit', 'draft', 'reviewable'),
-        ('publish', 'reviewable', 'published'),
-        ('unpublish', ('reviewable', 'published'), 'draft'),
-        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
-    )
+    transitions = (('submit', 'draft', 'reviewable'), ('publish', 'reviewable',
+                                                       'published'),
+                   ('unpublish', ('reviewable', 'published'),
+                    'draft'), ('soft_delete', ('draft', 'reviewable',
+                                               'published'), 'deleted'))
 
 
 class Aid(xwf_models.WorkflowEnabled, models.Model):
@@ -161,7 +161,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     name = models.CharField(
         _('Name'),
         max_length=180,
-        help_text=_('A good title describes the purpose of the help and should speak to the recipient.'),
+        help_text=_('A good title describes the purpose of the help and '
+                    'should speak to the recipient.'),
         null=False, blank=False)
     author = models.ForeignKey(
         'accounts.User',

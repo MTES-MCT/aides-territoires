@@ -1,7 +1,6 @@
 import requests
-import json
 from django.db import transaction
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from accounts.models import User
@@ -34,7 +33,8 @@ class Command(BaseCommand):
             attrs = datum['attributes']
             org = attrs.get('STRUCTURE', '')
 
-            self.stdout.write('Update {} {} {}'.format(email, org, blacklisted))
+            self.stdout.write('Update {} {} {}'.format(
+                email, org, blacklisted))
             if org:
                 User.objects \
                     .filter(email=email) \
@@ -43,7 +43,6 @@ class Command(BaseCommand):
                 User.objects \
                     .filter(email=email) \
                     .update(ml_consent=not blacklisted)
-
 
     def fetch_contacts(self):
         """Fetch *all* contacts using the Sendinblue api."""
@@ -76,4 +75,3 @@ class Command(BaseCommand):
             offset += limit
 
         return contacts_data
-
