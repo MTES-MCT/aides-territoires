@@ -160,7 +160,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     name = models.CharField(
         _('Name'),
-        max_length=256,
+        max_length=180,
+        help_text=_('A good title describes the purpose of the help and should speak to the recipient.'),
         null=False, blank=False)
     author = models.ForeignKey(
         'accounts.User',
