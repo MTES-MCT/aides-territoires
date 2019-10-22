@@ -3,13 +3,17 @@
     <div class="modal-dialog">
         <section>
             <header>
-                <h1>{{ _('Bookmark the current search') }}</h1>
+                <h1>{{ _('New aids alert') }}</h1>
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ _('Close') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </header>
 
             <div class="content">
+                <p class="info">{% blocktrans trimmed %}
+                    Bookmark the current search and receive email alerts whenever
+                    new aids corresponding to your current search are published.
+                {% endblocktrans %}</p>
                 <form>
                     <div class="form-group">
                         {{ bookmark_form.title.label_tag }}
@@ -24,7 +28,7 @@
             </div>
 
             <footer>
-                <button type="submit" form="search-form" formaction="{% url 'bookmark_create_view' %}" formmethod="post">
+                <button class="btn-block" type="submit" form="search-form" formaction="{% url 'bookmark_create_view' %}" formmethod="post">
                     {{ _('Bookmark the search') }}
                 </button>
             </footer>

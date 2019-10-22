@@ -9,11 +9,11 @@ class UserBookmarkForm(AidSearchForm):
     """Form used to configure a new search bookmark (user connected only)."""
 
     title = forms.CharField(
-        label=_('Give a name to your saved search'),
+        label=_('Give a name to your bookmarked search'),
         required=True,
         max_length=250)
     send_email_alert = forms.BooleanField(
-        label=_('Send email alert'),
+        label=_('Receive new results by email'),
         required=False)
 
 
