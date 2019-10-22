@@ -11,7 +11,6 @@
             // Don't bother if the event was already bound
             if (eventAttached) return;
 
-
             // Was some form data actually changed?
             var newData = aidEditForm.serialize();
             var changed = initialData != newData;
@@ -25,12 +24,19 @@
         });
     };
 
+    // Unbind the exit confirmation
+    exports.disableExitConfirmation = function() {
+        $(window).unbind('beforeunload');
+    };
+
 })(this);
 
 $(document).ready(function () {
     // Prevent status update when edit form was modified
     // to prevent data loss.
     var aidEditForm = $('form.main-form');
-
     enableExitConfirmation(aidEditForm);
+
+    // Don't ask for a confirmation if the form was submitted
+    aidEditForm.on('submit', disableExitConfirmation);
 });
