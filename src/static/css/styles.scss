@@ -325,6 +325,10 @@ p, div {
         @extend .alert-success;
     }
 
+    &.error {
+        @extend .alert-danger;
+    }
+
     &.info {
         @extend .alert-primary;
     }
@@ -342,6 +346,7 @@ p, div {
     }
 
     &.success,
+    &.error,
     &.info,
     &.warning,
     &.tip {
