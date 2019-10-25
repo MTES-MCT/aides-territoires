@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from accounts.models import User
 from aids.forms import AidSearchForm
 from bookmarks.models import Bookmark
 
@@ -28,6 +29,17 @@ class AnonymousBookmarkForm(AidSearchForm):
         label=_('Your email address'),
         help_text=_('We will send an email to confirm your address'),
         required=True)
+
+    def clean_email(self):
+        """Make sure the email is not linked to an existing account."""
+
+        email = self.cleaned_data['email']
+        user_exists = User.objects.filter(email=email).exists()
+        if user_exists:
+            msg = _('An account with this address already exists. If this is '
+                    'your account, you might want to login first.')
+            raise forms.ValidationError(msg, code='unique')
+        return email
 
 
 class BookmarkAlertForm(forms.ModelForm):
