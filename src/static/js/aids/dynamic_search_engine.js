@@ -149,7 +149,7 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('section#search-engine form').on('submit', onFormSubmit);
+    $('form#search-form').on('submit', onFormSubmit);
     $('section#aid-list').on('click', 'div#sorting-menu a', onSortCriteraSelected);
 
     renderSessionCookie();
