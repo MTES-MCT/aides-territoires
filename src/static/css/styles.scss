@@ -352,6 +352,10 @@ p, div {
     &.tip {
         @extend .alert;
 
+        &:last-child {
+            margin-bottom: 0;
+        }
+
         ul:last-child,
         p:last-child {
             margin-bottom: 0;
