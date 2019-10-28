@@ -602,16 +602,23 @@ section#bookmarks {
                 right: $card-spacer-x;
                 @extend .form-inline;
 
-                div.alert_checkbox {
-                    @extend .custom-control;
-                    @extend .custom-switch;
+                div.alert-fields {
+                    display: flex;
+                    align-items: center;
 
-                    input {
-                        @extend .custom-control-input;
-                    }
+                    div.alert_checkbox {
+                        @extend .custom-control;
+                        @extend .custom-switch;
+                        @extend .mr-2;
 
-                    label {
-                        @extend .custom-control-label;
+                        input {
+                            @extend .custom-control-input;
+                        }
+
+                        label {
+                            @extend .custom-control-label;
+                            white-space: nowrap;
+                        }
                     }
                 }
 

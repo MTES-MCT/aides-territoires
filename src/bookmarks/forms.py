@@ -51,4 +51,4 @@ class BookmarkAlertForm(forms.ModelForm):
 
     class Meta:
         model = Bookmark
-        fields = ['send_email_alert']
+        fields = ['send_email_alert', 'alert_frequency']
