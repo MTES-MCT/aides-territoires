@@ -9,10 +9,11 @@ class BaseBookmarkForm(forms.Form):
     """Commont fields for both bookmark forms."""
 
     title = forms.CharField(
-        label=_('Give a name to your bookmarked search'),
+        label=_('Give a name to your alert'),
         required=True,
         max_length=250)
     alert_frequency = forms.ChoiceField(
+        label=_('Alert frequency'),
         choices=Bookmark.FREQUENCIES,
         help_text=_('How often to you want to receive alerts?'))
     querystring = forms.CharField(widget=forms.HiddenInput)

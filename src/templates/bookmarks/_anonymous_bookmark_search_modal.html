@@ -5,18 +5,13 @@
         <form id="bookmark-form"  action="{% url 'bookmark_create_view' %}" method="post">
             <section>
                 <header>
-                    <h1>{{ _('New aids alert') }}</h1>
+                    <h1>{{ _('New email aids alert') }}</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="{{ _('Close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </header>
 
                 <div class="content">
-                    <p class="info">{% blocktrans trimmed %}
-                        You can receive email alerts whenever
-                        new aids corresponding to your current search are published.
-                        {% endblocktrans %}</p>
-
                     {% csrf_token %}
                     {% include '_field_snippet.html' with field=bookmark_form.title %}
                     {% include '_field_snippet.html' with field=bookmark_form.email %}
