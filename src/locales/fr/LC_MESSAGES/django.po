@@ -649,7 +649,7 @@ msgid "Backer"
 msgstr "Apporteur"
 
 msgid "Give a name to your bookmarked search"
-msgstr "Donner un nom à votre recherche sauvegardée"
+msgstr "Donnez un nom à votre recherche sauvegardée"
 
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
