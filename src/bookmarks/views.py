@@ -80,6 +80,7 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
             owner=owner,
             title=form.cleaned_data['title'],
             send_email_alert=send_alert,
+            alert_frequency=form.cleaned_data['alert_frequency'],
             querystring=form.cleaned_data['querystring'])
 
         return bookmark

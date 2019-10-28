@@ -20,6 +20,7 @@
                     {% csrf_token %}
                     {% include '_field_snippet.html' with field=bookmark_form.title %}
                     {% include '_field_snippet.html' with field=bookmark_form.email %}
+                    {% include '_field_snippet.html' with field=bookmark_form.alert_frequency %}
 
                     <p class="warning">
                         <span class="fas fa-user"></span>

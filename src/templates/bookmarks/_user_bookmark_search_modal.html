@@ -19,6 +19,7 @@
                     {% csrf_token %}
                     {% include '_field_snippet.html' with field=bookmark_form.title %}
                     {% include '_checkbox_snippet.html' with field=bookmark_form.send_email_alert %}
+                    {% include '_field_snippet.html' with field=bookmark_form.alert_frequency %}
                 </div>
 
                 <footer>
