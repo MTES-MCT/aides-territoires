@@ -1,8 +1,6 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse, reverse_lazy
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
@@ -29,13 +27,8 @@ class BookmarkList(LoginRequiredMixin, BookmarkMixin, ListView):
     context_object_name = 'bookmarks'
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
     """Create a bookmark by saving a search view querystring.
-
-    Note: the search form, by default, uses the GET method. Hence, we
-    don't pass the form a csrf token and that's why we had to exempt this
-    view from csrf protection.
 
     This view has to handle two cases:
 
@@ -83,19 +76,11 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
     def create_bookmark(self, form, owner, send_alert):
         """Create a new bookmark."""
 
-        # Extract search parameters and exclude the bookmark
-        # configuration fields.
-        post_data = self.request.POST.copy()
-        post_data.pop('title')
-        post_data.pop('send_email_alert', None)
-        querystring = post_data.urlencode()
-
-        # Create the bookmark object
         bookmark = Bookmark.objects.create(
             owner=owner,
             title=form.cleaned_data['title'],
             send_email_alert=send_alert,
-            querystring=querystring)
+            querystring=form.cleaned_data['querystring'])
 
         return bookmark
 
