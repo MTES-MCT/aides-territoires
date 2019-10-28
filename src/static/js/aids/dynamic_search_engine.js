@@ -105,17 +105,6 @@
      * Updating the search form triggers a new search query.
      */
     exports.onFormSubmit = function (event) {
-
-        // if the "save bookmark" button was clicked, the form submission
-        // must proceed without interruption
-        var activeElement = document.activeElement;
-        if (activeElement) {
-            var formaction = activeElement.getAttribute('formaction');
-            if (formaction) {
-                return;
-            }
-        }
-
         event.preventDefault();
         updateSearch();
     };
