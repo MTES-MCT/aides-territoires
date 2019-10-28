@@ -30,7 +30,6 @@
         return true;
     };
 
-
     /**
      * Prefill the "alert title" field upon aid modal opening.
      */
@@ -51,6 +50,10 @@
         bookmarkNameField.val(nameSuggestion.trim());
     };
 
+    exports.focusTitleField = function (event) {
+        bookmarkNameField.focus();
+    };
+
     exports.hideFrequencyField = function (event) {
         var formGroup = frequencyField.parent('div.form-group');
         formGroup.addClass('collapse');
@@ -68,6 +71,7 @@
 $(document).ready(function () {
     $('div#bookmark-search-modal').on('show.bs.modal', prefillAlertNameField);
     $('div#bookmark-search-modal').on('show.bs.modal', hideFrequencyField);
+    $('div#bookmark-search-modal').on('shown.bs.modal', focusTitleField);
     $('form#bookmark-form').on('change', updateAlertFrequencyVisibility);
     $('form#bookmark-form').on('submit', appendQuerystringToForm);
 });
