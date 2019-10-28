@@ -54,16 +54,28 @@
         bookmarkNameField.focus();
     };
 
+    /**
+     * Hide the "alert frequency" field.
+     *
+     * It will only get displayed when the "send alert" checkbox is checked.
+     */
     exports.hideFrequencyField = function (event) {
-        var formGroup = frequencyField.parent('div.form-group');
-        formGroup.addClass('collapse');
-
+        if (sendAlertField.length > 0) {
+            var formGroup = frequencyField.parent('div.form-group');
+            formGroup.addClass('collapse');
+        }
     };
 
+    /**
+     * Toggles the "alert frequency" field depending on the "send alert"
+     * field current value.
+     */
     exports.updateAlertFrequencyVisibility = function (event) {
-        var collapse = sendAlertField.prop('checked') ? 'show' : 'hide';
-        var formGroup = frequencyField.parent('div.form-group');
-        formGroup.collapse(collapse);
+        if (sendAlertField.length > 0) {
+            var collapse = sendAlertField.prop('checked') ? 'show' : 'hide';
+            var formGroup = frequencyField.parent('div.form-group');
+            formGroup.collapse(collapse);
+        }
     };
 
 })(this, catalog);
