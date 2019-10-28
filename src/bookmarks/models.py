@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.http import QueryDict
 from django.urls import reverse
+from model_utils import Choices
 
 from aids.models import Aid
 from aids.forms import AidSearchForm
@@ -10,6 +11,11 @@ from aids.forms import AidSearchForm
 
 class Bookmark(models.Model):
     """A bookmarked search query."""
+
+    FREQUENCIES = Choices(
+        ('daily', _('Daily')),
+        ('weekly', _('Weekly'))
+    )
 
     owner = models.ForeignKey(
         'accounts.User',
@@ -23,6 +29,10 @@ class Bookmark(models.Model):
     send_email_alert = models.BooleanField(
         _('Send email alert'),
         default=False)
+    alert_frequency = models.CharField(
+        max_length=32,
+        choices=FREQUENCIES,
+        default=FREQUENCIES.daily)
     latest_alert_date = models.DateTimeField(
         _('Latest alert date'),
         null=True)
