@@ -9,6 +9,9 @@
     var queryField = $('form#search-form input#id_text');
     var perimeterField = $('form#search-form select#id_perimeter');
     var bookmarkNameField = $('form#bookmark-form input#id_title');
+    var sendAlertField = $('form#bookmark-form input#id_send_email_alert');
+    var frequencyField = $('form#bookmark-form select#id_alert_frequency');
+
 
     /**
      * Prepend current search parameters to the form data.
@@ -17,7 +20,7 @@
      * for the current search. Hence, we have to append the search fields
      * (that are held in a different form) to the currently posted data.
      */
-    exports.onBookmarkFormSubmit = function (event) {
+    exports.appendQuerystringToForm = function (event) {
         var querystring = searchForm.serialize();
         var input = $('<input />');
         input.attr('type', 'hidden');
@@ -31,7 +34,7 @@
     /**
      * Prefill the "alert title" field upon aid modal opening.
      */
-    exports.onModalShow = function (event) {
+    exports.prefillAlertNameField = function (event) {
         var nameSuggestion;
 
         var query = queryField.val();
@@ -48,9 +51,23 @@
         bookmarkNameField.val(nameSuggestion.trim());
     };
 
+    exports.hideFrequencyField = function (event) {
+        var formGroup = frequencyField.parent('div.form-group');
+        formGroup.addClass('collapse');
+
+    };
+
+    exports.updateAlertFrequencyVisibility = function (event) {
+        var collapse = sendAlertField.prop('checked') ? 'show' : 'hide';
+        var formGroup = frequencyField.parent('div.form-group');
+        formGroup.collapse(collapse);
+    };
+
 })(this, catalog);
 
 $(document).ready(function () {
-    $('form#bookmark-form').on('submit', onBookmarkFormSubmit);
-    $('div#bookmark-search-modal').on('show.bs.modal', onModalShow);
+    $('div#bookmark-search-modal').on('show.bs.modal', prefillAlertNameField);
+    $('div#bookmark-search-modal').on('show.bs.modal', hideFrequencyField);
+    $('form#bookmark-form').on('change', updateAlertFrequencyVisibility);
+    $('form#bookmark-form').on('submit', appendQuerystringToForm);
 });
