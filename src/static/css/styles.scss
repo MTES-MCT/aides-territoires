@@ -363,6 +363,10 @@ p, div {
     }
 }
 
+div.messages {
+    @extend .mb-3;
+}
+
 nav#pagination {
     @extend .mb-5;
 
