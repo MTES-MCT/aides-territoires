@@ -41,8 +41,9 @@ def test_bookmark_create_view_for_user(user, client, mailoutbox):
     client.force_login(user)
     res = client.post(url, data={
         'title': 'My new search',
-        'text': 'Ademe',
-        'call_for_projects_only': 'on',
+        'send_email_alert': True,
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
     })
     assert res.status_code == 302
     assert bookmarks.count() == 1
@@ -65,9 +66,9 @@ def test_bookmark_create_view_for_anonymous(client, mailoutbox):
     url = reverse('bookmark_create_view')
     res = client.post(url, data={
         'title': 'My new search',
-        'text': 'Ademe',
-        'call_for_projects_only': 'on',
         'email': 'bookmark-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
     })
     assert res.status_code == 302
     assert bookmarks.count() == 1
@@ -95,9 +96,8 @@ def test_bookmark_creation_with_existing_email(user, client, mailoutbox):
     url = reverse('bookmark_create_view')
     res = client.post(url, data={
         'title': 'My new search',
-        'text': 'Ademe',
-        'call_for_projects_only': 'on',
         'email': user.email,
+        'querystring': 'text=Ademe&call_for_projects_only=on',
     })
     assert res.status_code == 302
     assert bookmarks.count() == 0
