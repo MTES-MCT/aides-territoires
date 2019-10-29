@@ -972,6 +972,15 @@ msgstr ""
 "Êtes-vous certain·e de vouloir quitter cette page ? Vos modifications seront "
 "perdues."
 
+msgid ""
+"We <strong>could not process</strong> your form because it contains some "
+"errors. Please check your submission below and fix all errors before trying "
+"again."
+msgstr ""
+"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
+"données saisies sont invalides. Merci de bien vouloir vérifier votre saisie "
+"et corriger les erreurs avant de réessayer."
+
 msgid "Your profile"
 msgstr "Votre profil"
 

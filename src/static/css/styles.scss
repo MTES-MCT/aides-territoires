@@ -244,6 +244,15 @@ form {
         }
     }
 
+    .field-error {
+        @extend .mt-2;
+    }
+
+    .global-errors {
+        @include icon(before, $fa-var-skull-crossbones);
+        @include icon(after, $fa-var-skull-crossbones);
+    }
+
     div.form-actions {
         display: flex;
         align-items: baseline;
