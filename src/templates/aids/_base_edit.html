@@ -13,10 +13,12 @@
     {% block form_sidebar %}{% endblock %}
 </div>
 
-<form id="aid-edit-form" method="post" action="" class="main-form">
+<form id="aid-edit-form" method="post" action="" class="main-form" novalidate>
     {% block form_header %}{% endblock %}
     {% csrf_token %}
     {{ form.media }}
+
+    {% include '_form_header.html' with form=form %}
 
     {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
