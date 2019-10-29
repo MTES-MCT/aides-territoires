@@ -21,6 +21,7 @@ from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
 from bundles.forms import BundleForm
 from programs.models import Program
+from bookmarks.forms import UserBookmarkForm, AnonymousBookmarkForm
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -95,6 +96,12 @@ class SearchView(SearchMixin, FormMixin, ListView):
         order_label = order_labels.get(
             order_value, order_labels[default_order])
         context['order_label'] = order_label
+
+        if self.request.user.is_authenticated:
+            BookmarkForm = UserBookmarkForm
+        else:
+            BookmarkForm = AnonymousBookmarkForm
+        context['bookmark_form'] = BookmarkForm(label_suffix='')
 
         return context
 

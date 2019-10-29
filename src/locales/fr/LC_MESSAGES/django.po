@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-21 10:21+0200\n"
+"POT-Creation-Date: 2019-10-28 15:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -648,6 +648,34 @@ msgstr "Apporteur privé ?"
 msgid "Backer"
 msgstr "Apporteur"
 
+msgid "Give a name to your alert"
+msgstr "Donnez un nom à votre alerte"
+
+msgid "Alert frequency"
+msgstr "Fréquence de l'alerte"
+
+msgid "How often to you want to receive alerts?"
+msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
+
+msgid "Receive new results by email"
+msgstr "Recevoir les nouveaux résultats par e-mail"
+
+msgid "We will send an email to confirm your address"
+msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
+
+msgid ""
+"An account with this address already exists. If this is your account, you "
+"might want to login first."
+msgstr ""
+"Un compte avec cette adresse existe déjà. Avez-vous oublié de vous "
+"connecter ?"
+
+msgid "Daily"
+msgstr "Quotidiennement"
+
+msgid "Weekly"
+msgstr "Hebdomadairement"
+
 msgid "Owner"
 msgstr "Auteur"
 
@@ -686,11 +714,12 @@ msgstr ""
 "Votre recherche a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
 "dans votre liste de recherches sauvegardées.</a>"
 
-msgid "Something went wrong. Please try again."
-msgstr "Une erreur est survenue. Merci de réessayer."
+msgid "We just sent you an email to validate your address."
+msgstr "Nous venons d'envoyer un e-mail pour valider votre adresse."
 
-msgid "Misc"
-msgstr "Recherche diverse"
+msgid "We could not create your bookmark because of those errors: {}"
+msgstr ""
+"Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
 
 msgid "The email notification settings was updated."
 msgstr "Configuration d'alerte mise à jour."
@@ -1386,8 +1415,8 @@ msgstr "Rechercher"
 msgid "See more filters"
 msgstr "Voir plus de critères"
 
-msgid "Save bookmark"
-msgstr "Sauvegarder la recherche"
+msgid "Create an alert"
+msgstr "Créer une alerte"
 
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
@@ -1624,6 +1653,25 @@ msgstr "Enregistrer votre aide"
 
 msgid "Copy and edit"
 msgstr "Dupliquer et éditer"
+
+msgid "New email aids alert"
+msgstr "Nouvelle alerte e-mail"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Do you already own an account? Login first."
+msgstr "Disposez-vous déjà d'un compte ? Commencez par vous connecter."
+
+#, python-format
+msgid ""
+"By using this feature, you acknowledge that your data will be processed <a "
+"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
+"policy</a>."
+msgstr ""
+"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
+"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
+"avec notre politique de confidentialité</a>."
 
 msgid "Your bookmarks"
 msgstr "Vos recherches sauvegardées"

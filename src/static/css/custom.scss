@@ -181,7 +181,7 @@ section#search-engine {
 
                 }
 
-                button.bookmark-btn {
+                a.bookmark-btn {
                     @extend .btn;
                     @extend .btn-outline-primary;
                     @include icon(before, $fa-var-bell);
@@ -602,16 +602,23 @@ section#bookmarks {
                 right: $card-spacer-x;
                 @extend .form-inline;
 
-                div.alert_checkbox {
-                    @extend .custom-control;
-                    @extend .custom-switch;
+                div.alert-fields {
+                    display: flex;
+                    align-items: center;
 
-                    input {
-                        @extend .custom-control-input;
-                    }
+                    div.alert_checkbox {
+                        @extend .custom-control;
+                        @extend .custom-switch;
+                        @extend .mr-2;
 
-                    label {
-                        @extend .custom-control-label;
+                        input {
+                            @extend .custom-control-input;
+                        }
+
+                        label {
+                            @extend .custom-control-label;
+                            white-space: nowrap;
+                        }
                     }
                 }
 
@@ -740,6 +747,12 @@ section#draft-list {
         td.deadline {
             @include icon(before, $fa-var-exclamation-circle);
         }
+    }
+}
+
+div#bookmark-search-modal {
+    form {
+        width: 100%;
     }
 }
 

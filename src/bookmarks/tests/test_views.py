@@ -2,7 +2,7 @@ import time
 import pytest
 from django.urls import reverse
 
-from geofr.factories import PerimeterFactory
+from accounts.models import User
 from bookmarks.models import Bookmark
 from bookmarks.factories import BookmarkFactory
 
@@ -16,58 +16,93 @@ def test_bookmark_list_is_for_logged_in_users_only(client):
     assert res.status_code == 302
 
 
-def test_bookmark_create_is_for_logged_in_users_only(client):
-    url = reverse('bookmark_create_view')
-    res = client.post(url, data={}, follow=True)
-    assert res.redirect_chain[0][0].startswith('/comptes/connexion/')
+def test_bookmark_form_displayed_to_users(user, client):
+    client.force_login(user)
+    url = reverse('search_view')
+    res = client.get(url)
+    content = res.content.decode()
+    assert 'class="user-modal modal"' in content
+    assert 'class="anonymous-modal modal"' not in content
 
 
-def test_bookmark_create_view(user, client):
+def test_bookmark_form_displayed_to_anonymous(client):
+    url = reverse('search_view')
+    res = client.get(url)
+    content = res.content.decode()
+    assert 'class="user-modal modal"' not in content
+    assert 'class="anonymous-modal modal"' in content
+
+
+def test_bookmark_create_view_for_user(user, client, mailoutbox):
     bookmarks = Bookmark.objects.all()
     assert bookmarks.count() == 0
 
     url = reverse('bookmark_create_view')
     client.force_login(user)
     res = client.post(url, data={
-        'text': 'Ademe',
-        'call_for_projects_only': 'on',
+        'title': 'My new search',
+        'send_email_alert': True,
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
     })
     assert res.status_code == 302
     assert bookmarks.count() == 1
 
     bookmark = bookmarks[0]
     assert bookmark.owner == user
+    assert bookmark.title == 'My new search'
+    assert 'text=Ademe' in bookmark.querystring
+    assert 'call_for_projects_only=on' in bookmark.querystring
+    assert len(mailoutbox) == 0
+
+
+def test_bookmark_create_view_for_anonymous(client, mailoutbox):
+    bookmarks = Bookmark.objects.all()
+    assert bookmarks.count() == 0
+
+    users = User.objects.all()
+    assert users.count() == 0
+
+    url = reverse('bookmark_create_view')
+    res = client.post(url, data={
+        'title': 'My new search',
+        'email': 'bookmark-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
+    })
+    assert res.status_code == 302
+    assert bookmarks.count() == 1
+    assert users.count() == 1
+
+    user = users[0]
+    bookmark = bookmarks[0]
+    assert bookmark.owner == user
+    assert bookmark.title == 'My new search'
     assert 'text=Ademe' in bookmark.querystring
     assert 'call_for_projects_only=on' in bookmark.querystring
 
+    assert len(mailoutbox) == 1
+    mail_body = mailoutbox[0].body
+    assert 'Vous avez demandé à recevoir des alertes' in mail_body
 
-def test_bookmark_title(user, client):
-    url = reverse('bookmark_create_view')
-    client.force_login(user)
-    client.post(url, data={
-        'text': 'Ademe',
-    })
-    bookmarks = Bookmark.objects.order_by('id')
-    bookmark = bookmarks.last()
-    assert bookmark.title == '« Ademe »'
 
-    client.post(url, data={
-        'text': 'Test',
-        'perimeter': PerimeterFactory(name='Testville').pk,
-    })
-    bookmark = bookmarks.last()
-    assert bookmark.title == '« Test », Testville'
-
-    client.post(url, data={
-        'perimeter': PerimeterFactory(name='Testville2').pk,
-    })
-    bookmark = bookmarks.last()
-    assert bookmark.title == 'Testville2'
-
-    client.post(url, data={})
+def test_bookmark_creation_with_existing_email(user, client, mailoutbox):
     bookmarks = Bookmark.objects.all()
-    bookmark = bookmarks.last()
-    assert bookmark.title == 'Recherche diverse'
+    assert bookmarks.count() == 0
+
+    users = User.objects.all()
+    assert users.count() == 1
+
+    url = reverse('bookmark_create_view')
+    res = client.post(url, data={
+        'title': 'My new search',
+        'email': user.email,
+        'querystring': 'text=Ademe&call_for_projects_only=on',
+    })
+    assert res.status_code == 302
+    assert bookmarks.count() == 0
+    assert users.count() == 1
+    assert len(mailoutbox) == 0
 
 
 def test_delete_bookmark(user, client):

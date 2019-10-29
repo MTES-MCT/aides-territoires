@@ -325,6 +325,10 @@ p, div {
         @extend .alert-success;
     }
 
+    &.error {
+        @extend .alert-danger;
+    }
+
     &.info {
         @extend .alert-primary;
     }
@@ -342,16 +346,25 @@ p, div {
     }
 
     &.success,
+    &.error,
     &.info,
     &.warning,
     &.tip {
         @extend .alert;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         ul:last-child,
         p:last-child {
             margin-bottom: 0;
         }
     }
+}
+
+div.messages {
+    @extend .mb-3;
 }
 
 nav#pagination {
@@ -381,6 +394,8 @@ div.modal {
     @extend .fade;
 
     .modal-dialog {
+
+        @extend .modal-dialog-centered;
 
         section {
             @extend .modal-content;

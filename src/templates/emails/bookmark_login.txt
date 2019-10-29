@@ -1,0 +1,18 @@
+Bonjour,
+
+Vous avez demandé à recevoir des alertes d'Aides-Territoires.
+
+Nous devons valider que vous êtes bien à l'initiative de cette demande.
+
+Pour nous le confirmer, il vous suffit de cliquer sur le lien suivant :
+
+{{ full_login_url }}
+
+Vous pourrez ensuite retrouver la liste de vos alertes à cette adresse :
+{% url 'bookmark_list_view' as bookmark_list_url %}
+{{ base_url }}{{ bookmark_list_url }}
+
+Si vous n'êtes pas à l'initiative de cette demande, vous n'avez rien à faire.
+
+Cordialement,
+L'équipe d'Aides-Territoires.

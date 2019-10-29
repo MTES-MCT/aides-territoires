@@ -15,7 +15,7 @@ LOGIN_SUBJECT = 'Connexion à Aides-Territoires'
 
 
 @app.task
-def send_connection_email(user_email):
+def send_connection_email(user_email, body_template='emails/login_token.txt'):
     """Send a login email to the user.
 
     The email contains a token that can be used once to login.
@@ -37,12 +37,15 @@ def send_connection_email(user_email):
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
     login_url = reverse('token_login', args=[user_uid, login_token])
-    full_login_url = '{scheme}://{domain}{url}'.format(
-            scheme=scheme,
-            domain=site.domain,
-            url=login_url)
+    base_url = '{scheme}://{domain}'.format(
+        scheme=scheme,
+        domain=site.domain)
+    full_login_url = '{base_url}{url}'.format(
+        base_url=base_url,
+        url=login_url)
 
-    login_email_body = render_to_string('emails/login_token.txt', {
+    login_email_body = render_to_string(body_template, {
+        'base_url': base_url,
         'user_name': user.full_name,
         'full_login_url': full_login_url})
     send_mail(
