@@ -93,10 +93,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('grant', _('Grant')),
         ('loan', _('Loan')),
         ('recoverable_advance', _('Recoverable advance')),
-        ('interest_subsidy', _('Interest subsidy')),
         ('guidance', _('Guidance')),
         ('networking', _('Networking')),
         ('valorisation', _('Valorisation')),
+        ('other', _('Other')),
     )
 
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',

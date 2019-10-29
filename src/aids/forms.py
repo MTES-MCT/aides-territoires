@@ -18,7 +18,7 @@ FINANCIAL_AIDS = (
     ('grant', _('Grant')),
     ('loan', _('Loan')),
     ('recoverable_advance', _('Recoverable advance')),
-    ('interest_subsidy', _('Interest subsidy')),
+    ('other', _('Other')),
 )
 
 TECHNICAL_AIDS = (
