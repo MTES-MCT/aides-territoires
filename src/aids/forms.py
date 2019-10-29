@@ -22,9 +22,9 @@ FINANCIAL_AIDS = (
 )
 
 TECHNICAL_AIDS = (
-    ('guidance', _('Guidance')),
-    ('networking', _('Networking')),
-    ('valorisation', _('Valorisation')),
+    ('technical', _('Technical')),
+    ('financial', _('Financial')),
+    ('legal', _('Legal')),
 )
 
 AID_TYPES = (
