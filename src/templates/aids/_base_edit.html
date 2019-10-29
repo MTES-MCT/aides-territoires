@@ -13,7 +13,7 @@
     {% block form_sidebar %}{% endblock %}
 </div>
 
-<form method="post" action="" class="main-form">
+<form id="aid-edit-form" method="post" action="" class="main-form">
     {% block form_header %}{% endblock %}
     {% csrf_token %}
     {{ form.media }}
@@ -84,8 +84,10 @@
 {% block extra_js %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/plugins/softmaxlength.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/backers_autocomplete.js"></script>
 <script src="/static/js/tags_autocomplete.js"></script>
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
+<script src="/static/js/aids/enable_softmaxlength.js"></script>
 {% endblock %}

@@ -755,3 +755,12 @@ div#bookmark-search-modal {
         width: 100%;
     }
 }
+
+span.softmaxlength-counter {
+    @extend .small;
+    @extend .ml-1;
+
+    &.out-of-range {
+        @extend .text-danger;
+    }
+}
