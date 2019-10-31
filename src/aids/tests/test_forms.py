@@ -113,7 +113,7 @@ def aids(user, backer):
         backers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
-        aid_types=['networking', 'return_fund'],
+        aid_types=['technical', 'financial'],
         targeted_audiances=[])
 
     qs = Aid.objects.all().order_by('id')
@@ -164,11 +164,11 @@ def test_search_form_filter_by_types(aids):
 
     form = AidSearchForm({
         'financial_aids': ['grant'],
-        'technical_aids': ['networking']})
+        'technical_aids': ['technical']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 9
     for aid in qs:
-        assert 'grant' in aid.aid_types or 'networking' in aid.aid_types
+        assert 'grant' in aid.aid_types or 'technical' in aid.aid_types
 
 
 def test_search_form_filter_by_deadline(aids):

@@ -18,13 +18,13 @@ FINANCIAL_AIDS = (
     ('grant', _('Grant')),
     ('loan', _('Loan')),
     ('recoverable_advance', _('Recoverable advance')),
-    ('interest_subsidy', _('Interest subsidy')),
+    ('other', _('Other')),
 )
 
 TECHNICAL_AIDS = (
-    ('guidance', _('Guidance')),
-    ('networking', _('Networking')),
-    ('valorisation', _('Valorisation')),
+    ('technical', _('Technical')),
+    ('financial', _('Financial')),
+    ('legal', _('Legal')),
 )
 
 AID_TYPES = (

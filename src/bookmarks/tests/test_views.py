@@ -142,13 +142,15 @@ def test_update_bookmark_alert_settings(user, client):
     client.force_login(user)
 
     client.post(url, data={
-        'send_email_alert': True
+        'send_email_alert': True,
+        'alert_frequency': 'daily',
     })
     bookmark.refresh_from_db()
     assert bookmark.send_email_alert
 
     client.post(url, data={
-        'send_email_alert': False
+        'send_email_alert': False,
+        'alert_frequency': 'daily',
     })
     bookmark.refresh_from_db()
     assert not bookmark.send_email_alert
@@ -160,7 +162,8 @@ def test_user_cannot_update_someone_else_bookmark(user, client):
     client.force_login(user)
 
     client.post(url, data={
-        'send_email_alert': True
+        'send_email_alert': True,
+        'alert_frequency': 'daily',
     })
     bookmark.refresh_from_db()
     assert not bookmark.send_email_alert
