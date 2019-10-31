@@ -7,13 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2019-10-28 15:07+0100\n"
-||||||| merged common ancestors
-"POT-Creation-Date: 2019-10-21 10:21+0200\n"
-=======
-"POT-Creation-Date: 2019-10-29 14:45+0100\n"
->>>>>>> Translations
+"POT-Creation-Date: 2019-10-31 11:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
