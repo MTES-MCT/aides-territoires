@@ -152,6 +152,7 @@ class AidEditForm(BaseAidForm):
             'is_call_for_project',
             'aid_types',
             'subvention_rate',
+            'subvention_comment',
             'mobilization_steps',
             'destinations',
             'eligibility',
@@ -164,6 +165,7 @@ class AidEditForm(BaseAidForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
+            'subvention_comment': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,

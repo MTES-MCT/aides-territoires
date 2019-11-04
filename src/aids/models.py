@@ -240,6 +240,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Subvention rate, min. and max. (in round %)'),
         null=True, blank=True,
         help_text=_('If this is a subvention aid, specify the rate.'))
+    subvention_comment = models.TextField(
+        _('Subvention rate, optional comment'),
+        blank=True)
     contact_email = models.EmailField(
         _('Contact email'),
         blank=True)
