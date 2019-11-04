@@ -175,6 +175,13 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'subvention_rate' in self.fields:
+            range_widgets = self.fields['subvention_rate'].widget.widgets
+            range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
+            range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+
     def clean(self):
         """Make sure the aid backers were provided."""
 
@@ -185,6 +192,13 @@ class AidEditForm(BaseAidForm):
                 msg = _('You must select the aid backers, or create a new one '
                         'below.')
                 self.add_error('backers', msg)
+
+        if 'subvention_rate' in data and data['subvention_rate']:
+            lower = data['subvention_rate'].lower
+            upper = data['subvention_rate'].upper
+            if lower and not upper:
+                msg = _('Please indicate the maximum subvention rate.')
+                self.add_error('subvention_rate', msg)
 
         return data
 

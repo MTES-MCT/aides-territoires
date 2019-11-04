@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, IntegerRangeField
+from django.contrib.postgres import validators
 
 
 class ChoiceArrayField(ArrayField):
@@ -17,3 +18,10 @@ class ChoiceArrayField(ArrayField):
         }
         defaults.update(kwargs)
         return super(ArrayField, self).formfield(**defaults)
+
+
+class PercentRangeField(IntegerRangeField):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.validators.append(validators.RangeMinValueValidator(0))
+        self.validators.append(validators.RangeMaxValueValidator(100))

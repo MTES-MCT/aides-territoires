@@ -14,7 +14,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
-from core.fields import ChoiceArrayField
+from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
 
 
@@ -236,8 +236,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Submission deadline'),
         null=True, blank=True,
         help_text=_('When is the submission deadline?'))
-    subvention_rate = IntegerRangeField(
-        _('Subvention rate (in %)'),
+    subvention_rate = PercentRangeField(
+        _('Subvention rate, min. and max. (in round %)'),
         null=True, blank=True,
         help_text=_('If this is a subvention aid, specify the rate.'))
     contact_email = models.EmailField(
