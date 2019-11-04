@@ -54,6 +54,7 @@ class BaseAidForm(forms.ModelForm):
                     all_tags += self.data.getlist('tags')
                 else:
                     all_tags += self.data.get('tags', [])
+            all_tags = list(set(all_tags))
             self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
