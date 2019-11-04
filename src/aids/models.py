@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.db.models import Q, Value
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, IntegerRangeField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
@@ -236,10 +236,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Submission deadline'),
         null=True, blank=True,
         help_text=_('When is the submission deadline?'))
-    subvention_rate = models.DecimalField(
+    subvention_rate = IntegerRangeField(
         _('Subvention rate (in %)'),
-        max_digits=6,
-        decimal_places=2,
         null=True, blank=True,
         help_text=_('If this is a subvention aid, specify the rate.'))
     contact_email = models.EmailField(
