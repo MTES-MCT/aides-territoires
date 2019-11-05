@@ -4,6 +4,7 @@ import operator
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import (AutocompleteSelectMultiple,
@@ -54,6 +55,7 @@ class BaseAidForm(forms.ModelForm):
                     all_tags += self.data.getlist('tags')
                 else:
                     all_tags += self.data.get('tags', [])
+            all_tags = list(set(all_tags))
             self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
@@ -151,6 +153,7 @@ class AidEditForm(BaseAidForm):
             'is_call_for_project',
             'aid_types',
             'subvention_rate',
+            'subvention_comment',
             'mobilization_steps',
             'destinations',
             'eligibility',
@@ -175,6 +178,13 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'subvention_rate' in self.fields:
+            range_widgets = self.fields['subvention_rate'].widget.widgets
+            range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
+            range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+
     def clean(self):
         """Make sure the aid backers were provided."""
 
@@ -185,6 +195,15 @@ class AidEditForm(BaseAidForm):
                 msg = _('You must select the aid backers, or create a new one '
                         'below.')
                 self.add_error('backers', msg)
+
+        if 'subvention_rate' in data and data['subvention_rate']:
+            lower = data['subvention_rate'].lower
+            upper = data['subvention_rate'].upper
+            if lower and not upper:
+                msg = _('Please indicate the maximum subvention rate.')
+                self.add_error(
+                    'subvention_rate',
+                    ValidationError(msg, code='missing_upper_bound'))
 
         return data
 

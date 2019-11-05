@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.db.models import Q, Value
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, IntegerRangeField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
@@ -14,7 +14,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
-from core.fields import ChoiceArrayField
+from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
 
 
@@ -236,12 +236,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Submission deadline'),
         null=True, blank=True,
         help_text=_('When is the submission deadline?'))
-    subvention_rate = models.DecimalField(
-        _('Subvention rate (in %)'),
-        max_digits=6,
-        decimal_places=2,
+    subvention_rate = PercentRangeField(
+        _('Subvention rate, min. and max. (in round %)'),
         null=True, blank=True,
         help_text=_('If this is a subvention aid, specify the rate.'))
+    subvention_comment = models.CharField(
+        _('Subvention rate, optional comment'),
+        max_length=256,
+        blank=True)
     contact_email = models.EmailField(
         _('Contact email'),
         blank=True)

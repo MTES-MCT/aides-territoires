@@ -66,6 +66,7 @@ class AidAdmin(admin.ModelAdmin):
                 'is_call_for_project',
                 'aid_types',
                 'subvention_rate',
+                'subvention_comment',
                 'mobilization_steps',
                 'destinations',
                 'eligibility',

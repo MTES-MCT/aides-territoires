@@ -228,19 +228,25 @@ form {
         @extend .text-muted;
     }
 
-    .form-group.required > label:after {
-        content:"*";
-    }
-
-    .form-group.checkbox {
-        @extend .form-check;
-
-        label {
-            @extend .form-check-label;
+    .form-group {
+        &.required > label:after {
+            content:"*";
         }
 
-        input {
-            @extend .form-check-input;
+        &.checkbox {
+            @extend .form-check;
+
+            label {
+                @extend .form-check-label;
+            }
+
+            input {
+                @extend .form-check-input;
+            }
+        }
+
+        input + input {
+            @extend .mt-1;
         }
     }
 
@@ -299,7 +305,6 @@ form {
             @extend .py-1;
         }
     }
-
 
     div.multiple-input {
         div.single-input {
