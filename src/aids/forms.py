@@ -165,7 +165,6 @@ class AidEditForm(BaseAidForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
-            'subvention_comment': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
