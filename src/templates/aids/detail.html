@@ -117,7 +117,14 @@
         {% if aid.subvention_rate %}
         <div class="short-data">
             <h2>{{ _('Subvention rate') }}</h2>
-            <p>{{ aid.subvention_rate }}</p>
+            <p>
+                {{ _('Min.:') }} {{ aid.subvention_rate.lower|default_if_none:_('NA') }} ~
+                {{ _('Max.:') }} {{ aid.subvention_rate.upper|default_if_none:_('NA') }}
+                {% if aid.subvention_comment %}
+                    <br />
+                    {{ aid.subvention_comment }}
+                {% endif %}
+            </p>
         </div>
         {% endif %}
 
