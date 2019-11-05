@@ -20,8 +20,16 @@ class ChoiceArrayField(ArrayField):
         return super(ArrayField, self).formfield(**defaults)
 
 
+class RangeMinValueOrNoneValidator(validators.RangeMinValueValidator):
+    """Make sure the lower range is > some value *if* it is provided."""
+
+    def compare(self, a, b):
+        return a.lower is not None and a.lower < b
+
+
 class PercentRangeField(IntegerRangeField):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.validators.append(validators.RangeMinValueValidator(0))
+        self.validators.append(RangeMinValueOrNoneValidator(0))
         self.validators.append(validators.RangeMaxValueValidator(100))
