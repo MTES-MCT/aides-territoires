@@ -25,7 +25,7 @@ class AidAdmin(admin.ModelAdmin):
         'name', 'all_backers', 'author', 'recurrence', 'date_updated',
         'date_published', 'is_imported', 'import_uniqueid', 'status']
     autocomplete_fields = ['author', 'backers', 'perimeter']
-    search_fields = ['name']
+    search_fields = ['name', 'perimeter__name', 'backers__name']
     list_filter = ['status', 'recurrence', 'is_imported',
                    'is_call_for_project']
     readonly_fields = [
