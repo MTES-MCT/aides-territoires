@@ -1,11 +1,12 @@
 """Test methods aid related forms."""
 
 import pytest
+from psycopg2.extras import NumericRange
 from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm
+from aids.forms import AidSearchForm, AidEditForm
 from aids.factories import AidFactory
 
 
@@ -310,3 +311,36 @@ def test_search_from_filter_by_audiances(aids):
             'private_person' in aid.targeted_audiances,
             'researcher' in aid.targeted_audiances,
             'private_sector' in aid.targeted_audiances))
+
+
+def test_aid_edition_subvention_rate_validation(aid_form_data):
+    form = AidEditForm(aid_form_data)
+    assert form.is_valid()
+
+    # Lower range is optional
+    aid_form_data['subvention_rate_0'] = None
+    aid_form_data['subvention_rate_1'] = 40
+    form = AidEditForm(aid_form_data)
+    assert form.is_valid()
+
+    # Upper range is mandatory
+    aid_form_data['subvention_rate_0'] = 40
+    aid_form_data['subvention_rate_1'] = None
+    form = AidEditForm(aid_form_data)
+    assert not form.is_valid()
+    assert form.has_error('subvention_rate', 'missing_upper_bound')
+
+    # Range must be in the correct order
+    aid_form_data['subvention_rate_0'] = 50
+    aid_form_data['subvention_rate_1'] = 40
+    form = AidEditForm(aid_form_data)
+    assert not form.is_valid()
+    assert form.has_error('subvention_rate', 'bound_ordering')
+
+    # Range must be between 0 and 100
+    aid_form_data['subvention_rate_0'] = -10
+    aid_form_data['subvention_rate_1'] = 150
+    form = AidEditForm(aid_form_data)
+    assert not form.is_valid()
+    assert form.has_error('subvention_rate', 'min_value')
+    assert form.has_error('subvention_rate', 'max_value')

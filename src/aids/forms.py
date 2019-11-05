@@ -4,6 +4,7 @@ import operator
 from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import (AutocompleteSelectMultiple,
@@ -200,7 +201,9 @@ class AidEditForm(BaseAidForm):
             upper = data['subvention_rate'].upper
             if lower and not upper:
                 msg = _('Please indicate the maximum subvention rate.')
-                self.add_error('subvention_rate', msg)
+                self.add_error(
+                    'subvention_rate',
+                    ValidationError(msg, code='missing_upper_bound'))
 
         return data
 
