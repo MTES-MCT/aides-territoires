@@ -9,6 +9,8 @@ Vous pourrez ensuite retrouver la liste de vos alertes à cette adresse :
 {% url 'bookmark_list_view' as bookmark_list_url %}
 {{ base_url }}{{ bookmark_list_url }}
 
+{{ frequency|safe }}
+
 Vous pourrez vous désabonner à tout moment de ce service en cliquant sur
 le lien précédent, ou sur le lien en bas de page de l'alerte.
 

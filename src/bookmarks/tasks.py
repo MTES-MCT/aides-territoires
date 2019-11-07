@@ -9,6 +9,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from core.celery import app
+from bookmarks.models import Bookmark
 from accounts.models import User
 
 
@@ -27,7 +28,8 @@ def send_alert_confirmation_email(user_email, bookmark_id):
     """
     try:
         user = User.objects.get(email=user_email)
-    except User.DoesNotExist:
+        bookmark = Bookmark.objects.get(id=bookmark_id)
+    except (User.DoesNotExist, Bookmark.DoesNotExist):
         # In case we could not find any valid user with the given email
         # we don't raise any exception, because we can't give any hints
         # about whether or not any particular email has an account
@@ -46,10 +48,18 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         base_url=base_url,
         url=login_url)
 
+    if bookmark.alert_frequency == Bookmark.FREQUENCIES.daily:
+        frequency = _('You will receive a daily email whenever new matching aids will be published.')
+    else:
+        frequency = _('You will receive a weekly email whenever new matching aids will be published.')
+
     login_email_body = render_to_string(TEMPLATE, {
         'base_url': base_url,
         'user_name': user.full_name,
-        'full_login_url': full_login_url})
+        'full_login_url': full_login_url,
+        'bookmark': bookmark,
+        'frequency': frequency
+    })
     send_mail(
         SUBJECT,
         login_email_body,
