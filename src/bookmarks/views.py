@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from braces.views import MessageMixin
 
 from accounts.forms import RegisterForm
-from accounts.tasks import send_connection_email
+from bookmarks.tasks import send_alert_confirmation_email
 from bookmarks.forms import (BookmarkAlertForm, UserBookmarkForm,
                              AnonymousBookmarkForm)
 from bookmarks.models import Bookmark
@@ -63,9 +63,7 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
             owner = self.create_account(form)
             send_alert = True
             bookmark = self.create_bookmark(form, owner, send_alert)
-            send_connection_email.delay(
-                owner.email,
-                body_template='emails/bookmark_login.txt')
+            send_alert_confirmation_email.delay(owner.email, bookmark.id)
             message = _('We just sent you an email to validate your address.')
 
         self.messages.success(message)
