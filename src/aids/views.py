@@ -74,7 +74,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
          - the searched perimeter is contained in some program's perimeter.
         """
 
-        searched_perimeter = self.form.cleaned_data['perimeter']
+        searched_perimeter = self.form.cleaned_data.get('perimeter', None)
         if not searched_perimeter:
             return []
 
