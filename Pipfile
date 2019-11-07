@@ -20,7 +20,6 @@ django-braces = "*"
 django-xworkflows = "*"
 beautifulsoup4 = "*"
 scrapy = "*"
-django-widget-tweaks = "*"
 
 [dev-packages]
 pytest = "*"

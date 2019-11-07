@@ -32,7 +32,6 @@ THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
     'django_xworkflows',
-    'widget_tweaks',
 ]
 
 LOCAL_APPS = [
