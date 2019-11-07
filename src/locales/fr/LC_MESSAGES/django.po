@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-05 10:55+0100\n"
+"POT-Creation-Date: 2019-11-07 10:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,14 +220,46 @@ msgstr "Aides financières"
 msgid "Technical and methodological aids"
 msgstr "Aides méthodologiques & techniques"
 
+msgid "Commune"
+msgstr "Commune"
+
+msgid "Audiance EPCI"
+msgstr ""
+"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux et "
+"mixtes)"
+
+msgid "Department"
+msgstr "Département"
+
+msgid "Region"
+msgstr "Région"
+
+msgid "Association"
+msgstr "Association"
+
+msgid "Private sector"
+msgstr "Privé (entreprises…)"
+
+msgid "Public organization"
+msgstr "Établissement public"
+
+msgid "Audiance lessor"
+msgstr "Société d'économie mixte, aménageur"
+
+msgid "Research"
+msgstr "Recherche"
+
+msgid "Collectivities"
+msgstr "Collectivités"
+
+msgid "Other audiances"
+msgstr "Autres bénéficiaires"
+
 msgid "Tags"
 msgstr "Mots clés"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
-
-msgid "Who can apply to this aid?"
-msgstr "Qui peut prétendre à cette aide ?"
 
 msgid "Aid backer(s)"
 msgstr "Apporteur(s) de l'aide"
@@ -379,15 +411,6 @@ msgstr "Europe"
 msgid "France"
 msgstr "France"
 
-msgid "Region"
-msgstr "Région"
-
-msgid "Department"
-msgstr "Département"
-
-msgid "Commune"
-msgstr "Commune"
-
 msgid "Mainland"
 msgstr "Métropole"
 
@@ -403,25 +426,8 @@ msgstr "mise en œuvre / réalisation"
 msgid "Postoperation"
 msgstr "fonctionnement / usage"
 
-msgid "Audiance EPCI"
-msgstr ""
-"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux et "
-"mixtes)"
-
-msgid "Audiance lessor"
-msgstr "Bailleur, société d'économie mixte, aménageur"
-
-msgid "Association"
-msgstr "Association"
-
 msgid "Individual"
 msgstr "Particulier"
-
-msgid "Research"
-msgstr "Recherche"
-
-msgid "Private sector"
-msgstr "Secteur privé"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -493,7 +499,7 @@ msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
 
 msgid "Targeted audiances"
-msgstr "Destinataires de l'aide"
+msgstr "Bénéficiaires de l'aide"
 
 msgid "Aid types"
 msgstr "Types d'aide"
@@ -953,6 +959,9 @@ msgstr "Quand mobiliser l\\'aide ?"
 msgctxt "js_catalog"
 msgid "The aid is destined to…"
 msgstr "L\\'aide est destinée à…"
+
+msgid "Who can apply to this aid?"
+msgstr "Qui peut prétendre à cette aide ?"
 
 # This line is embedded in a js string, hence we have to prefix
 # the quote with a slash

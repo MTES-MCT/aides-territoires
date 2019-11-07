@@ -123,14 +123,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     AUDIANCES = Choices(
         ('commune', _('Commune')),
+        ('epci', _('Audiance EPCI')),
         ('department', _('Department')),
         ('region', _('Region')),
-        ('epci', _('Audiance EPCI')),
-        ('lessor', _('Audiance lessor')),
         ('association', _('Association')),
-        ('private_person', _('Individual')),
-        ('researcher', _('Research')),
         ('private_sector', _('Private sector')),
+        ('public_org', _('Public organization')),
+        ('lessor', _('Audiance lessor')),
+        ('researcher', _('Research')),
+        ('private_person', _('Individual')),
+        ('other', _('Other')),
     )
 
     DESTINATIONS = Choices(

@@ -33,6 +33,27 @@ AID_TYPES = (
     (_('Technical and methodological aids'), TECHNICAL_AIDS),
 )
 
+COLLECTIVITIES_AUDIANCES = (
+    ('commune', _('Commune')),
+    ('epci', _('Audiance EPCI')),
+    ('department', _('Department')),
+    ('region', _('Region')),
+)
+
+OTHER_AUDIANCES = (
+    ('association', _('Association')),
+    ('private_sector', _('Private sector')),
+    ('public_org', _('Public organization')),
+    ('lessor', _('Audiance lessor')),
+    ('researcher', _('Research')),
+    ('other', _('Other')),
+)
+
+AUDIANCES = (
+    (_('Collectivities'), COLLECTIVITIES_AUDIANCES),
+    (_('Other audiances'), OTHER_AUDIANCES)
+)
+
 
 class BaseAidForm(forms.ModelForm):
     tags = TagChoiceField(
@@ -45,6 +66,9 @@ class BaseAidForm(forms.ModelForm):
 
         if 'aid_types' in self.fields:
             self.fields['aid_types'].choices = AID_TYPES
+
+        if 'targeted_audiances' in self.fields:
+            self.fields['targeted_audiances'].choices = AUDIANCES
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
@@ -60,7 +84,6 @@ class BaseAidForm(forms.ModelForm):
 
         custom_labels = {
             'name': _('Aid title'),
-            'targeted_audiances': _('Who can apply to this aid?'),
             'backers': _('Aid backer(s)'),
             'new_backer': _('…or add a new backer'),
             'destinations': _('Types of expenses covered'),
