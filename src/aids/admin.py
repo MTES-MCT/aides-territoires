@@ -4,6 +4,10 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from django.db import models
+
+from pagedown.widgets import AdminPagedownWidget
+
 from aids.admin_views import AmendmentMerge
 from aids.models import Aid
 from aids.forms import AidAdminForm
