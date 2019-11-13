@@ -1,4 +1,5 @@
 {% load i18n aids %}
+{% load markdown_deux_tags %}
 
 <section class="aid">
     <div>
@@ -23,7 +24,7 @@
 
         <p>
             {% if aid.description %}
-                {{ aid.description|striptags|truncatewords:128 }}
+                {{ aid.description|markdown|striptags|truncatewords:128 }}
             {% else %}
                 {{ _('No detailed description was submitted.') }}
             {% endif %}
