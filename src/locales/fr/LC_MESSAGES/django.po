@@ -496,8 +496,18 @@ msgstr "Au niveau national le cas échéant"
 msgid "New backer"
 msgstr "Nouvel apporteur"
 
-msgid "Short description"
-msgstr "Brève description"
+msgid "Full description of the aid and its objectives"
+msgstr "Description complète de l'aide et de ses objectifs"
+
+msgid ""
+"If you have a description, do not hesitate to copy it here. Try to complete "
+"the description with the maximum of information. If you are contacted "
+"regularly to ask for the same information, try to give some answers in this "
+"space."
+msgstr ""
+"Si vous avez un descriptif, n'hésitez pas à le copier ici.<br/>"
+"Essayez de compléter le descriptif avec le maximum d'informations.<br/>"
+"Si l'on vous contacte régulièrement pour vous demander les mêmes informations, essayez de donner des éléments de réponses dans cet espace."
 
 msgid "Eligibility"
 msgstr "Éligibilité"
@@ -916,6 +926,9 @@ msgstr "inscription-liste/"
 
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
+
+msgid "Short description"
+msgstr "Brève description"
 
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
