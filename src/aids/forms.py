@@ -14,6 +14,8 @@ from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
 from aids.models import Aid
 
+from pagedown.widgets import AdminPagedownWidget
+
 
 FINANCIAL_AIDS = (
     ('grant', _('Grant')),
@@ -136,6 +138,7 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
+            'description': AdminPagedownWidget,
         }
 
     class Media:
