@@ -6,8 +6,6 @@ from django.urls import reverse
 
 from django.db import models
 
-from pagedown.widgets import AdminPagedownWidget
-
 from aids.admin_views import AmendmentMerge
 from aids.models import Aid
 from aids.forms import AidAdminForm
