@@ -71,6 +71,11 @@ class BaseAidForm(forms.ModelForm):
         label=_('Tags'),
         choices=list,
         required=False)
+    description = forms.CharField(
+        widget=AdminPagedownWidget,        
+        help_text=_('If you have a description, do not hesitate to copy it here.<br>'
+        'Try to complete the description with the maximum of information.<br>'
+        'If you are contacted regularly to ask for the same information, try to give some answers in this space.'))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -152,7 +157,6 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-            'description': AdminPagedownWidget,
         }
 
     class Media:
@@ -175,6 +179,7 @@ class AidEditForm(BaseAidForm):
         required=False)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
+        
 
     class Meta:
         model = Aid
@@ -202,7 +207,6 @@ class AidEditForm(BaseAidForm):
             'contact',
         ]
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
             'contact': forms.Textarea(attrs={'rows': 4}),
             'mobilization_steps': MultipleChoiceFilterWidget,
