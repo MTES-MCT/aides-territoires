@@ -8,7 +8,7 @@
 
 - name: Change owner
   file:
-    path: /home/aides
+    path: "{{ install_root }}"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
 
