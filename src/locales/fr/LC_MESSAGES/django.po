@@ -212,13 +212,13 @@ msgid "Financial"
 msgstr "Financière"
 
 msgid "Legal"
-msgstr "Légale"
+msgstr "Juridique"
 
 msgid "Financial aids"
 msgstr "Aides financières"
 
 msgid "Technical and methodological aids"
-msgstr "Aides méthodologiques & techniques"
+msgstr "Aides en ingénierie"
 
 msgid "Commune"
 msgstr "Commune"
