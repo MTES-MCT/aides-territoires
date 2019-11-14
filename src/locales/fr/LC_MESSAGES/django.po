@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 10:24+0100\n"
+"POT-Creation-Date: 2019-11-14 15:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -531,8 +531,8 @@ msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
 msgid "Subvention rate, min. and max. (in round %)"
 msgstr "Taux de subvention, min. et max. (en %, nombre entier)"
 
-msgid "If this is a subvention aid, specify the rate."
-msgstr "S'il s'agit d'une subvention, précisez le taux."
+msgid "If fixed rate, only fill the max. rate."
+msgstr "Si le taux est fixe, remplissez uniquement le taux max."
 
 msgid "Subvention rate, optional comment"
 msgstr "Taux de subvention, commentaire optionnel"
@@ -1547,16 +1547,13 @@ msgid "Aid type"
 msgstr "Nature de l'aide"
 
 msgid "Subvention rate"
-msgstr "Taux de subvention (en %)"
+msgstr "Taux de subvention"
 
-msgid "Min.:"
-msgstr "Min. :"
+msgid "Min:"
+msgstr "Min :"
 
-msgid "NA"
-msgstr "ND"
-
-msgid "Max.:"
-msgstr "Max. :"
+msgid "Max:"
+msgstr "Max :"
 
 msgid "The aid can be mobilized during…"
 msgstr "Dispositif applicable pour un projet…"
@@ -1581,6 +1578,9 @@ msgstr "Cette aide provient d'une source de données tierce"
 
 msgid "Origin url"
 msgstr "URL d'origine"
+
+msgid "NA"
+msgstr "ND"
 
 msgid "Import share license"
 msgstr "License de partage"

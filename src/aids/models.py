@@ -241,7 +241,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     subvention_rate = PercentRangeField(
         _('Subvention rate, min. and max. (in round %)'),
         null=True, blank=True,
-        help_text=_('If this is a subvention aid, specify the rate.'))
+        help_text=_('If fixed rate, only fill the max. rate.'))
     subvention_comment = models.CharField(
         _('Subvention rate, optional comment'),
         max_length=256,
