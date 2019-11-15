@@ -7,13 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2019-11-14 15:20+0100\n"
-||||||| merged common ancestors
-"POT-Creation-Date: 2019-11-05 10:55+0100\n"
-=======
 "POT-Creation-Date: 2019-11-07 15:27+0100\n"
->>>>>>> Add frequency to e-mail content
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
