@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-14 15:20+0100\n"
+"POT-Creation-Date: 2019-11-07 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -711,6 +711,19 @@ msgstr "Sauvegarder"
 
 msgid "Bookmarks"
 msgstr "Recherches sauvegardées"
+
+msgid "Please confirm your Aides-territoires alert"
+msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires."
+
+msgid ""
+"You will receive a daily email whenever new matching aids will be published."
+msgstr ""
+"Un e-mail vous sera envoyé une fois par jour dès lors qu'une aide est publiée."
+
+msgid ""
+"You will receive a weekly email whenever new matching aids will be published."
+msgstr ""
+"Un e-mail vous sera envoyé une fois par semaine dès lors qu'une aide est publiée."
 
 msgid "create/"
 msgstr "créer/"
