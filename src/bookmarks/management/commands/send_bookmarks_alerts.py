@@ -1,7 +1,5 @@
 """This is the "send email alerts upon new saved search results" feature."""
 
-from operator import attrgetter
-from itertools import groupby
 from datetime import timedelta
 import logging
 
@@ -10,7 +8,7 @@ from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.contrib.sites.models import Site
-from django.db.models import Q
+from django.db.models import Q, Case, When
 from django.urls import reverse
 from django.conf import settings
 
@@ -25,61 +23,65 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        alert_threshold = timezone.now() - timedelta(
-            days=settings.BOOKMARK_ALERT_THRESHOLD)
-        owner_bookmarks = self.get_bookmarks(alert_threshold)
-
-        for owner, bookmarks in owner_bookmarks:
-            new_aids = self.get_new_aids(bookmarks, alert_threshold)
+        bookmarks = self.get_bookmarks()
+        alerted_bookmarks = []
+        for bookmark in bookmarks:
+            new_aids = list(bookmark.get_new_aids())
             if new_aids:
-                self.send_alert(owner, new_aids)
+                alerted_bookmarks.append(bookmark.id)
+                self.send_alert(bookmark, new_aids)
                 logger.info('Sending bookmark alert email to {} ({}) : {} '
                             'bookmarks'.format(
-                                owner.full_name,
-                                owner.email,
+                                bookmark.owner.full_name,
+                                bookmark.owner.email,
                                 len(new_aids)
                             ))
+
+        Bookmark.objects \
+            .filter(id__in=alerted_bookmarks) \
+            .update(latest_alert_date=timezone.now())
         return
 
-    def get_bookmarks(self, threshold):
-        """Returns bookmark with a latest alert date older than `threshold`."""
+    def get_bookmarks(self):
+        """Get bookmarks to send alerts.
+
+        Only return bookmarks with a latest alert date old enough to send
+        a new one.
+        """
+
+        # Get the two date thresholds (daily and weekly alerts)
+        now = timezone.now()
+        yesterday = now - timedelta(days=1)
+        last_week = now - timedelta(days=7)
+
+        # Create the alert date query condition
+        F = Bookmark.FREQUENCIES
+        latest_alert_is_old_enough = Q(latest_alert_date__lte=Case(
+            When(alert_frequency=F.daily, then=yesterday),
+            When(alert_frequency=F.weekly, then=last_week)
+        ))
 
         bookmarks = Bookmark.objects \
+            .select_related('owner') \
             .filter(send_email_alert=True) \
             .filter(
                 Q(latest_alert_date__isnull=True) |
-                Q(latest_alert_date__lte=threshold)) \
+                latest_alert_is_old_enough) \
             .order_by('owner')
-        get_by_owner = attrgetter('owner')
-        grouped_bookmarks = groupby(bookmarks, key=get_by_owner)
 
-        return grouped_bookmarks
+        return bookmarks
 
-    def get_new_aids(self, bookmarks, threshold):
-        """Get newly published aids for every bookmark.
-
-        returns a list of tuples of this format:
-            (bookmark, number of new aids, list of new aids)
-        """
-
-        owner_new_aids = []
-        for bookmark in bookmarks:
-            new_aids = list(bookmark.get_aids(published_after=threshold))
-            nb_new_aids = len(new_aids)
-            if nb_new_aids > 0:
-                owner_new_aids.append(
-                    (bookmark, nb_new_aids, new_aids[:3])
-                )
-        return owner_new_aids
-
-    def send_alert(self, owner, new_aids):
+    def send_alert(self, bookmark, new_aids):
         """Send an email alert with a summary of the newly published aids."""
 
+        owner = bookmark.owner
         site = Site.objects.get_current()
         email_context = {
             'domain': site.domain,
+            'bookmark': bookmark,
             'owner': owner,
-            'new_aids': new_aids,
+            'nb_aids': len(new_aids),
+            'new_aids': new_aids[:3],
             'bookmarks_url': reverse('bookmark_list_view'),
         }
 

@@ -62,4 +62,4 @@ def test_command_output_format(user, mailoutbox):
 
     # Only the first three aids are in the mail
     assert 'Test 4' not in content
-    assert 'Plus de résultats disponibles sur le site' in content
+    assert 'encore d\'autres aides disponibles !' in content
