@@ -35,7 +35,7 @@ class Bookmark(models.Model):
         default=FREQUENCIES.daily)
     latest_alert_date = models.DateTimeField(
         _('Latest alert date'),
-        null=True)
+        default=timezone.now)
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
