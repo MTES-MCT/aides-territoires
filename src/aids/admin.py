@@ -16,6 +16,10 @@ class AidAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/admin.css',)
         }
+        js = [
+            '/static/js/plugins/softmaxlength.js',
+            '/static/js/aids/enable_softmaxlength.js',
+        ]
 
     form = AidAdminForm
     ordering = ['-id']

@@ -70,6 +70,9 @@ class BaseAidForm(forms.ModelForm):
         if 'targeted_audiances' in self.fields:
             self.fields['targeted_audiances'].choices = AUDIANCES
 
+        if 'recurrence' in self.fields:
+            self.fields['recurrence'].required = True
+
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
         if 'tags' in self.fields:
