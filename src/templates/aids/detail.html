@@ -173,24 +173,10 @@
         </div>
         {% endif %}
 
-        {% if aid.contact_detail %}
-        <div class="short-data">
+        {% if aid.contact %}
+        <div class="long-data">
             <h2>{{ _('Contact') }}</h2>
-            <p>{{ aid.contact_detail|safe }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.contact_email %}
-        <div class="short-data">
-            <h2>{{ _('Contact (email)') }}</h2>
-            <p>{{ aid.contact_email }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.contact_phone %}
-        <div class="short-data">
-            <h2>{{ _('Contact (phone)') }}</h2>
-            <p>{{ aid.contact_phone }}</p>
+            <p>{{ aid.contact|safe|linebreaks }}</p>
         </div>
         {% endif %}
 
