@@ -55,6 +55,14 @@ AUDIANCES = (
 )
 
 
+CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
+    _('First / last name: '),
+    _('Email: '),
+    _('Phone: '),
+    _('Comments '),
+)
+
+
 class BaseAidForm(forms.ModelForm):
     tags = TagChoiceField(
         label=_('Tags'),
@@ -74,12 +82,7 @@ class BaseAidForm(forms.ModelForm):
             self.fields['recurrence'].required = True
 
         if 'contact' in self.fields:
-            self.fields['contact'].initial = '\n'.join([
-                'Nom / prénom : ',
-                'E-mail : ',
-                'Téléphone : ',
-                'Remarques : ',
-            ])
+            self.fields['contact'].initial = CONTACT_INITIAL
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
