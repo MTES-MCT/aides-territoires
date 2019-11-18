@@ -73,6 +73,14 @@ class BaseAidForm(forms.ModelForm):
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
 
+        if 'contact' in self.fields:
+            self.fields['contact'].initial = '\n'.join([
+                'Nom / prénom : ',
+                'E-mail : ',
+                'Téléphone : ',
+                'Remarques : ',
+            ])
+
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
         if 'tags' in self.fields:
