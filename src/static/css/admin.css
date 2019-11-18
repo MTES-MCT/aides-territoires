@@ -44,6 +44,6 @@ input.is-invalid {
     border: 1px solid #ba2121 !important;
 }
 
-form#aid_form input#id_name {
+form#aid_form #id_name {
     width: 610px;
 }

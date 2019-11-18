@@ -135,6 +135,7 @@ class AidAdminForm(BaseAidForm):
 
     class Meta:
         widgets = {
+            'name': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,

@@ -22,7 +22,7 @@
 
     $.fn.softmaxlength = function () {
 
-        this.filter('input[type=text]').each(function () {
+        this.each(function () {
             var input = $(this);
             var maxlength = input.attr('maxlength');
             var inputId = input.attr('id');
