@@ -59,7 +59,7 @@ CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
     _('First / last name: '),
     _('Email: '),
     _('Phone: '),
-    _('Comments '),
+    _('Comments: '),
 )
 
 
