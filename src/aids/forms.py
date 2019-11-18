@@ -93,9 +93,6 @@ class BaseAidForm(forms.ModelForm):
             'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
             'application_url': _('Link to an online application form'),
-            'contact_detail': _('Name of a contact in charge'),
-            'contact_email': _('E-mail address of a contact in charge'),
-            'contact_phone': _('Phone number of a contact in charge'),
             'is_call_for_project': _('Is this a call for project / expressions'
                                      ' of interest?')
         }
@@ -109,6 +106,7 @@ class BaseAidForm(forms.ModelForm):
                   'field to add a new one.'),
             'tags': _('Add up to 16 keywords to describe your aid (separated '
                       'by ",")'),
+            'contact': _('Feel free to add several contacts'),
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -185,13 +183,12 @@ class AidEditForm(BaseAidForm):
             'eligibility',
             'origin_url',
             'application_url',
-            'contact_detail',
-            'contact_email',
-            'contact_phone',
+            'contact',
         ]
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
+            'contact': forms.Textarea(attrs={'rows': 4}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
