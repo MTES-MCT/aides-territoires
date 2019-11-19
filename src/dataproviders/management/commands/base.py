@@ -160,6 +160,9 @@ class BaseImportCommand(BaseCommand):
     def extract_name(self, line):
         raise NotImplementedError
 
+    def extract_contact(self, line):
+        return ''
+
     def extract_is_call_for_project(self, line):
         is_call_for_project = False
         title = self.extract_name(line).lower()
