@@ -12,6 +12,7 @@ def aid_form_data(user, backer, perimeter):
         'description': 'My aid description',
         'eligibility': 'Aid eligibility info',
         'perimeter': perimeter.id,
+        'recurrence': 'oneoff',
         'mobilization_steps': ['preop'],
         'targeted_audiances': ['department'],
         'aid_types': ['grant', 'loan'],
