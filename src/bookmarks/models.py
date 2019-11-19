@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -60,15 +58,6 @@ class Bookmark(models.Model):
     def get_new_aids(self):
         """Get the list of aids that match the stored search params."""
 
-        now = timezone.now()
-        yesterday = now - timedelta(days=1)
-        last_week = now - timedelta(days=7)
-
-        if self.alert_frequency == self.FREQUENCIES.daily:
-            alert_threshold = yesterday
-        else:
-            alert_threshold = last_week
-
         querydict = QueryDict(self.querystring)
         search_form = AidSearchForm(querydict)
         base_qs = Aid.objects \
@@ -76,7 +65,7 @@ class Bookmark(models.Model):
             .open() \
             .select_related('perimeter', 'author') \
             .prefetch_related('backers') \
-            .filter(date_published__gte=alert_threshold) \
+            .filter(date_published__gte=self.latest_alert_date) \
             .order_by('date_published')
         qs = search_form.filter_queryset(base_qs)
         return qs

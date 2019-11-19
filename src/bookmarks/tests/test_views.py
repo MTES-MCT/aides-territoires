@@ -83,7 +83,7 @@ def test_bookmark_create_view_for_anonymous(client, mailoutbox):
 
     assert len(mailoutbox) == 1
     mail_body = mailoutbox[0].body
-    assert 'Vous avez demandé à recevoir des alertes' in mail_body
+    assert 'Cliquez sur ce lien pour valider votre abonnement au système d\'alertes' in mail_body
 
 
 def test_bookmark_creation_with_existing_email(user, client, mailoutbox):

@@ -19,58 +19,63 @@ def last_week():
     return timezone.now() - timedelta(days=7)
 
 
-def test_get_aids_with_no_aids(last_month):
+@pytest.fixture
+def yesterday():
+    return timezone.now() - timedelta(days=1)
+
+
+def test_get_new_aids_with_no_aids(last_month):
     """No aids exist, so no aids can be found."""
 
     bookmark = BookmarkFactory(querystring='text=test')
-    aids = bookmark.get_aids(published_after=last_month)
+    aids = bookmark.get_new_aids()
     assert len(aids) == 0
 
 
-def test_get_aids_with_no_old_aids(last_month):
+def test_get_new_aids_with_no_old_aids(last_month):
     """Matching aids are older than the requested threshold."""
 
     bookmark = BookmarkFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
-        date_published=last_month - timedelta(days=10))
-    aids = bookmark.get_aids(published_after=last_month)
+        date_published=last_month)
+    aids = bookmark.get_new_aids()
     assert len(aids) == 0
 
 
-def test_get_aids_with_no_matching_aids(last_month, last_week):
+def test_get_new_aids_with_no_matching_aids(yesterday):
     """Existing aids do not match."""
 
     bookmark = BookmarkFactory(querystring='text=Gloubiboulga')
     AidFactory.create_batch(
         5,
         name='Test',
-        date_published=last_week)
-    aids = bookmark.get_aids(published_after=last_month)
+        date_published=yesterday)
+    aids = bookmark.get_new_aids()
     assert len(aids) == 0
 
 
-def test_get_aids_with_matching_aids(last_month, last_week):
+def test_get_new_aids_with_matching_aids(yesterday):
     """Matching aids are found."""
 
     bookmark = BookmarkFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
-        date_published=last_week)
-    aids = bookmark.get_aids(published_after=last_month)
+        date_published=yesterday)
+    aids = bookmark.get_new_aids()
     assert len(aids) == 5
 
 
-def test_get_aids_with_unpublished_aids(last_month, last_week):
+def test_get_new_aids_with_unpublished_aids(yesterday):
     """Matching aids are not published."""
 
     bookmark = BookmarkFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
-        date_published=last_week,
+        date_published=yesterday,
         status='draft')
-    aids = bookmark.get_aids(published_after=last_month)
+    aids = bookmark.get_new_aids()
     assert len(aids) == 0
