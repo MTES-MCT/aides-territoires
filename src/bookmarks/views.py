@@ -112,7 +112,7 @@ class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
-        self.messages.success('Your bookmark was deleted.')
+        self.messages.success(_('Your bookmark was deleted.'))
         return res
 
 
