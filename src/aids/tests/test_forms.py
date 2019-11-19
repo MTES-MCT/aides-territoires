@@ -1,7 +1,6 @@
 """Test methods aid related forms."""
 
 import pytest
-from psycopg2.extras import NumericRange
 from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid

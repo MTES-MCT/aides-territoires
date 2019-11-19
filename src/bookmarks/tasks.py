@@ -49,9 +49,9 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         url=login_url)
 
     if bookmark.alert_frequency == Bookmark.FREQUENCIES.daily:
-        frequency = _('You will receive a daily email whenever new matching aids will be published.')
+        frequency = _('You will receive a daily email whenever new matching aids will be published.')  # noqa
     else:
-        frequency = _('You will receive a weekly email whenever new matching aids will be published.')
+        frequency = _('You will receive a weekly email whenever new matching aids will be published.')  # noqa
 
     login_email_body = render_to_string(TEMPLATE, {
         'base_url': base_url,
