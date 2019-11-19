@@ -286,10 +286,10 @@ msgid "Are the any other eligibility criterias?"
 msgstr "Y a-t-il d'autres critères d'éligibilité ?"
 
 msgid "Link to a full description"
-msgstr "Lien vers un descriptif complet"
+msgstr "Lien vers le descriptif complet"
 
 msgid "Link to an online application form"
-msgstr "Lien vers une démarche en ligne"
+msgstr "Lien vers la démarche en ligne"
 
 msgid "Is this a call for project / expressions of interest?"
 msgstr "S'agit-il d'un AAP / AMI ?"
