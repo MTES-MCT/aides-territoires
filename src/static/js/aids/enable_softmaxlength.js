@@ -4,5 +4,5 @@ $(document).ready(function () {
     if (!$) {
         $ = django.jQuery;
     }
-    $('form input#id_name').softmaxlength();
+    $('form #id_name').softmaxlength();
 });
