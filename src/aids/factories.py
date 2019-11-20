@@ -37,8 +37,7 @@ class AidFactory(DjangoModelFactory):
     targeted_audiances = FuzzyMultipleChoice(Aid.AUDIANCES)
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
-    contact_email = factory.Faker('email')
-    contact_phone = factory.Faker('phone_number')
+    contact = factory.Faker('name')
     recurrence = 'oneoff'
     status = 'published'
 

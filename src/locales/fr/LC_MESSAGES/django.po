@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-15 15:44+0100\n"
+"POT-Creation-Date: 2019-11-18 15:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,6 +255,18 @@ msgstr "Collectivités"
 msgid "Other audiances"
 msgstr "Autres bénéficiaires"
 
+msgid "First / last name: "
+msgstr "Nom / Prénom :"
+
+msgid "Email: "
+msgstr "E-mail :"
+
+msgid "Phone: "
+msgstr "Téléphone :"
+
+msgid "Comments: "
+msgstr "Remarques :"
+
 msgid "Tags"
 msgstr "Mots clés"
 
@@ -279,15 +291,6 @@ msgstr "Lien vers un descriptif complet"
 msgid "Link to an online application form"
 msgstr "Lien vers une démarche en ligne"
 
-msgid "Name of a contact in charge"
-msgstr "Nom d'un contact en charge de l'aide"
-
-msgid "E-mail address of a contact in charge"
-msgstr "Adresse e-mail d'un contact en charge"
-
-msgid "Phone number of a contact in charge"
-msgstr "Téléphone d'un contact en charge de l'aide"
-
 msgid "Is this a call for project / expressions of interest?"
 msgstr "S'agit-il d'un AAP / AMI ?"
 
@@ -302,6 +305,9 @@ msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
 msgstr ""
 "Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
+
+msgid "Feel free to add several contacts"
+msgstr "N'hésitez pas à ajouter plusieurs contacts"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -536,6 +542,9 @@ msgstr "Si le taux est fixe, remplissez uniquement le taux max."
 
 msgid "Subvention rate, optional comment"
 msgstr "Taux de subvention, commentaire optionnel"
+
+msgid "Contact"
+msgstr "Contact"
 
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
@@ -944,9 +953,6 @@ msgstr "Publier des aides"
 
 msgid "Data export and api"
 msgstr "Réutilisation des données et API"
-
-msgid "Contact"
-msgstr "Contact"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
@@ -1578,12 +1584,6 @@ msgstr "Autres critères d'éligibilité ?"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
-
-msgid "Contact (email)"
-msgstr "Contact (e-mail)"
-
-msgid "Contact (phone)"
-msgstr "Contact (téléphone)"
 
 msgid "Data origin"
 msgstr "Origine de la donnée"

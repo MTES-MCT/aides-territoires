@@ -246,6 +246,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Subvention rate, optional comment'),
         max_length=256,
         blank=True)
+    contact = models.TextField(
+        _('Contact'),
+        blank=True)
     contact_email = models.EmailField(
         _('Contact email'),
         blank=True)
