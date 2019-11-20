@@ -161,7 +161,7 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-            'description' : forms.CharField(widget=AdminPagedownWidget()),
+            'description': forms.CharField(widget=AdminPagedownWidget()),
             }
 
     class Media:
@@ -174,12 +174,15 @@ class AidAdminForm(BaseAidForm):
         super().__init__(*args, **kwargs)
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
 
-class MyPagedownWidget(PagedownWidget):
 
-     class Media:
-         css = { 
-             'all': ('/static/css/pagedown.css',)
-         }
+class MyPagedownWidget(PagedownWidget):
+    """Custom PageDownWidget for AidEditForm."""
+
+    class Media:
+        css = {
+            'all': ('/static/css/pagedown.css',)
+        }
+
 
 class AidEditForm(BaseAidForm):
 
