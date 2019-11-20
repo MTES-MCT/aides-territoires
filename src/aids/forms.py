@@ -71,10 +71,13 @@ class BaseAidForm(forms.ModelForm):
         choices=list,
         required=False)
     description = forms.CharField(
-        widget=AdminPagedownWidget,        
-        help_text=_('If you have a description, do not hesitate to copy it here.<br>'
-        'Try to complete the description with the maximum of information.<br>'
-        'If you are contacted regularly to ask for the same information, try to give some answers in this space.'))
+        widget=AdminPagedownWidget,
+        help_text=_(
+            'If you have a description, do not hesitate to copy it here.<br>'
+            'Try to complete the description with the maximum'
+            ' of information.<br>'
+            'If you are contacted regularly to ask for the same'
+            ' information, try to give some answers in this space.'))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -156,7 +159,8 @@ class AidAdminForm(BaseAidForm):
             'Try to complete the description with the maximum'
             ' of information.<br>'
             'If you are contacted regularly to ask for the same'
-            ' information, try to give some answers in this space.'))
+            ' information, try to give some answers in this space.')
+            )
 
     class Meta:
         widgets = {
@@ -197,8 +201,6 @@ class AidEditForm(BaseAidForm):
         required=False)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
-        
-
     description = forms.CharField(
         widget=MyPagedownWidget,
         help_text=_(
