@@ -34,19 +34,21 @@ AID_TYPES = (
 )
 
 COLLECTIVITIES_AUDIANCES = (
-    ('commune', _('Commune')),
+    ('commune', _('Communes')),
     ('epci', _('Audiance EPCI')),
-    ('department', _('Department')),
-    ('region', _('Region')),
+    ('department', _('Departments')),
+    ('region', _('Regions')),
 )
 
 OTHER_AUDIANCES = (
-    ('association', _('Association')),
+    ('association', _('Associations')),
+    ('unions', _('Intermunicipal unions')),
+    ('private_person', _('Individuals')),
+    ('farmer', _('Farmers')),
     ('private_sector', _('Private sector')),
-    ('public_org', _('Public organization')),
-    ('lessor', _('Audiance lessor')),
+    ('public_org', _('Public organizations')),
+    ('lessor', _('Audiance lessors')),
     ('researcher', _('Research')),
-    ('other', _('Other')),
 )
 
 AUDIANCES = (

@@ -233,7 +233,7 @@ section#program-list {
                     @extend .card-subtitle;
 
                     span.backer-name + span.backer-name:before {
-                        content: '/';
+                        content: '|';
                     }
                 }
 
@@ -444,6 +444,10 @@ section#aid {
     h1 {
         small {
             @extend .text-muted;
+        }
+
+        span.backer-name + span.backer-name:before {
+            content: '|';
         }
     }
 

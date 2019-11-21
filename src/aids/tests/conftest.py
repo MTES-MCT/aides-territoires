@@ -17,6 +17,7 @@ def aid_form_data(user, backer, perimeter):
         'targeted_audiances': ['department'],
         'aid_types': ['grant', 'loan'],
         'destinations': ['supply'],
+        'start_date': '01/01/2019',
         'publication_status': 'open',
         'status': 'published',
     }

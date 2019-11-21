@@ -7,3 +7,4 @@ yarn-error.log
 site.retry
 .idea/
 aides.iml
+.pytest_cache/
