@@ -42,7 +42,6 @@ COLLECTIVITIES_AUDIANCES = (
 
 OTHER_AUDIANCES = (
     ('association', _('Associations')),
-    ('unions', _('Intermunicipal unions')),
     ('private_person', _('Individuals')),
     ('farmer', _('Farmers')),
     ('private_sector', _('Private sector')),

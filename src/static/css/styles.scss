@@ -264,8 +264,8 @@ form {
 
 
     .global-errors {
-        @include icon(before, $fa-var-skull-crossbones);
-        @include icon(after, $fa-var-skull-crossbones);
+        @include icon(before, $fa-var-exclamation-triangle);
+        @include icon(after, $fa-var-exclamation-triangle);
     }
 
     div.form-actions {
