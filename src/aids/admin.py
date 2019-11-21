@@ -81,9 +81,7 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'origin_url',
                 'application_url',
-                'contact_detail',
-                'contact_email',
-                'contact_phone',
+                'contact',
             )
         }),
 
