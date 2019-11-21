@@ -34,7 +34,6 @@
     <fieldset>
         <legend>{{ _('Aid presentation') }}</legend>
         {% include '_field_snippet.html' with field=form.name %}
-        {% include '_field_snippet.html' with field=form.description %}
         {% include '_field_snippet.html' with field=form.tags %}
         {% include '_field_snippet.html' with field=form.targeted_audiances %}
         {% include '_field_snippet.html' with field=form.backers %}
@@ -64,6 +63,7 @@
         </div>
         {% include '_field_snippet.html' with field=form.mobilization_steps %}
         {% include '_field_snippet.html' with field=form.destinations %}
+        {% include '_field_snippet.html' with field=form.description %}
         {% include '_field_snippet.html' with field=form.eligibility %}
     </fieldset>
 
