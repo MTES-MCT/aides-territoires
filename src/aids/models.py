@@ -122,16 +122,18 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     AUDIANCES = Choices(
-        ('commune', _('Commune')),
+        ('commune', _('Communes')),
         ('epci', _('Audiance EPCI')),
-        ('department', _('Department')),
-        ('region', _('Region')),
-        ('association', _('Association')),
+        ('unions', ('Intermunicipal unions')),
+        ('department', _('Departments')),
+        ('region', _('Regions')),
+        ('association', _('Associations')),
         ('private_sector', _('Private sector')),
-        ('public_org', _('Public organization')),
-        ('lessor', _('Audiance lessor')),
+        ('public_org', _('Public organizations')),
+        ('lessor', _('Audiance lessors')),
         ('researcher', _('Research')),
-        ('private_person', _('Individual')),
+        ('private_person', _('Individuals')),
+        ('farmer', _('Farmers')),
         ('other', _('Other')),
     )
 

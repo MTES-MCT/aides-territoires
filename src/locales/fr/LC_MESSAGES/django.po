@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 15:37+0100\n"
+"POT-Creation-Date: 2019-11-21 11:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,31 +220,38 @@ msgstr "Aides financières"
 msgid "Technical and methodological aids"
 msgstr "Aides en ingénierie"
 
-msgid "Commune"
-msgstr "Commune"
+msgid "Communes"
+msgstr "Communes"
 
 msgid "Audiance EPCI"
-msgstr ""
-"Intercommunalité (EPCI à fiscalité propre, EPT, Syndicats intercommunaux et "
-"mixtes)"
+msgstr "EPCI à fiscalité propre"
 
-msgid "Department"
-msgstr "Département"
+msgid "Departments"
+msgstr "Départements"
 
-msgid "Region"
-msgstr "Région"
+msgid "Regions"
+msgstr "Régions"
 
-msgid "Association"
-msgstr "Association"
+msgid "Associations"
+msgstr "Associations"
+
+msgid "Intermunicipal unions"
+msgstr "Syndicats intercommunaux et mixtes"
+
+msgid "Individuals"
+msgstr "Particuliers"
+
+msgid "Farmers"
+msgstr "Agriculteurs"
 
 msgid "Private sector"
-msgstr "Privé (entreprises…)"
+msgstr "Entreprises"
 
-msgid "Public organization"
-msgstr "Établissement public"
+msgid "Public organizations"
+msgstr "Établissements publics"
 
-msgid "Audiance lessor"
-msgstr "Société d'économie mixte, aménageur"
+msgid "Audiance lessors"
+msgstr "Sociétés d'économie mixte, aménageurs"
 
 msgid "Research"
 msgstr "Recherche"
@@ -417,6 +424,15 @@ msgstr "Europe"
 msgid "France"
 msgstr "France"
 
+msgid "Region"
+msgstr "Région"
+
+msgid "Department"
+msgstr "Département"
+
+msgid "Commune"
+msgstr "Commune"
+
 msgid "Mainland"
 msgstr "Métropole"
 
@@ -431,9 +447,6 @@ msgstr "mise en œuvre / réalisation"
 
 msgid "Postoperation"
 msgstr "fonctionnement / usage"
-
-msgid "Individual"
-msgstr "Particulier"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -861,12 +874,6 @@ msgstr "Contenu dans"
 
 msgid "Manually created"
 msgstr "Création manuelle"
-
-msgid "Regions"
-msgstr "Régions"
-
-msgid "Departments"
-msgstr "Départements"
 
 msgid "Zip codes"
 msgstr "Codes postaux"
