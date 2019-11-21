@@ -440,13 +440,13 @@ msgid "Overseas"
 msgstr "Outre-mer"
 
 msgid "Preoperational"
-msgstr "réflexion / conception"
+msgstr "Réflexion / conception"
 
 msgid "Operational"
-msgstr "mise en œuvre / réalisation"
+msgstr "Mise en œuvre / réalisation"
 
 msgid "Postoperation"
-msgstr "fonctionnement / usage"
+msgstr "Usage / valorisation"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -509,7 +509,7 @@ msgid "What is the aid broadcasting perimeter?"
 msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 
 msgid "Mobilization step"
-msgstr "Dispositif applicable pour un projet…"
+msgstr "État d'avancement du projet pour bénéficier du dispositif"
 
 msgid "Origin URL"
 msgstr "URL d'origine"
