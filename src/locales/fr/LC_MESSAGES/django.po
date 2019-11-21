@@ -455,7 +455,7 @@ msgid "Works"
 msgstr "Travaux"
 
 msgid "Supply"
-msgstr "Fourniture"
+msgstr "Dépenses de fonctionnement"
 
 msgid "One off"
 msgstr "Ponctuelle"
