@@ -366,7 +366,11 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
         aid.save()
         form.save_m2m()
 
-        msg = _('Your aid was sucessfully created. You can keep editing it.')
+        msg = _('Your aid was sucessfully created. You can keep editing it or '
+                '<a href="%(url)s" target="_blank">preview it</a>.') % {
+                    'url': aid.get_absolute_url()
+                }
+
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
 
@@ -397,11 +401,20 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.import_uniqueid = None
             obj.save()
             form.save_m2m()
-            msg = _('The new aid was added. You can keep editing it.')
+            msg = _('The new aid was sucessfully created. You can keep '
+                    'editing it or <a href="%(url)s" target="_blank">'
+                    'preview it</a>.') % {
+                        'url': obj.get_absolute_url()
+                    }
+
             response = HttpResponseRedirect(self.get_success_url())
         else:
-            msg = _('Your aid was sucessfully updated.')
             response = super().form_valid(form)
+            msg = _('The aid was sucessfully updated. You can keep '
+                    'editing it or <a href="%(url)s" target="_blank">'
+                    'preview it</a>.') % {
+                        'url': form.instance.get_absolute_url()
+                    }
 
         self.messages.success(msg)
         return response
