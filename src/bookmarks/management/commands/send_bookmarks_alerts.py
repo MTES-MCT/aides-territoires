@@ -37,9 +37,10 @@ class Command(BaseCommand):
                                 len(new_aids)
                             ))
 
-        Bookmark.objects \
+        updated = Bookmark.objects \
             .filter(id__in=alerted_bookmarks) \
             .update(latest_alert_date=timezone.now())
+        self.stdout.write('{} alerts sent'.format(updated))
         return
 
     def get_bookmarks(self):
