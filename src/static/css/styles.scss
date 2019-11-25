@@ -349,7 +349,8 @@ p, div {
         @extend .alert-success;
     }
 
-    &.error {
+    &.error,
+    &.danger {
         @extend .alert-danger;
     }
 
@@ -371,6 +372,7 @@ p, div {
 
     &.success,
     &.error,
+    &.danger,
     &.info,
     &.warning,
     &.tip {
