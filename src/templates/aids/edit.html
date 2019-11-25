@@ -55,6 +55,18 @@
         </div>
     </div>
 
+    <div class="sidebar-actions">
+        <h3>{{ _('Preview') }}</h3>
+        <div>
+            <p>{{ _('Check how your aid will appear to our users.') }}</p>
+            <p>
+                <a class="preview-btn" href="{{ aid.get_absolute_url }}" target="_blank">
+                    {{ _('Preview the aid') }}
+                </a>
+            </p>
+        </div>
+    </div>
+
     <div class="sidebar-actions action-danger">
         <h3>{{ _('Danger Zone') }}</h3>
         <div>
