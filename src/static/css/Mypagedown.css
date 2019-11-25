@@ -1,0 +1,19 @@
+
+.wmd-panel{
+    display: flex;
+    flex-direction: column;
+
+    max-width: 100%;
+    min-width: auto;
+    width: 100%;
+    margin: 0;
+}
+
+
+.wmd-button-bar {
+    background-color: white;
+}
+
+.wmd-input {
+    background-color: white;
+}

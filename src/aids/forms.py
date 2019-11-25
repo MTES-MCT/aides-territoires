@@ -180,7 +180,7 @@ class MyPagedownWidget(PagedownWidget):
 
     class Media:
         css = {
-            'all': ('/static/css/pagedown.css',)
+            'all': ('/static/css/Mypagedown.css',)
         }
 
 
