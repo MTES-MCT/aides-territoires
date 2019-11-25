@@ -434,3 +434,43 @@ def test_amendment_form_for_logged_user(user, client, amendment_form_data):
     client.post(amend_url, data=amendment_form_data)
     amendment = Aid.amendments.all()[0]
     assert amendment.author == user
+
+
+def test_only_published_aids_are_displayed(client):
+    aid = AidFactory(status='draft')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.status = 'reviewable'
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.status = 'published'
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+def test_admin_users_can_preview_unpublished_aids(client, superuser):
+    client.force_login(superuser)
+    aid = AidFactory(status='draft')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()
+
+
+def test_contributons_can_preview_their_own_aids(client, user, contributor):
+    client.force_login(contributor)
+    aid = AidFactory(status='draft', author=user)
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.author = contributor
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()

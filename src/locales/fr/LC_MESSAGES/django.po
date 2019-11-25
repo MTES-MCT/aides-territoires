@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 11:07+0100\n"
+"POT-Creation-Date: 2019-11-25 11:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,9 +234,6 @@ msgstr "Régions"
 
 msgid "Associations"
 msgstr "Associations"
-
-msgid "Intermunicipal unions"
-msgstr "Syndicats intercommunaux et mixtes"
 
 msgid "Individuals"
 msgstr "Particuliers"
@@ -1561,6 +1558,13 @@ msgstr "Enregistrer en brouillon"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid ""
+"Warning! This aid is <strong>currently not published</strong>. You can only "
+"see it because you are the author."
+msgstr ""
+"Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site"
+"</strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
 
 msgid "Save to a bundle"
 msgstr "Enregistrer dans une liste"
