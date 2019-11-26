@@ -131,9 +131,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        if 'financers' in self.fields:
-            financers = self.cleaned_data['financers']
-            self.instance.set_search_vector(financers)
+        financers = self.cleaned_data.get('financers', None)
+        instructors = self.cleaned_data.get('instructors', None)
+        self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
 
     def _save_m2m(self):

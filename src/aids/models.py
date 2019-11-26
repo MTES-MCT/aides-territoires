@@ -380,7 +380,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if self.is_published() and self.date_published is None:
             self.date_published = timezone.now()
 
-    def set_search_vector(self, financers):
+    def set_search_vector(self, financers=None, instructors=None):
         """Update the full text cache field."""
 
         # Note: we use `SearchVector(Value(self.field))` instead of
@@ -390,7 +390,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         # Note 2: we have to pass the financers parameter instead of using
         # `self.financers.all()` because that last expression would not work
         # during an object creation.
-        self.search_vector = \
+        search_vector = \
             SearchVector(
                 Value(self.name, output_field=models.CharField()),
                 weight='A',
@@ -406,13 +406,25 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             SearchVector(
                 Value(' '.join(self.tags), output_field=models.CharField()),
                 weight='A',
-                config='french') + \
-            SearchVector(
+                config='french')
+
+        if financers:
+            search_vector += SearchVector(
                 Value(
                     ' '.join(str(backer) for backer in financers),
                     output_field=models.CharField()),
                 weight='D',
                 config='french')
+
+        if instructors:
+            search_vector += SearchVector(
+                Value(
+                    ' '.join(str(backer) for backer in instructors),
+                    output_field=models.CharField()),
+                weight='D',
+                config='french')
+
+        self.search_vector = search_vector
 
     def populate_tags(self):
         """Populates the `_tags_m2m` field.
