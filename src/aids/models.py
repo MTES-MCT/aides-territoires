@@ -180,6 +180,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Financers'))
     instructors = models.ManyToManyField(
         'backers.Backer',
+        blank=True,
         related_name='instructors_aids',
         verbose_name=_('Instructors'))
     new_backer = models.CharField(
