@@ -21,7 +21,8 @@ django-xworkflows = "*"
 beautifulsoup4 = "*"
 scrapy = "*"
 django-pagedown = "*"
-django-markdown-deux = "*"
+markdown = "*"
+lib = "*"
 
 [dev-packages]
 pytest = "*"

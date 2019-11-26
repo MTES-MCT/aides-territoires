@@ -33,7 +33,6 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_xworkflows',
     'pagedown.apps.PagedownConfig',
-    'markdown_deux',
 ]
 
 LOCAL_APPS = [
