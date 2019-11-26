@@ -23,10 +23,10 @@
     <h1>
         {{ aid.name }}
         <br /><small>
-        {% for backer in aid.backers.all %}
-            <span class="backer-name">
-                {{ backer }}
-                {% if backer.is_corporate %}
+        {% for financer in aid.financers.all %}
+            <span class="financer-name">
+                {{ financer }}
+                {% if financer.is_corporate %}
                     ({{ _('Corporate') }})
                 {% endif %}
             </span>

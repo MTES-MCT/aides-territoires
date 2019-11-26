@@ -99,8 +99,8 @@ class BaseAidForm(forms.ModelForm):
 
         custom_labels = {
             'name': _('Aid title'),
-            'backers': _('Aid backer(s)'),
-            'new_backer': _('…or add a new backer'),
+            'financers': _('Aid financer(s)'),
+            'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
@@ -130,9 +130,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        if 'backers' in self.fields:
-            backers = self.cleaned_data['backers']
-            self.instance.set_search_vector(backers)
+        if 'financers' in self.fields:
+            financers = self.cleaned_data['financers']
+            self.instance.set_search_vector(financers)
         return super().save(commit=commit)
 
     def _save_m2m(self):
@@ -165,7 +165,7 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
-    backers = forms.ModelMultipleChoiceField(
+    financers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
@@ -180,7 +180,7 @@ class AidEditForm(BaseAidForm):
             'description',
             'tags',
             'targeted_audiances',
-            'backers',
+            'financers',
             'new_backer',
             'recurrence',
             'start_date',
@@ -222,15 +222,15 @@ class AidEditForm(BaseAidForm):
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
 
     def clean(self):
-        """Make sure the aid backers were provided."""
+        """Make sure the aid financers were provided."""
 
         data = self.cleaned_data
 
-        if 'backers' in self.fields:
-            if not any((data.get('backers'), data.get('new_backer'))):
-                msg = _('You must select the aid backers, or create a new one '
+        if 'financers' in self.fields:
+            if not any((data.get('financers'), data.get('new_backer'))):
+                msg = _('You must select the aid financers, or create a new one '
                         'below.')
-                self.add_error('backers', msg)
+                self.add_error('financers', msg)
 
         if 'subvention_rate' in data and data['subvention_rate']:
             lower = data['subvention_rate'].lower

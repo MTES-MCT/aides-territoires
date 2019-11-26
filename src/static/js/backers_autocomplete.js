@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('select#id_backers').select2({
+    $('select#id_financers').select2({
         placeholder: catalog.backers_placeholder,
         ajax: {
             url: '/api/backers/',

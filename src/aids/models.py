@@ -174,11 +174,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'),
         null=True)
-    backers = models.ManyToManyField(
+    financers = models.ManyToManyField(
         'backers.Backer',
         related_name='aids',
-        verbose_name=_('Backers'),
-        help_text=_('On a national level if appropriate'))
+        verbose_name=_('Financers'))
     new_backer = models.CharField(
         _('New backer'),
         max_length=256,
@@ -377,15 +376,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if self.is_published() and self.date_published is None:
             self.date_published = timezone.now()
 
-    def set_search_vector(self, backers):
+    def set_search_vector(self, financers):
         """Update the full text cache field."""
 
         # Note: we use `SearchVector(Value(self.field))` instead of
         # `SearchVector('field')` because the latter only works for updates,
         # not when inserting new records.
         #
-        # Note 2: we have to pass the backers parameter instead of using
-        # `self.backers.all()` because that last expression would not work
+        # Note 2: we have to pass the financers parameter instead of using
+        # `self.financers.all()` because that last expression would not work
         # during an object creation.
         self.search_vector = \
             SearchVector(
@@ -406,7 +405,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 config='french') + \
             SearchVector(
                 Value(
-                    ' '.join(str(backer) for backer in backers),
+                    ' '.join(str(backer) for backer in financers),
                     output_field=models.CharField()),
                 weight='D',
                 config='french')

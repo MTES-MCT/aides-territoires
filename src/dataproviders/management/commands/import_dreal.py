@@ -59,7 +59,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
 
         self.perimeters_cache = {}
-        self.backers_cache = {}
+        self.financers_cache = {}
         self.nouvelle_aquitaine = Perimeter.objects.get(
             scale=Perimeter.TYPES.region,
             code='75')
@@ -186,39 +186,39 @@ class Command(BaseImportCommand):
 
         return target_audiances
 
-    def extract_backers(self, line):
-        """Tries to convert the `nomAttribuant` column to backers.
+    def extract_financers(self, line):
+        """Tries to convert the `nomAttribuant` column to financers.
 
         Sometimes, there is a perfect match between our value and the one in
         the imported file. E.g : "Région Nouvelle - Aquitaine".
 
-        Sometimes, we already have the backer in db, but it is spelled
+        Sometimes, we already have the financer in db, but it is spelled
         differently. E.g : "AFB - Agence Française pour la Biodiversité" vs.
         "Agence Française pour la Biodiversité".
         """
 
-        backers_data = line['nomAttribuant']
+        financers_data = line['nomAttribuant']
 
-        backers = []
-        attribuants = backers_data.split('<|>')
+        financers = []
+        attribuants = financers_data.split('<|>')
         for attribuant in attribuants:
-            backer = self.backers_cache.get(attribuant, None)
-            if backer is None:
+            financer = self.financers_cache.get(attribuant, None)
+            if financer is None:
 
                 # Since there are some differences between the spelling of
-                # the same backers between us and the search data, we
+                # the same financers between us and the search data, we
                 # perform a trigram similarity search.
-                found_backers = Backer.objects \
+                found_financers = Backer.objects \
                     .annotate(sml=TrigramSimilarity('name', attribuant)) \
                     .filter(sml__gt=0.8) \
                     .order_by('-sml')
                 try:
-                    backer = found_backers[0]
+                    financer = found_financers[0]
                 except IndexError:
                     self.stdout.write(self.style.ERROR(
-                        'Creating backer {}'.format(attribuant)))
-                    backer = Backer.objects.create(name=attribuant)
+                        'Creating financer {}'.format(attribuant)))
+                    financer = Backer.objects.create(name=attribuant)
 
-            self.backers_cache[attribuant] = backer
-            backers.append(backer)
-        return backers
+            self.financers_cache[attribuant] = financer
+            financers.append(financer)
+        return financers

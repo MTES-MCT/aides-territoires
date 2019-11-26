@@ -137,7 +137,7 @@ def test_aid_form_requires_a_backer(client, contributor, amendment_form_data):
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 0
 
-    amendment_form_data['backers'] = []
+    amendment_form_data['financers'] = []
     res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 200  # Form not validated
     assert aids.count() == 0
