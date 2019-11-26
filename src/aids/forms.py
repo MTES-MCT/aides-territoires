@@ -100,6 +100,7 @@ class BaseAidForm(forms.ModelForm):
         custom_labels = {
             'name': _('Aid title'),
             'financers': _('Aid financer(s)'),
+            'instructors': _('Aid instructor(s)'),
             'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
             'eligibility': _('Are the any other eligibility criterias?'),
@@ -169,7 +170,15 @@ class AidEditForm(BaseAidForm):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
-        required=False)
+        required=False,
+        help_text=_('Type a few characters and select a value among the list'))
+    instructors = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple,
+        required=False,
+        help_text=_('Type a few characters and select a value among the list'))
+
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
@@ -181,6 +190,7 @@ class AidEditForm(BaseAidForm):
             'tags',
             'targeted_audiances',
             'financers',
+            'instructors',
             'new_backer',
             'recurrence',
             'start_date',
