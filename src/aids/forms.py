@@ -170,7 +170,7 @@ class AidEditForm(BaseAidForm):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
-        required=False,
+        required=True,
         help_text=_('Type a few characters and select a value among the list'))
     instructors = forms.ModelMultipleChoiceField(
         label=_('Backers'),
@@ -191,7 +191,6 @@ class AidEditForm(BaseAidForm):
             'targeted_audiances',
             'financers',
             'instructors',
-            'new_backer',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -235,12 +234,6 @@ class AidEditForm(BaseAidForm):
         """Make sure the aid financers were provided."""
 
         data = self.cleaned_data
-
-        if 'financers' in self.fields:
-            if not any((data.get('financers'), data.get('new_backer'))):
-                msg = _('You must select the aid financers, or create a new one '
-                        'below.')
-                self.add_error('financers', msg)
 
         if 'subvention_rate' in data and data['subvention_rate']:
             lower = data['subvention_rate'].lower
