@@ -57,12 +57,13 @@ class BaseImportCommand(BaseCommand):
         created_counter = 0
         updated_counter = 0
         with transaction.atomic():
-            for aid, financers in aid_and_financers:
+            for aid, financers, instructors in aid_and_financers:
                 try:
                     with transaction.atomic():
-                        aid.set_search_vector(financers)
+                        aid.set_search_vector(financers, instructors)
                         aid.save()
                         aid.financers.set(financers)
+                        aid.instructors.set(instructors)
                         aid.populate_tags()
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
@@ -127,9 +128,10 @@ class BaseImportCommand(BaseCommand):
             values[field] = value
 
         financers = values.pop('financers', [])
+        instructors = values.pop('instructors', [])
         aid = Aid(**values)
 
-        return aid, financers
+        return aid, financers, instructors
 
     def extract_is_imported(self, line):
         return True
@@ -172,6 +174,9 @@ class BaseImportCommand(BaseCommand):
                 break
 
         return is_call_for_project
+
+    def extract_instructors(self, line):
+        return []
 
 
 class CrawlerImportCommand(BaseImportCommand):
