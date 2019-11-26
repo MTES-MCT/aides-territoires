@@ -189,11 +189,30 @@ class AidDetailView(DetailView):
     template_name = 'aids/detail.html'
 
     def get_queryset(self):
-        qs = Aid.objects \
-            .published() \
+        """Get the queryset.
+
+        Since we want to enable aid preview, we have special cases depending
+        on the current user:
+
+         - anonymous or normal users can only see published aids.
+         - contributors can see their own aids.
+         - superusers can see all aids.
+        """
+        base_qs = Aid.objects \
             .open() \
             .select_related('perimeter') \
             .prefetch_related('backers')
+
+        user = self.request.user
+        if user.is_authenticated and user.is_superuser:
+            qs = base_qs
+        elif user.is_authenticated:
+            q_published = Q(status='published')
+            q_is_author = Q(author=user)
+            qs = base_qs.filter(q_published | q_is_author)
+        else:
+            qs = base_qs.published()
+
         return qs
 
     def get_context_data(self, **kwargs):
@@ -347,7 +366,11 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
         aid.save()
         form.save_m2m()
 
-        msg = _('Your aid was sucessfully created. You can keep editing it.')
+        msg = _('Your aid was sucessfully created. You can keep editing it or '
+                '<a href="%(url)s" target="_blank">preview it</a>.') % {
+                    'url': aid.get_absolute_url()
+                }
+
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
 
@@ -378,11 +401,20 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.import_uniqueid = None
             obj.save()
             form.save_m2m()
-            msg = _('The new aid was added. You can keep editing it.')
+            msg = _('The new aid was sucessfully created. You can keep '
+                    'editing it or <a href="%(url)s" target="_blank">'
+                    'preview it</a>.') % {
+                        'url': obj.get_absolute_url()
+                    }
+
             response = HttpResponseRedirect(self.get_success_url())
         else:
-            msg = _('Your aid was sucessfully updated.')
             response = super().form_valid(form)
+            msg = _('The aid was sucessfully updated. You can keep '
+                    'editing it or <a href="%(url)s" target="_blank">'
+                    'preview it</a>.') % {
+                        'url': form.instance.get_absolute_url()
+                    }
 
         self.messages.success(msg)
         return response

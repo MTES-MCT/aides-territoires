@@ -365,20 +365,25 @@ section#aid-edit {
 
             &>div {
                 @extend .card-body;
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
             }
 
             span.help {
                 @extend .text-muted;
             }
 
-            button {
+            button,
+            a.preview-btn {
                 @extend .btn;
                 @extend .btn-block;
                 @extend .btn-primary;
                 @extend .mb-1;
             }
 
-            &.danger {
+            &.action-danger {
                 button {
                     @extend .btn-danger;
                 }

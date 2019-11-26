@@ -34,6 +34,12 @@
         </small>
     </h1>
 
+    {% if not aid.is_published %}
+        <div class="danger">
+            <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
+        </div>
+    {% endif %}
+
     <div class="aid-actions js">
         <button class="bundle"
             data-toggle="modal"
