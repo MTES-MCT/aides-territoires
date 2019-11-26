@@ -6,7 +6,7 @@ from backers.models import Backer
 
 
 class AidInline(admin.TabularInline):
-    model = Backer.aids.through
+    model = Backer.financers_aids.through
     extra = 0
 
 
