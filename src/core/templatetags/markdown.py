@@ -4,6 +4,7 @@ from markdown import markdown
 
 register = template.Library()
 
+
 @register.filter(name='markdown', is_safe=True)
 @stringfilter
 def markdown_filter(content):
