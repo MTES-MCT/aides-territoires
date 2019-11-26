@@ -58,7 +58,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .published() \
             .open() \
             .select_related('perimeter', 'author') \
-            .prefetch_related('financers')
+            .prefetch_related('financers', 'instructors')
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
@@ -200,8 +200,8 @@ class AidDetailView(DetailView):
         """
         base_qs = Aid.objects \
             .open() \
-            .select_related('perimeter') \
-            .prefetch_related('financers')
+            .select_related('perimeter', 'author') \
+            .prefetch_related('financers', 'instructors')
 
         user = self.request.user
         if user.is_authenticated and user.is_superuser:
