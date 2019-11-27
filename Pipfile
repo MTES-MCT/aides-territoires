@@ -22,7 +22,6 @@ beautifulsoup4 = "*"
 scrapy = "*"
 django-pagedown = "*"
 markdown = "*"
-lib = "*"
 
 [dev-packages]
 pytest = "*"
