@@ -1,6 +1,6 @@
 from django import forms
 
-from pagedown.widgets import PagedownWidget, AdminPagedownWidget
+from pagedown.widgets import PagedownWidget
 
 
 class AutocompleteMixin:
