@@ -117,7 +117,7 @@ class BaseAidForm(forms.ModelForm):
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
-            'tags': _('Add up to 16 keywords to describe your aid (separated '
+            'tags': _('Add up to 30 keywords to describe your aid (separated '
                       'by ",")'),
             'contact': _('Feel free to add several contacts'),
         }
