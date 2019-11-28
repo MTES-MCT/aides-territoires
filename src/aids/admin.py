@@ -41,7 +41,6 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
-                'description',
                 'tags',
                 'targeted_audiances',
                 'backers',
@@ -73,6 +72,7 @@ class AidAdmin(admin.ModelAdmin):
                 'subvention_comment',
                 'mobilization_steps',
                 'destinations',
+                'description',
                 'eligibility',
             )
         }),

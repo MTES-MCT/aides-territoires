@@ -7,8 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import (AutocompleteSelectMultiple,
-                                MultipleChoiceFilterWidget)
+from core.forms.widgets import (
+    AutocompleteSelectMultiple, MultipleChoiceFilterWidget,
+    MarkdownEditorWidget, AdminMarkdownEditorWidget)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
@@ -143,6 +144,15 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    description = forms.CharField(
+        widget=AdminMarkdownEditorWidget,
+        help_text=_(
+            'If you have a description, do not hesitate to copy it here.<br>'
+            'Try to complete the description with the maximum'
+            ' of information.<br>'
+            'If you are contacted regularly to ask for the same'
+            ' information, try to give some answers in this space.'))
+
     class Meta:
         widgets = {
             'name': forms.Textarea(attrs={'rows': 3}),
@@ -150,7 +160,7 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-        }
+            }
 
     class Media:
         js = [
@@ -172,6 +182,15 @@ class AidEditForm(BaseAidForm):
         required=False)
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
+
+    description = forms.CharField(
+        widget=MarkdownEditorWidget,
+        help_text=_(
+            'If you have a description, do not hesitate to copy it here.<br>'
+            'Try to complete the description with the maximum'
+            ' of information.<br>'
+            'If you are contacted regularly to ask for the same'
+            ' information, try to give some answers in this space.'))
 
     class Meta:
         model = Aid
@@ -199,7 +218,6 @@ class AidEditForm(BaseAidForm):
             'contact',
         ]
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
             'eligibility': forms.Textarea(attrs={'rows': 3}),
             'contact': forms.Textarea(attrs={'rows': 4}),
             'mobilization_steps': MultipleChoiceFilterWidget,

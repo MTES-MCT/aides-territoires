@@ -184,7 +184,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         max_length=256,
         blank=True)
     description = models.TextField(
-        _('Short description'),
+        _('Full description of the aid and its objectives'),
         blank=False)
     eligibility = models.TextField(
         _('Eligibility'),

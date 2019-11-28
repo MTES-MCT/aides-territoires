@@ -1,0 +1,8 @@
+{% extends 'admin/change_form.html' %}
+{% load compress %}
+
+{% block extrastyle %}{{ block.super }}
+    {% compress css %}
+    <link rel="stylesheet" href="/static/css/markdown_editor.scss" type="text/x-scss" charset="utf-8">
+    {% endcompress %}
+{% endblock %}
