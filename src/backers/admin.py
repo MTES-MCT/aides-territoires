@@ -1,12 +1,11 @@
 from django.contrib import admin
-from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
 from backers.models import Backer
 
 
 class AidInline(admin.TabularInline):
-    model = Backer.financers_aids.through
+    model = Backer.financed_aids.through
     extra = 0
 
 
@@ -23,10 +22,9 @@ class BackerAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.annotate(
-            nb_financed_aids=Count('financers_aids'),
-            nb_instructed_aids=Count('instructors_aids')
-        )
+        qs = qs \
+            .annotate_aids_count(Backer.financed_aids, 'nb_financed_aids') \
+            .annotate_aids_count(Backer.instructed_aids, 'nb_instructed_aids')
         return qs
 
     def nb_financed_aids(self, obj):

@@ -176,12 +176,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         null=True)
     financers = models.ManyToManyField(
         'backers.Backer',
-        related_name='financers_aids',
+        related_name='financed_aids',
         verbose_name=_('Financers'))
     instructors = models.ManyToManyField(
         'backers.Backer',
         blank=True,
-        related_name='instructors_aids',
+        related_name='instructed_aids',
         verbose_name=_('Instructors'))
     new_backer = models.CharField(
         _('New backer'),
