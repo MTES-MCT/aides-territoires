@@ -1,5 +1,7 @@
 from django import forms
 
+from pagedown.widgets import PagedownWidget, AdminPagedownWidget
+
 
 class AutocompleteMixin:
     """Common code for select widget designed to be used with select2.
@@ -77,3 +79,15 @@ class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
     """
 
     template_name = 'forms/widgets/multiple_input.html'
+
+
+class MarkdownEditorWidget(PagedownWidget):
+
+    class Media:
+        css = {
+            'all': ('/static/css/Mypagedown.css',)
+        }
+
+
+class AdminMarkdownEditorWidget(AdminPagedownWidget):
+    pass

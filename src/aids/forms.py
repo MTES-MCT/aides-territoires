@@ -7,14 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import (AutocompleteSelectMultiple,
-                                MultipleChoiceFilterWidget)
+from core.forms.widgets import (
+    AutocompleteSelectMultiple, MultipleChoiceFilterWidget,
+    MarkdownEditorWidget, AdminMarkdownEditorWidget)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
 from aids.models import Aid
-
-from pagedown.widgets import AdminPagedownWidget, PagedownWidget
 
 
 FINANCIAL_AIDS = (
@@ -146,7 +145,7 @@ class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
     description = forms.CharField(
-        widget=AdminPagedownWidget,
+        widget=AdminMarkdownEditorWidget,
         help_text=_(
             'If you have a description, do not hesitate to copy it here.<br>'
             'Try to complete the description with the maximum'
@@ -161,7 +160,6 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-            'description': forms.CharField(widget=AdminPagedownWidget()),
             }
 
     class Media:
@@ -175,15 +173,6 @@ class AidAdminForm(BaseAidForm):
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
 
 
-class MyPagedownWidget(PagedownWidget):
-    """Custom PageDownWidget for AidEditForm."""
-
-    class Media:
-        css = {
-            'all': ('/static/css/Mypagedown.css',)
-        }
-
-
 class AidEditForm(BaseAidForm):
 
     backers = forms.ModelMultipleChoiceField(
@@ -195,7 +184,7 @@ class AidEditForm(BaseAidForm):
         label=_('Perimeter'))
 
     description = forms.CharField(
-        widget=MyPagedownWidget,
+        widget=MarkdownEditorWidget,
         help_text=_(
             'If you have a description, do not hesitate to copy it here.<br>'
             'Try to complete the description with the maximum'
