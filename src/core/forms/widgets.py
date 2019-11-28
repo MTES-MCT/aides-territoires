@@ -84,10 +84,20 @@ class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
 class MarkdownEditorWidget(PagedownWidget):
 
     class Media:
+        extend = False
+        js = ('pagedown/Markdown.Converter.js',
+              'pagedown-extra/pagedown/Markdown.Converter.js',
+              'pagedown/Markdown.Sanitizer.js',
+              'pagedown/Markdown.Editor.js',
+              'pagedown-extra/Markdown.Extra.js',
+              'pagedown_init.js')
+
+
+class AdminMarkdownEditorWidget(MarkdownEditorWidget):
+
+    class Media:
         css = {
-            'all': ('/static/css/Mypagedown.css',)
+            'all': ('admin/css/pagedown.css',)
         }
-
-
-class AdminMarkdownEditorWidget(AdminPagedownWidget):
-    pass
+        js = ('admin/js/jquery.init.js',
+              'admin/js/pagedown.js')
