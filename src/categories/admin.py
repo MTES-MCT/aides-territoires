@@ -17,6 +17,7 @@ class ThemeAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'theme']
     fields = ['name', 'short_description', 'theme']
+    search_fields = ['name', 'theme__name']
     autocomplete_fields = ['theme']
 
 

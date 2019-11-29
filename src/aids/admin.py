@@ -31,10 +31,12 @@ class AidAdmin(admin.ModelAdmin):
         'status'
     ]
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
-    search_fields = ['name', 'perimeter__name', 'financers__name',
-                     'instructors__name']
+    search_fields = [
+        'name', 'perimeter__name', 'financers__name', 'instructors__name'
+    ]
     list_filter = ['status', 'recurrence', 'is_imported',
                    'is_call_for_project']
+    filter_horizontal = ['categories']
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
@@ -44,6 +46,7 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
+                'categories',
                 'tags',
                 'targeted_audiances',
                 'financers',

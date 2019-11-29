@@ -5,6 +5,7 @@ from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms.widgets import (
@@ -13,6 +14,7 @@ from core.forms.widgets import (
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
+from categories.fields import CategoryMultipleChoiceField
 from aids.models import Aid
 
 
@@ -145,7 +147,12 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    categories = CategoryMultipleChoiceField(
+        label=_('categories'),
+        widget=FilteredSelectMultiple(_('Categories'), False),
+    )
     description = forms.CharField(
+        label=_('Description'),
         widget=AdminMarkdownEditorWidget,
         help_text=_(
             'If you have a description, do not hesitate to copy it here.<br>'
