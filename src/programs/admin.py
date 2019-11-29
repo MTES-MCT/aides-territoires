@@ -11,7 +11,7 @@ class AidMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         label_elements = [
             obj.name, obj.perimeter.name if obj.perimeter else '',
-            ', '.join(b.name for b in obj.backers.all())
+            ', '.join(f.name for f in obj.financerss.all())
         ]
         return ' / '.join(filter(None, label_elements))
 
@@ -19,7 +19,7 @@ class AidMultipleChoiceField(forms.ModelMultipleChoiceField):
 published_aids_qs = Aid.objects \
     .published() \
     .select_related('perimeter') \
-    .prefetch_related('backers')
+    .prefetch_related('financers')
 
 
 class ProgramForm(forms.ModelForm):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 15:37+0100\n"
+"POT-Creation-Date: 2019-11-26 14:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,8 +172,11 @@ msgstr "Données liées à l'import"
 msgid "Misc data"
 msgstr "Données diverses"
 
-msgid "Backers"
-msgstr "Apporteurs"
+msgid "Financers"
+msgstr "Financeurs"
+
+msgid "Instructors"
+msgstr "Instructeurs"
 
 msgid "The selected aids were set as CFP"
 msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
@@ -277,11 +280,14 @@ msgstr "Mots clés"
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
-msgid "Aid backer(s)"
-msgstr "Apporteur(s) de l'aide"
+msgid "Aid financer(s)"
+msgstr "Financeur(s) de l'aide"
 
-msgid "…or add a new backer"
-msgstr "…ou ajoutez un nouvel apporteur"
+msgid "Aid instructor(s)"
+msgstr "Instructeur(s) de l'aide"
+
+msgid "…or add a new financer"
+msgstr "…ou ajoutez un nouveau financeur"
 
 msgid "Types of expenses covered"
 msgstr "Types de dépenses / actions couvertes"
@@ -324,6 +330,13 @@ msgstr ""
 "contacte régulièrement pour vous demander les mêmes informations, essayez de "
 "donner des éléments de réponses dans cet espace."
 
+msgid "Backers"
+msgstr "Apporteurs"
+
+msgid "Type a few characters and select a value among the list"
+msgstr "Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions."
+
+
 msgid "Perimeter"
 msgstr "Périmètre"
 
@@ -335,10 +348,6 @@ msgstr "Taux de subvention min."
 
 msgid "Max. subvention rate"
 msgstr "Taux de subvention max."
-
-msgid "You must select the aid backers, or create a new one below."
-msgstr ""
-"Vous devez sélectionner un apporteur existant ou en proposer un nouveau."
 
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
@@ -500,9 +509,6 @@ msgstr "Auteur"
 
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
-
-msgid "On a national level if appropriate"
-msgstr "Au niveau national le cas échéant"
 
 msgid "New backer"
 msgstr "Nouvel apporteur"
@@ -1002,8 +1008,11 @@ msgstr "Votre ville, EPCI, département…"
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
-msgid "Choose backer(s) amoung the list."
-msgstr "Sélectionnez le(s) apporteur(s) parmi la liste."
+msgid "Choose financer(s) among the list."
+msgstr "Sélectionnez le(s) financeurs(s) parmi la liste."
+
+msgid "Choose instructor(s) among the list."
+msgstr "Sélectionnez le(s) instructeur(s) parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"

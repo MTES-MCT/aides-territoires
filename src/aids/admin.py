@@ -26,10 +26,13 @@ class AidAdmin(admin.ModelAdmin):
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
-        'name', 'all_backers', 'author', 'recurrence', 'date_updated',
-        'date_published', 'is_imported', 'import_uniqueid', 'status']
-    autocomplete_fields = ['author', 'backers', 'perimeter']
-    search_fields = ['name', 'perimeter__name', 'backers__name']
+        'name', 'all_financers', 'all_instructors', 'author', 'recurrence',
+        'date_updated', 'date_published', 'is_imported', 'import_uniqueid',
+        'status'
+    ]
+    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
+    search_fields = ['name', 'perimeter__name', 'financers__name',
+                     'instructors__name']
     list_filter = ['status', 'recurrence', 'is_imported',
                    'is_call_for_project']
     readonly_fields = [
@@ -43,7 +46,8 @@ class AidAdmin(admin.ModelAdmin):
                 'slug',
                 'tags',
                 'targeted_audiances',
-                'backers',
+                'financers',
+                'instructors',
                 'new_backer',
                 'author',
             )
@@ -111,14 +115,19 @@ class AidAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = Aid.objects.all()
-        qs = qs.prefetch_related('backers')
+        qs = qs.prefetch_related('financers', 'instructors')
         qs = qs.select_related('author')
         return qs
 
-    def all_backers(self, aid):
-        backers = [backer.name for backer in aid.backers.all()]
-        return ', '.join(backers)
-    all_backers.short_description = _('Backers')
+    def all_financers(self, aid):
+        financers = [backer.name for backer in aid.financers.all()]
+        return ', '.join(financers)
+    all_financers.short_description = _('Financers')
+
+    def all_instructors(self, aid):
+        instructors = [backer.name for backer in aid.instructors.all()]
+        return ', '.join(instructors)
+    all_instructors.short_description = _('Instructors')
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
@@ -148,7 +157,7 @@ class AmendmentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = Aid.amendments.all()
-        qs = qs.prefetch_related('backers')
+        qs = qs.prefetch_related('financers')
         qs = qs.select_related('author')
         return qs
 

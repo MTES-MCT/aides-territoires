@@ -100,8 +100,9 @@ class BaseAidForm(forms.ModelForm):
 
         custom_labels = {
             'name': _('Aid title'),
-            'backers': _('Aid backer(s)'),
-            'new_backer': _('…or add a new backer'),
+            'financers': _('Aid financer(s)'),
+            'instructors': _('Aid instructor(s)'),
+            'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
             'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
@@ -131,9 +132,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        if 'backers' in self.fields:
-            backers = self.cleaned_data['backers']
-            self.instance.set_search_vector(backers)
+        financers = self.cleaned_data.get('financers', None)
+        instructors = self.cleaned_data.get('instructors', None)
+        self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
 
     def _save_m2m(self):
@@ -175,11 +176,19 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
-    backers = forms.ModelMultipleChoiceField(
+    financers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
-        required=False)
+        required=True,
+        help_text=_('Type a few characters and select a value among the list'))
+    instructors = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple,
+        required=False,
+        help_text=_('Type a few characters and select a value among the list'))
+
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
@@ -199,8 +208,8 @@ class AidEditForm(BaseAidForm):
             'description',
             'tags',
             'targeted_audiances',
-            'backers',
-            'new_backer',
+            'financers',
+            'instructors',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -240,15 +249,9 @@ class AidEditForm(BaseAidForm):
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
 
     def clean(self):
-        """Make sure the aid backers were provided."""
+        """Make sure the aid financers were provided."""
 
         data = self.cleaned_data
-
-        if 'backers' in self.fields:
-            if not any((data.get('backers'), data.get('new_backer'))):
-                msg = _('You must select the aid backers, or create a new one '
-                        'below.')
-                self.add_error('backers', msg)
 
         if 'subvention_rate' in data and data['subvention_rate']:
             lower = data['subvention_rate'].lower

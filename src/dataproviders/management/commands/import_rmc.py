@@ -34,7 +34,7 @@ class Command(CrawlerImportCommand):
             .filter(code=BASIN_RHONE_MED_CODE) \
             .get()
 
-        self.backer = Backer.objects.get(
+        self.financer = Backer.objects.get(
             name="Agence de l'eau Rhône Méditerranée Corse")
 
     def extract_author_id(self, line):
@@ -64,8 +64,8 @@ class Command(CrawlerImportCommand):
     def extract_perimeter(self, line):
         return self.perimeter
 
-    def extract_backers(self, line):
-        return [self.backer]
+    def extract_financers(self, line):
+        return [self.financer]
 
     def extract_targeted_audiances(self, line):
         return [Aid.AUDIANCES.epci]

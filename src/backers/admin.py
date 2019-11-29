@@ -1,19 +1,19 @@
 from django.contrib import admin
-from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
 from backers.models import Backer
 
 
 class AidInline(admin.TabularInline):
-    model = Backer.aids.through
+    model = Backer.financed_aids.through
     extra = 0
 
 
 class BackerAdmin(admin.ModelAdmin):
     """Admin module for aid backers."""
 
-    list_display = ['name', 'is_corporate', 'nb_aids']
+    list_display = ['name', 'is_corporate', 'nb_financed_aids',
+                    'nb_instructed_aids']
     search_fields = ['name']
     inlines = [AidInline]
     ordering = ['name']
@@ -22,13 +22,20 @@ class BackerAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.annotate(nb_aids=Count('aids'))
+        qs = qs \
+            .annotate_aids_count(Backer.financed_aids, 'nb_financed_aids') \
+            .annotate_aids_count(Backer.instructed_aids, 'nb_instructed_aids')
         return qs
 
-    def nb_aids(self, obj):
-        return obj.nb_aids
-    nb_aids.short_description = _('Number of aids')
-    nb_aids.admin_order_field = 'nb_aids'
+    def nb_financed_aids(self, obj):
+        return obj.nb_financed_aids
+    nb_financed_aids.short_description = _('Financed aids')
+    nb_financed_aids.admin_order_field = 'nb_financed_aids'
+
+    def nb_instructed_aids(self, obj):
+        return obj.nb_instructed_aids
+    nb_instructed_aids.short_description = _('Instructed aids')
+    nb_instructed_aids.admin_order_field = 'nb_instructed_aids'
 
 
 admin.site.register(Backer, BackerAdmin)

@@ -38,10 +38,10 @@ class BaseImportCommand(BaseCommand):
     def handle(self, *args, **options):
         self.populate_cache(*args, **options)
         data = self.fetch_data(**options)
-        aid_and_backers = []
+        aid_and_financers = []
         for line in data:
             if self.line_should_be_processed(line):
-                aid_and_backers.append(self.process_line(line))
+                aid_and_financers.append(self.process_line(line))
 
         # Let's try to actually save the imported aid.
         #
@@ -57,12 +57,13 @@ class BaseImportCommand(BaseCommand):
         created_counter = 0
         updated_counter = 0
         with transaction.atomic():
-            for aid, backers in aid_and_backers:
+            for aid, financers, instructors in aid_and_financers:
                 try:
                     with transaction.atomic():
-                        aid.set_search_vector(backers)
+                        aid.set_search_vector(financers, instructors)
                         aid.save()
-                        aid.backers.set(backers)
+                        aid.financers.set(financers)
+                        aid.instructors.set(instructors)
                         aid.populate_tags()
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
@@ -126,10 +127,11 @@ class BaseImportCommand(BaseCommand):
             value = extract_method(line) if extract_method else empty_value
             values[field] = value
 
-        backers = values.pop('backers', [])
+        financers = values.pop('financers', [])
+        instructors = values.pop('instructors', [])
         aid = Aid(**values)
 
-        return aid, backers
+        return aid, financers, instructors
 
     def extract_is_imported(self, line):
         return True
@@ -172,6 +174,9 @@ class BaseImportCommand(BaseCommand):
                 break
 
         return is_call_for_project
+
+    def extract_instructors(self, line):
+        return []
 
 
 class CrawlerImportCommand(BaseImportCommand):

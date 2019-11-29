@@ -11,7 +11,7 @@ from aids.models import Aid
 
 
 FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'  # noqa
-BACKER_ID = 22  # The ID of Ademe in the backers database
+BACKER_ID = 22  # The ID of Ademe in the financers database
 ADMIN_ID = 1
 
 # Convert Ademe's `cible` value to our value
@@ -179,5 +179,5 @@ class Command(BaseImportCommand):
 
         return perimeter
 
-    def extract_backers(self, line):
+    def extract_financers(self, line):
         return [self.ademe]
