@@ -161,6 +161,9 @@ class AidAdminForm(BaseAidForm):
             'If you are contacted regularly to ask for the same'
             ' information, try to give some answers in this space.'))
 
+    contact = forms.CharField(
+        widget=AdminMarkdownEditorWidget)
+
     class Meta:
         widgets = {
             'name': forms.Textarea(attrs={'rows': 3}),
@@ -207,6 +210,9 @@ class AidEditForm(BaseAidForm):
             ' of information.<br>'
             'If you are contacted regularly to ask for the same'
             ' information, try to give some answers in this space.'))
+    
+    contact = forms.CharField(
+        widget=MarkdownEditorWidget)
 
     class Meta:
         model = Aid
