@@ -8,7 +8,7 @@ def aid_form_data(user, backer, perimeter):
     return {
         'name': 'Test aid',
         'author': user.id,
-        'backers': [backer.id],
+        'financers': [backer.id],
         'description': 'My aid description',
         'eligibility': 'Aid eligibility info',
         'perimeter': perimeter.id,

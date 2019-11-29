@@ -25,7 +25,7 @@ class Command(CrawlerImportCommand):
             .filter(scale=Perimeter.TYPES.region) \
             .filter(code='76') \
             .get()
-        self.occitanie_backer = Backer.objects.get(name='Région Occitanie')
+        self.occitanie_financer = Backer.objects.get(name='Région Occitanie')
 
     def line_should_be_processed(self, line):
         """Ignore data older than 1 year.
@@ -69,8 +69,8 @@ class Command(CrawlerImportCommand):
     def extract_perimeter(self, line):
         return self.occitanie_perimeter
 
-    def extract_backers(self, line):
-        return [self.occitanie_backer]
+    def extract_financers(self, line):
+        return [self.occitanie_financer]
 
     def extract_tags(self, line):
         thematique = line['thematique']

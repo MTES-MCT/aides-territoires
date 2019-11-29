@@ -25,7 +25,7 @@ class Command(CrawlerImportCommand):
             .filter(code=GRAND_EST_CODE) \
             .get()
 
-        self.backer = Backer.objects.get(
+        self.financer = Backer.objects.get(
             name="Région Grand Est")
 
     def extract_author_id(self, line):
@@ -55,8 +55,8 @@ class Command(CrawlerImportCommand):
     def extract_perimeter(self, line):
         return self.perimeter
 
-    def extract_backers(self, line):
-        return [self.backer]
+    def extract_financers(self, line):
+        return [self.financer]
 
     def extract_contact_detail(self, line):
         return line['contact']

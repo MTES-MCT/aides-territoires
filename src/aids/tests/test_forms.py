@@ -33,84 +33,84 @@ def aids(user, backer):
 
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['commune'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['department'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['region'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['epci'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['lessor'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['association'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['private_person'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['researcher'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
         aid_types=['loan'],
         targeted_audiances=['private_sector'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=['loan'],
         targeted_audiances=[])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=[],
         targeted_audiances=[])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
         aid_types=['technical', 'financial'],

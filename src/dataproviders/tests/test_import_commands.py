@@ -15,8 +15,8 @@ class ImportStub(BaseImportCommand):
 
     def __init__(self, *args, **kwargs):
         self.aids = kwargs.pop('aids')
-        self.backer = kwargs.pop('backer')
-        return super().__init__(*args, **kwargs)
+        self.financer = kwargs.pop('financer')
+        super().__init__(*args, **kwargs)
 
     def populate_cache(self, *args, **kwargs):
         self.author = UserFactory()
@@ -27,8 +27,8 @@ class ImportStub(BaseImportCommand):
     def extract_name(self, line):
         return line.name
 
-    def extract_backers(self, line):
-        return [self.backer]
+    def extract_financers(self, line):
+        return [self.financer]
 
     def extract_import_uniqueid(self, line):
         return line.slug
@@ -52,13 +52,13 @@ class ImportStub(BaseImportCommand):
 def test_importing_new_aids():
     """The import commands create the aids from provided data."""
 
-    backer = BackerFactory()
+    financer = BackerFactory()
     # Use aid factory to gather valid aid data
     aids = AidFactory.build_batch(5)
     for aid in aids:
         aid.set_slug()
 
-    stub = ImportStub(aids=aids, backer=backer)
+    stub = ImportStub(aids=aids, financer=financer)
 
     aids = Aid.objects.all()
     assert aids.count() == 0
@@ -70,13 +70,13 @@ def test_importing_new_aids():
 def test_importing_existing_aids():
     """Import only update aids that already exist."""
 
-    backer = BackerFactory()
+    financer = BackerFactory()
     aids = AidFactory.build_batch(5)
     for aid in aids:
         aid.set_slug()
 
     # The first import task will save aid data to the db
-    stub = ImportStub(aids=aids, backer=backer)
+    stub = ImportStub(aids=aids, financer=financer)
     stub.handle()
 
     aids = Aid.objects.all()

@@ -64,7 +64,7 @@ class Bookmark(models.Model):
             .published() \
             .open() \
             .select_related('perimeter', 'author') \
-            .prefetch_related('backers') \
+            .prefetch_related('financers') \
             .filter(date_published__gte=self.latest_alert_date) \
             .order_by('date_published')
         qs = search_form.filter_queryset(base_qs)
