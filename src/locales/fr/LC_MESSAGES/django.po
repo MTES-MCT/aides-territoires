@@ -277,17 +277,6 @@ msgstr "Remarques :"
 msgid "Tags"
 msgstr "Mots clés"
 
-msgid ""
-"If you have a description, do not hesitate to copy it here.<br>Try to "
-"complete the description with the maximum of information.<br>If you are "
-"contacted regularly to ask for the same information, try to give some "
-"answers in this space."
-msgstr ""
-"Si vous avez un descriptif, n'hésitez pas à le copier ici.<br>Essayez de "
-"compléter le descriptif avec le maximum d'informations.<br>Si l'on vous "
-"contacte régulièrement pour vous demander les mêmes informations, essayez de "
-"donner des éléments de réponses dans cet espace."
-
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
@@ -322,19 +311,31 @@ msgstr ""
 "Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
 "vous pouvez utiliser ce champ pour nous le communiquer."
 
-msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
+msgid "Add up to 30 keywords to describe your aid (separated by \",\")"
 msgstr ""
-"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
+"Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
+
+msgid ""
+"If you have a description, do not hesitate to copy it here.<br>Try to "
+"complete the description with the maximum of information.<br>If you are "
+"contacted regularly to ask for the same information, try to give some "
+"answers in this space."
+msgstr ""
+"Si vous avez un descriptif, n'hésitez pas à le copier ici.<br>Essayez de "
+"compléter le descriptif avec le maximum d'informations.<br>Si l'on vous "
+"contacte régulièrement pour vous demander les mêmes informations, essayez de "
+"donner des éléments de réponses dans cet espace."
 
 msgid "Backers"
 msgstr "Apporteurs"
 
 msgid "Type a few characters and select a value among the list"
 msgstr "Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions."
+
 
 msgid "Perimeter"
 msgstr "Périmètre"
