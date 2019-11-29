@@ -15,6 +15,9 @@ class Theme(models.Model):
         verbose_name = _('Theme')
         verbose_name_plural = _('Themes')
 
+    def __str__(self):
+        return self.name
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -33,3 +36,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+
+    def __str__(self):
+        return self.name
