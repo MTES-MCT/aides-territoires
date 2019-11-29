@@ -16,6 +16,7 @@ from django_xworkflows import models as xwf_models
 
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
+from categories.models import Category
 
 
 class AidQuerySet(models.QuerySet):
@@ -174,6 +175,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'),
         null=True)
+    categories = models.ManyToManyField(
+        'categories.Category',
+        verbose_name=_('Category'),
+        related_name='aids',
+        blank=True)
     financers = models.ManyToManyField(
         'backers.Backer',
         related_name='financed_aids',
