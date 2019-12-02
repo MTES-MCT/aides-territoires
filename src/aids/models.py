@@ -16,7 +16,6 @@ from django_xworkflows import models as xwf_models
 
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
-from categories.models import Category
 
 
 class AidQuerySet(models.QuerySet):
