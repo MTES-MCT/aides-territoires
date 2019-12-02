@@ -14,8 +14,16 @@ def admin_stats(request):
 
     context = {}
     if request.user.is_superuser:
-        aids = Aid.objects.under_review()
-        context['nb_aids_under_review'] = aids.count()
+        manual_aids = Aid.objects.filter(is_imported=False)
+        context['nb_draft_aids'] = manual_aids.drafts().count()
+        context['nb_reviewable_aids'] = manual_aids.under_review().count()
+
+        # Count the number of imported aids that are waiting
+        # to be processed
+        aids = Aid.objects \
+            .filter(is_imported=True) \
+            .filter(status__in=['draft', 'reviewable'])
+        context['nb_waiting_imported_aids'] = aids.count()
 
     return context
 
@@ -24,7 +32,9 @@ def contributor_stats(request):
     """Injects contributor related stats."""
 
     context = {}
-    if request.user.is_authenticated and request.user.is_contributor:
+    if all((request.user.is_authenticated,
+            request.user.is_contributor,
+            not request.user.is_superuser)):
         aids = Aid.objects.drafts().filter(author=request.user)
         context['nb_draft_aids'] = aids.count()
 

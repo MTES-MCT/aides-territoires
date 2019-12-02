@@ -136,8 +136,7 @@ nav#main-navbar {
             &>a {
                 @extend .nav-link;
 
-                span.review-counter,
-                span.draft-counter {
+                span.counter {
                     @extend .badge;
                     @extend .badge-pill;
                     @extend .badge-light;
