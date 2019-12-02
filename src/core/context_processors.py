@@ -10,7 +10,13 @@ def integration(request):
 
 
 def admin_stats(request):
-    """Injects administrator specific data."""
+    """Injects administrator specific data.
+
+    Note: this adds three queries to every single page for admin users.
+
+    Maybe one day, caching could be of some use, but it's premature at this
+    time.
+    """
 
     context = {}
     if request.user.is_superuser:
