@@ -13,6 +13,7 @@ class ShortTextareaMixin:
 
 class CategoryInline(ShortTextareaMixin, admin.TabularInline):
     model = Category
+    ordering = ['name']
 
 
 class ThemeAdmin(ShortTextareaMixin, admin.ModelAdmin):
@@ -20,6 +21,7 @@ class ThemeAdmin(ShortTextareaMixin, admin.ModelAdmin):
     fields = ['name', 'short_description']
     search_fields = ['name']
     inlines = [CategoryInline]
+    ordering = ['name']
 
 
 class CategoryAdmin(ShortTextareaMixin, admin.ModelAdmin):
@@ -27,6 +29,7 @@ class CategoryAdmin(ShortTextareaMixin, admin.ModelAdmin):
     fields = ['name', 'short_description', 'theme']
     search_fields = ['name', 'theme__name']
     autocomplete_fields = ['theme']
+    ordering = ['theme__name', 'name']
 
 
 admin.site.register(Theme, ThemeAdmin)
