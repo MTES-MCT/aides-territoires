@@ -30,6 +30,7 @@ class CategoryAdmin(ShortTextareaMixin, admin.ModelAdmin):
     search_fields = ['name', 'theme__name']
     autocomplete_fields = ['theme']
     ordering = ['theme__name', 'name']
+    list_filter = ['theme']
 
 
 admin.site.register(Theme, ThemeAdmin)
