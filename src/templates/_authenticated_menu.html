@@ -1,6 +1,6 @@
 <ul class="navbar-menu">
     {% if user.is_superuser %}
-    <li>
+    <li class="stat">
         <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=draft">
             {{ _('Drafts') }}
             <span class="counter draft-counter">
@@ -8,7 +8,7 @@
             </span>
         </a>
     </li>
-    <li>
+    <li class="stat">
         <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=reviewable">
             {{ _('Reviewable') }}
             <span class="counter review-counter">
@@ -16,7 +16,7 @@
             </span>
         </a>
     </li>
-    <li>
+    <li class="stat">
         <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=1&status__exact=draft">
             {{ _('Imported') }}
             <span class="counter imported-counter">
@@ -25,7 +25,7 @@
         </a>
     </li>
     {% elif user.is_contibutor %}
-    <li>
+    <li class="stat">
         <a href="{% url 'aid_draft_list_view' %}?order=status">
             {{ _('Draft aids') }}
             <span class="counter draft-counter">
