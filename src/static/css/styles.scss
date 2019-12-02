@@ -204,7 +204,7 @@ nav#main-navbar {
 
 main {
     section.main-content {
-        @extend .container;
+        @extend .container-lg;
         @extend .py-4;
 
         a.main-action,
