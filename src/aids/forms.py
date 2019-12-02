@@ -167,8 +167,8 @@ class AidAdminForm(BaseAidForm):
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
-            'destinations': forms.CheckboxSelectMultiple,
-            }
+            'destinations': forms.CheckboxSelectMultiple
+        }
 
     class Media:
         js = [
