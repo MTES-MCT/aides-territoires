@@ -33,13 +33,24 @@ class Command(CrawlerImportCommand):
         Since the data file contains all aids that ever existed on the
         platform, and there is no way to filter it with *active* aids,
         we are forced to rely on a dummy euristic to not import more than 750
-        new entries, and ignore all data
-        that was last updated more than one year age."""
+        new entries, and ignore all data that was last updated more than one
+        year age.
 
+        There is also a "Type" field which only values (AFAIK) can be:
+         - Aides
+         - Appels à projets
+         - Budgets participatifs
+        …or empty
+
+        So we filter out lines with an empty `type` field.
+
+        """
+
+        line_type = line['type']
         date_updated = line['date_updated']
         now = datetime.now()
         delta = now - date_updated
-        return delta.days < IGNORE_OLDER_THAN
+        return line_type is not None and delta.days < IGNORE_OLDER_THAN
 
     def extract_import_uniqueid(self, line):
         unique_id = 'OCCITANIE_{}'.format(line['uniqueid'])
