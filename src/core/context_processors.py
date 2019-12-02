@@ -38,9 +38,9 @@ def contributor_stats(request):
     """Injects contributor related stats."""
 
     context = {}
-    if all((request.user.is_authenticated,
-            request.user.is_contributor,
-            not request.user.is_superuser)):
+    if request.user.is_authenticated \
+       and request.user.is_contributor \
+       and not request.user.is_superuser:
         aids = Aid.objects.drafts().filter(author=request.user)
         context['nb_draft_aids'] = aids.count()
 
