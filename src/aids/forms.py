@@ -148,7 +148,7 @@ class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
     categories = CategoryMultipleChoiceField(
-        label=_('categories'),
+        label=_('Categories'),
         widget=FilteredSelectMultiple(_('Categories'), False),
     )
     description = forms.CharField(
