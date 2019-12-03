@@ -348,13 +348,13 @@ def test_aids_under_review_menu_is_for_admin_only(client, contributor):
     url = reverse('home')
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Aides en revue' not in res.content.decode('utf-8')
+    assert 'En revue' not in res.content.decode('utf-8')
 
     contributor.is_superuser = True
     contributor.save()
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Aides en revue' in res.content.decode('utf-8')
+    assert 'En revue' in res.content.decode('utf-8')
 
 
 def test_amendment_form_is_accessible_by_anonymous_users(client):
