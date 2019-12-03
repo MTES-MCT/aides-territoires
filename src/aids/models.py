@@ -174,6 +174,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Author'),
         help_text=_('Who is submitting the aid?'),
         null=True)
+    categories = models.ManyToManyField(
+        'categories.Category',
+        verbose_name=_('Categories'),
+        related_name='aids',
+        blank=True)
     financers = models.ManyToManyField(
         'backers.Backer',
         related_name='financed_aids',
