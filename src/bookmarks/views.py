@@ -30,10 +30,14 @@ class BookmarkList(LoginRequiredMixin, BookmarkMixin, ListView):
 class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
     """Create a bookmark by saving a search view querystring.
 
-    This view has to handle two cases:
+    This view has to handle four cases:
 
      1. the user creating the bookmark is already connected.
-     2. the user is just an anonymous visitor and it's email is not validated.
+     2. the user is just an anonymous visitor.
+     3. the user is an anonymous visitor but they already created a
+        bookmark with the same email address.
+     4. the user isn't logged in but their email correspond to a known and
+        valid account.
 
     """
 
