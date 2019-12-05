@@ -802,8 +802,8 @@ msgid ""
 "Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
 "find in in your bookmark list.</a>"
 msgstr ""
-"Votre recherche a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
-"dans votre liste de recherches sauvegardées.</a>"
+"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
+"dans votre liste d'alertes.</a>"
 
 msgid "We just sent you an email to validate your address."
 msgstr "Nous venons d'envoyer un e-mail pour valider votre adresse."
@@ -1109,7 +1109,7 @@ msgid "My bundles"
 msgstr "Mes listes d'aides"
 
 msgid "My bookmarks"
-msgstr "Mes recherches sauvegardées"
+msgstr "Mes alertes"
 
 msgid "Are you a contributor?"
 msgstr "Vous êtes contributeur·ice ?"
@@ -1808,7 +1808,7 @@ msgstr ""
 "avec notre politique de confidentialité</a>."
 
 msgid "Your bookmarks"
-msgstr "Vos recherches sauvegardées"
+msgstr "Vos alertes"
 
 msgid "See results"
 msgstr "Voir les résultats"
@@ -1820,7 +1820,7 @@ msgid "Update bookmark"
 msgstr "Sauvegarder"
 
 msgid "Delete this bookmark"
-msgstr "Supprimer cette recherche"
+msgstr "Supprimer cette alerte"
 
 msgid ""
 "You don't have any bookmarks yet. You can save bookmarks by using the search "
