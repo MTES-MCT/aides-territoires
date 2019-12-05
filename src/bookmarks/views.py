@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from braces.views import MessageMixin
 
 from accounts.forms import RegisterForm
+from accounts.models import User
 from bookmarks.tasks import send_alert_confirmation_email
 from bookmarks.forms import (BookmarkAlertForm, UserBookmarkForm,
                              AnonymousBookmarkForm)
@@ -55,8 +56,18 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
     def form_valid(self, form):
 
         if self.request.user.is_authenticated:
-            owner = self.request.user
-            send_alert = form.cleaned_data['send_email_alert']
+            user_email = self.request.user.email
+        else:
+            user_email = form.cleaned_data['email']
+
+        try:
+            existing_account = User.objects.get(email=user_email)
+        except User.DoesNotExist:
+            existing_account = None
+
+        if existing_account:
+            owner = existing_account
+            send_alert = form.cleaned_data.get('send_email_alert', True)
             bookmark = self.create_bookmark(form, owner, send_alert)
             bookmarks_url = reverse('bookmark_list_view')
             message = _('Your new bookmark was successfully created. '
