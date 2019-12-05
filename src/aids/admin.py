@@ -36,7 +36,8 @@ class AidAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project']
-    filter_horizontal = ['categories']
+
+    filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',

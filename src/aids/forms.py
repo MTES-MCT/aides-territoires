@@ -150,7 +150,7 @@ class AidAdminForm(BaseAidForm):
     categories = CategoryMultipleChoiceField(
         label=_('Categories'),
         required=False,
-        widget=FilteredSelectMultiple(_('Categories'), False))
+        widget=FilteredSelectMultiple(_('Categories'), True))
     description = forms.CharField(
         label=_('Description'),
         widget=AdminMarkdownEditorWidget,
