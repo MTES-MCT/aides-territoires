@@ -34,8 +34,8 @@ class AidAdmin(admin.ModelAdmin):
     search_fields = [
         'name', 'perimeter__name', 'financers__name', 'instructors__name'
     ]
-    list_filter = ['status', 'recurrence', 'is_imported',
-                   'is_call_for_project']
+    list_filter = [
+        'status', 'recurrence', 'is_imported', 'is_call_for_project']
     filter_horizontal = ['categories']
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
