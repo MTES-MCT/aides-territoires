@@ -447,9 +447,6 @@ section#stats {
 
 section#aid {
     h1 {
-        small {
-        }
-
         span.backer-name + span.backer-name:before {
             content: '|';
         }

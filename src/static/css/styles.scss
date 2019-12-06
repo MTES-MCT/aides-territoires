@@ -345,6 +345,7 @@ form {
 h1 {
     small {
         @extend .text-muted;
+        @extend .h3;
     }
 }
 
