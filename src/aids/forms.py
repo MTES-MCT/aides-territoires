@@ -167,7 +167,8 @@ class AidAdminForm(BaseAidForm):
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
-            'destinations': forms.CheckboxSelectMultiple
+            'destinations': forms.CheckboxSelectMultiple,
+            'contact': AdminMarkdownEditorWidget
         }
 
     class Media:
@@ -235,7 +236,7 @@ class AidEditForm(BaseAidForm):
         ]
         widgets = {
             'eligibility': forms.Textarea(attrs={'rows': 3}),
-            'contact': forms.Textarea(attrs={'rows': 4}),
+            'contact': MarkdownEditorWidget,
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
@@ -245,7 +246,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'submission_deadline': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')})
         }
 
     def __init__(self, *args, **kwargs):
