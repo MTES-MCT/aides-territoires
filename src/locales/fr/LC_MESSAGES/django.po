@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 11:38+0100\n"
+"POT-Creation-Date: 2019-12-06 14:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -802,8 +802,8 @@ msgid ""
 "Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
 "find in in your bookmark list.</a>"
 msgstr ""
-"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
-"dans votre liste d'alertes.</a>"
+"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez dans "
+"votre liste d'alertes.</a>"
 
 msgid "We just sent you an email to validate your address."
 msgstr "Nous venons d'envoyer un e-mail pour valider votre adresse."
@@ -1621,6 +1621,18 @@ msgstr "Enregistrer en brouillon"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Financers provide fundings."
+msgstr "Les financeurs apportent les fonds."
+
+msgid "Financer(s):"
+msgstr "Financeur(s) :"
+
+msgid "Instructors locally implement the aid."
+msgstr "Les instructeurs mettent en œuvre au niveau local."
+
+msgid "Instructor(s):"
+msgstr "Instructeur(s) :"
 
 msgid ""
 "Warning! This aid is <strong>currently not published</strong>. You can only "
