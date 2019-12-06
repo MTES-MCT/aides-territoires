@@ -36,8 +36,8 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         for line in form.cleaned_data['city_list']:
             try:
                 code = line.decode().strip().split(';')[0]
-                int_code = int(code)
-                city_codes.append(int_code)
+                clean_code = str(code)
+                city_codes.append(clean_code)
             except (UnicodeDecodeError, ValueError) as e:
                 msg = _('This file seems invalid. \
                         Please double-check its content or contact the \
