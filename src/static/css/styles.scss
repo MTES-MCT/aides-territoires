@@ -25,6 +25,7 @@ html.light {
 }
 
 body {
+
     >footer {
         @extend .py-5;
         @extend .bg-dark;
@@ -67,14 +68,6 @@ body {
                         width: 16rem * 160 / 360;
                     }
                 }
-            }
-        }
-
-        h1 {
-            @extend .h3;
-
-            small {
-                @extend .text-muted;
             }
         }
 
@@ -346,6 +339,12 @@ form {
                 @include icon(before, $fa-var-long-arrow-alt-right);
             }
         }
+    }
+}
+
+h1 {
+    small {
+        @extend .text-muted;
     }
 }
 
