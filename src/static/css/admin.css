@@ -47,3 +47,16 @@ input.is-invalid {
 form#aid_form #id_name {
     width: 610px;
 }
+
+div.field-categories div.selector {
+    width: 800px !important;
+}
+
+div.field-categories div.selector-available,
+div.field-categories div.selector-chosen {
+    width: 100%;
+}
+
+div.field-categories select {
+    width: 100%;
+}

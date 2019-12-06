@@ -12,4 +12,4 @@ class CategoryMultipleChoiceField(ModelMultipleChoiceField):
         super().__init__(queryset, **kwargs)
 
     def label_from_instance(self, obj):
-        return '{} > {}'.format(obj.theme, obj)
+        return '{} > {}'.format(obj.theme.name.upper(), obj)
