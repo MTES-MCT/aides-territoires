@@ -153,13 +153,12 @@ class AidAdminForm(BaseAidForm):
         widget=FilteredSelectMultiple(_('Categories'), True))
     description = forms.CharField(
         label=_('Description'),
-        widget=AdminMarkdownEditorWidget,
-        help_text=_(
-            'If you have a description, do not hesitate to copy it here.<br>'
-            'Try to complete the description with the maximum'
-            ' of information.<br>'
-            'If you are contacted regularly to ask for the same'
-            ' information, try to give some answers in this space.'))
+        widget=AdminMarkdownEditorWidget(attrs={'placeholder': _(
+            'If you have a description, do not hesitate to copy it here.\n'
+            'Try to complete the description with the maximum of'
+            ' information.\n'
+            'If you are contacted regularly to ask for the same information,'
+            ' try to give some answers in this space.')}))
 
     class Meta:
         widgets = {
@@ -201,13 +200,12 @@ class AidEditForm(BaseAidForm):
         label=_('Perimeter'))
 
     description = forms.CharField(
-        widget=MarkdownEditorWidget,
-        help_text=_(
-            'If you have a description, do not hesitate to copy it here.<br>'
-            'Try to complete the description with the maximum'
-            ' of information.<br>'
-            'If you are contacted regularly to ask for the same'
-            ' information, try to give some answers in this space.'))
+        widget=MarkdownEditorWidget(attrs={'placeholder': _(
+            'If you have a description, do not hesitate to copy it here.\n'
+            'Try to complete the description with the maximum of'
+            ' information.\n'
+            'If you are contacted regularly to ask for the same information,'
+            ' try to give some answers in this space.')}))
 
     class Meta:
         model = Aid
