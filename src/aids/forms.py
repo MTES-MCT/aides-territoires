@@ -161,16 +161,15 @@ class AidAdminForm(BaseAidForm):
             'If you are contacted regularly to ask for the same'
             ' information, try to give some answers in this space.'))
 
-    contact = forms.CharField(
-        widget=AdminMarkdownEditorWidget)
-
     class Meta:
         widgets = {
             'name': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
-            'destinations': forms.CheckboxSelectMultiple
+            'destinations': forms.CheckboxSelectMultiple,
+            'contact': AdminMarkdownEditorWidget
+            
         }
 
     class Media:
@@ -211,9 +210,6 @@ class AidEditForm(BaseAidForm):
             'If you are contacted regularly to ask for the same'
             ' information, try to give some answers in this space.'))
 
-    contact = forms.CharField(
-        widget=MarkdownEditorWidget)
-
     class Meta:
         model = Aid
         fields = [
@@ -252,6 +248,7 @@ class AidEditForm(BaseAidForm):
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'submission_deadline': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+            'contact': AdminMarkdownEditorWidget
         }
 
     def __init__(self, *args, **kwargs):
