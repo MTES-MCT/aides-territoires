@@ -24,8 +24,9 @@
     <h1>
         {{ aid.name }}
         <br /><small>
+        <span title="{{ _('Financers provide fundings.') }}">{{ _('Financer(s):') }}</title>
         {% for financer in aid.financers.all %}
-            <span class="financer-name">
+            <span class="backer-name">
                 {{ financer }}
                 {% if financer.is_corporate %}
                     ({{ _('Corporate') }})
@@ -33,6 +34,21 @@
             </span>
         {% endfor %}
         </small>
+
+        {% if aid.instructors.all %}
+        <br /><small>
+        <span title="{{ _('Instructors locally implement the aid.') }}">{{ _('Instructor(s):') }}</span>
+        {% for instructor in aid.instructors.all %}
+            <span class="backer-name">
+                {{ instructor }}
+                {% if instructor.is_corporate %}
+                    ({{ _('Corporate') }})
+                {% endif %}
+            </span>
+        {% endfor %}
+        </small>
+        {% endif %}
+
     </h1>
 
     {% if not aid.is_published %}

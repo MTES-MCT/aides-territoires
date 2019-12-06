@@ -11,7 +11,7 @@
             {{ aid.name }}
             <br /><small>
                 {% for financer in aid.financers.all %}
-                    <span class="financer-name">
+                    <span class="backer-name">
                         {{ financer }}
                         {% if financer.is_corporate %}
                             ({{ _('Corporate') }})
