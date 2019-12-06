@@ -152,7 +152,7 @@ class AidAdminForm(BaseAidForm):
         required=False,
         widget=FilteredSelectMultiple(_('Categories'), True))
     description = forms.CharField(
-        label=_('Description'),
+        label=_('Full description of the aid and its objectives'),
         widget=AdminMarkdownEditorWidget(attrs={'placeholder': _(
             'If you have a description, do not hesitate to copy it here.\n'
             'Try to complete the description with the maximum of'
@@ -200,6 +200,7 @@ class AidEditForm(BaseAidForm):
         label=_('Perimeter'))
 
     description = forms.CharField(
+        label=_('Full description of the aid and its objectives'),
         widget=MarkdownEditorWidget(attrs={'placeholder': _(
             'If you have a description, do not hesitate to copy it here.\n'
             'Try to complete the description with the maximum of'
