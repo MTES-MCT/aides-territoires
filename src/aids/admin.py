@@ -51,8 +51,9 @@ class AidAdmin(admin.ModelAdmin):
                 'tags',
                 'targeted_audiances',
                 'financers',
+                'financer_suggestion',
                 'instructors',
-                'new_backer',
+                'instructor_suggestion',
                 'author',
             )
         }),

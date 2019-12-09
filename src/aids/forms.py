@@ -68,6 +68,19 @@ CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
 
 
 class BaseAidForm(forms.ModelForm):
+    financer_suggestion = forms.CharField(
+        label=_('Suggest a new financer'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest a financer if you don\'t find '
+                    'the correct choice in the list above.'))
+    instructor_suggestion = forms.CharField(
+        label=_('Suggest a new instructor'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest an instructor if you don\'t find '
+                    'the correct choice in the list above.'))
+
     tags = TagChoiceField(
         label=_('Tags'),
         choices=list,
@@ -146,7 +159,18 @@ class BaseAidForm(forms.ModelForm):
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
-
+    financer_suggestion = forms.CharField(
+        label=_('Financer suggestion'),
+        max_length=256,
+        required=False,
+        help_text=_('This financer was suggested. Add it to the global list '
+                    'then add it to this aid with the field above.'))
+    instructor_suggestion = forms.CharField(
+        label=_('Instructor suggestion'),
+        max_length=256,
+        required=False,
+        help_text=_('This instructor was suggested. Add it to the global list '
+                    'then add it to this aid with the field above.'))
     categories = CategoryMultipleChoiceField(
         label=_('Categories'),
         required=False,
@@ -187,7 +211,7 @@ class AidEditForm(BaseAidForm):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
-        required=True,
+        required=False,
         help_text=_('Type a few characters and select a value among the list'))
     instructors = forms.ModelMultipleChoiceField(
         label=_('Backers'),
@@ -259,6 +283,12 @@ class AidEditForm(BaseAidForm):
         """Make sure the aid financers were provided."""
 
         data = self.cleaned_data
+
+        if 'financers' in self.fields:
+            if not any((data.get('financers'),
+                        data.get('financer_suggestion'))):
+                msg = _('Please provide a financer, or suggest a new one.')
+                self.add_error('financers', msg)
 
         if 'subvention_rate' in data and data['subvention_rate']:
             lower = data['subvention_rate'].lower
