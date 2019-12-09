@@ -26,6 +26,13 @@
         {% endcompress %}
 
         {% block extra_head %}{% endblock %}
+
+        <script>
+            // Add class to indicate that js is available
+            var html = document.documentElement;
+            html.classList.remove('nojs');
+            html.classList.add('js');
+        </script>
     </head>
     <body>
 
@@ -116,11 +123,6 @@
 
             // Hotjar variables
             var hotjar_siteid = {% hotjar_siteid %};
-
-            // Add html js detection class
-            $(document).ready(function() {
-                $('html').removeClass('nojs').addClass('js');
-            });
         </script>
         {% block extra_js %}{% endblock %}
         {% endcompress %}
