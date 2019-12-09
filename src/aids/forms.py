@@ -73,13 +73,13 @@ class BaseAidForm(forms.ModelForm):
         max_length=256,
         required=False,
         help_text=_('Suggest a financer if you don\'t find '
-                    'the correct choice in the list above.'))
+                    'the correct choice in the main list.'))
     instructor_suggestion = forms.CharField(
         label=_('Suggest a new instructor'),
         max_length=256,
         required=False,
         help_text=_('Suggest an instructor if you don\'t find '
-                    'the correct choice in the list above.'))
+                    'the correct choice in the main list.'))
 
     tags = TagChoiceField(
         label=_('Tags'),
