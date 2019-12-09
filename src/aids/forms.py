@@ -159,6 +159,7 @@ class BaseAidForm(forms.ModelForm):
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
+
     financer_suggestion = forms.CharField(
         label=_('Financer suggestion'),
         max_length=256,
