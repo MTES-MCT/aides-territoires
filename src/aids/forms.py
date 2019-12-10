@@ -68,18 +68,6 @@ CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
 
 
 class BaseAidForm(forms.ModelForm):
-    financer_suggestion = forms.CharField(
-        label=_('Suggest a new financer'),
-        max_length=256,
-        required=False,
-        help_text=_('Suggest a financer if you don\'t find '
-                    'the correct choice in the main list.'))
-    instructor_suggestion = forms.CharField(
-        label=_('Suggest a new instructor'),
-        max_length=256,
-        required=False,
-        help_text=_('Suggest an instructor if you don\'t find '
-                    'the correct choice in the main list.'))
 
     tags = TagChoiceField(
         label=_('Tags'),
@@ -140,6 +128,28 @@ class BaseAidForm(forms.ModelForm):
         for field, help_text in custom_help_text.items():
             if field in self.fields:
                 self.fields[field].help_text = help_text
+
+    def clean(self):
+        """Custom validation routine."""
+
+        data = self.cleaned_data
+
+        if 'financers' in self.fields:
+            if not any((data.get('financers'),
+                        data.get('financer_suggestion'))):
+                msg = _('Please provide a financer, or suggest a new one.')
+                self.add_error('financers', msg)
+
+        if 'subvention_rate' in data and data['subvention_rate']:
+            lower = data['subvention_rate'].lower
+            upper = data['subvention_rate'].upper
+            if lower and not upper:
+                msg = _('Please indicate the maximum subvention rate.')
+                self.add_error(
+                    'subvention_rate',
+                    ValidationError(msg, code='missing_upper_bound'))
+
+        return data
 
     def save(self, commit=True):
         """Saves the instance.
@@ -203,6 +213,7 @@ class AidAdminForm(BaseAidForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['financers'].required = False
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
 
 
@@ -214,12 +225,24 @@ class AidEditForm(BaseAidForm):
         widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
+    financer_suggestion = forms.CharField(
+        label=_('Suggest a new financer'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest a financer if you don\'t find '
+                    'the correct choice in the main list.'))
     instructors = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
+    instructor_suggestion = forms.CharField(
+        label=_('Suggest a new instructor'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest an instructor if you don\'t find '
+                    'the correct choice in the main list.'))
 
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
@@ -241,7 +264,9 @@ class AidEditForm(BaseAidForm):
             'tags',
             'targeted_audiances',
             'financers',
+            'financer_suggestion',
             'instructors',
+            'instructor_suggestion',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -280,27 +305,6 @@ class AidEditForm(BaseAidForm):
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
 
-    def clean(self):
-        """Make sure the aid financers were provided."""
-
-        data = self.cleaned_data
-
-        if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
-                self.add_error('financers', msg)
-
-        if 'subvention_rate' in data and data['subvention_rate']:
-            lower = data['subvention_rate'].lower
-            upper = data['subvention_rate'].upper
-            if lower and not upper:
-                msg = _('Please indicate the maximum subvention rate.')
-                self.add_error(
-                    'subvention_rate',
-                    ValidationError(msg, code='missing_upper_bound'))
-
-        return data
 
 
 class AidAmendForm(AidEditForm):
