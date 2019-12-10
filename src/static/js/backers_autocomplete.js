@@ -11,7 +11,7 @@
      * Hide the backer suggestion field using bootstrap's collapse mechanism
      */
     exports.hideSuggestionField = function (field) {
-        var field = $('#form-group-' + field);
+        var field = $('form#aid-edit-form #form-group-' + field);
         var input = field.find('input');
 
         // Note: don't hide the field if it actually holds a value

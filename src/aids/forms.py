@@ -306,7 +306,6 @@ class AidEditForm(BaseAidForm):
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
 
 
-
 class AidAmendForm(AidEditForm):
     amendment_author_name = forms.CharField(
         label=_('Who are you?'),
