@@ -55,7 +55,7 @@
 
 - name: Download the sass binary
   get_url:
-    url: https://github.com/sass/dart-sass/releases/download/1.23.0/dart-sass-1.23.0-linux-x64.tar.gz
+    url: https://github.com/sass/dart-sass/releases/download/1.23.7/dart-sass-1.23.7-linux-x64.tar.gz
     dest: /tmp/sass.tgz
 
 - name: Extracts sass binary
