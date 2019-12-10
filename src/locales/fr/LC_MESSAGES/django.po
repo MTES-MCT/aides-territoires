@@ -1419,7 +1419,7 @@ msgid ""
 "modification that was suggested."
 msgstr ""
 "Pour chaque champ sont affichés 1/ le champ de formulaire pré-rempli avec la "
-"donnée actuelle et 2/ les différences avec la valeus suggérée."
+"donnée actuelle et 2/ les différences avec la valeur suggérée."
 
 msgid "See the aid detail"
 msgstr "Voir le détail de l'aide"
