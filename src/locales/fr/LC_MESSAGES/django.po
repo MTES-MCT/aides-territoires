@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 16:50+0100\n"
+"POT-Creation-Date: 2019-12-12 15:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,8 +322,8 @@ msgstr "N'hésitez pas à ajouter plusieurs contacts"
 msgid "Categories"
 msgstr "Catégories"
 
-msgid "Description"
-msgstr "Description"
+msgid "Full description of the aid and its objectives"
+msgstr "Description complète de l'aide et de ses objectifs"
 
 msgid ""
 "If you have a description, do not hesitate to copy it here.\n"
@@ -519,9 +519,6 @@ msgstr "Qui renseigne cette aide ?"
 
 msgid "New backer"
 msgstr "Nouvel apporteur"
-
-msgid "Full description of the aid and its objectives"
-msgstr "Description complète de l'aide et de ses objectifs"
 
 msgid "Eligibility"
 msgstr "Éligibilité"
@@ -960,6 +957,9 @@ msgstr "confirmation-inscription-liste/"
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
+msgid "Description"
+msgstr "Description"
+
 msgid "Aid program"
 msgstr "Programme d'aides"
 
@@ -1382,6 +1382,15 @@ msgstr "Mettre à jour l'aide et supprimer l'amendement"
 
 msgid "Cancel and go back to the amendment list"
 msgstr "Annuler et revenir à la liste des amendements"
+
+msgid "Contains the following perimeters"
+msgstr "Contient les périmètres suivants"
+
+msgid "Toggle perimeters"
+msgstr "Afficher / masquer les périmètres"
+
+msgid "This does not contain any other perimeter"
+msgstr "Ne contient pas d'autres périmètres"
 
 msgid "Upload city list"
 msgstr "Télécharger la liste des communes"
