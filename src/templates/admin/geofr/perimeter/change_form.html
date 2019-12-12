@@ -1,0 +1,33 @@
+{% extends 'admin/change_form.html' %}
+
+{% block after_field_sets %}
+<div class="perimeter-list inline-group">
+    <fieldset>
+        <h2>
+            {{ _('Contains the following perimeters') }} ↴
+            <button id="toggle-perimeters" class="reveal-btn">
+                {{ _('Toggle perimeters ') }}
+            </button>
+        </h2>
+
+        <ul id="contained-perimeter-list" class="hidden">
+        {% for perimeter in contained_perimeters %}
+            <li>{{ perimeter }}</li>
+        {% empty %}
+            <li>{{ _('This does not contain any other perimeter') }}</li>
+        {% endfor %}
+        </ul>
+    </fieldset>
+</div>
+{% endblock %}
+
+{% block admin_change_form_document_ready %}{{ block.super }}
+<script>
+    var revealBtn = document.getElementById('toggle-perimeters');
+    var perimeterList = document.getElementById('contained-perimeter-list');
+    revealBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        perimeterList.classList.toggle('hidden');
+    });
+</script>
+{% endblock %}

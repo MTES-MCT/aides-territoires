@@ -60,3 +60,13 @@ div.field-categories div.selector-chosen {
 div.field-categories select {
     width: 100%;
 }
+
+.perimeter-list h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.perimeter-list ul {
+    margin-top: 1em;
+}
