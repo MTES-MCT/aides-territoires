@@ -85,6 +85,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+<link rel="stylesheet" href="/static/trumbowyg/dist/ui/trumbowyg.css" type="text/css" charset="utf-8">
 {% endblock %}
 
 {% block extra_js %}
@@ -97,4 +98,25 @@
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
 <script src="/static/js/aids/toggle_subvention_related_fields.js"></script>
 <script src="/static/js/aids/enable_softmaxlength.js"></script>
+<script src="/static/trumbowyg/dist/trumbowyg.js"></script>
+<script src="/static/trumbowyg/dist/langs/fr.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('textarea.textarea-wysiwyg').trumbowyg({
+            lang: 'fr',
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em'],
+                ['link'],
+                ['unorderedList', 'orderedList'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+            minimalLinks: true,
+        });
+    });
+</script>
 {% endblock %}
