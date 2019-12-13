@@ -7,7 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2019-12-12 15:26+0100\n"
+||||||| merged common ancestors
+"POT-Creation-Date: 2019-12-06 16:50+0100\n"
+=======
+"POT-Creation-Date: 2019-12-10 11:07+0100\n"
+>>>>>>> Update translations
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,6 +280,24 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
+msgid "Suggest a new financer"
+msgstr "Suggérer un nouveau financeur"
+
+msgid ""
+"Suggest a financer if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un financeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
+
+msgid "Suggest a new instructor"
+msgstr "Suggérer un nouvel instructeur"
+
+msgid ""
+"Suggest an instructor if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
+
 msgid "Tags"
 msgstr "Mots clés"
 
@@ -319,6 +343,26 @@ msgstr ""
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
 
+msgid "Financer suggestion"
+msgstr "Financeurs suggérés"
+
+msgid ""
+"This financer was suggested. Add it to the global list then add it to this "
+"aid with the field above."
+msgstr ""
+"Ce financeur a été suggéré. Créez le nouvel apporteur et ajouter le en tant "
+"que financeur via le champ approprié."
+
+msgid "Instructor suggestion"
+msgstr "Instructeurs suggérés"
+
+msgid ""
+"This instructor was suggested. Add it to the global list then add it to this "
+"aid with the field above."
+msgstr ""
+"Cet instructeur a été suggéré. Créez le nouvel apporteur et ajouter le en "
+"tant qu'instructeur via le champ approprié."
+
 msgid "Categories"
 msgstr "Catégories"
 
@@ -355,6 +399,9 @@ msgstr "Taux de subvention min."
 
 msgid "Max. subvention rate"
 msgstr "Taux de subvention max."
+
+msgid "Please provide a financer, or suggest a new one."
+msgstr "Merci d'indiquer un financeur."
 
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
@@ -1027,6 +1074,15 @@ msgstr "Mentions légales"
 msgid "Source code"
 msgstr "Code source"
 
+msgid ""
+"We <strong>could not process</strong> your form because it contains some "
+"errors. Please check your submission below and fix all errors before trying "
+"again."
+msgstr ""
+"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
+"données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
+"vérifier votre saisie et corriger les erreurs avant de réessayer."
+
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, EPCI, département…"
 
@@ -1081,14 +1137,11 @@ msgstr ""
 "Êtes-vous certain·e de vouloir quitter cette page ? Vos modifications seront "
 "perdues."
 
-msgid ""
-"We <strong>could not process</strong> your form because it contains some "
-"errors. Please check your submission below and fix all errors before trying "
-"again."
-msgstr ""
-"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
-"données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
-"vérifier votre saisie et corriger les erreurs avant de réessayer."
+msgid "No results were found."
+msgstr "Aucun résultat trouvé."
+
+msgid "Suggest a new backer"
+msgstr "Suggérer un nouveau"
 
 msgid "Your profile"
 msgstr "Votre profil"
@@ -1366,7 +1419,7 @@ msgid ""
 "modification that was suggested."
 msgstr ""
 "Pour chaque champ sont affichés 1/ le champ de formulaire pré-rempli avec la "
-"donnée actuelle et 2/ les différences avec la valeus suggérée."
+"donnée actuelle et 2/ les différences avec la valeur suggérée."
 
 msgid "See the aid detail"
 msgstr "Voir le détail de l'aide"
