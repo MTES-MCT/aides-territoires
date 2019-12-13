@@ -8,8 +8,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import (AutocompleteSelectMultiple,
-                                MultipleChoiceFilterWidget)
+from core.forms import (
+    AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
@@ -72,7 +72,7 @@ class BaseAidForm(forms.ModelForm):
         label=_('Tags'),
         choices=list,
         required=False)
-    description = forms.CharField(
+    description = RichTextField(
         label=_('Full description of the aid and its objectives'),
         widget=forms.Textarea(attrs={'placeholder': _(
             'If you have a description, do not hesitate to copy it here.\n'
