@@ -296,9 +296,17 @@ msgstr "Autres critères d'éligibilité ?"
 
 msgid "Contact"
 msgstr "Contact"
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
+
+msgid "Call for project / Call for expressions of interest"
+msgstr "Appel à projet / Manifestation d'intérêt"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
@@ -322,7 +330,7 @@ msgid "Link to an online application form"
 msgstr "Lien vers la démarche en ligne"
 
 msgid "Is this a call for project / expressions of interest?"
-msgstr "S'agit-il d'un AAP / AMI ?"
+msgstr "S'agit-il d'un Appel à projet / manifestation d'intérêt ?"
 
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
@@ -335,6 +343,12 @@ msgid "Add up to 30 keywords to describe your aid (separated by \",\")"
 msgstr ""
 "Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
+
+msgid "Please provide a financer, or suggest a new one."
+msgstr "Merci d'indiquer un financeur."
+
+msgid "Please indicate the maximum subvention rate."
+msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Please provide a financer, or suggest a new one."
 msgstr "Merci d'indiquer un financeur."
@@ -626,9 +640,6 @@ msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
-
-msgid "Call for project / Call for expressions of interest"
-msgstr "Appel à projet / manifestation d'intérêt"
 
 msgid "Status"
 msgstr "Statut"
