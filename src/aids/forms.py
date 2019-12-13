@@ -77,6 +77,7 @@ YES_OR_NO = (
     (False, _('No'))
 )
 
+
 class BaseAidForm(forms.ModelForm):
 
     tags = TagChoiceField(
