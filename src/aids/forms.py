@@ -58,12 +58,19 @@ AUDIANCES = (
 )
 
 
-CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
-    _('First / last name: '),
-    _('Email: '),
-    _('Phone: '),
-    _('Comments: '),
-)
+CONTACT_INITIAL = '''
+    <ul>
+        <li>{}</li>
+        <li>{}</li>
+        <li>{}</li>
+        <li>{}</li>
+    </ul>
+    '''.format(
+        _('First / last name: '),
+        _('Email: '),
+        _('Phone: '),
+        _('Comments: '),
+    )
 
 
 class BaseAidForm(forms.ModelForm):
@@ -80,6 +87,14 @@ class BaseAidForm(forms.ModelForm):
             ' information.\n'
             'If you are contacted regularly to ask for the same information,'
             ' try to give some answers in this space.')}))
+    eligibility = RichTextField(
+        label=_('Are the any other eligibility criterias?'),
+        required=False)
+    contact = RichTextField(
+        label=_('Contact'),
+        required=False,
+        initial=CONTACT_INITIAL,
+        help_text=_('Feel free to add several contacts'))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -92,9 +107,6 @@ class BaseAidForm(forms.ModelForm):
 
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
-
-        if 'contact' in self.fields:
-            self.fields['contact'].initial = CONTACT_INITIAL
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
@@ -114,7 +126,6 @@ class BaseAidForm(forms.ModelForm):
             'instructors': _('Aid instructor(s)'),
             'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
-            'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
             'application_url': _('Link to an online application form'),
             'is_call_for_project': _('Is this a call for project / expressions'
@@ -130,7 +141,6 @@ class BaseAidForm(forms.ModelForm):
                   'field to add a new one.'),
             'tags': _('Add up to 30 keywords to describe your aid (separated '
                       'by ",")'),
-            'contact': _('Feel free to add several contacts'),
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -273,7 +283,6 @@ class AidEditForm(BaseAidForm):
             'contact',
         ]
         widgets = {
-            'eligibility': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
