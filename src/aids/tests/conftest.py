@@ -20,4 +20,5 @@ def aid_form_data(user, backer, perimeter):
         'start_date': '01/01/2019',
         'publication_status': 'open',
         'status': 'published',
+        'is_call_for_project': True,
     }

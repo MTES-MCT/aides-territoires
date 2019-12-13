@@ -72,6 +72,10 @@ CONTACT_INITIAL = '''
         _('Comments: '),
     )
 
+YES_OR_NO = (
+    (True, _('Yes')),
+    (False, _('No'))
+)
 
 class BaseAidForm(forms.ModelForm):
 
@@ -95,6 +99,11 @@ class BaseAidForm(forms.ModelForm):
         required=False,
         initial=CONTACT_INITIAL,
         help_text=_('Feel free to add several contacts'))
+    is_call_for_project = forms.TypedChoiceField(
+        label=_('Call for project / Call for expressions of interest'),
+        required=True,
+        choices=YES_OR_NO,
+        widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
