@@ -297,10 +297,10 @@ msgstr "Autres critères d'éligibilité ?"
 msgid "Contact"
 msgstr "Contact"
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
