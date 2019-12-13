@@ -8,9 +8,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import (
-    AutocompleteSelectMultiple, MultipleChoiceFilterWidget,
-    MarkdownEditorWidget, AdminMarkdownEditorWidget)
+from core.forms.widgets import (AutocompleteSelectMultiple,
+                                MultipleChoiceFilterWidget)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
@@ -73,6 +72,14 @@ class BaseAidForm(forms.ModelForm):
         label=_('Tags'),
         choices=list,
         required=False)
+    description = forms.CharField(
+        label=_('Full description of the aid and its objectives'),
+        widget=forms.Textarea(attrs={'placeholder': _(
+            'If you have a description, do not hesitate to copy it here.\n'
+            'Try to complete the description with the maximum of'
+            ' information.\n'
+            'If you are contacted regularly to ask for the same information,'
+            ' try to give some answers in this space.')}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -186,14 +193,6 @@ class AidAdminForm(BaseAidForm):
         label=_('Categories'),
         required=False,
         widget=FilteredSelectMultiple(_('Categories'), True))
-    description = forms.CharField(
-        label=_('Full description of the aid and its objectives'),
-        widget=AdminMarkdownEditorWidget(attrs={'placeholder': _(
-            'If you have a description, do not hesitate to copy it here.\n'
-            'Try to complete the description with the maximum of'
-            ' information.\n'
-            'If you are contacted regularly to ask for the same information,'
-            ' try to give some answers in this space.')}))
 
     class Meta:
         widgets = {
@@ -202,7 +201,6 @@ class AidAdminForm(BaseAidForm):
             'targeted_audiances': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
-            'contact': AdminMarkdownEditorWidget
         }
 
     class Media:
@@ -247,15 +245,6 @@ class AidEditForm(BaseAidForm):
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
-    description = forms.CharField(
-        label=_('Full description of the aid and its objectives'),
-        widget=MarkdownEditorWidget(attrs={'placeholder': _(
-            'If you have a description, do not hesitate to copy it here.\n'
-            'Try to complete the description with the maximum of'
-            ' information.\n'
-            'If you are contacted regularly to ask for the same information,'
-            ' try to give some answers in this space.')}))
-
     class Meta:
         model = Aid
         fields = [
@@ -285,7 +274,6 @@ class AidEditForm(BaseAidForm):
         ]
         widgets = {
             'eligibility': forms.Textarea(attrs={'rows': 3}),
-            'contact': MarkdownEditorWidget,
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
