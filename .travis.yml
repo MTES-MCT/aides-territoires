@@ -7,10 +7,12 @@ language: python
 python:
   - "3.7"
 addons:
-  postgresql: "11"
+  postgresql: "10"
   firefox: "latest"
   apt_packages:
     - language-pack-fr
+services:
+  - postgres
 before_install:
  - sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
  - locale
