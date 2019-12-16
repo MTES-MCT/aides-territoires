@@ -70,3 +70,13 @@ div.field-categories select {
 .perimeter-list ul {
     margin-top: 1em;
 }
+
+.trumbowyg-box {
+    margin-left: 170px !important;
+    max-width: 800px;
+}
+
+form .aligned .trumbowyg-box ul {
+    margin-left: inherit;
+    padding-left: inherit;
+}
