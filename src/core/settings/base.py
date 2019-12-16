@@ -32,7 +32,6 @@ THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
     'django_xworkflows',
-    'pagedown.apps.PagedownConfig',
 ]
 
 LOCAL_APPS = [
