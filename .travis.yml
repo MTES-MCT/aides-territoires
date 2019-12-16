@@ -12,7 +12,7 @@ addons:
   apt_packages:
     - language-pack-fr
 services:
-  - postgres
+  - postgresql
 before_install:
  - sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
  - locale
