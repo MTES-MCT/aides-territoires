@@ -5,5 +5,5 @@ from core.forms.fields import RichTextField
 
 __all__ = [
     'AutocompleteSelect', 'AutocompleteSelectMultiple',
-    'MultipleChoiceFilterWidget', 'RichTextField,'
+    'MultipleChoiceFilterWidget', 'RichTextField',
 ]
