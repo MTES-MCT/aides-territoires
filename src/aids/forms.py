@@ -213,12 +213,6 @@ class AidAdminForm(BaseAidForm):
             'destinations': forms.CheckboxSelectMultiple,
         }
 
-    class Media:
-        js = [
-            'admin/js/jquery.init.js',
-            'admin/js/tags_autocomplete.js'
-        ]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['financers'].required = False
