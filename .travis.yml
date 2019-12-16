@@ -1,13 +1,13 @@
-dist: xenial
+dist: bionic
 env:
   global:
     - LANG=fr_FR.UTF-8
     - LC_ALL=fr_FR.UTF-8
 language: python
 python:
-  - "3.5"
+  - "3.7"
 addons:
-  postgresql: "9.6"
+  postgresql: "11"
   firefox: "latest"
   apt_packages:
     - language-pack-fr
