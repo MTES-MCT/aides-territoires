@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "<3.0"
 unipath = "*"
 "psycopg2-binary" = "*"
 django-compressor = "*"
@@ -20,8 +20,6 @@ django-braces = "*"
 django-xworkflows = "*"
 beautifulsoup4 = "*"
 scrapy = "*"
-django-pagedown = "*"
-markdown = "*"
 
 [dev-packages]
 pytest = "*"

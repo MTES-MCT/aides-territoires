@@ -6,9 +6,10 @@ REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
 ]
+ALLOWED_ATTRS = ['href']
 
 
-def content_prettify(raw_text):
+def content_prettify(raw_text, more_allowed_tags=[]):
     """Clean imported data.
 
     We import data from many data sources, and it's not always directly
@@ -24,6 +25,8 @@ def content_prettify(raw_text):
      * autoindent existing html
 
     """
+    allowed_tags = ALLOWED_TAGS + more_allowed_tags
+
     unescaped = unescape(raw_text or '')
     unquoted = unescaped \
         .replace('“', '"') \
@@ -36,8 +39,11 @@ def content_prettify(raw_text):
         if tag.name in REMOVABLE_TAGS:
             tag.decompose()
         else:
-            if tag.name in ALLOWED_TAGS:
-                tag.attrs = {}
+            if tag.name in allowed_tags:
+                attrs = list(tag.attrs.keys())
+                for attr in attrs:
+                    if attr not in ALLOWED_ATTRS:
+                        tag.attrs.pop(attr)
             else:
                 tag.unwrap()
     prettified = soup.prettify()

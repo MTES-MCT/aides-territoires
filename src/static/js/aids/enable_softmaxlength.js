@@ -1,8 +1,7 @@
-$(document).ready(function () {
+(function ($) {
     'use strict';
 
-    if (!$) {
-        $ = django.jQuery;
-    }
-    $('form #id_name').softmaxlength();
-});
+    $(document).ready(function () {
+        $('form #id_name').softmaxlength();
+    });
+}($ || django.jQuery));

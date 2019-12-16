@@ -343,3 +343,36 @@ def test_aid_edition_subvention_rate_validation(aid_form_data):
     assert not form.is_valid()
     assert form.has_error('subvention_rate', 'min_value')
     assert form.has_error('subvention_rate', 'max_value')
+
+
+def test_aid_creation_description_sanitization(aid_form_data):
+    aid_form_data.update({
+        'description': '''
+        <div class="toto">
+        <p>Paragraphe</p>
+        <p>A <strong>paragraph</strong> with <em>formatted</em> text.</p>
+        <h2>A title<h2>
+        <script>alert('Nasty popup');</script>
+        <p><img src="//example.com/nasty-tracker.gif" /></p>
+        <p><a href="//example.com/good-link.html">A link!</a></p>
+        <p style="margin: 10em">Huge margins</p>
+        </div>
+        '''
+    })
+    form = AidEditForm(aid_form_data)
+    assert form.is_valid()
+
+    description = form.cleaned_data['description']
+    assert '<p>' in description
+    assert '<h2>' in description
+    assert '<em>' in description
+    assert 'formatted' in description
+    assert '<strong>' in description
+    assert 'paragraph' in description
+    assert '<a href="//example.com' in description
+
+    assert 'script' not in description
+    assert '<div' not in description
+    assert 'class="toto"' not in description
+    assert 'style' not in description
+    assert '<img' not in description
