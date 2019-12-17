@@ -209,13 +209,13 @@ msgid "Other"
 msgstr "Autre"
 
 msgid "Technical"
-msgstr "Technique"
+msgstr "Ingénierie technique"
 
 msgid "Financial"
-msgstr "Financière"
+msgstr "Ingénierie financière"
 
 msgid "Legal"
-msgstr "Juridique"
+msgstr "Ingénierie juridique"
 
 msgid "Financial aids"
 msgstr "Aides financières"
