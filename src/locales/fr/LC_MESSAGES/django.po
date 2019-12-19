@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-10 11:07+0100\n"
+"POT-Creation-Date: 2019-12-19 09:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,26 +274,31 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
-msgid "Suggest a new financer"
-msgstr "Suggérer un nouveau financeur"
-
-msgid ""
-"Suggest a financer if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un financeur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-
-msgid "Suggest a new instructor"
-msgstr "Suggérer un nouvel instructeur"
-
-msgid ""
-"Suggest an instructor if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-
 msgid "Tags"
 msgstr "Mots clés"
+
+msgid "Full description of the aid and its objectives"
+msgstr "Description complète de l'aide et de ses objectifs"
+
+msgid ""
+"If you have a description, do not hesitate to copy it here.\n"
+"Try to complete the description with the maximum of information.\n"
+"If you are contacted regularly to ask for the same information, try to give "
+"some answers in this space."
+msgstr ""
+"Si vous avez un descriptif, n'hésitez pas à le copier ici.\n"
+"Essayez de compléter le descriptif avec le maximum d'informations.\n"
+"Si l'on vous contacte régulièrement pour vous demander les mêmes "
+"informations, essayez de donner des éléments de réponses dans cet espace."
+
+msgid "Other eligibility criterias?"
+msgstr "Autres critères d'éligibilité ?"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Feel free to add several contacts"
+msgstr "N'hésitez pas à ajouter plusieurs contacts"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
@@ -309,9 +314,6 @@ msgstr "…ou ajoutez un nouveau financeur"
 
 msgid "Types of expenses covered"
 msgstr "Types de dépenses / actions couvertes"
-
-msgid "Are the any other eligibility criterias?"
-msgstr "Y a-t-il d'autres critères d'éligibilité ?"
 
 msgid "Link to a full description"
 msgstr "Lien vers le descriptif complet"
@@ -334,8 +336,11 @@ msgstr ""
 "Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
-msgid "Feel free to add several contacts"
-msgstr "N'hésitez pas à ajouter plusieurs contacts"
+msgid "Please provide a financer, or suggest a new one."
+msgstr "Merci d'indiquer un financeur."
+
+msgid "Please indicate the maximum subvention rate."
+msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Financer suggestion"
 msgstr "Financeurs suggérés"
@@ -360,20 +365,6 @@ msgstr ""
 msgid "Categories"
 msgstr "Catégories"
 
-msgid "Full description of the aid and its objectives"
-msgstr "Description complète de l'aide et de ses objectifs"
-
-msgid ""
-"If you have a description, do not hesitate to copy it here.\n"
-"Try to complete the description with the maximum of information.\n"
-"If you are contacted regularly to ask for the same information, try to give "
-"some answers in this space."
-msgstr ""
-"Si vous avez un descriptif, n'hésitez pas à le copier ici.\n"
-"Essayez de compléter le descriptif avec le maximum d'informations.\n"
-"Si l'on vous contacte régulièrement pour vous demander les mêmes "
-"informations, essayez de donner des éléments de réponses dans cet espace."
-
 msgid "Backers"
 msgstr "Apporteurs"
 
@@ -381,6 +372,24 @@ msgid "Type a few characters and select a value among the list"
 msgstr ""
 "Saisissez quelques caractères et sélectionnez une valeur parmi les "
 "suggestions."
+
+msgid "Suggest a new financer"
+msgstr "Suggérer un nouveau financeur"
+
+msgid ""
+"Suggest a financer if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un financeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
+
+msgid "Suggest a new instructor"
+msgstr "Suggérer un nouvel instructeur"
+
+msgid ""
+"Suggest an instructor if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -393,12 +402,6 @@ msgstr "Taux de subvention min."
 
 msgid "Max. subvention rate"
 msgstr "Taux de subvention max."
-
-msgid "Please provide a financer, or suggest a new one."
-msgstr "Merci d'indiquer un financeur."
-
-msgid "Please indicate the maximum subvention rate."
-msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Who are you?"
 msgstr "Qui êtes vous ?"
@@ -558,9 +561,6 @@ msgstr "Auteur"
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
-msgid "New backer"
-msgstr "Nouvel apporteur"
-
 msgid "Eligibility"
 msgstr "Éligibilité"
 
@@ -614,9 +614,6 @@ msgstr "Si le taux est fixe, remplissez uniquement le taux max."
 
 msgid "Subvention rate, optional comment"
 msgstr "Taux de subvention, commentaire optionnel"
-
-msgid "Contact"
-msgstr "Contact"
 
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
