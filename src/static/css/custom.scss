@@ -270,6 +270,11 @@ section#program-list {
 
             li {
                 @extend .list-group-item;
+
+                &:first-child {
+                    border-top-width: 1px;
+                    border-radius: 0 !important;
+                }
             }
 
             li.warning {
