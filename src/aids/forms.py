@@ -217,6 +217,7 @@ class AidAdminForm(BaseAidForm):
         super().__init__(*args, **kwargs)
         self.fields['financers'].required = False
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
+        self.fields['start_date'].required = False
 
 
 class AidEditForm(BaseAidForm):
