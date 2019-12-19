@@ -88,7 +88,7 @@ class BaseAidForm(forms.ModelForm):
             'If you are contacted regularly to ask for the same information,'
             ' try to give some answers in this space.')}))
     eligibility = RichTextField(
-        label=_('Are the any other eligibility criterias?'),
+        label=_('Other eligibility criterias?'),
         required=False)
     contact = RichTextField(
         label=_('Contact'),
