@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 09:39+0100\n"
+"POT-Creation-Date: 2019-12-20 10:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,6 +274,12 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Tags"
 msgstr "Mots clés"
 
@@ -296,11 +302,6 @@ msgstr "Autres critères d'éligibilité ?"
 
 msgid "Contact"
 msgstr "Contact"
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
@@ -343,12 +344,6 @@ msgid "Add up to 30 keywords to describe your aid (separated by \",\")"
 msgstr ""
 "Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
-
-msgid "Please provide a financer, or suggest a new one."
-msgstr "Merci d'indiquer un financeur."
-
-msgid "Please indicate the maximum subvention rate."
-msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Please provide a financer, or suggest a new one."
 msgstr "Merci d'indiquer un financeur."
