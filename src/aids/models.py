@@ -283,7 +283,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     is_call_for_project = models.BooleanField(
         _('Call for project / Call for expressions of interest'),
-        null=True, blank=True)
+        null=True)
     status = xwf_models.StateField(
         AidWorkflow,
         verbose_name=_('Status'))

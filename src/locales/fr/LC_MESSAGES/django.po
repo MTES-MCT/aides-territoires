@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-19 09:39+0100\n"
+"POT-Creation-Date: 2019-12-20 10:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,6 +274,12 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Tags"
 msgstr "Mots clés"
 
@@ -300,6 +306,9 @@ msgstr "Contact"
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
 
+msgid "Call for project / Call for expressions of interest"
+msgstr "Appel à projet / Manifestation d'intérêt"
+
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
@@ -322,7 +331,7 @@ msgid "Link to an online application form"
 msgstr "Lien vers la démarche en ligne"
 
 msgid "Is this a call for project / expressions of interest?"
-msgstr "S'agit-il d'un AAP / AMI ?"
+msgstr "S'agit-il d'un Appel à projet / manifestation d'intérêt ?"
 
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
@@ -626,9 +635,6 @@ msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
-
-msgid "Call for project / Call for expressions of interest"
-msgstr "Appel à projet / manifestation d'intérêt"
 
 msgid "Status"
 msgstr "Statut"
