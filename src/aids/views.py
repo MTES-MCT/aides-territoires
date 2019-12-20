@@ -402,26 +402,20 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.save()
             form.save_m2m()
             msg = _('The new aid was sucessfully created. You can keep '
-                    'editing it or <a href="%(url)s" target="_blank">'
-                    'preview it</a>.') % {
-                        'url': obj.get_absolute_url()
-                    }
+                    'editing it.')
 
             response = HttpResponseRedirect(self.get_success_url())
         else:
             response = super().form_valid(form)
             msg = _('The aid was sucessfully updated. You can keep '
-                    'editing it or <a href="%(url)s" target="_blank">'
-                    'preview it</a>.') % {
-                        'url': form.instance.get_absolute_url()
-                    }
+                    'editing it.')
 
         self.messages.success(msg)
         return response
 
     def get_success_url(self):
         edit_url = reverse('aid_edit_view', args=[self.object.slug])
-        return edit_url
+        return '{}?preview'.format(edit_url)
 
 
 class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,

@@ -104,6 +104,16 @@
 <script src="/static/js/aids/update_status_form_availability.js"></script>
 <script src="/static/js/aids/disable_delete_button.js"></script>
 <script src="/static/js/aids/configure_preview_modal.js"></script>
+<script>
+$(document).ready(function() {
+    // Force the user to preview the aid at every edit.
+    var queryString = window.location.search.substring(1);
+    if (queryString.match(/preview/)) {
+        var previewBtn = $('button.preview-btn');
+        previewBtn.click();
+    }
+});
+</script>
 {% endblock %}
 
 {% block content %}
