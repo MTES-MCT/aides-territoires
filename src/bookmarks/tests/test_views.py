@@ -33,7 +33,9 @@ def test_bookmark_form_displayed_to_anonymous(client):
     assert 'class="anonymous-modal modal"' in content
 
 
-def test_bookmark_create_view_for_user(user, client, mailoutbox):
+def test_logged_user_can_create_a_bookmark(user, client, mailoutbox):
+    """Logged users can create new bookmarks."""
+
     bookmarks = Bookmark.objects.all()
     assert bookmarks.count() == 0
 
@@ -56,7 +58,9 @@ def test_bookmark_create_view_for_user(user, client, mailoutbox):
     assert len(mailoutbox) == 0
 
 
-def test_bookmark_create_view_for_anonymous(client, mailoutbox):
+def test_anonymous_can_create_a_bookmark(client, mailoutbox):
+    """Anonymous can create bookmarks. They receive a validation email."""
+
     bookmarks = Bookmark.objects.all()
     assert bookmarks.count() == 0
 
@@ -86,7 +90,54 @@ def test_bookmark_create_view_for_anonymous(client, mailoutbox):
     assert 'Cliquez sur ce lien pour valider votre abonnement au système d\'alertes' in mail_body  # noqa
 
 
-def test_bookmark_creation_with_existing_email(user, client, mailoutbox):
+def test_anonymous_can_create_several_bookmarks(client, mailoutbox):
+    """Anonymous can create several bookmarks.
+
+    As long as they don't validate their email, we don't require for them
+    to log in. Otherwise, it would prevent them to create several bookmarks
+    at once.
+    """
+    bookmarks = Bookmark.objects.order_by('id')
+    assert bookmarks.count() == 0
+
+    users = User.objects.all()
+    assert users.count() == 0
+
+    url = reverse('bookmark_create_view')
+    res = client.post(url, data={
+        'title': 'My new search',
+        'email': 'bookmark-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
+    })
+    assert res.status_code == 302
+    assert bookmarks.count() == 1
+    assert users.count() == 1
+
+    res = client.post(url, data={
+        'title': 'My new search 2',
+        'email': 'bookmark-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=off',
+    })
+    assert res.status_code == 302
+    assert bookmarks.count() == 2
+    assert users.count() == 1
+
+    user = users[0]
+    assert user.last_login is None
+
+    bookmark = bookmarks[1]
+    assert bookmark.owner == user
+    assert bookmark.title == 'My new search 2'
+
+    # We only send one validation email for the first bookmark
+    assert len(mailoutbox) == 1
+    mail_body = mailoutbox[0].body
+    assert 'Cliquez sur ce lien pour valider votre abonnement au système d\'alertes' in mail_body  # noqa
+
+
+def test_unlogged_user_cannot_create_new_bookmark(user, client, mailoutbox):
     bookmarks = Bookmark.objects.all()
     assert bookmarks.count() == 0
 

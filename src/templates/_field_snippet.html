@@ -1,9 +1,9 @@
-<div class="form-group{% if field.field.required %} required{% endif %}">
+<div id="form-group-{{ field.name }}" class="form-group{% if field.field.required %} required{% endif %}">
 
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
 
     {% if field.help_text %}
-        <span class="field-help">{{ field.help_text }}</span>
+        <span class="field-help">{{ field.help_text|safe }}</span>
     {% endif %}
 
     {% if nest_field_class %}

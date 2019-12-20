@@ -1,20 +1,34 @@
 <ul class="navbar-menu">
     {% if user.is_superuser %}
-    <li>
-        <a href="{% url 'admin:aids_aid_changelist' %}?status__exact=reviewable">
-            {{ _('Aids under review') }}
-            <span class="review-counter">
-                {{ nb_aids_under_review }}
+    <li class="stat">
+        <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=draft">
+            {{ _('Drafts') }}
+            <span class="counter draft-counter">
+                {{ nb_draft_aids }}
             </span>
         </a>
     </li>
-    {% endif %}
-
-    {% if user.is_contributor %}
-    <li>
+    <li class="stat">
+        <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=reviewable">
+            {{ _('Reviewable') }}
+            <span class="counter review-counter">
+                {{ nb_reviewable_aids }}
+            </span>
+        </a>
+    </li>
+    <li class="stat">
+        <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=1&status__exact=draft">
+            {{ _('Imported') }}
+            <span class="counter imported-counter">
+                {{ nb_waiting_imported_aids }}
+            </span>
+        </a>
+    </li>
+    {% elif user.is_contibutor %}
+    <li class="stat">
         <a href="{% url 'aid_draft_list_view' %}?order=status">
             {{ _('Draft aids') }}
-            <span class="draft-counter">
+            <span class="counter draft-counter">
                 {{ nb_draft_aids }}
             </span>
         </a>

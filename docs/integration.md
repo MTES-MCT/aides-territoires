@@ -2,8 +2,6 @@
 
 Il est possible d'intégrer le moteur de recherche d'Aides-Territoires sur votre propre site dans une iframe.
 
-Un [exemple d'intégration est disponible à cette adresse](http://integration-aides-territoires.jouannic.fr/integration/guyane/).
-
 ## Tutoriel d'intégration
 
 Pour ce faire :

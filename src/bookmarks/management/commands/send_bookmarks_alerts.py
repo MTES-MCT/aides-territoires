@@ -37,9 +37,10 @@ class Command(BaseCommand):
                                 len(new_aids)
                             ))
 
-        Bookmark.objects \
+        updated = Bookmark.objects \
             .filter(id__in=alerted_bookmarks) \
             .update(latest_alert_date=timezone.now())
+        self.stdout.write('{} alerts sent'.format(updated))
         return
 
     def get_bookmarks(self):
@@ -89,7 +90,8 @@ class Command(BaseCommand):
             'bookmarks/alert_body.txt', email_context)
         html_body = render_to_string(
             'bookmarks/alert_body.html', email_context)
-        email_subject = 'De nouvelles aides correspondent à vos recherches'
+        email_subject = '{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
+                        'vos recherches'.format(timezone.now())
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [owner.email]
 

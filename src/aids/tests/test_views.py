@@ -130,27 +130,6 @@ def test_aid_creation_status_as_review(client, contributor,
     assert aids[0].status == 'reviewable'
 
 
-def test_aid_form_requires_a_backer(client, contributor, amendment_form_data):
-    form_url = reverse('aid_create_view')
-    client.force_login(contributor)
-
-    aids = Aid.objects.filter(author=contributor)
-    assert aids.count() == 0
-
-    amendment_form_data['backers'] = []
-    res = client.post(form_url, data=amendment_form_data)
-    assert res.status_code == 200  # Form not validated
-    assert aids.count() == 0
-
-    amendment_form_data['new_backer'] = 'Casimir'
-    res = client.post(form_url, data=amendment_form_data)
-    assert res.status_code == 302
-    assert aids.count() == 1
-
-    aid = aids[0]
-    assert aid.new_backer == 'Casimir'
-
-
 def test_aid_edition_view(client, contributor, amendment_form_data):
     """Test the aid edition form and view."""
 
@@ -369,13 +348,13 @@ def test_aids_under_review_menu_is_for_admin_only(client, contributor):
     url = reverse('home')
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Aides en revue' not in res.content.decode('utf-8')
+    assert 'En revue' not in res.content.decode('utf-8')
 
     contributor.is_superuser = True
     contributor.save()
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Aides en revue' in res.content.decode('utf-8')
+    assert 'En revue' in res.content.decode('utf-8')
 
 
 def test_amendment_form_is_accessible_by_anonymous_users(client):
@@ -434,3 +413,43 @@ def test_amendment_form_for_logged_user(user, client, amendment_form_data):
     client.post(amend_url, data=amendment_form_data)
     amendment = Aid.amendments.all()[0]
     assert amendment.author == user
+
+
+def test_only_published_aids_are_displayed(client):
+    aid = AidFactory(status='draft')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.status = 'reviewable'
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.status = 'published'
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+def test_admin_users_can_preview_unpublished_aids(client, superuser):
+    client.force_login(superuser)
+    aid = AidFactory(status='draft')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
+
+
+def test_contributons_can_preview_their_own_aids(client, user, contributor):
+    client.force_login(contributor)
+    aid = AidFactory(status='draft', author=user)
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 404
+
+    aid.author = contributor
+    aid.save()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa

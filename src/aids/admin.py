@@ -14,11 +14,19 @@ class AidAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            'all': ('css/admin.css',)
+            'all': (
+                '/static/css/admin.css',
+                '/static/trumbowyg/dist/ui/trumbowyg.css',
+            )
         }
         js = [
+            'admin/js/jquery.init.js',
+            '/static/admin/js/tags_autocomplete.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
+            '/static/trumbowyg/dist/trumbowyg.js',
+            '/static/trumbowyg/dist/langs/fr.js',
+            '/static/js/enable_rich_text_editor.js',
         ]
 
     form = AidAdminForm
@@ -26,12 +34,18 @@ class AidAdmin(admin.ModelAdmin):
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
-        'name', 'all_backers', 'author', 'recurrence', 'date_updated',
-        'date_published', 'is_imported', 'import_uniqueid', 'status']
-    autocomplete_fields = ['author', 'backers', 'perimeter']
-    search_fields = ['name', 'perimeter__name', 'backers__name']
-    list_filter = ['status', 'recurrence', 'is_imported',
-                   'is_call_for_project']
+        'name', 'all_financers', 'all_instructors', 'author', 'recurrence',
+        'date_updated', 'date_published', 'is_imported', 'import_uniqueid',
+        'status'
+    ]
+    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
+    search_fields = [
+        'name', 'perimeter__name', 'financers__name', 'instructors__name'
+    ]
+    list_filter = [
+        'status', 'recurrence', 'is_imported', 'is_call_for_project']
+
+    filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
@@ -41,11 +55,13 @@ class AidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
-                'description',
+                'categories',
                 'tags',
                 'targeted_audiances',
-                'backers',
-                'new_backer',
+                'financers',
+                'financer_suggestion',
+                'instructors',
+                'instructor_suggestion',
                 'author',
             )
         }),
@@ -73,6 +89,7 @@ class AidAdmin(admin.ModelAdmin):
                 'subvention_comment',
                 'mobilization_steps',
                 'destinations',
+                'description',
                 'eligibility',
             )
         }),
@@ -111,14 +128,19 @@ class AidAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = Aid.objects.all()
-        qs = qs.prefetch_related('backers')
+        qs = qs.prefetch_related('financers', 'instructors')
         qs = qs.select_related('author')
         return qs
 
-    def all_backers(self, aid):
-        backers = [backer.name for backer in aid.backers.all()]
-        return ', '.join(backers)
-    all_backers.short_description = _('Backers')
+    def all_financers(self, aid):
+        financers = [backer.name for backer in aid.financers.all()]
+        return ', '.join(financers)
+    all_financers.short_description = _('Financers')
+
+    def all_instructors(self, aid):
+        instructors = [backer.name for backer in aid.instructors.all()]
+        return ', '.join(instructors)
+    all_instructors.short_description = _('Instructors')
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
@@ -148,7 +170,7 @@ class AmendmentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = Aid.amendments.all()
-        qs = qs.prefetch_related('backers')
+        qs = qs.prefetch_related('financers')
         qs = qs.select_related('author')
         return qs
 

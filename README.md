@@ -220,3 +220,20 @@ python deploy.py full -e stage prod
 
 [Plus de détails dans le répertoire
 spécifique.](deployment/)
+
+### Mise en production
+
+Le site est actuellement hébergé sur un VPS OVH avec l'option « snapshots »
+(copie instantanée du vps).
+Si le déploiement du code ne nécessite qu'une commande, la mise en production
+effective nécessite de dérouler les étapes suivantes :
+
+ * alerter l'équipe et vérifier qu'aucune démo ou présentation important n'a
+   actuellement lieu ;
+ * mettre à jour la branche `production` dans git ;
+ * vérifier que le build passe à 100% ;
+ * se connecter à l'interface OVH ;
+ * supprimer le snapshot existant ;
+ * générer la création d'un nouveau snapshot ;
+ * lancer le déploiement (cf. commandes ci-dessus) ;
+ * annoncer la bonne nouvelle sur Slack ;

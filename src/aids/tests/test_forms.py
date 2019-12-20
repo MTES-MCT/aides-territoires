@@ -33,84 +33,84 @@ def aids(user, backer):
 
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['commune'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['department'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['region'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['epci'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['lessor'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['association'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['private_person'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
         targeted_audiances=['researcher'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
         aid_types=['loan'],
         targeted_audiances=['private_sector'])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=['loan'],
         targeted_audiances=[])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=[],
         targeted_audiances=[])
     AidFactory(
         author=user,
-        backers=[backer],
+        financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
         aid_types=['technical', 'financial'],
@@ -343,3 +343,36 @@ def test_aid_edition_subvention_rate_validation(aid_form_data):
     assert not form.is_valid()
     assert form.has_error('subvention_rate', 'min_value')
     assert form.has_error('subvention_rate', 'max_value')
+
+
+def test_aid_creation_description_sanitization(aid_form_data):
+    aid_form_data.update({
+        'description': '''
+        <div class="toto">
+        <p>Paragraphe</p>
+        <p>A <strong>paragraph</strong> with <em>formatted</em> text.</p>
+        <h2>A title<h2>
+        <script>alert('Nasty popup');</script>
+        <p><img src="//example.com/nasty-tracker.gif" /></p>
+        <p><a href="//example.com/good-link.html">A link!</a></p>
+        <p style="margin: 10em">Huge margins</p>
+        </div>
+        '''
+    })
+    form = AidEditForm(aid_form_data)
+    assert form.is_valid()
+
+    description = form.cleaned_data['description']
+    assert '<p>' in description
+    assert '<h2>' in description
+    assert '<em>' in description
+    assert 'formatted' in description
+    assert '<strong>' in description
+    assert 'paragraph' in description
+    assert '<a href="//example.com' in description
+
+    assert 'script' not in description
+    assert '<div' not in description
+    assert 'class="toto"' not in description
+    assert 'style' not in description
+    assert '<img' not in description

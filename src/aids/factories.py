@@ -42,19 +42,19 @@ class AidFactory(DjangoModelFactory):
     status = 'published'
 
     @factory.post_generation
-    def backers(self, create, extracted, **kwargs):
+    def financers(self, create, extracted, **kwargs):
         if not create:
             # Simple build, do nothing.
             return
 
         if extracted:
             # A list of groups were passed in, use them
-            for backer in extracted:
-                self.backers.add(backer)
+            for financer in extracted:
+                self.financers.add(financer)
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
         obj = super()._create(model_class, *args, **kwargs)
-        obj.set_search_vector(backers=[])
+        obj.set_search_vector(financers=[])
         obj.save()
         return obj

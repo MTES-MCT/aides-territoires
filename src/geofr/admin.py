@@ -91,5 +91,15 @@ class PerimeterAdmin(admin.ModelAdmin):
         return PerimeterUpload.as_view(
             extra_context=context)(request, object_id=object_id)
 
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        contained_perimeters = Perimeter.objects \
+            .filter(contained_in__id=object_id) \
+            .order_by('-scale', 'name')
+        context = extra_context or {}
+        context['contained_perimeters'] = contained_perimeters
+
+        return super().change_view(
+            request, object_id, form_url=form_url, extra_context=context)
+
 
 admin.site.register(Perimeter, PerimeterAdmin)

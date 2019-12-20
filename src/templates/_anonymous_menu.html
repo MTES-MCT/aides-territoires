@@ -9,6 +9,7 @@
             <h6 id="profile-menu">{{ _('Log in to access your account') }}</h6>
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
 
                 <div class="form-group">
                     <label for="id_username">{{ _('Your email address') }}</label>

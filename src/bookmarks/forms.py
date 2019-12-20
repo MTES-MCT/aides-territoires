@@ -36,10 +36,17 @@ class AnonymousBookmarkForm(BaseBookmarkForm):
         required=True)
 
     def clean_email(self):
-        """Make sure the email is not linked to an existing account."""
+        """Make sure the email is not linked to an existing account.
+
+        If it's linked to an account, make sure it's a new account,
+        meaning it was never use to log in.
+        """
 
         email = self.cleaned_data['email']
-        user_exists = User.objects.filter(email=email).exists()
+        user_exists = User.objects \
+            .filter(email=email) \
+            .filter(last_login__isnull=False) \
+            .exists()
         if user_exists:
             msg = _('An account with this address already exists. If this is '
                     'your account, you might want to login first.')

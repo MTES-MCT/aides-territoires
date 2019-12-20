@@ -21,7 +21,7 @@
     {% include '_form_header.html' with form=form %}
 
     {% if form.non_field_errors %}
-    <div class="alert alert-danger" role="alert">
+    <div class="danger" role="alert">
         {{ form.non_field_errors.0 }}
     </div>
     {% endif %}
@@ -34,11 +34,12 @@
     <fieldset>
         <legend>{{ _('Aid presentation') }}</legend>
         {% include '_field_snippet.html' with field=form.name %}
-        {% include '_field_snippet.html' with field=form.description %}
         {% include '_field_snippet.html' with field=form.tags %}
         {% include '_field_snippet.html' with field=form.targeted_audiances %}
-        {% include '_field_snippet.html' with field=form.backers %}
-        {% include '_field_snippet.html' with field=form.new_backer %}
+        {% include '_field_snippet.html' with field=form.financers %}
+        {% include '_field_snippet.html' with field=form.financer_suggestion %}
+        {% include '_field_snippet.html' with field=form.instructors %}
+        {% include '_field_snippet.html' with field=form.instructor_suggestion %}
     </fieldset>
 
     <fieldset>
@@ -64,6 +65,7 @@
         </div>
         {% include '_field_snippet.html' with field=form.mobilization_steps %}
         {% include '_field_snippet.html' with field=form.destinations %}
+        {% include '_field_snippet.html' with field=form.description %}
         {% include '_field_snippet.html' with field=form.eligibility %}
     </fieldset>
 
@@ -73,6 +75,7 @@
         {% include '_field_snippet.html' with field=form.application_url %}
         {% include '_field_snippet.html' with field=form.contact %}
     </fieldset>
+
     {% endblock %}
 
     <hr />
@@ -82,11 +85,17 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+<link rel="stylesheet" href="/static/trumbowyg/dist/ui/trumbowyg.css" type="text/css" charset="utf-8">
 {% endblock %}
 
 {% block extra_js %}
+{% comment %}Third party plugins{% endcomment %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/trumbowyg/dist/trumbowyg.js"></script>
+<script src="/static/trumbowyg/dist/langs/fr.js"></script>
+
+{% comment %}Custom homemade scripts{% endcomment %}
 <script src="/static/js/plugins/softmaxlength.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/backers_autocomplete.js"></script>
@@ -94,4 +103,5 @@
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
 <script src="/static/js/aids/toggle_subvention_related_fields.js"></script>
 <script src="/static/js/aids/enable_softmaxlength.js"></script>
+<script src="/static/js/enable_rich_text_editor.js"></script>
 {% endblock %}

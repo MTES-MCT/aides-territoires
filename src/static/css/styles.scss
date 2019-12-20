@@ -25,6 +25,7 @@ html.light {
 }
 
 body {
+
     >footer {
         @extend .py-5;
         @extend .bg-dark;
@@ -67,14 +68,6 @@ body {
                         width: 16rem * 160 / 360;
                     }
                 }
-            }
-        }
-
-        h1 {
-            @extend .h3;
-
-            small {
-                @extend .text-muted;
             }
         }
 
@@ -124,6 +117,11 @@ nav#main-navbar {
         li {
             @extend .nav-item;
 
+            &.stat {
+                @extend .d-none;
+                @extend .d-lg-block;
+            }
+
             &.user-menu {
                 @extend .dropdown;
 
@@ -135,9 +133,9 @@ nav#main-navbar {
 
             &>a {
                 @extend .nav-link;
+                white-space: nowrap;
 
-                span.review-counter,
-                span.draft-counter {
+                span.counter {
                     @extend .badge;
                     @extend .badge-pill;
                     @extend .badge-light;
@@ -204,7 +202,7 @@ nav#main-navbar {
 
 main {
     section.main-content {
-        @extend .container;
+        @extend .container-lg;
         @extend .py-4;
 
         a.main-action,
@@ -344,12 +342,20 @@ form {
     }
 }
 
+h1 {
+    small {
+        @extend .text-muted;
+        @extend .h3;
+    }
+}
+
 p, div {
     &.success {
         @extend .alert-success;
     }
 
-    &.error {
+    &.error,
+    &.danger {
         @extend .alert-danger;
     }
 
@@ -371,6 +377,7 @@ p, div {
 
     &.success,
     &.error,
+    &.danger,
     &.info,
     &.warning,
     &.tip {

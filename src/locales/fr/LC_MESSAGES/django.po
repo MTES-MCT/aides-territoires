@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 11:07+0100\n"
+"POT-Creation-Date: 2019-12-20 15:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,8 +172,11 @@ msgstr "Données liées à l'import"
 msgid "Misc data"
 msgstr "Données diverses"
 
-msgid "Backers"
-msgstr "Apporteurs"
+msgid "Financers"
+msgstr "Financeurs"
+
+msgid "Instructors"
+msgstr "Instructeurs"
 
 msgid "The selected aids were set as CFP"
 msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
@@ -206,13 +209,13 @@ msgid "Other"
 msgstr "Autre"
 
 msgid "Technical"
-msgstr "Technique"
+msgstr "Ingénierie technique"
 
 msgid "Financial"
-msgstr "Financière"
+msgstr "Ingénierie financière"
 
 msgid "Legal"
-msgstr "Juridique"
+msgstr "Ingénierie juridique"
 
 msgid "Financial aids"
 msgstr "Aides financières"
@@ -234,9 +237,6 @@ msgstr "Régions"
 
 msgid "Associations"
 msgstr "Associations"
-
-msgid "Intermunicipal unions"
-msgstr "Syndicats intercommunaux et mixtes"
 
 msgid "Individuals"
 msgstr "Particuliers"
@@ -274,23 +274,55 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Tags"
 msgstr "Mots clés"
+
+msgid "Full description of the aid and its objectives"
+msgstr "Description complète de l'aide et de ses objectifs"
+
+msgid ""
+"If you have a description, do not hesitate to copy it here.\n"
+"Try to complete the description with the maximum of information.\n"
+"If you are contacted regularly to ask for the same information, try to give "
+"some answers in this space."
+msgstr ""
+"Si vous avez un descriptif, n'hésitez pas à le copier ici.\n"
+"Essayez de compléter le descriptif avec le maximum d'informations.\n"
+"Si l'on vous contacte régulièrement pour vous demander les mêmes "
+"informations, essayez de donner des éléments de réponses dans cet espace."
+
+msgid "Other eligibility criterias?"
+msgstr "Autres critères d'éligibilité ?"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Feel free to add several contacts"
+msgstr "N'hésitez pas à ajouter plusieurs contacts"
+
+msgid "Call for project / Call for expressions of interest"
+msgstr "Appel à projet / Manifestation d'intérêt"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
-msgid "Aid backer(s)"
-msgstr "Apporteur(s) de l'aide"
+msgid "Aid financer(s)"
+msgstr "Financeur(s) de l'aide"
 
-msgid "…or add a new backer"
-msgstr "…ou ajoutez un nouvel apporteur"
+msgid "Aid instructor(s)"
+msgstr "Instructeur(s) de l'aide"
+
+msgid "…or add a new financer"
+msgstr "…ou ajoutez un nouveau financeur"
 
 msgid "Types of expenses covered"
 msgstr "Types de dépenses / actions couvertes"
-
-msgid "Are the any other eligibility criterias?"
-msgstr "Y a-t-il d'autres critères d'éligibilité ?"
 
 msgid "Link to a full description"
 msgstr "Lien vers le descriptif complet"
@@ -299,7 +331,7 @@ msgid "Link to an online application form"
 msgstr "Lien vers la démarche en ligne"
 
 msgid "Is this a call for project / expressions of interest?"
-msgstr "S'agit-il d'un AAP / AMI ?"
+msgstr "S'agit-il d'un Appel à projet / manifestation d'intérêt ?"
 
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
@@ -308,13 +340,65 @@ msgstr ""
 "Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
 "vous pouvez utiliser ce champ pour nous le communiquer."
 
-msgid "Add up to 16 keywords to describe your aid (separated by \",\")"
+msgid "Add up to 30 keywords to describe your aid (separated by \",\")"
 msgstr ""
-"Ajoutez jusqu'à 16 mots clés pour mieux décrire votre aide (séparés par des "
+"Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
 "virgules « , »)."
 
-msgid "Feel free to add several contacts"
-msgstr "N'hésitez pas à ajouter plusieurs contacts"
+msgid "Please provide a financer, or suggest a new one."
+msgstr "Merci d'indiquer un financeur."
+
+msgid "Please indicate the maximum subvention rate."
+msgstr "Merci d'indiquer le taux de subvention maximum."
+
+msgid "Financer suggestion"
+msgstr "Financeurs suggérés"
+
+msgid ""
+"This financer was suggested. Add it to the global list then add it to this "
+"aid with the field above."
+msgstr ""
+"Ce financeur a été suggéré. Créez le nouvel apporteur et ajouter le en tant "
+"que financeur via le champ approprié."
+
+msgid "Instructor suggestion"
+msgstr "Instructeurs suggérés"
+
+msgid ""
+"This instructor was suggested. Add it to the global list then add it to this "
+"aid with the field above."
+msgstr ""
+"Cet instructeur a été suggéré. Créez le nouvel apporteur et ajouter le en "
+"tant qu'instructeur via le champ approprié."
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Backers"
+msgstr "Apporteurs"
+
+msgid "Type a few characters and select a value among the list"
+msgstr ""
+"Saisissez quelques caractères et sélectionnez une valeur parmi les "
+"suggestions."
+
+msgid "Suggest a new financer"
+msgstr "Suggérer un nouveau financeur"
+
+msgid ""
+"Suggest a financer if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un financeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
+
+msgid "Suggest a new instructor"
+msgstr "Suggérer un nouvel instructeur"
+
+msgid ""
+"Suggest an instructor if you don't find the correct choice in the main list."
+msgstr ""
+"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
+"principale."
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -327,13 +411,6 @@ msgstr "Taux de subvention min."
 
 msgid "Max. subvention rate"
 msgstr "Taux de subvention max."
-
-msgid "You must select the aid backers, or create a new one below."
-msgstr ""
-"Vous devez sélectionner un apporteur existant ou en proposer un nouveau."
-
-msgid "Please indicate the maximum subvention rate."
-msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Who are you?"
 msgstr "Qui êtes vous ?"
@@ -440,13 +517,13 @@ msgid "Overseas"
 msgstr "Outre-mer"
 
 msgid "Preoperational"
-msgstr "réflexion / conception"
+msgstr "Réflexion / conception"
 
 msgid "Operational"
-msgstr "mise en œuvre / réalisation"
+msgstr "Mise en œuvre / réalisation"
 
 msgid "Postoperation"
-msgstr "fonctionnement / usage"
+msgstr "Usage / valorisation"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -455,7 +532,7 @@ msgid "Works"
 msgstr "Travaux"
 
 msgid "Supply"
-msgstr "Fourniture"
+msgstr "Dépenses de fonctionnement"
 
 msgid "One off"
 msgstr "Ponctuelle"
@@ -493,15 +570,6 @@ msgstr "Auteur"
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
-msgid "On a national level if appropriate"
-msgstr "Au niveau national le cas échéant"
-
-msgid "New backer"
-msgstr "Nouvel apporteur"
-
-msgid "Short description"
-msgstr "Brève description"
-
 msgid "Eligibility"
 msgstr "Éligibilité"
 
@@ -509,7 +577,7 @@ msgid "What is the aid broadcasting perimeter?"
 msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
 
 msgid "Mobilization step"
-msgstr "Dispositif applicable pour un projet…"
+msgstr "État d'avancement du projet pour bénéficier du dispositif"
 
 msgid "Origin URL"
 msgstr "URL d'origine"
@@ -556,9 +624,6 @@ msgstr "Si le taux est fixe, remplissez uniquement le taux max."
 msgid "Subvention rate, optional comment"
 msgstr "Taux de subvention, commentaire optionnel"
 
-msgid "Contact"
-msgstr "Contact"
-
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
 
@@ -570,9 +635,6 @@ msgstr "Récurrence"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
-
-msgid "Call for project / Call for expressions of interest"
-msgstr "Appel à projet / manifestation d'intérêt"
 
 msgid "Status"
 msgstr "Statut"
@@ -655,14 +717,19 @@ msgstr "amender/"
 msgid "This aid was added to the selected bundles."
 msgstr "L'aide a été ajoutée aux listes sélectionnées."
 
-msgid "Your aid was sucessfully created. You can keep editing it."
-msgstr "Votre aide a été créée. Vous pouvez poursuivre l'édition."
+#, python-format
+msgid ""
+"Your aid was sucessfully created. You can keep editing it or <a href="
+"\"%(url)s\" target=\"_blank\">preview it</a>."
+msgstr ""
+"Votre aide a été créée. Vous pouvez poursuivre l'édition ou <a href=\"%(url)s"
+"\" target=\"_blank\">la prévisualiser</a>."
 
-msgid "The new aid was added. You can keep editing it."
-msgstr "Une nouvelle aide a été créée. Vous pouvez poursuivre l'édition."
+msgid "The new aid was sucessfully created. You can keep editing it."
+msgstr "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition."
 
-msgid "Your aid was sucessfully updated."
-msgstr "Votre aide a été mise à jour."
+msgid "The aid was sucessfully updated. You can keep editing it."
+msgstr "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
 
 msgid "We updated your aid status."
 msgstr "Le changement de statut de votre aide a bien été pris en compte."
@@ -676,8 +743,11 @@ msgstr ""
 "Votre amendement va bientôt être examiné par un·e administrateur. Merci pour "
 "votre contribution."
 
-msgid "Number of aids"
-msgstr "Nombre d'aides"
+msgid "Financed aids"
+msgstr "Aides financées"
+
+msgid "Instructed aids"
+msgstr "Aides instruites"
 
 msgid "Is a corporate backer?"
 msgstr "Apporteur privé ?"
@@ -763,8 +833,8 @@ msgid ""
 "Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
 "find in in your bookmark list.</a>"
 msgstr ""
-"Votre recherche a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez "
-"dans votre liste de recherches sauvegardées.</a>"
+"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez dans "
+"votre liste d'alertes.</a>"
 
 msgid "We just sent you an email to validate your address."
 msgstr "Nous venons d'envoyer un e-mail pour valider votre adresse."
@@ -799,6 +869,18 @@ msgstr "Listes"
 
 msgid "The new bundle was created successfuly"
 msgstr "Votre nouvelle liste d'aide à été créée."
+
+msgid "Short description"
+msgstr "Brève description"
+
+msgid "Theme"
+msgstr "Thème"
+
+msgid "Themes"
+msgstr "Thèmes"
+
+msgid "Category"
+msgstr "Catégorie"
 
 msgid "accounts/"
 msgstr "comptes/"
@@ -918,6 +1000,9 @@ msgstr "Programme d'aides"
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
+msgid "Number of aids"
+msgstr "Nombre d'aides"
+
 msgid "Tag"
 msgstr "Mot clé"
 
@@ -949,8 +1034,14 @@ msgstr ""
 "Vous n'avez pas encore de compte ? <a class=\"menu-button\" href="
 "\"%(register_url)s\"> Créer un compte</a>"
 
-msgid "Aids under review"
-msgstr "Aides en revue"
+msgid "Drafts"
+msgstr "Brouillons"
+
+msgid "Reviewable"
+msgstr "En revue"
+
+msgid "Imported"
+msgstr "Importé"
 
 msgid "Draft aids"
 msgstr "Aides en brouillon"
@@ -970,14 +1061,26 @@ msgstr "Mentions légales"
 msgid "Source code"
 msgstr "Code source"
 
+msgid ""
+"We <strong>could not process</strong> your form because it contains some "
+"errors. Please check your submission below and fix all errors before trying "
+"again."
+msgstr ""
+"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
+"données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
+"vérifier votre saisie et corriger les erreurs avant de réessayer."
+
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, EPCI, département…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
-msgid "Choose backer(s) amoung the list."
-msgstr "Sélectionnez le(s) apporteur(s) parmi la liste."
+msgid "Choose financer(s) among the list."
+msgstr "Sélectionnez le(s) financeurs(s) parmi la liste."
+
+msgid "Choose instructor(s) among the list."
+msgstr "Sélectionnez le(s) instructeur(s) parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"
@@ -1021,14 +1124,11 @@ msgstr ""
 "Êtes-vous certain·e de vouloir quitter cette page ? Vos modifications seront "
 "perdues."
 
-msgid ""
-"We <strong>could not process</strong> your form because it contains some "
-"errors. Please check your submission below and fix all errors before trying "
-"again."
-msgstr ""
-"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
-"données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
-"vérifier votre saisie et corriger les erreurs avant de réessayer."
+msgid "No results were found."
+msgstr "Aucun résultat trouvé."
+
+msgid "Suggest a new backer"
+msgstr "Suggérer un nouveau"
 
 msgid "Your profile"
 msgstr "Votre profil"
@@ -1049,7 +1149,7 @@ msgid "My bundles"
 msgstr "Mes listes d'aides"
 
 msgid "My bookmarks"
-msgstr "Mes recherches sauvegardées"
+msgstr "Mes alertes"
 
 msgid "Are you a contributor?"
 msgstr "Vous êtes contributeur·ice ?"
@@ -1306,7 +1406,7 @@ msgid ""
 "modification that was suggested."
 msgstr ""
 "Pour chaque champ sont affichés 1/ le champ de formulaire pré-rempli avec la "
-"donnée actuelle et 2/ les différences avec la valeus suggérée."
+"donnée actuelle et 2/ les différences avec la valeur suggérée."
 
 msgid "See the aid detail"
 msgstr "Voir le détail de l'aide"
@@ -1322,6 +1422,15 @@ msgstr "Mettre à jour l'aide et supprimer l'amendement"
 
 msgid "Cancel and go back to the amendment list"
 msgstr "Annuler et revenir à la liste des amendements"
+
+msgid "Contains the following perimeters"
+msgstr "Contient les périmètres suivants"
+
+msgid "Toggle perimeters"
+msgstr "Afficher / masquer les périmètres"
+
+msgid "This does not contain any other perimeter"
+msgstr "Ne contient pas d'autres périmètres"
 
 msgid "Upload city list"
 msgstr "Télécharger la liste des communes"
@@ -1448,6 +1557,12 @@ msgstr ""
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
+msgid "Preview your aid"
+msgstr "Prévisualisation de l'aide"
+
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Relevance "
 msgstr "Pertinence"
 
@@ -1561,6 +1676,25 @@ msgstr "Enregistrer en brouillon"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Financers provide fundings."
+msgstr "Les financeurs apportent les fonds."
+
+msgid "Financer(s):"
+msgstr "Financeur(s) :"
+
+msgid "Instructors locally implement the aid."
+msgstr "Les instructeurs mettent en œuvre au niveau local."
+
+msgid "Instructor(s):"
+msgstr "Instructeur(s) :"
+
+msgid ""
+"Warning! This aid is <strong>currently not published</strong>. You can only "
+"see it because you are the author."
+msgstr ""
+"Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
+"strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
 
 msgid "Save to a bundle"
 msgstr "Enregistrer dans une liste"
@@ -1692,6 +1826,15 @@ msgstr ""
 "Vous devrez demander une revue par un administrateur pour re-publier votre "
 "aide."
 
+msgid "Preview"
+msgstr "Prévisualisation"
+
+msgid "Check how your aid will appear to our users."
+msgstr "Vérifiez le rendu de votre aide pour notre public."
+
+msgid "Preview the aid"
+msgstr "Prévisualiser cette aide"
+
 msgid "Danger Zone"
 msgstr "Attention"
 
@@ -1715,9 +1858,6 @@ msgstr "Dupliquer et éditer"
 msgid "New email aids alert"
 msgstr "Nouvelle alerte e-mail"
 
-msgid "Close"
-msgstr "Fermer"
-
 msgid "Do you already own an account? Login first."
 msgstr "Disposez-vous déjà d'un compte ? Commencez par vous connecter."
 
@@ -1732,7 +1872,7 @@ msgstr ""
 "avec notre politique de confidentialité</a>."
 
 msgid "Your bookmarks"
-msgstr "Vos recherches sauvegardées"
+msgstr "Vos alertes"
 
 msgid "See results"
 msgstr "Voir les résultats"
@@ -1744,7 +1884,7 @@ msgid "Update bookmark"
 msgstr "Sauvegarder"
 
 msgid "Delete this bookmark"
-msgstr "Supprimer cette recherche"
+msgstr "Supprimer cette alerte"
 
 msgid ""
 "You don't have any bookmarks yet. You can save bookmarks by using the search "

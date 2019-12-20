@@ -8,7 +8,7 @@ def aid_form_data(user, backer, perimeter):
     return {
         'name': 'Test aid',
         'author': user.id,
-        'backers': [backer.id],
+        'financers': [backer.id],
         'description': 'My aid description',
         'eligibility': 'Aid eligibility info',
         'perimeter': perimeter.id,
@@ -20,4 +20,5 @@ def aid_form_data(user, backer, perimeter):
         'start_date': '01/01/2019',
         'publication_status': 'open',
         'status': 'published',
+        'is_call_for_project': True,
     }

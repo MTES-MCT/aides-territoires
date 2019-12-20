@@ -46,4 +46,4 @@
 
         return this;
     };
-})(jQuery);
+})($ || django.jQuery);

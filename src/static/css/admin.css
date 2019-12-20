@@ -47,3 +47,36 @@ input.is-invalid {
 form#aid_form #id_name {
     width: 610px;
 }
+
+div.field-categories div.selector {
+    width: 800px !important;
+}
+
+div.field-categories div.selector-available,
+div.field-categories div.selector-chosen {
+    width: 100%;
+}
+
+div.field-categories select {
+    width: 100%;
+}
+
+.perimeter-list h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.perimeter-list ul {
+    margin-top: 1em;
+}
+
+.trumbowyg-box {
+    margin-left: 170px !important;
+    max-width: 800px;
+}
+
+form .aligned .trumbowyg-box ul {
+    margin-left: inherit;
+    padding-left: inherit;
+}

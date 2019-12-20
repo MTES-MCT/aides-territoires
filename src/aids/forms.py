@@ -5,13 +5,15 @@ from django import forms
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
-from core.forms.widgets import (AutocompleteSelectMultiple,
-                                MultipleChoiceFilterWidget)
+from core.forms import (
+    AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from tags.fields import TagChoiceField
+from categories.fields import CategoryMultipleChoiceField
 from aids.models import Aid
 
 
@@ -56,19 +58,55 @@ AUDIANCES = (
 )
 
 
-CONTACT_INITIAL = '{}\n{}\n{}\n{}'.format(
-    _('First / last name: '),
-    _('Email: '),
-    _('Phone: '),
-    _('Comments: '),
+CONTACT_INITIAL = '''
+    <ul>
+        <li>{}</li>
+        <li>{}</li>
+        <li>{}</li>
+        <li>{}</li>
+    </ul>
+    '''.format(
+        _('First / last name: '),
+        _('Email: '),
+        _('Phone: '),
+        _('Comments: '),
+    )
+
+IS_CALL_FOR_PROJECT = (
+    (None, '----'),
+    (True, _('Yes')),
+    (False, _('No'))
 )
 
 
 class BaseAidForm(forms.ModelForm):
+
     tags = TagChoiceField(
         label=_('Tags'),
         choices=list,
         required=False)
+    description = RichTextField(
+        label=_('Full description of the aid and its objectives'),
+        widget=forms.Textarea(attrs={'placeholder': _(
+            'If you have a description, do not hesitate to copy it here.\n'
+            'Try to complete the description with the maximum of'
+            ' information.\n'
+            'If you are contacted regularly to ask for the same information,'
+            ' try to give some answers in this space.')}))
+    eligibility = RichTextField(
+        label=_('Other eligibility criterias?'),
+        required=False)
+    contact = RichTextField(
+        label=_('Contact'),
+        required=False,
+        initial=CONTACT_INITIAL,
+        help_text=_('Feel free to add several contacts'))
+    is_call_for_project = forms.NullBooleanField(
+        label=_('Call for project / Call for expressions of interest'),
+        required=True,
+        widget=forms.Select(
+            choices=IS_CALL_FOR_PROJECT)
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,9 +119,6 @@ class BaseAidForm(forms.ModelForm):
 
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
-
-        if 'contact' in self.fields:
-            self.fields['contact'].initial = CONTACT_INITIAL
 
         # We set the existing tags as the `choices` value so the existing
         # tags will be displayed in the widget
@@ -99,10 +134,10 @@ class BaseAidForm(forms.ModelForm):
 
         custom_labels = {
             'name': _('Aid title'),
-            'backers': _('Aid backer(s)'),
-            'new_backer': _('…or add a new backer'),
+            'financers': _('Aid financer(s)'),
+            'instructors': _('Aid instructor(s)'),
+            'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
-            'eligibility': _('Are the any other eligibility criterias?'),
             'origin_url': _('Link to a full description'),
             'application_url': _('Link to an online application form'),
             'is_call_for_project': _('Is this a call for project / expressions'
@@ -116,13 +151,34 @@ class BaseAidForm(forms.ModelForm):
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
-            'tags': _('Add up to 16 keywords to describe your aid (separated '
+            'tags': _('Add up to 30 keywords to describe your aid (separated '
                       'by ",")'),
-            'contact': _('Feel free to add several contacts'),
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
                 self.fields[field].help_text = help_text
+
+    def clean(self):
+        """Custom validation routine."""
+
+        data = self.cleaned_data
+
+        if 'financers' in self.fields:
+            if not any((data.get('financers'),
+                        data.get('financer_suggestion'))):
+                msg = _('Please provide a financer, or suggest a new one.')
+                self.add_error('financers', msg)
+
+        if 'subvention_rate' in data and data['subvention_rate']:
+            lower = data['subvention_rate'].lower
+            upper = data['subvention_rate'].upper
+            if lower and not upper:
+                msg = _('Please indicate the maximum subvention rate.')
+                self.add_error(
+                    'subvention_rate',
+                    ValidationError(msg, code='missing_upper_bound'))
+
+        return data
 
     def save(self, commit=True):
         """Saves the instance.
@@ -130,9 +186,9 @@ class BaseAidForm(forms.ModelForm):
         We update the aid search_vector here, because this is the only place
         we gather all the necessary data (object + m2m related objects).
         """
-        if 'backers' in self.fields:
-            backers = self.cleaned_data['backers']
-            self.instance.set_search_vector(backers)
+        financers = self.cleaned_data.get('financers', None)
+        instructors = self.cleaned_data.get('instructors', None)
+        self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
 
     def _save_m2m(self):
@@ -143,6 +199,23 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    financer_suggestion = forms.CharField(
+        label=_('Financer suggestion'),
+        max_length=256,
+        required=False,
+        help_text=_('This financer was suggested. Add it to the global list '
+                    'then add it to this aid with the field above.'))
+    instructor_suggestion = forms.CharField(
+        label=_('Instructor suggestion'),
+        max_length=256,
+        required=False,
+        help_text=_('This instructor was suggested. Add it to the global list '
+                    'then add it to this aid with the field above.'))
+    categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        required=False,
+        widget=FilteredSelectMultiple(_('Categories'), True))
+
     class Meta:
         widgets = {
             'name': forms.Textarea(attrs={'rows': 3}),
@@ -152,24 +225,40 @@ class AidAdminForm(BaseAidForm):
             'destinations': forms.CheckboxSelectMultiple,
         }
 
-    class Media:
-        js = [
-            'admin/js/jquery.init.js',
-            'admin/js/tags_autocomplete.js'
-        ]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['financers'].required = False
         self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
+        self.fields['start_date'].required = False
 
 
 class AidEditForm(BaseAidForm):
 
-    backers = forms.ModelMultipleChoiceField(
+    financers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
-        required=False)
+        required=False,
+        help_text=_('Type a few characters and select a value among the list'))
+    financer_suggestion = forms.CharField(
+        label=_('Suggest a new financer'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest a financer if you don\'t find '
+                    'the correct choice in the main list.'))
+    instructors = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple,
+        required=False,
+        help_text=_('Type a few characters and select a value among the list'))
+    instructor_suggestion = forms.CharField(
+        label=_('Suggest a new instructor'),
+        max_length=256,
+        required=False,
+        help_text=_('Suggest an instructor if you don\'t find '
+                    'the correct choice in the main list.'))
+
     perimeter = PerimeterChoiceField(
         label=_('Perimeter'))
 
@@ -180,8 +269,10 @@ class AidEditForm(BaseAidForm):
             'description',
             'tags',
             'targeted_audiances',
-            'backers',
-            'new_backer',
+            'financers',
+            'financer_suggestion',
+            'instructors',
+            'instructor_suggestion',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -199,9 +290,6 @@ class AidEditForm(BaseAidForm):
             'contact',
         ]
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-            'eligibility': forms.Textarea(attrs={'rows': 3}),
-            'contact': forms.Textarea(attrs={'rows': 4}),
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiances': MultipleChoiceFilterWidget,
@@ -211,7 +299,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'submission_deadline': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')})
         }
 
     def __init__(self, *args, **kwargs):
@@ -220,28 +308,6 @@ class AidEditForm(BaseAidForm):
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
-
-    def clean(self):
-        """Make sure the aid backers were provided."""
-
-        data = self.cleaned_data
-
-        if 'backers' in self.fields:
-            if not any((data.get('backers'), data.get('new_backer'))):
-                msg = _('You must select the aid backers, or create a new one '
-                        'below.')
-                self.add_error('backers', msg)
-
-        if 'subvention_rate' in data and data['subvention_rate']:
-            lower = data['subvention_rate'].lower
-            upper = data['subvention_rate'].upper
-            if lower and not upper:
-                msg = _('Please indicate the maximum subvention rate.')
-                self.add_error(
-                    'subvention_rate',
-                    ValidationError(msg, code='missing_upper_bound'))
-
-        return data
 
 
 class AidAmendForm(AidEditForm):

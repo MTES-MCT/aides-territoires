@@ -10,7 +10,18 @@ from aids.forms import AidSearchForm
 
 
 class Bookmark(models.Model):
-    """A bookmarked search query."""
+    """A bookmarked search query.
+
+    Note: at the beginning, the feature was about saving the current search
+    and keeping a list of your saved searches.
+
+    After some time, we added the possibility to receive e-mail alerts
+    for saved searches, and it was decided in the UI to put the
+    emphasis on the "alert" part.
+
+    Thus, in the code, we handle `bookmarks` but you will see the related
+    features as `alerts`.
+    """
 
     FREQUENCIES = Choices(
         ('daily', _('Daily')),
@@ -64,7 +75,7 @@ class Bookmark(models.Model):
             .published() \
             .open() \
             .select_related('perimeter', 'author') \
-            .prefetch_related('backers') \
+            .prefetch_related('financers') \
             .filter(date_published__gte=self.latest_alert_date) \
             .order_by('date_published')
         qs = search_form.filter_queryset(base_qs)
