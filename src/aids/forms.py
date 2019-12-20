@@ -105,7 +105,7 @@ class BaseAidForm(forms.ModelForm):
         label=_('Call for project / Call for expressions of interest'),
         required=True,
         widget=forms.Select(
-            choices = IS_CALL_FOR_PROJECT)
+            choices=IS_CALL_FOR_PROJECT)
     )
 
     def __init__(self, *args, **kwargs):
