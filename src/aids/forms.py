@@ -101,7 +101,7 @@ class BaseAidForm(forms.ModelForm):
         required=False,
         initial=CONTACT_INITIAL,
         help_text=_('Feel free to add several contacts'))
-    is_call_for_project = forms.BooleanField(
+    is_call_for_project = forms.NullBooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=True,
         widget=forms.Select(
