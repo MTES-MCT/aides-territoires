@@ -60,7 +60,7 @@
         <div>
             <p>{{ _('Check how your aid will appear to our users.') }}</p>
             <p>
-                <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal">
+                <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
                     {{ _('Preview the aid') }}
                 </button>
             </p>

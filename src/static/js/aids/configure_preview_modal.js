@@ -2,10 +2,12 @@
 $(document).ready(function () {
     "use strict";
 
-    $('#aid-preview-modal').on('show.bs.modal', function () {
+    $('#aid-preview-modal').on('show.bs.modal', function (event) {
+        var previewBtn = $(event.relatedTarget);
+        var previewUrl = previewBtn.data('preview-url');
         var content = $(this).find('div.content');
         var iframe = $('<iframe />');
-        iframe.attr('src', '{{ aid.get_absolute_url }}?integration=integration');
+        iframe.attr('src', previewUrl);
         content.html(iframe);
     });
 });
