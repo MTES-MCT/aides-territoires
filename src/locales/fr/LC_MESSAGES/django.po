@@ -274,30 +274,16 @@ msgstr "Téléphone :"
 msgid "Comments: "
 msgstr "Remarques :"
 
-<<<<<<< HEAD
 msgid "Yes"
 msgstr "Oui"
-||||||| merged common ancestors
-msgid "Suggest a new financer"
-msgstr "Suggérer un nouveau financeur"
-=======
 msgid "Tags"
 msgstr "Mots clés"
 
 msgid "Full description of the aid and its objectives"
 msgstr "Description complète de l'aide et de ses objectifs"
->>>>>>> Translations
 
-<<<<<<< HEAD
 msgid "No"
 msgstr "Non"
-||||||| merged common ancestors
-msgid ""
-"Suggest a financer if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un financeur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-=======
 msgid ""
 "If you have a description, do not hesitate to copy it here.\n"
 "Try to complete the description with the maximum of information.\n"
@@ -308,23 +294,15 @@ msgstr ""
 "Essayez de compléter le descriptif avec le maximum d'informations.\n"
 "Si l'on vous contacte régulièrement pour vous demander les mêmes "
 "informations, essayez de donner des éléments de réponses dans cet espace."
->>>>>>> Translations
 
-<<<<<<< HEAD
 msgid "Tags"
 msgstr "Mots clés"
 
 msgid "Full description of the aid and its objectives"
 msgstr "Description complète de l'aide et de ses objectifs"
-||||||| merged common ancestors
-msgid "Suggest a new instructor"
-msgstr "Suggérer un nouvel instructeur"
-=======
 msgid "Are the any other eligibility criterias?"
 msgstr "Y a-t-il d'autres critères d'éligibilité ?"
->>>>>>> Translations
 
-<<<<<<< HEAD
 msgid ""
 "If you have a description, do not hesitate to copy it here.\n"
 "Try to complete the description with the maximum of information.\n"
@@ -335,18 +313,9 @@ msgstr ""
 "Essayez de compléter le descriptif avec le maximum d'informations.\n"
 "Si l'on vous contacte régulièrement pour vous demander les mêmes "
 "informations, essayez de donner des éléments de réponses dans cet espace."
-||||||| merged common ancestors
-msgid ""
-"Suggest an instructor if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-=======
 msgid "Contact"
 msgstr "Contact"
->>>>>>> Translations
 
-<<<<<<< HEAD
 msgid "Other eligibility criterias?"
 msgstr "Autres critères d'éligibilité ?"
 
@@ -358,13 +327,8 @@ msgstr "N'hésitez pas à ajouter plusieurs contacts"
 
 msgid "Call for project / Call for expressions of interest"
 msgstr "Appel à projet / Manifestation d'intérêt"
-||||||| merged common ancestors
-msgid "Tags"
-msgstr "Mots clés"
-=======
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
->>>>>>> Translations
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
