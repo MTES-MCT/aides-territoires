@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 10:58+0100\n"
+"POT-Creation-Date: 2019-12-20 15:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -725,21 +725,11 @@ msgstr ""
 "Votre aide a été créée. Vous pouvez poursuivre l'édition ou <a href=\"%(url)s"
 "\" target=\"_blank\">la prévisualiser</a>."
 
-#, python-format
-msgid ""
-"The new aid was sucessfully created. You can keep editing it or <a href="
-"\"%(url)s\" target=\"_blank\">preview it</a>."
-msgstr ""
-"La nouvelle aide a été créée. Vous pouvez poursuivre l'édition ou <a href="
-"\"%(url)s\" target=\"_blank\">la prévisualiser</a>."
+msgid "The new aid was sucessfully created. You can keep editing it."
+msgstr "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition."
 
-#, python-format
-msgid ""
-"The aid was sucessfully updated. You can keep editing it or <a href=\"%(url)s"
-"\" target=\"_blank\">preview it</a>."
-msgstr ""
-"L'aide a été mise à jour. Vous pouvez poursuivre l'édition ou <a href="
-"\"%(url)s\" target=\"_blank\">la prévisualiser</a>."
+msgid "The aid was sucessfully updated. You can keep editing it."
+msgstr "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
 
 msgid "We updated your aid status."
 msgstr "Le changement de statut de votre aide a bien été pris en compte."
@@ -1567,6 +1557,12 @@ msgstr ""
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
+msgid "Preview your aid"
+msgstr "Prévisualisation de l'aide"
+
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Relevance "
 msgstr "Pertinence"
 
@@ -1861,9 +1857,6 @@ msgstr "Dupliquer et éditer"
 
 msgid "New email aids alert"
 msgstr "Nouvelle alerte e-mail"
-
-msgid "Close"
-msgstr "Fermer"
 
 msgid "Do you already own an account? Login first."
 msgstr "Disposez-vous déjà d'un compte ? Commencez par vous connecter."

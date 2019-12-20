@@ -60,9 +60,9 @@
         <div>
             <p>{{ _('Check how your aid will appear to our users.') }}</p>
             <p>
-                <a class="preview-btn" href="{{ aid.get_absolute_url }}" target="_blank">
+                <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
                     {{ _('Preview the aid') }}
-                </a>
+                </button>
             </p>
         </div>
     </div>
@@ -103,4 +103,20 @@
 {{ block.super }}
 <script src="/static/js/aids/update_status_form_availability.js"></script>
 <script src="/static/js/aids/disable_delete_button.js"></script>
+<script src="/static/js/aids/configure_preview_modal.js"></script>
+<script>
+$(document).ready(function() {
+    // Force the user to preview the aid at every edit.
+    var queryString = window.location.search.substring(1);
+    if (queryString.match(/preview/)) {
+        var previewBtn = $('button.preview-btn');
+        previewBtn.click();
+    }
+});
+</script>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+{% include 'aids/_preview_modal.html' %}
 {% endblock %}
