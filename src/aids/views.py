@@ -199,7 +199,6 @@ class AidDetailView(DetailView):
          - superusers can see all aids.
         """
         base_qs = Aid.objects \
-            .open() \
             .select_related('perimeter', 'author') \
             .prefetch_related('financers', 'instructors')
 
@@ -211,7 +210,7 @@ class AidDetailView(DetailView):
             q_is_author = Q(author=user)
             qs = base_qs.filter(q_published | q_is_author)
         else:
-            qs = base_qs.published()
+            qs = base_qs.open().published()
 
         return qs
 
