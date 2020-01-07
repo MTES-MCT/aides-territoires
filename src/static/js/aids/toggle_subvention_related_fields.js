@@ -9,21 +9,16 @@
      */
     exports.toggleSubventionFields = function(form, div) {
 
+        div.addClass('collapse');
+
         var checkbox = form.find('input[value=grant]');
         var checked = checkbox.prop('checked');
         var hasErrors = div.find('p.error').length > 0;
 
         if (checked || hasErrors) {
-            div.addClass('collapse show');
+            div.collapse('show');
         } else {
-            div.addClass('collapse');
-        }
-
-        if (!hasErrors) {
-            form.on('change', function() {
-                var collapse = checkbox.prop('checked') ? 'show' : 'hide';
-                div.collapse(collapse);
-            });
+            div.collapse('hide');
         }
     };
 
@@ -36,4 +31,7 @@ $(document).ready(function () {
     var aidEditForm = $('form.main-form');
     var subventionFieldsDiv = $('div#subvention-fields');
     toggleSubventionFields(aidEditForm, subventionFieldsDiv);
+    aidEditForm.on('change', function() {
+        toggleSubventionFields(aidEditForm, subventionFieldsDiv);
+    });
 });

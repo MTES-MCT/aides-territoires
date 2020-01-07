@@ -243,7 +243,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             choices=DESTINATIONS))
     start_date = models.DateField(
         _('Start date'),
-        null=True,
+        null=True, blank=True,
         help_text=_('When is the application opening?'))
     predeposit_date = models.DateField(
         _('Predeposit date'),

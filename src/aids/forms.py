@@ -178,6 +178,16 @@ class BaseAidForm(forms.ModelForm):
                     'subvention_rate',
                     ValidationError(msg, code='missing_upper_bound'))
 
+        if 'recurrence' in data and data['recurrence']:
+            recurrence = data['recurrence']
+            start_date = data.get('start_date', None)
+
+            if recurrence != 'ongoing' and not start_date:
+                msg = _('Unless the aid is ongoing, you must indicate the start date.')  # noqa
+                self.add_error(
+                    'start_date',
+                    ValidationError(msg, code='missing_start_date'))
+
         return data
 
     def save(self, commit=True):

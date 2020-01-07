@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-20 15:41+0100\n"
+"POT-Creation-Date: 2020-01-06 14:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,6 +350,9 @@ msgstr "Merci d'indiquer un financeur."
 
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
+
+msgid "Unless the aid is ongoing, you must indicate the start date."
+msgstr "Sauf pour les aides permanentes, veuillez indiquer la date d'ouverture."
 
 msgid "Financer suggestion"
 msgstr "Financeurs suggérés"
@@ -1148,9 +1151,6 @@ msgstr "Vous êtes chercheur·se d'aide ?"
 msgid "My bundles"
 msgstr "Mes listes d'aides"
 
-msgid "My bookmarks"
-msgstr "Mes alertes"
-
 msgid "Are you a contributor?"
 msgstr "Vous êtes contributeur·ice ?"
 
@@ -1588,9 +1588,6 @@ msgstr "Rechercher"
 msgid "See more filters"
 msgstr "Voir plus de critères"
 
-msgid "Create an alert"
-msgstr "Créer une alerte"
-
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
 
@@ -1870,6 +1867,9 @@ msgstr ""
 "En utilisant cette fonctionnalité, vous acceptez que vos données soient "
 "traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
 "avec notre politique de confidentialité</a>."
+
+msgid "Create an alert"
+msgstr "Créer une alerte"
 
 msgid "Your bookmarks"
 msgstr "Vos alertes"

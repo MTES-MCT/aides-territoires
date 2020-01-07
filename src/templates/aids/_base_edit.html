@@ -50,9 +50,11 @@
     <fieldset>
         <legend>{{ _('Aid calendar') }}</legend>
         {% include '_field_snippet.html' with field=form.recurrence %}
-        {% include '_field_snippet.html' with field=form.start_date %}
-        {% include '_field_snippet.html' with field=form.predeposit_date %}
-        {% include '_field_snippet.html' with field=form.submission_deadline %}
+        <div id="calendar-fields">
+            {% include '_field_snippet.html' with field=form.start_date %}
+            {% include '_field_snippet.html' with field=form.predeposit_date %}
+            {% include '_field_snippet.html' with field=form.submission_deadline %}
+        </div>
     </fieldset>
 
     <fieldset>
@@ -102,6 +104,7 @@
 <script src="/static/js/tags_autocomplete.js"></script>
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
 <script src="/static/js/aids/toggle_subvention_related_fields.js"></script>
+<script src="/static/js/aids/toggle_calendar_related_fields.js"></script>
 <script src="/static/js/aids/enable_softmaxlength.js"></script>
 <script src="/static/js/enable_rich_text_editor.js"></script>
 {% endblock %}
