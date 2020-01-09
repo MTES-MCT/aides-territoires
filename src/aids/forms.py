@@ -384,7 +384,7 @@ class AidSearchForm(forms.Form):
         choices=FINANCIAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
     technical_aids = forms.MultipleChoiceField(
-        label=_('Technical aids'),
+        label=_('Engineering aids'),
         required=False,
         choices=TECHNICAL_AIDS,
         widget=forms.CheckboxSelectMultiple)

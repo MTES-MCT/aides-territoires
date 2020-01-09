@@ -93,9 +93,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('grant', _('Grant')),
         ('loan', _('Loan')),
         ('recoverable_advance', _('Recoverable advance')),
-        ('technical', _('Technical')),
-        ('financial', _('Financial')),
-        ('legal', _('Legal')),
+        ('technical', _('Technical engineering')),
+        ('financial', _('Financial engineering')),
+        ('legal', _('Legal engineering')),
         ('other', _('Other')),
     )
 

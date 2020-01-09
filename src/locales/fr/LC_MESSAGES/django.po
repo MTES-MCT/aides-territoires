@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-06 14:34+0100\n"
+"POT-Creation-Date: 2020-01-09 10:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,13 +209,13 @@ msgid "Other"
 msgstr "Autre"
 
 msgid "Technical"
-msgstr "Ingénierie technique"
+msgstr "Technique"
 
 msgid "Financial"
-msgstr "Ingénierie financière"
+msgstr "Financière"
 
 msgid "Legal"
-msgstr "Ingénierie juridique"
+msgstr "Juridique"
 
 msgid "Financial aids"
 msgstr "Aides financières"
@@ -352,7 +352,8 @@ msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
 
 msgid "Unless the aid is ongoing, you must indicate the start date."
-msgstr "Sauf pour les aides permanentes, veuillez indiquer la date d'ouverture."
+msgstr ""
+"Sauf pour les aides permanentes, veuillez indiquer la date d'ouverture."
 
 msgid "Financer suggestion"
 msgstr "Financeurs suggérés"
@@ -463,8 +464,8 @@ msgstr "Titre, sujet, mot-clé, etc."
 msgid "Apply before…"
 msgstr "Candidater avant…"
 
-msgid "Technical aids"
-msgstr "Aides techniques"
+msgid "Engineering aids"
+msgstr "Aides en ingénierie"
 
 msgid "Project progress"
 msgstr "Avancement du projet"
@@ -497,6 +498,15 @@ msgstr "Publiée"
 msgctxt "Aid (nf)"
 msgid "Deleted"
 msgstr "Supprimée"
+
+msgid "Technical engineering"
+msgstr "Ingénierie technique"
+
+msgid "Financial engineering"
+msgstr "Ingénierie financière"
+
+msgid "Legal engineering"
+msgstr "Ingénierie juridique"
 
 msgid "Europe"
 msgstr "Europe"
