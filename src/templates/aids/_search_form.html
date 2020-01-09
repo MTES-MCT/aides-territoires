@@ -70,6 +70,9 @@
                 <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                     {{ _('See more filters') }}
                 </button>
+                <a href="#" id="save-bookmark-btn" class="bookmark-btn js" data-toggle="modal" data-target="#bookmark-search-modal">
+                    {{ _('Create an alert') }}
+                </a>
             </div>
         </div>
     </form>
