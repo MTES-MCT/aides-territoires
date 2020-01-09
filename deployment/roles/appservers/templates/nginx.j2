@@ -76,6 +76,14 @@ server {
         access_log off;
     }
 
+    # Google search console validation file
+    # Do not remove.
+    location /google7cbe5bb6ac545929.html {
+        alias {{ project_root }}/public/static/well-known/google7cbe5bb6ac545929;
+        expires 1y;
+        access_log off;
+    }
+
     location / {
         error_page 418 = @django;
         return 418;
