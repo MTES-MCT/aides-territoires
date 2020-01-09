@@ -101,12 +101,9 @@ class BaseAidForm(forms.ModelForm):
         required=False,
         initial=CONTACT_INITIAL,
         help_text=_('Feel free to add several contacts'))
-    is_call_for_project = forms.NullBooleanField(
+    is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
-        required=True,
-        widget=forms.Select(
-            choices=IS_CALL_FOR_PROJECT)
-    )
+        required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
