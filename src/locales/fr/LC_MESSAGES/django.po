@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-09 10:51+0100\n"
+"POT-Creation-Date: 2020-01-10 11:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -147,6 +147,33 @@ msgstr "Votre profil a été mise à jour."
 
 msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
+
+msgid "Display status"
+msgstr "Affichage"
+
+msgid "Open aids"
+msgstr "Aides ouvertes"
+
+msgid "Expired aids"
+msgstr "Aides expirées"
+
+msgid "Deadline approaching"
+msgstr "Expirent bientôt"
+
+msgid "Currently not displayed"
+msgstr "Actuellement non affichées"
+
+msgid "Currently displayed"
+msgstr "Actuellement affichées"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Backers"
+msgstr "Apporteurs"
+
+msgid "Perimeter"
+msgstr "Périmètre"
 
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
@@ -378,9 +405,6 @@ msgstr ""
 msgid "Categories"
 msgstr "Catégories"
 
-msgid "Backers"
-msgstr "Apporteurs"
-
 msgid "Type a few characters and select a value among the list"
 msgstr ""
 "Saisissez quelques caractères et sélectionnez une valeur parmi les "
@@ -403,9 +427,6 @@ msgid ""
 msgstr ""
 "Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
 "principale."
-
-msgid "Perimeter"
-msgstr "Périmètre"
 
 msgid "yyyy-mm-dd"
 msgstr "jj/mm/aaaa"
@@ -576,9 +597,6 @@ msgid ""
 "recipient."
 msgstr ""
 "Un bon titre décrit l'objectif de l'aide et doit parler au bénéficiaire."
-
-msgid "Author"
-msgstr "Auteur"
 
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
@@ -1445,6 +1463,13 @@ msgstr "Ne contient pas d'autres périmètres"
 msgid "Upload city list"
 msgstr "Télécharger la liste des communes"
 
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "Par %(filter_title)s "
+
+msgid "Remove"
+msgstr "Supprimer"
+
 msgid "Upload"
 msgstr "Télécharger"
 
@@ -1696,18 +1721,18 @@ msgstr "Les instructeurs mettent en œuvre au niveau local."
 msgid "Instructor(s):"
 msgstr "Instructeur(s) :"
 
+msgid "Save to a bundle"
+msgstr "Enregistrer dans une liste"
+
+msgid "Suggest a modification"
+msgstr "Suggérer des modifications"
+
 msgid ""
 "Warning! This aid is <strong>currently not published</strong>. You can only "
 "see it because you are the author."
 msgstr ""
 "Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
 "strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
-
-msgid "Save to a bundle"
-msgstr "Enregistrer dans une liste"
-
-msgid "Suggest a modification"
-msgstr "Suggérer des modifications"
 
 msgid "Keywords:"
 msgstr "Mots clés :"
