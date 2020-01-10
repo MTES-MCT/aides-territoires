@@ -109,8 +109,7 @@ class AidAdmin(admin.ModelAdmin):
         'status'
     ]
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
-    search_fields = [
-        'name',]
+    search_fields = ['name']
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
         LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter]
