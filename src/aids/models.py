@@ -1,4 +1,5 @@
 from uuid import uuid4
+from datetime import timedelta
 
 from django.db import models
 from django.db.models import Q, Value
@@ -37,12 +38,48 @@ class AidQuerySet(models.QuerySet):
         return self.filter(status='reviewable')
 
     def open(self):
-        """Returns aids that may appear in the search results (unexpired)."""
+        """Returns aids that may appear in the search results (unexpired).
+
+        An aid is considered open if:
+          - the submission deadline is still in the future OR
+          - the submission deadline is not provided OR
+          - the recurrence field is set to "ongoing"
+
+        """
 
         today = timezone.now().date()
         return self.filter(
             Q(submission_deadline__gte=today)
-            | Q(submission_deadline__isnull=True))
+            | Q(submission_deadline__isnull=True)
+            | Q(recurrence='ongoing'))
+
+    def expired(self):
+        """Returns expired aids. The opposite of the `open` filter."""
+
+        today = timezone.now().date()
+        return self.filter(
+            Q(submission_deadline__lt=today)
+            & ~Q(recurrence='ongoing'))
+
+    def soon_expiring(self):
+        """Returns aids that will expire soon."""
+
+        today = timezone.now().date()
+        soon = today + timedelta(days=settings.APPROACHING_DEADLINE_DELTA)
+        return self.filter(
+            Q(submission_deadline__gte=today)
+            & Q(submission_deadline__lte=soon)
+            & ~Q(recurrence='ongoing'))
+
+    def hidden(self):
+        """Returns the list of aids that do not appear on the frontend."""
+
+        today = timezone.now().date()
+        return self.filter(
+            ~Q(status='published')
+            | (
+                Q(submission_deadline__lt=today)
+                & ~Q(recurrence='ongoing')))
 
 
 class BaseAidManager(models.Manager):
