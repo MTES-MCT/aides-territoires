@@ -137,8 +137,8 @@ class BaseAidForm(forms.ModelForm):
             'destinations': _('Types of expenses covered'),
             'origin_url': _('Link to a full description'),
             'application_url': _('Link to an online application form'),
-            'is_call_for_project': _('Is this a call for project / expressions'
-                                     ' of interest?')
+            'is_call_for_project': _('Check this if this aid is a call for'
+                                     ' project')
         }
         for field, label in custom_labels.items():
             if field in self.fields:
