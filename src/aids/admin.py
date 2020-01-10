@@ -4,9 +4,42 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+
 from aids.admin_views import AmendmentMerge
 from aids.models import Aid
 from aids.forms import AidAdminForm
+
+
+class LiveAidListFilter(admin.SimpleListFilter):
+    """Custom admin filter to target aids with various statuses."""
+
+    title = _('Display status')
+    parameter_name = 'displayed'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('open', _('Open aids')),
+            ('expired', _('Expired aids')),
+            ('deadline', _('Deadline approaching')),
+            ('hidden', _('Currently not displayed')),
+            ('live', _('Currently displayed')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'open':
+            return queryset.open()
+
+        if self.value() == 'expired':
+            return queryset.expired()
+
+        if self.value() == 'deadline':
+            return queryset.soon_expiring()
+
+        if self.value() == 'hidden':
+            return queryset.hidden()
+
+        if self.value() == 'live':
+            return queryset.published().open()
 
 
 class AidAdmin(admin.ModelAdmin):
@@ -34,8 +67,8 @@ class AidAdmin(admin.ModelAdmin):
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
-        'name', 'all_financers', 'all_instructors', 'author', 'recurrence',
-        'date_updated', 'date_published', 'is_imported', 'import_uniqueid',
+        'name', 'all_financers', 'all_instructors', 'author_name', 'recurrence',
+        'date_updated', 'date_published', 'is_imported', 'submission_deadline',
         'status'
     ]
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
@@ -43,7 +76,8 @@ class AidAdmin(admin.ModelAdmin):
         'name', 'perimeter__name', 'financers__name', 'instructors__name'
     ]
     list_filter = [
-        'status', 'recurrence', 'is_imported', 'is_call_for_project']
+        'status', 'recurrence', 'is_imported', 'is_call_for_project',
+        LiveAidListFilter]
 
     filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
@@ -131,6 +165,10 @@ class AidAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related('financers', 'instructors')
         qs = qs.select_related('author')
         return qs
+
+    def author_name(self, aid):
+        return aid.author.full_name
+    author_name.short_description = _('Name')
 
     def all_financers(self, aid):
         financers = [backer.name for backer in aid.financers.all()]
