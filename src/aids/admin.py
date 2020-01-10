@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
@@ -5,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
 
+from core.admin import InputFilter
 from aids.admin_views import AmendmentMerge
 from aids.models import Aid
 from aids.forms import AidAdminForm
@@ -42,6 +44,41 @@ class LiveAidListFilter(admin.SimpleListFilter):
             return queryset.published().open()
 
 
+class AuthorFilter(InputFilter):
+    parameter_name = 'author'
+    title = _('Author')
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+
+            return queryset.filter(Q(author__full_name__icontains=value))
+
+
+class BackersFilter(InputFilter):
+    parameter_name = 'backers'
+    title = _('Backers')
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+
+            return queryset.filter(
+                Q(financers__name__icontains=value) |
+                Q(instructors__name__icontains=value))
+
+
+class PerimeterFilter(InputFilter):
+    parameter_name = 'perimeter'
+    title = _('Perimeter')
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+
+            return queryset.filter(Q(perimeter__name__icontains=value))
+
+
 class AidAdmin(admin.ModelAdmin):
     """Admin module for aids."""
 
@@ -73,11 +110,10 @@ class AidAdmin(admin.ModelAdmin):
     ]
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
     search_fields = [
-        'name', 'perimeter__name', 'financers__name', 'instructors__name'
-    ]
+        'name',]
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
-        LiveAidListFilter]
+        LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter]
 
     filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
@@ -168,7 +204,7 @@ class AidAdmin(admin.ModelAdmin):
 
     def author_name(self, aid):
         return aid.author.full_name
-    author_name.short_description = _('Name')
+    author_name.short_description = _('Author')
 
     def all_financers(self, aid):
         financers = [backer.name for backer in aid.financers.all()]
