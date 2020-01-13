@@ -1,34 +1,63 @@
-import requests
-from django.core.management.base import BaseCommand, CommandError
+import json
+
+from django.db import transaction
+from django.core.management.base import BaseCommand
+from django.conf import settings
 
 from geofr.models import Perimeter
 from geofr.constants import OVERSEAS_REGIONS
 
 
-API_URL = 'https://geo.api.gouv.fr/regions/'
+DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/regions.json'
 
 
 class Command(BaseCommand):
     """Import the list of all regions."""
 
+    @transaction.atomic()
     def handle(self, *args, **options):
 
-        api_result = requests.get(API_URL)
-        if api_result.status_code != 200:
-            raise CommandError('Failed to reach geo api.')
+        france = Perimeter.objects.get(
+            scale=Perimeter.TYPES.country,
+            code='FRA')
+        europe = Perimeter.objects.get(
+            scale=Perimeter.TYPES.continent,
+            code='EU')
 
-        data = api_result.json()
+        PerimeterContainedIn = Perimeter.contained_in.through
+        perimeter_links = []
 
-        regions = []
+        data_file = settings.DJANGO_ROOT + DATA_PATH
+        data = json.loads(data_file.read_file())
+        nb_created = 0
+        nb_updated = 0
+
         for entry in data:
-            region = Perimeter(
+
+            # Create or update the region perimeters
+            region, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.TYPES.region,
                 code=entry['code'],
-                name=entry['nom'],
-                is_overseas=(entry['code'] in OVERSEAS_REGIONS),
+                defaults={
+                    'name': entry['nom'],
+                    'is_overseas': (entry['code'] in OVERSEAS_REGIONS),
+                }
             )
-            regions.append(region)
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
 
-        results = Perimeter.objects.bulk_create(regions)
+            perimeter_links.append(PerimeterContainedIn(
+                from_perimeter_id=region.id,
+                to_perimeter_id=europe.id))
+            perimeter_links.append(PerimeterContainedIn(
+                from_perimeter_id=region.id,
+                to_perimeter_id=france.id))
+
+        # Create the links between the regions and France / Europe
+        PerimeterContainedIn.objects.bulk_create(
+            perimeter_links, ignore_conflicts=True)
+
         self.stdout.write(self.style.SUCCESS(
-            '%d regions imported.' % len(results)))
+            '%d regions created, %d updated.' % (nb_created, nb_updated)))
