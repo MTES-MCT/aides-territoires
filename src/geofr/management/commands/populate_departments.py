@@ -14,6 +14,7 @@ DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/departements.jso
 class Command(BaseCommand):
     """Import the list of all departments."""
 
+    @transaction.atomic()
     def handle(self, *args, **options):
 
         france = Perimeter.objects.get(
