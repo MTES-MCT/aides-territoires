@@ -19,8 +19,7 @@
     "trumbowyg": "^2.20.0"
   },
   "devDependencies": {
-    "@etalab/api-communes": "^1.0.0",
-    "@etalab/epci": "^0.2.0",
+    "@etalab/decoupage-administratif": "^0.7.0",
     "eslint": "^5.16.0"
   }
 }
