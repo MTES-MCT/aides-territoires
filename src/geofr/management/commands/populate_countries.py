@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand
+from django.db import transaction
+
 
 from geofr.models import Perimeter
 
@@ -6,6 +8,7 @@ from geofr.models import Perimeter
 class Command(BaseCommand):
     """Import the list of all regions."""
 
+    @transaction.atomic
     def handle(self, *args, **options):
 
         france, _ = Perimeter.objects.update_or_create(
