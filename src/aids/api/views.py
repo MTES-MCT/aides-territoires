@@ -17,7 +17,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             .published() \
             .open() \
             .select_related('perimeter') \
-            .prefetch_related('backers') \
+            .prefetch_related('financers', 'instructors') \
             .order_by('perimeter__scale', 'submission_deadline')
 
         filter_form = AidSearchForm(data=self.request.GET)

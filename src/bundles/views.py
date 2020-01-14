@@ -37,7 +37,7 @@ class BundleListView(LoginRequiredMixin, BundleViewMixin, ListView):
             context['aids'] = bundle.aids \
                 .published() \
                 .select_related('author') \
-                .prefetch_related('backers')
+                .prefetch_related('financers', 'instructors')
         return context
 
 
