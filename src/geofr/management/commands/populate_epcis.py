@@ -5,7 +5,6 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from geofr.models import Perimeter
-from geofr.constants import OVERSEAS_DEPARTMENTS, DEPARTMENT_TO_REGION
 
 
 DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/epci.json'

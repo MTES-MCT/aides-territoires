@@ -21,3 +21,14 @@ in the data files.
 Also, most of those scripts are written in a very inefficient way, because
 they are supposed to be ran at most once or twice a year. Indeed, the
 raw data is unlikely to change very regularly.
+
+The scripts must be ran in order, since sometimes a script will need data
+provided by an other script.
+
+ * populate_countries.py
+ * populate_regions.py
+ * populate_departments.py
+ * populate_overseas.py
+ * populate_communes.py
+ * populate_epcis.py
+ * populate_drainage_basins.py
