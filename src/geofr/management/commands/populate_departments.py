@@ -1,34 +1,70 @@
-import requests
-from django.core.management.base import BaseCommand, CommandError
+import json
+
+from django.db import transaction
+from django.core.management.base import BaseCommand
+from django.conf import settings
 
 from geofr.models import Perimeter
 from geofr.constants import OVERSEAS_REGIONS
 
 
-API_URL = 'https://geo.api.gouv.fr/departements/'
+DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/departements.json'  # noqa
 
 
 class Command(BaseCommand):
     """Import the list of all departments."""
 
+    @transaction.atomic()
     def handle(self, *args, **options):
 
-        api_result = requests.get(API_URL)
-        if api_result.status_code != 200:
-            raise CommandError('Failed to reach geo api.')
+        france = Perimeter.objects.get(
+            scale=Perimeter.TYPES.country,
+            code='FRA')
+        europe = Perimeter.objects.get(
+            scale=Perimeter.TYPES.continent,
+            code='EU')
+        regions_qs = Perimeter.objects \
+            .filter(scale=Perimeter.TYPES.region) \
+            .values_list('code', 'id')
+        regions = dict(regions_qs)
 
-        data = api_result.json()
+        PerimeterContainedIn = Perimeter.contained_in.through
+        perimeter_links = []
 
-        departments = []
+        data_file = settings.DJANGO_ROOT + DATA_PATH
+        data = json.loads(data_file.read_file())
+        nb_created = 0
+        nb_updated = 0
+
         for entry in data:
-            department = Perimeter(
+            department, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.TYPES.department,
                 code=entry['code'],
-                name=entry['nom'],
-                regions=[entry['codeRegion']],
-                is_overseas=(entry['codeRegion'] in OVERSEAS_REGIONS))
-            departments.append(department)
+                defaults={
+                    'name': entry['nom'],
+                    'regions': [entry['region']],
+                    'is_overseas': (entry['region'] in OVERSEAS_REGIONS)
+                }
+            )
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
 
-        results = Perimeter.objects.bulk_create(departments)
+            perimeter_links.append(PerimeterContainedIn(
+                from_perimeter_id=department.id,
+                to_perimeter_id=europe.id))
+            perimeter_links.append(PerimeterContainedIn(
+                from_perimeter_id=department.id,
+                to_perimeter_id=france.id))
+            for region_code in department.regions:
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=department.id,
+                    to_perimeter_id=regions[region_code]))
+
+        # Create the links between the regions and France / Europe
+        PerimeterContainedIn.objects.bulk_create(
+            perimeter_links, ignore_conflicts=True)
+
         self.stdout.write(self.style.SUCCESS(
-            '%d departments imported.' % len(results)))
+            '%d departments created, %d updated.' % (nb_created, nb_updated)))

@@ -1,13 +1,34 @@
-This module contains almost only legacy code.
+This module contains scripts used to populate the database of `Perimeter`
+objects.
 
-The scripts in this directory were used once to populate the `Perimeter`
-database with french's regions, departments, communes, epcis, etc.
+We use Etalab's `decoupage-administratif` package which contains the raw
+json data used by the geo api:
 
-Since some of that data is unlikely to change regularly (e.g regions,
-departments), most of those task MUST not be ran again.
+https://www.npmjs.com/package/@etalab/decoupage-administratif
 
-However, some other tasks were modified to handle updates of existing data:
+Before running those scripts, make sure to run `npm install --dev`.
 
- - populate_communes.py
- - populate_epcis.py
- - populate_drainage_basins.py
+The scripts in this directory MUST be idempotent, so running them several times
+does not produce any side effect.
+
+The scripts MUST be able to create new Perimeters or update existing ones.
+
+The scripts MUST fill the `contained_in` fields for new perimeters.
+
+The scripts MUST NOT delete existing perimeters even if they are not listed
+in the data files.
+
+Also, most of those scripts are written in a very inefficient way, because
+they are supposed to be ran at most once or twice a year. Indeed, the
+raw data is unlikely to change very regularly.
+
+The scripts must be ran in order, since sometimes a script will need data
+provided by an other script.
+
+ * populate_countries.py
+ * populate_regions.py
+ * populate_departments.py
+ * populate_overseas.py
+ * populate_communes.py
+ * populate_epcis.py
+ * populate_drainage_basins.py
