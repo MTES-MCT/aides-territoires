@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}{{ _('Bookmarks') }}{% endblock %}
+
+{% block sectionid %}bookmarks{% endblock %}
+
+{% block content %}
+<h1>{{ _('Your bookmarks') }}</h1>
+
+{% for bookmark in bookmarks %}
+<div class="bookmark">
+<div>
+    <h2>
+        {{ bookmark.title }}<br />
+        <small>{{ bookmark.date_created|date:'SHORT_DATETIME_FORMAT' }}</small>
+    </h2>
+
+    <a href="{% url 'search_view' %}?{{ bookmark.querystring }}">
+        {{ _('See results') }}
+    </a>
+
+    <form class="update-form" action="{% url 'bookmark_update_view' bookmark.id %}" method="post">
+        {% csrf_token %}
+        <div class="alert-fields">
+            <div class="alert_checkbox">
+                <input id="id_send_email_alert_{{ bookmark.id }}" name="send_email_alert" type="checkbox" {{ bookmark.send_email_alert|yesno:"checked," }} />
+                <label for="id_send_email_alert_{{ bookmark.id }}">
+                    {{ _('Send email alerts upon new results') }}
+                </label>
+            </div>
+            <select id="id_alert_frequency_{{ bookmark.id }}" name="alert_frequency">
+                <option value="daily">{{ _('Daily') }}</option>
+                <option value="weekly">{{ _('Weekly') }}</option>
+            </select>
+        </div>
+        <button class="nojs" type="submit">
+            {{ _('Update bookmark') }}
+        </button>
+    </form>
+
+    <form class="delete-form" action="{% url 'bookmark_delete_view' bookmark.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            {{ _('Delete this bookmark') }}
+        </button>
+    </form>
+</div>
+</div>
+{% empty %}
+<p class="info">{% blocktrans trimmed %}
+    You don't have any bookmarks yet. You can save bookmarks by using the
+    search engine and clicking on the "save search" button.
+{% endblocktrans %}</p>
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/bookmarks/bookmarks.js"></script>
+{% endblock %}

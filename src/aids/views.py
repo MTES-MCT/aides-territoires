@@ -21,7 +21,7 @@ from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
 from bundles.forms import BundleForm
 from programs.models import Program
-from bookmarks.forms import UserBookmarkForm, AnonymousBookmarkForm
+from alerts.forms import UserBookmarkForm, AnonymousBookmarkForm
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
