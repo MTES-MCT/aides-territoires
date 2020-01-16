@@ -25,10 +25,10 @@ raw data is unlikely to change very regularly.
 The scripts must be ran in order, since sometimes a script will need data
 provided by an other script.
 
- * populate_countries.py
- * populate_regions.py
- * populate_departments.py
- * populate_overseas.py
- * populate_communes.py
- * populate_epcis.py
- * populate_drainage_basins.py
+ * python manage.py populate_countries
+ * python manage.py populate_regions
+ * python manage.py populate_departments
+ * python manage.py populate_overseas
+ * python manage.py populate_communes
+ * python manage.py populate_epcis
+ * python manage.py populate_drainage_basins
