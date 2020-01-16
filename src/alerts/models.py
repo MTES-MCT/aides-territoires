@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -17,8 +19,13 @@ class Alert(models.Model):
         ('weekly', _('Weekly'))
     )
 
+    token = models.UUIDField(
+        _('Secret token'),
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
     email = models.EmailField(
-        verbose_name=_('Email'))
+        _('Email'))
     querystring = models.TextField(
         _('Querystring'))
     title = models.CharField(
@@ -28,6 +35,12 @@ class Alert(models.Model):
         max_length=32,
         choices=FREQUENCIES,
         default=FREQUENCIES.daily)
+    confirmed = models.BooleanField(
+        _('Confirmed?'),
+        default=False)
+    date_confirmed = models.DateTimeField(
+        _('Date confirmed'),
+        null=True)
     latest_alert_date = models.DateTimeField(
         _('Latest alert date'),
         default=timezone.now)

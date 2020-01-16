@@ -18,4 +18,6 @@ class AlertFactory(DjangoModelFactory):
     email = factory.Faker('email')
     querystring = 'text=ademe'
     alert_frequency = 'weekly'
+    confirmed = True
+    date_confirmed = factory.LazyFunction(two_weeks_ago)
     latest_alert_date = factory.LazyFunction(two_weeks_ago)
