@@ -1,8 +1,8 @@
 {% load i18n %}
 
-<div id="bookmark-search-modal" class="anonymous-modal modal">
+<div id="alert-search-modal" class="anonymous-modal modal">
     <div class="modal-dialog">
-        <form id="bookmark-form"  action="{% url 'bookmark_create_view' %}" method="post">
+        <form id="alert-form"  action="{% url 'alert_create_view' %}" method="post">
             <section>
                 <header>
                     <h1>{{ _('New email aids alert') }}</h1>
@@ -13,16 +13,9 @@
 
                 <div class="content">
                     {% csrf_token %}
-                    {% include '_field_snippet.html' with field=bookmark_form.title %}
-                    {% include '_field_snippet.html' with field=bookmark_form.email %}
-                    {% include '_field_snippet.html' with field=bookmark_form.alert_frequency %}
-
-                    <p class="warning">
-                        <span class="fas fa-user"></span>
-                        <a href="{% url 'login' %}">
-                            {{ _('Do you already own an account? Login first.') }}
-                        </a>
-                    </p>
+                    {% include '_field_snippet.html' with field=alert_form.email %}
+                    {% include '_field_snippet.html' with field=alert_form.title %}
+                    {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
 
                     <p class="info">
                         <span class="fas fa-check"></span>
