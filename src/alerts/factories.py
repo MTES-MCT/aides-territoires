@@ -4,20 +4,18 @@ import factory
 from factory.django import DjangoModelFactory
 from django.utils import timezone
 
-from accounts.factories import UserFactory
-from alerts.models import Bookmark
+from alerts.models import Alert
 
 
 def two_weeks_ago():
     return timezone.now() - timedelta(days=14)
 
 
-class BookmarkFactory(DjangoModelFactory):
+class AlertFactory(DjangoModelFactory):
     class Meta:
-        model = Bookmark
+        model = Alert
 
-    owner = factory.SubFactory(UserFactory)
+    email = factory.Faker('email')
     querystring = 'text=ademe'
-    send_email_alert = True
     alert_frequency = 'weekly'
     latest_alert_date = factory.LazyFunction(two_weeks_ago)

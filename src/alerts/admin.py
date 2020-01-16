@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from alerts.models import Bookmark
+from alerts.models import Alert
 
 
-class BookmarkAdmin(admin.ModelAdmin):
+class AlertAdmin(admin.ModelAdmin):
     list_display = [
-        'owner', 'title', 'send_email_alert', 'date_created', 'date_updated'
+        'email', 'title', 'date_created', 'date_updated'
     ]
 
 
-admin.site.register(Bookmark, BookmarkAdmin)
+admin.site.register(Alert, AlertAdmin)

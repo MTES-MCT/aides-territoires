@@ -9,37 +9,21 @@ from aids.models import Aid
 from aids.forms import AidSearchForm
 
 
-class Bookmark(models.Model):
-    """A bookmarked search query.
-
-    Note: at the beginning, the feature was about saving the current search
-    and keeping a list of your saved searches.
-
-    After some time, we added the possibility to receive e-mail alerts
-    for saved searches, and it was decided in the UI to put the
-    emphasis on the "alert" part.
-
-    Thus, in the code, we handle `bookmarks` but you will see the related
-    features as `alerts`.
-    """
+class Alert(models.Model):
+    """A single alert saved by a user."""
 
     FREQUENCIES = Choices(
         ('daily', _('Daily')),
         ('weekly', _('Weekly'))
     )
 
-    owner = models.ForeignKey(
-        'accounts.User',
-        verbose_name=_('Owner'),
-        on_delete=models.CASCADE)
+    email = models.EmailField(
+        verbose_name=_('Email'))
     querystring = models.TextField(
         _('Querystring'))
     title = models.CharField(
         _('Title'),
         max_length=250)
-    send_email_alert = models.BooleanField(
-        _('Send email alert'),
-        default=False)
     alert_frequency = models.CharField(
         max_length=32,
         choices=FREQUENCIES,
@@ -55,8 +39,8 @@ class Bookmark(models.Model):
         auto_now=True)
 
     class Meta:
-        verbose_name = _('Bookmark')
-        verbose_name_plural = _('Bookmarks')
+        verbose_name = _('Alert')
+        verbose_name_plural = _('Alerts')
 
     def __str__(self):
         return self.title

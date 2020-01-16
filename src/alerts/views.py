@@ -9,48 +9,35 @@ from braces.views import MessageMixin
 from accounts.forms import RegisterForm
 from accounts.models import User
 from alerts.tasks import send_alert_confirmation_email
-from alerts.forms import (BookmarkAlertForm, UserBookmarkForm,
-                          AnonymousBookmarkForm)
-from alerts.models import Bookmark
+from alerts.forms import AlertForm
+from alerts.models import Alert
 
 
-class BookmarkMixin:
+class AlertMixin:
 
     def get_queryset(self):
-        qs = Bookmark.objects \
+        qs = Alert.objects \
             .filter(owner=self.request.user) \
             .order_by('-date_created')
         return qs
 
 
-class BookmarkList(LoginRequiredMixin, BookmarkMixin, ListView):
-    template_name = 'alerts/list.html'
-    context_object_name = 'bookmarks'
-
-
-class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
-    """Create a bookmark by saving a search view querystring.
+class AlertCreate(MessageMixin, AlertMixin, CreateView):
+    """Create a alert by saving a search view querystring.
 
     This view has to handle four cases:
 
-     1. the user creating the bookmark is already connected.
+     1. the user creating the alert is already connected.
      2. the user is just an anonymous visitor.
      3. the user is an anonymous visitor but they already created a
-        bookmark with the same email address.
+        alert with the same email address.
      4. the user isn't logged in but their email correspond to a known and
         valid account.
 
     """
 
     http_method_names = ['post']
-
-    def get_form(self):
-        if self.request.user.is_authenticated:
-            BookmarkForm = UserBookmarkForm
-        else:
-            BookmarkForm = AnonymousBookmarkForm
-
-        return BookmarkForm(self.request.POST)
+    form_class = AlertForm
 
     @transaction.atomic
     def form_valid(self, form):
@@ -68,38 +55,38 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
         if existing_account:
             owner = existing_account
             send_alert = form.cleaned_data.get('send_email_alert', True)
-            bookmark = self.create_bookmark(form, owner, send_alert)
-            bookmarks_url = reverse('bookmark_list_view')
-            message = _('Your new bookmark was successfully created. '
-                        '<a href="%(url)s">You will find in in your bookmark '
-                        'list.</a>') % {'url': bookmarks_url}
+            alert = self.create_alert(form, owner, send_alert)
+            alerts_url = reverse('alert_list_view')
+            message = _('Your new alert was successfully created. '
+                        '<a href="%(url)s">You will find in in your alert '
+                        'list.</a>') % {'url': alerts_url}
 
         else:
             owner = self.create_account(form)
             send_alert = True
-            bookmark = self.create_bookmark(form, owner, send_alert)
-            send_alert_confirmation_email.delay(owner.email, bookmark.id)
+            alert = self.create_alert(form, owner, send_alert)
+            send_alert_confirmation_email.delay(owner.email, alert.id)
             message = _('We just sent you an email to validate your address.')
 
         self.messages.success(message)
         redirect_url = reverse('search_view')
         return HttpResponseRedirect('{}?{}'.format(
-            redirect_url, bookmark.querystring))
+            redirect_url, alert.querystring))
 
-    def create_bookmark(self, form, owner, send_alert):
-        """Create a new bookmark."""
+    def create_alert(self, form, owner, send_alert):
+        """Create a new alert."""
 
-        bookmark = Bookmark.objects.create(
+        alert = Alert.objects.create(
             owner=owner,
             title=form.cleaned_data['title'],
             send_email_alert=send_alert,
             alert_frequency=form.cleaned_data['alert_frequency'],
             querystring=form.cleaned_data['querystring'])
 
-        return bookmark
+        return alert
 
     def create_account(self, form):
-        """Create a tmp account to attach the bookmark to."""
+        """Create a tmp account to attach the alert to."""
 
         register_form = RegisterForm({
             'email': form.cleaned_data['email'],
@@ -113,7 +100,7 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
             msg = _('An account with this address already exists. If this is '
                     'your account, you might want to login first.')
         else:
-            msg = _('We could not create your bookmark because of those '
+            msg = _('We could not create your alert because of those '
                     'errors: {}').format(form.errors.as_text())
 
         self.messages.error(msg)
@@ -121,33 +108,11 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
         return HttpResponseRedirect(redirect_url)
 
 
-class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
-                     DeleteView):
-    success_url = reverse_lazy('bookmark_list_view')
+class AlertDelete(LoginRequiredMixin, MessageMixin, AlertMixin,
+                  DeleteView):
+    success_url = reverse_lazy('alert_list_view')
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
-        self.messages.success(_('Your bookmark was deleted.'))
+        self.messages.success(_('Your alert was deleted.'))
         return res
-
-
-class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
-                     UpdateView):
-
-    form_class = BookmarkAlertForm
-    http_method_names = ['post']
-    success_url = reverse_lazy('bookmark_list_view')
-    success_message = _('The email notification settings was updated.')
-
-    def form_valid(self, form):
-        """Handles the update response.
-
-        This view is meant to be called via ajax, but must also work with
-        a regular POST call, because progressive enhancement.
-        """
-        response = super().form_valid(form)
-        if self.request.is_ajax():
-            response = HttpResponse()
-        else:
-            self.messages.success(self.success_message)
-        return response

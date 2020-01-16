@@ -9,16 +9,16 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from core.celery import app
-from alerts.models import Bookmark
+from alerts.models import Alert
 from accounts.models import User
 
 
-TEMPLATE = 'emails/bookmark_login.txt'
+TEMPLATE = 'emails/alert_optin.txt'
 SUBJECT = _('Please confirm your Aides-territoires alert')
 
 
 @app.task
-def send_alert_confirmation_email(user_email, bookmark_id):
+def send_alert_confirmation_email(user_email, alert_id):
     """Send a login email to the user.
 
     The email contains a token that can be used once to login.
@@ -28,8 +28,8 @@ def send_alert_confirmation_email(user_email, bookmark_id):
     """
     try:
         user = User.objects.get(email=user_email)
-        bookmark = Bookmark.objects.get(id=bookmark_id)
-    except (User.DoesNotExist, Bookmark.DoesNotExist):
+        alert = Alert.objects.get(id=alert_id)
+    except (User.DoesNotExist, Alert.DoesNotExist):
         # In case we could not find any valid user with the given email
         # we don't raise any exception, because we can't give any hints
         # about whether or not any particular email has an account
@@ -48,7 +48,7 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         base_url=base_url,
         url=login_url)
 
-    if bookmark.alert_frequency == Bookmark.FREQUENCIES.daily:
+    if alert.alert_frequency == Alert.FREQUENCIES.daily:
         frequency = _('You will receive a daily email whenever new matching aids will be published.')  # noqa
     else:
         frequency = _('You will receive a weekly email whenever new matching aids will be published.')  # noqa
@@ -57,7 +57,7 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         'base_url': base_url,
         'user_name': user.full_name,
         'full_login_url': full_login_url,
-        'bookmark': bookmark,
+        'alert': alert,
         'frequency': frequency
     })
     send_mail(

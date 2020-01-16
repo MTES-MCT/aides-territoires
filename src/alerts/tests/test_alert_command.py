@@ -2,49 +2,49 @@ import pytest
 from django.core.management import call_command
 
 from aids.factories import AidFactory
-from alerts.factories import BookmarkFactory
+from alerts.factories import AlertFactory
 
 pytestmark = pytest.mark.django_db
 
 
-def test_command_with_no_bookmarks(user, mailoutbox):
-    call_command('send_bookmarks_alerts')
+def test_command_with_no_alerts(user, mailoutbox):
+    call_command('send_alerts_alerts')
     assert len(mailoutbox) == 0
 
 
-def test_command_with_a_bookmark_but_no_aids(user, mailoutbox):
-    BookmarkFactory(owner=user, querystring='text=test')
-    call_command('send_bookmarks_alerts')
+def test_command_with_a_alert_but_no_aids(user, mailoutbox):
+    AlertFactory(owner=user, querystring='text=test')
+    call_command('send_alerts_alerts')
     assert len(mailoutbox) == 0
 
 
-def test_command_with_a_bookmark_but_no_matching_aids(user, mailoutbox):
-    BookmarkFactory(owner=user, querystring='text=test')
+def test_command_with_a_alert_but_no_matching_aids(user, mailoutbox):
+    AlertFactory(owner=user, querystring='text=test')
     AidFactory.create_batch(5, name='Gloubiboulga')
-    call_command('send_bookmarks_alerts')
+    call_command('send_alerts_alerts')
     assert len(mailoutbox) == 0
 
 
 def test_command_with_matching_aids(user, mailoutbox):
-    BookmarkFactory(owner=user, querystring='text=test')
+    AlertFactory(owner=user, querystring='text=test')
     AidFactory.create_batch(5, name='test')
-    call_command('send_bookmarks_alerts')
+    call_command('send_alerts_alerts')
     assert len(mailoutbox) == 1
     assert list(mailoutbox[0].to) == [user.email]
 
 
 def test_command_with_disabled_email_setting(user, mailoutbox):
-    BookmarkFactory(
+    AlertFactory(
         owner=user,
         send_email_alert=False,
         querystring='text=test')
     AidFactory.create_batch(5, name='test')
-    call_command('send_bookmarks_alerts')
+    call_command('send_alerts_alerts')
     assert len(mailoutbox) == 0
 
 
 def test_command_output_format(user, mailoutbox):
-    BookmarkFactory(
+    AlertFactory(
         owner=user,
         title='Gloubiboukmark',
         querystring='text=test')
@@ -52,7 +52,7 @@ def test_command_output_format(user, mailoutbox):
     AidFactory.create(name='Test 2')
     AidFactory.create(name='Test 3')
     AidFactory.create(name='Test 4')
-    call_command('send_bookmarks_alerts')
+    call_command('send_alerts_alerts')
 
     content = mailoutbox[0].body
     assert 'Gloubiboukmark' in content
