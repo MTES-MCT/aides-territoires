@@ -29,7 +29,8 @@ class AlertCreate(MessageMixin, CreateView):
                 'errors: {}').format(form.errors.as_text())
         self.messages.error(msg)
         redirect_url = reverse('search_view')
-        return HttpResponseRedirect(redirect_url)
+        querystring = form.cleaned_data.get('querystring', '')
+        return HttpResponseRedirect('{}?{}'.format(redirect_url, querystring))
 
 
 class AlertValidate(DetailView):

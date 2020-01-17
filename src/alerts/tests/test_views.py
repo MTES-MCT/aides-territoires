@@ -87,6 +87,28 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
     assert 'Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires' in mail_body  # noqa
 
 
+def test_alert_creation_quotas(client):
+    """There is a maximum amount of unvalidated alerts one can create."""
+
+    AlertFactory.create_batch(
+        10,
+        validated=False,
+        email='alert-user@example.com')
+
+    alerts = Alert.objects.all()
+    assert alerts.count() == 10
+
+    url = reverse('alert_create_view')
+    res = client.post(url, data={
+        'title': 'My new search',
+        'email': 'alert-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&call_for_projects_only=on',
+    })
+    assert res.status_code == 302
+    assert alerts.count() == 10
+
+
 def test_alert_validation_url(client):
     alert = AlertFactory(validated=False, date_validated=None)
     assert not alert.validated
