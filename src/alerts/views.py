@@ -1,7 +1,6 @@
-from django.views.generic import CreateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, DetailView, DeleteView
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
@@ -33,8 +32,30 @@ class AlertCreate(MessageMixin, CreateView):
         return HttpResponseRedirect(redirect_url)
 
 
-class AlertValidate(DeleteView):
-    pass
+class AlertValidate(DetailView):
+    """Confirms that the alert email is valid.
+
+    We update the alert status even though this is a GET request, because
+    this view is linked from the validation email.
+
+    So anybody knowing the secret alert token is supposed to be the alert
+    owner and can validate it.
+    """
+    model = Alert
+    slug_field = 'token'
+    slug_url_kwarg = 'token'
+    context_object_name = 'alert'
+    template_name = 'alerts/validated.html'
+
+    def get(self, *args, **kwargs):
+        res = super().get(*args, **kwargs)
+
+        alert = self.get_object()
+        if not alert.validated:
+            alert.validate()
+            alert.save()
+
+        return res
 
 
 class AlertDelete(MessageMixin, DeleteView):

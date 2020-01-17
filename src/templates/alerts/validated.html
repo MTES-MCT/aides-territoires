@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}{{ _('Alert validation') }}{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _('The alert was confirmed') }}</h1>
+    <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
+        You just confirmed the creation of your alert "{{ alert_title }}".
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans trimmed %}
+        You will receive emails according to the selected frequency whenever
+        new aids corresponding to the alert are published.
+    {% endblocktrans %}</p>
+
+</div>
+{% endblock %}
