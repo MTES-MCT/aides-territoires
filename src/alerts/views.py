@@ -10,15 +10,6 @@ from alerts.forms import AlertForm
 from alerts.models import Alert
 
 
-class AlertMixin:
-
-    def get_queryset(self):
-        qs = Alert.objects \
-            .filter(owner=self.request.user) \
-            .order_by('-date_created')
-        return qs
-
-
 class AlertCreate(MessageMixin, CreateView):
     """Create a alert by saving a search view querystring."""
 
@@ -28,7 +19,7 @@ class AlertCreate(MessageMixin, CreateView):
     def form_valid(self, form):
         alert = form.save()
         send_alert_confirmation_email.delay(alert.email, alert.token)
-        message = _('We just sent you an email to validate your address.')
+        message = _('We just sent you an email to validate your alert.')
         self.messages.success(message)
         redirect_url = reverse('search_view')
         return HttpResponseRedirect('{}?{}'.format(
@@ -46,11 +37,28 @@ class AlertValidate(DeleteView):
     pass
 
 
-class AlertDelete(LoginRequiredMixin, MessageMixin, AlertMixin,
-                  DeleteView):
-    success_url = reverse_lazy('alert_list_view')
+class AlertDelete(MessageMixin, DeleteView):
+    """Alert deletion view.
+
+    Since we don't require a login to create alert, no authentication is
+    required to delete them either.
+
+    If you know the secret alert token, we suppose you are the owner, thus
+    you can delete it.
+    """
+    model = Alert
+    slug_field = 'token'
+    slug_url_kwarg = 'token'
+    context_object_name = 'alert'
+    template_name = 'alerts/confirm_delete.html'
+
+    def get_success_url(self):
+        url = '{}?{}'.format(
+            reverse('search_view'),
+            self.object.querystring)
+        return url
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
-        self.messages.success(_('Your alert was deleted.'))
+        self.messages.success(_('The alert was deleted.'))
         return res
