@@ -35,11 +35,11 @@ class Alert(models.Model):
         max_length=32,
         choices=FREQUENCIES,
         default=FREQUENCIES.daily)
-    confirmed = models.BooleanField(
+    validated = models.BooleanField(
         _('Confirmed?'),
         default=False)
-    date_confirmed = models.DateTimeField(
-        _('Date confirmed'),
+    date_validated = models.DateTimeField(
+        _('Date validated'),
         null=True)
     latest_alert_date = models.DateTimeField(
         _('Latest alert date'),
@@ -57,6 +57,10 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.title
+
+    def validate(self):
+        self.validated = True
+        self.date_validated = timezone.now()
 
     def get_absolute_url(self):
         return '{}?{}'.format(
