@@ -33,14 +33,23 @@ class AlertForm(forms.ModelForm):
         data = self.cleaned_data
 
         if 'email' in data:
+            email = data['email']
             unvalidated_alerts = Alert.objects \
-                .filter(email=data['email']) \
+                .filter(email=email) \
                 .filter(validated=False)
             if unvalidated_alerts.count() >= settings.UNVALIDATED_ALERTS_QUOTA:
                 msg = _("""
                     You can't create more alerts without validating them.
                     If you don't receive the validation email, please contact
                     us.
+                """)
+                self.add_error('email', msg)
+
+            all_alerts = Alert.objects.filter(email=email)
+            if all_alerts.count() >= settings.MAX_ALERTS_QUOTA:
+                msg = _("""
+                    You've reached the maximum amount of alerts you can create
+                    for your email address.
                 """)
                 self.add_error('email', msg)
 
