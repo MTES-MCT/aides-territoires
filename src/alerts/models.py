@@ -54,6 +54,7 @@ class Alert(models.Model):
     class Meta:
         verbose_name = _('Alert')
         verbose_name_plural = _('Alerts')
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.title
