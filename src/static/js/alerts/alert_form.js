@@ -9,6 +9,7 @@
     var queryField = $('form#search-form input#id_text');
     var perimeterField = $('form#search-form select#id_perimeter');
     var alertNameField = $('form#alert-form input#id_title');
+    var emailField = $('form#alert-form input#id_email');
 
 
     /**
@@ -48,14 +49,14 @@
         alertNameField.val(nameSuggestion.trim());
     };
 
-    exports.focusTitleField = function (event) {
-        alertNameField.focus();
+    exports.focusForm = function (event) {
+        emailField.focus();
     };
 
 })(this, catalog);
 
 $(document).ready(function () {
     $('div#alert-search-modal').on('show.bs.modal', prefillAlertNameField);
-    $('div#alert-search-modal').on('shown.bs.modal', focusTitleField);
+    $('div#alert-search-modal').on('shown.bs.modal', focusForm);
     $('form#alert-form').on('submit', appendQuerystringToForm);
 });
