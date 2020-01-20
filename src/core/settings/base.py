@@ -181,6 +181,7 @@ CONTACT_EMAIL = 'nowhere@example.org'
 EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
 DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_WHITELIST = []
 
 SITE_ID = 1
 

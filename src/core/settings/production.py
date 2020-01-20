@@ -53,6 +53,9 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_FILE_PATH = '/tmp/django_emails'
 
+# For staging only, this will be ignored in production
+EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
