@@ -5,7 +5,8 @@ from alerts.models import Alert
 
 class AlertAdmin(admin.ModelAdmin):
     list_display = [
-        'email', 'title', 'date_created', 'validated', 'date_validated'
+        'email', 'title', 'latest_alert_date', 'date_created', 'validated',
+        'date_validated'
     ]
     list_filter = ['validated']
 
