@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n form_utils %}
+{% load i18n form_utils compress %}
 
 {% block extratitle %}{{ _('Aid edition') }}{% endblock %}
 
@@ -91,6 +91,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 {% comment %}Third party plugins{% endcomment %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
@@ -107,4 +108,5 @@
 <script src="/static/js/aids/toggle_calendar_related_fields.js"></script>
 <script src="/static/js/aids/enable_softmaxlength.js"></script>
 <script src="/static/js/enable_rich_text_editor.js"></script>
+{% endcompress %}
 {% endblock %}

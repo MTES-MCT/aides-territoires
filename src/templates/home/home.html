@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load compress %}
 
 {% block title %}
 Aides-territoires 🏡 Aides publiques pour les collectivités
@@ -63,9 +64,11 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+{% endcompress %}
 <script>
 $(document).ready(function () {
     // Autofocus the perimeter search input
