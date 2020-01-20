@@ -1,6 +1,6 @@
 Bonjour,
 
-Nous avons détecté au moins une nouvelle alerte sur votre recherche "{{ bookmark.title }}".
+Nous avons détecté au moins une nouvelle recherche sur votre alert « {{ alert.title }} ».
 
 Attention : il semble que votre messagerie ne prenne pas en compte les e-mails
 au format HTML. Il est possible que les liens ne s'affichent pas correctement.
@@ -14,17 +14,15 @@ au format HTML. Il est possible que les liens ne s'affichent pas correctement.
 Attention, il semble qu'il y ait encore d'autres aides disponibles !
 Rendez-vous sur Aides-territoires pour les découvrir.
 
-https:// {{ domain }}{{ bookmark.get_absolute_url|safe }}
+https:// {{ domain }}{{ alert.get_absolute_url|safe }}
 {% endif %}
 
-N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
-Vous pouvez également transférer cet email à vos partenaires afin qu'ils
-prennent connaissance de ces aides.
+N'hésitez pas à créer d’autres alertes pour être toujours bien informé·e.
+Vous pouvez également transférer cet email à vos partenaires afin qu'ils prennent connaissance de ces aides.
 
-Cette alerte ne correspond plus à vos besoins ?
-Configurez vos paramètres d'alerte :
+Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :
 
-https://{{ domain }}{{ bookmarks_url|safe }}
+https://{{ domain }}{{ delete_url|safe }}
 
 À très vite !
 L'équipe d'Aides-territoires.

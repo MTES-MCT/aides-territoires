@@ -28,23 +28,21 @@ class Command(BaseCommand):
         for alert in alerts:
             new_aids = list(alert.get_new_aids())
             if new_aids:
-                alerted_alerts.append(alert.id)
+                alerted_alerts.append(alert.token)
                 self.send_alert(alert, new_aids)
-                logger.info('Sending alert alert email to {} ({}) : {} '
-                            'alerts'.format(
-                                alert.owner.full_name,
-                                alert.owner.email,
-                                len(new_aids)
-                            ))
+                logger.info(
+                    'Sending alert alert email to {}: {} alerts'.format(
+                        alert.email,
+                        len(new_aids)))
 
         updated = Alert.objects \
-            .filter(id__in=alerted_alerts) \
+            .filter(token__in=alerted_alerts) \
             .update(latest_alert_date=timezone.now())
         self.stdout.write('{} alerts sent'.format(updated))
         return
 
     def get_alerts(self):
-        """Get alerts to send alerts.
+        """Get alerts that could request a new email.
 
         Only return alerts with a latest alert date old enough to send
         a new one.
@@ -63,27 +61,24 @@ class Command(BaseCommand):
         ))
 
         alerts = Alert.objects \
-            .select_related('owner') \
-            .filter(send_email_alert=True) \
+            .filter(validated=True) \
             .filter(
                 Q(latest_alert_date__isnull=True) |
-                latest_alert_is_old_enough) \
-            .order_by('owner')
+                latest_alert_is_old_enough)
 
         return alerts
 
     def send_alert(self, alert, new_aids):
         """Send an email alert with a summary of the newly published aids."""
 
-        owner = alert.owner
+        delete_url = reverse('alert_delete_view', args=[alert.token])
         site = Site.objects.get_current()
         email_context = {
             'domain': site.domain,
             'alert': alert,
-            'owner': owner,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
-            'alerts_url': reverse('alert_list_view'),
+            'delete_url': delete_url,
         }
 
         text_body = render_to_string(
@@ -93,7 +88,7 @@ class Command(BaseCommand):
         email_subject = '{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
                         'vos recherches'.format(timezone.now())
         email_from = settings.DEFAULT_FROM_EMAIL
-        email_to = [owner.email]
+        email_to = [alert.email]
 
         send_mail(
             '{}{}'.format(settings.EMAIL_SUBJECT_PREFIX, email_subject),
