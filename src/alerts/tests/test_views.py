@@ -140,6 +140,11 @@ def test_alert_validation_url(client):
     assert res.status_code == 200
 
     alert.refresh_from_db()
+    assert not alert.validated
+
+    res = client.post(validation_url)
+    alert.refresh_from_db()
+    assert res.status_code == 302
     assert alert.validated
     assert alert.date_validated.date() == timezone.now().date()
 

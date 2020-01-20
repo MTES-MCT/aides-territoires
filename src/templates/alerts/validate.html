@@ -7,15 +7,24 @@
 
 {% block content %}
 <div class="narrow-form">
-    <h1>{{ _('The alert was confirmed') }}</h1>
+    <h1>{{ _('Confirm your alert creation') }}</h1>
+
     <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
-        You just confirmed the creation of your alert "{{ alert_title }}".
+        Click on the following button to confirm the creation of the
+        "{{ alert_title }}" alert.
     {% endblocktrans %}</p>
 
     <p>{% blocktrans trimmed %}
-        You will receive emails according to the selected frequency whenever
+        Once the alert is validated, you will receive emails according to the
+        selected frequency whenever
         new aids corresponding to the alert are published.
     {% endblocktrans %}</p>
 
+    <form id="validation-form" method="POST" action="">
+        {% csrf_token %}
+        <button type="submit">
+            {{ _('Confirm alert creation') }}
+        </button>
+    </form>
 </div>
 {% endblock %}
