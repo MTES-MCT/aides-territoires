@@ -47,6 +47,7 @@ LOCAL_APPS = [
     'analytics',
     'data',
     'alerts',
+    'bookmarks',
     'programs',
     'categories',
 ]
