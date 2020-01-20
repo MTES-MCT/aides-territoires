@@ -12,7 +12,7 @@ from django.db.models import Q, Case, When
 from django.urls import reverse
 from django.conf import settings
 
-from bookmarks.models import Bookmark
+from alerts.models import Alert
 
 
 logger = logging.getLogger(__name__)
@@ -23,30 +23,28 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        bookmarks = self.get_bookmarks()
-        alerted_bookmarks = []
-        for bookmark in bookmarks:
-            new_aids = list(bookmark.get_new_aids())
+        alerts = self.get_alerts()
+        alerted_alerts = []
+        for alert in alerts:
+            new_aids = list(alert.get_new_aids())
             if new_aids:
-                alerted_bookmarks.append(bookmark.id)
-                self.send_alert(bookmark, new_aids)
-                logger.info('Sending bookmark alert email to {} ({}) : {} '
-                            'bookmarks'.format(
-                                bookmark.owner.full_name,
-                                bookmark.owner.email,
-                                len(new_aids)
-                            ))
+                alerted_alerts.append(alert.token)
+                self.send_alert(alert, new_aids)
+                logger.info(
+                    'Sending alert alert email to {}: {} alerts'.format(
+                        alert.email,
+                        len(new_aids)))
 
-        updated = Bookmark.objects \
-            .filter(id__in=alerted_bookmarks) \
+        updated = Alert.objects \
+            .filter(token__in=alerted_alerts) \
             .update(latest_alert_date=timezone.now())
         self.stdout.write('{} alerts sent'.format(updated))
         return
 
-    def get_bookmarks(self):
-        """Get bookmarks to send alerts.
+    def get_alerts(self):
+        """Get alerts that could request a new email.
 
-        Only return bookmarks with a latest alert date old enough to send
+        Only return alerts with a latest alert date old enough to send
         a new one.
         """
 
@@ -56,44 +54,41 @@ class Command(BaseCommand):
         last_week = now - timedelta(days=7)
 
         # Create the alert date query condition
-        F = Bookmark.FREQUENCIES
+        F = Alert.FREQUENCIES
         latest_alert_is_old_enough = Q(latest_alert_date__lte=Case(
             When(alert_frequency=F.daily, then=yesterday),
             When(alert_frequency=F.weekly, then=last_week)
         ))
 
-        bookmarks = Bookmark.objects \
-            .select_related('owner') \
-            .filter(send_email_alert=True) \
+        alerts = Alert.objects \
+            .filter(validated=True) \
             .filter(
                 Q(latest_alert_date__isnull=True) |
-                latest_alert_is_old_enough) \
-            .order_by('owner')
+                latest_alert_is_old_enough)
 
-        return bookmarks
+        return alerts
 
-    def send_alert(self, bookmark, new_aids):
+    def send_alert(self, alert, new_aids):
         """Send an email alert with a summary of the newly published aids."""
 
-        owner = bookmark.owner
+        delete_url = reverse('alert_delete_view', args=[alert.token])
         site = Site.objects.get_current()
         email_context = {
             'domain': site.domain,
-            'bookmark': bookmark,
-            'owner': owner,
+            'alert': alert,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
-            'bookmarks_url': reverse('bookmark_list_view'),
+            'delete_url': delete_url,
         }
 
         text_body = render_to_string(
-            'bookmarks/alert_body.txt', email_context)
+            'alerts/alert_body.txt', email_context)
         html_body = render_to_string(
-            'bookmarks/alert_body.html', email_context)
+            'alerts/alert_body.html', email_context)
         email_subject = '{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
                         'vos recherches'.format(timezone.now())
         email_from = settings.DEFAULT_FROM_EMAIL
-        email_to = [owner.email]
+        email_to = [alert.email]
 
         send_mail(
             '{}{}'.format(settings.EMAIL_SUBJECT_PREFIX, email_subject),

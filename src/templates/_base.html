@@ -100,8 +100,9 @@
             // Hotjar variables
             var hotjar_siteid = {% hotjar_siteid %};
         </script>
-        {% block extra_js %}{% endblock %}
         {% endcompress %}
+
+        {% block extra_js %}{% endblock %}
 
         {% analytics_enabled as analytics_enabled %}
         {% analytics_goalid as analytics_goalid %}

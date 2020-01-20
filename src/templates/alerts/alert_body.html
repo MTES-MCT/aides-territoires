@@ -6,7 +6,7 @@
 
 <p>Bonjour,</p>
 
-<p>Nous avons détecté au moins une nouvelle alerte sur votre recherche "{{ bookmark.title }}".</p>
+<p>Nous avons détecté au moins une nouvelle aide sur votre recherche « {{ alert.title }} ».</p>
 
 <ul>
 {% for aid in new_aids %}
@@ -23,22 +23,22 @@
 {% if nb_aids > 3 %}
     <p>
         Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
-        <a href="https://{{ domain }}{{ bookmark.get_absolute_url|safe }}">
+        <a href="https://{{ domain }}{{ alert.get_absolute_url|safe }}">
             Rendez-vous sur Aides-territoires pour les découvrir.
         </a>
     </p>
 {% endif %}
 
 <p>
-<strong>N'hésitez pas à créer d’autres alertes pour être toujours bien informé.</strong><br/>
+<strong>N'hésitez pas à créer d'autres alertes pour être toujours bien informé.</strong><br/>
 Vous pouvez également transférer cet email à vos partenaires afin qu'ils
 prennent connaissance de ces aides.
 </p>
 
 <p>
     Cette alerte ne correspond plus à vos besoins ? <br />
-    <a href="https://{{ domain }}{{ bookmarks_url|safe }}">
-        Configurez vos paramètres d'alerte.
+    <a href="https://{{ domain }}{{ delete_url|safe }}">
+        Vous pouvez la supprimer.
     </a>
 </p>
 

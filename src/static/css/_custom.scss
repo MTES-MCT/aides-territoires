@@ -172,7 +172,7 @@ section#search-engine {
 
                 }
 
-                a.bookmark-btn {
+                a.alert-btn {
                     @extend .btn;
                     @extend .btn-outline-primary;
                     @include icon(before, $fa-var-bell);
@@ -770,7 +770,7 @@ section#draft-list {
     }
 }
 
-div#bookmark-search-modal {
+div#alert-modal {
     form {
         width: 100%;
     }

@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}{{ _('Alert deletion') }}{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _('Confirm the alert deletion') }}</h1>
+    <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
+        You are about to delete the alert "{{ alert_title }}".
+        Are you sure you want to continue?
+    {% endblocktrans %}</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <button type="submit">
+            Yes, delete this alert now
+        </button>
+    </form>
+</div>
+{% endblock %}

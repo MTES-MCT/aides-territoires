@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'dataproviders',
     'analytics',
     'data',
+    'alerts',
     'bookmarks',
     'programs',
     'categories',
@@ -168,8 +169,9 @@ REST_FRAMEWORK = {
 MAILING_LIST_URL = None
 
 APPROACHING_DEADLINE_DELTA = 30  # days
-BOOKMARK_ALERT_THRESHOLD = 7  # days
 
+UNVALIDATED_ALERTS_QUOTA = 10
+MAX_ALERTS_QUOTA = 100
 
 ANALYTICS_ENABLED = False
 ANALYTICS_SITEID = 0

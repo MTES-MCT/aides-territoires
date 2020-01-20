@@ -1,5 +1,5 @@
 {% extends 'aids/_base_edit.html' %}
-{% load i18n form_utils %}
+{% load i18n form_utils compress %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
@@ -101,9 +101,11 @@
 
 {% block extra_js %}
 {{ block.super }}
+{% compress js %}
 <script src="/static/js/aids/update_status_form_availability.js"></script>
 <script src="/static/js/aids/disable_delete_button.js"></script>
 <script src="/static/js/aids/configure_preview_modal.js"></script>
+{% endcompress %}
 <script>
 $(document).ready(function() {
     // Force the user to preview the aid at every edit.

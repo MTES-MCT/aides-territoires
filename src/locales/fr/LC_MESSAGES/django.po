@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-10 15:14+0100\n"
+"POT-Creation-Date: 2020-01-20 11:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -776,17 +776,8 @@ msgstr ""
 "Votre amendement va bientôt être examiné par un·e administrateur. Merci pour "
 "votre contribution."
 
-msgid "Financed aids"
-msgstr "Aides financées"
-
-msgid "Instructed aids"
-msgstr "Aides instruites"
-
-msgid "Is a corporate backer?"
-msgstr "Apporteur privé ?"
-
-msgid "Backer"
-msgstr "Apporteur"
+msgid "We will send an email to confirm your address"
+msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
 
 msgid "Give a name to your alert"
 msgstr "Donnez un nom à votre alerte"
@@ -797,18 +788,29 @@ msgstr "Fréquence de l'alerte"
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
-msgid "Receive new results by email"
-msgstr "Recevoir les nouveaux résultats par e-mail"
-
-msgid "We will send an email to confirm your address"
-msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
+msgid ""
+"\n"
+"                    You can't create more alerts without validating them.\n"
+"                    If you don't receive the validation email, please "
+"contact\n"
+"                    us.\n"
+"                "
+msgstr ""
+"\n"
+"Vous ne pouvez pas créer de nouvelles alertes avant de valider celles "
+"existantes. \n"
+"Si vous ne recevez pas les e-mails de validation, merci de nous contacter."
 
 msgid ""
-"An account with this address already exists. If this is your account, you "
-"might want to login first."
+"\n"
+"                    You've reached the maximum amount of alerts you can "
+"create\n"
+"                    for your email address.\n"
+"                "
 msgstr ""
-"Un compte avec cette adresse existe déjà. Avez-vous oublié de vous "
-"connecter ?"
+"\n"
+"Vous avez atteint le nombre maximum d'alertes qu'il est possible de créer "
+"pour une seule adresse e-mail."
 
 msgid "Daily"
 msgstr "Quotidiennement"
@@ -816,8 +818,11 @@ msgstr "Quotidiennement"
 msgid "Weekly"
 msgstr "Hebdomadairement"
 
-msgid "Owner"
-msgstr "Auteur"
+msgid "Secret token"
+msgstr "Clé secrète"
+
+msgid "Email"
+msgstr "Courriel"
 
 msgid "Querystring"
 msgstr "Querystring"
@@ -825,17 +830,20 @@ msgstr "Querystring"
 msgid "Title"
 msgstr "Titre"
 
-msgid "Send email alert"
-msgstr "Envoi d'alertes e-mail"
+msgid "Confirmed?"
+msgstr "Confirmée ?"
+
+msgid "Date validated"
+msgstr "Date de validation"
 
 msgid "Latest alert date"
 msgstr "Dernière alerte"
 
-msgid "Bookmark"
-msgstr "Sauvegarder"
+msgid "Alert"
+msgstr "Alerte"
 
-msgid "Bookmarks"
-msgstr "Recherches sauvegardées"
+msgid "Alerts"
+msgstr "Alertes"
 
 msgid "Please confirm your Aides-territoires alert"
 msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires."
@@ -855,8 +863,58 @@ msgstr ""
 msgid "create/"
 msgstr "créer/"
 
+msgid "validate/"
+msgstr "validation/"
+
 msgid "delete/"
 msgstr "supprimer/"
+
+msgid "We just sent you an email to validate your alert."
+msgstr "Nous venons d'envoyer un e-mail pour valider votre alerte."
+
+msgid "We could not create your alert because of those errors: {}"
+msgstr ""
+"Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
+
+msgid "You confirmed the alert creation."
+msgstr "Vous venez de confirmer la création de l'alerte."
+
+msgid "The alert was deleted."
+msgstr "Votre alerte vient d'être supprimée."
+
+msgid "Financed aids"
+msgstr "Aides financées"
+
+msgid "Instructed aids"
+msgstr "Aides instruites"
+
+msgid "Is a corporate backer?"
+msgstr "Apporteur privé ?"
+
+msgid "Backer"
+msgstr "Apporteur"
+
+msgid "Receive new results by email"
+msgstr "Recevoir les nouveaux résultats par e-mail"
+
+msgid ""
+"An account with this address already exists. If this is your account, you "
+"might want to login first."
+msgstr ""
+"Un compte avec cette adresse existe déjà. Avez-vous oublié de vous "
+"connecter ?"
+
+msgid "Owner"
+msgstr "Auteur"
+
+msgid "Send email alert"
+msgstr "Envoi d'alertes e-mail"
+
+msgid "Bookmark"
+msgstr "Sauvegarder"
+
+msgid "Bookmarks"
+msgstr "Recherches sauvegardées"
 
 msgid "update/"
 msgstr "mise-à-jour/"
@@ -933,8 +991,8 @@ msgstr "stats/"
 msgid "bundles/"
 msgstr "listes/"
 
-msgid "bookmarks/"
-msgstr "recherches-sauvegardées/"
+msgid "alerts/"
+msgstr "alertes/"
 
 msgid "tags/"
 msgstr "mots-clés/"
@@ -1001,9 +1059,6 @@ msgstr "En Outre-mer ?"
 
 msgid "Perimeters"
 msgstr "Périmètres"
-
-msgid "Email"
-msgstr "Courriel"
 
 msgid "Structure"
 msgstr "Structure"
@@ -1625,6 +1680,9 @@ msgstr "Rechercher"
 msgid "See more filters"
 msgstr "Voir plus de critères"
 
+msgid "Create an alert"
+msgstr "Créer une alerte"
+
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
 
@@ -1892,9 +1950,6 @@ msgstr "Dupliquer et éditer"
 msgid "New email aids alert"
 msgstr "Nouvelle alerte e-mail"
 
-msgid "Do you already own an account? Login first."
-msgstr "Disposez-vous déjà d'un compte ? Commencez par vous connecter."
-
 #, python-format
 msgid ""
 "By using this feature, you acknowledge that your data will be processed <a "
@@ -1905,31 +1960,44 @@ msgstr ""
 "traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
 "avec notre politique de confidentialité</a>."
 
-msgid "Create an alert"
-msgstr "Créer une alerte"
+msgid "Alert deletion"
+msgstr "Suppression d'alerte"
 
-msgid "Your bookmarks"
-msgstr "Vos alertes"
+msgid "Confirm the alert deletion"
+msgstr "Confirmez la suppression de l'alerte"
 
-msgid "See results"
-msgstr "Voir les résultats"
+#, python-format
+msgid ""
+"You are about to delete the alert \"%(alert_title)s\". Are you sure you want "
+"to continue?"
+msgstr ""
+"Vous êtes sur le point de supprimer l'alerte « %(alert_title)s ». Êtes vous "
+"certain·e de vouloir continuer ?"
 
-msgid "Send email alerts upon new results"
-msgstr "M'alerter par e-mail"
+msgid "Alert validation"
+msgstr "Validation d'alerte"
 
-msgid "Update bookmark"
-msgstr "Sauvegarder"
+msgid "Confirm your alert creation"
+msgstr "Confirmez la création de l'alerte"
 
-msgid "Delete this bookmark"
-msgstr "Supprimer cette alerte"
+#, python-format
+msgid ""
+"Click on the following button to confirm the creation of the "
+"\"%(alert_title)s\" alert."
+msgstr ""
+"Cliquez sur le bouton suivant et pour confirmer la création de l'alerte "
+"« %(alert_title)s »."
 
 msgid ""
-"You don't have any bookmarks yet. You can save bookmarks by using the search "
-"engine and clicking on the \"save search\" button."
+"Once the alert is validated, you will receive emails according to the "
+"selected frequency whenever new aids corresponding to the alert are "
+"published."
 msgstr ""
-"Vous n'avez sauvegardé aucune recherche. Vous pouvez sauvegarder des "
-"recherches en utilisant le moteur de recherche et en cliquant sur le bouton "
-"« Sauvegarder »."
+"Une fois l'alerte validée, vous recevrez à la fréquence choisie des e-mails "
+"listant les nouvelles aides correspondantes à votre recherche."
+
+msgid "Confirm alert creation"
+msgstr "Confirmez la création de l'alerte"
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"

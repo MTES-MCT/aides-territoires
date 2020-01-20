@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n compress %}
 
 {% block extratitle %}{{ _('Advanced search') }}{% endblock %}
 
@@ -40,7 +40,9 @@
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+{% endcompress %}
 {% endblock %}

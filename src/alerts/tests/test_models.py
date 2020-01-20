@@ -4,7 +4,7 @@ from datetime import timedelta
 from django.utils import timezone
 
 from aids.factories import AidFactory
-from bookmarks.factories import BookmarkFactory
+from alerts.factories import AlertFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -27,55 +27,55 @@ def yesterday():
 def test_get_new_aids_with_no_aids(last_month):
     """No aids exist, so no aids can be found."""
 
-    bookmark = BookmarkFactory(querystring='text=test')
-    aids = bookmark.get_new_aids()
+    alert = AlertFactory(querystring='text=test')
+    aids = alert.get_new_aids()
     assert len(aids) == 0
 
 
 def test_get_new_aids_with_no_old_aids(last_month):
     """Matching aids are older than the requested threshold."""
 
-    bookmark = BookmarkFactory(querystring='text=test')
+    alert = AlertFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
         date_published=last_month)
-    aids = bookmark.get_new_aids()
+    aids = alert.get_new_aids()
     assert len(aids) == 0
 
 
 def test_get_new_aids_with_no_matching_aids(yesterday):
     """Existing aids do not match."""
 
-    bookmark = BookmarkFactory(querystring='text=Gloubiboulga')
+    alert = AlertFactory(querystring='text=Gloubiboulga')
     AidFactory.create_batch(
         5,
         name='Test',
         date_published=yesterday)
-    aids = bookmark.get_new_aids()
+    aids = alert.get_new_aids()
     assert len(aids) == 0
 
 
 def test_get_new_aids_with_matching_aids(yesterday):
     """Matching aids are found."""
 
-    bookmark = BookmarkFactory(querystring='text=test')
+    alert = AlertFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
         date_published=yesterday)
-    aids = bookmark.get_new_aids()
+    aids = alert.get_new_aids()
     assert len(aids) == 5
 
 
 def test_get_new_aids_with_unpublished_aids(yesterday):
     """Matching aids are not published."""
 
-    bookmark = BookmarkFactory(querystring='text=test')
+    alert = AlertFactory(querystring='text=test')
     AidFactory.create_batch(
         5,
         name='Test',
         date_published=yesterday,
         status='draft')
-    aids = bookmark.get_new_aids()
+    aids = alert.get_new_aids()
     assert len(aids) == 0

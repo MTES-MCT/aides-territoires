@@ -1,0 +1,16 @@
+Bonjour,
+
+Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires :
+
+{{ alert_validation_link }}
+
+{{ frequency|safe }}
+
+Vous pourrez vous désabonner à tout moment de ce service en cliquant sur
+le lien présent dans chaque e-mail reçu.
+
+Si vous n'êtes pas à l'initiative de cette demande, merci de nous contacter.
+
+À très vite,
+L'équipe d'Aides-territoires,
+https://aides-territoires.beta.gouv.fr/

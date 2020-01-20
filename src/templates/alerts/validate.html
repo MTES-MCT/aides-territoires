@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}{{ _('Alert validation') }}{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>{{ _('Confirm your alert creation') }}</h1>
+
+    <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
+        Click on the following button to confirm the creation of the
+        "{{ alert_title }}" alert.
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans trimmed %}
+        Once the alert is validated, you will receive emails according to the
+        selected frequency whenever
+        new aids corresponding to the alert are published.
+    {% endblocktrans %}</p>
+
+    <form id="validation-form" method="POST" action="">
+        {% csrf_token %}
+        <button type="submit">
+            {{ _('Confirm alert creation') }}
+        </button>
+    </form>
+</div>
+{% endblock %}
