@@ -137,9 +137,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
-                      'interest_subsidy')
+                      'other')
 
-    TECHNICAL_AIDS = ('guidance', 'networking', 'valorisation')
+    TECHNICAL_AIDS = ('technical', 'financial', 'legal')
 
     PERIMETERS = Choices(
         ('europe', _('Europe')),

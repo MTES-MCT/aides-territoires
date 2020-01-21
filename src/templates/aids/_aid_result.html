@@ -31,18 +31,17 @@
     </div>
 
     <ul>
-        {% if aid.is_financial %}
-            <li>
+        {% if aid.is_financial or aid.is_technical %}
+        <li>
+            {% if aid.is_financial %}
                 <i class="fas fa-euro-sign"></i>
                 {{ _('Financial aid') }}
-            </li>
-        {% endif %}
-
-        {% if aid.is_technical %}
-            <li>
+            {% endif %}
+            {% if aid.is_technical %}
                 <i class="fas fa-cog"></i>
-                {{ _('Technical / methodological aid') }}
-            </li>
+                {{ _('Engineering aid') }}
+            {% endif %}
+        </li>
         {% endif %}
 
         {% if aid.tags %}
