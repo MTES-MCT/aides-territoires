@@ -177,13 +177,13 @@ class BaseAidForm(forms.ModelForm):
 
         if 'recurrence' in data and data['recurrence']:
             recurrence = data['recurrence']
-            start_date = data.get('start_date', None)
+            submission_deadline = data.get('submission_deadline', None)
 
-            if recurrence != 'ongoing' and not start_date:
-                msg = _('Unless the aid is ongoing, you must indicate the start date.')  # noqa
+            if recurrence != 'ongoing' and not submission_deadline:
+                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
                 self.add_error(
-                    'start_date',
-                    ValidationError(msg, code='missing_start_date'))
+                    'submission_deadline',
+                    ValidationError(msg, code='missing_submission_deadline'))
 
         return data
 
