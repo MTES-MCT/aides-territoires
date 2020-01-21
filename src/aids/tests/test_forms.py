@@ -351,31 +351,31 @@ def test_aid_calendar_fields_validation(aid_form_data):
 
     aid_form_data.update({
         'recurrence': 'oneoff',
-        'start_date': ''})
+        'submission_deadline': ''})
     form = AidEditForm(aid_form_data)
     assert not form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'oneoff',
-        'start_date': '01/01/2020'})
+        'submission_deadline': '01/01/2020'})
     form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'recurring',
-        'start_date': ''})
+        'submission_deadline': ''})
     form = AidEditForm(aid_form_data)
     assert not form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'recurring',
-        'start_date': '01/01/2020'})
+        'submission_deadline': '01/01/2020'})
     form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'ongoing',
-        'start_date': ''})
+        'submission_deadline': ''})
     form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
