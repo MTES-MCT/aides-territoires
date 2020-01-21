@@ -523,6 +523,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         aid_types = self.aid_types or []
         return bool(set(aid_types) & set(self.TECHNICAL_AIDS))
 
+    def is_ongoing(self):
+        return self.recurrence == self.RECURRENCE.ongoing
+
     def has_approaching_deadline(self):
         if not self.submission_deadline:
             return False

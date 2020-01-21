@@ -108,21 +108,21 @@
         </div>
         {% endif %}
 
-        {% if aid.start_date %}
+        {% if aid.start_date and not aid.is_ongoing %}
         <div class="short-data">
             <h2>{{ _('Start date') }}</h2>
             <p>{{ aid.start_date|date }}</p>
         </div>
         {% endif %}
 
-        {% if aid.predeposit_date %}
+        {% if aid.predeposit_date and not aid.is_ongoing %}
         <div class="short-data">
             <h2>{{ _('Predeposit date') }}</h2>
             <p>{{ aid.predeposit_date|date }}</p>
         </div>
         {% endif %}
 
-        {% if aid.submission_deadline %}
+        {% if aid.submission_deadline and not aid.is_ongoing %}
         <div class="short-data">
             <h2>{{ _('Submission deadline') }}</h2>
             <p>{{ aid.submission_deadline|date }}</p>

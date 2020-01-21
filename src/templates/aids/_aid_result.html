@@ -52,7 +52,7 @@
             </li>
         {% endif %}
 
-        {% if aid.start_date %}
+        {% if aid.start_date and not aid.is_ongoing %}
             <li>
                 <i class="fa fa-clock"></i>
                 {% blocktrans with aid.start_date|date:'SHORT_DATE_FORMAT' as start_date trimmed %}
@@ -61,7 +61,7 @@
             </li>
         {% endif %}
 
-        {% if aid.submission_deadline %}
+        {% if aid.submission_deadline and not aid.is_ongoing %}
             <li>
                 <i class="fa fa-clock"></i>
                 {% blocktrans with aid.submission_deadline|date:'SHORT_DATE_FORMAT' as deadline trimmed %}
@@ -70,7 +70,7 @@
             </li>
         {% endif %}
 
-        {% if aid.has_approaching_deadline %}
+        {% if aid.has_approaching_deadline and not aid.is_ongoing %}
             <li class="warning">
                 <i class="fas fa-exclamation-triangle" title="{{ _('Warning! The submission deadline is imminent.') }}"></i>
                 {{ _('Warning! The submission deadline is imminent') }}
