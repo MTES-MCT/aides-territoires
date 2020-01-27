@@ -6,7 +6,7 @@ from braces.views import MessageMixin
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
-from geofr.utils import attach_perimeters
+from geofr.utils import attach_perimeters, combine_perimeters
 
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
@@ -75,6 +75,13 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
             'admin:geofr_perimeter_change', args=[self.kwargs['object_id']])
 
     def form_valid(self, form):
+
+        perimeter = self.get_object()
+        add_perimeters = form.cleaned_data['add_perimeters']
+        rm_perimeters = form.cleaned_data['rm_perimeters']
+        city_codes = combine_perimeters(add_perimeters, rm_perimeters)
+        attach_perimeters(perimeter, city_codes)
+
         msg = _('We successfully configured the perimeter.')
         self.messages.success(msg)
         return super().form_valid(form)
