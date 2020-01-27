@@ -16,8 +16,8 @@ def choices_display(obj, field):
     choices_dict = dict(choices)
 
     keys = getattr(obj, field)
-    values = [force_text(choices_dict[key]) for key in keys]
-    return ', '.join(values)
+    values = [force_text(choices_dict.get(key, '')) for key in keys]
+    return ', '.join(filter(None, values))
 
 
 @register.simple_tag
