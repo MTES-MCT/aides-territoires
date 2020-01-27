@@ -4,7 +4,7 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 
 from geofr.models import Perimeter
-from geofr.admin_views import PerimeterUpload
+from geofr.admin_views import PerimeterUpload, PerimeterCombine
 
 
 class PerimeterAdminForm(forms.ModelForm):
@@ -73,10 +73,17 @@ class PerimeterAdmin(admin.ModelAdmin):
                 _('<path:object_id>/upload/'),
                 self.admin_site.admin_view(self.perimeter_upload_view),
                 name='geofr_perimeter_upload'),
+            path(
+                _('<path:object_id>/combine/'),
+                self.admin_site.admin_view(self.perimeter_combine_view),
+                name='geofr_perimeter_combine'),
+
         ]
         return my_urls + urls
 
     def perimeter_upload_view(self, request, object_id=None):
+        """Display the form to upload a list of communes."""
+
         opts = self.model._meta
         app_label = opts.app_label
         obj = self.get_object(request, object_id)
@@ -89,6 +96,23 @@ class PerimeterAdmin(admin.ModelAdmin):
             'original': obj,
         }
         return PerimeterUpload.as_view(
+            extra_context=context)(request, object_id=object_id)
+
+    def perimeter_combine_view(self, request, object_id=None):
+        """Display the form to combine several perimeters."""
+
+        opts = self.model._meta
+        app_label = opts.app_label
+        obj = self.get_object(request, object_id)
+
+        context = {
+            **self.admin_site.each_context(request),
+            'title': _('Perimeter combine'),
+            'opts': opts,
+            'app_label': app_label,
+            'original': obj,
+        }
+        return PerimeterCombine.as_view(
             extra_context=context)(request, object_id=object_id)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from braces.views import MessageMixin
 
 from geofr.models import Perimeter
-from geofr.forms import PerimeterUploadForm
+from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
 from geofr.utils import attach_perimeters
 
 
@@ -25,10 +25,6 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
     def get_queryset(self):
         qs = Perimeter.objects.all()
         return qs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
     def form_valid(self, form):
         # Fetch the list of commune perimeters from the uploaded file
@@ -50,5 +46,35 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         attach_perimeters(current_perimeter, city_codes)
 
         msg = _('We successfully updated the perimeters.')
+        self.messages.success(msg)
+        return super().form_valid(form)
+
+
+class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
+    """Create a new perimeter by combining other perimeters."""
+
+    template_name = 'admin/perimeter_combine.html'
+    pk_url_kwarg = 'object_id'
+    context_object_name = 'perimeter'
+    form_class = PerimeterCombineForm
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        return kwargs
+
+    def get_queryset(self):
+        qs = Perimeter.objects.all()
+        return qs
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'admin:geofr_perimeter_change', args=[self.kwargs['object_id']])
+
+    def form_valid(self, form):
+        msg = _('We successfully configured the perimeter.')
         self.messages.success(msg)
         return super().form_valid(form)
