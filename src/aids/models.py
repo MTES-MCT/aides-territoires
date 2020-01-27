@@ -137,9 +137,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
-                      'interest_subsidy')
+                      'other')
 
-    TECHNICAL_AIDS = ('guidance', 'networking', 'valorisation')
+    TECHNICAL_AIDS = ('technical', 'financial', 'legal')
 
     PERIMETERS = Choices(
         ('europe', _('Europe')),
@@ -522,6 +522,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         """Does this aid have technical parts?"""
         aid_types = self.aid_types or []
         return bool(set(aid_types) & set(self.TECHNICAL_AIDS))
+
+    def is_ongoing(self):
+        return self.recurrence == self.RECURRENCE.ongoing
 
     def has_approaching_deadline(self):
         if not self.submission_deadline:
