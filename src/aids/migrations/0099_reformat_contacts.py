@@ -26,8 +26,8 @@ def reformat_contacts(apps, schema_editor):
             html_elements = [
                 '<li>{}</li>'.format(elt) for elt in contact_elements]
 
-        aid.contact = '<ul>{}</ul>'.format(''.join(html_elements))
-        aid.save()
+            aid.contact = '<ul>{}</ul>'.format(''.join(html_elements))
+            aid.save()
 
 
 class Migration(migrations.Migration):
