@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-21 14:56+0100\n"
+"POT-Creation-Date: 2020-01-28 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1004,8 +1004,14 @@ msgstr "data/"
 msgid "<path:object_id>/upload/"
 msgstr "<path:object_id>/upload/"
 
+msgid "<path:object_id>/combine/"
+msgstr "<path:object_id>/combiner/"
+
 msgid "Perimeter upload"
 msgstr "Upload de périmètre"
+
+msgid "Perimeter combine"
+msgstr "Combinaison de périmètre"
 
 msgid ""
 "This file seems invalid.                         Please double-check its "
@@ -1019,8 +1025,23 @@ msgstr ""
 msgid "We successfully updated the perimeters."
 msgstr "Le périmètre a bien été mis à jour."
 
+msgid "We successfully configured the perimeter."
+msgstr "Le périmètre a bien été configuré."
+
 msgid "City list"
 msgstr "Liste de communes"
+
+msgid "Perimeters to add"
+msgstr "Périmètres à additionner"
+
+msgid "Select a list of perimeters to combines"
+msgstr "Sélectionnez une liste de périmètres à combiner"
+
+msgid "Perimeters to substract"
+msgstr "Périmètres à soustraire"
+
+msgid "Those perimeters will be substracted from the combined perimeters"
+msgstr "Ces périmètres seront enlevés du périmètre combiné."
 
 msgid "EPCI"
 msgstr "EPCI"
@@ -1527,6 +1548,12 @@ msgstr "Par %(filter_title)s "
 
 msgid "Remove"
 msgstr "Supprimer"
+
+msgid "Combine"
+msgstr "Combiner"
+
+msgid "Submit"
+msgstr "Envoyer"
 
 msgid "Upload"
 msgstr "Télécharger"
