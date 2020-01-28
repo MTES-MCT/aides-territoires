@@ -18,17 +18,18 @@
 <form method='post' enctype='multipart/form-data'>
     {% csrf_token %}
     <div>
+        <p>{% blocktrans trimmed %}
+            Use this form to upload the list of cities contained
+            in the selected <em>ad-hoc</em> perimeter. The file must
+            be a list of insee codes (one per line) for french cities.
+        {% endblocktrans %}</p>
+
         <fieldset class="module aligned">
             <div class="form-row">
                 <div>
                     {{ form.city_list.label_tag }}
                     {{ form.city_list }}
                 </div>
-                <p>{% blocktrans trimmed %}
-                    Use this form to upload the list of cities contained
-                    in the selected <em>ad-hoc</em> perimeter. The file must
-                    be a list of insee codes (one per line) for french cities.
-                {% endblocktrans %}</p>
             </div>
         </fieldset>
         <div class="submit-row">

@@ -19,6 +19,10 @@
     {{ form.media }}
     {% csrf_token %}
     <div>
+        <p>{% blocktrans trimmed %}
+            Use this form to set this perimeter as a combination of other
+            perimeters. Watch out, the current perimeter settings will be reset.
+        {% endblocktrans %}</p>
         <fieldset class="module aligned">
             {% for field in form %}
                 <div class="form-row field-{{ field.name }}">

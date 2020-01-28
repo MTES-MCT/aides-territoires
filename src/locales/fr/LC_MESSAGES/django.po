@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-28 10:49+0100\n"
+"POT-Creation-Date: 2020-01-28 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1539,6 +1539,9 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
+msgid "Combine perimeters"
+msgstr "Combiner des périmètres"
+
 msgid "Upload city list"
 msgstr "Télécharger la liste des communes"
 
@@ -1551,6 +1554,14 @@ msgstr "Supprimer"
 
 msgid "Combine"
 msgstr "Combiner"
+
+msgid ""
+"Use this form to set this perimeter as a combination of other perimeters. "
+"Watch out, the current perimeter settings will be reset."
+msgstr ""
+"Utilisez ce formulaire pour configurer ce périmètre comme une combinaison "
+"d'autres périmètres. Attention, la configuration actuelle sera remise à "
+"zéro."
 
 msgid "Submit"
 msgstr "Envoyer"
