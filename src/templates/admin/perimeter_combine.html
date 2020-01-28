@@ -10,30 +10,32 @@
     &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
     &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
     &rsaquo; <a href="{% url 'admin:geofr_perimeter_change' original.id %}">{{ original }}</a>
-    &rsaquo; {{ _('Upload') }}
+    &rsaquo; {{ _('Combine') }}
 </div>
 {% endblock %}
 
 {% block content %}
-<form method='post' enctype='multipart/form-data'>
+<form method='post' action="">
+    {{ form.media }}
     {% csrf_token %}
     <div>
         <p>{% blocktrans trimmed %}
-            Use this form to upload the list of cities contained
-            in the selected <em>ad-hoc</em> perimeter. The file must
-            be a list of insee codes (one per line) for french cities.
+            Use this form to set this perimeter as a combination of other
+            perimeters. Watch out, the current perimeter settings will be reset.
         {% endblocktrans %}</p>
-
         <fieldset class="module aligned">
-            <div class="form-row">
-                <div>
-                    {{ form.city_list.label_tag }}
-                    {{ form.city_list }}
+            {% for field in form %}
+                <div class="form-row field-{{ field.name }}">
+                    <div>
+                        {{ field.label_tag }}
+                        {{ field }}
+                        <div class="help">{{ field.help_text|safe }}</div>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
+            {% endfor %}
+        </div>
         <div class="submit-row">
-            <input class="default" type="submit" name="{{ _('Send file') }}" />
+            <input class="default" type="submit" name="{{ _('Submit') }}" />
         </div>
     </div>
 </form>

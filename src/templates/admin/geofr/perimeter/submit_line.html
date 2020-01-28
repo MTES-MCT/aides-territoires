@@ -2,7 +2,10 @@
 
 {% block submit-row %}
     {% if show_delete_link %}
-        <a href="{% url 'admin:geofr_perimeter_upload' original.pk %}" class="uploadlink">
+        <a href="{% url 'admin:geofr_perimeter_combine' original.pk %}" class="submitlink">
+            {{ _('Combine perimeters') }}
+        </a>
+        <a href="{% url 'admin:geofr_perimeter_upload' original.pk %}" class="submitlink">
             {{ _('Upload city list') }}
         </a>
     {% endif %}

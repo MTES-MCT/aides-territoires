@@ -3,7 +3,7 @@ form .aligned ul ul {
     padding-left: 1rem;
 }
 
-.submit-row a.uploadlink {
+.submit-row a.submitlink {
     display: inline-block;
     background-color: #79aec8;
     border-radius: 4px;
@@ -14,7 +14,7 @@ form .aligned ul ul {
     color: #fff;
 }
 
-.submit-row a.uploadlink:hover {
+.submit-row a.submitlink:hover {
     background: #609ab6;
 }
 

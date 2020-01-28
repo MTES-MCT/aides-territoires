@@ -68,3 +68,22 @@ def attach_perimeters(adhoc, city_codes):
     # Bulk create the links
     PerimeterContainedIn.objects.bulk_create(
         containing, ignore_conflicts=True)
+
+
+def combine_perimeters(add_perimeters, rm_perimeters):
+    """Combine perimeters to extract some city codes.
+
+    Return the city codes that are in `add_perimeters` and not in
+    `rm_perimeters`.
+    """
+    in_city_codes = Perimeter.objects \
+        .filter(scale=Perimeter.TYPES.commune) \
+        .filter(contained_in__in=add_perimeters) \
+        .values_list('code', flat=True)
+
+    out_city_codes = Perimeter.objects \
+        .filter(scale=Perimeter.TYPES.commune) \
+        .filter(contained_in__in=rm_perimeters) \
+        .values_list('code', flat=True)
+
+    return set(in_city_codes) - set(out_city_codes)
