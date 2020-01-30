@@ -14,7 +14,7 @@ DRAINAGE_BASINS = {
     '03': 'Seine-Normandie',
     '04': 'Loire-Bretagne',
     '05': 'Adour-Garonne',
-    '06': 'Rhône- Méditérranée',
+    '06': 'Rhône-Méditérranée',
     '07': 'Guadeloupe',
     '08': 'Martinique',
     '09': 'Guyane',
