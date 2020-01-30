@@ -4,9 +4,12 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.http import QueryDict
 
 from core.celery import app
+from aids.forms import AidSearchForm
 from alerts.models import Alert
+from geofr.models import Perimeter
 
 
 TEMPLATE = 'emails/alert_validate.txt'
@@ -28,6 +31,15 @@ def send_alert_confirmation_email(user_email, alert_token):
         # on our site.
         return
 
+    # Use the search form to parse the search querydict and
+    # extract the perimeter
+    querydict = QueryDict(alert.querystring)
+    search_form = AidSearchForm(querydict)
+    if search_form.is_valid():
+        perimeter = search_form.cleaned_data.get('perimeter', None)
+    else:
+        perimeter = None
+
     site = Site.objects.get_current()
     scheme = 'https'
     base_url = '{scheme}://{domain}'.format(
@@ -48,6 +60,7 @@ def send_alert_confirmation_email(user_email, alert_token):
         'base_url': base_url,
         'alert': alert,
         'frequency': frequency,
+        'perimeter': perimeter,
         'alert_validation_link': '{}{}'.format(base_url, alert_validation_link)
     })
     send_mail(
