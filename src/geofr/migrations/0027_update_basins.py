@@ -6,7 +6,7 @@ def update_basin_name(apps, schema_editor):
     Perimeter = apps.get_model('geofr', 'Perimeter')
 
     #Rhône-Méditerranée
-    Perimeter.objects.filter(id=108982).update(name='Rhône- Méditerranée')
+    Perimeter.objects.filter(scale=8, code='06').update(name='Rhône-Méditerranée')
 
 
 class Migration(migrations.Migration):
