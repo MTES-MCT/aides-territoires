@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
+from django.utils.safestring import mark_safe
 
 from core.forms import (
     AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
@@ -56,21 +57,6 @@ AUDIANCES = (
     (_('Other audiances'), OTHER_AUDIANCES)
 )
 
-
-CONTACT_INITIAL = '''
-    <ul>
-        <li>{}</li>
-        <li>{}</li>
-        <li>{}</li>
-        <li>{}</li>
-    </ul>
-    '''.format(
-        _('First / last name: '),
-        _('Email: '),
-        _('Phone: '),
-        _('Comments: '),
-    )
-
 IS_CALL_FOR_PROJECT = (
     (None, '----'),
     (True, _('Yes')),
@@ -93,9 +79,11 @@ class BaseAidForm(forms.ModelForm):
         required=False)
     contact = RichTextField(
         label=_('Contact'),
-        required=False,
-        initial=CONTACT_INITIAL,
-        help_text=_('Feel free to add several contacts'))
+        required=True,
+        help_text=_('Feel free to add several contacts'),
+        widget=forms.Textarea(attrs={'placeholder': _(
+            'First name / last name, email, phone, comments…'
+        )}))
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
