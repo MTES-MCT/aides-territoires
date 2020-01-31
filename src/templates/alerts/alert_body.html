@@ -6,7 +6,8 @@
 
 <p>Bonjour,</p>
 
-<p>Nous avons détecté au moins une nouvelle aide sur votre recherche « {{ alert.title }} ».</p>
+<p>Nous avons détecté au moins une nouvelle aide sur votre recherche
+<strong>{{ alert.title }}</strong>.</p>
 
 <ul>
 {% for aid in new_aids %}
@@ -15,7 +16,7 @@
         <a href="https://{{ domain }}{{ aid.get_absolute_url|safe }}">
             {{ aid.name|safe }}
         </a>
-        {% if aid.submission_deadline %}<strong>Clôture :</strong> {{ aid.submission_deadline|date }}<br />{% endif %}
+        {% if aid.submission_deadline %}<br /><strong>Clôture :</strong> {{ aid.submission_deadline|date }}{% endif %}
     </li>
 {% endfor %}
 </ul>
@@ -30,7 +31,7 @@
 {% endif %}
 
 <p>
-<strong>N'hésitez pas à créer d'autres alertes pour être toujours bien informé.</strong><br/>
+<strong>N'hésitez pas à créer d'autres alertes pour être toujours bien informé·e.</strong><br/>
 Vous pouvez également transférer cet email à vos partenaires afin qu'ils
 prennent connaissance de ces aides.
 </p>
