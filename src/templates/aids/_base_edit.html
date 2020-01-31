@@ -34,7 +34,6 @@
     <fieldset>
         <legend>{{ _('Aid presentation') }}</legend>
         {% include '_field_snippet.html' with field=form.name %}
-        {% include '_field_snippet.html' with field=form.tags %}
         {% include '_field_snippet.html' with field=form.targeted_audiances %}
         {% include '_field_snippet.html' with field=form.financers %}
         {% include '_field_snippet.html' with field=form.financer_suggestion %}
@@ -102,7 +101,6 @@
 <script src="/static/js/plugins/softmaxlength.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/backers_autocomplete.js"></script>
-<script src="/static/js/tags_autocomplete.js"></script>
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
 <script src="/static/js/aids/toggle_subvention_related_fields.js"></script>
 <script src="/static/js/aids/toggle_calendar_related_fields.js"></script>

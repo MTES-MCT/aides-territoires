@@ -91,7 +91,6 @@ class AidAdmin(admin.ModelAdmin):
         }
         js = [
             'admin/js/jquery.init.js',
-            '/static/admin/js/tags_autocomplete.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
             '/static/trumbowyg/dist/trumbowyg.js',
@@ -124,7 +123,6 @@ class AidAdmin(admin.ModelAdmin):
                 'name',
                 'slug',
                 'categories',
-                'tags',
                 'targeted_audiances',
                 'financers',
                 'financer_suggestion',

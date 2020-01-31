@@ -12,7 +12,6 @@ from core.forms import (
     AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
-from tags.fields import TagChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from aids.models import Aid
 
@@ -81,10 +80,6 @@ IS_CALL_FOR_PROJECT = (
 
 class BaseAidForm(forms.ModelForm):
 
-    tags = TagChoiceField(
-        label=_('Tags'),
-        choices=list,
-        required=False)
     description = RichTextField(
         label=_('Full description of the aid and its objectives'),
         widget=forms.Textarea(attrs={'placeholder': _(
@@ -117,18 +112,6 @@ class BaseAidForm(forms.ModelForm):
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
 
-        # We set the existing tags as the `choices` value so the existing
-        # tags will be displayed in the widget
-        if 'tags' in self.fields:
-            all_tags = self.instance.tags
-            if self.is_bound:
-                if hasattr(self.data, 'getlist'):
-                    all_tags += self.data.getlist('tags')
-                else:
-                    all_tags += self.data.get('tags', [])
-            all_tags = list(set(all_tags))
-            self.fields['tags'].choices = zip(all_tags, all_tags)
-
         custom_labels = {
             'name': _('Aid title'),
             'financers': _('Aid financer(s)'),
@@ -148,8 +131,6 @@ class BaseAidForm(forms.ModelForm):
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
-            'tags': _('Add up to 30 keywords to describe your aid (separated '
-                      'by ",")'),
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -200,7 +181,6 @@ class BaseAidForm(forms.ModelForm):
 
     def _save_m2m(self):
         super()._save_m2m()
-        self.instance.populate_tags()
 
 
 class AidAdminForm(BaseAidForm):
@@ -235,7 +215,6 @@ class AidAdminForm(BaseAidForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['financers'].required = False
-        self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
         self.fields['start_date'].required = False
 
 
@@ -274,7 +253,6 @@ class AidEditForm(BaseAidForm):
         fields = [
             'name',
             'description',
-            'tags',
             'targeted_audiances',
             'financers',
             'financer_suggestion',
