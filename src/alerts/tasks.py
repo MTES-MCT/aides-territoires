@@ -9,7 +9,6 @@ from django.http import QueryDict
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
-from geofr.models import Perimeter
 
 
 TEMPLATE = 'emails/alert_validate.txt'
