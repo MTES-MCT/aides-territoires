@@ -1,4 +1,5 @@
 {% extends 'emails/_base.html' %}
+{% load settings %}
 
 {% block email_title %}{{ nb_aids }} résultats pour votre alerte{% endblock %}
 
@@ -41,6 +42,12 @@ prennent connaissance de ces aides.
     <a href="https://{{ domain }}{{ delete_url|safe }}">
         Vous pouvez la supprimer.
     </a>
+</p>
+
+<p>
+    Vous avez une remarque sur le service ou besoin d'aide dans votre
+    recherche ? Nous sommes joignables au
+    <strong>{{ contact_phone|phone }}</strong>.
 </p>
 
 <p>
