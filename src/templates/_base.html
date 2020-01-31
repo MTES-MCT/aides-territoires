@@ -76,7 +76,11 @@
                 <nav role="navigation">
                     <a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a>
                     <a href="{% url 'data_doc' %}">{{ _('Data export and api') }}</a>
-                    <a href="mailto:aides-territoires@beta.gouv.fr">{{ _('Contact') }}</a>
+                    <li>
+                        {{ _('Contact:') }}
+                        <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> /
+                        <a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a>
+                    </li>
                     <a href="{% url 'legal_mentions' %}">{{ _('Legal mentions') }}</a>
                     <a href="https://github.com/MTES-MCT/aides-territoires">{{ _('Source code') }}</a>
                 </nav>
