@@ -75,9 +75,12 @@ class BaseAidForm(forms.ModelForm):
             ' try to give some answers in this space.')}))
     project_examples = RichTextField(
         label=_('Examples of projects that benefited from this aid'),
+        required=False,
         help_text=_(
             'Give concrete examples of projets that benefited or might '
-            'benefit from this aid.'))
+            'benefit from this aid.'),
+        widget=forms.Textarea(attrs={'placeholder': _(
+            'Library, skatepark, etc.')}))
     eligibility = RichTextField(
         label=_('Other eligibility criterias?'),
         required=False)
