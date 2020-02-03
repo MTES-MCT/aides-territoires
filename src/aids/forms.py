@@ -245,6 +245,7 @@ class AidEditForm(BaseAidForm):
         fields = [
             'name',
             'description',
+            'project_examples',
             'targeted_audiances',
             'financers',
             'financer_suggestion',

@@ -162,10 +162,17 @@
         </div>
         {% endif %}
 
+        {% if aid.project_examples %}
+        <div class="long-data">
+            <h2>{{ _('Project examples') }}</h2>
+            {{ aid.project_examples|safe }}
+        </div>
+        {% endif %}
+
         {% if aid.eligibility %}
         <div class="long-data">
             <h2>{{ _('Other eligibility criterias') }}</h2>
-            <p>{{ aid.eligibility|safe }}</p>
+            {{ aid.eligibility|safe }}
         </div>
         {% endif %}
 
@@ -190,7 +197,7 @@
         {% if aid.contact %}
         <div class="long-data">
             <h2>{{ _('Contact') }}</h2>
-            <p>{{ aid.contact|safe }}</p>
+            {{ aid.contact|safe }}
         </div>
         {% endif %}
 
