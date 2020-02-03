@@ -73,6 +73,11 @@ class BaseAidForm(forms.ModelForm):
             ' information.\n'
             'If you are contacted regularly to ask for the same information,'
             ' try to give some answers in this space.')}))
+    project_examples = RichTextField(
+        label=_('Examples of projects that benefited from this aid'),
+        help_text=_(
+            'Give concrete examples of projets that benefited or might '
+            'benefit from this aid.'))
     eligibility = RichTextField(
         label=_('Other eligibility criterias?'),
         required=False)
