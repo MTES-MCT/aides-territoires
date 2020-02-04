@@ -602,10 +602,8 @@ msgstr ""
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
-#, fuzzy
-#| msgid "Project progress"
 msgid "Project examples"
-msgstr "Avancement du projet"
+msgstr "Exemples de projets"
 
 msgid "Eligibility"
 msgstr "Éligibilité"
@@ -1176,10 +1174,8 @@ msgstr "Publier des aides"
 msgid "Data export and api"
 msgstr "Réutilisation des données et API"
 
-#, fuzzy
-#| msgid "Contact"
 msgid "Contact:"
-msgstr "Contact"
+msgstr "Contact :"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
