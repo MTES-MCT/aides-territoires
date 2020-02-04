@@ -151,6 +151,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.integration',
+                'core.context_processors.contact_data',
                 'core.context_processors.admin_stats',
                 'core.context_processors.contributor_stats',
             ],
@@ -178,6 +179,7 @@ ANALYTICS_SITEID = 0
 HOTJAR_SITEID = 0
 
 CONTACT_EMAIL = 'nowhere@example.org'
+CONTACT_PHONE = '+33123456789'
 EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
 DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

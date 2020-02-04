@@ -26,3 +26,17 @@ def staging_warning():
         '''
 
     return mark_safe(warning_div)
+
+
+@register.filter
+def phone(raw_phone):
+    """Convert a E.164 format french number to a pretty display."""
+
+    phone = raw_phone.replace('+33', '0')
+    phone = '{} {} {} {} {}'.format(
+        phone[0:2],
+        phone[2:4],
+        phone[4:6],
+        phone[6:8],
+        phone[8:10])
+    return phone

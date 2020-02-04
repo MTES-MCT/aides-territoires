@@ -1,3 +1,4 @@
+from django.conf import settings
 from aids.models import Aid
 
 
@@ -6,6 +7,13 @@ def integration(request):
     integration = request.GET.get('integration', False)
     return {
         'integration': integration
+    }
+
+
+def contact_data(request):
+    return {
+        'contact_email': settings.CONTACT_EMAIL,
+        'contact_phone': settings.CONTACT_PHONE,
     }
 
 

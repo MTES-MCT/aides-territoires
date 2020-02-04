@@ -1,3 +1,4 @@
+{% load settings %}
 Bonjour,
 
 Nous avons détecté au moins une nouvelle recherche sur votre alert « {{ alert.title }} ».
@@ -23,6 +24,8 @@ Vous pouvez également transférer cet email à vos partenaires afin qu'ils pren
 Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :
 
 https://{{ domain }}{{ delete_url|safe }}
+
+Vous avez une remarque sur le service ou besoin d'aide dans votre recherche ? Nous sommes joignables au {{ contact_phone|phone }}.
 
 À très vite !
 L'équipe d'Aides-territoires.

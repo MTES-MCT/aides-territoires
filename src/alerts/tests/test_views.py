@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
+from geofr.factories import PerimeterFactory
 from accounts.models import User
 from alerts.models import Alert
 from alerts.factories import AlertFactory
@@ -85,6 +86,25 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
     assert len(mailoutbox) == 2
     mail_body = mailoutbox[0].body
     assert 'Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires' in mail_body  # noqa
+
+
+def test_alert_perimeter(client, mailoutbox):
+    """The search perimeter is displayed in the validation email."""
+
+    perimeter = PerimeterFactory.create(name='Bretagne')
+    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
+    url = reverse('alert_create_view')
+    res = client.post(url, data={
+        'title': 'Test',
+        'email': 'alert-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&perimeter={}'.format(perimeter_id),
+    })
+    assert res.status_code == 302
+    assert len(mailoutbox) == 1
+
+    content = mailoutbox[0].body
+    assert 'Bretagne (Région)' in content
 
 
 def test_unvalidated_alerts_creation_quotas(client):

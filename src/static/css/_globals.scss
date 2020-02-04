@@ -66,9 +66,17 @@ body {
             @extend .nav;
             @extend .flex-column;
 
-            a {
+            &>a,
+            li {
                 @extend .nav-link;
                 padding-left: 0;
+
+                a[href^='mailto:'] {
+                    @include icon(before, $fa-var-envelope);
+                }
+                a[href^='tel:'] {
+                    @include icon(before, $fa-var-phone);
+                }
             }
         }
     }

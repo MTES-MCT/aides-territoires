@@ -1,6 +1,6 @@
 Bonjour,
 
-Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires :
+Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires{% if perimeter %} pour le périmètre « {{ perimeter }} »{% endif %} :
 
 {{ alert_validation_link }}
 
