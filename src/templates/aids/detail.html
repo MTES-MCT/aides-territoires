@@ -50,7 +50,7 @@
 
     </h1>
 
-    {% if aid.is_live %}
+    {% if aid.is_published %}
         <div class="aid-actions js">
             <button class="bundle"
                 data-toggle="modal"
@@ -65,6 +65,12 @@
     {% else %}
         <div class="danger">
             <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
+        </div>
+    {% endif %}
+
+    {% if aid.has_expired %}
+        <div class="danger">
+            <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
         </div>
     {% endif %}
 

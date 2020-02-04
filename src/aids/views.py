@@ -205,7 +205,7 @@ class AidDetailView(DetailView):
             q_is_author = Q(author=user)
             qs = base_qs.filter(q_published | q_is_author)
         else:
-            qs = base_qs.open().published()
+            qs = base_qs.published()
 
         return qs
 

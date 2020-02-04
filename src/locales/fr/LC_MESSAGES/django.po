@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 14:51+0100\n"
+"POT-Creation-Date: 2020-02-04 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -321,8 +321,8 @@ msgstr ""
 
 msgid "Library, skatepark, etc."
 msgstr ""
-"Médiathéque, skatepark, accompagner des enfants en classe de neige, "
-"financer une usine de traitement des déchets, etc."
+"Médiathéque, skatepark, accompagner des enfants en classe de neige, financer "
+"une usine de traitement des déchets, etc."
 
 msgid "Other eligibility criterias?"
 msgstr "Autres critères d'éligibilité ?"
@@ -852,8 +852,10 @@ msgstr "Alerte"
 msgid "Alerts"
 msgstr "Alertes"
 
+#, python-format
 msgid "Please confirm your Aides-territoires alert (%(date)s)"
-msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires (%(date)s)"
+msgstr ""
+"📢 Attention ! Validez maintenant votre alerte Aides-territoires (%(date)s)"
 
 msgid ""
 "You will receive a daily email whenever new matching aids will be published."
@@ -1173,6 +1175,11 @@ msgstr "Publier des aides"
 
 msgid "Data export and api"
 msgstr "Réutilisation des données et API"
+
+#, fuzzy
+#| msgid "Contact"
+msgid "Contact:"
+msgstr "Contact"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
@@ -1840,6 +1847,13 @@ msgid ""
 msgstr ""
 "Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
 "strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
+
+msgid ""
+"Warning! This aid is <strong>no longer available</strong>. It is still "
+"displayed for historical purpose."
+msgstr ""
+"Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page "
+"restera accessible pour archivage."
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"
