@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 11:20+0100\n"
+"POT-Creation-Date: 2020-02-03 09:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -289,26 +289,11 @@ msgstr "Collectivités"
 msgid "Other audiances"
 msgstr "Autres bénéficiaires"
 
-msgid "First / last name: "
-msgstr "Nom / Prénom :"
-
-msgid "Email: "
-msgstr "E-mail :"
-
-msgid "Phone: "
-msgstr "Téléphone :"
-
-msgid "Comments: "
-msgstr "Remarques :"
-
 msgid "Yes"
 msgstr "Oui"
 
 msgid "No"
 msgstr "Non"
-
-msgid "Tags"
-msgstr "Mots clés"
 
 msgid "Full description of the aid and its objectives"
 msgstr "Description complète de l'aide et de ses objectifs"
@@ -332,6 +317,9 @@ msgstr "Contact"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
+
+msgid "First name / last name, email, phone, comments…"
+msgstr "Nom, prénom, e-mail, téléphone, commentaires…"
 
 msgid "Call for project / Call for expressions of interest"
 msgstr "Appel à projet / Manifestation d'intérêt"
@@ -368,11 +356,6 @@ msgid ""
 msgstr ""
 "Si l'apporteur de l'aide n'est pas déjà présent dans la liste précédente, "
 "vous pouvez utiliser ce champ pour nous le communiquer."
-
-msgid "Add up to 30 keywords to describe your aid (separated by \",\")"
-msgstr ""
-"Ajoutez jusqu'à 30 mots clés pour mieux décrire votre aide (séparés par des "
-"virgules « , »)."
 
 msgid "Please provide a financer, or suggest a new one."
 msgstr "Merci d'indiquer un financeur."
@@ -699,6 +682,9 @@ msgstr "Date du dernier accès"
 
 msgid "Search vector"
 msgstr "Search vector"
+
+msgid "Tags"
+msgstr "Mots clés"
 
 msgid "Is amendment"
 msgstr "Est un amendement"
@@ -1834,9 +1820,6 @@ msgid ""
 msgstr ""
 "Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
 "strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
-
-msgid "Keywords:"
-msgstr "Mots clés :"
 
 msgid "Application perimeter"
 msgstr "Périmètre d'application"

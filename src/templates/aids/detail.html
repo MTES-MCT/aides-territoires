@@ -79,14 +79,6 @@
                     {{ _('No detailed description was submitted.') }}
                 {% endif %}
             </p>
-
-            {% if aid.tags %}
-            <p>
-                <i class="fas fa-tags"></i>
-                {{ _('Keywords:') }}
-                {{ aid.tags|join:', ' }}
-            </p>
-            {% endif %}
         </div>
 
         {% if aid.targeted_audiances %}

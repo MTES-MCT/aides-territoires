@@ -44,13 +44,6 @@
         </li>
         {% endif %}
 
-        {% if aid.tags %}
-            <li>
-                <i class="fas fa-tags"></i>
-                {{ aid.tags|join:', ' }}
-            </li>
-        {% endif %}
-
         {% if aid.start_date and not aid.is_ongoing %}
             <li>
                 <i class="fa fa-clock"></i>

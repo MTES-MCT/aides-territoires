@@ -12,7 +12,6 @@ from core.forms import (
     AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
-from tags.fields import TagChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from aids.models import Aid
 
@@ -57,21 +56,6 @@ AUDIANCES = (
     (_('Other audiances'), OTHER_AUDIANCES)
 )
 
-
-CONTACT_INITIAL = '''
-    <ul>
-        <li>{}</li>
-        <li>{}</li>
-        <li>{}</li>
-        <li>{}</li>
-    </ul>
-    '''.format(
-        _('First / last name: '),
-        _('Email: '),
-        _('Phone: '),
-        _('Comments: '),
-    )
-
 IS_CALL_FOR_PROJECT = (
     (None, '----'),
     (True, _('Yes')),
@@ -81,10 +65,6 @@ IS_CALL_FOR_PROJECT = (
 
 class BaseAidForm(forms.ModelForm):
 
-    tags = TagChoiceField(
-        label=_('Tags'),
-        choices=list,
-        required=False)
     description = RichTextField(
         label=_('Full description of the aid and its objectives'),
         widget=forms.Textarea(attrs={'placeholder': _(
@@ -98,9 +78,11 @@ class BaseAidForm(forms.ModelForm):
         required=False)
     contact = RichTextField(
         label=_('Contact'),
-        required=False,
-        initial=CONTACT_INITIAL,
-        help_text=_('Feel free to add several contacts'))
+        required=True,
+        help_text=_('Feel free to add several contacts'),
+        widget=forms.Textarea(attrs={'placeholder': _(
+            'First name / last name, email, phone, comments…'
+        )}))
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
@@ -116,18 +98,6 @@ class BaseAidForm(forms.ModelForm):
 
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
-
-        # We set the existing tags as the `choices` value so the existing
-        # tags will be displayed in the widget
-        if 'tags' in self.fields:
-            all_tags = self.instance.tags
-            if self.is_bound:
-                if hasattr(self.data, 'getlist'):
-                    all_tags += self.data.getlist('tags')
-                else:
-                    all_tags += self.data.get('tags', [])
-            all_tags = list(set(all_tags))
-            self.fields['tags'].choices = zip(all_tags, all_tags)
 
         custom_labels = {
             'name': _('Aid title'),
@@ -148,8 +118,6 @@ class BaseAidForm(forms.ModelForm):
             'new_backer':
                 _('If the aid backer is not in the previous list, use this '
                   'field to add a new one.'),
-            'tags': _('Add up to 30 keywords to describe your aid (separated '
-                      'by ",")'),
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -200,7 +168,6 @@ class BaseAidForm(forms.ModelForm):
 
     def _save_m2m(self):
         super()._save_m2m()
-        self.instance.populate_tags()
 
 
 class AidAdminForm(BaseAidForm):
@@ -235,7 +202,6 @@ class AidAdminForm(BaseAidForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['financers'].required = False
-        self.fields['tags'].widget.attrs['class'] = 'admin-autocomplete'
         self.fields['start_date'].required = False
 
 
@@ -274,7 +240,6 @@ class AidEditForm(BaseAidForm):
         fields = [
             'name',
             'description',
-            'tags',
             'targeted_audiances',
             'financers',
             'financer_suggestion',
