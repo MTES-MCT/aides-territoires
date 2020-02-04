@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
-from django.utils.safestring import mark_safe
 
 from core.forms import (
     AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
