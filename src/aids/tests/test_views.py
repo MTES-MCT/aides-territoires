@@ -1,7 +1,9 @@
 """Test aid views."""
 
+from datetime import timedelta
 import pytest
 from django.urls import reverse
+from django.utils import timezone
 
 from tags.models import Tag
 from tags.factories import TagFactory
@@ -9,6 +11,12 @@ from aids.factories import AidFactory
 from aids.models import Aid
 
 pytestmark = pytest.mark.django_db
+
+
+@pytest.fixture
+def past_week():
+    today = timezone.now().date()
+    return today - timedelta(days=7)
 
 
 @pytest.fixture
@@ -179,89 +187,6 @@ def test_aid_edition_save_as_new(client, contributor, amendment_form_data):
 
     assert aids[0].author == aids[1].author == contributor
     assert aids[0].slug != aids[1].slug
-
-
-def test_aid_edition_with_existing_tags(client, contributor,
-                                        amendment_form_data):
-    """Aid form uses existing tags."""
-
-    aid = AidFactory(name='First title', author=contributor)
-    form_url = reverse('aid_edit_view', args=[aid.slug])
-    client.force_login(contributor)
-
-    TagFactory(name='pizza')
-    TagFactory(name='tartiflette')
-    TagFactory(name='gratin')
-    tags = Tag.objects.all()
-    assert tags.count() == 3
-
-    amendment_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
-    res = client.post(form_url, data=amendment_form_data)
-    assert res.status_code == 302
-
-    aid.refresh_from_db()
-    assert set(aid.tags) == set(['pizza', 'gratin', 'tartiflette'])
-
-    tag_names = aid._tags_m2m.values_list('name', flat=True)
-    assert set(tag_names) == set(['pizza', 'gratin', 'tartiflette'])
-    assert tags.count() == 3
-
-
-def test_aid_edition_with_new_tags(client, contributor, amendment_form_data):
-    """Aid form can create new tags."""
-
-    aid = AidFactory(name='First title', author=contributor)
-    form_url = reverse('aid_edit_view', args=[aid.slug])
-    client.force_login(contributor)
-
-    TagFactory(name='pizza')
-    tags = Tag.objects.all()
-    assert tags.count() == 1
-
-    amendment_form_data['tags'] = ['pizza', 'tartiflette', 'gratin']
-    res = client.post(form_url, data=amendment_form_data)
-    assert res.status_code == 302
-
-    aid.refresh_from_db()
-    assert set(aid.tags) == set(['pizza', 'gratin', 'tartiflette'])
-
-    aid_tags = aid._tags_m2m.values_list('name', flat=True)
-    assert set(aid_tags) == set(['pizza', 'gratin', 'tartiflette'])
-
-    all_tags = tags.values_list('name', flat=True)
-    assert tags.count() == 3
-    assert 'gratin' in all_tags
-    assert 'tartiflette' in all_tags
-
-
-def test_aid_edition_does_not_delete_tags(client, contributor,
-                                          amendment_form_data):
-    """Unused tags stay in db."""
-
-    TagFactory(name='pizza')
-    TagFactory(name='gratin')
-
-    aid = AidFactory(name='First title', author=contributor, tags=[
-        'pizza', 'gratin'])
-    form_url = reverse('aid_edit_view', args=[aid.slug])
-    client.force_login(contributor)
-
-    tags = Tag.objects.all()
-    assert tags.count() == 2
-
-    amendment_form_data['tags'] = ['pizza']
-    res = client.post(form_url, data=amendment_form_data)
-    assert res.status_code == 302
-
-    aid.refresh_from_db()
-    assert set(aid.tags) == set(['pizza'])
-    assert tags.count() == 2
-
-    aid_tags = aid._tags_m2m.values_list('name', flat=True)
-    assert set(aid_tags) == set(['pizza'])
-
-    all_tags = tags.values_list('name', flat=True)
-    assert set(all_tags) == set(['pizza', 'gratin'])
 
 
 def test_edition_of_other_users_aid(client, contributor):
@@ -453,3 +378,25 @@ def test_contributons_can_preview_their_own_aids(client, user, contributor):
     res = client.get(url)
     assert res.status_code == 200
     assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
+
+
+def test_anonymous_cannot_see_unpublished_aids(client):
+    aid = AidFactory(status='draft')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 404
+
+
+def test_anonymous_can_see_published_aids(client):
+    aid = AidFactory(status='published')
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+def test_anonymous_can_see_expired_aids(client, past_week):
+    aid = AidFactory(status='published', submission_deadline=past_week)
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert 'Cette aide n\'est <strong>plus disponible</strong>' in res.content.decode() # noqa
