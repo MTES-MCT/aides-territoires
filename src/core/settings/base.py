@@ -167,6 +167,33 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 50,
 }
 
+
+# Define a custom logger that sends events to admin users
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'mail': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'aidesterritoires': {
+            'handlers': ['mail'],
+            'level': 'INFO',
+        }
+    }
+}
+
+ADMINS = [('Aides-territoires', 'nowhere@eexample.org')]
+
 MAILING_LIST_URL = None
 
 APPROACHING_DEADLINE_DELTA = 30  # days
