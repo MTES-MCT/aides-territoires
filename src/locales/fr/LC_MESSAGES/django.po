@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 09:40+0100\n"
+"POT-Creation-Date: 2020-02-03 14:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,6 +309,21 @@ msgstr ""
 "Si l'on vous contacte régulièrement pour vous demander les mêmes "
 "informations, essayez de donner des éléments de réponses dans cet espace."
 
+msgid "Examples of projects that benefited from this aid"
+msgstr "Exemples de projets réalisés grâce à cette aide"
+
+msgid ""
+"Give concrete examples of projets that benefited or might benefit from this "
+"aid."
+msgstr ""
+"Afin d'aider les territoires à mieux comprendre votre aide, donnez ici "
+"quelques exemples concrets de projets réalisables ou réalisés."
+
+msgid "Library, skatepark, etc."
+msgstr ""
+"Médiathéque, skatepark, accompagner des enfants en classe de neige, "
+"financer une usine de traitement des déchets, etc."
+
 msgid "Other eligibility criterias?"
 msgstr "Autres critères d'éligibilité ?"
 
@@ -586,6 +601,11 @@ msgstr ""
 
 msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
+
+#, fuzzy
+#| msgid "Project progress"
+msgid "Project examples"
+msgstr "Avancement du projet"
 
 msgid "Eligibility"
 msgstr "Éligibilité"

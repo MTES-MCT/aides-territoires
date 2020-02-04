@@ -156,6 +156,7 @@ class AidAdmin(admin.ModelAdmin):
                 'mobilization_steps',
                 'destinations',
                 'description',
+                'project_examples',
                 'eligibility',
             )
         }),
