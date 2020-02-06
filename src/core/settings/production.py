@@ -54,8 +54,9 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_FILE_PATH = '/tmp/django_emails'
 
+ADMINS = [x.split(':') for x in env.list('ADMINS')]
+
 # For staging only, this will be ignored in production
-ADMINS = [x.split(':') for x in env.list('DJANGO_ADMINS')]
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
