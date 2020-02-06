@@ -167,6 +167,33 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 50,
 }
 
+
+# Define a custom logger that sends events to admin users
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'mail': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'aidesterritoires': {
+            'handlers': ['mail'],
+            'level': 'INFO',
+        }
+    }
+}
+
+ADMINS = [('Aides-territoires', 'nowhere@example.org')]
+
 MAILING_LIST_URL = None
 
 APPROACHING_DEADLINE_DELTA = 30  # days
@@ -182,6 +209,7 @@ CONTACT_EMAIL = 'nowhere@example.org'
 CONTACT_PHONE = '+33123456789'
 EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
 DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
+SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
 

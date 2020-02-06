@@ -48,6 +48,12 @@ class ImportStub(BaseImportCommand):
     def extract_author_id(self, line):
         return self.author.id
 
+    def extract_project_examples(self, line):
+        return ''
+
+    def extract_contact(self, line):
+        return ''
+
 
 def test_importing_new_aids():
     """The import commands create the aids from provided data."""

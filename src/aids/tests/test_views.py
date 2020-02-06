@@ -5,8 +5,6 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from tags.models import Tag
-from tags.factories import TagFactory
 from aids.factories import AidFactory
 from aids.models import Aid
 
