@@ -1,3 +1,6 @@
+from functools import reduce
+from operator import and_
+
 from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
@@ -62,10 +65,19 @@ class BackersFilter(InputFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
+            bits = value.split(' ')
+            financer_filters = [
+                Q(financers__name__icontains=bit)
+                for bit in bits
+            ]
+            instructor_filters = [
+                Q(instructors__name__icontains=bit)
+                for bit in bits
+            ]
 
             return queryset.filter(
-                Q(financers__name__icontains=value) |
-                Q(instructors__name__icontains=value))
+                Q(reduce(and_, financer_filters)) |
+                Q(reduce(and_, instructor_filters)))
 
 
 class PerimeterFilter(InputFilter):
