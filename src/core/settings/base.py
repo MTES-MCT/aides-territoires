@@ -192,7 +192,7 @@ LOGGING = {
     }
 }
 
-ADMINS = [('Aides-territoires', 'nowhere@eexample.org')]
+ADMINS = [('Aides-territoires', 'nowhere@example.org')]
 
 MAILING_LIST_URL = None
 
@@ -209,6 +209,7 @@ CONTACT_EMAIL = 'nowhere@example.org'
 CONTACT_PHONE = '+33123456789'
 EMAIL_SUBJECT_PREFIX = '[Aides-Territoires] '
 DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
+SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
 

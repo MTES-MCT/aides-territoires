@@ -22,6 +22,7 @@ from bundles.models import Bundle
 from bundles.forms import BundleForm
 from programs.models import Program
 from alerts.forms import AlertForm
+from aids.tasks import log_admins
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
 
@@ -441,6 +442,10 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
             aid.submit()
         elif aid.status in((STATES.reviewable, STATES.published)):
             aid.unpublish()
+            log_admins.delay(
+                'Aide dépubliée',
+                'Une aide vient d\'être dépubliée.\n\n{}'.format(aid),
+                aid.get_absolute_url())
 
         msg = _('We updated your aid status.')
         messages.success(self.request, msg)

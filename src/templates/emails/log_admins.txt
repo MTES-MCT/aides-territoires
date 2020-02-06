@@ -1,0 +1,10 @@
+Bonjour,
+
+Un événement requiert l'attention de l'équipe :
+
+{{ log_message }}
+
+{{ base_url }}{{ url }}
+
+Cordialement,
+Le serveur {{ base_url }}
