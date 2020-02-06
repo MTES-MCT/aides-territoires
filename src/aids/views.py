@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -26,9 +24,6 @@ from programs.models import Program
 from alerts.forms import AlertForm
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
-
-
-logger = logging.getLogger('aidesterritoires')
 
 
 class SearchMixin:
@@ -445,7 +440,6 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
         if aid.status == STATES.draft:
             aid.submit()
         elif aid.status in((STATES.reviewable, STATES.published)):
-            logger.info('Aide dépubliée : {}'.format(aid.id))
             aid.unpublish()
 
         msg = _('We updated your aid status.')
