@@ -44,10 +44,6 @@ input.is-invalid {
     border: 1px solid #ba2121 !important;
 }
 
-form#aid_form #id_name {
-    width: 610px;
-}
-
 div.field-categories div.selector {
     width: 800px !important;
 }
@@ -59,6 +55,16 @@ div.field-categories div.selector-chosen {
 
 div.field-categories select {
     width: 100%;
+}
+
+div.form-row > div > input[type=text],
+div.form-row textarea,
+div.form-row select,
+div.form-row input[type=email],
+div.form-row input[type=url]
+{
+    box-sizing: border-box;
+    width: 800px;
 }
 
 .perimeter-list h2 {
