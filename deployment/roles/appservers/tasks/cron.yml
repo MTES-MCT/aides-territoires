@@ -16,6 +16,7 @@
 - name: Ensure the aids waiting for review email alert cronjob is setup
   cron:
     name: Send alert when aids are waiting for review
+    state: absent
     user: "{{ user_name }}"
     minute: "44"
     hour: "7"
