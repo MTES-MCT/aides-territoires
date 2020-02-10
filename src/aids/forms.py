@@ -241,7 +241,7 @@ class AidEditForm(BaseAidForm):
                     'the correct choice in the main list.'))
 
     perimeter = PerimeterChoiceField(
-        label=_('Perimeter'))
+        label=_('Targeted area'))
 
     class Meta:
         model = Aid
