@@ -603,7 +603,7 @@ msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
 msgid "Project examples"
-msgstr "Exemples de projets"
+msgstr "Exemples de projets réalisables"
 
 msgid "Eligibility"
 msgstr "Éligibilité"
