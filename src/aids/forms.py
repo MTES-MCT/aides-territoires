@@ -241,7 +241,21 @@ class AidEditForm(BaseAidForm):
                     'the correct choice in the main list.'))
 
     perimeter = PerimeterChoiceField(
-        label=_('Targeted area'))
+        label=_('Targeted area'),
+        help_text=_('''
+            The geographical zone where the aid is available.<br />
+            Example of valid zones:
+            <ul>
+            <li>France</li>
+            <li>Bretagne (Région)</li>
+            <li>Métropole du Grand Paris (EPCI)</li>
+            <li>Y (Commune)</li>
+            <li>Outre-mer</li>
+            <li>Wallis et Futuna</li>
+            <li>Massif Central</li>
+            <li>Action Cœur de Ville 2019</li>
+            </ul>
+        '''))
 
     class Meta:
         model = Aid
