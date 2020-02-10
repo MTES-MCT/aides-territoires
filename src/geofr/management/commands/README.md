@@ -18,12 +18,13 @@ The scripts MUST fill the `contained_in` fields for new perimeters.
 The scripts MUST NOT delete existing perimeters even if they are not listed
 in the data files.
 
+The scripts MUST be ran in order, since sometimes a script will need data
+provided by an other script.
+    
 Also, most of those scripts are written in a very inefficient way, because
 they are supposed to be ran at most once or twice a year. Indeed, the
 raw data is unlikely to change very regularly.
 
-The scripts must be ran in order, since sometimes a script will need data
-provided by an other script.
 
  * python manage.py populate_countries
  * python manage.py populate_regions
