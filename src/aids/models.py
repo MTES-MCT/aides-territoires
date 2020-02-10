@@ -248,6 +248,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         on_delete=models.PROTECT,
         null=True, blank=True,
         help_text=_('What is the aid broadcasting perimeter?'))
+    perimeter_suggestion = models.CharField(
+        _('Perimeter suggestion'),
+        max_length=256,
+        null=True, blank=True)
     mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
         null=True, blank=True,
