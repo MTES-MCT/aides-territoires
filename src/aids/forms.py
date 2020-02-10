@@ -181,6 +181,13 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    perimeter_suggestion = forms.CharField(
+        label=_('Perimeter suggestion'),
+        max_length=256,
+        required=False,
+        help_text=_('The user suggested the following description for a new '
+                    'perimeter'))
+
     financer_suggestion = forms.CharField(
         label=_('Financer suggestion'),
         max_length=256,
@@ -256,6 +263,15 @@ class AidEditForm(BaseAidForm):
             <li>Action Cœur de Ville 2019</li>
             </ul>
         '''))
+    perimeter_suggestion = forms.CharField(
+        label=_('Can\'t find a valid targeted area?'),
+        max_length=256,
+        required=False,
+        help_text=_('''
+            If you can't find a corresponding targeted area amongst the
+            existing perimeter list, just choose "France" and briefly describe
+            here your aid actual target area.
+        '''))
 
     class Meta:
         model = Aid
@@ -273,6 +289,7 @@ class AidEditForm(BaseAidForm):
             'predeposit_date',
             'submission_deadline',
             'perimeter',
+            'perimeter_suggestion',
             'is_call_for_project',
             'aid_types',
             'subvention_rate',

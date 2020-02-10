@@ -147,6 +147,7 @@ class AidAdmin(admin.ModelAdmin):
         (_('Aid perimeter'), {
             'fields': (
                 'perimeter',
+                'perimeter_suggestion',
             )
         }),
 
