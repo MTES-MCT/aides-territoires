@@ -73,6 +73,7 @@ class Command(BaseCommand):
                 }
             else:
                 data = {
+                    'zipcodes': entry.get('codesPostaux', []),
                     'is_overseas': True
                 }
 
