@@ -151,16 +151,6 @@ class BaseAidForm(forms.ModelForm):
                     'subvention_rate',
                     ValidationError(msg, code='missing_upper_bound'))
 
-        if 'recurrence' in data and data['recurrence']:
-            recurrence = data['recurrence']
-            submission_deadline = data.get('submission_deadline', None)
-
-            if recurrence != 'ongoing' and not submission_deadline:
-                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
-                self.add_error(
-                    'submission_deadline',
-                    ValidationError(msg, code='missing_submission_deadline'))
-
         return data
 
     def save(self, commit=True):
@@ -320,6 +310,22 @@ class AidEditForm(BaseAidForm):
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+
+    def clean(self):
+        """Validation routine (frontend form only)."""
+
+        data = super().clean()
+        if 'recurrence' in data and data['recurrence']:
+            recurrence = data['recurrence']
+            submission_deadline = data.get('submission_deadline', None)
+
+            if recurrence != 'ongoing' and not submission_deadline:
+                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
+                self.add_error(
+                    'submission_deadline',
+                    ValidationError(msg, code='missing_submission_deadline'))
+
+        return data
 
 
 class AidAmendForm(AidEditForm):
