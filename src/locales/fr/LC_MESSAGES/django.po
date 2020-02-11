@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-10 11:27+0100\n"
+"POT-Creation-Date: 2020-02-11 14:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -378,11 +378,6 @@ msgstr "Merci d'indiquer un financeur."
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
 
-msgid "Unless the aid is ongoing, you must indicate the submission deadline."
-msgstr ""
-"Sauf pour les aides permanentes, veuillez indiquer la date limite de "
-"soumission."
-
 msgid "Perimeter suggestion"
 msgstr "Périmètre suggéré"
 
@@ -481,8 +476,8 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Si vous ne trouvez pas de zone géopgraphique suffisamment précise dans "
-"la liste existante, spécifiez « France » et décrivez brièvement ici le "
+"Si vous ne trouvez pas de zone géopgraphique suffisamment précise dans la "
+"liste existante, spécifiez « France » et décrivez brièvement ici le "
 "périmètre souhaité."
 
 msgid "yyyy-mm-dd"
@@ -493,6 +488,11 @@ msgstr "Taux de subvention min."
 
 msgid "Max. subvention rate"
 msgstr "Taux de subvention max."
+
+msgid "Unless the aid is ongoing, you must indicate the submission deadline."
+msgstr ""
+"Sauf pour les aides permanentes, veuillez indiquer la date limite de "
+"soumission."
 
 msgid "Who are you?"
 msgstr "Qui êtes vous ?"
@@ -1977,6 +1977,9 @@ msgstr "Dernière modif."
 
 msgid "Deadline"
 msgstr "Échéance"
+
+msgid "Stats"
+msgstr "Stats"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
