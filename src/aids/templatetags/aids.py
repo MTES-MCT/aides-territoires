@@ -1,9 +1,12 @@
 """Aid rendering helpers."""
 
+from urllib.parse import quote
+
 from django import template
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
+from djang.conf import settings
 
 register = template.Library()
 
@@ -68,3 +71,16 @@ def sortable_header(context, name, field):
         name,
         icon
     )
+
+
+@register.simple_tag
+def stats_url(aid):
+    aid_url = '{}{}'.format(
+        'https://aides-territoires.beta.gouv.fr',
+        aid.get_absolute_url())
+
+    matomo_url = 'https://stats.data.gouv.fr/index.php?module=Overlay&period=month&date=today&idSite={}#?l={}'.format(
+        settings.ANALYTICS_SITEID,
+        quote(aid_url, safe='').replace('%', '$'),
+    )
+    return matomo_url
