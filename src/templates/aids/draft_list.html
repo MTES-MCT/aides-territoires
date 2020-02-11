@@ -46,9 +46,11 @@
             <td class="deadline">{{ aid.submission_deadline|date:'d/m/y' }}</td>
             <td>{{ aid.get_status_display }}</td>
             <td>
+                {% if aid.is_published %}
                 <a href="{% stats_url aid %}">
                     {{ _('Stats') }}
                 </a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
