@@ -6,7 +6,7 @@ from django import template
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
-from djang.conf import settings
+from django.conf import settings
 
 register = template.Library()
 
