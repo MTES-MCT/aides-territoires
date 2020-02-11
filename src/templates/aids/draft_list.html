@@ -30,6 +30,7 @@
             <th>{% sortable_header _('Last modified') 'date_updated' %}</th>
             <th>{% sortable_header _('Deadline') 'submission_deadline' %}</th>
             <th>{% sortable_header _('Status') 'status' %}</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -44,6 +45,11 @@
             <td>{{ aid.date_updated|date:'d/m/y' }}</td>
             <td class="deadline">{{ aid.submission_deadline|date:'d/m/y' }}</td>
             <td>{{ aid.get_status_display }}</td>
+            <td>
+                <a href="{% stats_url aid %}">
+                    {{ _('Stats') }}
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
