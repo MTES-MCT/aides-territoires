@@ -242,7 +242,7 @@ msgid "Financial"
 msgstr "Financière"
 
 msgid "Legal"
-msgstr "Juridique"
+msgstr "Juridique / administrative"
 
 msgid "Financial aids"
 msgstr "Aides financières"
@@ -584,7 +584,7 @@ msgid "Financial engineering"
 msgstr "Ingénierie financière"
 
 msgid "Legal engineering"
-msgstr "Ingénierie juridique"
+msgstr "Ingénierie juridique / administrative"
 
 msgid "Europe"
 msgstr "Europe"
