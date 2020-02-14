@@ -1,0 +1,13 @@
+{% with id=widget.attrs.id %}
+{% for group, options, index in widget.optgroups %}
+    <div>
+        <h2>{{ group }}</h2>
+
+        {% for option in options %}
+            <button type="submit" name="{{ option.name }}" value="{{ option.value }}">
+                {{ option.label }}
+            </button>
+        {% endfor %}
+    </div>
+{% endfor %}
+{% endwith %}

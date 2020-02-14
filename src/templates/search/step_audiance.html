@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ _('Search – Audiance') }}{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ _('You are seeking aids for…') }}</h1>
+
+<form action="" method="GET">
+
+    {{ form.targeted_audiances }}
+
+    <a class="next-btn" href="">{{ _('Skip to the next step') }}</a>
+</form>
+{% endblock %}
