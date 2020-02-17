@@ -18,7 +18,8 @@ class CategoryInline(ShortTextareaMixin, admin.TabularInline):
 
 class ThemeAdmin(ShortTextareaMixin, admin.ModelAdmin):
     list_display = ['name']
-    fields = ['name', 'short_description']
+    fields = ['name', 'slug', 'short_description']
+    prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
     inlines = [CategoryInline]
     ordering = ['name']
@@ -26,7 +27,8 @@ class ThemeAdmin(ShortTextareaMixin, admin.ModelAdmin):
 
 class CategoryAdmin(ShortTextareaMixin, admin.ModelAdmin):
     list_display = ['name', 'theme']
-    fields = ['name', 'short_description', 'theme']
+    fields = ['name', 'slug', 'short_description', 'theme']
+    prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name', 'theme__name']
     autocomplete_fields = ['theme']
     ordering = ['theme__name', 'name']
