@@ -8,7 +8,7 @@
 {% block content %}
 <h1>{{ _('Your territory') }}</h1>
 
-<form action="{% url 'search_step_perimeter' %}" method="GET">
+<form action="{% url 'search_step_theme' %}" method="GET">
 
     {{ form.targeted_audiances }}
 
@@ -17,7 +17,7 @@
         {{ _('Submit') }}
     </button>
 
-    <a class="next-btn" href="{% url 'search_step_perimeter' %}?{{ querystring }}">
+    <a class="next-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
         {{ _('Skip to the next step') }}
     </a>
 </form>

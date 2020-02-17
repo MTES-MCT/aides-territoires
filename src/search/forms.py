@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from categories.models import Theme
 from geofr.forms.fields import PerimeterChoiceField
 
 
@@ -39,3 +40,21 @@ class PerimeterSearchForm(forms.Form):
     perimeter = PerimeterChoiceField(
         label=_('Your territory'),
         required=False)
+
+
+class ThemeWidget(forms.widgets.ChoiceWidget):
+    """Custom widget to select themes."""
+
+    allow_multiple_selected = True
+    template_name = 'search/forms/widgets/theme_widget.html'
+
+
+class ThemeSearchForm(forms.Form):
+    targeted_audiances = forms.ChoiceField(
+        choices=AUDIANCES,
+        widget=forms.widgets.HiddenInput)
+    perimeter = forms.CharField(
+        widget=forms.widgets.HiddenInput)
+    theme = forms.ModelMultipleChoiceField(
+        queryset=Theme.objects.order_by('name'),
+        widget=ThemeWidget)
