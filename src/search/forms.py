@@ -57,4 +57,5 @@ class ThemeSearchForm(forms.Form):
         widget=forms.widgets.HiddenInput)
     theme = forms.ModelMultipleChoiceField(
         queryset=Theme.objects.order_by('name'),
+        to_field_name='slug',
         widget=ThemeWidget)
