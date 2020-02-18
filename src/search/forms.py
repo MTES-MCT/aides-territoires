@@ -1,7 +1,8 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from categories.models import Theme
+from core.forms import GroupedModelChoiceField
+from categories.models import Theme, Category
 from geofr.forms.fields import PerimeterChoiceField
 
 
@@ -34,8 +35,7 @@ class AudianceSearchForm(forms.Form):
 
 
 class PerimeterSearchForm(forms.Form):
-    targeted_audiances = forms.ChoiceField(
-        choices=AUDIANCES,
+    targeted_audiances = forms.CharField(
         widget=forms.widgets.HiddenInput)
     perimeter = PerimeterChoiceField(
         label=_('Your territory'),
@@ -50,8 +50,7 @@ class ThemeWidget(forms.widgets.ChoiceWidget):
 
 
 class ThemeSearchForm(forms.Form):
-    targeted_audiances = forms.ChoiceField(
-        choices=AUDIANCES,
+    targeted_audiances = forms.CharField(
         widget=forms.widgets.HiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
@@ -59,3 +58,36 @@ class ThemeSearchForm(forms.Form):
         queryset=Theme.objects.order_by('name'),
         to_field_name='slug',
         widget=ThemeWidget)
+
+
+class CategoryWidget(forms.widgets.ChoiceWidget):
+    """Custom widget to select categories grouped by themes."""
+
+    allow_multiple_selected = True
+    template_name = 'search/forms/widgets/category_widget.html'
+
+
+class CategorySearchForm(forms.Form):
+    targeted_audiances = forms.CharField(
+        widget=forms.widgets.HiddenInput)
+    perimeter = forms.CharField(
+        widget=forms.widgets.HiddenInput)
+    theme = forms.ModelMultipleChoiceField(
+        queryset=Theme.objects.all(),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
+    category = GroupedModelChoiceField(
+        queryset=Category.objects.all(),
+        choices_groupby='theme',
+        empty_label=None,
+        to_field_name='slug',
+        widget=CategoryWidget)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        themes = self['theme'].value()
+        self.fields['category'].queryset = Category.objects \
+            .filter(theme__slug__in=themes) \
+            .select_related('theme') \
+            .order_by('theme__name', 'name')

@@ -1,7 +1,8 @@
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 
-from search.views import AudianceSearch, PerimeterSearch, ThemeSearch
+from search.views import (AudianceSearch, PerimeterSearch, ThemeSearch,
+                          CategorySearch)
 
 
 urlpatterns = [
@@ -10,4 +11,6 @@ urlpatterns = [
     path(_('perimeter/'), PerimeterSearch.as_view(),
          name='search_step_perimeter'),
     path(_('theme/'), ThemeSearch.as_view(), name='search_step_theme'),
+    path(_('category/'), CategorySearch.as_view(),
+         name='search_step_category'),
 ]

@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ _('Search – Categories') }}{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ _('We found X aids with the selected themes') }}</h1>
+
+<h2>{{ _('Refine those results by selecting categories') }}</h2>
+
+<form action="{% url 'search_view' %}" method="GET">
+
+    {{ form.targeted_audiances }}
+    {{ form.perimeter }}
+    {{ form.theme }}
+
+    {{ form.category }}
+
+    <button type="submit">
+        {{ _('Submit') }}
+    </button>
+
+    <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+        {{ _('Skip to the next step') }}
+    </a>
+</form>
+{% endblock %}
