@@ -21,6 +21,10 @@
         {{ _('Submit') }}
     </button>
 
+    <a class="previous-btn" href="{% url 'search_step_perimeter' %}?{{ querystring }}">
+        {{ _('Back to previous step') }}
+    </a>
+
     <a class="next-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
         {{ _('Skip to the next step') }}
     </a>

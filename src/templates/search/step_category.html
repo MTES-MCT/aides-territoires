@@ -25,5 +25,9 @@
         {{ _('Submit') }}
     </button>
 
+    <a class="previous-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
+        {{ _('Back to previous step') }}
+    </a>
+
 </form>
 {% endblock %}
