@@ -6,7 +6,6 @@ from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
 from categories.models import Theme, Category
-from aids.models import Aid
 from aids.forms import AidSearchForm
 from geofr.forms.fields import PerimeterChoiceField
 
@@ -103,11 +102,8 @@ class ThemeSearchForm(forms.Form):
         # Since the search query is already quite complex to generate, we
         # use it as a base and then we do a join on categories and themes,
         # then we group by theme and count.
-        aids = Aid.objects \
-            .published() \
-            .open()
         filter_form = AidSearchForm(self.initial)
-        themes_with_aid_count = filter_form.filter_queryset(aids) \
+        themes_with_aid_count = filter_form.filter_queryset() \
             .exclude(categories__isnull=True) \
             .values('categories__theme__slug', 'categories__theme__name') \
             .annotate(nb_aids=Count('id', distinct=True)) \
@@ -172,16 +168,13 @@ class CategorySearchForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         # See `ThemeSearchForm` for explanation about the following lines.
-        themes = self.initial.get('themes', [])
-        aids = Aid.objects \
-            .published() \
-            .open()
         filter_form = AidSearchForm(self.initial)
-        filtered_qs = filter_form.filter_queryset(aids) \
+        filtered_qs = filter_form.filter_queryset() \
             .exclude(categories__isnull=True)
 
         # We list categories for selected themes
         # Special case: if no theme was selected, we return all of them
+        themes = self.initial.get('themes', [])
         if themes:
             filtered_qs = filtered_qs \
                 .filter(categories__theme__slug__in=themes)

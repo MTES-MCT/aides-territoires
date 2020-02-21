@@ -1,5 +1,6 @@
 from django.views.generic import FormView
 
+from aids.forms import AidSearchForm
 from search.forms import (AudianceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
 
@@ -53,3 +54,11 @@ class CategorySearch(SearchMixin, FormView):
             'themes': GET.getlist('themes', []),
         }
         return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        filter_form = AidSearchForm(self.initial)
+        aids = filter_form.filter_queryset()
+        context['total_aids'] = aids.count()
+        return context
