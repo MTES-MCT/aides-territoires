@@ -106,8 +106,9 @@ class ThemeSearchForm(forms.Form):
         aids = Aid.objects \
             .published() \
             .open()
-        filter_form = AidSearchForm(self.data)
+        filter_form = AidSearchForm(self.initial)
         themes_with_aid_count = filter_form.filter_queryset(aids) \
+            .exclude(categories__isnull=True) \
             .values('categories__theme__slug', 'categories__theme__name') \
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name')
@@ -175,7 +176,7 @@ class CategorySearchForm(forms.Form):
         aids = Aid.objects \
             .published() \
             .open()
-        filter_form = AidSearchForm(self.data)
+        filter_form = AidSearchForm(self.initial)
         categories_with_aid_count = filter_form.filter_queryset(aids) \
             .filter(categories__theme__slug__in=themes) \
             .values(
