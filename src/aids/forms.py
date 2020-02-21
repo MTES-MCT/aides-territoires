@@ -13,6 +13,7 @@ from core.forms import (
 from backers.models import Backer
 from geofr.forms.fields import PerimeterChoiceField
 from categories.fields import CategoryMultipleChoiceField
+from categories.models import Category
 from aids.models import Aid
 
 
@@ -414,6 +415,11 @@ class AidSearchForm(forms.Form):
         required=False,
         choices=Aid.AUDIANCES,
         widget=forms.CheckboxSelectMultiple)
+    categories = forms.ModelMultipleChoiceField(
+        label=_('Categories'),
+        queryset=Category.objects.all(),
+        to_field_name='slug',
+        required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -488,6 +494,10 @@ class AidSearchForm(forms.Form):
         targeted_audiances = self.cleaned_data.get('targeted_audiances', None)
         if targeted_audiances:
             qs = qs.filter(targeted_audiances__overlap=targeted_audiances)
+
+        categories = self.cleaned_data.get('categories', None)
+        if categories:
+            qs = qs.filter(categories__in=categories)
 
         return qs
 
