@@ -50,6 +50,6 @@ class CategorySearch(SearchMixin, FormView):
         initial = {
             'targeted_audiances': GET.get('targeted_audiances', ''),
             'perimeter': GET.get('perimeter', ''),
-            'theme': GET.getlist('theme', []),
+            'themes': GET.getlist('themes', []),
         }
         return initial

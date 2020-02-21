@@ -87,7 +87,7 @@ class ThemeSearchForm(forms.Form):
         widget=forms.widgets.HiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
-    theme = ThemeChoiceField(
+    themes = ThemeChoiceField(
         queryset=Theme.objects.order_by('name'),
         to_field_name='slug',
         widget=ThemeWidget)
@@ -111,7 +111,7 @@ class ThemeSearchForm(forms.Form):
             .values('categories__theme__slug', 'categories__theme__name') \
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name')
-        self.fields['theme'].queryset = themes_with_aid_count
+        self.fields['themes'].queryset = themes_with_aid_count
 
 
 class CategoryIterator(forms.models.ModelChoiceIterator):
@@ -162,7 +162,7 @@ class CategorySearchForm(forms.Form):
         widget=forms.widgets.HiddenInput)
     # Note: we don't add a field for themes, because we don't want
     # that value to be passed to the following search form
-    category = CategoryChoiceField(
+    categories = CategoryChoiceField(
         queryset=Category.objects.all(),
         to_field_name='slug',
         widget=CategoryWidget)
@@ -171,7 +171,7 @@ class CategorySearchForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         # See `ThemeSearchForm` for explanation about the following lines.
-        themes = self.initial.get('theme', [])
+        themes = self.initial.get('themes', [])
         aids = Aid.objects \
             .published() \
             .open()
@@ -184,4 +184,4 @@ class CategorySearchForm(forms.Form):
                 'categories__slug') \
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name', 'categories__name')
-        self.fields['category'].queryset = categories_with_aid_count
+        self.fields['categories'].queryset = categories_with_aid_count
