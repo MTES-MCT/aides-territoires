@@ -177,8 +177,16 @@ class CategorySearchForm(forms.Form):
             .published() \
             .open()
         filter_form = AidSearchForm(self.initial)
-        categories_with_aid_count = filter_form.filter_queryset(aids) \
-            .filter(categories__theme__slug__in=themes) \
+        filtered_qs = filter_form.filter_queryset(aids) \
+            .exclude(categories__isnull=True)
+
+        # We list categories for selected themes
+        # Special case: if no theme was selected, we return all of them
+        if themes:
+            filtered_qs = filtered_qs \
+                .filter(categories__theme__slug__in=themes)
+
+        categories_with_aid_count = filtered_qs \
             .values(
                 'categories__theme__name',
                 'categories__name',
