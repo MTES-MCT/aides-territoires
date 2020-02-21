@@ -5,13 +5,16 @@
 
 {% block breadcrumbs %}
 <div class="progress">
-    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="4" aria-valuemin="0" aria-valuemax="4">4 / 4</div>
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="4" aria-valuemin="0" aria-valuemax="4">
+        4 / 4 –
+        {{ _('Your categories') }}
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
 <h1>
-{% blocktrans %}
+{% blocktrans trimmed %}
 We found {{ total_aids }} aids with the selected themes
 {% endblocktrans %}
 </h1>
