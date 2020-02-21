@@ -79,7 +79,7 @@ def stats_url(aid):
         'https://aides-territoires.beta.gouv.fr',
         aid.get_absolute_url())
 
-    matomo_url = 'https://stats.data.gouv.fr/index.php?module=Overlay&period=month&date=today&idSite={}#?l={}'.format(
+    matomo_url = 'https://stats.data.gouv.fr/index.php?module=Overlay&period=month&date=today&idSite={}#?l={}'.format(  # noqa
         settings.ANALYTICS_SITEID,
         quote(aid_url, safe='').replace('%', '$'),
     )

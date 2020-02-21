@@ -6,6 +6,8 @@ class Theme(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=70)
+    slug = models.SlugField(
+        _('Slug'))
     short_description = models.TextField(
         _('Short description'),
         max_length=160,
@@ -23,6 +25,8 @@ class Category(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=70)
+    slug = models.SlugField(
+        _('Slug'))
     short_description = models.TextField(
         _('Short description'),
         max_length=160,

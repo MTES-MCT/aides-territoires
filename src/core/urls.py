@@ -28,6 +28,7 @@ urlpatterns = [
     path(_('alerts/'), include('alerts.urls')),
     path(_('tags/'), include('tags.urls')),
     path(_('data/'), include('data.urls')),
+    path(_('search/'), include('search.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),

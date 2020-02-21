@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}{{ _('Search – Categories') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="4" aria-valuemin="0" aria-valuemax="4">
+        4 / 4 –
+        {{ _('Your categories') }}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>
+{% blocktrans trimmed %}
+We found {{ total_aids }} aids with the selected themes
+{% endblocktrans %}
+</h1>
+
+<h2>{{ _('Refine those results by selecting categories') }}</h2>
+
+<form action="{% url 'search_view' %}" method="GET">
+
+    {{ form.targeted_audiances }}
+    {{ form.perimeter }}
+
+    {{ form.categories }}
+
+    <button type="submit">
+        {{ _('Submit') }}
+    </button>
+
+    <a class="previous-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
+        {{ _('Back to previous step') }}
+    </a>
+
+</form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ _('Search – Perimeter') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="2" aria-valuemin="0" aria-valuemax="4">
+        2 / 4 –
+        {{ _('Your perimeter') }}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ _('Your territory') }}</h1>
+
+<form action="{% url 'search_step_theme' %}" method="GET">
+
+    {{ form.targeted_audiances }}
+
+    {{ form.perimeter }}
+    <button type="submit">
+        {{ _('Submit') }}
+    </button>
+
+    <a class="previous-btn" href="{% url 'search_step_audiance' %}?{{ querystring }}">
+        {{ _('Back to previous step') }}
+    </a>
+
+    <a class="next-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
+        {{ _('Skip to the next step') }}
+    </a>
+</form>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+{% endblock %}

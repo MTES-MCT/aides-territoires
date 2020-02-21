@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-11 14:44+0100\n"
+"POT-Creation-Date: 2020-02-21 11:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -616,6 +616,9 @@ msgstr "Mise en œuvre / réalisation"
 msgid "Postoperation"
 msgstr "Usage / valorisation"
 
+msgid "Intermunicipal unions"
+msgstr "Unions intermunicipales"
+
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
 
@@ -1174,6 +1177,30 @@ msgstr "Programme d'aides"
 
 msgid "Aid programs"
 msgstr "Programmes d'aides"
+
+msgid "A collectivity"
+msgstr "Une collectivité"
+
+msgid "An other beneficiary"
+msgstr "Un autre bénéficiaire"
+
+msgid "Your are seeking aids for…"
+msgstr "Vous recherchez des aides pour…"
+
+msgid "Your territory"
+msgstr "Votre territoire"
+
+msgid "audiance/"
+msgstr "audiance/"
+
+msgid "perimeter/"
+msgstr "territoire/"
+
+msgid "theme/"
+msgstr "thème/"
+
+msgid "category/"
+msgstr "catégorie/"
 
 msgid "Number of aids"
 msgstr "Nombre d'aides"
@@ -2199,6 +2226,50 @@ msgstr "Ou retournez à la page d'accueil."
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
+
+msgid "Search – Audiance"
+msgstr "Recherche – Audiance"
+
+msgid "Your structure"
+msgstr "Votre structure"
+
+msgid "You are seeking aids for…"
+msgstr "Vous recherchez des aides pour…"
+
+msgid "Skip to the next step"
+msgstr "Passer cette étape"
+
+msgid "Search – Categories"
+msgstr "Recherche – Catégories"
+
+msgid "Your categories"
+msgstr "Vos sous-thématiques"
+
+#, python-format
+msgid "We found %(total_aids)s aids with the selected themes"
+msgstr ""
+"Nous avons trouvé %(total_aids)s aides pour les thématiques sélectionnées"
+
+msgid "Refine those results by selecting categories"
+msgstr "Affinez ces résultats en sélectionnant des sous-thématiques"
+
+msgid "Back to previous step"
+msgstr "Revenir en arrière"
+
+msgid "Search – Perimeter"
+msgstr "Recherche – Périmètre"
+
+msgid "Your perimeter"
+msgstr "Votre territoire"
+
+msgid "Search – Theme"
+msgstr "Recherche – Thématique"
+
+msgid "Your themes"
+msgstr "Vos thématiques"
+
+msgid "In what themes are you interested in?"
+msgstr "Dans quelles thématiques recherchez-vous ?"
 
 msgid "Total number of aids"
 msgstr "Toutes les aides"

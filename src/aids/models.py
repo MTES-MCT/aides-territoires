@@ -161,7 +161,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     AUDIANCES = Choices(
         ('commune', _('Communes')),
         ('epci', _('Audiance EPCI')),
-        ('unions', ('Intermunicipal unions')),
+        ('unions', _('Intermunicipal unions')),
         ('department', _('Departments')),
         ('region', _('Regions')),
         ('association', _('Associations')),

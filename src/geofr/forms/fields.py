@@ -33,7 +33,7 @@ class PerimeterChoiceField(forms.ModelChoiceField):
         if widget is None:
             widget = AutocompleteSelect
 
-        return super().__init__(queryset, *args, widget=widget, **kwargs)
+        super().__init__(queryset, *args, widget=widget, **kwargs)
 
     def to_python(self, value):
         value = self.prepare_value(value)

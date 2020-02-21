@@ -50,6 +50,7 @@ LOCAL_APPS = [
     'bookmarks',
     'programs',
     'categories',
+    'search',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
