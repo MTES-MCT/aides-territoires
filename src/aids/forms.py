@@ -435,8 +435,12 @@ class AidSearchForm(forms.Form):
 
         return zipcode
 
-    def filter_queryset(self, qs):
+    def filter_queryset(self, qs=None):
         """Filter querysets depending of input data."""
+
+        # If no qs was passed, just start with all published aids
+        if qs is None:
+            qs = Aid.objects.published().open()
 
         if not self.is_bound:
             return qs
