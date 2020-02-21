@@ -160,10 +160,8 @@ class CategorySearchForm(forms.Form):
         widget=forms.widgets.HiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
-    theme = forms.ModelMultipleChoiceField(
-        queryset=Theme.objects.all(),
-        to_field_name='slug',
-        widget=forms.widgets.MultipleHiddenInput)
+    # Note: we don't add a field for themes, because we don't want
+    # that value to be passed to the following search form
     category = CategoryChoiceField(
         queryset=Category.objects.all(),
         to_field_name='slug',
@@ -173,7 +171,7 @@ class CategorySearchForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         # See `ThemeSearchForm` for explanation about the following lines.
-        themes = self['theme'].value()
+        themes = self.initial.get('theme', [])
         aids = Aid.objects \
             .published() \
             .open()
