@@ -116,11 +116,12 @@ class AidWorkflow(xwf_models.Workflow):
         ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
     )
     initial_state = 'draft'
-    transitions = (('submit', 'draft', 'reviewable'), ('publish', 'reviewable',
-                                                       'published'),
-                   ('unpublish', ('reviewable', 'published'),
-                    'draft'), ('soft_delete', ('draft', 'reviewable',
-                                               'published'), 'deleted'))
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
+    )
 
 
 class Aid(xwf_models.WorkflowEnabled, models.Model):
