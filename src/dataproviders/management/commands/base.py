@@ -178,6 +178,9 @@ class BaseImportCommand(BaseCommand):
     def extract_instructors(self, line):
         return []
 
+    def extract_project_examples(self, line):
+        return ''
+
 
 class CrawlerImportCommand(BaseImportCommand):
     """An import task that uses a crawler to fetch data."""
