@@ -91,7 +91,7 @@ class PerimeterFilter(InputFilter):
             return queryset.filter(Q(perimeter__name__icontains=value))
 
 
-class AidAdmin(admin.ModelAdmin):
+class BaseAidAdmin(admin.ModelAdmin):
     """Admin module for aids."""
 
     class Media:
@@ -206,12 +206,6 @@ class AidAdmin(admin.ModelAdmin):
         }),
     ]
 
-    def get_queryset(self, request):
-        qs = Aid.objects.all()
-        qs = qs.prefetch_related('financers', 'instructors')
-        qs = qs.select_related('author')
-        return qs
-
     def author_name(self, aid):
         return aid.author.full_name
     author_name.short_description = _('Author')
@@ -230,6 +224,38 @@ class AidAdmin(admin.ModelAdmin):
         queryset.update(is_call_for_project=True)
         self.message_user(request, _('The selected aids were set as CFP'))
     make_mark_as_CFP.short_description = _('Set as CFP')
+
+
+class AidAdmin(BaseAidAdmin):
+
+    def get_queryset(self, request):
+        qs = Aid.objects \
+            .all() \
+            .prefetch_related('financers', 'instructors') \
+            .select_related('author')
+        return qs
+
+    def delete_model(self, request, obj):
+        obj.soft_delete()
+
+    def delete_queryset(self, request, queryset):
+        queryset.update(status='deleted')
+
+
+class DeletedAid(Aid):
+    class Meta:
+        proxy = True
+        verbose_name = _('Deleted aid')
+        verbose_name_plural = _('Deleted aids')
+
+
+class DeletedAidAdmin(BaseAidAdmin):
+    def get_queryset(self, request):
+        qs = Aid.deleted_aids \
+            .all() \
+            .prefetch_related('financers', 'instructors') \
+            .select_related('author')
+        return qs
 
 
 class Amendment(Aid):
@@ -271,4 +297,5 @@ class AmendmentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Aid, AidAdmin)
+admin.site.register(DeletedAid, DeletedAidAdmin)
 admin.site.register(Amendment, AmendmentAdmin)
