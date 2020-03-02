@@ -238,6 +238,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=False)
     project_examples = models.TextField(
         _('Project examples'),
+        default='',
         blank=True)
     eligibility = models.TextField(
         _('Eligibility'),
