@@ -24,7 +24,7 @@ class PerimeterSearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.get('targeted_audiances', ''),
+            'targeted_audiances': GET.getlist('targeted_audiances', ''),
         }
         return initial
 
@@ -36,7 +36,7 @@ class ThemeSearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.get('targeted_audiances', ''),
+            'targeted_audiances': GET.getlist('targeted_audiances', ''),
             'perimeter': GET.get('perimeter', ''),
         }
         return initial
@@ -49,7 +49,7 @@ class CategorySearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.get('targeted_audiances', ''),
+            'targeted_audiances': GET.getlist('targeted_audiances', ''),
             'perimeter': GET.get('perimeter', ''),
             'themes': GET.getlist('themes', []),
         }
@@ -58,7 +58,9 @@ class CategorySearch(SearchMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        filter_form = AidSearchForm(self.initial)
+        initial = self.get_initial()
+        filter_form = AidSearchForm(initial)
         aids = filter_form.filter_queryset()
-        context['total_aids'] = aids.count()
+        theme_aids = aids.filter(categories__theme__slug__in=initial['themes'])
+        context['total_aids'] = theme_aids.count()
         return context

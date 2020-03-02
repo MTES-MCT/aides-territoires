@@ -31,7 +31,7 @@ class AudianceWidget(forms.widgets.ChoiceWidget):
 
 
 class AudianceSearchForm(forms.Form):
-    targeted_audiances = forms.ChoiceField(
+    targeted_audiances = forms.MultipleChoiceField(
         label=_('Your are seeking aids for…'),
         required=False,
         choices=AUDIANCES,
@@ -39,8 +39,8 @@ class AudianceSearchForm(forms.Form):
 
 
 class PerimeterSearchForm(forms.Form):
-    targeted_audiances = forms.CharField(
-        widget=forms.widgets.HiddenInput)
+    targeted_audiances = forms.MultipleChoiceField(
+        widget=forms.widgets.MultipleHiddenInput)
     perimeter = PerimeterChoiceField(
         label=_('Your territory'),
         required=False)
@@ -82,8 +82,9 @@ class ThemeWidget(forms.widgets.ChoiceWidget):
 
 
 class ThemeSearchForm(forms.Form):
-    targeted_audiances = forms.CharField(
-        widget=forms.widgets.HiddenInput)
+    targeted_audiances = forms.MultipleChoiceField(
+        choices=AUDIANCES,
+        widget=forms.widgets.MultipleHiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
     themes = ThemeChoiceField(
@@ -153,8 +154,9 @@ class CategoryWidget(forms.widgets.ChoiceWidget):
 
 
 class CategorySearchForm(forms.Form):
-    targeted_audiances = forms.CharField(
-        widget=forms.widgets.HiddenInput)
+    targeted_audiances = forms.MultipleChoiceField(
+        choices=AUDIANCES,
+        widget=forms.widgets.MultipleHiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
     # Note: we don't add a field for themes, because we don't want
