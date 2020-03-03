@@ -231,6 +231,7 @@ class AidAdmin(BaseAidAdmin):
     def get_queryset(self, request):
         qs = Aid.objects \
             .all() \
+            .distinct() \
             .prefetch_related('financers', 'instructors') \
             .select_related('author')
         return qs
