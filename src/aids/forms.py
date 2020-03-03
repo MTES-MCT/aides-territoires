@@ -263,12 +263,17 @@ class AidEditForm(BaseAidForm):
             existing perimeter list, just choose "France" and briefly describe
             here your aid actual target area.
         '''))
+    categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        help_text=_('Choose one or several categories that match your aid.'),
+        required=False)
 
     class Meta:
         model = Aid
         fields = [
             'name',
             'description',
+            'categories',
             'project_examples',
             'targeted_audiances',
             'financers',

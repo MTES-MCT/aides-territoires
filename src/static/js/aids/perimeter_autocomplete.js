@@ -31,4 +31,11 @@ $(document).ready(function () {
         theme: 'bootstrap4',
         width: '',
     });
+
+    $('select#id_categories').select2({
+        placeholder: catalog.perimeter_placeholder,
+        language: 'fr',
+        theme: 'bootstrap4',
+        width: '',
+    });
 });
