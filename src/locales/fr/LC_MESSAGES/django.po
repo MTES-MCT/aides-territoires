@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-21 11:53+0100\n"
+"POT-Creation-Date: 2020-03-02 15:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,6 +210,12 @@ msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
 
 msgid "Set as CFP"
 msgstr "Marquer en tant qu'AAP"
+
+msgid "Deleted aid"
+msgstr "Aide supprimée"
+
+msgid "Deleted aids"
+msgstr "Aides supprimées"
 
 msgid "Amendment"
 msgstr "Amendement"

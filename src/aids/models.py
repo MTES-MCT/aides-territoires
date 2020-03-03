@@ -22,6 +22,16 @@ from tags.models import Tag
 class AidQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for aids."""
 
+    def existing(self):
+        """Exclude deleted aids."""
+
+        return self.exclude(status='deleted')
+
+    def deleted(self):
+        """Only return deleted aids."""
+
+        return self.filter(status='deleted')
+
     def published(self):
         """Only returns published objects."""
 
@@ -82,17 +92,30 @@ class AidQuerySet(models.QuerySet):
                 & ~Q(recurrence='ongoing')))
 
 
-class BaseAidManager(models.Manager):
+class BaseExistingAidsManager(models.Manager):
     """Custom manager to only keep existing aids."""
 
     def get_queryset(self):
         qs = super().get_queryset() \
-            .exclude(status='deleted') \
-            .exclude(is_amendment=True)
+            .exclude(is_amendment=True) \
+            .existing()
         return qs
 
 
-ExistingAidsManager = BaseAidManager.from_queryset(AidQuerySet)
+ExistingAidsManager = BaseExistingAidsManager.from_queryset(AidQuerySet)
+
+
+class BaseDeletedAidsManager(models.Manager):
+    """Custom manager to only keep deleted aids."""
+
+    def get_queryset(self):
+        qs = super().get_queryset() \
+            .exclude(is_amendment=True) \
+            .deleted()
+        return qs
+
+
+DeletedAidsManager = BaseDeletedAidsManager.from_queryset(AidQuerySet)
 
 
 class AmendmentManager(models.Manager):
@@ -116,11 +139,12 @@ class AidWorkflow(xwf_models.Workflow):
         ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
     )
     initial_state = 'draft'
-    transitions = (('submit', 'draft', 'reviewable'), ('publish', 'reviewable',
-                                                       'published'),
-                   ('unpublish', ('reviewable', 'published'),
-                    'draft'), ('soft_delete', ('draft', 'reviewable',
-                                               'published'), 'deleted'))
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
+    )
 
 
 class Aid(xwf_models.WorkflowEnabled, models.Model):
@@ -193,6 +217,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
+    deleted_aids = DeletedAidsManager()
     amendments = AmendmentManager()
 
     slug = models.SlugField(
