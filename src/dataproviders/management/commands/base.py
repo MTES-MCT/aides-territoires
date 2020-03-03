@@ -57,13 +57,14 @@ class BaseImportCommand(BaseCommand):
         created_counter = 0
         updated_counter = 0
         with transaction.atomic():
-            for aid, financers, instructors in aid_and_financers:
+            for aid, financers, instructors, categories in aid_and_financers:
                 try:
                     with transaction.atomic():
                         aid.set_search_vector(financers, instructors)
                         aid.save()
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
+                        aid.categories.set(categories)
                         aid.populate_tags()
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
@@ -129,9 +130,10 @@ class BaseImportCommand(BaseCommand):
 
         financers = values.pop('financers', [])
         instructors = values.pop('instructors', [])
+        categories = values.pop('categories', [])
         aid = Aid(**values)
 
-        return aid, financers, instructors
+        return aid, financers, instructors, categories
 
     def extract_is_imported(self, line):
         return True
@@ -176,6 +178,9 @@ class BaseImportCommand(BaseCommand):
         return is_call_for_project
 
     def extract_instructors(self, line):
+        return []
+
+    def extract_categories(self, line):
         return []
 
     def extract_project_examples(self, line):
