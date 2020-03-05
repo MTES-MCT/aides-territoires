@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from search.models import SearchPage
 from search.forms import SearchPageAdminForm
@@ -8,6 +9,23 @@ class SearchPageAdmin(admin.ModelAdmin):
     list_display = ['title', 'meta_description']
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
+
+    fieldsets = [
+        ('', {
+            'fields': (
+                'title',
+                'slug',
+                'search_querystring',
+                'content',
+            )
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description',
+            )
+        })
+    ]
 
     class Media:
         css = {
