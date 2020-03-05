@@ -43,3 +43,6 @@ class SearchPage(models.Model):
     class Meta:
         verbose_name = _('Search page')
         verbose_name_plural = _('Search pages')
+
+    def __str__(self):
+        return self.title
