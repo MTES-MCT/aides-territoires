@@ -29,10 +29,13 @@ class SearchPage(models.Model):
     meta_description = models.TextField(
         _('Meta description'),
         blank=True, default='',
+        max_length=256,
         help_text=_('This will be displayed in SERPs. '
                     'Keep it under 120 characters.'))
     content = models.TextField(
-        _('Full description of the page. Will be displayed above results.'))
+        _('Page content'),
+        help_text=_('Full description of the page. '
+                    'Will be displayed above results.'))
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
