@@ -115,9 +115,10 @@ class BaseAidAdmin(admin.ModelAdmin):
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
-        'name', 'all_financers', 'all_instructors', 'author_name',
+        'live_status', 'name', 'all_financers', 'all_instructors', 'author_name',
         'recurrence', 'date_updated', 'date_published', 'is_imported',
         'submission_deadline', 'status']
+    list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
     search_fields = ['name']
     list_filter = [
@@ -219,6 +220,11 @@ class BaseAidAdmin(admin.ModelAdmin):
         instructors = [backer.name for backer in aid.instructors.all()]
         return ', '.join(instructors)
     all_instructors.short_description = _('Instructors')
+
+    def live_status(self, aid):
+        return aid.is_live()
+    live_status.boolean = True
+    live_status.short_description = _('Live')
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
