@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 
 class SearchPage(models.Model):
@@ -46,3 +47,6 @@ class SearchPage(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('search_page', args=[self.slug])

@@ -1,6 +1,7 @@
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 
 from aids.forms import AidSearchForm
+from search.models import SearchPage
 from search.forms import (AudianceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
 
@@ -64,3 +65,9 @@ class CategorySearch(SearchMixin, FormView):
         theme_aids = aids.filter(categories__theme__slug__in=initial['themes'])
         context['total_aids'] = theme_aids.count()
         return context
+
+
+class SearchPageDetail(DetailView):
+    template_name = 'search/search_page.html'
+    context_object_name = 'search_page'
+    model = SearchPage
