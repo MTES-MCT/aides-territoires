@@ -28,6 +28,8 @@
             var inputId = input.attr('id');
             var label = $('label[for=' + inputId + ']');
 
+            label.addClass('softmaxlength');
+
             // Create the counter element that will display remaining chars
             var counter = $('<span class="softmaxlength-counter"></span>');
             counter.appendTo(label);

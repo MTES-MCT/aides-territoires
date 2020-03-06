@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
+{% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="">{{ _('Search pages') }}</a></li>
+        <li class="active" aria-current="page">{{ search_page.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<h1>{{ search_page.title }}</h1>
+
+{{ search_page.content|safe }}
+
+<section id="search-engine">
+    {% include 'aids/_search_form.html' with form=search_form %}
+</section>
+
+<section id="aid-list">
+    {% include 'aids/_results.html' with search_actions="yes" %}
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/dynamic_search_engine.js"></script>
+<script src="/static/js/alerts/alert_form.js"></script>
+<script src="/static/js/aids/bookmark_results.js"></script>
+{% endcompress %}
+{% endblock %}

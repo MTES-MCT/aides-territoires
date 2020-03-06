@@ -5,6 +5,7 @@ from django import forms
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
+from core.forms.fields import RichTextField
 from categories.models import Theme, Category
 from aids.forms import AidSearchForm
 from geofr.forms.fields import PerimeterChoiceField
@@ -189,3 +190,10 @@ class CategorySearchForm(forms.Form):
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name', 'categories__name')
         self.fields['categories'].queryset = categories_with_aid_count
+
+
+class SearchPageAdminForm(forms.ModelForm):
+    content = RichTextField(
+        label=_('Page content'),
+        help_text=_('Full description of the page. '
+                    'Will be displayed above results.'))

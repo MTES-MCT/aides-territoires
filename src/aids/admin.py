@@ -115,9 +115,10 @@ class BaseAidAdmin(admin.ModelAdmin):
     save_as = True
     actions = ['make_mark_as_CFP']
     list_display = [
-        'live_status', 'name', 'all_financers', 'all_instructors', 'author_name',
-        'recurrence', 'date_updated', 'date_published', 'is_imported',
-        'submission_deadline', 'status']
+        'live_status', 'name', 'all_financers', 'all_instructors',
+        'author_name', 'recurrence', 'date_updated', 'date_published',
+        'is_imported', 'submission_deadline', 'status'
+    ]
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
     search_fields = ['name']

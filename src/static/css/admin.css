@@ -33,6 +33,9 @@ div.field-aids div.selector-chosen select {
     height: 15em;
 }
 
+label.softmaxlength::after {
+    content: none !important;
+}
 label span.softmaxlength-counter {
     display: block;
 }
@@ -59,12 +62,13 @@ div.field-categories select {
 
 div.form-row > div > input[type=text],
 div.form-row textarea,
+div.form-row .vLargeTextField,
 div.form-row select,
 div.form-row input[type=email],
 div.form-row input[type=url]
 {
     box-sizing: border-box;
-    width: 800px;
+    width: 800px !important;
 }
 
 .perimeter-list h2 {

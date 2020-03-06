@@ -1,6 +1,8 @@
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
+from django.http import QueryDict
 
 from aids.forms import AidSearchForm
+from search.models import SearchPage
 from search.forms import (AudianceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
 
@@ -63,4 +65,22 @@ class CategorySearch(SearchMixin, FormView):
         aids = filter_form.filter_queryset()
         theme_aids = aids.filter(categories__theme__slug__in=initial['themes'])
         context['total_aids'] = theme_aids.count()
+        return context
+
+
+class SearchPageDetail(DetailView):
+    template_name = 'search/search_page.html'
+    context_object_name = 'search_page'
+    model = SearchPage
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        querydict = QueryDict(self.object.search_querystring)
+        search_form = AidSearchForm(querydict)
+        aids = search_form.filter_queryset()
+        ordered_aids = search_form.order_queryset(aids)
+
+        context['aids'] = ordered_aids
+        context['search_form'] = search_form
         return context
