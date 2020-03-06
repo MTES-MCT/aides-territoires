@@ -1,4 +1,5 @@
 from django.views.generic import FormView, DetailView
+from django.http import QueryDict
 
 from aids.forms import AidSearchForm
 from search.models import SearchPage
@@ -71,3 +72,14 @@ class SearchPageDetail(DetailView):
     template_name = 'search/search_page.html'
     context_object_name = 'search_page'
     model = SearchPage
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        querydict = QueryDict(self.object.search_querystring)
+        search_form = AidSearchForm(querydict)
+        aids = search_form.filter_queryset()
+        ordered_aids = search_form.order_queryset(aids)
+
+        context['aids'] = ordered_aids
+        return context
