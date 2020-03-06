@@ -202,6 +202,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('service', _('Service (AMO, survey)')),
         ('works', _('Works')),
         ('supply', _('Supply')),
+        ('investment', _('Investment')),
     )
 
     RECURRENCE = Choices(

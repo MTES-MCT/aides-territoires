@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-03 10:27+0100\n"
+"POT-Creation-Date: 2020-03-06 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,6 +204,9 @@ msgstr "Financeurs"
 
 msgid "Instructors"
 msgstr "Instructeurs"
+
+msgid "Live"
+msgstr ""
 
 msgid "The selected aids were set as CFP"
 msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
@@ -638,6 +641,9 @@ msgstr "Travaux"
 
 msgid "Supply"
 msgstr "Dépenses de fonctionnement"
+
+msgid "Investment"
+msgstr "Dépenses d'investissement"
 
 msgid "One off"
 msgstr "Ponctuelle"
@@ -1189,6 +1195,9 @@ msgstr "Programme d'aides"
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
+msgid "SEO"
+msgstr ""
+
 msgid "A collectivity"
 msgstr "Une collectivité"
 
@@ -1200,6 +1209,54 @@ msgstr "Vous recherchez des aides pour…"
 
 msgid "Your territory"
 msgstr "Votre territoire"
+
+msgid "Page content"
+msgstr ""
+
+#, fuzzy
+#| msgid "Full description of the aid and its objectives"
+msgid "Full description of the page. Will be displayed above results."
+msgstr "Description complète de l'aide et de ses objectifs"
+
+msgid "The main displayed title."
+msgstr ""
+
+#, fuzzy
+#| msgid "Aid title"
+msgid "Meta title"
+msgstr "Nom de l'aide"
+
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the page title."
+msgstr ""
+
+msgid "This part is used in the url. DON't change this for existing pages."
+msgstr ""
+
+#, fuzzy
+#| msgid "Short description"
+msgid "Meta description"
+msgstr "Brève description"
+
+msgid "This will be displayed in SERPs. Keep it under 120 characters."
+msgstr ""
+
+msgid "The search paramaters url"
+msgstr ""
+
+#, fuzzy
+#| msgid "Search results pages"
+msgid "Search page"
+msgstr "Pages de résultats"
+
+#, fuzzy
+#| msgid "Search results pages"
+msgid "Search pages"
+msgstr "Pages de résultats"
+
+msgid "form/"
+msgstr ""
 
 msgid "audiance/"
 msgstr "audiance/"
