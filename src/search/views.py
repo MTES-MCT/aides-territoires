@@ -82,4 +82,5 @@ class SearchPageDetail(DetailView):
         ordered_aids = search_form.order_queryset(aids)
 
         context['aids'] = ordered_aids
+        context['search_form'] = search_form
         return context
