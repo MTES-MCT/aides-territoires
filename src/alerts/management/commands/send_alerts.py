@@ -12,6 +12,7 @@ from django.db.models import Q, Case, When
 from django.urls import reverse
 from django.conf import settings
 
+from stats.utils import log_event
 from alerts.models import Alert
 
 
@@ -39,6 +40,7 @@ class Command(BaseCommand):
             .filter(token__in=alerted_alerts) \
             .update(latest_alert_date=timezone.now())
         self.stdout.write('{} alerts sent'.format(updated))
+        log_event('alert', 'sent', value=updated)
         return
 
     def get_alerts(self):

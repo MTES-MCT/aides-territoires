@@ -260,4 +260,10 @@
     });
 </script>
 <script src="/static/js/aids/bundles.js"></script>
+
+{% if aid.is_published %}
+<script>
+    _paq.push(['trackEvent', 'Aides', 'Vue', '{{ aid.slug }}']);
+</script>
+{% endif %}
 {% endblock %}

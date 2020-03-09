@@ -4,6 +4,7 @@ project_repo: https://github.com/MTES-MCT/aides-territoires.git
 install_root: /home/aides
 project_root: "{{ install_root }}/{{ project_name }}"
 django_root: "{{ project_root }}/src"
+cron_log_root: "{{ install_root }}/cron.log"
 venv_root: "{{ install_root }}/.virtualenvs"
 venv_dir: "{{ venv_root }}/{{ project_name }}"
 pipfile: "{{ project_root }}/Pipfile.lock"

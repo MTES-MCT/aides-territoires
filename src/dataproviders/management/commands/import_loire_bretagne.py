@@ -1,9 +1,7 @@
 import os
-from datetime import date, datetime
+from datetime import datetime
 import re
 import csv
-
-from django.contrib.postgres.search import TrigramSimilarity
 
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
@@ -153,7 +151,8 @@ class Command(BaseImportCommand):
     def extract_eligibility(self, line):
         return '''
         <p>
-        Pour toute information complémentaire, <a href="àhttps://agence.eau-loire-bretagne.fr/home/agence-de-leau/fonctionnement-de-lagence-de-leau/agence-eau-loire-bretagne-un-siege-et-5-delegations.html">
+        Pour toute information complémentaire,
+        <a href="https://agence.eau-loire-bretagne.fr/home/agence-de-leau/fonctionnement-de-lagence-de-leau/agence-eau-loire-bretagne-un-siege-et-5-delegations.html">
         vous pouvez contacter votre direction régionale</a>.
         </p>
         '''
