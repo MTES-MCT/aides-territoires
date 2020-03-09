@@ -6,10 +6,12 @@ from django.utils.translation import ugettext_lazy as _
 class Event(models.Model):
     """Stores an event in db for analytics purpose."""
 
-    name = models.CharField(
-        _('Name'),
-        max_length=128,
-        db_index=True)
+    category = models.CharField(
+        _('Category'),
+        max_length=128)
+    event = models.CharField(
+        _('Event'),
+        max_length=128)
     value = models.IntegerField(
         _('Value'))
     date_created = models.DateTimeField(
@@ -19,3 +21,6 @@ class Event(models.Model):
     class Meta:
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
+        indexes = [
+            models.Index(fields=['category', 'event']),
+        ]
