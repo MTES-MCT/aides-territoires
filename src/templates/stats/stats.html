@@ -1,33 +1,59 @@
 {% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}{{ _('Public stats') }}{% endblock %}
 
 {% block content %}
 <section id="stats">
 
     <div class="stat">
-        <span class="stat-title">{{ _('Total number of aids') }}</span>
-        <div class="stat-body number-stat">
-            <span>{{ nb_all_aids }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <span class="stat-title">{{ _('Number of active aids') }}</span>
+        <span class="stat-title">
+            {{ _('Available aids') }}<br />
+            <small>{% blocktrans trimmed %}
+                Published aids that are still open.
+            {% endblocktrans %}</small>
+        </span>
         <div class="stat-body number-stat">
             <span>{{ nb_active_aids }}</span>
         </div>
     </div>
 
     <div class="stat">
-        <span class="stat-title">{{ _('Aids updated those 31 days') }}</span>
+        <span class="stat-title">
+            {{ _('Sent alerts') }}<br />
+            <small>{% blocktrans trimmed %}
+                Emails sent with new alerts notification
+            {% endblocktrans %}
+            </small>
+        </span>
         <div class="stat-body number-stat">
-            <span>{{ nb_updated_aids }}</span>
+            <span>{{ nb_sent_alerts }}</span>
         </div>
     </div>
 
     <div class="stat">
-        <span class="stat-title">{{ _('Number of active users') }}</span>
+        <span class="stat-title">
+            {{ _('Viewed aids') }}<br />
+            <small>{% blocktrans trimmed %}
+                Aids viewed within the last seven days
+            {% endblocktrans %}</small>
+
+        </span>
         <div class="stat-body number-stat">
-            <span>{{ nb_active_users }}</span>
+            <span>{{ nb_viewed_aids }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Aid backers') }}<br />
+            <small>{% blocktrans trimmed %}
+                Organizations that are financing or instructing aids
+            {% endblocktrans %}</small>
+
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ nb_backers }}</span>
         </div>
     </div>
 
