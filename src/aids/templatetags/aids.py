@@ -84,3 +84,8 @@ def stats_url(aid):
         quote(aid_url, safe='').replace('%', '$'),
     )
     return matomo_url
+
+
+@register.simple_tag
+def get(dict_object, key, default=None):
+    return dict_object.get(key, default)

@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseNotAllowed)
 from django.template.loader import render_to_string
@@ -23,6 +23,7 @@ from bundles.models import Bundle
 from bundles.forms import BundleForm
 from programs.models import Program
 from alerts.forms import AlertForm
+from stats.models import Event
 from aids.tasks import log_admins
 from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
 from aids.models import Aid, AidWorkflow
@@ -346,8 +347,19 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         return order
 
     def get_context_data(self, **kwargs):
-        kwargs['ordering'] = self.get_ordering()
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context['ordering'] = self.get_ordering()
+        aid_slugs = context['aids'].values_list('slug', flat=True)
+
+        events = Event.objects \
+            .filter(category='aid', event='viewed') \
+            .filter(meta__in=aid_slugs) \
+            .values_list('meta') \
+            .annotate(nb_views=Sum('value')) \
+            .order_by('meta')
+        context['hits'] = dict(events)
+
+        return context
 
 
 class AidCreateView(ContributorRequiredMixin, CreateView):
