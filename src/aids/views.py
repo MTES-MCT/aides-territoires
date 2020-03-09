@@ -17,6 +17,7 @@ from django.urls import reverse
 
 from braces.views import MessageMixin
 
+from stats.utils import log_event
 from accounts.mixins import ContributorRequiredMixin
 from bundles.models import Bundle
 from bundles.forms import BundleForm
@@ -246,6 +247,11 @@ class AidDetailView(DetailView):
             .filter(nb_tags__gte=2) \
             .exclude(id=self.object.id)
         return aids
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        log_event('aid', 'viewed', meta=self.object.slug, value=1)
+        return response
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
