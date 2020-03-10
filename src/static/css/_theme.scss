@@ -1,3 +1,7 @@
+$font-family-sans-serif: 'Encode Sans Semi Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-base: 'Encode Sans Semi Expanded', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$headings-font-family: $font-family-sans-serif;
+
 $blue: #4874b8;
 $indigo: #3c619b;
 $red: #e85348;
@@ -14,3 +18,5 @@ $h3-font-size: $font-size-base * 1.15;
 $h4-font-size: $font-size-base * 1.10;
 $h5-font-size: $font-size-base;
 $h6-font-size: $font-size-base;
+
+$print-page-size: a4;
