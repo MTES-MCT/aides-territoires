@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="bcf710b1-c458-4f9f-8ad7-030bb98cfa68"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.3 35.7"
+	 style="enable-background:new 0 0 32.3 35.7;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:url(#Rectangle_833_1_);}
+	.st2{fill:#DB1C83;}
+</style>
+<title>HOME_3 patates</title>
+<g id="Groupe_1617" transform="translate(-41 -21)">
+	<g id="LOGO_Favicone" transform="translate(162 22.469)">
+		<g id="Groupe_1043" transform="translate(0 27.259)">
+			<g>
+				<defs>
+					<rect id="SVGID_1_" x="-115.7" y="2.4" width="22.7" height="2.4"/>
+				</defs>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+				</clipPath>
+				<g id="Groupe_1042" transform="translate(0 0)" class="st0">
+					
+						<linearGradient id="Rectangle_833_1_" gradientUnits="userSpaceOnUse" x1="4488.127" y1="5354.5151" x2="4489.127" y2="5354.5151" gradientTransform="matrix(22.667 0 0 -2.36 -101848.1094 12640.2051)">
+						<stop  offset="0" style="stop-color:#59BBAB"/>
+						<stop  offset="0.623" style="stop-color:#3AB2BB"/>
+						<stop  offset="1" style="stop-color:#00A1D9"/>
+					</linearGradient>
+					<rect id="Rectangle_833" x="-115.7" y="2.4" class="st1" width="22.7" height="2.4"/>
+				</g>
+			</g>
+		</g>
+		<path id="Tracé_3045" class="st2" d="M-104.6,2.4c-5.2-0.1-9.5,4.1-9.5,9.3c0,0.9,0.1,1.8,0.4,2.7c0,0,0.1,0.4,0.2,0.5
+			c0.2,0.5,0.5,1.1,0.8,1.6c2.3,4.2,5,8.1,8.2,11.6c3-3.1,5.6-6.6,7.7-10.4c1.1-1.8,1.7-3.9,1.8-6C-95.1,6.5-99.4,2.3-104.6,2.4
+			C-104.6,2.4-104.6,2.4-104.6,2.4 M-104.6,17.6c-3.3,0-6-2.8-5.9-6.1s2.8-6,6.1-5.9c3.3,0,5.9,2.7,5.9,6
+			C-98.5,14.9-101.2,17.6-104.6,17.6"/>
+	</g>
+</g>
+</svg>

@@ -84,29 +84,20 @@ body {
 
 nav#main-navbar {
     @extend .navbar;
-    @extend .navbar-dark;
-    @extend .bg-dark;
+    @extend .navbar-light;
     @extend .navbar-expand-sm;
 
     .homelink {
-        @extend .navbar-brand;
         @extend .mr-auto;
 
-        div.short-title {
-            @extend .d-md-none;
+        img {
+            height: $navbar-brand-height;
+            @extend .pr-3;
         }
 
-        div.long-title {
-            display: none;
-            @extend .d-md-block;
-        }
-
-        svg.marianne-logo {
-            max-height: $font-size-base * 2.5;
-            // Prevent Chrome bug that does not limit the svg width
-            // 1.59 is the computed element's width / height ratio
-            max-width: $font-size-base * 2.5 * 1.59;
-            @extend .pr-1;
+        img + img {
+            border-left: 1px solid $primary;
+            @extend .pl-3;
         }
     }
 

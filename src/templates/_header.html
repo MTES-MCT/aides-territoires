@@ -3,13 +3,8 @@
 <nav id="main-navbar">
     <div class="container">
         <a class="homelink" href="{% url 'home' %}">
-            <div class="long-title">
-                {% include '_marianne.html' %}
-                aides-territoires.<strong>beta.gouv</strong><em>.fr</em>
-            </div>
-            <div class="short-title">
-                Aides-territoires
-            </div>
+            <img src="/static/img/marianne.svg" alt="Logo Marianne" />
+            <img src="/static/img/logo_AT.svg" alt="Logo Aides-territoires" />
         </a>
         {% if user.is_authenticated %}
             {% include '_authenticated_menu.html' %}
