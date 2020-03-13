@@ -10,8 +10,17 @@ $gray-100: #f5f4ef;
 $gray-800: #1f2532;
 $gray-900: #202328;
 $custom-control-indicator-size: 1.2rem;
+$font-color: #3a3188;
+$contrast-color: #DB1C83;
 
 $dark: #2b2465;
+$body-color: $font-color;
+$link-color: $font-color;
+$link-hover-color: $contrast-color;
+
+$navbar-light-color: $font-color;
+$navbar-light-hover-color: $contrast-color;
+$breadcrumb-active-color: $contrast-color;
 
 $font-size-base: 1rem;
 $h1-font-size: $font-size-base * 1.75;
