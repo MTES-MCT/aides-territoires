@@ -55,35 +55,7 @@
             {% endblock %}
         </main>
 
-        {% block footer %}
-        <footer>
-            <div class="container">
-                <div class="logos">
-                    <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
-                    <img class="logo" id="logo-ministeres" src="/static/img/MTES_MCTRCT.svg"
-                        alt="Logo : Ministère de la transition écologique et solidaire,
-                            Ministère de la Cohésion des territoires et des Relations
-                            avec les collectivités territoriales" />
-                </div>
-                <h1>
-                    Aides-territoires<br />
-                    <small>Un service incubé et développé à la Fabrique Numérique.</small>
-                </h1>
-
-                <nav role="navigation">
-                    <a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a>
-                    <a href="{% url 'data_doc' %}">{{ _('Data export and api') }}</a>
-                    <li>
-                        {{ _('Contact:') }}
-                        <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> /
-                        <a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a>
-                    </li>
-                    <a href="{% url 'legal_mentions' %}">{{ _('Legal mentions') }}</a>
-                    <a href="https://github.com/MTES-MCT/aides-territoires">{{ _('Source code') }}</a>
-                </nav>
-            </div>
-        </footer>
-        {% endblock %}
+        {% include '_footer.html' %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>

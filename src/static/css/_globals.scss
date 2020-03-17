@@ -18,7 +18,7 @@ body {
         0% 0% no-repeat padding-box;
 
     >footer {
-        @extend .py-5;
+        padding: 4rem 0;
         @extend .bg-dark;
         @extend .text-light;
 
@@ -26,57 +26,54 @@ body {
             @extend .text-light;
         }
 
+        div.columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
         div.logos {
-            text-align: center;
-
-            img.logo {
-                @extend .mb-3;
-                @extend .mx-3;
-
-                &#logo-fabnum {
-                    max-height: 16rem;
-                }
-
-                &#logo-ministeres {
-                    @extend .ml-3;
-                    max-height: 16rem;
-                }
-            }
-
-            @include media-breakpoint-up(md) {
-                float: right;
-                height: 16rem;
-
-                img.logo {
-                    height: 100%;
-                    margin-right: 0 !important;
-
-                    &#logo-fabnum {
-                        width: 16rem;
-                    }
-
-                    &#logo-ministeres {
-                        width: 16rem * 160 / 360;
-                    }
-                }
+            img {
+                width: 150px;
+                max-width: 150px;
             }
         }
 
+        div.newsletter {
+            text-align: center;
+
+            p {
+                @extend .lead;
+                max-width: 450px;
+                margin: 1rem auto 1rem auto;
+            }
+
+        }
+
         nav {
-            @extend .nav;
-            @extend .flex-column;
+            border-top: 2px solid $pale-text;
+            margin-top: 3rem;
+            padding-top: 1rem;
 
-            &>a,
+            ul {
+                @extend .nav;
+                @extend .nav-fill;
+            }
+
             li {
-                @extend .nav-link;
-                padding-left: 0;
+                @extend .nav-item;
+            }
 
-                a[href^='mailto:'] {
-                    @include icon(before, $fa-var-envelope);
-                }
-                a[href^='tel:'] {
-                    @include icon(before, $fa-var-phone);
-                }
+            a {
+                @extend .nav-link;
+                white-space: nowrap;
+            }
+
+            a[href^='mailto:'] {
+                @include icon(before, $fa-var-envelope);
+            }
+
+            a[href^='tel:'] {
+                @include icon(before, $fa-var-phone);
             }
         }
     }
