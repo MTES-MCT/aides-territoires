@@ -18,35 +18,73 @@ body {
         0% 0% no-repeat padding-box;
 
     >footer {
-        padding: 4rem 0;
         @extend .bg-dark;
         @extend .text-light;
+        padding: 1rem 0 4rem 0;
+
+        @include media-breakpoint-up(lg) {
+            padding-top: 4rem;
+        }
 
         a {
             @extend .text-light;
         }
 
         div.columns {
-            display: flex;
-            justify-content: space-between;
+            @extend .row;
         }
 
         div.logos {
             img {
                 width: 150px;
                 max-width: 150px;
+                margin-bottom: 1rem;
             }
         }
 
+        div.logos-1 {
+            @extend .col-lg-3;
+            @extend .d-none;
+            @extend .d-lg-block;
+        }
+
         div.newsletter {
+            @extend .col-12;
+            @extend .col-lg-6;
+            @extend .order-2;
+            @extend .order-lg-1;
             text-align: center;
 
             p {
-                @extend .lead;
-                max-width: 450px;
+                font-size: 1.25rem;
+                font-weight: bold;
+                max-width: 550px;
                 margin: 1rem auto 1rem auto;
             }
 
+        }
+
+        div.logos-2 {
+            @extend .col-12;
+            @extend .col-lg-3;
+            @extend .order-1;
+            @extend .order-lg-2;
+            text-align: right;
+
+            @include media-breakpoint-down(md) {
+                text-align: center;
+                margin-top: -75px;
+                margin-bottom: 3rem;
+
+                h4 {
+                    font-size: 2.5rem;
+                }
+
+                p {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                }
+            }
         }
 
         nav {
