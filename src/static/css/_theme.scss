@@ -3,6 +3,8 @@ $font-family-base: 'Encode Sans Semi Expanded', 'Helvetica Neue', Helvetica, Ari
 
 $headings-font-family: $font-family-sans-serif;
 $headings-font-weight: 700;
+$spacer: 1rem;
+$headings-margin-bottom: $spacer;
 
 $blue: #4874b8;
 $indigo: #3c619b;
@@ -30,7 +32,6 @@ $breadcrumb-active-color: $contrast-color;
 
 $font-size-base: 1rem;
 $font-size-lg: $font-size-base * 1.5;
-
 // $h1-font-size: $font-size-base * 1.75;
 // $h2-font-size: $font-size-base * 1.5;
 // $h3-font-size: $font-size-base * 1.15;

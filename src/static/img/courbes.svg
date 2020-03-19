@@ -12,7 +12,7 @@
    viewBox="0 0 1336.0476 1295.0714"
    version="1.1"
    id="svg16"
-   sodipodi:docname="courbes2.svg"
+   sodipodi:docname="courbes.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <metadata
      id="metadata20">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,8 +41,8 @@
      showgrid="false"
      inkscape:pagecheckerboard="false"
      inkscape:zoom="0.72906955"
-     inkscape:cx="746.17654"
-     inkscape:cy="1466.7621"
+     inkscape:cx="502.02974"
+     inkscape:cy="802.90225"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -54,65 +54,59 @@
             .prefix__cls-2{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:.5px}
         </style>
   </defs>
-  <g
-     id="g854"
-     inkscape:export-xdpi="98.99157"
-     inkscape:export-ydpi="98.99157"
-     transform="translate(-0.10676286,0.27549582)">
-    <path
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10"
-       inkscape:connector-curvature="0"
-       data-name="Tracé 587"
-       class="prefix__cls-2"
-       d="M 1090.298,596.129 C 1064.512,585.336 1032.976,574.89 1012.756,566.504 982.467,553.943 959.57,533.987 942.248,508.129 903.723,450.615 891.975,374.464 818.058,345.176 743.577,315.664 677.898,360.191 633.636,412.901 599.1,454.032 570.105,579.079 494.809,561.325 432.157,546.545 404.009,474.609 373.067,431.135 342.799,388.614 302.087,335.216 249.649,314.558 47.726,235.037 -18.33,443.434 4.741,588.904 c 18.714,117.985 53.649,233.973 86.7,284.472 316.553,483.722 924.068,474.152 1092.333,346.891 132.459,-100.181 223.799,-491.345 -93.476,-624.138 z"
-       id="prefix__Tracé_587" />
-    <path
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10"
-       inkscape:connector-curvature="0"
-       data-name="Tracé 588"
-       class="prefix__cls-2"
-       d="M 1091.38,797.276 C 1035.491,629.607 995.651,643.663 896.58,602.476 797.509,561.289 815.027,379.883 716.03,421.348 626.448,458.872 556.166,676.828 455.509,595.448 374.57,530.004 319.809,394.486 199.78,388.139 65.699,381.049 45.323,510.934 45.633,612.781 c 0.366,120.753 34.121,195.817 69.833,257.653 65.369,90.471 182.248,183.974 476.116,271.912 293.868,87.938 450.483,55.723 489.78,-89.051 21.149,-77.917 35.619,-179.212 10.018,-256.019 z"
-       id="prefix__Tracé_588" />
-    <path
-       inkscape:connector-curvature="0"
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-linejoin:round;stroke-dasharray:2.167, 4.335"
-       data-name="Tracé 589"
-       d="m 997.876,807.294 c -11.444,-29.639 -54.764,-124.214 -84.9,-145.21 -25.458,-17.741 -56.224,-6.061 -83.82,-16.861 -25,-9.775 -34.959,-37.535 -45.067,-59.089 -18.586,-39.612 -55.045,-115.8 -106.3,-73.455 -63.98,52.859 -93.129,205.593 -207.721,169.229 -90.482,-28.719 -100.951,-148.586 -183.149,-184.923 -134.372,-59.4 -205.172,82.9 -202.607,197.087 1.12,49.725 33.411,140.692 132.143,212.291 145.821,105.748 238.211,116.88 443.031,170.31 296.815,77.431 381.8,-156.952 338.39,-269.379 z"
-       id="prefix__Tracé_589" />
-    <path
-       inkscape:connector-curvature="0"
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2.167, 4.335"
-       data-name="Tracé 590"
-       d="m 701.768,703.928 c -23.356,-19.114 -40.853,-49.153 -29.243,-79.54 6.279,-16.429 19.233,-26.492 36.918,-25.654 41.727,1.966 57.01,72.407 80.276,97.495 25.1,27.058 64.3,37.9 97.64,51 11.749,4.614 60.021,29.123 38.049,46.479 -19.6,15.485 -84.453,-24.527 -103.425,-32.923 -39.8,-17.61 -79.09,-27.147 -114.432,-52.423 q -2.937,-2.104 -5.783,-4.434 z"
-       id="prefix__Tracé_590" />
-    <path
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10"
-       inkscape:connector-curvature="0"
-       data-name="Tracé 591"
-       class="prefix__cls-2"
-       d="m 419.65,738.013 c 17.021,26.433 38.972,47.377 78.418,52.54 42.1,5.511 81.535,5.28 88.818,56.877 4.809,34.06 -9.09,84.645 -44.326,97.972 -28.833,10.9 -61.138,-2.069 -88.233,-12.375 -33.553,-12.763 -67.259,-21.316 -100.111,-33.9 -63.133,-24.175 -135.251,-59.053 -182.58,-108.7 -27.044,-28.372 -41.3,-74.79 -37.123,-116.666 2.226,-22.308 20.278,-78.865 81.441,-89.358 48.393,-8.3 110.632,8.262 162.993,80.22 16.811,23.105 26.155,50.794 40.703,73.39 z"
-       id="prefix__Tracé_591" />
-    <path
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10"
-       inkscape:connector-curvature="0"
-       data-name="Tracé 575"
-       class="prefix__cls-2"
-       d="M 1335.9054,-0.25337019 C 1318.9153,190.96642 1265.091,417.22959 1090.042,480.32 1058.5308,491.67713 1022.236,470.818 995.369,446.638 916.48,375.63 944.74,183.5 800.869,211.268 683.242,233.97 624.042,367.495 508.96,394.521 348.893,432.094 329.049,193.118 341.379,93.561 c 4.017,-32.448 12.889,-66.97 20.682,-91.7"
-       id="prefix__Tracé_575"
-       sodipodi:nodetypes="csccccc" />
-    <path
-       inkscape:connector-curvature="0"
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-miterlimit:10"
-       data-name="Tracé 576"
-       d="m 426.553,0.046 c -28.532,183.6 29.8,331.152 154.8,252.9 68.571,-42.925 172.849,-140.947 262.431,-123.99 71.164,13.466 93.151,93.125 123.81,147.692 17.42,31 64.4168,79.3462 106.225,71.115 136.7741,-26.92809 200.4397,-209.82721 209.6246,-347.98752362"
-       id="prefix__Tracé_576"
-       sodipodi:nodetypes="ccccsc" />
-    <path
-       inkscape:connector-curvature="0"
-       style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-miterlimit:10"
-       data-name="Tracé 577"
-       d="m 478.157,0.174 c -1.707,47.416 9.153,99.253 44.914,119.585 62.733,35.66 170.582,-31.391 233.134,-42.052 78.267,-13.33 131.924,1.648 182.55,73.72 25.962,36.97 55.63558,99.53163 101.96,95.288 100.7775,-9.23189 176.6884,-132.29554 180.456,-244.146804"
-       id="prefix__Tracé_577"
-       sodipodi:nodetypes="ccccsc" />
-  </g>
+  <path
+     id="prefix__Tracé_587"
+     d="m 1090.1912,596.4045 c -25.786,-10.793 -57.322,-21.239 -77.542,-29.625 -30.28896,-12.561 -53.18596,-32.517 -70.50796,-58.375 -38.525,-57.514 -50.273,-133.665 -124.19,-162.953 -74.481,-29.512 -140.16,15.015 -184.422,67.725 -34.536,41.131 -63.531,166.178 -138.827,148.424 -62.652,-14.78 -90.8,-86.716 -121.742,-130.19 -30.268,-42.521 -70.98,-95.919 -123.418,-116.577 -201.923003,-79.521 -267.979003,128.876 -244.9080029,274.346 18.7139999,117.985 53.6489999,233.973 86.6999999,284.472 316.553003,483.722 924.067963,474.152 1092.332963,346.891 132.459,-100.181 223.799,-491.345 -93.476,-624.138 z"
+     class="prefix__cls-2"
+     data-name="Tracé 587"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.80000001" />
+  <path
+     id="prefix__Tracé_588"
+     d="m 1091.2732,797.5515 c -55.889,-167.669 -95.72896,-153.613 -194.79996,-194.8 -99.071,-41.187 -81.553,-222.593 -180.55,-181.128 -89.582,37.524 -159.864,255.48 -260.521,174.1 -80.939,-65.444 -135.7,-200.962 -255.729,-207.309 -134.081003,-7.09 -154.457003,122.795 -154.147003,224.642 0.366,120.753 34.121,195.817 69.833003,257.653 65.369,90.471 182.248,183.974 476.116,271.912 293.868,87.938 450.48296,55.723 489.77996,-89.051 21.149,-77.917 35.619,-179.212 10.018,-256.019 z"
+     class="prefix__cls-2"
+     data-name="Tracé 588"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.80000001" />
+  <path
+     id="prefix__Tracé_589"
+     d="m 997.76924,807.5695 c -11.444,-29.639 -54.764,-124.214 -84.9,-145.21 -25.458,-17.741 -56.224,-6.061 -83.82,-16.861 -25,-9.775 -34.959,-37.535 -45.067,-59.089 -18.586,-39.612 -55.045,-115.8 -106.3,-73.455 -63.98,52.859 -93.129,205.593 -207.721,169.229 -90.482,-28.719 -100.951,-148.586 -183.149,-184.923 -134.372,-59.4 -205.172003,82.9 -202.607003,197.087 1.12,49.725 33.411003,140.692 132.143003,212.291 145.821,105.748 238.211,116.88 443.031,170.31 296.815,77.431 381.79996,-156.952 338.39,-269.379 z"
+     data-name="Tracé 589"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-linejoin:round;stroke-dasharray:2.167, 4.33499999999999996;stroke-opacity:0.80000001"
+     inkscape:connector-curvature="0" />
+  <path
+     id="prefix__Tracé_590"
+     d="m 701.66124,704.2035 c -23.356,-19.114 -40.853,-49.153 -29.243,-79.54 6.279,-16.429 19.233,-26.492 36.918,-25.654 41.727,1.966 57.01,72.407 80.276,97.495 25.1,27.058 64.3,37.9 97.64,51 11.749,4.614 60.021,29.123 38.049,46.479 -19.6,15.485 -84.453,-24.527 -103.425,-32.923 -39.8,-17.61 -79.09,-27.147 -114.432,-52.423 q -2.937,-2.104 -5.783,-4.434 z"
+     data-name="Tracé 590"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2.167, 4.33499999999999996;stroke-opacity:0.80000001"
+     inkscape:connector-curvature="0" />
+  <path
+     id="prefix__Tracé_591"
+     d="m 419.54324,738.2885 c 17.021,26.433 38.972,47.377 78.418,52.54 42.1,5.511 81.535,5.28 88.818,56.877 4.809,34.06 -9.09,84.645 -44.326,97.972 -28.833,10.9 -61.138,-2.069 -88.233,-12.375 -33.553,-12.763 -67.259,-21.316 -100.111,-33.9 -63.133,-24.175 -135.251,-59.053 -182.58,-108.7 -27.044,-28.372 -41.3,-74.79 -37.123,-116.666 2.226,-22.308 20.278,-78.865 81.441,-89.358 48.393,-8.3 110.632,8.262 162.993,80.22 16.811,23.105 26.155,50.794 40.703,73.39 z"
+     class="prefix__cls-2"
+     data-name="Tracé 591"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.80000001" />
+  <path
+     sodipodi:nodetypes="csccccc"
+     id="prefix__Tracé_575"
+     d="M 1335.7986,0.02212563 C 1318.8085,191.24192 1264.9842,417.50509 1089.9352,480.5955 c -31.5112,11.35713 -67.806,-9.502 -94.67296,-33.682 -78.889,-71.008 -50.629,-263.138 -194.5,-235.37 -117.627,22.702 -176.827,156.227 -291.909,183.253 -160.067,37.573 -179.911,-201.403 -167.581,-300.960004 4.017,-32.448 12.889,-66.97 20.682,-91.7000002"
+     class="prefix__cls-2"
+     data-name="Tracé 575"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.80000001" />
+  <path
+     sodipodi:nodetypes="ccccsc"
+     id="prefix__Tracé_576"
+     d="m 426.44624,0.32149582 c -28.532,183.60000418 29.8,331.15200418 154.8,252.90000418 68.571,-42.925 172.849,-140.947 262.431,-123.99 71.164,13.466 93.151,93.125 123.81,147.692 17.42,31 64.41676,79.3462 106.22496,71.115 136.7741,-26.92809 200.4397,-209.82721 209.6246,-347.9875278"
+     data-name="Tracé 576"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-miterlimit:10;stroke-opacity:0.80000001"
+     inkscape:connector-curvature="0" />
+  <path
+     sodipodi:nodetypes="ccccsc"
+     id="prefix__Tracé_577"
+     d="m 478.05024,0.44949582 c -1.707,47.41600018 9.153,99.25300018 44.914,119.58500418 62.733,35.66 170.582,-31.391004 233.134,-42.052004 78.267,-13.33 131.924,1.648 182.55,73.720004 25.962,36.97 55.63558,99.53163 101.95996,95.288 100.7775,-9.23189 176.6884,-132.29554 180.456,-244.1468082"
+     data-name="Tracé 577"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-miterlimit:10;stroke-opacity:0.80000001"
+     inkscape:connector-curvature="0" />
 </svg>

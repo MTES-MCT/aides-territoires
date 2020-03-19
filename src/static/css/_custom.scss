@@ -7,23 +7,13 @@
  */
 
 section#intro {
-    margin-top: 8rem;
 
-    h1 {
-        @extend .mb-4;
+    @include media-breakpoint-up(md) {
+        margin-top: 4rem;
+    }
 
-        &::after {
-            content: "";
-            color: transparent;
-            display: block;
-            width: 8rem;
-            height: 0px;
-            max-height: 1px;
-            margin-top: .5rem;
-            padding: 0;
-            border: 4px solid $contrast-color;
-            border-radius: 4px;
-        }
+    @include media-breakpoint-up(lg) {
+        margin-top: 8rem;
     }
 
     p.tagline {
@@ -70,91 +60,98 @@ section#intro {
     }
 }
 
-section#landing-value,
-section#contribute {
-    border-radius: 0;
-    margin-bottom: 0;
+section#stats {
+    padding: 0;
 
-
-    h1 {
-        @extend .text-white;
-        @extend .text-center;
+    &>div {
+        width: 100%;
+        padding: 4rem 0 0 0;
+        background: transparent url(../img/courbes.svg) top center no-repeat;
     }
 
+    div.container {
 
-    p.tagline {
-        @extend .lead;
-        @extend .mb-3;
-        @extend .text-white;
-        @extend .text-center;
-    }
+        & > div {
+            @extend .row;
+            @extend .mt-5;
+            text-align: center;
 
-    form.search-form {
+            div {
+                @extend .col-md-4;
+                margin-bottom: 4rem;
 
-        @extend .mt-2;
+                h2 {
+                    text-transform: uppercase;
+                    @extend .h4;
+                    font-family: $font-family-base;
+                    font-weight: bold;
 
-        button {
-            @extend .btn-lg;
-            @include icon(before, $fa-var-search);
-            width: 100%;
-        }
-    }
-
-    a.cta-btn {
-        @extend .btn;
-        @extend .btn-success;
-        @extend .btn-lg;
-        @extend .mt-3;
-        min-width: 20rem;
-    }
-
-    @include media-breakpoint-up(lg) {
-        form.search-form {
-
-            display: flex;
-
-            div.search-control {
-                flex-grow: 1;
-                min-width: 0;
-                margin-bottom: 0;
-
-                .select2-selection {
-                    @include border-right-radius(0);
-                    border-right: 0;
+                    span {
+                        display: block;
+                        font-family: $font-family-base;
+                        font-size: 6rem;
+                        font-weight: 200;
+                    }
                 }
-            }
 
-            button {
-                white-space: nowrap;
-                @include border-left-radius(0);
-                width: inherit;
+                p {
+                    @extend .lead;
+                    font-weight: bold;
+                    margin-bottom: 0;
+                }
             }
         }
     }
 }
 
-section#contact {
+section#partner {
+    @extend .bg-white;
+    padding: 4rem 0;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    img{
+        @extend .my-3;
+        @extend .mx-4;
+
+        height: 60px;
+    }
+}
+
+section#marketing {
     @extend .py-5;
+    @extend .text-center;
 
-    div.narrow-form {
-        @extend .pb-3;
-        @extend .text-center;
+    h1 {
+        @extend .mb-3;
+    }
 
-        h1 {
-            @extend .text-white;
+    .container > p {
+        @extend .lead;
+
+        strong {
+            font-weight: bold;
         }
+    }
 
-        p {
-            @extend .lead;
-            @extend .text-white;
-        }
+    div.marketing {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
-        a.ml-btn {
-            @extend .btn;
-            @extend .btn-lg;
-            @extend .btn-block;
-            @extend .btn-success;
-            @extend .btn-block;
+        div{
+            @extend .px-3;
+            @extend .pt-3;
+            @extend .col;
+
+            i{
+                @extend .mb-3;
+            }
         }
     }
 }
@@ -711,61 +708,6 @@ section#bookmarks {
                     @extend .btn-danger;
                     @include icon(before, $fa-var-exclamation-circle);
                 }
-            }
-        }
-    }
-}
-
-section#partner {
-    @extend .py-5;
-
-    h1 {
-        @extend .text-center;
-    }
-
-    div {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    img{
-        @extend .my-3;
-        @extend .mx-4;
-
-        height: 60px;
-    }
-}
-
-section#marketing {
-    @extend .py-5;
-    @extend .text-center;
-
-    h1 {
-        @extend .mb-3;
-    }
-
-    .container > p {
-        @extend .lead;
-
-        strong {
-            font-weight: bold;
-        }
-    }
-
-    div.marketing {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-
-        div{
-            @extend .px-3;
-            @extend .pt-3;
-            @extend .col;
-
-            i{
-                @extend .mb-3;
             }
         }
     }
