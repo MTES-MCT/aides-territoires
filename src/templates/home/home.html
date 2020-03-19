@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends '_base_light.html' %}
 {% load compress %}
 
 {% block title %}
@@ -6,38 +6,41 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
 {% endblock %}
 
 {% block main %}
-<section id="landing-value">
+<section id="intro">
     <div class="container">
-        <h1>Réalisez vos projets locaux en trouvant des aides appropriées</h1>
-        <p class="tagline">
-            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets.<br>
-            Recherchez dès maintenant les aides dont votre territoire peut bénéficier.
-        </p>
 
-    <form class="search-form" method="get" action="{% url 'search_view' %}">
-        <div class="search-control form-group form-group-lg">
-            <select id="id_perimeter" name="perimeter" aria-label="{{ _('City, department, region, EPCI…') }}">
-            </select>
+        <div class="title-block" id="what">
+            <h1>Réalisez vos projets locaux</h1>
+            <p class="tagline">
+                Chaque jour, des collectivités comme la vôtre trouvent et bénéficient
+                d'aides pour financer et accompagner des projets portant sur une
+                grande variété de thématiques. Donnez vie aux ambitions de votre
+                territoire. Commencez maintenant !
+            </p>
+            <p>
+                <a href="{% url 'search_view' %}" class="cta">Trouver des aides</a>
+            </p>
+            {% comment %} <img src="/static/img/home_aides.svg" alt="" /> {% endcomment %}
         </div>
 
-        <button type="submit" id="search-btn">
-            {{ _('Start searching for aids') }}
-        </button>
-    </form>
-    </div>
-</section>
+        <div class="title-block" id="how">
+            <h1>Comment ça marche ?</h1>
 
-<section id="marketing">
-    <div class="container">
-        {% include 'home/_marketing.html' %}
-    </div>
-</section>
-
-<section id="contact">
-    <div class="narrow-form">
-        <h1>Restons en contact</h1>
-
-        {% include 'home/_mailing_list_form.html' %}
+            <div class="marketing">
+                <div>
+                    <img alt="" src="/static/img/home_steps_1.svg" />
+                    <p>Les porteurs créent des aides financières ou en ingénierie</p>
+                </div>
+                <div>
+                    <img alt="" src="/static/img/home_steps_2.svg" />
+                    <p>Aides-territoires recence et trie toutes ces aides</p>
+                </div>
+                <div>
+                    <img alt="" src="/static/img/home_steps_3.svg" />
+                    <p>Les collectivités sont alertées des aides pertinentes</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
