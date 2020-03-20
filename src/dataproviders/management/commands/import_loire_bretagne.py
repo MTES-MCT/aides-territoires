@@ -22,7 +22,7 @@ AUDIANCES_DICT = {
     'Particulier / Citoyen': Aid.AUDIANCES.private_person,
 }
 
-AIDES_URL = 'https://aides-redevances.eau-loire-bretagne.fr/home.html'
+AIDES_URL = 'https://aides-redevances.eau-loire-bretagne.fr/home/aides/lessentiel-des-aides/aides-mode-demploi.html'
 
 
 class Command(BaseImportCommand):
@@ -148,7 +148,7 @@ class Command(BaseImportCommand):
 
         return rate
 
-    def extract_eligibility(self, line):
+    def extract_contact(self, line):
         return '''
         <p>
         Pour toute information complémentaire,
@@ -156,3 +156,6 @@ class Command(BaseImportCommand):
         vous pouvez contacter votre direction régionale</a>.
         </p>
         '''
+
+    def extract_eligibility(self, line):
+        return ''
