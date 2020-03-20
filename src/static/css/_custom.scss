@@ -17,6 +17,12 @@
             #dfddff 80%,
             #a29cfe 100%)
         0% 0% no-repeat padding-box;
+
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+        text-align: left;
+    }
  }
 
 section#intro {
@@ -69,7 +75,7 @@ section#intro {
 
         div.marketing {
             @extend .row;
-            margin-top: 8rem;
+            margin-top: 5rem;
 
             div {
                 @extend .col-md-4;
