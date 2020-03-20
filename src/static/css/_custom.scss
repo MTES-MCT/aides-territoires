@@ -6,55 +6,88 @@
  *
  */
 
+ body.home {
+    background:
+        transparent
+        linear-gradient(
+            0deg,
+            #59bbab 50%,
+            #b5e1d9 60%,
+            #efeeff 70%,
+            #dfddff 80%,
+            #a29cfe 100%)
+        0% 0% no-repeat padding-box;
+ }
+
 section#intro {
 
+    background: transparent url(../img/pois.svg) bottom 130% center no-repeat;
+    background-size: 2500px;
+
     @include media-breakpoint-up(md) {
-        margin-top: 4rem;
+        padding-top: 4rem;
     }
 
     @include media-breakpoint-up(lg) {
-        margin-top: 8rem;
-    }
-
-    p.tagline {
-        @extend .lead;
-        max-width: 40rem;
-    }
-
-    a.cta {
-        font-weight: bold;
-        @extend .btn;
-        @extend .btn-lg;
-        @extend .btn-primary;
-        @extend .px-5;
-        @extend .mb-3;
-        border-radius: 0 1rem 1rem 1rem;
-        @extend .shadow-sm;
+        padding-top: 8rem;
     }
 
     div#what {
         margin-bottom: 5rem;
-    }
 
-    div.marketing {
-        @extend .row;
-        margin-top: 8rem;
+        p.tagline {
+            @extend .lead;
+            max-width: 40rem;
+        }
 
-        div {
-            @extend .col-md-4;
+        a.cta {
+            font-weight: bold;
+            @extend .btn;
+            @extend .btn-lg;
+            @extend .btn-primary;
+            @extend .px-5;
+            @extend .mb-3;
+            border-radius: 0 1rem 1rem 1rem;
+            @extend .shadow-sm;
+        }
+
+        img {
+            float: right;
+            width: 700px;
+            max-width: 100%;
+            @extend .mt-3;
             @extend .mb-5;
 
-            img {
-                display: block;
-                max-width: 100%;
-                margin: auto;
-                @extend .mb-3;
+            @include media-breakpoint-up(lg) {
+                margin-top: -100px !important;
             }
+        }
+    }
 
-            p {
-                text-align: center;
-                font-size: 1.5rem;
-                font-family: $font-family-sans-serif;
+    div#how {
+        clear: both;
+
+        div.marketing {
+            @extend .row;
+            margin-top: 8rem;
+
+            div {
+                @extend .col-md-4;
+                @extend .mb-5;
+
+                img {
+                    display: block;
+                    max-width: 100%;
+                    margin: auto;
+                    @extend .mb-3;
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 1.5rem;
+                    font-family: $font-family-sans-serif;
+                    font-weight: bold;
+                }
             }
         }
     }

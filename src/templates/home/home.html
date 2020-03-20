@@ -1,9 +1,11 @@
-{% extends '_base_light.html' %}
+{% extends '_base.html' %}
 {% load compress %}
 
 {% block title %}
 Aides-territoires 🏡 Aides publiques pour les collectivités
 {% endblock %}
+
+{% block body-class %}home{% endblock %}
 
 {% block main %}
 <section id="intro">
@@ -20,7 +22,7 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
             <p>
                 <a href="{% url 'search_view' %}" class="cta">Trouver des aides</a>
             </p>
-            {% comment %} <img src="/static/img/home_aides.svg" alt="" /> {% endcomment %}
+            <img src="/static/img/home_aides.svg" alt="" />
         </div>
 
         <div class="title-block" id="how">
@@ -33,7 +35,7 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
                 </div>
                 <div>
                     <img alt="" src="/static/img/home_steps_2.svg" />
-                    <p>Aides-territoires recence et trie toutes ces aides</p>
+                    <p>Aides-territoires recense et trie toutes ces aides</p>
                 </div>
                 <div>
                     <img alt="" src="/static/img/home_steps_3.svg" />
