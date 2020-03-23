@@ -553,18 +553,61 @@ section#stats {
 }
 
 section#aid {
-    h1 {
-        span.backer-name + span.backer-name:before {
-            content: '|';
+    background-color: white;
+    border-radius: 1.5rem 0 1.5rem 1.5rem;
+    @extend .py-4;
+    @extend .px-5;
+    @extend .mb-5;
+    @extend .text-dark;
+    @extend .shadow;
+
+    ul.categories {
+        list-style-type: none;
+        padding: 0;
+        @extend .lead;
+
+        li {
+            display: inline;
+        }
+
+        li + li::before {
+            content: " / ";
         }
     }
 
-    h2 {
-        border-bottom: 1px solid $gray-500;
+    div.aid-content {
+        @extend .row;
+        @extend .mt-5;
+    }
+
+    div.card dl {
+        @extend .card-body;
+        margin-left: 3rem;
+        margin-bottom: 0;
+
+        &::before {
+            color: $contrast-color;
+            float: left;
+            margin-left: -3rem;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        &.financers {
+            @include icon(before, $fa-var-handshake, 2rem);
+        }
+    }
+
+    div.sidebar {
+        @extend .col-md-4;
     }
 
     div.aid-details {
-        @extend .row;
+        @extend .col-md-8;
 
         div.long-data {
             @extend .col-md-12;

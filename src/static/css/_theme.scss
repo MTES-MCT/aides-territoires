@@ -39,4 +39,11 @@ $font-size-lg: $font-size-base * 1.5;
 // $h5-font-size: $font-size-base;
 // $h6-font-size: $font-size-base;
 
+$card-border-radius: 3px;
+
+$enable-shadows: true;
+$box-shadow-sm:               0 .125rem .25rem rgba($dark, .9);
+$box-shadow:                  0 .5rem 1rem rgba($dark, .9);
+$box-shadow-lg:               0 1rem 3rem rgba($dark, .9);
+
 $print-page-size: a4;

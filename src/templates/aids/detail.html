@@ -19,36 +19,14 @@
 
 {% block content %}
 <section id="aid">
-
-    <h1>
-        {{ aid.name }}
-        <br /><small>
-        <span title="{{ _('Financers provide fundings.') }}">{{ _('Financer(s):') }}</title>
-        {% for financer in aid.financers.all %}
-            <span class="backer-name">
-                {{ financer }}
-                {% if financer.is_corporate %}
-                    ({{ _('Corporate') }})
-                {% endif %}
-            </span>
+    <h1> {{ aid.name }} </h1>
+    {% if aid.categories %}
+    <ul class="categories">
+        {% for category in aid.categories.all %}
+            <li>{{ category }}</li>
         {% endfor %}
-        </small>
-
-        {% if aid.instructors.all %}
-        <br /><small>
-        <span title="{{ _('Instructors locally implement the aid.') }}">{{ _('Instructor(s):') }}</span>
-        {% for instructor in aid.instructors.all %}
-            <span class="backer-name">
-                {{ instructor }}
-                {% if instructor.is_corporate %}
-                    ({{ _('Corporate') }})
-                {% endif %}
-            </span>
-        {% endfor %}
-        </small>
-        {% endif %}
-
-    </h1>
+    </ul>
+    {% endif %}
 
     {% if aid.is_published %}
         <div class="aid-actions js">
@@ -74,168 +52,178 @@
         </div>
     {% endif %}
 
-    <div class="aid-details">
+    <div class="aid-content">
+        <div class="sidebar">
 
-        <div class="long-data">
-            <h2>{{ _('Description') }}</h2>
-            <p>
-                {% if aid.description %}
-                    {{ aid.description|safe }}
-                {% else %}
-                    {{ _('No detailed description was submitted.') }}
-                {% endif %}
-            </p>
+            <div class="card">
+                <dl class="financers">
+                    <dt>{{ _('Financers') }}</dt>
+                    <dd>
+                        <ul>
+                        {% for financer in aid.financers.all %}
+                            <li>{{ financer }}</li>
+                        {% endfor %}
+                        </ul>
+                    </dd>
+                </dl>
+
+            </div>
+
         </div>
 
-        {% if aid.targeted_audiances %}
-        <div class="short-data">
-            <h2>{{ _('Who can apply to this aid?') }}</h2>
-            <p>{% choices_display aid 'targeted_audiances' %}</p>
-        </div>
-        {% endif %}
+        <div class="aid-details">
 
-        <div class="short-data">
-            <h2>{{ _('Aid targeted area') }}</h2>
-            <p>{{ aid.perimeter }}</p>
+            <div class="long-data">
+                <h2>{{ _('Description') }}</h2>
+                <p>
+                    {% if aid.description %}
+                        {{ aid.description|safe }}
+                    {% else %}
+                        {{ _('No detailed description was submitted.') }}
+                    {% endif %}
+                </p>
+            </div>
+
+            {% if aid.targeted_audiances %}
+            <div class="short-data">
+                <h2>{{ _('Who can apply to this aid?') }}</h2>
+                <p>{% choices_display aid 'targeted_audiances' %}</p>
+            </div>
+            {% endif %}
+
+            <div class="short-data">
+                <h2>{{ _('Aid targeted area') }}</h2>
+                <p>{{ aid.perimeter }}</p>
+            </div>
+
+            {% if aid.recurrence %}
+            <div class="short-data">
+                <h2>{{ _('Recurrence') }}</h2>
+                <p>{{ aid.get_recurrence_display }}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.start_date and not aid.is_ongoing %}
+            <div class="short-data">
+                <h2>{{ _('Start date') }}</h2>
+                <p>{{ aid.start_date|date }}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.predeposit_date and not aid.is_ongoing %}
+            <div class="short-data">
+                <h2>{{ _('Predeposit date') }}</h2>
+                <p>{{ aid.predeposit_date|date }}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.submission_deadline and not aid.is_ongoing %}
+            <div class="short-data">
+                <h2>{{ _('Submission deadline') }}</h2>
+                <p>{{ aid.submission_deadline|date }}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.aid_types %}
+            <div class="short-data">
+                <h2>{{ _('Aid type') }}</h2>
+                <p>{% choices_display aid 'aid_types' %}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.subvention_rate or aid.subvention_comment%}
+            <div class="short-data">
+                <h2>{{ _('Subvention rate') }}</h2>
+                <p>
+                    {% if aid.subvention_rate.lower and aid.subvention_rate.upper %}
+                        {{ _('Min:') }} {{ aid.subvention_rate.lower }}% ~
+                        {{ _('Max:') }} {{ aid.subvention_rate.upper }}%
+                        <br />
+                    {% elif aid.subvention_rate.upper %}
+                        {{ aid.subvention_rate.upper }}%
+                        <br />
+                    {% endif %}
+
+                    {% if aid.subvention_comment %}
+                        {{ aid.subvention_comment }}
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
+
+            {% if aid.mobilization_steps %}
+            <div class="short-data">
+                <h2>{{ _('The aid can be mobilized during…') }}</h2>
+                <p>{% choices_display aid 'mobilization_steps' %}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.destinations %}
+            <div class="short-data">
+                <h2>{{ _('Types of expenses covered') }}</h2>
+                <p>{% choices_display aid 'destinations' %}</p>
+            </div>
+            {% endif %}
+
+            {% if aid.project_examples %}
+            <div class="long-data">
+                <h2>{{ _('Project examples') }}</h2>
+                {{ aid.project_examples|safe }}
+            </div>
+            {% endif %}
+
+            {% if aid.eligibility %}
+            <div class="long-data">
+                <h2>{{ _('Other eligibility criterias') }}</h2>
+                {{ aid.eligibility|safe }}
+            </div>
+            {% endif %}
+
+            {% if aid.origin_url %}
+            <div class="long-data">
+                <h2>{{ _('Link to full description') }}</h2>
+                <p>
+                    <a target="_blank" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                </p>
+            </div>
+            {% endif %}
+
+            {% if aid.application_url %}
+            <div class="long-data">
+                <h2>{{ _('Link to an online application form') }}</h2>
+                <p>
+                    <a target="_blank" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                </p>
+            </div>
+            {% endif %}
+
+            {% if aid.contact %}
+            <div class="long-data">
+                <h2>{{ _('Contact') }}</h2>
+                {{ aid.contact|safe }}
+            </div>
+            {% endif %}
+
+            {% if aid.is_imported %}
+            <div class="short-data">
+                <h2>{{ _('Data origin') }}</h2>
+                <p>{% blocktrans trimmed %}
+                This aid was imported from another data stream.
+                {% endblocktrans %}</p>
+                <dl>
+                    <dt>{{ _('Origin url') }}</dt>
+                    <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
+                    <dt>{{ _('Import share license') }}</dt>
+                    <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
+                    <dt>{{ _('Last data access') }}</dt>
+                    <dd>{{ aid.import_last_access|date }}</dd>
+                </dl>
+            </div>
+            {% endif %}
         </div>
 
-        {% if aid.recurrence %}
-        <div class="short-data">
-            <h2>{{ _('Recurrence') }}</h2>
-            <p>{{ aid.get_recurrence_display }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.start_date and not aid.is_ongoing %}
-        <div class="short-data">
-            <h2>{{ _('Start date') }}</h2>
-            <p>{{ aid.start_date|date }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.predeposit_date and not aid.is_ongoing %}
-        <div class="short-data">
-            <h2>{{ _('Predeposit date') }}</h2>
-            <p>{{ aid.predeposit_date|date }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.submission_deadline and not aid.is_ongoing %}
-        <div class="short-data">
-            <h2>{{ _('Submission deadline') }}</h2>
-            <p>{{ aid.submission_deadline|date }}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.aid_types %}
-        <div class="short-data">
-            <h2>{{ _('Aid type') }}</h2>
-            <p>{% choices_display aid 'aid_types' %}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.subvention_rate or aid.subvention_comment%}
-        <div class="short-data">
-            <h2>{{ _('Subvention rate') }}</h2>
-            <p>
-                {% if aid.subvention_rate.lower and aid.subvention_rate.upper %}
-                    {{ _('Min:') }} {{ aid.subvention_rate.lower }}% ~
-                    {{ _('Max:') }} {{ aid.subvention_rate.upper }}%
-                    <br />
-                {% elif aid.subvention_rate.upper %}
-                    {{ aid.subvention_rate.upper }}%
-                    <br />
-                {% endif %}
-
-                {% if aid.subvention_comment %}
-                    {{ aid.subvention_comment }}
-                {% endif %}
-            </p>
-        </div>
-        {% endif %}
-
-        {% if aid.mobilization_steps %}
-        <div class="short-data">
-            <h2>{{ _('The aid can be mobilized during…') }}</h2>
-            <p>{% choices_display aid 'mobilization_steps' %}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.destinations %}
-        <div class="short-data">
-            <h2>{{ _('Types of expenses covered') }}</h2>
-            <p>{% choices_display aid 'destinations' %}</p>
-        </div>
-        {% endif %}
-
-        {% if aid.project_examples %}
-        <div class="long-data">
-            <h2>{{ _('Project examples') }}</h2>
-            {{ aid.project_examples|safe }}
-        </div>
-        {% endif %}
-
-        {% if aid.eligibility %}
-        <div class="long-data">
-            <h2>{{ _('Other eligibility criterias') }}</h2>
-            {{ aid.eligibility|safe }}
-        </div>
-        {% endif %}
-
-        {% if aid.origin_url %}
-        <div class="long-data">
-            <h2>{{ _('Link to full description') }}</h2>
-            <p>
-                <a target="_blank" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-            </p>
-        </div>
-        {% endif %}
-
-        {% if aid.application_url %}
-        <div class="long-data">
-            <h2>{{ _('Link to an online application form') }}</h2>
-            <p>
-                <a target="_blank" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-            </p>
-        </div>
-        {% endif %}
-
-        {% if aid.contact %}
-        <div class="long-data">
-            <h2>{{ _('Contact') }}</h2>
-            {{ aid.contact|safe }}
-        </div>
-        {% endif %}
-
-        {% if aid.is_imported %}
-        <div class="short-data">
-            <h2>{{ _('Data origin') }}</h2>
-            <p>{% blocktrans trimmed %}
-            This aid was imported from another data stream.
-            {% endblocktrans %}</p>
-            <dl>
-                <dt>{{ _('Origin url') }}</dt>
-                <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
-                <dt>{{ _('Import share license') }}</dt>
-                <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
-                <dt>{{ _('Last data access') }}</dt>
-                <dd>{{ aid.import_last_access|date }}</dd>
-            </dl>
-        </div>
-        {% endif %}
     </div>
 
-    {% if similar_aids %}
-    <h2>{{ _('Similar aids') }}</h2>
-    <p>{% blocktrans trimmed %}
-    Those aids present some similarities and might be worth checking.
-    {% endblocktrans %}</p>
-    <ul>
-        {% for aid in similar_aids %}
-            <li><a href="{{ aid.get_absolute_url }}">{{ aid }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
 </section>
 {% endblock %}
 

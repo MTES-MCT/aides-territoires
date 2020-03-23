@@ -26,7 +26,6 @@ class Command(BaseCommand):
         data = {
             'email': user.email,
             'attributes': {
-                'STRUCTURE': user.organization,
                 'DOUBLE_OPT-IN': 1,
             },
             'emailBlacklisted': not user.ml_consent,

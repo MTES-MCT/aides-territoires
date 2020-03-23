@@ -728,3 +728,7 @@ nav.form-steps {
         }
     }
 }
+
+.card {
+    @extend .shadow-sm;
+}
