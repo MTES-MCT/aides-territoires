@@ -18,7 +18,7 @@ def staging_warning():
 
     if settings.ENV_NAME == 'staging':
         warning_div = '''
-        <div id="staging-warning">
+        <div class="header-warning">
             <div class="container">
                 <p>Attention, vous êtes en recette, pas en production !</p>
             </div>

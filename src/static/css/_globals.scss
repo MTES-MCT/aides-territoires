@@ -575,7 +575,7 @@ html {
     }
 }
 
-div#staging-warning {
+div.header-warning {
     background-color: $red;
     color: white;
 
@@ -583,6 +583,11 @@ div#staging-warning {
         @extend .py-2;
         margin-bottom: 0;
         @include icon(before, $fa-var-exclamation-triangle);
+        text-align: center;
+    }
+
+    a {
+        color: white;
     }
 }
 
