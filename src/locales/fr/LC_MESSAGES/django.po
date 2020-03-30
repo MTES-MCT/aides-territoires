@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-06 11:18+0100\n"
+"POT-Creation-Date: 2020-03-30 11:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,7 @@ msgid "Instructors"
 msgstr "Instructeurs"
 
 msgid "Live"
-msgstr ""
+msgstr "Live"
 
 msgid "The selected aids were set as CFP"
 msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
@@ -1196,7 +1196,7 @@ msgid "Aid programs"
 msgstr "Programmes d'aides"
 
 msgid "SEO"
-msgstr ""
+msgstr "SEO"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1211,52 +1211,44 @@ msgid "Your territory"
 msgstr "Votre territoire"
 
 msgid "Page content"
-msgstr ""
+msgstr "Contenu de la page"
 
-#, fuzzy
-#| msgid "Full description of the aid and its objectives"
 msgid "Full description of the page. Will be displayed above results."
-msgstr "Description complète de l'aide et de ses objectifs"
+msgstr "Description complète de la page. Sera affichée au dessus des résultats."
 
 msgid "The main displayed title."
-msgstr ""
+msgstr "Le titre principal"
 
-#, fuzzy
-#| msgid "Aid title"
 msgid "Meta title"
-msgstr "Nom de l'aide"
+msgstr "Titre (balise meta)"
 
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
 "and we will reuse the page title."
 msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < 60 caractères. "
+"Laissez vide pour réutiliser le titre de la page."
 
 msgid "This part is used in the url. DON't change this for existing pages."
-msgstr ""
+msgstr "Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page existante."
 
-#, fuzzy
-#| msgid "Short description"
 msgid "Meta description"
-msgstr "Brève description"
+msgstr "Description (balise meta)"
 
 msgid "This will be displayed in SERPs. Keep it under 120 characters."
-msgstr ""
+msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 
 msgid "The search paramaters url"
-msgstr ""
+msgstr "Les paramètres de recherche en format url"
 
-#, fuzzy
-#| msgid "Search results pages"
 msgid "Search page"
-msgstr "Pages de résultats"
+msgstr "Recherche customisée"
 
-#, fuzzy
-#| msgid "Search results pages"
 msgid "Search pages"
-msgstr "Pages de résultats"
+msgstr "Recherches customisées"
 
 msgid "form/"
-msgstr ""
+msgstr "formulaire/"
 
 msgid "audiance/"
 msgstr "audiance/"
@@ -1269,6 +1261,15 @@ msgstr "thème/"
 
 msgid "category/"
 msgstr "catégorie/"
+
+msgid "Event"
+msgstr "Événement"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Events"
+msgstr "Événements"
 
 msgid "Number of aids"
 msgstr "Nombre d'aides"
@@ -2073,8 +2074,8 @@ msgstr "Dernière modif."
 msgid "Deadline"
 msgstr "Échéance"
 
-msgid "Stats"
-msgstr "Stats"
+msgid "Hits"
+msgstr "Hits"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
@@ -2339,17 +2340,32 @@ msgstr "Vos thématiques"
 msgid "In what themes are you interested in?"
 msgstr "Dans quelles thématiques recherchez-vous ?"
 
-msgid "Total number of aids"
-msgstr "Toutes les aides"
+msgid "Public stats"
+msgstr "Statistiques publiques"
 
-msgid "Number of active aids"
-msgstr "Aides actives"
+msgid "Available aids"
+msgstr "Aides disponibles"
 
-msgid "Aids updated those 31 days"
-msgstr "Mises à jour durant les 31 derniers jours"
+msgid "Published aids that are still open."
+msgstr "Aides publiées et toujours ouvertes aux candidatures"
 
-msgid "Number of active users"
-msgstr "Utilisateur·ices actif·ves"
+msgid "Sent alerts"
+msgstr "Alertes envoyées"
+
+msgid "Emails sent with new alerts notification"
+msgstr "E-mails d'alertes « nouvelles aides »"
+
+msgid "Viewed aids"
+msgstr "Aides vues"
+
+msgid "Aids viewed within the last seven days"
+msgstr "Nombre d'aides vues pendant les 7 derniers jours"
+
+msgid "Aid backers"
+msgstr "Apporteurs d'aides"
+
+msgid "Organizations that are financing or instructing aids"
+msgstr "Organisations qui financent ou instruisent des aides"
 
 msgid "All tags"
 msgstr "Tous les mots clés"
