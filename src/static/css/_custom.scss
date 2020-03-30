@@ -582,6 +582,8 @@ section#aid {
 
     aside.card {
 
+        @extend .mb-3;
+
         & > div {
             @extend .card-body;
             padding: 1rem;
@@ -594,7 +596,8 @@ section#aid {
         }
 
         h3 {
-            @extend .h4;
+            @extend .h6;
+            margin-bottom: 0;
         }
 
         ul {
@@ -632,7 +635,27 @@ section#aid {
 
         & > div.financers,
         & > div.instructors {
-            @include icon(before, $fa-var-handshake, 2rem);
+            @include icon(before, $fa-var-handshake, 1.5rem);
+        }
+
+        & > div.call-for-project {
+            @include icon(before, $fa-var-thumbtack, 1.5rem);
+        }
+
+        & > div.aid-type {
+            @include icon(before, $fa-var-euro-sign, 1.5rem);
+        }
+
+        & > div.subvention-rate {
+            @include icon(before, $fa-var-percent, 1.5rem);
+        }
+
+        & > div.recurrence {
+            @include icon(before, $fa-var-calendar-alt, 1.5rem);
+        }
+
+        & > div.calendar {
+            @include icon(before, $fa-var-calendar-check, 1.5rem);
         }
     }
 
