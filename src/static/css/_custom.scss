@@ -580,15 +580,21 @@ section#aid {
         @extend .mt-5;
     }
 
-    div.card dl {
-        @extend .card-body;
-        margin-left: 3rem;
-        margin-bottom: 0;
+    aside.card {
 
-        &::before {
-            color: $contrast-color;
-            float: left;
-            margin-left: -3rem;
+        & > div {
+            @extend .card-body;
+            padding: 1rem;
+            margin-left: 3rem;
+            margin-bottom: 0;
+        }
+
+        & > div + div {
+            padding-top: 0;
+        }
+
+        h3 {
+            @extend .h4;
         }
 
         ul {
@@ -597,7 +603,35 @@ section#aid {
             padding: 0;
         }
 
-        &.financers {
+        li {
+            //padding-bottom: .5rem;
+
+        }
+
+        li + li {
+            // margin-top: .5rem;
+        }
+
+        li + li::before {
+            content: "toto";
+            color: transparent;
+            border-top: 2px solid $font-color;
+            display: block;
+            width: 3rem;
+            height: 0px;
+            border-radius: 2px;
+            margin-top: .5rem;
+            padding-top: .5rem;
+        }
+
+        & > div::before {
+            color: $contrast-color;
+            float: left;
+            margin-left: -3rem;
+        }
+
+        & > div.financers,
+        & > div.instructors {
             @include icon(before, $fa-var-handshake, 2rem);
         }
     }

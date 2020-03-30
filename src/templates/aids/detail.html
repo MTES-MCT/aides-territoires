@@ -55,19 +55,32 @@
     <div class="aid-content">
         <div class="sidebar">
 
-            <div class="card">
-                <dl class="financers">
-                    <dt>{{ _('Financers') }}</dt>
-                    <dd>
-                        <ul>
-                        {% for financer in aid.financers.all %}
-                            <li>{{ financer }}</li>
-                        {% endfor %}
-                        </ul>
-                    </dd>
-                </dl>
+            {% if aid.financers.all or aid.instructors.all %}
+            <aside class="card">
 
-            </div>
+                {% if aid.financers.all %}
+                <div class="financers">
+                    <h3>{{ _('Financers') }}</h3>
+                    <ul>
+                    {% for financer in aid.financers.all %}
+                        <li>{{ financer }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if aid.instructors.all %}
+                <div class="instructors">
+                    <h3>{{ _('Instructors') }}</h3>
+                    <ul>
+                    {% for instructor in aid.instructors.all %}
+                        <li>{{ instructor }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </aside>
+            {% endif %}
 
         </div>
 
