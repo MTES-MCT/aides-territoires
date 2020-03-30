@@ -9,8 +9,8 @@ server {
 
 server {
     listen 443 ssl http2 default_server;
-    ssl_certificate /etc/letsencrypt/live/aides-territoires.beta.gouv.fr/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/aides-territoires.beta.gouv.fr/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ project_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ project_domain }}/privkey.pem;
     return 444;
 }
 
