@@ -575,9 +575,22 @@ section#aid {
         }
     }
 
-    div.aid-content {
+    .aid-content {
         @extend .row;
         @extend .mt-5;
+
+        footer {
+            @extend .mt-5;
+            @extend .col-md-8;
+            @extend .offset-4;
+
+            a.suggest-modification {
+                @extend .btn;
+                @extend .btn-outline-primary;
+                border-radius: 0 1rem 1rem 1rem;
+                @include icon(before, $fa-var-pencil-alt);
+            }
+        }
     }
 
     aside.card {
@@ -604,15 +617,6 @@ section#aid {
             list-style-type: none;
             margin: 0;
             padding: 0;
-        }
-
-        li {
-            //padding-bottom: .5rem;
-
-        }
-
-        li + li {
-            // margin-top: .5rem;
         }
 
         li + li::before {
@@ -663,7 +667,7 @@ section#aid {
         @extend .col-md-4;
     }
 
-    div.aid-details {
+    .aid-details {
         @extend .col-md-8;
 
         h2 {

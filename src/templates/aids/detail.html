@@ -28,19 +28,7 @@
     </ul>
     {% endif %}
 
-    {% if aid.is_published %}
-        <div class="aid-actions js">
-            <button class="bundle"
-                data-toggle="modal"
-                data-target="#bundle-modal">
-                {{ _('Save to a bundle') }}
-            </button>
-
-            <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
-                {{ _('Suggest a modification') }}
-            </a>
-        </div>
-    {% else %}
+    {% if not aid.is_published %}
         <div class="danger">
             <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
         </div>
@@ -52,7 +40,7 @@
         </div>
     {% endif %}
 
-    <div class="aid-content">
+    <article class="aid-content">
         <div class="sidebar">
 
             {% if aid.financers.all or aid.instructors.all %}
@@ -147,7 +135,6 @@
             </aside>
         </div>
 
-
         <div class="aid-details">
 
             <h2>{{ _('Global presentation') }}</h2>
@@ -227,7 +214,13 @@
                 </dl>
             {% endif %}
         </div>
-    </div>
+
+        <footer>
+            <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
+                {{ _('Suggest a modification') }}
+            </a>
+        </footer>
+    </article>
 
 </section>
 {% endblock %}
