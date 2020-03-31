@@ -666,6 +666,21 @@ section#aid {
     div.aid-details {
         @extend .col-md-8;
 
+        h2 {
+            @extend .h4;
+            background-color: $pale-background;
+            border-radius: 0 2rem 2rem 2rem;
+            padding: .5rem 1rem;
+        }
+
+        * + h2 {
+            @extend .mt-5;
+        }
+
+        h3 {
+            @extend .h5;
+        }
+
     }
 
     div.aid-actions {
