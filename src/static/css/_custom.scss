@@ -666,17 +666,6 @@ section#aid {
     div.aid-details {
         @extend .col-md-8;
 
-        div.long-data {
-            @extend .col-md-12;
-        }
-
-        div.short-data {
-            @extend .col-md-6;
-        }
-
-        p {
-            @extend .mb-4;
-        }
     }
 
     div.aid-actions {

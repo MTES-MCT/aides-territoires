@@ -2027,7 +2027,7 @@ msgid "The aid can be mobilized during…"
 msgstr "Dispositif applicable pour un projet…"
 
 msgid "Other eligibility criterias"
-msgstr "Autres critères d'éligibilité ?"
+msgstr "Autres critères d'éligibilité"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
