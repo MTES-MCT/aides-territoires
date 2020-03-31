@@ -476,11 +476,6 @@ p, div {
         &:last-child {
             margin-bottom: 0;
         }
-
-        ul:last-child,
-        p:last-child {
-            margin-bottom: 0;
-        }
     }
 }
 
@@ -731,4 +726,18 @@ nav.form-steps {
 
 .card {
     @extend .shadow-sm;
+}
+
+ul:last-child,
+p:last-child {
+    margin-bottom: 0;
+}
+
+.mobile-center {
+    text-align: left;
+
+    @include media-breakpoint-down(md) {
+        text-align: center;
+        margin: inherit auto;
+    }
 }

@@ -19,9 +19,20 @@
 
 {% block content %}
 <section id="aid">
+
+    {% if aid.submission_deadline and not aid.is_ongoing %}
+        <div class="deadline-data">
+            <span>J-{{ aid.days_before_deadline }}</span>
+            <p>
+                <strong>{{ _('Deadline') }}</strong><br />
+                {{ aid.submission_deadline|date }}
+            </p>
+        </div>
+    {% endif %}
+
     <h1> {{ aid.name }} </h1>
     {% if aid.categories %}
-    <ul class="categories">
+    <ul class="categories mobile-center">
         {% for category in aid.categories.all %}
             <li>{{ category }}</li>
         {% endfor %}
@@ -215,7 +226,7 @@
             {% endif %}
         </div>
 
-        <footer>
+        <footer class="mobile-center">
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>

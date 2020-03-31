@@ -575,6 +575,40 @@ section#aid {
         }
     }
 
+    div.deadline-data {
+        float: right;
+        @extend .ml-3;
+        @extend .mb-3;
+        @extend .d-none;
+        @extend .d-md-block;
+
+        span {
+            display: block;
+            background-color: $green;
+            padding: .3rem 1.5rem;
+            border-radius: 2rem 0 2rem 2rem;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        p {
+            @extend .mt-3;
+            text-align: right;
+            position: relative;
+            @include icon(after, $fa-var-calendar-alt, 2rem);
+            padding-right: 2.5rem;
+        }
+
+        p::after {
+            position: absolute;
+            top: .5rem;
+            right: 0;
+            color: $green;
+        }
+    }
+
     .aid-content {
         @extend .row;
         @extend .mt-5;
@@ -582,7 +616,7 @@ section#aid {
         footer {
             @extend .mt-5;
             @extend .col-md-8;
-            @extend .offset-4;
+            @extend .offset-md-4;
 
             a.suggest-modification {
                 @extend .btn;
@@ -591,6 +625,11 @@ section#aid {
                 @include icon(before, $fa-var-pencil-alt);
             }
         }
+    }
+
+    .sidebar {
+        @extend .col-md-4;
+        @extend .mb-3;
     }
 
     aside.card {
@@ -661,10 +700,6 @@ section#aid {
         & > div.calendar {
             @include icon(before, $fa-var-calendar-check, 1.5rem);
         }
-    }
-
-    div.sidebar {
-        @extend .col-md-4;
     }
 
     .aid-details {
