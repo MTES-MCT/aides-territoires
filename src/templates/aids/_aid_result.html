@@ -2,6 +2,12 @@
 
 <section class="aid">
     <div>
+        {% if aid.has_approaching_deadline %}
+            <span class="deadline deadline-delta">J-{{ aid.days_before_deadline }}</span>
+        {% else %}
+            <span class="deadline no-deadline"></span>
+        {% endif %}
+
         <h1>
             <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
             {% if aid.author.is_certified %}

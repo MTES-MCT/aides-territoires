@@ -318,11 +318,41 @@ section#program-list {
 
         div {
             @extend .card-body;
+            @extend .pb-4;
+
+            span.deadline {
+                float: right;
+                display: block;
+                @extend .ml-2;
+                @extend .mb-2;
+
+            }
+
+            span.deadline-delta {
+                background-color: $contrast-color;
+                padding: .3rem 1.5rem;
+                border-radius: 2rem 0 2rem 2rem;
+                font-size: 1.25rem;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+                font-family: $font-family-sans-serif;
+            }
+
+            span.no-deadline {
+                height: 2rem;
+                width: 2rem;
+                border-top: 5px solid $contrast-color;
+                border-right: 5px solid $contrast-color;
+                border-radius: 3px;
+            }
 
             h1 {
                 @extend .h5;
                 @extend .card-title;
                 @extend .mb-4;
+                @extend .py-3;
+                clear: both;
 
                 div.status-icons {
                     @extend .pl-4;
@@ -375,10 +405,6 @@ section#program-list {
             ul {
                 padding: 0;
                 list-style: none;
-            }
-
-            p {
-                @extend .card-text;
             }
         }
     }
