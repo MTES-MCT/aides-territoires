@@ -30,6 +30,7 @@
 </div>
 {% endif %}
 
+<div class="aids">
 {% for program in programs %}
     {% include 'programs/_program_result.html' with program=program %}
 {% endfor %}
@@ -41,5 +42,6 @@
     <p class="warning">{{ _('We could not find any results.') }}</p>
 </div>
 {% endfor %}
+</div>
 
 {% include '_pagination.html' %}

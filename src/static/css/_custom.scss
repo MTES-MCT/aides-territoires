@@ -296,29 +296,33 @@ section#search-engine {
 section#aid-list,
 section#program-list {
 
+
     &.loading {
         opacity: 0.3;
+    }
+
+    div.aids {
+        @extend .card-columns;
+        column-count: auto;
+        column-width: 18rem;
     }
 
     section.aid,
     section.program {
         @extend .card;
-        @extend .mb-3;
+        @extend .bg-white;
+        @extend .text-dark;
+        @extend .shadow-sm;
+        border-radius: 2rem 0 1rem 1rem;
+        margin-bottom: $card-columns-gap !important;
 
         div {
             @extend .card-body;
 
             h1 {
-                @extend .h3;
+                @extend .h5;
                 @extend .card-title;
-
-                small {
-                    @extend .card-subtitle;
-
-                    span.backer-name + span.backer-name:before {
-                        content: '|';
-                    }
-                }
+                @extend .mb-4;
 
                 div.status-icons {
                     @extend .pl-4;
@@ -342,27 +346,39 @@ section#program-list {
                 }
             }
 
-            p {
-                @extend .card-text;
-            }
-        }
+            h2 {
+                @extend .h6;
+                margin-bottom: 0;
+                text-transform: uppercase;
 
-        ul {
-            @extend .list-group;
-            @extend .list-group-flush;
+                &.financers {
+                    @include icon(before, $fa-var-handshake);
+                }
 
-            li {
-                @extend .list-group-item;
+                &.aid-type {
+                    @include icon(before, $fa-var-cog);
+                }
 
-                &:first-child {
-                    border-top-width: 1px;
-                    border-radius: 0 !important;
+                &.subvention-rate {
+                    @include icon(before, $fa-var-percent);
+                }
+
+                &.recurrence {
+                    @include icon(before, $fa-var-history);
+                }
+
+                &.deadline {
+                    @include icon(before, $fa-var-calendar-alt);
                 }
             }
 
-            li.warning {
-                @extend .bg-danger;
-                @extend .text-white;
+            ul {
+                padding: 0;
+                list-style: none;
+            }
+
+            p {
+                @extend .card-text;
             }
         }
     }
