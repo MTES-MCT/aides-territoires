@@ -90,8 +90,10 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['programs'] = self.get_programs()
         context['SEARCH_COOKIE_NAME'] = settings.SEARCH_COOKIE_NAME
+
+        context['perimeter'] = self.form.cleaned_data['perimeter']
+        context['categories'] = self.form.cleaned_data['categories']
 
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)

@@ -202,48 +202,67 @@ section#search-engine {
         @extend .card;
         @extend .d-none;
         @extend .d-lg-block;
+        background-color: $light-purple;
+        border-radius: 0 1rem 1rem 1rem;
+        @extend .shadow;
 
         form {
             @extend .card-body;
+            @extend .py-4;
+
+            div.col + div.col {
+                border-left: 3px solid white;
+            }
 
             div.checkbox-group {
-                align-self: flex-end;
-
-                label {
-                    @extend .mr-3;
-
-                    &:first-child {
-                        display: inline-block;
-                        min-width: 10em;
-                    }
+                label + input {
+                    @extend .ml-2;
                 }
             }
 
-            div.date-group {
-                @extend .form-inline;
+            #form-group-text label,
+            #form-group-backers label {
+                margin-bottom: 1rem;
+            }
 
-                label {
-                    @extend .mr-2;
-                    margin-bottom: $form-group-margin-bottom;
+            #form-group-backers {
+
+                .select2-container--bootstrap4 .select2-selection {
+                    background-color: $light-purple;
+                    border-color: white;
+                    background-color: transparent;
+                    color: white;
+                    border-radius: 0 1rem 1rem 1rem;
 
                 }
 
-                input {
-                    width: auto;
-                    flex-grow: 1;
-                    margin-bottom: $form-group-margin-bottom;
+                .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+                    background-color: $dark;
+                    color: white;
+                    border: none;
+                }
+
+                .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
+                    color: white;
+                }
+
+                .select2-container--bootstrap4 .select2-results__option {
+                    color: $dark;
+                    display: none;
                 }
             }
 
-            div.form-check-inline {
-                label {
-                    @extend .form-check-label;
-                }
+            input[type=text],
+            select {
+                background-color: transparent;
+                color: white;
+                border-radius: 0 1rem 1rem 1rem;
 
-                input {
-                    @extend .form-check-input;
+                &::placeholder {
+                    color: #ccc;
                 }
             }
+
 
             div.actions-row {
                 @include clearfix;
@@ -289,6 +308,25 @@ section#search-engine {
 
             @include icon(before, $fa-var-search);
 
+        }
+    }
+}
+
+section#search {
+    h1 {
+        @extend .h3;
+    }
+
+    div.search-meta {
+        @extend .mb-4;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        ul {
+            padding: 0;
+            list-style-type: none;
         }
     }
 }

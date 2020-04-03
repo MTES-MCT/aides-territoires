@@ -1,18 +1,43 @@
 {% extends '_base.html' %}
 {% load i18n compress %}
 
-{% block extratitle %}{{ _('All aids') }}{% endblock %}
+{% block extratitle %}{{ _('Search') }}{% endblock %}
+
+{% block sectionid %}search{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('All aids') }}</li>
+        <li class="active" aria-current="page">{{ _('Search') }}</li>
     </ol>
 </nav>
 {% endblock %}
 
 {% block content %}
+
+<h1>{% blocktrans with paginator.count as nb_aids trimmed %}
+    Your research: <span class="result-count">{{ nb_aids }} results</span>
+{% endblocktrans %}</h1>
+
+{% if perimeter or categories %}
+<div class="search-meta">
+    {% if perimeter %}
+        <p>
+            <strong>{{ _('For:') }}</strong> {{ perimeter }}
+        </p>
+    {% endif %}
+
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+            <li>{{ category.theme }} &gt; {{ category }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endif %}
+
 <section id="search-engine">
     {% include 'aids/_search_form.html' %}
 </section>
@@ -37,7 +62,7 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/dynamic_search_engine.js"></script>
+<script src="/static/js/aids/backers_autocomplete.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/aids/bookmark_results.js"></script>
 {% endcompress %}

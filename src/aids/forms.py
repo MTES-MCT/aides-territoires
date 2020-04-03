@@ -373,6 +373,11 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
+    AID_TYPE_CHOICES = (
+        ('financial', _('Financial aid')),
+        ('technical', _('Engineering aid')),
+    )
+
     ORDER_BY = (
         ('relevance', _('Sort: relevance')),
         ('publication_date', _('Sort: publication date')),
@@ -392,6 +397,11 @@ class AidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
+    aid_type = forms.MultipleChoiceField(
+        label=_('Aid type'),
+        choices=AID_TYPE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple)
     financial_aids = forms.MultipleChoiceField(
         label=_('Financial aids'),
         required=False,
@@ -424,6 +434,11 @@ class AidSearchForm(forms.Form):
         label=_('Categories'),
         queryset=Category.objects.all(),
         to_field_name='slug',
+        required=False)
+    backers = forms.ModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        widget=AutocompleteSelectMultiple,
         required=False)
 
     # This field is not related to the search, but is submitted

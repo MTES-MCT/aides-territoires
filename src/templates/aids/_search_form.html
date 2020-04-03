@@ -5,59 +5,33 @@
         {% for field in form.hidden_fields %}
         {{ field }}
         {% endfor %}
-        <div id="basic-search" class="show active">
 
-            <div class="form-row">
-                <div class="col-md-8">
-                    {% include '_search_field.html' with field=form.text %}
+        <div class="row">
+            <div class="col col-md-5">
+                <div class="form-group checkbox-group">
+                    {% for choice in form.aid_type %}
+                        {{ choice }}
+                    {% endfor %}
                 </div>
 
-                <div class="col-md-4 date-group">
+                <div class="form-group checkbox-group">
+                    {{ form.call_for_projects_only }}
                     <label>
-                        {{ form.apply_before.label }}
+                        {{ form.call_for_projects_only.label }}
                     </label>
-                    {{ form.apply_before }}
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-md-8">
-                    {% include '_search_field.html' with field=form.perimeter %}
-                </div>
-                <div class="col-md-4 form-group checkbox-group">
-                    <div class="form-check form-check-inline">
-                        {{ form.call_for_projects_only }}
-                        <label>
-                            {{ form.call_for_projects_only.label }}
-                        </label>
-                    </div>
-                </div>
+            <div class="col col-md-3">
+                {% include '_field_snippet.html' with field=form.backers %}
+            </div>
+
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.text %}
             </div>
         </div>
 
         <div id="advanced-search">
-
-            <div class="form-group checkbox-group">
-                <div class="form-check form-check-inline">
-                    <label>
-                        {{ form.financial_aids.label }}
-                    </label>
-                    {% for choice in form.financial_aids %}
-                        {{ choice }}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="form-group checkbox-group">
-                <div class="form-check form-check-inline">
-                    <label>
-                        {{ form.technical_aids.label }}
-                    </label>
-                    {% for choice in form.technical_aids %}
-                        {{ choice }}
-                    {% endfor %}
-                </div>
-            </div>
 
             <div class="form-group">
                 {{ form.order_by }}
