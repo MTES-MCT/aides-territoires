@@ -226,35 +226,7 @@ section#search-engine {
                 margin-bottom: 1rem;
             }
 
-            #form-group-backers {
-
-                .select2-container--bootstrap4 .select2-selection {
-                    background-color: $light-purple;
-                    border-color: white;
-                    background-color: transparent;
-                    color: white;
-                    border-radius: 0 1rem 1rem 1rem;
-
-                }
-
-                .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
-                    background-color: $dark;
-                    color: white;
-                    border: none;
-                }
-
-                .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
-                    color: white;
-                }
-
-                .select2-container--bootstrap4 .select2-results__option {
-                    color: $dark;
-                    display: none;
-                }
-            }
-
-            input[type=text],
-            select {
+            input[type=text] {
                 background-color: transparent;
                 color: white;
                 border-radius: 0 1rem 1rem 1rem;

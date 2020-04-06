@@ -9,7 +9,7 @@ $s2bs-border-radius-base: $border-radius !default;
 $s2bs-border-radius-large: $border-radius-lg !default;
 $s2bs-border-radius-small: $border-radius-sm !default;
 $s2bs-btn-default-bg: transparent !default;
-$s2bs-btn-default-border: #ffffffaa;
+$s2bs-btn-default-border: #ccc;
 $s2bs-btn-default-color: $dark !default;
 $s2bs-caret-width-base: 0.25rem !default;
 $s2bs-caret-width-large: 0.3125rem !default;
@@ -118,6 +118,10 @@ $s2bs-form-control-transition: border-color ease-in-out .15s, box-shadow ease-in
 .select2-container--dark {
   display: block;
   caret-color: white;
+
+  .select2-dropdown {
+      border-radius: 0 0 1rem 1rem;
+  }
 
   .select2-selection {
     @include bootstrap-input-defaults;
