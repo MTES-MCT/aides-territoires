@@ -9,14 +9,14 @@ $s2bs-border-radius-base: $border-radius !default;
 $s2bs-border-radius-large: $border-radius-lg !default;
 $s2bs-border-radius-small: $border-radius-sm !default;
 $s2bs-btn-default-bg: transparent !default;
-$s2bs-btn-default-border: $dark !default;
+$s2bs-btn-default-border: #ffffffaa;
 $s2bs-btn-default-color: $dark !default;
 $s2bs-caret-width-base: 0.25rem !default;
 $s2bs-caret-width-large: 0.3125rem !default;
 $s2bs-cursor-disabled: not-allowed !default;
 $s2bs-dropdown-header-color: $dropdown-header-color !default;
-$s2bs-dropdown-link-active-bg: $dropdown-link-active-bg !default;
-$s2bs-dropdown-link-active-color: $dropdown-link-active-color !default;
+$s2bs-dropdown-link-active-bg: #ddd;
+$s2bs-dropdown-link-active-color: #2b2465;
 $s2bs-dropdown-link-disabled-color: $dropdown-link-disabled-color !default;
 $s2bs-dropdown-link-hover-bg: $dropdown-link-hover-bg !default;
 $s2bs-dropdown-link-hover-color: $dropdown-link-hover-color !default;
@@ -30,14 +30,14 @@ $s2bs-padding-base-vertical: $custom-select-padding-y !default;
 $s2bs-padding-large-vertical: $input-padding-y-lg !default;
 $s2bs-padding-small-vertical: $input-padding-y-sm !default;
 $s2bs-line-height: $input-line-height !default;
-$s2bs-input-bg: $input-bg !default;
-$s2bs-input-bg-disabled: $input-disabled-bg !default;
-$s2bs-input-color: $input-color !default;
-$s2bs-input-color-placeholder: $input-placeholder-color !default;
-$s2bs-input-border: $input-border-color !default;
+$s2bs-input-bg: #6c5aa8ff;
+$s2bs-input-bg-disabled: transparent;
+$s2bs-input-color: white;
+$s2bs-input-color-placeholder: #ccc;
+$s2bs-input-border: white;
 $s2bs-input-border-width: $input-border-width !default;
-$s2bs-input-border-focus: $input-focus-border-color !default;
-$s2bs-input-border-radius: $input-border-radius !default;
+$s2bs-input-border-focus: white;
+$s2bs-input-border-radius: 0 1rem 1rem 1rem;
 $s2bs-input-height-base: $input-height !default;
 $s2bs-input-height-large: $input-height-lg !default;
 $s2bs-input-height-small: $input-height-sm !default;
@@ -45,16 +45,18 @@ $s2bs-input-height-small: $input-height-sm !default;
 // Theme-specific variables
 // -------------------------
 
-$s2bs-dropdown-arrow-color: $s2bs-input-color-placeholder !default;
+$s2bs-dropdown-arrow-color: white;
 $s2bs-dropdown-box-shadow: 0 6px 12px rgba(0,0,0,.175) !default;
 $s2bs-dropdown-box-shadow-above: 0px -6px 12px rgba(0,0,0,.175) !default;
-$s2bs-clear-selection-color: $s2bs-dropdown-arrow-color !default;
-$s2bs-clear-selection-hover-color: $s2bs-btn-default-color !default;
-$s2bs-remove-choice-color: $s2bs-input-color-placeholder !default;
-$s2bs-remove-choice-hover-color: $s2bs-btn-default-color !default;
+$s2bs-clear-selection-color: white;
+$s2bs-clear-selection-hover-color: white;
+$s2bs-remove-choice-color: white;
+$s2bs-remove-choice-hover-color: #ccc;
 $s2bs-selection-choice-border-radius: $s2bs-border-radius-base !default;
 $s2bs-dropdown-header-padding-vertical: $s2bs-padding-base-vertical !default;
 $s2bs-dropdown-header-font-size: $s2bs-font-size-small !default;
+$s2bs-dropdown-bg: white;
+$s2bs-dropdown-color: #2b2465;
 
 
 // Bootstrap defaults not available as pre-defined variables
@@ -115,6 +117,7 @@ $s2bs-form-control-transition: border-color ease-in-out .15s, box-shadow ease-in
 
 .select2-container--dark {
   display: block;
+  caret-color: white;
 
   .select2-selection {
     @include bootstrap-input-defaults;
@@ -133,6 +136,7 @@ $s2bs-form-control-transition: border-color ease-in-out .15s, box-shadow ease-in
 
   .select2-search__field {
     outline: 0;
+    color: $s2bs-input-color;
 
     &::-webkit-input-placeholder {
       color: $s2bs-input-color-placeholder;
@@ -153,6 +157,8 @@ $s2bs-form-control-transition: border-color ease-in-out .15s, box-shadow ease-in
   .select2-results__option {
     padding: $s2bs-padding-base-vertical $s2bs-padding-base-horizontal;
     font-size: $s2bs-font-size-base;
+    background-color: $s2bs-dropdown-bg;
+    color: $s2bs-dropdown-color;
 
     &[role=group] {
       padding: 0;

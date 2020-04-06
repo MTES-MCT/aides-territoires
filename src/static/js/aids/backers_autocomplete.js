@@ -5,7 +5,7 @@ $(document).ready(function () {
         language: 'fr',
         minimumInputLength: 3,
         language: {
-            inputTooShort: function() { return ''; },
+            inputTooShort: function() { return catalog.autocomplete_placeholder; },
         },
         ajax: {
             url: '/api/backers/',
