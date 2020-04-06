@@ -72,6 +72,7 @@ section#intro {
 
     div#how {
         clear: both;
+        @extend .pb-5;
 
         div.marketing {
             @extend .row;
