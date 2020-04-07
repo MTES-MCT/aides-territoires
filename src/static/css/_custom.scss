@@ -274,26 +274,23 @@ section#search-engine {
                     color: #ccc;
                 }
             }
+        }
 
+        div.actions-row {
+            @extend .mt-3;
+            text-align: right;
 
-            div.actions-row {
+            select {
+                @extend .custom-select;
+                display: inline-block;
+                width: inherit;
+                border-radius: 0 1rem 1rem 1rem;
+                border: none;
+            }
 
-                button.search-btn {
-                    @extend .btn;
-                    @extend .btn-success;
-                    @include icon(before, $fa-var-search);
-                    min-width: 15em;
-                    float: left;
-                }
-
-
-                a.alert-btn {
-                    @extend .btn;
-                    @extend .btn-outline-primary;
-                    @include icon(before, $fa-var-bell);
-                    min-width: 15em;
-                    float: right;
-                }
+            button.search-btn {
+                @extend .btn-block;
+                @include icon(before, $fa-var-search);
             }
         }
     }

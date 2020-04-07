@@ -55,24 +55,19 @@
             </div>
         </div>
 
-        {% comment %}
         <div class="row actions-row">
-            <button name="action" value="search" class="search-btn" type="submit">
-                {{ _('Search') }}
-            </button>
-
-        </div>
-
-        <div id="advanced-search">
-
-            <div class="form-group">
+            <div class="col-md-3 offset-md-5">
                 {{ form.order_by }}
             </div>
-
+            <div class="col-md-4">
+                <button name="action" value="search" class="search-btn" type="submit">
+                    {{ _('Search') }}
+                </button>
+            </div>
         </div>
-        {% endcomment %}
     </div>
     </div>
+
 </form>
 
 <nav id="mobile-search-link">
