@@ -264,7 +264,7 @@ class AidEditForm(BaseAidForm):
             here your aid actual target area.
         '''))
     categories = CategoryMultipleChoiceField(
-        label=_('Categories'),
+        label=_('Aid categories'),
         help_text=_('Choose one or several categories that match your aid.'),
         required=False)
 
