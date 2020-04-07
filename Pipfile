@@ -20,6 +20,7 @@ django-braces = "*"
 django-xworkflows = "*"
 beautifulsoup4 = "*"
 scrapy = "*"
+zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 
 [dev-packages]
 pytest = "*"
