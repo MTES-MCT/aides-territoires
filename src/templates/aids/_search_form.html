@@ -1,10 +1,34 @@
 {% load pagination i18n %}
 
-<div class="form-container">
-    <form id="search-form" action="" method="get">
-        {% for field in form.hidden_fields %}
+<form id="search-form" action="" method="get">
+    {% for field in form.hidden_fields %}
         {{ field }}
-        {% endfor %}
+    {% endfor %}
+
+    <div class="other-actions">
+
+        {% comment %}
+            This hidden button is here to make it the "default" submit button.
+            This way, we make sure pressing "enter" performs a new search instead
+            of going to the "more filters" page.
+        {% endcomment %}
+        <button type="submit" class="hidden"></button>
+
+        <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+            {{ _('More filters') }}
+        </button>
+
+        <a href="#" id="share-btn" data-toggle="modal" data-target="#share-results-modal" class="js share-btn">
+            {{ _('Share') }}
+        </button>
+
+        <a href="#" id="save-alert-btn" class="alert-btn js" data-toggle="modal" data-target="#alert-search-modal">
+            {{ _('Create an alert') }}
+        </a>
+    </div>
+
+    <div class="form-container">
+    <div class="form-body">
 
         <div class="row">
             <div class="col col-md-5">
@@ -31,26 +55,25 @@
             </div>
         </div>
 
+        {% comment %}
+        <div class="row actions-row">
+            <button name="action" value="search" class="search-btn" type="submit">
+                {{ _('Search') }}
+            </button>
+
+        </div>
+
         <div id="advanced-search">
 
             <div class="form-group">
                 {{ form.order_by }}
             </div>
 
-            <div class="actions-row">
-                <button name="action" value="search" class="search-btn" type="submit">
-                    {{ _('Search') }}
-                </button>
-                <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-                    {{ _('See more filters') }}
-                </button>
-                <a href="#" id="save-alert-btn" class="alert-btn js" data-toggle="modal" data-target="#alert-search-modal">
-                    {{ _('Create an alert') }}
-                </a>
-            </div>
         </div>
-    </form>
-</div>
+        {% endcomment %}
+    </div>
+    </div>
+</form>
 
 <nav id="mobile-search-link">
     <div class="container">

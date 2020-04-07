@@ -197,17 +197,48 @@ section#marketing {
 }
 
 section#search-engine {
-    @extend .mb-3;
+    margin: 2rem 0;
 
-    div.form-container {
-        @extend .card;
-        @extend .d-none;
-        @extend .d-lg-block;
-        background-color: $light-purple;
-        border-radius: 0 1rem 1rem 1rem;
-        @extend .shadow;
+    form {
 
-        form {
+        div.other-actions {
+            @extend .mb-2;
+
+            button, a {
+                @extend .btn;
+                @extend .btn-link;
+                color: white;
+                box-shadow: none;
+
+                &.hidden {
+                    display: none;
+                }
+
+                &.advanced-link {
+                    padding-left: 0;
+                }
+            }
+
+            a#save-alert-btn {
+                @extend .btn;
+                @extend .btn-primary;
+                @include icon(before, $fa-var-bell);
+                border-radius: 0 1rem 1rem 1rem;
+                min-width: 15em;
+                float: right;
+            }
+        }
+
+        div.form-container {
+            @extend .card;
+            @extend .d-none;
+            @extend .d-lg-block;
+            background-color: $light-purple;
+            border-radius: 0 1rem 1rem 1rem;
+            @extend .shadow;
+        }
+
+        div.form-body {
             @extend .card-body;
             @extend .py-4;
 
@@ -219,6 +250,14 @@ section#search-engine {
                 label + input {
                     @extend .ml-2;
                 }
+            }
+
+            div.form-group {
+                margin-bottom: 0;
+            }
+
+            div.form-group + div.form-group {
+                margin-top: 1rem;
             }
 
             #form-group-text label,
@@ -238,7 +277,6 @@ section#search-engine {
 
 
             div.actions-row {
-                @include clearfix;
 
                 button.search-btn {
                     @extend .btn;
@@ -248,13 +286,6 @@ section#search-engine {
                     float: left;
                 }
 
-                button.advanced-link {
-                    @extend .btn;
-                    @extend .btn-link;
-                    @include icon(before, $fa-var-plus);
-                    float: left;
-
-                }
 
                 a.alert-btn {
                     @extend .btn;
