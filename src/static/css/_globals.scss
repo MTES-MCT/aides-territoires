@@ -157,7 +157,6 @@ nav#main-navbar {
     @extend .navbar-light;
     @extend .bg-white;
     @extend .navbar-expand-sm;
-    @extend .shadow;
 
     .homelink {
         @extend .mr-auto;
@@ -670,6 +669,7 @@ html {
 div.header-warning {
     background-color: $red;
     color: white;
+    @extend .shadow;
 
     p {
         @extend .py-2;
