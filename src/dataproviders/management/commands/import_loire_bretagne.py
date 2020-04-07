@@ -1,3 +1,4 @@
+# flake8: noqa
 import os
 from datetime import datetime
 import re
@@ -10,7 +11,7 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'  # noqa
+FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
