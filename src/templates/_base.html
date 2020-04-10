@@ -31,7 +31,9 @@
     </head>
     <body class="{% block body-class %}dark-background{% endblock %}">
 
-        {% include '_header.html' %}
+        {% block header %}
+            {% include '_header.html' %}
+        {% endblock %}
 
         <main role="main">
             {% block main %}
@@ -55,7 +57,11 @@
             {% endblock %}
         </main>
 
-        {% include '_footer.html' %}
+        {% block footer %}
+            {% include '_footer.html' %}
+        {% endblock %}
+
+        {% block modals %}{% endblock %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
