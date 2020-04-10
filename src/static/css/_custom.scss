@@ -219,7 +219,7 @@ section#search-engine {
                 }
             }
 
-            a#save-alert-btn {
+            #save-alert-btn {
                 @extend .btn;
                 @extend .btn-primary;
                 @include icon(before, $fa-var-bell);

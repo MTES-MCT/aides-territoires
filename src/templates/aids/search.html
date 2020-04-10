@@ -47,10 +47,9 @@
 </section>
 {% endblock %}
 
-{% block footer %}
-{{ block.super }}
-{% include 'aids/_bookmark_results_modal.html' %}
-{% include 'alerts/_alert_modal.html' %}
+{% block modals %}
+    {% include 'aids/_bookmark_results_modal.html' %}
+    {% include 'alerts/_alert_modal.html' %}
 {% endblock %}
 
 {% block extra_css %}

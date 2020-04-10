@@ -517,6 +517,7 @@ div.modal {
     .modal-dialog {
 
         @extend .modal-dialog-centered;
+        @extend .text-dark;
 
         section {
             @extend .modal-content;
