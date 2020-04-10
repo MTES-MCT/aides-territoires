@@ -55,11 +55,7 @@
                 {% block content %}{% endblock %}
             </section>
             {% endblock %}
-        </main>
-
-        {% block footer %}
-            {% include '_footer.html' %}
-        {% endblock %}
+        </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
 
         {% block modals %}{% endblock %}
 

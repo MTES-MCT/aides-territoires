@@ -146,12 +146,6 @@ body > footer {
     }
 }
 
-
-main {
-    background: transparent url(../img/courbes.svg) top center no-repeat;
-    padding-top: 1.5rem;
-}
-
 nav#main-navbar {
     @extend .navbar;
     @extend .navbar-light;
@@ -262,6 +256,15 @@ nav#main-navbar {
 }
 
 main {
+    background: transparent url(../img/courbes.svg) top center no-repeat;
+    padding-top: 1.5rem;
+
+    &>:last-child {
+        @include media-breakpoint-down(md) {
+            padding-bottom: 75px;
+        }
+    }
+
     section.main-content {
         @extend .container-lg;
 
