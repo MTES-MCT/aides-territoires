@@ -222,10 +222,20 @@ section#search-engine {
             #save-alert-btn {
                 @extend .btn;
                 @extend .btn-primary;
+                font-weight: bold;
+                width: 100%;
+                display: block;
+                @extend .mt-2;
+
+                @include media-breakpoint-up(md) {
+                    margin-top: 0 !important;
+                    width: inherit;
+                    float: right;
+                }
+
                 @include icon(before, $fa-var-bell);
                 border-radius: 0 1rem 1rem 1rem;
                 min-width: 15em;
-                float: right;
             }
         }
 
