@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 10:13+0200\n"
+"POT-Creation-Date: 2020-04-14 10:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -538,6 +538,12 @@ msgstr "Financière"
 msgid "Non-funding"
 msgstr "Non-financière"
 
+msgid "Financial aid"
+msgstr "Aide financière"
+
+msgid "Engineering aid"
+msgstr "Aide en ingénierie"
+
 msgid "Sort: relevance"
 msgstr "Tri : pertinence"
 
@@ -558,6 +564,9 @@ msgstr "Titre, sujet, mot-clé, etc."
 
 msgid "Apply before…"
 msgstr "Candidater avant…"
+
+msgid "Aid type"
+msgstr "Nature de l'aide"
 
 msgid "Engineering aids"
 msgstr "Aides en ingénierie"
@@ -1325,14 +1334,14 @@ msgstr "Aides en brouillon"
 msgid "Log out"
 msgstr "Déconnexion"
 
+msgid "let's keep in touch"
+msgstr "Resons en contact !"
+
 msgid "Publish new aids"
 msgstr "Publier des aides"
 
-msgid "Data export and api"
-msgstr "Réutilisation des données et API"
-
-msgid "Contact:"
-msgstr "Contact :"
+msgid "Data and api"
+msgstr "Données et API"
 
 msgid "Legal mentions"
 msgstr "Mentions légales"
@@ -1755,28 +1764,14 @@ msgstr "Cette aide est directement publiée par la structure qui la porte."
 msgid "Corporate"
 msgstr "Privé"
 
-msgid "No detailed description was submitted."
-msgstr "Aucune description détaillée n'a été renseignée."
+msgid "Subvention rate"
+msgstr "Taux de subvention"
 
-msgid "Financial aid"
-msgstr "Aide financière"
+msgid "Min:"
+msgstr "Min :"
 
-msgid "Engineering aid"
-msgstr "Aide en ingénierie"
-
-#, python-format
-msgid "Application opening date on the %(start_date)s"
-msgstr "Ouverture des dépôts de dossier le %(start_date)s"
-
-#, python-format
-msgid "Submission deadline on the %(deadline)s"
-msgstr "Date de clôture le %(deadline)s"
-
-msgid "Warning! The submission deadline is imminent."
-msgstr "Attention ! La date de soumission est imminente."
-
-msgid "Warning! The submission deadline is imminent"
-msgstr "Attention ! La date de soumission est imminente"
+msgid "Max:"
+msgstr "Max :"
 
 msgid "Aid edition"
 msgstr "Édition de l'aide"
@@ -1862,33 +1857,20 @@ msgstr "Prévisualisation de l'aide"
 msgid "Close"
 msgstr "Fermer"
 
-msgid "Relevance "
-msgstr "Pertinence"
+msgid "We could not find any results."
+msgstr "Nous n'avons pu trouver aucun résultat."
 
-msgid "Publication date"
-msgstr "Date de publication"
-
-#, python-format
-msgid "<strong>%(nb_aids)s</strong> results"
-msgstr "<strong>%(nb_aids)s</strong> résultats"
-
-msgid "Share these results"
-msgstr "Partager ces résultats"
+msgid "More filters"
+msgstr "Plus de critères"
 
 msgid "Share"
 msgstr "Partager"
 
-msgid "We could not find any results."
-msgstr "Nous n'avons pu trouver aucun résultat."
+msgid "Create an alert"
+msgstr "Créer une alerte"
 
 msgid "Search"
 msgstr "Rechercher"
-
-msgid "See more filters"
-msgstr "Voir plus de critères"
-
-msgid "Create an alert"
-msgstr "Créer une alerte"
 
 msgid "Filter your results"
 msgstr "Filtrer les résultats"
@@ -1976,23 +1958,8 @@ msgstr "Enregistrer en brouillon"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgid "Financers provide fundings."
-msgstr "Les financeurs apportent les fonds."
-
-msgid "Financer(s):"
-msgstr "Financeur(s) :"
-
-msgid "Instructors locally implement the aid."
-msgstr "Les instructeurs mettent en œuvre au niveau local."
-
-msgid "Instructor(s):"
-msgstr "Instructeur(s) :"
-
-msgid "Save to a bundle"
-msgstr "Enregistrer dans une liste"
-
-msgid "Suggest a modification"
-msgstr "Suggérer des modifications"
+msgid "Deadline"
+msgstr "Échéance"
 
 msgid ""
 "Warning! This aid is <strong>currently not published</strong>. You can only "
@@ -2008,26 +1975,32 @@ msgstr ""
 "Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page "
 "restera accessible pour archivage."
 
+msgid "Call for project"
+msgstr "Appel à projet"
+
+msgid "Call for expression of interest"
+msgstr "Appel à manifestation d'intérêt"
+
+msgid "Global presentation"
+msgstr "Présentation générale"
+
+msgid "No detailed description was submitted."
+msgstr "Aucune description détaillée n'a été renseignée."
+
 msgid "Aid targeted area"
 msgstr "Zone géographique couverte par l'aide"
 
-msgid "Aid type"
-msgstr "Nature de l'aide"
-
-msgid "Subvention rate"
-msgstr "Taux de subvention"
-
-msgid "Min:"
-msgstr "Min :"
-
-msgid "Max:"
-msgstr "Max :"
+msgid "Eligibility criteria"
+msgstr "Critères d'éligibilité"
 
 msgid "The aid can be mobilized during…"
 msgstr "Dispositif applicable pour un projet…"
 
 msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité"
+
+msgid "Going further"
+msgstr "Aller plus loin"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
@@ -2050,22 +2023,8 @@ msgstr "License de partage"
 msgid "Last data access"
 msgstr "Date du dernier accès"
 
-msgid "Similar aids"
-msgstr "Aides similaires"
-
-msgid "Those aids present some similarities and might be worth checking."
-msgstr ""
-"Ces aides présentent certaines similarités et pourraient vous intéresser."
-
-msgid "Please stand by."
-msgstr "Merci de patienter"
-
-msgctxt "js_catalog"
-msgid "We added this aid to the selected bundles."
-msgstr "L\\'aide a été ajoutée aux listes sélectionnées."
-
-msgid "Something went wrong. Please refresh the page."
-msgstr "Erreur. Merci de réessayer."
+msgid "Suggest a modification"
+msgstr "Suggérer des modifications"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
@@ -2075,9 +2034,6 @@ msgstr "Créée le"
 
 msgid "Last modified"
 msgstr "Dernière modif."
-
-msgid "Deadline"
-msgstr "Échéance"
 
 msgid "Hits"
 msgstr "Hits"
@@ -2160,6 +2116,13 @@ msgstr "Enregistrer votre aide"
 
 msgid "Copy and edit"
 msgstr "Dupliquer et éditer"
+
+#, python-format
+msgid "Your research: <span class=\"result-count\">%(nb_aids)s results</span>"
+msgstr "Votre recherche : <span class=\"result-count\">%(nb_aids)s résultats</span>"
+
+msgid "For:"
+msgstr "Pour :"
 
 msgid "New email aids alert"
 msgstr "Nouvelle alerte e-mail"
@@ -2246,9 +2209,6 @@ msgstr ""
 
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la mailing-list"
-
-msgid "Start searching for aids"
-msgstr "Trouver des aides"
 
 msgid "Subscription confirmed"
 msgstr "Inscription confirmée"
