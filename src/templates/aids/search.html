@@ -21,7 +21,7 @@
 {% endblocktrans %}</h1>
 
 {% if perimeter or categories %}
-<div class="search-meta">
+<section class="search-meta">
     {% if perimeter %}
         <p>
             <strong>{{ _('For:') }}</strong> {{ perimeter }}
@@ -35,7 +35,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-</div>
+</section>
 {% endif %}
 
 <section id="search-engine">

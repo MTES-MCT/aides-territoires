@@ -323,7 +323,7 @@ section#search-engine {
     }
 }
 
-section#search {
+div#search {
     h1 {
         @extend .h3;
     }
@@ -356,8 +356,8 @@ section#program-list {
         column-width: 18rem;
     }
 
-    section.aid,
-    section.program {
+    article.aid,
+    article.program {
         @extend .card;
         @extend .bg-white;
         @extend .text-dark;
@@ -517,7 +517,7 @@ section#aid-edit {
     @extend .row;
 
     div.form-sidebar {
-        @extend .col-md-3;
+        @extend .col-md-4;
         @extend .mb-3;
 
         div.sidebar-actions {
@@ -571,26 +571,8 @@ section#aid-edit {
         }
     }
 
-    div#aid-preview-modal {
-
-        section {
-            position: absolute;
-            height: 100%;
-        }
-
-        div.content {
-            padding: 0 0 1rem 0;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    }
-
     form.main-form {
-        @extend .col-md-9;
+        @extend .col-md-8;
 
         button[value='review'] {
             @include icon(before, $fa-var-paper-plane);
@@ -607,6 +589,24 @@ section#aid-edit {
         button[value='_save_as_new'] {
             @include icon(before, $fa-var-copy);
         }
+    }
+}
+
+div#aid-preview-modal {
+
+    section {
+        position: absolute;
+        height: 100%;
+    }
+
+    div.content {
+        padding: 0 0 1rem 0;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 }
 
@@ -643,14 +643,7 @@ section#stats {
     }
 }
 
-section#aid {
-    background-color: white;
-    border-radius: 1.5rem 0 1.5rem 1.5rem;
-    @extend .py-4;
-    @extend .px-5;
-    @extend .mb-5;
-    @extend .text-dark;
-    @extend .shadow;
+article#aid {
 
     ul.categories {
         list-style-type: none;
@@ -723,7 +716,7 @@ section#aid {
         @extend .mb-3;
     }
 
-    aside.card {
+    .card {
 
         @extend .mb-3;
 

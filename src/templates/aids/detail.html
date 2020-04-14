@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-<section id="aid">
+<article id="aid">
 
     {% if aid.submission_deadline and not aid.is_ongoing %}
         <div class="deadline-data">
@@ -51,11 +51,11 @@
         </div>
     {% endif %}
 
-    <article class="aid-content">
+    <section class="aid-content">
         <div class="sidebar">
 
             {% if aid.financers.all or aid.instructors.all %}
-            <aside class="card">
+            <div class="card">
 
                 {% if aid.financers.all %}
                 <div class="financers">
@@ -78,10 +78,10 @@
                     </ul>
                 </div>
                 {% endif %}
-            </aside>
+            </div>
             {% endif %}
 
-            <aside class="card">
+            <div class="card">
                 {% if aid.is_call_for_project %}
                     <div class="call-for-project">
                         <h3>
@@ -116,9 +116,9 @@
                         {% endif %}
                     </div>
                 {% endif %}
-            </aside>
+            </div>
 
-            <aside class="card">
+            <div class="card">
                 {% if aid.recurrence %}
                 <div class="recurrence">
                     <h3>{{ _('Recurrence') }}</h3>
@@ -143,7 +143,7 @@
                     {% endif %}
                     </div>
 
-            </aside>
+            </div>
         </div>
 
         <div class="aid-details">
@@ -231,9 +231,9 @@
                 {{ _('Suggest a modification') }}
             </a>
         </footer>
-    </article>
+    </section>
 
-</section>
+</article>
 {% endblock %}
 
 {% block extra_js %}
@@ -241,7 +241,7 @@
     $(document).ready(function() {
         // Make sure all links contained in aid description open in
         // a new tab.
-        $('section#aid div.aid-details a').attr('target', '_blank');
+        $('article#aid div.aid-details a').attr('target', '_blank');
     });
 </script>
 {% endblock %}

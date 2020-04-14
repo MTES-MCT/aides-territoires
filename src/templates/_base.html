@@ -37,7 +37,7 @@
 
         <main role="main">
             {% block main %}
-            <section id="{% block sectionid %}{% endblock %}" class="main-content">
+            <div id="{% block sectionid %}{% endblock %}" class="main-content">
 
                 {% block breadcrumbs %}{% endblock %}
 
@@ -53,7 +53,7 @@
 
 
                 {% block content %}{% endblock %}
-            </section>
+            </div>
             {% endblock %}
         </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
 

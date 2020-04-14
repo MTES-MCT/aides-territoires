@@ -20,14 +20,24 @@
         0% 0% no-repeat padding-box;
 }
 
+.dark-background .main-content > article,
+.dark-background .main-content > div.article {
+    background-color: white;
+    border-radius: 1.5rem 0 1.5rem 1.5rem;
+    @extend .py-4;
+    @extend .px-4;
+    @extend .mb-5;
+    @extend .text-dark;
+    @extend .shadow;
+}
+
 .light-background {
     background:
         transparent
         linear-gradient(
             0deg,
-            #59bbab 0%,
-            #efeeff 46%,
-            #dfddff 63%,
+            #efeeff 30%,
+            #dfddff 50%,
             #a29cfe 100%)
         0% 0% no-repeat padding-box;
 }
@@ -265,7 +275,7 @@ main {
         }
     }
 
-    section.main-content {
+    div.main-content {
         @extend .container-lg;
 
         @include media-breakpoint-up(lg) {
@@ -352,12 +362,16 @@ form {
     }
 
     button[type=submit]:not(.secondary) {
-        @extend .btn-success;
+        @extend .btn-primary;
     }
 
     button[type=submit].secondary {
-        @extend .btn-outline-success;
+        @extend .btn-outline-primary;
         @extend .text-dark;
+
+        &:hover {
+            @extend .text-white;
+        }
     }
 
     input[type=text],
@@ -571,7 +585,7 @@ html.integration {
         }
 
         main {
-            section.main-content {
+            div.main-content {
                 @extend .container-fluid;
                 max-width: 100%;
             }
@@ -579,13 +593,17 @@ html.integration {
     }
 }
 
-.narrow-form {
+.narrow {
     @extend .mx-auto;
     max-width: 40rem;
     @extend .px-3;
 
     h1 {
         text-align: center;
+
+        &::after {
+            margin: .5rem auto 0 auto;
+        }
     }
 
     h2 {
@@ -673,7 +691,7 @@ html {
 div.header-warning {
     background-color: $red;
     color: white;
-    @extend .shadow;
+    @extend .shadow-sm;
 
     p {
         @extend .py-2;

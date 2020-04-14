@@ -10,6 +10,7 @@ $blue: #4874b8;
 $indigo: #3c619b;
 $red: #e85348;
 $green: #83cfc3;
+$dark-green: #009688;
 $gray-100: #f5f4ef;
 $gray-800: #1f2532;
 $gray-900: #202328;
@@ -19,19 +20,19 @@ $contrast-color: #DB1C83;
 $pale-text: #817bb5;
 $pale-background: #d9f0ec;
 $salmon: #ff787f;
+$orange: #fcb40a;
 $light-purple: #6c5aa8ff;
 $dark: #2b2465;
 
-$success: $contrast-color;
-$warning: $salmon;
+$success: $dark-green;
+$warning: $orange;
+$primary: $contrast-color;
 
 $body-color: $font-color;
 $link-color: $font-color;
 $link-hover-color: $contrast-color;
 $link-hover-decoration: none;
 
-// buttons
-$primary: $contrast-color;
 
 $navbar-light-color: $font-color;
 $navbar-light-hover-color: $contrast-color;
