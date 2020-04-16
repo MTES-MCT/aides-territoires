@@ -584,19 +584,21 @@ html.integration {
     background-color: white !important;
 
     body {
-        nav#main-navbar {
-            display: none;
-        }
-
-        nav[aria-label=breadcrumb] {
-            display: none;
-        }
-
-        &>footer {
+        nav#main-navbar,
+        div.header-warning,
+        nav[aria-label=breadcrumb],
+        &>footer,
+        section.aid-content footer {
             display: none;
         }
 
         main {
+            @extend .pb-3;
+
+            & > :last-child {
+                padding-bottom: 0;
+            }
+
             div.main-content {
                 @extend .container-fluid;
                 max-width: 100%;
