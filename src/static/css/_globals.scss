@@ -59,6 +59,16 @@ body > footer {
         @extend .text-light;
     }
 
+    .ml-btn {
+        @extend .btn;
+        @extend .btn-lg;
+        @extend .btn-outline-light;
+
+        &:hover {
+            @extend .text-dark;
+        }
+    }
+
     div.columns {
         @extend .row;
     }
