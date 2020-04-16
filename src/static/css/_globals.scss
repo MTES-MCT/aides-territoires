@@ -144,11 +144,14 @@ body > footer {
 
         ul {
             @extend .nav;
-            @extend .nav-fill;
+            justify-content: space-between;
         }
 
         li {
             @extend .nav-item;
+            flex-grow: 1;
+            flex-basis: 0;
+            text-align: center;
         }
 
         a {
