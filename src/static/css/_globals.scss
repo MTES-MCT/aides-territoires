@@ -400,10 +400,10 @@ form {
 
     &>fieldset {
         &>legend {
-            background-color: $blue;
-            color: white;
-            @extend .px-2;
-            @extend .py-1;
+            @extend .h4;
+            background-color: $pale-background;
+            border-radius: 0 2rem 2rem 2rem;
+            padding: .5rem 1rem;
         }
     }
 
@@ -748,7 +748,7 @@ nav.form-steps {
         }
 
         &.active {
-            @extend .bg-dark;
+            @extend .bg-primary;
             @extend .text-light;
 
             span.step-counter {
