@@ -173,10 +173,8 @@
             {% endif %}
 
             {% if aid.destinations %}
-            <div class="short-data">
                 <h3>{{ _('Types of expenses covered') }}</h3>
                 <p>{% choices_display aid 'destinations' %}</p>
-            </div>
             {% endif %}
 
             {% if aid.project_examples %}
