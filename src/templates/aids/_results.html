@@ -1,17 +1,19 @@
 {% load i18n %}
 
-<div class="aids">
-{% for program in programs %}
-    {% include 'programs/_program_result.html' with program=program %}
-{% endfor %}
+{% if aids or programs %}
+    <div class="aids">
+    {% for program in programs %}
+        {% include 'programs/_program_result.html' with program=program %}
+    {% endfor %}
 
-{% for aid in aids %}
-    {% include 'aids/_aid_result.html' with aid=aid %}
-{% empty %}
-<div class="empty-result">
-    <p class="warning">{{ _('We could not find any results.') }}</p>
-</div>
-{% endfor %}
-</div>
+    {% for aid in aids %}
+        {% include 'aids/_aid_result.html' with aid=aid %}
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-result">
+        <p class="warning">{{ _('We could not find any results.') }}</p>
+    </div>
+{% endif %}
 
 {% include '_pagination.html' %}
