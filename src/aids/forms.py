@@ -488,6 +488,13 @@ class AidSearchForm(forms.Form):
         financial_aids = self.cleaned_data.get('financial_aids', [])
         technical_aids = self.cleaned_data.get('technical_aids', [])
         aid_types = financial_aids + technical_aids
+
+        aid_type = self.cleaned_data['aid_type']
+        if 'financial' in aid_type:
+            aid_types += Aid.FINANCIAL_AIDS
+        if 'technical' in aid_type:
+            aid_types += Aid.TECHNICAL_AIDS
+
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
 
@@ -518,6 +525,10 @@ class AidSearchForm(forms.Form):
         categories = self.cleaned_data.get('categories', None)
         if categories:
             qs = qs.filter(categories__in=categories)
+
+        backers = self.cleaned_data.get('backers', None)
+        if backers:
+            pass
 
         return qs
 
