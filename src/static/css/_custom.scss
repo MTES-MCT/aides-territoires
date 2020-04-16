@@ -23,6 +23,10 @@
     @include media-breakpoint-up(md) {
         text-align: left;
     }
+
+    main {
+        padding-bottom: 0 !important;
+    }
  }
 
 section#intro {
@@ -354,6 +358,9 @@ section#program-list {
         @extend .card-columns;
         column-count: auto;
         column-width: 18rem;
+    }
+
+    div.empty-result {
     }
 
     article.aid,
