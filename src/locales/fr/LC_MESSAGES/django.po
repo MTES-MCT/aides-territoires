@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 14:16+0200\n"
+"POT-Creation-Date: 2020-04-16 15:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1878,14 +1878,19 @@ msgstr "Filtrer les résultats"
 msgid "Advanced search"
 msgstr "Recherche avancée"
 
-msgid "All aids"
-msgstr "Toutes les aides"
+#, fuzzy
+#| msgid "More filters"
+msgid "More search filters"
+msgstr "Plus de critères"
 
 msgid "Find aids"
 msgstr "Trouver des aides"
 
 msgid "Your search"
 msgstr "Votre recherche"
+
+msgid "All aids"
+msgstr "Toutes les aides"
 
 msgid "Aid detail"
 msgstr "Détail de l'aide"
@@ -2125,8 +2130,8 @@ msgstr ""
 msgid "For:"
 msgstr "Pour :"
 
-msgid "New email aids alert"
-msgstr "Nouvelle alerte e-mail"
+msgid "Receive new aids before everyone!"
+msgstr "Recevez en priorité les nouvelles aides !"
 
 #, python-format
 msgid ""
