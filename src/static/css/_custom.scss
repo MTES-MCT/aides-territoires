@@ -1069,12 +1069,13 @@ div#search-steps {
 
         span.separator {
             display: inline-block;
-            width: 3rem;
+            width: 2rem;
             height: .4rem;
             border-top: 1px solid white;
             padding: 0 .25rem;
             vertical-align: baseline;
         }
+
     }
 
     h1 {
@@ -1083,5 +1084,40 @@ div#search-steps {
 
     form {
         margin-bottom: 3rem;
+
+        div#form-group-targeted_audiances {
+            label {
+                display: none;
+            }
+
+            & > div {
+                @extend .mb-5;
+            }
+
+            h2 {
+                display: inline-block;
+                vertical-align: baseline;
+                @extend .h5;
+                @extend .mr-3;
+                font-family: $font-family-base;
+            }
+
+            div.buttons {
+                display: inline-block;
+                vertical-align: baseline;
+            }
+
+            button[type=submit] {
+                @extend .btn-light;
+                @extend .mb-3;
+                text-transform: uppercase;
+                vertical-align: baseline;
+                color: $dark;
+                font-weight: bold;
+                @extend .px-3;
+                @extend .mr-3;
+                font-family: $font-family-sans-serif;
+            }
+        }
     }
 }
