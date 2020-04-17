@@ -1335,7 +1335,7 @@ msgid "Log out"
 msgstr "Déconnexion"
 
 msgid "let's keep in touch"
-msgstr "Resons en contact !"
+msgstr "Restons en contact !"
 
 msgid "Publish new aids"
 msgstr "Publier des aides"
