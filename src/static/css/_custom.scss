@@ -1038,3 +1038,50 @@ span.softmaxlength-counter {
         @extend .text-danger;
     }
 }
+
+
+div#search-steps {
+    p.steps {
+        text-align: center;
+        margin-bottom: 5rem;
+        line-height: 3;
+
+        span.step {
+            white-space: nowrap;
+        }
+
+        span.counter {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            text-align: center;
+            vertical-align: baseline;
+            border: 1px solid white;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        span.counter.active {
+            background-color: white;
+            color: $dark;
+        }
+
+        span.separator {
+            display: inline-block;
+            width: 3rem;
+            height: .4rem;
+            border-top: 1px solid white;
+            padding: 0 .25rem;
+            vertical-align: baseline;
+        }
+    }
+
+    h1 {
+        @extend .mb-5;
+    }
+
+    form {
+        margin-bottom: 3rem;
+    }
+}
