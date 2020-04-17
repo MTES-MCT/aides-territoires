@@ -41,7 +41,7 @@
 {% block content %}
 <h1>{{ _('You are seeking aids for…') }}</h1>
 
-<form action="{% url 'search_step_perimeter' %}" method="GET">
+<form id="audiance" action="{% url 'search_step_perimeter' %}" method="GET">
 
     {% include '_form_snippet.html' %}
 

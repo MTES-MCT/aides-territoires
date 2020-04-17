@@ -1084,6 +1084,9 @@ div#search-steps {
 
     form {
         margin-bottom: 3rem;
+    }
+
+    form#audiance {
 
         div#form-group-targeted_audiances {
             label {
@@ -1117,6 +1120,37 @@ div#search-steps {
                 @extend .px-3;
                 @extend .mr-3;
                 font-family: $font-family-sans-serif;
+            }
+        }
+    }
+
+    form#perimeter {
+        div#form-group-perimeter {
+            width: 30rem;
+            max-width: 30rem;
+            display: inline-block;
+            margin: 0 .5rem 0 0;
+            vertical-align: bottom;
+
+            label {
+                display: none;
+            }
+        }
+
+        button[type=submit] {
+            border-radius: 0 1.5rem 1.5rem 0;
+            @extend .px-5;
+            @include icon(before, $fa-var-search);
+        }
+
+        div.navigation-links {
+            display: block;
+            margin-top: 5rem;
+            text-align: center;
+
+            a {
+                color: white;
+                @extend .px-4;
             }
         }
     }
