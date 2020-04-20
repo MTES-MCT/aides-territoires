@@ -528,7 +528,7 @@ nav#pagination {
 }
 
 ol.breadcrumb {
-    background-color: white;
+    background-color: $light;
 
     @include media-breakpoint-up(lg) {
         margin-bottom: 3rem;
