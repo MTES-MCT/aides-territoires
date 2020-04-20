@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 15:42+0200\n"
+"POT-Creation-Date: 2020-04-20 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -553,9 +553,6 @@ msgstr "Tri : date de publication"
 msgid "Sort: submission deadline"
 msgstr "Tri : date de clôture"
 
-msgid "Your project's location"
-msgstr "Emplacement de votre projet"
-
 msgid "Text search"
 msgstr "Recherche textuelle"
 
@@ -580,14 +577,17 @@ msgstr "Actions concernées"
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
-msgid "I am…"
-msgstr "Je suis…"
-
 msgid "Order by"
 msgstr "Trier par"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
+
+msgid "You are seeking aids for…"
+msgstr "Vous recherchez des aides pour…"
+
+msgid "Your territory"
+msgstr "Votre territoire"
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -1218,9 +1218,6 @@ msgstr "Un autre bénéficiaire"
 
 msgid "Your are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
-
-msgid "Your territory"
-msgstr "Votre territoire"
 
 msgid "Page content"
 msgstr "Contenu de la page"
@@ -1860,6 +1857,9 @@ msgstr "Fermer"
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
+msgid "New search"
+msgstr "Nouvelle recherche"
+
 msgid "More filters"
 msgstr "Plus de critères"
 
@@ -1869,17 +1869,18 @@ msgstr "Partager"
 msgid "Create an alert"
 msgstr "Créer une alerte"
 
-msgid "Search"
-msgstr "Rechercher"
-
-msgid "Filter your results"
+msgid "Filter results"
 msgstr "Filtrer les résultats"
 
 msgid "Advanced search"
 msgstr "Recherche avancée"
 
-#, fuzzy
-#| msgid "More filters"
+msgid "Search"
+msgstr "Recherche"
+
+msgid "Results"
+msgstr "Résultats"
+
 msgid "More search filters"
 msgstr "Plus de critères"
 
@@ -2273,8 +2274,14 @@ msgstr "Recherche – Audiance"
 msgid "Your structure"
 msgstr "Votre structure"
 
-msgid "You are seeking aids for…"
-msgstr "Vous recherchez des aides pour…"
+msgid "Your perimeter"
+msgstr "Votre territoire"
+
+msgid "Your themes"
+msgstr "Vos thématiques"
+
+msgid "Your categories"
+msgstr "Vos sous-thématiques"
 
 msgid "Skip to the next step"
 msgstr "Passer cette étape"
@@ -2282,13 +2289,10 @@ msgstr "Passer cette étape"
 msgid "Search – Categories"
 msgstr "Recherche – Catégories"
 
-msgid "Your categories"
-msgstr "Vos sous-thématiques"
-
 #, python-format
-msgid "We found %(total_aids)s aids with the selected themes"
+msgid "<span class=\"counter\">%(total_aids)s</span> aids match your research"
 msgstr ""
-"Nous avons trouvé %(total_aids)s aides pour les thématiques sélectionnées"
+"<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre recherche"
 
 msgid "Refine those results by selecting categories"
 msgstr "Affinez ces résultats en sélectionnant des sous-thématiques"
@@ -2299,14 +2303,8 @@ msgstr "Revenir en arrière"
 msgid "Search – Perimeter"
 msgstr "Recherche – Périmètre"
 
-msgid "Your perimeter"
-msgstr "Votre territoire"
-
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
-
-msgid "Your themes"
-msgstr "Vos thématiques"
 
 msgid "In what themes are you interested in?"
 msgstr "Dans quelles thématiques recherchez-vous ?"

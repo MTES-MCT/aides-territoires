@@ -218,7 +218,7 @@ section#search-engine {
                     display: none;
                 }
 
-                &.advanced-link {
+                &:first-child {
                     padding-left: 0;
                 }
             }
@@ -315,7 +315,7 @@ div#search {
         @extend .h3;
     }
 
-    div.search-meta {
+    section.search-meta {
         @extend .mb-4;
 
         p {
