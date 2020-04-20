@@ -60,7 +60,6 @@ body > footer {
 
     .ml-btn {
         @extend .btn;
-        @extend .btn-lg;
         @extend .btn-outline-light;
 
         &:hover {
