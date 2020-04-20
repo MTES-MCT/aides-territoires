@@ -30,6 +30,8 @@
         {% include '_field_snippet.html' with field=form.apply_before %}
         {% include '_field_snippet.html' with field=form.destinations %}
         {% include '_field_snippet.html' with field=form.mobilization_step %}
+        {% include '_field_snippet.html' with field=form.backers %}
+        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
         {% include '_field_snippet.html' with field=form.order_by %}
         <button type="submit">
             {{ _('Find aids') }}
@@ -47,5 +49,6 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/backers_autocomplete.js"></script>
 {% endcompress %}
 {% endblock %}
