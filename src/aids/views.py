@@ -25,7 +25,8 @@ from programs.models import Program
 from alerts.forms import AlertForm
 from stats.models import Event
 from aids.tasks import log_admins
-from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
+from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
+                        AdvancedAidFilterForm)
 from aids.models import Aid, AidWorkflow
 
 
@@ -109,7 +110,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
 class AdvancedSearchView(SearchMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
 
-    form_class = AidSearchForm
+    form_class = AdvancedAidFilterForm
 
     template_name = 'aids/advanced_search.html'
 

@@ -364,7 +364,7 @@ class AidAmendForm(AidEditForm):
         ]
 
 
-class AidSearchForm(forms.Form):
+class BaseAidSearchForm(forms.Form):
     """Main form for search engine."""
 
     AID_CATEGORY_CHOICES = (
@@ -384,9 +384,6 @@ class AidSearchForm(forms.Form):
         ('submission_deadline', _('Sort: submission deadline')),
     )
 
-    perimeter = PerimeterChoiceField(
-        label=_('Your project\'s location'),
-        required=False)
     text = forms.CharField(
         label=_('Text search'),
         required=False,
@@ -425,21 +422,16 @@ class AidSearchForm(forms.Form):
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
-    targeted_audiances = forms.MultipleChoiceField(
-        label=_('I am…'),
-        required=False,
-        choices=Aid.AUDIANCES,
-        widget=forms.CheckboxSelectMultiple)
-    categories = forms.ModelMultipleChoiceField(
-        label=_('Categories'),
-        queryset=Category.objects.all(),
-        to_field_name='slug',
-        required=False)
     backers = forms.ModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
         widget=AutocompleteSelectMultiple,
         required=False)
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        to_field_name='slug',
+        required=False,
+        widget=forms.widgets.MultipleHiddenInput)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -629,3 +621,27 @@ class AidSearchForm(forms.Form):
         qs = qs.filter(q_exact_match | q_contains | q_contained).distinct()
 
         return qs
+
+
+class AidSearchForm(BaseAidSearchForm):
+    """The main search result filter form."""
+
+    targeted_audiances = forms.MultipleChoiceField(
+        choices=AUDIANCES,
+        widget=forms.widgets.MultipleHiddenInput)
+    perimeter = PerimeterChoiceField(
+        required=False,
+        widget=forms.widgets.HiddenInput)
+
+
+class AdvancedAidFilterForm(BaseAidSearchForm):
+    """An "advanced" aid list filter form with more criterias."""
+
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('You are seeking aids for…'),
+        required=False,
+        choices=Aid.AUDIANCES,
+        widget=forms.CheckboxSelectMultiple)
+    perimeter = PerimeterChoiceField(
+        label=_('Your territory'),
+        required=False)
