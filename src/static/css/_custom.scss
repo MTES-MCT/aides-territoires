@@ -1083,17 +1083,36 @@ div#search-steps {
         @extend .h3;
     }
 
+    h2 {
+        @extend .h4;
+    }
+
+    h3 {
+        @extend .h5;
+    }
+
     form {
         margin-bottom: 3rem;
+
+        div.navigation-links {
+            display: block;
+            margin-top: 5rem;
+            text-align: center;
+
+            a {
+                color: white;
+                @extend .px-4;
+            }
+        }
+
+        div.form-group > label {
+            display: none;
+        }
     }
 
     form#audiance {
 
         div#form-group-targeted_audiances {
-            label {
-                display: none;
-            }
-
             & > div {
                 @extend .mb-5;
             }
@@ -1132,10 +1151,6 @@ div#search-steps {
             display: inline-block;
             margin: 0 .5rem 0 0;
             vertical-align: bottom;
-
-            label {
-                display: none;
-            }
         }
 
         button[type=submit] {
@@ -1143,16 +1158,11 @@ div#search-steps {
             @extend .px-5;
             @include icon(before, $fa-var-search);
         }
+    }
 
-        div.navigation-links {
-            display: block;
-            margin-top: 5rem;
-            text-align: center;
-
-            a {
-                color: white;
-                @extend .px-4;
-            }
+    form#categories {
+        div.custom-control + h3 {
+            @extend .mt-4;
         }
     }
 }
