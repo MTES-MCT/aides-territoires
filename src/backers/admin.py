@@ -15,6 +15,7 @@ class BackerAdmin(admin.ModelAdmin):
     list_display = ['name', 'is_corporate', 'nb_financed_aids',
                     'nb_instructed_aids']
     search_fields = ['name']
+    prepopulated_fields = {'slug': ('name',)}
     inlines = [AidInline]
     ordering = ['name']
     filter_fields = ['is_corporate']

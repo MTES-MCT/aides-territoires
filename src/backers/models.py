@@ -32,6 +32,8 @@ class Backer(models.Model):
         _('Name'),
         max_length=256,
         db_index=True)
+    slug = models.SlugField(
+        _('Slug'))
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
