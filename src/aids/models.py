@@ -565,7 +565,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             return False
 
         delta = self.submission_deadline - timezone.now().date()
-        return delta.days <= settings.APPROACHING_DEADLINE_DELTA
+        return delta.days >= 0 \
+            and delta.days <= settings.APPROACHING_DEADLINE_DELTA
 
     def days_before_deadline(self):
         if not self.submission_deadline or self.is_ongoing():
