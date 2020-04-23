@@ -519,7 +519,8 @@ class BaseAidSearchForm(forms.Form):
 
         backers = self.cleaned_data.get('backers', None)
         if backers:
-            pass
+            qs = qs.filter(
+                Q(financers__in=backers) | Q(instructors__in=backers))
 
         return qs
 
