@@ -117,9 +117,15 @@ class AutocompleteModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         return super().to_python(value)
 
     def prepare_value(self, value):
+
         def clean_val(val):
             if isinstance(val, str):
                 val = val.split('-')[0]
             return val
-        value = [clean_val(val) for val in value]
+
+        if (hasattr(value, '__iter__') and
+                not isinstance(value, str) and
+                not hasattr(value, '_meta')):
+            value = [clean_val(val) for val in value]
+
         return super().prepare_value(value)
