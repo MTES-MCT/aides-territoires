@@ -9,9 +9,10 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms import (
-    AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
+    AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
+    MultipleChoiceFilterWidget, RichTextField)
+from geofr.models import Perimeter
 from backers.models import Backer
-from geofr.forms.fields import PerimeterChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category
 from aids.models import Aid
@@ -213,10 +214,9 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
-    financers = forms.ModelMultipleChoiceField(
+    financers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
     financer_suggestion = forms.CharField(
@@ -225,10 +225,9 @@ class AidEditForm(BaseAidForm):
         required=False,
         help_text=_('Suggest a financer if you don\'t find '
                     'the correct choice in the main list.'))
-    instructors = forms.ModelMultipleChoiceField(
+    instructors = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
     instructor_suggestion = forms.CharField(
@@ -238,7 +237,8 @@ class AidEditForm(BaseAidForm):
         help_text=_('Suggest an instructor if you don\'t find '
                     'the correct choice in the main list.'))
 
-    perimeter = PerimeterChoiceField(
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
         label=_('Targeted area'),
         help_text=_('''
             The geographical zone where the aid is available.<br />
@@ -422,10 +422,9 @@ class BaseAidSearchForm(forms.Form):
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
-    backers = forms.ModelMultipleChoiceField(
+    backers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
         required=False)
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
@@ -629,7 +628,8 @@ class AidSearchForm(BaseAidSearchForm):
     targeted_audiances = forms.MultipleChoiceField(
         choices=AUDIANCES,
         widget=forms.widgets.MultipleHiddenInput)
-    perimeter = PerimeterChoiceField(
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
         required=False,
         widget=forms.widgets.HiddenInput)
 
@@ -642,6 +642,7 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
         required=False,
         choices=Aid.AUDIANCES,
         widget=forms.CheckboxSelectMultiple)
-    perimeter = PerimeterChoiceField(
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
         label=_('Your territory'),
         required=False)

@@ -4,3 +4,7 @@
 @import 'select2/src/scss/core';
 @import 'select2-bootstrap4-theme/src/select2-bootstrap4';
 @import 'select2-dark-theme';
+
+span.select2-results {
+    color: $dark;
+}

@@ -10,23 +10,16 @@ $(document).ready(function () {
             url: catalog.perimeter_url,
             dataType: 'json',
             delay: 100,
-            data: function (params) {
-                var query = {
-                  q: params.term,
-                  page: params.page || 1
-                }
-                return query;
-              },
-              processResults: function (data, params) {
-                  params.page = params.page || 1;
+            processResults: function (data, params) {
+                params.page = params.page || 1;
 
-                  return {
-                      results: data.results,
-                      pagination: {
-                          more: data.next != null
-                      }
-                  };
-              },
+                return {
+                    results: data.results,
+                    pagination: {
+                        more: data.next != null
+                    }
+                };
+            },
         },
         theme: 'bootstrap4',
         width: '',
