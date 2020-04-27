@@ -2000,7 +2000,7 @@ msgid "Eligibility criteria"
 msgstr "Critères d'éligibilité"
 
 msgid "The aid can be mobilized during…"
-msgstr "Dispositif applicable pour un projet…"
+msgstr "Dispositif applicable pour un projet"
 
 msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité"
