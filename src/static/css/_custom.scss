@@ -354,12 +354,19 @@ section#program-list {
     }
 
     div.aids {
-        @extend .card-columns;
-        column-count: auto;
-        column-width: 18rem;
+        @extend .row;
+        @extend .row-cols-1;
+        @extend .row-cols-sm-2;
+        @extend .row-cols-md-3;
+        @extend .no-gutters;
+        margin-left: -.5rem;
+        margin-right: -.5rem;
     }
 
-    div.empty-result {
+    div.col {
+        padding-bottom: 1rem;
+        padding-left: .5rem !important;
+        padding-right: .5rem !important;
     }
 
     article.aid,
@@ -368,8 +375,10 @@ section#program-list {
         @extend .bg-white;
         @extend .text-dark;
         @extend .shadow-sm;
+        height: 100%;
         border-radius: 2rem 0 1rem 1rem;
         margin-bottom: $card-columns-gap !important;
+
 
         div {
             @extend .card-body;

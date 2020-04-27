@@ -3,11 +3,15 @@
 {% if aids or programs %}
     <div class="aids">
     {% for program in programs %}
-        {% include 'programs/_program_result.html' with program=program %}
+        <div class="col">
+            {% include 'programs/_program_result.html' with program=program %}
+        </div>
     {% endfor %}
 
     {% for aid in aids %}
-        {% include 'aids/_aid_result.html' with aid=aid %}
+        <div class="col">
+            {% include 'aids/_aid_result.html' with aid=aid %}
+        </div>
     {% endfor %}
     </div>
 {% else %}
