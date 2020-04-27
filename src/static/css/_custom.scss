@@ -382,7 +382,6 @@ section#program-list {
 
         div {
             @extend .card-body;
-            @extend .pb-4;
 
             span.deadline {
                 float: right;
@@ -415,8 +414,7 @@ section#program-list {
                 @extend .h5;
                 @extend .card-title;
                 @extend .mb-4;
-                @extend .py-3;
-                clear: both;
+                @extend .pb-3;
 
                 div.status-icons {
                     @extend .pl-4;
