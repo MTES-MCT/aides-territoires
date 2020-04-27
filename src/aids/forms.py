@@ -427,7 +427,7 @@ class BaseAidSearchForm(forms.Form):
         queryset=Backer.objects.all(),
         required=False)
     categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
+        queryset=Category.objects.all().order_by('theme__name', 'name'),
         to_field_name='slug',
         required=False,
         widget=forms.widgets.MultipleHiddenInput)

@@ -30,11 +30,19 @@
     {% endif %}
 
     {% if categories %}
-        <ul>
-            {% for category in categories %}
-            <li>{{ category.theme }} &gt; {{ category }}</li>
-            {% endfor %}
-        </ul>
+    {% regroup categories by theme as theme_list %}
+    <ul>
+        {% for theme in theme_list %}
+            <li class="theme">
+                {{ theme.grouper }}
+                <ul>
+                {% for category in theme.list %}
+                    <li class="category">{{ category }}</li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
     {% endif %}
 </section>
 {% endif %}
