@@ -315,6 +315,10 @@ div#search {
         @extend .h3;
     }
 
+    article {
+        margin-bottom: 2rem;
+    }
+
     section.search-meta {
         @extend .mb-4;
 
