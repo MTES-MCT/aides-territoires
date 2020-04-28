@@ -29,7 +29,7 @@ $(document).ready(function () {
                   };
               }
         },
-        theme: 'dark',
+        theme: 'bootstrap4',
         width: '',
     });
 });

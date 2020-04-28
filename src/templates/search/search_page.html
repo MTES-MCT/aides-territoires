@@ -15,9 +15,11 @@
 {% endblock %}
 
 {% block content %}
+<article>
 <h1>{{ search_page.title }}</h1>
 
 {{ search_page.content|safe }}
+</article>
 
 <section id="search-engine">
     {% include 'aids/_search_form.html' with form=search_form %}
@@ -37,7 +39,7 @@
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/dynamic_search_engine.js"></script>
+<script src="/static/js/aids/backers_autocomplete.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/aids/bookmark_results.js"></script>
 {% endcompress %}
