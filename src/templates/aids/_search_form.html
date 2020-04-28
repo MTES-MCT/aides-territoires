@@ -5,6 +5,17 @@
         {{ field }}
     {% endfor %}
 
+    {% comment %}
+        This is to make sure that those search filters will be carried upon the
+        "more filters" page.
+    {% endcomment %}
+    {{ form.apply_before.as_hidden }}
+    {{ form.mobilization_step.as_hidden }}
+    {{ form.destinations.as_hidden }}
+    {{ form.categories.as_hidden }}
+    {{ form.targeted_audiances.as_hidden }}
+    {{ form.perimeter.as_hidden }}
+
     <div class="other-actions">
 
         <a href="{% url 'search_step_audiance' %}">

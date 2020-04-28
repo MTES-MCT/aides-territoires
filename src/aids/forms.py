@@ -426,11 +426,19 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
-    categories = forms.ModelMultipleChoiceField(
+    categories = CategoryMultipleChoiceField(
         queryset=Category.objects.all().order_by('theme__name', 'name'),
         to_field_name='slug',
+        required=False)
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('You are seeking aids for…'),
         required=False,
-        widget=forms.widgets.MultipleHiddenInput)
+        choices=Aid.AUDIANCES,
+        widget=forms.CheckboxSelectMultiple)
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
+        label=_('Your territory'),
+        required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -626,24 +634,10 @@ class BaseAidSearchForm(forms.Form):
 class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
-    targeted_audiances = forms.MultipleChoiceField(
-        choices=AUDIANCES,
-        widget=forms.widgets.MultipleHiddenInput)
-    perimeter = AutocompleteModelChoiceField(
-        queryset=Perimeter.objects.all(),
-        required=False,
-        widget=forms.widgets.HiddenInput)
+    pass
 
 
 class AdvancedAidFilterForm(BaseAidSearchForm):
     """An "advanced" aid list filter form with more criterias."""
 
-    targeted_audiances = forms.MultipleChoiceField(
-        label=_('You are seeking aids for…'),
-        required=False,
-        choices=Aid.AUDIANCES,
-        widget=forms.CheckboxSelectMultiple)
-    perimeter = AutocompleteModelChoiceField(
-        queryset=Perimeter.objects.all(),
-        label=_('Your territory'),
-        required=False)
+    pass
