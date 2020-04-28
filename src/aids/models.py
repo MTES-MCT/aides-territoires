@@ -560,6 +560,17 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_ongoing(self):
         return self.recurrence == self.RECURRENCE.ongoing
 
+    def has_calendar(self):
+        """Does the aid has valid calendar data?."""
+
+        if self.is_ongoing:
+            return False
+
+        return any((
+            self.start_date,
+            self.predeposit_date,
+            self.submission_deadline))
+
     def has_approaching_deadline(self):
         if not self.submission_deadline:
             return False

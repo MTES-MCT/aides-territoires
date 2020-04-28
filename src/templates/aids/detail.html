@@ -125,6 +125,7 @@
                 </div>
                 {% endif %}
 
+                {% if aid.has_calendar %}
                 <div class="calendar">
                     {% if aid.start_date and not aid.is_ongoing %}
                         <h3>{{ _('Start date') }}</h2>
@@ -140,8 +141,8 @@
                         <h3>{{ _('Submission deadline') }}</h3>
                         <p>{{ aid.submission_deadline|date }}</p>
                     {% endif %}
-                    </div>
-
+                </div>
+                {% endif %}
             </div>
         </div>
 
