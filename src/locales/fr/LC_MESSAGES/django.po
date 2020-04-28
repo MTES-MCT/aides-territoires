@@ -2042,7 +2042,7 @@ msgid "Last modified"
 msgstr "Dernière modif."
 
 msgid "Hits"
-msgstr "Hits"
+msgstr "Vues"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
