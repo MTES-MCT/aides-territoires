@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-20 12:18+0200\n"
+"POT-Creation-Date: 2020-04-30 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -577,17 +577,17 @@ msgstr "Actions concernées"
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
-msgid "Order by"
-msgstr "Trier par"
-
-msgid "This zipcode seems invalid"
-msgstr "Ce code postal semble invalide."
-
 msgid "You are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
 
 msgid "Your territory"
 msgstr "Votre territoire"
+
+msgid "Order by"
+msgstr "Trier par"
+
+msgid "This zipcode seems invalid"
+msgstr "Ce code postal semble invalide."
 
 msgid "Draft"
 msgstr "Brouillon"
@@ -644,6 +644,9 @@ msgstr "Usage / valorisation"
 
 msgid "Intermunicipal unions"
 msgstr "Unions intermunicipales"
+
+msgid "Public organization"
+msgstr "Établissement public"
 
 msgid "Service (AMO, survey)"
 msgstr "Service (AMO, étude, etc.)"
@@ -1216,6 +1219,9 @@ msgstr "Une collectivité"
 msgid "An other beneficiary"
 msgstr "Un autre bénéficiaire"
 
+msgid "Association"
+msgstr "Association"
+
 msgid "Your are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
 
@@ -1773,6 +1779,17 @@ msgstr "Max :"
 msgid "Aid edition"
 msgstr "Édition de l'aide"
 
+msgid "Search"
+msgstr "Recherche"
+
+#, python-format
+msgid "Your research: <span class=\"result-count\">%(nb_aids)s results</span>"
+msgstr ""
+"Votre recherche : <span class=\"result-count\">%(nb_aids)s résultats</span>"
+
+msgid "For:"
+msgstr "Pour :"
+
 msgid "Share current search results"
 msgstr "Partager les résultats courants"
 
@@ -1874,9 +1891,6 @@ msgstr "Filtrer les résultats"
 
 msgid "Advanced search"
 msgstr "Recherche avancée"
-
-msgid "Search"
-msgstr "Recherche"
 
 msgid "Results"
 msgstr "Résultats"
@@ -2123,14 +2137,6 @@ msgstr "Enregistrer votre aide"
 msgid "Copy and edit"
 msgstr "Dupliquer et éditer"
 
-#, python-format
-msgid "Your research: <span class=\"result-count\">%(nb_aids)s results</span>"
-msgstr ""
-"Votre recherche : <span class=\"result-count\">%(nb_aids)s résultats</span>"
-
-msgid "For:"
-msgstr "Pour :"
-
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
@@ -2292,7 +2298,8 @@ msgstr "Recherche – Catégories"
 #, python-format
 msgid "<span class=\"counter\">%(total_aids)s</span> aids match your research"
 msgstr ""
-"<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre recherche"
+"<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre "
+"recherche"
 
 msgid "Refine those results by selecting categories"
 msgstr "Affinez ces résultats en sélectionnant des sous-thématiques"

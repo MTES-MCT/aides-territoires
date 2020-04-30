@@ -14,13 +14,14 @@ from aids.forms import AidSearchForm
 AUDIANCES = [
     (_('A collectivity'), (
         ('commune', _('Commune')),
-        ('epci', _('Audiance EPCI')),
+        ('epci', _('EPCI')),
         ('department', _('Department')),
         ('region', _('Region')),
     )),
     (_('An other beneficiary'), (
-        ('public_org', _('Public organizations')),
-        ('association', _('Associations')),
+        ('public_org', _('Public organization')),
+        ('association', _('Association')),
+        ('farmer', _('Farmers')),
     ))
 ]
 
