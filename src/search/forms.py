@@ -21,6 +21,7 @@ AUDIANCES = [
     (_('An other beneficiary'), (
         ('public_org', _('Public organization')),
         ('association', _('Association')),
+        ('private_sector', _('Private company')),
         ('farmer', _('Farmer')),
     ))
 ]

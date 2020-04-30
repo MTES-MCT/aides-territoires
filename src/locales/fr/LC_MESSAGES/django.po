@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 16:35+0200\n"
+"POT-Creation-Date: 2020-04-30 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1222,6 +1222,9 @@ msgstr "Un autre bénéficiaire"
 msgid "Association"
 msgstr "Association"
 
+msgid "Private company"
+msgstr "Entreprise privée"
+
 msgid "Farmer"
 msgstr "Agriculteur"
 
@@ -1785,9 +1788,9 @@ msgstr "Édition de l'aide"
 msgid "Search"
 msgstr "Recherche"
 
+#, python-format
 msgid "<span class=\"result-count\">%(nb_aids)s results</span>"
-msgstr ""
-"<span class=\"result-count\">%(nb_aids)s résultats</span>"
+msgstr "<span class=\"result-count\">%(nb_aids)s résultats</span>"
 
 msgid "For:"
 msgstr "Pour :"
