@@ -8,7 +8,7 @@
 {% block content %}
 
 <h1>{% blocktrans with paginator.count as nb_aids trimmed %}
-    Your research: <span class="result-count">{{ nb_aids }} results</span>
+    <span class="result-count">{{ nb_aids }} results</span>
 {% endblocktrans %}</h1>
 
 {% if perimeter or categories %}

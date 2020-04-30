@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 16:03+0200\n"
+"POT-Creation-Date: 2020-04-30 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -581,7 +581,7 @@ msgid "You are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
 
 msgid "Your territory"
-msgstr "Votre territoire"
+msgstr "Le territoire"
 
 msgid "Order by"
 msgstr "Trier par"
@@ -1222,8 +1222,11 @@ msgstr "Un autre bénéficiaire"
 msgid "Association"
 msgstr "Association"
 
+msgid "Farmer"
+msgstr "Agriculteur"
+
 msgid "Your are seeking aids for…"
-msgstr "Vous recherchez des aides pour…"
+msgstr "La structure pour laquelle vous recherchez des aides est…"
 
 msgid "Page content"
 msgstr "Contenu de la page"
@@ -1782,10 +1785,9 @@ msgstr "Édition de l'aide"
 msgid "Search"
 msgstr "Recherche"
 
-#, python-format
-msgid "Your research: <span class=\"result-count\">%(nb_aids)s results</span>"
+msgid "<span class=\"result-count\">%(nb_aids)s results</span>"
 msgstr ""
-"Votre recherche : <span class=\"result-count\">%(nb_aids)s résultats</span>"
+"<span class=\"result-count\">%(nb_aids)s résultats</span>"
 
 msgid "For:"
 msgstr "Pour :"
@@ -2278,16 +2280,16 @@ msgid "Search – Audiance"
 msgstr "Recherche – Audiance"
 
 msgid "Your structure"
-msgstr "Votre structure"
+msgstr "La structure"
 
 msgid "Your perimeter"
-msgstr "Votre territoire"
+msgstr "Le territoire"
 
 msgid "Your themes"
-msgstr "Vos thématiques"
+msgstr "Les thématiques d'aides"
 
 msgid "Your categories"
-msgstr "Vos sous-thématiques"
+msgstr "Les sous-thématiques d'aides"
 
 msgid "Skip to the next step"
 msgstr "Passer cette étape"
