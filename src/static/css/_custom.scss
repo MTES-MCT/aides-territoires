@@ -1124,11 +1124,12 @@ div#search-steps {
         div.navigation-links {
             display: block;
             margin-top: 5rem;
-            text-align: center;
+            text-align: left;
 
             a {
                 color: white;
-                @extend .px-4;
+                @extend .pr-4;
+                opacity: 0.85;
             }
         }
 
