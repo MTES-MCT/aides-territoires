@@ -26,6 +26,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 ]
 
 THIRD_PARTY_APPS = [
@@ -52,6 +53,7 @@ LOCAL_APPS = [
     'categories',
     'search',
     'stats',
+    'pages',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
