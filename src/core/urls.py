@@ -32,6 +32,11 @@ urlpatterns = [
 
     # Api related routes
     path('api/', include(api_patterns)),
+
+    # Static pages are at the url root.
+    # Leave this at the bottom to prevent an admin to accidently
+    # override an existing url.
+    path('', include('pages.urls')),
 ]
 
 if settings.DEBUG:
