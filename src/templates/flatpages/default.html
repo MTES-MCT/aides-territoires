@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ flatpage.meta_title|default:flatpage.title }}{% endblock %}
+{% block meta_description %}{{ flatpage.meta_description }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ flatpage.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article>
+<h1>{{ flatpage.title }}</h1>
+
+{{ flatpage.content|safe }}
+</article>
+{% endblock %}
