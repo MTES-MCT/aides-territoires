@@ -1,6 +1,7 @@
-from django.urls import path, include
+from django.urls import path
+from pages.views import PageView
 
 
 urlpatterns = [
-    path('', include('django.contrib.flatpages.urls')),
+    path('<path:url>', PageView.as_view(), name='page_view'),
 ]

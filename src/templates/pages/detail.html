@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block extratitle %}{{ page.meta_title|default:page.title }}{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ page.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article>
+<h1>{{ page.title }}</h1>
+
+{{ page.content|safe }}
+</article>
+{% endblock %}
