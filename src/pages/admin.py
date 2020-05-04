@@ -12,7 +12,7 @@ HELP = _("Note: it's not possible to change url of pages in the main menu.")
 class PageAdmin(FlatPageAdmin):
     fieldsets = (
         (None, {
-            'fields': ('url', 'title', 'content', 'sites'),
+            'fields': ('url', 'title', 'content'),
             'description': '<div class="help">{}</div>'.format(HELP)}),
         (_('SEO'), {'fields': (
             'meta_title', 'meta_description')})
