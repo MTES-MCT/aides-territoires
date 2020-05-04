@@ -1,0 +1,1682 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="fad14ec6-f34f-4f27-8ade-1465910a0508"
+   data-name="Calque 1"
+   viewBox="0 0 849.99998 336.15986"
+   version="1.1"
+   sodipodi:docname="home_aides.svg"
+   width="850"
+   height="336.15985"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata244">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1376"
+     id="namedview242"
+     showgrid="false"
+     inkscape:zoom="1.0253255"
+     inkscape:cx="640.00316"
+     inkscape:cy="136.54943"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="fad14ec6-f34f-4f27-8ade-1465910a0508" />
+  <defs
+     id="defs42">
+    <style
+       id="style2">.a0636d65-5084-44eb-a24d-d5b19a3ab596{fill:url(#a4f84d1e-ad82-4aed-baf2-124659a5480a);}.a0f066f6-467c-4726-8d8c-6445609d8c6e,.a457bfcc-d4ae-49bc-934f-79a7079b573a,.ac220334-0bfb-4bfe-9125-1f639e447c73,.b1fddb52-a62c-46f7-a916-b3f147ce2fc9,.bae87e50-0722-40b7-8794-cfb4dd95289d,.bb4e70c3-3a01-4496-916a-a5f27c5a4d1a,.bd938181-68da-4861-9cda-9f2d3215efdf,.e581e44d-6e98-4235-a316-eee4b33b2ead,.ed284457-2950-485f-a3da-397e38b16604,.ee616e43-f974-434e-9c15-9c965057aed0,.f2c1725c-10d5-4bea-9332-0d1872f465f8,.ffad3bc5-c400-41c0-b0df-15d451ec089d{fill-rule:evenodd;}.bd938181-68da-4861-9cda-9f2d3215efdf{fill:url(#fd98d6f8-bbf5-4395-8a14-770189d082d4);}.f2c1725c-10d5-4bea-9332-0d1872f465f8{fill:url(#b0cd0a0b-da80-464d-8832-1fa8c22f20a3);}.e9de917f-d939-435b-aa4d-404fd14486ce{fill:#3a3188;}.b00c44cf-6aa4-4387-98a7-b563d46175cf{fill:url(#b2082c80-d81d-4e24-8eb6-4377de02dfe3);}.a26b579a-391a-4fe0-87ad-aa05fd51477f{fill:#090e7c;}.a457bfcc-d4ae-49bc-934f-79a7079b573a,.b4f7f29b-8e9d-4db9-aede-7c06fba008a5{fill:#9c38fa;}.a22b5772-cadd-4946-bb8a-526e1114fac0,.ed284457-2950-485f-a3da-397e38b16604{fill:#2b2465;}.b20012be-06f1-4468-9709-0857e0c08757,.ee616e43-f974-434e-9c15-9c965057aed0{fill:#59bbab;}.bae87e50-0722-40b7-8794-cfb4dd95289d{fill:#9f6652;}.bb4e70c3-3a01-4496-916a-a5f27c5a4d1a,.bc65d32b-a153-4b3b-94b7-d42985eb89db{fill:#ccc;}.a0f066f6-467c-4726-8d8c-6445609d8c6e,.a8468fdf-d8f1-4039-b753-13a07e435a5a,.a94808fc-c958-4dd7-9e5f-44ba4a866d76,.b1fddb52-a62c-46f7-a916-b3f147ce2fc9{fill:#4f43b8;}.a0f066f6-467c-4726-8d8c-6445609d8c6e,.a94808fc-c958-4dd7-9e5f-44ba4a866d76{stroke:#4f43b8;}.b155b133-f473-4412-af5c-32e253d2d21a{fill:url(#b2240c32-03ae-4080-bec5-3956833d72b1);}.e8868baa-9666-42ac-87af-e9c4512be4f2{fill:#04518c;}.ffad3bc5-c400-41c0-b0df-15d451ec089d{fill:url(#bdf7ce4b-4438-49a8-9694-2f9552d7c0a8);}.a2b7915c-a97b-4558-b905-6bd3e88ab151,.e581e44d-6e98-4235-a316-eee4b33b2ead{fill:#fc9;}.a5611a68-2874-4906-b645-fe63dbb9ed43,.ac220334-0bfb-4bfe-9125-1f639e447c73{fill:#6acef0;}.a1ce16d1-16e4-48da-984a-a081faf39faf{fill:#00a1d9;}.e69b7bf0-fbc2-4f1a-839f-29172a53b605{fill:#04bfbf;}.b3a0ef92-1fc4-47e7-a87d-3acb19e16a18{fill:#0066cb;}.b6423444-9dc9-4818-87e9-89659960a870{fill:#003056;}</style>
+    <linearGradient
+       id="a4f84d1e-ad82-4aed-baf2-124659a5480a"
+       x1="1.63"
+       y1="479.17001"
+       x2="2.04"
+       y2="480.64001"
+       gradientTransform="matrix(270.32,0,0,-219,237.17,105392.47)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#fff"
+         id="stop4" />
+      <stop
+         offset="0.29"
+         stop-color="#f0fbfc"
+         id="stop6" />
+      <stop
+         offset="0.72"
+         stop-color="#c6f3f7"
+         id="stop8" />
+      <stop
+         offset="1"
+         stop-color="#b7f0f5"
+         id="stop10" />
+    </linearGradient>
+    <linearGradient
+       id="fd98d6f8-bbf5-4395-8a14-770189d082d4"
+       x1="1.8099999"
+       y1="479.73999"
+       x2="1.8099999"
+       y2="480.73999"
+       gradientTransform="matrix(344.59,0,0,-262.7,-444.55,126369.01)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#fff"
+         id="stop13" />
+      <stop
+         offset="0.33"
+         stop-color="#f0fbfc"
+         id="stop15" />
+      <stop
+         offset="0.72"
+         stop-color="#c6f3f7"
+         id="stop17" />
+      <stop
+         offset="1"
+         stop-color="#b7f0f5"
+         stop-opacity="0.5"
+         id="stop19" />
+      <stop
+         offset="1"
+         stop-color="#b7f0f5"
+         id="stop21" />
+    </linearGradient>
+    <linearGradient
+       id="b0cd0a0b-da80-464d-8832-1fa8c22f20a3"
+       x1="1.83"
+       y1="479.38"
+       x2="1.83"
+       y2="480.70999"
+       gradientTransform="matrix(323.71,0,0,-235.11,-86.68,113119.71)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#fff"
+         id="stop24" />
+      <stop
+         offset="0.26"
+         stop-color="#f0fbfc"
+         id="stop26" />
+      <stop
+         offset="0.6"
+         stop-color="#c6f3f7"
+         id="stop28" />
+      <stop
+         offset="1"
+         stop-color="#b7f0f5"
+         stop-opacity="0.5"
+         id="stop30" />
+      <stop
+         offset="1"
+         stop-color="#b7f0f5"
+         id="stop32" />
+    </linearGradient>
+    <radialGradient
+       id="b2082c80-d81d-4e24-8eb6-4377de02dfe3"
+       cx="519.07001"
+       cy="36.049999"
+       r="18.08"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#f06060"
+         id="stop35" />
+      <stop
+         offset="0.49"
+         stop-color="#fc9"
+         id="stop37" />
+    </radialGradient>
+    <radialGradient
+       id="b2240c32-03ae-4080-bec5-3956833d72b1"
+       cx="182.67"
+       cy="146.8"
+       r="19.389999"
+       xlink:href="#b2082c80-d81d-4e24-8eb6-4377de02dfe3" />
+    <radialGradient
+       id="bdf7ce4b-4438-49a8-9694-2f9552d7c0a8"
+       cx="744.59003"
+       cy="142.61"
+       r="18.32"
+       xlink:href="#b2082c80-d81d-4e24-8eb6-4377de02dfe3" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#b2082c80-d81d-4e24-8eb6-4377de02dfe3"
+       id="radialGradient1051"
+       gradientUnits="userSpaceOnUse"
+       cx="519.07001"
+       cy="36.049999"
+       r="18.08" />
+  </defs>
+  <title
+     id="title44">HOME_illustrationAIDES</title>
+  <g
+     id="g1432"
+     transform="scale(0.96837404)">
+    <g
+       transform="translate(0,0.0402371)"
+       data-name="HOME illus"
+       id="a7aa574b-516d-4f37-b01f-4174adf9669b">
+      <path
+         style="fill:url(#a4f84d1e-ad82-4aed-baf2-124659a5480a)"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 753.83,169.81 884,336.55 l -267.69,5.53 -2.63,-104.15 8.19,-101.75 25,-0.93 54.6,-12.17 z"
+         class="a0636d65-5084-44eb-a24d-d5b19a3ab596"
+         data-name="Tracé 1237"
+         id="bb2619ed-7d4e-4e81-a70f-37bad0f93706" />
+      <path
+         style="fill:url(#fd98d6f8-bbf5-4395-8a14-770189d082d4);fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 259.66,78 350.83,187.91 330,340.71 6.24,324.5 Z"
+         class="bd938181-68da-4861-9cda-9f2d3215efdf"
+         data-name="Tracé 1238"
+         id="a65950ca-3fd4-4619-9cc4-569d9f9ca322" />
+      <path
+         style="fill:url(#b0cd0a0b-da80-464d-8832-1fa8c22f20a3);fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 494.87,196.55 7.1,-97 165,234.5 -323.71,0.62 80,-117.62 z"
+         class="f2c1725c-10d5-4bea-9332-0d1872f465f8"
+         data-name="Tracé 1239"
+         id="a4850144-3be2-4ca6-8b42-3fd51d33409e" />
+      <path
+         style="fill:#3a3188"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 549.8,46.44 A 5.35,5.35 0 0 0 545.45,43 c -5.6,-0.81 -8.82,5.7 -11.1,9.72 -2.14,3.76 -4.17,7.59 -6.29,11.36 C 527,66 526,68 525.11,70 c -0.53,1.12 -1.21,2.13 -1.65,3.25 a 12.21,12.21 0 0 0 -2.24,1.88 c -2.19,2.26 -4.14,4.78 -6.42,6.94 -4.58,4.36 -9,9.12 -14.33,12.64 a 0.35,0.35 0 0 0 -0.1,0.48 v 0 c 0.68,0.68 2,3 3,3.21 0.48,0 1.15,-0.43 1.53,-0.63 2,-1 4.06,-2.17 6.08,-3.28 a 55,55 0 0 0 7.86,-5.13 89.22,89.22 0 0 0 10.27,-9.06 9,9 0 0 0 1.29,-1.77 22.22,22.22 0 0 0 4.2,-4.46 110.32,110.32 0 0 0 6.84,-9.39 c 2.18,-3.28 4.67,-6.35 6.6,-9.8 1.45,-2.49 2.8,-5.56 1.76,-8.44 z"
+         class="e9de917f-d939-435b-aa4d-404fd14486ce"
+         data-name="Tracé 3854"
+         id="b33787fa-3010-4ada-9dc5-558ffceb3f1e" />
+      <path
+         style="fill:url(#radialGradient1051)"
+         inkscape:connector-curvature="0"
+         id="path50"
+         transform="translate(-6.24,-12.01)"
+         d="m 537.61,46.74 v 0 a 1.67,1.67 0 0 0 -0.56,-1.14 c -1.54,-1.23 -3.16,-2.36 -4.73,-3.54 l -3.85,-2.86 a 10.57,10.57 0 0 0 -0.36,-3.39 v 0 c -1,-3.2 -3.52,-5.44 -6.18,-7.27 -1.69,-1.16 -2.55,-2.76 -3.77,-4.34 a 16.51,16.51 0 0 0 -4.51,-4 c -2.43,-1.37 -5.36,-2.13 -8,-1 a 9.54,9.54 0 0 0 -5.17,7.09 11.72,11.72 0 0 0 2.18,8.8 c 1.82,2.5 4.62,4 5.16,7.28 0.15,0.81 0.15,1.84 1,2.24 1.16,0.54 2.43,-0.55 3.4,0.44 2,2 4.63,5 7.85,4.7 a 8,8 0 0 0 3.77,-2 c 0.29,-0.24 0.57,-0.49 0.84,-0.74 1.28,1.11 2.44,2.34 3.68,3.49 a 11.06,11.06 0 0 0 3.89,2.82 4.65,4.65 0 0 0 3.87,-0.82 4.39,4.39 0 0 0 1.63,-2.9 8,8 0 0 0 -0.14,-2.86 z"
+         class="b00c44cf-6aa4-4387-98a7-b563d46175cf" />
+      <path
+         style="fill:#090e7c"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 566.41,33.84 c -1.95,-4.36 -6,-8.1 -11,-8.1 -2.84,0 -5.76,0.78 -8,-1.38 -1.64,-1.55 -2.68,-3.64 -4.05,-5.42 a 8.46,8.46 0 0 0 -4.95,-3.55 c -2.91,-0.55 -5.64,0.89 -8.24,2 a 14.06,14.06 0 0 1 -2.44,0.76 C 525,15 521.51,12.32 517.23,12 c -5.07,-0.37 -9,2.71 -12.22,6.26 -1.59,1.81 -3,3.74 -4.49,5.66 -0.62,0.82 -1.12,1.19 -0.74,2.19 a 7.58,7.58 0 0 0 1.22,2.16 12.51,12.51 0 0 0 10.73,4.31 c 1.89,-0.22 3.3,-1.34 5,-2 a 2.91,2.91 0 0 1 3.13,0.12 3.48,3.48 0 0 1 0.84,2.76 c 0,1.76 -0.34,3.42 0.24,5.13 a 9.86,9.86 0 0 0 3.53,4.78 8,8 0 0 0 8.37,1 l 0.14,0.16 c 1.77,2.12 3.71,4.06 5.66,6.08 a 34.13,34.13 0 0 0 5.43,4.9 14.59,14.59 0 0 0 9.17,2 13.52,13.52 0 0 0 7.76,-3.58 21.68,21.68 0 0 0 5.17,-6.52 15.71,15.71 0 0 0 0.2,-13.57 z"
+         class="a26b579a-391a-4fe0-87ad-aa05fd51477f"
+         data-name="Tracé 3857"
+         id="bc1b7b1f-f318-439a-8c6e-71440fe59b69" />
+      <path
+         style="fill:#9c38fa"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 559.32,70.7 c -1.15,-2.27 -2,-4.65 -3,-7 -1,-2.35 -2.12,-4.69 -3,-7.09 a 28.9,28.9 0 0 0 -4.76,-9.2 c -2.29,-2.82 -5.48,-4.92 -9.24,-4.65 a 11.83,11.83 0 0 0 -9.85,7.7 c -0.66,1.9 -0.21,3.61 -0.17,5.56 0.1,4.14 -0.91,8.41 -0.17,12.52 a 6.62,6.62 0 0 0 2.28,4.16 c 1.66,1.35 3.94,1.75 5.94,2.28 a 11.37,11.37 0 0 1 6.34,4 c 1.67,2 3.11,4.36 4.59,6.56 v 0 c 1.1,1.38 2.4,1.08 3.58,0 q 2.71,-2.57 5.5,-5.06 c 1.25,-1.15 3.4,-2.5 3.73,-4.31 0.33,-1.81 -1,-4.03 -1.77,-5.47 z"
+         class="b4f7f29b-8e9d-4db9-aede-7c06fba008a5"
+         data-name="Tracé 3858"
+         id="f2bcdfe5-1c54-4fd5-b7fe-5e3bab675827" />
+      <path
+         style="fill:#2b2465"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 182.49,175.51 c 0.18,-3 6.29,-6.76 9.2,-7.19 7.17,-1 12.82,-0.8 19.76,-1.81 a 77,77 0 0 0 12.93,-3.34 c 0.71,-0.36 1.46,-0.66 2.16,-1 a 20.57,20.57 0 0 0 2.47,-1.67 c 1.51,-1.12 3,-2.28 4.43,-3.45 2,-1.65 4.06,-3.32 6.11,-5 1.36,-1.1 16.32,-12.88 16.32,-12.88 1.47,2.32 3.7,3.87 5.07,6.38 a 186.8,186.8 0 0 1 -16,19.25 c -2.39,2.52 -5.78,6.28 -9.58,8.77 -0.15,0.19 -0.3,0.37 -0.46,0.55 a 12,12 0 0 1 -2.25,1.71 72.64,72.64 0 0 1 -10.8,5.85 97,97 0 0 1 -14.18,4.2 54.61,54.61 0 0 1 -12.32,1.78 c -7.02,0 -13.42,-2.48 -12.86,-12.15 z"
+         class="a22b5772-cadd-4946-bb8a-526e1114fac0"
+         data-name="Union 17"
+         id="fc391375-93ea-49f8-8af2-3931549a8a1b" />
+      <path
+         style="fill:#59bbab;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 263.61,129.28 a 1.48,1.48 0 0 0 -0.44,-0.46 c -0.64,0.85 -1.61,2.38 -1.79,2.58 -0.69,0.78 -1.63,1.37 -2.28,2.2 a 9.83,9.83 0 0 0 -1.74,4 c -0.22,1.14 0,2.32 1.55,2.62 a 1.8,1.8 0 0 0 2,-0.72 3.82,3.82 0 0 0 0.69,-1.08 2.64,2.64 0 0 0 -0.56,-2.73 0.29,0.29 0 0 1 -0.1,-0.18 0.24,0.24 0 0 1 0,-0.12 c 0.76,-1.68 1.8,-3.14 2.57,-4.82 a 1.5,1.5 0 0 0 0,-1.14 c 0.15,-0.06 0.12,-0.11 0.1,-0.15 z"
+         class="ee616e43-f974-434e-9c15-9c965057aed0"
+         data-name="Tracé 3861"
+         id="bde9173c-2c50-46eb-aa3c-fab2e11c0528" />
+      <path
+         style="fill:#59bbab"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 259.59,140.54 a 4.29,4.29 0 0 1 -0.71,-0.08 2.25,2.25 0 0 1 -1.52,-0.86 2.71,2.71 0 0 1 -0.27,-2 10.06,10.06 0 0 1 1.76,-4 9.68,9.68 0 0 1 1.29,-1.27 9.08,9.08 0 0 0 1,-0.95 c 0.06,-0.07 0.34,-0.48 0.6,-0.87 0.26,-0.39 0.82,-1.23 1.18,-1.69 l 0.14,-0.2 0.2,0.14 a 1.68,1.68 0 0 1 0.51,0.55 v 0 l 0.09,0.17 a 1.73,1.73 0 0 1 0,1.34 c -0.39,0.85 -0.85,1.65 -1.29,2.43 a 26,26 0 0 0 -1.28,2.39 v 0 a 2.93,2.93 0 0 1 0.62,3 3.66,3.66 0 0 1 -0.73,1.13 2,2 0 0 1 -1.59,0.77 z m 3.62,-11.36 c -0.31,0.45 -0.69,1 -1,1.46 -0.31,0.46 -0.56,0.83 -0.65,0.93 a 12.15,12.15 0 0 1 -1,1 8.65,8.65 0 0 0 -1.22,1.2 9.3,9.3 0 0 0 -1.66,3.86 2.28,2.28 0 0 0 0.19,1.66 1.69,1.69 0 0 0 1.13,0.71 1.5,1.5 0 0 0 1.82,-0.63 3.2,3.2 0 0 0 0.64,-1 2.39,2.39 0 0 0 -0.5,-2.46 0.49,0.49 0 0 1 -0.17,-0.35 0.41,0.41 0 0 1 0,-0.22 c 0.4,-0.87 0.86,-1.68 1.3,-2.45 a 23.74,23.74 0 0 0 1.27,-2.39 1.16,1.16 0 0 0 0,-0.93 l -0.05,-0.1 a 1,1 0 0 0 -0.11,-0.23 z m -2.21,6.27 0.23,0.09 v -0.06 z"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Tracé 3862"
+         id="ba3db219-6cff-4913-94a5-ac1b8bf7ac0e" />
+      <path
+         style="fill:#9f6652;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 259.84,141.44 c 0.18,0.15 1.8,1.59 2,1.46 0.43,-0.31 0.84,-0.64 1.27,-1 a 35.11,35.11 0 0 0 3,-2.64 c 0.41,-0.41 0.86,-0.92 1.3,-1.3 a 1.49,1.49 0 0 0 0.65,-1.3 1.94,1.94 0 0 0 -0.82,-1.14 18.94,18.94 0 0 0 -1.62,-1.21 2.7,2.7 0 0 0 -0.93,-0.46 2.38,2.38 0 0 0 -1.71,0.47 c -0.36,0.24 -0.7,0.51 -1.07,0.71 a 8.68,8.68 0 0 0 -1.1,0.55 6,6 0 0 0 -1.09,1.26 c -0.13,0.19 -1.94,2.71 -1.9,2.74 0.04,0.03 1.38,1.36 2.02,1.86 z"
+         class="bae87e50-0722-40b7-8794-cfb4dd95289d"
+         data-name="Tracé 3863"
+         id="b106d72f-946c-4e5c-8784-17379056627d" />
+      <path
+         style="fill:#9f6652;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 263.34,135.72 c 0,0.1 0.08,0.2 0.13,0.3 a 6.61,6.61 0 0 0 1.37,1.7 2.44,2.44 0 0 0 0.92,0.63 1.74,1.74 0 0 0 1.35,-0.25 7.69,7.69 0 0 0 1,-0.77 c 0.29,-0.25 0.71,-0.51 1,-0.76 0.69,-0.55 1.92,-1.7 2.57,-2.3 a 1.35,1.35 0 0 0 -0.63,-0.35 23.28,23.28 0 0 1 -3.34,2.3 44.55,44.55 0 0 0 3.93,-3.72 1,1 0 0 0 -0.87,-0.48 17.59,17.59 0 0 1 -3.65,2.83 27.67,27.67 0 0 0 2.37,-2.35 16.68,16.68 0 0 0 1.52,-1.84 1.17,1.17 0 0 0 -1.12,-0.28 l -1.8,1.72 c -0.52,0.48 -1.3,1.21 -1.86,1.63 1.51,-1.9 3.66,-4.63 3.64,-4.64 a 2,2 0 0 0 -1.14,-0.46 c -0.13,0 -2.91,2.93 -3.3,3.3 -0.75,0.7 -1.75,1.79 -2.57,2.49 a 5.36,5.36 0 0 0 0.46,1.29 z"
+         class="bae87e50-0722-40b7-8794-cfb4dd95289d"
+         data-name="Tracé 3864"
+         id="bd1af92b-d91b-4113-85ca-3e65c1d320d5" />
+      <path
+         style="fill:#cccccc;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 143.37,357.45 c 0,0 32.11,1 64.6,0.93 32.49,-0.07 72.6,-1.32 72.6,-1.32 0,0 -40.12,-1 -72.6,-0.89 -32.48,0.11 -64.6,1.28 -64.6,1.28 z"
+         class="bb4e70c3-3a01-4496-916a-a5f27c5a4d1a"
+         data-name="Tracé 3865"
+         id="a6948e81-0fe9-4f33-a495-6b714b09a64d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 242.69,356.12 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3870"
+         id="eaca9f56-4f1f-400e-96e7-864d4c767eef" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 211.62,356.35 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3871"
+         id="a645de06-bc91-40d3-90bc-83dbb9ee7d25" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 161.27,357.45 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3872"
+         id="bf5f714f-a0d2-4de3-adfa-ab3fde3e6bde" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 176.5,356.65 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3874"
+         id="b9ceee92-f0c4-4c67-b95f-840841abb7ee" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 177.39,356.64 h 0.42 c -0.12,0.02 -0.29,-0.01 -0.42,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3876"
+         id="bd87281b-3b33-4cb9-a132-063bdc042011" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 158,356.82 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3878"
+         id="a8aa6624-a19f-4da7-9eeb-81fc6977afbd" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 160.75,356.64 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3880"
+         id="ffcf5134-2958-4487-9a9c-2f9b92552979" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 265.83,357.14 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3884"
+         id="a37f81cb-fe57-4c07-9c08-bb7762f7cb92" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 154.32,357.08 h 8.29 l 0.92,-0.08 h 3.05 l -0.41,-0.56 H 280.62 V 357 H 196 l -0.48,1.52 H 145.4 l -0.42,-0.05 h 22.49 l 0.84,0.07 h 32.16 l 0.85,0.06 h 79.24 v 0.4 0 -0.53 0 0.53 H 200 l -0.41,-2.57 h -39.06 l -0.93,0.08 h -4.86 z m 0,0.52 z m 19.46,0.55 z m -0.29,-0.19 H 174 c 0,0 -0.45,0 -0.44,0 z m 12.49,0.14 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3885"
+         id="a3bb5944-b69f-41b3-85d0-330632fcc76c" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 169.77,358.16 h 0.42 a 1.48,1.48 0 0 1 -0.42,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3888"
+         id="a9051c48-721b-4e62-9fb5-b94dbe9c2eec" />
+      <path
+         style="fill:#2b2465"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 208.56,345.4 c -2.14,-12.15 -6.13,-24.17 -7.19,-36.47 l -0.06,-0.7 c -2,-3.58 -1.56,-8.52 -2.14,-12.36 a 143,143 0 0 0 -3.89,-17.73 c -2.41,-8.61 -4.43,-17.58 -6.87,-26.34 -1,-3.79 -1.91,-7.65 -2.68,-11.51 -0.45,-2.35 -1.18,-4.74 -1.12,-7.09 a 21.16,21.16 0 0 1 1.51,-7.2 15.86,15.86 0 0 1 1.71,-3.2 13.13,13.13 0 0 1 12.49,-5.38 c 12.8,2 11.32,18.89 13.38,28.38 1.48,6.83 2.46,14.06 3.54,21.1 q 1.69,11.21 2.7,22.51 c 0.29,3.47 0.41,7 0.63,10.44 1.7,3.92 0.85,8.7 1.23,12.91 0.4,4.55 -0.52,8.79 -0.74,13.33 q -0.26,6.35 -0.41,12.73 c -0.07,2.68 -0.15,5.35 -0.3,8 -0.15,2.65 0,7 -2.6,8.69 a 5.47,5.47 0 0 1 -3,1.06 c -4.19,0.02 -5.54,-7.57 -6.19,-11.17 z"
+         class="a22b5772-cadd-4946-bb8a-526e1114fac0"
+         data-name="Union 18"
+         id="e9730510-0061-4a9b-b7cd-dfc23a60aa76" />
+      <path
+         style="fill:#2b2465;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 210.57,357.08 c 0.63,0 1.41,0.11 2,0.11 1.58,0 3.16,0 4.74,-0.06 a 41,41 0 0 0 8.42,-0.63 c -0.87,-1.15 -3.73,-2.29 -5.25,-2.87 a 6,6 0 0 0 -6.16,-4.12 c -4.34,0.17 -4.71,4.2 -4.12,7.63 a 2.76,2.76 0 0 1 0.37,-0.06 z"
+         class="ed284457-2950-485f-a3da-397e38b16604"
+         data-name="Tracé 3899"
+         id="e2a11b98-0570-490c-8586-5cb8ce1b4234" />
+      <path
+         style="fill:#4f43b8;stroke:#4f43b8"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 160.36,353.41 c -5.3,-2.26 -1.72,-9.55 -1,-13.49 0.5,-2.68 1,-5.38 1.77,-8 1.37,-4.68 2.76,-9.33 3.87,-14.05 0.65,-2.74 1.88,-5.35 2.79,-8.1 0.91,-2.75 1.85,-6 3.53,-8.55 0.39,-2.17 1,-4.31 1.21,-6.27 a 144.35,144.35 0 0 0 1.1,-18.23 c 0,-9 0.53,-18.24 0.58,-27.36 0,-4 0.24,-7.93 0.57,-11.86 0.2,-2.4 0.14,-4.91 0.87,-7.2 a 20.8,20.8 0 0 1 3.43,-6.56 16.14,16.14 0 0 1 2.53,-2.63 13.16,13.16 0 0 1 13.55,-1.76 c 11.8,5.51 5.72,21.45 5.13,31.19 -0.45,7 -1.48,14.26 -2.38,21.36 -0.94,7.53 -2.08,15 -3.55,22.49 -0.73,3.71 -1.64,7.37 -2.42,11.05 a 11.58,11.58 0 0 1 -3.25,5.54 c -0.06,0.34 -0.13,0.68 -0.2,1 a 34.1,34.1 0 0 1 -3.58,9.73 c -0.68,1.27 -1.41,2.5 -2.14,3.72 -5.19,8.61 -11,16.7 -15.65,25.63 -1.05,2 -2.27,3 -4,3 a 7.37,7.37 0 0 1 -2.76,-0.65 z"
+         class="a94808fc-c958-4dd7-9e5f-44ba4a866d76"
+         data-name="Union 19"
+         id="fd350a90-baa3-4bd3-9af3-af704eac9a89" />
+      <path
+         style="fill:#4f43b8;fill-rule:evenodd;stroke:#4f43b8"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 155.86,352.59 c 0.59,0.22 1.23,0.7 1.74,0.94 1.44,0.68 2.88,1.32 4.34,1.94 2.54,1.08 5.23,2.46 7.95,3 -0.3,-1.41 -2.43,-3.66 -3.57,-4.83 a 6,6 0 0 0 -3.88,-6.37 c -4.05,-1.67 -6.08,1.84 -7,5.22 a 1.82,1.82 0 0 1 0.4,0.11 z"
+         class="a0f066f6-467c-4726-8d8c-6445609d8c6e"
+         data-name="Tracé 3902"
+         id="aaf7fca8-16b8-4e01-97dc-394df64df1b3" />
+      <path
+         style="fill:#4f43b8;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 203.66,184.43 c -1.32,-5.64 -2.36,-10.76 -7.47,-14.19 a 20.39,20.39 0 0 0 -19.41,-2.12 c -6.54,2.66 -11.32,8.34 -11.2,16.27 0.12,7.93 2,14.09 3.85,21.5 2.19,8.93 6.27,13.85 9.06,22.66 0,0 26.34,-1.42 29,-1.87 -0.02,-2.21 -1.27,-31.45 -3.83,-42.25 z"
+         class="b1fddb52-a62c-46f7-a916-b3f147ce2fc9"
+         data-name="Tracé 3904"
+         id="bcb4b612-5202-4b55-9a0f-1da38f94a39b" />
+      <path
+         style="fill:url(#b2240c32-03ae-4080-bec5-3956833d72b1)"
+         inkscape:connector-curvature="0"
+         id="path75"
+         transform="translate(-6.24,-12.01)"
+         d="m 198.53,145.51 v 0 a 62.37,62.37 0 0 0 -2.22,-7.83 c -1.25,-3.51 -2.33,-7.09 -5.26,-9.58 -5.06,-4.36 -12.35,-4.62 -18.23,-1.89 -3,1.38 -5.58,3.69 -6,7.1 a 26.38,26.38 0 0 0 0.76,7.19 21.46,21.46 0 0 0 1.14,4.81 44,44 0 0 0 2.88,5.69 c 0.17,0.74 0.34,1.47 0.5,2.19 0.42,2 0.81,4 1.34,5.9 0.88,3.17 1.74,6.36 2.48,9.58 a 0.65,0.65 0 0 0 0.65,0.48 c 2.32,-0.1 4.64,-0.36 6.94,-0.62 a 38.9,38.9 0 0 0 7.28,-1.17 0.67,0.67 0 0 0 0.48,-0.83 0.49,0.49 0 0 0 -0.08,-0.18 42.32,42.32 0 0 1 -2.51,-6.44 9.58,9.58 0 0 0 5.07,-1.28 c 4,-2.63 2.37,-7.72 1.87,-11.7 a 13.2,13.2 0 0 0 2.42,-0.61 0.7,0.7 0 0 0 0.49,-0.81 z"
+         class="b155b133-f473-4412-af5c-32e253d2d21a" />
+      <path
+         style="fill:#04518c"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 746.41,166.76 a 14.4,14.4 0 0 0 -4.83,-2.52 5.88,5.88 0 0 0 -4.45,0.69 17.38,17.38 0 0 0 -4.66,3.41 21.37,21.37 0 0 0 -3.52,5.75 c -2.78,5.73 -5.06,11.72 -8.56,17.07 a 85.6,85.6 0 0 1 -5.64,7.48 34.77,34.77 0 0 1 -3.81,3 q -2.45,1.53 -5,3 c -8.18,4.77 -16.28,9.72 -24.48,14.49 a 0.34,0.34 0 0 0 -0.13,0.46 v 0 c 1.65,2.18 2.5,4.83 4.27,6.93 a 0.33,0.33 0 0 0 0.33,0.09 c 5.91,-1.66 11.76,-3.49 17.51,-5.67 a 140.64,140.64 0 0 0 13.1,-5.52 34.26,34.26 0 0 0 4.64,-2.74 18,18 0 0 0 4.9,-3.12 70.3,70.3 0 0 0 6.16,-5.28 c 3.86,-3.77 6.91,-8.23 9.94,-12.66 a 65,65 0 0 0 4.93,-8.22 c 2.59,-5.14 4.54,-12.33 -0.7,-16.64 z"
+         class="e8868baa-9666-42ac-87af-e9c4512be4f2"
+         data-name="Tracé 3909"
+         id="e16690b1-d4c6-4d4c-ab08-d409cfd8157e" />
+      <path
+         style="fill:#cccccc;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 780.19,352.9 c 0,0 -34.14,1.09 -68.68,1 -34.54,-0.09 -77.17,-1.18 -77.17,-1.18 0,0 42.65,-1.06 77.18,-1 34.53,0.06 68.67,1.18 68.67,1.18 z"
+         class="bb4e70c3-3a01-4496-916a-a5f27c5a4d1a"
+         data-name="Tracé 3913"
+         id="a5371c2d-eff7-4542-bd53-3603c42b9d5d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 779.3,353.18 -0.5,0.05 h 0.45 -0.49 1 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3914"
+         id="f0ea6da1-6e77-4c27-9119-f88cb70d59b6" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 769.09,352.49 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3915"
+         id="e051195e-0918-4474-a3ce-f04fb386ee51" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 772.77,352.71 h 2.94 -0.44 -2.93 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3916"
+         id="a51757ba-bb29-43b7-847b-699a1c1c7a5d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 777,352.87 v 0 c 0,0 -0.42,0 -0.44,-0.05 h 0.88 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3917"
+         id="af5e3966-943c-4f74-8ad7-bdd215de7604" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 674.61,352.26 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3918"
+         id="abaf575d-0772-4e58-92d7-50d912364f66" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 707.63,351.52 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3919"
+         id="a4ac1115-9b4e-408c-a148-a416bf7871ac" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 761.18,353.83 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3920"
+         id="aa1e0f95-e12b-43fb-8b8d-b8000dc5117d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 774.44,352.92 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3921"
+         id="b8e97dbe-8512-431d-89ee-7dc94ffaee84" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 745,351.93 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3922"
+         id="bfc4a595-a350-4874-8fde-94bfb9372bf7" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 769,352.55 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3923"
+         id="a667a421-3fc3-4cf8-894b-955312c56248" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 744,351.91 h -0.44 a 1.09,1.09 0 0 1 0.44,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3924"
+         id="bd33045d-7d1c-4296-8601-5833da239935" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 765.17,352.55 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3925"
+         id="a53bc6b9-29f7-4100-be88-5cc78d598fd1" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 764.62,352.63 H 764 l 0.45,0.05 h 3.5 a 1.38,1.38 0 0 1 -0.45,-0.05 h -2.87 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3926"
+         id="ef750669-6789-4d57-8370-715ae109fab9" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 773,353 h -0.46 c 0.09,0 0.27,0 0.46,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3927"
+         id="a1afd679-73b7-4dc0-b892-254a1e9fa751" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 761.7,352.67 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3928"
+         id="e9010792-2fd3-4530-8e7e-9c43eb360156" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 774.44,353 h 0.5 c 0,0 -0.46,0 -0.45,-0.05 H 774 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3929"
+         id="b6680774-ca1e-46a7-8a64-25c0fd2be3e9" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 773,353 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3930"
+         id="ebc6af92-b805-4425-812a-890df1c2e6a4" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 772.14,352.9 h -0.5 l 0.45,0.05 h 0.5 c 0,0 -0.46,-0.04 -0.45,-0.05 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3931"
+         id="f10f1604-d116-4d3a-95cd-c6806b20acbc" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 650,353.46 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3932"
+         id="ba79ab3a-c0ad-4e00-b8c2-6b2d4dd8c4d5" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 768.54,352.56 h -4.36 l -0.45,-0.05 h -7.86 l -0.9,-0.08 H 634.32 v -0.55 0 l 0.45,0.05 h 2.39 l 0.45,0.05 h 6.65 0.45 132.36 0.49 0.54 l 1,-0.08 h 0.9 a 1.67,1.67 0 0 0 -0.5,0.05 h -2 L 777,352 h -2.87 l -0.49,0.05 v 0 a 1.77,1.77 0 0 0 -0.5,0.05 c 0,0 0.46,0 0.45,0 h -0.5 -0.5 -53.08 l -0.9,-0.06 h -74.78 -0.45 -9.06 v -0.46 0 0.57 0 -0.58 h 116.75 l 0.9,0.08 h 12.33 l 0.45,0.05 h 3.33 z m 0,0.79 z m -20.7,0.25 z m 0.33,0.2 z m -13.28,0.2 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3933"
+         id="f148aa78-47db-44fc-be31-e597a88e1440" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 773.48,353 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3934"
+         id="f729e62b-0e58-4155-8fb7-acab594607d6" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 772.63,352.88 h -0.29 l -0.89,-0.08 h 0.69 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3935"
+         id="b5578654-1358-4f13-b948-a6adfc2d4469" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 752.15,353.45 h -0.46 a 1.19,1.19 0 0 1 0.46,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3936"
+         id="e38c1c81-a725-4578-b695-f05537c715ac" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 774.56,352.89 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3937"
+         id="f6c5e090-06e4-4a67-af2c-8daa925d3e1f" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 777,353.1 h 0.46 c -0.12,0.02 -0.25,-0.01 -0.46,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3938"
+         id="aabee722-5258-4004-b94b-3f6032627091" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 776,353.24 h -0.45 l -1,0.08 h 1.88 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3939"
+         id="f22940e2-7f80-479c-b38c-bbb88716d485" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 777,353.22 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3940"
+         id="a31e8e46-bfdd-413b-818c-97ac703afa66" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 779.24,353.09 h 1 -0.45 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3941"
+         id="ad19ded0-71cb-4d87-81c0-1d60e3ad4616" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 777.75,353.14 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3942"
+         id="b3c46dcd-3086-4d0d-88b7-22112ef83e94" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 779.38,352.92 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3943"
+         id="f233db55-e789-4142-9274-469e6ceb19b2" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 778.49,352.78 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3944"
+         id="b9572784-ddc3-45dd-9d84-09a0b6221e09" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 779,352.82 0.44,0.05 h 0.5 l -0.44,-0.05 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3945"
+         id="a1c220e0-0672-402a-9d8a-bedaecb0e5f0" />
+      <path
+         style="fill:#4f43b8"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 732.61,214.28 a 15.39,15.39 0 0 0 -8.17,-2.45 7.58,7.58 0 0 0 -6.26,3.44 34.49,34.49 0 0 0 -4,8.46 78,78 0 0 0 -3.18,11.35 c -0.4,2 -0.74,4 -1,6 -1.25,8.18 -2.11,16.42 -3.28,24.62 -1.17,8.2 -2,16.34 -2.51,24.56 -0.09,1.7 -0.26,3.4 -0.29,5.07 -0.09,0.21 -0.18,0.42 -0.25,0.64 a 23.8,23.8 0 0 0 -0.84,7.88 c 0,3 -0.31,6.08 -0.12,9.12 0.21,3.51 0.69,7 0.83,10.5 0.14,3.5 0.21,7.19 0.31,10.78 0.09,3 0.23,6.13 0.35,9.19 a 20.47,20.47 0 0 0 0.46,4.2 5.24,5.24 0 0 0 -0.54,1.18 c -1.74,0.67 -3.94,1.4 -5.13,2.88 a 0.35,0.35 0 0 0 0,0.49 0.33,0.33 0 0 0 0.13,0.07 35,35 0 0 0 7.43,0.62 c 1.29,0 2.57,0.07 3.86,0.08 1.29,0.01 2.46,-0.15 3.68,-0.11 l 0.31,0.05 a 0.33,0.33 0 0 0 0.41,-0.23 11.42,11.42 0 0 0 -0.07,-4.8 28.1,28.1 0 0 0 1.16,-4.32 c 1.09,-5.06 2,-10.25 3.18,-15.35 1.42,-6.08 2.88,-12.24 3.78,-18.47 0.29,-2 0.5,-4 0.66,-6 a 11.82,11.82 0 0 0 1,-2.83 c 0.68,-2.78 0.62,-5.67 0.92,-8.49 a 95.45,95.45 0 0 1 2.25,-12.1 c 1.91,-8.11 4.17,-16.22 6.2,-24.32 2.03,-8.1 4.4,-16.17 5.76,-24.43 1.13,-6.42 -1.35,-13.79 -7.04,-17.28 z"
+         class="a8468fdf-d8f1-4039-b753-13a07e435a5a"
+         data-name="Tracé 3946"
+         id="ebe7dd14-6f67-4762-b008-963800f090e3" />
+      <path
+         style="fill:#9c38fa"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 768.61,347.87 a 11.27,11.27 0 0 0 -2,-4.23 c -0.09,-3 -1.39,-5.93 -1.92,-8.8 -1.14,-6.2 -3,-12.16 -4.66,-18.24 a 81.6,81.6 0 0 0 -2.58,-8.68 c -0.84,-2.26 -1.52,-4.57 -2.34,-6.83 a 23.2,23.2 0 0 0 -2,-4.27 c -0.08,-0.48 -0.17,-0.95 -0.26,-1.41 -1.68,-8.4 -1.94,-16.81 -2,-25.33 -0.1,-8.88 -0.44,-17.76 -0.58,-26.63 -0.08,-4.38 -0.44,-8.74 -0.72,-13.1 a 20,20 0 0 0 -3.4,-10.37 14.56,14.56 0 0 0 -7.88,-6.08 12.94,12.94 0 0 0 -9.12,0.72 c -10.38,5.07 -6.78,18.63 -5.5,27.58 0.18,1.26 0.33,2.51 0.41,3.78 0.55,8.64 1.76,17.23 2.91,25.84 1.15,8.61 2.72,17.42 4.64,26.05 a 23,23 0 0 0 1.52,5.47 13.85,13.85 0 0 0 2.32,3.2 c 0.81,5.22 3.2,10 5.88,14.52 3.15,5.3 6.54,10.46 9.76,15.72 1.57,2.56 3.09,5.16 4.53,7.8 a 29,29 0 0 0 1.81,3.28 6.61,6.61 0 0 0 0,1.09 31.07,31.07 0 0 0 -2.16,2.42 7.06,7.06 0 0 0 -1.4,2.49 0.35,0.35 0 0 0 0.25,0.42 0.43,0.43 0 0 0 0.16,0 35.22,35.22 0 0 0 7.09,-2.66 c 1.2,-0.54 2.4,-1 3.6,-1.6 1.2,-0.6 2.08,-1.14 3.15,-1.62 a 2.24,2.24 0 0 1 0.37,-0.1 0.34,0.34 0 0 0 0.12,-0.43 z"
+         class="b4f7f29b-8e9d-4db9-aede-7c06fba008a5"
+         data-name="Tracé 3947"
+         id="ad9a8269-fd80-4c46-a511-87120a466497" />
+      <path
+         style="fill:#9c38fa;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 726.52,179.23 c 1.75,-5.52 3.18,-10.54 8.46,-13.51 a 19.75,19.75 0 0 1 19.25,-0.58 c 6.2,3.16 10.43,9.21 9.68,17.12 -0.75,7.91 -3.13,13.87 -5.51,21.1 -2.86,8.74 -5.2,12.92 -8.66,21.49 0,-0.06 -27.77,-3.1 -30.32,-3.76 0.18,-2.25 3.77,-31.3 7.1,-41.86 z"
+         class="a457bfcc-d4ae-49bc-934f-79a7079b573a"
+         data-name="Tracé 3948"
+         id="bb647334-136a-43d9-9dbb-f3bb6193c00c" />
+      <path
+         style="fill:url(#bdf7ce4b-4438-49a8-9694-2f9552d7c0a8);fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         id="path114"
+         transform="translate(-6.24,-12.01)"
+         d="m 758.85,128.19 c -1.06,-5.5 -9.12,-7.48 -13.89,-7 -5.54,0.56 -10.68,4.14 -12.16,9.54 -1.83,6.74 -2.18,8.25 -2.7,12.52 a 8.33,8.33 0 0 0 3,0.36 c 0,2.52 -0.76,5.71 -0.1,8.11 1.07,3.94 4.27,4.54 8.2,4 a 48.78,48.78 0 0 1 -2.13,7.76 c 2.43,0.58 12.1,0.59 13.93,0.5 0.43,-3.24 1,-6.54 1.6,-9.76 0.14,-0.81 0.71,-5.05 1.07,-8.24 1.47,-3.08 3,-6.92 3,-8.78 -0.01,-3.2 0.79,-5.75 0.18,-9.01 z"
+         class="ffad3bc5-c400-41c0-b0df-15d451ec089d" />
+      <path
+         style="fill:#9f6652;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 683.89,235.16 a 1.59,1.59 0 0 1 -0.45,-0.63 c 1.14,-0.53 3.17,-1.3 3.44,-1.47 1.09,-0.62 2,-1.6 3.11,-2.15 a 11.51,11.51 0 0 1 5.07,-1 c 1.4,0 2.72,0.6 2.72,2.49 a 2.11,2.11 0 0 1 -1.32,2.26 4,4 0 0 1 -1.41,0.54 3.19,3.19 0 0 1 -3,-1.32 c 0,-0.08 -0.1,-0.16 -0.18,-0.17 h -0.16 c -2.15,0.49 -4,1.35 -6.26,1.84 a 1.74,1.74 0 0 1 -1.35,-0.24 0.7,0.7 0 0 1 -0.21,-0.15 z"
+         class="bae87e50-0722-40b7-8794-cfb4dd95289d"
+         data-name="Tracé 3955"
+         id="b7345563-61f0-4f5f-939a-d7b21dca792f" />
+      <path
+         style="fill:#cccccc;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 642.91,328.52 c 0,0 -74.72,2.09 -125.14,2 -50.42,-0.09 -158.31,-2.43 -158.31,-2.43 0,0 107.82,-2 158.28,-1.93 50.46,0.07 125.17,2.36 125.17,2.36 z"
+         class="bb4e70c3-3a01-4496-916a-a5f27c5a4d1a"
+         data-name="Tracé 3958"
+         id="fec159b5-8ce6-4ffb-9e59-5b23376e1cb9" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 641.18,329.08 c -0.3,0 -0.65,0.07 -1,0.09 h 0.88 l -1,0.08 H 641 c 0.3,0 0.65,-0.07 1,-0.08 0.07,0 0.94,-0.07 0.95,-0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3959"
+         id="ac5aa0df-2e1c-4cbf-a3b9-f52484361d31" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 621.33,327.72 h -0.41 l -0.46,-0.05 h 1 c -0.32,0 -0.53,-0.07 -0.87,-0.09 h -2.94 l 0.87,0.09 0.88,0.09 h 1 c 0.2,-0.01 0.8,-0.02 0.93,-0.04 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3960"
+         id="bd4b8801-7316-41b6-bc7b-e5fdfa73961a" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 628.5,328.19 h 1 c 0.29,0 0.7,0.09 0.87,0.09 h 4 c -0.34,0 -0.52,-0.07 -0.87,-0.08 h -1 c -0.25,0 -0.7,-0.09 -0.87,-0.09 h -4 c 0.37,0.01 0.51,0.06 0.87,0.08 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3961"
+         id="eb47bd29-433f-413f-851c-db30cb47e90f" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 636.7,328.5 -0.87,-0.09 h 1 c 0,0 -0.83,-0.07 -0.88,-0.09 h -2 a 1.84,1.84 0 0 0 0.41,0.05 h -1.52 c -0.07,0 0.83,0.06 0.87,0.08 h 2 c 0.17,0 0.68,0.08 0.87,0.09 h 1 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3962"
+         id="ab5b28a5-aa2f-49e1-b7e6-48938effba59" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 437.73,327.33 -1,0.07 0.89,0.05 c 0.36,0 0.6,-0.06 1,-0.07 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3963"
+         id="a1b0ae47-a0c6-47e3-9803-1c00b0c91366" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 501.9,325.72 -0.89,-0.06 c -0.29,0 -0.65,0.06 -1,0.06 0.22,0 0.64,0.06 0.87,0.06 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3964"
+         id="ba5c4a8b-e1eb-4bcf-8d0b-eb42dcf14895" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 605.93,330.33 c 0.3,0 0.66,-0.07 1,-0.08 h -0.88 l -0.95,0.07 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3965"
+         id="ae530a9b-be7c-425c-a0ee-25b8e499a12a" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 631.64,328.51 c -0.27,0 -0.63,-0.06 -0.89,-0.05 -0.26,0.01 -0.6,0.07 -1,0.09 h 0.87 c 0.38,0.03 0.71,-0.04 1.02,-0.04 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3966"
+         id="e26e5699-f35d-4f80-839b-3d88a78fae62" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 574.52,326.57 h 1 l -0.88,-0.09 a 8.51,8.51 0 0 1 -1,0 c 0.17,0.01 0.62,0.08 0.88,0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3967"
+         id="bf0b0787-a40c-4d66-85f0-9ee722fd5590" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 621.24,327.84 h -1 l 0.87,0.1 h 1 c -0.19,0 -0.66,-0.09 -0.87,-0.1 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3968"
+         id="a764e7a8-42b5-4ba8-b4d4-0717645d96d3" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 572.63,326.52 h 1 c -0.3,0 -0.57,-0.07 -0.87,-0.08 h -1 c 0.24,0.01 0.62,0.08 0.87,0.08 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3969"
+         id="b6677168-676c-45cc-921a-a1bea1b8ce01" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 613.72,327.87 c 0,0 0.82,0.08 0.87,0.1 h 1 c 0,0 -0.94,-0.08 -0.87,-0.09 0.07,-0.01 -0.99,-0.02 -1,-0.01 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3970"
+         id="b783b58d-f870-4878-a706-7f5b7e248c7f" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 612.67,328.07 h -1 c 0,0 0.91,0.07 0.87,0.09 h -1 c -0.16,0 -0.76,-0.07 -0.87,-0.08 l -0.87,-0.09 h -1.56 l 0.47,0.05 h -1 c 0.3,0 0.56,0.08 0.87,0.09 a 8.51,8.51 0 0 1 1,0 l 0.87,0.09 h -1.93 l 0.88,0.08 h 2 c 0.3,0 0.57,0.08 0.87,0.09 0.3,0.01 0.57,0.07 0.87,0.09 0.3,0.02 0.71,-0.05 1,0 a 6.25,6.25 0 0 0 0.87,0.09 h 1 c 0.35,0 0.62,0.08 0.87,0.09 h 1 l -0.87,-0.08 H 619 c 0.08,0 -0.88,-0.07 -0.87,-0.09 0.01,-0.02 1,0 1,0 0,0 -0.82,-0.07 -0.87,-0.09 -0.05,-0.02 1,0 1,0 0,0 -0.78,-0.07 -0.87,-0.09 h -1 c -0.22,0 -0.67,-0.08 -0.87,-0.09 l -0.87,-0.09 a 8.27,8.27 0 0 1 -0.87,-0.08 h -1 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3971"
+         id="a407c486-5c00-4f13-9b30-cddfb0cee962" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 628.84,328.64 c 0.35,0 0.61,-0.08 1,-0.09 -0.25,0 -0.62,-0.05 -0.88,-0.05 -0.26,0 -0.65,0.07 -0.95,0.08 0.21,0 0.58,0.07 0.83,0.06 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3972"
+         id="a88a18be-05e7-49b1-9d24-81f253d2360e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 606.94,328.13 h -1 l 0.87,0.09 h 1 c -0.29,-0.02 -0.5,-0.08 -0.87,-0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3973"
+         id="bf0e4686-1d44-4099-97ba-f923dafb19b0" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 631.8,328.79 h 1 c 0.12,0 -0.88,-0.07 -0.87,-0.09 0.01,-0.02 -0.94,0 -1,0 l 0.46,0.05 a 1.84,1.84 0 0 1 0.41,0.04 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3974"
+         id="feceb563-3f0e-4f3c-876d-62f1e9dda7ec" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 629,328.77 h -1 l -0.87,-0.1 h -1 l -0.87,-0.08 h -1 c 0,0 0.88,0.07 0.87,0.09 -0.01,0.02 -1,0 -1,0 h 0.39 l 0.48,0.06 h 1 c 0.3,0 0.56,0.08 0.87,0.09 h 3 c -0.3,0.01 -0.56,-0.06 -0.87,-0.06 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3975"
+         id="b9dbcaa2-2793-4496-8831-1418eca36f4c" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 627.26,328.58 h -1 l 0.87,0.1 h 1 c 0.09,-0.02 -0.92,-0.08 -0.87,-0.1 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3976"
+         id="adf35a11-3e14-4e57-91e0-bfb4fa7c699d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 389.87,329.34 c 0.32,0 0.54,0.08 0.87,0.09 h 1 c 0,0 -0.8,-0.07 -0.87,-0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3977"
+         id="befeec13-9ad0-4630-ac12-9b378d48655e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 620.28,327.88 h -0.09 l 0.87,0.09 h -1 c -0.25,0 -0.62,-0.09 -0.87,-0.09 h -1 c 0,0 -0.88,-0.07 -0.87,-0.09 0.01,-0.02 1,0 1,0 l -0.87,-0.08 -0.87,-0.09 -0.87,-0.09 h -1 c 0,0 0.82,0.06 0.87,0.08 h -1 c -0.08,0 -0.78,-0.06 -0.87,-0.09 -0.09,-0.03 -1,0 -1,0 h -1 c -0.15,0 -0.75,-0.07 -0.87,-0.08 l -0.89,-0.09 h -1.51 0.46 -3.85 c -0.3,0 -0.68,-0.08 -0.87,-0.09 h -2 l 0.87,0.09 h 0.87 c 0,0 0.8,0.06 0.87,0.09 h -1 c -0.3,0 -0.57,-0.07 -0.87,-0.08 l -1.92,0.07 -0.88,-0.08 -0.87,-0.09 h 1 c 0,0 -0.92,-0.07 -0.87,-0.09 h 2 c 0,0 -0.9,-0.07 -0.87,-0.08 0.03,-0.01 -0.84,-0.07 -0.87,-0.09 h -2.94 l 0.87,0.08 h 0.87 c 0.05,0 0.77,0.06 0.87,0.08 h -2 c -0.35,0 -0.68,-0.08 -0.87,-0.09 h -1 l -1.75,-0.17 h 2 l -0.47,-0.06 a 1.41,1.41 0 0 1 -0.41,0 h 2 c 0,0 -0.85,-0.06 -0.88,-0.08 h -4.13 l -0.87,-0.09 a 5.68,5.68 0 0 1 -1,0 l -0.87,-0.08 -0.87,-0.09 h -2 c -0.34,0 -0.68,-0.08 -0.87,-0.08 h -1 c -0.36,0 -0.57,-0.08 -0.87,-0.08 h -1 c -0.16,0 -0.66,-0.06 -0.88,-0.08 -0.22,-0.02 -0.71,-0.08 -0.86,-0.08 h -2 c -0.24,0 -0.6,-0.08 -0.87,-0.08 h -1 c -0.29,0 -0.54,-0.09 -0.87,-0.09 h -1 c -0.3,0 -0.57,-0.08 -0.88,-0.09 a 7.69,7.69 0 0 1 -1,0 8.52,8.52 0 0 0 -0.87,-0.08 7.69,7.69 0 0 1 -1,0 8.52,8.52 0 0 0 -0.87,-0.08 h -1 l -0.87,-0.08 h 1 l -0.88,-0.08 h -1 l 0.87,0.08 h -1 c -0.19,0 -0.7,-0.08 -0.87,-0.07 h -2 l -0.87,-0.08 c -0.12,0 -0.71,-0.08 -0.87,-0.08 h -2 c -0.21,0 -0.73,-0.06 -0.87,-0.07 -0.14,-0.01 -0.72,-0.08 -0.87,-0.08 h -2 c -0.27,0 -0.58,-0.08 -0.87,-0.09 -0.29,-0.01 -0.72,0.07 -1,0.06 -0.28,-0.01 -0.54,-0.08 -0.87,-0.09 h -1 c -0.35,0 -0.57,-0.08 -0.88,-0.08 a 5.68,5.68 0 0 1 -1,0 8.5,8.5 0 0 0 -0.87,-0.07 h -1 c -0.34,0 -0.59,-0.07 -0.87,-0.08 -0.28,-0.01 -0.66,0.05 -1,0.05 -0.34,0 -0.56,-0.07 -0.87,-0.08 -0.31,-0.01 -0.73,0 -1,0 -0.27,0 -0.55,-0.07 -0.88,-0.08 -0.33,-0.01 -0.67,0.05 -1,0.05 -0.33,0 -0.55,-0.07 -0.87,-0.07 a 5.13,5.13 0 0 1 -1,0 5.1,5.1 0 0 0 -0.87,-0.07 5.13,5.13 0 0 1 -1,0 8.5,8.5 0 0 0 -0.87,-0.07 l -0.88,-0.08 c -0.1,0 -0.9,-0.06 -0.88,-0.07 h 1 c 0,0 -0.89,-0.05 -0.88,-0.07 h 1 l -0.87,-0.08 c -0.14,0 -1,0 -1,0 0,0 0.9,0.07 0.87,0.09 -0.03,0.02 -0.94,0 -1,0 h 0.87 l -0.95,0.05 -0.88,-0.08 -1,0.05 0.87,0.08 c -0.2,0 -0.73,0.05 -1,0.05 -0.27,0 -0.61,-0.08 -0.87,-0.08 a 5.13,5.13 0 0 1 -1,0 c -0.14,-0.06 -0.66,0 -0.87,-0.07 a 3.65,3.65 0 0 0 -0.87,-0.07 l -1,0.05 c -0.17,0 -0.74,0.05 -1,0.05 -0.26,0 -0.61,-0.07 -0.87,-0.07 h -1 c -0.25,0 -0.54,-0.07 -0.87,-0.07 -0.33,0 -0.68,0 -1,0 -0.32,0 -0.57,-0.07 -0.87,-0.07 -0.3,0 -0.66,0.06 -1,0.06 -0.34,0 -0.63,-0.07 -0.88,-0.07 -0.25,0 -0.63,0.05 -1,0.05 -0.37,0 -0.58,-0.07 -0.88,-0.07 -0.3,0 -0.73,0.06 -1,0.06 l -0.87,-0.07 a 4.44,4.44 0 0 0 1,-0.07 l -0.87,-0.06 h -1 c 0,0 0.93,0.07 0.87,0.08 h -1 c -0.2,0 -0.71,-0.07 -0.88,-0.07 l -1,0.06 -1,0.06 -0.87,-0.07 c -0.16,0 -0.66,-0.06 -0.88,-0.06 l -1,0.06 -1,0.06 c -0.17,0 -0.69,-0.07 -0.88,-0.07 -0.19,0 -0.71,0.07 -0.95,0.06 l -0.89,-0.06 c -0.16,0 -0.74,-0.07 -0.87,-0.07 l -1,0.06 a 4.25,4.25 0 0 1 -0.87,-0.06 5.22,5.22 0 0 0 -0.88,-0.07 l -0.95,0.07 0.87,0.06 c -0.26,0 -0.7,0.06 -1,0.06 -0.3,0 -0.62,-0.06 -0.87,-0.06 -0.25,0 -0.82,0.07 -1,0.07 -0.18,0 -0.67,-0.05 -0.88,-0.07 -0.21,-0.02 -0.71,-0.06 -0.87,-0.06 -0.16,0 -0.82,0.06 -1,0.07 l -1,0.06 c -0.23,0 -0.64,-0.07 -0.87,-0.06 -0.23,0.01 -0.66,0.06 -1,0.06 -0.34,0 -0.63,-0.06 -0.87,-0.06 -0.24,0 -0.8,0.07 -1,0.06 l -0.87,-0.06 c 0,0 1,-0.05 0.95,-0.06 l -0.87,-0.07 -1,0.08 0.88,0.05 c -0.27,0 -0.69,0.07 -1,0.07 -0.31,0 -0.57,-0.06 -0.87,-0.06 -0.3,0 -0.66,0.06 -1,0.07 -0.34,0.01 -0.6,-0.07 -0.88,-0.06 -0.28,0.01 -0.65,0.06 -1,0.06 -0.35,0 -0.71,-0.06 -0.87,-0.06 -0.16,0 -0.73,0.05 -1,0.07 -0.27,0.02 -0.79,0.06 -1,0.06 -0.21,0 -0.56,0 -0.87,0 -0.31,0 -0.8,0.07 -1,0.06 a 6.36,6.36 0 0 1 -0.87,-0.06 3.72,3.72 0 0 0 -0.88,-0.05 l -1,0.06 c -0.14,0 -0.77,0.07 -1,0.07 -0.23,0 -0.6,-0.06 -0.88,-0.06 -0.28,0 -0.72,0.07 -1,0.07 -0.28,0 -0.55,-0.06 -0.89,-0.06 -0.34,0 -0.66,0.07 -1,0.07 -0.34,0 -0.56,-0.06 -0.87,-0.05 -0.31,0.01 -0.66,0.06 -1,0.06 -0.34,0 -0.57,-0.06 -0.87,-0.05 -0.3,0.01 -0.66,0.06 -1,0.06 -0.34,0 -0.56,-0.06 -0.88,0 -0.32,0.06 -0.65,0.06 -0.95,0.06 a 4.31,4.31 0 0 0 -0.88,0 5.21,5.21 0 0 1 -1,0.06 h -0.87 c -0.29,0 -0.65,0.07 -1,0.07 -0.35,0 -0.58,-0.06 -0.87,-0.06 -0.29,0 -0.66,0.07 -1,0.07 -0.34,0 -0.56,-0.05 -0.87,-0.05 -0.31,0 -0.74,0.07 -1,0.07 l -0.88,-0.06 c 0,0 1,0 1,-0.07 l -0.87,-0.05 -1,0.07 h 0.87 l -0.95,0.07 a 4.41,4.41 0 0 0 -0.89,0 l -0.95,0.06 c -0.2,0 -0.72,0.07 -1,0.07 l -0.87,-0.05 -0.87,-0.06 -1,0.07 c -0.17,0 -0.73,0.07 -1,0.07 -0.27,0 -0.62,-0.05 -0.87,-0.05 -0.25,0 -0.72,0.07 -1,0.07 -0.28,0 -0.55,-0.06 -0.88,0 -0.33,0.06 -0.67,0.06 -1,0.07 -0.33,0.01 -0.56,-0.06 -0.88,-0.06 -0.32,0 -0.65,0.07 -0.95,0.07 -0.3,0 -0.63,-0.06 -0.88,-0.05 -0.25,0.01 -0.63,0.06 -1,0.07 a 6.31,6.31 0 0 0 -0.87,0 5.65,5.65 0 0 1 -1,0.07 6.36,6.36 0 0 1 -0.87,-0.06 c -0.15,0 -0.7,0 -0.88,0 -0.18,0 -0.81,0.06 -1,0.07 l -1,0.07 -0.87,-0.05 1,-0.07 c -0.3,0 -0.56,-0.06 -0.87,-0.06 l -1,0.07 0.87,0.06 c -0.19,0 -0.75,0.07 -1,0.07 -0.25,0 -0.63,-0.06 -0.87,-0.06 -0.24,0 -0.66,0.07 -1,0.08 -0.34,0.01 -0.56,-0.06 -0.87,-0.06 -0.31,0 -0.72,0.08 -1,0.07 a 6.35,6.35 0 0 1 -0.87,-0.05 l 1,-0.07 h 0.95 a 5.08,5.08 0 0 1 -0.87,-0.05 c 0.06,-0.05 0.93,-0.05 1,-0.07 a 6.25,6.25 0 0 1 -0.87,-0.06 l -1,0.07 -0.95,0.08 -0.88,-0.06 -0.95,0.07 -1,0.08 c -0.13,0 -0.94,0 -1,0.07 l 0.87,0.05 c -0.23,0 -0.71,0.07 -1,0.07 -0.29,0 -0.57,-0.06 -0.87,-0.05 -0.3,0.01 -0.66,0.07 -1,0.07 -0.34,0 -0.6,-0.06 -0.87,-0.05 -0.27,0.01 -0.65,0.07 -1,0.07 -0.35,0 -0.71,-0.06 -0.87,0 l -1,0.07 c -0.24,0 -0.81,0.07 -1,0.07 l -0.88,-0.05 -0.87,-0.05 c -0.31,0 -0.65,0.07 -1,0.07 a 4.22,4.22 0 0 0 -0.87,0 5.22,5.22 0 0 1 -1,0.08 c -0.35,0 -0.67,0.07 -1,0.07 -0.33,0 -0.63,-0.06 -0.87,-0.05 -0.24,0.01 -0.64,0.07 -1,0.07 -0.36,0 -0.58,-0.05 -0.87,-0.05 -0.29,0 -0.72,0.07 -1,0.07 -0.28,0 -0.53,0 -0.88,0 -0.35,0 -0.56,-0.06 -0.87,-0.06 -0.31,0 -0.65,0.08 -1,0.08 -0.35,0 -0.65,0.07 -1,0.08 a 4.22,4.22 0 0 0 -0.87,0 5.65,5.65 0 0 1 -1,0.07 c -0.37,0 -0.63,-0.06 -0.87,-0.05 -0.24,0.01 -0.73,0.07 -1,0.07 l -0.89,-0.05 1,-0.07 c -0.32,0 -0.57,-0.07 -0.89,-0.06 l -1,0.08 0.87,0.05 c -0.19,0 -0.74,0.07 -0.95,0.07 h -0.88 c -0.25,0 -0.63,0.07 -0.95,0.07 -0.32,0 -0.59,-0.05 -0.89,-0.05 l -1,0.08 h -0.87 c 0,0 1,-0.06 1,-0.08 h -0.88 l -1,0.08 h 0.46 a 1.48,1.48 0 0 1 0.42,0 l -1,0.07 c -0.29,0 -0.71,0.07 -1,0.07 l -0.87,-0.05 h -0.87 l -1,0.08 -0.88,-0.05 a 4.22,4.22 0 0 0 -0.87,0 l -1,0.07 0.87,0.05 c -0.29,0 -0.66,0.07 -0.95,0.07 -0.29,0 -0.57,-0.05 -0.88,-0.05 -0.31,0 -0.65,0.07 -1,0.08 -0.35,0.01 -0.58,-0.05 -0.88,-0.05 -0.3,0 -0.71,0.07 -1,0.07 h -0.87 c -0.13,0 -0.7,-0.05 -0.88,-0.05 -0.18,0 -0.82,0.07 -0.95,0.08 l -1,0.07 c -0.25,0 -0.61,0 -0.88,0 -0.27,0 -0.71,0.07 -0.95,0.07 -0.24,0 -0.55,-0.05 -0.88,-0.05 -0.33,0 -0.67,0.07 -0.95,0.08 -0.28,0.01 -0.58,-0.06 -0.89,-0.05 -0.31,0.01 -0.66,0.07 -1,0.07 h -0.87 c -0.24,0 -0.63,0.07 -1,0.08 -0.37,0.01 -0.59,-0.06 -0.87,-0.05 -0.28,0.01 -0.73,0.07 -1,0.07 l -0.88,-0.05 1,-0.07 -0.87,-0.05 -1,0.07 h 0.87 l -0.95,0.08 c -0.19,0 -0.71,-0.06 -0.88,-0.05 l -1,0.07 -0.95,0.08 h -0.88 -0.87 l -1,0.07 c -0.24,0 -0.67,0.07 -1,0.08 -0.33,0.01 -0.68,-0.05 -0.87,-0.05 -0.19,0 -0.68,0.07 -1,0.08 -0.32,0.01 -0.57,-0.06 -0.87,-0.05 -0.3,0.01 -0.8,0.07 -1,0.07 a 5.32,5.32 0 0 1 -0.89,-0.05 l -0.87,-0.05 -1,0.08 -1,0.08 c -0.28,0 -0.59,-0.06 -0.87,-0.05 -0.28,0.01 -0.66,0.07 -1,0.07 -0.34,0 -0.56,-0.05 -0.87,-0.05 -0.31,0 -0.66,0.08 -1,0.08 -0.34,0 -0.57,-0.05 -0.87,-0.05 h -1 v -1.13 0 c 0.3,0 0.56,0.07 0.87,0.08 h 1 c 0.3,0 0.57,0.08 0.87,0.08 h 1 c 0.3,0 0.57,0.08 0.89,0.09 a 7.53,7.53 0 0 1 0.95,0 6.4,6.4 0 0 0 0.88,0.08 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 h 1 l 0.87,0.09 h -1 l 0.88,0.08 h 1 l -0.87,-0.08 h 1 c 0.19,0 0.71,0.08 0.87,0.08 h 1.93 l 0.87,0.08 c 0.1,0 0.77,0.09 0.88,0.09 0.11,0 0.61,0.08 0.87,0.09 h 1 l -0.87,-0.08 h 1 c 0.28,0 0.56,0.07 0.87,0.08 a 7.69,7.69 0 0 1 1,0 8.52,8.52 0 0 0 0.87,0.08 7.69,7.69 0 0 1 1,0 6.4,6.4 0 0 0 0.87,0.08 h 1 c 0.31,0 0.56,0.08 0.87,0.08 a 5.13,5.13 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 h 1 c 0.35,0 0.61,0.08 0.86,0.09 h 1 c 0.35,0 0.57,0.07 0.87,0.08 a 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 7.85,7.85 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 h 1 c 0.3,0 0.57,0.08 0.87,0.09 a 7.85,7.85 0 0 1 1,0 6.4,6.4 0 0 0 0.88,0.08 7.53,7.53 0 0 1 0.95,0 6.54,6.54 0 0 0 0.88,0.08 5.13,5.13 0 0 1 1,0 8.46,8.46 0 0 0 0.88,0.08 h -1 c 0,0 0.93,0.07 0.87,0.08 h -1 c -0.09,0 0.88,0.06 0.87,0.08 h -1 l 0.87,0.08 h 1 l -0.87,-0.08 h 1 c 0,0 -0.88,-0.06 -0.87,-0.08 0.01,-0.02 1,0 1,0 0,0 -0.77,-0.06 -0.87,-0.08 a 5.13,5.13 0 0 1 1,0 6.4,6.4 0 0 0 0.87,0.08 7.69,7.69 0 0 1 1,0 6.4,6.4 0 0 0 0.87,0.08 7.85,7.85 0 0 1 1,0 8.52,8.52 0 0 0 0.87,0.08 c 0.13,0 0.71,0.08 0.88,0.08 H 406 c 0.24,0 0.64,0.08 0.87,0.08 a 7.85,7.85 0 0 1 1,0 6.11,6.11 0 0 0 0.87,0.08 7.69,7.69 0 0 1 1,0 l 0.87,0.09 h -1 l 0.87,0.08 h 1 c 0,0 -0.93,-0.07 -0.87,-0.08 h 1.93 c 0.25,0 0.62,0.08 0.87,0.08 h 1 l 0.87,0.08 c 0.1,0 0.89,0.07 0.87,0.08 h -1 c -0.1,0 -0.71,-0.08 -0.88,-0.08 h -1 c 0,0 0.82,0.06 0.87,0.08 0.05,0.02 0.88,0.06 0.87,0.08 -0.01,0.02 -0.89,0 -1,0.05 0.3,0 0.57,0.07 0.88,0.08 l 1,-0.05 -0.87,-0.08 h 3 c 0.13,0 0.71,0.07 0.87,0.08 a 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 c 0.34,0 0.68,-0.05 1,-0.05 0.32,0 0.56,0.07 0.87,0.08 h -1 l 0.89,0.08 h 1 l -0.88,-0.08 a 7.69,7.69 0 0 1 1,0 5.24,5.24 0 0 0 0.88,0.08 7.69,7.69 0 0 1 1,0 5.14,5.14 0 0 0 0.88,0.08 c 0.29,0 0.56,0.07 0.87,0.08 a 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 h 1 l -0.87,-0.09 h 1 l 0.87,0.09 c 0.1,0 0.75,0.08 0.87,0.08 h 1 c 0.18,0 0.74,-0.05 1,-0.05 0.26,0 0.62,0.08 0.89,0.08 0.27,0 0.56,0.07 0.87,0.08 h 1 c 0.22,0 0.68,-0.05 1,-0.05 0.32,0 0.65,0.08 0.87,0.08 a 5.24,5.24 0 0 1 1,0 8.52,8.52 0 0 0 0.87,0.08 c 0.19,0 0.77,0.06 0.87,0.08 h -1 l 0.87,0.08 H 441 a 6.18,6.18 0 0 0 1,-0.05 5.13,5.13 0 0 1 1,0 c 0.28,0 0.67,0.08 0.87,0.08 a 5.24,5.24 0 0 1 1,0 5.14,5.14 0 0 0 0.88,0.07 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 c 0.32,0 0.72,0 1,0 0.28,0 0.56,0.08 0.87,0.08 a 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 c 0.3,0 0.66,-0.05 1,-0.05 0.34,0 0.58,0.08 0.88,0.08 a 7.69,7.69 0 0 1 1,0 5.22,5.22 0 0 0 0.88,0.07 7.69,7.69 0 0 1 1,0 6.42,6.42 0 0 0 0.87,0.09 l 1,-0.06 0.87,0.09 0.87,0.08 1,-0.05 -0.87,-0.09 a 8.51,8.51 0 0 1 1,0 6.4,6.4 0 0 0 0.88,0.09 c 0.3,0 0.65,-0.06 1,-0.06 0.35,0 0.58,0.08 0.88,0.09 0.3,0.01 0.7,-0.06 1,-0.06 l 0.88,0.09 0.88,0.08 h 2 c 0.35,0 0.68,0.07 0.87,0.07 a 5.79,5.79 0 0 1 1,0 5,5 0 0 0 0.87,0.07 c 0.27,0 0.56,0.07 0.87,0.08 l 1,-0.05 a 5.13,5.13 0 0 1 1,0 c 0.32,0 0.57,0.07 0.89,0.07 h 1 l 0.87,0.08 c 0.11,0 0.73,0.07 0.87,0.07 h 1 l 1,-0.05 c 0.17,0 0.68,0.07 0.87,0.08 0.19,0.01 0.66,0 1,0 0.34,0 0.57,0.07 0.87,0.08 a 5.24,5.24 0 0 1 1,0 3.69,3.69 0 0 0 0.88,0.07 c 0.3,0 0.56,0.07 0.87,0.08 l 1,-0.05 c 0.22,0 0.68,0 1,0 0.32,0 0.65,0.07 0.88,0.07 a 7.69,7.69 0 0 1 1,0 6.38,6.38 0 0 0 0.87,0.07 c 0.28,0 0.66,-0.05 1,-0.05 0.34,0 0.57,0.07 0.87,0.07 h 1 l 0.88,0.07 a 6.11,6.11 0 0 0 -1,0.05 l 0.87,0.08 1,-0.06 -0.87,-0.07 c 0.3,0 0.66,0 1,0 0.34,0 0.62,0.07 0.87,0.07 0.25,0 0.66,-0.05 1,-0.05 0.34,0 0.56,0.07 0.87,0.08 0.31,0.01 0.72,-0.06 1,-0.06 0.28,0 0.57,0.07 0.87,0.08 0.3,0.01 0.66,-0.06 1,0 0.34,0.06 0.63,0.07 0.87,0.07 a 5.24,5.24 0 0 1 1,0 4.3,4.3 0 0 0 0.88,0.07 c 0.31,0 0.72,-0.06 1,-0.05 0.28,0.01 0.6,0.07 0.87,0.07 l 1,-0.05 c 0.11,0 0.83,-0.06 1,0 0.17,0.06 0.57,0.06 0.87,0.06 h 1 c 0.37,0 0.59,0.07 0.87,0.07 0.28,0 0.65,-0.06 1,-0.06 0.35,0 0.62,0.07 0.87,0.07 0.25,0 0.62,-0.05 1,-0.05 0.38,0 0.59,0.06 0.88,0.07 0.29,0.01 0.66,-0.06 1,-0.06 0.34,0 0.57,0.06 0.88,0.07 a 4.48,4.48 0 0 0 -1,0.07 c 0,0.06 0.82,0 0.87,0.06 0.05,0.06 -0.95,0 -1,0.06 -0.05,0.06 0.83,0 0.87,0.07 0.04,0.07 -0.94,0 -1,0 l 0.88,0.07 1,-0.06 A 4.34,4.34 0 0 1 514,331 c -0.05,-0.06 0.95,0 1,-0.06 0.05,-0.06 -0.88,0 -0.87,-0.07 0.01,-0.07 1,0 1,0 0,0 -0.83,0 -0.87,-0.08 0.3,0 0.64,-0.06 1,0 0.36,0.06 0.7,0.07 0.87,0.07 l 1,-0.06 c 0.15,0 0.76,-0.06 1,-0.06 l 0.87,0.06 c 0.11,0 0.72,0.07 0.87,0.07 l 1,-0.06 c 0.13,0 0.78,-0.06 1,-0.06 0.22,0 0.58,0.06 0.89,0.06 0.31,0 0.64,-0.06 1,-0.06 0.36,0 0.57,0.07 0.86,0.07 0.29,0 0.67,-0.06 1,-0.06 0.33,0 0.56,0.06 0.87,0.06 0.31,0 0.72,-0.06 1,-0.06 0.28,0 0.55,0.06 0.87,0.06 0.32,0 0.66,-0.06 1,-0.06 0.34,0 0.63,0.06 0.87,0.06 0.24,0 0.66,-0.07 1,-0.07 0.34,0 0.57,0.06 0.88,0.06 0.31,0 0.73,-0.06 1,-0.06 0.27,0 0.65,0.06 0.88,0.06 0.23,0 0.79,-0.05 1,-0.06 l 1,-0.07 c 0.15,0 0.75,0.06 0.87,0.06 0.12,0 0.66,0.06 0.87,0.06 0.21,0 0.69,-0.06 1,-0.07 0.31,-0.01 0.71,0.07 0.87,0.06 l 1,-0.06 1,-0.07 c 0.21,0 0.72,0.05 0.87,0.06 l 0.88,0.05 c 0.18,0 0.81,-0.05 1,-0.06 0.19,-0.01 0.66,-0.06 1,-0.07 0.34,-0.01 0.69,0.06 0.88,0.06 0.19,0 0.65,-0.06 1,-0.07 0.35,-0.01 0.6,0.06 0.87,0.06 0.27,0 0.66,-0.07 1,-0.07 0.34,0 0.56,0.05 0.87,0.05 0.31,0 0.71,-0.07 1,-0.07 l 0.87,0.06 c 0,0 -1,0.05 -1,0.06 l 0.87,0.06 1,-0.07 h -0.88 l 1,-0.07 c 0.29,0 0.7,-0.07 1,-0.07 0.3,0 0.66,0.05 0.88,0.05 0.22,0 0.79,-0.07 0.95,-0.07 l 0.88,0.06 h 0.87 c 0.17,0 0.83,-0.06 1,-0.07 0.17,-0.01 0.78,-0.07 1,-0.07 0.22,0 0.58,0.05 0.87,0.05 0.29,0 0.66,-0.07 1,-0.07 0.34,0 0.57,0.06 0.87,0.05 0.3,-0.01 0.67,-0.07 1,-0.07 0.33,0 0.56,0.06 0.88,0 0.32,-0.06 0.71,-0.07 1,-0.07 0.29,0 0.57,0.06 0.88,0.05 0.31,-0.01 0.66,-0.06 1,-0.07 0.34,-0.01 0.63,0.06 0.87,0.05 0.24,-0.01 0.66,-0.06 1,-0.07 0.34,-0.01 0.57,0.06 0.87,0 0.3,-0.06 0.72,-0.07 1,-0.07 0.28,0 0.63,0.06 0.87,0.05 l 1,-0.07 c 0.13,0 0.8,-0.08 1,-0.08 l 0.87,0.05 h 0.89 c 0.28,0 0.77,-0.07 1,-0.07 0.23,0 0.58,0.05 0.87,0.05 0.29,0 0.82,-0.06 1,-0.07 l 1,-0.08 c 0.28,0 0.57,0.06 0.87,0.05 0.3,-0.01 0.72,-0.07 1,-0.07 0.28,0 0.57,0.05 0.87,0.05 0.3,0 0.66,-0.08 1,-0.08 0.34,0 0.63,0.06 0.87,0.05 0.24,-0.01 0.67,-0.07 1,-0.08 0.33,-0.01 0.56,0.06 0.88,0 0.32,-0.06 0.71,-0.07 1,-0.07 0.29,0 0.55,0.05 0.88,0.05 l -1,0.07 a 5.08,5.08 0 0 1 0.87,0.05 7.45,7.45 0 0 1 -0.95,0.08 c 0,0 0.82,0 0.87,0 0.05,0 0.87,-0.05 1,-0.07 0.13,-0.02 -0.89,0 -0.88,-0.05 l 1,-0.08 h 0.89 a 4.3,4.3 0 0 0 1,-0.07 c 0,-0.07 -0.82,0 -0.87,-0.05 l 1,-0.08 c 0.13,0 0.79,-0.07 1,-0.07 a 6.31,6.31 0 0 0 0.87,0 6.33,6.33 0 0 1 1,-0.07 h 0.87 c 0.34,0 0.58,0.06 0.88,0 0.3,-0.06 0.72,-0.08 1,-0.08 0.28,0 0.72,0.06 0.87,0.05 l 1,-0.08 0.95,-0.08 h 0.88 l 0.87,0.06 h 0.89 l 1,-0.09 -0.87,-0.05 c 0.28,0 0.68,-0.07 1,-0.08 0.32,-0.01 0.63,0.06 0.87,0.05 0.24,-0.01 0.63,-0.07 1,-0.08 h 0.87 c 0.29,0 0.66,-0.07 1,-0.08 0.34,-0.01 0.56,0.05 0.88,0.05 0.32,0 0.72,-0.08 1,-0.08 h 0.88 c 0.34,0 0.67,-0.07 1,-0.08 0.33,-0.01 0.56,0.05 0.87,0.05 0.31,0 0.65,-0.07 1,-0.08 a 6.31,6.31 0 0 0 0.87,0 5.22,5.22 0 0 1 1,-0.07 6.32,6.32 0 0 0 0.87,0 6.22,6.22 0 0 1 1,-0.08 c 0.31,0 0.58,0.05 0.87,0.05 0.29,0 0.66,-0.08 1,-0.08 a 6.61,6.61 0 0 0 0.89,0 6.77,6.77 0 0 1 1,-0.08 h 0.87 c 0,0 -1,0.07 -1,0.08 l 0.88,0.05 0.95,-0.08 h -0.45 a 2.94,2.94 0 0 1 -0.42,0 l 1,-0.08 c 0.2,0 0.7,-0.07 1,-0.08 0.3,-0.01 0.64,0.05 0.88,0.05 0.24,0 0.8,-0.09 1,-0.08 0.2,0.01 0.66,0 0.87,0 a 6.46,6.46 0 0 0 0.88,0 6.22,6.22 0 0 1 1,-0.08 l 1,-0.09 h 0.88 l -1,0.09 0.87,0.05 h -1 l -1,0.08 -1,0.08 h -0.88 l -1,0.08 h 0.87 l 1,-0.08 0.87,0.05 h 0.88 c 0.16,0 0.83,-0.07 1,-0.08 l -0.88,-0.05 1,-0.08 c 0.13,0 0.87,-0.05 1,-0.08 a 6.32,6.32 0 0 0 -0.87,0 h 1.83 c 0.32,0 0.65,-0.08 1,-0.09 a 6.46,6.46 0 0 0 0.88,0 l 1,-0.08 h -0.87 l 1,-0.09 c 0.23,0 0.68,-0.07 1,-0.08 a 6.46,6.46 0 0 0 0.88,0 6.77,6.77 0 0 1 1,-0.08 h 0.87 c 0,0 -0.94,0.07 -1,0.09 -0.06,0.02 0.89,0 0.88,0 -0.01,0 -0.89,0.06 -1,0.08 -0.11,0.02 0.88,0 0.87,0 h -0.43 -0.52 l -1,0.08 a 4.22,4.22 0 0 0 0.87,0 7,7 0 0 1 1,-0.08 4.22,4.22 0 0 0 0.87,0 c 0.3,0 0.8,-0.07 1,-0.08 l 1,-0.09 h 0.08 l 1.93,-0.17 h 1.75 c 0,0 -0.86,0.06 -1,0.09 l -1,0.08 -1,0.08 -0.52,0.05 h 0.44 c -0.15,0 -0.78,0.08 -1,0.08 h -0.87 c -0.25,0 -0.63,0.08 -1,0.09 -0.37,0.01 -0.58,0 -0.87,0 -0.29,0 -0.81,0.09 -1,0.09 l -0.88,-0.05 h -1.74 c -0.09,0 -1,0.06 -1,0.08 0,0.02 0.93,0 0.87,0 l -1,0.08 a 5.08,5.08 0 0 1 0.87,0 h 0.87 l -1,0.08 a 4.31,4.31 0 0 0 -0.88,0 6.87,6.87 0 0 1 -1,0.08 h -0.87 l -1,0.08 h 1.75 c 0,0 -0.91,0.06 -1,0.08 -0.09,0.02 0.89,0 0.88,0 h -1 l -1,0.08 a 6.31,6.31 0 0 0 -0.87,0 l -1,0.08 h -0.87 l 0.95,-0.08 c -0.17,0 -0.67,-0.05 -0.87,-0.05 -0.2,0 -0.72,0.08 -1,0.09 -0.28,0.01 -0.54,-0.05 -0.87,-0.05 l -1,0.08 -1,0.08 h -1 l 0.88,0.06 c -0.17,0 -0.77,0.08 -1,0.08 -0.23,0 -0.63,-0.05 -0.88,-0.05 -0.25,0 -0.82,0.09 -1,0.09 l -0.88,-0.05 a 4.22,4.22 0 0 0 -0.87,0 l -1,0.08 h 0.88 c -0.32,0 -0.66,0.08 -1,0.08 a 4.31,4.31 0 0 0 -0.88,0 c -0.31,0 -0.63,0.07 -0.95,0.08 h -0.88 a 4.22,4.22 0 0 0 -0.87,0 c -0.32,0 -0.64,0.07 -1,0.08 h -0.87 -0.88 l -1,0.07 0.88,0.05 c -0.15,0 -0.78,0.08 -1,0.08 l -0.89,-0.05 h -0.87 l -1,0.08 c -0.23,0 -0.62,0 -0.87,0 -0.25,0 -0.81,0.07 -1,0.08 -0.19,0.01 -0.71,0.07 -1,0.08 -0.29,0.01 -0.62,-0.06 -0.87,-0.05 -0.25,0.01 -0.59,0 -0.88,0 l -1,0.08 c -0.24,0 -0.69,0.07 -1,0.08 h -0.88 c -0.23,0 -0.81,0.08 -0.95,0.08 h -0.88 c 0,0 1,-0.06 1,-0.07 a 8.46,8.46 0 0 1 -0.87,0 l -0.88,-0.05 h -0.87 c -0.08,0 -1,0.06 -1,0.08 h 0.87 a 4.39,4.39 0 0 1 0.89,0.05 l -1,0.07 -1,0.08 -1,0.08 -0.87,-0.05 c 0,0 0.88,-0.06 1,-0.08 l -1.75,-0.09 a 4.2,4.2 0 0 1 -0.87,-0.05 h 0.08 c 0,0 0.94,-0.06 1,-0.08 0.06,-0.02 -0.83,0 -0.88,-0.05 l -1,0.08 h -0.08 a 4.29,4.29 0 0 1 0.88,0.05 l -1,0.08 h -1 0.87 l -1,0.08 a 4.31,4.31 0 0 0 -0.88,0 c -0.17,0.06 -0.73,0 -1,0.07 l -1,0.08 -0.87,-0.05 -1,0.08 h -0.87 l 1,-0.08 H 582 c -0.28,0 -0.66,0.08 -1,0.08 -0.34,0 -0.57,-0.06 -0.87,-0.05 -0.3,0.01 -0.66,0.08 -1,0.08 a 4.22,4.22 0 0 0 -0.87,0 l -1,0.07 h 0.87 l -1,0.07 c -0.19,0 -0.7,-0.05 -0.87,-0.05 -0.17,0 -0.73,0.06 -1,0.08 l -1,0.07 c -0.23,0 -0.62,-0.05 -0.87,-0.05 -0.25,0 -0.66,0.07 -1,0.07 h -0.87 c -0.3,0 -0.67,0.07 -1,0.08 -0.33,0.01 -0.57,-0.06 -0.89,0 -0.32,0.06 -0.71,0.07 -1,0.07 -0.29,0 -0.56,-0.05 -0.88,-0.05 a 4.22,4.22 0 0 0 -0.87,0 7.75,7.75 0 0 1 -1,0.07 c -0.15,0 -0.68,0.06 -1,0.07 -0.32,0.01 -0.65,-0.05 -0.87,-0.05 -0.22,0 -0.65,0.06 -1,0.07 -0.35,0.01 -0.59,-0.06 -0.88,-0.05 -0.29,0.01 -0.65,0.07 -1,0.07 -0.35,0 -0.57,-0.06 -0.88,-0.05 -0.31,0.01 -0.73,0.07 -1,0.07 l -0.87,-0.05 h 1 l 1,-0.07 -0.88,-0.05 c -0.25,0 -0.72,0.07 -1,0.07 -0.28,0 -0.54,-0.05 -0.87,-0.05 l -1,0.07 -1,0.07 0.87,0.05 c -0.25,0 -0.69,0.07 -0.95,0.07 a 4.31,4.31 0 0 0 -0.88,0 l -1,0.07 -0.87,-0.06 1,-0.06 -0.87,-0.06 c -0.22,0 -0.8,0.06 -1,0.07 l -1,0.07 -1,0.07 c -0.24,0 -0.66,0.06 -1,0.07 -0.34,0.01 -0.7,-0.06 -0.88,-0.06 -0.18,0 -0.67,0.07 -1,0.07 h -0.87 c -0.3,0 -0.66,0.06 -1,0.06 -0.34,0 -0.58,-0.05 -0.88,-0.05 -0.3,0 -0.79,0.07 -1,0.06 l -0.87,-0.05 c 0,0 1,-0.05 1,-0.07 l -0.88,-0.06 -1,0.07 c -0.2,0 -0.71,-0.05 -0.88,-0.06 l -1,0.07 0.88,0.06 c 0.32,0 0.63,-0.07 1,-0.07 l 0.87,0.06 h -1 c -0.13,0 -0.8,0.07 -1,0.07 -0.2,0 -0.66,-0.06 -0.88,-0.06 -0.22,0 -0.64,-0.06 -0.88,-0.05 l -1,0.06 -1,0.07 c -0.28,0 -0.66,-0.06 -0.88,-0.06 -0.22,0 -0.73,0.07 -1,0.07 l -0.87,-0.06 c -0.11,0 -0.74,-0.07 -0.87,-0.06 -0.29,0 -0.59,-0.07 -0.88,-0.06 l -1,0.06 0.88,0.06 c -0.27,0 -0.7,0.06 -1,0.06 -0.3,0 -0.62,-0.06 -0.88,-0.06 -0.26,0 -0.62,0.06 -1,0.06 -0.38,0 -0.58,-0.06 -0.87,-0.06 -0.29,0 -0.65,0.06 -1,0.07 -0.35,0.01 -0.59,-0.06 -0.88,-0.06 -0.29,0 -0.71,0.06 -1,0.06 -0.29,0 -0.73,-0.07 -0.88,-0.06 a 7.46,7.46 0 0 0 -0.95,0.06 h -1 l -1.75,-0.12 1,-0.06 1,-0.06 -0.87,-0.06 a 5.79,5.79 0 0 1 -1,0 c -0.32,-0.06 -0.73,0 -0.87,-0.06 l -0.87,-0.06 a 5.16,5.16 0 0 0 -1,0.06 c 0,0.06 0.83,0 0.87,0.06 0.04,0.06 -0.95,0 -1,0.06 l 0.88,0.06 c -0.28,0 -0.69,0.06 -1,0.06 -0.31,0 -0.62,-0.07 -0.88,-0.06 l -1,0.06 -0.87,-0.07 a 5.16,5.16 0 0 0 1,-0.06 l 0.51,-0.09 a 6.11,6.11 0 0 0 -1,0.05 l -1,0.06 -1,0.05 c -0.14,0 -0.78,0.06 -1,0.06 -0.22,0 -0.58,-0.07 -0.89,-0.07 l -1,0.05 -0.87,-0.07 h 1 c -0.17,0 -0.67,-0.07 -0.87,-0.07 -0.2,0 -0.72,0.06 -1,0.06 -0.28,0 -0.6,-0.07 -0.88,-0.07 l -1,0.05 c 0,0 0.95,0.06 0.89,0.07 l -1,0.05 c -0.19,0 -0.71,-0.07 -0.88,-0.07 l -0.95,0.06 c -0.19,0 -0.72,0.06 -1,0.06 l -0.87,-0.08 -0.88,-0.08 -1,0.05 c -0.15,0 -0.76,0.07 -1,0.07 -0.24,0 -0.59,-0.08 -0.87,-0.09 -0.28,-0.01 -0.66,0.07 -1,0.06 -0.34,-0.01 -0.56,-0.07 -0.87,-0.08 -0.31,-0.01 -0.66,0.07 -1,0.06 -0.34,-0.01 -0.57,-0.07 -0.88,-0.08 -0.31,-0.01 -0.66,0.07 -1,0.06 -0.34,-0.01 -0.57,-0.08 -0.88,-0.08 -0.31,0 -0.65,0.06 -1,0.06 -0.35,0 -0.57,-0.08 -0.87,-0.09 -0.3,-0.01 -0.66,0.07 -1,0.06 -0.34,-0.01 -0.57,-0.08 -0.87,-0.08 -0.3,0 -0.66,0.06 -1,0.06 -0.34,0 -0.56,-0.08 -0.88,-0.09 a 5.68,5.68 0 0 1 -1,0 5.1,5.1 0 0 0 -0.87,-0.07 c -0.3,0 -0.74,0.05 -1,0.05 l -0.87,-0.08 h 1 l -0.87,-0.08 h -1 -1 l 0.88,0.07 h -1 c -0.3,0 -0.76,-0.06 -0.87,-0.07 h -0.88 1 c -0.28,0 -0.56,-0.06 -0.87,-0.07 -0.31,-0.01 -0.71,0.05 -1,0.05 -0.29,0 -0.67,-0.08 -0.87,-0.08 h -1.92 l -1,0.05 -1,0.05 -0.87,-0.08 c -0.21,0 -0.59,-0.06 -0.88,-0.07 h -1 c -0.25,0 -0.56,-0.07 -0.87,-0.07 -0.31,0 -0.56,-0.07 -0.88,-0.08 l -1,0.05 h -1 c -0.28,0 -0.6,-0.07 -0.87,-0.07 a 8.68,8.68 0 0 1 -1,0 6.4,6.4 0 0 0 -0.88,-0.08 c -0.28,0 -0.65,0.05 -0.95,0.05 -0.3,0 -0.63,-0.08 -0.88,-0.08 h -1 c -0.39,0 -0.58,-0.07 -0.88,-0.08 -0.3,-0.01 -0.7,0.05 -1,0.05 l -0.87,-0.08 a 6.18,6.18 0 0 0 1,-0.05 6.38,6.38 0 0 0 -0.87,-0.07 6.32,6.32 0 0 0 1,-0.06 l -0.89,-0.07 h -0.95 c 0,0 0.88,0.06 0.87,0.08 h -1 l -1,0.06 c 0.34,0 0.5,0.06 0.87,0.07 l -1,0.05 c -0.26,0 -0.62,-0.08 -0.87,-0.08 l -1,0.05 -0.86,-0.08 h 1 c -0.25,0 -0.59,-0.07 -0.88,-0.08 a 7.69,7.69 0 0 1 -1,0 6.42,6.42 0 0 0 -0.87,-0.09 5.21,5.21 0 0 0 -1,0.06 h -1 -1 c -0.3,0 -0.57,-0.08 -0.87,-0.08 a 8.68,8.68 0 0 1 -1,0 6.42,6.42 0 0 0 -0.87,-0.09 c -0.34,0 -0.72,0.06 -1,0.06 l -0.88,-0.09 -0.87,-0.08 -1,0.05 h -1 c -0.29,0 -0.67,-0.07 -0.87,-0.08 a 8.51,8.51 0 0 1 -1,0 8.47,8.47 0 0 0 -0.88,-0.07 c -0.21,0 -0.67,-0.08 -0.87,-0.08 h -1 l 0.88,0.08 h -1 c -0.3,0 -0.68,-0.07 -0.88,-0.08 l -0.87,-0.08 c -0.15,0 -0.67,-0.07 -0.87,-0.07 -0.2,0 -0.56,-0.08 -0.88,-0.08 h -2.93 c -0.3,0 -0.65,-0.08 -0.88,-0.08 a 8.51,8.51 0 0 1 -1,0 6.4,6.4 0 0 0 -0.87,-0.08 8.51,8.51 0 0 1 -1,0 6.69,6.69 0 0 0 -0.88,-0.08 l -1,0.05 h -1 l 0.58,0.76 h 1 c -0.29,0 -0.58,-0.08 -0.87,-0.08 h -1.61 c -0.12,0 -0.72,-0.08 -0.87,-0.09 l -1,0.06 h -1 c -0.13,0 -0.78,-0.08 -0.87,-0.09 -0.09,-0.01 -0.6,-0.07 -0.88,-0.08 h -1 c -0.2,0 -0.56,-0.07 -0.87,-0.08 -0.31,-0.01 -0.57,-0.07 -0.88,-0.08 h -2 c -0.29,0 -0.65,-0.07 -0.87,-0.08 h -1 l -0.88,-0.08 h 1 c -0.32,0 -0.57,-0.07 -0.89,-0.08 h -1 -1 -1 c -0.25,0 -0.6,-0.08 -0.87,-0.08 a 7.69,7.69 0 0 1 -1,0 l -0.87,-0.08 c -0.13,0 -0.7,-0.08 -0.87,-0.08 h -1 l 0.87,0.08 a 7.85,7.85 0 0 1 -1,0 5,5 0 0 0 -0.87,-0.08 h -1 l -0.87,-0.08 h 1 c -0.3,0 -0.58,-0.09 -0.88,-0.09 h -2.53 c -0.26,0 -0.64,-0.08 -0.87,-0.08 a 5.13,5.13 0 0 1 -1,0 6.4,6.4 0 0 0 -0.87,-0.08 7.85,7.85 0 0 1 -1,0 8.52,8.52 0 0 0 -0.87,-0.08 7.69,7.69 0 0 1 -1,0 8.52,8.52 0 0 0 -0.87,-0.08 l -0.87,-0.08 -0.89,-0.08 h -1 c -0.3,0 -0.74,-0.09 -0.87,-0.08 h -1 l 0.87,0.08 h -1 c -0.3,0 -0.56,-0.08 -0.88,-0.08 -0.32,0 -0.56,-0.08 -0.87,-0.09 h -2 c -0.27,0 -0.65,-0.07 -0.87,-0.08 a 8.51,8.51 0 0 1 -1,0 6.42,6.42 0 0 0 -0.87,-0.09 c -0.3,0 -0.58,-0.07 -0.87,-0.08 h -1 a 5.13,5.13 0 0 1 -1,0 6.4,6.4 0 0 0 -0.87,-0.08 h -1 c -0.32,0 -0.63,-0.08 -0.88,-0.08 h -1 c -0.13,0 -0.66,-0.06 -0.87,-0.08 l -0.88,-0.08 h 0.09 c -0.14,0 -0.69,-0.08 -0.87,-0.08 h -1 l -0.88,-0.08 h -1 l 0.87,0.08 h 1 c 0.13,0 0.79,0.07 0.87,0.08 h -0.15 c 0,0 0.78,0.06 0.89,0.08 0.11,0.02 -0.95,0 -1,0 l -0.87,-0.08 c -0.11,0 -0.71,-0.08 -0.87,-0.08 h -1.92 c -0.3,0 -0.68,-0.08 -0.87,-0.09 -0.19,-0.01 -0.57,-0.07 -0.88,-0.08 h -1.93 c -0.27,0 -0.65,-0.08 -0.87,-0.08 h -1 l -0.88,-0.1 -0.88,-0.08 h -1.92 l -0.87,-0.08 h 1 c -0.3,0 -0.57,-0.08 -0.87,-0.08 h -0.17 v -1 l 0.78,-0.06 h -0.78 v 1.21 0 0.16 c 0.21,0 0.7,-0.08 0.87,-0.08 a 4.22,4.22 0 0 0 0.87,0 c 0.32,0 0.64,-0.06 1,-0.07 l 1,-0.08 h 0.87 0.88 l 0.87,0.05 0.87,0.06 1,-0.09 1,-0.07 1,-0.08 1,-0.07 h 0.87 a 4.31,4.31 0 0 0 0.88,0 6.77,6.77 0 0 1 1,-0.07 l 1,-0.08 a 5.14,5.14 0 0 1 0.88,0.05 h 0.87 0.88 c 0.2,0 0.8,-0.08 1,-0.07 a 8.65,8.65 0 0 1 0.88,0.05 2.54,2.54 0 0 0 0.87,0 l 1,-0.07 -0.88,-0.05 c 0.32,0 0.66,-0.07 1,-0.07 h 0.88 c 0.3,0 0.56,0.05 0.87,0.05 0.31,0 0.7,-0.08 1,-0.08 0.3,0 0.57,0 0.87,0 0.3,0 0.72,-0.07 1,-0.07 h 0.87 l 1,-0.08 1,-0.07 1,-0.08 c 0.28,0 0.58,0.06 0.87,0 0.29,-0.06 0.8,-0.07 1,-0.07 a 5.2,5.2 0 0 1 0.88,0.05 6.35,6.35 0 0 0 0.87,0.05 c 0.18,0 0.84,-0.07 1,-0.08 l 1,-0.07 h 0.87 c 0.26,0 0.66,-0.08 1,-0.08 0.34,0 0.57,0.06 0.87,0.06 0.3,0 0.66,-0.08 1,-0.09 0.34,-0.01 0.61,0.07 0.88,0.06 0.27,-0.01 0.81,-0.07 0.95,-0.08 0.14,-0.01 0.78,-0.07 1,-0.07 l 0.87,0.05 -1,0.08 c 0.15,0 0.69,0.05 0.87,0.05 0.18,0 0.72,-0.07 1,-0.07 0.28,0 0.54,0.05 0.87,0.05 0.33,0 0.67,-0.07 1,-0.08 0.33,-0.01 0.57,0.06 0.87,0.06 0.3,0 0.66,-0.07 1,-0.08 0.34,-0.01 0.73,0.06 0.89,0.05 l 0.95,-0.07 -0.87,-0.06 c 0.31,0 0.65,-0.07 1,-0.07 a 5,5 0 0 1 0.87,0.05 l 0.88,0.06 1,-0.09 0.95,-0.07 0.88,0.05 -1,0.09 c 0.27,0 0.59,0.05 0.87,0.05 l 1,-0.08 -0.87,-0.06 c 0.2,0 0.74,-0.07 1,-0.07 0.26,0 0.63,0.06 0.88,0.05 0.25,-0.01 0.82,-0.07 1,-0.07 h 0.87 c 0.2,0 0.7,0.05 0.88,0.05 l 0.95,-0.07 -0.87,-0.05 c 0.32,0 0.65,-0.07 1,-0.08 l 0.87,0.05 0.88,0.06 c 0.2,0 0.73,-0.07 1,-0.08 0.27,-0.01 0.58,0.06 0.87,0.06 0.29,0 0.65,-0.07 1,-0.08 0.35,-0.01 0.7,0.06 0.87,0.06 l 1,-0.08 1,-0.07 h 0.87 l -0.95,0.07 c 0.11,0 0.71,0.06 0.87,0.06 l 1,-0.08 1,-0.07 c 0.22,0 0.73,0.05 0.88,0.05 l 0.87,0.06 c -0.3,0 -0.65,0.06 -1,0.07 -0.35,0.01 -0.62,-0.06 -0.87,0 l -1,0.07 0.87,0.06 c 0.32,0 0.66,-0.08 1,-0.08 0.34,0 0.58,0.06 0.88,0.06 0.3,0 0.65,-0.07 1,-0.08 a 4.33,4.33 0 0 1 -0.88,-0.05 h 1 c 0.22,0 0.68,-0.06 1,-0.07 l 0.87,0.05 1,-0.07 c 0.15,0 0.78,-0.07 1,-0.07 h 0.89 c 0.12,0 0.7,0.06 0.87,0.06 0.17,0 0.83,-0.06 1,-0.07 l 1,-0.08 c 0.16,0 0.68,0.06 0.87,0.06 0.19,0 0.64,-0.07 1,-0.07 0.36,0 0.6,0.05 0.87,0.05 0.27,0 0.66,-0.07 1,-0.07 0.34,0 0.57,0 0.87,0 0.3,0 0.78,-0.07 1,-0.07 H 445 c 0,0 -1,0.06 -1,0.07 l 0.88,0.06 1,-0.08 a 4.24,4.24 0 0 1 -0.87,-0.05 l 0.95,-0.07 0.88,0.05 c 0.17,0 0.81,-0.06 0.95,-0.07 l 1,-0.07 0.87,0.06 h 0.87 l 0.88,0.06 h 0.87 c 0.17,0 0.82,-0.06 1,-0.07 l 1,-0.07 1,-0.07 c 0.21,0 0.68,-0.06 0.95,-0.07 l 0.89,0.05 c 0.12,0 0.7,0.06 0.87,0.06 l 1,-0.07 1,-0.07 a 4.24,4.24 0 0 1 0.87,0.05 l 0.89,0.06 c 0.18,0 0.65,0.05 0.87,0.05 0.22,0 0.8,-0.07 1,-0.07 l 0.87,0.06 0.88,0.05 0.95,-0.07 h -0.87 c 0.18,0 0.75,-0.07 1,-0.07 h 0.88 l 0.88,0.06 0.95,-0.07 a 5.08,5.08 0 0 1 -0.87,-0.05 5.17,5.17 0 0 1 1,-0.07 l 0.88,0.05 c 0.25,0 0.72,-0.07 1,-0.07 l 0.88,0.06 c 0,0 -1,0.05 -1,0.07 0,0.02 0.7,0 0.87,0.05 l 0.88,0.06 0.87,0.05 a 5.65,5.65 0 0 0 1,-0.06 h -0.88 c -0.09,0 -0.89,-0.05 -0.87,-0.06 l 1,-0.06 1,-0.07 a 4.25,4.25 0 0 1 0.87,0.06 c 0,0.06 -0.89,0 -1,0.06 0.3,0 0.58,0.06 0.89,0.06 l 1,-0.07 h -0.88 c 0.29,0 0.67,-0.07 1,-0.07 l 0.87,0.05 c 0.14,0 0.7,0.06 0.88,0.06 0.18,0 0.83,-0.06 1,-0.07 0.17,-0.01 0.73,-0.06 1,-0.06 0.27,0 0.62,0.05 0.88,0.05 0.26,0 0.66,-0.06 1,-0.06 0.34,0 0.57,0.05 0.87,0.05 0.3,0 0.65,-0.06 1,-0.07 0.35,-0.01 0.61,0.06 0.88,0.06 0.27,0 0.81,0 0.95,-0.06 0.14,-0.06 0.79,-0.07 1,-0.07 l 0.89,0.06 -1,0.06 c 0.32,0 0.58,0.06 0.88,0.06 a 5.21,5.21 0 0 0 1,-0.06 l 1,-0.07 c 0.15,0 0.76,-0.06 1,-0.06 l 0.87,0.06 0.88,0.05 c 0.12,0 0.71,0.06 0.88,0.06 l 1,-0.06 0.95,-0.07 1,-0.06 c 0.18,0 0.73,0.05 0.87,0.05 l 0.87,0.06 c 0.24,0 0.59,0.06 0.87,0.07 0.28,0.01 0.71,-0.07 1,-0.07 0.29,0 0.67,0.07 0.88,0.06 0.37,0 0.6,-0.05 1,-0.06 0.4,-0.01 0.61,0.06 0.88,0.06 0.27,0 0.83,-0.05 1,-0.06 h 1 l -0.88,-0.06 c 0.32,0 0.66,-0.07 1,-0.07 0.34,0 0.74,0.06 0.89,0.06 0.15,0 0.57,0.06 0.87,0.07 0.3,0.01 0.76,-0.07 1,-0.07 0.24,0 0.74,0.06 0.87,0.06 l 0.88,0.07 1,-0.06 1,-0.06 1,-0.06 0.87,0.06 -1,0.06 c 0.3,0 0.57,0.07 0.87,0.07 0.3,0 0.82,-0.05 1,-0.06 0.18,-0.01 0.64,-0.05 1,-0.06 0.36,-0.01 0.7,-0.06 1,-0.06 0.3,0 0.63,0.07 0.87,0.07 0.24,0 0.67,-0.06 1,-0.06 0.33,0 0.76,0.05 0.89,0.06 l 0.87,0.07 c 0.22,0 0.61,0.06 0.87,0.07 0.26,0.01 0.68,-0.06 1,-0.06 0.32,0 0.57,0.07 0.87,0.07 0.3,0 0.66,-0.06 1,0 0.34,0.06 0.67,0.07 0.89,0.06 l 1,-0.05 c 0,0 -0.94,-0.05 -0.88,-0.07 l 1,-0.05 0.88,0.07 c 0.3,0 0.65,-0.06 1,-0.06 l 0.87,0.07 -1,0.05 c 0.3,0 0.58,0.07 0.87,0.07 a 5.21,5.21 0 0 0 1,-0.05 h 1 c 0.2,0 0.7,-0.05 1,-0.05 0.3,0 0.65,0.07 0.89,0.07 0.24,0 0.67,-0.05 1,-0.05 0.33,0 0.56,0.07 0.88,0.07 h 1 c 0.37,0 0.57,0.07 0.87,0.08 l 1,-0.06 0.87,0.08 a 6.31,6.31 0 0 0 -1,0.05 l 0.89,0.07 h 1 l 1,-0.05 h 1 c 0.18,0 0.67,0.07 0.88,0.08 0.21,0.01 0.71,-0.06 1,-0.05 0.29,0.01 0.79,0.06 0.87,0.07 l -1,0.05 0.87,0.08 h 1 1 a 8.68,8.68 0 0 1 1,0 4.3,4.3 0 0 0 0.88,0.07 c 0.24,0 0.66,-0.05 0.95,-0.05 0.29,0 0.63,0.08 0.88,0.08 l 1,-0.05 0.87,0.08 h -1 l 0.88,0.09 h 1.92 l 0.87,0.08 h 1 l -0.87,-0.07 c 0.32,0 0.65,-0.06 1,-0.06 0.35,0 0.56,0.08 0.87,0.09 0.31,0.01 0.56,0.07 0.87,0.08 l 1,-0.05 h -0.08 l 0.87,0.08 h 1 l 1,-0.05 h 1 a 5.13,5.13 0 0 1 1,0 c 0.23,0.05 0.78,0.07 0.87,0.08 l 0.88,0.08 h 1 c 0.31,0 0.57,0.07 0.87,0.08 h 1 c 0.33,0 0.57,0.07 0.86,0.08 a 8.68,8.68 0 0 1 1,0 8.52,8.52 0 0 0 0.87,0.08 h 1 1 c 0.3,0 0.68,0.08 0.87,0.08 h 1 c 0.31,0 0.6,0.08 0.87,0.08 h -1 c 0.3,0 0.56,0.08 0.88,0.08 h 0.95 c 0.23,0 0.55,0.08 0.88,0.09 a 7.69,7.69 0 0 1 1,0 5.14,5.14 0 0 0 0.88,0.08 h 2.93 c 0.23,0 0.61,0.07 0.88,0.08 a 8.51,8.51 0 0 1 1,0 6.42,6.42 0 0 0 0.87,0.09 c 0.32,0 0.57,0.07 0.88,0.08 h 2 l 0.88,0.08 h -1 c 0,0 0.76,0.08 0.87,0.08 a 5.13,5.13 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 l 1.74,0.17 h 1.93 l -0.87,-0.08 h -1 a 6.42,6.42 0 0 1 -0.87,-0.09 l -0.87,-0.08 h 1 c 0.3,0 0.56,0.07 0.87,0.09 0.31,0.02 0.66,0 1,0 0.34,0 0.57,0.07 0.87,0.08 0.3,0.01 0.66,0 1,0 0.34,0 0.58,0.07 0.87,0.09 0.29,0.02 0.71,-0.05 1,0 0.29,0.05 0.73,0.07 0.86,0.08 l 0.88,0.09 a 7.69,7.69 0 0 1 1,0 5.12,5.12 0 0 0 0.87,0.08 h 2 c 0.29,0 0.58,0.09 0.87,0.09 h 1 c 0.22,0 0.66,0.06 0.88,0.08 l 0.88,0.09 h 2.93 l 0.87,0.08 h -1 l 0.87,0.08 0.87,0.09 0.87,0.08 1.92,-0.07 h 1 c 0.17,0 0.68,0.08 0.87,0.08 h 1 l 0.87,0.09 h -1 l 0.88,0.09 h 1 c 0,0 -0.82,-0.06 -0.87,-0.08 a 8.68,8.68 0 0 1 1,0 8.42,8.42 0 0 0 0.86,0.09 8.51,8.51 0 0 1 1,0 l 0.87,0.09 c 0.18,0 0.62,0.08 0.87,0.09 0.25,0.01 0.55,0.08 0.87,0.09 h 1 c -1.1,0.11 -2.47,-0.81 -2.19,-0.81 z m -0.08,1.5 -1,0.08 h -0.08 l 1,-0.08 h 0.08 c 0.13,0 0.87,-0.07 1,-0.09 0.13,-0.02 -0.89,0 -0.87,0 0.02,0 0.88,-0.06 1,-0.08 a 6.32,6.32 0 0 0 -0.87,0 c -0.13,0 -0.85,0.07 -1,0.08 l -1,0.09 z m -40.23,0.43 h 0.88 l 0.87,0.05 c 0.16,0 0.83,-0.07 1,-0.08 l 1,-0.07 c 0.1,0 0.91,-0.06 1,-0.08 0.09,-0.02 -0.77,0 -0.87,0 l -0.87,-0.05 -1,0.08 -1,0.07 z m 0.62,0.43 c 0,0 -0.94,0.06 -1,0.08 -0.06,0.02 0.84,0 0.89,0 0.34,0 0.6,-0.07 1,-0.08 0.4,-0.01 0.62,0.05 0.87,0.05 0.25,0 0.65,-0.07 1,-0.08 a 4.22,4.22 0 0 0 -0.87,0 7.75,7.75 0 0 1 -1,0.07 5.14,5.14 0 0 1 -0.88,0 6.2,6.2 0 0 1 1,-0.07 8.46,8.46 0 0 1 -0.87,-0.05 3.85,3.85 0 0 0 -1,0.07 c 0,0 0.88,0 0.88,0.06 z m -25.79,0.41 a 4.25,4.25 0 0 1 0.87,0.06 c 0.36,0 0.61,-0.06 1,-0.07 a 4.22,4.22 0 0 0 0.87,0 7,7 0 0 1 1,-0.07 h -0.87 c 0,0 0.9,-0.05 1,-0.07 a 6,6 0 0 0 1,-0.07 l -0.87,-0.05 c -0.3,0 -0.65,0.06 -1,0.07 -0.35,0.01 -0.57,-0.06 -0.87,-0.06 l -1,0.07 h 0.87 l 0.89,0.05 -1,0.07 c -0.32,0 -0.53,-0.06 -0.88,-0.06 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3978"
+         id="e5bb6167-50f8-4cc6-9705-3610dbd797f4" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 629.87,328.85 0.87,0.09 h 2 a 1.92,1.92 0 0 0 -0.41,-0.05 h -1.42 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3979"
+         id="aaacb08d-c47a-4467-9dbd-ae5b106c0208" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 628.22,328.55 -0.87,-0.09 h -0.48 -0.39 1 c -0.16,0 -0.62,-0.06 -0.87,-0.09 l -0.87,-0.08 a 6.56,6.56 0 0 1 -0.88,-0.09 h 1 c 0,0 -0.94,-0.07 -0.87,-0.08 h 1 l 0.87,0.09 h 1 l -1.74,-0.18 -1.94,0.07 h -2 c 0.32,0 0.58,0.07 0.87,0.08 l 0.87,0.09 h -1.15 c 0.22,0 0.6,0.08 0.88,0.09 h 1 l 0.87,0.09 h -1 c -0.25,0 -0.61,-0.08 -0.87,-0.09 h -2.94 c 0,0 0.83,0.07 0.89,0.09 h 2 c 0.12,0 0.71,0.08 0.87,0.09 h 2 l 0.46,0.05 h 0.41 c 0,0 0.88,-0.02 0.88,-0.04 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3980"
+         id="fb60c7eb-72d1-47c9-a9a7-db51e67a0880" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 588.36,329.5 c 0.3,0 0.66,-0.06 1,-0.07 h -0.87 c -0.25,0 -0.68,0.07 -1,0.08 a 5.06,5.06 0 0 1 0.87,-0.01 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3981"
+         id="aa158b7a-481d-4978-932a-9c1f10562b37" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 632,328.54 h -1 0.46 1.37 c 0,0 -0.72,0 -0.83,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3982"
+         id="bc08f692-33d8-43a2-a53e-5a7e90840679" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 636.8,328.89 -1,0.09 h 0.88 l 1.76,0.08 c -0.37,0 -0.6,0.07 -1,0.09 h 0.87 l 1,-0.09 1,-0.08 c 0.07,0 0.94,-0.06 1,-0.08 h -0.89 l -1,0.08 h -0.87 l 1,-0.09 h -0.88 l -1,0.09 a 5.7,5.7 0 0 0 -0.87,-0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3983"
+         id="b6f57dd0-5ecd-4c55-b21e-02f65c013c82" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 634.8,329.18 1,-0.08 h -0.87 c -0.25,0 -0.77,0.07 -1,0.08 l -1.93,0.17 -1,0.08 h 0.87 l -1,0.09 0.88,0.05 0.95,-0.09 1,-0.09 a 4.31,4.31 0 0 0 0.88,0 l 0.95,-0.08 h -0.87 l 1,-0.08 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3984"
+         id="bb268f13-97b0-49e7-8424-d2accf524b18" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 636.63,329.14 c -0.25,0 -0.71,0.09 -1,0.09 h 0.87 c 0.17,0 0.65,-0.08 1,-0.08 a 6.48,6.48 0 0 1 -0.87,-0.01 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3985"
+         id="ae00ffc4-8cc9-43ea-afec-c3c7f1da4a9d" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 641.07,329 c -0.19,0 -0.71,-0.08 -0.87,-0.08 h -2 c 0,0 0.88,0.07 0.87,0.09 h 1 c 0.4,0 0.59,0.07 0.87,0.08 h 2 c -0.35,0 -0.52,-0.07 -0.87,-0.09 -0.23,-0.09 -0.79,0 -1,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3986"
+         id="efbccd0c-ec03-4ee3-8d36-1dd419f341ae" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 638.18,329.08 h -1 c -0.06,0 0.82,0.07 0.87,0.09 h 2 c 0,0 -0.83,-0.07 -0.87,-0.09 -0.04,-0.02 -0.93,0 -1,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3987"
+         id="b22ab02e-2305-41f1-8504-5389c05b786c" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 641.39,328.58 h 1 c 0,0 -0.78,-0.07 -0.87,-0.09 h -1 a 6.42,6.42 0 0 0 0.87,0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3988"
+         id="be0cb4e6-0b23-4ea4-89fa-77700914b8e9" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 639.69,328.29 c -0.27,0 -0.6,-0.08 -0.88,-0.09 h -0.95 l 0.87,0.09 c 0.27,0.04 0.7,-0.01 0.96,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3989"
+         id="afe7a297-d37b-4bb8-89c5-ef6dff3d8ecc" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 640.56,328.38 h 1.5 l -0.48,-0.05 -0.87,-0.09 a 5.24,5.24 0 0 1 -1,0 8.27,8.27 0 0 0 0.85,0.14 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 3990"
+         id="be63f30e-ffb1-4c7a-8b2d-109775273054" />
+      <path
+         style="fill:#ffcc99;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 494.55,97.46 c 1.43,-0.65 2.58,-1.73 4.05,-2.37 0.44,-0.2 3.63,-1.25 3.8,-1 0.48,0.59 1.1,1.14 1.66,1.7 0.67,0.72 1.27,1 1,1.86 a 10,10 0 0 1 -1.75,2.7 20.39,20.39 0 0 1 -4.7,4.57 c -0.06,0 -0.46,-0.27 -0.42,-0.32 a 13,13 0 0 0 2,-2.52 c -0.74,0.62 -2.16,2.09 -3,2.67 a 4.55,4.55 0 0 1 -0.93,-0.48 19.47,19.47 0 0 0 2.76,-3 c -0.77,0.69 -1.17,0.87 -3.34,2.86 a 3.8,3.8 0 0 1 -0.84,-0.58 c 0.77,-0.91 2.33,-2.29 3,-3.31 a 26.63,26.63 0 0 0 -3.3,2.7 c -0.3,0.26 -0.66,-0.5 -0.65,-0.6 0.05,-0.39 3.76,-3.9 4.51,-5.24 a 9.28,9.28 0 0 1 -3.68,1 c 0.05,-0.1 -0.14,-0.54 -0.17,-0.64 z"
+         class="e581e44d-6e98-4235-a316-eee4b33b2ead"
+         data-name="Tracé 3991"
+         id="a5461b8c-4b0c-4353-876b-c159072166b2" />
+      <path
+         style="fill:#6acef0"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 535.12,143.4 c -1.34,-3.15 -3.44,-6.39 -6.6,-8 -2.84,-1.43 -7.1,-0.85 -8.86,2 -1.45,2.38 -0.4,5.58 0.52,7.95 1.55,4.06 3.8,7.77 5.43,11.77 a 0.09,0.09 0 0 0 0,0.07 v 0 a 0.28,0.28 0 0 0 0.32,0.11 l 11.69,-2.8 a 0.33,0.33 0 0 0 0.25,-0.32 36.39,36.39 0 0 0 -2.75,-10.85 z"
+         class="a5611a68-2874-4906-b645-fe63dbb9ed43"
+         data-name="Tracé 3994"
+         id="f937e9f1-7d70-4705-ba20-206411f0a618" />
+      <path
+         style="fill:#6acef0;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.37,137.2 a 128,128 0 0 1 -7.81,11.52 c -1.86,2.41 -3.28,3.82 -6.5,3.09 -7.14,-1.62 -5.29,-9.06 -4,-14.64 a 156.63,156.63 0 0 1 9.12,-28.37 c 3.24,-7.26 5.82,-14.34 10.32,-20.8 3.59,-5.15 12.46,-12.63 17.35,-5.22 3.93,5.93 -0.92,17.62 -3,23.69 -3.78,11.06 -9.46,21.08 -15.48,30.73 z"
+         class="ac220334-0bfb-4bfe-9125-1f639e447c73"
+         data-name="Tracé 3996"
+         id="f74fd871-6e8e-4691-bc96-61aa21ce0232" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.34,137.8 c -0.05,0.09 -0.08,0.2 -0.12,0.28 a 1.2,1.2 0 0 1 0.17,-0.21 l -0.13,0.27 0.17,-0.21 c 0.05,-0.08 0.08,-0.19 0.14,-0.27 a 1.23,1.23 0 0 0 0.12,-0.26 c 0,0 -0.14,0.17 -0.17,0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 3997"
+         id="b8785c4a-162d-49e7-bad9-051861e6d468" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 547.9,131.63 c 0,0 0.16,-0.21 0.17,-0.21 0.01,0 -0.12,0.25 -0.12,0.28 a 0.82,0.82 0 0 0 0.16,-0.22 1.23,1.23 0 0 0 0.12,-0.26 l 0.13,-0.27 c 0,0 0.12,-0.26 0.12,-0.28 l -0.16,0.21 -0.18,0.22 -0.12,0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 3998"
+         id="faf05391-abca-4b70-ad2e-d0c3ca7d9922" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.65,133.44 a 0.71,0.71 0 0 1 -0.13,0.26 l -0.16,0.21 c -0.05,0.09 -0.09,0.18 -0.13,0.27 l -0.12,0.26 -0.13,0.27 -0.13,0.27 c 0.06,-0.08 0.11,-0.11 0.17,-0.2 a 2.41,2.41 0 0 0 0.14,-0.28 c 0,-0.06 0.14,-0.16 0.16,-0.2 0.02,-0.04 0.09,-0.18 0.13,-0.27 l 0.12,-0.26 0.12,-0.28 0.13,-0.26 a 1.2,1.2 0 0 0 -0.17,0.21 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 3999"
+         id="aa082872-29df-4740-acfa-826000cb6b34" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 545.3,135.54 0.17,-0.2 a 1.59,1.59 0 0 0 -0.12,0.27 2.46,2.46 0 0 0 0.17,-0.22 l 0.12,-0.26 0.12,-0.26 c 0,0 -0.16,0.21 -0.16,0.2 0,-0.01 0.12,-0.24 0.12,-0.26 0,-0.02 0.13,-0.27 0.12,-0.28 -0.01,-0.01 -0.15,0.2 -0.17,0.21 l -0.12,0.27 -0.12,0.27 c -0.06,0.07 -0.12,0.13 -0.17,0.2 l -0.13,0.26 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4000"
+         id="be13eeda-7361-4a7e-97a1-6b8a0637125f" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 560.33,80.62 a 2.67,2.67 0 0 0 -0.26,-0.09 l 0.2,0.15 0.25,0.11 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4001"
+         id="e2775203-3bf7-449d-b8a5-01fb29d4460c" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 562.88,98.5 a 2.56,2.56 0 0 1 0.11,-0.24 0.61,0.61 0 0 1 0,-0.3 c 0,0.07 -0.09,0.17 -0.11,0.25 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4002"
+         id="be53048b-c096-4f24-92b5-4a1e153d4b21" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 538.57,146.9 c 0.06,-0.08 0.09,-0.18 0.15,-0.26 l -0.19,0.2 -0.15,0.25 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4003"
+         id="ff71854d-a51f-4488-aa53-48a051ec33ca" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 542.39,140 -0.18,0.2 c 0,0.06 -0.07,0.18 -0.12,0.27 l 0.17,-0.2 a 1.66,1.66 0 0 0 0.13,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4004"
+         id="a0369c13-9c6a-4fab-8235-31929aa9e63f" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 554.78,119.1 c 0,0.09 -0.07,0.19 -0.1,0.28 l 0.15,-0.22 a 1.31,1.31 0 0 1 0.09,-0.28 c 0.08,-0.07 -0.11,0.12 -0.14,0.22 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4005"
+         id="e538e92c-07d4-4938-b801-26a04622571a" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 547.86,131.58 c 0,-0.08 0.07,-0.19 0.12,-0.27 l -0.17,0.21 a 0.83,0.83 0 0 1 -0.12,0.27 1.43,1.43 0 0 0 0.17,-0.21 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4006"
+         id="b13e2127-5845-4c17-a088-6a039622f0a2" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 555,118.6 a 0.73,0.73 0 0 1 -0.1,0.28 c 0,-0.08 0.11,-0.14 0.15,-0.23 a 1.33,1.33 0 0 0 0.1,-0.28 c -0.01,0.07 -0.09,0.16 -0.15,0.23 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4007"
+         id="f6eae80d-282f-4222-ae26-a548c5104f0b" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 548.9,129.54 -0.16,0.21 a 1.59,1.59 0 0 1 -0.12,0.27 l 0.17,-0.21 a 1,1 0 0 0 0.11,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4008"
+         id="ac544e1c-0924-47b8-a258-2b7a19ecc374" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 549,129.21 a 1.59,1.59 0 0 0 0.12,-0.27 l -0.16,0.21 0.11,-0.27 0.17,-0.22 0.17,-0.21 0.11,-0.26 c 0,-0.07 0.11,-0.23 0.12,-0.28 a 1.77,1.77 0 0 0 -0.16,0.22 2.33,2.33 0 0 0 0.11,-0.28 c 0,0 -0.11,0.14 -0.16,0.22 -0.05,0.08 -0.08,0.19 -0.13,0.27 a 1.66,1.66 0 0 1 -0.16,0.21 l 0.12,-0.27 a 1.53,1.53 0 0 0 0.11,-0.27 l -0.16,0.21 -0.11,0.27 c 0,0 -0.09,0.23 -0.12,0.28 a 1.66,1.66 0 0 0 -0.16,0.21 c 0,0.08 -0.12,0.13 -0.16,0.21 -0.04,0.08 -0.09,0.2 -0.13,0.27 a 1.16,1.16 0 0 0 -0.16,0.21 c 0,0.08 -0.07,0.19 -0.12,0.27 -0.05,0.08 -0.12,0.14 -0.16,0.22 a 1.23,1.23 0 0 0 -0.12,0.26 l 0.16,-0.21 -0.12,0.27 c 0,0 -0.12,0.24 -0.12,0.26 l 0.17,-0.2 c 0,0.09 -0.09,0.18 -0.13,0.27 a 2.38,2.38 0 0 0 0.18,-0.22 c 0,0 -0.14,0.27 -0.13,0.28 l 0.17,-0.22 0.12,-0.26 c 0,-0.06 0.13,-0.16 0.16,-0.21 l 0.17,-0.22 0.16,-0.21 0.13,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4009"
+         id="ea2b5d91-d41f-4936-991c-ff92049f9d87" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 542,140.74 c 0,-0.09 0.07,-0.17 0.13,-0.26 0,0.06 -0.13,0.14 -0.18,0.2 -0.05,0.06 -0.08,0.18 -0.13,0.26 a 1.12,1.12 0 0 0 0.18,-0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4010"
+         id="b9ba300f-c117-4f13-bc3b-039bccf82aa0" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 549.72,127.64 a 1.36,1.36 0 0 0 0.11,-0.28 l -0.15,0.22 c 0,0 -0.11,0.26 -0.12,0.27 a 1.46,1.46 0 0 0 0.16,-0.21 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4011"
+         id="afb65b6a-379d-4516-b3e4-30c66bd8ed37" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 545.87,134.15 -0.12,0.27 c 0,0 0.16,-0.22 0.17,-0.21 a 0.91,0.91 0 0 0 0.13,-0.26 c 0,0 -0.18,0.22 -0.18,0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4012"
+         id="f4295b72-c14c-4a31-8c3d-7ec21e18377c" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.3,133.41 a 0.77,0.77 0 0 1 0.12,-0.28 c 0,-0.07 0.15,-0.18 0.16,-0.2 0.01,-0.02 0.12,-0.24 0.13,-0.27 l 0.17,-0.2 0.12,-0.27 c 0,0 -0.16,0.22 -0.16,0.21 0,-0.01 0.12,-0.26 0.12,-0.28 a 1.84,1.84 0 0 0 -0.17,0.22 l -0.13,0.27 c 0,0.07 -0.12,0.13 -0.17,0.2 l -0.12,0.28 -0.12,0.26 -0.12,0.26 c 0.02,-0.09 0.12,-0.09 0.17,-0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4013"
+         id="ae4c5a5d-84c5-4018-939c-fba3a67c9e4b" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.63,133 a 1.59,1.59 0 0 0 0.12,-0.27 l -0.17,0.21 c 0,0 -0.1,0.23 -0.12,0.26 -0.02,0.03 0.11,-0.14 0.17,-0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4014"
+         id="a3c368cc-a528-4aa4-90d5-bcf8417cd622" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 538.15,101.09 c 0,0.09 -0.09,0.14 -0.13,0.23 l -0.09,0.28 a 1.64,1.64 0 0 1 0.14,-0.22 1.38,1.38 0 0 0 0.08,-0.29 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4015"
+         id="ac8e2800-d8c5-444f-8648-3ea7cc674cdb" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.15,133.61 -0.18,0.21 -0.12,0.27 -0.12,0.27 0.16,-0.21 0.13,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4017"
+         id="e093679d-c459-45de-8c8e-251fa5d4f3ff" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.51,133.26 a 1.84,1.84 0 0 0 0.17,-0.22 l 0.17,-0.2 c 0,0 -0.14,0.29 -0.13,0.27 a 1.71,1.71 0 0 1 0.18,-0.2 l 0.16,-0.22 0.17,-0.21 a 1.59,1.59 0 0 0 -0.12,0.27 c 0,0 0.17,-0.23 0.17,-0.21 l -0.13,0.27 -0.16,0.2 a 2.28,2.28 0 0 0 -0.13,0.28 l 0.34,-0.43 0.24,-0.53 0.12,-0.27 0.12,-0.27 a 1.46,1.46 0 0 1 -0.16,0.21 l -0.17,0.21 0.12,-0.27 0.12,-0.26 -0.16,0.2 -0.17,0.21 c 0,0 -0.09,0.22 -0.12,0.27 a 1.12,1.12 0 0 1 -0.17,0.2 l 0.12,-0.26 c 0,-0.07 0.13,-0.14 0.17,-0.21 0.04,-0.07 0.1,-0.22 0.12,-0.26 l 0.12,-0.28 0.13,-0.26 a 1.12,1.12 0 0 1 -0.18,0.2 l -0.12,0.27 a 1.59,1.59 0 0 1 -0.12,0.27 c 0,0 -0.14,0.17 -0.16,0.21 a 1.59,1.59 0 0 0 -0.12,0.27 l -0.13,0.27 -0.17,0.21 c 0,0 -0.13,0.27 -0.12,0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4018"
+         id="ba200c95-93d6-445b-972a-e6312dc20963" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 534.67,150.63 a 2,2 0 0 0 0.19,-0.22 c -0.05,0.05 -0.15,0.1 -0.21,0.15 l -0.2,0.21 a 0.74,0.74 0 0 0 0.22,-0.14 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4019"
+         id="ade300ed-6308-4e55-bdd5-e50a8d85f29d" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546,134.27 0.13,-0.28 -0.18,0.22 c 0,0 -0.14,0.28 -0.12,0.26 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4020"
+         id="a5481317-2dd8-43d1-b6d3-49645666b3f8" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 543.48,138.84 -0.13,0.26 0.17,-0.2 0.36,-0.41 c -0.06,0.1 -0.08,0.17 -0.13,0.27 0,-0.08 0.12,-0.13 0.17,-0.21 l 0.13,-0.27 0.12,-0.26 a 1.66,1.66 0 0 0 0.13,-0.27 1.73,1.73 0 0 0 -0.17,0.21 l -0.13,0.26 a 1.63,1.63 0 0 1 -0.17,0.2 l 0.13,-0.26 -0.17,0.21 -0.13,0.27 a 1.71,1.71 0 0 0 -0.18,0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4021"
+         id="f8acaba7-68de-498f-993d-05cfe027f5f3" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 543.27,139.44 0.13,-0.28 -0.17,0.22 a 1.26,1.26 0 0 0 -0.13,0.26 l -0.27,0.53 -0.13,0.26 c 0,0 0.16,-0.19 0.18,-0.2 0.02,-0.01 -0.14,0.25 -0.13,0.26 l 0.17,-0.2 a 2.36,2.36 0 0 1 0.14,-0.26 1.26,1.26 0 0 1 0.13,-0.26 c 0,0 0.14,-0.17 0.17,-0.22 l 0.13,-0.26 a 1.12,1.12 0 0 1 -0.18,0.2 l 0.13,-0.26 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4022"
+         id="b73fe5bd-2f00-45a5-a1fc-351c0501dabe" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 543.57,139 a 0.64,0.64 0 0 1 -0.13,0.26 1.63,1.63 0 0 0 0.17,-0.2 2.36,2.36 0 0 1 0.14,-0.26 c 0.05,-0.11 -0.14,0.1 -0.18,0.2 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4023"
+         id="a7407e4b-544a-4a54-852e-cb68bd29868a" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.44,136.56 c 0,-0.05 0.15,-0.16 0.18,-0.2 l 0.12,-0.28 0.13,-0.26 a 1.2,1.2 0 0 1 -0.17,0.21 c 0,0 -0.07,0.18 -0.13,0.27 -0.06,0.09 -0.13,0.13 -0.18,0.2 l -0.12,0.27 -0.12,0.26 c 0.06,-0.09 0.1,-0.12 0.16,-0.2 a 1.34,1.34 0 0 0 0.13,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4024"
+         id="b24f4c22-02f3-412e-94f3-e92bff91d0a4" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.82,135.78 c 0,0 0.13,-0.26 0.13,-0.27 0,-0.01 -0.16,0.2 -0.17,0.2 l -0.13,0.28 a 1.23,1.23 0 0 0 -0.12,0.26 1.06,1.06 0 0 1 0.17,-0.2 1.31,1.31 0 0 0 0.12,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4025"
+         id="b0198e6e-9af2-4f62-936e-3a204a9b39d6" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.58,136.76 c 0,0 -0.11,0.24 -0.13,0.26 l 0.18,-0.2 0.12,-0.27 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4026"
+         id="f2e1720c-6dee-4773-8f40-d7aa3597514f" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 545,136.41 c 0,-0.07 0.12,-0.15 0.17,-0.22 l 0.13,-0.26 -0.18,0.2 c -0.07,0.07 -0.12,0.21 -0.12,0.28 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4027"
+         id="a8145d95-20d6-4c11-a4b6-13fadec78739" />
+      <path
+         style="fill:#00a1d9"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 544.8,136.61 -0.17,0.21 -0.13,0.27 0.17,-0.2 a 1.84,1.84 0 0 0 0.17,-0.22 0.71,0.71 0 0 1 0.13,-0.26 z"
+         class="a1ce16d1-16e4-48da-984a-a081faf39faf"
+         data-name="Tracé 4028"
+         id="f07ddb19-9ccc-4239-983f-505a7c6a0cd5" />
+      <path
+         style="fill:#9c38fa"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 527.81,83.23 a 0.31,0.31 0 0 1 -0.14,-0.21 c -0.27,-2 0.63,-3.86 1,-5.89 0.46,-2.39 1.1,-4.68 1.77,-7 1.18,-4 2.19,-8 3.4,-11.93 1.33,-4.36 3.06,-11.1 8.65,-11.38 a 5.36,5.36 0 0 1 5,2.74 c 1.48,2.76 0.71,6.05 -0.14,8.84 -1.16,3.79 -2.88,7.38 -4.27,11.09 a 106.82,106.82 0 0 1 -4.55,10.69 c -1.1,2.19 -2.48,5.55 -5.16,6.17 a 4.7,4.7 0 0 1 -5.56,-3.12 z"
+         class="b4f7f29b-8e9d-4db9-aede-7c06fba008a5"
+         data-name="Union 14"
+         id="a64406b3-ba03-4ae5-bee7-f078ecadceb2" />
+      <path
+         style="fill:#9c38fa"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 510.23,107.87 a 0.3,0.3 0 0 1 -0.17,-0.24 0.32,0.32 0 0 1 0.1,-0.29 c 4.35,-4.54 7.48,-10.16 11,-15.36 1.83,-2.7 3.18,-5.7 4.86,-8.49 1.34,-2.21 3,-4 5.75,-3.81 h 0.1 a 4.82,4.82 0 0 1 3.84,2.72 5.19,5.19 0 0 1 -0.63,4.1 c -2,4 -5.16,7.6 -7.88,11.15 a 54.86,54.86 0 0 1 -6.63,7 c -1.73,1.58 -3.44,3.13 -5.21,4.62 -0.36,0.27 -0.91,0.95 -1.38,1 h -0.11 c -1.14,0.04 -2.87,-1.9 -3.64,-2.4 z"
+         class="b4f7f29b-8e9d-4db9-aede-7c06fba008a5"
+         data-name="Union 15"
+         id="bde2f5c8-12d4-4055-bac5-c655c808b8d9" />
+      <path
+         style="fill:#cccccc;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 305.75,249.72 c 0,0 32.12,1 64.6,0.93 32.48,-0.07 72.6,-1.32 72.6,-1.32 0,0 -40.11,-1 -72.6,-0.89 -32.49,0.11 -64.6,1.28 -64.6,1.28 z"
+         class="bb4e70c3-3a01-4496-916a-a5f27c5a4d1a"
+         data-name="Tracé 4037"
+         id="ab147ade-d640-4e6a-8dbf-68bbda9d1710" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 306.61,249.51 h 0.51 -0.43 -0.51 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4038"
+         id="b0d1d9b6-f072-4643-8158-eddb3cf01f52" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 316.2,249.47 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4039"
+         id="b198673c-8960-40e1-8a99-b033e1d71097" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 312.73,249.46 h -1.82 -0.46 1.32 0.45 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4040"
+         id="e6dfbb83-5a2d-405c-8759-939a08d5f46a" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 308.76,249.55 h 0.84 l 0.46,-0.05 h -1.73 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4041"
+         id="f61561df-051c-4c54-be9f-153012247a5e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 405.08,248.41 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4042"
+         id="a1a71f16-d073-4e08-b4b3-4afa08cd077f" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 374,248.64 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4043"
+         id="bf4dffae-4ef4-433a-8a1f-ec0daf8b691e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 323.66,249.76 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4044"
+         id="b9001fb4-22bd-4063-9265-ef07c2fcfb45" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 311.21,250.05 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4045"
+         id="b44c8db5-ba00-49ee-898b-8e9952729e7c" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 338.88,249 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4046"
+         id="e7ab76b6-4d1b-4e8f-a8f1-d62ffde9c470" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 316.25,249.42 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4047"
+         id="adaf0171-06ee-4d14-a87a-a8f1c98e4fa9" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 339.77,248.93 h 0.43 a 1.55,1.55 0 0 1 -0.43,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4048"
+         id="becafd4a-8c2e-4392-b885-eaae1d4fa958" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 319.88,249.21 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4049"
+         id="f1e91ac5-130a-440c-8f79-9ca474ca83e5" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 320.39,249.11 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4050"
+         id="aff9cc59-c821-4dad-a35e-5f493f7b3e47" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 312.56,250.05 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4051"
+         id="be90f4b2-f942-4b44-b010-6ce96dcfbf56" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 323.14,248.93 h -0.43 c 0.16,-0.01 0.29,0.01 0.43,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4052"
+         id="a6bff194-0dee-445a-8260-04fe5fc5621a" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 311.12,249.28 -0.47,0.05 h 0.89 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4053"
+         id="a0316f93-1ffd-46f2-8dff-a052ef8dd3fb" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 312.48,249.21 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4054"
+         id="ef1e74a7-d40c-47e5-963f-55641c729406" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 313.32,249.24 h -0.43 c 0,0 0.44,-0.01 0.43,0 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4055"
+         id="ee2cc886-196f-4324-97ff-c9f2d51ef734" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 428.22,249.44 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4056"
+         id="f3798bae-8ae6-4122-86b1-2f840c18450a" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 316.71,249.38 H 325 l 0.93,-0.07 h 117 v 0.5 H 308.74 l 0.42,0.05 h 20.69 l 0.85,0.08 h 32.17 l 0.84,0.06 H 443 v 0.44 0 -1.44 0 0.55 H 323 l -0.93,0.08 h -4.86 z m 0,0.51 z m 19.47,0.56 z m -0.3,-0.2 z m 12.49,0.14 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4057"
+         id="edabbf91-dbe0-40d0-8d72-819e7a71c8bd" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 312.08,249.19 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4058"
+         id="b959a7c5-2344-4c87-95fb-84a5462309d4" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 312.85,249.29 H 314 l 0.93,-0.09 h -1.58 c 0,0 -0.51,0.08 -0.5,0.09 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4059"
+         id="e36c84d2-a354-45b3-b703-eb1e398c427e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 332.15,250.45 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4060"
+         id="a64eb62f-e211-4610-a6df-61636f7d85cb" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 311.07,249.4 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4061"
+         id="b0b9c35d-569f-4a51-86b4-9cbeb170aa9b" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 308.72,249.71 v 0 l -0.84,-0.08 h -1.36 l 0.42,0.05 h 1.31 c 0.19,0 0.31,0.03 0.47,0.03 z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4062"
+         id="a3ab1fb6-b696-4ba9-a05b-aadbc75f313e" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 309.69,249.64 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4063"
+         id="e4d79838-6d83-474a-b148-97556d63a065" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 308.81,249.61 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4064"
+         id="bd1e6704-41ce-4211-883e-c48987f6d841" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 306.63,249.47 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4065"
+         id="abba122c-1b3e-44d4-814f-15d9d108700c" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 308,249.35 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4066"
+         id="a8bfc6e7-6fda-445c-b281-1b2ec2d5c664" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 306.52,249.64 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4067"
+         id="a9478561-1a88-49d6-9a5d-04d79e5ad1ff" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 307.32,249.73 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4068"
+         id="a0125b35-1f5a-40b9-80b1-7a8f45fc7035" />
+      <path
+         style="fill:#cccccc"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="M 306.89,249.71 Z"
+         class="bc65d32b-a153-4b3b-94b7-d42985eb89db"
+         data-name="Tracé 4069"
+         id="ed2bb1b6-42c7-4f7e-aaf5-88c6d710e101" />
+      <path
+         style="fill:#59bbab"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 259.68,76.54 -22.33,131.55 25.18,-4.45 4.87,-29.32 43.65,-7.71 14.45,25.91 L 351.11,188 286.48,71.81 Z m 11.32,75.52 7.25,-44.06 21.7,39 z"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Tracé 4114"
+         id="f9cc2b30-29ee-4582-bf79-2e1fe9ada989" />
+      <rect
+         style="fill:#59bbab"
+         height="126.38"
+         width="24.75"
+         y="110.08"
+         x="359.91"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Rectangle 994"
+         id="af0fb228-53f7-40b7-a046-3c9c63a413b1" />
+      <path
+         style="fill:#59bbab"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 449.93,84.68 -44.13,7 19.65,124.08 44.13,-7 C 509.45,202.45 524.2,180.5 517.4,137.59 510.6,94.68 489.8,78.37 449.93,84.68 m 15.57,102.5 -19,3 -12.78,-80.72 19,-3 c 24.2,-3.84 34.93,5.68 39.59,35.1 4.66,29.42 -2.61,41.78 -26.81,45.61"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Tracé 4115"
+         id="f53ecada-f472-46ed-97b2-b20941724efd" />
+      <path
+         style="fill:#59bbab"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 668.24,166.76 c -17.2,-6.68 -25.17,-10.74 -24,-19 1.52,-10.78 5.92,-16.13 24.85,-13.47 17,2.39 22.26,8.44 20.2,23.13 l -0.71,5.08 23.2,3.26 0.71,-5.08 c 3.93,-28 -8.92,-43 -40.44,-47.47 -31.52,-4.47 -48.15,6.14 -52,33.32 -3.6,25.63 19,34.46 37.21,41.55 16.92,6.6 27.09,11.35 25.64,21.71 -1.52,10.79 -6.16,16.1 -26.32,13.27 -18.42,-2.59 -23.93,-8.48 -21.84,-23.36 l 0.72,-5.08 -23.37,-3.28 -0.72,5.07 c -4,28.35 9.05,43.07 42.25,47.73 33.2,4.66 49.56,-5.56 53.44,-33.12 3.88,-27.56 -19.81,-36.85 -38.84,-44.25"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Tracé 4116"
+         id="fd59a75a-e48c-4785-9193-2542eb13c677" />
+      <path
+         style="fill:#59bbab"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 554.73,195 c -40.1,0 -58,20.62 -58,66.86 0,46.24 17.88,66.87 58,66.87 25.24,0 40.84,-9 49.09,-28.29 l 3.62,-8.47 H 582 l -1.73,3.12 c -4.79,8.61 -12.19,12.13 -25.56,12.13 -20.37,0 -30,-8.57 -32.8,-29.45 h 90.78 V 265.4 c 0,-48.67 -17.88,-70.37 -58,-70.37 m -33.58,61.72 c 1,-28.73 10.52,-40 33.57,-40 h 0.43 l 1.08,-0.22 c 21.87,0.49 31,11.8 32,40.19 z"
+         class="b20012be-06f1-4468-9709-0857e0c08757"
+         data-name="Tracé 4117"
+         id="f5a9edce-21a7-48ab-880d-6e9703042e4e" />
+      <path
+         style="fill:#ffcc99;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 268.39,204 c -0.06,-0.1 -3.95,-1.15 -4.47,-1.32 -0.71,-0.23 -1.65,-0.47 -2.5,-0.74 a 3.37,3.37 0 0 0 -1,-0.4 c -0.42,-0.11 -0.85,-0.17 -1.26,-0.3 l -0.78,-0.32 v 0 c 1.75,-0.57 3.53,-0.8 5.28,-1.38 a 1.45,1.45 0 0 0 0.86,-0.73 l 0.06,-0.16 a 1.49,1.49 0 0 0 0.05,-0.63 c -1,0.11 -2.85,0.43 -3.11,0.43 -1,0 -2.13,-0.27 -3.17,-0.18 a 9.79,9.79 0 0 0 -4,1.43 2.91,2.91 0 0 0 -1,0.92 c 0,0.22 0,0.45 -0.07,0.66 a 6.36,6.36 0 0 1 -0.06,0.87 l -0.09,1.55 v 0.42 a 9.55,9.55 0 0 0 0.26,2.44 l 1.58,0.26 a 35,35 0 0 0 3.95,0.4 H 260 c 0.67,0.21 1.33,0.5 1.88,0.66 a 3.16,3.16 0 0 0 0.6,-1.2 c 1.14,0.11 1.33,-0.28 1.69,-1.35 0,0.12 0.93,0 1,0 0.48,-0.24 0.39,-0.54 1,-0.56 0.24,0 2.28,0.6 2.28,0.5 a 1.89,1.89 0 0 0 -0.1,-1.26 z"
+         class="e581e44d-6e98-4235-a316-eee4b33b2ead"
+         data-name="Tracé 3907"
+         id="bd9621ba-28ea-4737-afbe-338fea077190" />
+      <path
+         style="fill:#04bfbf"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 253.25,198.78 c -6.51,-0.7 -13,-1.56 -19.5,-2.31 -3,-0.35 -6,-0.62 -9,-0.95 a 48.23,48.23 0 0 1 -10,-1.81 c -1.59,-0.83 -3.26,-1.54 -4.73,-2.34 a 75.66,75.66 0 0 1 -13.88,-10 c -2.1,-1.85 -4.19,-3.71 -6.37,-5.48 a 17.79,17.79 0 0 0 -4.7,-3 c -2.58,-1 -7,-2.19 -9.52,-0.34 -2.9,2.16 -5.07,5.94 -4.62,9.6 0.38,3.38 2.54,6.28 4.87,8.62 a 48.84,48.84 0 0 0 8.79,6.76 108.54,108.54 0 0 0 12.94,7.35 59.17,59.17 0 0 0 8.27,2.9 c 2.66,0.72 5.75,1.87 8.53,1.55 v 0 a 32.34,32.34 0 0 0 3.38,0.48 103.48,103.48 0 0 0 13.64,-0.06 199.79,199.79 0 0 0 21,-2.19 0.31,0.31 0 0 0 0.24,-0.23 18.11,18.11 0 0 0 0.5,-3.67 l 0.09,-1.55 a 4.25,4.25 0 0 1 0.06,-0.87 c 0.06,-0.29 0,-0.43 0.07,-0.66 0,-0.45 0.12,-0.89 0.21,-1.34 a 0.35,0.35 0 0 0 -0.32,-0.38 v 0 z"
+         class="e69b7bf0-fbc2-4f1a-839f-29172a53b605"
+         data-name="Tracé 3908"
+         id="beb3be83-6f60-4fe3-b521-d7f6f4c441aa" />
+      <path
+         style="fill:#ffcc99;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 505,111.4 c 1.24,-1 2.13,-2.26 3.36,-3.22 0.39,-0.3 3.25,-2 3.47,-1.88 0.6,0.46 1.33,0.85 2,1.29 0.67,0.44 1.47,0.64 1.42,1.57 a 10,10 0 0 1 -1.09,3 21.25,21.25 0 0 1 -3.7,5.61 c -0.06,0 -0.54,-0.13 -0.51,-0.19 a 27.86,27.86 0 0 0 1.83,-3.18 c -0.58,0.77 -2,2.76 -2.72,3.51 a 2.29,2.29 0 0 1 -0.73,-0.17 c 0.35,-0.7 0.79,-1.5 2.26,-4.3 -0.59,0.79 -1.43,1.63 -3.09,4 a 3.24,3.24 0 0 1 -0.88,-0.47 c 0.54,-1 2.07,-3 2.55,-4.21 a 33.48,33.48 0 0 0 -2.85,3.84 c -0.23,0.32 -0.42,-0.58 -0.44,-0.68 a 3.84,3.84 0 0 1 0.51,-1.3 c 0.71,-1.45 2.21,-3.4 2.64,-4.88 a 11.22,11.22 0 0 1 -3.62,2.1 5.25,5.25 0 0 1 -0.43,-0.53 z"
+         class="e581e44d-6e98-4235-a316-eee4b33b2ead"
+         data-name="Tracé 4036"
+         id="ae1b6531-0226-4be1-a80a-2e16f2dcee6d" />
+      <path
+         style="fill:#ffcc99"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 690.34,241.23 a 5.79,5.79 0 0 1 0.76,-0.88 3.52,3.52 0 0 1 -1.28,0.3 1.52,1.52 0 0 1 -0.56,-0.08 0.64,0.64 0 0 1 -0.27,-0.11 1.56,1.56 0 0 1 -0.6,-0.54 0.93,0.93 0 0 1 0,-0.73 v 0 l -0.28,0.13 a 1.18,1.18 0 0 1 -1.65,-0.14 0.93,0.93 0 0 1 -0.31,-0.62 0.89,0.89 0 0 1 0.23,-0.66 l -0.31,0.17 a 1.43,1.43 0 0 1 -1.42,0.19 1,1 0 0 1 -0.63,-0.89 c 0.07,-0.92 2,-1.72 3.84,-2.4 0.31,-0.12 0.56,-0.21 0.69,-0.28 0.36,-0.18 0.79,-0.36 1.24,-0.56 0.62,-0.28 1.24,-0.55 1.78,-0.83 l 0.13,-0.11 0.4,-0.28 a 7.42,7.42 0 0 0 0.64,-0.46 3.11,3.11 0 0 0 0.31,-0.32 c -0.8,0.07 -1.5,0.17 -2.36,0.32 -0.86,0.15 -1.79,0.28 -2.71,0.34 a 1.61,1.61 0 0 1 -1.18,-0.4 l -0.12,-0.12 a 1.45,1.45 0 0 1 -0.31,-0.62 v -0.12 h 0.12 c 0.56,-0.15 1.5,-0.36 2,-0.48 0.5,-0.12 0.92,-0.27 1,-0.27 a 9.12,9.12 0 0 0 1.26,-0.61 9.34,9.34 0 0 1 1.61,-0.73 10.13,10.13 0 0 1 4.38,-0.2 2.63,2.63 0 0 1 1.74,0.92 0.16,0.16 0 0 1 0.07,0.12 c 0,0 0,0 0.06,0.06 l 0.08,0.19 c 0.19,0.48 0.71,1.75 0.92,2.38 a 2.25,2.25 0 0 1 0.05,0.22 c 0.74,2 0.7,2.16 0.56,2.25 l -0.16,0.1 c 0.23,0.48 0.4,0.87 0.32,0.94 -0.47,0.42 -1,0.83 -1.45,1.25 -1.25,1.07 -4.6,4.4 -6.93,4.4 a 1.84,1.84 0 0 1 -1.66,-0.84 z"
+         class="a2b7915c-a97b-4558-b905-6bd3e88ab151"
+         data-name="Union 16"
+         id="fa482640-e2e2-4204-8587-687d4dc3071c" />
+      <path
+         style="fill:#0066cb"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 753.74,169 a 13.63,13.63 0 0 0 -4.94,-2.15 5.5,5.5 0 0 0 -4.48,0.86 16.84,16.84 0 0 0 -4.32,4 18.41,18.41 0 0 0 -2.7,5.76 c -2.18,6.33 -3.67,12.88 -6.62,18.92 a 91.47,91.47 0 0 1 -4.55,8 36,36 0 0 1 -3.23,3.42 c -1.5,1.25 -3,2.45 -4.59,3.65 -7.4,5.68 -15,11.78 -22.29,17.33 a 0.33,0.33 0 0 0 -0.1,0.47 v 0 c 1.87,2 3,4.54 5,6.44 a 0.34,0.34 0 0 0 0.33,0.09 c 5.37,-2.24 10.68,-4.62 15.84,-7.33 a 142.27,142.27 0 0 0 12.65,-7.22 35.14,35.14 0 0 0 4.38,-3.4 c 1.94,-0.9 3.44,-2.67 4.9,-4.15 a 66.11,66.11 0 0 0 5.26,-6 c 3.36,-4.33 5.81,-9.26 8.26,-14.13 a 61.77,61.77 0 0 0 3.54,-8.24 C 757.9,180 759,172.87 753.74,169 Z"
+         class="b3a0ef92-1fc4-47e7-a87d-3acb19e16a18"
+         data-name="Tracé 3954"
+         id="b8769a73-51eb-42af-970f-7703fc57f62d" />
+      <path
+         style="fill:#ffcc99;fill-rule:evenodd"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 679.66,217 c 0.44,0.57 1.48,2.24 0.81,2.79 -1.07,0.9 -1.94,-0.73 -2.38,-1.42 0.19,0.82 1.12,2.21 0.41,2.91 -1,1 -1.94,-0.9 -2.36,-1.69 0.17,0.64 1.12,3.3 -0.4,2.91 a 3.87,3.87 0 0 1 -1.57,-2"
+         class="e581e44d-6e98-4235-a316-eee4b33b2ead"
+         data-name="Tracé 3957"
+         id="fd87374e-0fc7-4722-9b97-6c1e9bf95ca8" />
+      <path
+         style="fill:#090e7c"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 546.09,191.63 a 5.35,5.35 0 0 0 -0.14,-0.8 c -0.06,-0.59 -0.13,-1.18 -0.23,-1.73 a 1.69,1.69 0 0 0 -0.14,-0.5 c -1.74,-10.58 -3.61,-21.15 -6,-31.62 -0.66,-3 -1.35,-5.9 -2.19,-8.82 a 15.26,15.26 0 0 0 -1.4,-4 c -0.51,-0.84 -1.09,-0.6 -2,-0.32 -4.13,1.28 -8.11,2.82 -12.16,4.37 a 0.68,0.68 0 0 0 -0.45,0.64 0.88,0.88 0 0 0 0,0.23 v 0 a 0.17,0.17 0 0 0 0,0.1 c 5.27,12.42 11.15,24.73 15.13,37.63 0.17,0.57 0.35,1.15 0.54,1.73 -0.22,0.3 -0.42,0.61 -0.64,0.9 a 29.57,29.57 0 0 1 -3.46,4 c -1.92,1.85 -4,3.56 -6,5.31 a 0.68,0.68 0 0 0 0,0.95 3.78,3.78 0 0 0 1.74,0.45 22.29,22.29 0 0 0 3.83,0.27 13.13,13.13 0 0 0 7.34,-2 3.23,3.23 0 0 1 -0.17,0.82 0.68,0.68 0 0 0 0.49,0.83 h 0.16 a 18.64,18.64 0 0 0 4.35,-0.18 0.66,0.66 0 0 0 0.47,-0.47 28.07,28.07 0 0 0 0.77,-7.25 1,1 0 0 0 0.16,-0.54 z"
+         class="a26b579a-391a-4fe0-87ad-aa05fd51477f"
+         data-name="Tracé 3995"
+         id="a3b64638-93e5-46ff-a421-7218e720f563" />
+      <path
+         style="fill:#6acef0"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 548,155.1 a 36.54,36.54 0 0 0 -7.09,-9.78 c -2.33,-2.32 -5.38,-4.38 -8.74,-4.73 -3,-0.31 -6.66,1.52 -7.4,4.67 -0.65,2.76 1.52,5.43 3.2,7.35 2.92,3.32 6.41,6.08 9.41,9.32 h 0.34 l 10.09,-6.41 A 0.38,0.38 0 0 0 548,155.1 Z"
+         class="a5611a68-2874-4906-b645-fe63dbb9ed43"
+         data-name="Tracé 4029"
+         id="aa4f63fe-7282-4b82-b410-1b41985eb12a" />
+      <path
+         style="fill:#090e7c"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 570.47,189 a 3.86,3.86 0 0 0 -2,-2.5 c -5.76,-10 -11.62,-19.87 -18,-29.47 -1.66,-2.53 -3.34,-5.07 -5.14,-7.45 a 15.7,15.7 0 0 0 -2.73,-3.24 c -0.91,-0.72 -1.44,-0.07 -2.32,0.58 -3.35,2.49 -6.55,5.17 -9.75,7.87 a 0.56,0.56 0 0 0 -0.15,0.71 1,1 0 0 0 0.15,0.24 c 9.4,9.88 19.26,19.46 27.72,30.22 a 46.49,46.49 0 0 1 3,4.05 29.38,29.38 0 0 1 -3,4.05 c -1.71,2 -3.58,3.78 -5.4,5.65 a 0.68,0.68 0 0 0 0.08,1 h 0.06 c 0.4,0.31 1.3,0.25 1.76,0.3 a 20,20 0 0 0 3.79,0 12.21,12.21 0 0 0 6.92,-2.49 4.81,4.81 0 0 1 -0.1,0.84 0.69,0.69 0 0 0 0.51,0.83 h 0.14 a 16.55,16.55 0 0 0 4.27,-0.41 0.66,0.66 0 0 0 0.47,-0.46 26.72,26.72 0 0 0 -0.28,-10.32 z"
+         class="a26b579a-391a-4fe0-87ad-aa05fd51477f"
+         data-name="Tracé 4030"
+         id="a25b72b9-4fb0-4800-9c7d-8176ae4ba0e1" />
+      <path
+         style="fill:#0066cb"
+         inkscape:connector-curvature="0"
+         transform="translate(-6.24,-12.01)"
+         d="m 565.78,87.17 c -0.6,-4.4 -1.56,-9.22 -4.22,-12.88 a 0.47,0.47 0 0 0 -0.15,-0.13 h -0.07 l -0.16,-0.1 a 4.66,4.66 0 0 0 -3.33,0.44 33.46,33.46 0 0 0 -4.61,2.28 c -1.55,0.9 -3,1.84 -4.66,2.7 -0.81,0.42 -2.32,1.45 -3.29,1.1 a 0.66,0.66 0 0 0 -0.76,0.3 375.69,375.69 0 0 0 -20.2,39.51 q -3.9,8.77 -7.62,17.63 a 0.68,0.68 0 0 0 0.23,0.92 136,136 0 0 0 23,7.75 137.35,137.35 0 0 0 20,3.74 0.68,0.68 0 0 0 0.68,-0.67 c 0.09,-11.8 2.29,-23.39 4.3,-35 a 89.79,89.79 0 0 0 0.86,-27.59 z"
+         class="b3a0ef92-1fc4-47e7-a87d-3acb19e16a18"
+         data-name="Tracé 4031"
+         id="f1ca6cda-1050-4808-a429-f3d420036a57" />
+    </g>
+    <path
+       style="fill:#003056"
+       inkscape:connector-curvature="0"
+       id="path235"
+       d="m 185.56,115.49024 a 14.64,14.64 0 0 0 -8.79,-4.54 19.68,19.68 0 0 0 -7.76,0.34 c -1.39,0.34 -4.49,1.35 -5.43,2.86 -0.19,0.15 -0.38,0.3 -0.57,0.47 -6.11,5.39 -1.63,16 -0.05,22.48 -0.3,-2.29 -0.85,-6.33 0.65,-8.3 2.21,-2.91 7.34,1.54 10.2,-0.64 2.54,-1.94 5.35,-5.24 5.25,-8.73 a 5.5,5.5 0 0 0 -0.75,-2.73 58.32,58.32 0 0 1 7.25,-1.21 z"
+       class="b6423444-9dc9-4818-87e9-89659960a870" />
+    <path
+       style="fill:#003056"
+       inkscape:connector-curvature="0"
+       id="path237"
+       d="m 737.69,113.18024 a 5,5 0 0 0 -3.4,4.88 c 0,3.41 2.85,6.63 5.43,8.53 2.89,2.12 6.77,-3.4 9,-0.56 1.54,1.93 0.25,8.76 0,11 1.24,-5.46 4.86,-12.72 4.86,-18.36 0,-2.44 -0.23,-4.56 -2.13,-6.16 -3.5,-3 -6.86,-3.56 -10.73,-2.48 -0.96,0.29 -2.09,2.73 -3.03,3.15 z"
+       class="b6423444-9dc9-4818-87e9-89659960a870" />
+    <path
+       style="fill:#003056"
+       inkscape:connector-curvature="0"
+       id="path239"
+       d="m 726.76,118.03024 c 4,-2.7 -3.32,-9.6 3,-11 9,-2 15.49,0.66 16.51,3.27 0.46,1.17 0.82,3.17 -0.06,4.28 -1.34,1.7 -2.67,0.9 -4.43,0.41 -7.02,-1.96 -13.58,2.04 -15.02,3.04 z"
+       class="b6423444-9dc9-4818-87e9-89659960a870" />
+  </g>
+</svg>

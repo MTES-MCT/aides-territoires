@@ -1,9 +1,10 @@
-@mixin icon($type, $icon) {
+@mixin icon($type, $icon, $size: 1em) {
     &:#{$type} {
         @include fa-icon;
         @extend .fas;
         content: fa-content($icon);
         vertical-align: baseline;
+        font-size: $size;
 
         @if $type == 'before' {
             @extend .mr-1;

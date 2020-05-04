@@ -1,0 +1,39 @@
+{% load settings %}<footer>
+    <div class="container">
+        <div class="columns">
+            <div class="logos logos-1">
+                <img class="logo" id="logo-ministeres" src="/static/img/marianne_cadre.svg"
+                    alt="Logo Marianne : Liberté, Égalité, Fraternité. République Française." />
+                <p class="ministere">
+                    Ministère de la Transition écologique et solidaire
+                </p>
+                <hr />
+                <p class="ministere">
+                    Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales
+                </p>
+            </div>
+
+            <div class="newsletter">
+                <h2>{{ _("let's keep in touch") }}</h2>
+                {% include 'home/_mailing_list_form.html' %}
+            </div>
+
+            <div class="logos logos-2">
+                <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
+                <h4>Aides-territoires</h4>
+                <p>Un service incubé et développé à la Fabrique Numérique.</p>
+            </div>
+        </div>
+
+        <nav role="navigation">
+            <ul>
+                <li><a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a></li>
+                <li><a href="{% url 'data_doc' %}">{{ _('Data and api') }}</a></li>
+                <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
+                <li><a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a> </li>
+                <li><a href="{% url 'legal_mentions' %}">{{ _('Legal mentions') }}</a></li>
+                <li><a href="https://github.com/MTES-MCT/aides-territoires">{{ _('Source code') }}</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>

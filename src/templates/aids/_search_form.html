@@ -1,87 +1,86 @@
 {% load pagination i18n %}
 
-<div class="form-container">
-    <form id="search-form" action="" method="get">
-        {% for field in form.hidden_fields %}
+<form id="search-form" action="" method="get">
+    {% for field in form.hidden_fields %}
         {{ field }}
-        {% endfor %}
-        <div id="basic-search" class="show active">
+    {% endfor %}
 
-            <div class="form-row">
-                <div class="col-md-8">
-                    {% include '_search_field.html' with field=form.text %}
-                </div>
+    {% comment %}
+        This is to make sure that those search filters will be carried upon the
+        "more filters" page.
+    {% endcomment %}
+    {{ form.apply_before.as_hidden }}
+    {{ form.mobilization_step.as_hidden }}
+    {{ form.destinations.as_hidden }}
+    {{ form.categories.as_hidden }}
+    {{ form.targeted_audiances.as_hidden }}
+    {{ form.perimeter.as_hidden }}
 
-                <div class="col-md-4 date-group">
-                    <label>
-                        {{ form.apply_before.label }}
-                    </label>
-                    {{ form.apply_before }}
-                </div>
-            </div>
+    <div class="other-actions">
 
-            <div class="form-row">
-                <div class="col-md-8">
-                    {% include '_search_field.html' with field=form.perimeter %}
-                </div>
-                <div class="col-md-4 form-group checkbox-group">
-                    <div class="form-check form-check-inline">
-                        {{ form.call_for_projects_only }}
-                        <label>
-                            {{ form.call_for_projects_only.label }}
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a href="{% url 'search_step_audiance' %}">
+            {{ _('New search') }}
+        </a>
 
-        <div id="advanced-search">
+        {% comment %}
+            This hidden button is here to make it the "default" submit button.
+            This way, we make sure pressing "enter" performs a new search instead
+            of going to the "more filters" page.
+        {% endcomment %}
+        <button type="submit" class="hidden"></button>
 
-            <div class="form-group checkbox-group">
-                <div class="form-check form-check-inline">
-                    <label>
-                        {{ form.financial_aids.label }}
-                    </label>
-                    {% for choice in form.financial_aids %}
-                        {{ choice }}
-                    {% endfor %}
-                </div>
-            </div>
+        <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+            {{ _('More filters') }}
+        </button>
 
-            <div class="form-group checkbox-group">
-                <div class="form-check form-check-inline">
-                    <label>
-                        {{ form.technical_aids.label }}
-                    </label>
-                    {% for choice in form.technical_aids %}
-                        {{ choice }}
-                    {% endfor %}
-                </div>
-            </div>
+        <a href="#" class="js" id="share-btn" data-toggle="modal" data-target="#share-results-modal">
+            {{ _('Share') }}
+        </a>
 
-            <div class="form-group">
-                {{ form.order_by }}
-            </div>
-
-            <div class="actions-row">
-                <button name="action" value="search" class="search-btn" type="submit">
-                    {{ _('Search') }}
-                </button>
-                <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-                    {{ _('See more filters') }}
-                </button>
-                <a href="#" id="save-alert-btn" class="alert-btn js" data-toggle="modal" data-target="#alert-search-modal">
-                    {{ _('Create an alert') }}
-                </a>
-            </div>
-        </div>
-    </form>
-</div>
-
-<nav id="mobile-search-link">
-    <div class="container">
-        <a href="{% url 'advanced_search_view' %}{% querydict %}">
-            {{ _('Filter your results') }}
+        <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+            {{ _('Create an alert') }}
         </a>
     </div>
-</nav>
+
+    <div class="form-container">
+    <div class="form-body">
+
+        <div class="row">
+            <div class="col col-md-5">
+                <div class="form-group checkbox-group">
+                    {% for choice in form.aid_type %}
+                        {{ choice }}
+                    {% endfor %}
+                </div>
+
+                <div class="form-group checkbox-group">
+                    {{ form.call_for_projects_only }}
+                    <label>
+                        {{ form.call_for_projects_only.label }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="col col-md-3">
+                {% include '_field_snippet.html' with field=form.backers %}
+            </div>
+
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.text %}
+            </div>
+        </div>
+
+        <div class="row actions-row">
+            <div class="col-md-3 offset-md-5">
+                {{ form.order_by }}
+            </div>
+            <div class="col-md-4">
+                <button name="action" value="search" class="search-btn" type="submit">
+                    {{ _('Filter results') }}
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</form>

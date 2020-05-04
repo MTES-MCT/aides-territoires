@@ -1,8 +1,6 @@
 /**
  * Dynamic search engine definition.
  *
- * Every time the search filter form is changed, fetch new results immediately.
- *
  * When the search filter form is used, we dynamically fetch new
  * results and display them on the spot. We also update the url,
  * so the current search remains bookmarkable at all time.

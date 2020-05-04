@@ -5,108 +5,185 @@
  *
  */
 
-html {
+.dark-background {
     @extend .bg-dark;
+    @extend .text-white;
+
+    background:
+        transparent
+        linear-gradient(
+            0deg,
+            #772986 0%,
+            #592D87 46%,
+            #4B2F87 63%,
+            #3A3188 100%)
+        0% 0% no-repeat padding-box;
 }
 
-html.light {
-    main {
-        @extend .bg-light;
+.dark-background .main-content > article,
+.dark-background .main-content > div.article {
+    background-color: white;
+    border-radius: 1.5rem 0 1.5rem 1.5rem;
+    @extend .py-4;
+    @extend .px-4;
+    @extend .text-dark;
+    @extend .shadow;
+}
+
+.light-background {
+    background:
+        transparent
+        linear-gradient(
+            0deg,
+            #efeeff 30%,
+            #dfddff 50%,
+            #a29cfe 100%)
+        0% 0% no-repeat padding-box;
+}
+
+body > footer {
+    @extend .bg-dark;
+    @extend .text-light;
+    padding: 1rem 0 4rem 0;
+
+    @include media-breakpoint-up(lg) {
+        padding-top: 4rem;
     }
-}
 
-body {
+    h2, h3, h4 {
+        font-family: $font-family-base;
+    }
 
-    >footer {
-        @extend .py-5;
-        @extend .bg-dark;
+    a {
         @extend .text-light;
+    }
+
+    .ml-btn {
+        @extend .btn;
+        @extend .btn-outline-light;
+
+        &:hover {
+            @extend .text-dark;
+        }
+    }
+
+    div.columns {
+        @extend .row;
+    }
+
+    div.logos {
+        img {
+            width: 150px;
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+    }
+
+    div.logos-1 {
+        @extend .col-lg-3;
+        @extend .d-none;
+        @extend .d-lg-block;
+
+        hr {
+            background-color: white;
+            color: white;
+            border: none;
+            height: 3px;
+            width: 5rem;
+            max-width: 5rem;
+            margin-right: auto;
+            margin-left: 0;
+        }
+    }
+
+    div.newsletter {
+        @extend .col-12;
+        @extend .col-lg-6;
+        @extend .order-2;
+        @extend .order-lg-1;
+        text-align: center;
+
+        p {
+            font-size: 1.25rem;
+            font-weight: bold;
+            max-width: 550px;
+            margin: 1rem auto 1rem auto;
+        }
+
+    }
+
+    div.logos-2 {
+        @extend .col-12;
+        @extend .col-lg-3;
+        @extend .order-1;
+        @extend .order-lg-2;
+        text-align: right;
+
+        @include media-breakpoint-down(md) {
+            text-align: center;
+            margin-top: -75px;
+            margin-bottom: 3rem;
+
+            h4 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+    nav {
+        border-top: 2px solid $pale-text;
+        margin-top: 3rem;
+        padding-top: 1rem;
+
+        ul {
+            @extend .nav;
+            justify-content: space-between;
+        }
+
+        li {
+            @extend .nav-item;
+            flex-grow: 1;
+            flex-basis: 0;
+            text-align: center;
+        }
 
         a {
-            @extend .text-light;
+            @extend .nav-link;
+            white-space: nowrap;
         }
 
-        div.logos {
-            text-align: center;
-
-            img.logo {
-                @extend .mb-3;
-                @extend .mx-3;
-
-                &#logo-fabnum {
-                    max-height: 16rem;
-                }
-
-                &#logo-ministeres {
-                    @extend .ml-3;
-                    max-height: 16rem;
-                }
-            }
-
-            @include media-breakpoint-up(md) {
-                float: right;
-                height: 16rem;
-
-                img.logo {
-                    height: 100%;
-                    margin-right: 0 !important;
-
-                    &#logo-fabnum {
-                        width: 16rem;
-                    }
-
-                    &#logo-ministeres {
-                        width: 16rem * 160 / 360;
-                    }
-                }
-            }
+        a[href^='mailto:'] {
+            @include icon(before, $fa-var-envelope);
         }
 
-        nav {
-            @extend .nav;
-            @extend .flex-column;
-
-            &>a,
-            li {
-                @extend .nav-link;
-                padding-left: 0;
-
-                a[href^='mailto:'] {
-                    @include icon(before, $fa-var-envelope);
-                }
-                a[href^='tel:'] {
-                    @include icon(before, $fa-var-phone);
-                }
-            }
+        a[href^='tel:'] {
+            @include icon(before, $fa-var-phone);
         }
     }
 }
 
 nav#main-navbar {
     @extend .navbar;
-    @extend .navbar-dark;
-    @extend .bg-dark;
+    @extend .navbar-light;
+    @extend .bg-white;
     @extend .navbar-expand-sm;
 
     .homelink {
-        @extend .navbar-brand;
         @extend .mr-auto;
 
-        div.short-title {
-            @extend .d-md-none;
+        img {
+            height: $navbar-brand-height;
+            @extend .pr-3;
         }
 
-        div.long-title {
-            display: none;
-            @extend .d-md-block;
-        }
-
-        svg.marianne-logo {
-            max-height: $font-size-base * 2.5;
-            // Prevent Chrome bug that does not limit the svg width
-            // 1.59 is the computed element's width / height ratio
-            max-width: $font-size-base * 2.5 * 1.59;
-            @extend .pr-1;
+        img + img {
+            border-left: 1px solid $primary;
+            @extend .pl-3;
         }
     }
 
@@ -200,9 +277,22 @@ nav#main-navbar {
 }
 
 main {
-    section.main-content {
+    background: transparent url(../img/courbes.svg) top center no-repeat;
+    padding-top: 1.5rem;
+    @extend .pb-5;
+
+    &>:last-child {
+        @include media-breakpoint-down(md) {
+            padding-bottom: 75px;
+        }
+    }
+
+    div.main-content {
         @extend .container-lg;
-        @extend .py-4;
+
+        @include media-breakpoint-up(lg) {
+            padding-top: 1.5rem;
+        }
 
         a.main-action,
         button.main-action {
@@ -284,12 +374,16 @@ form {
     }
 
     button[type=submit]:not(.secondary) {
-        @extend .btn-success;
+        @extend .btn-primary;
     }
 
     button[type=submit].secondary {
-        @extend .btn-outline-success;
+        @extend .btn-outline-primary;
         @extend .text-dark;
+
+        &:hover {
+            @extend .text-white;
+        }
     }
 
     input[type=text],
@@ -305,10 +399,10 @@ form {
 
     &>fieldset {
         &>legend {
-            background-color: $blue;
-            color: white;
-            @extend .px-2;
-            @extend .py-1;
+            @extend .h4;
+            background-color: $pale-background;
+            border-radius: 0 2rem 2rem 2rem;
+            padding: .5rem 1rem;
         }
     }
 
@@ -342,9 +436,34 @@ form {
 }
 
 h1 {
+    text-align: center;
+
+    @include media-breakpoint-up(md) {
+        text-align: left;
+    }
+
     small {
         @extend .text-muted;
         @extend .h3;
+    }
+
+    &::after {
+        content: "";
+        color: transparent;
+        display: block;
+        width: 6rem;
+        height: 0px;
+        max-height: 1px;
+        padding: 0;
+        border: 2px solid $contrast-color;
+        border-radius: 4px;
+        margin: .5rem auto 0 auto;
+
+        @include media-breakpoint-up(md) {
+            margin-left: 0;
+            border: 4px solid $contrast-color;
+        }
+
     }
 }
 
@@ -385,11 +504,6 @@ p, div {
         &:last-child {
             margin-bottom: 0;
         }
-
-        ul:last-child,
-        p:last-child {
-            margin-bottom: 0;
-        }
     }
 }
 
@@ -398,11 +512,10 @@ div.messages {
 }
 
 nav#pagination {
-    @extend .mb-5;
+    @extend .mt-5;
 
     ul {
         @extend .justify-content-center;
-        @extend .mt-5;
 
         li {
             @extend .page-item;
@@ -415,6 +528,12 @@ nav#pagination {
 }
 
 ol.breadcrumb {
+    background-color: $light;
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 3rem;
+    }
+
     li {
         @extend .breadcrumb-item;
     }
@@ -426,6 +545,7 @@ div.modal {
     .modal-dialog {
 
         @extend .modal-dialog-centered;
+        @extend .text-dark;
 
         section {
             @extend .modal-content;
@@ -463,20 +583,22 @@ html.integration {
     background-color: white !important;
 
     body {
-        nav#main-navbar {
-            display: none;
-        }
-
-        nav[aria-label=breadcrumb] {
-            display: none;
-        }
-
-        &>footer {
+        nav#main-navbar,
+        div.header-warning,
+        nav[aria-label=breadcrumb],
+        &>footer,
+        section.aid-content footer {
             display: none;
         }
 
         main {
-            section.main-content {
+            @extend .pb-3;
+
+            & > :last-child {
+                padding-bottom: 0;
+            }
+
+            div.main-content {
                 @extend .container-fluid;
                 max-width: 100%;
             }
@@ -484,13 +606,17 @@ html.integration {
     }
 }
 
-.narrow-form {
+.narrow {
     @extend .mx-auto;
     max-width: 40rem;
     @extend .px-3;
 
     h1 {
         text-align: center;
+
+        &::after {
+            margin: .5rem auto 0 auto;
+        }
     }
 
     h2 {
@@ -578,6 +704,7 @@ html {
 div.header-warning {
     background-color: $red;
     color: white;
+    @extend .shadow-sm;
 
     p {
         @extend .py-2;
@@ -622,7 +749,7 @@ nav.form-steps {
         }
 
         &.active {
-            @extend .bg-dark;
+            @extend .bg-primary;
             @extend .text-light;
 
             span.step-counter {
@@ -630,4 +757,26 @@ nav.form-steps {
             }
         }
     }
+}
+
+.card {
+    @extend .shadow-sm;
+}
+
+ul:last-child,
+p:last-child {
+    margin-bottom: 0;
+}
+
+.mobile-center {
+    text-align: left;
+
+    @include media-breakpoint-down(md) {
+        text-align: center;
+        margin: inherit auto;
+    }
+}
+
+.btn {
+    border-radius: 0 1rem 1rem 1rem;
 }

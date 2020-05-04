@@ -8,3 +8,5 @@ site.retry
 .idea/
 aides.iml
 .pytest_cache/
+
+AT_svg/

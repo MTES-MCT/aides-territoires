@@ -2,6 +2,8 @@ from functools import partial
 from itertools import groupby
 from operator import attrgetter
 from django import forms
+
+from core.forms.widgets import AutocompleteSelect, AutocompleteSelectMultiple
 from dataproviders.utils import content_prettify
 
 
@@ -67,3 +69,63 @@ class GroupedModelChoiceField(forms.ModelChoiceField):
         self.iterator = partial(
             GroupedModelChoiceIterator, groupby=choices_groupby)
         super().__init__(*args, **kwargs)
+
+
+class AutocompleteModelChoiceField(forms.ModelChoiceField):
+    """A custom fields that works well with autocomplete widgets.
+
+    In the aid search form, fields are submitted as "GET" values and thus they
+    appear in the url.
+
+    For this reason, we draft custom `id` values in the form "{id}-{slug}" so
+    the search filter url stays readable.
+
+    This field's job is to get rid of the "-{slug}" part when it performs its
+    usal field tasks.
+    """
+
+    def __init__(self, *args, widget=None, **kwargs):
+        if widget is None:
+            widget = AutocompleteSelect
+
+        super().__init__(*args, widget=widget, **kwargs)
+
+    def to_python(self, value):
+        value = self.prepare_value(value)
+        return super().to_python(value)
+
+    def prepare_value(self, value):
+        if isinstance(value, str):
+            value = value.split('-')[0]
+        return value
+
+
+class AutocompleteModelMultipleChoiceField(forms.ModelMultipleChoiceField):
+    """A custom field that works well with autocomplete widgets.
+
+    See `AutocompleteModelChoiceField.`
+    """
+
+    def __init__(self, *args, widget=None, **kwargs):
+        if widget is None:
+            widget = AutocompleteSelectMultiple
+
+        super().__init__(*args, widget=widget, **kwargs)
+
+    def to_python(self, value):
+        value = self.prepare_value(value)
+        return super().to_python(value)
+
+    def prepare_value(self, value):
+
+        def clean_val(val):
+            if isinstance(val, str):
+                val = val.split('-')[0]
+            return val
+
+        if (hasattr(value, '__iter__') and
+                not isinstance(value, str) and
+                not hasattr(value, '_meta')):
+            value = [clean_val(val) for val in value]
+
+        return super().prepare_value(value)

@@ -1,44 +1,12 @@
-{% extends '_base.html' %}
+{% extends 'aids/_base_search.html' %}
 {% load i18n compress %}
-
-{% block extratitle %}{{ _('All aids') }}{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('All aids') }}</li>
+        <li><a href="{% url 'search_step_audiance' %}?{{ current_search }}">{{ _('Search') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Results') }}</li>
     </ol>
 </nav>
-{% endblock %}
-
-{% block content %}
-<section id="search-engine">
-    {% include 'aids/_search_form.html' %}
-</section>
-
-<section id="aid-list">
-    {% include 'aids/_results.html' with search_actions="yes" %}
-</section>
-{% endblock %}
-
-{% block footer %}
-{{ block.super }}
-{% include 'aids/_bookmark_results_modal.html' %}
-{% include 'alerts/_alert_modal.html' %}
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
-{% endblock %}
-
-{% block extra_js %}
-{% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/dynamic_search_engine.js"></script>
-<script src="/static/js/alerts/alert_form.js"></script>
-<script src="/static/js/aids/bookmark_results.js"></script>
-{% endcompress %}
 {% endblock %}

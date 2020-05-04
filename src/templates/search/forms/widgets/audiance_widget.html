@@ -3,11 +3,13 @@
     <div>
         <h2>{{ group }}</h2>
 
+        <div class="buttons">
         {% for option in options %}
             <button type="submit" name="{{ option.name }}" value="{{ option.value }}">
                 {{ option.label }}
             </button>
         {% endfor %}
+        </div>
     </div>
 {% endfor %}
 {% endwith %}

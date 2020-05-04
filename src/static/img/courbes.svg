@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1336.0476"
+   height="1295.0714"
+   viewBox="0 0 1336.0476 1295.0714"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="courbes.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1376"
+     id="namedview18"
+     showgrid="false"
+     inkscape:pagecheckerboard="false"
+     inkscape:zoom="0.72906955"
+     inkscape:cx="-135.7695"
+     inkscape:cy="791.92935"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">
+            .prefix__cls-2{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:.5px}
+        </style>
+  </defs>
+  <path
+     id="prefix__Tracé_587"
+     d="m 1090.1912,596.4045 c -25.786,-10.793 -57.322,-21.239 -77.542,-29.625 -30.28896,-12.561 -53.18596,-32.517 -70.50796,-58.375 -38.525,-57.514 -50.273,-133.665 -124.19,-162.953 -74.481,-29.512 -140.16,15.015 -184.422,67.725 -34.536,41.131 -63.531,166.178 -138.827,148.424 -62.652,-14.78 -90.8,-86.716 -121.742,-130.19 -30.268,-42.521 -70.98,-95.919 -123.418,-116.577 -201.923003,-79.521 -267.979003,128.876 -244.9080029,274.346 18.7139999,117.985 53.6489999,233.973 86.6999999,284.472 316.553003,483.722 924.067963,474.152 1092.332963,346.891 132.459,-100.181 223.799,-491.345 -93.476,-624.138 z"
+     class="prefix__cls-2"
+     data-name="Tracé 587"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.53333336" />
+  <path
+     id="prefix__Tracé_588"
+     d="m 1091.2732,797.5515 c -55.889,-167.669 -95.72896,-153.613 -194.79996,-194.8 -99.071,-41.187 -81.553,-222.593 -180.55,-181.128 -89.582,37.524 -159.864,255.48 -260.521,174.1 -80.939,-65.444 -135.7,-200.962 -255.729,-207.309 -134.081003,-7.09 -154.457003,122.795 -154.147003,224.642 0.366,120.753 34.121,195.817 69.833003,257.653 65.369,90.471 182.248,183.974 476.116,271.912 293.868,87.938 450.48296,55.723 489.77996,-89.051 21.149,-77.917 35.619,-179.212 10.018,-256.019 z"
+     class="prefix__cls-2"
+     data-name="Tracé 588"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.53333336" />
+  <path
+     id="prefix__Tracé_589"
+     d="m 997.76924,807.5695 c -11.444,-29.639 -54.764,-124.214 -84.9,-145.21 -25.458,-17.741 -56.224,-6.061 -83.82,-16.861 -25,-9.775 -34.959,-37.535 -45.067,-59.089 -18.586,-39.612 -55.045,-115.8 -106.3,-73.455 -63.98,52.859 -93.129,205.593 -207.721,169.229 -90.482,-28.719 -100.951,-148.586 -183.149,-184.923 -134.372,-59.4 -205.172003,82.9 -202.607003,197.087 1.12,49.725 33.411003,140.692 132.143003,212.291 145.821,105.748 238.211,116.88 443.031,170.31 296.815,77.431 381.79996,-156.952 338.39,-269.379 z"
+     data-name="Tracé 589"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-linejoin:round;stroke-dasharray:2.167, 4.33499999999999996;stroke-opacity:0.53333336"
+     inkscape:connector-curvature="0" />
+  <path
+     id="prefix__Tracé_590"
+     d="m 701.66124,704.2035 c -23.356,-19.114 -40.853,-49.153 -29.243,-79.54 6.279,-16.429 19.233,-26.492 36.918,-25.654 41.727,1.966 57.01,72.407 80.276,97.495 25.1,27.058 64.3,37.9 97.64,51 11.749,4.614 60.021,29.123 38.049,46.479 -19.6,15.485 -84.453,-24.527 -103.425,-32.923 -39.8,-17.61 -79.09,-27.147 -114.432,-52.423 q -2.937,-2.104 -5.783,-4.434 z"
+     data-name="Tracé 590"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2.167, 4.33499999999999996;stroke-opacity:0.53333336"
+     inkscape:connector-curvature="0" />
+  <path
+     id="prefix__Tracé_591"
+     d="m 419.54324,738.2885 c 17.021,26.433 38.972,47.377 78.418,52.54 42.1,5.511 81.535,5.28 88.818,56.877 4.809,34.06 -9.09,84.645 -44.326,97.972 -28.833,10.9 -61.138,-2.069 -88.233,-12.375 -33.553,-12.763 -67.259,-21.316 -100.111,-33.9 -63.133,-24.175 -135.251,-59.053 -182.58,-108.7 -27.044,-28.372 -41.3,-74.79 -37.123,-116.666 2.226,-22.308 20.278,-78.865 81.441,-89.358 48.393,-8.3 110.632,8.262 162.993,80.22 16.811,23.105 26.155,50.794 40.703,73.39 z"
+     class="prefix__cls-2"
+     data-name="Tracé 591"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.53333336" />
+  <path
+     sodipodi:nodetypes="csccccc"
+     id="prefix__Tracé_575"
+     d="M 1335.7986,0.02212563 C 1318.8085,191.24192 1264.9842,417.50509 1089.9352,480.5955 c -31.5112,11.35713 -67.806,-9.502 -94.67296,-33.682 -78.889,-71.008 -50.629,-263.138 -194.5,-235.37 -117.627,22.702 -176.827,156.227 -291.909,183.253 -160.067,37.573 -179.911,-201.403 -167.581,-300.960004 4.017,-32.448 12.889,-66.97 20.682,-91.7000002"
+     class="prefix__cls-2"
+     data-name="Tracé 575"
+     inkscape:connector-curvature="0"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.5px;stroke-miterlimit:10;stroke-opacity:0.53333336" />
+  <path
+     sodipodi:nodetypes="ccccsc"
+     id="prefix__Tracé_576"
+     d="m 426.44624,0.32149582 c -28.532,183.60000418 29.8,331.15200418 154.8,252.90000418 68.571,-42.925 172.849,-140.947 262.431,-123.99 71.164,13.466 93.151,93.125 123.81,147.692 17.42,31 64.41676,79.3462 106.22496,71.115 136.7741,-26.92809 200.4397,-209.82721 209.6246,-347.9875278"
+     data-name="Tracé 576"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.60000002px;stroke-miterlimit:10;stroke-opacity:0.53333336"
+     inkscape:connector-curvature="0" />
+  <path
+     sodipodi:nodetypes="ccccsc"
+     id="prefix__Tracé_577"
+     d="m 478.05024,0.44949582 c -1.707,47.41600018 9.153,99.25300018 44.914,119.58500418 62.733,35.66 170.582,-31.391004 233.134,-42.052004 78.267,-13.33 131.924,1.648 182.55,73.720004 25.962,36.97 55.63558,99.53163 101.95996,95.288 100.7775,-9.23189 176.6884,-132.29554 180.456,-244.1468082"
+     data-name="Tracé 577"
+     style="isolation:isolate;mix-blend-mode:overlay;fill:none;stroke:#ffffff;stroke-width:0.80000001px;stroke-miterlimit:10;stroke-opacity:0.53333336"
+     inkscape:connector-curvature="0" />
+</svg>

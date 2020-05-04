@@ -7,14 +7,14 @@
         <meta name="description" content="{% block meta_description %}Trouvez 🔎 des aides publiques pour financer et accompagner les projets locaux de votre territoire en France métropolitaine et en Outre-mer{% endblock %}">
 
         <link rel="shortcut icon" href="/static/favicons/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicons/favicon.svg" type="image/svg">
         <link rel="icon" href="/static/favicons/favicon.png" type="image/png">
-        <link rel="icon" sizes="32x32" href="/static/favicons/favicon-32.png" type="image/png">
-        <link rel="icon" sizes="64x64" href="/static/favicons/favicon-64.png" type="image/png">
-        <link rel="icon" sizes="96x96" href="/static/favicons/favicon-96.png" type="image/png">
+        <link rel="icon" sizes="32x32" href="/static/favicons/favicon-32x32.png" type="image/png">
 
         <title>{% block title %}Aides-Territoires — {% block extratitle %}{% endblock %}{% endblock %}</title>
 
         {% compress css %}
+            <link rel="stylesheet" href="/static/css/fonts.scss" type="text/x-scss" charset="utf-8">
             <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
             {% block extra_css %}{% endblock %}
         {% endcompress %}
@@ -28,13 +28,15 @@
             html.classList.add('js');
         </script>
     </head>
-    <body>
+    <body class="{% block body-class %}dark-background{% endblock %}">
 
-        {% include '_header.html' %}
+        {% block header %}
+            {% include '_header.html' %}
+        {% endblock %}
 
         <main role="main">
             {% block main %}
-            <section id="{% block sectionid %}{% endblock %}" class="main-content">
+            <div id="{% block sectionid %}{% endblock %}" class="main-content">
 
                 {% block breadcrumbs %}{% endblock %}
 
@@ -50,39 +52,11 @@
 
 
                 {% block content %}{% endblock %}
-            </section>
-            {% endblock %}
-        </main>
-
-        {% block footer %}
-        <footer>
-            <div class="container">
-                <div class="logos">
-                    <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
-                    <img class="logo" id="logo-ministeres" src="/static/img/MTES_MCTRCT.svg"
-                        alt="Logo : Ministère de la transition écologique et solidaire,
-                            Ministère de la Cohésion des territoires et des Relations
-                            avec les collectivités territoriales" />
-                </div>
-                <h1>
-                    Aides-territoires<br />
-                    <small>Un service incubé et développé à la Fabrique Numérique.</small>
-                </h1>
-
-                <nav role="navigation">
-                    <a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a>
-                    <a href="{% url 'data_doc' %}">{{ _('Data export and api') }}</a>
-                    <li>
-                        {{ _('Contact:') }}
-                        <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> /
-                        <a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a>
-                    </li>
-                    <a href="{% url 'legal_mentions' %}">{{ _('Legal mentions') }}</a>
-                    <a href="https://github.com/MTES-MCT/aides-territoires">{{ _('Source code') }}</a>
-                </nav>
             </div>
-        </footer>
-        {% endblock %}
+            {% endblock %}
+        </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
+
+        {% block modals %}{% endblock %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>

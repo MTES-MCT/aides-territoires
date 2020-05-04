@@ -1,7 +1,8 @@
-from django.views.generic import FormView, DetailView
-from django.http import QueryDict
+from django.views.generic import FormView
+from django.http import QueryDict, Http404
 
 from aids.forms import AidSearchForm
+from aids.views import SearchView
 from search.models import SearchPage
 from search.forms import (AudianceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
@@ -68,19 +69,27 @@ class CategorySearch(SearchMixin, FormView):
         return context
 
 
-class SearchPageDetail(DetailView):
+class SearchPageDetail(SearchView):
     template_name = 'search/search_page.html'
-    context_object_name = 'search_page'
-    model = SearchPage
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
+
+    def get_object(self):
+        qs = SearchPage.objects.filter(slug=self.kwargs.get('slug'))
+        try:
+            obj = qs.get()
+        except qs.model.DoesNotExist:
+            raise Http404('No "Search page" found matching the query')
+        return obj
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['data'] = QueryDict(self.object.search_querystring)
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        querydict = QueryDict(self.object.search_querystring)
-        search_form = AidSearchForm(querydict)
-        aids = search_form.filter_queryset()
-        ordered_aids = search_form.order_queryset(aids)
-
-        context['aids'] = ordered_aids
-        context['search_form'] = search_form
+        context['search_page'] = self.get_object()
         return context

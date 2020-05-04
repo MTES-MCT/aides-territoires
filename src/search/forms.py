@@ -5,21 +5,24 @@ from django import forms
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
-from core.forms.fields import RichTextField
+from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
+from geofr.models import Perimeter
 from aids.forms import AidSearchForm
-from geofr.forms.fields import PerimeterChoiceField
 
 
 AUDIANCES = [
     (_('A collectivity'), (
         ('commune', _('Commune')),
+        ('epci', _('EPCI')),
         ('department', _('Department')),
         ('region', _('Region')),
     )),
     (_('An other beneficiary'), (
-        ('public_org', _('Public organizations')),
-        ('association', _('Associations')),
+        ('public_org', _('Public organization')),
+        ('association', _('Association')),
+        ('private_sector', _('Private company')),
+        ('farmer', _('Farmer')),
     ))
 ]
 
@@ -42,8 +45,9 @@ class AudianceSearchForm(forms.Form):
 class PerimeterSearchForm(forms.Form):
     targeted_audiances = forms.MultipleChoiceField(
         widget=forms.widgets.MultipleHiddenInput)
-    perimeter = PerimeterChoiceField(
+    perimeter = AutocompleteModelChoiceField(
         label=_('Your territory'),
+        queryset=Perimeter.objects.all(),
         required=False)
 
 

@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+{% load i18n compress %}
+
+{% block extratitle %}{{ _('Search') }}{% endblock %}
+
+{% block sectionid %}search{% endblock %}
+
+{% block content %}
+
+<h1>{% blocktrans with paginator.count as nb_aids trimmed %}
+    <span class="result-count">{{ nb_aids }} results</span>
+{% endblocktrans %}</h1>
+
+{% if perimeter or categories %}
+<section class="search-meta">
+    {% if perimeter %}
+        <p>
+            <strong>{{ _('For:') }}</strong> {{ perimeter }}
+        </p>
+    {% endif %}
+
+    {% if categories %}
+    {% regroup categories by theme as theme_list %}
+    <ul>
+        {% for theme in theme_list %}
+            <li class="theme">
+                {{ theme.grouper }}
+                <ul>
+                {% for category in theme.list %}
+                    <li class="category">{{ category }}</li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</section>
+{% endif %}
+
+<section id="search-engine">
+    {% include 'aids/_search_form.html' %}
+</section>
+
+<section id="aid-list">
+    {% include 'aids/_results.html' with search_actions="yes" %}
+</section>
+{% endblock %}
+
+{% block modals %}
+    {% include 'aids/_bookmark_results_modal.html' %}
+    {% include 'alerts/_alert_modal.html' %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/backers_autocomplete.js"></script>
+<script src="/static/js/alerts/alert_form.js"></script>
+<script src="/static/js/aids/bookmark_results.js"></script>
+{% endcompress %}
+{% endblock %}

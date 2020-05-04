@@ -5,45 +5,93 @@
 Aides-territoires 🏡 Aides publiques pour les collectivités
 {% endblock %}
 
-{% block main %}
-<section id="landing-value">
-    <div class="container">
-        <h1>Réalisez vos projets locaux en trouvant des aides appropriées</h1>
-        <p class="tagline">
-            Grâce à ce service, des territoires comme le vôtre obtiennent chaque semaine des subventions pour leurs projets.<br>
-            Recherchez dès maintenant les aides dont votre territoire peut bénéficier.
-        </p>
+{% block body-class %}home{% endblock %}
 
-    <form class="search-form" method="get" action="{% url 'search_view' %}">
-        <div class="search-control form-group form-group-lg">
-            <select id="id_perimeter" name="perimeter" aria-label="{{ _('City, department, region, EPCI…') }}">
-            </select>
+{% block main %}
+<section id="intro">
+    <div class="container">
+
+        <div class="title-block" id="what">
+            <h1>Réalisez vos projets locaux</h1>
+            <p class="tagline">
+                Chaque jour, des collectivités comme la vôtre trouvent et bénéficient
+                d'aides pour financer et accompagner des projets portant sur une
+                grande variété de thématiques. Donnez vie aux ambitions de votre
+                territoire. Commencez maintenant !
+            </p>
+            <p>
+                <a href="{% url 'search_step_audiance' %}" class="cta">Trouver des aides</a>
+            </p>
+            <img src="/static/img/home_aides.svg" alt="" />
         </div>
 
-        <button type="submit" id="search-btn">
-            {{ _('Start searching for aids') }}
-        </button>
-    </form>
+        <div class="title-block" id="how">
+            <h1>Comment ça marche ?</h1>
+
+            <div class="marketing">
+                <div>
+                    <img alt="" src="/static/img/home_steps_1.svg" />
+                    <p>Les porteurs créent des aides financières ou en ingénierie</p>
+                </div>
+                <div>
+                    <img alt="" src="/static/img/home_steps_2.svg" />
+                    <p>Aides-territoires recense et trie toutes ces aides</p>
+                </div>
+                <div>
+                    <img alt="" src="/static/img/home_steps_3.svg" />
+                    <p>Les collectivités sont alertées des aides pertinentes</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<section id="marketing">
+<section id="stats" class="dark-background">
+<div>
     <div class="container">
-        {% include 'home/_marketing.html' %}
-    </div>
-</section>
+        <h1>Aides-territoires en {% now "Y" %}</h1>
 
-<section id="contact">
-    <div class="narrow-form">
-        <h1>Restons en contact</h1>
+        <div>
+            <div>
+                <h2>
+                    <span>{{ nb_aids }}</span>
+                    aides disponibles
+                </h2>
+                <p>
+                    Un chiffre en croissance grâce à notre stratégie de
+                    déploiement
+                </p>
+            </div>
+            <div>
+                <h2>
+                    <span>{{ nb_backers }}</span>
+                    porteurs d'aides référencés
+                </h2>
+                <p>
+                    Des partenaires toujours plus nombreux nous font confiance
+                    pour publier leurs aides
+                </p>
+            </div>
+            <div>
+                <h2>
+                    <span>{{ nb_categories }}</span>
+                    thématiques
+                </h2>
+                <p>
+                    et sous-thématiques pour faciliter votre recherche sur tout
+                    le territoire
+                </p>
+            </div>
 
-        {% include 'home/_mailing_list_form.html' %}
+        </div>
+
     </div>
+</div>
 </section>
 
 <section id="partner">
     <div class="container">
-        <h1>Ils sont déjà sur Aides-territoires :</h1>
+        <h1>Ils nous font confiance</h1>
         <div>
             <img src="/static/img/partners/logo-afb.svg" title="Agence Française pour la Biodiversité" alt="Logo de l'Agence Française pour la Biodiversité" />
             <img src="/static/img/partners/logo-aesn-small.png" title="Agence de l'eau Seine Normandie" alt="Logo de l'Agence de l'eau Seine Normandie" />
@@ -54,6 +102,16 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
             <img src="/static/img/partners/logo-adlrmc-small.png" title="Agence de l'eau Rhône Méditarranée Corse" alt="Logo de l'Agence de l'eau Rhône Méditerranée Corse" />
             <img src="/static/img/partners/logo-afd-small.png" title="Agence Française de Développement" alt="Logo de l'Agence française de développement" />
             <img src="/static/img/partners/logo-bdt-small.png" title="Banque des Territoires" alt="Logo de la Banque des Territoires" />
+            <img src="/static/img/partners/logo-fff.svg" title="Fédération Française de Football" alt="Logo de la Fédération Française de Football" />
+            <img src="/static/img/partners/logo-banque-postale.svg" title="Banque Postale" alt="Logo de la Banque Postale" />
+            <img src="/static/img/partners/logo-cerema.svg" title="Cerema" alt="Logo du Cerema" />
+            <img src="/static/img/partners/logo-ofb.png" title="Office Français pour la Biodiversité" alt="Logo de l'OFB" />
+            <img src="/static/img/partners/logo-ans.svg" title="Agence Nationale du Sport" alt="Logo de l'Agence Nationale du Sport" />
+            <img src="/static/img/partners/logo-agence-rhin-meuse.png" title="Agence de l'eau Rhin-Meuse" alt="Logo de l'Agence de l'Eau Rhin-Meuse " />
+            <img src="/static/img/partners/logo-amrf.svg" title="Assocation des Maires Ruraux de France" alt="Logo de l'Assocation des Maires Ruraux de France" />
+            <img src="/static/img/partners/logo-france-mobilite.svg" title="France Mobilité" alt="Logo de France Mobilité" />
+            <img src="/static/img/partners/logo-ffbb.svg" title="Fédération Française de Basket-Ball" alt="Logo de la Fédération Française de Basket-Ball" />
+            <img src="/static/img/partners/logo-anru.svg" title="Agence Nationale pour la Rénovation Urbaine" alt="Logo de l'Agence Nationale pour la Rénovation Urbaine" />
         </div>
     </div>
 </section>

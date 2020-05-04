@@ -190,7 +190,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('region', _('Regions')),
         ('association', _('Associations')),
         ('private_sector', _('Private sector')),
-        ('public_org', _('Public organizations')),
+        ('public_org', _('Public organization')),
         ('lessor', _('Audiance lessors')),
         ('researcher', _('Research')),
         ('private_person', _('Individuals')),
@@ -560,12 +560,32 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_ongoing(self):
         return self.recurrence == self.RECURRENCE.ongoing
 
+    def has_calendar(self):
+        """Does the aid has valid calendar data?."""
+
+        if self.is_ongoing:
+            return False
+
+        return any((
+            self.start_date,
+            self.predeposit_date,
+            self.submission_deadline))
+
     def has_approaching_deadline(self):
         if not self.submission_deadline:
             return False
 
         delta = self.submission_deadline - timezone.now().date()
-        return delta.days <= settings.APPROACHING_DEADLINE_DELTA
+        return delta.days >= 0 \
+            and delta.days <= settings.APPROACHING_DEADLINE_DELTA
+
+    def days_before_deadline(self):
+        if not self.submission_deadline or self.is_ongoing():
+            return None
+
+        today = timezone.now().date()
+        deadline_delta = self.submission_deadline - today
+        return deadline_delta.days
 
     def has_expired(self):
         if not self.submission_deadline:

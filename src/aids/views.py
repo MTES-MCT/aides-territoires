@@ -25,7 +25,8 @@ from programs.models import Program
 from alerts.forms import AlertForm
 from stats.models import Event
 from aids.tasks import log_admins
-from aids.forms import AidEditForm, AidAmendForm, AidSearchForm
+from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
+                        AdvancedAidFilterForm)
 from aids.models import Aid, AidWorkflow
 
 
@@ -52,6 +53,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
     def get(self, request, *args, **kwargs):
         self.form = self.get_form()
         self.form.full_clean()
+        self.store_current_search()
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -88,10 +90,22 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .filter(q_exact_match | q_container_match)
         return programs
 
+    def store_current_search(self):
+        """Store the current search query in a cookie.
+
+        This is needed to provide the correct "go back to your search" link in
+        other pages' breadcrumbs.
+        """
+        search_query = self.request.GET.urlencode()
+        self.request.session[settings.SEARCH_COOKIE_NAME] = search_query
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['programs'] = self.get_programs()
-        context['SEARCH_COOKIE_NAME'] = settings.SEARCH_COOKIE_NAME
+
+        context['perimeter'] = self.form.cleaned_data['perimeter']
+        context['categories'] = self.form.cleaned_data['categories']
+        context['current_search'] = self.request.session.get(
+            settings.SEARCH_COOKIE_NAME, '')
 
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
@@ -107,9 +121,14 @@ class SearchView(SearchMixin, FormMixin, ListView):
 class AdvancedSearchView(SearchMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
 
-    form_class = AidSearchForm
-
+    form_class = AdvancedAidFilterForm
     template_name = 'aids/advanced_search.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_search'] = self.request.session.get(
+            settings.SEARCH_COOKIE_NAME, '')
+        return context
 
 
 class ResultsView(SearchView):
@@ -228,26 +247,12 @@ class AidDetailView(DetailView):
                 bundles=user_bundles,
                 initial={'bundles': aid_bundles})
 
-        context['similar_aids'] = self.find_similar_aids()
-
-        current_search = self.request.COOKIES.get(
+        current_search = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, None)
         if current_search:
             context['current_search'] = current_search
 
         return context
-
-    def find_similar_aids(self):
-        from django.db.models import Count
-        tags = self.object.tags
-        aids = Aid.objects \
-            .published() \
-            .open() \
-            .filter(_tags_m2m__name__in=tags) \
-            .annotate(nb_tags=Count('_tags_m2m')) \
-            .filter(nb_tags__gte=2) \
-            .exclude(id=self.object.id)
-        return aids
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)

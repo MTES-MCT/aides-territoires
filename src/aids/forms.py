@@ -9,9 +9,10 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms import (
-    AutocompleteSelectMultiple, MultipleChoiceFilterWidget, RichTextField)
+    AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
+    MultipleChoiceFilterWidget, RichTextField)
+from geofr.models import Perimeter
 from backers.models import Backer
-from geofr.forms.fields import PerimeterChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category
 from aids.models import Aid
@@ -213,10 +214,9 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
-    financers = forms.ModelMultipleChoiceField(
+    financers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
     financer_suggestion = forms.CharField(
@@ -225,10 +225,9 @@ class AidEditForm(BaseAidForm):
         required=False,
         help_text=_('Suggest a financer if you don\'t find '
                     'the correct choice in the main list.'))
-    instructors = forms.ModelMultipleChoiceField(
+    instructors = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
-        widget=AutocompleteSelectMultiple,
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
     instructor_suggestion = forms.CharField(
@@ -238,7 +237,8 @@ class AidEditForm(BaseAidForm):
         help_text=_('Suggest an instructor if you don\'t find '
                     'the correct choice in the main list.'))
 
-    perimeter = PerimeterChoiceField(
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
         label=_('Targeted area'),
         help_text=_('''
             The geographical zone where the aid is available.<br />
@@ -364,7 +364,7 @@ class AidAmendForm(AidEditForm):
         ]
 
 
-class AidSearchForm(forms.Form):
+class BaseAidSearchForm(forms.Form):
     """Main form for search engine."""
 
     AID_CATEGORY_CHOICES = (
@@ -373,15 +373,17 @@ class AidSearchForm(forms.Form):
         ('non-funding', _('Non-funding')),
     )
 
+    AID_TYPE_CHOICES = (
+        ('financial', _('Financial aid')),
+        ('technical', _('Engineering aid')),
+    )
+
     ORDER_BY = (
         ('relevance', _('Sort: relevance')),
         ('publication_date', _('Sort: publication date')),
         ('submission_deadline', _('Sort: submission deadline')),
     )
 
-    perimeter = PerimeterChoiceField(
-        label=_('Your project\'s location'),
-        required=False)
     text = forms.CharField(
         label=_('Text search'),
         required=False,
@@ -392,6 +394,11 @@ class AidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
+    aid_type = forms.MultipleChoiceField(
+        label=_('Aid type'),
+        choices=AID_TYPE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple)
     financial_aids = forms.MultipleChoiceField(
         label=_('Financial aids'),
         required=False,
@@ -415,15 +422,22 @@ class AidSearchForm(forms.Form):
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
+    backers = AutocompleteModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        required=False)
+    categories = CategoryMultipleChoiceField(
+        queryset=Category.objects.all().order_by('theme__name', 'name'),
+        to_field_name='slug',
+        required=False)
     targeted_audiances = forms.MultipleChoiceField(
-        label=_('I am…'),
+        label=_('You are seeking aids for…'),
         required=False,
         choices=Aid.AUDIANCES,
         widget=forms.CheckboxSelectMultiple)
-    categories = forms.ModelMultipleChoiceField(
-        label=_('Categories'),
-        queryset=Category.objects.all(),
-        to_field_name='slug',
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(),
+        label=_('Your territory'),
         required=False)
 
     # This field is not related to the search, but is submitted
@@ -473,6 +487,13 @@ class AidSearchForm(forms.Form):
         financial_aids = self.cleaned_data.get('financial_aids', [])
         technical_aids = self.cleaned_data.get('technical_aids', [])
         aid_types = financial_aids + technical_aids
+
+        aid_type = self.cleaned_data['aid_type']
+        if 'financial' in aid_type:
+            aid_types += Aid.FINANCIAL_AIDS
+        if 'technical' in aid_type:
+            aid_types += Aid.TECHNICAL_AIDS
+
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
 
@@ -503,6 +524,11 @@ class AidSearchForm(forms.Form):
         categories = self.cleaned_data.get('categories', None)
         if categories:
             qs = qs.filter(categories__in=categories)
+
+        backers = self.cleaned_data.get('backers', None)
+        if backers:
+            qs = qs.filter(
+                Q(financers__in=backers) | Q(instructors__in=backers))
 
         return qs
 
@@ -603,3 +629,15 @@ class AidSearchForm(forms.Form):
         qs = qs.filter(q_exact_match | q_contains | q_contained).distinct()
 
         return qs
+
+
+class AidSearchForm(BaseAidSearchForm):
+    """The main search result filter form."""
+
+    pass
+
+
+class AdvancedAidFilterForm(BaseAidSearchForm):
+    """An "advanced" aid list filter form with more criterias."""
+
+    pass

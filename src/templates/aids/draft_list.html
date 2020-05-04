@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<section id="draft-list">
+<article id="draft-list">
 
 <a class="main-action action-add" href="{% url 'aid_create_view' %}">
     {{ _('Publish a new aid') }}
@@ -56,5 +56,5 @@
 </table>
 
 {% include '_pagination.html' %}
-</section>
+</article>
 {% endblock %}
