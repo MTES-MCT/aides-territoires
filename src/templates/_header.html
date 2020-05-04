@@ -1,15 +1,23 @@
 {% load settings %}
 <nav id="main-navbar">
-    <div class="container">
+    <div class="container-lg">
         <a class="homelink" href="{% url 'home' %}">
             <img src="/static/img/marianne.svg" alt="Logo Marianne" />
             <img src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
         </a>
-        {% if user.is_authenticated %}
-            {% include '_authenticated_menu.html' %}
-        {% else %}
-            {% include '_anonymous_menu.html' %}
-        {% endif %}
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="{{ _('Toggle main menu') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            {% if user.is_authenticated %}
+                {% include '_authenticated_menu.html' %}
+            {% else %}
+                {% include '_anonymous_menu.html' %}
+            {% endif %}
+        </div>
+
     </div>
 </nav>
 {% staging_warning %}

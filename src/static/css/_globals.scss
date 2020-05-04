@@ -171,20 +171,26 @@ nav#main-navbar {
     @extend .navbar;
     @extend .navbar-light;
     @extend .bg-white;
-    @extend .navbar-expand-sm;
+    @extend .navbar-expand-lg;
 
     .homelink {
         @extend .mr-auto;
+        white-space: nowrap;
 
         img {
             height: $navbar-brand-height;
-            @extend .pr-3;
+            margin-right: .5rem;
         }
 
-        img + img {
-            border-left: 1px solid $primary;
-            @extend .pl-3;
+        img:first-child {
+            @extend .d-none;
+            @extend .d-lg-inline;
         }
+    }
+
+    div.navbar-collapse {
+        flex-grow: 0;
+        text-align: right;
     }
 
     ul.navbar-menu {
