@@ -44,6 +44,15 @@ def content_prettify(raw_text, more_allowed_tags=[]):
                 for attr in attrs:
                     if attr not in ALLOWED_ATTRS:
                         tag.attrs.pop(attr)
+
+                # Remove tags with no content
+                if not tag.contents:
+                    tag.decompose()
+
+                # Remove tags with empty strings (or newlines, etc.)
+                elif tag.string and not tag.string.strip():
+                    tag.decompose()
+
             else:
                 tag.unwrap()
     prettified = soup.prettify()
