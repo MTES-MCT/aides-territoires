@@ -1,5 +1,5 @@
 project_domain: staging.aides-territoires.beta.gouv.fr
-project_version: new_design
+project_version: master
 certbot_admin_email: certbot@thibault.miximum.fr
 certbot_domains: "{{ project_domain }}"
 django_settings: core.settings.production
