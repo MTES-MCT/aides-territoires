@@ -45,8 +45,10 @@
 
     {% include '_form_snippet.html' %}
 
-    <a class="next-btn" href="{% url 'search_step_perimeter' %}">
-        {{ _('Skip to the next step') }}
-    </a>
+    <div class="navigation-links">
+        <a class="next-btn" href="{% url 'search_step_perimeter' %}">
+            {{ _('Skip to the next step') }}
+        </a>
+    </div>
 </form>
 {% endblock %}

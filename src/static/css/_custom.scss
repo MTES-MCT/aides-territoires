@@ -1121,14 +1121,22 @@ div#search-steps {
     form {
         margin-bottom: 3rem;
 
+        div.form-group {
+            margin-bottom: 3rem;
+        }
+
+        button[type=submit] {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
         div.navigation-links {
-            display: block;
-            margin-top: 5rem;
-            text-align: left;
+            display: inline-block;
+            margin-top: 1.5rem;
 
             a {
                 color: white;
-                @extend .pr-4;
+                margin-right: 1rem;
                 opacity: 0.85;
             }
         }
@@ -1173,11 +1181,19 @@ div#search-steps {
     }
 
     form#perimeter {
+
+        div.form-group,
+        button,
+        div.navigation-links {
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
         div#form-group-perimeter {
             width: 30rem;
-            max-width: 30rem;
+            max-width: 100%;
             display: inline-block;
-            margin: 0 .5rem 0 0;
+            margin-right: .5rem;
             vertical-align: bottom;
         }
 
