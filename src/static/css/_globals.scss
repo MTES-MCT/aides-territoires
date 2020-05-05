@@ -786,3 +786,8 @@ p:last-child {
 .btn {
     border-radius: 0 1rem 1rem 1rem;
 }
+
+.hidden-btn {
+    position: absolute;
+    left: -9999px;
+}

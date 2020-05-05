@@ -27,7 +27,7 @@
             This way, we make sure pressing "enter" performs a new search instead
             of going to the "more filters" page.
         {% endcomment %}
-        <button type="submit" class="hidden"></button>
+        <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
         <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
             {{ _('More filters') }}
