@@ -1,4 +1,4 @@
-(function (exports, catalog) {
+(function (exports, _paq) {
     "use strict";
 
     /**
@@ -6,7 +6,7 @@
      *
      * This is required to track user engagement.
      */
-    exports.enableCTA = function(div, btnLabel) {
+    exports.enableCTA = function(div, btnLabel, aid_slug) {
         div.addClass('collapse');
 
         var revealBtn = $('<button type="button" class="cta-btn"></button>');
@@ -15,14 +15,17 @@
 
         revealBtn.click(function() {
             div.collapse('show');
+            if (_paq) {
+                _paq.push(['trackEvent', 'Fiche aide', 'Voir contacts', aid_slug]);
+            }
             revealBtn.remove();
         });
     };
 
 
-})(this, catalog);
+})(this, _paq);
 
 $(document).ready(function () {
     var dataDiv = $('#going-further');
-    enableCTA(dataDiv, catalog.going_further_cta_label);
+    enableCTA(dataDiv, catalog.going_further_cta_label, AID_SLUG);
 });
