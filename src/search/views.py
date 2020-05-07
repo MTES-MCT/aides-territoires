@@ -16,11 +16,15 @@ class SearchMixin:
 
 
 class AudianceSearch(SearchMixin, FormView):
+    """Step 1 of the multi-page search form."""
+
     template_name = 'search/step_audiance.html'
     form_class = AudianceSearchForm
 
 
 class PerimeterSearch(SearchMixin, FormView):
+    """Step 2 of the multi-page search form."""
+
     template_name = 'search/step_perimeter.html'
     form_class = PerimeterSearchForm
 
@@ -33,6 +37,8 @@ class PerimeterSearch(SearchMixin, FormView):
 
 
 class ThemeSearch(SearchMixin, FormView):
+    """Step 3 of the multi-page search form."""
+
     template_name = 'search/step_theme.html'
     form_class = ThemeSearchForm
 
@@ -46,6 +52,8 @@ class ThemeSearch(SearchMixin, FormView):
 
 
 class CategorySearch(SearchMixin, FormView):
+    """Step 4 of the multi-page search form."""
+
     template_name = 'search/step_category.html'
     form_class = CategorySearchForm
 
@@ -63,13 +71,19 @@ class CategorySearch(SearchMixin, FormView):
 
         initial = self.get_initial()
         filter_form = AidSearchForm(initial)
-        aids = filter_form.filter_queryset()
-        theme_aids = aids.filter(categories__theme__slug__in=initial['themes'])
+        theme_aids = filter_form.filter_queryset()
+
+        if initial['themes']:
+            theme_aids = theme_aids.filter(
+                categories__theme__slug__in=initial['themes'])
+
         context['total_aids'] = theme_aids.count()
         return context
 
 
 class SearchPageDetail(SearchView):
+    """A static search page with admin-customizable content."""
+
     template_name = 'search/search_page.html'
 
     def get(self, request, *args, **kwargs):
