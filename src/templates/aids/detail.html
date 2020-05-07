@@ -241,7 +241,6 @@
 {% endblock %}
 
 {% block extra_js %}
-{% compress js %}
 <script>
     $(document).ready(function() {
         // Make sure all links contained in aid description open in
@@ -252,6 +251,7 @@
 <script>
     AID_SLUG = '{{ aid_slug }}';
 </script>
+{% compress js %}
 <script src="/static/js/aids/enable_contact_data_cta.js"></script>
 {% endcompress %}
 {% endblock %}
