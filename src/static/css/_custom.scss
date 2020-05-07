@@ -817,8 +817,20 @@ article#aid {
             @extend .mt-4;
         }
 
+        div#going-further {
+            @extend .mt-4;
+        }
+
         h3 {
             @extend .h5;
+        }
+
+        button.cta-btn {
+            @extend .btn;
+            @extend .btn-primary;
+            display: block;
+            margin: 3rem auto 0 auto;
+
         }
 
     }
