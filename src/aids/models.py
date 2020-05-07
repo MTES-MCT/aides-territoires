@@ -190,6 +190,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('region', _('Regions')),
         ('association', _('Associations')),
         ('private_sector', _('Private sector')),
+        ('public_cies', _('Local public companies')),
         ('public_org', _('Public organization')),
         ('lessor', _('Audiance lessors')),
         ('researcher', _('Research')),
