@@ -420,6 +420,10 @@ section#program-list {
                 @extend .mb-4;
                 @extend .pb-3;
 
+                a:visited {
+                    color: #615aa4;  // #dark with 0.8 opacity
+                }
+
                 div.status-icons {
                     @extend .pl-4;
                     @extend .float-right;
