@@ -14,10 +14,11 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
         <div class="title-block" id="what">
             <h1>Réalisez vos projets locaux</h1>
             <p class="tagline">
-                Chaque jour, des collectivités comme la vôtre trouvent et bénéficient
-                d'aides pour financer et accompagner des projets portant sur une
-                grande variété de thématiques. Donnez vie aux ambitions de votre
-                territoire. Commencez maintenant !
+                Chaque jour, des collectivités comme la vôtre trouvent des aides
+                pour financer et accompagner leurs projets sur de nombreuses
+                thématiques. Vous aussi, <strong>découvrez les aides disponibles</strong> et
+                <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
+                territoire.
             </p>
             <p>
                 <a href="{% url 'search_step_audiance' %}" class="cta">Trouver des aides</a>
@@ -26,20 +27,20 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
         </div>
 
         <div class="title-block" id="how">
-            <h1>Comment ça marche ?</h1>
+            <h1>Notre action</h1>
 
             <div class="marketing">
                 <div>
                     <img alt="" src="/static/img/home_steps_1.svg" />
-                    <p>Les porteurs créent des aides financières ou en ingénierie</p>
+                    <p>Les aides sont présentées et diffusées inégalement selon les porteurs</p>
                 </div>
                 <div>
                     <img alt="" src="/static/img/home_steps_2.svg" />
-                    <p>Aides-territoires recense et trie toutes ces aides</p>
+                    <p>Aides-territoires rassemble et structure ces informations</p>
                 </div>
                 <div>
                     <img alt="" src="/static/img/home_steps_3.svg" />
-                    <p>Les collectivités sont alertées des aides pertinentes</p>
+                    <p>Les dispositifs deviennent plus facilement lisibles et mobilisables</p>
                 </div>
             </div>
         </div>
@@ -49,7 +50,7 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
 <section id="stats" class="dark-background">
 <div>
     <div class="container-lg">
-        <h1>Aides-territoires en {% now "Y" %}</h1>
+        <h1>Aides-territoires aujourd'hui</h1>
 
         <div>
             <div>
@@ -65,7 +66,7 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
             <div>
                 <h2>
                     <span>{{ nb_backers }}</span>
-                    porteurs d'aides référencés
+                    porteurs d'aides
                 </h2>
                 <p>
                     Des partenaires toujours plus nombreux nous font confiance
@@ -75,7 +76,7 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
             <div>
                 <h2>
                     <span>{{ nb_categories }}</span>
-                    thématiques
+                    thématiques de projet
                 </h2>
                 <p>
                     et sous-thématiques pour faciliter votre recherche sur tout
@@ -91,8 +92,8 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
 
 <section id="partner">
     <div class="container-lg">
-        <h1>Ils nous font confiance</h1>
-        <div>
+        <h1>Les porteurs d'aides</h1>
+        <div id="logos">
             <img src="/static/img/partners/logo-afb.svg" title="Agence Française pour la Biodiversité" alt="Logo de l'Agence Française pour la Biodiversité" />
             <img src="/static/img/partners/logo-aesn-small.png" title="Agence de l'eau Seine Normandie" alt="Logo de l'Agence de l'eau Seine Normandie" />
             <img src="/static/img/partners/logo-ademe.svg" title="Agence de l'environnement et de la maîtrise de l'énergie" alt="Logo de l'Agence de l'environnement et de la maîtrise de l'énergie" />
