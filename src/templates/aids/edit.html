@@ -90,9 +90,15 @@
 {% endblock %}
 
 {% block form_actions %}
+<p class="warning">{% blocktrans trimmed %}
+<span class="fas fa-exclamation-circle"></span>
+You can <strong>request your aid to be published</strong> using the button in
+the sidebar.
+{% endblocktrans %}</p>
+
 <div class="form-actions">
     <div class="submit-buttons">
-        <button type="submit" value="save">{{ _('Save your aid') }}</button>
+        <button type="submit" value="save">{{ _('Update your aid') }}</button>
         <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy and edit') }}</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>

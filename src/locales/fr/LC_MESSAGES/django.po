@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 16:37+0200\n"
+"POT-Creation-Date: 2020-05-07 11:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,7 +170,7 @@ msgid "Author"
 msgstr "Auteur"
 
 msgid "Backers"
-msgstr "Apporteurs"
+msgstr "Porteurs d'aides"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -1198,6 +1198,31 @@ msgstr "inscription-liste/"
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
 
+msgid "Content"
+msgstr "Contenu"
+
+msgid "WARNING! DON'T CHANGE url of pages in the main menu."
+msgstr "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Meta title"
+msgstr "Titre (balise meta)"
+
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the page title."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le titre de la page."
+
+msgid "Meta description"
+msgstr "Description (balise meta)"
+
+msgid "This will be displayed in SERPs. Keep it under 120 characters."
+msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
+
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
@@ -1209,9 +1234,6 @@ msgstr "Programme d'aides"
 
 msgid "Aid programs"
 msgstr "Programmes d'aides"
-
-msgid "SEO"
-msgstr "SEO"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1241,25 +1263,9 @@ msgstr ""
 msgid "The main displayed title."
 msgstr "Le titre principal"
 
-msgid "Meta title"
-msgstr "Titre (balise meta)"
-
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the page title."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le titre de la page."
-
 msgid "This part is used in the url. DON't change this for existing pages."
 msgstr ""
 "Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page existante."
-
-msgid "Meta description"
-msgstr "Description (balise meta)"
-
-msgid "This will be displayed in SERPs. Keep it under 120 characters."
-msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
@@ -1366,6 +1372,9 @@ msgstr ""
 "Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
 "données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
 "vérifier votre saisie et corriger les erreurs avant de réessayer."
+
+msgid "Toggle main menu"
+msgstr "Afficher / masquer le menu"
 
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, EPCI, département…"
@@ -1882,6 +1891,9 @@ msgstr "Nous n'avons pu trouver aucun résultat."
 msgid "New search"
 msgstr "Nouvelle recherche"
 
+msgid "Filter results"
+msgstr "Filtrer les résultats"
+
 msgid "More filters"
 msgstr "Plus de critères"
 
@@ -1890,9 +1902,6 @@ msgstr "Partager"
 
 msgid "Create an alert"
 msgstr "Créer une alerte"
-
-msgid "Filter results"
-msgstr "Filtrer les résultats"
 
 msgid "Advanced search"
 msgstr "Recherche avancée"
@@ -1955,24 +1964,26 @@ msgid "My published aids"
 msgstr "Mes aides publiées"
 
 msgid ""
-"\n"
-"    <span class=\"fas fa-exclamation-circle\"></span>\n"
-"    Your aid will be saved with a \"draft\" status <strong>and will not be\n"
-"    published</strong> until you request a review by an administrator.\n"
+"<span class=\"fas fa-exclamation-circle\"></span> Before being published, "
+"your aid <strong>must be reviewed by an administrator</strong>."
 msgstr ""
-"\n"
-"    <span class=\"fas fa-exclamation-circle\"></span>\n"
-"Votre aide sera enregistrée en statut « brouillon » et <strong>ne sera pas "
-"publiée</strong> tant que vous n'aurez pas demandé de revue par un "
-"administrateur.\n"
+"<span class=\"fas fa-exclamation-circle\"></span>\n"
+"Votre aide devra être <strong>revue par un administrateur</strong> avant publication."
+
+msgid ""
+"You can create your aid and <strong>ask for publication</strong> right away, "
+"or <strong>save it as a draft</strong>."
+msgstr ""
+"Vous pouvez créer votre aide et <strong>demander la publication immédiatement</strong>, "
+"ou <strong>l'enregistrer en tant que brouillon</strong>."
 
 msgid ""
 "<span class=\"fas fa-exclamation-circle\"></span> Your aid <strong>will not "
-"be published</strong> until you send it for review."
+"be published</strong> until it is reviewed by an administrator."
 msgstr ""
-"    <span class=\"fas fa-exclamation-circle\"></span>\n"
-"Votre aide <strong>ne sera pas publiée</strong> tant que vous ne l'aurez pas "
-"envoyée en revue par un administrateur."
+"<span class=\"fas fa-exclamation-circle\"></span>\n"
+"Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été "
+"revue par un administrateur."
 
 msgid "Save and request publication"
 msgstr "Enregister et demander la publication"
@@ -2136,8 +2147,16 @@ msgstr "Je comprends"
 msgid "Delete this aid"
 msgstr "Supprimer cette aide"
 
-msgid "Save your aid"
-msgstr "Enregistrer votre aide"
+msgid ""
+"<span class=\"fas fa-exclamation-circle\"></span> You can <strong>request "
+"your aid to be published</strong> using the button in the sidebar."
+msgstr ""
+"<span class=\"fas fa-exclamation-circle\"></span>\n"
+"Vous pouvez <strong>demander la publication</strong> grâce au formulaire dans "
+"la barre latérale."
+
+msgid "Update your aid"
+msgstr "Mettre à jour votre aide"
 
 msgid "Copy and edit"
 msgstr "Dupliquer et éditer"
