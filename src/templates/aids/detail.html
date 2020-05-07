@@ -144,6 +144,25 @@
                 </div>
                 {% endif %}
             </div>
+
+            {% if aid.is_imported %}
+                <div class="card">
+                    <div class="data-origin">
+                        <h3>{{ _('Data origin') }}</h3>
+                        <p>{% blocktrans trimmed %}
+                        This aid was imported from another data stream.
+                        {% endblocktrans %}</p>
+                        <dl>
+                            <dt>{{ _('Origin url') }}</dt>
+                            <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
+                            <dt>{{ _('Import share license') }}</dt>
+                            <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
+                            <dt>{{ _('Last update') }}</dt>
+                            <dd>{{ aid.import_last_access|date }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
         <div class="aid-details">
@@ -209,21 +228,6 @@
                     </p>
                 {% endif %}
             </div>
-
-            {% if aid.is_imported %}
-                <h3>{{ _('Data origin') }}</h3>
-                <p>{% blocktrans trimmed %}
-                This aid was imported from another data stream.
-                {% endblocktrans %}</p>
-                <dl>
-                    <dt>{{ _('Origin url') }}</dt>
-                    <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
-                    <dt>{{ _('Import share license') }}</dt>
-                    <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
-                    <dt>{{ _('Last data access') }}</dt>
-                    <dd>{{ aid.import_last_access|date }}</dd>
-                </dl>
-            {% endif %}
         </div>
 
         <footer class="mobile-center">

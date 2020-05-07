@@ -805,6 +805,14 @@ article#aid {
         & > div.calendar {
             @include icon(before, $fa-var-calendar-check, 1.5rem);
         }
+
+        & > div.data-origin {
+            @include icon(before, $fa-var-database, 1.5rem);
+
+            dl {
+                margin-bottom: 0;
+            }
+        }
     }
 
     .aid-details {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-07 15:39+0200\n"
+"POT-Creation-Date: 2020-05-07 16:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2025,6 +2025,24 @@ msgstr "Appel à projet"
 msgid "Call for expression of interest"
 msgstr "Appel à manifestation d'intérêt"
 
+msgid "Data origin"
+msgstr "Origine de la donnée"
+
+msgid "This aid was imported from another data stream."
+msgstr "Cette aide provient d'une source de données tierce"
+
+msgid "Origin url"
+msgstr "URL d'origine"
+
+msgid "NA"
+msgstr "ND"
+
+msgid "Import share license"
+msgstr "License de partage"
+
+msgid "Last update"
+msgstr "Dernière mise à jour"
+
 msgid "Global presentation"
 msgstr "Présentation générale"
 
@@ -2048,24 +2066,6 @@ msgstr "Aller plus loin"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
-
-msgid "Data origin"
-msgstr "Origine de la donnée"
-
-msgid "This aid was imported from another data stream."
-msgstr "Cette aide provient d'une source de données tierce"
-
-msgid "Origin url"
-msgstr "URL d'origine"
-
-msgid "NA"
-msgstr "ND"
-
-msgid "Import share license"
-msgstr "License de partage"
-
-msgid "Last data access"
-msgstr "Date du dernier accès"
 
 msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
