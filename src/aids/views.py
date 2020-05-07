@@ -252,6 +252,8 @@ class AidDetailView(DetailView):
         if current_search:
             context['current_search'] = current_search
 
+        context['aid_slug'] = self.object.slug
+
         return context
 
     def get(self, request, *args, **kwargs):

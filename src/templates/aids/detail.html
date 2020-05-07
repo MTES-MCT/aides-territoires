@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n aids %}
+{% load i18n aids compress %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
@@ -187,26 +187,28 @@
                 {{ aid.eligibility|safe }}
             {% endif %}
 
-            <h2>{{ _('Going further') }}</h2>
+            <div id="going-further">
+                <h2>{{ _('Going further') }}</h2>
 
-            {% if aid.contact %}
-                <h3>{{ _('Contact') }}</h3>
-                {{ aid.contact|safe }}
-            {% endif %}
+                {% if aid.contact %}
+                    <h3>{{ _('Contact') }}</h3>
+                    {{ aid.contact|safe }}
+                {% endif %}
 
-            {% if aid.origin_url %}
-                <h3>{{ _('Link to full description') }}</h3>
-                <p>
-                    <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-                </p>
-            {% endif %}
+                {% if aid.origin_url %}
+                    <h3>{{ _('Link to full description') }}</h3>
+                    <p>
+                        <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                    </p>
+                {% endif %}
 
-            {% if aid.application_url %}
-                <h3>{{ _('Link to an online application form') }}</h3>
-                <p>
-                    <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-                </p>
-            {% endif %}
+                {% if aid.application_url %}
+                    <h3>{{ _('Link to an online application form') }}</h3>
+                    <p>
+                        <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                    </p>
+                {% endif %}
+            </div>
 
             {% if aid.is_imported %}
                 <h3>{{ _('Data origin') }}</h3>
@@ -235,6 +237,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 <script>
     $(document).ready(function() {
         // Make sure all links contained in aid description open in
@@ -242,4 +245,9 @@
         $('article#aid div.aid-details a').attr('target', '_blank');
     });
 </script>
+<script>
+    AID_SLUG = '{{ aid_slug }}';
+</script>
+<script src="/static/js/aids/enable_contact_data_cta.js"></script>
+{% endcompress %}
 {% endblock %}
