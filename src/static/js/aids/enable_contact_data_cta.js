@@ -1,4 +1,4 @@
-(function (exports, _paq) {
+(function (exports) {
     "use strict";
 
     /**
@@ -15,6 +15,8 @@
 
         revealBtn.click(function() {
             div.collapse('show');
+
+            // Use the global Matomo tracker
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Voir contacts', aid_slug]);
             }
@@ -23,7 +25,7 @@
     };
 
 
-})(this, _paq);
+})(this);
 
 $(document).ready(function () {
     var dataDiv = $('#going-further');
