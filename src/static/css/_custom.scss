@@ -162,8 +162,7 @@ section#partner {
     img{
         @extend .my-3;
         @extend .mx-4;
-
-        height: 60px;
+        max-height: 48px;
     }
 }
 
