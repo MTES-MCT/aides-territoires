@@ -112,7 +112,7 @@ class BaseAidForm(forms.ModelForm):
 
         custom_labels = {
             'name': _('Aid title'),
-            'financers': _('Aid financer(s)'),
+            'financers': _('Aid backer(s)'),
             'instructors': _('Aid instructor(s)'),
             'new_backer': _('…or add a new financer'),
             'destinations': _('Types of expenses covered'),
@@ -182,10 +182,10 @@ class AidAdminForm(BaseAidForm):
                     'perimeter'))
 
     financer_suggestion = forms.CharField(
-        label=_('Financer suggestion'),
+        label=_('Backer suggestion'),
         max_length=256,
         required=False,
-        help_text=_('This financer was suggested. Add it to the global list '
+        help_text=_('This backer was suggested. Add it to the global list '
                     'then add it to this aid with the field above.'))
     instructor_suggestion = forms.CharField(
         label=_('Instructor suggestion'),
@@ -221,10 +221,10 @@ class AidEditForm(BaseAidForm):
         required=False,
         help_text=_('Type a few characters and select a value among the list'))
     financer_suggestion = forms.CharField(
-        label=_('Suggest a new financer'),
+        label=_('Suggest a new backer'),
         max_length=256,
         required=False,
-        help_text=_('Suggest a financer if you don\'t find '
+        help_text=_('Suggest a backer if you don\'t find '
                     'the correct choice in the main list.'))
     instructors = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
