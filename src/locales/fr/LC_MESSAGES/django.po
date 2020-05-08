@@ -1380,7 +1380,7 @@ msgid "Toggle main menu"
 msgstr "Afficher / masquer le menu"
 
 msgid "City, department, region, EPCI…"
-msgstr "Votre ville, EPCI, département…"
+msgstr "Votre ville, intercommunalité, département…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
