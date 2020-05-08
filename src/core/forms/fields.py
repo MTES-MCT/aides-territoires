@@ -35,7 +35,7 @@ class RichTextField(forms.CharField):
 
         cleaned = super().clean(value)
         return content_prettify(cleaned, more_allowed_tags=[
-            'a', 'blockquote']).strip()
+            'a', 'blockquote', 'br', 'header', 'footer']).strip()
 
 
 class GroupedModelChoiceIterator(forms.models.ModelChoiceIterator):
