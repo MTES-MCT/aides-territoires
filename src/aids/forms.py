@@ -14,7 +14,7 @@ from core.forms import (
 from geofr.models import Perimeter
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category
+from categories.models import Category, Theme
 from aids.models import Aid
 
 
@@ -427,6 +427,12 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
+    themes = forms.ModelMultipleChoiceField(
+        label=_('Themes'),
+        queryset=Theme.objects.all(),
+        to_field_name='slug',
+        required=False,
+        widget=forms.MultipleHiddenInput)
     categories = CategoryMultipleChoiceField(
         queryset=Category.objects.all().order_by('theme__name', 'name'),
         to_field_name='slug',
@@ -525,6 +531,14 @@ class BaseAidSearchForm(forms.Form):
         categories = self.cleaned_data.get('categories', None)
         if categories:
             qs = qs.filter(categories__in=categories)
+
+        # We filter by theme only if no categories were provided.
+        # This is to handle the following edge case: on the multi-step search
+        # form, the user selects a theme, then on the last step, doesn't select
+        # any categories and just click "Search".
+        themes = self.cleaned_data.get('themes', None)
+        if themes and not categories:
+            qs = qs.filter(categories__theme__in=themes)
 
         backers = self.cleaned_data.get('backers', None)
         if backers:

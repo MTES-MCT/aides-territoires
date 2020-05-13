@@ -104,6 +104,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         context['perimeter'] = self.form.cleaned_data['perimeter']
         context['categories'] = self.form.cleaned_data['categories']
+        context['themes'] = self.form.cleaned_data['themes']
         context['current_search'] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, '')
 

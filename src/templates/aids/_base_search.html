@@ -11,7 +11,7 @@
     <span class="result-count">{{ nb_aids }} results</span>
 {% endblocktrans %}</h1>
 
-{% if perimeter or categories %}
+{% if perimeter or categories or themes %}
 <section class="search-meta">
     {% if perimeter %}
         <p>
@@ -31,6 +31,12 @@
                 {% endfor %}
                 </ul>
             </li>
+        {% endfor %}
+    </ul>
+    {% elif themes %}
+    <ul>
+        {% for theme in themes %}
+            <li class="theme">{{ theme }}</li>
         {% endfor %}
     </ul>
     {% endif %}

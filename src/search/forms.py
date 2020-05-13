@@ -164,8 +164,10 @@ class CategorySearchForm(forms.Form):
         widget=forms.widgets.MultipleHiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
-    # Note: we don't add a field for themes, because we don't want
-    # that value to be passed to the following search form
+    themes = ThemeChoiceField(
+        queryset=Theme.objects.order_by('name'),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
     categories = CategoryChoiceField(
         queryset=Category.objects.all(),
         to_field_name='slug',
