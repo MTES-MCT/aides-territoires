@@ -171,13 +171,14 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
         We do it synchronously, but this view is meant to be called from an
         ajax query, so it should not be a problem.
         """
-
+        self.form = self.get_form()
+        self.form.full_clean()
         results = self.get_queryset()
         nb_results = results.count()
         first_results = results[:10]
         site = get_current_site(self.request)
         querystring = self.get_form_data().urlencode()
-        scheme = 'https' if self.request.is_secure() else 'http'
+        scheme = 'https'
         search_url = reverse('search_view')
         full_url = '{scheme}://{domain}{search_url}?{querystring}'.format(
             scheme=scheme,
