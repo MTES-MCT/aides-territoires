@@ -1,7 +1,8 @@
 from django.views.generic import CreateView, DetailView, DeleteView
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from braces.views import MessageMixin
 
 from alerts.tasks import send_alert_confirmation_email
@@ -73,6 +74,12 @@ class AlertDelete(MessageMixin, DeleteView):
     slug_url_kwarg = 'token'
     context_object_name = 'alert'
     template_name = 'alerts/confirm_delete.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset=queryset)
+        except ValidationError:
+            raise Http404()
 
     def get_success_url(self):
         url = '{}?{}'.format(
