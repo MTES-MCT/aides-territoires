@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-08 11:16+0200\n"
+"POT-Creation-Date: 2020-05-25 14:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -579,6 +579,9 @@ msgstr "Actions concernées"
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
+msgid "Themes"
+msgstr "Thèmes"
+
 msgid "You are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
 
@@ -1073,9 +1076,6 @@ msgstr "Brève description"
 msgid "Theme"
 msgstr "Thème"
 
-msgid "Themes"
-msgstr "Thèmes"
-
 msgid "Category"
 msgstr "Catégorie"
 
@@ -1242,6 +1242,9 @@ msgstr "Programmes d'aides"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
+
+msgid "Intercommunality"
+msgstr "Intercommunalité"
 
 msgid "An other beneficiary"
 msgstr "Un autre bénéficiaire"
@@ -2194,6 +2197,9 @@ msgid ""
 msgstr ""
 "Vous êtes sur le point de supprimer l'alerte « %(alert_title)s ». Êtes vous "
 "certain·e de vouloir continuer ?"
+
+msgid "Yes, delete this alert now"
+msgstr "Oui, supprimer cette alerte"
 
 msgid "Alert validation"
 msgstr "Validation d'alerte"

@@ -14,7 +14,7 @@ from aids.forms import AidSearchForm
 AUDIANCES = [
     (_('A collectivity'), (
         ('commune', _('Commune')),
-        ('epci', _('EPCI')),
+        ('epci', _('Intercommunality')),
         ('department', _('Department')),
         ('region', _('Region')),
     )),
