@@ -15,47 +15,9 @@
             Collectivités
         </a>
     </li>
-    <li class="user-menu">
-        <a href="#" data-toggle="dropdown">
-            {{ _('My account') }}
+    <li>
+        <a href="{% url 'login' %}">
+            {{ _('Login') }}
         </a>
-        <div class="dropdown-menu dropdown-menu-right">
-
-            <h6 id="profile-menu">{{ _('Log in to access your account') }}</h6>
-            <form method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-
-                <div class="form-group">
-                    <label for="id_username">{{ _('Your email address') }}</label>
-                    <input type="email" id="id_username" name="username" />
-                </div>
-                <div class="form-group">
-                    <label for="id_password">{{ _('Your password') }}</label>
-                    <input type="password" id="id_password" name="password" />
-                </div>
-                <button type="submit">{{ _('Login') }}</button>
-            </form>
-            <p>
-                <span class="fas fa-lightbulb"></span>
-                {% url 'password_reset' as password_reset_url %}
-                {% blocktrans trimmed %}
-                Forgot your password? <a href="{{ password_reset_url }}">
-                Request a new one.</a>
-                {% endblocktrans %}
-            </p>
-
-            <hr />
-
-            <h6 id="register-menu">{{ _('Create an account') }}</h6>
-
-            {% url 'register' as register_url %}
-            <p>{% blocktrans trimmed %}
-            You don't have any account yet?
-            <a class="menu-button" href="{{ register_url }}">
-                Create a new one
-            </a>
-            {% endblocktrans %}</p>
-        </div>
     </li>
 </ul>

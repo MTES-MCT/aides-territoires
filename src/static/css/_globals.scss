@@ -484,7 +484,7 @@ p, div {
     }
 
     &.info {
-        @extend .alert-primary;
+        background-color: $pale-background;
     }
 
     &.warning {

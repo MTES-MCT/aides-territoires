@@ -1,4 +1,4 @@
-{% load settings %}<footer>
+{% load settings i18n %}<footer>
     <div class="container">
         <div class="columns">
             <div class="logos logos-1">
@@ -14,8 +14,20 @@
             </div>
 
             <div class="newsletter">
-                <h2>{{ _("let's keep in touch") }}</h2>
-                {% include 'home/_mailing_list_form.html' %}
+                <h2>{{ _("Aid backers") }}</h2>
+                <p>{% blocktrans trimmed %}
+                Login now and publish your aids.
+                {% endblocktrans %}</p>
+
+                {% if user.is_authenticated %}
+                    <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">
+                        {{ _('Contribute now') }}
+                    </a>
+                {% else %}
+                    <a class="ml-btn" href="{% url 'login' %}">
+                        {{ _('Login and contribute') }}
+                    </a>
+                {% endif %}
             </div>
 
             <div class="logos logos-2">
