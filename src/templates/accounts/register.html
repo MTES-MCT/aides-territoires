@@ -13,6 +13,18 @@
         <small>{{ _("Create a new account") }}</small>
     </h1>
 
+    <div class="info">
+        <p>{% blocktrans trimmed %}
+            Aid backers, create your account to publish your aids.
+        {% endblocktrans %}</p>
+
+        {% url 'search_step_audiance' as search_url %}
+        <p>{% blocktrans trimmed %}
+            Are you just seeking aids? <a href="{{ search_url }}">Go to the search
+            form.</a>
+        {% endblocktrans %}</p>
+    </div>
+
     <form method="post" action="" novalidate>
         {% csrf_token %}
         {% include '_form_snippet.html' with form=form %}
