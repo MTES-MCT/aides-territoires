@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 10:14+0200\n"
+"POT-Creation-Date: 2020-05-26 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1503,6 +1503,16 @@ msgstr "Connexion"
 
 msgid "Access to your account"
 msgstr "Accéder à votre compte"
+
+msgid "Aid backers, login to publish your aids."
+msgstr "Porteurs d'aides, connectez-vous pour publier vos aides."
+
+msgid ""
+"Are you just seeking aids? <a href=\"%(search_url)s\">Go to the search form."
+"</a>"
+msgstr ""
+"Vous cherchez des aides ? <a href=\"%(search_url)s\">Rendez-vous "
+"sur le formulaire de recherche.</a>"
 
 #, python-format
 msgid ""
