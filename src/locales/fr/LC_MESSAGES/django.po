@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 14:58+0200\n"
+"POT-Creation-Date: 2020-05-26 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1314,33 +1314,8 @@ msgstr "Nombre d'aides"
 msgid "Tag"
 msgstr "Mot clé"
 
-msgid "My account"
-msgstr "Mon compte"
-
-msgid "Log in to access your account"
-msgstr "Accéder à mon compte"
-
 msgid "Login"
 msgstr "Connexion"
-
-#, python-format
-msgid ""
-"Forgot your password? <a href=\"%(password_reset_url)s\"> Request a new one."
-"</a>"
-msgstr ""
-"Mot de passe oublié ? <a href=\"%(password_reset_url)s\">En demander un "
-"nouveau.</a>"
-
-msgid "Create an account"
-msgstr "Créer un nouveau compte"
-
-#, python-format
-msgid ""
-"You don't have any account yet? <a class=\"menu-button\" href="
-"\"%(register_url)s\"> Create a new one </a>"
-msgstr ""
-"Vous n'avez pas encore de compte ? <a class=\"menu-button\" href="
-"\"%(register_url)s\"> Créer un compte</a>"
 
 msgid "Drafts"
 msgstr "Brouillons"
@@ -1357,8 +1332,14 @@ msgstr "Aides en brouillon"
 msgid "Log out"
 msgstr "Déconnexion"
 
-msgid "let's keep in touch"
-msgstr "Restons en contact !"
+msgid "Aid backers"
+msgstr "Apporteurs d'aides"
+
+msgid "Login now and publish your aids."
+msgstr "Connectez-vous et diffusez vos aides dès maintenant !"
+
+msgid "Login and contribute"
+msgstr "Connectez-vous et contribuez"
 
 msgid "Publish new aids"
 msgstr "Publier des aides"
@@ -1518,7 +1499,7 @@ msgid "Log in"
 msgstr "Connexion"
 
 msgid "Access to your account"
-msgstr "Acceder à votre compte"
+msgstr "Accéder à votre compte"
 
 #, python-format
 msgid ""
@@ -1636,6 +1617,9 @@ msgstr ""
 "En créant un compte, vous acceptez que vos données soient traitées <a href="
 "\"%(legal_mentions_url)s\" target=\"_blank\"> en accord avec notre politique "
 "de confidentialité</a>."
+
+msgid "Create an account"
+msgstr "Créer un nouveau compte"
 
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
@@ -2373,9 +2357,6 @@ msgstr "Aides vues"
 
 msgid "Aids viewed within the last seven days"
 msgstr "Nombre d'aides vues pendant les 7 derniers jours"
-
-msgid "Aid backers"
-msgstr "Apporteurs d'aides"
 
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
