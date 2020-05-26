@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 15:13+0200\n"
+"POT-Creation-Date: 2020-05-26 15:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1314,8 +1314,8 @@ msgstr "Nombre d'aides"
 msgid "Tag"
 msgstr "Mot clé"
 
-msgid "Login"
-msgstr "Connexion"
+msgid "Publish an aid"
+msgstr "Publier une aide"
 
 msgid "Drafts"
 msgstr "Brouillons"
@@ -1498,22 +1498,14 @@ msgstr ""
 msgid "Update your personal data"
 msgstr "Mettre à jour vos données"
 
+msgid "Login"
+msgstr "Connexion"
+
 msgid "Log in"
 msgstr "Connexion"
 
-msgid "Access to your account"
-msgstr "Accéder à votre compte"
-
-msgid "Aid backers, login to publish your aids."
-msgstr "Porteurs d'aides, connectez-vous pour publier vos aides."
-
-#, python-format
-msgid ""
-"Are you just seeking aids? <a href=\"%(search_url)s\">Go to the search form."
-"</a>"
-msgstr ""
-"Vous cherchez des aides ? <a href=\"%(search_url)s\">Rendez-vous sur le "
-"formulaire de recherche.</a>"
+msgid "Access your aid backer account"
+msgstr "Accédez à votre compte porteur d'aides"
 
 #, python-format
 msgid ""
@@ -1603,13 +1595,10 @@ msgstr ""
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
 msgid "Register"
-msgstr "Créer mon compte"
+msgstr "Inscription"
 
-msgid "Create a new account"
-msgstr "Créer un nouveau compte"
-
-msgid "Aid backers, create your account to publish your aids."
-msgstr "Porteurs d'aides, créez votre compte pour publier vos aides."
+msgid "Create an aid backer account"
+msgstr "Créez un compte porteur d'aides"
 
 #, python-format
 msgid ""
