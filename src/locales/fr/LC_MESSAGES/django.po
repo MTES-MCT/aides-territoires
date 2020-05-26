@@ -1333,7 +1333,7 @@ msgid "Log out"
 msgstr "Déconnexion"
 
 msgid "Aid backers"
-msgstr "Apporteurs d'aides"
+msgstr "Porteurs d'aides"
 
 msgid "Login now and publish your aids."
 msgstr "Connectez-vous et diffusez vos aides dès maintenant !"
