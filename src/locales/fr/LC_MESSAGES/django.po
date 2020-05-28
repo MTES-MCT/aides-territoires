@@ -417,7 +417,7 @@ msgstr ""
 "tant qu'instructeur via le champ approprié."
 
 msgid "Categories"
-msgstr "Catégories"
+msgstr "Sous-thématiques"
 
 msgid "Type a few characters and select a value among the list"
 msgstr ""
@@ -580,7 +580,7 @@ msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
 msgid "Themes"
-msgstr "Thèmes"
+msgstr "Thématiques"
 
 msgid "You are seeking aids for…"
 msgstr "Vous recherchez des aides pour…"
@@ -1074,10 +1074,10 @@ msgid "Short description"
 msgstr "Brève description"
 
 msgid "Theme"
-msgstr "Thème"
+msgstr "Thématique"
 
 msgid "Category"
-msgstr "Catégorie"
+msgstr "Sous-thématique"
 
 msgid "accounts/"
 msgstr "comptes/"
