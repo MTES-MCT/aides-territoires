@@ -355,7 +355,7 @@ msgid "Aid title"
 msgstr "Nom de l'aide"
 
 msgid "Aid backer(s)"
-msgstr "Porteur(s) d'aides"
+msgstr "Porteur(s) de l'aide"
 
 msgid "Aid instructor(s)"
 msgstr "Instructeur(s) de l'aide"
