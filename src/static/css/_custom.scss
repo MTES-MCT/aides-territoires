@@ -27,142 +27,142 @@
     main {
         padding-bottom: 0 !important;
     }
- }
 
-section#intro {
+    section#intro {
 
-    background: transparent url(../img/pois.svg) bottom 130% center no-repeat;
-    background-size: 2500px;
+        background: transparent url(../img/pois.svg) bottom 130% center no-repeat;
+        background-size: 2500px;
 
-    @include media-breakpoint-up(md) {
-        padding-top: 4rem;
-    }
-
-    @include media-breakpoint-up(lg) {
-        padding-top: 8rem;
-    }
-
-    div#what {
-        margin-bottom: 5rem;
-
-        p.tagline {
-            @extend .lead;
-            max-width: 40rem;
+        @include media-breakpoint-up(md) {
+            padding-top: 4rem;
         }
 
-        a.cta {
-            font-weight: bold;
-            @extend .btn;
-            @extend .btn-lg;
-            @extend .btn-primary;
-            @extend .px-5;
-            @extend .mb-3;
-            border-radius: 0 1rem 1rem 1rem;
-            @extend .shadow-sm;
+        @include media-breakpoint-up(lg) {
+            padding-top: 8rem;
         }
 
-        img {
-            float: right;
-            width: 700px;
-            max-width: 100%;
-            @extend .mt-3;
-            @extend .mb-5;
+        div#what {
+            margin-bottom: 5rem;
 
-            @include media-breakpoint-up(lg) {
-                margin-top: -100px !important;
+            p.tagline {
+                @extend .lead;
+                max-width: 40rem;
             }
-        }
-    }
 
-    div#how {
-        clear: both;
-        @extend .pb-5;
+            a.cta {
+                font-weight: bold;
+                @extend .btn;
+                @extend .btn-lg;
+                @extend .btn-primary;
+                @extend .px-5;
+                @extend .mb-3;
+                border-radius: 0 1rem 1rem 1rem;
+                @extend .shadow-sm;
+            }
 
-        div.marketing {
-            @extend .row;
-            margin-top: 5rem;
-
-            div {
-                @extend .col-md-4;
+            img {
+                float: right;
+                width: 700px;
+                max-width: 100%;
+                @extend .mt-3;
                 @extend .mb-5;
 
-                img {
-                    display: block;
-                    max-width: 100%;
-                    margin: auto;
-                    @extend .mb-3;
-                }
-
-                p {
-                    text-align: center;
-                    font-size: 1.5rem;
-                    font-family: $font-family-sans-serif;
-                    font-weight: bold;
+                @include media-breakpoint-up(lg) {
+                    margin-top: -100px !important;
                 }
             }
         }
-    }
-}
 
-section#stats {
-    padding: 0;
+        div#how {
+            clear: both;
+            @extend .pb-5;
 
-    &>div {
-        width: 100%;
-        padding: 4rem 0 0 0;
-        background: transparent url(../img/courbes.svg) top center no-repeat;
-    }
+            div.marketing {
+                @extend .row;
+                margin-top: 5rem;
 
-    div.container-lg {
+                div {
+                    @extend .col-md-4;
+                    @extend .mb-5;
 
-        & > div {
-            @extend .row;
-            @extend .mt-5;
-            text-align: center;
-
-            div {
-                @extend .col-md-4;
-                margin-bottom: 4rem;
-
-                h2 {
-                    text-transform: uppercase;
-                    @extend .h4;
-                    font-family: $font-family-base;
-                    font-weight: bold;
-
-                    span {
+                    img {
                         display: block;
-                        font-family: $font-family-base;
-                        font-size: 6rem;
-                        font-weight: 200;
+                        max-width: 100%;
+                        margin: auto;
+                        @extend .mb-3;
+                    }
+
+                    p {
+                        text-align: center;
+                        font-size: 1.5rem;
+                        font-family: $font-family-sans-serif;
+                        font-weight: bold;
                     }
                 }
+            }
+        }
+    }
 
-                p {
-                    @extend .lead;
-                    font-weight: bold;
-                    margin-bottom: 0;
+    section#home-stats {
+        padding: 0;
+
+        &>div {
+            width: 100%;
+            padding: 4rem 0 0 0;
+            background: transparent url(../img/courbes.svg) top center no-repeat;
+        }
+
+        div.container-lg {
+
+            & > div {
+                @extend .row;
+                @extend .mt-5;
+                text-align: center;
+
+                div {
+                    @extend .col-md-4;
+                    margin-bottom: 4rem;
+
+                    h2 {
+                        text-transform: uppercase;
+                        @extend .h4;
+                        font-family: $font-family-base;
+                        font-weight: bold;
+
+                        span {
+                            display: block;
+                            font-family: $font-family-base;
+                            font-size: 6rem;
+                            font-weight: 200;
+                        }
+                    }
+
+                    p {
+                        @extend .lead;
+                        font-weight: bold;
+                        margin-bottom: 0;
+                    }
                 }
             }
         }
     }
-}
 
-section#partner {
-    @extend .bg-white;
-    padding: 4rem 0;
+    section#partner {
+        @extend .bg-white;
+        padding: 4rem 0;
 
-    div#logos {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+        div#logos {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    img{
-        @extend .my-3;
-        @extend .mx-4;
-        max-height: 48px;
+        img{
+            @extend .my-3;
+            @extend .mx-4;
+            max-height: 48px;
+        }
     }
 }
 
@@ -624,7 +624,8 @@ section#stats {
     div.stat {
         @extend .card;
         min-width: 18rem;
-        margin-bottom: $card-group-margin;
+        margin-bottom: $card-group-margin * 2;
+        color: $dark;
 
         span.stat-title {
             @extend .card-header;
