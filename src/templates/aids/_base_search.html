@@ -21,7 +21,7 @@
 
     {% if categories %}
     {% regroup categories by theme as theme_list %}
-    <ul>
+    <ul class="aid-categories">
         {% for theme in theme_list %}
             <li class="theme">
                 {{ theme.grouper }}

@@ -324,27 +324,6 @@ div#search {
         p {
             margin-bottom: 0;
         }
-
-        ul {
-            padding: 0;
-            list-style-type: none;
-
-            ul {
-                display: inline;
-
-                &:before {
-                    content: " > ";
-                }
-
-                li {
-                    display: inline;
-                }
-
-                li + li:before {
-                    content: " + ";
-                }
-            }
-        }
     }
 }
 
@@ -1234,6 +1213,33 @@ div#search-steps {
     form#categories {
         div.custom-control + h3 {
             @extend .mt-4;
+        }
+    }
+}
+
+ul.aid-categories {
+    padding: 0;
+    list-style-type: none;
+
+    li.theme {
+        text-transform: uppercase;
+    }
+
+    ul {
+        display: inline;
+        padding: 0;
+        text-transform: none;
+
+        &:before {
+            content: " > ";
+        }
+
+        li {
+            display: inline;
+        }
+
+        li + li:before {
+            content: " + ";
         }
     }
 }

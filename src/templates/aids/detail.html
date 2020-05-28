@@ -31,9 +31,17 @@
 
     <h1> {{ aid.name }} </h1>
     {% if aid.categories %}
-    <ul class="categories mobile-center">
-        {% for category in aid.categories.all %}
-            <li>{{ category }}</li>
+    {% regroup aid.categories.all by theme as theme_list %}
+    <ul class="aid-categories">
+        {% for theme in theme_list %}
+            <li class="theme">
+                {{ theme.grouper }}
+                <ul>
+                {% for category in theme.list %}
+                    <li class="category">{{ category }}</li>
+                {% endfor %}
+                </ul>
+            </li>
         {% endfor %}
     </ul>
     {% endif %}

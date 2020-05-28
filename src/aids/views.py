@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, Prefetch
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseNotAllowed)
 from django.template.loader import render_to_string
@@ -24,6 +24,7 @@ from bundles.forms import BundleForm
 from programs.models import Program
 from alerts.forms import AlertForm
 from stats.models import Event
+from categories.models import Category
 from aids.tasks import log_admins
 from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
                         AdvancedAidFilterForm)
@@ -217,9 +218,14 @@ class AidDetailView(DetailView):
          - contributors can see their own aids.
          - superusers can see all aids.
         """
+        category_qs = Category.objects \
+            .select_related('theme') \
+            .order_by('theme__name', 'name')
+
         base_qs = Aid.objects \
             .select_related('perimeter', 'author') \
-            .prefetch_related('financers', 'instructors')
+            .prefetch_related('financers', 'instructors') \
+            .prefetch_related(Prefetch('categories', queryset=category_qs))
 
         user = self.request.user
         if user.is_authenticated and user.is_superuser:
