@@ -28,3 +28,10 @@
     </form>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    ALERT_TITLE = '{{ alert.title }}';
+</script>
+<script src="/static/js/alerts/track_alert_events.js"></script>
+{% endblock %}
