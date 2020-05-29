@@ -13,11 +13,18 @@
         Are you sure you want to continue?
     {% endblocktrans %}</p>
 
-    <form method="post" action="">
+    <form id="delete-form" method="post" action="">
         {% csrf_token %}
         <button type="submit">
             {{ _('Yes, delete this alert now') }}
         </button>
     </form>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    ALERT_TITLE = '{{ alert.title }}';
+</script>
+<script src="/static/js/alerts/track_alert_events.js"></script>
 {% endblock %}

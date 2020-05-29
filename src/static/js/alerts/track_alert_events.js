@@ -4,15 +4,29 @@
     exports.trackAlertValidation = function(form, alert_title) {
         form.submit(function() {
             if (_paq) {
-                _paq.push(['trackEvent', 'Alert email', 'Alerte créée', alert_title]);
+                _paq.push(['trackEvent', 'Alerte email', 'Alerte créée', alert_title]);
             }
         });
     }
 
+    exports.trackAlertDeletion = function(form, alert_title) {
+        form.submit(function() {
+            if (_paq) {
+                _paq.push(['trackEvent', 'Alerte email', 'Alerte supprimée', alert_title]);
+            }
+        });
+    }
 })(this);
 
 $(document).ready(function () {
     // Track alert validation
-    var form = $('for#validation-form');
-    trackAlertValidation(form, ALERT_TITLE)
+    var validateForm = $('for#validation-form');
+    if (validateForm) {
+        trackAlertValidation(validateForm, ALERT_TITLE);
+    }
+
+    var deleteForm = $('for#delete-form');
+    if (deleteForm) {
+        trackAlertDeletion(deleteForm, ALERT_TITLE);
+    }
 });
