@@ -10,3 +10,26 @@
     </ol>
 </nav>
 {% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    var PERIMETER = '{{ perimeter|default_if_none:'' }}';
+    var CATEGORIES = [
+        {% if categories %}
+        {% regroup categories by theme as theme_list %}
+        {% for theme in theme_list %}
+            {% for category in theme.list %}
+                '{{ category }}',
+            {% endfor %}
+        {% endfor %}
+        {% elif themes %}
+            {% for theme in themes %}
+                '{{ theme }}',
+            {% endfor %}
+        {% endif %}
+    ];
+    var NB_RESULTS = {{ paginator.count }};
+</script>
+<script src="/static/js/search/track_search_events.js"></script>
+{% endblock %}
