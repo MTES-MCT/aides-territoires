@@ -20,7 +20,6 @@
                 eventName = allCategories;
             }
 
-            console.log(stepName, eventName, nbResults);
             if (_paq) {
                 _paq.push(['trackEvent', 'Recherche', stepName, eventName, nbResults]);
             }
