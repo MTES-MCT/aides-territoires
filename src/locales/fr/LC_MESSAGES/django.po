@@ -2191,7 +2191,7 @@ msgid ""
 "Click on the following button to confirm the creation of the "
 "\"%(alert_title)s\" alert."
 msgstr ""
-"Cliquez sur le bouton suivant et pour confirmer la création de l'alerte "
+"Cliquez sur le bouton suivant pour confirmer la création de l'alerte "
 "« %(alert_title)s »."
 
 msgid ""

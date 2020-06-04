@@ -24,10 +24,22 @@
         });
     };
 
+    exports.trackOutclicks = function(links, aid_slug) {
+        links.click(function(evt) {
+            if (_paq) {
+                _paq.push(['trackEvent', 'Fiche aide', 'Voir lien du porteur', aid_slug, this.href]);
+            }
+        });
+    }
 
 })(this);
 
 $(document).ready(function () {
+    // Track clicks on "Going further" button
     var dataDiv = $('#going-further');
     enableCTA(dataDiv, catalog.going_further_cta_label, AID_SLUG);
+
+    // Track clicks on outlinks
+    var links = dataDiv.find('a');
+    trackOutclicks(links, AID_SLUG)
 });
