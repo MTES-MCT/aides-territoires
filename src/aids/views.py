@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db.models import Q, Sum, Prefetch
-from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponseNotAllowed)
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -19,8 +18,6 @@ from braces.views import MessageMixin
 
 from stats.utils import log_event
 from accounts.mixins import ContributorRequiredMixin
-from bundles.models import Bundle
-from bundles.forms import BundleForm
 from programs.models import Program
 from alerts.forms import AlertForm
 from stats.models import Event
@@ -242,19 +239,6 @@ class AidDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Registered users see a "save this aid" form.
-        if self.request.user.is_authenticated:
-            user_bundles = Bundle.objects \
-                .filter(owner=self.request.user) \
-                .order_by('name')
-            context['user_bundles'] = user_bundles
-            aid_bundles = user_bundles \
-                .filter(aids=self.object)
-            context['bundle_form'] = BundleForm(
-                user=self.request.user,
-                bundles=user_bundles,
-                initial={'bundles': aid_bundles})
-
         current_search = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, None)
         if current_search:
@@ -267,60 +251,6 @@ class AidDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
         log_event('aid', 'viewed', meta=self.object.slug, value=1)
-        return response
-
-    def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseNotAllowed(permitted_methods=['get'])
-
-        self.object = self.get_object()
-
-        form = BundleForm(
-            user=request.user,
-            bundles=request.user.bundles,
-            data=request.POST)
-
-        if form.is_valid():
-            # Get the m2m class that links bundles and aids
-            BundleAssociation = Bundle._meta \
-                .get_field('aids') \
-                .remote_field \
-                .through
-
-            # Clear existing bundle associations. We will manually regenerate
-            # the entire list.
-            BundleAssociation.objects \
-                .filter(bundle__owner=request.user) \
-                .filter(aid=self.object) \
-                .delete()
-
-            associations = []
-            selected_bundles = list(form.cleaned_data['bundles'])
-
-            # If a new bundle name was provided, create it on the fly
-            new_bundle_name = form.cleaned_data['new_bundle']
-            if new_bundle_name:
-                selected_bundles.append(Bundle.objects.create(
-                    owner=request.user,
-                    name=new_bundle_name))
-
-            # Create m2m bookmark objects to link the aid
-            # to the selected bundles
-            for bundle in selected_bundles:
-                associations.append(BundleAssociation(
-                    bundle=bundle,
-                    aid=self.object
-                ))
-            BundleAssociation.objects.bulk_create(associations)
-
-            if not self.request.is_ajax():
-                msg = _('This aid was added to the selected bundles.')
-                messages.success(self.request, msg)
-
-        if self.request.is_ajax():
-            response = HttpResponse('')
-        else:
-            response = HttpResponseRedirect(self.object.get_absolute_url())
         return response
 
 

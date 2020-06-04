@@ -24,7 +24,6 @@ urlpatterns = [
     path(_('programs/'), include('programs.urls')),
     path(_('integration/'), include('integration.urls')),
     path(_('stats/'), include('stats.urls')),
-    path(_('bundles/'), include('bundles.urls')),
     path(_('alerts/'), include('alerts.urls')),
     path(_('tags/'), include('tags.urls')),
     path(_('data/'), include('data.urls')),
