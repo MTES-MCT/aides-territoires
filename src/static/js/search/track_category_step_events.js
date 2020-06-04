@@ -4,6 +4,8 @@
     exports.trackSearchEvent = function (form, stepName) {
         form.submit(function () {
             try {
+                var allCategories = $(this).find('input[type=checkbox]');
+
                 var labels = $(this).find(':checked').map(function (counter, checkbox) {
                     var label = form.find('label[for=' + checkbox.id + '].custom-control-label');
                     return label.text().trim();
@@ -18,35 +20,19 @@
                     return accumulated;
                 }, '');
                 if (_paq) {
-                    _paq.push(['trackEvent', 'Recherche', stepName, allLabels]);
+                    _paq.push(['trackEvent', 'Recherche', stepName, allLabels, allCategories.length]);
                 }
             } catch (e) {
                 console.log(e);
             }
         });
     }
-
-    exports.trackSkipEvent = function (link, stepName) {
-        link.click(function () {
-            try {
-                if (_paq) {
-                    _paq.push(['trackEvent', 'Recherche', stepName, 'Passée']);
-                }
-            } catch (e) {
-                console.log(e);
-            }
-        });
-    }
-
 
 })(this);
 
 $(document).ready(function () {
-    var SEARCH_STEP = 'Étape 3 – Thématiques';
+    var SEARCH_STEP = 'Étape 4 – Sous-thématiques';
 
-    var searchForm = $('form#theme');
+    var searchForm = $('form#categories');
     trackSearchEvent(searchForm, SEARCH_STEP);
-
-    var skipBtn = $('div.navigation-links a.next-btn');
-    trackSkipEvent(skipBtn, SEARCH_STEP);
 });
