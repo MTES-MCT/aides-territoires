@@ -1,19 +1,27 @@
 (function (exports) {
     "use strict";
 
-    exports.trackSearchEvent = function(buttons, stepName) {
-        buttons.click(function() {
-            var audiance = $(this).html().trim();
-            if (_paq) {
-                _paq.push(['trackEvent', 'Recherche', stepName, audiance]);
+    exports.trackSearchEvent = function (buttons, stepName) {
+        buttons.click(function () {
+            try {
+                var audiance = $(this).html().trim();
+                if (_paq) {
+                    _paq.push(['trackEvent', 'Recherche', stepName, audiance]);
+                }
+            } catch (e) {
+                console.log(e);
             }
         });
     }
 
-    exports.trackSkipEvent = function(link, stepName) {
-        link.click(function() {
-            if (_paq) {
-                _paq.push(['trackEvent', 'Recherche', stepName, 'Passée']);
+    exports.trackSkipEvent = function (link, stepName) {
+        link.click(function () {
+            try {
+                if (_paq) {
+                    _paq.push(['trackEvent', 'Recherche', stepName, 'Passée']);
+                }
+            } catch (e) {
+                console.log(e);
             }
         });
     }

@@ -1,19 +1,31 @@
 (function (exports) {
     "use strict";
 
-    exports.trackSearchEvent = function(form, stepName) {
-        form.submit(function() {
-            var perimeter = $(this).find('[name=perimeter]').select2('data')[0].text;
-            if (_paq) {
-                _paq.push(['trackEvent', 'Recherche', stepName, perimeter]);
+    exports.trackSearchEvent = function (form, stepName) {
+        form.submit(function () {
+
+            // We use a try/catch block because we don't want to block
+            // the form submission in case anything in the event logging process
+            // breaks.
+            try {
+                var perimeter = $(this).find('[name=perimeter]').select2('data')[0].text;
+                if (_paq) {
+                    _paq.push(['trackEvent', 'Recherche', stepName, perimeter]);
+                }
+            } catch (e) {
+                console.log(e);
             }
         });
     }
 
-    exports.trackSkipEvent = function(link, stepName) {
-        link.click(function() {
-            if (_paq) {
-                _paq.push(['trackEvent', 'Recherche', stepName, 'Passée']);
+    exports.trackSkipEvent = function (link, stepName) {
+        link.click(function () {
+            try {
+                if (_paq) {
+                    _paq.push(['trackEvent', 'Recherche', stepName, 'Passée']);
+                }
+            } catch (e) {
+                console.log(e);
             }
         });
     }
