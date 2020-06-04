@@ -20,12 +20,12 @@
 
 $(document).ready(function () {
     // Track alert validation
-    var validateForm = $('for#validation-form');
+    var validateForm = $('form#validation-form');
     if (validateForm) {
         trackAlertValidation(validateForm, ALERT_TITLE);
     }
 
-    var deleteForm = $('for#delete-form');
+    var deleteForm = $('form#delete-form');
     if (deleteForm) {
         trackAlertDeletion(deleteForm, ALERT_TITLE);
     }
