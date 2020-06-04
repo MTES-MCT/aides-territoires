@@ -43,7 +43,6 @@ LOCAL_APPS = [
     'backers',
     'tags',
     'aids',
-    'bundles',
     'dataproviders',
     'analytics',
     'data',
