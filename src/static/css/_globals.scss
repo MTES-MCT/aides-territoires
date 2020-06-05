@@ -177,31 +177,17 @@ nav#main-navbar {
     @extend .bg-white;
     @extend .navbar-expand-lg;
 
-    // See :
-    // https://www.gouvernement.fr/charte/charte-graphique-les-fondamentaux/le-bloc-marque
-    // Here, we align all the elements' (logos, menu) baselines
-    padding-top: 1.875rem;  // 30px
-    padding-left: 1.25rem;  // 20px
-
-    // Note : the menu font has a 1/5 descender height.
-    // Since the menu's line-height is 24px, we compute the following value as:
-    // 30px (gov's design guidelines) - 24 * 5 (menu font descender) - 8px (menu bottom padding)
-    // This is to make sure that the "Republique française" has top a bottom
-    // padding of exactly 30px while all baselines are aligned.
-    padding-bottom: 1.125rem;  // 18px
-
-
     div.container-lg {
-        align-items: baseline;
+        align-items: center;
     }
 
     .homelink {
         @extend .mr-auto;
         white-space: nowrap;
-        height: 7.5rem;  // 120px
         display: inline-block;
         vertical-align: baseline;
         text-decoration: none;
+        height: $navbar-brand-height;
 
         img {
             height: 100%;
@@ -209,20 +195,64 @@ nav#main-navbar {
             vertical-align: baseline;
         }
 
-        img:first-child {
-            margin-right: 2.5rem;  // 40px
+        img.marianne {
+            margin-right: 0.5rem;
         }
 
-        img:last-child {
-            // Here, we carefully align the second logo's baseline
-            margin-bottom: -9px;
-            height: 129px;
+        img.at {
+            // Here, we align our logo's baseline with the navbar's bottom border.
+            // It means the little red pin will slightly overflow inside the
+            // navbar padding.
+            margin-bottom: -$navbar-brand-height / (120 / 17.6);
+            height: $navbar-brand-height * (1 + 1 / (120 / 17.6));
         }
     }
 
     div.navbar-collapse {
         flex-grow: 0;
         text-align: right;
+    }
+
+    button.navbar-toggler {
+        align-self: center;
+    }
+
+    // See https://www.gouvernement.fr/charte/charte-graphique-les-fondamentaux/le-bloc-marque
+    // Note : the menu font has a 1/5 descender height.
+    // Since the menu's line-height is 24px, we compute the following value as:
+    // 30px (gov's design guidelines) - 24 * 5 (menu font descender) - 8px (menu bottom padding)
+    // This is to make sure that the "Republique française" has top a bottom
+    // padding of exactly 30px while all baselines are aligned.
+    @include media-breakpoint-up(sm) {
+        padding-top: 1.875rem;  // 30px
+        padding-left: 1.25rem;  // 20px
+        padding-bottom: 1.875rem;  // 30px
+
+        div.container-lg {
+            align-items: baseline;
+        }
+
+        .homelink {
+            height: 7.5rem;  // 120px
+
+            img.marianne {
+                margin-right: 2.5rem;  // 40px
+            }
+
+            img.at {
+                margin-bottom: -7.5rem / (120 / 9.4);
+                height: 7.5rem * (1 + 1 / (120 / 9.4));
+            }
+        }
+
+        div.navbar-collapse {
+            flex-grow: 0;
+            text-align: right;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding-bottom: 1.125rem;  // 18px
     }
 
     ul.navbar-menu {
