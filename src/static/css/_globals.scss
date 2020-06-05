@@ -173,18 +173,24 @@ nav#main-navbar {
     @extend .bg-white;
     @extend .navbar-expand-lg;
 
+    // See :
+    // https://www.gouvernement.fr/charte/charte-graphique-les-fondamentaux/le-bloc-marque
+    padding-top: 30px;
+    padding-bottom: 30px;
+
     .homelink {
         @extend .mr-auto;
         white-space: nowrap;
 
         img {
-            height: $navbar-brand-height;
+            height: 120px;
             margin-right: .5rem;
         }
 
         img:first-child {
             @extend .d-none;
             @extend .d-lg-inline;
+            margin-right: 40px;
         }
     }
 
