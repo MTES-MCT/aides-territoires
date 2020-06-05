@@ -119,6 +119,10 @@ body > footer {
         @extend .order-lg-2;
         text-align: right;
 
+        a:after {
+            content: none;
+        }
+
         @include media-breakpoint-down(md) {
             text-align: center;
             margin-top: -75px;
