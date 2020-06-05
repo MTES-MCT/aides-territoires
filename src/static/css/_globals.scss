@@ -179,22 +179,44 @@ nav#main-navbar {
 
     // See :
     // https://www.gouvernement.fr/charte/charte-graphique-les-fondamentaux/le-bloc-marque
-    padding-top: 30px;
-    padding-bottom: 30px;
+    // Here, we align all the elements' (logos, menu) baselines
+    padding-top: 1.875rem;  // 30px
+    padding-left: 1.25rem;  // 20px
+
+    // Note : the menu font has a 1/5 descender height.
+    // Since the menu's line-height is 24px, we compute the following value as:
+    // 30px (gov's design guidelines) - 24 * 5 (menu font descender) - 8px (menu bottom padding)
+    // This is to make sure that the "Republique française" has top a bottom
+    // padding of exactly 30px while all baselines are aligned.
+    padding-bottom: 1.125rem;  // 18px
+
+
+    div.container-lg {
+        align-items: baseline;
+    }
 
     .homelink {
         @extend .mr-auto;
         white-space: nowrap;
+        height: 7.5rem;  // 120px
+        display: inline-block;
+        vertical-align: baseline;
+        text-decoration: none;
 
         img {
-            height: 120px;
-            margin-right: .5rem;
+            height: 100%;
+            width: auto;
+            vertical-align: baseline;
         }
 
         img:first-child {
-            @extend .d-none;
-            @extend .d-lg-inline;
-            margin-right: 40px;
+            margin-right: 2.5rem;  // 40px
+        }
+
+        img:last-child {
+            // Here, we carefully align the second logo's baseline
+            margin-bottom: -9px;
+            height: 129px;
         }
     }
 
