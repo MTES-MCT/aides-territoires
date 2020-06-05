@@ -2,8 +2,8 @@
 <nav id="main-navbar">
     <div class="container-lg">
         <a class="homelink" href="{% url 'home' %}">
-            <img src="/static/img/marianne.svg" alt="Logo Marianne" />
-            <img src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
+            <img class="marianne d-none d-xs-inline-block d-sm-none" src="/static/img/marianne.svg" alt="Logo Marianne" /><img class="at d-sm-none" src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
+            <img class="marianne d-none d-sm-inline-block" src="/static/img/logo_RP.svg" alt="Logo Marianne" /><img class="at d-none d-sm-inline-block" src="/static/img/logo_AT_courbes.svg" alt="Aides-territoires" />
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="{{ _('Toggle main menu') }}">

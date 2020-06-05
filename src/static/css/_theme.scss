@@ -1,3 +1,20 @@
+$grid-breakpoints: (
+  xxs: 0,
+  xs: 375px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  xs: 320px,
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
 $font-family-sans-serif: 'Encode Sans Semi Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-family-base: 'Encode Sans Semi Expanded', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
