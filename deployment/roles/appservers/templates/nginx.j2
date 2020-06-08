@@ -88,6 +88,12 @@ server {
         access_log off;
     }
 
+    location /media/ {
+        root {{ project_root }}/public/;
+        expires 1y;
+        access_log off;
+    }
+
     # Google search console validation file
     # Do not remove.
     location /google7cbe5bb6ac545929.html {
