@@ -202,109 +202,106 @@ section#marketing {
 section#search-engine {
     margin: 2rem 0;
 
-    form {
+    div.other-actions {
+        @extend .mb-2;
 
-        div.other-actions {
-            @extend .mb-2;
+        button, a {
+            @extend .btn;
+            @extend .btn-link;
+            color: white;
+            box-shadow: none;
 
-            button, a {
-                @extend .btn;
-                @extend .btn-link;
-                color: white;
-                box-shadow: none;
-
-                &.hidden {
-                    display: none;
-                }
-
-                &:first-child {
-                    padding-left: 0;
-                }
+            &.hidden {
+                display: none;
             }
 
-            #save-alert-btn {
-                @extend .btn;
-                @extend .btn-primary;
-                font-weight: bold;
-                width: 100%;
-                display: block;
-                @extend .mt-2;
-
-                @include media-breakpoint-up(md) {
-                    margin-top: 0 !important;
-                    width: inherit;
-                    float: right;
-                }
-
-                @include icon(before, $fa-var-bell);
-                border-radius: 0 1rem 1rem 1rem;
-                min-width: 15em;
+            &:first-child {
+                padding-left: 0;
             }
         }
 
-        div.form-container {
-            @extend .card;
-            @extend .d-none;
-            @extend .d-lg-block;
-            background-color: $light-purple;
-            border-radius: 0 1rem 1rem 1rem;
-            @extend .shadow;
-        }
+        #save-alert-btn {
+            @extend .btn;
+            @extend .btn-primary;
+            font-weight: bold;
+            width: 100%;
+            display: block;
+            @extend .mt-2;
 
-        div.form-body {
-            @extend .card-body;
-            @extend .py-4;
-
-            div.col + div.col {
-                border-left: 3px solid white;
-            }
-
-            div.checkbox-group {
-                label + input {
-                    @extend .ml-2;
-                }
-            }
-
-            div.form-group {
-                margin-bottom: 0;
-            }
-
-            div.form-group + div.form-group {
-                margin-top: 1rem;
-            }
-
-            #form-group-text label,
-            #form-group-backers label {
-                margin-bottom: 1rem;
-            }
-
-            input[type=text] {
-                background-color: transparent;
-                color: white;
-                border-radius: 0 1rem 1rem 1rem;
-
-                &::placeholder {
-                    color: #ccc;
-                }
-            }
-        }
-
-        div.actions-row {
-            @extend .mt-3;
-            text-align: right;
-
-            select {
-                @extend .custom-select;
-                display: inline-block;
+            @include media-breakpoint-up(md) {
+                margin-top: 0 !important;
                 width: inherit;
-                border-radius: 0 1rem 1rem 1rem;
-                border: none;
+                float: right;
             }
 
-            button.search-btn {
-                @extend .btn-block;
-                @include icon(before, $fa-var-search);
+            @include icon(before, $fa-var-bell);
+            border-radius: 0 1rem 1rem 1rem;
+            min-width: 15em;
+        }
+    }
+
+    div.form-container {
+        @extend .card;
+        @extend .d-none;
+        @extend .d-lg-block;
+        background-color: $light-purple;
+        border-radius: 0 1rem 1rem 1rem;
+        @extend .shadow;
+    }
+
+    div.form-body {
+        @extend .card-body;
+        @extend .py-4;
+
+        div.col + div.col {
+            border-left: 3px solid white;
+        }
+
+        div.checkbox-group {
+            label + input {
+                @extend .ml-2;
             }
+        }
+
+        div.form-group {
+            margin-bottom: 0;
+        }
+
+        div.form-group + div.form-group {
+            margin-top: 1rem;
+        }
+
+        #form-group-text label,
+        #form-group-backers label {
+            margin-bottom: 1rem;
+        }
+
+        input[type=text] {
+            background-color: transparent;
+            color: white;
+            border-radius: 0 1rem 1rem 1rem;
+
+            &::placeholder {
+                color: #ccc;
+            }
+        }
+    }
+
+    div.actions-row {
+        @extend .mt-3;
+        text-align: right;
+
+        select {
+            @extend .custom-select;
+            display: inline-block;
+            width: inherit;
+            border-radius: 0 1rem 1rem 1rem;
+            border: none;
+        }
+
+        button.search-btn {
+            @extend .btn-block;
+            @include icon(before, $fa-var-search);
         }
     }
 }
@@ -351,8 +348,7 @@ section#program-list {
         padding-right: .5rem !important;
     }
 
-    article.aid,
-    article.program {
+    article {
         @extend .card;
         @extend .bg-white;
         @extend .text-dark;

@@ -1,8 +1,85 @@
 {% extends 'aids/_base_search.html' %}
-{% load compress %}
+{% load compress colors %}
 
 {% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+ol.breadcrumb,
+div.header-warning {
+    display: none;
+}
+
+{% if search_page.color_1 %}
+body {
+    background: {{ search_page.color_1 }};
+}
+
+main {
+    background: {{ search_page.color_1 }};
+}
+
+.dark-background .main-content > article,
+section#aid-list article {
+    color: rgba(0, 0, 0, 0.85) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+{% endif %}
+
+{% if search_page.color_2 %}
+section#search-engine div.form-container {
+    background-color: {{ search_page.color_2 }} !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+section#search-engine div.other-actions button:hover,
+section#search-engine div.other-actions a:hover {
+    color: white;
+}
+{% endif %}
+
+{% if search_page.color_3 %}
+section#search-engine div.form-container button,
+section#search-engine a#save-alert-btn {
+    background-color: {{ search_page.color_3 }} !important;
+    border: {{ search_page.color_3 }} !important;
+}
+
+section#search-engine div.form-container button:hover,
+section#search-engine a#save-alert-btn:hover {
+    background-color: {% darken search_page.color_3 7.5 %} !important;
+}
+
+section#aid-list article.aid span.no-deadline {
+    border-color: {{ search_page.color_3 }} !important;
+}
+
+h1::after {
+    border-color: {{ search_page.color_3 }};
+}
+{% endif %}
+
+{% if search_page.color_4 %}
+.dark-background .main-content > article a,
+section#aid-list article.aid div h1 a {
+    color: {{ search_page.color_4 }} !important;
+}
+
+.dark-background .main-content > article a {
+    text-decoration: underline;
+}
+
+.dark-background .main-content > article a:hover,
+section#aid-list article.aid div h1 a:hover {
+    color: {% darken search_page.color_4 20 %} !important;
+}
+{% endif %}
+
+</style>
+{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
@@ -22,5 +99,4 @@
 </article>
 
 {{ block.super }}
-
 {% endblock %}
