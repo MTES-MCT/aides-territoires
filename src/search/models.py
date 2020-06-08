@@ -1,6 +1,18 @@
+from os.path import splitext
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+
+
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'logos/{}{}'.format(
+        name, extension)
+    return filename
 
 
 class SearchPage(models.Model):
@@ -40,6 +52,33 @@ class SearchPage(models.Model):
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
+
+    # custom_colors
+    color_1 = models.CharField(
+        _('Color 1'),
+        max_length=10,
+        blank=True,
+        help_text=_('Main background color'))
+    color_2 = models.CharField(
+        _('Color 2'),
+        max_length=10,
+        blank=True,
+        help_text=_('Search form background color'))
+    color_3 = models.CharField(
+        _('Color 3'),
+        max_length=10,
+        blank=True,
+        help_text=_('Buttons and title borders color'))
+    color_4 = models.CharField(
+        _('Color 4'),
+        max_length=10,
+        blank=True,
+        help_text=_('Link colors'))
+    logo = models.FileField(
+        _('Logo image'),
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
 
     class Meta:
         verbose_name = _('Search page')

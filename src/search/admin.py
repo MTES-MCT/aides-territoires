@@ -24,7 +24,16 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'meta_title',
                 'meta_description',
             )
-        })
+        }),
+        (_('Customization'), {
+            'fields': (
+                'logo',
+                'color_1',
+                'color_2',
+                'color_3',
+                'color_4',
+            )
+        }),
     ]
 
     class Media:
