@@ -16,8 +16,8 @@
         {% compress css %}
             <link rel="stylesheet" href="/static/css/fonts.scss" type="text/x-scss" charset="utf-8">
             <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
-            {% block extra_css %}{% endblock %}
         {% endcompress %}
+        {% block extra_css %}{% endblock %}
 
         {% block extra_head %}{% endblock %}
 
@@ -75,7 +75,6 @@
             var hotjar_siteid = {% hotjar_siteid %};
         </script>
         {% endcompress %}
-
         {% block extra_js %}{% endblock %}
 
         {% analytics_enabled as analytics_enabled %}
