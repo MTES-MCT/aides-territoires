@@ -45,7 +45,9 @@
 {% endblock %}
 
 {% block extra_css %}
+{% compress css %}
 <link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endcompress %}
 {% endblock %}
 
 {% block extra_js %}

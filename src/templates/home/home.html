@@ -126,21 +126,3 @@ Aides-territoires 🏡 Aides publiques pour les collectivités
     </div>
 </section>
 {% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
-{% endblock %}
-
-{% block extra_js %}
-{% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-{% endcompress %}
-<script>
-$(document).ready(function () {
-    // Autofocus the perimeter search input
-    $('select#id_perimeter').select2('open');
-});
-</script>
-{% endblock %}
