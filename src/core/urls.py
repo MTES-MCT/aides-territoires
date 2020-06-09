@@ -1,6 +1,7 @@
 from rest_framework import routers
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
@@ -43,3 +44,6 @@ if settings.DEBUG:
     urlpatterns = [
         path(r'__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+    urlpatterns = static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + urlpatterns

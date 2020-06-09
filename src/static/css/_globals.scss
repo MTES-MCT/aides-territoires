@@ -344,6 +344,74 @@ nav#main-navbar {
     }
 }
 
+nav#partner-navbar {
+    @extend .navbar;
+    @extend .navbar-light;
+    @extend .bg-white;
+    @extend .navbar-expand-lg;
+
+    div.container-lg {
+        align-items: bottom;
+    }
+
+    .homelink {
+        @extend .mr-auto;
+        white-space: nowrap;
+        text-decoration: none;
+        height: $navbar-brand-height;
+
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+
+    .partner-logo {
+        height: $navbar-brand-height;
+        display: flex;
+        align-items: center;
+
+        img {
+            height: auto;
+            max-height: 100%;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        .homelink {
+            height: 6rem;
+        }
+
+        .partner-logo {
+            height: 6rem;
+
+            img {
+                max-width: 20rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+
+        .homelink {
+            height: 7.5rem;
+        }
+
+        .partner-logo {
+            height: 7.5rem;
+
+            img {
+                max-width: 20rem;
+            }
+        }
+    }
+}
+
 main {
     background: transparent url(../img/courbes.svg) top center no-repeat;
     padding-top: 1.5rem;

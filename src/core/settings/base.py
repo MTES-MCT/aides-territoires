@@ -126,6 +126,10 @@ STATICFILES_FINDERS = [
 
 STATIC_ROOT = PUBLIC_ROOT.child('static')
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = PUBLIC_ROOT.child('media')
+
 NODE_MODULES_PATH = DJANGO_ROOT.child('node_modules')
 
 SASS_PATH = 'make css'
