@@ -4,13 +4,33 @@
 {% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
 
+
+{% block header %}
+{% if search_page.logo %}
+    {% include 'search/_header.html' %}
+{% else %}
+    {{ block.super }}
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+{% if search_page.logo %}
+    {% include 'search/_footer.html' %}
+{% else %}
+    {{ block.super }}
+{% endif %}
+{% endblock %}
+
 {% block extra_css %}
 {{ block.super }}
 <style>
+
+{% if search_page.logo %}
 ol.breadcrumb,
 div.header-warning {
     display: none;
 }
+{% endif %}
 
 {% if search_page.color_1 %}
 body {
