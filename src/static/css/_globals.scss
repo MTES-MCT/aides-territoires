@@ -382,6 +382,23 @@ nav#partner-navbar {
     }
 
     @include media-breakpoint-up(sm) {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+
+        .homelink {
+            height: 4rem;
+        }
+
+        .partner-link {
+            height: 4rem;
+
+            img {
+                max-width: 20rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
         padding-top: 1rem;
         padding-bottom: 1rem;
 
@@ -391,23 +408,6 @@ nav#partner-navbar {
 
         .partner-link {
             height: 6rem;
-
-            img {
-                max-width: 20rem;
-            }
-        }
-    }
-
-    @include media-breakpoint-up(lg) {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-
-        .homelink {
-            height: 7.5rem;
-        }
-
-        .partner-link {
-            height: 7.5rem;
 
             img {
                 max-width: 20rem;
