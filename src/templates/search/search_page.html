@@ -42,7 +42,8 @@ main {
 }
 
 .dark-background .main-content > article,
-section#aid-list article {
+section#aid-list article,
+div.modal .modal-dialog {
     color: rgba(0, 0, 0, 0.85) !important;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
@@ -63,13 +64,15 @@ section#search-engine div.other-actions a:hover {
 
 {% if search_page.color_3 %}
 section#search-engine div.form-container button,
-section#search-engine a#save-alert-btn {
+section#search-engine a#save-alert-btn,
+div#share-results-modal form button {
     background-color: {{ search_page.color_3 }} !important;
     border: {{ search_page.color_3 }} !important;
 }
 
 section#search-engine div.form-container button:hover,
-section#search-engine a#save-alert-btn:hover {
+section#search-engine a#save-alert-btn:hover,
+div#share-results-modal form button:hover {
     background-color: {% darken search_page.color_3 7.5 %} !important;
 }
 
