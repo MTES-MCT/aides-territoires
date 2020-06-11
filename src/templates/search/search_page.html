@@ -27,8 +27,13 @@
 
 {% if search_page.logo %}
 ol.breadcrumb,
-div.header-warning {
-    display: none;
+div.header-warning,
+a#new-search-btn {
+    display: none !important;
+}
+
+button#new-filters-btn {
+    padding-left: 0 !important;
 }
 {% endif %}
 
@@ -65,7 +70,8 @@ section#search-engine div.other-actions a:hover {
 {% if search_page.color_3 %}
 section#search-engine div.form-container button,
 section#search-engine a#save-alert-btn,
-div#share-results-modal form button {
+div#share-results-modal form button,
+div.modal .modal-dialog section footer button {
     background-color: {{ search_page.color_3 }} !important;
     border: {{ search_page.color_3 }} !important;
 }
