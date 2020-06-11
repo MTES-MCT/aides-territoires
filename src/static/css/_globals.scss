@@ -366,10 +366,14 @@ nav#partner-navbar {
         }
     }
 
-    .partner-logo {
+    .partner-link {
         height: $navbar-brand-height;
         display: flex;
         align-items: center;
+
+        &:after {
+            content: none;
+        }
 
         img {
             height: auto;
@@ -378,15 +382,15 @@ nav#partner-navbar {
     }
 
     @include media-breakpoint-up(sm) {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
 
         .homelink {
-            height: 6rem;
+            height: 4rem;
         }
 
-        .partner-logo {
-            height: 6rem;
+        .partner-link {
+            height: 4rem;
 
             img {
                 max-width: 20rem;
@@ -395,15 +399,15 @@ nav#partner-navbar {
     }
 
     @include media-breakpoint-up(lg) {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
 
         .homelink {
-            height: 7.5rem;
+            height: 6rem;
         }
 
-        .partner-logo {
-            height: 7.5rem;
+        .partner-link {
+            height: 6rem;
 
             img {
                 max-width: 20rem;

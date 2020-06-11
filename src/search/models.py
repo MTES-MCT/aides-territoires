@@ -74,11 +74,20 @@ class SearchPage(models.Model):
         max_length=10,
         blank=True,
         help_text=_('Link colors'))
+    color_5 = models.CharField(
+        _('Color 5'),
+        max_length=10,
+        blank=True,
+        help_text=_('Footer background color'))
     logo = models.FileField(
         _('Logo image'),
         null=True, blank=True,
         upload_to=logo_upload_to,
         help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+    logo_link = models.URLField(
+        _('Logo link'),
+        null=True, blank=True,
+        help_text=_('The url for the partner\'s logo link'))
 
     class Meta:
         verbose_name = _('Search page')

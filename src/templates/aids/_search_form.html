@@ -19,10 +19,6 @@
 
     <div class="other-actions">
 
-        <a href="{% url 'search_step_audiance' %}">
-            {{ _('New search') }}
-        </a>
-
         {% comment %}
             This hidden button is here to make it the "default" submit button.
             This way, we make sure pressing "enter" performs a new search instead
@@ -30,7 +26,11 @@
         {% endcomment %}
         <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
-        <button name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+        <a id="new-search-btn" href="{% url 'search_step_audiance' %}">
+            {{ _('New search') }}
+        </a>
+
+        <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
             {{ _('More filters') }}
         </button>
 
