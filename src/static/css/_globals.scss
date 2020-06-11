@@ -366,10 +366,14 @@ nav#partner-navbar {
         }
     }
 
-    .partner-logo {
+    .partner-link {
         height: $navbar-brand-height;
         display: flex;
         align-items: center;
+
+        &:after {
+            content: none;
+        }
 
         img {
             height: auto;
@@ -385,7 +389,7 @@ nav#partner-navbar {
             height: 6rem;
         }
 
-        .partner-logo {
+        .partner-link {
             height: 6rem;
 
             img {
@@ -402,7 +406,7 @@ nav#partner-navbar {
             height: 7.5rem;
         }
 
-        .partner-logo {
+        .partner-link {
             height: 7.5rem;
 
             img {

@@ -79,6 +79,10 @@ class SearchPage(models.Model):
         null=True, blank=True,
         upload_to=logo_upload_to,
         help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+    logo_link = models.URLField(
+        _('Logo link'),
+        null=True, blank=True,
+        help_text=_('The url for the partner\'s logo link'))
 
     class Meta:
         verbose_name = _('Search page')

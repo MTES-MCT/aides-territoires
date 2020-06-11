@@ -28,6 +28,7 @@ class SearchPageAdmin(admin.ModelAdmin):
         (_('Customization'), {
             'fields': (
                 'logo',
+                'logo_link',
                 'color_1',
                 'color_2',
                 'color_3',
