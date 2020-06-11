@@ -74,6 +74,11 @@ class SearchPage(models.Model):
         max_length=10,
         blank=True,
         help_text=_('Link colors'))
+    color_5 = models.CharField(
+        _('Color 5'),
+        max_length=10,
+        blank=True,
+        help_text=_('Footer background color'))
     logo = models.FileField(
         _('Logo image'),
         null=True, blank=True,

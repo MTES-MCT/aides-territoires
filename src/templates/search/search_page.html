@@ -99,6 +99,12 @@ section#aid-list article.aid div h1 a:hover {
 }
 {% endif %}
 
+{% if search_page.color_5 %}
+body > footer {
+    background-color: {{ search_page.color_5 }} !important;
+}
+{% endif %}
+
 </style>
 {% endblock %}
 

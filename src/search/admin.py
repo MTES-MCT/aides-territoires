@@ -33,6 +33,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'color_2',
                 'color_3',
                 'color_4',
+                'color_5',
             )
         }),
     ]
