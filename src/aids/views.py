@@ -46,7 +46,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
     template_name = 'aids/search.html'
     context_object_name = 'aids'
     form_class = AidSearchForm
-    paginate_by = 20
+    paginate_by = 18
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_form()
