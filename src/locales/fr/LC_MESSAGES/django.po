@@ -486,7 +486,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Si vous ne trouvez pas de zone géopgraphique suffisamment précise dans la "
+"Si vous ne trouvez pas de zone géographique suffisamment précise dans la "
 "liste existante, spécifiez « France » et décrivez brièvement ici le "
 "périmètre souhaité."
 
@@ -1233,10 +1233,8 @@ msgstr "Programme d'aides"
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
-#, fuzzy
-#| msgid "Association"
 msgid "Customization"
-msgstr "Association"
+msgstr "Personnalisation"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1277,46 +1275,46 @@ msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
 
 msgid "Color 1"
-msgstr ""
+msgstr "Couleur 1"
 
 msgid "Main background color"
-msgstr ""
+msgstr "Couleur du fond principal"
 
 msgid "Color 2"
-msgstr ""
+msgstr "Couleur 2"
 
 msgid "Search form background color"
-msgstr ""
+msgstr "Couleur du formulaire de recherche"
 
 msgid "Color 3"
-msgstr ""
+msgstr "Couleur 3"
 
 msgid "Buttons and title borders color"
-msgstr ""
+msgstr "Couleur des boutons et bordures de titres"
 
 msgid "Color 4"
-msgstr ""
+msgstr "Couleur 4"
 
 msgid "Link colors"
-msgstr ""
+msgstr "Couleur des liens"
 
 msgid "Color 5"
-msgstr ""
+msgstr "Couleur 5"
 
 msgid "Footer background color"
-msgstr ""
+msgstr "Couleur de fond du pied de page"
 
 msgid "Logo image"
-msgstr ""
+msgstr "Image du logo"
 
 msgid "Make sure the file is not too heavy. Prefer svg files."
-msgstr ""
+msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
 
 msgid "Logo link"
-msgstr ""
+msgstr "Lien du logo"
 
 msgid "The url for the partner's logo link"
-msgstr ""
+msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 
 msgid "Search page"
 msgstr "Recherche customisée"
