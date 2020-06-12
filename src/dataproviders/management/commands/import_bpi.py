@@ -1,10 +1,6 @@
 import os
-from datetime import date, datetime
-import re
 import requests
 import json
-
-from django.contrib.postgres.search import TrigramSimilarity
 
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
@@ -13,15 +9,17 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'http://qualif-tma.bpifrance-ez52.dev.novactive.net/offers/export/innovation/'  # noqa
+FEED_URI = 'REDACTED'  # noqa
 ADMIN_ID = 1
 
-AUDIANCES_DICT = {
-    'État': None,
-    'Association': Aid.AUDIANCES.association,
-    'Collectivité': Aid.AUDIANCES.epci,
-    'Entreprise': Aid.AUDIANCES.private_sector,
-    'Particulier / Citoyen': Aid.AUDIANCES.private_person,
+TYPES_DICT = {
+    'Avance récupérable': Aid.TYPES.recoverable_advance,
+    'Innovation': None,
+    'Accompagnement': Aid.TYPES.financial,
+    'Subvention': Aid.TYPES.grant,
+    'Prêt': Aid.TYPES.loan,
+    'Investissement': Aid.TYPES.other,
+    'Garantie': Aid.TYPES.other,
 }
 
 SOURCE_URL = 'https://www.bpifrance.fr/'
@@ -83,7 +81,7 @@ class Command(BaseImportCommand):
     def extract_description(self, line):
         desc_0 = content_prettify('<p>{}</p>'.format(
             line['baseline']))
-        desc_1 = content_prettify('<p>Nous {}</p>'.format(
+        desc_1 = content_prettify('<p>Nous (la BPI) {}</p>'.format(
             line['introduction_us']))
         desc_2 = content_prettify(line['we'])
         description = desc_0 + desc_1 + desc_2
@@ -139,6 +137,11 @@ class Command(BaseImportCommand):
     def extract_contact(self, line):
         return '<p><a href="{}">Contactez directement la BPI</a></p>'.format(
             CONTACT_URL)
+
+    def extract_aid_types(self, line):
+        types = line['type'].split(';')
+        aid_types = [TYPES_DICT.get(t, None) for t in types]
+        return [t for t in aid_types if t]
 
     def extract_recurrence(self, line):
         return Aid.RECURRENCE.ongoing
