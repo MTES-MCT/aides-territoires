@@ -50,7 +50,6 @@ OTHER_AUDIANCES = (
     ('private_sector', _('Private sector')),
     ('public_cies', _('Local public companies')),
     ('public_org', _('Public organizations')),
-    ('lessor', _('Audiance lessors')),
     ('researcher', _('Research')),
 )
 

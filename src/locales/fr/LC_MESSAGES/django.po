@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-28 11:04+0200\n"
+"POT-Creation-Date: 2020-06-12 12:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,16 +281,15 @@ msgid "Farmers"
 msgstr "Agriculteurs"
 
 msgid "Private sector"
-msgstr "Entreprises"
+msgstr "Entreprises privées"
 
 msgid "Local public companies"
-msgstr "Entreprises publiques locales"
+msgstr ""
+"Entreprises publiques locales (sociétés d'économie mixte, publiques locales "
+"et locales d'aménagement)"
 
 msgid "Public organizations"
 msgstr "Établissements publics"
-
-msgid "Audiance lessors"
-msgstr "Sociétés d'économie mixte, aménageurs"
 
 msgid "Research"
 msgstr "Recherche"
@@ -851,9 +850,6 @@ msgstr "<slug:slug>/supprimer/"
 msgid "amend/"
 msgstr "amender/"
 
-msgid "This aid was added to the selected bundles."
-msgstr "L'aide a été ajoutée aux listes sélectionnées."
-
 #, python-format
 msgid ""
 "Your aid was sucessfully created. You can keep editing it or <a href="
@@ -1094,9 +1090,6 @@ msgstr "integration/"
 msgid "stats/"
 msgstr "stats/"
 
-msgid "bundles/"
-msgstr "listes/"
-
 msgid "alerts/"
 msgstr "alertes/"
 
@@ -1240,6 +1233,11 @@ msgstr "Programme d'aides"
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
+#, fuzzy
+#| msgid "Association"
+msgid "Customization"
+msgstr "Association"
+
 msgid "A collectivity"
 msgstr "Une collectivité"
 
@@ -1277,6 +1275,48 @@ msgstr ""
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Color 1"
+msgstr ""
+
+msgid "Main background color"
+msgstr ""
+
+msgid "Color 2"
+msgstr ""
+
+msgid "Search form background color"
+msgstr ""
+
+msgid "Color 3"
+msgstr ""
+
+msgid "Buttons and title borders color"
+msgstr ""
+
+msgid "Color 4"
+msgstr ""
+
+msgid "Link colors"
+msgstr ""
+
+msgid "Color 5"
+msgstr ""
+
+msgid "Footer background color"
+msgstr ""
+
+msgid "Logo image"
+msgstr ""
+
+msgid "Make sure the file is not too heavy. Prefer svg files."
+msgstr ""
+
+msgid "Logo link"
+msgstr ""
+
+msgid "The url for the partner's logo link"
+msgstr ""
 
 msgid "Search page"
 msgstr "Recherche customisée"
@@ -1442,12 +1482,6 @@ msgstr "Mettre à jour votre profil contributeur"
 
 msgid "Become a contributor"
 msgstr "Devenir contributeur"
-
-msgid "Are you an aid consumer?"
-msgstr "Vous êtes chercheur·se d'aide ?"
-
-msgid "My bundles"
-msgstr "Mes listes d'aides"
 
 msgid "Are you a contributor?"
 msgstr "Vous êtes contributeur·ice ?"
@@ -1875,11 +1909,11 @@ msgstr "Fermer"
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
-msgid "New search"
-msgstr "Nouvelle recherche"
-
 msgid "Filter results"
 msgstr "Filtrer les résultats"
+
+msgid "New search"
+msgstr "Nouvelle recherche"
 
 msgid "More filters"
 msgstr "Plus de critères"
