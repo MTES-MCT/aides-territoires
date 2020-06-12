@@ -790,7 +790,6 @@ article#aid {
         @extend .col-md-8;
 
         h2 {
-            @extend .h4;
             background-color: $pale-background;
             border-radius: 0 2rem 2rem 2rem;
             padding: .5rem 1rem;
@@ -802,10 +801,6 @@ article#aid {
 
         div#going-further {
             @extend .mt-4;
-        }
-
-        h3 {
-            @extend .h5;
         }
 
         button.cta-btn {
