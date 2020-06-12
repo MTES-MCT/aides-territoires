@@ -54,7 +54,7 @@ def content_prettify(raw_text, more_allowed_tags=[]):
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
-                if not tag.contents:
+                if not tag.contents and not tag.name == 'br':
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)
