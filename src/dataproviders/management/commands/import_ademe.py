@@ -31,7 +31,7 @@ AUDIANCES_DICT = {
         Aid.AUDIANCES.department,
         Aid.AUDIANCES.region,
         Aid.AUDIANCES.epci,
-        Aid.AUDIANCES.lessor,
+        Aid.AUDIANCES.public_cies,
         Aid.AUDIANCES.association,
         Aid.AUDIANCES.private_person,
         Aid.AUDIANCES.researcher,
