@@ -62,12 +62,12 @@ TYPES = {
 
 DESTINATIONS = {
     'investissement': 'investment',
-    'fonctionnement': 'operation',
-    'etude': 'survey',
+    'fonctionnement': 'supply',
+    'etude': 'supply',
     'fourniture': 'supply',
-    'service': 'service',
-    'travaux': 'works',
-    'autre': 'other',
+    'service': 'supply',
+    'travaux': 'supply',
+    'autre': 'supply',
 }
 
 THEMATICS = {
