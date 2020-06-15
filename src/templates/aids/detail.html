@@ -61,14 +61,14 @@
     <section class="aid-content">
         <div class="sidebar">
 
-            {% if aid.financers.all or aid.instructors.all %}
+            {% if financers or instructors %}
             <div class="card">
 
-                {% if aid.financers.all %}
+                {% if financers %}
                 <div class="financers">
                     <h3>{{ _('Financers') }}</h3>
                     <ul>
-                    {% for financer in aid.financers.all %}
+                    {% for financer in financers %}
                         <li>
                             {{ financer }}
                             {% if financer.is_corporate %}
@@ -80,11 +80,11 @@
                 </div>
                 {% endif %}
 
-                {% if aid.instructors.all %}
+                {% if instructors %}
                 <div class="instructors">
                     <h3>{{ _('Instructors') }}</h3>
                     <ul>
-                    {% for instructor in aid.instructors.all %}
+                    {% for instructor in instructors %}
                         <li>
                             {{ instructor }}
                             {% if instructor.is_corporate %}

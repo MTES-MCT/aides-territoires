@@ -246,6 +246,15 @@ class AidDetailView(DetailView):
 
         context['aid_slug'] = self.object.slug
 
+        financers = self.object.financers.all()
+        # We don't want to display instructors if they are the same as the
+        # financers
+        instructors = list(set(self.object.instructors.all()) - set(financers))
+        context.update({
+            'financers': financers,
+            'instructors': instructors,
+        })
+
         return context
 
     def get(self, request, *args, **kwargs):
