@@ -62,8 +62,13 @@
 
 
         {% if aid.submission_deadline and not aid.is_ongoing %}
-            <h2 class="deadline">{{ _('Submission deadline') }}</h2>
-            <p>{{ aid.submission_deadline|date }}</p>
+            <h2 class="deadline">{{ _('Calendar') }}</h2>
+            <ul>
+            {% if aid.start_date %}
+                <li>{{ _('Opening:') }} {{ aid.start_date|date }}</li>
+            {% endif %}
+            <li>{{ _('Deadline:') }} {{ aid.submission_deadline|date }}</li>
+            </ul>
         {% endif %}
 
     </div>
