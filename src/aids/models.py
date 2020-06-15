@@ -199,8 +199,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     DESTINATIONS = Choices(
-        ('service', _('Service (AMO, survey)')),
-        ('works', _('Works')),
         ('supply', _('Supply')),
         ('investment', _('Investment')),
     )
