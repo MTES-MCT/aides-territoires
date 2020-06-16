@@ -2,6 +2,7 @@ import os
 import csv
 
 from django.core.management.base import BaseCommand
+from django.db.models import OuterRef, Subquery
 
 from geofr.models import Perimeter
 
@@ -33,8 +34,8 @@ class Command(BaseCommand):
     one, etc.) but it will be ran only once, so it's not a big deal.
 
     The file can be downloaded at this address:
-    http://www.data.eaufrance.fr/jdd/176f23a8-8f4f-4eab-9f23-411e7490bbc5
-    « Télécharger les communes administratives 2018 - Format CSV -
+    http://www.data.eaufrance.fr/jdd/3216e122-2e8c-4675-9e2d-c443eddad97c
+    « Télécharger les communes administratives 2019 - Format CSV -
     Listing des communes - Format CSV »
 
     The most accurate description we have about this file structure is an email
@@ -69,7 +70,6 @@ class Command(BaseCommand):
 
         # Create basin perimeters
         basin_to_commune = {}
-        basin_to_epci = {}
         for code, basin_name in DRAINAGE_BASINS.items():
             Perimeter.objects.get_or_create(
                 scale=Perimeter.TYPES.basin,
@@ -77,7 +77,6 @@ class Command(BaseCommand):
                 name=basin_name,
                 is_overseas=code in OVERSEAS_BASINS)
             basin_to_commune[code] = list()
-            basin_to_epci[code] = list()
 
         # Import data from csv file
         csv_path = os.path.abspath(options['csv_file'][0])
@@ -88,22 +87,36 @@ class Command(BaseCommand):
                 basin_code = row['NumCircAdminBassin']
                 basin_to_commune[basin_code].append(commune_code)
 
-        # Update communes with the correct basin codes
-        for basin_code in basin_to_commune.keys():
-            Perimeter.objects \
+        PerimeterContainedIn = Perimeter.contained_in.through
+        perimeter_links = []
+
+        basins = Perimeter.objects \
+            .filter(scale=Perimeter.TYPES.basin)
+
+        for basin in basins:
+            basin_code = basin.code
+            commune_codes = basin_to_commune[basin_code]
+
+            # Update communes with the correct basin codes
+            communes = Perimeter.objects \
                 .filter(scale=Perimeter.TYPES.commune) \
-                .filter(code__in=basin_to_commune[basin_code]) \
-                .update(basin=basin_code)
+                .filter(code__in=commune_codes)
+            communes.update(basin=basin_code)
+            for commune in communes:
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=commune.id,
+                    to_perimeter_id=basin.id))
 
-        # Update epcis with basin codes
-        epcis = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.commune) \
-            .values_list('epci', 'basin')
-        for epci_code, basin_code in epcis:
-            basin_to_epci[basin_code].append(epci_code)
-
-        for basin_code in basin_to_epci.keys():
-            Perimeter.objects \
+            # Update epcis with basin codes
+            epcis = Perimeter.objects \
                 .filter(scale=Perimeter.TYPES.epci) \
-                .filter(code__in=basin_to_epci[basin_code]) \
-                .update(basin=basin_code)
+                .filter(contains__code__in=commune_codes)
+            epcis.update(basin=basin_code)
+            for epci in epcis:
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=epci.id,
+                    to_perimeter_id=basin.id))
+
+        # Create the links between the perimeters
+        PerimeterContainedIn.objects.bulk_create(
+            perimeter_links, ignore_conflicts=True)

@@ -51,6 +51,7 @@ class Perimeter(models.Model):
     contained_in = models.ManyToManyField(
         'geofr.Perimeter',
         verbose_name=_('Contained in'),
+        related_name='contains',
         blank=True)
     manually_created = models.BooleanField(
         _('Manually created'),
