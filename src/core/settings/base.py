@@ -53,6 +53,7 @@ LOCAL_APPS = [
     'search',
     'stats',
     'pages',
+    'minisites'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
