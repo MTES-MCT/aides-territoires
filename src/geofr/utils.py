@@ -30,8 +30,8 @@ def is_overseas(zipcode):
 def attach_perimeters(adhoc, city_codes):
     """Attach an ad-hoc perimeter to other perimeters.
 
-     This function makes sure the `adhoc` perimeter is added to the
-     `contained_in` list of all perimeters corresponding to the `city_codes`.
+    This function makes sure the `adhoc` perimeter is added to the
+    `contained_in` list of all perimeters corresponding to the `city_codes`.
 
     E.g if we want to attach the "Communes littorales" Ad-hoc perimeter to the
     "Vic-la-Gardiole" city perimeter, we add "Communes littorales" to

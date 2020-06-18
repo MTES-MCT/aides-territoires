@@ -4,14 +4,14 @@ import csv
 from django.core.management.base import BaseCommand
 
 from geofr.models import Perimeter
+from geofr.utils import attach_perimeters
 
 
 class Command(BaseCommand):
     """Import the list of SCoTs.
 
-    Our data source was manually transmitted and is a csv file with two columns:
-    1 - Scot name
-    2 - INSEE code of a perimeter that belongs to the scot.
+    Our data source comes from the DGALN.
+    https://docs.google.com/spreadsheets/d/15AyNPLNWQMxd7FHayHoQkxhEOSQE-lhp9zezphIXkHU/edit#gid=1277817401
     """
 
     def add_arguments(self, parser):
@@ -20,6 +20,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         scots = {}
+        nb_created = 0
+        nb_updated = 0
 
         # TODO Remote all "contained in" scot perimeter links
 
@@ -28,22 +30,39 @@ class Command(BaseCommand):
         with open(csv_path) as csv_file:
             reader = csv.reader(csv_file, delimiter=',')
             for row in reader:
-                scot_name = row[0]
-                insee_code = row[1]
+                scot_id = row[0]
+                scot_name = row[1]
+                insee_code = row[2]
 
-                if scot_name not in scots:
-                    scots[scot_name] = []
+                if scot_id not in scots:
+                    scots[scot_id] = {
+                        'name': scot_name,
+                        'communes': []
+                    }
 
-                scots[scot_name].append(insee_code)
+                scots[scot_id]['communes'].append(insee_code)
 
-        for scot_name, codes in scots:
-            scot_perimeters = Perimeter.objects.filter(code__in=codes)
-            perimeter_ids = [p.id for p in scot_perimeters]
+        for scot_id in scots.keys():
 
-            scot_code = scot_name   # for now
+            # id is just an integer, we use a custom code to make it unique
+            scot_code = 'SCOT-{}'.format(scot_id)
+            scot_name = scots[scot_id]['name']
+
+            # Create the scot perimeter
             scot, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.TYPES.adhoc,
                 code=scot_code,
                 defaults={
                     'name': scot_name,
                 })
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
+
+            # Link the scot with the related communes
+            codes = scots[scot_id]['communes']
+            attach_perimeters(scot, codes)
+
+        self.stdout.write(self.style.SUCCESS(
+            '%d scots created, %d updated.' % (nb_created, nb_updated)))
