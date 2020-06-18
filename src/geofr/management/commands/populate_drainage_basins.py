@@ -102,6 +102,5 @@ class Command(BaseCommand):
             commune_codes = basin_to_commune[basin_code]
             attach_perimeters(basin, commune_codes)
 
-
         self.stdout.write(self.style.SUCCESS(
             '%d basins created, %d updated.' % (nb_created, nb_updated)))
