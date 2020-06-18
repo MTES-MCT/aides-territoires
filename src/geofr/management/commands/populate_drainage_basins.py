@@ -2,9 +2,9 @@ import os
 import csv
 
 from django.core.management.base import BaseCommand
-from django.db.models import OuterRef, Subquery
 
 from geofr.models import Perimeter
+from geofr.utils import attach_perimeters
 
 
 # Source for those values is a buried table in a 70 pages pdf here:
@@ -70,13 +70,20 @@ class Command(BaseCommand):
 
         # Create basin perimeters
         basin_to_commune = {}
+        nb_created = 0
+        nb_updated = 0
+
         for code, basin_name in DRAINAGE_BASINS.items():
-            Perimeter.objects.get_or_create(
+            basin, created = Perimeter.objects.get_or_create(
                 scale=Perimeter.TYPES.basin,
                 code=code,
                 name=basin_name,
                 is_overseas=code in OVERSEAS_BASINS)
             basin_to_commune[code] = list()
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
 
         # Import data from csv file
         csv_path = os.path.abspath(options['csv_file'][0])
@@ -87,36 +94,14 @@ class Command(BaseCommand):
                 basin_code = row['NumCircAdminBassin']
                 basin_to_commune[basin_code].append(commune_code)
 
-        PerimeterContainedIn = Perimeter.contained_in.through
-        perimeter_links = []
-
         basins = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.basin)
 
         for basin in basins:
             basin_code = basin.code
             commune_codes = basin_to_commune[basin_code]
+            attach_perimeters(basin, commune_codes)
 
-            # Update communes with the correct basin codes
-            communes = Perimeter.objects \
-                .filter(scale=Perimeter.TYPES.commune) \
-                .filter(code__in=commune_codes)
-            communes.update(basin=basin_code)
-            for commune in communes:
-                perimeter_links.append(PerimeterContainedIn(
-                    from_perimeter_id=commune.id,
-                    to_perimeter_id=basin.id))
 
-            # Update epcis with basin codes
-            epcis = Perimeter.objects \
-                .filter(scale=Perimeter.TYPES.epci) \
-                .filter(contains__code__in=commune_codes)
-            epcis.update(basin=basin_code)
-            for epci in epcis:
-                perimeter_links.append(PerimeterContainedIn(
-                    from_perimeter_id=epci.id,
-                    to_perimeter_id=basin.id))
-
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(
-            perimeter_links, ignore_conflicts=True)
+        self.stdout.write(self.style.SUCCESS(
+            '%d basins created, %d updated.' % (nb_created, nb_updated)))
