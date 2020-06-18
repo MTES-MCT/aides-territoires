@@ -1,7 +1,7 @@
-from django.views.generic import SearchView
 from django.http import QueryDict, Http404
 
 from search.models import SearchPage
+from aids.views import SearchView
 
 
 class SearchPageDetail(SearchView):
