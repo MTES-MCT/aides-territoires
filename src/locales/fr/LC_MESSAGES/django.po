@@ -1313,10 +1313,10 @@ msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 
 msgid "Search page"
-msgstr "Recherche customisée"
+msgstr "Recherche personnalisée"
 
 msgid "Search pages"
-msgstr "Recherches customisées"
+msgstr "Recherches personnalisées"
 
 msgid "form/"
 msgstr "formulaire/"
