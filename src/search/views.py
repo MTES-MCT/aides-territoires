@@ -103,6 +103,14 @@ class SearchPageDetail(SearchView):
         kwargs['data'] = QueryDict(self.object.search_querystring)
         return kwargs
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        if self.object.available_categories:
+            form.fields['categories'].queryset = self.object.available_categories
+
+        return form
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.get_object()
