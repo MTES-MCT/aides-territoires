@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 10:10+0200\n"
+"POT-Creation-Date: 2020-06-19 14:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -593,6 +593,9 @@ msgstr "Trier par"
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
+msgid "The structure"
+msgstr "La structure"
+
 msgid "Draft"
 msgstr "Brouillon"
 
@@ -651,12 +654,6 @@ msgstr "Unions intermunicipales"
 
 msgid "Public organization"
 msgstr "Établissement public"
-
-msgid "Service (AMO, survey)"
-msgstr "Service (AMO, étude, etc.)"
-
-msgid "Works"
-msgstr "Travaux"
 
 msgid "Supply"
 msgstr "Dépenses de fonctionnement"
