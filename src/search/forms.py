@@ -3,10 +3,12 @@ from operator import itemgetter
 
 from django import forms
 from django.db.models import Count
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
+from categories.fields import CategoryMultipleChoiceField
 from geofr.models import Perimeter
 from aids.forms import AidSearchForm
 
@@ -203,3 +205,7 @@ class SearchPageAdminForm(forms.ModelForm):
         label=_('Page content'),
         help_text=_('Full description of the page. '
                     'Will be displayed above results.'))
+    available_categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        required=False,
+        widget=FilteredSelectMultiple(_('Categories'), True))

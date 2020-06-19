@@ -6,9 +6,17 @@ from search.forms import SearchPageAdminForm
 
 
 class SearchPageAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            'all': (
+                '/static/css/admin.css',
+            )
+        }
+
     list_display = ['title', 'meta_description']
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
+    filter_vertical = ['available_categories']
 
     fieldsets = [
         ('', {
@@ -25,7 +33,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'meta_description',
             )
         }),
-        (_('Customization'), {
+        (_('Style customization'), {
             'fields': (
                 'logo',
                 'logo_link',
@@ -34,6 +42,11 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'color_3',
                 'color_4',
                 'color_5',
+            )
+        }),
+        (_('Form customization'), {
+            'fields': (
+                'available_categories',
             )
         }),
     ]

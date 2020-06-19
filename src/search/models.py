@@ -89,6 +89,12 @@ class SearchPage(models.Model):
         null=True, blank=True,
         help_text=_('The url for the partner\'s logo link'))
 
+    available_categories = models.ManyToManyField(
+        'categories.Category',
+        verbose_name=_('Categories'),
+        related_name='search_pages',
+        blank=True)
+
     class Meta:
         verbose_name = _('Search page')
         verbose_name_plural = _('Search pages')
