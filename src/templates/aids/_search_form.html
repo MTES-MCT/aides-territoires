@@ -17,6 +17,7 @@
     {{ form.perimeter.as_hidden }}
     {{ form.themes.as_hidden }}
 
+    {% block other_actions %}
     <div class="other-actions">
 
         {% comment %}
@@ -42,6 +43,7 @@
             {{ _('Create an alert') }}
         </a>
     </div>
+    {% endblock %}
 
     <div class="form-container">
     <div class="form-body">

@@ -6,6 +6,7 @@
             <img class="marianne d-none d-sm-inline-block" src="/static/img/logo_RP.svg" alt="Logo Marianne" /><img class="at d-none d-sm-inline-block" src="/static/img/logo_AT_courbes.svg" alt="Aides-territoires" />
         </a>
 
+        {% block user_menu %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="{{ _('Toggle main menu') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,11 +18,12 @@
                 {% include '_anonymous_menu.html' %}
             {% endif %}
         </div>
-
+        {% endblock %}
     </div>
 </nav>
 {% staging_warning %}
 
+{% block header_warnings %}
 <div class="header-warning">
     <div class="container">
         <p><a href="{% url 'search_page' 'COVID19' %}">
@@ -29,3 +31,4 @@
         </a></p>
     </div>
 </div>
+{% endblock %}
