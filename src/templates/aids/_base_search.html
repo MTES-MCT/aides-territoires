@@ -44,7 +44,9 @@
 {% endif %}
 
 <section id="search-engine">
+    {% block search-engine %}
     {% include 'aids/_search_form.html' %}
+    {% endblock %}
 </section>
 
 <section id="aid-list">

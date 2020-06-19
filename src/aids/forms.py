@@ -649,10 +649,17 @@ class BaseAidSearchForm(forms.Form):
 class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
-    pass
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('The structure'),
+        required=False,
+        choices=Aid.AUDIANCES)
 
 
 class AdvancedAidFilterForm(BaseAidSearchForm):
     """An "advanced" aid list filter form with more criterias."""
 
-    pass
+    targeted_audiances = forms.MultipleChoiceField(
+        label=_('You are seeking aids for…'),
+        required=False,
+        choices=Aid.AUDIANCES,
+        widget=forms.CheckboxSelectMultiple)
