@@ -1,20 +1,22 @@
 from django.http import QueryDict, Http404
 
 from search.models import SearchPage
-from aids.views import SearchView
+from aids.views import SearchView, AdvancedSearchView
 
 
-class SearchPageDetail(SearchView):
+class Home(SearchView):
     """A static search page with admin-customizable content."""
 
-    template_name = 'search/search_page.html'
+    template_name = 'minisites/search_page.html'
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().get(request, *args, **kwargs)
 
     def get_object(self):
-        qs = SearchPage.objects.filter(slug=self.kwargs.get('slug'))
+        host = self.request.get_host()
+        page_slug = host.split('.')[0]
+        qs = SearchPage.objects.filter(slug=page_slug)
         try:
             obj = qs.get()
         except qs.model.DoesNotExist:
@@ -30,3 +32,7 @@ class SearchPageDetail(SearchView):
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.get_object()
         return context
+
+
+class Search(AdvancedSearchView):
+    pass
