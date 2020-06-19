@@ -136,3 +136,16 @@ body > footer {
 
 {{ block.super }}
 {% endblock %}
+
+{% block search-engine %}
+    {% include 'search/_search_form.html' %}
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+{% compress js %}
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/categories_autocomplete.js"></script>
+<script src="/static/js/aids/targeted_audiances_autocomplete.js"></script>
+{% endcompress %}
+{% endblock %}
