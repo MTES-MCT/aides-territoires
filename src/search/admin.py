@@ -6,13 +6,6 @@ from search.forms import SearchPageAdminForm
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    class Media:
-        css = {
-            'all': (
-                '/static/css/admin.css',
-            )
-        }
-
     list_display = ['title', 'meta_description']
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
