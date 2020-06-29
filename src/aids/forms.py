@@ -384,6 +384,10 @@ class BaseAidSearchForm(forms.Form):
         ('submission_deadline', _('Sort: submission deadline')),
     )
 
+    CATEGORIES_QS = Category.objects \
+        .select_related('theme') \
+        .order_by('theme__name', 'name')
+
     text = forms.CharField(
         label=_('Text search'),
         required=False,
@@ -434,7 +438,7 @@ class BaseAidSearchForm(forms.Form):
         widget=forms.MultipleHiddenInput)
     categories = CategoryMultipleChoiceField(
         label=_('Themes'),  # Not a mistake
-        queryset=Category.objects.all().order_by('theme__name', 'name'),
+        queryset=CATEGORIES_QS,
         to_field_name='slug',
         required=False)
     targeted_audiances = forms.MultipleChoiceField(
