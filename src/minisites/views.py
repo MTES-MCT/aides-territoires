@@ -15,6 +15,12 @@ class Home(SearchView):
         return super().get(request, *args, **kwargs)
 
     def get_object(self):
+        """Get the custom page from url.
+
+        This view will be accessed from a `xxx.aides-territoires.beta.gouv.fr`.
+        So we need to extract the `xxx` part.
+        """
+
         host = self.request.get_host()
         page_slug = host.split('.')[0]
         qs = SearchPage.objects.filter(slug=page_slug)
