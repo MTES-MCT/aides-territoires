@@ -1,9 +1,8 @@
 {% load pagination i18n %}
 
 <form id="search-form" action="" method="get">
-    {% for field in form.hidden_fields %}
-        {{ field }}
-    {% endfor %}
+
+    {{ form.integration }}
 
     {% comment %}
         This is to make sure that those search filters will be carried upon the
