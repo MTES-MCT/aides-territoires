@@ -1,0 +1,42 @@
+{% extends 'aids/_search_form.html' %}
+
+{% block hidden-fields %}
+    {{ form.apply_before.as_hidden }}
+    {{ form.mobilization_step.as_hidden }}
+    {{ form.destinations.as_hidden }}
+    {{ form.themes.as_hidden }}
+    {{ form.aid_types.as_hidden }}
+    {{ form.call_for_projects_only.as_hidden }}
+    {{ form.backers.as_hidden }}
+    {{ form.text.as_hidden }}
+{% endblock %}
+
+{% block other-actions %}
+    <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+        {{ _('More filters') }}
+    </button>
+
+    <a href="#" class="js" id="share-btn" data-toggle="modal" data-target="#share-results-modal">
+        {{ _('Share') }}
+    </a>
+
+    <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+        {{ _('Create an alert') }}
+    </a>
+{% endblock %}
+
+{% block form-body %}
+    <div class="row">
+        <div class="col col-md-4">
+            {% include '_field_snippet.html' with field=form.perimeter %}
+        </div>
+
+        <div class="col col-md-4">
+            {% include '_field_snippet.html' with field=form.targeted_audiances %}
+        </div>
+
+        <div class="col col-md-4">
+            {% include '_field_snippet.html' with field=form.categories %}
+        </div>
+    </div>
+{% endblock %}

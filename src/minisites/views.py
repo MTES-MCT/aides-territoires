@@ -1,7 +1,8 @@
 from django.http import QueryDict, Http404
 
 from search.models import SearchPage
-from aids.views import SearchView, AdvancedSearchView
+from aids.views import SearchView, AdvancedSearchView, AidDetailView
+from alerts.views import AlertCreate
 
 
 class Home(SearchView):
@@ -35,4 +36,12 @@ class Home(SearchView):
 
 
 class Search(AdvancedSearchView):
+    pass
+
+
+class Aid(AidDetailView):
+    pass
+
+
+class Alert(AlertCreate):
     pass

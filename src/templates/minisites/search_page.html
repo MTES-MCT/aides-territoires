@@ -124,6 +124,10 @@ body > footer {
 {{ block.super }}
 {% endblock %}
 
+{% block search-engine %}
+     {% include 'minisites/_search_form.html' %}
+{% endblock %}
+
 {% block other_actions %}
     <div class="other-actions">
 
@@ -146,4 +150,13 @@ body > footer {
             {{ _('Create an alert') }}
         </a>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+{% compress js %}
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/aids/categories_autocomplete.js"></script>
+<script src="/static/js/aids/targeted_audiances_autocomplete.js"></script>
+{% endcompress %}
 {% endblock %}
