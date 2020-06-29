@@ -49,8 +49,10 @@ class Home(MinisiteMixin, SearchView):
         return kwargs
 
 
-class Search(AdvancedSearchView):
-    pass
+class Search(MinisiteMixin, AdvancedSearchView):
+    """The full search form."""
+
+    template_name = 'minisites/advanced_search.html'
 
 
 class Aid(MinisiteMixin, AidDetailView):

@@ -17,6 +17,7 @@ api_patterns = [
 
 urlpatterns = [
     path('', Home.as_view(),  name='home'),
+    path('', Home.as_view(),  name='search_view'),
     path(_('search/'), Search.as_view(), name='advanced_search_view'),
     path('<slug:slug>/', include([
         path('', Aid.as_view(), name='aid_detail_view')])),
