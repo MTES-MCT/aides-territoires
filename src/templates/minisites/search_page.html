@@ -22,18 +22,6 @@
 {{ block.super }}
 <style>
 
-{% if search_page.logo %}
-ol.breadcrumb,
-div.header-warning,
-a#new-search-btn {
-    display: none !important;
-}
-
-button#new-filters-btn {
-    padding-left: 0 !important;
-}
-{% endif %}
-
 {% if search_page.color_1 %}
 body {
     background: {{ search_page.color_1 }};
