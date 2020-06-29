@@ -31,8 +31,13 @@ class Home(SearchView):
         return obj
 
     def get_form_kwargs(self):
+        initial_data = QueryDict(self.object.search_querystring, mutable=True)
+        user_data = self.request.GET
+        full_data = initial_data.copy()
+        full_data.update(user_data)
+
         kwargs = super().get_form_kwargs()
-        kwargs['data'] = QueryDict(self.object.search_querystring)
+        kwargs['data'] = full_data
         return kwargs
 
     def get_context_data(self, **kwargs):
