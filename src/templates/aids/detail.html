@@ -250,9 +250,11 @@
         </div>
 
         <footer class="mobile-center">
+            {% block aid_footer %}
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>
+            {% endblock %}
         </footer>
     </section>
 

@@ -1,0 +1,68 @@
+{% load colors %}
+<style>
+body {
+    background: {{ search_page.color_1 }};
+}
+
+main {
+    background: {{ search_page.color_1 }};
+}
+
+.dark-background .main-content > article,
+section#aid-list article,
+div.modal .modal-dialog {
+    color: rgba(0, 0, 0, 0.85) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+section#search-engine div.form-container {
+    background-color: {{ search_page.color_2 }} !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+section#search-engine div.other-actions button:hover,
+section#search-engine div.other-actions a:hover {
+    color: white;
+}
+
+section#search-engine div.form-container button,
+section#search-engine a#save-alert-btn,
+div#share-results-modal form button,
+div.modal .modal-dialog section footer button {
+    background-color: {{ search_page.color_3 }} !important;
+    border: {{ search_page.color_3 }} !important;
+}
+
+section#search-engine div.form-container button:hover,
+section#search-engine a#save-alert-btn:hover,
+div#share-results-modal form button:hover {
+    background-color: {% darken search_page.color_3 7.5 %} !important;
+}
+
+section#aid-list article.aid span.no-deadline {
+    border-color: {{ search_page.color_3 }} !important;
+}
+
+h1::after {
+    border-color: {{ search_page.color_3 }};
+}
+
+.dark-background .main-content > article a,
+section#aid-list article.aid div h1 a,
+nav#pagination ul li a {
+    color: {{ search_page.color_4 }} !important;
+}
+
+.dark-background .main-content > article a {
+    text-decoration: underline;
+}
+
+.dark-background .main-content > article a:hover,
+section#aid-list article.aid div h1 a:hover {
+    color: {% darken search_page.color_4 20 %} !important;
+}
+
+body > footer {
+    background-color: {{ search_page.color_5 }} !important;
+}
+</style>

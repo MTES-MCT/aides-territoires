@@ -5,16 +5,13 @@ from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from alerts.views import AlertCreate
 
 
-class Home(SearchView):
-    """A static search page with admin-customizable content."""
-
-    template_name = 'minisites/search_page.html'
+class MinisiteMixin:
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        self.search_page = self.get_search_page()
         return super().get(request, *args, **kwargs)
 
-    def get_object(self):
+    def get_search_page(self):
         """Get the custom page from url.
 
         This view will be accessed from a `xxx.aides-territoires.beta.gouv.fr`.
@@ -30,28 +27,36 @@ class Home(SearchView):
             raise Http404('No "Search page" found matching the query')
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_page'] = self.search_page
+        return context
+
+
+class Home(MinisiteMixin, SearchView):
+    """A static search page with admin-customizable content."""
+
+    template_name = 'minisites/search_page.html'
+
     def get_form_kwargs(self):
-        initial_data = QueryDict(self.object.search_querystring, mutable=True)
+        initial_data = QueryDict(
+            self.search_page.search_querystring, mutable=True)
         user_data = self.request.GET
         full_data = initial_data.copy()
         full_data.update(user_data)
-
         kwargs = super().get_form_kwargs()
         kwargs['data'] = full_data
         return kwargs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['search_page'] = self.get_object()
-        return context
 
 
 class Search(AdvancedSearchView):
     pass
 
 
-class Aid(AidDetailView):
-    pass
+class Aid(MinisiteMixin, AidDetailView):
+    """The detail page of a single aid."""
+
+    template_name = 'minisites/aid_detail.html'
 
 
 class Alert(AlertCreate):
