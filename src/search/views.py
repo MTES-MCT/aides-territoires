@@ -99,12 +99,20 @@ class SearchPageDetail(SearchView):
         return obj
 
     def get_form_kwargs(self):
-        initial_data = QueryDict(self.object.search_querystring, mutable=True)
+        """Set the data passed to the form.
+
+        If no data was provided by the user, then we use the initial
+        querystring provided by admins.
+
+        If the form was submitted, the GET values are set, we use those
+        instead.
+        """
+        initial_data = QueryDict(
+            self.search_page.search_querystring, mutable=True)
         user_data = self.request.GET
-        full_data = initial_data.copy()
-        full_data.update(user_data)
+        data = user_data or initial_data
         kwargs = super().get_form_kwargs()
-        kwargs['data'] = full_data
+        kwargs['data'] = data
         return kwargs
 
     def get_form(self, form_class=None):
