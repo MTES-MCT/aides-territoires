@@ -39,8 +39,14 @@ button[type=submit] {
 
 section#search-engine div.form-container button:hover,
 section#search-engine a#save-alert-btn:hover,
-div#share-results-modal form button:hover {
-    background-color: {% darken search_page.color_3 7.5 %} !important;
+div#share-results-modal form button:hover,
+div.modal .modal-dialog section footer button:hover,
+.cta-btn:hover,
+.btn-primary:hover,
+button[type=submit]:hover {
+    background-color: {% darken search_page.color_3 15 %} !important;
+    color: white !important;
+    text-decoration: none !important;
 }
 
 article#aid .aid-details h2 {
