@@ -9,6 +9,7 @@ main {
 }
 
 .dark-background .main-content > article,
+.dark-background .main-content > div.article,
 section#aid-list article,
 div.modal .modal-dialog {
     color: rgba(0, 0, 0, 0.85) !important;
@@ -30,7 +31,8 @@ section#search-engine a#save-alert-btn,
 div#share-results-modal form button,
 div.modal .modal-dialog section footer button,
 .cta-btn,
-.btn-primary {
+.btn-primary,
+button[type=submit] {
     background-color: {{ search_page.color_3 }} !important;
     border: {{ search_page.color_3 }} !important;
 }
