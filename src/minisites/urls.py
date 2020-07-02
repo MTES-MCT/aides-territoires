@@ -18,15 +18,19 @@ api_patterns = [
 urlpatterns = [
     path('', Home.as_view(),  name='home'),
     path('', Home.as_view(),  name='search_view'),
-    path(_('search/'), Search.as_view(), name='advanced_search_view'),
-    path('<slug:slug>/', include([
-        path('', Aid.as_view(), name='aid_detail_view')])),
-    path(_('alert/'), Alert.as_view(), name='alert_create_view'),
+    path(_('alerts/'), include([
+        path('', Alert.as_view(), name='alert_create_view'),
+        path(_('<slug:token>/validate/'), Home.as_view(),
+             name='alert_validate_view'),
+    ])),
     path(_('legal-mentions/'), LegalMentions.as_view(), name='legal_mentions'),
-
+    path(_('search/'), Search.as_view(), name='advanced_search_view'),
 
     # Api related routes
     path('api/', include(api_patterns)),
+
+    path('<slug:slug>/', include([
+        path('', Aid.as_view(), name='aid_detail_view')])),
 ]
 
 

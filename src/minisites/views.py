@@ -71,7 +71,7 @@ class Aid(MinisiteMixin, AidDetailView):
     template_name = 'minisites/aid_detail.html'
 
 
-class Alert(AlertCreate):
+class Alert(MinisiteMixin, AlertCreate):
     pass
 
 

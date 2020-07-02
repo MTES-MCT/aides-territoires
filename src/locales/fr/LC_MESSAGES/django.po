@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 15:20+0200\n"
+"POT-Creation-Date: 2020-07-02 16:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1192,8 +1192,9 @@ msgstr "inscription-liste/"
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
 
-msgid "alert/"
-msgstr "alerte/"
+# This must be the same translation than the "/validate/" url
+msgid "<slug:token>/validate/"
+msgstr "<slug:token>/validation/"
 
 msgid "Content"
 msgstr "Contenu"
@@ -1883,29 +1884,6 @@ msgstr ""
 
 msgid "Copy the current url to clipboard"
 msgstr "Copier l'url actuelle dans le presse-papier"
-
-msgid "Send results by email"
-msgstr "Envoyer les résultats par e-mail"
-
-msgid ""
-"Click on the following button and we will send the current results to your "
-"email address."
-msgstr ""
-"Cliquez sur le bouton suivant et nous vous enverrons les résultats de la "
-"recherche actuelle par e-mail."
-
-msgid "Send those results to my email address"
-msgstr "M'envoyer ces résultats par e-mail"
-
-#, python-format
-msgid ""
-"You need to be logged in to use this feature. <a href=\"%(login_url)s"
-"\">Proceed to the login form</a> or <a href=\"%(register_url)s\">sign up for "
-"a new account</a>."
-msgstr ""
-"Vous devez être identifé·e pour utiliser cette fonctionnalité. <a href="
-"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
-"\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
 msgid "Save this aid"
 msgstr "Sauvegarder cette aide"
