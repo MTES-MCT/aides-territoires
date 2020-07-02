@@ -49,6 +49,10 @@ class SearchPage(models.Model):
         _('Page content'),
         help_text=_('Full description of the page. '
                     'Will be displayed above results.'))
+    more_content = models.TextField(
+        _('Additional page content'),
+        blank=True,
+        help_text=_('Hidden content, revealed with a `See more` button'))
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))

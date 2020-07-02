@@ -24,10 +24,18 @@
 {% endblock %}
 
 {% block content %}
+
 <article>
 <h1>{{ search_page.title }}</h1>
 
 {{ search_page.content|safe }}
+
+{% if search_page.more_content %}
+<div id="more-content">
+    {{ search_page.more_content|safe }}
+</div>
+{% endif %}
+
 </article>
 
 {{ block.super }}
@@ -67,5 +75,6 @@
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/aids/categories_autocomplete.js"></script>
 <script src="/static/js/aids/targeted_audiances_autocomplete.js"></script>
+<script src="/static/js/search/create_reveal_content_button.js"></script>
 {% endcompress %}
 {% endblock %}

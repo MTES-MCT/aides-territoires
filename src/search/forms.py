@@ -205,6 +205,9 @@ class SearchPageAdminForm(forms.ModelForm):
         label=_('Page content'),
         help_text=_('Full description of the page. '
                     'Will be displayed above results.'))
+    more_content = RichTextField(
+        label=_('More content'),
+        help_text=_('Hidden content, only revealed on a `See more` click.'))
     available_categories = CategoryMultipleChoiceField(
         label=_('Categories'),
         required=False,
