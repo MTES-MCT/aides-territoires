@@ -4,6 +4,11 @@
     name: "{{ project_name }}"
     state: restarted
 
+- name: Restart minisites
+  supervisorctl:
+    name: "{{ project_name }}_minisites"
+    state: restarted
+
 - name: Restart nginx
   service:
     name: nginx
