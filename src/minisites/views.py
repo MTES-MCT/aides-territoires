@@ -1,4 +1,5 @@
 from django.http import QueryDict, Http404
+from django.views.generic import TemplateView
 
 from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
@@ -72,3 +73,7 @@ class Aid(MinisiteMixin, AidDetailView):
 
 class Alert(AlertCreate):
     pass
+
+
+class LegalMentions(MinisiteMixin, TemplateView):
+    template_name = 'minisites/legal_mentions.html'
