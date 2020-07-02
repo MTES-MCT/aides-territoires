@@ -1,7 +1,7 @@
 project_domain: aides-territoires.beta.gouv.fr
 project_version: production
 certbot_admin_email: aides-territoires@beta.gouv.fr
-certbot_domains: "{{ project_domain }}"
+certbot_domains: "{{ project_domain }},francemobilites.{{ project_domain }}"
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
 project_env: production
