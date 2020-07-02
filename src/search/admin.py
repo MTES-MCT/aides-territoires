@@ -18,6 +18,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'slug',
                 'search_querystring',
                 'content',
+                'more_content',
             )
         }),
         (_('SEO'), {

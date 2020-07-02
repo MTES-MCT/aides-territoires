@@ -1,0 +1,127 @@
+{% load colors %}
+<style>
+body {
+    background: {{ search_page.color_1 }};
+}
+
+main {
+    background: {{ search_page.color_1 }};
+}
+
+.dark-background .main-content > article,
+.dark-background .main-content > div.article,
+section#aid-list article,
+div.modal .modal-dialog {
+    color: rgba(0, 0, 0, 0.85) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+section#search-engine div.form-container {
+    background-color: {{ search_page.color_2 }} !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+section#search-engine div.other-actions button:hover,
+section#search-engine div.other-actions a:hover {
+    color: white;
+}
+
+section#search-engine div.form-container button,
+section#search-engine a#save-alert-btn,
+div#share-results-modal form button,
+div.modal .modal-dialog section footer button,
+.cta-btn,
+.btn-primary,
+button[type=submit] {
+    background-color: {{ search_page.color_3 }} !important;
+    border: {{ search_page.color_3 }} !important;
+}
+
+section#search-engine div.form-container button:hover,
+section#search-engine a#save-alert-btn:hover,
+div#share-results-modal form button:hover {
+    background-color: {% darken search_page.color_3 7.5 %} !important;
+}
+
+article#aid .aid-details h2 {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    text-align: left;
+}
+
+article#aid .aid-details h2::after {
+    content: "";
+    color: transparent;
+    display: block;
+    width: 6rem;
+    height: 0px;
+    max-height: 1px;
+    padding: 0;
+    border: 3px solid {{ search_page.color_3 }};
+    border-radius: 3px;
+}
+
+section#aid-list article.aid span.no-deadline {
+    border-color: {{ search_page.color_3 }} !important;
+}
+
+h1::after {
+    border-color: {{ search_page.color_3 }};
+}
+
+article#aid .card > div::before {
+    color: {{ search_page.color_3 }};
+}
+
+.dark-background .main-content > article a,
+section#aid-list article.aid div h1 a,
+nav#pagination ul li a,
+ol.breadcrumb li.active {
+    color: {{ search_page.color_4 }} !important;
+}
+
+.dark-background .main-content > article a {
+    text-decoration: underline;
+}
+
+.dark-background .main-content > article a:hover,
+section#aid-list article.aid div h1 a:hover,
+a:hover {
+    color: {% darken search_page.color_4 20 %} !important;
+}
+
+body > footer {
+    background-color: {{ search_page.color_5 }} !important;
+}
+
+ol.breadcrumb {
+    background-color: white;
+}
+
+body > footer {
+    background-color: white !important;
+}
+
+body > footer #all-logos {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+body > footer #all-logos a {
+    padding: .75rem;
+}
+
+body > footer #all-logos a::after {
+    display: none;
+}
+
+body > footer #all-logos a img {
+    height: 120px;
+    width: auto;
+}
+
+body > footer #all-logos a img.ministry-logo {
+}
+</style>

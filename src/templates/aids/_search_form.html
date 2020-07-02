@@ -1,21 +1,22 @@
 {% load pagination i18n %}
 
-<form id="search-form" action="" method="get">
-    {% for field in form.hidden_fields %}
-        {{ field }}
-    {% endfor %}
+<form id="search-form" action="" method="get" autocomplete='off'>
+
+    {{ form.integration }}
 
     {% comment %}
         This is to make sure that those search filters will be carried upon the
         "more filters" page.
     {% endcomment %}
-    {{ form.apply_before.as_hidden }}
-    {{ form.mobilization_step.as_hidden }}
-    {{ form.destinations.as_hidden }}
-    {{ form.categories.as_hidden }}
-    {{ form.targeted_audiances.as_hidden }}
-    {{ form.perimeter.as_hidden }}
-    {{ form.themes.as_hidden }}
+    {% block hidden-fields %}
+        {{ form.apply_before.as_hidden }}
+        {{ form.mobilization_step.as_hidden }}
+        {{ form.destinations.as_hidden }}
+        {{ form.categories.as_hidden }}
+        {{ form.targeted_audiances.as_hidden }}
+        {{ form.perimeter.as_hidden }}
+        {{ form.themes.as_hidden }}
+    {% endblock %}
 
     {% block other_actions %}
     <div class="other-actions">
@@ -27,27 +28,30 @@
         {% endcomment %}
         <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
-        <a id="new-search-btn" href="{% url 'search_step_audiance' %}">
-            {{ _('New search') }}
-        </a>
+        {% block other-actions %}
+            <a id="new-search-btn" href="{% url 'search_step_audiance' %}">
+                {{ _('New search') }}
+            </a>
 
-        <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-            {{ _('More filters') }}
-        </button>
+            <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+                {{ _('More filters') }}
+            </button>
 
-        <a href="#" class="js" id="share-btn" data-toggle="modal" data-target="#share-results-modal">
-            {{ _('Share') }}
-        </a>
+            <a href="#" class="js" id="share-btn" data-toggle="modal" data-target="#share-results-modal">
+                {{ _('Share') }}
+            </a>
 
-        <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-            {{ _('Create an alert') }}
-        </a>
+            <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+                {{ _('Create an alert') }}
+            </a>
+        {% endblock %}
     </div>
     {% endblock %}
 
     <div class="form-container">
     <div class="form-body">
 
+        {% block form-body %}
         <div class="row">
             <div class="col col-md-5">
                 <div class="form-group checkbox-group">
@@ -72,7 +76,9 @@
                 {% include '_field_snippet.html' with field=form.text %}
             </div>
         </div>
+        {% endblock %}
 
+        {% block form-actions %}
         <div class="row actions-row">
             <div class="col-md-3 offset-md-5">
                 {{ form.order_by }}
@@ -83,6 +89,8 @@
                 </button>
             </div>
         </div>
+        {% endblock %}
+
     </div>
     </div>
 
