@@ -4,6 +4,11 @@
     src: supervisor.j2
     dest: /etc/supervisor/conf.d/{{ project_name }}.conf
 
+- name: Create minisites supervisor configuration
+  template:
+    src: supervisor_minisites.j2
+    dest: /etc/supervisor/conf.d/{{ project_name }}_minisites.conf
+
 - name: Create nginx configuration
   template:
     src: nginx.j2

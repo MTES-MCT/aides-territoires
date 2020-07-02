@@ -3,6 +3,7 @@ project_version: master
 certbot_admin_email: certbot@thibault.miximum.fr
 certbot_domains: "{{ project_domain }}"
 django_settings: core.settings.production
+minisites_settings: minisites.settings.production
 project_env: production
 env_file: .env.staging
 env_target: .env.production
