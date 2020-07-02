@@ -1,32 +1,25 @@
 {% load settings i18n %}<footer>
     <div class="container">
-        <div class="columns">
-            <div class="logos logos-1">
-                <p class="ministere">
-                    Ministère de la Transition écologique et solidaire
-                </p>
-                <hr />
-                <p class="ministere">
-                    Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales
-                </p>
-            </div>
+        <div id="all-logos">
+            <a href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales">
+                <img class="logo ministry-logo" src="/static/img/logo_mct.svg" alt="Logo du Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales" />
+            </a>
 
-            <div class="newsletter">
-                <p>
-                    Aides-territoires facilite la recherche d'aides des
-                    collectivités territoriales et de leurs partenaires locaux,
-                    en rendant visibles et accessibles tous les dispositifs
-                    financiers et d'ingénierie auxquels ils peuvent prétendre.
-                </p>
-            </div>
+            <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique et solidaire">
+                <img class="logo ministry-logo" src="/static/img/logo_mtes.svg" alt="Logo du Ministère de la Transition écologique et solidaire" />
+            </a>
 
-            <div class="logos logos-2">
-                <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
-                    <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
-                </a>
-                <h4>Aides-territoires</h4>
-                <p>Un service incubé et développé à la Fabrique Numérique.</p>
-            </div>
+            <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
+                <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
+            </a>
+
+            <a href="https://www.aides-territoires.beta.gouv.fr" title="Aides-territoires">
+                <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
+            </a>
+
+            <a class="partner-link" href="{{ search_page.logo_link }}">
+                <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
+            </a>
         </div>
     </div>
 </footer>

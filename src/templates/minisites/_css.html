@@ -29,7 +29,8 @@ section#search-engine div.form-container button,
 section#search-engine a#save-alert-btn,
 div#share-results-modal form button,
 div.modal .modal-dialog section footer button,
-.cta-btn {
+.cta-btn,
+.btn-primary {
     background-color: {{ search_page.color_3 }} !important;
     border: {{ search_page.color_3 }} !important;
 }
@@ -94,5 +95,31 @@ body > footer {
 
 ol.breadcrumb {
     background-color: white;
+}
+
+body > footer {
+    background-color: white !important;
+}
+
+body > footer #all-logos {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+body > footer #all-logos a {
+    padding: .75rem;
+}
+
+body > footer #all-logos a::after {
+    display: none;
+}
+
+body > footer #all-logos a img {
+    height: 120px;
+    width: auto;
+}
+
+body > footer #all-logos a img.ministry-logo {
 }
 </style>
