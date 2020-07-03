@@ -62,7 +62,9 @@ class Home(MinisiteMixin, SearchView):
         form = super().get_form(form_class)
 
         if self.search_page.available_categories:
-            categories_qs = self.search_page.available_categories
+            categories_qs = self.search_page \
+                .available_categories \
+                .select_related('theme')
             form.fields['categories'].queryset = categories_qs
 
         return form
