@@ -108,7 +108,7 @@ class SearchPageDetail(SearchView):
         instead.
         """
         initial_data = QueryDict(
-            self.search_page.search_querystring, mutable=True)
+            self.object.search_querystring, mutable=True)
         user_data = self.request.GET.copy()
         user_data.pop('page', None)
         user_data.pop('integration', None)
