@@ -121,7 +121,8 @@ class SearchPageDetail(SearchView):
         form = super().get_form(form_class)
 
         if self.object.available_categories:
-            form.fields['categories'].queryset = self.object.available_categories
+            categories_qs = self.object.available_categories
+            form.fields['categories'].queryset = categories_qs
 
         return form
 

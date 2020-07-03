@@ -246,9 +246,12 @@ def test_search_from_filter_by_audiances(aids):
             'epci' in aid.targeted_audiances,
             'public_cies' in aid.targeted_audiances))
 
-    form = AidSearchForm({'targeted_audiances': [
-            'commune', 'department', 'region', 'epci', 'public_cies', 'association'
-        ]})
+    form = AidSearchForm({
+        'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'public_cies',
+            'association'
+        ]
+    })
     qs = form.filter_queryset(aids)
     assert qs.count() == 6
     for aid in qs:
@@ -260,10 +263,12 @@ def test_search_from_filter_by_audiances(aids):
             'public_cies' in aid.targeted_audiances,
             'association' in aid.targeted_audiances))
 
-    form = AidSearchForm({'targeted_audiances': [
-            'commune', 'department', 'region', 'epci', 'public_cies', 'association',
-            'private_person'
-        ]})
+    form = AidSearchForm({
+        'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'public_cies',
+            'association', 'private_person'
+        ]
+    })
     qs = form.filter_queryset(aids)
     assert qs.count() == 7
     for aid in qs:
@@ -276,10 +281,12 @@ def test_search_from_filter_by_audiances(aids):
             'association' in aid.targeted_audiances,
             'private_person' in aid.targeted_audiances))
 
-    form = AidSearchForm({'targeted_audiances': [
-            'commune', 'department', 'region', 'epci', 'public_cies', 'association',
-            'private_person', 'researcher'
-            ]})
+    form = AidSearchForm({
+        'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'public_cies',
+            'association', 'private_person', 'researcher'
+        ]
+    })
     qs = form.filter_queryset(aids)
     assert qs.count() == 8
     for aid in qs:
@@ -293,10 +300,12 @@ def test_search_from_filter_by_audiances(aids):
             'private_person' in aid.targeted_audiances,
             'researcher' in aid.targeted_audiances,))
 
-    form = AidSearchForm({'targeted_audiances': [
-        'commune', 'department', 'region', 'epci', 'public_cies', 'association',
-        'private_person', 'researcher', 'private_sector'
-        ]})
+    form = AidSearchForm({
+        'targeted_audiances': [
+            'commune', 'department', 'region', 'epci', 'public_cies',
+            'association', 'private_person', 'researcher', 'private_sector'
+        ]
+    })
     qs = form.filter_queryset(aids)
     assert qs.count() == 9
     for aid in qs:
