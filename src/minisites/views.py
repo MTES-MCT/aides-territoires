@@ -58,6 +58,15 @@ class Home(MinisiteMixin, SearchView):
         kwargs['data'] = data
         return kwargs
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        if self.search_page.available_categories:
+            categories_qs = self.search_page.available_categories
+            form.fields['categories'].queryset = categories_qs
+
+        return form
+
 
 class Search(MinisiteMixin, AdvancedSearchView):
     """The full search form."""
