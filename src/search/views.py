@@ -109,7 +109,9 @@ class SearchPageDetail(SearchView):
         """
         initial_data = QueryDict(
             self.search_page.search_querystring, mutable=True)
-        user_data = self.request.GET
+        user_data = self.request.GET.copy()
+        user_data.pop('page', None)
+        user_data.pop('integration', None)
         data = user_data or initial_data
         kwargs = super().get_form_kwargs()
         kwargs['data'] = data
