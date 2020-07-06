@@ -14,7 +14,7 @@
 
 - name: Add nodesource apt repository to install NodeJs
   apt_repository:
-    repo: deb https://deb.nodesource.com/node_8.x stretch main
+    repo: deb https://deb.nodesource.com/node_12.x stretch main
     state: present
     filename: nodesource
 
