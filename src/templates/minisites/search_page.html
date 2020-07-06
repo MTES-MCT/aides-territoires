@@ -1,4 +1,4 @@
-{% extends 'aids/_base_search.html' %}
+{% extends 'search/search_page.html' %}
 {% load compress colors %}
 
 {% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
@@ -21,24 +21,6 @@
 {% block extra_css %}
     {{ block.super }}
     {% include 'minisites/_css.html' %}
-{% endblock %}
-
-{% block content %}
-
-<article>
-<h1>{{ search_page.title }}</h1>
-
-{{ search_page.content|safe }}
-
-{% if search_page.more_content %}
-<div id="more-content">
-    {{ search_page.more_content|safe }}
-</div>
-{% endif %}
-
-</article>
-
-{{ block.super }}
 {% endblock %}
 
 {% block search-engine %}
@@ -75,6 +57,5 @@
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/aids/categories_autocomplete.js"></script>
 <script src="/static/js/aids/targeted_audiances_autocomplete.js"></script>
-<script src="/static/js/search/create_reveal_content_button.js"></script>
 {% endcompress %}
 {% endblock %}

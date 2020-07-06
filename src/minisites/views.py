@@ -8,6 +8,9 @@ from alerts.views import AlertCreate
 
 class MinisiteMixin:
 
+    # Can be `host` or `url`
+    page_access_method = 'host'
+
     def get(self, request, *args, **kwargs):
         self.search_page = self.get_search_page()
         return super().get(request, *args, **kwargs)
@@ -15,12 +18,37 @@ class MinisiteMixin:
     def get_search_page(self):
         """Get the custom page from url.
 
+        This view can be accessed via two urls:
+         - aides-territoires.beta.gouv.fr/recherche/<page_name>/
+         - <page_name>.aides-territoires.beta.gouv.f
+
         This view will be accessed from a `xxx.aides-territoires.beta.gouv.fr`.
         So we need to extract the `xxx` part.
         """
 
+        if self.page_access_method == 'host':
+            page = self.get_search_page_by_host()
+        else:
+            page = self.get_search_page_by_url()
+
+        return page
+
+    def get_search_page_by_host(self):
+        """Extract the page name from the host."""
+
         host = self.request.get_host()
         page_slug = host.split('.')[0]
+        qs = SearchPage.objects.filter(slug=page_slug)
+        try:
+            obj = qs.get()
+        except qs.model.DoesNotExist:
+            raise Http404('No "Search page" found matching the query')
+        return obj
+
+    def get_search_page_by_url(self):
+        """Extract the page name from the url."""
+
+        page_slug = self.kwargs.get('slug')
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
             obj = qs.get()
@@ -34,10 +62,15 @@ class MinisiteMixin:
         return context
 
 
-class Home(MinisiteMixin, SearchView):
+class SiteHome(MinisiteMixin, SearchView):
     """A static search page with admin-customizable content."""
 
-    template_name = 'minisites/search_page.html'
+    def get_template_names(self):
+        if self.page_access_method == 'host':
+            template_name = 'minisites/search_page.html'
+        else:
+            template_name = 'search/search_page.html'
+        return [template_name]
 
     def get_form_kwargs(self):
         """Set the data passed to the form.
@@ -70,21 +103,21 @@ class Home(MinisiteMixin, SearchView):
         return form
 
 
-class Search(MinisiteMixin, AdvancedSearchView):
+class SiteSearch(MinisiteMixin, AdvancedSearchView):
     """The full search form."""
 
     template_name = 'minisites/advanced_search.html'
 
 
-class Aid(MinisiteMixin, AidDetailView):
+class SiteAid(MinisiteMixin, AidDetailView):
     """The detail page of a single aid."""
 
     template_name = 'minisites/aid_detail.html'
 
 
-class Alert(MinisiteMixin, AlertCreate):
+class SiteAlert(MinisiteMixin, AlertCreate):
     pass
 
 
-class LegalMentions(MinisiteMixin, TemplateView):
+class SiteLegalMentions(MinisiteMixin, TemplateView):
     template_name = 'minisites/legal_mentions.html'
