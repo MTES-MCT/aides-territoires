@@ -9,14 +9,19 @@
 
         var button = $('<button />');
         button.attr('type', 'button');
-        button.addClass('btn btn-primary');
+        button.addClass('btn btn-primary mt-2');
         button.html(catalog.show_me_more);
 
-        button.insertBefore(content);
+        button.insertAfter(content);
 
         button.click(function() {
-            content.collapse('show');
-            button.remove();
+            if (content.hasClass('show')) {
+                button.html(catalog.show_me_more);
+            } else {
+                button.html(catalog.show_me_less);
+            }
+
+            content.collapse('toggle');
         });
     };
 
