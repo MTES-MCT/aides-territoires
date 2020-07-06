@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 11:46+0200\n"
+"POT-Creation-Date: 2020-07-06 12:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2325,6 +2325,9 @@ msgstr ""
 
 msgid "Or go back to the home page."
 msgstr "Ou retournez à la page d'accueil."
+
+msgid "Reset filters"
+msgstr "<acronym title='Remise à zéro'>RaZ</acronym> des filtres"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
