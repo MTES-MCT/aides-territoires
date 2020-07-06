@@ -358,19 +358,17 @@ nav#partner-navbar {
     .homelink {
         @extend .mr-auto;
         white-space: nowrap;
-        text-decoration: none;
         height: $navbar-brand-height;
-
-        img {
-            height: 100%;
-            width: auto;
-        }
     }
 
     .partner-link {
         height: $navbar-brand-height;
         display: flex;
         align-items: center;
+    }
+
+    .imglink {
+        text-decoration: none;
 
         &:after {
             content: none;

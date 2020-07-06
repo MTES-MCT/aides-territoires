@@ -1,12 +1,12 @@
 {% load settings %}
 <nav id="partner-navbar">
     <div class="container-lg">
-        <a class="homelink" href="{% url 'home' %}">
+        <a class="homelink imglink" href="https://aides-territoires.beta.gouv.fr">
             <img class="at d-sm-none" src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
             <img class="at d-none d-sm-inline-block" src="/static/img/logo_AT_courbes.svg" alt="Aides-territoires" />
         </a>
 
-        <a class="partner-link" href="{{ search_page.logo_link }}">
+        <a class="partner-link imglink" href="{{ search_page.logo_link }}">
             <img src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
         </a>
     </div>
