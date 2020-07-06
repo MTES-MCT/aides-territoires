@@ -37,7 +37,8 @@ class SearchPage(models.Model):
     slug = models.SlugField(
         _('Slug'),
         help_text=_('This part is used in the url. '
-                    'DON\'t change this for existing pages.'))
+                    'DON\'t change this for existing pages. '
+                    'MUST be lowercase for minisites.'))
 
     meta_description = models.TextField(
         _('Meta description'),

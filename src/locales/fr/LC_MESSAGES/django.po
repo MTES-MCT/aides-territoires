@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 16:10+0200\n"
+"POT-Creation-Date: 2020-07-06 12:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1233,15 +1233,11 @@ msgstr "Programme d'aides"
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
-#, fuzzy
-#| msgid "Customization"
 msgid "Style customization"
-msgstr "Personnalisation"
+msgstr "Personnalisation du style"
 
-#, fuzzy
-#| msgid "Customization"
 msgid "Form customization"
-msgstr "Personnalisation"
+msgstr "Personnalisation du formulaire"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1278,11 +1274,14 @@ msgid "Hidden content, only revealed on a `See more` click."
 msgstr "Contenu caché, révélé au clic sur le bouton « Voir plus »."
 
 msgid "The main displayed title."
-msgstr "Le titre principal"
+msgstr "Le titre principal."
 
-msgid "This part is used in the url. DON't change this for existing pages."
+msgid ""
+"This part is used in the url. DON't change this for existing pages. MUST be "
+"lowercase for minisites."
 msgstr ""
-"Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page existante."
+"Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page "
+"existante. DOIT être en minuscule pour les sites partenaires."
 
 msgid "Additional page content"
 msgstr "Contenu additionnel"
@@ -1488,8 +1487,11 @@ msgstr "Voir les contacts et le descriptif complet"
 msgid "Add a new instructor if different from financer"
 msgstr "Ajouter un instructeur s\\'il est différent du porteur"
 
-msgid "Do you want to know more?"
-msgstr "Cliquez pour en savoir plus"
+msgid "See more details"
+msgstr "Voir plus de détails"
+
+msgid "See less details"
+msgstr "Voir moins de détails"
 
 msgid "Your profile"
 msgstr "Votre profil"
@@ -2326,6 +2328,9 @@ msgstr ""
 
 msgid "Or go back to the home page."
 msgstr "Ou retournez à la page d'accueil."
+
+msgid "Reset filters"
+msgstr "<acronym title='Remise à zéro'>RaZ</acronym> des filtres"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"

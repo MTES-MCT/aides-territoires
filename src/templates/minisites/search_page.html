@@ -1,4 +1,4 @@
-{% extends 'aids/_base_search.html' %}
+{% extends 'search/search_page.html' %}
 {% load compress colors %}
 
 {% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
@@ -23,50 +23,8 @@
     {% include 'minisites/_css.html' %}
 {% endblock %}
 
-{% block content %}
-
-<article>
-<h1>{{ search_page.title }}</h1>
-
-{{ search_page.content|safe }}
-
-{% if search_page.more_content %}
-<div id="more-content">
-    {{ search_page.more_content|safe }}
-</div>
-{% endif %}
-
-</article>
-
-{{ block.super }}
-{% endblock %}
-
 {% block search-engine %}
      {% include 'minisites/_search_form.html' %}
-{% endblock %}
-
-{% block other_actions %}
-    <div class="other-actions">
-
-        {% comment %}
-            This hidden button is here to make it the "default" submit button.
-            This way, we make sure pressing "enter" performs a new search instead
-            of going to the "more filters" page.
-        {% endcomment %}
-        <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
-
-        <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-            {{ _('More filters') }}
-        </button>
-
-        <a href="#" class="js" id="share-btn" data-toggle="modal" data-target="#share-results-modal">
-            {{ _('Share') }}
-        </a>
-
-        <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-            {{ _('Create an alert') }}
-        </a>
-    </div>
 {% endblock %}
 
 {% block extra_js %}
@@ -75,6 +33,5 @@
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/aids/categories_autocomplete.js"></script>
 <script src="/static/js/aids/targeted_audiances_autocomplete.js"></script>
-<script src="/static/js/search/create_reveal_content_button.js"></script>
 {% endcompress %}
 {% endblock %}

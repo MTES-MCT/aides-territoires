@@ -2,7 +2,8 @@ from django.urls import path, include
 from django.utils.translation import ugettext_lazy as _
 
 from search.views import (AudianceSearch, PerimeterSearch, ThemeSearch,
-                          CategorySearch, SearchPageDetail)
+                          CategorySearch)
+from minisites.views import SiteHome
 
 
 urlpatterns = [
@@ -15,5 +16,6 @@ urlpatterns = [
         path(_('category/'), CategorySearch.as_view(),
              name='search_step_category'),
     ])),
-    path('<slug:slug>/', SearchPageDetail.as_view(), name='search_page'),
+    path('<slug:slug>/', SiteHome.as_view(page_access_method='url'),
+         name='search_page'),
 ]

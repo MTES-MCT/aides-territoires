@@ -6,7 +6,7 @@ from search.forms import SearchPageAdminForm
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'meta_description']
+    list_display = ['slug', 'title', 'meta_description']
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
     filter_vertical = ['available_categories']
