@@ -661,14 +661,13 @@ nav#pagination {
 
             a {
                 @extend .page-link;
+                color: $font-color;
             }
         }
     }
 }
 
 ol.breadcrumb {
-    background-color: $light;
-
     @include media-breakpoint-up(lg) {
         margin-bottom: 3rem;
     }
