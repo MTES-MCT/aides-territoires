@@ -77,5 +77,5 @@ class CategorySearch(SearchMixin, FormView):
             theme_aids = theme_aids.filter(
                 categories__theme__slug__in=initial['themes'])
 
-        context['total_aids'] = theme_aids.distinct().count()
+        context['total_aids'] = 0  # theme_aids.distinct().count()
         return context
