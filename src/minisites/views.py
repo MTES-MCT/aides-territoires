@@ -36,8 +36,15 @@ class MinisiteMixin:
     def get_search_page_by_host(self):
         """Extract the page name from the host."""
 
-        host = self.request.get_host()
-        page_slug = host.split('.')[0]
+        # TODO This was quickly developed before my vacations
+        # Will be cleaned up next weeks
+        HEADER = 'X-Minisite-Name'
+        if HEADER in self.request.headers:
+            page_slug = self.request.headers[HEADER]
+        else:
+            host = self.request.get_host()
+            page_slug = host.split('.')[0]
+
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
             obj = qs.get()
