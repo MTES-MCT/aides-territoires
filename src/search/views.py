@@ -73,9 +73,8 @@ class CategorySearch(SearchMixin, FormView):
         filter_form = AidSearchForm(initial)
         theme_aids = filter_form.filter_queryset()
 
-        if initial['themes']:
-            theme_aids = theme_aids.filter(
-                categories__theme__slug__in=initial['themes'])
-
-        context['total_aids'] = 0  # theme_aids.distinct().count()
+        context['total_aids'] = theme_aids \
+            .values('id') \
+            .distinct() \
+            .count()
         return context
