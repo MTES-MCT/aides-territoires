@@ -647,13 +647,27 @@ class BaseAidSearchForm(forms.Form):
          - Montpellier (and all other communes in Hérault) ;
         """
 
+        # Note: the original way we adressed this was more straightforward,
+        # but we got very very bad perf results (like, queries with very slow
+        # execution times > 30s).
+        # Thus, we add to "help" a little Postgres execution planner.
+
+        # We just need to efficiently get a list of all perimeter ids related
+        # to the current query.
+
         Through = Perimeter.contained_in.through
-        contains_qs = Through.objects.filter(from_perimeter_id=search_perimeter.id).values('to_perimeter_id').distinct()
-        contained_qs = Through.objects.filter(to_perimeter_id=search_perimeter.id).values('from_perimeter_id').distinct()
+        contains_id = Through.objects \
+            .filter(from_perimeter_id=search_perimeter.id) \
+            .values('to_perimeter_id') \
+            .distinct()
+        contained_id = Through.objects \
+            .filter(to_perimeter_id=search_perimeter.id) \
+            .values('from_perimeter_id') \
+            .distinct()
 
         q_exact_match = Q(id=search_perimeter.id)
-        q_contains = Q(id__in=contains_qs)
-        q_contained = Q(id__in=contained_qs)
+        q_contains = Q(id__in=contains_id)
+        q_contained = Q(id__in=contained_id)
 
         perimeter_qs = Perimeter.objects.filter(
             q_exact_match | q_contains | q_contained).values('id').distinct()
