@@ -1,9 +1,6 @@
 from django.views.generic import FormView
-from django.http import QueryDict, Http404
 
 from aids.forms import AidSearchForm
-from aids.views import SearchView
-from search.models import SearchPage
 from search.forms import (AudianceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
 
