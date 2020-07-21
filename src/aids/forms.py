@@ -602,8 +602,8 @@ class BaseAidSearchForm(forms.Form):
 
         return query
 
-    def order_queryset(self, qs):
-        """Set the order value on the queryset."""
+    def get_order_fields(self, qs):
+        """On which fields must this queryset be sorted?."""
 
         # Default results order
         # We show the narrower perimet first, then aids with a deadline
@@ -621,7 +621,11 @@ class BaseAidSearchForm(forms.Form):
         elif manual_order == 'submission_deadline':
             order_fields = ['submission_deadline'] + order_fields
 
-        qs = qs.order_by(*order_fields)
+        return order_fields
+
+    def order_queryset(self, qs):
+        """Set the order value on the queryset."""
+        qs = qs.order_by(*self.get_order_fields(qs))
         return qs
 
     def perimeter_filter(self, qs, search_perimeter):

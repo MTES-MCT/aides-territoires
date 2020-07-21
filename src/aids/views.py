@@ -80,7 +80,11 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
-        ordered_results = filter_form.order_queryset(results).distinct()
+        order_fields = filter_form.get_order_fields(qs)
+        distinct_fields = order_fields + ['id']
+        ordered_results = filter_form \
+            .order_queryset(results) \
+            .distinct(*distinct_fields)
         return ordered_results
 
     def get_programs(self):
