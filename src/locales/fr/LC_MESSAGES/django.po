@@ -2330,7 +2330,7 @@ msgid "Or go back to the home page."
 msgstr "Ou retournez à la page d'accueil."
 
 msgid "Reset filters"
-msgstr "<acronym title='Remise à zéro'>RàZ</acronym> des filtres"
+msgstr "Réinitialiser"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
