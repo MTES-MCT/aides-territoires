@@ -128,3 +128,12 @@ class SiteAlert(MinisiteMixin, AlertCreate):
 
 class SiteLegalMentions(MinisiteMixin, TemplateView):
     template_name = 'minisites/legal_mentions.html'
+
+
+class Error(MinisiteMixin, TemplateView):
+    template_name = 'minisites/404.html'
+    status_code = 404
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['status'] = self.status_code
+        return super().render_to_response(context, **response_kwargs)
