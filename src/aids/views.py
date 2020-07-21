@@ -13,6 +13,8 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 from django.views.generic.edit import FormMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
+from django.core.paginator import Paginator
+from django.utils.functional import cached_property
 
 from braces.views import MessageMixin
 
@@ -40,6 +42,18 @@ class SearchMixin:
         return kwargs
 
 
+class AidPaginator(Paginator):
+    """Custom paginator for aids.
+
+    The default django paginator uses COUNT(*) for counting results, which
+    takes up a lot of memory and results in terrible performances.
+    """
+
+    @cached_property
+    def count(self):
+        return self.object_list.values('id').order_by('id').count()
+
+
 class SearchView(SearchMixin, FormMixin, ListView):
     """Search and display aids."""
 
@@ -47,6 +61,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
     context_object_name = 'aids'
     form_class = AidSearchForm
     paginate_by = 18
+    paginator_class = AidPaginator
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_form()
