@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
+from django.db.models import Subquery
 
 from core.forms import (
     AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
@@ -642,10 +643,18 @@ class BaseAidSearchForm(forms.Form):
          - Montpellier (and all other communes in Hérault) ;
         """
 
-        q_exact_match = Q(perimeter=search_perimeter)
-        q_contains = Q(perimeter__in=search_perimeter.contained_in.all())
-        q_contained = Q(perimeter__contained_in=search_perimeter)
-        qs = qs.filter(q_exact_match | q_contains | q_contained).distinct()
+        Through = Perimeter.contained_in.through
+        contains_qs = Through.objects.filter(from_perimeter_id=search_perimeter.id).values('to_perimeter_id').distinct()
+        contained_qs = Through.objects.filter(to_perimeter_id=search_perimeter.id).values('from_perimeter_id').distinct()
+
+        q_exact_match = Q(id=search_perimeter.id)
+        q_contains = Q(id__in=contains_qs)
+        q_contained = Q(id__in=contained_qs)
+
+        perimeter_qs = Perimeter.objects.filter(
+            q_exact_match | q_contains | q_contained).values('id').distinct()
+
+        qs = qs.filter(perimeter__in=perimeter_qs)
 
         return qs
 
