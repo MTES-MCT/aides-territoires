@@ -6,3 +6,4 @@ project_env: local
 env_file: .env.local
 env_target: ".env.local"
 gunicorn_options: "--reload"
+partners:

@@ -8,3 +8,5 @@ project_env: production
 env_file: .env.production
 env_target: .env.production
 gunicorn_options: ""
+partners:
+  - { slug: 'francemobilites', domain: 'aides.francemobilites.fr' }
