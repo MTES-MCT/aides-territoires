@@ -61,6 +61,12 @@ server {
         access_log off;
     }
 
+    location /robots.txt {
+        alias {{ project_root }}/public/static/robots.txt;
+        expires 1m;
+        access_log off;
+    }
+
     location /static/ {
         root {{ project_root }}/public/;
         expires 1y;
@@ -130,6 +136,12 @@ server {
 
     location /favicon {
         root {{ project_root }}/public/static/favicons/;
+        expires 1m;
+        access_log off;
+    }
+
+    location /robots.txt {
+        alias {{ project_root }}/public/static/robots.txt;
         expires 1m;
         access_log off;
     }
