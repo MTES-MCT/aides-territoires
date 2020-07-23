@@ -21,7 +21,7 @@
       - "{{ certbot_domains }}"
 
 - name: Generate partners certificates using Let's Encrypt (for production)
-  when: project_env == "production"
+  when: project_env == "production" and partners is defined
   command:
   args:
     argv:

@@ -32,12 +32,14 @@
     state: link
 
 - name: Create partners nginx configuration
+  when: partners is defined
   template:
     src: nginx_partner.j2
     dest: /etc/nginx/sites-available/{{ item.slug }}
   loop: "{{ partners }}"
 
 - name: Create partners sites nginx symlink
+  when: partners is defined
   file:
     src: /etc/nginx/sites-available/{{ item.slug }}
     dest: /etc/nginx/sites-enabled/{{ item.slug }}
