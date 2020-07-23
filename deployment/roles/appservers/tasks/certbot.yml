@@ -20,6 +20,24 @@
       - -d
       - "{{ certbot_domains }}"
 
+- name: Generate partners certificates using Let's Encrypt (for production)
+  when: project_env == "production" and partners is defined
+  command:
+  args:
+    argv:
+      - certbot
+      - certonly
+      - --noninteractive
+      - --agree-tos
+      - --standalone
+      - --expand
+      - --email
+      - "{{ certbot_admin_email }}"
+      - -d
+      - "{{ item.domain }}"
+  loop: "{{ partners }}"
+
+
 - name: Install the certificate renewal cronjob
   when: project_env == "production"
   cron:
