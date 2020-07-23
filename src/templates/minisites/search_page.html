@@ -1,8 +1,17 @@
 {% extends 'search/search_page.html' %}
 {% load compress colors %}
 
-{% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
+{% block title %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+
+{% block extra_head %}
+<meta property="og:title" content="{{ search_page.meta_title|default:search_page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{ search_page.meta_description }}" />
+<meta property="og:url" content="{{ site_url }}" />
+<meta property="og:site_name" content="{{ search_page.meta_title|default:search_page.title }}" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_titre.svg" />
+{% endblock %}
 
 {% block header %}
     {% include 'minisites/_header.html' %}
