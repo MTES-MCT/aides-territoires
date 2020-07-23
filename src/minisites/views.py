@@ -66,7 +66,7 @@ class MinisiteMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.search_page
-        context['site_url'] = self.request.build_absolute_uri()
+        context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
         return context
 
 

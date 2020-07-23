@@ -10,7 +10,17 @@ def logo_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.slug
-    filename = 'logos/{}{}'.format(
+    filename = 'minisites/{}_logo{}'.format(
+        name, extension)
+    return filename
+
+
+def meta_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'minisites/{}_meta{}'.format(
         name, extension)
     return filename
 
@@ -46,6 +56,11 @@ class SearchPage(models.Model):
         max_length=256,
         help_text=_('This will be displayed in SERPs. '
                     'Keep it under 120 characters.'))
+    meta_image = models.FileField(
+        _('Meta image'),
+        null=True, blank=True,
+        upload_to=meta_upload_to,
+        help_text=_('Make sure the file is at least 1024px long.'))
     content = models.TextField(
         _('Page content'),
         help_text=_('Full description of the page. '

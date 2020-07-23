@@ -25,6 +25,7 @@ class SearchPageAdmin(admin.ModelAdmin):
             'fields': (
                 'meta_title',
                 'meta_description',
+                'meta_image',
             )
         }),
         (_('Style customization'), {

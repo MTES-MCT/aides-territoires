@@ -10,6 +10,9 @@
 <meta property="og:description" content="{{ search_page.meta_description }}" />
 <meta property="og:url" content="{{ site_url }}" />
 <meta property="og:site_name" content="{{ search_page.meta_title|default:search_page.title }}" />
+{% if search_page.meta_image %}
+<meta property="og:image" content="{{ site_url }}{{ search_page.meta_image.url }}" />
+{% endif %}
 {% endblock %}
 
 {% block header %}
