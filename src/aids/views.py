@@ -427,7 +427,7 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
         STATES = AidWorkflow.states
         if aid.status == STATES.draft:
             aid.submit()
-        elif aid.status in((STATES.reviewable, STATES.published)):
+        elif aid.status in (STATES.reviewable, STATES.published):
             aid.unpublish()
             log_admins.delay(
                 'Aide dépubliée',
