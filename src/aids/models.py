@@ -560,7 +560,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def has_calendar(self):
         """Does the aid has valid calendar data?."""
 
-        if self.is_ongoing:
+        if self.is_ongoing():
             return False
 
         return any((

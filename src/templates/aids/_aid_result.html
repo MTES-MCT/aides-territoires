@@ -61,7 +61,7 @@
         {% endif %}
 
 
-        {% if aid.submission_deadline and not aid.is_ongoing %}
+        {% if aid.has_calendar %}
             <h2 class="deadline">{{ _('Calendar') }}</h2>
             <ul>
             {% if aid.start_date %}
