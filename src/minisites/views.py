@@ -7,55 +7,40 @@ from alerts.views import AlertCreate
 
 
 class MinisiteMixin:
+    """Common code for all minisite urls.
 
-    # Can be `host` or `url`
-    page_access_method = 'host'
+    For every minisite view, we need to fetch the actual SearchPage object and
+    inject it into the template.
+
+    Note: there are several ways access the search page, hence there are
+    several ways to access the SearchPage slug.
+
+     1/ https://aides-territoires.beta.gouv.fr/recherche/<partner>/
+     2/ https://<partner>.aides-territoires.beta.gouv.fr/
+     3/ https://aides.<partner>.com (completely custom domain)
+
+    In the fist case, we get the SearchPage's slug from the url parameter;
+    Second case, from the subdomain;
+    Third case, it is passed by a custom http header set in Nginx's settings.
+    """
 
     def get(self, request, *args, **kwargs):
         self.search_page = self.get_search_page()
         return super().get(request, *args, **kwargs)
 
     def get_search_page(self):
-        """Get the custom page from url.
+        """Get the custom page from url."""
 
-        This view can be accessed via two urls:
-         - aides-territoires.beta.gouv.fr/recherche/<page_name>/
-         - <page_name>.aides-territoires.beta.gouv.f
-
-        This view will be accessed from a `xxx.aides-territoires.beta.gouv.fr`.
-        So we need to extract the `xxx` part.
-        """
-
-        if self.page_access_method == 'host':
-            page = self.get_search_page_by_host()
-        else:
-            page = self.get_search_page_by_url()
-
-        return page
-
-    def get_search_page_by_host(self):
-        """Extract the page name from the host."""
-
-        # TODO This was quickly developed before my vacations
-        # Will be cleaned up next weeks
         HEADER = 'X-Minisite-Name'
-        if HEADER in self.request.headers:
+
+        if 'search_slug' in self.kwargs:
+            page_slug = self.kwargs.get('search_slug')
+        elif HEADER in self.request.headers:
             page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
             page_slug = host.split('.')[0]
 
-        qs = SearchPage.objects.filter(slug=page_slug)
-        try:
-            obj = qs.get()
-        except qs.model.DoesNotExist:
-            raise Http404('No "Search page" found matching the query')
-        return obj
-
-    def get_search_page_by_url(self):
-        """Extract the page name from the url."""
-
-        page_slug = self.kwargs.get('slug')
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
             obj = qs.get()
@@ -73,12 +58,7 @@ class MinisiteMixin:
 class SiteHome(MinisiteMixin, SearchView):
     """A static search page with admin-customizable content."""
 
-    def get_template_names(self):
-        if self.page_access_method == 'host':
-            template_name = 'minisites/search_page.html'
-        else:
-            template_name = 'search/search_page.html'
-        return [template_name]
+    template_name = 'minisites/search_page.html'
 
     def get_form_kwargs(self):
         """Set the data passed to the form.

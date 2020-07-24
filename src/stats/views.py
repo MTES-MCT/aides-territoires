@@ -2,9 +2,10 @@ from datetime import timedelta
 
 from django.views.generic import TemplateView
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 from aids.models import Aid
+from backers.models import Backer
 from stats.models import Event
 
 
@@ -27,10 +28,12 @@ class StatsView(TemplateView):
             .aggregate(nb_sent_alerts=Sum('value'))
         context['nb_sent_alerts'] = alerts_qs['nb_sent_alerts']
 
-        # financers = aids_qs.values
         financers = aids_qs.values_list('financers', flat=True)
         instructors = aids_qs.values_list('instructors', flat=True)
-        nb_backers = len(set(list(financers) + list(instructors)))
+        nb_backers = Backer.objects \
+            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
+            .values('id') \
+            .count()
         context['nb_backers'] = nb_backers
 
         return context
