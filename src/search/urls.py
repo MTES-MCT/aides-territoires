@@ -16,6 +16,6 @@ urlpatterns = [
         path(_('category/'), CategorySearch.as_view(),
              name='search_step_category'),
     ])),
-    path('<slug:slug>/', SiteHome.as_view(page_access_method='url'),
-         name='search_page'),
+    path('<slug:search_slug>/', SiteHome.as_view(
+        template_name='search/search_page.html'), name='search_page'),
 ]
