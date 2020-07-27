@@ -35,7 +35,9 @@
     <ul class="aid-categories">
         {% for theme in theme_list %}
             <li class="theme">
+                <strong>
                 {{ theme.grouper }}
+                </strong>
                 <ul>
                 {% for category in theme.list %}
                     <li class="category">{{ category }}</li>
