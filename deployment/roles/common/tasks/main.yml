@@ -17,6 +17,17 @@
     regexp: SSH_AUTH_SOCK
     line: Defaults env_keep+=SSH_AUTH_SOCK
 
+- name: Make sure the ssh server is secure
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+  notify: Restart sshd
+
+- name: Configure the /etc/motd file, printed upon ssh login
+  template:
+    src: motd.j2
+    dest: /etc/motd
+
 - name: Ensure the correct locale is set
   locale_gen:
     name: "{{ item }}"
