@@ -25,3 +25,11 @@
     regexp: "'^export DJANGO_SETTINGS_MODULE"
     line: "export DJANGO_SETTINGS_MODULE={{ django_settings }}"
     insertafter: EOF
+
+- name: Make sure the shell prompt is readable enough
+  lineinfile:
+    path: "{{ install_root }}/.bashrc"
+    state: present
+    regexp: "^PS1="
+    line: "{{ shell_prompt }}"
+    insertafter: EOF
