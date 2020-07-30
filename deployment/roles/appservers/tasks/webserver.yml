@@ -51,7 +51,8 @@
     src: nginx_default.j2
     dest: /etc/nginx/sites-available/default
 
-- name: Remove default host symlink
+- name: Create nginx default host symlink
   file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
