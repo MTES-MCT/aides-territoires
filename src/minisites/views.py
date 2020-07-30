@@ -1,5 +1,6 @@
-from django.http import QueryDict, Http404
+from django.http import QueryDict, HttpResponseRedirect
 from django.views.generic import TemplateView
+from django.contrib.sites.models import Site
 
 from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
@@ -26,7 +27,28 @@ class MinisiteMixin:
 
     def get(self, request, *args, **kwargs):
         self.search_page = self.get_search_page()
+
+        if self.search_page is None:
+            # Here, we have a bit of a problem.
+            # If the SearchPage object is not found, we can't display a 404
+            # error, because the 404 template needs a SearchPage to be
+            # displayed.
+            # Hence, the best way is to redirect to a sensible url.
+            # Those errors are mainly caused by very old links with invalid
+            # urls existing in the wild,
+            # e.g https://www.aides-territoires.beta.gouv.fr
+            return HttpResponseRedirect(self.get_redirection_url())
+
         return super().get(request, *args, **kwargs)
+
+    def get_redirection_url(self):
+        """What url to redirect to in case of missing SearchPage object.
+
+        For now, just redirect to the main site's homepage.
+        """
+        site = Site.objects.get_current()
+        url = 'https://{domain}'.format(domain=site.domain)
+        return url
 
     def get_search_page(self):
         """Get the custom page from url."""
@@ -45,7 +67,7 @@ class MinisiteMixin:
         try:
             obj = qs.get()
         except qs.model.DoesNotExist:
-            raise Http404('No "Search page" found matching the query')
+            obj = None
         return obj
 
     def get_context_data(self, **kwargs):
