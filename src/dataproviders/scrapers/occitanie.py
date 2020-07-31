@@ -33,8 +33,8 @@ class OccitanieSpider(scrapy.Spider):
             yield request
 
     def aid_parse(self, response):
-        title = response.css('h1.main-content__title::text').get()
-        description = response.css('div.main-content__texte').get()
+        title = response.css('article h1::text').get()
+        description = response.css('article div.article__texte').get()
         fields = response.meta['fields']
         date_updated_string = fields['date_modification']
         date_updated_format = '%Y-%m-%d %H:%M:%S'
