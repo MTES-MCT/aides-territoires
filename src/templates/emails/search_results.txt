@@ -12,5 +12,5 @@ Voici les premières aides correspondantes :
     {{ scheme }}://{{ domain }}{{ aid.get_absolute_url }}
 {% endfor %}
 
-L'équipe d'Aides-Territoires,
+L'équipe d'Aides-territoires,
 {{ scheme }}://{{ domain }}

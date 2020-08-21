@@ -33,7 +33,7 @@ def test_password_reset_with_existing_email_does_send_an_email(
     assert len(mailoutbox) == 1
 
     mail = mailoutbox[0]
-    assert mail.subject == 'Connexion à Aides-Territoires'
+    assert mail.subject == 'Connexion à Aides-territoires'
 
 
 def test_login_email_token_works(client, user, mailoutbox):
@@ -125,7 +125,7 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
     assert len(mailoutbox) == 1
 
     mail = mailoutbox[0]
-    assert mail.subject == 'Connexion à Aides-Territoires'
+    assert mail.subject == 'Connexion à Aides-territoires'
 
 
 def test_register_form(client, mailoutbox):
@@ -147,7 +147,7 @@ def test_register_form(client, mailoutbox):
     assert not user.ml_consent
 
     mail = mailoutbox[0]
-    assert mail.subject == 'Connexion à Aides-Territoires'
+    assert mail.subject == 'Connexion à Aides-territoires'
 
 
 def test_register_form_with_consent(client):

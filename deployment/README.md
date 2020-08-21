@@ -2,7 +2,7 @@
 
 Ce répertoire contient un [jeu de recettes Ansible
 complet](https://www.ansible.com/) permettant de déployer le projet
-Aides-Territoires en une seule commande sur les serveurs de staging et
+Aides-territoires en une seule commande sur les serveurs de staging et
 production.
 
 
