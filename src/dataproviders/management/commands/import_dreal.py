@@ -17,12 +17,12 @@ FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
-AUDIANCES_DICT = {
+AUDIENCES_DICT = {
     'État': None,
-    'Association': Aid.AUDIANCES.association,
-    'Collectivité': Aid.AUDIANCES.epci,
-    'Entreprise': Aid.AUDIANCES.private_sector,
-    'Particulier / Citoyen': Aid.AUDIANCES.private_person,
+    'Association': Aid.AUDIENCES.association,
+    'Collectivité': Aid.AUDIENCES.epci,
+    'Entreprise': Aid.AUDIENCES.private_sector,
+    'Particulier / Citoyen': Aid.AUDIENCES.private_person,
 }
 
 ADDNA_URL = 'http://aides-dd-na.fr/'
@@ -165,26 +165,26 @@ class Command(BaseImportCommand):
 
         return perimeter
 
-    def extract_targeted_audiances(self, line):
-        """Converts the `beneficiaires` column into valid audiances values.
+    def extract_targeted_audiences(self, line):
+        """Converts the `beneficiaires` column into valid audiences values.
 
         Cf. the ADDNA source code:
         https://github.com/DREAL-NA/aides/blob/d783fce309baf487f4ab6282dc98bccfd1c04358/app/Beneficiary.php#L28-L38
         """
 
-        audiances_data = line['publicsBeneficiaires']
-        target_audiances = []
-        all_audiances = []
+        audiences_data = line['publicsBeneficiaires']
+        target_audiences = []
+        all_audiences = []
 
-        audiances = audiances_data.split('<|>')
-        for audiance in audiances:
-            all_audiances.extend(audiance.split(' | '))
+        audiences = audiences_data.split('<|>')
+        for audience in audiences:
+            all_audiences.extend(audience.split(' | '))
 
-        for audiance in set(all_audiances):
-            if audiance in AUDIANCES_DICT:
-                target_audiances.append(AUDIANCES_DICT[audiance])
+        for audience in set(all_audiences):
+            if audience in AUDIENCES_DICT:
+                target_audiences.append(AUDIENCES_DICT[audience])
 
-        return target_audiances
+        return target_audiences
 
     def extract_financers(self, line):
         """Tries to convert the `nomAttribuant` column to financers.

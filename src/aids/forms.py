@@ -36,14 +36,14 @@ AID_TYPES = (
     (_('Technical and methodological aids'), TECHNICAL_AIDS),
 )
 
-COLLECTIVITIES_AUDIANCES = (
+COLLECTIVITIES_AUDIENCES = (
     ('commune', _('Communes')),
-    ('epci', _('Audiance EPCI')),
+    ('epci', _('Audience EPCI')),
     ('department', _('Departments')),
     ('region', _('Regions')),
 )
 
-OTHER_AUDIANCES = (
+OTHER_AUDIENCES = (
     ('association', _('Associations')),
     ('private_person', _('Individuals')),
     ('farmer', _('Farmers')),
@@ -53,9 +53,9 @@ OTHER_AUDIANCES = (
     ('researcher', _('Research')),
 )
 
-AUDIANCES = (
-    (_('Collectivities'), COLLECTIVITIES_AUDIANCES),
-    (_('Other audiances'), OTHER_AUDIANCES)
+AUDIENCES = (
+    (_('Collectivities'), COLLECTIVITIES_AUDIENCES),
+    (_('Other audiences'), OTHER_AUDIENCES)
 )
 
 IS_CALL_FOR_PROJECT = (
@@ -103,8 +103,8 @@ class BaseAidForm(forms.ModelForm):
         if 'aid_types' in self.fields:
             self.fields['aid_types'].choices = AID_TYPES
 
-        if 'targeted_audiances' in self.fields:
-            self.fields['targeted_audiances'].choices = AUDIANCES
+        if 'targeted_audiences' in self.fields:
+            self.fields['targeted_audiences'].choices = AUDIENCES
 
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True
@@ -201,7 +201,7 @@ class AidAdminForm(BaseAidForm):
         widgets = {
             'name': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': forms.CheckboxSelectMultiple,
-            'targeted_audiances': forms.CheckboxSelectMultiple,
+            'targeted_audiences': forms.CheckboxSelectMultiple,
             'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
         }
@@ -275,7 +275,7 @@ class AidEditForm(BaseAidForm):
             'description',
             'categories',
             'project_examples',
-            'targeted_audiances',
+            'targeted_audiences',
             'financers',
             'financer_suggestion',
             'instructors',
@@ -300,7 +300,7 @@ class AidEditForm(BaseAidForm):
         widgets = {
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
-            'targeted_audiances': MultipleChoiceFilterWidget,
+            'targeted_audiences': MultipleChoiceFilterWidget,
             'aid_types': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
@@ -441,10 +441,10 @@ class BaseAidSearchForm(forms.Form):
         queryset=CATEGORIES_QS,
         to_field_name='slug',
         required=False)
-    targeted_audiances = forms.MultipleChoiceField(
+    targeted_audiences = forms.MultipleChoiceField(
         label=_('You are seeking aids for…'),
         required=False,
-        choices=Aid.AUDIANCES,
+        choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
@@ -528,9 +528,9 @@ class BaseAidSearchForm(forms.Form):
                 .filter(search_vector=query) \
                 .annotate(rank=SearchRank(F('search_vector'), query))
 
-        targeted_audiances = self.cleaned_data.get('targeted_audiances', None)
-        if targeted_audiances:
-            qs = qs.filter(targeted_audiances__overlap=targeted_audiances)
+        targeted_audiences = self.cleaned_data.get('targeted_audiences', None)
+        if targeted_audiences:
+            qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
         categories = self.cleaned_data.get('categories', None)
         if categories:
@@ -679,17 +679,17 @@ class BaseAidSearchForm(forms.Form):
 class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
-    targeted_audiances = forms.MultipleChoiceField(
+    targeted_audiences = forms.MultipleChoiceField(
         label=_('The structure'),
         required=False,
-        choices=Aid.AUDIANCES)
+        choices=Aid.AUDIENCES)
 
 
 class AdvancedAidFilterForm(BaseAidSearchForm):
     """An "advanced" aid list filter form with more criterias."""
 
-    targeted_audiances = forms.MultipleChoiceField(
+    targeted_audiences = forms.MultipleChoiceField(
         label=_('You are seeking aids for…'),
         required=False,
-        choices=Aid.AUDIANCES,
+        choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)

@@ -1,15 +1,15 @@
 from django.urls import path, include
 from django.utils.translation import ugettext_lazy as _
 
-from search.views import (AudianceSearch, PerimeterSearch, ThemeSearch,
+from search.views import (AudienceSearch, PerimeterSearch, ThemeSearch,
                           CategorySearch)
 from minisites.views import SiteHome
 
 
 urlpatterns = [
     path(_('form/'), include([
-        path(_('audiance/'), AudianceSearch.as_view(),
-             name='search_step_audiance'),
+        path(_('audience/'), AudienceSearch.as_view(),
+             name='search_step_audience'),
         path(_('perimeter/'), PerimeterSearch.as_view(),
              name='search_step_perimeter'),
         path(_('theme/'), ThemeSearch.as_view(), name='search_step_theme'),

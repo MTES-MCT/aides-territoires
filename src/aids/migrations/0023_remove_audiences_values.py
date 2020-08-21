@@ -3,16 +3,16 @@
 from django.db import migrations
 
 
-def remove_audiances_values(apps, schema_editor):
-    """Remove deleted values in aid audiances field."""
+def remove_audiences_values(apps, schema_editor):
+    """Remove deleted values in aid audiences field."""
 
     Aid = apps.get_model('aids', 'Aid')
     aids = Aid.objects.all()
 
     for aid in aids:
         for field in ('company', 'civil_society', 'association', 'other'):
-            if field in aid.targeted_audiances:
-                aid.targeted_audiances.remove(field)
+            if field in aid.targeted_audiences:
+                aid.targeted_audiences.remove(field)
 
         aid.save()
 
@@ -25,5 +25,5 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            remove_audiances_values, migrations.RunPython.noop),
+            remove_audiences_values, migrations.RunPython.noop),
     ]

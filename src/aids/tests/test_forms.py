@@ -37,84 +37,84 @@ def aids(user, backer):
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['commune'])
+        targeted_audiences=['commune'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['department'])
+        targeted_audiences=['department'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['region'])
+        targeted_audiences=['region'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-01-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['epci'])
+        targeted_audiences=['epci'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['public_cies'])
+        targeted_audiences=['public_cies'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['association'])
+        targeted_audiences=['association'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['private_person'])
+        targeted_audiences=['private_person'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-05-01',
         mobilization_steps=['preop', 'op'],
         aid_types=['grant', 'loan'],
-        targeted_audiances=['researcher'])
+        targeted_audiences=['researcher'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['preop', 'op', 'postop'],
         aid_types=['loan'],
-        targeted_audiances=['private_sector'])
+        targeted_audiences=['private_sector'])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=['loan'],
-        targeted_audiances=[])
+        targeted_audiences=[])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['op', 'postop'],
         aid_types=[],
-        targeted_audiances=[])
+        targeted_audiences=[])
     AidFactory(
         author=user,
         financers=[backer],
         submission_deadline='2018-09-01',
         mobilization_steps=['postop'],
         aid_types=['technical', 'financial'],
-        targeted_audiances=[])
+        targeted_audiences=[])
 
     qs = Aid.objects.all().order_by('id')
     return qs
@@ -193,61 +193,61 @@ def test_search_form_filter_by_deadline(aids):
     assert qs.count() == 0
 
 
-def test_search_from_filter_by_audiances(aids):
-    form = AidSearchForm({'targeted_audiances': ['commune']})
+def test_search_from_filter_by_audiences(aids):
+    form = AidSearchForm({'targeted_audiences': ['commune']})
     qs = form.filter_queryset(aids)
     assert qs.count() == 1
     for aid in qs:
-        assert 'commune' in aid.targeted_audiances
+        assert 'commune' in aid.targeted_audiences
 
-    form = AidSearchForm({'targeted_audiances': [
+    form = AidSearchForm({'targeted_audiences': [
         'commune', 'department'
         ]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 2
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences))
 
-    form = AidSearchForm({'targeted_audiances': [
+    form = AidSearchForm({'targeted_audiences': [
         'commune', 'department', 'region'
         ]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 3
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences))
 
-    form = AidSearchForm({'targeted_audiances': [
+    form = AidSearchForm({'targeted_audiences': [
             'commune', 'department', 'region', 'epci'
         ]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 4
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences))
 
-    form = AidSearchForm({'targeted_audiances': [
+    form = AidSearchForm({'targeted_audiences': [
             'commune', 'department', 'region', 'epci', 'public_cies'
         ]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 5
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances,
-            'public_cies' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences,
+            'public_cies' in aid.targeted_audiences))
 
     form = AidSearchForm({
-        'targeted_audiances': [
+        'targeted_audiences': [
             'commune', 'department', 'region', 'epci', 'public_cies',
             'association'
         ]
@@ -256,15 +256,15 @@ def test_search_from_filter_by_audiances(aids):
     assert qs.count() == 6
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances,
-            'public_cies' in aid.targeted_audiances,
-            'association' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences,
+            'public_cies' in aid.targeted_audiences,
+            'association' in aid.targeted_audiences))
 
     form = AidSearchForm({
-        'targeted_audiances': [
+        'targeted_audiences': [
             'commune', 'department', 'region', 'epci', 'public_cies',
             'association', 'private_person'
         ]
@@ -273,16 +273,16 @@ def test_search_from_filter_by_audiances(aids):
     assert qs.count() == 7
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances,
-            'public_cies' in aid.targeted_audiances,
-            'association' in aid.targeted_audiances,
-            'private_person' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences,
+            'public_cies' in aid.targeted_audiences,
+            'association' in aid.targeted_audiences,
+            'private_person' in aid.targeted_audiences))
 
     form = AidSearchForm({
-        'targeted_audiances': [
+        'targeted_audiences': [
             'commune', 'department', 'region', 'epci', 'public_cies',
             'association', 'private_person', 'researcher'
         ]
@@ -291,17 +291,17 @@ def test_search_from_filter_by_audiances(aids):
     assert qs.count() == 8
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances,
-            'public_cies' in aid.targeted_audiances,
-            'association' in aid.targeted_audiances,
-            'private_person' in aid.targeted_audiances,
-            'researcher' in aid.targeted_audiances,))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences,
+            'public_cies' in aid.targeted_audiences,
+            'association' in aid.targeted_audiences,
+            'private_person' in aid.targeted_audiences,
+            'researcher' in aid.targeted_audiences,))
 
     form = AidSearchForm({
-        'targeted_audiances': [
+        'targeted_audiences': [
             'commune', 'department', 'region', 'epci', 'public_cies',
             'association', 'private_person', 'researcher', 'private_sector'
         ]
@@ -310,15 +310,15 @@ def test_search_from_filter_by_audiances(aids):
     assert qs.count() == 9
     for aid in qs:
         assert any((
-            'commune' in aid.targeted_audiances,
-            'department' in aid.targeted_audiances,
-            'region' in aid.targeted_audiances,
-            'epci' in aid.targeted_audiances,
-            'public_cies' in aid.targeted_audiances,
-            'association' in aid.targeted_audiances,
-            'private_person' in aid.targeted_audiances,
-            'researcher' in aid.targeted_audiances,
-            'private_sector' in aid.targeted_audiances))
+            'commune' in aid.targeted_audiences,
+            'department' in aid.targeted_audiences,
+            'region' in aid.targeted_audiences,
+            'epci' in aid.targeted_audiences,
+            'public_cies' in aid.targeted_audiences,
+            'association' in aid.targeted_audiences,
+            'private_person' in aid.targeted_audiences,
+            'researcher' in aid.targeted_audiences,
+            'private_sector' in aid.targeted_audiences))
 
 
 def test_aid_edition_subvention_rate_validation(aid_form_data):

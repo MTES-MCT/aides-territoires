@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('epci', 'Audiance EPCI'), ('department', 'Department'), ('region', 'Region'), ('association', 'Association'), ('private_sector', 'Private sector'), ('public_org', 'Public organization'), ('lessor', 'Audiance lessor'), ('researcher', 'Research'), ('private_person', 'Individual'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiances'),
+            name='targeted_audiences',
+            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('epci', 'Audience EPCI'), ('department', 'Department'), ('region', 'Region'), ('association', 'Association'), ('private_sector', 'Private sector'), ('public_org', 'Public organization'), ('lessor', 'Audience lessor'), ('researcher', 'Research'), ('private_person', 'Individual'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
         ),
     ]

@@ -28,6 +28,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='aid',
-            name='targeted_audiances_detail',
+            name='targeted_audiences_detail',
         ),
     ]

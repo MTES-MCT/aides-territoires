@@ -14,7 +14,7 @@ from geofr.models import Perimeter
 from aids.forms import AidSearchForm
 
 
-AUDIANCES = [
+AUDIENCES = [
     (_('A collectivity'), (
         ('commune', _('Commune')),
         ('epci', _('Intercommunality')),
@@ -30,23 +30,23 @@ AUDIANCES = [
 ]
 
 
-class AudianceWidget(forms.widgets.ChoiceWidget):
-    """Custom widget for the audiance search step."""
+class AudienceWidget(forms.widgets.ChoiceWidget):
+    """Custom widget for the audience search step."""
 
     allow_multiple_selected = False
-    template_name = 'search/forms/widgets/audiance_widget.html'
+    template_name = 'search/forms/widgets/audience_widget.html'
 
 
-class AudianceSearchForm(forms.Form):
-    targeted_audiances = forms.MultipleChoiceField(
+class AudienceSearchForm(forms.Form):
+    targeted_audiences = forms.MultipleChoiceField(
         label=_('Your are seeking aids for…'),
         required=False,
-        choices=AUDIANCES,
-        widget=AudianceWidget)
+        choices=AUDIENCES,
+        widget=AudienceWidget)
 
 
 class PerimeterSearchForm(forms.Form):
-    targeted_audiances = forms.MultipleChoiceField(
+    targeted_audiences = forms.MultipleChoiceField(
         widget=forms.widgets.MultipleHiddenInput)
     perimeter = AutocompleteModelChoiceField(
         label=_('Your territory'),
@@ -90,8 +90,8 @@ class ThemeWidget(forms.widgets.ChoiceWidget):
 
 
 class ThemeSearchForm(forms.Form):
-    targeted_audiances = forms.MultipleChoiceField(
-        choices=AUDIANCES,
+    targeted_audiences = forms.MultipleChoiceField(
+        choices=AUDIENCES,
         widget=forms.widgets.MultipleHiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
@@ -162,8 +162,8 @@ class CategoryWidget(forms.widgets.ChoiceWidget):
 
 
 class CategorySearchForm(forms.Form):
-    targeted_audiances = forms.MultipleChoiceField(
-        choices=AUDIANCES,
+    targeted_audiences = forms.MultipleChoiceField(
+        choices=AUDIENCES,
         widget=forms.widgets.MultipleHiddenInput)
     perimeter = forms.CharField(
         widget=forms.widgets.HiddenInput)
