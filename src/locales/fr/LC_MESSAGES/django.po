@@ -57,7 +57,7 @@ msgid ""
 "We will send regular updates (no more than once a month) about the new "
 "features and updates about our service."
 msgstr ""
-"Nous enverrons régulièmement (pas plus d'une fois par mois) des informations "
+"Nous enverrons régulièrement (pas plus d'une fois par mois) des informations "
 "à propos des nouveautés sur le site."
 
 msgid "Your organization"
