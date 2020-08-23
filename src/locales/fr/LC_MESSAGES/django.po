@@ -332,7 +332,7 @@ msgstr ""
 
 msgid "Library, skatepark, etc."
 msgstr ""
-"Médiathéque, skatepark, accompagner des enfants en classe de neige, financer "
+"Médiathèque, skatepark, accompagner des enfants en classe de neige, financer "
 "une usine de traitement des déchets, etc."
 
 msgid "Other eligibility criterias?"
