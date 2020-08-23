@@ -513,11 +513,11 @@ msgstr ""
 "soumission."
 
 msgid "Who are you?"
-msgstr "Qui êtes vous ?"
+msgstr "Qui êtes-vous ?"
 
 msgid "Leave us an address if you want a followup."
 msgstr ""
-"Laissez nous votre adresse si vous souhaitez être notifié des suites que "
+"Laissez-nous votre adresse si vous souhaitez être notifié des suites que "
 "nous donnerons à votre amendement."
 
 msgid "Help us understand who you are."
@@ -1978,10 +1978,10 @@ msgid "Suggest some modifications"
 msgstr "Suggérez des modifications"
 
 msgid "Tell us about yourself"
-msgstr "Dites nous en plus sur vous"
+msgstr "Dites-nous en plus sur vous"
 
 msgid "Tell us more about your amendment"
-msgstr "Dites nous en plus"
+msgstr "Dites-nous en plus"
 
 msgid "Suggest amendments"
 msgstr "Suggérer des modifications"
