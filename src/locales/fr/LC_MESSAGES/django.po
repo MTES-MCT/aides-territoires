@@ -69,6 +69,14 @@ msgstr "Votre fonction"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may "
+"be case-sensitive."
+msgstr ""
+"Saisissez une adresse e-mail et un mot de passe valides. Remarquez que chacun "
+"de ces champs est sensible à la casse (différenciation des majuscules/"
+"minuscules)."
+
 msgid "Full name"
 msgstr "Nom complet"
 
