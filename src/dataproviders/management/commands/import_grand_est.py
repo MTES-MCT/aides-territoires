@@ -15,7 +15,7 @@ obtenir les informations relatives aux conditions d'éligibilité.
 
 
 class Command(CrawlerImportCommand):
-    """Import data from the eaurmc.fr site."""
+    """Import data from the grandest.fr site."""
 
     SPIDER_CLASS = GrandEstSpider
 
