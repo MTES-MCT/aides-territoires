@@ -42,6 +42,9 @@ class SearchPageAdmin(admin.ModelAdmin):
         (_('Form customization'), {
             'fields': (
                 'available_categories',
+                'show_perimeter_field',
+                'show_audiance_field',
+                'show_categories_field',
             )
         }),
     ]
