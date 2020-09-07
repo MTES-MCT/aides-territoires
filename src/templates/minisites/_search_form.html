@@ -9,6 +9,21 @@
     {{ form.call_for_projects_only.as_hidden }}
     {{ form.backers.as_hidden }}
     {{ form.text.as_hidden }}
+
+    {% comment %}
+        Those fields can be displayed or hidden in admin.
+    {% endcomment %}
+    {% if not search_page.show_perimeter_field %}
+        {{ form.perimeter.as_hidden }}
+    {% endif %}
+
+    {% if not search_page.show_audiance_field %}
+        {{ form.targeted_audiances.as_hidden }}
+    {% endif %}
+
+    {% if not search_page.show_categories_field %}
+        {{ form.categories.as_hidden }}
+    {% endif %}
 {% endblock %}
 
 {% block other-actions %}
@@ -31,16 +46,22 @@
 
 {% block form-body %}
     <div class="row">
-        <div class="col col-md-4">
-            {% include '_field_snippet.html' with field=form.perimeter %}
-        </div>
+        {% if search_page.show_perimeter_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.perimeter %}
+            </div>
+        {% endif %}
 
-        <div class="col col-md-4">
-            {% include '_field_snippet.html' with field=form.targeted_audiances %}
-        </div>
+        {% if search_page.show_audiance_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.targeted_audiances %}
+            </div>
+        {% endif %}
 
-        <div class="col col-md-4">
-            {% include '_field_snippet.html' with field=form.categories %}
-        </div>
+        {% if search_page.show_categories_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.categories %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
