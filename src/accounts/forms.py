@@ -33,6 +33,10 @@ class RegisterForm(forms.ModelForm):
         self.fields['email'].widget.attrs.update({
             'placeholder': _('Please double-check this value.')})
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        return email.lower()
+
 
 class LoginForm(AuthenticationForm):
 

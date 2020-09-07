@@ -167,6 +167,23 @@ def test_register_form_with_consent(client):
     assert user.ml_consent
 
 
+def test_register_form_converts_email_to_lowercase(client):
+    users = User.objects.all()
+    assert users.count() == 0
+
+    register_url = reverse('register')
+    res = client.post(register_url, {
+        'full_name': 'Olga Tau',
+        'email': 'OLGA@Test.Com',
+        'ml_consent': True})
+
+    assert res.status_code == 302
+    assert users.count() == 1
+
+    user = users[0]
+    assert user.email == 'olga@test.com'
+
+
 def test_profile_form_updates_profile(client, user):
     """The profile forms updates the user's data."""
     user.ml_consent = False
