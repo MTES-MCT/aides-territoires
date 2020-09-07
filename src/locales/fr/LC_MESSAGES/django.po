@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-21 13:59+0200\n"
+"POT-Creation-Date: 2020-09-07 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1273,6 +1273,10 @@ msgstr "Contenu additionnel"
 msgid "Hidden content, only revealed on a `See more` click."
 msgstr "Contenu caché, révélé au clic sur le bouton « Voir plus »."
 
+msgid "You need to select at least one search form filter."
+msgstr ""
+"Vous devez sélectionner au moins un filtre pour le formulaire de recherche."
+
 msgid "The main displayed title."
 msgstr "Le titre principal."
 
@@ -1282,6 +1286,12 @@ msgid ""
 msgstr ""
 "Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page "
 "existante. DOIT être en minuscule pour les sites partenaires."
+
+msgid "Meta image"
+msgstr "Image (meta)"
+
+msgid "Make sure the file is at least 1024px long."
+msgstr "Vérifiez que l'image a une largeur minimale de 1024px"
 
 msgid "Additional page content"
 msgstr "Contenu additionnel"
@@ -1333,6 +1343,15 @@ msgstr "Lien du logo"
 
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
+
+msgid "Show perimeter field?"
+msgstr "Montrer le champ « territoire » ?"
+
+msgid "Show audiance field?"
+msgstr "Montrer le champ « structure » ?"
+
+msgid "Show categories field?"
+msgstr "Montrer le champ « thématiques » ?"
 
 msgid "Search page"
 msgstr "Recherche personnalisée"
@@ -2358,7 +2377,9 @@ msgstr "Recherche – Catégories"
 
 #, python-format
 msgid "<span class=\"counter\">%(total_aids)s</span> aids match your research"
-msgstr "<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre recherche"
+msgstr ""
+"<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre "
+"recherche"
 
 msgid "Refine those results by selecting categories"
 msgstr "Affinez ces résultats en sélectionnant des sous-thématiques"
