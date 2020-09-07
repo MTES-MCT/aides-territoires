@@ -39,9 +39,6 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-
-    """Simple login form with no password."""
-
     username = forms.EmailField(
         label=_('Your email address'),
         required=True)
@@ -50,6 +47,12 @@ class LoginForm(AuthenticationForm):
         required=True,
         strip=False,
         widget=forms.PasswordInput)
+
+    def clean_username(self):
+        """Don't prevent users to login when they user uppercase emails."""
+
+        username = self.cleaned_data['username']
+        return username.lower()
 
 
 class PasswordResetForm(forms.Form):

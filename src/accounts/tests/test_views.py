@@ -25,6 +25,23 @@ def test_login_view_is_accessible_for_anonymous_users(client):
     assert res.status_code == 200
 
 
+def test_login_is_case_insensitive(client, user):
+    user.email = 'test@test.com'
+    user.set_password('pass')
+    user.save()
+
+    login_url = reverse('login')
+    res = client.get(login_url)
+    assert res.status_code == 200
+    assert not res.wsgi_request.user.is_authenticated
+
+    res = client.post(
+        login_url,
+        {'username': 'TEST@TEST.com', 'password': 'pass'})
+    assert res.status_code == 302
+    assert res.wsgi_request.user.is_authenticated
+
+
 def test_password_reset_with_existing_email_does_send_an_email(
         client, user, mailoutbox):
     login_url = reverse('password_reset')
