@@ -86,7 +86,7 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
     assert not res.wsgi_request.user.is_authenticated
 
 
-def test_register_form_is_form_anonymous_only(client, user):
+def test_register_form_is_for_anonymous_only(client, user):
     client.force_login(user)
     register_url = reverse('register')
     res = client.get(register_url)
