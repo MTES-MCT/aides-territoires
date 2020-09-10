@@ -24,7 +24,7 @@
         {{ form.categories.as_hidden }}
     {% endif %}
 
-    {% if not search_page.show_mobilization_steps_field %}
+    {% if not search_page.show_mobilization_step_field %}
         {{ form.mobilization_step.as_hidden }}
     {% endif %}
 {% endblock %}
@@ -67,7 +67,7 @@
             </div>
         {% endif %}
 
-        {% if search_page.show_mobilization_steps_field %}
+        {% if search_page.show_mobilization_step_field %}
             <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.mobilization_step %}
             </div>
