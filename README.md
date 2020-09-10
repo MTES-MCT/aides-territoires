@@ -12,6 +12,11 @@ Ce document s'adresse aux intervenant·es techniques sur le projet
 Aides-territoires. Pour plus d'infos en tant qu'utilisateur·ice, se reporter
 [directement au site](https://aides-territoires.beta.gouv.fr/).
 
+## Présentation du code
+
+Vous pouvez accéder à une grossière [documentation des briques générales qui
+constituent le code d'Aides-territoires](LECODE.md).
+
 ## Intégration de l'équipe « *onboarding* »
 
 Les développeur·euses qui intègrent le projet et doivent
