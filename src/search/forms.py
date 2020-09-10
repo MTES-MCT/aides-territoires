@@ -225,16 +225,21 @@ class SearchPageAdminForm(forms.ModelForm):
 
         search_fields = [
             'show_perimeter_field', 'show_audiance_field',
-            'show_categories_field'
+            'show_categories_field', 'show_mobilization_step_field',
         ]
-        at_least_one_filter = False
+        nb_filters = 0
         for field in search_fields:
             if field in data and data[field]:
-                at_least_one_filter = True
+                nb_filters += 1
 
-        if not at_least_one_filter:
+        if nb_filters == 0:
             raise ValidationError(
                 _('You need to select at least one search form filter.'),
-                code='missing_filter')
+                code='not_enough_filters')
+
+        if nb_filters > 3:
+            raise ValidationError(
+                _('You need to select less than four search form filters.'),
+                code='too_many_filters')
 
         return data
