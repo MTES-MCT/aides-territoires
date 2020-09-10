@@ -2,7 +2,6 @@
 
 {% block hidden-fields %}
     {{ form.apply_before.as_hidden }}
-    {{ form.mobilization_step.as_hidden }}
     {{ form.destinations.as_hidden }}
     {{ form.themes.as_hidden }}
     {{ form.aid_types.as_hidden }}
@@ -23,6 +22,10 @@
 
     {% if not search_page.show_categories_field %}
         {{ form.categories.as_hidden }}
+    {% endif %}
+
+    {% if not search_page.show_mobilization_steps_field %}
+        {{ form.mobilization_step.as_hidden }}
     {% endif %}
 {% endblock %}
 
@@ -61,6 +64,12 @@
         {% if search_page.show_categories_field %}
             <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.categories %}
+            </div>
+        {% endif %}
+
+        {% if search_page.show_mobilization_steps_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.mobilization_step %}
             </div>
         {% endif %}
     </div>

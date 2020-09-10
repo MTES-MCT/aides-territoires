@@ -265,6 +265,11 @@ section#search-engine {
 
         div.form-group {
             margin-bottom: 0;
+
+            & > ul {
+                list-style-type: none;
+                padding-left: 0;
+            }
         }
 
         div.form-group + div.form-group {
