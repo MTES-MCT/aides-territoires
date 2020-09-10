@@ -124,6 +124,9 @@ class SearchPage(models.Model):
     show_categories_field = models.BooleanField(
         _('Show categories field?'),
         default=True)
+    show_mobilization_steps_field = models.BooleanField(
+        _('Show mobilization steps filter?'),
+        default=False)
 
     class Meta:
         verbose_name = _('Search page')
