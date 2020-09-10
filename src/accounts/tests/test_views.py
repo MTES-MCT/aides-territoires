@@ -25,6 +25,23 @@ def test_login_view_is_accessible_for_anonymous_users(client):
     assert res.status_code == 200
 
 
+def test_login_is_case_insensitive(client, user):
+    user.email = 'test@test.com'
+    user.set_password('pass')
+    user.save()
+
+    login_url = reverse('login')
+    res = client.get(login_url)
+    assert res.status_code == 200
+    assert not res.wsgi_request.user.is_authenticated
+
+    res = client.post(
+        login_url,
+        {'username': 'TEST@TEST.com', 'password': 'pass'})
+    assert res.status_code == 302
+    assert res.wsgi_request.user.is_authenticated
+
+
 def test_password_reset_with_existing_email_does_send_an_email(
         client, user, mailoutbox):
     login_url = reverse('password_reset')
@@ -86,7 +103,7 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
     assert not res.wsgi_request.user.is_authenticated
 
 
-def test_register_form_is_form_anonymous_only(client, user):
+def test_register_form_is_for_anonymous_only(client, user):
     client.force_login(user)
     register_url = reverse('register')
     res = client.get(register_url)
@@ -165,6 +182,23 @@ def test_register_form_with_consent(client):
 
     user = users[0]
     assert user.ml_consent
+
+
+def test_register_form_converts_email_to_lowercase(client):
+    users = User.objects.all()
+    assert users.count() == 0
+
+    register_url = reverse('register')
+    res = client.post(register_url, {
+        'full_name': 'Olga Tau',
+        'email': 'OLGA@Test.Com',
+        'ml_consent': True})
+
+    assert res.status_code == 302
+    assert users.count() == 1
+
+    user = users[0]
+    assert user.email == 'olga@test.com'
 
 
 def test_profile_form_updates_profile(client, user):
