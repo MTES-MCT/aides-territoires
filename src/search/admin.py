@@ -45,6 +45,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_perimeter_field',
                 'show_audiance_field',
                 'show_categories_field',
+                'show_mobilization_step_field',
             )
         }),
     ]
