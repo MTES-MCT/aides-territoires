@@ -5,6 +5,7 @@ from django import forms
 from django.db.models import Count
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
@@ -212,3 +213,28 @@ class SearchPageAdminForm(forms.ModelForm):
         label=_('Categories'),
         required=False,
         widget=FilteredSelectMultiple(_('Categories'), True))
+
+    def clean(self):
+        """Validate search page customization consistency.
+
+        Filters consistency: we need to make sure that at least one
+        search form field is selected.
+
+        """
+        data = super().clean()
+
+        search_fields = [
+            'show_perimeter_field', 'show_audiance_field',
+            'show_categories_field'
+        ]
+        at_least_one_filter = False
+        for field in search_fields:
+            if field in data and data[field]:
+                at_least_one_filter = True
+
+        if not at_least_one_filter:
+            raise ValidationError(
+                _('You need to select at least one search form filter.'),
+                code='missing_filter')
+
+        return data

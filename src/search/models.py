@@ -109,11 +109,21 @@ class SearchPage(models.Model):
         null=True, blank=True,
         help_text=_('The url for the partner\'s logo link'))
 
+    # Search form customization fields
     available_categories = models.ManyToManyField(
         'categories.Category',
         verbose_name=_('Categories'),
         related_name='search_pages',
         blank=True)
+    show_perimeter_field = models.BooleanField(
+        _('Show perimeter field?'),
+        default=True)
+    show_audiance_field = models.BooleanField(
+        _('Show audiance field?'),
+        default=True)
+    show_categories_field = models.BooleanField(
+        _('Show categories field?'),
+        default=True)
 
     class Meta:
         verbose_name = _('Search page')
