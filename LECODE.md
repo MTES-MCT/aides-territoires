@@ -29,6 +29,7 @@ types d'utilisateurs (personas) :
 Les chercheurs d'aides sont des utilisateurs anonymes et n'ont pas besoin de
 créer de compte.
 
+
  ### Porteurs d'aides
 
  Les porteurs d'aides sont les personnes ou organisations qui publient des
@@ -41,6 +42,7 @@ créer de compte.
 
   - accès à une interface de contribution (édition / publication d'aides) ;
 
+
  ### Admins
 
  Les admins sont les membres d'Aides-territoires qui ont accès à l'interface
@@ -52,3 +54,30 @@ créer de compte.
   - accepter les suggestions de modifications sur les aides ;
   - créer des « minisites », des pages de recherche personnalisées ;
   - administrer les différentes données (catégories, etc.)
+
+
+## Architecture et organisation du projet
+
+Le projet est structuré comme un projet Django classique, découpé en
+applications.
+
+L'utilité de chaque application est décrite dans son fichier `__init__.py`.
+
+Certaines données de projet sont accessible depuis une API. L'API est en lecture
+seule.
+
+
+## Fonctionnalités principales
+
+La liste des « gros morceaux » ou fonctionnalités principales à connaître :
+
+ - création, édition, publication d'aides ;
+ - recherche d'aides en 4 étapes ;
+ - présentation du résultat des aides et filtre rapide ;
+ - moteur de recherche avancé « plus de critères » ;
+ - critère « périmètre » dans la recherche ;
+ - possibilité d'amender une aide ;
+ - interface de comparaison entre l'aide et ses amendements ;
+ - création de « minisites » ;
+ - scripts de mise à jour des périmètres ;
+ - recette de déploiement ansible.
