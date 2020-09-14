@@ -4,13 +4,17 @@ upstream {{ project_name }}_minisites {
 
 server {
     listen 80;
-    server_name *.{{ project_domain }};
+    server_name ~^[a-zA-Z0-9-]+.{{ project_domain }}$;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name *.{{ project_domain }};
+
+    # We don't use a simple wildcard here, because nasty bots are trying to
+    # scrape invalid urls, like "google_earth.{{ project_domain }}", and we
+    # were getting swamped with django's DisallowedHost exceptions
+    server_name ~^[a-zA-Z0-9-]+.{{ project_domain }}$;
 
     access_log /var/log/nginx/{{ project_name }}_minisites.access.log;
     error_log /var/log/nginx/{{ project_name }}_minisites.error.log;
