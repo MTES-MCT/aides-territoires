@@ -45,13 +45,13 @@ echo ""
 
 echo "Apt-get Update \ upgrade"
 echo ""
-lxc exec $ContainerName -- sh -c "apt-get -y update"
-lxc exec $ContainerName -- sh -c "apt-get -y upgrade"
+sudo lxc exec $ContainerName -- sh -c "apt-get -y update"
+sudo lxc exec $ContainerName -- sh -c "apt-get -y upgrade"
 echo ""
 
 echo "Installation de ssh"
 echo ""
-lxc exec $ContainerName  -- sh -c "echo "y\n" |apt-get install ssh"
+sudo lxc exec $ContainerName  -- sh -c "echo "y\n" |apt-get install ssh"
 echo ""
 
 echo "Envoi de la clé publique au container"
@@ -59,18 +59,18 @@ echo ""
 ip=$(lxc list $ContainerName -c 4| awk '!/IPV4/{ if ( $2 != ""  && $2 != "|" ) print $2}')
 echo " L'ip du serveur est "$ip
 ssh-keyscan -H $ip >> ~/.ssh/known_hosts
-lxc exec $ContainerName -- sh -c "mkdir /root/.ssh"
-lxc file push $HOME/.ssh/$rsaKey $ContainerName/root/.ssh/authorized_keys --uid=0 --gid=0
+sudo lxc exec $ContainerName -- sh -c "mkdir /root/.ssh"
+sudo lxc file push $HOME/.ssh/$rsaKey $ContainerName/root/.ssh/authorized_keys --uid=0 --gid=0
 echo ""
 
 echo "Création du répertoire partagé $(dirname $PWD)"
 echo ""
-lxc config device add $ContainerName aides disk source=$(dirname $PWD) path=/home/aides/aides
+sudo lxc config device add $ContainerName aides disk source=$(dirname $PWD) path=/home/aides/aides
 echo ""
 
 echo "Installation de python"
 echo ""
-lxc exec $ContainerName  -- sh -c "apt-get -y install python"
+sudo lxc exec $ContainerName  -- sh -c "apt-get -y install python"
 echo ""
 
 echo "Fin de création et configuration du container"
