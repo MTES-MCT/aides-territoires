@@ -6,43 +6,18 @@ from aids.models import Aid
 from programs.models import Program
 
 
-class AidMultipleChoiceField(forms.ModelMultipleChoiceField):
-
-    def label_from_instance(self, obj):
-        label_elements = [
-            obj.name, obj.perimeter.name if obj.perimeter else '',
-            ', '.join(f.name for f in obj.financerss.all())
-        ]
-        return ' / '.join(filter(None, label_elements))
-
-
-published_aids_qs = Aid.objects \
-    .published() \
-    .select_related('perimeter') \
-    .prefetch_related('financers')
-
-
-class ProgramForm(forms.ModelForm):
-    aids = AidMultipleChoiceField(
-        queryset=published_aids_qs,
-        widget=admin.widgets.FilteredSelectMultiple(
-            _('Aids'),
-            is_stacked=True,
-        ))
-
-
 class ProgramAdmin(admin.ModelAdmin):
 
     class Media:
         css = {'all': ('css/admin.css',)}
 
-    form = ProgramForm
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
     autocomplete_fields = ['perimeter']
     fields = [
         'name', 'slug', 'perimeter', 'short_description', 'description', 'aids'
     ]
+    autocomplete_fields = ['aids', 'perimeter']
 
 
 admin.site.register(Program, ProgramAdmin)
