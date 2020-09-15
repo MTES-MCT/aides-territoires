@@ -74,6 +74,10 @@ class MinisiteMixin:
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.search_page
         context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
+        context['canonical_url'] = 'https://{}.{}/'.format(
+            self.search_page.slug,
+            Site.objects.get_current().domain)
+
         return context
 
 
