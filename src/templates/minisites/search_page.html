@@ -34,12 +34,6 @@
     {% include 'minisites/_css.html' %}
 {% endblock %}
 
-{% comment %}
-For custom minisites, displaying search meta is not very useful, since search
-criterias should be fairly obvious.
-{% endcomment %}
-{% block search-meta %}{% endblock %}
-
 {% block search-engine %}
      {% include 'minisites/_search_form.html' %}
 {% endblock %}
