@@ -6,7 +6,7 @@ echo "Création du Container"
 
 echo "Test de la présence d'une clé publique"
 echo ""
-if [ $(ls -al ~/.ssh|grep -n .pub | wc -l) = "0" ]
+if [ $(ls -al ~/.ssh/|grep -n .pub | wc -l) = "0" ]
 then
   echo "Il n'existe pas de clé publique"
   echo "Il faut la générer avc la commande : ssh-keygen -t rsa"
