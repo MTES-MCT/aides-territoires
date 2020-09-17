@@ -57,7 +57,7 @@ msgid ""
 "We will send regular updates (no more than once a month) about the new "
 "features and updates about our service."
 msgstr ""
-"Nous enverrons régulièmement (pas plus d'une fois par mois) des informations "
+"Nous enverrons régulièrement (pas plus d'une fois par mois) des informations "
 "à propos des nouveautés sur le site."
 
 msgid "Your organization"
@@ -332,7 +332,7 @@ msgstr ""
 
 msgid "Library, skatepark, etc."
 msgstr ""
-"Médiathéque, skatepark, accompagner des enfants en classe de neige, financer "
+"Médiathèque, skatepark, accompagner des enfants en classe de neige, financer "
 "une usine de traitement des déchets, etc."
 
 msgid "Other eligibility criterias?"
@@ -513,11 +513,11 @@ msgstr ""
 "soumission."
 
 msgid "Who are you?"
-msgstr "Qui êtes vous ?"
+msgstr "Qui êtes-vous ?"
 
 msgid "Leave us an address if you want a followup."
 msgstr ""
-"Laissez nous votre adresse si vous souhaitez être notifié des suites que "
+"Laissez-nous votre adresse si vous souhaitez être notifié des suites que "
 "nous donnerons à votre amendement."
 
 msgid "Help us understand who you are."
@@ -787,7 +787,7 @@ msgid "Origin url of the imported data"
 msgstr "Url d'origine de la donnée importée"
 
 msgid "Under which license was this aid shared?"
-msgstr "Sous quelle license cette aide a-t-elle été partagée ?"
+msgstr "Sous quelle licence cette aide a-t-elle été partagée ?"
 
 msgid "Date of the latest access"
 msgstr "Date du dernier accès"
@@ -2005,10 +2005,10 @@ msgid "Suggest some modifications"
 msgstr "Suggérez des modifications"
 
 msgid "Tell us about yourself"
-msgstr "Dites nous en plus sur vous"
+msgstr "Dites-nous en plus sur vous"
 
 msgid "Tell us more about your amendment"
-msgstr "Dites nous en plus"
+msgstr "Dites-nous en plus"
 
 msgid "Suggest amendments"
 msgstr "Suggérer des modifications"
