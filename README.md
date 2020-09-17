@@ -19,11 +19,15 @@ constituent le code d'Aides-territoires](LECODE.md).
 
 ## Intégration de l'équipe « *onboarding* »
 
+- Pour se parler sur slack : https://aides-territoires.slack.com/
+- Pour s'organiser sur trello : https://trello.com/b/5ldc900w/aides-territoires-planification
+
+
+## Démarrage
+
 Les développeur·euses qui intègrent le projet et doivent
 monter un environnement de développement local pourront [consulter la documentation
 spécifique](./ONBOARDING.md).
-
-## Démarrage
 
 ```
 git clone https://github.com/MTES-MCT/aides-territoires
