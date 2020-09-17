@@ -86,4 +86,4 @@ La version de dev du site sera alors accessible à cette adresse :
 
 http://aides-territoires.local:8000/
 
-Il sera nécessaire de mettre à jour la base de donnée à partir d'un dump récent.
+Il sera nécessaire de mettre à jour la base de données à partir d'un dump récent.
