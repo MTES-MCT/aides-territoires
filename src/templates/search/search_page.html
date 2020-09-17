@@ -29,6 +29,12 @@
 {{ block.super }}
 {% endblock %}
 
+{% comment %}
+Specialized search pages are often associated with *loads* of categories,
+so displaying them is not very helpful.
+{% endcomment %}
+{% block search-meta-categories %}{% endblock %}
+
 {% block extra_js %}
 {{ block.super }}
 {% compress js %}

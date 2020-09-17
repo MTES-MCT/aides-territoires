@@ -11,14 +11,19 @@
     <span class="result-count">{{ nb_aids }} results</span>
 {% endblocktrans %}</h1>
 
+{% block search-meta %}
 {% if perimeter or categories or themes %}
 <section class="search-meta">
+
+    {% block search-meta-perimeter %}
     {% if perimeter %}
         <p>
             <strong>{{ _('For:') }}</strong> {{ perimeter }}
         </p>
     {% endif %}
+    {% endblock %}
 
+    {% block search-meta-categories %}
     {% if categories %}
     {% regroup categories by theme as theme_list %}
     <ul class="aid-categories">
@@ -40,8 +45,11 @@
         {% endfor %}
     </ul>
     {% endif %}
+    {% endblock %}
+
 </section>
 {% endif %}
+{% endblock %}
 
 <section id="search-engine">
     {% block search-engine %}
