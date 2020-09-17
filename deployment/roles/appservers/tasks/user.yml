@@ -18,6 +18,14 @@
     setfacl -m {{ user_name }}:rwx "$SSH_AUTH_SOCK"
   changed_when: false
 
+- name: "Ensure .bashrc file exists in `{{ user_name }}` home root"
+  file:
+    path: "{{ install_root }}/.bashrc"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: touch
+  changed_when: False
+
 - name: Make sure the django settings module env is set
   lineinfile:
     path: "{{ install_root }}/.bashrc"
