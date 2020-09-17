@@ -110,7 +110,7 @@ Incorrect : 
 ```html
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="…">Aides-Territoires</a>
+        <a class="navbar-brand" href="…">Aides-territoires</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="…">Lien</a></li>
         </ul>
@@ -124,7 +124,7 @@ Correct :
 ```html
 <nav id="main-navbar">
     <div class="container">
-        <a class="homelink" href="…">Aides-Territoires</a>
+        <a class="homelink" href="…">Aides-territoires</a>
         <ul class="homenav">
             <li><a href="…">Lien</a></li>
         </ul>

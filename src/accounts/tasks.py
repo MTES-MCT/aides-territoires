@@ -11,7 +11,7 @@ from core.celery import app
 from accounts.models import User
 
 
-LOGIN_SUBJECT = 'Connexion à Aides-Territoires'
+LOGIN_SUBJECT = 'Connexion à Aides-territoires'
 
 
 @app.task

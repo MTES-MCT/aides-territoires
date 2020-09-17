@@ -1,6 +1,6 @@
 Bonjour {{ user_name }},
 
-Vous avez demandé à vous connecter sur le site Aides-Territoires.
+Vous avez demandé à vous connecter sur le site Aides-territoires.
 
 Pour ce faire, il vous suffit de cliquer sur le lien suivant :
 
@@ -9,4 +9,4 @@ Pour ce faire, il vous suffit de cliquer sur le lien suivant :
 Si vous n'êtes pas à l'initiative de cette demande, vous n'avez rien à faire.
 
 Cordialement,
-L'équipe d'Aides-Territoires.
+L'équipe d'Aides-territoires.
