@@ -23,9 +23,17 @@
         src: ../../../src/{{ env_file }}
         dest: "{{ django_root }}/{{ env_target }}"
 
-    - name: Install python packages
+    - name: Install python packages for production
+      when: project_env == "production"
       shell: |
         . {{ activate_bin }} && {{ pipenv_bin }} sync
+      args:
+        chdir: "{{ django_root }}"
+
+    - name: Install python packages for dev
+      when: project_env == "local"
+      shell: |
+        . {{ activate_bin }} && {{ pipenv_bin }} sync --dev
       args:
         chdir: "{{ django_root }}"
 
