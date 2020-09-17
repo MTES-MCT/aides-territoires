@@ -27,7 +27,7 @@ CONTACT_URL = 'https://www.bpifrance.fr/Contactez-nous'
 
 
 class Command(BaseImportCommand):
-    """Import data from the DREAL data feed."""
+    """Import data from the BPI data feed."""
 
     def add_arguments(self, parser):
         parser.add_argument('data-file', nargs='?', type=str)

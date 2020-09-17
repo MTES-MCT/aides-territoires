@@ -16,7 +16,7 @@ IGNORE_OLDER_THAN = 365
 
 
 class Command(CrawlerImportCommand):
-    """Import data from the Ademe data feed."""
+    """Import data from the Occitanie data feed."""
 
     SPIDER_CLASS = OccitanieSpider
 
