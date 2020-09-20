@@ -35,7 +35,7 @@ then
 fi
 
 echo ""
-sudo lxc launch images:debian/stretch $ContainerName -c security.privileged=true
+sudo lxc launch images:debian/buster $ContainerName -c security.privileged=true
 echo ""
 
 echo "Pause de 15 secondes pour laisser le container démarrer"
