@@ -224,7 +224,7 @@ class SearchPageAdminForm(forms.ModelForm):
         data = super().clean()
 
         search_fields = [
-            'show_perimeter_field', 'show_audiance_field',
+            'show_perimeter_field', 'show_audience_field',
             'show_categories_field', 'show_mobilization_step_field',
         ]
         nb_filters = 0

@@ -118,8 +118,8 @@ class SearchPage(models.Model):
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),
         default=True)
-    show_audiance_field = models.BooleanField(
-        _('Show audiance field?'),
+    show_audience_field = models.BooleanField(
+        _('Show audience field?'),
         default=True)
     show_categories_field = models.BooleanField(
         _('Show categories field?'),

@@ -1352,7 +1352,7 @@ msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 msgid "Show perimeter field?"
 msgstr "Montrer le champ « territoire » ?"
 
-msgid "Show audiance field?"
+msgid "Show audience field?"
 msgstr "Montrer le champ « structure » ?"
 
 msgid "Show categories field?"
