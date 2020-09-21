@@ -142,6 +142,7 @@ class BaseAidAdmin(admin.ModelAdmin):
                 'financer_suggestion',
                 'instructors',
                 'instructor_suggestion',
+                'in_france_relance',
                 'author',
             )
         }),
