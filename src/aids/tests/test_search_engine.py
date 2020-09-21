@@ -311,3 +311,41 @@ def test_submission_deadline_ordering(client, perimeters):
     assert res.context['paginator'].count == 2
     assert res.context['aids'][0].name == 'Approaching aid'
     assert res.context['aids'][1].name == 'Plenty of time aid'
+
+
+def test_the_france_relance_boolean_filter(client, perimeters):
+    AidFactory(
+        name='Aide France Relance 1',
+        perimeter=perimeters['europe'],
+        in_france_relance=True)
+    AidFactory(
+        name='Aide France Relance 2',
+        perimeter=perimeters['europe'],
+        in_france_relance=True)
+    AidFactory(
+        name='Aide France Relance 3',
+        perimeter=perimeters['europe'],
+        in_france_relance=True)
+    AidFactory(
+        name='Aide diverse 4',
+        perimeter=perimeters['europe'],
+        in_france_relance=False)
+    AidFactory(
+        name='Aide diverse 5',
+        perimeter=perimeters['europe'],
+        in_france_relance=False)
+
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.context['paginator'].count == 5
+
+    # This filter is used to select FrRel aids
+    res = client.get(url, data={'in_france_relance': 'true'})
+    assert res.context['paginator'].count == 3
+    assert res.context['aids'][0].name == 'Aide France Relance 1'
+    assert res.context['aids'][1].name == 'Aide France Relance 2'
+    assert res.context['aids'][2].name == 'Aide France Relance 3'
+
+    # Any false value disables the filter
+    res = client.get(url, data={'in_france_relance': 'false'})
+    assert res.context['paginator'].count == 5
