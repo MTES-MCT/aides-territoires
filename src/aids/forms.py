@@ -280,6 +280,7 @@ class AidEditForm(BaseAidForm):
             'financer_suggestion',
             'instructors',
             'instructor_suggestion',
+            'in_france_relance',
             'recurrence',
             'start_date',
             'predeposit_date',
