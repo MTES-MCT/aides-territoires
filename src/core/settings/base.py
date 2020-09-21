@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
     'django_xworkflows',
+    'corsheaders',
 ]
 
 LOCAL_APPS = [
@@ -54,7 +55,6 @@ LOCAL_APPS = [
     'stats',
     'pages',
     'minisites',
-    'corsheaders',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
