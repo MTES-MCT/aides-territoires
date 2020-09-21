@@ -21,6 +21,7 @@ django-xworkflows = "*"
 beautifulsoup4 = "*"
 scrapy = "*"
 zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
+django-cors-headers = "*"
 
 [dev-packages]
 pytest = "*"
