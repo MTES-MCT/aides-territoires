@@ -51,5 +51,3 @@ GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID', 2)
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
 SIB_LIST_ID = env.int('SIB_LIST_ID')
-
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=(['http://localhost:8080']))

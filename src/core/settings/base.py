@@ -177,6 +177,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 50,
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r'^/api/.*$'
 
 # Define a custom logger that sends events to admin users
 LOGGING = {
