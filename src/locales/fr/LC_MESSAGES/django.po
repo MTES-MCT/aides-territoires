@@ -7,7 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2020-09-21 16:45+0200\n"
+||||||| constructed merge base
+"POT-Creation-Date: 2020-09-10 16:39+0200\n"
+=======
+"POT-Creation-Date: 2020-09-21 15:10+0200\n"
+>>>>>>> Fix a translation problem on contributor profile
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1582,15 +1588,16 @@ msgid "Fill out the required data"
 msgstr "Remplir les données requises"
 
 msgid ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Some features on Aides-"
-"Territoires require a contributor account. To become a contributor, all you "
-"have to do is provide additional contact data. </p> <p>We will use this data "
-"to help validate the aids your contribute.</p>"
+"Some features on Aides-territoires require a contributor account. To become "
+"a contributor, all you have to do is provide additional contact data."
 msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Certaines fonctionnalités "
+"Certaines fonctionnalités "
 "d'Aides-territoires nécessitent un compte contributeur. Pour devenir "
 "contributeur, il vous suffit de fournir quelques informations de contact "
-"supplémentaires. </p> <p>Ces informations nous sont essentielles pour "
+"supplémentaires."
+
+msgid "We will use this data to help validate the aids your contribute."
+msgstr "Ces informations nous sont essentielles pour "
 "garantir la qualité des données présentes sur le site."
 
 msgid "Update your personal data"
