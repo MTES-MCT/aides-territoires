@@ -71,9 +71,19 @@ class MinisiteMixin:
         return obj
 
     def get_context_data(self, **kwargs):
+
+        # Canonical url definition
+        # E.g we want to mark `aides.francemobilites.fr` as a duplicate of
+        # `francemobilites.aides-territoires.beta.gouv.fr`.
+        main_site_domain = Site.objects.get_current().domain
+        page_subdomain = self.search_page.slug
+        canonical_url = f'https://{page_subdomain}.{main_site_domain}'
+
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.search_page
         context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
+        context['canonical_url'] = canonical_url
+
         return context
 
 

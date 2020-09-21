@@ -13,6 +13,8 @@
 {% if search_page.meta_image %}
 <meta property="og:image" content="{{ site_url }}{{ search_page.meta_image.url }}" />
 {% endif %}
+
+ <link rel="canonical" href="{{ canonical_url }}" />
 {% endblock %}
 
 {% block header %}
