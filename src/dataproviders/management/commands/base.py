@@ -186,6 +186,9 @@ class BaseImportCommand(BaseCommand):
     def extract_project_examples(self, line):
         return ''
 
+    def extract_in_france_relance(self, line):
+        return False
+
 
 class CrawlerImportCommand(BaseImportCommand):
     """An import task that uses a crawler to fetch data."""
