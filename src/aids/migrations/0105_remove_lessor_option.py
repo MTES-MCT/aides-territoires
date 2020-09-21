@@ -6,11 +6,11 @@ from django.db import migrations
 def remove_lessor_option(apps, schema_editor):
     Aid = apps.get_model('aids', 'Aid')
     aids = Aid.objects \
-        .filter(targeted_audiences__overlap=['lessor'])
+        .filter(targeted_audiances__overlap=['lessor'])
 
     for aid in aids:
-        aid.targeted_audiences.append('public_cies')
-        aid.targeted_audiences.remove('lessor')
+        aid.targeted_audiances.append('public_cies')
+        aid.targeted_audiances.remove('lessor')
         aid.save()
 
 

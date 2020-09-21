@@ -23,7 +23,7 @@ def remove_types_values(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0023_remove_audiences_values'),
+        ('aids', '0023_remove_audiances_values'),
     ]
 
     operations = [
