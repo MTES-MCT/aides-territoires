@@ -8,16 +8,6 @@
     name: apt-transport-https
     state: present
 
-- name: Install nodesource apt key
-  apt_key:
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-
-- name: Add nodesource apt repository to install NodeJs
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_12.x stretch main
-    state: present
-    filename: nodesource
-
 - name: Upgrade all packages
   apt:
     upgrade: safe
@@ -39,7 +29,6 @@
       - git
       - nginx
       - supervisor
-      - nodejs
       - certbot
       - python3
       - python3-dev
@@ -47,6 +36,22 @@
       - python3-virtualenv
       - python3-venv
       - gnupg
+
+- name: Install nodesource apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+- name: Add nodesource apt repository to install NodeJs
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_12.x stretch main
+    state: present
+    filename: nodesource
+
+- name: Install nodejs
+  apt:
+    name: nodejs
+    update_cache: yes
+    state: latest
 
 - name: Removes sass js version
   npm:
