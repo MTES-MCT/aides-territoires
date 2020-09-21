@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-21 10:43+0200\n"
+"POT-Creation-Date: 2020-09-21 16:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -584,6 +584,9 @@ msgstr "Actions concernées"
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
+msgid "In France Relance?"
+msgstr "Aide France Relance ?"
+
 msgid "Themes"
 msgstr "Thématiques"
 
@@ -782,6 +785,9 @@ msgstr "Date de mise à jour"
 
 msgid "First publication date"
 msgstr "Première date de publication"
+
+msgid "Is this aid a part of the France Relance program?"
+msgstr "Cette aide est-elle éligible au programme France Relance ?"
 
 msgid "Is imported?"
 msgstr "Importé ?"
