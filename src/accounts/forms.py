@@ -41,8 +41,7 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(AuthenticationForm):
     error_messages = {
         'invalid_login': _(
-            'Please enter a correct email address and password. '
-            'Note that both fields may be case-sensitive.'
+            'Please enter a correct email address and password.'
         ),
         'inactive': _('This account is inactive.'),
     }
