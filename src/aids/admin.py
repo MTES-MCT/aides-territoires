@@ -136,13 +136,13 @@ class BaseAidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
+                'in_france_relance',
                 'categories',
                 'targeted_audiences',
                 'financers',
                 'financer_suggestion',
                 'instructors',
                 'instructor_suggestion',
-                'in_france_relance',
                 'author',
             )
         }),
