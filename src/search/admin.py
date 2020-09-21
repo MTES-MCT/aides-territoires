@@ -41,10 +41,11 @@ class SearchPageAdmin(admin.ModelAdmin):
         }),
         (_('Form customization'), {
             'fields': (
-                'available_categories',
-                'show_perimeter_field',
-                'show_audience_field',
                 'show_categories_field',
+                'available_categories',
+                'show_audiance_field',
+                'available_audiences',
+                'show_perimeter_field',
                 'show_mobilization_step_field',
             )
         }),
