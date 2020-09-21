@@ -369,7 +369,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     in_france_relance = models.BooleanField(
         _('In France Relance?'),
         default=False,
-        help_text=_('Is this aid a part of the France Relance program'))
+        help_text=_('Is this aid a part of the France Relance program?'))
 
     # Third-party data import related fields
     is_imported = models.BooleanField(
