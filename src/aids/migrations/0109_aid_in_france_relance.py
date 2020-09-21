@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aid',
             name='in_france_relance',
-            field=models.BooleanField(default=False, help_text='Is this aid a part of the France Relance program', verbose_name='In France Relance?'),
+            field=models.BooleanField(default=False, help_text='Is this aid a part of the France Relance program?', verbose_name='In France Relance?'),
         ),
     ]
