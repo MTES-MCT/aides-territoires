@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
 from core.fields import ChoiceArrayField
-from aids.forms import AUDIANCES
+from aids.forms import AUDIENCES
 
 
 def logo_upload_to(instance, filename):
@@ -130,7 +130,7 @@ class SearchPage(models.Model):
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
-            choices=AUDIANCES))
+            choices=AUDIENCES))
 
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),
