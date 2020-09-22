@@ -280,6 +280,7 @@ class AidEditForm(BaseAidForm):
             'financer_suggestion',
             'instructors',
             'instructor_suggestion',
+            'in_france_relance',
             'recurrence',
             'start_date',
             'predeposit_date',
@@ -430,6 +431,9 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
+    in_france_relance = forms.BooleanField(
+        label=_('France Relance?'),
+        required=False)
     themes = forms.ModelMultipleChoiceField(
         label=_('Themes'),
         queryset=Theme.objects.all(),
@@ -520,6 +524,10 @@ class BaseAidSearchForm(forms.Form):
             'call_for_projects_only', False)
         if call_for_projects_only:
             qs = qs.filter(is_call_for_project=True)
+
+        in_france_relance = self.cleaned_data.get('in_france_relance', False)
+        if in_france_relance:
+            qs = qs.filter(in_france_relance=True)
 
         text = self.cleaned_data.get('text', None)
         if text:

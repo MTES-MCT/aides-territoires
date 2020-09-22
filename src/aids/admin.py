@@ -124,6 +124,7 @@ class BaseAidAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
+        'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter]
 
     filter_vertical = ['categories']  # Overriden in the widget definition
@@ -136,6 +137,7 @@ class BaseAidAdmin(admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
+                'in_france_relance',
                 'categories',
                 'targeted_audiences',
                 'financers',
