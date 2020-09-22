@@ -37,4 +37,5 @@ class AidSerializer(serializers.ModelSerializer):
                   'application_url', 'targeted_audiences', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
                   'submission_deadline', 'subvention_rate', 'contact',
-                  'recurrence', 'date_created', 'date_updated')
+                  'recurrence', 'project_examples', 'date_created',
+                  'date_updated')
