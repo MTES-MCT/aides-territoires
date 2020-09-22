@@ -109,6 +109,9 @@ class SiteHome(MinisiteMixin, SearchView):
         data = user_data or initial_data
         kwargs = super().get_form_kwargs()
         kwargs['data'] = data
+
+        # XXX Ici, ne pas passer les données GET en `data` du formulaire.
+        # Seulement pour les champs audiance et categories
         return kwargs
 
     def get_form(self, form_class=None):
@@ -119,6 +122,8 @@ class SiteHome(MinisiteMixin, SearchView):
                 .available_categories \
                 .select_related('theme')
             form.fields['categories'].queryset = categories_qs
+
+            # XXX Ici, filtrer les valeurs possibles de "audiance"
 
         return form
 
