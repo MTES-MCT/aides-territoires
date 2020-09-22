@@ -16,7 +16,7 @@ services:
 before_install:
  - sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
  - locale
- - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+ - travis_retry wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
  - mkdir geckodriver
  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
  - export PATH=$PATH:$PWD/geckodriver
