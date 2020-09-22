@@ -7,13 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-09-21 16:45+0200\n"
-||||||| constructed merge base
-"POT-Creation-Date: 2020-09-10 16:39+0200\n"
-=======
 "POT-Creation-Date: 2020-09-21 15:10+0200\n"
->>>>>>> Fix a translation problem on contributor profile
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
