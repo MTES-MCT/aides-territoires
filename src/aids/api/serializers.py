@@ -9,7 +9,7 @@ class ArrayField(serializers.ListField):
     def __init__(self, choices, *args, **kwargs):
 
         self.repr_dict = dict(choices)
-        return super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_representation(self, obj):
 
@@ -31,10 +31,10 @@ class AidSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Aid
-        fields = ('id', 'url', 'name', 'financers', 'instructors',
-                  'description', 'eligibility', 'tags', 'perimeter',
-                  'mobilization_steps', 'origin_url', 'application_url',
-                  'targeted_audiences', 'aid_types', 'destinations',
-                  'start_date', 'predeposit_date', 'submission_deadline',
-                  'subvention_rate', 'contact', 'recurrence', 'date_created',
-                  'date_updated')
+        fields = ('id', 'url', 'name', 'short_title', 'financers',
+                  'instructors', 'description', 'eligibility', 'tags',
+                  'perimeter', 'mobilization_steps', 'origin_url',
+                  'application_url', 'targeted_audiences', 'aid_types',
+                  'destinations', 'start_date', 'predeposit_date',
+                  'submission_deadline', 'subvention_rate', 'contact',
+                  'recurrence', 'date_created', 'date_updated')
