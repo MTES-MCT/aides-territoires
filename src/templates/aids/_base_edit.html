@@ -36,6 +36,7 @@
         <legend>{{ _('Aid presentation') }}</legend>
         {% include '_field_snippet.html' with field=form.name %}
         {% include '_checkbox_snippet.html' with field=form.in_france_relance %}
+        {% include '_field_snippet.html' with field=form.short_title %}
         {% include '_field_snippet.html' with field=form.targeted_audiences %}
         {% include '_field_snippet.html' with field=form.financers %}
         {% include '_field_snippet.html' with field=form.financer_suggestion %}
@@ -111,6 +112,7 @@
 <script src="/static/js/aids/categories_autocomplete.js"></script>
 <script src="/static/js/backers_autocomplete.js"></script>
 <script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
+<script src="/static/js/aids/toggle_short_title_field.js"></script>
 <script src="/static/js/aids/toggle_subvention_related_fields.js"></script>
 <script src="/static/js/aids/toggle_calendar_related_fields.js"></script>
 <script src="/static/js/aids/toggle_aid_instructor_field.js"></script>
