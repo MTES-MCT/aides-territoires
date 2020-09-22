@@ -112,6 +112,44 @@ def test_categories_filter_overriding(client, settings):
     assert '<option value="category-5"' not in content
 
 
+def test_audiences_filter_overriding(client, settings):
+
+    # We create a minisite with no audience pre-filter
+    page = MinisiteFactory(
+        title='Gloubiboulga page',
+        search_querystring='text=fromage')
+    page_url = reverse('search_view')
+    page_host = '{}.testserver'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    # All audiences appear in the form
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    content = res.content.decode()
+    assert '<option value="commune">' in content
+    assert '<option value="epci">' in content
+    assert '<option value="association">' in content
+    assert '<option value="region">' in content
+
+    # We create a minisite with an audience pre-filter
+    page = MinisiteFactory(
+        title='Gloubiboulga page 2',
+        search_querystring='text=fromage',
+        available_audiences=['commune', 'epci'])
+    page_url = reverse('search_view')
+    page_host = '{}.testserver'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    # Only the available audiences appear in the form
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    content = res.content.decode()
+    assert '<option value="commune">' in content
+    assert '<option value="epci">' in content
+    assert '<option value="association">' not in content
+    assert '<option value="region">' not in content
+
+
 def test_alert_creation(client, settings, mailoutbox):
     """Anonymous can create alerts. They receive a validation email."""
 

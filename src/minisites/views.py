@@ -129,7 +129,15 @@ class SiteHome(MinisiteMixin, SearchView):
         if available_categories:
             form.fields['categories'].queryset = available_categories
 
-            # XXX Ici, filtrer les valeurs possibles de "audiance"
+        # Only show available values in the targeted audience filter field
+        if self.search_page.available_audiences:
+            all_audiences = form.fields['targeted_audiences'].choices
+            available_audiences = self.search_page.available_audiences
+            filtered_audiences = [
+                audience for audience in all_audiences
+                if audience[0] in available_audiences
+            ]
+            form.fields['targeted_audiences'].choices = filtered_audiences
 
         return form
 
