@@ -35,7 +35,7 @@ then
 fi
 
 echo ""
-sudo lxc launch images:debian/stretch $ContainerName -c security.privileged=true
+sudo lxc launch images:debian/buster $ContainerName -c security.privileged=true
 echo ""
 
 echo "Pause de 15 secondes pour laisser le container démarrer"
@@ -79,6 +79,10 @@ echo ""
 
 echo "Il restes quelques tâches à effectuer manuellement :"
 
+echo "Ajouter la ligne suivante dans le fichier /etc/hosts :"
+echo -e "\t$ip aides-territoires.local francemobilites.aides-territoires.local"
+echo ""
+
 echo "Pour plus de facilité vous pouvez ajouter et/ou modifier ~/.ssh/config pour pendre en compte aides.local avec l'IP du container."
 echo "vous pouvez utiliser le modèle suivant :"
 echo ""
@@ -86,7 +90,7 @@ echo "# The local instance on a LXC virtual machine and a public ip"
 echo "Host aides.local"
 echo -e "\tUser root"
 echo -e "\tPort 22"
-echo -e "\tHostName $ip"
+echo -e "\tHostName aides-territoires.local"
 echo -e "\tForwardAgent yes"
 echo ""
 
