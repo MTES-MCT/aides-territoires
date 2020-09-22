@@ -578,8 +578,8 @@ msgstr "Actions concernées"
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
 
-msgid "In France Relance?"
-msgstr "Aide France Relance ?"
+msgid "France Relance?"
+msgstr "Aides France Relance ?"
 
 msgid "Themes"
 msgstr "Thématiques"

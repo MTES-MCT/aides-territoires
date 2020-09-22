@@ -432,7 +432,7 @@ class BaseAidSearchForm(forms.Form):
         queryset=Backer.objects.all(),
         required=False)
     in_france_relance = forms.BooleanField(
-        label=_('In France Relance?'),
+        label=_('France Relance?'),
         required=False)
     themes = forms.ModelMultipleChoiceField(
         label=_('Themes'),

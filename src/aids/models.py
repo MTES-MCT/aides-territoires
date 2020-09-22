@@ -367,7 +367,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     # Specific to France Relance features
     in_france_relance = models.BooleanField(
-        _('In France Relance?'),
+        _('France Relance?'),
         default=False,
         help_text=_('Is this aid a part of the France Relance program?'))
 
