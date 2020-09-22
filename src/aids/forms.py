@@ -49,7 +49,7 @@ OTHER_AUDIENCES = (
     ('farmer', _('Farmers')),
     ('private_sector', _('Private sector')),
     ('public_cies', _('Local public companies')),
-    ('public_org', _('Public organizations')),
+    ('public_org', _('Public organizations / State services')),
     ('researcher', _('Research')),
 )
 

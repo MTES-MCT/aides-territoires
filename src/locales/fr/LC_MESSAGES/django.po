@@ -294,8 +294,8 @@ msgstr ""
 "Entreprises publiques locales (sociétés d'économie mixte, publiques locales "
 "et locales d'aménagement)"
 
-msgid "Public organizations"
-msgstr "Établissements publics"
+msgid "Public organizations / State services"
+msgstr "Établissements publics (écoles, bibliothèques…) / Services de l'État"
 
 msgid "Research"
 msgstr "Recherche"
