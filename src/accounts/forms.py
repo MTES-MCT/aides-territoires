@@ -39,6 +39,13 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': _(
+            'Please enter a correct email address and password.'
+        ),
+        'inactive': _('This account is inactive.'),
+    }
+
     username = forms.EmailField(
         label=_('Your email address'),
         required=True)

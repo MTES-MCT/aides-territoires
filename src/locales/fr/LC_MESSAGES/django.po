@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 16:39+0200\n"
+"POT-Creation-Date: 2020-09-21 10:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,6 +40,12 @@ msgstr "Vous pourrez vous désabonner à tout moment."
 
 msgid "Please double-check this value."
 msgstr "Merci de bien vérifier l'adresse saisie."
+
+msgid "Please enter a correct email address and password."
+msgstr "Saisissez une adresse e-mail et un mot de passe valides."
+
+msgid "This account is inactive."
+msgstr "Ce compte n'est actuellement pas actif."
 
 msgid "Your password"
 msgstr "Votre mot de passe"
