@@ -115,13 +115,19 @@ class SiteHome(MinisiteMixin, SearchView):
         return kwargs
 
     def get_form(self, form_class=None):
+        """Returns the aid search and filter form.
+
+        The minisite feature allows admin to filter the available values for
+        some filters (audiences and categories).
+        """
         form = super().get_form(form_class)
 
-        if self.search_page.available_categories:
-            categories_qs = self.search_page \
-                .available_categories \
-                .select_related('theme')
-            form.fields['categories'].queryset = categories_qs
+        # Only show available values in categories filter field
+        available_categories = self.search_page \
+            .available_categories \
+            .select_related('theme')
+        if available_categories:
+            form.fields['categories'].queryset = available_categories
 
             # XXX Ici, filtrer les valeurs possibles de "audiance"
 

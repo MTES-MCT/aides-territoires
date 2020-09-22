@@ -4,6 +4,7 @@ from django.urls import reverse
 from alerts.models import Alert
 from accounts.models import User
 from aids.factories import AidFactory
+from categories.factories import CategoryFactory
 from minisites.factories import MinisiteFactory
 
 pytestmark = [
@@ -62,6 +63,53 @@ def test_minisite_results_overriding(client, settings):
     assert res.status_code == 200
     assert 'fromage' not in res.content.decode()
     assert 'malin' in res.content.decode()
+
+
+def test_categories_filter_overriding(client, settings):
+    categories = [
+        CategoryFactory(name='Category 1'),
+        CategoryFactory(name='Category 2'),
+        CategoryFactory(name='Category 3'),
+        CategoryFactory(name='Category 4'),
+        CategoryFactory(name='Category 5'),
+    ]
+
+    # We create a minisite with no category pre-filter
+    page = MinisiteFactory(
+        title='Gloubiboulga page',
+        search_querystring='text=fromage')
+    page_url = reverse('search_view')
+    page_host = '{}.testserver'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    # All categories appear in the form
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    content = res.content.decode()
+    assert '<option value="category-1"' in content
+    assert '<option value="category-2"' in content
+    assert '<option value="category-3"' in content
+    assert '<option value="category-4"' in content
+    assert '<option value="category-5"' in content
+
+    # We create a minisite with a category pre-filter
+    page = MinisiteFactory(
+        title='Gloubiboulga page 2',
+        search_querystring='text=fromage')
+    page.available_categories.set(categories[:2])
+    page_url = reverse('search_view')
+    page_host = '{}.testserver'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    # Only the available categories appear in the form
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    content = res.content.decode()
+    assert '<option value="category-1"' in content
+    assert '<option value="category-2"' in content
+    assert '<option value="category-3"' not in content
+    assert '<option value="category-4"' not in content
+    assert '<option value="category-5"' not in content
 
 
 def test_alert_creation(client, settings, mailoutbox):
