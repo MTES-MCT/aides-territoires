@@ -7,7 +7,7 @@ from dataproviders.utils import content_prettify
 # This is a reference specific to the grandest.fr site.
 # When you click on the filter form "filtrer par bénéficiaires" field and
 # choose "collectivités", you get a new parameter ?beneficiaire=63 in the url.
-EPCI_AUDIANCE_CODE = '63'
+EPCI_AUDIENCE_CODE = '63'
 
 
 class GrandEstSpider(scrapy.Spider):
@@ -16,7 +16,7 @@ class GrandEstSpider(scrapy.Spider):
     BASE_URL = 'https://www.grandest.fr/'
     start_urls = [
         'https://www.grandest.fr/aides/?beneficiaire={}'.format(
-            EPCI_AUDIANCE_CODE),
+            EPCI_AUDIENCE_CODE),
     ]
 
     def parse(self, response):
@@ -52,7 +52,7 @@ class GrandEstSpider(scrapy.Spider):
             page_number = next.split('/')[-2]
             real_next_url = '{base_url}page/{page}/?beneficiaire={beneficiaire}&pg={page}'.format(  # noqa
                 base_url=self.start_urls[0],
-                beneficiaire=EPCI_AUDIANCE_CODE,
+                beneficiaire=EPCI_AUDIENCE_CODE,
                 page=page_number)
             yield scrapy.Request(real_next_url, callback=self.parse)
 

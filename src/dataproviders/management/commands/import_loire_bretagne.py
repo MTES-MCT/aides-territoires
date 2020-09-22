@@ -14,12 +14,12 @@ from aids.models import Aid
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
-AUDIANCES_DICT = {
+AUDIENCES_DICT = {
     'État': None,
-    'Association': Aid.AUDIANCES.association,
-    'Collectivité': Aid.AUDIANCES.epci,
-    'Entreprise': Aid.AUDIANCES.private_sector,
-    'Particulier / Citoyen': Aid.AUDIANCES.private_person,
+    'Association': Aid.AUDIENCES.association,
+    'Collectivité': Aid.AUDIENCES.epci,
+    'Entreprise': Aid.AUDIENCES.private_sector,
+    'Particulier / Citoyen': Aid.AUDIENCES.private_person,
 }
 
 AIDES_URL = 'https://aides-redevances.eau-loire-bretagne.fr/home/aides/lessentiel-des-aides/aides-mode-demploi.html'
@@ -116,19 +116,19 @@ class Command(BaseImportCommand):
     def extract_perimeter(self, line):
         return self.perimeter_loire_bretagne
 
-    def extract_targeted_audiances(self, line):
-        audiances = []
+    def extract_targeted_audiences(self, line):
+        audiences = []
         if line['Collectivités']:
-            audiances += ['commune', 'epci', 'unions', 'department', 'region']
+            audiences += ['commune', 'epci', 'unions', 'department', 'region']
         if line['Entreprises']:
-            audiances += ['private_sector']
+            audiences += ['private_sector']
         if line['Agriculture']:
-            audiances += ['farmer']
+            audiences += ['farmer']
         if line['Associations']:
-            audiances += ['association']
+            audiences += ['association']
         if line['Particuliers']:
-            audiances += ['private_person']
-        return audiances
+            audiences += ['private_person']
+        return audiences
 
     def extract_financers(self, line):
         return [self.backer_loire_bretagne]

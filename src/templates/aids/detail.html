@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'search_step_audiance' %}?{{ current_search }}">{{ _('Search') }}</a></li>
+        <li><a href="{% url 'search_step_audience' %}?{{ current_search }}">{{ _('Search') }}</a></li>
         <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Results') }}</a></li>
         <li class="active" aria-current="page">{{ _('Aid detail') }}</li>
     </ol>
@@ -197,9 +197,9 @@
                 <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
 
-            {% if aid.targeted_audiances %}
-                <h3>{{ _('Targeted audiances') }}</h3>
-                <p>{% choices_display aid 'targeted_audiances' %}</p>
+            {% if aid.targeted_audiences %}
+                <h3>{{ _('Targeted audiences') }}</h3>
+                <p>{% choices_display aid 'targeted_audiences' %}</p>
             {% endif %}
 
             <h3>{{ _('Aid targeted area') }}</h3>

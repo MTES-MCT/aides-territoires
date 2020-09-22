@@ -24,7 +24,7 @@ class AidSerializer(serializers.ModelSerializer):
     instructors = serializers.StringRelatedField(many=True)
     perimeter = serializers.StringRelatedField()
     mobilization_steps = ArrayField(Aid.STEPS)
-    targeted_audiances = ArrayField(Aid.AUDIANCES)
+    targeted_audiences = ArrayField(Aid.AUDIENCES)
     aid_types = ArrayField(Aid.TYPES)
     destinations = ArrayField(Aid.DESTINATIONS)
     recurrence = serializers.CharField(source='get_recurrence_display')
@@ -34,7 +34,7 @@ class AidSerializer(serializers.ModelSerializer):
         fields = ('id', 'url', 'name', 'financers', 'instructors',
                   'description', 'eligibility', 'tags', 'perimeter',
                   'mobilization_steps', 'origin_url', 'application_url',
-                  'targeted_audiances', 'aid_types', 'destinations',
+                  'targeted_audiences', 'aid_types', 'destinations',
                   'start_date', 'predeposit_date', 'submission_deadline',
                   'subvention_rate', 'contact', 'recurrence', 'date_created',
                   'date_updated')

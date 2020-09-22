@@ -137,7 +137,7 @@ class BaseAidAdmin(admin.ModelAdmin):
                 'name',
                 'slug',
                 'categories',
-                'targeted_audiances',
+                'targeted_audiences',
                 'financers',
                 'financer_suggestion',
                 'instructors',

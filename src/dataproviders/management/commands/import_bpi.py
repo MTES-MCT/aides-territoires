@@ -128,8 +128,8 @@ class Command(BaseImportCommand):
         """
         return self.france
 
-    def extract_targeted_audiances(self, line):
-        return [Aid.AUDIANCES.private_sector]
+    def extract_targeted_audiences(self, line):
+        return [Aid.AUDIENCES.private_sector]
 
     def extract_financers(self, line):
         return [self.bpi]

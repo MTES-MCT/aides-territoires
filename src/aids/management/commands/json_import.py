@@ -29,7 +29,7 @@ STEPS = {
     'fonctionnement': 'postop',
 }
 
-AUDIANCES = {
+AUDIENCES = {
     'commune': 'commune',
     'departement': 'department',
     'region': 'region',
@@ -126,17 +126,17 @@ class Command(BaseCommand):
         self.import_field(data, 'nom', aid, 'name')
         self.import_field(data, 'populationMin', aid, 'minimal_population')
         self.import_field(data, 'populationMax', aid, 'maximal_population')
-        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiances_detail')
-        self.import_field(data, '', aid, 'targeted_audiances_detail')
-        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiances_detail')
+        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiences_detail')
+        self.import_field(data, '', aid, 'targeted_audiences_detail')
+        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiences_detail')
         self.import_field(data, 'formeDeDiffusionAutre', aid, 'aid_types_detail')
         self.import_field(data, 'destinationAutre', aid, 'destinations_detail')
-        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiances_detail')
+        self.import_field(data, 'beneficiairesAutre', aid, 'targeted_audiences_detail')
         self.import_field(data, 'tauxSubvention', aid, 'subvention_rate')
         self.import_field(data, 'contact', aid, 'contact_detail')
 
         aid.mobilization_steps = self.get_mobilization_steps(data)
-        aid.targeted_audiances = self.get_audiances(data)
+        aid.targeted_audiences = self.get_audiences(data)
         aid.aid_types = self.get_types(data)
         aid.destinations = self.get_destinations(data)
         aid.thematics = self.get_thematics(data)
@@ -176,11 +176,11 @@ class Command(BaseCommand):
         steps = [STEPS[original_step] for original_step in original_steps]
         return steps
 
-    def get_audiances(self, data):
-        original_audiances = data['beneficiaires']
-        audiances = [AUDIANCES[original_audiance] for original_audiance in
-                     original_audiances]
-        return audiances
+    def get_audiences(self, data):
+        original_audiences = data['beneficiaires']
+        audiences = [AUDIENCES[original_audience] for original_audience in
+                     original_audiences]
+        return audiences
 
     def get_types(self, data):
         original_types = data['formeDeDiffusion']

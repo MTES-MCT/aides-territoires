@@ -43,7 +43,7 @@ class SearchPageAdmin(admin.ModelAdmin):
             'fields': (
                 'available_categories',
                 'show_perimeter_field',
-                'show_audiance_field',
+                'show_audience_field',
                 'show_categories_field',
                 'show_mobilization_step_field',
             )

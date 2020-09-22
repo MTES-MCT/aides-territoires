@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'search_step_audiance' %}?{{ current_search }}">{{ _('Search') }}</a></li>
+        <li><a href="{% url 'search_step_audience' %}?{{ current_search }}">{{ _('Search') }}</a></li>
         <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Results') }}</a></li>
         <li class="active" aria-current="page">{{ _('More filters') }}</li>
     </ol>
@@ -26,7 +26,7 @@
 
         {% include '_field_snippet.html' with field=form.text %}
         {% include '_field_snippet.html' with field=form.perimeter %}
-        {% include '_field_snippet.html' with field=form.targeted_audiances %}
+        {% include '_field_snippet.html' with field=form.targeted_audiences %}
         {% include '_field_snippet.html' with field=form.categories %}
         {% include '_field_snippet.html' with field=form.aid_type %}
         {% include '_field_snippet.html' with field=form.apply_before %}

@@ -4,9 +4,9 @@
     exports.trackSearchEvent = function (buttons, stepName) {
         buttons.click(function () {
             try {
-                var audiance = $(this).html().trim();
+                var audience = $(this).html().trim();
                 if (_paq) {
-                    _paq.push(['trackEvent', 'Recherche', stepName, audiance]);
+                    _paq.push(['trackEvent', 'Recherche', stepName, audience]);
                 }
             } catch (e) {
                 console.log(e);
@@ -32,8 +32,8 @@
 $(document).ready(function () {
     var SEARCH_STEP = 'Étape 1 – Structure';
 
-    var audianceButtons = $('form#audiance button[type=submit]');
-    trackSearchEvent(audianceButtons, SEARCH_STEP);
+    var audienceButtons = $('form#audience button[type=submit]');
+    trackSearchEvent(audienceButtons, SEARCH_STEP);
 
     var skipBtn = $('div.navigation-links a.next-btn');
     trackSkipEvent(skipBtn, SEARCH_STEP);

@@ -182,9 +182,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('postop', _('Postoperation')),
     )
 
-    AUDIANCES = Choices(
+    AUDIENCES = Choices(
         ('commune', _('Communes')),
-        ('epci', _('Audiance EPCI')),
+        ('epci', _('Audience EPCI')),
         ('unions', _('Intermunicipal unions')),
         ('department', _('Departments')),
         ('region', _('Regions')),
@@ -289,12 +289,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     application_url = models.URLField(
         _('Application url'),
         blank=True)
-    targeted_audiances = ChoiceArrayField(
-        verbose_name=_('Targeted audiances'),
+    targeted_audiences = ChoiceArrayField(
+        verbose_name=_('Targeted audiences'),
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
-            choices=AUDIANCES))
+            choices=AUDIENCES))
     aid_types = ChoiceArrayField(
         verbose_name=_('Aid types'),
         null=True, blank=True,

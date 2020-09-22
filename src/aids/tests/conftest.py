@@ -16,7 +16,7 @@ def aid_form_data(user, backer, perimeter):
         'perimeter': perimeter.id,
         'recurrence': 'oneoff',
         'mobilization_steps': ['preop'],
-        'targeted_audiances': ['department'],
+        'targeted_audiences': ['department'],
         'aid_types': ['grant', 'loan'],
         'destinations': ['supply'],
         'start_date': '01/01/2019',

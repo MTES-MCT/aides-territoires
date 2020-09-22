@@ -34,7 +34,7 @@ class AidFactory(DjangoModelFactory):
     eligibility = factory.Faker('text')
     mobilization_steps = FuzzyMultipleChoice(Aid.STEPS)
     origin_url = factory.Faker('url')
-    targeted_audiances = FuzzyMultipleChoice(Aid.AUDIANCES)
+    targeted_audiences = FuzzyMultipleChoice(Aid.AUDIENCES)
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
     contact = factory.Faker('name')

@@ -16,8 +16,8 @@
         {{ form.perimeter.as_hidden }}
     {% endif %}
 
-    {% if not search_page.show_audiance_field %}
-        {{ form.targeted_audiances.as_hidden }}
+    {% if not search_page.show_audience_field %}
+        {{ form.targeted_audiences.as_hidden }}
     {% endif %}
 
     {% if not search_page.show_categories_field %}
@@ -55,17 +55,15 @@
             </div>
         {% endif %}
 
-        {% if search_page.show_audiance_field %}
+        {% if search_page.show_audience_field %}
             <div class="col col-md-4">
-                {% include '_field_snippet.html' with field=form.targeted_audiances %}
+                {% include '_field_snippet.html' with field=form.targeted_audiences %}
             </div>
         {% endif %}
 
-        {% if search_page.show_categories_field %}
-            <div class="col col-md-4">
-                {% include '_field_snippet.html' with field=form.categories %}
-            </div>
-        {% endif %}
+        <div class="col col-md-4">
+            {% include '_field_snippet.html' with field=form.targeted_audiences %}
+        </div>
 
         {% if search_page.show_mobilization_step_field %}
             <div class="col col-md-4">

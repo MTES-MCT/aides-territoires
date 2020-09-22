@@ -15,27 +15,27 @@ BACKER_ID = 22  # The ID of Ademe in the financers database
 ADMIN_ID = 1
 
 # Convert Ademe's `cible` value to our value
-AUDIANCES_DICT = {
-    'Entreprises et Monde Agricole': [Aid.AUDIANCES.private_sector],
-    'Recherche et Innovation': [Aid.AUDIANCES.researcher],
+AUDIENCES_DICT = {
+    'Entreprises et Monde Agricole': [Aid.AUDIENCES.private_sector],
+    'Recherche et Innovation': [Aid.AUDIENCES.researcher],
     'Collectivités et Secteur public': [
-        Aid.AUDIANCES.commune,
-        Aid.AUDIANCES.department,
-        Aid.AUDIANCES.region,
-        Aid.AUDIANCES.epci,
+        Aid.AUDIENCES.commune,
+        Aid.AUDIENCES.department,
+        Aid.AUDIENCES.region,
+        Aid.AUDIENCES.epci,
     ],
-    'Particuliers et Eco-citoyens': Aid.AUDIANCES.private_person,
-    'Association': Aid.AUDIANCES.association,
+    'Particuliers et Eco-citoyens': Aid.AUDIENCES.private_person,
+    'Association': Aid.AUDIENCES.association,
     'Tout Public': [
-        Aid.AUDIANCES.commune,
-        Aid.AUDIANCES.department,
-        Aid.AUDIANCES.region,
-        Aid.AUDIANCES.epci,
-        Aid.AUDIANCES.public_cies,
-        Aid.AUDIANCES.association,
-        Aid.AUDIANCES.private_person,
-        Aid.AUDIANCES.researcher,
-        Aid.AUDIANCES.private_sector,
+        Aid.AUDIENCES.commune,
+        Aid.AUDIENCES.department,
+        Aid.AUDIENCES.region,
+        Aid.AUDIENCES.epci,
+        Aid.AUDIENCES.public_cies,
+        Aid.AUDIENCES.association,
+        Aid.AUDIENCES.private_person,
+        Aid.AUDIENCES.researcher,
+        Aid.AUDIENCES.private_sector,
     ]
 }
 
@@ -127,12 +127,12 @@ class Command(BaseImportCommand):
     def extract_eligibility(self, line):
         return ELIGIBILITY_TXT
 
-    def extract_targeted_audiances(self, line):
+    def extract_targeted_audiences(self, line):
         targets = []
         target_elts = line.findall('.//cibles/cible')
         for element in target_elts:
             ademe_target = element.text
-            our_targets = AUDIANCES_DICT[ademe_target]
+            our_targets = AUDIENCES_DICT[ademe_target]
             targets += our_targets
         return list(set(targets))
 

@@ -67,8 +67,8 @@ class Command(CrawlerImportCommand):
     def extract_financers(self, line):
         return [self.financer]
 
-    def extract_targeted_audiances(self, line):
-        return [Aid.AUDIANCES.epci]
+    def extract_targeted_audiences(self, line):
+        return [Aid.AUDIENCES.epci]
 
     def extract_submission_deadline(self, line):
         return RMC_DEADLINE

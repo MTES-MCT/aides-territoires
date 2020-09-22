@@ -19,7 +19,7 @@ def test_valid_search_page_form():
         'more_content': 'Test content',
         'search_querystring': 'text=',
         'show_perimeter_field': True,
-        'show_audiance_field': True,
+        'show_audience_field': True,
         'show_categories_field': True,
         'show_mobilization_step_field': False,
     })
@@ -37,7 +37,7 @@ def test_search_form_field_customizations():
         'more_content': 'Test content',
         'search_querystring': 'text=',
         'show_perimeter_field': True,
-        'show_audiance_field': False,
+        'show_audience_field': False,
         'show_categories_field': False,
         'show_mobilization_step_field': False,
     })
@@ -55,7 +55,7 @@ def test_search_form_not_enough_filters():
         'more_content': 'Test content',
         'search_querystring': 'text=',
         'show_perimeter_field': False,
-        'show_audiance_field': False,
+        'show_audience_field': False,
         'show_categories_field': False,
         'show_mobilization_step_field': False,
     })
@@ -74,7 +74,7 @@ def test_search_form_too_many_filters():
         'more_content': 'Test content',
         'search_querystring': 'text=',
         'show_perimeter_field': True,
-        'show_audiance_field': True,
+        'show_audience_field': True,
         'show_categories_field': True,
         'show_mobilization_step_field': True,
     })

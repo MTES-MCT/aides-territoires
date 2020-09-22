@@ -1,7 +1,7 @@
 from django.views.generic import FormView
 
 from aids.forms import AidSearchForm
-from search.forms import (AudianceSearchForm, PerimeterSearchForm,
+from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
 
 
@@ -12,11 +12,11 @@ class SearchMixin:
         return context
 
 
-class AudianceSearch(SearchMixin, FormView):
+class AudienceSearch(SearchMixin, FormView):
     """Step 1 of the multi-page search form."""
 
-    template_name = 'search/step_audiance.html'
-    form_class = AudianceSearchForm
+    template_name = 'search/step_audience.html'
+    form_class = AudienceSearchForm
 
 
 class PerimeterSearch(SearchMixin, FormView):
@@ -28,7 +28,7 @@ class PerimeterSearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.getlist('targeted_audiances', ''),
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
         }
         return initial
 
@@ -42,7 +42,7 @@ class ThemeSearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.getlist('targeted_audiances', ''),
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
             'perimeter': GET.get('perimeter', ''),
         }
         return initial
@@ -57,7 +57,7 @@ class CategorySearch(SearchMixin, FormView):
     def get_initial(self):
         GET = self.request.GET
         initial = {
-            'targeted_audiances': GET.getlist('targeted_audiances', ''),
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
             'perimeter': GET.get('perimeter', ''),
             'themes': GET.getlist('themes', []),
         }

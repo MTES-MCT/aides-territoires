@@ -262,7 +262,7 @@ msgstr "Aides en ingénierie"
 msgid "Communes"
 msgstr "Communes"
 
-msgid "Audiance EPCI"
+msgid "Audience EPCI"
 msgstr "EPCI à fiscalité propre"
 
 msgid "Departments"
@@ -297,7 +297,7 @@ msgstr "Recherche"
 msgid "Collectivities"
 msgstr "Collectivités"
 
-msgid "Other audiances"
+msgid "Other audiences"
 msgstr "Autres bénéficiaires"
 
 msgid "Yes"
@@ -714,7 +714,7 @@ msgstr "URL d'origine"
 msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
 
-msgid "Targeted audiances"
+msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
 
 msgid "Aid types"
@@ -1352,7 +1352,7 @@ msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 msgid "Show perimeter field?"
 msgstr "Montrer le champ « territoire » ?"
 
-msgid "Show audiance field?"
+msgid "Show audience field?"
 msgstr "Montrer le champ « structure » ?"
 
 msgid "Show categories field?"
@@ -1370,8 +1370,8 @@ msgstr "Recherches personnalisées"
 msgid "form/"
 msgstr "formulaire/"
 
-msgid "audiance/"
-msgstr "audiance/"
+msgid "audience/"
+msgstr "audience/"
 
 msgid "perimeter/"
 msgstr "territoire/"
@@ -2362,8 +2362,8 @@ msgstr "Réinitialiser"
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
 
-msgid "Search – Audiance"
-msgstr "Recherche – Audiance"
+msgid "Search – Audience"
+msgstr "Recherche – Audience"
 
 msgid "Your structure"
 msgstr "La structure"

@@ -13,7 +13,7 @@
         {{ form.mobilization_step.as_hidden }}
         {{ form.destinations.as_hidden }}
         {{ form.categories.as_hidden }}
-        {{ form.targeted_audiances.as_hidden }}
+        {{ form.targeted_audiences.as_hidden }}
         {{ form.perimeter.as_hidden }}
         {{ form.themes.as_hidden }}
     {% endblock %}
@@ -29,7 +29,7 @@
         <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
         {% block other-actions %}
-            <a id="new-search-btn" href="{% url 'search_step_audiance' %}">
+            <a id="new-search-btn" href="{% url 'search_step_audience' %}">
                 {{ _('New search') }}
             </a>
 
