@@ -29,15 +29,15 @@
     {% endif %}
 
     <div class="info">
-    {% blocktrans trimmed %}
         <p>
             <span class="fas fa-lightbulb"></span>
+            {% blocktrans trimmed %}
             Some features on Aides-territoires require a contributor account.
             To become a contributor, all you have to do is provide additional
             contact data.
+            {% endblocktrans %}
         </p>
-        <p>We will use this data to help validate the aids your contribute.</p>
-    {% endblocktrans %}
+        <p>{{ _('We will use this data to help validate the aids your contribute.') }}</p>
     </div>
 
     <form method="post" action="" novalidate>
