@@ -9,6 +9,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     """List all active aids that we know about."""
 
     serializer_class = AidSerializer
+    lookup_field = 'slug'
 
     def get_queryset(self):
         """Filter data according to search query."""
