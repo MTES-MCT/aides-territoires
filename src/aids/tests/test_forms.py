@@ -186,7 +186,7 @@ def test_search_form_filter_by_deadline(aids):
 
     form = AidSearchForm({'apply_before': '2018-01-01'})
     qs = form.filter_queryset(aids)
-    assert qs.count() == 0
+    assert qs.count() == 4
 
     form = AidSearchForm({'apply_before': '2017-12-31'})
     qs = form.filter_queryset(aids)

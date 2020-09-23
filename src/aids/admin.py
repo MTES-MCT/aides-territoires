@@ -136,6 +136,7 @@ class BaseAidAdmin(admin.ModelAdmin):
         (_('Aid presentation'), {
             'fields': (
                 'name',
+                'short_title',
                 'slug',
                 'in_france_relance',
                 'categories',

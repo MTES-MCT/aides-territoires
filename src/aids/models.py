@@ -228,6 +228,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         max_length=180,
         help_text=_('Use an infinitive form to make the aid\'s purpose clear'),
         null=False, blank=False)
+    short_title = models.CharField(
+        _('Short title'),
+        max_length=64,
+        help_text=_('A shorter, more concise title'),
+        blank=True)
     author = models.ForeignKey(
         'accounts.User',
         on_delete=models.PROTECT,
