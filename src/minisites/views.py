@@ -78,7 +78,9 @@ class MinisiteMixin:
         # `francemobilites.aides-territoires.beta.gouv.fr`.
         main_site_domain = Site.objects.get_current().domain
         page_subdomain = self.search_page.slug
-        canonical_url = f'https://{page_subdomain}.{main_site_domain}'
+        canonical_url = 'https://{page_subdomain}.{main_site_domain}'.format(
+            page_subdomain=page_subdomain,
+            main_site_domain=main_site_domain)
 
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.search_page
