@@ -425,6 +425,10 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         choices=Aid.DESTINATIONS,
         widget=forms.CheckboxSelectMultiple)
+    recurrence = forms.ChoiceField(
+        label=_('Recurrence'),
+        required=False,
+        choices=Aid.RECURRENCE)
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
@@ -520,6 +524,10 @@ class BaseAidSearchForm(forms.Form):
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
             qs = qs.filter(submission_deadline__lte=apply_before)
+
+        recurrence = self.cleaned_data.get('recurrence', None)
+        if recurrence:
+            qs = qs.filter(recurrence=recurrence)
 
         call_for_projects_only = self.cleaned_data.get(
             'call_for_projects_only', False)
