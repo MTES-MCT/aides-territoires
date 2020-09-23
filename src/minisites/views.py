@@ -132,7 +132,7 @@ class SiteHome(MinisiteMixin, SearchView):
         """Return the list of audiences available in this minisite."""
 
         all_audiences = list(Aid.AUDIENCES)
-        available_audiences = self.search_page.available_audiences
+        available_audiences = self.search_page.available_audiences or []
         filtered_audiences = [
             audience for audience in all_audiences
             if audience[0] in available_audiences
