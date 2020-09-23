@@ -4,6 +4,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from core.fields import ChoiceArrayField
+from aids.forms import AUDIENCES
+
 
 def logo_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
@@ -110,19 +113,27 @@ class SearchPage(models.Model):
         help_text=_('The url for the partner\'s logo link'))
 
     # Search form customization fields
+    show_categories_field = models.BooleanField(
+        _('Show categories field?'),
+        default=True)
     available_categories = models.ManyToManyField(
         'categories.Category',
         verbose_name=_('Categories'),
         related_name='search_pages',
         blank=True)
-    show_perimeter_field = models.BooleanField(
-        _('Show perimeter field?'),
-        default=True)
+
     show_audience_field = models.BooleanField(
         _('Show audience field?'),
         default=True)
-    show_categories_field = models.BooleanField(
-        _('Show categories field?'),
+    available_audiences = ChoiceArrayField(
+        verbose_name=_('Targeted audiences'),
+        null=True, blank=True,
+        base_field=models.CharField(
+            max_length=32,
+            choices=AUDIENCES))
+
+    show_perimeter_field = models.BooleanField(
+        _('Show perimeter field?'),
         default=True)
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),

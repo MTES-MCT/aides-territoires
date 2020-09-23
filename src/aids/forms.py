@@ -666,7 +666,7 @@ class BaseAidSearchForm(forms.Form):
         # Note: the original way we adressed this was more straightforward,
         # but we got very very bad perf results (like, queries with very slow
         # execution times > 30s).
-        # Thus, we add to "help" a little Postgres execution planner.
+        # Thus, we had to "help" Postgres' execution planner a little.
 
         # We just need to efficiently get a list of all perimeter ids related
         # to the current query.

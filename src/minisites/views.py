@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
 
 from search.models import SearchPage
+from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from alerts.views import AlertCreate
 
@@ -111,16 +112,69 @@ class SiteHome(MinisiteMixin, SearchView):
         kwargs['data'] = data
         return kwargs
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
+    def get_available_categories(self):
+        """Return the list of categories available in this minisite.
 
-        if self.search_page.available_categories:
-            categories_qs = self.search_page \
+        Only available categories appear in the `categories` search filter.
+        Also, we always filter out aids that are *not* in available categories.
+
+        Available categories are the one selected in the SearchPage admin
+        module.
+        """
+        if not hasattr(self, 'available_categories'):
+            page_categories = self.search_page \
                 .available_categories \
                 .select_related('theme')
-            form.fields['categories'].queryset = categories_qs
+            self.available_categories = page_categories
+        return self.available_categories
+
+    def get_available_audiences(self):
+        """Return the list of audiences available in this minisite."""
+
+        all_audiences = list(Aid.AUDIENCES)
+        available_audiences = self.search_page.available_audiences or []
+        filtered_audiences = [
+            audience for audience in all_audiences
+            if audience[0] in available_audiences
+        ]
+        return filtered_audiences
+
+    def get_form(self, form_class=None):
+        """Returns the aid search and filter form.
+
+        The minisite feature allows admin to filter the available values for
+        some filters (audiences and categories).
+        """
+        form = super().get_form(form_class)
+
+        # Only show available values in categories filter field
+        available_categories = self.get_available_categories()
+        if available_categories:
+            form.fields['categories'].queryset = available_categories
+
+        # Only show available values in the targeted audience filter field
+        available_audiences = self.get_available_audiences()
+        if available_audiences:
+            form.fields['targeted_audiences'].choices = available_audiences
 
         return form
+
+    def get_queryset(self):
+        """Filter the queryset on the categories and audiences filters."""
+
+        qs = super().get_queryset()
+        data = self.form.cleaned_data
+
+        available_categories = self.get_available_categories()
+        if not data['categories'] and available_categories:
+            qs = qs.filter(categories__in=available_categories)
+
+        available_audiences = self.get_available_audiences()
+        if not data['targeted_audiences'] and available_audiences:
+            targeted_audiences = list(dict(available_audiences).keys())
+            qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
+
+        return qs
 
 
 class SiteSearch(MinisiteMixin, AdvancedSearchView):

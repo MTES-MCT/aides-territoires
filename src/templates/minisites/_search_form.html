@@ -61,14 +61,17 @@
             </div>
         {% endif %}
 
-        <div class="col col-md-4">
-            {% include '_field_snippet.html' with field=form.targeted_audiences %}
-        </div>
-
         {% if search_page.show_mobilization_step_field %}
             <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.mobilization_step %}
             </div>
         {% endif %}
+
+        {% if search_page.show_categories_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.categories %}
+            </div>
+        {% endif %}
+
     </div>
 {% endblock %}
