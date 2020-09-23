@@ -2,7 +2,6 @@ from django.http import QueryDict, HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
 
-from categories.models import Category
 from search.models import SearchPage
 from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
