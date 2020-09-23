@@ -519,7 +519,7 @@ class BaseAidSearchForm(forms.Form):
 
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
-            qs = qs.filter(submission_deadline__lt=apply_before)
+            qs = qs.filter(submission_deadline__lte=apply_before)
 
         call_for_projects_only = self.cleaned_data.get(
             'call_for_projects_only', False)
