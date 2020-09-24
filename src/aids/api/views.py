@@ -22,5 +22,6 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             .order_by('perimeter__scale', 'submission_deadline')
 
         filter_form = AidSearchForm(data=self.request.GET)
-        filtered_qs = filter_form.filter_queryset(qs)
-        return filtered_qs
+        results = filter_form.filter_queryset(qs)
+        ordered_results = filter_form.order_queryset(results).distinct()
+        return ordered_results
