@@ -67,6 +67,13 @@ IS_CALL_FOR_PROJECT = (
 
 class BaseAidForm(forms.ModelForm):
 
+    short_title = forms.CharField(
+        label=_('Program title'),
+        required=False,
+        max_length=64,
+        widget=forms.TextInput(
+            attrs={'placeholder': _('Call for project "Innovation continue"')}
+        ))
     description = RichTextField(
         label=_('Full description of the aid and its objectives'),
         widget=forms.Textarea(attrs={'placeholder': _(
