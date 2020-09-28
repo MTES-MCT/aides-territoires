@@ -457,7 +457,7 @@ form {
         &.checkbox {
             @extend .form-check;
 
-            label {
+            label:last-child {
                 @extend .form-check-label;
             }
 
