@@ -94,7 +94,7 @@ class BaseAidForm(forms.ModelForm):
         label=_('Other eligibility criterias?'),
         required=False)
     contact = RichTextField(
-        label=_('Contact'),
+        label=_('Contact to apply'),
         required=True,
         help_text=_('Feel free to add several contacts'),
         widget=forms.Textarea(attrs={'placeholder': _(

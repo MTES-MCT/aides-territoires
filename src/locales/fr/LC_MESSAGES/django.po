@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-28 10:56+0200\n"
+"POT-Creation-Date: 2020-09-28 11:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,7 +333,7 @@ msgstr ""
 "informations, essayez de donner des éléments de réponses dans cet espace."
 
 msgid "Examples of projects that benefited from this aid"
-msgstr "Exemples de projets réalisés grâce à cette aide"
+msgstr "Exemples d'applications ou de projets réalisés grâce à cette aide"
 
 msgid ""
 "Give concrete examples of projets that benefited or might benefit from this "
@@ -348,10 +348,10 @@ msgstr ""
 "une usine de traitement des déchets, etc."
 
 msgid "Other eligibility criterias?"
-msgstr "Autres critères d'éligibilité ?"
+msgstr "Conditions d'éligibilité"
 
-msgid "Contact"
-msgstr "Contact"
+msgid "Contact to apply"
+msgstr "Contact(s) pour candidater"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
@@ -776,6 +776,9 @@ msgstr "Si le taux est fixe, remplissez uniquement le taux max."
 
 msgid "Subvention rate, optional comment"
 msgstr "Taux de subvention, commentaire optionnel"
+
+msgid "Contact"
+msgstr "Contact"
 
 msgid "Contact email"
 msgstr "Adresse e-mail de contact"
