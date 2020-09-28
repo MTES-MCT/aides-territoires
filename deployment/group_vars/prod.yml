@@ -1,7 +1,17 @@
 project_domain: aides-territoires.beta.gouv.fr
 project_version: production
 certbot_admin_email: aides-territoires@beta.gouv.fr
-certbot_domains: "{{ project_domain }},francemobilites.{{ project_domain }},arcinnovation.{{ project_domain }},petitesvillesdedemain.{{ project_domain }}"
+certbot_domains:
+ - "{{ project_domain }}"
+ - "francemobilites.{{ project_domain }}"
+ - "arcinnovation.{{ project_domain }}"
+ - "petitesvillesdedemain.{{ project_domain }}"
+ - "francetierslieux.{{ project_domain }}"
+ - "lesepl.{{ project_domain }}"
+ - "addna.{{ project_domain }}"
+ - "urbanvitaliz.{{ project_domain }}"
+ - "pinville.{{ project_domain }}"
+
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
 project_env: production
