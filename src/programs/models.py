@@ -20,6 +20,7 @@ class Program(models.Model):
         _('Slug'))
     aids = models.ManyToManyField(
         'aids.Aid',
+        related_name='programs',
         verbose_name=_('Aids'))
     short_description = models.CharField(
         _('Short description'),
