@@ -21,10 +21,6 @@ class Program(models.Model):
     aids = models.ManyToManyField(
         'aids.Aid',
         verbose_name=_('Aids'))
-    perimeter = models.ForeignKey(
-        'geofr.Perimeter',
-        on_delete=models.PROTECT,
-        verbose_name=_('Perimeter'))
     short_description = models.CharField(
         _('Short description'),
         help_text=_('Will only appear in search results. 300 chars. max.'),
