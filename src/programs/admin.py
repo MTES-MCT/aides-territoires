@@ -13,6 +13,7 @@ class ProgramAdmin(admin.ModelAdmin):
     fields = [
         'name', 'slug', 'short_description', 'description'
     ]
+    search_fields = ['name']
 
 
 admin.site.register(Program, ProgramAdmin)
