@@ -5,6 +5,7 @@ from datetime import timedelta
 from django.urls import reverse
 from django.utils import timezone
 
+from programs.factories import ProgramFactory
 from aids.factories import AidFactory
 
 
@@ -286,6 +287,14 @@ def test_the_call_for_project_only_filter(client, perimeters, aids):
     url = reverse('search_view')
     res = client.get(url, data={'call_for_projects_only': 'Oui'})
     assert res.context['paginator'].count == 5
+
+
+def test_program_filter(client, perimeters, aids):
+    program = ProgramFactory()
+    aids[0].programs.set(program)
+    url = reverse('search_view')
+    res = client.get(url, data={'programs': program.slug})
+    assert res.context['paginator'].count == 1
 
 
 def test_submission_deadline_ordering(client, perimeters):
