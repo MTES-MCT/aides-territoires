@@ -15,6 +15,7 @@ from geofr.models import Perimeter
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
+from programs.models import Program
 from aids.models import Aid
 
 
@@ -66,6 +67,7 @@ IS_CALL_FOR_PROJECT = (
 
 
 class BaseAidForm(forms.ModelForm):
+    """Base for all aid edition forms (front, admin, amendments)."""
 
     short_title = forms.CharField(
         label=_('Program title'),
@@ -221,6 +223,10 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
+    programs = forms.ModelMultipleChoiceField(
+        label=_('Aid program'),
+        queryset=Program.objects.all(),
+        required=False)
     financers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
