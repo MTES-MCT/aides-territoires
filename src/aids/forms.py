@@ -447,6 +447,11 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
+    programs = forms.ModelMultipleChoiceField(
+        label=_('Aid programs'),
+        queryset=Program.objects.all(),
+        to_field_name='slug',
+        required=False)
     in_france_relance = forms.BooleanField(
         label=_('France Relance?'),
         required=False)
@@ -563,6 +568,10 @@ class BaseAidSearchForm(forms.Form):
         categories = self.cleaned_data.get('categories', None)
         if categories:
             qs = qs.filter(categories__in=categories)
+
+        programs = self.cleaned_data.get('programs', None)
+        if programs:
+            qs = qs.filter(programs__in=programs)
 
         # We filter by theme only if no categories were provided.
         # This is to handle the following edge case: on the multi-step search
