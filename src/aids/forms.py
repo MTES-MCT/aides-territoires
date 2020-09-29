@@ -175,9 +175,6 @@ class BaseAidForm(forms.ModelForm):
         self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
 
-    def _save_m2m(self):
-        super()._save_m2m()
-
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
@@ -302,6 +299,7 @@ class AidEditForm(BaseAidForm):
             'perimeter',
             'perimeter_suggestion',
             'is_call_for_project',
+            'programs',
             'aid_types',
             'subvention_rate',
             'subvention_comment',
