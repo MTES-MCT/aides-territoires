@@ -50,6 +50,7 @@ def set_perimeters(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('aids', '0069_auto_20190916_1104'),
         ('geofr', '0009_auto_20180906_1439'),
     ]
 
