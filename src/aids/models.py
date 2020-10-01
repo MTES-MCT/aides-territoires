@@ -360,7 +360,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     programs = models.ManyToManyField(
         'programs.Program',
         related_name='aids',
-        verbose_name=_('Programs'))
+        verbose_name=_('Programs'),
+        blank=True)
     status = xwf_models.StateField(
         AidWorkflow,
         verbose_name=_('Status'))
