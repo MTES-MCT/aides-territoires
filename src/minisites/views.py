@@ -167,12 +167,14 @@ class SiteHome(MinisiteMixin, SearchView):
         qs = super().get_queryset()
         data = self.form.cleaned_data
 
+        categories = data.get('categories', [])
         available_categories = self.get_available_categories()
-        if not data['categories'] and available_categories:
+        if not categories and available_categories:
             qs = qs.filter(categories__in=available_categories)
 
+        targeted_audiences = data.get('targeted_audiences', [])
         available_audiences = self.get_available_audiences()
-        if not data['targeted_audiences'] and available_audiences:
+        if targeted_audiences and available_audiences:
             targeted_audiences = list(dict(available_audiences).keys())
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
