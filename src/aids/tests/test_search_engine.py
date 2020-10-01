@@ -291,7 +291,7 @@ def test_the_call_for_project_only_filter(client, perimeters, aids):
 
 def test_program_filter(client, perimeters, aids):
     program = ProgramFactory()
-    aids[0].programs.set(program)
+    aids[0].programs.set([program])
     url = reverse('search_view')
     res = client.get(url, data={'programs': program.slug})
     assert res.context['paginator'].count == 1
