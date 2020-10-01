@@ -18,7 +18,7 @@
       - --email
       - "{{ certbot_admin_email }}"
       - -d
-      - "{{ certbot_domains }}"
+      - "{{ certbot_domains | join(',') }}"
 
 - name: Generate partners certificates using Let's Encrypt (for production)
   when: project_env == "production" and partners is defined
