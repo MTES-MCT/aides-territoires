@@ -290,6 +290,8 @@ def test_the_call_for_project_only_filter(client, perimeters, aids):
 
 
 def test_program_filter(client, perimeters, aids):
+    """Test that results can be filtered by aid programs."""
+
     program = ProgramFactory()
     aids[0].programs.set([program])
     url = reverse('search_view')
