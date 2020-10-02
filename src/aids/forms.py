@@ -15,6 +15,7 @@ from geofr.models import Perimeter
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
+from programs.models import Program
 from aids.models import Aid
 
 
@@ -66,6 +67,7 @@ IS_CALL_FOR_PROJECT = (
 
 
 class BaseAidForm(forms.ModelForm):
+    """Base for all aid edition forms (front, admin, amendments)."""
 
     short_title = forms.CharField(
         label=_('Program title'),
@@ -173,9 +175,6 @@ class BaseAidForm(forms.ModelForm):
         self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
 
-    def _save_m2m(self):
-        super()._save_m2m()
-
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
@@ -221,6 +220,10 @@ class AidAdminForm(BaseAidForm):
 
 class AidEditForm(BaseAidForm):
 
+    programs = forms.ModelMultipleChoiceField(
+        label=_('Aid program'),
+        queryset=Program.objects.all(),
+        required=False)
     financers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
@@ -296,6 +299,7 @@ class AidEditForm(BaseAidForm):
             'perimeter',
             'perimeter_suggestion',
             'is_call_for_project',
+            'programs',
             'aid_types',
             'subvention_rate',
             'subvention_comment',
@@ -443,6 +447,11 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
+    programs = forms.ModelMultipleChoiceField(
+        label=_('Aid programs'),
+        queryset=Program.objects.all(),
+        to_field_name='slug',
+        required=False)
     in_france_relance = forms.BooleanField(
         label=_('France Relance?'),
         required=False)
@@ -559,6 +568,10 @@ class BaseAidSearchForm(forms.Form):
         categories = self.cleaned_data.get('categories', None)
         if categories:
             qs = qs.filter(categories__in=categories)
+
+        programs = self.cleaned_data.get('programs', None)
+        if programs:
+            qs = qs.filter(programs__in=programs)
 
         # We filter by theme only if no categories were provided.
         # This is to handle the following edge case: on the multi-step search

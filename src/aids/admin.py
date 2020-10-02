@@ -120,7 +120,8 @@ class BaseAidAdmin(admin.ModelAdmin):
         'is_imported', 'submission_deadline', 'status'
     ]
     list_display_links = ['name']
-    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter']
+    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
+                           'programs']
     search_fields = ['name']
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
@@ -136,9 +137,9 @@ class BaseAidAdmin(admin.ModelAdmin):
         (_('Aid presentation'), {
             'fields': (
                 'name',
-                'short_title',
                 'slug',
                 'in_france_relance',
+                'short_title',
                 'categories',
                 'targeted_audiences',
                 'financers',
@@ -168,6 +169,7 @@ class BaseAidAdmin(admin.ModelAdmin):
         (_('Aid description'), {
             'fields': (
                 'is_call_for_project',
+                'programs',
                 'aid_types',
                 'subvention_rate',
                 'subvention_comment',

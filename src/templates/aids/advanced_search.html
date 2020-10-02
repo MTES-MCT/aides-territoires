@@ -34,6 +34,7 @@
         {% include '_field_snippet.html' with field=form.mobilization_step %}
         {% include '_field_snippet.html' with field=form.backers %}
         {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
+        {% include '_field_snippet.html' with field=form.programs %}
         {% include '_field_snippet.html' with field=form.order_by %}
         <button type="submit">
             {{ _('Find aids') }}
@@ -55,5 +56,6 @@
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
 <script src="/static/js/aids/backers_autocomplete.js"></script>
 <script src="/static/js/aids/categories_autocomplete.js"></script>
+<script src="/static/js/aids/programs_autocomplete.js"></script>
 {% endcompress %}
 {% endblock %}

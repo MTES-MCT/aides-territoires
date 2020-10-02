@@ -357,6 +357,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     is_call_for_project = models.BooleanField(
         _('Call for project / Call for expressions of interest'),
         null=True)
+    programs = models.ManyToManyField(
+        'programs.Program',
+        related_name='aids',
+        verbose_name=_('Programs'),
+        blank=True)
     status = xwf_models.StateField(
         AidWorkflow,
         verbose_name=_('Status'))

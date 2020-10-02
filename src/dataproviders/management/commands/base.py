@@ -38,10 +38,10 @@ class BaseImportCommand(BaseCommand):
     def handle(self, *args, **options):
         self.populate_cache(*args, **options)
         data = self.fetch_data(**options)
-        aid_and_financers = []
+        aids_and_related_objects = []
         for line in data:
             if self.line_should_be_processed(line):
-                aid_and_financers.append(self.process_line(line))
+                aids_and_related_objects.append(self.process_line(line))
 
         # Let's try to actually save the imported aid.
         #
@@ -57,7 +57,7 @@ class BaseImportCommand(BaseCommand):
         created_counter = 0
         updated_counter = 0
         with transaction.atomic():
-            for aid, financers, instructors, categories in aid_and_financers:
+            for aid, financers, instructors, categories, programs in aids_and_related_objects:  # noqa
                 try:
                     with transaction.atomic():
                         aid.set_search_vector(financers, instructors)
@@ -65,6 +65,7 @@ class BaseImportCommand(BaseCommand):
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
+                        aid.programs.set(programs)
                         aid.populate_tags()
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
@@ -105,10 +106,9 @@ class BaseImportCommand(BaseCommand):
     def process_line(self, line):
         """Process a single entry from the data file.
 
-        Must return an (Aid, [Backer]) tuple.
-
         The Aid object MUST not be created.
 
+        Returns the aid and all associated objects (m2m).
         """
         form_fields = AidEditForm.Meta.fields
         more_fields = [
@@ -131,9 +131,10 @@ class BaseImportCommand(BaseCommand):
         financers = values.pop('financers', [])
         instructors = values.pop('instructors', [])
         categories = values.pop('categories', [])
+        programs = values.pop('programs', [])
         aid = Aid(**values)
 
-        return aid, financers, instructors, categories
+        return aid, financers, instructors, categories, programs
 
     def extract_is_imported(self, line):
         return True
@@ -181,6 +182,9 @@ class BaseImportCommand(BaseCommand):
         return []
 
     def extract_categories(self, line):
+        return []
+
+    def extract_programs(self, line):
         return []
 
     def extract_project_examples(self, line):
