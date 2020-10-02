@@ -1,12 +1,9 @@
 from django.contrib import admin
+from django.utils.html import escape, mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+
 from backers.models import Backer
-
-
-class AidInline(admin.TabularInline):
-    model = Backer.financed_aids.through
-    extra = 0
 
 
 class BackerAdmin(admin.ModelAdmin):
@@ -16,10 +13,10 @@ class BackerAdmin(admin.ModelAdmin):
                     'nb_instructed_aids']
     search_fields = ['name']
     prepopulated_fields = {'slug': ('name',)}
-    inlines = [AidInline]
     ordering = ['name']
     filter_fields = ['is_corporate']
     list_editable = ['is_corporate']
+    readonly_fields = ('display_related_aids',)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -38,5 +35,12 @@ class BackerAdmin(admin.ModelAdmin):
     nb_instructed_aids.short_description = _('Instructed aids')
     nb_instructed_aids.admin_order_field = 'nb_instructed_aids'
 
+    def display_related_aids(self, obj):
+        related_aid_html = ''
+        for aid in obj.financed_aids.all():
+            related_aid_html += '<br/> * '
+            related_aid_html += escape(aid.name)
+        return mark_safe(related_aid_html)
+    display_related_aids.short_description = _('Related aids')
 
 admin.site.register(Backer, BackerAdmin)
