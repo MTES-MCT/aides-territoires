@@ -9,7 +9,7 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'REDACTED'  # noqa
+FEED_URI = 'https://www.bpifrance.fr/offers/export/innovation/'
 ADMIN_ID = 1
 
 TYPES_DICT = {
