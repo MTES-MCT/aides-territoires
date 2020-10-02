@@ -1,4 +1,4 @@
-# Intégration de l'équipe « *onboarding* »
+# Montage de l'environnement de travail
 
 Afin d'avoir un environnement de travail le plus proche possible de la production,
 il est recommandé d'utiliser une machine virtuelle LXC qui contiendra l'intégralité

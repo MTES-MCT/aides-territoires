@@ -19,9 +19,11 @@ constituent le code d'Aides-territoires](LECODE.md).
 
 ## Intégration de l'équipe « *onboarding* »
 
-- Pour se parler sur slack : https://aides-territoires.slack.com/
-- Pour s'organiser sur trello : https://trello.com/b/5ldc900w/aides-territoires-planification
+- Pour se parler sur Slack : https://aides-territoires.slack.com/
+- Pour s'organiser sur Trello : https://trello.com/b/5ldc900w/aides-territoires-planification
 
+Demandez votre inscription à la liste de diffusion tech pour recevoir les
+e-mails destinés à l'équipe (alertes Sentry, erreurs Django, etc.).
 
 ## Démarrage
 
