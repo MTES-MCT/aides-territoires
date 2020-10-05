@@ -3,8 +3,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
-
-
 from backers.models import Backer
 
 
@@ -50,5 +48,6 @@ class BackerAdmin(admin.ModelAdmin):
         related_aid_html += format_html('</ul>')
         return related_aid_html
     display_related_aids.short_description = _('Related aids')
+
 
 admin.site.register(Backer, BackerAdmin)
