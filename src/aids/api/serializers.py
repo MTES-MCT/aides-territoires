@@ -18,6 +18,10 @@ class ArrayField(serializers.ListField):
 
 
 class AidSerializer(serializers.ModelSerializer):
+    """Transforms a raw Aid into nice json.
+
+    Every time you touch this, remember to update the `/data` url.
+    """
 
     url = serializers.URLField(source='get_absolute_url')
     financers = serializers.StringRelatedField(many=True)
