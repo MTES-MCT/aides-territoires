@@ -177,14 +177,14 @@ Le texte dans le code est en anglais et la traduction qui
 s'affiche sur le site en Français, se trouve dans le fichier
 `.po` du dossier `locales`.
 
-https://docs.djangoproject.com/en/3.1/topics/i18n/translation/
+https://docs.djangoproject.com/en/dev/topics/i18n/translation/
 
 Pour générer la traduction dans le fichier `.po` :
 
     make makemessages
 
 
-Django utilise une version compiléé du fichier `.po`, c'est le
+Django utilise une version compilée du fichier `.po`, c'est le
 fichier `.mo` que l'on obtient avec :
 
     python manage.py compilemessages
