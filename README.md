@@ -175,7 +175,7 @@ nav#main-navbar {
 Ce project utilise le système de tranduction de Django : 
 Le texte dans le code est en anglais et la traduction qui
 s'affiche sur le site en Français, se trouve dans le fichier
-`.po` du dossier `locale`.
+`.po` du dossier `locales`.
 
 https://docs.djangoproject.com/en/3.1/topics/i18n/translation/
 
