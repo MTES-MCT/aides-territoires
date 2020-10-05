@@ -194,6 +194,16 @@ En production, ce fichier est généré automatiquement lors du
 déploiement. Il n'est donc pas inclus dans le code github.
 
 
+### Linter de code / Code Style
+
+Nous utilisons `pep8` et `flake8`.
+
+Pour vérifier son code, on peut intégrer le linter adapté à 
+son son IDE et aussi faire ceci :
+
+    make checkstyle 
+
+
 ### Utilisation de django-compressor
 
 Le projet utilise
