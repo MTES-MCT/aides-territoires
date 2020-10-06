@@ -32,11 +32,11 @@ class BackerAdmin(admin.ModelAdmin):
         return fields
 
     def get_prepopulated_fields(self, request, obj=None):
+        fields = {}
         # When we are ading a new object, we want the slug field to be
         # prepopulated. Note that prepopulated fields cannot be set as
         # readonly. When obj is not there, it means we are adding a new
         # instance.
-        fields = {}
         if not obj:
             fields.update({'slug': ('name',)})
         return fields
