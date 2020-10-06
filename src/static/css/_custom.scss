@@ -134,7 +134,7 @@
                             font-family: $font-family-base;
                             font-size: 6rem;
                             font-weight: 200;
-
+                        
                             @include media-breakpoint-down(sm) {
                                 font-size: 4rem;
                             }
