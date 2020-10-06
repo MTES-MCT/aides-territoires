@@ -24,11 +24,11 @@ class BackerAdmin(admin.ModelAdmin):
         return qs
 
     def get_readonly_fields(self, request, obj=None):
-        fields = ('display_related_aids',)
+        fields = ['display_related_aids']
         # When we are on editing mode, we want the slug field to be
         # readonly. When obj is there, is means we are on editing mode.
         if obj:
-            return fields + ('slug',)
+            fields.append('slug')
         return fields
 
     def get_prepopulated_fields(self, request, obj=None):
