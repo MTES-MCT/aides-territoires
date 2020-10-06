@@ -199,7 +199,7 @@ déploiement. Il n'est donc pas inclus dans le code github.
 Nous utilisons `pep8` et `flake8`.
 
 Pour vérifier son code, on peut intégrer le linter adapté à 
-son son IDE et aussi faire ceci :
+son IDE et aussi faire ceci :
 
     make checkstyle 
 
