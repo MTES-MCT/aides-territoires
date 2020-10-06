@@ -34,7 +34,6 @@ ansible = "*"
 yapf = "*"
 selenium = "*"
 rope = "*"
-pylint = "*"
 
 [requires]
 python_version = "3"
