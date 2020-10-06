@@ -398,6 +398,7 @@ section#program-list {
                 @extend .card-title;
                 @extend .mb-4;
                 @extend .pb-3;
+                text-align: left;
 
                 a {
                     color: $font-color;
