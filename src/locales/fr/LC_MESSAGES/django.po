@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 16:21+0200\n"
+"POT-Creation-Date: 2020-10-06 15:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -430,6 +430,9 @@ msgstr ""
 msgid "Categories"
 msgstr "Sous-thématiques"
 
+msgid "Aid program"
+msgstr "Programme d'aides"
+
 msgid "Type a few characters and select a value among the list"
 msgstr ""
 "Saisissez quelques caractères et sélectionnez une valeur parmi les "
@@ -592,6 +595,9 @@ msgstr "Récurrence"
 
 msgid "Call for projects only"
 msgstr "AAP / AMI uniquement"
+
+msgid "Aid programs"
+msgstr "Programmes d'aides"
 
 msgid "France Relance?"
 msgstr "Aides France Relance :"
@@ -788,6 +794,9 @@ msgstr "Contact (détail)"
 
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
+
+msgid "Programs"
+msgstr "programmes"
 
 msgid "Status"
 msgstr "Statut"
@@ -1015,6 +1024,10 @@ msgstr "Aides instruites"
 
 msgid "Related aids"
 msgstr "Aides associées"
+
+msgid ""
+"Slug field is set when creating the backer and can not be changed after."
+msgstr "Le fragment d'URL n'est pas modifiable après la création du porteur."
 
 msgid "Is a corporate backer?"
 msgstr "Apporteur privé ?"
@@ -1256,12 +1269,6 @@ msgstr "300 caractères max. Résultats de recherche uniquement."
 
 msgid "Description"
 msgstr "Description"
-
-msgid "Aid program"
-msgstr "Programme d'aides"
-
-msgid "Aid programs"
-msgstr "Programmes d'aides"
 
 msgid "Style customization"
 msgstr "Personnalisation du style"
