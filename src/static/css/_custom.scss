@@ -132,11 +132,11 @@
                         span {
                             display: block;
                             font-family: $font-family-base;
-                            font-size: 6rem;
+                            font-size: 4rem;
                             font-weight: 200;
                         
-                            @include media-breakpoint-down(sm) {
-                                font-size: 4rem;
+                            @include media-breakpoint-up(sm) {
+                                font-size: 6rem;
                             }
                         }      
                     }
@@ -811,10 +811,6 @@ article#aid {
             background-color: $pale-background;
             border-radius: 0 2rem 2rem 2rem;
             padding: .5rem 1rem;
-
-            @include media-breakpoint-down(sm) {
-                font-size: 1.7rem;
-            }
         }
 
         * + h2 {
@@ -1118,7 +1114,7 @@ div#search-steps {
 
     h1 {
         @extend .mb-5;
-        @extend .h3;
+        @extend .h2;
     }
 
     h2 {

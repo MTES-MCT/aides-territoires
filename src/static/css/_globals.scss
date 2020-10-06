@@ -129,10 +129,10 @@ body > footer {
             margin-bottom: 3rem;
 
             h4 {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
 
-                @include media-breakpoint-down(sm) {
-                    font-size: 1.8rem;
+                @include media-breakpoint-up(sm) {
+                    font-size: 2.5rem;
                 }
             }
 
@@ -583,19 +583,12 @@ h1 {
 
     @include media-breakpoint-up(md) {
         text-align: left;
-    }
-
-    @include media-breakpoint-down(sm) {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     small {
         @extend .text-muted;
         @extend .h3;
-
-        @include media-breakpoint-down(sm) {
-            font-size: 1.5rem;
-        }
     }
 
     &::after {
@@ -619,14 +612,14 @@ h1 {
 }
 
 h2 {
-    @include media-breakpoint-down(sm) {
-        font-size: 1.8rem;
+    @include media-breakpoint-up(md) {
+        font-size: 2rem;
     }
 }
 
 h3 {
-    @include media-breakpoint-down(sm) {
-        font-size: 1.5rem;
+    @include media-breakpoint-up(md) {
+        font-size: 1.75rem;
     }
 }
 
@@ -778,10 +771,6 @@ html.integration {
 
         &::after {
             margin: .5rem auto 0 auto;
-        }
-
-        @include media-breakpoint-down(sm) {
-            font-size: 2rem;
         }
     }
 
