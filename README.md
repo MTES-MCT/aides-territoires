@@ -169,31 +169,6 @@ nav#main-navbar {
 }
 ```
 
-
-### Traduction : À propos des fichiers `.po` et `.mo`
-
-Ce project utilise le système de tranduction de Django : 
-Le texte dans le code est en anglais et la traduction qui
-s'affiche sur le site en Français, se trouve dans le fichier
-`.po` du dossier `locales`.
-
-https://docs.djangoproject.com/en/dev/topics/i18n/translation/
-
-Pour générer la traduction dans le fichier `.po` :
-
-    make makemessages
-
-
-Django utilise une version compilée du fichier `.po`, c'est le
-fichier `.mo` que l'on obtient avec :
-
-    python manage.py compilemessages
-
-
-En production, ce fichier est généré automatiquement lors du
-déploiement. Il n'est donc pas inclus dans le code github.
-
-
 ### Utilisation de django-compressor
 
 Le projet utilise
@@ -224,6 +199,30 @@ COMPRESS_OFFLINE=False
 Il faudra alors manuellement lancer la compression en cas de besoin.
 
     python manage.py compress
+
+
+## Traduction : À propos des fichiers `.po` et `.mo`
+
+Ce projet utilise le système de traduction de Django :
+Le texte dans le code est en anglais et la traduction qui
+s'affiche sur le site en Français, se trouve dans le fichier
+`.po` du dossier `locales`.
+
+https://docs.djangoproject.com/en/dev/topics/i18n/translation/
+
+Pour générer la traduction dans le fichier `.po` :
+
+    make makemessages
+
+
+Django utilise une version compilée du fichier `.po`, c'est le
+fichier `.mo` que l'on obtient avec :
+
+    python manage.py compilemessages
+
+
+En production, ce fichier est généré automatiquement lors du
+déploiement. Il n'est donc pas inclus dans le code github.
 
 
 ## Déploiement
