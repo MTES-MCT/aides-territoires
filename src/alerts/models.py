@@ -84,3 +84,4 @@ class Alert(models.Model):
             .order_by('date_published')
         qs = search_form.filter_queryset(base_qs)
         return qs
+        

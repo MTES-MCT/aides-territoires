@@ -392,13 +392,13 @@ def test_published_after_filter(client, perimeters):
     res = client.get(url, data={'published_after': '2020-10-01'})
     assert res.context['paginator'].count == 1
     assert res.context['aids'][0].name == 'Aide published_after 1'
-    
+
     res = client.get(url, data={'published_after': '2020-05-22'})
     assert res.context['paginator'].count == 3
     assert res.context['aids'][0].name == 'Aide published_after 1'
     assert res.context['aids'][1].name == 'Aide published_after 2'
     assert res.context['aids'][2].name == 'Aide published_after 3'
 
-    # If the published_after filter doesn't match any aids there isn't any result
+    # If published_after filter doesn't match any aids there isn't any result
     res = client.get(url, data={'published_after': '2130-01-02'})
     assert res.context['paginator'].count == 0
