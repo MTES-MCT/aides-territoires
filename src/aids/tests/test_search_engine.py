@@ -362,7 +362,7 @@ def test_the_france_relance_boolean_filter(client, perimeters):
     assert res.context['paginator'].count == 5
 
 
-def test_published_after_filter(client, perimeters):
+def test_the_published_after_filter_to_exclude_aids(client, perimeters):
     AidFactory(
         name='Aide published_after 1',
         perimeter=perimeters['europe'],
@@ -388,7 +388,7 @@ def test_published_after_filter(client, perimeters):
     res = client.get(url)
     assert res.context['paginator'].count == 5
 
-    # This filter is used to select aids published afer the latest_alert_date
+    # This filter is used to select aids published after the latest_alert_date
     res = client.get(url, data={'published_after': '2020-10-01'})
     assert res.context['paginator'].count == 1
     assert res.context['aids'][0].name == 'Aide published_after 1'
