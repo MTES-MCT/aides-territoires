@@ -16,10 +16,10 @@ admin.site.unregister(Follow)
 class ActionAdmin(admin.ModelAdmin):
     date_hierarchy = 'timestamp'
     list_display = (
-        'id', 'action_display', 'actor_display', 'verb', 'target_display',
-        'target_content_type', 'action_object_display',
-        'action_object_content_type', 'timestamp'
+        'id', 'verb', 'actor_display', 'action_object_display',
+        'target_display', 'timestamp'
     )
+    list_display_links = ('id', 'verb')
     list_filter = ('timestamp', 'verb')
     fieldsets = (
         (None, {
@@ -59,10 +59,6 @@ class ActionAdmin(admin.ModelAdmin):
             return '-'
         url = self.get_admin_url(obj)
         return format_html('<a href="{}">{}</a>', url, obj)
-
-    def action_display(self, obj):
-        return self.get_object_display_line(obj)
-    action_display.short_description = _('action')
 
     def actor_display(self, obj):
         return self.get_object_display_line(obj.actor)
