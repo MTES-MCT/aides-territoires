@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_xworkflows',
     'corsheaders',
+    'actstream',
 ]
 
 LOCAL_APPS = [
