@@ -36,7 +36,7 @@ def aids(perimeters):
     return aids
 
 
-def test_seach_engine_view(client):
+def test_search_engine_view(client):
     """Test that the url is publicly accessible."""
 
     url = reverse('search_view')
@@ -360,3 +360,45 @@ def test_the_france_relance_boolean_filter(client, perimeters):
     # Any false value disables the filter
     res = client.get(url, data={'in_france_relance': 'false'})
     assert res.context['paginator'].count == 5
+
+
+def test_published_after_filter(client, perimeters):
+    AidFactory(
+        name='Aide published_after 1',
+        perimeter=perimeters['europe'],
+        date_published='2020-10-01')
+    AidFactory(
+        name='Aide published_after 2',
+        perimeter=perimeters['europe'],
+        date_published='2020-09-22')
+    AidFactory(
+        name='Aide published_after 3',
+        perimeter=perimeters['europe'],
+        date_published='2020-09-22')
+    AidFactory(
+        name='Aide published_after 4',
+        perimeter=perimeters['europe'],
+        date_published='2020-02-22')
+    AidFactory(
+        name='Aide published_after 5',
+        perimeter=perimeters['europe'],
+        date_published='2020-02-22')
+
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.context['paginator'].count == 5
+
+    # This filter is used to select aids published afer the latest_alert_date
+    res = client.get(url, data={'published_after': '2020-10-01'})
+    assert res.context['paginator'].count == 1
+    assert res.context['aids'][0].name == 'Aide published_after 1'
+    
+    res = client.get(url, data={'published_after': '2020-05-22'})
+    assert res.context['paginator'].count == 3
+    assert res.context['aids'][0].name == 'Aide published_after 1'
+    assert res.context['aids'][1].name == 'Aide published_after 2'
+    assert res.context['aids'][2].name == 'Aide published_after 3'
+
+    # If the published_after filter doesn't match any aids there isn't any result
+    res = client.get(url, data={'published_after': '2130-01-02'})
+    assert res.context['paginator'].count == 0

@@ -1,4 +1,6 @@
 import uuid
+import datetime
+from datetime import date
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -64,9 +66,13 @@ class Alert(models.Model):
         self.date_validated = timezone.now()
 
     def get_absolute_url(self):
+        latest_alert_date_str = self.latest_alert_date.date()
+        querydict = QueryDict(self.querystring)
+        querydict = querydict.copy()
+        querydict.setlist('published_after', {latest_alert_date_str}) 
         return '{}?{}'.format(
-            reverse('search_view'),
-            self.querystring)
+            reverse('search_view'), 
+            querydict.urlencode())
 
     def get_new_aids(self):
         """Get the list of aids that match the stored search params."""
