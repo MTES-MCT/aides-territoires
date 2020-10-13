@@ -15,6 +15,7 @@ class SearchPageAdmin(admin.ModelAdmin):
         ('', {
             'fields': (
                 'title',
+                'short_title',
                 'slug',
                 'search_querystring',
                 'content',
