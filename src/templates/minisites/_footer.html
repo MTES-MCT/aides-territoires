@@ -1,25 +1,44 @@
 {% load settings i18n %}<footer>
     <div class="container">
         <div id="all-logos">
-            <a href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales">
-                <img class="logo ministry-logo" src="/static/img/logo_mct.svg" alt="Logo du Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales" />
-            </a>
-
             <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique">
                 <img class="logo ministry-logo" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
-            </a>
-
-            <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
-                <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
             </a>
 
             <a href="https://aides-territoires.beta.gouv.fr" title="Aides-territoires">
                 <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
             </a>
 
+            <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
+                <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
+            </a>
+    
             <a class="partner-link" href="{{ search_page.logo_link }}">
                 <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
             </a>
         </div>
+    </div>
+    <div class="other_links_nav">
+        <div class="container">
+            <div id="other-links">
+                <ul>
+                    <li><a href="https://elysee.fr" title="Ouvrir « https://www.elysee.fr » dans une nouvelle fenêtre">elysee.fr</a></li>
+                    <li><a href="https://legifrance.gouv.fr" title="Ouvrir « https://legifrance.gouv.fr » dans une nouvelle fenêtre">legifrance.gouv.fr</a></li>
+                    <li><a href="https://france.fr" title="Ouvrir « https://france.fr » dans une nouvelle fenêtre">france.fr</a></li>
+                    <li><a href="https://service-public.fr" title="Ouvrir « https://service-public.fr » dans une nouvelle fenêtre">service-public.fr</a></li>
+                    <li><a href="https://data.gouv.fr" title="Ouvrir « https://data.gouv.fr » dans une nouvelle fenêtre">data.gouv.fr</a></li>
+                </ul>
+            </div>
+            <nav role="navigation">
+                <ul>
+                    <li><a href="https://aides-territoires.beta.gouv.fr/comptes/profil-contributeur/?next=/aides/publications/">Publier des aides</a></li>
+                    <li><a href="https://aides-territoires.beta.gouv.fr/data/">Données et API</a></li>
+                    <li><a href="mailto:aides-territoires@beta.gouv.fr">aides-territoires@beta.gouv.fr</a></li>
+                    <li><a href="tel:07 56 99 59 72">07 56 99 59 72</a> </li>
+                    <li><a href="https://aides-territoires.beta.gouv.fr/mentions-légales/">Mentions Légales</a></li>
+                    <li><a href="https://github.com/MTES-MCT/aides-territoires" title="Ouvrir « https://github.com/MTES-MCT/aides-territoires » dans une nouvelle fenêtre">Code Source</a></li>
+                </ul>
+            </nav>
+        </div>  
     </div>
 </footer>

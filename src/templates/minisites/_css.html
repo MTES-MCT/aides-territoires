@@ -4,8 +4,49 @@ body {
     background: {{ search_page.color_1 }};
 }
 
+@font-face {
+    font-family: "Marianne";
+    src: local("Marianne"),
+    url(/static/fonts/Marianne-Regular.woff) format("webopen");
+}
+
+body > #partner-navbar .container-lg {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+body > #partner-navbar .container-lg a {
+    font-family: 'Marianne','Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #000 !important;
+    font-size: 2rem;
+    text-transform: capitalize;
+    text-decoration:none;
+    padding: 1rem 0 1rem 0;
+}
+
+body > #partner-navbar .container-lg a[href^="http"]::after {
+    display: none;
+}
+
 main {
     background: {{ search_page.color_1 }};
+}
+
+article > .container_logo_title {
+    display: flex;
+    align-items: center;
+}
+
+article > .container_logo_title > article_container_logo {
+    width: 20%;
+}
+
+article > .container_logo_title > article_container_title {
+    width: 80%;
 }
 
 .dark-background .main-content > article,
@@ -111,6 +152,7 @@ ol.breadcrumb {
 
 body > footer {
     background-color: white !important;
+    padding: 1rem 0 0 0;
 }
 
 body > footer #all-logos {
@@ -132,6 +174,97 @@ body > footer #all-logos a img {
     width: auto;
 }
 
-body > footer #all-logos a img.ministry-logo {
+body > footer > .other_links_nav {
+    background-color: #f9f8f6 !important;
+    padding: 0 0 4rem 0;
+}
+
+body > footer #other-links ul {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding: 1rem 0 0.5rem 0;
+}
+
+body > footer #other-links ul li a{
+    padding: .75rem;
+    color: #000 !important;
+    position: relative;
+}
+
+body > footer #other-links ul li{
+    position: relative;
+    padding: 0 2.4rem 1rem 0;
+}
+
+body > footer #other-links ul li a[href^="http"]::after {
+    display: none;
+}
+
+body > footer #other-links ul li a[href^="http"]:hover::after {
+    display: inline-block;
+    padding-right: 0.5rem;
+}
+
+body > footer #other-links ul li:not(:last-child):after {
+    content: "";
+    position: absolute;
+    right: -.5rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 70%;
+    width: 1px;
+    background-color: #e7e7e7;
+}
+
+body > footer nav {
+    border-top: 1px solid #e7e7e7;
+    margin-top: 0;
+    padding-top: 1rem;
+    background-color: #f9f8f6
+}
+
+body > footer nav ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+body > footer nav ul li {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+}
+
+body > footer nav ul li a {
+    white-space: nowrap;
+    color: #000 !important;
+}
+
+body > footer nav ul li a:hover {
+    color: #000 !important;
+    text-decoration: underline; 
+}
+
+body > footer nav ul li a:focus{
+    color: #000 !important;
+}
+
+body > footer nav ul li a[href^='mailto:'] {
+    @include icon(before, $fa-var-envelope);
+}
+
+body > footer nav ul li a[href^='tel:'] {
+    @include icon(before, $fa-var-phone);
+}
+
+body > footer nav ul li a[href^="http"]::after {
+    display: none;
+}
+
+body > footer nav ul li a[href^="http"]:hover::after {
+    display: inline-block;
+    padding-right: 0.5rem;
 }
 </style>
