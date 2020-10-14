@@ -1,0 +1,53 @@
+{% extends 'aids/_base_search.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
+{% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="">{{ _('Search pages') }}</a></li>
+        <li class="active" aria-current="page">{{ search_page.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article>
+    <div class="logos_titles">
+        <div class="logos">
+            <a class="partner-link" href="{{ search_page.logo_link }}">
+                <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
+            </a>
+            <a href="https://aides-territoires.beta.gouv.fr" title="Aides-territoires">
+                <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
+            </a>
+        </div>
+        <div class="titles">
+            <h1>{{ search_page.title }}</h1>
+            {{ search_page.content|safe }}
+            {% if search_page.more_content %}
+                <div id="more-content">
+                    {{ search_page.more_content|safe }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</article>
+{{ block.super }}
+{% endblock %}
+
+{% comment %}
+Specialized search pages are often associated with *loads* of categories,
+so displaying them is not very helpful.
+{% endcomment %}
+{% block search-meta-categories %}{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+{% compress js %}
+<script src="/static/js/search/create_reveal_content_button.js"></script>
+{% endcompress %}
+{% endblock %}
