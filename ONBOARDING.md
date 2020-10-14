@@ -87,3 +87,17 @@ La version de dev du site sera alors accessible à cette adresse :
 http://aides-territoires.local:8000/
 
 Il sera nécessaire de mettre à jour la base de données à partir d'un dump récent.
+
+## Serveur de développement pour les minisites (pages personnalisées)
+
+Dans le fichier .env.local il est nécessaire d'ajouter comme ALLOWED_HOSTS :
+
+    francemobilites.aides-territoires.local
+
+Le serveur peut ensuite être démarré avec la commande :
+
+    ./manage.py runserver 0:8000 --settings minisites.settings.local
+
+La version dev du minisite sera alors accessible à cette adresse : 
+
+http://francemobilites.aides-territoires.local:8000/
