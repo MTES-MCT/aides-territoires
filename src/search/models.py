@@ -40,6 +40,11 @@ class SearchPage(models.Model):
         _('Title'),
         max_length=180,
         help_text=_('The main displayed title.'))
+    short_title = models.CharField(
+        _('Short title'),
+        max_length=180,
+        blank=True, default='',
+        help_text=_('A shorter, more concise title.'))
     meta_title = models.CharField(
         _('Meta title'),
         max_length=180,
