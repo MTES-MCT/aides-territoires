@@ -129,7 +129,11 @@ body > footer {
             margin-bottom: 3rem;
 
             h4 {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
+
+                @include media-breakpoint-up(sm) {
+                    font-size: 2.5rem;
+                }
             }
 
             p {
@@ -579,6 +583,7 @@ h1 {
 
     @include media-breakpoint-up(md) {
         text-align: left;
+        font-size: 2.5rem;
     }
 
     small {
@@ -603,6 +608,18 @@ h1 {
             border: 4px solid $contrast-color;
         }
 
+    }
+}
+
+h2 {
+    @include media-breakpoint-up(md) {
+        font-size: 2rem;
+    }
+}
+
+h3 {
+    @include media-breakpoint-up(md) {
+        font-size: 1.75rem;
     }
 }
 

@@ -1340,6 +1340,9 @@ msgstr ""
 msgid "The main displayed title."
 msgstr "Le titre principal."
 
+msgid "A shorter, more concise title."
+msgstr "Un titre plus concis, pour affichage spécifique"
+
 msgid ""
 "This part is used in the url. DON't change this for existing pages. MUST be "
 "lowercase for minisites."
