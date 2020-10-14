@@ -362,43 +362,34 @@ def test_the_france_relance_boolean_filter(client, perimeters):
     assert res.context['paginator'].count == 5
 
 
-def test_the_published_after_filter_to_exclude_aids(client, perimeters):
+def test_aids_can_be_filterd_by_published_after(client, perimeters):
     AidFactory(
-        name='Aide published_after 1',
+        name='Aide A',
         perimeter=perimeters['europe'],
-        date_published='2020-10-01')
+        date_published='2020-09-03')
     AidFactory(
-        name='Aide published_after 2',
+        name='Aide B',
         perimeter=perimeters['europe'],
-        date_published='2020-09-22')
+        date_published='2020-09-02')
     AidFactory(
-        name='Aide published_after 3',
+        name='Aide C',
         perimeter=perimeters['europe'],
-        date_published='2020-09-22')
-    AidFactory(
-        name='Aide published_after 4',
-        perimeter=perimeters['europe'],
-        date_published='2020-02-22')
-    AidFactory(
-        name='Aide published_after 5',
-        perimeter=perimeters['europe'],
-        date_published='2020-02-22')
+        date_published='2019-01-01')
 
     url = reverse('search_view')
     res = client.get(url)
-    assert res.context['paginator'].count == 5
+    assert res.context['paginator'].count == 3
 
     # This filter is used to select aids published after the latest_alert_date
-    res = client.get(url, data={'published_after': '2020-10-01'})
+    res = client.get(url, data={'published_after': '2020-09-03'})
     assert res.context['paginator'].count == 1
-    assert res.context['aids'][0].name == 'Aide published_after 1'
+    assert res.context['aids'][0].name == 'Aide A'
 
-    res = client.get(url, data={'published_after': '2020-05-22'})
-    assert res.context['paginator'].count == 3
-    assert res.context['aids'][0].name == 'Aide published_after 1'
-    assert res.context['aids'][1].name == 'Aide published_after 2'
-    assert res.context['aids'][2].name == 'Aide published_after 3'
+    res = client.get(url, data={'published_after': '2020-09-01'})
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Aide A'
+    assert res.context['aids'][1].name == 'Aide B'
 
     # If published_after filter doesn't match any aids there isn't any result
-    res = client.get(url, data={'published_after': '2130-01-02'})
+    res = client.get(url, data={'published_after': '2020-09-04'})
     assert res.context['paginator'].count == 0
