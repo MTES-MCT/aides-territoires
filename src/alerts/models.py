@@ -64,10 +64,9 @@ class Alert(models.Model):
         self.date_validated = timezone.now()
 
     def get_absolute_url(self):
-        latest_alert_date_str = self.latest_alert_date.date()
-        querydict = QueryDict(self.querystring)
-        querydict = querydict.copy()
-        querydict.setlist('published_after', {latest_alert_date_str})
+        querydict = QueryDict(self.querystring).copy()
+        published_after = self.latest_alert_date.strftime('%Y-%m-%d')
+        querydict['published_after'] = published_after
         return '{}?{}'.format(reverse('search_view'), querydict.urlencode())
 
     def get_new_aids(self):
