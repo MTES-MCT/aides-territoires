@@ -1,4 +1,4 @@
-{% extends 'search/search_page_partner.html' %}
+{% extends 'search/search_page.html' %}
 {% load compress colors %}
 
 {% block title %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
@@ -19,6 +19,10 @@
 
 {% block header %}
     {% include 'minisites/_header.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'minisites/_article.html' %}
 {% endblock %}
 
 {% block footer %}
