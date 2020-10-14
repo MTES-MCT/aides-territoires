@@ -23,12 +23,11 @@ class ActionAdmin(admin.ModelAdmin):
     list_filter = ('timestamp', 'verb')
     fieldsets = (
         (None, {
-            'fields': ('verb_display', 'timestamp', 'description')
+            'fields': ('verb', 'timestamp', 'description')
         }),
         ('Actor', {
             'fields': (
-                'actor', 'actor_content_type', 'actor_object_id',
-                'actor_display'),
+                'actor', 'actor_content_type', 'actor_object_id'),
         }),
         ('Action', {
             'fields': (
