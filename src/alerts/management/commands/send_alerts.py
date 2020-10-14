@@ -2,21 +2,26 @@
 
 from datetime import timedelta
 import logging
+import smtplib
 
-from django.utils import timezone
-from django.core.management.base import BaseCommand
-from django.template.loader import render_to_string
-from django.core.mail import send_mail
-from django.contrib.sites.models import Site
-from django.db.models import Q, Case, When
-from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.sites.models import Site
+from django.core.mail import send_mail
+from django.core.management.base import BaseCommand
+from django.db.models import Q, Case, When
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
+
+from actstream import action
 
 from stats.utils import log_event
 from alerts.models import Alert
 
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 class Command(BaseCommand):
@@ -92,11 +97,23 @@ class Command(BaseCommand):
                         'vos recherches'.format(timezone.now())
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [alert.email]
-
-        send_mail(
-            '{}{}'.format(settings.EMAIL_SUBJECT_PREFIX, email_subject),
-            text_body,
-            email_from,
-            email_to,
-            html_message=html_body,
-            fail_silently=False)
+        log_details = {
+            'sender': site,
+            'action_object': alert,
+            'action_target': alert.email,
+            'description': f'To: {alert.email}\n'
+                           f'From: {email_from}\n'
+        }
+        try:
+            send_mail(
+                '{}{}'.format(settings.EMAIL_SUBJECT_PREFIX, email_subject),
+                text_body,
+                email_from,
+                email_to,
+                html_message=html_body,
+                fail_silently=False)
+            log_details['verb'] = 'alert-email-sent'
+        except smtplib.SMTPException as e:
+            log_details['verb'] = 'alert-email-not-sent'
+            log_details['description'] += str(e)
+        action.send(**log_details)

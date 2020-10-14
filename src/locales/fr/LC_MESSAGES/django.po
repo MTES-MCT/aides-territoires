@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-13 17:13+0200\n"
+"POT-Creation-Date: 2020-10-14 23:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1234,6 +1234,24 @@ msgstr "inscription-liste/"
 
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
+
+msgid "verb"
+msgstr "verbe"
+
+msgid "actor"
+msgstr "auteur"
+
+msgid "target"
+msgstr "cible"
+
+msgid "action object"
+msgstr "object de l'action"
+
+msgid "description"
+msgstr "description"
+
+msgid "logs"
+msgstr "logs"
 
 # This must be the same translation than the "/validate/" url
 msgid "<slug:token>/validate/"
