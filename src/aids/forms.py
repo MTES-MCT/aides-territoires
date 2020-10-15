@@ -411,6 +411,11 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
+    published_after = forms.DateField(
+        label=_('Published after…'),
+        required=False,
+        widget=forms.TextInput(
+            attrs={'type': 'date'}))
     aid_type = forms.MultipleChoiceField(
         label=_('Aid type'),
         choices=AID_TYPE_CHOICES,
@@ -540,6 +545,10 @@ class BaseAidSearchForm(forms.Form):
         apply_before = self.cleaned_data.get('apply_before', None)
         if apply_before:
             qs = qs.filter(submission_deadline__lte=apply_before)
+
+        published_after = self.cleaned_data.get('published_after', None)
+        if published_after:
+            qs = qs.filter(date_published__gte=published_after)
 
         recurrence = self.cleaned_data.get('recurrence', None)
         if recurrence:

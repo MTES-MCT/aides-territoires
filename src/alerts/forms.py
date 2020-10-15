@@ -17,7 +17,7 @@ class AlertForm(forms.ModelForm):
     alert_frequency = forms.ChoiceField(
         label=_('Alert frequency'),
         choices=Alert.FREQUENCIES,
-        help_text=_('How often to you want to receive alerts?'))
+        help_text=_('How often do you want to receive alerts?'))
     querystring = forms.CharField(widget=forms.HiddenInput)
 
     class Meta:

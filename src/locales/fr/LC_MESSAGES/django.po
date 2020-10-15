@@ -578,6 +578,9 @@ msgstr "Titre, sujet, mot-clé, etc."
 msgid "Apply before…"
 msgstr "Candidater avant…"
 
+msgid "Published after…"
+msgstr "Publiée après…"
+
 msgid "Aid type"
 msgstr "Nature de l'aide"
 
@@ -917,7 +920,7 @@ msgstr "Donnez un nom à votre alerte"
 msgid "Alert frequency"
 msgstr "Fréquence de l'alerte"
 
-msgid "How often to you want to receive alerts?"
+msgid "How often do you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid ""

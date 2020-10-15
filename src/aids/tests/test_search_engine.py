@@ -36,7 +36,7 @@ def aids(perimeters):
     return aids
 
 
-def test_seach_engine_view(client):
+def test_search_engine_view(client):
     """Test that the url is publicly accessible."""
 
     url = reverse('search_view')
@@ -360,3 +360,36 @@ def test_the_france_relance_boolean_filter(client, perimeters):
     # Any false value disables the filter
     res = client.get(url, data={'in_france_relance': 'false'})
     assert res.context['paginator'].count == 5
+
+
+def test_aids_can_be_filterd_by_published_after(client, perimeters):
+    AidFactory(
+        name='Aide A',
+        perimeter=perimeters['europe'],
+        date_published='2020-09-03')
+    AidFactory(
+        name='Aide B',
+        perimeter=perimeters['europe'],
+        date_published='2020-09-02')
+    AidFactory(
+        name='Aide C',
+        perimeter=perimeters['europe'],
+        date_published='2019-01-01')
+
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.context['paginator'].count == 3
+
+    # This filter is used to select aids published after the latest_alert_date
+    res = client.get(url, data={'published_after': '2020-09-03'})
+    assert res.context['paginator'].count == 1
+    assert res.context['aids'][0].name == 'Aide A'
+
+    res = client.get(url, data={'published_after': '2020-09-01'})
+    assert res.context['paginator'].count == 2
+    assert res.context['aids'][0].name == 'Aide A'
+    assert res.context['aids'][1].name == 'Aide B'
+
+    # If published_after filter doesn't match any aids there isn't any result
+    res = client.get(url, data={'published_after': '2020-09-04'})
+    assert res.context['paginator'].count == 0
