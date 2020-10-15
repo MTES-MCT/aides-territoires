@@ -57,7 +57,14 @@ sur le site est accessible à cette adresse.</a></p>
 
 <h2>Données</h2>
 
-<p>Les différents champs présents dans l'API sont les suivants.</p>
+<p>Les différents champs présents dans l'API sont listés ci-dessous.</p>
+
+<p>Si besoin, des descriptions plus précises peuvent être trouvées dans le code source :</p>
+
+<ul>
+    <li><a href="https://github.com/MTES-MCT/aides-territoires/blob/master/src/aids/models.py">Description du modèle de donnée (models.py)</a></li>
+    <li><a href="https://github.com/MTES-MCT/aides-territoires/blob/master/src/aids/api/serializers.py">Transformation de la donnée brute en json (serializers.py)</a></li>
+</ul>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -74,9 +81,16 @@ sur le site est accessible à cette adresse.</a></p>
             <td>Identifiant numérique interne de l'aide</td>
         </tr>
         <tr>
+            <td>slug</td>
+            <td>string</td>
+            <td><a href="https://docs.djangoproject.com/fr/3.1/glossary/#term-slug">
+                Fragment d'URL</a>,
+                utilisé pour idendifier l'aide de manière lisible</td>
+        </tr>
+        <tr>
             <td>url</td>
             <td>url</td>
-            <td>Adresse de l'aide sur Aides-territoires</td>
+            <td>Adresse (relative) de l'aide sur Aides-territoires</td>
         </tr>
         <tr>
             <td>name</td>
@@ -84,18 +98,28 @@ sur le site est accessible à cette adresse.</a></p>
             <td>Nom de l'aide</td>
         </tr>
         <tr>
-            <td>backers</td>
+            <td>short_title</td>
+            <td>string</td>
+            <td>Version courte du titre, utilisée dans certains contextes spécifiques (e.g France Relance)</td>
+        </tr>
+        <tr>
+            <td>financers</td>
             <td>array</td>
-            <td>Porteur(s) de l'aide</td>
+            <td>La liste des noms des financeurs de l'aide</td>
+        </tr>
+        <tr>
+            <td>instructors</td>
+            <td>array</td>
+            <td>La liste des noms des instructeurs de l'aide (si différente des financeurs)</td>
         </tr>
         <tr>
             <td>description</td>
-            <td>text</td>
+            <td>text (html)</td>
             <td>Description de l'aide</td>
         </tr>
         <tr>
             <td>eligibility</td>
-            <td>text</td>
+            <td>text (html)</td>
             <td>Détaille les conditions d'éligibilité</td>
         </tr>
         <tr>
@@ -131,12 +155,12 @@ sur le site est accessible à cette adresse.</a></p>
         <tr>
             <td>aid_types</td>
             <td>array</td>
-            <td>Précision sur le type d'aide (financière ou non)</td>
+            <td>Précision sur le(s) type(s) d'aide (financière ou non)</td>
         </tr>
         <tr>
             <td>destinations</td>
             <td>array</td>
-            <td>Précision sur le type d'action soutenue par l'aide </td>
+            <td>Précision sur le(s) type(s) d'action(s) soutenue(s) par l'aide </td>
         </tr>
         <tr>
             <td>start_date</td>
@@ -146,7 +170,7 @@ sur le site est accessible à cette adresse.</a></p>
         <tr>
             <td>predeposit_date</td>
             <td>date</td>
-            <td>Date de pré-dépôt des dossiers, le cas échéant </td>
+            <td>Date de pré-dépôt des dossiers, le cas échéant</td>
         </tr>
         <tr>
             <td>submission_deadline</td>
@@ -154,19 +178,29 @@ sur le site est accessible à cette adresse.</a></p>
             <td>Date butoir de dépôt des candidatures</td>
         </tr>
         <tr>
-            <td>subvention_rate</td>
+            <td>subvention_rate_lower_bound</td>
             <td>decimal</td>
-            <td>Taux de subvention, le cas échéant pour une aide financière</td>
+            <td>Le cas échéant, borne inférieure du taux de subvention pour une aide financière</td>
+        </tr>
+        <tr>
+            <td>subvention_rate_upper_bound</td>
+            <td>decimal</td>
+            <td>Le cas échéant, borne supérieure du taux de subvention pour une aide financière</td>
         </tr>
         <tr>
             <td>contact</td>
-            <td>text</td>
+            <td>text (html)</td>
             <td>Informations de contact (texte libre).</td>
         </tr>
         <tr>
             <td>recurrence</td>
             <td>string</td>
             <td>Précision sur le caractère ponctuel, récurrent, permanent de l'aide </td>
+        </tr>
+        <tr>
+            <td>project_examples</td>
+            <td>text (html)</td>
+            <td>Exemples de projets ayant déjà bénéficié de cette aide </td>
         </tr>
         <tr>
             <td>date_created</td>

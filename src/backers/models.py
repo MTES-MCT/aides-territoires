@@ -33,7 +33,10 @@ class Backer(models.Model):
         max_length=256,
         db_index=True)
     slug = models.SlugField(
-        _('Slug'))
+        _('Slug'),
+        help_text=_(
+            'Slug field is set when creating the backer '
+            'and can not be changed after.'))
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)

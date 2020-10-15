@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-14 16:10+0200\n"
+"POT-Creation-Date: 2020-10-14 23:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -798,6 +798,9 @@ msgstr "Contact (détail)"
 msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
+msgid "Programs"
+msgstr "programmes"
+
 msgid "Status"
 msgstr "Statut"
 
@@ -1025,6 +1028,10 @@ msgstr "Aides instruites"
 msgid "Related aids"
 msgstr "Aides associées"
 
+msgid ""
+"Slug field is set when creating the backer and can not be changed after."
+msgstr "Le fragment d'URL n'est pas modifiable après la création du porteur."
+
 msgid "Is a corporate backer?"
 msgstr "Apporteur privé ?"
 
@@ -1231,6 +1238,24 @@ msgstr "inscription-liste/"
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
 
+msgid "verb"
+msgstr "verbe"
+
+msgid "actor"
+msgstr "auteur"
+
+msgid "target"
+msgstr "cible"
+
+msgid "action object"
+msgstr "object de l'action"
+
+msgid "description"
+msgstr "description"
+
+msgid "logs"
+msgstr "logs"
+
 # This must be the same translation than the "/validate/" url
 msgid "<slug:token>/validate/"
 msgstr "<slug:token>/validation/"
@@ -1317,6 +1342,9 @@ msgstr ""
 
 msgid "The main displayed title."
 msgstr "Le titre principal."
+
+msgid "A shorter, more concise title."
+msgstr "Un titre plus concis, pour affichage spécifique"
 
 msgid ""
 "This part is used in the url. DON't change this for existing pages. MUST be "
