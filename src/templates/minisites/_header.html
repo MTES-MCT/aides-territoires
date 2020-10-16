@@ -4,11 +4,13 @@
             <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique">
                 <img class="logo ministry-logo" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
             </a>
-            <div>
-                <a class="deco-none" href="{{ search_page.logo_link }}">{{ search_page.short_title }}</a>
-            </div>
-            <div>
-                <a class="deco-none" href="https://aides-territoires.beta.gouv.fr">Aides-territoires</a>
+            <div class="logos_partners">
+                <a class="partner-link" href="{{ search_page.logo_link }}">
+                    <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
+                </a>
+                <a href="https://aides-territoires.beta.gouv.fr" title="Aides-territoires">
+                    <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
+                </a>
             </div>
     </div>
 </nav>
