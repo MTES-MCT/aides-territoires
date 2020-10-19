@@ -12,7 +12,7 @@
 {% endblocktrans %}</h1>
 
 {% if request.GET.published_after %}
-    <p>Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis le {{ request.GET.published_after}}</p>
+    <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
 {% endif %}
 
 {% block search-meta %}
