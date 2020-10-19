@@ -88,7 +88,7 @@ section#search-engine div.other-actions a:hover {
 }
 
 section#search-engine div.form-container button,
-section#search-engine a#save-alert-btn,
+section#search-engine a#save-alert-btn, section#search-engine a#publish-new-aids-btn,
 div#share-results-modal form button,
 div.modal .modal-dialog section footer button,
 .cta-btn,
@@ -99,7 +99,7 @@ button[type=submit] {
 }
 
 section#search-engine div.form-container button:hover,
-section#search-engine a#save-alert-btn:hover,
+section#search-engine a#save-alert-btn:hover, section#search-engine a#publish-new-aids-btn:hover,
 div#share-results-modal form button:hover,
 div.modal .modal-dialog section footer button:hover,
 .cta-btn:hover,
@@ -108,6 +108,10 @@ button[type=submit]:hover {
     background-color: {% darken search_page.color_3 15 %} !important;
     color: white !important;
     text-decoration: none !important;
+}
+
+section#search-engine a#publish-new-aids-btn[href^="http"]::after {
+    display: none;
 }
 
 article#aid .aid-details h2 {
