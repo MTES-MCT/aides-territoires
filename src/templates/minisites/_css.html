@@ -53,22 +53,6 @@ body > #partner-navbar .container-lg > .logos_partners a img {
     width: auto;
 }
 
-@media screen and (min-width: 640px) {
-    body > #partner-navbar .container-lg > .logos_partners {
-        flex-direction: row;
-    }
-
-    body > #partner-navbar .container-lg > .logos_partners a {
-        margin-left: 1rem;
-    }
-
-    body > #partner-navbar .container-lg {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-}
-
 .dark-background .main-content > article,
 .dark-background .main-content > div.article,
 section#aid-list article,
@@ -88,7 +72,8 @@ section#search-engine div.other-actions a:hover {
 }
 
 section#search-engine div.form-container button,
-section#search-engine a#save-alert-btn, section#search-engine a#publish-new-aids-btn,
+section#search-engine a#save-alert-btn,
+a#publish-new-aids-btn,
 div#share-results-modal form button,
 div.modal .modal-dialog section footer button,
 .cta-btn,
@@ -99,7 +84,8 @@ button[type=submit] {
 }
 
 section#search-engine div.form-container button:hover,
-section#search-engine a#save-alert-btn:hover, section#search-engine a#publish-new-aids-btn:hover,
+section#search-engine a#save-alert-btn:hover,
+a#publish-new-aids-btn:hover,
 div#share-results-modal form button:hover,
 div.modal .modal-dialog section footer button:hover,
 .cta-btn:hover,
@@ -110,8 +96,28 @@ button[type=submit]:hover {
     text-decoration: none !important;
 }
 
-section#search-engine a#publish-new-aids-btn[href^="http"]::after {
+a#publish-new-aids-btn[href^="http"]::after {
     display: none;
+}
+
+a#publish-new-aids-btn {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index:2;
+    transform: rotate(270deg);
+    transform-origin: right top;
+    display: inline-block;
+    text-align: center;
+    margin-right: 4rem;
+    padding: 0.375rem 2rem;
+    border-radius: 1rem 1rem 0 1rem;
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    text-decoration: none;
 }
 
 article#aid .aid-details h2 {
@@ -291,5 +297,30 @@ body > footer nav ul li a[href^="http"]::after {
 body > footer nav ul li a[href^="http"]:hover::after {
     display: inline-block;
     padding-right: 0.5rem;
+}
+
+@media screen and (min-width: 600px) {
+    body > #partner-navbar .container-lg > .logos_partners {
+        flex-direction: row;
+    }
+
+    body > #partner-navbar .container-lg > .logos_partners a {
+        margin-left: 1rem;
+    }
+
+    body > #partner-navbar .container-lg {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    a#publish-new-aids-btn {
+        top: auto;
+        transform: rotate(0deg);
+        margin-right: 0.5rem;
+        margin-top: 3rem;
+        border-radius: 1rem 0 1rem 1rem;
+        @include icon(before, $fa-var-phone);
+    }
 }
 </style>
