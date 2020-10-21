@@ -27,7 +27,7 @@ body > #partner-navbar .container-lg a {
     text-transform: capitalize;
     text-decoration:none;
     padding: 1rem 0 1rem 0;
-    margin-bottom: 2rem;
+    margin: 2rem 0 2rem 0;
 }
 
 body > #partner-navbar .container-lg a[href^="http"]::after {
@@ -42,6 +42,12 @@ body > #partner-navbar .container-lg > .logos_partners {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.logo_RF img {
+    height: 150px;
+    width: auto;
+    margin: 2rem 0 2rem 0;
 }
 
 body > #partner-navbar .container-lg > .logos_partners > a[href^="http"]::after {
@@ -310,11 +316,18 @@ body > footer nav ul li a[href^="http"]:hover::after {
 
     body > #partner-navbar .container-lg > .logos_partners a {
         margin-left: 1rem;
+        margin-bottom: 0;
+        padding: 0;
     }
 
     body > #partner-navbar .container-lg {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
+    }
+
+    .logo_RF img {
+        padding: 0;
+        margin-bottom: 0;
     }
 </style>
