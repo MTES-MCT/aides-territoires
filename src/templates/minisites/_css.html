@@ -73,7 +73,6 @@ section#search-engine div.other-actions a:hover {
 
 section#search-engine div.form-container button,
 section#search-engine a#save-alert-btn,
-a#publish-new-aids-btn,
 div#share-results-modal form button,
 div.modal .modal-dialog section footer button,
 .cta-btn,
@@ -85,7 +84,6 @@ button[type=submit] {
 
 section#search-engine div.form-container button:hover,
 section#search-engine a#save-alert-btn:hover,
-a#publish-new-aids-btn:hover,
 div#share-results-modal form button:hover,
 div.modal .modal-dialog section footer button:hover,
 .cta-btn:hover,
@@ -110,13 +108,20 @@ a#publish-new-aids-btn {
     display: inline-block;
     text-align: center;
     padding: 0.375rem 0.7rem;
+    border: 2px solid #db1c83;
     border-radius: 1rem 1rem 0 0;
-    color: #fff !important;
+    color: #db1c83 !important;
+    background-color: #fff;
     font-weight: bold;
     font-size: 0.9rem;
     line-height: 1.5;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     text-decoration: none;
+}
+
+a#publish-new-aids-btn:hover {
+    background-color: #db1c83;
+    color: #fff !important;
 }
 
 article#aid .aid-details h2 {
