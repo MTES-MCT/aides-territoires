@@ -129,6 +129,21 @@ class SiteHome(MinisiteMixin, SearchView):
                 .select_related('theme')
             self.available_categories = page_categories
         return self.available_categories
+    
+    def get_available_perimeter(self):
+        """Return the list of perimeter available in this minisite.
+
+        Only available perimeter appear in the `perimeter` search filter.
+        Also, we always filter out aids that are *not* in available perimeter.
+
+        Available perimeter are the one selected in the SearchPage admin
+        module.
+        """
+        if not hasattr(self, 'available_perimeter'):
+            page_perimeter = self.search_page \
+                .available_perimeter
+            self.available_perimeter = page_perimeter
+        return self.available_perimeter
 
     def get_available_audiences(self):
         """Return the list of audiences available in this minisite."""
@@ -154,6 +169,11 @@ class SiteHome(MinisiteMixin, SearchView):
         if available_categories:
             form.fields['categories'].queryset = available_categories
 
+        # Only show available values in perimeters filter field
+        available_perimeter = self.get_available_perimeter()
+        if available_perimeter:
+            form.fields['perimeter'].queryset = available_perimeter
+
         # Only show available values in the targeted audience filter field
         available_audiences = self.get_available_audiences()
         if available_audiences:
@@ -162,7 +182,7 @@ class SiteHome(MinisiteMixin, SearchView):
         return form
 
     def get_queryset(self):
-        """Filter the queryset on the categories and audiences filters."""
+        """Filter the queryset on the categories, perimeter and audiences filters."""
 
         qs = super().get_queryset()
         data = self.form.cleaned_data
@@ -171,6 +191,11 @@ class SiteHome(MinisiteMixin, SearchView):
         available_categories = self.get_available_categories()
         if not categories and available_categories:
             qs = qs.filter(categories__in=available_categories)
+
+        perimeter = data.get('perimeter', [])
+        available_perimeter = self.get_available_perimeter()
+        if not perimeter and available_perimeter:
+            qs = qs.filter(perimeter__in=available_perimeter)
 
         targeted_audiences = data.get('targeted_audiences', [])
         available_audiences = self.get_available_audiences()

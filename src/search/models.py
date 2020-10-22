@@ -140,6 +140,11 @@ class SearchPage(models.Model):
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),
         default=True)
+    available_perimeter = models.ManyToManyField(
+        'geofr.Perimeter',
+        verbose_name=_('Perimeter'),
+        related_name='search_pages',
+        blank=True)
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),
         default=False)
