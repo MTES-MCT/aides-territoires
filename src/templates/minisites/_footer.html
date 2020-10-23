@@ -13,9 +13,11 @@
                 <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
             </a>
     
-            <a class="partner-link" href="{{ search_page.logo_link }}">
-                <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
-            </a>
+            {% if search_page.logo %}
+                <a class="partner-link" href="{{ search_page.logo_link }}">
+                    <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="other_links_nav">
