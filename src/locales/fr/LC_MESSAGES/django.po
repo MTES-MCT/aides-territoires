@@ -2106,7 +2106,7 @@ msgstr ""
 "revue par un administrateur."
 
 msgid "Save and request publication"
-msgstr "Enregister et demander la publication"
+msgstr "Enregistrer et demander la publication"
 
 msgid "Save as a draft"
 msgstr "Enregistrer en brouillon"
