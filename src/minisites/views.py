@@ -116,12 +116,16 @@ class SiteHome(MinisiteMixin, SearchView):
 
     def get_available_categories(self):
         """Return the list of categories available in this minisite.
+        Available categories are the one we select in the SearchPage admin
+        page.
 
-        Only available categories appear in the `categories` search filter.
-        Also, we always filter out aids that are *not* in available categories.
+        When the available categories are defined in the admin, we will
+        display them in search form filter.
 
-        Available categories are the one selected in the SearchPage admin
-        module.
+        There is an initial filtering that applies on the list of aids when
+        loading the minisite page. That initial filtering is based on the
+        querystring field and is not affected by the selection of available
+        categories.
         """
         if not hasattr(self, 'available_categories'):
             page_categories = self.search_page \
@@ -168,14 +172,11 @@ class SiteHome(MinisiteMixin, SearchView):
         data = self.form.cleaned_data
 
         categories = data.get('categories', [])
-        available_categories = self.get_available_categories()
-        if not categories and available_categories:
-            qs = qs.filter(categories__in=available_categories)
+        if categories:
+            qs = qs.filter(categories__in=categories)
 
         targeted_audiences = data.get('targeted_audiences', [])
-        available_audiences = self.get_available_audiences()
-        if targeted_audiences and available_audiences:
-            targeted_audiences = list(dict(available_audiences).keys())
+        if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
         return qs
