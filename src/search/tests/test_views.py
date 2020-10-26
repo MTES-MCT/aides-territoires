@@ -36,9 +36,10 @@ def test_search_page_results(client):
 
 
 def test_search_query_overriding(client):
-    """Test that manual filters override saved ones."""
+    """Test that manual filter add-up on top of initial filter."""
 
     AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Du fromage sans vin, ce n'est pas sain")
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
 
     page = SearchPageFactory(
@@ -49,5 +50,6 @@ def test_search_query_overriding(client):
     res = client.get(full_url)
 
     assert res.status_code == 200
-    assert 'fromage' not in res.content.decode()
-    assert 'malin' in res.content.decode()
+    assert 'dommage' not in res.content.decode()
+    assert 'malin' not in res.content.decode()
+    assert 'sain' in res.content.decode()

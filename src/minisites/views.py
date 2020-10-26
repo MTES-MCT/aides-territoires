@@ -1,4 +1,4 @@
-from django.http import QueryDict, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
 
@@ -98,20 +98,14 @@ class SiteHome(MinisiteMixin, SearchView):
     def get_form_kwargs(self):
         """Set the data passed to the form.
 
-        If no data was provided by the user, then we use the initial
-        querystring provided by admins.
-
         If the form was submitted, the GET values are set, we use those
         instead.
         """
-        initial_data = QueryDict(
-            self.search_page.search_querystring, mutable=True)
         user_data = self.request.GET.copy()
         user_data.pop('page', None)
         user_data.pop('integration', None)
-        data = user_data or initial_data
         kwargs = super().get_form_kwargs()
-        kwargs['data'] = data
+        kwargs['data'] = user_data
         return kwargs
 
     def get_available_categories(self):
@@ -168,7 +162,10 @@ class SiteHome(MinisiteMixin, SearchView):
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 
-        qs = super().get_queryset()
+        # We starts from the base queryset and add-up more filtering
+        qs = self.search_page.get_base_queryset()
+        qs = self.form.filter_queryset(qs)
+
         data = self.form.cleaned_data
 
         categories = data.get('categories', [])
