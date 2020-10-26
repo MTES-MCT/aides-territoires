@@ -104,7 +104,7 @@ http://francemobilites.aides-territoires.local:8000/
 
 ## Lancement des tests
 
-Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utilisateur postgres donne l'autorisation à l'utilisateur aides de créer une base de données : 
+Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utilisateur `postgres` donne l'autorisation à l'utilisateur `aides` de créer une base de données : 
 
     su - postgres
     psql alter user aides createdb
