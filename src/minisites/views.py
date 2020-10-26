@@ -101,11 +101,11 @@ class SiteHome(MinisiteMixin, SearchView):
         If the form was submitted, the GET values are set, we use those
         instead.
         """
-        user_data = self.request.GET.copy()
-        user_data.pop('page', None)
-        user_data.pop('integration', None)
+        data = self.request.GET.copy()
+        data.pop('page', None)
+        data.pop('integration', None)
         kwargs = super().get_form_kwargs()
-        kwargs['data'] = user_data
+        kwargs['data'] = data
         return kwargs
 
     def get_available_categories(self):
@@ -162,8 +162,10 @@ class SiteHome(MinisiteMixin, SearchView):
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 
-        # We starts from the base queryset and add-up more filtering
+        # Start from the base queryset and add-up more filtering
         qs = self.search_page.get_base_queryset()
+
+        # Combine from filtering with the base queryset
         qs = self.form.filter_queryset(qs)
 
         data = self.form.cleaned_data
