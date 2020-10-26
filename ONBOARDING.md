@@ -113,7 +113,7 @@ Il faut aussi installer l'extension pg_trgm :
 
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U postgres
 
-En suivant l'utilisateur aides peut lancer les tests : 
+En suivant l'utilisateur `aides` peut lancer les tests : 
 
     su - aides
     cd aides/src
