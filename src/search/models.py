@@ -1,11 +1,12 @@
 from os.path import splitext
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.http import QueryDict
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from core.fields import ChoiceArrayField
-from aids.forms import AUDIENCES
+from aids.forms import AUDIENCES, AidSearchForm
 
 
 def logo_upload_to(instance, filename):
@@ -153,3 +154,12 @@ class SearchPage(models.Model):
 
     def get_absolute_url(self):
         return reverse('search_page', args=[self.slug])
+
+    def get_base_queryset(self):
+        """Return the list of aids based on the initial search querysting."""
+
+        data = QueryDict(
+            self.search_querystring, mutable=True)
+        form = AidSearchForm(data)
+        qs = form.filter_queryset().distinct()
+        return qs

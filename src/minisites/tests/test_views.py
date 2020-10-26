@@ -46,9 +46,10 @@ def test_minisite_results(client, settings):
 
 
 def test_minisite_results_overriding(client, settings):
-    """Test that manual filters override saved ones."""
+    """Test that manual filter add-up on top of initial filter."""
 
     AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Du fromage sans vin, ce n'est pas sain")
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
 
     page = MinisiteFactory(
@@ -61,8 +62,9 @@ def test_minisite_results_overriding(client, settings):
 
     res = client.get(full_url, HTTP_HOST=page_host)
     assert res.status_code == 200
-    assert 'fromage' not in res.content.decode()
-    assert 'malin' in res.content.decode()
+    assert 'dommage' not in res.content.decode()
+    assert 'malin' not in res.content.decode()
+    assert 'sain' in res.content.decode()
 
 
 def test_categories_filter_overriding(client, settings):
