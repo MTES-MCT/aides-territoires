@@ -158,8 +158,7 @@ class SearchPage(models.Model):
     def get_base_queryset(self):
         """Return the list of aids based on the initial search querysting."""
 
-        data = QueryDict(
-            self.search_querystring, mutable=True)
+        data = QueryDict(self.search_querystring)
         form = AidSearchForm(data)
         qs = form.filter_queryset().distinct()
         return qs
