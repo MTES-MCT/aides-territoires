@@ -11,6 +11,10 @@ certbot_domains:
  - "addna.{{ project_domain }}"
  - "urbanvitaliz.{{ project_domain }}"
  - "pinville.{{ project_domain }}"
+ - "france-transition-ecologique.{{ project_domain }}"
+ - "france-relance-paca.{{ project_domain }}"
+ - "demo.{{ project_domain }}"
+
 
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
