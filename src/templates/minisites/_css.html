@@ -55,8 +55,12 @@ body > #partner-navbar .container-lg > .logos_partners > a[href^="http"]::after 
 }
 
 body > #partner-navbar .container-lg > .logos_partners a img {
-    height: 120px;
+    max-height: 120px;
     width: auto;
+}
+
+body > #partner-navbar .partner-link img {
+    max-width: 20rem;
 }
 
 .dark-background .main-content > article,
@@ -317,6 +321,10 @@ body > footer nav ul li a[href^="http"]:hover::after {
 @media screen and (min-width: 600px) {
     body > #partner-navbar .container-lg > .logos_partners {
         flex-direction: row;
+    }
+
+    body > #partner-navbar .partner-link img {
+        max-width: 35rem;
     }
 
     body > #partner-navbar .container-lg > .logos_partners a {
