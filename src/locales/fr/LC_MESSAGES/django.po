@@ -176,7 +176,7 @@ msgid "Author"
 msgstr "Auteur"
 
 msgid "Backers"
-msgstr "Porteurs d'aides"
+msgstr "Porteur·s d'aides"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -206,10 +206,10 @@ msgid "Misc data"
 msgstr "Données diverses"
 
 msgid "Financers"
-msgstr "Financeurs"
+msgstr "Porteur·s d’aides"
 
 msgid "Instructors"
-msgstr "Instructeurs"
+msgstr "Instructeur·s"
 
 msgid "Live"
 msgstr "Live"
@@ -351,7 +351,7 @@ msgid "Other eligibility criterias?"
 msgstr "Conditions d'éligibilité"
 
 msgid "Contact to apply"
-msgstr "Contact(s) pour candidater"
+msgstr "Contact·s pour candidater"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
@@ -366,13 +366,13 @@ msgid "Aid title"
 msgstr "Nom de l'aide"
 
 msgid "Aid backer(s)"
-msgstr "Porteur(s) de l'aide"
+msgstr "Porteur·s de l'aide"
 
 msgid "Aid instructor(s)"
-msgstr "Instructeur(s) de l'aide"
+msgstr "Instructeur·s de l'aide"
 
 msgid "…or add a new financer"
-msgstr "…ou ajoutez un nouveau financeur"
+msgstr "…ou ajoutez un nouveau porteur d'aide"
 
 msgid "Types of expenses covered"
 msgstr "Types de dépenses / actions couvertes"
@@ -396,7 +396,7 @@ msgstr ""
 "vous pouvez utiliser ce champ pour nous le communiquer."
 
 msgid "Please provide a financer, or suggest a new one."
-msgstr "Merci d'indiquer un financeur."
+msgstr "Merci d'indiquer un porteur d'aide."
 
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
@@ -415,7 +415,7 @@ msgid ""
 "with the field above."
 msgstr ""
 "Ce porteur a été suggéré. Créez le nouvel apporteur et ajouter le en tant "
-"que financeur via le champ approprié."
+"que porteur d'aides via le champ approprié."
 
 msgid "Instructor suggestion"
 msgstr "Instructeurs suggérés"
@@ -727,7 +727,7 @@ msgid "Who is submitting the aid?"
 msgstr "Qui renseigne cette aide ?"
 
 msgid "Financer suggestion"
-msgstr "Financeurs suggérés"
+msgstr "Porteurs d'aides suggérés"
 
 msgid "Project examples"
 msgstr "Exemples de projets réalisables"
@@ -1477,7 +1477,7 @@ msgid "Log out"
 msgstr "Déconnexion"
 
 msgid "Aid backers"
-msgstr "Porteurs d'aides"
+msgstr "Porteur·s d'aides"
 
 msgid "Login now and publish your aids."
 msgstr "Connectez-vous et diffusez vos aides dès maintenant !"
@@ -1518,15 +1518,15 @@ msgstr "Votre ville, intercommunalité, département…"
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
-msgid "Choose backers(s) among the list."
-msgstr "Sélectionnez le(s) porteur(s) parmi la liste."
+msgid "Choose backer(s) among the list."
+msgstr "Sélectionnez le·s porteur·s parmi la liste."
 
 msgid "Choose instructor(s) among the list."
-msgstr "Sélectionnez le(s) instructeur(s) parmi la liste."
+msgstr "Sélectionnez le·s instructeur·s parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"
-msgstr "Quel(s) type(s) d\\'aide cherchez-vous ?"
+msgstr "Quel·s type·s d\\'aide cherchez-vous ?"
 
 msgctxt "js_catalog"
 msgid "When to mobilize the aid?"
@@ -2106,7 +2106,7 @@ msgstr ""
 "revue par un administrateur."
 
 msgid "Save and request publication"
-msgstr "Enregister et demander la publication"
+msgstr "Enregistrer et demander la publication"
 
 msgid "Save as a draft"
 msgstr "Enregistrer en brouillon"
