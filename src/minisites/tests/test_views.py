@@ -76,10 +76,11 @@ def test_categories_filter_overriding(client, settings):
         CategoryFactory(name='Category 5'),
     ]
 
-    # We create a minisite with no category pre-filter
+    # We create a minisite with all categories pre-filter
     page = MinisiteFactory(
         title='Gloubiboulga page',
         search_querystring='text=fromage')
+    page.available_categories.set(categories)
     page_url = reverse('search_view')
     page_host = '{}.testserver'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
@@ -116,7 +117,7 @@ def test_categories_filter_overriding(client, settings):
 
 def test_audiences_filter_overriding(client, settings):
 
-    # We create a minisite with no audience pre-filter
+    # We create a minisite with no audiences pre-filter
     page = MinisiteFactory(
         title='Gloubiboulga page',
         search_querystring='text=fromage')
@@ -128,10 +129,10 @@ def test_audiences_filter_overriding(client, settings):
     res = client.get(page_url, HTTP_HOST=page_host)
     assert res.status_code == 200
     content = res.content.decode()
-    assert '<option value="commune">' in content
-    assert '<option value="epci">' in content
-    assert '<option value="association">' in content
-    assert '<option value="region">' in content
+    assert '<option value="commune">' not in content
+    assert '<option value="epci">' not in content
+    assert '<option value="association">' not in content
+    assert '<option value="region">' not in content
 
     # We create a minisite with an audience pre-filter
     page = MinisiteFactory(

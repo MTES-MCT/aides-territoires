@@ -147,15 +147,13 @@ class SiteHome(MinisiteMixin, SearchView):
         """
         form = super().get_form(form_class)
 
-        # Only show available values in categories filter field
+        # Show available values in categories filter field
         available_categories = self.get_available_categories()
-        if available_categories:
-            form.fields['categories'].queryset = available_categories
+        form.fields['categories'].queryset = available_categories
 
-        # Only show available values in the targeted audience filter field
+        # Show available values in the targeted audience filter field
         available_audiences = self.get_available_audiences()
-        if available_audiences:
-            form.fields['targeted_audiences'].choices = available_audiences
+        form.fields['targeted_audiences'].choices = available_audiences
 
         return form
 
