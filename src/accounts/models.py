@@ -102,3 +102,46 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_contributor(self):
         """Contributors need to specify more personal data."""
         return self.organization and self.role and self.contact_phone
+
+class NewsletterUserManager(BaseUserManager):
+    """Custom manager for our custom NewsletterUser model."""
+
+    def _create_NewsletterUser(self, email):
+        """Create and save the newsletterUser object."""
+
+        email = self.normalize_email(email)
+        NewsletterUser = self.model(email=email)
+        NewsletterUser.save(using=self._db)
+        return NewsletterUser
+
+    def create_NewsletterUser(self, email):
+        """Creates a simple NewsletterUser."""
+
+class NewsletterUser(AbstractBaseUser):
+    """Represents a single NewsletterUser account (one physical person)."""
+
+    objects = NewsletterUserManager()
+
+    email = models.EmailField(
+        _('Email address'),
+        unique=True)
+    date_joined = models.DateTimeField(
+        _('Date joined'),
+        default=timezone.now)
+
+    ##
+    # Account settings fields
+    ##
+    ml_consent = models.BooleanField(
+        _('Gave consent to receive communications'),
+        default=True)
+
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+
+    class Meta:
+        verbose_name = _('NewsletterUser')
+        verbose_name_plural = _('NewsletterUsers')
+
+    def __str__(self):
+        return '{}'.format(self.email)

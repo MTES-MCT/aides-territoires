@@ -14,9 +14,9 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from analytics import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
-                            ContributorProfileForm)
+                            ContributorProfileForm, NewsletterForm)
 from accounts.tasks import send_connection_email
-from accounts.models import User
+from accounts.models import User, NewsletterUser
 from django.conf import settings
 
 
@@ -151,3 +151,40 @@ class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
 
     def get_object(self):
         return self.request.user
+
+class NewsletterView(AnonymousRequiredMixin, CreateView):
+    """Allow users to subscribe newsletter."""
+
+    template_name = 'accounts/newsletter.html'
+    form_class = NewsletterForm
+    success_url = reverse_lazy('newsletter_success')
+
+    def form_valid(self, form):
+        """Send a connection/confirmation link to the user."""
+        response = super().form_valid(form)
+        NewsletterUser_email = form.cleaned_data['email']
+        send_connection_email.delay(NewsletterUser_email)
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+        return response
+
+    def form_invalid(self, form):
+        """Handle invalid data provided.
+
+        If the **only** error is that the provided email is already
+        associated to an account, instead of displaying a "this user
+        already exists" error, we do as if the registration proceeded
+        normally and we send a connction link.
+        """
+        if len(form.errors) == 1 and \
+           len(form['email'].errors) == 1 and \
+           form['email'].errors.as_data()[0].code == 'unique':
+            NewsletterUser_email = form.data['email']
+            send_connection_email.delay(NewsletterUser_email)
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return super().form_invalid(form)
+
+class NewsletterSuccessView(AnonymousRequiredMixin, TemplateView):
+    """Display success message after register action."""
+
+    template_name = 'accounts/newsletter_success.html'
