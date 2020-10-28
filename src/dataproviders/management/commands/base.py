@@ -73,25 +73,32 @@ class BaseImportCommand(BaseCommand):
 
                 except IntegrityError as e:
                     self.stdout.write(self.style.ERROR(str(e)))
-                    Aid.objects \
-                        .filter(import_uniqueid=aid.import_uniqueid) \
-                        .update(
-                            origin_url=aid.origin_url,
-                            start_date=aid.start_date,
-                            submission_deadline=aid.submission_deadline,
-                            date_updated=timezone.now(),
-                            import_last_access=timezone.now())
-                    updated_counter += 1
-                    self.stdout.write(self.style.SUCCESS(
-                        'Updated aid: {}'.format(aid.name)))
+                    try:
+                        Aid.objects \
+                            .filter(import_uniqueid=aid.import_uniqueid) \
+                            .update(
+                                origin_url=aid.origin_url,
+                                start_date=aid.start_date,
+                                submission_deadline=aid.submission_deadline,
+                                date_updated=timezone.now(),
+                                import_last_access=timezone.now())
+                        updated_counter += 1
+                        self.stdout.write(self.style.SUCCESS(
+                            'Updated aid: {}'.format(aid.name)))
+
+                    except Exception as e:
+                        self.stdout.write(self.style.ERROR(
+                            'Cannot update aid {}: {}'.format(aid.name, e)))
 
                 except Exception as e:
                     self.stdout.write(self.style.ERROR(
                         'Cannot import aid {}: {}'.format(aid.name, e)))
 
         self.stdout.write(self.style.SUCCESS(
-            '{} aids created, {} aids updated'.format(
-                created_counter, updated_counter)))
+            '{} aids in input, {} aids created, {} aids updated'.format(
+                len(aids_and_related_objects), created_counter, updated_counter
+            )
+        ))
 
     def fetch_data(self):
         """Download and / or parse the data file.
