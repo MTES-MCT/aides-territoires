@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import password_validation
 
-from accounts.models import User, NewsletterUser
+from accounts.models import User
 
 
 class RegisterForm(forms.ModelForm):
@@ -133,22 +133,9 @@ class ContributorProfileForm(forms.ModelForm):
         }
 
 
-class NewsletterForm(forms.ModelForm):
+class NewsletterForm(forms.Form):
     """Form used to create newletters subscriber."""
 
     email = forms.EmailField(
         label=_('Your email address'),
         required=True)
-
-    class Meta:
-        model = NewsletterUser
-        fields = ['email']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs.update({
-            'placeholder': _('Please double-check this value.')})
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        return email.lower()

@@ -11,12 +11,14 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import update_session_auth_hash
 from braces.views import AnonymousRequiredMixin, MessageMixin
+import requests
 
 from analytics import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
                             ContributorProfileForm, NewsletterForm)
 from accounts.tasks import send_connection_email
-from accounts.models import User, NewsletterUser
+from accounts.models import User
+from accounts.forms import NewsletterForm
 from django.conf import settings
 
 
@@ -152,37 +154,43 @@ class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
     def get_object(self):
         return self.request.user
 
-class NewsletterView(AnonymousRequiredMixin, CreateView):
+class NewsletterView(AnonymousRequiredMixin, FormView):
     """Allow users to subscribe newsletter."""
 
     template_name = 'accounts/newsletter.html'
     form_class = NewsletterForm
     success_url = reverse_lazy('newsletter_success')
 
-    def form_valid(self, form):
-        """Send a connection/confirmation link to the user."""
-        response = super().form_valid(form)
-        NewsletterUser_email = form.cleaned_data['email']
-        send_connection_email.delay(NewsletterUser_email)
-        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        return response
-
-    def form_invalid(self, form):
-        """Handle invalid data provided.
-
-        If the **only** error is that the provided email is already
-        associated to an account, instead of displaying a "this user
-        already exists" error, we do as if the registration proceeded
-        normally and we send a connction link.
-        """
-        if len(form.errors) == 1 and \
-           len(form['email'].errors) == 1 and \
-           form['email'].errors.as_data()[0].code == 'unique':
-            NewsletterUser_email = form.data['email']
-            send_connection_email.delay(NewsletterUser_email)
-            return HttpResponseRedirect(self.success_url)
+    def get_Newsletter_user(self):
+        if self.request.method == 'POST':
+            form = NewsletterForm(self.request.POST)
+            if form.is_valid():
+                self.export_account(form.cleaned_data['email'])
+                return HttpResponseRedirect('/newsletter_success/')
         else:
-            return super().form_invalid(form)
+            form = NewsletterForm()
+
+    def export_account(self, user):
+        '''Export newsletterUser to the newsletter provider'''
+
+        API_HEADERS = {
+            'accept': 'application/json',
+            'content-type': 'application/json',
+            'api-key': settings.SIB_API_KEY,
+        }
+        
+        endpoint = 'https://api.sendinblue.com/v3/contacts/'
+        data = {
+            'email': user,
+            'attributes': {
+                'DOUBLE_OPT-IN': 1,
+            },
+            'listIds': [settings.SIB_LIST_ID],
+            'updateEnabled': True,
+        }
+        requests.post(endpoint, headers=API_HEADERS, data=data)
+        self.stdout.write('Exporting {}'.format(user))
+
 
 class NewsletterSuccessView(AnonymousRequiredMixin, TemplateView):
     """Display success message after register action."""

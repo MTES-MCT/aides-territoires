@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from accounts.models import User, NewsletterUser
+from accounts.models import User
 
 
 class UserAdmin(BaseUserAdmin):
@@ -25,11 +25,6 @@ class UserAdmin(BaseUserAdmin):
                        'is_certified')}
          ),
     )
-
-
-class NewsletterUserAdmin(admin.ModelAdmin):
-    list_display = ['email','date_joined', 'ml_consent']
     
 
 admin.site.register(User, UserAdmin)
-admin.site.register(NewsletterUser, NewsletterUserAdmin)

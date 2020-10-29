@@ -13,7 +13,7 @@
         <small>{{ _("Recevez la newsletter") }}</small>
     </h1>
 
-    <form method="post" action="" novalidate>
+    <form action="register-newsletter" method="post">
         {% csrf_token %}
         {% include '_form_snippet.html' with form=form %}
         {% url 'legal_mentions' as legal_mentions_url %}
