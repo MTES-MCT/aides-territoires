@@ -18,7 +18,6 @@ from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
                             ContributorProfileForm, NewsletterForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
-from accounts.forms import NewsletterForm
 from django.conf import settings
 
 
