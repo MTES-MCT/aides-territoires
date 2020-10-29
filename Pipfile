@@ -23,6 +23,7 @@ scrapy = "*"
 zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 django-cors-headers = "*"
 django-activity-stream = "*"
+django-import-export = "*"
 
 [dev-packages]
 pytest = "*"

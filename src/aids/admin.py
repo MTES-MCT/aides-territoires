@@ -8,6 +8,8 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from import_export.admin import ExportActionMixin
+from import_export.formats import base_formats
 
 from core.admin import InputFilter
 from aids.admin_views import AmendmentMerge
@@ -54,7 +56,6 @@ class AuthorFilter(InputFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-
             return queryset.filter(Q(author__full_name__icontains=value))
 
 
@@ -74,7 +75,6 @@ class BackersFilter(InputFilter):
                 Q(instructors__name__icontains=bit)
                 for bit in bits
             ]
-
             return queryset.filter(
                 Q(reduce(and_, financer_filters)) |
                 Q(reduce(and_, instructor_filters)))
@@ -87,11 +87,10 @@ class PerimeterFilter(InputFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-
             return queryset.filter(Q(perimeter__name__icontains=value))
 
 
-class BaseAidAdmin(admin.ModelAdmin):
+class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
     class Media:
@@ -113,7 +112,8 @@ class BaseAidAdmin(admin.ModelAdmin):
     form = AidAdminForm
     ordering = ['-id']
     save_as = True
-    actions = ['make_mark_as_CFP']
+    actions = ExportActionMixin.actions + ['make_mark_as_CFP']
+    formats = [base_formats.CSV, base_formats.XLS, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'date_updated', 'date_published',
@@ -239,7 +239,6 @@ class BaseAidAdmin(admin.ModelAdmin):
 
 
 class AidAdmin(BaseAidAdmin):
-
     def get_queryset(self, request):
         qs = Aid.objects \
             .all() \
