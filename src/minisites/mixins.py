@@ -63,17 +63,22 @@ class NarrowedFiltersMixin:
         ]
         return filtered_audiences
 
+    def narrow_form(self, form):
+        """Narrow the fields values to match the selection made in
+        the admin.
+        """
+        available_categories = self.get_available_categories()
+        form.fields['categories'].queryset = available_categories
+
+        available_audiences = self.get_available_audiences()
+        form.fields['targeted_audiences'].choices = available_audiences
+        return form
+
     def get_form(self, form_class=None):
         """Returns the aid search and filter form."""
 
         form = super().get_form(form_class)
-
-        # Show available values in categories filter field
-        available_categories = self.get_available_categories()
-        form.fields['categories'].queryset = available_categories
-
-        # Show available values in the targeted audience filter field
-        available_audiences = self.get_available_audiences()
-        form.fields['targeted_audiences'].choices = available_audiences
-
+        if hasattr(self, 'search_page'):
+            # We only narrow the form fields on ministes.
+            form = self.narrow_form(form)
         return form
