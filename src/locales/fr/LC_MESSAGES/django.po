@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-14 23:23+0200\n"
+"POT-Creation-Date: 2020-10-30 11:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,6 +137,16 @@ msgstr "profil-contributeur/"
 
 msgid "logout/"
 msgstr "deconnexion/"
+
+#, fuzzy
+#| msgid "Receive the newsletter"
+msgid "register-newsletter/"
+msgstr "Recevez la newsletter"
+
+#, fuzzy
+#| msgid "register-success/"
+msgid "newsletter-success/"
+msgstr "inscription-succès/"
 
 msgid ""
 "You are now logged in. Welcome! Please take a few seconds to update your "
@@ -1038,6 +1048,11 @@ msgstr "Apporteur privé ?"
 msgid "Backer"
 msgstr "Apporteur"
 
+#, fuzzy
+#| msgid "How often do you want to receive alerts?"
+msgid "How often to you want to receive alerts?"
+msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
+
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
 
@@ -1683,6 +1698,51 @@ msgstr ""
 msgid "You will <a href=\"%(login_url)s\">have to try again.</a>"
 msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 
+msgid "Register"
+msgstr "Inscription"
+
+msgid "Subscribe"
+msgstr "Abonnez-vous"
+
+msgid "Receive the newsletter"
+msgstr "Recevez la newsletter"
+
+#, python-format
+msgid ""
+"By using this feature, you acknowledge that your data will be processed <a "
+"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
+"policy</a>."
+msgstr ""
+"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
+"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
+"avec notre politique de confidentialité</a>."
+
+msgid ""
+"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
+"gouv.fr\">Please contact us.</a>"
+msgstr ""
+"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
+"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
+
+msgid "You have successfully subscribed"
+msgstr "Vous êtes abonné"
+
+msgid "Thank you for subscribing to the newsletter"
+msgstr ""
+"Merci pour votre abonnement à la newsletter"
+
+msgid ""
+"<strong>Your subscription to the newsletter has been registered.</strong>"
+msgstr ""
+"<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
+
+msgid ""
+"If you can't register, <a href=\"mailto:aides-territoires@beta.gouv.fr\"> "
+"please contact us</a>."
+msgstr ""
+"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
+"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
+
 msgid "Password reset"
 msgstr "Récupération du mot de passe"
 
@@ -1742,9 +1802,6 @@ msgstr ""
 "contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
-msgid "Register"
-msgstr "Inscription"
-
 msgid "Create an aid backer account"
 msgstr "Créez un compte porteur d'aides"
 
@@ -1760,13 +1817,6 @@ msgstr ""
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
-
-msgid ""
-"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
-"gouv.fr\">Please contact us.</a>"
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "You registered successfully"
 msgstr "Compte créé"
@@ -1794,13 +1844,6 @@ msgstr ""
 "<li>vérifiez vos spams ;</li>\n"
 "<li>attendez quelques secondes <a href=\"%(register_url)s\">et réessayez</"
 "a> ;</li></ul>"
-
-msgid ""
-"If you can't register, <a href=\"mailto:aides-territoires@beta.gouv.fr\"> "
-"please contact us</a>."
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "Amendment merge"
 msgstr "Intégration d'amendement"
@@ -2283,16 +2326,6 @@ msgstr "Dupliquer et éditer"
 
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
-
-#, python-format
-msgid ""
-"By using this feature, you acknowledge that your data will be processed <a "
-"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
-"policy</a>."
-msgstr ""
-"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
-"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
-"avec notre politique de confidentialité</a>."
 
 msgid "Alert deletion"
 msgstr "Suppression d'alerte"
