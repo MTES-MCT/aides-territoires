@@ -18,16 +18,17 @@ from django.utils.functional import cached_property
 
 from braces.views import MessageMixin
 
-from stats.utils import log_event
 from accounts.mixins import ContributorRequiredMixin
-from programs.models import Program
-from alerts.forms import AlertForm
-from stats.models import Event
-from categories.models import Category
-from aids.tasks import log_admins
 from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
                         AdvancedAidFilterForm)
 from aids.models import Aid, AidWorkflow
+from aids.tasks import log_admins
+from alerts.forms import AlertForm
+from categories.models import Category
+from minisites.mixins import NarrowedFiltersMixin
+from programs.models import Program
+from stats.models import Event
+from stats.utils import log_event
 
 
 class SearchMixin:
@@ -132,7 +133,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         return context
 
 
-class AdvancedSearchView(SearchMixin, FormView):
+class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
 
     form_class = AdvancedAidFilterForm
