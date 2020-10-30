@@ -1,6 +1,29 @@
 from aids.models import Aid
 
 
+class SearchMixin:
+    def get_form_kwargs(self):
+        """Take input data from the GET values."""
+
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'data': self.request.GET,
+        })
+
+        return kwargs
+
+
+class AidEditMixin:
+    """Common code to aid editing views."""
+
+    def get_queryset(self):
+        qs = Aid.objects \
+            .filter(author=self.request.user) \
+            .order_by('name')
+        self.queryset = qs
+        return super().get_queryset()
+
+
 class NarrowedFiltersMixin:
     """The minisite feature allows an admin to select the available values for
     some filters such as audiences and categories.
