@@ -3,12 +3,29 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
+from import_export import resources
+from import_export.admin import ImportMixin
+from import_export.formats import base_formats
+
 from backers.models import Backer
 
 
-class BackerAdmin(admin.ModelAdmin):
+class BackerResource(resources.ModelResource):
+    """Resource for Import-export."""
+
+    class Meta:
+        model = Backer
+        skip_unchanged = True
+        # name must be unique
+        import_id_fields = ('name',)
+        fields = ('name', 'is_corporate',)
+
+
+class BackerAdmin(ImportMixin, admin.ModelAdmin):
     """Admin module for aid backers."""
 
+    resource_class = BackerResource
+    formats = [base_formats.CSV, base_formats.XLS, base_formats.XLSX]
     list_display = ['name', 'slug', 'is_corporate', 'nb_financed_aids',
                     'nb_instructed_aids']
     search_fields = ['name']
