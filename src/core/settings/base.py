@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
     'django_xworkflows',
     'corsheaders',
     'actstream',
+    'import_export',
 ]
 
 LOCAL_APPS = [
