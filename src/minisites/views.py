@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
 
 from search.models import SearchPage
+from geofr.models import Perimeter
 from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from alerts.views import AlertCreate
@@ -139,6 +140,21 @@ class SiteHome(MinisiteMixin, SearchView):
         ]
         return filtered_audiences
 
+    def get_available_perimeters(self):
+        """Return the list of perimeters available in this minisite.
+        Available perimeters are the one we select in the SearchPage admin
+        page.
+
+        When the available perimeters are defined in the admin, we will
+        display them in search form filter.
+        """
+        if not hasattr(self, 'available_perimeters'):
+            page_perimeters = self.search_page \
+                .available_perimeters
+            self.available_perimeters = page_perimeters
+        return self.available_perimeters
+    
+
     def get_form(self, form_class=None):
         """Returns the aid search and filter form.
 
@@ -154,6 +170,10 @@ class SiteHome(MinisiteMixin, SearchView):
         # Show available values in the targeted audience filter field
         available_audiences = self.get_available_audiences()
         form.fields['targeted_audiences'].choices = available_audiences
+
+        # Show available values in perimeters filter field
+        available_perimeters = self.get_available_perimeters()
+        form.fields['perimeter'].queryset = available_perimeters
 
         return form
 
@@ -175,6 +195,10 @@ class SiteHome(MinisiteMixin, SearchView):
         targeted_audiences = data.get('targeted_audiences', [])
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
+
+        perimeter = data.get('perimeter', [])
+        if perimeter:
+            qs = qs.filter(perimeter_in=perimeter)
 
         return qs
 

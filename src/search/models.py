@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from core.fields import ChoiceArrayField
 from aids.forms import AUDIENCES, AidSearchForm
+from geofr.models import Perimeter
 
 
 def logo_upload_to(instance, filename):
@@ -141,6 +142,12 @@ class SearchPage(models.Model):
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),
         default=True)
+    available_perimeters = models.ManyToManyField(
+        'geofr.Perimeter',
+        verbose_name=_('Perimeter'),
+        related_name='search_pages',
+        blank=True)
+
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),
         default=False)

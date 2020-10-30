@@ -47,6 +47,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_audience_field',
                 'available_audiences',
                 'show_perimeter_field',
+                'available_perimeters',
                 'show_mobilization_step_field',
             )
         }),
