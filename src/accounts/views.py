@@ -153,14 +153,15 @@ class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
     def get_object(self):
         return self.request.user
 
-class NewsletterView(AnonymousRequiredMixin, FormView):
+
+class NewsletterView(FormView):
     """Allow users to subscribe newsletter."""
 
     template_name = 'accounts/newsletter.html'
     form_class = NewsletterForm
     success_url = reverse_lazy('newsletter_success')
 
-    def get_Newsletter_user(self):
+    def get_newsletter_user(self):
         if self.request.method == 'POST':
             form = NewsletterForm(self.request.POST)
             if form.is_valid():
@@ -177,7 +178,7 @@ class NewsletterView(AnonymousRequiredMixin, FormView):
             'content-type': 'application/json',
             'api-key': settings.SIB_API_KEY,
         }
-        
+
         endpoint = 'https://api.sendinblue.com/v3/contacts/'
         data = {
             'email': user,
@@ -191,7 +192,7 @@ class NewsletterView(AnonymousRequiredMixin, FormView):
         self.stdout.write('Exporting {}'.format(user))
 
 
-class NewsletterSuccessView(AnonymousRequiredMixin, TemplateView):
+class NewsletterSuccessView(TemplateView):
     """Display success message after register action."""
 
     template_name = 'accounts/newsletter_success.html'

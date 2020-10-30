@@ -25,5 +25,6 @@ class UserAdmin(BaseUserAdmin):
                        'is_certified')}
          ),
     )
-    
+
+
 admin.site.register(User, UserAdmin)
