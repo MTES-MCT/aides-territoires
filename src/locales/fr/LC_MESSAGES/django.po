@@ -1701,11 +1701,11 @@ msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 msgid "Register"
 msgstr "Inscription"
 
-msgid "Subscribe"
-msgstr "Abonnez-vous"
+msgid "Stay informed of our news"
+msgstr "Restez informé de nos nouveautés"
 
-msgid "Receive the newsletter"
-msgstr "Recevez la newsletter"
+msgid "All the news of Aides Territoires, in your mailbox"
+msgstr "Toutes les actualités d'Aides Territoires, dans votre boite email"
 
 #, python-format
 msgid ""
@@ -1723,6 +1723,9 @@ msgid ""
 msgstr ""
 "Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
+
+msgid "I subscribe !"
+msgstr "Je m'abonne !"
 
 msgid "You have successfully subscribed"
 msgstr "Vous êtes abonné"
