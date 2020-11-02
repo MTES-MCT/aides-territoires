@@ -158,7 +158,10 @@ class SearchPage(models.Model):
     def get_base_queryset(self):
         """Return the list of aids based on the initial search querysting."""
 
-        data = QueryDict(self.search_querystring)
+        # Sometime, the admin person enters a prefix "?" character
+        # and we don't want it here.
+        querystring = self.search_querystring.strip('?')
+        data = QueryDict(querystring)
         form = AidSearchForm(data)
         qs = form.filter_queryset().distinct()
         return qs
