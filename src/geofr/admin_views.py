@@ -1,7 +1,8 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from braces.views import MessageMixin
 
 from geofr.models import Perimeter
@@ -26,26 +27,32 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         qs = Perimeter.objects.all()
         return qs
 
+    def post(self, request, *args, **kwargs):
+        """needed to display form errors."""
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
         # Fetch the list of commune perimeters from the uploaded file
+        # The list should be error-free (cleaned in PerimeterUploadForm)
         city_codes = []
-        for line in form.cleaned_data['city_list']:
-            try:
-                code = line.decode().strip().split(';')[0]
-                clean_code = str(code)
-                city_codes.append(clean_code)
-            except (UnicodeDecodeError, ValueError) as e:
-                msg = _('This file seems invalid. \
-                        Please double-check its content or contact the \
-                        dev team if you feel like it\'s an error. \
-                        Here is the original error: {}').format(e)
-                self.messages.error(msg)
-                return self.get(self.request, *self.args, **self.kwargs)
+        for line in form.cleaned_data['city_code_list']:
+            code = line.decode().strip().split(';')[0]
+            clean_code = str(code)
+            city_codes.append(clean_code)
 
         current_perimeter = self.get_object()
         attach_perimeters(current_perimeter, city_codes)
 
-        msg = _('We successfully updated the perimeters.')
+        msg = format_html(
+            _('The {name} “{obj}” was changed successfully.'),
+            name=_('Perimeter'),
+            obj=format_html(
+                '<a href="{obj_url}">{obj_name}</a>',
+                obj_url=reverse('admin:geofr_perimeter_change', args=[current_perimeter.id]),  # noqa
+                obj_name=current_perimeter
+            )
+        )
         self.messages.success(msg)
         return super().form_valid(form)
 
@@ -72,7 +79,8 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'admin:geofr_perimeter_change', args=[self.kwargs['object_id']])
+            'admin:geofr_perimeter_change', args=[self.kwargs['object_id']]
+        )
 
     def form_valid(self, form):
 
