@@ -18,28 +18,17 @@ from django.utils.functional import cached_property
 
 from braces.views import MessageMixin
 
-from stats.utils import log_event
 from accounts.mixins import ContributorRequiredMixin
-from programs.models import Program
-from alerts.forms import AlertForm
-from stats.models import Event
-from categories.models import Category
-from aids.tasks import log_admins
 from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
                         AdvancedAidFilterForm)
 from aids.models import Aid, AidWorkflow
-
-
-class SearchMixin:
-    def get_form_kwargs(self):
-        """Take input data from the GET values."""
-
-        kwargs = super().get_form_kwargs()
-        kwargs.update({
-            'data': self.request.GET,
-        })
-
-        return kwargs
+from aids.tasks import log_admins
+from alerts.forms import AlertForm
+from categories.models import Category
+from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
+from programs.models import Program
+from stats.models import Event
+from stats.utils import log_event
 
 
 class AidPaginator(Paginator):
@@ -132,7 +121,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         return context
 
 
-class AdvancedSearchView(SearchMixin, FormView):
+class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
 
     form_class = AdvancedAidFilterForm
@@ -276,17 +265,6 @@ class AidDetailView(DetailView):
         response = super().get(request, *args, **kwargs)
         log_event('aid', 'viewed', meta=self.object.slug, value=1)
         return response
-
-
-class AidEditMixin:
-    """Common code to aid editing views."""
-
-    def get_queryset(self):
-        qs = Aid.objects \
-            .filter(author=self.request.user) \
-            .order_by('name')
-        self.queryset = qs
-        return super().get_queryset()
 
 
 class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
