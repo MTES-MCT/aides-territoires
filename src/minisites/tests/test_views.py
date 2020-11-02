@@ -45,6 +45,26 @@ def test_minisite_results(client, settings):
     assert 'malin' not in res.content.decode()
 
 
+def test_minisite_results_with_prefix_question_mark(client, settings):
+    """Sometime, the admin person enters the querystring
+    with a prefix question mark and that should be ok"""
+
+    AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+
+    page = MinisiteFactory(
+        title='Gloubiboulga page',
+        search_querystring='?text=fromage')
+    page_url = reverse('home')
+    page_host = '{}.testserver'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    assert 'fromage' in res.content.decode()
+    assert 'malin' not in res.content.decode()
+
+
 def test_minisite_results_overriding(client, settings):
     """Test that manual filter add-up on top of initial filter."""
 
