@@ -28,7 +28,7 @@ class NarrowedFiltersMixin:
     """The minisite feature allows an admin to select the available values for
     some filters such as audiences and categories.
 
-    This mixin provides helpers for such form, where filters are 
+    This mixin provides helpers for such form, where filters are
     narrowed down to the selection made in the admin site.
     """
 
