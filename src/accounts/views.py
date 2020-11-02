@@ -1,3 +1,6 @@
+import json
+import requests
+
 from django.views.generic import (FormView, TemplateView, CreateView,
                                   UpdateView)
 from django.urls import reverse_lazy
@@ -11,7 +14,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import update_session_auth_hash
 from braces.views import AnonymousRequiredMixin, MessageMixin
-import requests
 
 from analytics import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
@@ -180,10 +182,10 @@ class NewsletterView(FormView):
             'attributes': {
                 'DOUBLE_OPT-IN': 1,
             },
-            'listIds': [settings.SIB_LIST_ID],
+            'listIds': [2],
             'updateEnabled': True,
         }
-        requests.post(endpoint, headers=API_HEADERS, data=data)
+        requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
 
 
 class NewsletterSuccessView(TemplateView):
