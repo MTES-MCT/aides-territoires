@@ -45,7 +45,7 @@ def test_attach_perimeters(perimeters):
 
 
 def test_attach_perimeters_cleans_old_data(perimeters):
-    """Attaching perimeters to a city list removes all other attachments."""
+    """Attaching perimeters to a city code list removes all other attachments."""
 
     adhoc = PerimeterFactory(
         name='Communes littorales',

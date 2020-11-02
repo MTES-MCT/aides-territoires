@@ -1162,14 +1162,20 @@ msgstr ""
 "qu'il s'agit d'une erreur, contactez l'équipe de développement. Voici "
 "l'erreur d'origine : {}"
 
+msgid "List of missing city codes:"
+msgstr "Liste des codes insee des communes manquants :"
+
 msgid "We successfully updated the perimeters."
 msgstr "Le périmètre a bien été mis à jour."
+
+msgid "The {name} “{obj}” was changed successfully."
+msgstr "L’objet {name} « {obj} » a été modifié avec succès."
 
 msgid "We successfully configured the perimeter."
 msgstr "Le périmètre a bien été configuré."
 
-msgid "City list"
-msgstr "Liste de communes"
+msgid "City list (insee codes)"
+msgstr "Liste de communes (codes insee)"
 
 msgid "Perimeters to add"
 msgstr "Périmètres à additionner"
@@ -1871,7 +1877,7 @@ msgid "Combine perimeters"
 msgstr "Combiner des périmètres"
 
 msgid "Upload city list"
-msgstr "Télécharger la liste des communes"
+msgstr "Uploader la liste des communes"
 
 #, python-format
 msgid " By %(filter_title)s "
@@ -1894,7 +1900,7 @@ msgid "Submit"
 msgstr "Envoyer"
 
 msgid "Upload"
-msgstr "Télécharger"
+msgstr "Uploader"
 
 msgid ""
 "Use this form to upload the list of cities contained in the selected <em>ad-"
