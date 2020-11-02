@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-30 11:17+0100\n"
+"POT-Creation-Date: 2020-11-02 15:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,15 +138,11 @@ msgstr "profil-contributeur/"
 msgid "logout/"
 msgstr "deconnexion/"
 
-#, fuzzy
-#| msgid "Receive the newsletter"
 msgid "register-newsletter/"
-msgstr "Recevez la newsletter"
+msgstr "inscription-newsletter/"
 
-#, fuzzy
-#| msgid "register-success/"
-msgid "newsletter-success/"
-msgstr "inscription-succès/"
+msgid "register-newsletter-success/"
+msgstr "inscription-newsletter-succès/"
 
 msgid ""
 "You are now logged in. Welcome! Please take a few seconds to update your "
@@ -1705,7 +1701,7 @@ msgid "Stay informed of our news"
 msgstr "Restez informé de nos nouveautés"
 
 msgid "All the news of Aides Territoires, in your mailbox"
-msgstr "Toutes les actualités d'Aides Territoires, dans votre boite email"
+msgstr "Toutes les actualités d'Aides Territoires, dans votre boite e-mail"
 
 #, python-format
 msgid ""
@@ -1717,6 +1713,9 @@ msgstr ""
 "traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
 "avec notre politique de confidentialité</a>."
 
+msgid "I subscribe !"
+msgstr "Je m'abonne !"
+
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
 "gouv.fr\">Please contact us.</a>"
@@ -1724,20 +1723,15 @@ msgstr ""
 "Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
-msgid "I subscribe !"
-msgstr "Je m'abonne !"
-
 msgid "You have successfully subscribed"
 msgstr "Vous êtes abonné"
 
 msgid "Thank you for subscribing to the newsletter"
-msgstr ""
-"Merci pour votre abonnement à la newsletter"
+msgstr "Merci pour votre abonnement à la newsletter"
 
 msgid ""
 "<strong>Your subscription to the newsletter has been registered.</strong>"
-msgstr ""
-"<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
+msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
 
 msgid ""
 "If you can't register, <a href=\"mailto:aides-territoires@beta.gouv.fr\"> "

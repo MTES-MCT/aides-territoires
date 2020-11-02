@@ -159,16 +159,11 @@ class NewsletterView(FormView):
 
     template_name = 'accounts/newsletter.html'
     form_class = NewsletterForm
-    success_url = reverse_lazy('newsletter_success')
+    success_url = reverse_lazy('register_newsletter_success')
 
-    def get_newsletter_user(self):
-        if self.request.method == 'POST':
-            form = NewsletterForm(self.request.POST)
-            if form.is_valid():
-                self.export_account(form.cleaned_data['email'])
-                return HttpResponseRedirect('/newsletter_success/')
-        else:
-            form = NewsletterForm()
+    def form_valid(self, form):
+        self.export_account(form.cleaned_data['email'])
+        return super().form_valid(form)
 
     def export_account(self, user):
         '''Export newsletterUser to the newsletter provider'''
@@ -189,7 +184,6 @@ class NewsletterView(FormView):
             'updateEnabled': True,
         }
         requests.post(endpoint, headers=API_HEADERS, data=data)
-        self.stdout.write('Exporting {}'.format(user))
 
 
 class NewsletterSuccessView(TemplateView):

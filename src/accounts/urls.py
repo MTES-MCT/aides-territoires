@@ -34,6 +34,6 @@ urlpatterns = [
 
     path(_('register-newsletter/'), NewsletterView.as_view(),
          name='register-newsletter'),
-    path(_('newsletter-success/'), NewsletterSuccessView.as_view(),
-         name='newsletter_success'),
+    path(_('register-newsletter-success/'), NewsletterSuccessView.as_view(),
+         name='register_newsletter_success'),
 ]
