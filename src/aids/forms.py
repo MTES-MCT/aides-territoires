@@ -476,7 +476,7 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)
-    perimeter = AutocompleteModelChoiceField(
+    perimeter = forms.ModelChoiceField(
         queryset=Perimeter.objects.all(),
         label=_('Your territory'),
         required=False)
