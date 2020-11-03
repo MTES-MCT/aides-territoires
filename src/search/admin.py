@@ -10,6 +10,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
     filter_vertical = ['available_categories']
+    autocomplete_fields = ['available_perimeters']
 
     fieldsets = [
         ('', {
