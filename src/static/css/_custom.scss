@@ -267,6 +267,16 @@ section#search-engine {
             }
         }
 
+        div.form-check-inline {
+            align-items: baseline;
+            margin-bottom: 1rem;
+            font-weight: bold;
+
+            input[type=checkbox] {
+                margin-right: 0.5rem;
+            }
+        }
+
         div.form-group {
             margin-bottom: 0;
 
