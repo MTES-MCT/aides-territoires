@@ -176,13 +176,13 @@ class NewsletterView(FormView):
             'api-key': settings.SIB_API_KEY,
         }
 
-        endpoint = 'https://api.sendinblue.com/v3/contacts/'
+        endpoint = settings.SIB_ENDPOINT
         data = {
             'email': user,
             'attributes': {
                 'DOUBLE_OPT-IN': 1,
             },
-            'listIds': [2],
+            'listIds': settings.SIB_NEWSLETTER_LIST_ID,
             'updateEnabled': True,
         }
         requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
