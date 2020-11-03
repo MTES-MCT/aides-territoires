@@ -149,11 +149,9 @@ class SiteHome(MinisiteMixin, SearchView):
         display them in search form filter.
         """
         if not hasattr(self, 'available_perimeters'):
-            page_perimeters = self.search_page \
-                .available_perimeters
+            page_perimeters = self.search_page.available_perimeters
             self.available_perimeters = page_perimeters
         return self.available_perimeters
-    
 
     def get_form(self, form_class=None):
         """Returns the aid search and filter form.
@@ -197,8 +195,9 @@ class SiteHome(MinisiteMixin, SearchView):
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
         perimeter = data.get('perimeter', [])
+
         if perimeter:
-            qs = qs.filter(perimeter_in=perimeter)
+            qs = qs.filter(perimeter=perimeter)
 
         return qs
 
