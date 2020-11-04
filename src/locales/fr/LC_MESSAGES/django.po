@@ -1044,9 +1044,6 @@ msgstr "Apporteur privé ?"
 msgid "Backer"
 msgstr "Apporteur"
 
-msgid "How often do you want to receive alerts?"
-msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
-
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
 
