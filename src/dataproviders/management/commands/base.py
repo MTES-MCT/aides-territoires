@@ -21,6 +21,7 @@ AAP_SYNONYMS = [
     'ami',
 ]
 
+# The first user in the db is the admin
 ADMIN_ID = 1
 
 

@@ -40,6 +40,10 @@ class Command(BaseImportCommand):
     """
     Import data from the Nouvelle-Aquitaine data file (xml).
     The file is a one-time export so this script will probably be run only once.
+    Fields not extracted:
+    - 'tags': too many values
+    - 'start_date': always Null
+    - 'targeted_audiances': Null or too many values
     """
 
     def add_arguments(self, parser):
@@ -78,9 +82,6 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return Aid.IMPORT_LICENCES.unknown
 
-    # def extract_tags(self, line):
-    #     return line['tags'] # too many values
-
     def extract_name(self, line):
         """name max_length is 180"""
         title = line['name'][:180]
@@ -89,9 +90,6 @@ class Command(BaseImportCommand):
     def extract_description(self, line):
         description = content_prettify(line['description'])
         return description
-
-    # def extract_start_date(self, line):
-    #     return line['start_date'] # NULL
 
     def extract_submission_deadline(self, line):
         submission_deadline_text = line['submission_deadline']
@@ -103,17 +101,14 @@ class Command(BaseImportCommand):
 
     def extract_origin_url(self, line):
         origin_url = line['origin_url']
-        if origin_url:
-            clean_url = origin_url.replace(' ', '%20')
-            return clean_url
-        return ''  # error if None
+        if not origin_url:
+            return ''  # error if None
+        clean_url = origin_url.replace(' ', '%20')
+        return clean_url
 
     def extract_eligibility(self, line):
         # return line['eligibility'] # NULL
         return ELIGIBILITY_TXT
-
-    # def extract_targeted_audiences(self, line):
-    #     return line['targeted_audiances'] # NULL or too many values
 
     def extract_contact(self, line):
         return line['contact'] or CONTACT_TXT  # sometimes empty
