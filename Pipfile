@@ -36,6 +36,7 @@ ansible = "*"
 yapf = "*"
 selenium = "*"
 rope = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3"
