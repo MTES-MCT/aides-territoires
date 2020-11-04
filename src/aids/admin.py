@@ -8,8 +8,10 @@ from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
+from import_export import fields, resources
 from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
 from core.admin import InputFilter
 from aids.admin_views import AmendmentMerge
@@ -90,6 +92,77 @@ class PerimeterFilter(InputFilter):
             return queryset.filter(Q(perimeter__name__icontains=value))
 
 
+class AidResource(resources.ModelResource):
+    """Resource for Import-export."""
+
+    # custom widgets to ForeignKey/ManyToMany information instead of ids
+    author = fields.Field(
+        column_name="author",
+        attribute="author",
+        widget=ForeignKeyWidget('accounts.User', field="full_name")
+    )
+    categories = fields.Field(
+        column_name="categories",
+        attribute="categories",
+        widget=ManyToManyWidget('categories.Category', field="name")
+    )
+    financers = fields.Field(
+        column_name="financers",
+        attribute="financers",
+        widget=ManyToManyWidget('backers.Backer', field="name")
+    )
+    instructors = fields.Field(
+        column_name="instructors",
+        attribute="instructors",
+        widget=ManyToManyWidget('backers.Backer', field="name")
+    )
+    perimeter = fields.Field(
+        column_name="perimeter",
+        attribute="perimeter",
+        widget=ForeignKeyWidget('geofr.Perimeter', field="name")
+    )
+
+    class Meta:
+        model = Aid
+        # adding custom widgets breaks the usual order
+        export_order = [field.name for field in Aid._meta.fields]
+
+    def get_export_headers(self):
+        """override get_export_headers() to translate field names."""
+        headers = []
+        for field in self.get_export_fields():
+            field_model = self.Meta.model._meta.get_field(field.column_name)
+            headers.append(field_model.verbose_name)
+        return headers
+
+    def export_field(self, field, obj):
+        """override export_field() to translate field values."""
+        field_name = self.get_field_name(field)
+        method = getattr(self, 'dehydrate_%s' % field_name, None)
+        if method is not None:
+            return method(obj)
+
+        field_model = self.Meta.model._meta.get_field(field.column_name)
+        if field_model.serialize:
+            # simple fields with choices: use get_FOO_display to translate
+            if field_model.choices:
+                value = getattr(obj, f'get_{field.column_name}_display')()
+                return field.widget.render(value, obj)
+            # ChoiceArrayField fields: need to translate a list
+            elif hasattr(field_model, 'base_field'):
+                value_raw = field.get_value(obj)
+                if value_raw:
+                    # translate each dict choice
+                    value = [dict(field_model.base_field.choices).get(value, value) for value in value_raw]  # noqa
+                    return field.widget.render(value, obj)
+            # BooleanField fields: avoid returning 1 (True) and 0 (False)
+            elif field_model.get_internal_type() == 'BooleanField':
+                value_raw = field.get_value(obj)
+                if value_raw is not None:
+                    return _('Yes') if value_raw else _('No')
+        return field.export(obj)
+
+
 class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
@@ -110,6 +183,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         ]
 
     form = AidAdminForm
+    resource_class = AidResource
     ordering = ['-id']
     save_as = True
     actions = ExportActionMixin.actions + ['make_mark_as_CFP']
