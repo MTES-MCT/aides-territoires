@@ -1044,9 +1044,7 @@ msgstr "Apporteur privé ?"
 msgid "Backer"
 msgstr "Apporteur"
 
-#, fuzzy
-#| msgid "How often do you want to receive alerts?"
-msgid "How often to you want to receive alerts?"
+msgid "How often do you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid "Receive new results by email"
