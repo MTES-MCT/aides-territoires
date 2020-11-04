@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}register-form{% endblock %}
+
+{% block extratitle %}{{ _('Register') }}{% endblock %}
+
+{% block content %}
+<div class="article narrow">
+    <h1>{{ _("Stay informed of our news") }}<br/>
+        <small>{{ _("All the news of Aides Territoires, in your mailbox") }}</small>
+    </h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {% include '_form_snippet.html' with form=form %}
+        {% url 'legal_mentions' as legal_mentions_url %}
+        <p class="info">
+            <span class="fas fa-check"></span>
+            {% blocktrans trimmed %}
+            By using this feature, you acknowledge that your data will
+            be processed <a href="{{ legal_mentions_url }}" target="_blank">
+                according to our privacy policy</a>.
+            {% endblocktrans %}
+        </p>
+        <button type="submit">{{ _('I subscribe !') }}</button>
+    </form>
+
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        {% blocktrans trimmed %}
+        Do you have a problem to register?
+        <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}

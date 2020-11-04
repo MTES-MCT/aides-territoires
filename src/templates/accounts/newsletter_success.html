@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}login-form{% endblock %}
+
+{% block extratitle %}{{ _('You have successfully subscribed') }}{% endblock %}
+
+{% block content %}
+<div class="article narrow">
+    <h1>{{ _("Thank you for subscribing to the newsletter") }}</h1>
+
+    <p>{% blocktrans trimmed %}
+        <strong>Your subscription to the newsletter has been registered.</strong> 
+     {% endblocktrans %}</p>
+
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        {% blocktrans trimmed %}
+        If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
+        please contact us</a>.
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}

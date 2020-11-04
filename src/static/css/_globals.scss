@@ -69,13 +69,26 @@ body > footer {
 
     div.columns {
         @extend .row;
+
+        @include media-breakpoint-up(lg) {
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
     }
 
     div.logos {
         img {
-            width: 150px;
-            max-width: 150px;
             margin-bottom: 1rem;
+        }
+
+        .ministry-logo {
+            background-color: #fff;
+            padding: 1rem;
+        }
+
+        a[href^="http"]::after {
+            display: none;
         }
     }
 
@@ -83,6 +96,10 @@ body > footer {
         @extend .col-lg-3;
         @extend .d-none;
         @extend .d-lg-block;
+
+        img {
+            width: 220px;
+        }
 
         hr {
             background-color: white;
@@ -110,6 +127,12 @@ body > footer {
             margin: 1rem auto 1rem auto;
         }
 
+        div.subscribe-newsletter {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px #fff solid; 
+        }
+
     }
 
     div.logos-2 {
@@ -121,6 +144,11 @@ body > footer {
 
         a:after {
             content: none;
+        }
+
+        img {
+            max-height: 160px;
+            width: auto;
         }
 
         @include media-breakpoint-down(md) {
