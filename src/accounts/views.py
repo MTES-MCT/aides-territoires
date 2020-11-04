@@ -182,7 +182,7 @@ class NewsletterView(FormView):
             'attributes': {
                 'DOUBLE_OPT-IN': 1,
             },
-            'listIds': settings.SIB_NEWSLETTER_LIST_ID,
+            'listIds': [settings.SIB_NEWSLETTER_LIST_ID],
             'updateEnabled': True,
         }
         requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
