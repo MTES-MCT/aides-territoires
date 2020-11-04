@@ -53,12 +53,12 @@
 
         {% block form-body %}
         <div class="row">
-            <div class="col col-md-5">
-                <div class="form-group checkbox-group">
+            <div class="col col-md-4">
                     {% for choice in form.aid_type %}
+                    <div class="form-check form-check-inline">
                         {{ choice }}
+                    </div> 
                     {% endfor %}
-                </div>
 
                 <div class="form-group checkbox-group">
                     {{ form.call_for_projects_only }}
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="col col-md-3">
+            <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.backers %}
             </div>
 
@@ -80,7 +80,7 @@
 
         {% block form-actions %}
         <div class="row actions-row">
-            <div class="col-md-3 offset-md-5">
+            <div class="col-md-4 offset-md-4">
                 {{ form.order_by }}
             </div>
             <div class="col-md-4">
