@@ -101,3 +101,20 @@ Le serveur peut ensuite être démarré avec la commande :
 La version dev du minisite sera alors accessible à cette adresse : 
 
 http://francemobilites.aides-territoires.local:8000/
+
+## Lancement des tests
+
+Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utilisateur `postgres` donne l'autorisation à l'utilisateur `aides` de créer une base de données : 
+
+    su - postgres
+    psql alter user aides createdb
+
+Il faut aussi installer l'extension pg_trgm : 
+
+    psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U postgres
+
+En suivant l'utilisateur `aides` peut lancer les tests : 
+
+    su - aides
+    cd aides/src
+    make test
