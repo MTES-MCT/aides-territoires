@@ -18,14 +18,14 @@ class BackerResource(resources.ModelResource):
         skip_unchanged = True
         # name must be unique
         import_id_fields = ('name',)
-        fields = ('name', 'is_corporate',)
+        fields = ('name',)
 
 
 class BackerAdmin(ImportMixin, admin.ModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
-    formats = [base_formats.CSV, base_formats.XLS, base_formats.XLSX]
+    formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ['name', 'slug', 'is_corporate', 'nb_financed_aids',
                     'nb_instructed_aids']
     search_fields = ['name']
