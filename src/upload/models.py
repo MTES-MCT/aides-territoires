@@ -7,6 +7,10 @@ class UploadImage(models.Model):
     image = models.FileField(
         _('Image'),
         upload_to='upload')
+    description = models.CharField(
+        _('Description'),
+        max_length=180,
+        blank=True, default='')
     uploaded_at = models.DateTimeField(
         _('Uploaded at'),
         auto_now_add=True)
