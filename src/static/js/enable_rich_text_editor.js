@@ -28,8 +28,7 @@
             plugins: {
                 upload: {
                     serverPath: '/upload/',
-                    fileFieldName: 'image',
-                    urlPropertyName: 'url'
+                    fileFieldName: 'image'
                 }
             }
         });
