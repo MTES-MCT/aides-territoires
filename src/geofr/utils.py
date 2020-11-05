@@ -1,3 +1,5 @@
+import collections
+
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 
@@ -30,6 +32,8 @@ def is_overseas(zipcode):
 
 def extract_perimeters_from_file(perimeter_list_file):
     item_list = []
+
+    # extract items
     for line in perimeter_list_file:
         try:
             item = line.decode().strip().split(';')[0]
@@ -41,6 +45,14 @@ def extract_perimeters_from_file(perimeter_list_file):
                     dev team if you feel like it\'s an error. \
                     Here is the original error: {}').format(e)
             raise Exception(msg)
+
+    # check for duplicates
+    duplicates = [item for item, count in collections.Counter(item_list).items() if count > 1]  # noqa
+    if len(duplicates):
+        msg = _('This file is valid, but contains \
+                duplicates: {}').format(duplicates)
+        raise Exception(msg)
+
     return item_list
 
 
