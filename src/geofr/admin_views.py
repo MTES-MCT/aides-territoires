@@ -7,7 +7,9 @@ from braces.views import MessageMixin
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
-from geofr.utils import attach_perimeters, combine_perimeters
+from geofr.utils import (extract_perimeters_from_file,
+                         attach_perimeters, attach_epci_perimeters,
+                         combine_perimeters)
 
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
@@ -33,16 +35,20 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        # Fetch the list of commune perimeters from the uploaded file
-        # The list should be error-free (cleaned in PerimeterUploadForm)
-        city_codes = []
-        for line in form.cleaned_data['city_code_list']:
-            code = line.decode().strip().split(';')[0]
-            clean_code = str(code)
-            city_codes.append(clean_code)
-
         current_perimeter = self.get_object()
-        attach_perimeters(current_perimeter, city_codes)
+        perimeter_type = form.cleaned_data['perimeter_type']
+
+        if perimeter_type == 'city_code':
+            # Fetch the list of commune perimeters from the uploaded file
+            # The list should be error-free (cleaned in PerimeterUploadForm)
+            city_codes = extract_perimeters_from_file(form.cleaned_data['city_code_list'])  # noqa
+            attach_perimeters(current_perimeter, city_codes)
+
+        elif perimeter_type == 'epci_name':
+            # Fetch the list of EPCI perimeters from the uploaded file
+            # The list should be error-free (cleaned in PerimeterUploadForm)
+            epci_names = extract_perimeters_from_file(form.cleaned_data['epci_name_list'])  # noqa
+            attach_epci_perimeters(current_perimeter, epci_names)
 
         msg = format_html(
             _('The {name} “{obj}” was changed successfully.'),
@@ -83,12 +89,11 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         )
 
     def form_valid(self, form):
-
-        perimeter = self.get_object()
+        current_perimeter = self.get_object()
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = combine_perimeters(add_perimeters, rm_perimeters)
-        attach_perimeters(perimeter, city_codes)
+        attach_perimeters(current_perimeter, city_codes)
 
         msg = _('We successfully configured the perimeter.')
         self.messages.success(msg)
