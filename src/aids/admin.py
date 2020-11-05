@@ -187,7 +187,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     ordering = ['-id']
     save_as = True
     actions = ExportActionMixin.actions + ['make_mark_as_CFP']
-    formats = [base_formats.CSV, base_formats.XLS, base_formats.XLSX]
+    formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'date_updated', 'date_published',
