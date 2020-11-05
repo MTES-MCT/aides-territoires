@@ -31,6 +31,7 @@ class PageAdmin(FlatPageAdmin):
             'admin/js/jquery.init.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
+            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
             '/static/js/enable_rich_text_editor.js',
         ]
 
