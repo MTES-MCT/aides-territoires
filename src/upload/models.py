@@ -17,7 +17,7 @@ class UploadImage(models.Model):
 
     class Meta:
         verbose_name = _('Upload image')
-        verbose_name_plural = _('Uplad images')
+        verbose_name_plural = _('Upload images')
 
     def __str__(self):
         return self.image.name

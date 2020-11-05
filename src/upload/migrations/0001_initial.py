@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Upload image',
-                'verbose_name_plural': 'Uplad images',
+                'verbose_name_plural': 'Upload images',
             },
         ),
     ]
