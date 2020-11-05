@@ -1,5 +1,7 @@
 import pytest
-from geofr.utils import department_from_zipcode, is_overseas, attach_perimeters
+
+from geofr.utils import (department_from_zipcode, is_overseas,
+                         attach_perimeters, attach_epci_perimeters)
 from geofr.factories import Perimeter, PerimeterFactory
 
 
@@ -45,7 +47,7 @@ def test_attach_perimeters(perimeters):
 
 
 def test_attach_perimeters_cleans_old_data(perimeters):
-    """Attaching perimeters to a city code list removes all other attachments."""
+    """Attaching perimeters removes all other attachments."""
 
     adhoc = PerimeterFactory(
         name='Communes littorales',
@@ -56,3 +58,30 @@ def test_attach_perimeters_cleans_old_data(perimeters):
         ['34333', '97209'])  # Vic-la-gardiole, Fort-de-France
 
     assert adhoc not in perimeters['rodez'].contained_in.all()
+
+
+def test_attach_epci_perimeters(perimeters):
+    """Attaching epci perimeters works as expected."""
+
+    epci_1 = PerimeterFactory(
+        name='EPCI 1',
+        scale=Perimeter.TYPES.epci)
+    perimeters['vic'].contained_in.add(epci_1)
+    perimeters['herault'].contained_in.add(epci_1)
+
+    epci_2 = PerimeterFactory(
+        name='EPCI 2',
+        scale=Perimeter.TYPES.epci)
+    perimeters['rodez'].contained_in.add(epci_2)
+
+    adhoc = PerimeterFactory(
+        name='Syndicat mixte',
+        scale=Perimeter.TYPES.adhoc)
+
+    attach_epci_perimeters(
+        adhoc,
+        [epci_1.name, epci_2.name])
+
+    assert adhoc in perimeters['vic'].contained_in.all()
+    assert adhoc in perimeters['herault'].contained_in.all()
+    assert adhoc in perimeters['vic'].contained_in.all()

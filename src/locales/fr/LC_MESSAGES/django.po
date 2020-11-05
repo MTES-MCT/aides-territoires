@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 15:30+0100\n"
+"POT-Creation-Date: 2020-11-05 15:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1044,6 +1044,11 @@ msgstr "Apporteur privé ?"
 msgid "Backer"
 msgstr "Apporteur"
 
+#, fuzzy
+#| msgid "How often do you want to receive alerts?"
+msgid "How often to you want to receive alerts?"
+msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
+
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
 
@@ -1159,21 +1164,7 @@ msgstr "Upload de périmètre"
 msgid "Perimeter combine"
 msgstr "Combinaison de périmètre"
 
-msgid ""
-"This file seems invalid.                         Please double-check its "
-"content or contact the                         dev team if you feel like "
-"it's an error.                         Here is the original error: {}"
-msgstr ""
-"Ce fichier semble invalide ; merci de vérifier son contenu. Si vous pensez "
-"qu'il s'agit d'une erreur, contactez l'équipe de développement. Voici "
-"l'erreur d'origine : {}"
-
-msgid "List of missing city codes:"
-msgstr "Liste des codes insee des communes manquants :"
-
-msgid "We successfully updated the perimeters."
-msgstr "Le périmètre a bien été mis à jour."
-
+#, python-brace-format
 msgid "The {name} “{obj}” was changed successfully."
 msgstr "L’objet {name} « {obj} » a été modifié avec succès."
 
@@ -1182,6 +1173,18 @@ msgstr "Le périmètre a bien été configuré."
 
 msgid "City list (insee codes)"
 msgstr "Liste de communes (codes insee)"
+
+msgid "EPCI list (names)"
+msgstr "Liste d'EPCIs (noms)"
+
+msgid "Perimeter type"
+msgstr "Type de périmètre"
+
+msgid "List of missing city codes:"
+msgstr "Liste des codes insee des communes manquants :"
+
+msgid "List of missing EPCI names:"
+msgstr "Liste des noms des EPCIs manquants :"
 
 msgid "Perimeters to add"
 msgstr "Périmètres à additionner"
@@ -1233,6 +1236,20 @@ msgstr "En Outre-mer ?"
 
 msgid "Perimeters"
 msgstr "Périmètres"
+
+#, fuzzy
+#| msgid ""
+#| "This file seems invalid.                         Please double-check its "
+#| "content or contact the                         dev team if you feel like "
+#| "it's an error.                         Here is the original error: {}"
+msgid ""
+"This file seems invalid.                     Please double-check its content "
+"or contact the                     dev team if you feel like it's an "
+"error.                     Here is the original error: {}"
+msgstr ""
+"Ce fichier semble invalide ; merci de vérifier son contenu. Si vous pensez "
+"qu'il s'agit d'une erreur, contactez l'équipe de développement. Voici "
+"l'erreur d'origine : {}"
 
 msgid "Structure"
 msgstr "Structure"
@@ -1911,8 +1928,8 @@ msgstr "Ne contient pas d'autres périmètres"
 msgid "Combine perimeters"
 msgstr "Combiner des périmètres"
 
-msgid "Upload city list"
-msgstr "Uploader la liste des communes"
+msgid "Upload perimeter list"
+msgstr "Uploader la liste des périmètres"
 
 #, python-format
 msgid " By %(filter_title)s "
@@ -1938,13 +1955,20 @@ msgid "Upload"
 msgstr "Uploader"
 
 msgid ""
-"Use this form to upload the list of cities contained in the selected <em>ad-"
-"hoc</em> perimeter. The file must be a list of insee codes (one per line) "
-"for french cities."
+"Use this form to upload the list of cities or EPCIs contained in the "
+"selected <em>ad-hoc</em> perimeter.<br /> - For cities: the file must be a "
+"list of insee codes (one per line) for french cities<br /> - For EPCIs: the "
+"file must of a list of EPCI names (one per line)"
 msgstr ""
-"Utilisez ce formulaire pour spécifier la liste des communes contenues dans "
-"le périmètre <em>ad-hoc</em>. Le fichier doit contenir les codes insee (un "
-"par ligne) des communes."
+"Utilisez ce formulaire pour spécifier la liste des communes ou EPCIs "
+"contenues dans le périmètre <em>ad-hoc</em>.<br />- Communes : le fichier "
+"doit contenir les codes insee (un par ligne) des communes<br />- EPCIs : le "
+"fichier doit contenir le nom (un par ligne) des EPCIs"
+
+#, fuzzy
+#| msgid "For:"
+msgid "or"
+msgstr "Pour :"
 
 msgid "Send file"
 msgstr "Envoyer le fichier"

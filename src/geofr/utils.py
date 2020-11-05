@@ -1,4 +1,6 @@
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
+
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter
 
@@ -26,6 +28,43 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
+def extract_perimeters_from_file(perimeter_list_file):
+    item_list = []
+    for line in perimeter_list_file:
+        try:
+            item = line.decode().strip().split(';')[0]
+            clean_item = str(item)
+            item_list.append(clean_item)
+        except (UnicodeDecodeError, ValueError) as e:
+            msg = _('This file seems invalid. \
+                    Please double-check its content or contact the \
+                    dev team if you feel like it\'s an error. \
+                    Here is the original error: {}').format(e)
+            raise Exception(msg)
+    return item_list
+
+
+def query_cities_from_list(city_codes_list):
+    return Perimeter.objects \
+        .filter(code__in=city_codes_list) \
+        .filter(scale=Perimeter.TYPES.commune)
+
+
+def query_epcis_from_list(epci_names_list):
+    return Perimeter.objects \
+        .filter(name__in=epci_names_list) \
+        .filter(scale=Perimeter.TYPES.epci)
+
+
+def attach_epci_perimeters(adhoc, epci_names):
+    # first get the epci_query from the epci_names list
+    epci_query = query_epcis_from_list(epci_names)
+    # get the city_codes list from these epci perimeters
+    city_codes = combine_perimeters(epci_query, [])
+    # finally call the usual attach_perimeters method
+    attach_perimeters(adhoc, city_codes)
+
+
 @transaction.atomic
 def attach_perimeters(adhoc, city_codes):
     """Attach an ad-hoc perimeter to other perimeters.
@@ -45,9 +84,7 @@ def attach_perimeters(adhoc, city_codes):
         .delete()
 
     # Fetch perimeters corresponding to the given city codes
-    perimeters = Perimeter.objects \
-        .filter(code__in=city_codes) \
-        .filter(scale=Perimeter.TYPES.commune) \
+    perimeters = query_cities_from_list(city_codes) \
         .prefetch_related('contained_in')
 
     # Put the adhoc perimeter in the cities `contained_in` lists
@@ -76,6 +113,7 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     Return the city codes that are in `add_perimeters` and not in
     `rm_perimeters`.
     """
+    print(add_perimeters)
     in_city_codes = Perimeter.objects \
         .filter(scale=Perimeter.TYPES.commune) \
         .filter(contained_in__in=add_perimeters) \
