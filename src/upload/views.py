@@ -1,11 +1,13 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import JsonResponse
 from django.views import View
 
 from .models import UploadImage
 
 
-class UploadImageView(View):
+class UploadImageView(PermissionRequiredMixin, View):
     http_method_names = ['post']
+    permission_required = 'is_staff'
 
     def post(self, request, *args, **kwargs):
         image = self.request.FILES.get('image')
