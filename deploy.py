@@ -1,8 +1,19 @@
 #! `which python3`
 """Helper script for deployment."""
 
+import os
+import json
+import environ
+import requests
 import argparse
 import subprocess
+
+environ.Env.read_env('src/.env.local')
+env = environ.Env()
+
+
+SLACK_WEBHOOK_URL = env('SLACK_WEBHOOK_URL')
+
 
 parser = argparse.ArgumentParser(
     description='Aides-territoires deployment script')
@@ -45,7 +56,18 @@ def deploy():
 
     print('Running command:')
     print(' '.join(deployment_args))
-    subprocess.run(deployment_args)
+    cp = subprocess.run(deployment_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # subprocess returned without errors
+    if cp.returncode == 0:
+        """Send a simple Slack message after a successful deploy."""
+        slack_data = { 'text': f'Successfully deployed to env: {envs}' }
+        requests.post(
+            SLACK_WEBHOOK_URL, data=json.dumps(slack_data),
+            headers={'Content-Type': 'application/json'}
+        )
+    else:
+        print(cp)
 
 
 if __name__ == '__main__':
