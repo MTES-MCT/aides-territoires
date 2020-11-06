@@ -1,12 +1,15 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from braces.views import MessageMixin
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
-from geofr.utils import attach_perimeters, combine_perimeters
+from geofr.utils import (extract_perimeters_from_file,
+                         attach_perimeters, attach_epci_perimeters,
+                         combine_perimeters)
 
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
@@ -26,26 +29,40 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         qs = Perimeter.objects.all()
         return qs
 
+    def post(self, request, *args, **kwargs):
+        """needed to display form errors."""
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
-        # Fetch the list of commune perimeters from the uploaded file
-        city_codes = []
-        for line in form.cleaned_data['city_list']:
-            try:
-                code = line.decode().strip().split(';')[0]
-                clean_code = str(code)
-                city_codes.append(clean_code)
-            except (UnicodeDecodeError, ValueError) as e:
-                msg = _('This file seems invalid. \
-                        Please double-check its content or contact the \
-                        dev team if you feel like it\'s an error. \
-                        Here is the original error: {}').format(e)
-                self.messages.error(msg)
-                return self.get(self.request, *self.args, **self.kwargs)
-
         current_perimeter = self.get_object()
-        attach_perimeters(current_perimeter, city_codes)
+        perimeter_type = form.cleaned_data['perimeter_type']
 
-        msg = _('We successfully updated the perimeters.')
+        if perimeter_type == 'city_code':
+            # Fetch the list of commune perimeters from the uploaded file
+            # The list should be error-free (cleaned in PerimeterUploadForm)
+            city_codes = extract_perimeters_from_file(
+                form.cleaned_data['city_code_list'])
+            attach_perimeters(current_perimeter, city_codes)
+
+        elif perimeter_type == 'epci_name':
+            # Fetch the list of EPCI perimeters from the uploaded file
+            # The list should be error-free (cleaned in PerimeterUploadForm)
+            epci_names = extract_perimeters_from_file(
+                form.cleaned_data['epci_name_list'])
+            attach_epci_perimeters(current_perimeter, epci_names)
+
+        msg = format_html(
+            _('The {name} “{obj}” was changed successfully.'),
+            name=_('Perimeter'),
+            obj=format_html(
+                '<a href="{obj_url}">{obj_name}</a>',
+                obj_url=reverse(
+                    'admin:geofr_perimeter_change', args=[current_perimeter.id]
+                ),
+                obj_name=current_perimeter
+            )
+        )
         self.messages.success(msg)
         return super().form_valid(form)
 
@@ -72,15 +89,15 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'admin:geofr_perimeter_change', args=[self.kwargs['object_id']])
+            'admin:geofr_perimeter_change', args=[self.kwargs['object_id']]
+        )
 
     def form_valid(self, form):
-
-        perimeter = self.get_object()
+        current_perimeter = self.get_object()
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = combine_perimeters(add_perimeters, rm_perimeters)
-        attach_perimeters(perimeter, city_codes)
+        attach_perimeters(current_perimeter, city_codes)
 
         msg = _('We successfully configured the perimeter.')
         self.messages.success(msg)

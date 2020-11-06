@@ -19,21 +19,29 @@
     {% csrf_token %}
     <div>
         <p>{% blocktrans trimmed %}
-            Use this form to upload the list of cities contained
-            in the selected <em>ad-hoc</em> perimeter. The file must
-            be a list of insee codes (one per line) for french cities.
+            Use this form to upload the list of cities or EPCIs contained in the selected <em>ad-hoc</em> perimeter.<br />
+            - For cities: the file must be a list of insee codes (one per line) for french cities<br />
+            - For EPCIs: the file must of a list of EPCI names (one per line)
         {% endblocktrans %}</p>
+
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
 
         <fieldset class="module aligned">
             <div class="form-row">
-                <div>
-                    {{ form.city_list.label_tag }}
-                    {{ form.city_list }}
-                </div>
+                <div>{{ form.perimeter_type.label_tag }}{{ form.perimeter_type }}</div>
+            </div>
+            <div class="form-row">
+                <div>{{ form.city_code_list.label_tag }}{{ form.city_code_list }}</div>
+                <br />
+                <div><i>{{ _('or') }}</i></div>
+                <br />
+                <div>{{ form.epci_name_list.label_tag }}{{ form.epci_name_list }}</div>
             </div>
         </fieldset>
         <div class="submit-row">
-            <input class="default" type="submit" name="{{ _('Send file') }}" />
+            <input class="default" type="submit" name="_save" value="{{ _('Send file') }}" />
         </div>
     </div>
 </form>
