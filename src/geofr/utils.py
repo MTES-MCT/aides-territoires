@@ -47,7 +47,8 @@ def extract_perimeters_from_file(perimeter_list_file):
             raise Exception(msg)
 
     # check for duplicates
-    duplicates = [item for item, count in collections.Counter(item_list).items() if count > 1]  # noqa
+    duplicates = [item for item, count in \
+        collections.Counter(item_list).items() if count > 1]
     if len(duplicates):
         msg = _('This file is valid, but contains \
                 duplicates: {}').format(duplicates)
