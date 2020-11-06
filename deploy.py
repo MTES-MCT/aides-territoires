@@ -3,14 +3,16 @@
 
 import os
 import json
+import environ
 import requests
 import argparse
 import subprocess
 
-from dotenv import load_dotenv
-load_dotenv('src/.env.local')
+environ.Env.read_env('src/.env.local')
+env = environ.Env()
 
-SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
+
+SLACK_WEBHOOK_URL = env('SLACK_WEBHOOK_URL')
 
 
 parser = argparse.ArgumentParser(
@@ -56,13 +58,17 @@ def deploy():
     print(' '.join(deployment_args))
     cp = subprocess.run(deployment_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    # subprocess returned without errors
     if cp.returncode == 0:
-        """Send a simple Slack message after each deploy."""
+        """Send a simple Slack message after a successful deploy."""
         slack_data = { 'text': f'Successfully deployed to env: {envs}' }
         requests.post(
             SLACK_WEBHOOK_URL, data=json.dumps(slack_data),
             headers={'Content-Type': 'application/json'}
         )
+    else:
+        print(cp)
+
 
 if __name__ == '__main__':
     deploy()
