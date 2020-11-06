@@ -41,13 +41,15 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         if perimeter_type == 'city_code':
             # Fetch the list of commune perimeters from the uploaded file
             # The list should be error-free (cleaned in PerimeterUploadForm)
-            city_codes = extract_perimeters_from_file(form.cleaned_data['city_code_list'])  # noqa
+            city_codes = extract_perimeters_from_file(
+                form.cleaned_data['city_code_list'])
             attach_perimeters(current_perimeter, city_codes)
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
             # The list should be error-free (cleaned in PerimeterUploadForm)
-            epci_names = extract_perimeters_from_file(form.cleaned_data['epci_name_list'])  # noqa
+            epci_names = extract_perimeters_from_file(
+                form.cleaned_data['epci_name_list'])
             attach_epci_perimeters(current_perimeter, epci_names)
 
         msg = format_html(
@@ -55,7 +57,9 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             name=_('Perimeter'),
             obj=format_html(
                 '<a href="{obj_url}">{obj_name}</a>',
-                obj_url=reverse('admin:geofr_perimeter_change', args=[current_perimeter.id]),  # noqa
+                obj_url=reverse(
+                    'admin:geofr_perimeter_change', args=[current_perimeter.id]
+                ),
                 obj_name=current_perimeter
             )
         )
