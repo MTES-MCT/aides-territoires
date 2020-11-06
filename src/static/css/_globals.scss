@@ -56,6 +56,18 @@ body > footer {
 
     a {
         @extend .text-light;
+
+        &:visited {
+            color: #a886a7 !important;
+
+            &:focus {
+                color: #d8d4c0 !important;
+            }
+
+            &:hover {
+                color: #d8d4c0 !important;
+            }
+        }
     }
 
     .ml-btn {
@@ -318,6 +330,18 @@ nav#main-navbar {
                     @extend .badge-light;
                     @extend .ml-1;
                 }
+            }
+
+            &>a:visited {
+                color: #9D4B78;
+
+                &:focus {
+                    color: #DB1C83;
+                } 
+
+                &:hover {
+                    color: #DB1C83;
+                } 
             }
 
             div.dropdown-menu {
