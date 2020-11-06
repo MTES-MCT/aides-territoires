@@ -128,7 +128,7 @@ def test_register_form_expects_valid_data(client):
         register_url,
         {'full_name': 'Petit Pifou', 'email': 'tartiflette'})
     assert res.status_code == 200
-    assert 'Saisissez une adresse email valable.' in res.content.decode()
+    assert ' vérifier votre saisie ' in res.content.decode()
 
 
 def test_register_form_with_unique_email(client, user, mailoutbox):
