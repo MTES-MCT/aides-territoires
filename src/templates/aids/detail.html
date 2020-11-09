@@ -34,14 +34,24 @@
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
         {% for theme in theme_list %}
-            <li class="theme">
+            <li class="theme"> 
                 <strong>
-                {{ theme.grouper }}
+                    <span>
+                        {{ theme.grouper }} >
+                    </span>
                 </strong>
-                <ul>
-                {% for category in theme.list %}
+                <button class="cta-btn" type="button" data-toggle="collapse" data-target="#collapse-category-{{forloop.counter}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    {% if theme.list|length > 1 %}
+                    voir les sous-thématiques 
+                    {% else %}
+                    voir la sous-thématique
+                    {% endif%}
+                    ({{theme.list|length}})
+                </button>
+                <ul class="collapse" id="collapse-category-{{forloop.counter}}">
+                    {% for category in theme.list %}
                     <li class="category">{{ category }}</li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
             </li>
         {% endfor %}

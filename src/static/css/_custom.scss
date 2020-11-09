@@ -1236,7 +1236,7 @@ ul.aid-categories {
     padding: 0;
     list-style-type: none;
 
-    li.theme {
+    li.theme span {
         text-transform: uppercase;
     }
 
@@ -1251,10 +1251,20 @@ ul.aid-categories {
 
         li {
             display: inline;
+            margin-bottom: 0.5rem;
         }
 
         li + li:before {
             content: " + ";
         }
+    }
+
+    button.cta-btn {
+        color: #DB1C83;
+        background-color: transparent;
+        border: 1px solid transparent;
+        font-family: inherit;
+        cursor: pointer;
+        padding: 0;
     }
 }
