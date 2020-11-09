@@ -149,7 +149,7 @@ class AidResource(resources.ModelResource):
                 value = getattr(obj, f'get_{field.column_name}_display')()
                 return field.widget.render(value, obj)
             # ChoiceArrayField fields: need to translate a list
-            elif hasattr(field_model, 'base_field'):
+            elif hasattr(field_model, 'base_field') and field_model.base_field.choices:  # noqa
                 value_raw = field.get_value(obj)
                 if value_raw:
                     # translate each dict choice
