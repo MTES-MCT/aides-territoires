@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import JsonResponse
 from django.views import View
 
-from .models import UploadImage
+from upload.models import UploadImage
 
 
 class UploadImageView(PermissionRequiredMixin, View):

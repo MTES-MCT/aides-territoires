@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UploadImage
+from upload.models import UploadImage
 
 
 @admin.register(UploadImage)
