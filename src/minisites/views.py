@@ -6,7 +6,7 @@ from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from alerts.views import AlertCreate
 
-from .mixins import NarrowedFiltersMixin
+from minisites.mixins import NarrowedFiltersMixin
 
 
 class MinisiteMixin:

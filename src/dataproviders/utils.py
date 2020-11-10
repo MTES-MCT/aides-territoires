@@ -5,9 +5,9 @@ from bs4 import BeautifulSoup as bs
 REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'br',
+    'br', 'img',
 ]
-ALLOWED_ATTRS = ['href']
+ALLOWED_ATTRS = ['href', 'src', 'alt']
 
 
 def content_prettify(raw_text, more_allowed_tags=[]):
@@ -54,7 +54,7 @@ def content_prettify(raw_text, more_allowed_tags=[]):
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
-                if not tag.contents and not tag.name == 'br':
+                if not tag.contents and tag.name not in ['br', 'img']:
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)

@@ -29,6 +29,7 @@ urlpatterns = [
     path(_('tags/'), include('tags.urls')),
     path(_('data/'), include('data.urls')),
     path(_('search/'), include('search.urls')),
+    path(_('upload/'), include('upload.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),

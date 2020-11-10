@@ -414,9 +414,9 @@ def test_aid_creation_description_sanitization(aid_form_data):
     assert '<strong>' in description
     assert 'paragraph' in description
     assert '<a href="//example.com' in description
+    assert '<img' in description
 
     assert 'script' not in description
     assert '<div' not in description
     assert 'class="toto"' not in description
     assert 'style' not in description
-    assert '<img' not in description
