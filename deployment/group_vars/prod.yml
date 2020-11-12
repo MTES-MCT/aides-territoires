@@ -21,6 +21,15 @@ certbot_domains:
  - "france-relance-cvl.{{ project_domain }}"
  - "france-relance-guyane.{{ project_domain }}"
  - "france-relance-reunion.{{ project_domain }}"
+ - "france-relance-corse.{{ project_domain }}"
+ - "france-relance-occitanie.{{ project_domain }}"
+ - "france-relance-idf.{{ project_domain }}"
+ - "france-relance-aura.{{ project_domain }}"
+ - "france-relance-bfc.{{ project_domain }}"
+ - "france-relance-guadeloupe.{{ project_domain }}"
+ - "france-relance-martinique.{{ project_domain }}"
+ - "france-relance-mayotte.{{ project_domain }}"
+ - "france-relance-bretagne.{{ project_domain }}"
 
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
