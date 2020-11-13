@@ -7,8 +7,8 @@
                 var allCategories = $(this).find('input[type=checkbox]');
 
                 var labels = $(this).find(':checked').map(function (counter, checkbox) {
-                    var label = form.find('label[for=' + checkbox.id + '].custom-control-label');
-                    return label.text().trim();
+                    var label = form.find('input[id='+ checkbox.id + '][name=categories].custom-control-input');
+                    return label.val().trim();
                 });
                 var allLabels = labels.toArray().reduce(function (acc, value) {
                     var accumulated;
