@@ -6,7 +6,7 @@
             try {
                 var allCategories = $(this).find('input[type=checkbox]');
 
-                var inputs = $(this).find(':checked').map(function (counter, checkbox) {
+                var inputs = $(this).find(':checked').map(function () {
                     return $(this).val().trim();
                 });
                 var allInputs = inputs.toArray().reduce(function (acc, value) {

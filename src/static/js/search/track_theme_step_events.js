@@ -4,9 +4,8 @@
     exports.trackSearchEvent = function (form, stepName) {
         form.submit(function () {
             try {
-                var inputs = $(this).find(':checked').map(function (counter, checkbox) {
-                    var input = form.find('input[id='+ checkbox.id + '][name=themes].custom-control-input');
-                    return input.val().trim();
+                var inputs = $(this).find(':checked').map(function () {
+                    return $(this).val().trim();
                 });
                 var allInputs = inputs.toArray().reduce(function (acc, value) {
                     var accumulated;
