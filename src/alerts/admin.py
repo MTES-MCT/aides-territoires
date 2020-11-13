@@ -8,6 +8,7 @@ class AlertAdmin(admin.ModelAdmin):
         'email', 'title', 'latest_alert_date', 'date_created', 'validated',
         'date_validated'
     ]
+    search_fields = ['email']
     list_filter = ['validated']
 
 
