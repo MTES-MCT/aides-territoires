@@ -6,11 +6,10 @@
             try {
                 var allCategories = $(this).find('input[type=checkbox]');
 
-                var labels = $(this).find(':checked').map(function (counter, checkbox) {
-                    var label = form.find('label[for=' + checkbox.id + '].custom-control-label');
-                    return label.text().trim();
+                var inputs = $(this).find(':checked').map(function () {
+                    return $(this).val().trim();
                 });
-                var allLabels = labels.toArray().reduce(function (acc, value) {
+                var allInputs = inputs.toArray().reduce(function (acc, value) {
                     var accumulated;
                     if (acc == '') {
                         accumulated = value;
@@ -20,7 +19,7 @@
                     return accumulated;
                 }, '');
                 if (_paq) {
-                    _paq.push(['trackEvent', 'Recherche', stepName, allLabels, allCategories.length]);
+                    _paq.push(['trackEvent', 'Recherche', stepName, allInputs, allCategories.length]);
                 }
             } catch (e) {
                 console.log(e);

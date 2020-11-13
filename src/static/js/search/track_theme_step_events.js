@@ -4,11 +4,10 @@
     exports.trackSearchEvent = function (form, stepName) {
         form.submit(function () {
             try {
-                var labels = $(this).find(':checked').map(function (counter, checkbox) {
-                    var label = form.find('label[for=' + checkbox.id + '].custom-control-label');
-                    return label.text().trim();
+                var inputs = $(this).find(':checked').map(function () {
+                    return $(this).val().trim();
                 });
-                var allLabels = labels.toArray().reduce(function (acc, value) {
+                var allInputs = inputs.toArray().reduce(function (acc, value) {
                     var accumulated;
                     if (acc == '') {
                         accumulated = value;
@@ -18,7 +17,7 @@
                     return accumulated;
                 }, '');
                 if (_paq) {
-                    _paq.push(['trackEvent', 'Recherche', stepName, allLabels]);
+                    _paq.push(['trackEvent', 'Recherche', stepName, allInputs]);
                 }
             } catch (e) {
                 console.log(e);
