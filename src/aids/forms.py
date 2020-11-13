@@ -464,10 +464,9 @@ class BaseAidSearchForm(forms.Form):
         label=_('Themes'),
         queryset=Theme.objects.all(),
         to_field_name='slug',
-        required=False,
-        widget=forms.MultipleHiddenInput)
+        required=False)
     categories = CategoryMultipleChoiceField(
-        label=_('Themes'),  # Not a mistake
+        label=_('Categories'),  # Not a mistake
         queryset=CATEGORIES_QS,
         to_field_name='slug',
         required=False)

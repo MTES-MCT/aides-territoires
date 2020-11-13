@@ -103,6 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Frontend stuff
+.sass-cache
+
 TODO
 
 .env.local
