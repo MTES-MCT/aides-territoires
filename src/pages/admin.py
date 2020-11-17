@@ -32,6 +32,9 @@ class PageAdmin(FlatPageAdmin):
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
+            '/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js',  # noqa
+            '/static/jquery-resizable-dom/dist/jquery-resizable.js',
+            '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ]
 
