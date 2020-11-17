@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load compress %}
 
 {% block extratitle %}{{ _('Search – Audience') }}{% endblock %}
 
@@ -54,5 +55,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 <script src="/static/js/search/track_audience_step_events.js"></script>
+{% endcompress %}
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n %}
+{% load compress %}
 
 {% block extratitle %}{{ _('Search – Categories') }}{% endblock %}
 
@@ -72,5 +73,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% compress js %}
 <script src="/static/js/search/track_category_step_events.js"></script>
+{% endcompress %}
 {% endblock %}
