@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from search.models import SearchPage
 from search.forms import SearchPageAdminForm
+from search.models import SearchPage
+from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class SearchPageAdmin(admin.ModelAdmin):
@@ -70,7 +71,7 @@ class SearchPageAdmin(admin.ModelAdmin):
             '/static/jquery-resizable-dom/dist/jquery-resizable.js',
             '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
-        ]
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
