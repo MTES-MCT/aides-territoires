@@ -7,6 +7,7 @@ from aids.factories import AidFactory
 
 pytestmark = pytest.mark.django_db
 
+
 @pytest.fixture
 def api_url():
     return reverse('aids-list')
