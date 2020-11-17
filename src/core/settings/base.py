@@ -182,7 +182,8 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
 }
 
-CURRENT_API_VERSION = '1.0'
+# Bump minor if the modification is retro-compatible, major othewise
+CURRENT_API_VERSION = '1.1'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'

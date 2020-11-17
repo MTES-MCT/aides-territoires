@@ -31,6 +31,18 @@ def test_api_version_1_0(client, api_url):
     assert res.status_code == 200
     content = json.loads(res.content.decode())
     assert content['count'] == 2
+    assert 'programs' not in content['results'][0]
+
+
+def test_api_version_1_1(client, api_url):
+    AidFactory(name='First aid')
+    AidFactory(name='Second aid')
+
+    res = client.get(f'{api_url}?version=1.1')
+    assert res.status_code == 200
+    content = json.loads(res.content.decode())
+    assert content['count'] == 2
+    assert 'programs' in content['results'][0]
 
 
 def test_api_invalid_version(client, api_url):
