@@ -179,7 +179,10 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 50,
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
 }
+
+CURRENT_API_VERSION = '1.0'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
