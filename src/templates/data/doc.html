@@ -52,8 +52,22 @@ la dernière mise à jour de l'information réutilisée.</p>
 
 <h2>API</h2>
 
-<p><a href="{% url 'aids-list' %}">La liste de toutes les aides actives présentes
+<p><a href="{% url 'aids-list' %}?version={{ api_version }}">La liste de toutes les aides actives présentes
 sur le site est accessible à cette adresse.</a></p>
+
+<h2>Versionnement</h2>
+
+<p>Le site Aides-territoires étant en construction active, il est possible que
+des changements soient apportés au fonctionnement de l'API.</p>
+
+<p>Pour éviter qu'une modification du format des données ne casse votre application,
+nous vous recommandons de spécifier le paramètre <code>version</code>.</p>
+
+<p>
+<pre>https://aides-territoires.beta.gouv.fr{% url 'aids-list' %}?version={{ api_version }}</pre>
+</p>
+
+<p>La version actuelle de l'API est : « {{ api_version }} ».</p>
 
 <h2>Données</h2>
 
