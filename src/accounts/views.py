@@ -1,6 +1,3 @@
-import json
-import requests
-
 from django.views.generic import (FormView, TemplateView, CreateView,
                                   UpdateView)
 from django.urls import reverse_lazy
