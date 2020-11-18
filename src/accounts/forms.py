@@ -131,11 +131,3 @@ class ContributorProfileForm(forms.ModelForm):
             'organization': _('Your organization'),
             'role': _('Your position'),
         }
-
-
-class NewsletterForm(forms.Form):
-    """Form used to create newletters subscriber."""
-
-    email = forms.EmailField(
-        label=_('Your email address'),
-        required=True)

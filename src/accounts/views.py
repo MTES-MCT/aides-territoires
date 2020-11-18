@@ -17,7 +17,7 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from analytics import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
-                            ContributorProfileForm, NewsletterForm)
+                            ContributorProfileForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
 from django.conf import settings
@@ -154,41 +154,3 @@ class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
 
     def get_object(self):
         return self.request.user
-
-
-class NewsletterView(FormView):
-    """Allow users to subscribe newsletter."""
-
-    template_name = 'accounts/newsletter.html'
-    form_class = NewsletterForm
-    success_url = reverse_lazy('register_newsletter_success')
-
-    def form_valid(self, form):
-        self.export_account(form.cleaned_data['email'])
-        return super().form_valid(form)
-
-    def export_account(self, user):
-        '''Export newsletterUser to the newsletter provider'''
-
-        API_HEADERS = {
-            'accept': 'application/json',
-            'content-type': 'application/json',
-            'api-key': settings.SIB_API_KEY,
-        }
-
-        endpoint = settings.SIB_ENDPOINT
-        data = {
-            'email': user,
-            'attributes': {
-                'DOUBLE_OPT-IN': 1,
-            },
-            'listIds': [settings.SIB_NEWSLETTER_LIST_ID],
-            'updateEnabled': True,
-        }
-        requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
-
-
-class NewsletterSuccessView(TemplateView):
-    """Display success message after register action."""
-
-    template_name = 'accounts/newsletter_success.html'

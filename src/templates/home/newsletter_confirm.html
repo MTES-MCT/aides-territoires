@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}login-form{% endblock %}
+
+{% block extratitle %}{{ _('Confirm your subscribtion') }}{% endblock %}
+
+{% block content %}
+<div class="article narrow">
+    <h1>{{ _('Please confirm your subscription') }}</h1>
+
+    <p>{% blocktrans trimmed %}
+        <strong>Your mailing-list registration was taken into account. You still need to click
+            the confirmation link in the mail you are about to receive.</strong> 
+     {% endblocktrans %}</p>
+
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        {% blocktrans trimmed %}
+        If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
+        please contact us</a>.
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}
