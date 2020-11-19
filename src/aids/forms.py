@@ -466,7 +466,7 @@ class BaseAidSearchForm(forms.Form):
         to_field_name='slug',
         required=False)
     categories = CategoryMultipleChoiceField(
-        label=_('Categories'),  # Not a mistake
+        label=_('Categories'),
         queryset=CATEGORIES_QS,
         to_field_name='slug',
         required=False)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 17:07+0100\n"
+"POT-Creation-Date: 2020-11-18 23:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,6 +187,12 @@ msgstr "Porteur·s d'aides"
 msgid "Perimeter"
 msgstr "Périmètre"
 
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
 
@@ -311,12 +317,6 @@ msgstr "Collectivités"
 
 msgid "Other audiences"
 msgstr "Autres bénéficiaires"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Program title"
 msgstr "Titre du programme"
@@ -681,9 +681,6 @@ msgstr "Mise en œuvre / réalisation"
 
 msgid "Postoperation"
 msgstr "Usage / valorisation"
-
-msgid "Intermunicipal unions"
-msgstr "Unions intermunicipales"
 
 msgid "Public organization"
 msgstr "Établissement public"
@@ -1150,6 +1147,11 @@ msgstr "mots-clés/"
 msgid "data/"
 msgstr "data/"
 
+#, fuzzy
+#| msgid "Upload"
+msgid "upload/"
+msgstr "Uploader"
+
 msgid "<path:object_id>/upload/"
 msgstr "<path:object_id>/upload/"
 
@@ -1542,6 +1544,9 @@ msgstr "Votre ville, intercommunalité, département…"
 
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
+
+msgid "You must select at least one theme first."
+msgstr "Vous devez d\\'abord selectionner au moins une thématique."
 
 msgid "Choose backer(s) among the list."
 msgstr "Sélectionnez le·s porteur·s parmi la liste."
@@ -2552,3 +2557,26 @@ msgstr ""
 "Un mot clé est une étiquette associée à une ou plusieurs aides. Utiliser les "
 "mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
 "vos centres d'intérêts spécifiques."
+
+#, fuzzy
+#| msgid "Upload"
+msgid "upload"
+msgstr "Uploader"
+
+msgid "Image"
+msgstr ""
+
+#, fuzzy
+#| msgid "Upload"
+msgid "Uploaded at"
+msgstr "Uploader"
+
+#, fuzzy
+#| msgid "Upload"
+msgid "Upload image"
+msgstr "Uploader"
+
+#, fuzzy
+#| msgid "Upload perimeter list"
+msgid "Upload images"
+msgstr "Uploader la liste des périmètres"

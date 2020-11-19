@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('select.tag-field').select2({
-        placeholder: catalog.tags_placeholder,
+        placeholder: catalog.autocomplete_placeholder,
         minimumInputLength: 2,
         ajax: {
             url: '/api/tags/',
