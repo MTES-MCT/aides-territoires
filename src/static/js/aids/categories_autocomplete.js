@@ -26,7 +26,9 @@
                 .map(function(categoryRemaining) { return categoryRemaining.id });
             $('select#id_categories').val(categoryNamesSelectedRemaining).trigger('change');
             // set default placeholder
-            $('div#form-group-categories').find("input").attr("placeholder", catalog.autocomplete_placeholder);
+            if (!categoryNamesSelectedRemaining.length) {
+                $('div#form-group-categories').find("input").attr("placeholder", catalog.autocomplete_placeholder);
+            }
         } else {
             // disable all categories
             categoryOptions.each(function() {
@@ -49,11 +51,13 @@ $(document).ready(function () {
         theme: 'bootstrap4',
         width: '',
     });
-    // init
-    updateAvailableCategories();
-    // track themes changes
-    $(document).on('change', 'select#id_themes', function() {
+    // init if themes filter
+    if ($('select#id_themes')) {
         updateAvailableCategories();
-    });
+        // track themes changes
+        $(document).on('change', 'select#id_themes', function() {
+            updateAvailableCategories();
+        });
+    }
 });
 

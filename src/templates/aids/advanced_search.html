@@ -27,7 +27,9 @@
         {% include '_field_snippet.html' with field=form.text %}
         {% include '_field_snippet.html' with field=form.perimeter %}
         {% include '_field_snippet.html' with field=form.targeted_audiences %}
-        {% include '_field_snippet.html' with field=form.themes %}
+        {% if not search_page %}
+            {% include '_field_snippet.html' with field=form.themes %}
+        {% endif %}
         {% include '_field_snippet.html' with field=form.categories %}
         {% include '_field_snippet.html' with field=form.aid_type %}
         {% include '_field_snippet.html' with field=form.apply_before %}
