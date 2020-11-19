@@ -1,4 +1,6 @@
-{% load settings i18n %}<footer>
+{% load settings i18n %}
+{% load i18n mailing_list %}
+<footer>
     <div class="container">
         <div class="columns">
             <div class="logos logos-1">
@@ -14,7 +16,7 @@
                 <div class="subscribe-newsletter">
                     <h2>Recevez la newsletter</h2>
                     <p>Restez informés des nouveautés de la plateforme</p>
-                    <a class="ml-btn" href="{% url 'register-newsletter' %}">Inscrivez-vous</a>
+                    <a class="ml-btn" href="{% mailing_list_url %}">Inscrivez-vous</a>
                 </div>
 
                 <h2>{{ _("Aid backers") }}</h2>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 17:07+0100\n"
+"POT-Creation-Date: 2020-11-18 16:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,12 +138,6 @@ msgstr "profil-contributeur/"
 msgid "logout/"
 msgstr "deconnexion/"
 
-msgid "register-newsletter/"
-msgstr "inscription-newsletter/"
-
-msgid "register-newsletter-success/"
-msgstr "inscription-newsletter-succès/"
-
 msgid ""
 "You are now logged in. Welcome! Please take a few seconds to update your "
 "profile."
@@ -186,6 +180,12 @@ msgstr "Porteur·s d'aides"
 
 msgid "Perimeter"
 msgstr "Périmètre"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
 
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
@@ -311,12 +311,6 @@ msgstr "Collectivités"
 
 msgid "Other audiences"
 msgstr "Autres bénéficiaires"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Program title"
 msgstr "Titre du programme"
@@ -681,9 +675,6 @@ msgstr "Mise en œuvre / réalisation"
 
 msgid "Postoperation"
 msgstr "Usage / valorisation"
-
-msgid "Intermunicipal unions"
-msgstr "Unions intermunicipales"
 
 msgid "Public organization"
 msgstr "Établissement public"
@@ -1150,6 +1141,9 @@ msgstr "mots-clés/"
 msgid "data/"
 msgstr "data/"
 
+msgid "Upload"
+msgstr "Uploader"
+
 msgid "<path:object_id>/upload/"
 msgstr "<path:object_id>/upload/"
 
@@ -1247,13 +1241,6 @@ msgstr ""
 msgid "This file is valid, but contains                 duplicates: {}"
 msgstr "Ce fichier est valide, mais comporte des doublons: {}"
 
-msgid "Structure"
-msgstr "Structure"
-
-msgid "Tell us the name and nature of your organization."
-msgstr ""
-"Nom et nature de votre organisation : collectivité, EPCI, aménageur, AMO…"
-
 msgid "legal-mentions/"
 msgstr "mentions-légales/"
 
@@ -1262,6 +1249,12 @@ msgstr "inscription-liste/"
 
 msgid "mailing-list-confirmation/"
 msgstr "confirmation-inscription-liste/"
+
+msgid "confirm-registration-newsletter/"
+msgstr "inscription-newsletter-a-confirmer/"
+
+msgid "register-newsletter-success/"
+msgstr "inscription-newsletter-succes/"
 
 msgid "verb"
 msgstr "verbe"
@@ -1708,52 +1701,6 @@ msgstr ""
 msgid "You will <a href=\"%(login_url)s\">have to try again.</a>"
 msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 
-msgid "Register"
-msgstr "Inscription"
-
-msgid "Stay informed of our news"
-msgstr "Restez informé de nos nouveautés"
-
-msgid "All the news of Aides Territoires, in your mailbox"
-msgstr "Toutes les actualités d'Aides Territoires, dans votre boite e-mail"
-
-#, python-format
-msgid ""
-"By using this feature, you acknowledge that your data will be processed <a "
-"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
-"policy</a>."
-msgstr ""
-"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
-"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
-"avec notre politique de confidentialité</a>."
-
-msgid "I subscribe !"
-msgstr "Je m'abonne !"
-
-msgid ""
-"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
-"gouv.fr\">Please contact us.</a>"
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
-
-msgid "You have successfully subscribed"
-msgstr "Vous êtes abonné"
-
-msgid "Thank you for subscribing to the newsletter"
-msgstr "Merci pour votre abonnement à la newsletter"
-
-msgid ""
-"<strong>Your subscription to the newsletter has been registered.</strong>"
-msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
-
-msgid ""
-"If you can't register, <a href=\"mailto:aides-territoires@beta.gouv.fr\"> "
-"please contact us</a>."
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
-
 msgid "Password reset"
 msgstr "Récupération du mot de passe"
 
@@ -1813,6 +1760,9 @@ msgstr ""
 "contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
+msgid "Register"
+msgstr "Inscription"
+
 msgid "Create an aid backer account"
 msgstr "Créez un compte porteur d'aides"
 
@@ -1828,6 +1778,13 @@ msgstr ""
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
+
+msgid ""
+"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
+"gouv.fr\">Please contact us.</a>"
+msgstr ""
+"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
+"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "You registered successfully"
 msgstr "Compte créé"
@@ -1855,6 +1812,13 @@ msgstr ""
 "<li>vérifiez vos spams ;</li>\n"
 "<li>attendez quelques secondes <a href=\"%(register_url)s\">et réessayez</"
 "a> ;</li></ul>"
+
+msgid ""
+"If you can't register, <a href=\"mailto:aides-territoires@beta.gouv.fr\"> "
+"please contact us</a>."
+msgstr ""
+"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
+"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "Amendment merge"
 msgstr "Intégration d'amendement"
@@ -1946,9 +1910,6 @@ msgstr ""
 
 msgid "Submit"
 msgstr "Envoyer"
-
-msgid "Upload"
-msgstr "Uploader"
 
 msgid ""
 "Use this form to upload the list of cities or EPCIs contained in the "
@@ -2343,6 +2304,16 @@ msgstr "Dupliquer et éditer"
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
+#, python-format
+msgid ""
+"By using this feature, you acknowledge that your data will be processed <a "
+"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
+"policy</a>."
+msgstr ""
+"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
+"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
+"avec notre politique de confidentialité</a>."
+
 msgid "Alert deletion"
 msgstr "Suppression d'alerte"
 
@@ -2467,6 +2438,28 @@ msgstr ""
 msgid "Or go back to the home page."
 msgstr "Ou retournez à la page d'accueil."
 
+msgid "Confirm your subscribtion"
+msgstr "Merci de confirmer votre inscription"
+
+#, python-format
+msgid ""
+"<strong>Your mailing-list registration was taken into account. You still "
+"need to click the confirmation link in the mail you are about to receive.</"
+"strong>"
+msgstr ""
+"Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
+"confirmation présent dans l'e-mail que vous allez recevoir."
+
+msgid "You have successfully subscribed"
+msgstr "Vous êtes abonné"
+
+msgid "Thank you for subscribing to the newsletter"
+msgstr "Merci pour votre abonnement à la newsletter"
+
+msgid ""
+"<strong>Your subscription to the newsletter has been registered.</strong>"
+msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
+
 msgid "Reset filters"
 msgstr "Réinitialiser"
 
@@ -2552,3 +2545,6 @@ msgstr ""
 "Un mot clé est une étiquette associée à une ou plusieurs aides. Utiliser les "
 "mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
 "vos centres d'intérêts spécifiques."
+
+msgid "Uploaded at"
+msgstr "Uploader"

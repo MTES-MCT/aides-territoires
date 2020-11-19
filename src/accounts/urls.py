@@ -5,8 +5,7 @@ from django.contrib.auth import views as auth_views
 from accounts.forms import LoginForm
 from accounts.views import (PasswordResetView, PasswordResetSentView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
-                            ProfileView, ContributorProfileView,
-                            NewsletterView, NewsletterSuccessView)
+                            ProfileView, ContributorProfileView)
 
 urlpatterns = [
     path(_('register/'), RegisterView.as_view(), name='register'),
@@ -31,9 +30,4 @@ urlpatterns = [
          name='contributor_profile'),
 
     path(_('logout/'), auth_views.LogoutView.as_view(), name='logout'),
-
-    path(_('register-newsletter/'), NewsletterView.as_view(),
-         name='register-newsletter'),
-    path(_('register-newsletter-success/'), NewsletterSuccessView.as_view(),
-         name='register_newsletter_success'),
 ]

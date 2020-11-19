@@ -32,3 +32,15 @@ class HomeView(TemplateView):
         context['nb_backers'] = nb_backers
 
         return context
+
+
+class NewsletterConfirmView(TemplateView):
+    """Display success message after register action."""
+
+    template_name = 'home/newsletter_confirm.html'
+
+
+class NewsletterSuccessView(TemplateView):
+    """Display success message after register action."""
+
+    template_name = 'home/newsletter_success.html'
