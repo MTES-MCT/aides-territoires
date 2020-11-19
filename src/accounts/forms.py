@@ -87,15 +87,10 @@ class ProfileForm(forms.ModelForm):
         fields = ['full_name', 'new_password', 'ml_consent']
         labels = {
             'full_name': _('Your full name'),
-            'ml_consent':
-                _('Yes, I want to receive news about the service.'),
         }
         help_texts = {
             'full_name':
                 _('This is how we will address you in our ' 'communications.'),
-            'ml_consent':
-                _('We will send regular updates (no more than once a month) '
-                  'about the new features and updates about our service.'),
         }
 
     def _post_clean(self):
