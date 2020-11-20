@@ -1,10 +1,43 @@
-from django.forms import ModelMultipleChoiceField
+from django import forms
 
 from categories.models import Category
 
 
-class CategoryMultipleChoiceField(ModelMultipleChoiceField):
-    """Custom field to select categories."""
+class CategoryChoiceIterator(forms.models.ModelChoiceIterator):
+    """Custom iterator for the `Category` queryset.
+    This class generates the list of choices to be rendered by the widget.
+    Here we create a custom iterator to group the categories under their
+    respective themes.
+    Taken from https://stackoverflow.com/a/60076749
+    """
+    def theme_label(self, theme_name):
+        return theme_name.upper()
+
+    def category_label(self, category):
+        return category.name
+
+    def __iter__(self):
+        group = ""
+        subgroup = []
+        for category in self.queryset:
+            if not group:
+                group = category.theme.name
+
+            if group != category.theme.name:
+                yield (self.theme_label(group), subgroup)
+                group = category.theme.name
+                subgroup = [(category.slug, self.category_label(category))]
+            else:
+                subgroup.append((category.slug, self.category_label(category)))
+        yield (self.theme_label(group), subgroup)
+
+
+class CategoryMultipleChoiceField(forms.ModelMultipleChoiceField):
+    """Custom field to select categories.
+
+    We override the iterator to better group and display the categories
+    """
+    iterator = CategoryChoiceIterator
 
     def __init__(self, **kwargs):
         default_qs = Category.objects \

@@ -884,6 +884,17 @@ iframe#stats-optout {
     }
 }
 
+// Make select2 result box bigger
+// ul.select2-results__options {
+.select2-container--bootstrap4 .select2-results > .select2-results__options {
+    max-height: 400px !important;
+}
+
+.select2-container--bootstrap4 .select2-results__group {
+    color: #16181b !important;
+    background-color: #dfe0e1 !important;
+}
+
 
 span {
     // Allow to set two labels in some places. The short label will
