@@ -1,4 +1,6 @@
+import hashlib
 from datetime import datetime
+
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.occitanie import OccitanieSpider
 from geofr.models import Perimeter
@@ -39,11 +41,14 @@ class Command(CrawlerImportCommand):
         There is also a "Type" field which only values (AFAIK) can be:
          - Aides
          - Appels à projets
-         - Budgets participatifs
-        …or empty
+         - Appel à manifestation d'intérêt
+         - Budgets participatifs (?)
+        …or empty (very often !)
 
         So we filter out lines with an empty `type` field.
 
+        We used to have the uniqueid set to the recordid, but it would change
+        even though the aid stayed the same. Now we hash the aid origin_url.
         """
 
         line_type = line['type']
@@ -53,7 +58,8 @@ class Command(CrawlerImportCommand):
         return line_type is not None and delta.days < IGNORE_OLDER_THAN
 
     def extract_import_uniqueid(self, line):
-        unique_id = 'OCCITANIE_{}'.format(line['uniqueid'])
+        url_md5_hash = hashlib.md5(line['url'].encode('utf-8')).hexdigest()
+        unique_id = 'OCCITANIE_{}'.format(url_md5_hash)
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -89,9 +95,10 @@ class Command(CrawlerImportCommand):
         return tags
 
     def extract_is_call_for_project(self, line):
-        type = line['type']
-        if type:
-            is_call_for_project = type == 'Appels à projets'
+        aid_type = line['type']
+        aid_type_options = ['Appels à projets', 'Appel à manifestation d\'intérêt']
+        if aid_type:
+            is_call_for_project = type in aid_type_options
         else:
             is_call_for_project = super().extract_is_call_for_project(line)
         return is_call_for_project
