@@ -791,6 +791,12 @@ a[href^='http'] {
     @include icon(after, $fa-var-external-link-alt);
 }
 
+a[href^='http'].no-after{
+    &::after{
+          display: none;
+     }
+}
+
 html.integration {
     background-color: white !important;
 
