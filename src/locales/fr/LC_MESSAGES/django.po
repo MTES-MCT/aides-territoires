@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 16:12+0100\n"
+"POT-Creation-Date: 2020-11-23 11:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,16 +55,6 @@ msgstr "Choisissez un nouveau mot de passe"
 
 msgid "Leave empty to keep your existing password"
 msgstr "Laissez vide pour conserver votre mot de passe actuel"
-
-msgid "Yes, I want to receive news about the service."
-msgstr "Je souhaite recevoir des actualités liées au service."
-
-msgid ""
-"We will send regular updates (no more than once a month) about the new "
-"features and updates about our service."
-msgstr ""
-"Nous enverrons régulièrement (pas plus d'une fois par mois) des informations "
-"à propos des nouveautés sur le site."
 
 msgid "Your organization"
 msgstr "Votre structure professionnelle"
@@ -1141,7 +1131,9 @@ msgstr "mots-clés/"
 msgid "data/"
 msgstr "data/"
 
-msgid "Upload"
+#, fuzzy
+#| msgid "Upload"
+msgid "upload/"
 msgstr "Uploader"
 
 msgid "<path:object_id>/upload/"
@@ -1243,12 +1235,6 @@ msgstr "Ce fichier est valide, mais comporte des doublons: {}"
 
 msgid "legal-mentions/"
 msgstr "mentions-légales/"
-
-msgid "mailing-list-registration/"
-msgstr "inscription-liste/"
-
-msgid "mailing-list-confirmation/"
-msgstr "confirmation-inscription-liste/"
 
 msgid "confirm-registration-newsletter/"
 msgstr "inscription-newsletter-a-confirmer/"
@@ -1667,11 +1653,8 @@ msgstr "Mettre à jour vos données"
 msgid "Login"
 msgstr "Connexion"
 
-msgid "Log in"
-msgstr "Connexion"
-
-msgid "Access your aid backer account"
-msgstr "Accédez à votre compte porteur d'aides"
+msgid "Log in to your contributor account"
+msgstr "Connexion à votre compte contributeur"
 
 #, python-format
 msgid ""
@@ -1680,14 +1663,6 @@ msgid ""
 msgstr ""
 "Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
 "\">Vous pouvez en demander un nouveau.</a>"
-
-#, python-format
-msgid ""
-"Don't have an account yet? <a href=\"%(register_url)s\">Proceed to the "
-"registration form.</a>"
-msgstr ""
-"Vous n'avez pas encore de compte ? <a href=\"%(register_url)s\">Rendez-vous "
-"au formulaire d'inscription.</a>"
 
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
@@ -1712,6 +1687,14 @@ msgstr "En demander un nouveau"
 
 msgid "Request a new password"
 msgstr "Demander un nouveau mot de passe"
+
+#, python-format
+msgid ""
+"Don't have an account yet? <a href=\"%(register_url)s\">Proceed to the "
+"registration form.</a>"
+msgstr ""
+"Vous n'avez pas encore de compte ? <a href=\"%(register_url)s\">Rendez-vous "
+"au formulaire d'inscription.</a>"
 
 msgid "Your log in request was acknowledged"
 msgstr "Votre demande a été prise en compte"
@@ -1910,6 +1893,9 @@ msgstr ""
 
 msgid "Submit"
 msgstr "Envoyer"
+
+msgid "Upload"
+msgstr "Uploader"
 
 msgid ""
 "Use this form to upload the list of cities or EPCIs contained in the "
@@ -2441,7 +2427,6 @@ msgstr "Ou retournez à la page d'accueil."
 msgid "Confirm your subscribtion"
 msgstr "Merci de confirmer votre inscription"
 
-#, python-format
 msgid ""
 "<strong>Your mailing-list registration was taken into account. You still "
 "need to click the confirmation link in the mail you are about to receive.</"
@@ -2546,5 +2531,23 @@ msgstr ""
 "mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
 "vos centres d'intérêts spécifiques."
 
+#, fuzzy
+#| msgid "Upload"
+msgid "upload"
+msgstr "Uploader"
+
+msgid "Image"
+msgstr ""
+
 msgid "Uploaded at"
+msgstr "Uploader"
+
+#, fuzzy
+#| msgid "Uploaded at"
+msgid "Upload image"
+msgstr "Uploader"
+
+#, fuzzy
+#| msgid "Uploaded at"
+msgid "Upload images"
 msgstr "Uploader"
