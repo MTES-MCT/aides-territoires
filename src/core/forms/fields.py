@@ -34,8 +34,13 @@ class RichTextField(forms.CharField):
         """Sanitize the html."""
 
         cleaned = super().clean(value)
-        return content_prettify(cleaned, more_allowed_tags=[
-            'a', 'blockquote', 'br', 'header', 'footer']).strip()
+        extra_tags = ['a', 'blockquote', 'br', 'header', 'footer', 'img']
+        extra_attrs = ['style']
+        return content_prettify(
+            cleaned,
+            more_allowed_tags=extra_tags,
+            more_allowed_attrs=extra_attrs,
+        ).strip()
 
 
 class GroupedModelChoiceIterator(forms.models.ModelChoiceIterator):

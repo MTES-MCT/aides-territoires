@@ -5,12 +5,12 @@ from bs4 import BeautifulSoup as bs
 REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'br', 'img',
+    'br',
 ]
-ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height']
+ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style']
 
 
-def content_prettify(raw_text, more_allowed_tags=[]):
+def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
     """Clean imported data.
 
     We import data from many data sources, and it's not always directly
@@ -27,6 +27,7 @@ def content_prettify(raw_text, more_allowed_tags=[]):
 
     """
     allowed_tags = ALLOWED_TAGS + more_allowed_tags
+    allowed_attrs = ALLOWED_ATTRS + more_allowed_attrs
 
     unescaped = unescape(raw_text or '')
     unquoted = unescaped \
@@ -50,7 +51,7 @@ def content_prettify(raw_text, more_allowed_tags=[]):
             if tag.name in allowed_tags:
                 attrs = list(tag.attrs.keys())
                 for attr in attrs:
-                    if attr not in ALLOWED_ATTRS:
+                    if attr not in allowed_attrs:
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
