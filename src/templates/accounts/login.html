@@ -9,8 +9,7 @@
 
 {% block content %}
 <div class="article narrow">
-    <h1>{{ _('Log in') }}<br />
-        <small>{{ _('Access your aid backer account') }}</small>
+    <h1>{{ _('Log in to your contributor account') }}
     </h1>
 
     <form method="post" action="" novalidate>
@@ -26,14 +25,6 @@
         {% blocktrans trimmed %}
         Have you forgotten your password? <a href="{{ password_reset_url }}">
         Request a new one.</a>
-    {% endblocktrans %}</p>
-
-    {% url 'register' as register_url %}
-    <p class="info">
-        <span class="fas fa-user-plus"></span>
-        {% blocktrans trimmed %}
-        Don't have an account yet? <a href="{{ register_url }}">Proceed to
-        the registration form.</a>
     {% endblocktrans %}</p>
 </div>
 {% endblock %}
