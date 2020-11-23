@@ -307,6 +307,12 @@ nav#main-navbar {
     ul.navbar-menu {
         @extend .navbar-nav;
 
+        & > li:nth-child(4) > a {
+            font-weight: bolder;
+            border: 2px solid #DB1C83;
+            border-radius: 15px 15px 0 15px
+        }
+
         li {
             @extend .nav-item;
 
