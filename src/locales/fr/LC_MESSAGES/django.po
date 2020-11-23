@@ -2531,23 +2531,17 @@ msgstr ""
 "mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
 "vos centres d'intérêts spécifiques."
 
-#, fuzzy
-#| msgid "Upload"
 msgid "upload"
-msgstr "Uploader"
+msgstr "upload"
 
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 msgid "Uploaded at"
-msgstr "Uploader"
+msgstr "Uploadé à"
 
-#, fuzzy
-#| msgid "Uploaded at"
 msgid "Upload image"
-msgstr "Uploader"
+msgstr "Uploader l'image"
 
-#, fuzzy
-#| msgid "Uploaded at"
 msgid "Upload images"
-msgstr "Uploader"
+msgstr "Uploader les images"
