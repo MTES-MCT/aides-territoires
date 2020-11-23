@@ -20,7 +20,14 @@ class ArrayField(serializers.ListField):
 class AidSerializer(serializers.ModelSerializer):
     """Transforms a raw Aid into nice json.
 
-    Every time you touch this, remember to update the `/data` url.
+    DON'T TOUCH THIS!
+
+    Instead, do this:
+     - create a new Serializer
+     - bump the default api version in settings
+     - update `aids.api.views.AidViewSet.get_serializer_class`
+     - update the /data/ documentation page
+
     """
 
     url = serializers.URLField(source='get_absolute_url')

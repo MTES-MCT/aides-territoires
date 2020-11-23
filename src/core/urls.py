@@ -9,11 +9,17 @@ from django.conf import settings
 router = routers.DefaultRouter()
 
 api_patterns = [
+
     path('', include(router.urls)),
+
+    # This is the public aid list export api
+    path('aids/', include('aids.api.urls')),
+
+    # Those are internal api routes (for autocomplete widgets mostly)
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
-    path('aids/', include('aids.api.urls')),
     path('tags/', include('tags.api.urls')),
+
 ]
 
 urlpatterns = [
