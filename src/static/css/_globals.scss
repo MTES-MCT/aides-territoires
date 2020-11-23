@@ -307,10 +307,13 @@ nav#main-navbar {
     ul.navbar-menu {
         @extend .navbar-nav;
 
-        & > li:nth-child(4) > a {
+        & > li:not(.user-menu):nth-child(4) > a {
             font-weight: bolder;
-            border: 2px solid #DB1C83;
-            border-radius: 15px 15px 0 15px
+            border: 3px solid #DB1C83;
+            border-radius: 15px 15px 0 15px;
+            margin-left: 0.5rem;
+            display: inline-block;
+            padding: 0.4rem;
         }
 
         li {
