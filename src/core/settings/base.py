@@ -238,10 +238,9 @@ SITE_ID = 1
 
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'aid_draft_list_view'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
 
 SIB_API_KEY = ''
 SIB_LIST_ID = ''
-
