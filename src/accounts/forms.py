@@ -125,4 +125,5 @@ class ContributorProfileForm(forms.ModelForm):
         labels = {
             'organization': _('Your organization'),
             'role': _('Your position'),
+            'contact_phone': _('Your phone number'),
         }

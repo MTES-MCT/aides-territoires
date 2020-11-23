@@ -62,6 +62,9 @@ msgstr "Votre structure professionnelle"
 msgid "Your position"
 msgstr "Votre fonction"
 
+msgid "Your phone number"
+msgstr "Votre numéro de téléphone"
+
 msgid "Email address"
 msgstr "Adresse e-mail"
 
@@ -87,7 +90,7 @@ msgid "Role"
 msgstr "Rôle"
 
 msgid "Contact phone number"
-msgstr "Numéro de téléphone de contact"
+msgstr "Votre numéro de téléphone"
 
 msgid "Is certified"
 msgstr "Certifié·e ?"
