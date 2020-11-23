@@ -282,7 +282,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         null=True, blank=True)
     mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
-        null= True, blank=False,
+        null=True, blank=False,
         base_field=models.CharField(
             max_length=32,
             choices=STEPS,
