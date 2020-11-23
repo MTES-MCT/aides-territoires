@@ -217,7 +217,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
         'in_france_relance',
-        LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter]
+        LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter,
+        'programs', 'categories']
 
     filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
