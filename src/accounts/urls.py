@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from accounts.forms import LoginForm
 from accounts.views import (PasswordResetView, PasswordResetSentView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
-                            ProfileView, ContributorProfileView)
+                            ContributorProfileView)
 
 urlpatterns = [
     path(_('register/'), RegisterView.as_view(), name='register'),
@@ -25,7 +25,6 @@ urlpatterns = [
     path(_('password-reset-sent/'), PasswordResetSentView.as_view(),
          name='password_reset_sent'),
 
-    path(_('profile/'), ProfileView.as_view(), name='profile'),
     path(_('contributor-profile/'), ContributorProfileView.as_view(),
          name='contributor_profile'),
 
