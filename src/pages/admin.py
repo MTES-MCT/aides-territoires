@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from core.forms import RichTextField
 from pages.models import Page
+from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class PageForm(FlatpageForm):
@@ -31,9 +32,8 @@ class PageAdmin(FlatPageAdmin):
             'admin/js/jquery.init.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
-            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
             '/static/js/enable_rich_text_editor.js',
-        ]
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
     form = PageForm
     fieldsets = (

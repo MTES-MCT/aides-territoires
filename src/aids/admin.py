@@ -13,10 +13,11 @@ from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
-from core.admin import InputFilter
 from aids.admin_views import AmendmentMerge
-from aids.models import Aid
 from aids.forms import AidAdminForm
+from aids.models import Aid
+from core.admin import InputFilter
+from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class LiveAidListFilter(admin.SimpleListFilter):
@@ -179,9 +180,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
             '/static/js/aids/enable_softmaxlength.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
-            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
             '/static/js/enable_rich_text_editor.js',
-        ]
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
     form = AidAdminForm
     resource_class = AidResource
