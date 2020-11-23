@@ -12,10 +12,12 @@ from import_export import fields, resources
 from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
+from admin_auto_filters.filters import AutocompleteFilter
 
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid
+from geofr.utils import search_perimeter_by_id
 from core.admin import InputFilter
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -100,6 +102,18 @@ class PerimeterFilter(InputFilter):
         value = self.value()
         if value is not None:
             return queryset.filter(Q(perimeter__name__icontains=value))
+
+
+class PerimeterAutocompleteFilter(AutocompleteFilter):
+    field_name = 'perimeter'
+    title = _('Perimeter')
+    use_pk_exact = False
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+            perimeter_qs = search_perimeter_by_id(value)
+            return queryset.filter(perimeter__in=perimeter_qs)
 
 
 class AidResource(resources.ModelResource):
@@ -217,7 +231,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     list_filter = [
         'status', 'recurrence', 'is_imported', 'is_call_for_project',
         'in_france_relance',
-        LiveAidListFilter, AuthorFilter, BackersFilter, PerimeterFilter,
+        LiveAidListFilter, AuthorFilter, BackersFilter,
+        PerimeterAutocompleteFilter,
         'programs', 'categories']
 
     filter_vertical = ['categories']  # Overriden in the widget definition
