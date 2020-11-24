@@ -307,15 +307,6 @@ nav#main-navbar {
     ul.navbar-menu {
         @extend .navbar-nav;
 
-        & > li:not(.user-menu):nth-child(4) > a {
-            font-weight: bolder;
-            border: 3px solid #DB1C83;
-            border-radius: 15px 15px 0 15px;
-            margin-left: 0.5rem;
-            display: inline-block;
-            padding: 0.4rem;
-        }
-
         li {
             @extend .nav-item;
 
@@ -331,6 +322,15 @@ nav#main-navbar {
                     @extend .dropdown-toggle;
                     @include icon(before, $fa-var-user);
                 }
+            }
+
+            &>a.publishAid {
+                font-weight: bolder;
+                border: 3px solid $contrast-color;
+                border-radius: 15px 15px 0 15px;
+                margin-left: 0.5rem;
+                display: inline-block;
+                padding: 0.4rem;
             }
 
             &>a {
@@ -349,11 +349,11 @@ nav#main-navbar {
                 color: #736e99;
 
                 &:focus {
-                    color: #DB1C83;
+                    color: $contrast-color;
                 } 
 
                 &:hover {
-                    color: #DB1C83;
+                    color: $contrast-color;
                 } 
             }
 
