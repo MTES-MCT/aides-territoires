@@ -282,11 +282,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         null=True, blank=True)
     mobilization_steps = ChoiceArrayField(
         verbose_name=_('Mobilization step'),
-        null=True, blank=False,
+        null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=STEPS,
-            default=False))
+            default=STEPS.preop))
     origin_url = models.URLField(
         _('Origin URL'),
         blank=True)
