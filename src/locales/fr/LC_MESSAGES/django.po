@@ -786,7 +786,7 @@ msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
 msgid "Programs"
-msgstr "programmes"
+msgstr "Programmes"
 
 msgid "Status"
 msgstr "Statut"
