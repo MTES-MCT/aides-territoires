@@ -70,7 +70,7 @@ class AuthorFilter(InputFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-            return queryset.filter(Q(author__full_name__icontains=value))
+            return queryset.filter(Q(author__last_name__icontains=value))
 
 
 class BackersFilter(InputFilter):

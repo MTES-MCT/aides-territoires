@@ -120,13 +120,13 @@ def test_register_form_expects_valid_data(client):
     register_url = reverse('register')
     res = client.post(
         register_url,
-        {'full_name': '', 'email': 'tar@tiflet.te'})
+        {'first_name': '', 'last_name': '', 'email': 'tar@tiflet.te'})
     assert res.status_code == 200
     assert 'Ce champ est obligatoire' in res.content.decode()
 
     res = client.post(
         register_url,
-        {'full_name': 'Petit Pifou', 'email': 'tartiflette'})
+        {'first_name': 'Petit', 'last_name': 'Pifou', 'email': 'tartiflette'})
     assert res.status_code == 200
     assert ' vérifier votre saisie ' in res.content.decode()
 
@@ -137,7 +137,7 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
     register_url = reverse('register')
     res = client.post(
         register_url,
-        {'full_name': 'New User', 'email': user.email})
+        {'first_name': 'New', 'last_name': 'User', 'email': user.email})
     assert res.status_code == 302
     assert len(mailoutbox) == 1
 
@@ -152,7 +152,7 @@ def test_register_form(client, mailoutbox):
     register_url = reverse('register')
     res = client.post(
         register_url,
-        {'full_name': 'Olga Tau', 'email': 'olga@test.com'})
+        {'first_name': 'Olga', 'last_name': 'Tau', 'email': 'olga@test.com'})
 
     assert res.status_code == 302
     assert len(mailoutbox) == 1
@@ -160,7 +160,8 @@ def test_register_form(client, mailoutbox):
 
     user = users[0]
     assert user.email == 'olga@test.com'
-    assert user.full_name == 'Olga Tau'
+    assert user.first_name == 'Olga'
+    assert user.last_name == 'Tau'
     assert not user.ml_consent
 
     mail = mailoutbox[0]
@@ -173,7 +174,8 @@ def test_register_form_with_consent(client):
 
     register_url = reverse('register')
     res = client.post(register_url, {
-        'full_name': 'Olga Tau',
+        'first_name': 'Olga',
+        'last_name': 'Tau',
         'email': 'olga@test.com',
         'ml_consent': True})
 
@@ -190,7 +192,8 @@ def test_register_form_converts_email_to_lowercase(client):
 
     register_url = reverse('register')
     res = client.post(register_url, {
-        'full_name': 'Olga Tau',
+        'first_name': 'Olga',
+        'last_name': 'Tau',
         'email': 'OLGA@Test.Com',
         'ml_consent': True})
 
@@ -203,14 +206,15 @@ def test_register_form_converts_email_to_lowercase(client):
 
 def test_profile_form_updates_profile(client, contributor):
     """The profile forms updates the contributor's data."""
-    contributor.full_name = 'Donald'
+    contributor.first_name = 'Donald'
     contributor.organization = 'La bande à Picsou'
     contributor.save()
 
     client.force_login(contributor)
     profile_url = reverse('contributor_profile')
     data = {
-        'full_name': 'Anna NanananaBatman',
+        'first_name': 'Anna',
+        'last_name': 'NanananaBatman',
         'organization': 'Les Rapetou',
         'role': contributor.role,
         'contact_phone': contributor.contact_phone,
@@ -230,7 +234,8 @@ def test_profile_form_can_update_password(client, contributor):
     client.force_login(contributor)
     profile_url = reverse('contributor_profile')
     data = {
-        'full_name': contributor.full_name,
+        'first_name': contributor.first_name,
+        'last_name': contributor.last_name,
         'organization': contributor.organization,
         'role': contributor.role,
         'contact_phone': contributor.contact_phone,
@@ -248,7 +253,8 @@ def test_profile_form_leaves_password_untouched(client, contributor):
     client.force_login(contributor)
     profile_url = reverse('contributor_profile')
     data = {
-        'full_name': contributor.full_name,
+        'first_name': contributor.first_name,
+        'last_name': contributor.last_name,
         'organization': contributor.organization,
         'role': contributor.role,
         'contact_phone': contributor.contact_phone,
