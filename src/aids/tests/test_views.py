@@ -74,7 +74,7 @@ def test_aid_creation_requires_logged_in_user(client):
     res = client.get(form_url, follow=True)
     assert res.status_code == 200
     assert len(res.redirect_chain) == 1
-    assert res.redirect_chain[0][0].startswith('/comptes/connexion/')
+    assert res.redirect_chain[0][0].startswith('/comptes/inscription/')
 
 
 def test_aid_creation_requires_contributor(client, user):
