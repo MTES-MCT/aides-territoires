@@ -15,6 +15,9 @@ class ContributorRequiredMixin(UserPassesTestMixin):
         user = self.request.user
         return user.is_authenticated and user.is_contributor
 
+    def get_register_url(self):
+        return 'register'
+
     def get_login_url(self):
         if not self.request.user.is_authenticated:
             login_url = settings.LOGIN_URL
@@ -24,5 +27,5 @@ class ContributorRequiredMixin(UserPassesTestMixin):
 
     def handle_no_permission(self):
         return redirect_to_login(self.request.get_full_path(),
-                                 self.get_login_url(),
+                                 self.get_register_url(),
                                  self.get_redirect_field_name())
