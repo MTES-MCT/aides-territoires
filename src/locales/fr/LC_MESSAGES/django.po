@@ -26,17 +26,20 @@ msgstr ""
 "Nous enverrons un e-mail de confirmation à cette adresse avant de valider le "
 "compte."
 
-msgid "Your full name"
-msgstr "Votre nom complet"
+msgid "Your first name"
+msgstr "Votre prénom"
 
-msgid "This is how we will address you in our communications."
-msgstr "C'est ainsi que nous nous adresserons à vous dans nos communications."
+msgid "Your last name"
+msgstr "Votre nom"
 
-msgid "I want to receive news and communications from the service."
-msgstr "Vous souhaitez recevoir des actualités liées au service."
+msgid "Your organization"
+msgstr "Votre structure professionnelle"
 
-msgid "You will be able to unsubscribe at any time."
-msgstr "Vous pourrez vous désabonner à tout moment."
+msgid "Your position"
+msgstr "Votre fonction"
+
+msgid "Your phone number"
+msgstr "Votre numéro de téléphone"
 
 msgid "Please double-check this value."
 msgstr "Merci de bien vérifier l'adresse saisie."
@@ -56,20 +59,14 @@ msgstr "Choisissez un nouveau mot de passe"
 msgid "Leave empty to keep your existing password"
 msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
-msgid "Your organization"
-msgstr "Votre structure professionnelle"
-
-msgid "Your position"
-msgstr "Votre fonction"
-
-msgid "Your phone number"
-msgstr "Votre numéro de téléphone"
-
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-msgid "Full name"
-msgstr "Nom complet"
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
 
 msgid "Date joined"
 msgstr "Date de création du compte"
@@ -122,9 +119,6 @@ msgstr "nouveau-mot-de-passe/"
 msgid "password-reset-sent/"
 msgstr "mot-de-passe-envoyé/"
 
-msgid "profile/"
-msgstr "profil/"
-
 msgid "contributor-profile/"
 msgstr "profil-contributeur/"
 
@@ -140,9 +134,6 @@ msgstr ""
 
 msgid "You are now logged in. Welcome back!"
 msgstr "Vous êtes maintenant connecté·e. Bienvenue !"
-
-msgid "Your profile was updated successfully."
-msgstr "Votre profil a été mise à jour."
 
 msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
@@ -522,6 +513,9 @@ msgstr ""
 
 msgid "Who are you?"
 msgstr "Qui êtes-vous ?"
+
+msgid "Your full name"
+msgstr "Votre nom complet"
 
 msgid "Leave us an address if you want a followup."
 msgstr ""
@@ -1591,9 +1585,6 @@ msgstr "Voir moins de détails"
 msgid "Your profile"
 msgstr "Votre profil"
 
-msgid "Set up your account"
-msgstr "Configurer votre compte"
-
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
@@ -1742,8 +1733,44 @@ msgstr ""
 "contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
+<<<<<<< HEAD
 msgid "Create an aid backer account"
 msgstr "Créez un compte porteur d'aides"
+||||||| constructed merge base
+msgid "Register"
+msgstr "Inscription"
+
+msgid "Create an aid backer account"
+msgstr "Créez un compte porteur d'aides"
+=======
+msgid "Register"
+msgstr "Inscription"
+
+msgid "Create an account to broadcast your aids"
+msgstr "Créez un compte pour diffuser vos aides"
+
+msgid ""
+"<span class=\"fas fa-exclamation-circle\"></span> Only create an account "
+"<strong>if you are an aid backer</strong> and want to broadcast your aids "
+"with us."
+msgstr ""
+"<span class=\"fas fa-exclamation-circle\"></span>\n"
+"Les contributeurs sont les acteurs qui référencent les aides et non ceux qui les reçoivent."
+
+#, python-format
+msgid ""
+"If you want to browse our aids catalog, <a href=\"%(search_url)s\"> use our "
+"search form</a>."
+msgstr ""
+"Si vous souhaitez bénéficier des aides financières et en ingénierie des porteurs, "
+"<a href=\"%(search_url)s\">utilisez notre recherche</a>."
+
+msgid "Personal data"
+msgstr "Informations personnelles"
+
+msgid "Professional data"
+msgstr "Informations professionnelles"
+>>>>>>> Update translations
 
 #, python-format
 msgid ""
