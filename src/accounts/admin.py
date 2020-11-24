@@ -11,6 +11,7 @@ class UserAdmin(BaseUserAdmin):
         'email', 'first_name', 'last_name', 'is_certified', 'ml_consent',
         'date_joined', 'last_login'
     ]
+    list_editable = ['first_name', 'last_name']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
     list_filter = ['is_superuser', 'is_certified', 'ml_consent']
