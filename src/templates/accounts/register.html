@@ -9,13 +9,43 @@
 
 {% block content %}
 <div class="article narrow">
-    <h1>{{ _("Register") }}<br/>
-        <small>{{ _("Create an aid backer account") }}</small>
-    </h1>
+    <h1>{{ _("Create an account to broadcast your aids") }}</h1>
+
+    <div class="warning">
+        <p>{% blocktrans trimmed %}
+            <span class="fas fa-exclamation-circle"></span>
+            Only create an account <strong>if you are an aid backer</strong>
+            and want to broadcast your aids with us.
+        {% endblocktrans %}</p>
+
+        {% url 'search_step_audience' as search_url %}
+        <p>{% blocktrans trimmed %}
+            If you want to browse our aids catalog, <a href="{{ search_url }}">
+            use our search form</a>.
+        {% endblocktrans %}</p>
+
+    </div>
 
     <form method="post" action="" novalidate>
         {% csrf_token %}
-        {% include '_form_snippet.html' with form=form %}
+        {{ form.media }}
+
+        {% include '_form_header.html' with form=form %}
+
+        <fieldset>
+            <legend>{{ _('Personal data') }}</legend>
+            {% include '_field_snippet.html' with field=form.first_name %}
+            {% include '_field_snippet.html' with field=form.last_name %}
+            {% include '_field_snippet.html' with field=form.email %}
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ _('Professional data') }}</legend>
+            {% include '_field_snippet.html' with field=form.organization %}
+            {% include '_field_snippet.html' with field=form.role %}
+            {% include '_field_snippet.html' with field=form.contact_phone %}
+        </fieldset>
+
         {% url 'legal_mentions' as legal_mentions_url %}
         <p class="info">
             <span class="fas fa-check"></span>

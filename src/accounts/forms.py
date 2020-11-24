@@ -20,14 +20,25 @@ class RegisterForm(forms.ModelForm):
     last_name = forms.CharField(
         label=_('Your last name'),
         required=True)
-    ml_consent = forms.BooleanField(
-        label=_('I want to receive news and communications from the service.'),
-        required=False,
-        help_text=_('You will be able to unsubscribe at any time.'))
+    organization = forms.CharField(
+        label=_('Your organization'),
+        max_length=128,
+        required=True)
+    role = forms.CharField(
+        label=_('Your position'),
+        max_length=128,
+        required=True)
+    contact_phone = forms.CharField(
+        label=_('Your phone number'),
+        max_length=35,
+        required=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'ml_consent']
+        fields = [
+            'first_name', 'last_name', 'email', 'organization', 'role',
+            'contact_phone'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
