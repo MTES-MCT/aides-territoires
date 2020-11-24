@@ -14,10 +14,12 @@ class RegisterForm(forms.ModelForm):
         required=True,
         help_text=_('We will send a confirmation link to '
                     'this address before creating the account.'))
-    full_name = forms.CharField(
-        label=_('Your full name'),
-        required=True,
-        help_text=_('This is how we will address you in our communications.'))
+    first_name = forms.CharField(
+        label=_('Your first name'),
+        required=True)
+    last_name = forms.CharField(
+        label=_('Your last name'),
+        required=True)
     ml_consent = forms.BooleanField(
         label=_('I want to receive news and communications from the service.'),
         required=False,
@@ -25,11 +27,11 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name', 'email', 'ml_consent']
+        fields = ['first_name', 'last_name', 'email', 'ml_consent']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['full_name'].widget.attrs.update({'autofocus': True})
+        self.fields['first_name'].widget.attrs.update({'autofocus': True})
         self.fields['email'].widget.attrs.update({
             'placeholder': _('Please double-check this value.')})
 
@@ -97,11 +99,12 @@ class ContributorProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'full_name', 'organization', 'role', 'contact_phone',
+            'first_name', 'last_name', 'organization', 'role', 'contact_phone',
             'new_password',
         ]
         labels = {
-            'full_name': _('Your full name'),
+            'first_name': _('Your first name'),
+            'last_name': _('Your last name'),
         }
 
     def _post_clean(self):
