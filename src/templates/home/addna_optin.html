@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}login-form{% endblock %}
+
+{% block extratitle %}{{ _('You have successfully subscribed') }}{% endblock %}
+
+{% block content %}
+<div class="article narrow">
+    <h1>{{ _("Your subscription is now confirmed") }}</h1>
+
+    <p>{% blocktrans trimmed %}
+        You have successfully subscribed to the ADDNA x Aides-territoires alert
+        system.
+     {% endblocktrans %}</p>
+
+    {% url 'legal_mentions' as legal_mentions_url %}
+    <p>{% blocktrans trimmed %}
+        If you want to know more, <a href="{{ legal_mentions_url }}">
+            check out our terms of service</a>.
+     {% endblocktrans %}</p>
+
+    <p>{% blocktrans trimmed %}
+        You can now <a href="https://addna.aides-territoires.beta.gouv.fr/">
+        visit the custom ADDNA page on Aides-territoires</a>.
+     {% endblocktrans %}</p>
+
+</div>
+{% endblock %}

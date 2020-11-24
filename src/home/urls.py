@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.utils.translation import ugettext_lazy as _
 
 from home.views import (HomeView, NewsletterConfirmView,
-                        NewsletterSuccessView)
+                        NewsletterSuccessView, ADDNAOptin)
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -17,4 +17,6 @@ urlpatterns = [
          name='confirm-registration-newsletter'),
     path(_('register-newsletter-success/'), NewsletterSuccessView.as_view(),
          name='register_newsletter_success'),
+
+    path('alertes-addna-optin/', ADDNAOptin.as_view(), name='addna_optin'),
 ]

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-23 11:28+0100\n"
+"POT-Creation-Date: 2020-11-24 15:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2376,6 +2376,33 @@ msgstr ""
 msgid "Register to the mailing-list"
 msgstr "S'inscrire à la lettre d'information"
 
+msgid "You have successfully subscribed"
+msgstr "Vous êtes abonné"
+
+msgid "Your subscription is now confirmed"
+msgstr "Votre inscription est confirmée"
+
+msgid ""
+"You have successfully subscribed to the ADDNA x Aides-territoires alert "
+"system."
+msgstr ""
+"Vous avez confirmé votre abonnement aux alertes ADDNA x Aides-territoires."
+
+#, python-format
+msgid ""
+"If you want to know more, <a href=\"%(legal_mentions_url)s\"> check out our "
+"terms of service</a>."
+msgstr ""
+"Si vous souhaitez en savoir plus, vous pouvez <a href="
+"\"%(legal_mentions_url)s\">consulter nos mentions légales</a>."
+
+msgid ""
+"You can now <a href=\"https://addna.aides-territoires.beta.gouv.fr/\"> visit "
+"the custom ADDNA page on Aides-territoires</a>."
+msgstr ""
+"Rendez-vous sur <a href=\"https://addna.aides-territoires.beta.gouv.fr/\">la "
+"page dédiée de l'ADDNA sur Aides-territoires</a>."
+
 msgid "Subscription confirmed"
 msgstr "Inscription confirmée"
 
@@ -2434,9 +2461,6 @@ msgid ""
 msgstr ""
 "Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
 "confirmation présent dans l'e-mail que vous allez recevoir."
-
-msgid "You have successfully subscribed"
-msgstr "Vous êtes abonné"
 
 msgid "Thank you for subscribing to the newsletter"
 msgstr "Merci pour votre abonnement à la newsletter"
