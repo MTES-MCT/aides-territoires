@@ -118,15 +118,26 @@ def test_register_form_is_accessible_to_anonymous_user(client):
 
 def test_register_form_expects_valid_data(client):
     register_url = reverse('register')
-    res = client.post(
-        register_url,
-        {'first_name': '', 'last_name': '', 'email': 'tar@tiflet.te'})
+    res = client.post(register_url, {
+        'first_name': '',
+        'last_name': '',
+        'email': 'tar@tiflet.te',
+        'organization': '',
+        'role': '',
+        'contact_phone': '',
+    })
     assert res.status_code == 200
     assert 'Ce champ est obligatoire' in res.content.decode()
 
-    res = client.post(
-        register_url,
-        {'first_name': 'Petit', 'last_name': 'Pifou', 'email': 'tartiflette'})
+    res = client.post(register_url, {
+        'first_name': 'Petit',
+        'last_name': 'Pifou',
+        'email': 'tartiflette',
+        'organization': 'Pif Magazine',
+        'role': 'Héro',
+        'contact_phone': '012345678',
+
+    })
     assert res.status_code == 200
     assert ' vérifier votre saisie ' in res.content.decode()
 
@@ -136,8 +147,14 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
 
     register_url = reverse('register')
     res = client.post(
-        register_url,
-        {'first_name': 'New', 'last_name': 'User', 'email': user.email})
+        register_url, {
+            'first_name': 'New',
+            'last_name': 'User',
+            'email': user.email,
+            'organization': 'Test',
+            'role': 'Tester',
+            'contact_phone': '0123456779',
+        })
     assert res.status_code == 302
     assert len(mailoutbox) == 1
 
@@ -150,9 +167,14 @@ def test_register_form(client, mailoutbox):
     assert users.count() == 0
 
     register_url = reverse('register')
-    res = client.post(
-        register_url,
-        {'first_name': 'Olga', 'last_name': 'Tau', 'email': 'olga@test.com'})
+    res = client.post(register_url, {
+        'first_name': 'Olga',
+        'last_name': 'Tau',
+        'email': 'olga@test.com',
+        'organization': 'Test',
+        'role': 'Tester',
+        'contact_phone': '0123456779',
+    })
 
     assert res.status_code == 302
     assert len(mailoutbox) == 1
@@ -168,24 +190,6 @@ def test_register_form(client, mailoutbox):
     assert mail.subject == 'Connexion à Aides-territoires'
 
 
-def test_register_form_with_consent(client):
-    users = User.objects.all()
-    assert users.count() == 0
-
-    register_url = reverse('register')
-    res = client.post(register_url, {
-        'first_name': 'Olga',
-        'last_name': 'Tau',
-        'email': 'olga@test.com',
-        'ml_consent': True})
-
-    assert res.status_code == 302
-    assert users.count() == 1
-
-    user = users[0]
-    assert user.ml_consent
-
-
 def test_register_form_converts_email_to_lowercase(client):
     users = User.objects.all()
     assert users.count() == 0
@@ -195,8 +199,10 @@ def test_register_form_converts_email_to_lowercase(client):
         'first_name': 'Olga',
         'last_name': 'Tau',
         'email': 'OLGA@Test.Com',
-        'ml_consent': True})
-
+        'organization': 'Test',
+        'role': 'Tester',
+        'contact_phone': '0123456779'
+    })
     assert res.status_code == 302
     assert users.count() == 1
 
