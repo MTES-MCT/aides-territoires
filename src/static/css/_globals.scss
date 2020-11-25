@@ -564,14 +564,20 @@ form {
     }
 
     div.form-actions {
-        display: flex;
-        align-items: baseline;
+
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+
+        & > a {
+            text-align: center;
+        }
 
         div.submit-buttons {
             margin-right: auto;
 
-            button + button {
-                @extend .ml-2;
+            & > button {
+                margin-bottom: 1rem;
             }
         }
 
