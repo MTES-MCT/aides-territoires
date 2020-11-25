@@ -8,12 +8,12 @@ from aids.models import AidWorkflow
 class BackerQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for backers."""
 
-    def is_aid_financer(self):
+    def has_financed_aids(self):
         """Only return backers with financed_aids."""
 
         return self.exclude(financed_aids=None)
 
-    def has_published_aids(self):
+    def has_published_financed_aids(self):
         """Only return backers with published financed_aids."""
 
         qs = self.filter(financed_aids__status=AidWorkflow.states.published) \
