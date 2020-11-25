@@ -44,3 +44,9 @@ class NewsletterSuccessView(TemplateView):
     """Display success message after register action."""
 
     template_name = 'home/newsletter_success.html'
+
+
+class ADDNAOptin(TemplateView):
+    """Display a welcome message to users from addna."""
+
+    template_name = 'home/addna_optin.html'
