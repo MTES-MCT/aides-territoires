@@ -176,6 +176,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         }
         js = [
             'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
             '/static/trumbowyg/dist/trumbowyg.js',
