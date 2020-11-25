@@ -14,6 +14,7 @@ $(document).ready(function () {
             data: function (params) {
                 var query = {
                   q: params.term,
+                  has_published_financed_aids: true,
                   page: params.page || 1
                 }
                 return query;
