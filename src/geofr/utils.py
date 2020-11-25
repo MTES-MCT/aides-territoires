@@ -1,6 +1,7 @@
 import collections
 
 from django.db import transaction
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
@@ -28,6 +29,54 @@ def is_overseas(zipcode):
     """Tell if the given zipcode is overseas or mainland."""
 
     return zipcode.startswith(OVERSEAS_PREFIX)
+
+
+def get_all_related_perimeter_ids(search_perimeter_id):
+    """Return a list of all perimeter ids related to the searched perimeter.
+
+    When we filter by a given perimeter, we must return all aids:
+        - where the perimeter is wider and contains the searched perimeter ;
+        - where the perimeter is smaller and contained by the searched
+        perimeter ;
+
+    E.g if we search for aids in "Hérault (department), we must display all
+    aids that are applicable to:
+
+        - Hérault ;
+        - Occitanie ;
+        - France ;
+        - Europe ;
+        - M3M (and all other epcis in Hérault) ;
+        - Montpellier (and all other communes in Hérault) ;
+    """
+
+    # Note: the original way we adressed this was more straightforward,
+    # but we got very very bad perf results (like, queries with very slow
+    # execution times > 30s).
+    # Thus, we had to "help" Postgres' execution planner a little.
+
+    # We just need to efficiently get a list of all perimeter ids related
+    # to the current query.
+
+    Through = Perimeter.contained_in.through
+    contains_id = Through.objects \
+        .filter(from_perimeter_id=search_perimeter_id) \
+        .values('to_perimeter_id') \
+        .distinct()
+    contained_id = Through.objects \
+        .filter(to_perimeter_id=search_perimeter_id) \
+        .values('from_perimeter_id') \
+        .distinct()
+
+    q_exact_match = Q(id=search_perimeter_id)
+    q_contains = Q(id__in=contains_id)
+    q_contained = Q(id__in=contained_id)
+
+    perimeter_qs = Perimeter.objects \
+        .filter(q_exact_match | q_contains | q_contained) \
+        .values('id') \
+        .distinct()
+    return perimeter_qs
 
 
 def extract_perimeters_from_file(perimeter_list_file):

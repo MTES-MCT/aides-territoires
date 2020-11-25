@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'actstream',
     'import_export',
+    'admin_auto_filters',
 ]
 
 LOCAL_APPS = [
