@@ -31,12 +31,12 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
-def search_perimeter_by_id(search_perimeter_id):
-    """Filter queryset depending on the given perimeter.
+def get_all_related_perimeter_ids(search_perimeter_id):
+    """Return a list of all perimeter ids related to the searched perimeter.
 
-    When we search for a given perimeter, we must return all aids:
+    When we filter by a given perimeter, we must return all aids:
         - where the perimeter is wider and contains the searched perimeter ;
-        - where the perimeter is smaller and contained by the search
+        - where the perimeter is smaller and contained by the searched
         perimeter ;
 
     E.g if we search for aids in "Hérault (department), we must display all

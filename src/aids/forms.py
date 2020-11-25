@@ -12,7 +12,7 @@ from core.forms import (
     AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
     MultipleChoiceFilterWidget, RichTextField)
 from geofr.models import Perimeter
-from geofr.utils import search_perimeter_by_id
+from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
@@ -693,7 +693,7 @@ class BaseAidSearchForm(forms.Form):
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
         """
-        perimeter_qs = search_perimeter_by_id(search_perimeter.id)
+        perimeter_qs = get_all_related_perimeter_ids(search_perimeter.id)
         qs = qs.filter(perimeter__in=perimeter_qs)
         return qs
 

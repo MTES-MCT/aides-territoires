@@ -1,6 +1,7 @@
 import pytest
 
 from geofr.utils import (department_from_zipcode, is_overseas,
+                         get_all_related_perimeter_ids,
                          attach_perimeters, attach_epci_perimeters)
 from geofr.factories import Perimeter, PerimeterFactory
 
@@ -20,6 +21,16 @@ def test_is_overseas():
     assert not is_overseas('27370')
     assert is_overseas('97200')
     assert is_overseas('97414')
+
+
+def test_get_all_related_perimeter_ids(perimeters):
+    """Finding related perimeters works as expected."""
+
+    related_perimeters_france = get_all_related_perimeter_ids(perimeters['herault'].id)  # noqa
+    print(related_perimeters_france)
+    assert {'id': perimeters['france'].id} in related_perimeters_france
+    assert {'id': perimeters['montpellier'].id} in related_perimeters_france
+    assert {'id': perimeters['aveyron'].id} not in related_perimeters_france
 
 
 def test_attach_perimeters(perimeters):
