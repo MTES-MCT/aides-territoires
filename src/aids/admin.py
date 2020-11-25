@@ -20,6 +20,15 @@ from core.admin import InputFilter
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+AIDS_EXPORT_EXCLUDE_FIELDS = [
+    'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
+    'contact_email', 'contact_phone', 'contact_detail',
+    'import_uniqueid', 'import_share_licence', 'import_last_access',
+    'search_vector', 'tags', '_tags_m2m',
+    'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
+]
+
+
 class LiveAidListFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with various statuses."""
 
@@ -122,11 +131,17 @@ class AidResource(resources.ModelResource):
         attribute="perimeter",
         widget=ForeignKeyWidget('geofr.Perimeter', field="name")
     )
+    programs = fields.Field(
+        column_name="programs",
+        attribute="programs",
+        widget=ManyToManyWidget('programs.Program', field="name")
+    )
 
     class Meta:
         model = Aid
+        exclude = AIDS_EXPORT_EXCLUDE_FIELDS
         # adding custom widgets breaks the usual order
-        export_order = [field.name for field in Aid._meta.fields]
+        export_order = [field.name for field in Aid._meta.fields if field.name not in AIDS_EXPORT_EXCLUDE_FIELDS]  # noqa
 
     def get_export_headers(self):
         """override get_export_headers() to translate field names."""
