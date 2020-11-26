@@ -330,7 +330,8 @@ class AidEditForm(BaseAidForm):
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
-        self.fields['mobilization_steps'].required = True
+        if 'mobilization_steps' in self.fields:
+            self.fields['mobilization_steps'].required = True
 
     def clean(self):
         """Validation routine (frontend form only)."""
