@@ -12,7 +12,7 @@ OPENDATA_URL = 'https://data.laregion.fr/explore/dataset/aides-et-appels-a-proje
 
 
 ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
-
+AAP_OPTIONS = ['Appels à projets', 'Appel à manifestation d\'intérêt']
 
 IGNORE_OLDER_THAN = 365
 
@@ -96,7 +96,7 @@ class Command(CrawlerImportCommand):
 
     def extract_is_call_for_project(self, line):
         aid_type = line['type']
-        aid_type_options = ['Appels à projets', 'Appel à manifestation d\'intérêt']
+        aid_type_options = AAP_OPTIONS
         if aid_type:
             is_call_for_project = type in aid_type_options
         else:
