@@ -24,6 +24,7 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 AIDS_EXPORT_EXCLUDE_FIELDS = [
+    'id',
     'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'contact_email', 'contact_phone', 'contact_detail',
     'import_uniqueid', 'import_share_licence', 'import_last_access',

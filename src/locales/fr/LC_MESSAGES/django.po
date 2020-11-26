@@ -741,7 +741,7 @@ msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
 
 msgid "Destinations"
-msgstr "Destinations"
+msgstr "Types de dépenses / actions couvertes"
 
 msgid "Start date"
 msgstr "Date d'ouverture"
