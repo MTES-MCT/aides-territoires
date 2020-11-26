@@ -25,6 +25,7 @@ django-cors-headers = "*"
 django-activity-stream = "*"
 django-import-export = "*"
 django-admin-autocomplete-filter = "*"
+drf-yasg = "*"
 
 [dev-packages]
 pytest = "*"
