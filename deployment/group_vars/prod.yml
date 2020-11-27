@@ -30,6 +30,7 @@ certbot_domains:
  - "france-relance-martinique.{{ project_domain }}"
  - "france-relance-mayotte.{{ project_domain }}"
  - "france-relance-bretagne.{{ project_domain }}"
+ - "actioncoeurdeville.{{ project_domain }}"
 
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
