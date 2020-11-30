@@ -5,9 +5,12 @@ from categories.models import Category
 
 class CategoryChoiceIterator(forms.models.ModelChoiceIterator):
     """Custom iterator for the `Category` queryset.
+
     This class generates the list of choices to be rendered by the widget.
     Here we create a custom iterator to group the categories under their
     respective themes.
+    When a category is selected, its 'slug' value will be returned.
+
     Taken from https://stackoverflow.com/a/60076749
     """
     def theme_label(self, theme_name):
@@ -33,17 +36,16 @@ class CategoryChoiceIterator(forms.models.ModelChoiceIterator):
 
 
 class CategoryMultipleChoiceField(forms.ModelMultipleChoiceField):
-    """Custom field to select categories.
+    """Custom field to select categories."""
 
-    We override the iterator to better group and display the categories
-    """
-    iterator = CategoryChoiceIterator
-
-    def __init__(self, **kwargs):
+    def __init__(self, group_by_theme=False, **kwargs):
         default_qs = Category.objects \
             .select_related('theme') \
             .order_by('theme__name', 'name')
         queryset = kwargs.pop('queryset', default_qs)
+        # We override the iterator to better group and display the categories
+        if group_by_theme:
+            self.iterator = CategoryChoiceIterator
         super().__init__(queryset, **kwargs)
 
     def label_from_instance(self, obj):
