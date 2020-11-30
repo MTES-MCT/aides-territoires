@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 16:08+0100\n"
+"POT-Creation-Date: 2020-11-30 10:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1733,19 +1733,6 @@ msgstr ""
 "contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
-<<<<<<< HEAD
-msgid "Create an aid backer account"
-msgstr "Créez un compte porteur d'aides"
-||||||| constructed merge base
-msgid "Register"
-msgstr "Inscription"
-
-msgid "Create an aid backer account"
-msgstr "Créez un compte porteur d'aides"
-=======
-msgid "Register"
-msgstr "Inscription"
-
 msgid "Create an account to broadcast your aids"
 msgstr "Créez un compte pour diffuser vos aides"
 
@@ -1771,7 +1758,6 @@ msgstr "Informations personnelles"
 
 msgid "Professional data"
 msgstr "Informations professionnelles"
->>>>>>> Update translations
 
 #, python-format
 msgid ""
