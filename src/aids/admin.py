@@ -72,10 +72,10 @@ class AuthorFilter(InputFilter):
         value = self.value()
         if value is not None:
             qs = queryset \
-                .annotate(author_name=Concat(
-                    'author__first_name',
-                    V(' '),
-                    'author__last_name')) \
+                .annotate(
+                    author_name=Concat(
+                        'author__first_name', V(' '), 'author__last_name',
+                        output_field=CharField())) \
                 .filter(Q(author_name__icontains=value))
             return qs
 
