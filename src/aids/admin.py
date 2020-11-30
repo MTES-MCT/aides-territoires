@@ -1,7 +1,8 @@
 from functools import reduce
 from operator import and_
 
-from django.db.models import Q
+from django.db.models import Q, CharField, Value as V
+from django.db.models.functions import Concat
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
@@ -70,7 +71,13 @@ class AuthorFilter(InputFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-            return queryset.filter(Q(author__last_name__icontains=value))
+            qs = queryset \
+                .annotate(author_name=Concat(
+                    'author__first_name',
+                    V(' '),
+                    'author__last_name')) \
+                .filter(Q(author_name__icontains=value))
+            return qs
 
 
 class BackersFilter(InputFilter):
