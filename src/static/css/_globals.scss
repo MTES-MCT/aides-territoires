@@ -139,6 +139,16 @@ body > footer {
             margin: 1rem auto 1rem auto;
         }
 
+        a:hover {
+            color: $font-color !important;
+        }
+
+        @include media-breakpoint-up(sm) {
+            a + a {
+                margin-left: 2rem;
+            }
+        }
+
         div.subscribe-newsletter {
             margin-bottom: 2rem;
             padding-bottom: 2rem;

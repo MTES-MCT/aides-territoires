@@ -21,15 +21,14 @@
 
                 <h2>{{ _("Aid backers") }}</h2>
                 <p>{% blocktrans trimmed %}
-                Login now and publish your aids.
+                Publish your aids now !
                 {% endblocktrans %}</p>
-                <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">
                 {% if user.is_authenticated %}
-                    {{ _('Contribute now') }}
+                    <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>      
                 {% else %}
-                    {{ _('Login and contribute') }}
+                    <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Login') }}</a>      
+                    <a class="ml-btn" href="{% url 'register' %}">{{ _('Register') }}</a>      
                 {% endif %}
-                </a>
             </div>
 
             <div class="logos logos-2">
