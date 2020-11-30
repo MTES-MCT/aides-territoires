@@ -13,7 +13,7 @@ from django.contrib.auth import update_session_auth_hash
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from analytics import track_goal
-from accounts.forms import (RegisterForm, PasswordResetForm, ProfileForm,
+from accounts.forms import (RegisterForm, PasswordResetForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email
 from accounts.models import User
@@ -113,29 +113,6 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    """Update profile data."""
-
-    form_class = ProfileForm
-    template_name = 'accounts/profile.html'
-    success_message = _('Your profile was updated successfully.')
-
-    def get_success_url(self):
-        current_url = reverse('profile')
-        next_url = self.request.GET.get('next', current_url)
-        return next_url
-
-    def get_object(self):
-        return self.request.user
-
-    def form_valid(self, form):
-        """Make sure the user is not disconnected after password change."""
-
-        res = super().form_valid(form)
-        update_session_auth_hash(self.request, self.object)
-        return res
-
-
 class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
                              UpdateView):
     """Update contributor profile data."""
@@ -151,3 +128,10 @@ class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
 
     def get_object(self):
         return self.request.user
+
+    def form_valid(self, form):
+        """Make sure the user is not disconnected after password change."""
+
+        res = super().form_valid(form)
+        update_session_auth_hash(self.request, self.object)
+        return res

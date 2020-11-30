@@ -9,26 +9,32 @@ from django.contrib.postgres.fields import ArrayField
 class UserManager(BaseUserManager):
     """Custom manager for our custom User model."""
 
-    def _create_user(self, email, full_name, password, **extra_fields):
+    def _create_user(self, email, first_name, last_name, password,
+                     **extra_fields):
         """Create and save the user object."""
 
         email = self.normalize_email(email)
-        user = self.model(email=email, full_name=full_name, **extra_fields)
+        user = self.model(email=email, first_name=first_name,
+                          last_name=last_name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, full_name, password=None, **extra_fields):
+    def create_user(self, email, first_name, last_name, password=None,
+                    **extra_fields):
         """Creates a simple user."""
 
         extra_fields['is_superuser'] = False
-        return self._create_user(email, full_name, password, **extra_fields)
+        return self._create_user(email, first_name, last_name, password,
+                                 **extra_fields)
 
-    def create_superuser(self, email, full_name, password, **extra_fields):
+    def create_superuser(self, email, first_name, last_name, password,
+                         **extra_fields):
         """Creates a superuser."""
 
         extra_fields['is_superuser'] = True
-        return self._create_user(email, full_name, password, **extra_fields)
+        return self._create_user(email, first_name, last_name, password,
+                                 **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -39,8 +45,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         _('Email address'),
         unique=True)
-    full_name = models.CharField(
-        _('Full name'),
+    first_name = models.CharField(
+        _('First name'),
+        max_length=256)
+    last_name = models.CharField(
+        _('Last name'),
         max_length=256)
     date_joined = models.DateTimeField(
         _('Date joined'),
@@ -84,7 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta:
         verbose_name = _('User')
@@ -92,6 +101,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return '{} ({})'.format(self.full_name, self.email)
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     @property
     def is_staff(self):

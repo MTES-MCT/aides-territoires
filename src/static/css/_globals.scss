@@ -152,7 +152,7 @@ body > footer {
         div.subscribe-newsletter {
             margin-bottom: 2rem;
             padding-bottom: 2rem;
-            border-bottom: 2px #fff solid; 
+            border-bottom: 2px #fff solid;
 
             a[href^='http']::after{
                 display: none;
@@ -359,12 +359,12 @@ nav#main-navbar {
                 color: #736e99;
 
                 &:focus {
-                    color: $contrast-color;
-                } 
+                    color: #DB1C83;
+                }
 
                 &:hover {
-                    color: $contrast-color;
-                } 
+                    color: #DB1C83;
+                }
             }
 
             div.dropdown-menu {
@@ -622,6 +622,10 @@ form {
             border-radius: 0 2rem 2rem 2rem;
             padding: .5rem 1rem;
         }
+    }
+
+    * + fieldset {
+        margin-top: 1.5rem;
     }
 
     div.multiple-input {
