@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -300,11 +302,24 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
 
         events = Event.objects \
             .filter(category='aid', event='viewed') \
-            .filter(meta__in=aid_slugs) \
+            .filter(meta__in=aid_slugs)
+
+        events_total_count = events \
+            .count()
+
+        recent_30_days_ago = timezone.now() - timedelta(days=30)
+        events_last_30_days_count = events \
+            .filter(date_created__gte=recent_30_days_ago) \
+            .count()
+
+        events_total_count_per_aid = events \
             .values_list('meta') \
             .annotate(nb_views=Sum('value')) \
             .order_by('meta')
-        context['hits'] = dict(events)
+
+        context['hits_total'] = events_total_count
+        context['hits_last_30_days'] = events_last_30_days_count
+        context['hits_per_aid'] = dict(events_total_count_per_aid)
 
         return context
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 10:31+0100\n"
+"POT-Creation-Date: 2020-12-01 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2205,6 +2205,12 @@ msgstr "Lien vers un descriptif complet"
 
 msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
+
+msgid "Total number of hits"
+msgstr "Nombre de vues total des aides"
+
+msgid "Number of hits in the last 30 days"
+msgstr "Nombre de vues sur les 30 derniers jours"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
