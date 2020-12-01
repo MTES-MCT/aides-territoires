@@ -42,11 +42,7 @@
 
         <nav role="navigation">
             <ul>
-                {% if user.is_authenticated %}
                 <li><a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a></li>      
-                {% else %}
-                <li><a href="{% url 'login' %}">{{ _('Publish new aids') }}</a></li>          
-                {% endif %}
                 <li><a href="{% url 'data_doc' %}">{{ _('Data and api') }}</a></li>
                 <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
                 <li><a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a> </li>
