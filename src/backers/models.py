@@ -66,6 +66,9 @@ class Backer(models.Model):
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
+    logo_in_Home_page = models.BooleanField(
+        _('logo in the Homepage?'),
+        default=False)
     logo = models.FileField(
         _('Logo image'),
         null=True, blank=True,
@@ -75,6 +78,7 @@ class Backer(models.Model):
         _('Logo link'),
         null=True, blank=True,
         help_text=_('The url for the backer\'s logo link'))
+    
 
 
     class Meta:

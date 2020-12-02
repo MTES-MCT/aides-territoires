@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 10:31+0100\n"
+"POT-Creation-Date: 2020-12-02 14:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1019,6 +1019,21 @@ msgstr "Le fragment d'URL n'est pas modifiable après la création du porteur."
 msgid "Is a corporate backer?"
 msgstr "Apporteur privé ?"
 
+msgid "logo in the Homepage?"
+msgstr "logo sur la page d'accueil d'Aides-territoires?"
+
+msgid "Logo image"
+msgstr "Logo du porteur"
+
+msgid "Make sure the file is not too heavy. Prefer svg files."
+msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
+
+msgid "Logo link"
+msgstr "Lien associé au logo"
+
+msgid "The url for the backer's logo link"
+msgstr "L'url vers laquelle renvoie un clic sur le logo du porteur"
+
 msgid "Backer"
 msgstr "Apporteur"
 
@@ -1398,15 +1413,6 @@ msgstr "Couleur 5"
 
 msgid "Footer background color"
 msgstr "Couleur de fond du pied de page"
-
-msgid "Logo image"
-msgstr "Image du logo"
-
-msgid "Make sure the file is not too heavy. Prefer svg files."
-msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
-
-msgid "Logo link"
-msgstr "Lien du logo"
 
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
