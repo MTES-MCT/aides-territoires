@@ -1,3 +1,5 @@
+from os.path import splitext
+
 from django.db import models
 from django.db.models.expressions import RawSQL
 from django.utils.translation import ugettext_lazy as _
@@ -37,6 +39,15 @@ class BackerQuerySet(models.QuerySet):
         annotation = {annotation_name: RawSQL(raw_sql, [])}
         return self.annotate(**annotation)
 
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'backers/{}_logo{}'.format(
+        name, extension)
+    return filename
+
 
 class Backer(models.Model):
     """Represents an entity that backs aids."""
@@ -55,6 +66,16 @@ class Backer(models.Model):
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
+    logo = models.FileField(
+        _('Logo image'),
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+    logo_link = models.URLField(
+        _('Logo link'),
+        null=True, blank=True,
+        help_text=_('The url for the backer\'s logo link'))
+
 
     class Meta:
         verbose_name = _('Backer')
