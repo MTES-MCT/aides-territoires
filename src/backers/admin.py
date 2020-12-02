@@ -27,7 +27,7 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = BackerResource
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ['name', 'slug', 'is_corporate', 'nb_financed_aids',
-                    'nb_instructed_aids']
+                    'nb_instructed_aids', 'is_spotlighted']
     search_fields = ['name']
     ordering = ['name']
     filter_fields = ['is_corporate']

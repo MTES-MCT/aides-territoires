@@ -160,12 +160,17 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 2rem;
+
+            a[href^="http"]::after {
+                display: none;
+            }
         }
 
         img{
             @extend .my-3;
             @extend .mx-4;
-            max-height: 48px;
+            max-height: 100px;
         }
     }
 }
