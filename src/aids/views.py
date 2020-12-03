@@ -304,8 +304,7 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
             .filter(category='aid', event='viewed') \
             .filter(meta__in=aid_slugs)
 
-        events_total_count = events \
-            .count()
+        events_total_count = events.count()
 
         recent_30_days_ago = timezone.now() - timedelta(days=30)
         events_last_30_days_count = events \
