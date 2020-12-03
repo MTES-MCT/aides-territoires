@@ -17,14 +17,19 @@
 
 <h2>Introduction</h2>
 
-<p>Cette page décrit les modalités de réutilisation des données présentes
-sur Aides-territoires.</p>
+<p>Cette page est consacrée à la réutilisation, par des organismes partenaires,
+des données présentes sur l'API Aides-territoires.</p>
+
+<p><i>Si vous cherchez plutôt à intégrer vos données, afin qu'elle soient publiées
+sur le site d'Aides-territoires, vous pouvez consulter la page : 
+<a href="https://github.com/MTES-MCT/aides-territoires/wiki/Comment-publier-vos-donn%C3%A9es-pour-une-reprise-sur-Aides-territoires">
+    Comment publier vos données pour une reprise sur Aides territoires.
+</a>
+</i></p>
 
 <h2>Avertissement</h2>
 
-<p>Ce service étant en cours de construction, il est possible que certaines
-données soient incomplètes, erronées ou manquantes. Il est également possible que
-certains champs soient rajoutés plus tard. Vous <a href="{% url 'legal_mentions' %}">
+<p>Vous <a href="{% url 'legal_mentions' %}">
 utilisez cette API en accord avec nos conditions d'utilisation</a>.</p>
 
 <h2>Licence</h2>
@@ -52,8 +57,15 @@ la dernière mise à jour de l'information réutilisée.</p>
 
 <h2>API</h2>
 
-<p><a href="{% url 'aids-list' %}?version={{ api_version }}">La liste de toutes les aides actives présentes
-sur le site est accessible à cette adresse.</a></p>
+<ul>
+    <li>
+        <a href="{% url 'aids-list' %}?version={{ api_version }}">API REST : La liste de toutes les aides actives présentes
+        sur le site est accessible à cette adresse.</a>
+    </li>
+    <li>
+        <a href="{% url 'schema-swagger-ui' %}?version={{ api_version }}">Documentation de l'API.</a>
+    </li>
+</ul>
 
 <h2>Versionnement</h2>
 
@@ -68,172 +80,6 @@ nous vous recommandons de spécifier le paramètre <code>version</code>.</p>
 </p>
 
 <p>La version actuelle de l'API est : « {{ api_version }} ».</p>
-
-<h2>Données</h2>
-
-<p>Les différents champs présents dans l'API sont listés ci-dessous.</p>
-
-<p>Si besoin, des descriptions plus précises peuvent être trouvées dans le code source :</p>
-
-<ul>
-    <li><a href="https://github.com/MTES-MCT/aides-territoires/blob/master/src/aids/models.py">Description du modèle de donnée (models.py)</a></li>
-    <li><a href="https://github.com/MTES-MCT/aides-territoires/blob/master/src/aids/api/serializers.py">Transformation de la donnée brute en json (serializers.py)</a></li>
-</ul>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Champ</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>id</td>
-            <td>integer</td>
-            <td>Identifiant numérique interne de l'aide</td>
-        </tr>
-        <tr>
-            <td>slug</td>
-            <td>string</td>
-            <td><a href="https://docs.djangoproject.com/fr/3.1/glossary/#term-slug">
-                Fragment d'URL</a>,
-                utilisé pour idendifier l'aide de manière lisible</td>
-        </tr>
-        <tr>
-            <td>url</td>
-            <td>url</td>
-            <td>Adresse (relative) de l'aide sur Aides-territoires</td>
-        </tr>
-        <tr>
-            <td>name</td>
-            <td>string</td>
-            <td>Nom de l'aide</td>
-        </tr>
-        <tr>
-            <td>short_title</td>
-            <td>string</td>
-            <td>Version courte du titre, utilisée dans certains contextes spécifiques (e.g France Relance)</td>
-        </tr>
-        <tr>
-            <td>financers</td>
-            <td>array</td>
-            <td>La liste des noms des porteurs de l'aide</td>
-        </tr>
-        <tr>
-            <td>instructors</td>
-            <td>array</td>
-            <td>La liste des noms des instructeurs de l'aide (si différente des porteurs)</td>
-        </tr>
-        <tr>
-            <td>description</td>
-            <td>text (html)</td>
-            <td>Description de l'aide</td>
-        </tr>
-        <tr>
-            <td>eligibility</td>
-            <td>text (html)</td>
-            <td>Détaille les conditions d'éligibilité</td>
-        </tr>
-        <tr>
-            <td>tags</td>
-            <td>array</td>
-            <td>Liste de mots-clés associés à l'aide</td>
-        </tr>
-        <tr>
-            <td>perimeter</td>
-            <td>string</td>
-            <td>Description du périmètre géographique sur lequel l'aide s'applique</td>
-        </tr>
-        <tr>
-            <td>mobilization_steps</td>
-            <td>array</td>
-            <td>Liste les étapes du projet durant lesquelles l'aide peut être mobilisées</td>
-        </tr>
-        <tr>
-            <td>origin_url</td>
-            <td>url</td>
-            <td>Adresse de publication officielle de l'aide</td>
-        </tr>
-        <tr>
-            <td>application_url</td>
-            <td>url</td>
-            <td>Adresse à laquelle sont présentées les modalités de candidature</td>
-        </tr>
-        <tr>
-            <td>targeted_audiences</td>
-            <td>array</td>
-            <td>Public·s concerné·s par l'aide</td>
-        </tr>
-        <tr>
-            <td>aid_types</td>
-            <td>array</td>
-            <td>Précision sur le·s type·s d'aide (financière ou non)</td>
-        </tr>
-        <tr>
-            <td>destinations</td>
-            <td>array</td>
-            <td>Précision sur le·s type·s d'action·s soutenue·s par l'aide</td>
-        </tr>
-        <tr>
-            <td>start_date</td>
-            <td>date</td>
-            <td>Date d'ouverture du guichet pour les dépôts de candidatures</td>
-        </tr>
-        <tr>
-            <td>predeposit_date</td>
-            <td>date</td>
-            <td>Date de pré-dépôt des dossiers, le cas échéant</td>
-        </tr>
-        <tr>
-            <td>submission_deadline</td>
-            <td>date</td>
-            <td>Date butoir de dépôt des candidatures</td>
-        </tr>
-        <tr>
-            <td>subvention_rate_lower_bound</td>
-            <td>decimal</td>
-            <td>Le cas échéant, borne inférieure du taux de subvention pour une aide financière</td>
-        </tr>
-        <tr>
-            <td>subvention_rate_upper_bound</td>
-            <td>decimal</td>
-            <td>Le cas échéant, borne supérieure du taux de subvention pour une aide financière</td>
-        </tr>
-        <tr>
-            <td>contact</td>
-            <td>text (html)</td>
-            <td>Informations de contact (texte libre).</td>
-        </tr>
-        <tr>
-            <td>recurrence</td>
-            <td>string</td>
-            <td>Précision sur le caractère ponctuel, récurrent, permanent de l'aide</td>
-        </tr>
-        <tr>
-            <td>project_examples</td>
-            <td>text (html)</td>
-            <td>Exemples de projets ayant déjà bénéficié de cette aide</td>
-        </tr>
-        <tr>
-            <td>programs</td>
-            <td>array (text)</td>
-            <td>Noms des programmes dont fait partie l'aide</td>
-
-        </tr>
-        <tr>
-            <td>date_created</td>
-            <td>datetime</td>
-            <td>Date à laquelle l'aide a été saisie la première fois</td>
-        </tr>
-        <tr>
-            <td>date_updated</td>
-            <td>datetime</td>
-            <td>Date de la dernière mise à jour de l'aide</td>
-        </tr>
-    </tbody>
-</table>
 
 <h2>Signaler un problème</h2>
 

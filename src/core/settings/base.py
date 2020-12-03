@@ -37,6 +37,7 @@ THIRD_PARTY_APPS = [
     'actstream',
     'import_export',
     'admin_auto_filters',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
