@@ -16,7 +16,7 @@ router = routers.DefaultRouter()
 schema_view = get_schema_view(
    openapi.Info(
       title=_('Aides-Territoires API'),
-      default_version='v1',
+      default_version=f'v{settings.CURRENT_API_VERSION}',
       description=_('API Aide'),
       terms_of_service=reverse_lazy('legal_mentions'),
       contact=openapi.Contact(email='tech@aides-territoires.beta.gouv.fr'),
