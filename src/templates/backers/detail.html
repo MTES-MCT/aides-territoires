@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ backer.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ backer.name }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article>
+<h1>{{ backer.name }}</h1>
+
+Description à faire
+
+</article>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/links_on_images.js"></script>
+{% endcompress %}
+{% endblock %}
