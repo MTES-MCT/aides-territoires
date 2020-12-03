@@ -280,7 +280,7 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         'submission_deadline',
         'status',
     ]
-    default_ordering = 'date_created'
+    default_ordering = '-date_updated'
 
     def get_queryset(self):
         qs = super().get_queryset()
