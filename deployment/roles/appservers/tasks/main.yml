@@ -10,3 +10,4 @@
 - import_tasks: build.yml
 - import_tasks: restart.yml
   when: project_env == "production"
+- import_tasks: slack.yml
