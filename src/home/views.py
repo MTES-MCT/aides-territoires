@@ -25,11 +25,18 @@ class HomeView(TemplateView):
             .filter(Q(id__in=financers) | Q(id__in=instructors)) \
             .values('id') \
             .count()
+        selected_backers = Backer.objects \
+            .filter(Q(logo__isnull=False) & Q(logo_in_Home_page=True))
+        all_unselected_backers = Backer.objects \
+            .filter(Q(logo__isnull=False) & ~Q(logo_in_Home_page=True))
+        random_backers = all_unselected_backers.order_by("?")[0:5]
 
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
         context['nb_backers'] = nb_backers
+        context['selected_backers'] = selected_backers
+        context['random_backers'] = random_backers
 
         return context
 
