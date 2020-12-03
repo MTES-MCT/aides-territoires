@@ -54,7 +54,6 @@ class AidQuerySet(models.QuerySet):
           - the submission deadline is still in the future OR
           - the submission deadline is not provided OR
           - the recurrence field is set to "ongoing"
-
         """
 
         today = timezone.now().date()
@@ -90,6 +89,15 @@ class AidQuerySet(models.QuerySet):
             | (
                 Q(submission_deadline__lt=today)
                 & ~Q(recurrence='ongoing')))
+
+    def live(self):
+        """Returns the list of aids that appear on the frontend.
+
+        An aid is considered live if:
+          - the status is 'published'
+          - the aid is open (see open())
+        """
+        return self.published().open()
 
 
 class BaseExistingAidsManager(models.Manager):
