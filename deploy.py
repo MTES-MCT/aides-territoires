@@ -1,19 +1,8 @@
 #! `which python3`
 """Helper script for deployment."""
 
-import os
-import json
-import environ
-import requests
 import argparse
 import subprocess
-
-environ.Env.read_env('src/.env.local')
-env = environ.Env()
-
-
-SLACK_WEBHOOK_URL = env('SLACK_WEBHOOK_URL')
-
 
 parser = argparse.ArgumentParser(
     description='Aides-territoires deployment script')
@@ -43,7 +32,7 @@ def deploy():
             return
 
     deployment_args = [
-        'ansible-playbook',
+        './ansible-playbook-dotenv.sh',
         '-i',
         './deployment/hosts',
         './deployment/site.yml',
