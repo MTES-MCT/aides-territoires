@@ -11,17 +11,20 @@
 </nav>
 {% endblock %}
 
+{% block messages %}{% endblock %}
+
 {% block page_title %}
     <h1>{{ _('Edit an aid') }}</h1>
 {% endblock %}
 
 {% block before-section %}
-    {% if not aid.is_published %}
-        <p class="warning">{% blocktrans trimmed %}
+    {% if messages %}
+        {% for message in messages %}
+        <p class="warning">
             <span class="fas fa-exclamation-circle"></span>
-            This aid is <strong>currently not published</strong> and does not appear
-            for Aides-territoires users (yet).
-        {% endblocktrans %}</p>
+            {{ message }}
+        </p>
+    {% endfor %}
     {% endif %}
 {% endblock %}
 
@@ -68,10 +71,10 @@
     </div>
 
     <div class="sidebar-actions action-danger">
-        <h3>{{ _('Danger Zone') }}</h3>
+        <h3>{{ _('Delete the aid') }}</h3>
         <div>
             <p>{% blocktrans trimmed %}
-                You are about do delete this aid. This action cannot be undone.
+                By clicking the button below, you will delete this aid. This action cannot be undone.
             {% endblocktrans %}</p>
             <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
                 {% csrf_token %}
@@ -90,18 +93,12 @@
 {% endblock %}
 
 {% block form_actions %}
-<p class="warning">{% blocktrans trimmed %}
-<span class="fas fa-exclamation-circle"></span>
-You can <strong>request your aid to be published</strong> using the button in
-the sidebar.
-{% endblocktrans %}</p>
-
 <div class="form-actions">
     <div class="submit-buttons">
-        <button type="submit" value="save">{{ _('Update your aid') }}</button>
-        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy and edit') }}</button>
+        <button type="submit" value="save">{{ _('Save changes') }}</button>
+        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
     </div>
-    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
+    <a href="{% url 'aid_draft_list_view' %}">{{ _('Back to your portfolio') }}</a>
 </div>
 {% endblock %}
 

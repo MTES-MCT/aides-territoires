@@ -419,14 +419,17 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
         STATES = AidWorkflow.states
         if aid.status == STATES.draft:
             aid.submit()
+            msg = _('Your aid will be reviewed by an admin soon. '
+                    'It will be published and visible for users '
+                    'once an admin has approved it.')
         elif aid.status in (STATES.reviewable, STATES.published):
             aid.unpublish()
             log_admins.delay(
                 'Aide dépubliée',
                 'Une aide vient d\'être dépubliée.\n\n{}'.format(aid),
                 aid.get_absolute_url())
+            msg = _('We updated your aid status.')
 
-        msg = _('We updated your aid status.')
         messages.success(self.request, msg)
 
     def get_redirect_url(self, *args, **kwargs):
