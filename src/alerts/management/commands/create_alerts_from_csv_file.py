@@ -5,6 +5,7 @@ import logging
 
 from django.db import transaction
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from alerts.tasks import send_alert_confirmation_email
 from alerts.models import Alert
@@ -30,6 +31,7 @@ class Command(BaseCommand):
 
     Usage :
     pipenv run python manage.py create_alerts_from_csv_file file/path/name.csv --querystring 'perimeter=70971-nouvelle-aquitaine' # noqa
+    pipenv run python manage.py create_alerts_from_csv_file file/path/name.csv --querystring 'perimeter=70971-nouvelle-aquitaine' --csv_delimiter ';' # noqa
     pipenv run python manage.py create_alerts_from_csv_file file/path/name.csv --querystring 'perimeter=70971-nouvelle-aquitaine' --title 'my custom alert' # noqa
     pipenv run python manage.py create_alerts_from_csv_file file/path/name.csv --querystring 'perimeter=70971-nouvelle-aquitaine' --latest_alert_date '2020-08-20' # noqa
     pipenv run python manage.py create_alerts_from_csv_file file/path/name.csv --querystring 'perimeter=70971-nouvelle-aquitaine' --latest_alert_date '2020-08-20' --frequency weekly # noqa
@@ -62,7 +64,7 @@ class Command(BaseCommand):
             help='the alert title. optional'
         )
         parser.add_argument(
-            '--latest_alert_date', type=datetime.datetime.fromisoformat,
+            '--latest_alert_date', type=str,
             default=None,
             help='the alert latest alert date. Use format YYY-MM-DD. '
                  'The latest alert time will be set to noon. '
@@ -89,6 +91,12 @@ class Command(BaseCommand):
         alert_querystring = options['querystring']
         alert_title = options['title']
         alert_latest_alert_date = options['latest_alert_date']
+        if alert_latest_alert_date:
+            alert_latest_alert_date = datetime.datetime \
+                .strptime(options['latest_alert_date'], '%Y-%m-%d') \
+                .replace(hour=12, minute=0)
+            alert_latest_alert_date = timezone.make_aware(
+                alert_latest_alert_date)
         alert_frequency = options['frequency']
         alert_validated = options['validated']
 
@@ -106,9 +114,6 @@ class Command(BaseCommand):
                 if alert_title:
                     alert.title = alert_title
                 if alert_latest_alert_date:
-                    alert_latest_alert_date = datetime.datetime \
-                        .strptime(options['latest_alert_date'], '%Y-%m-%d') \
-                        .replace(hour=12, minute=0)
                     alert.latest_alert_date = alert_latest_alert_date
                 if alert_frequency:
                     alert.alert_frequency = alert_frequency
