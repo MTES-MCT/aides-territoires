@@ -21,11 +21,16 @@
 
 <h1>{{ _('My portfolio') }}</h1>
 
+<div class="info">
+    {{ _('Total number of hits') }} : <span class="counter">{{ hits_total }}</span><br />
+    {{ _('Number of hits in the last 30 days') }} : <span class="counter">{{ hits_last_30_days }}</span>
+</div>
+
 <table class="data-table">
     <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
     <thead>
         <tr>
-            <th>{% sortable_header _('Name') 'name' %}</th>
+            <th>{% sortable_header _('Aid title') 'name' %}</th>
             <th>{% sortable_header _('Created on') 'date_created' %}</th>
             <th>{% sortable_header _('Last modified') 'date_updated' %}</th>
             <th>{% sortable_header _('Deadline') 'submission_deadline' %}</th>
@@ -47,7 +52,7 @@
             <td>{{ aid.get_status_display }}</td>
             <td>
                 {% if aid.is_published %}
-                    {% get hits aid.slug 0 %}
+                    {% get hits_per_aid aid.slug 0 %}
                 {% endif %}
             </td>
         </tr>

@@ -14,22 +14,35 @@ class RegisterForm(forms.ModelForm):
         required=True,
         help_text=_('We will send a confirmation link to '
                     'this address before creating the account.'))
-    full_name = forms.CharField(
-        label=_('Your full name'),
-        required=True,
-        help_text=_('This is how we will address you in our communications.'))
-    ml_consent = forms.BooleanField(
-        label=_('I want to receive news and communications from the service.'),
-        required=False,
-        help_text=_('You will be able to unsubscribe at any time.'))
+    first_name = forms.CharField(
+        label=_('Your first name'),
+        required=True)
+    last_name = forms.CharField(
+        label=_('Your last name'),
+        required=True)
+    organization = forms.CharField(
+        label=_('Your organization'),
+        max_length=128,
+        required=True)
+    role = forms.CharField(
+        label=_('Your position'),
+        max_length=128,
+        required=True)
+    contact_phone = forms.CharField(
+        label=_('Your phone number'),
+        max_length=35,
+        required=True)
 
     class Meta:
         model = User
-        fields = ['full_name', 'email', 'ml_consent']
+        fields = [
+            'first_name', 'last_name', 'email', 'organization', 'role',
+            'contact_phone'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['full_name'].widget.attrs.update({'autofocus': True})
+        self.fields['first_name'].widget.attrs.update({'autofocus': True})
         self.fields['email'].widget.attrs.update({
             'placeholder': _('Please double-check this value.')})
 
@@ -70,9 +83,21 @@ class PasswordResetForm(forms.Form):
         required=True)
 
 
-class ProfileForm(forms.ModelForm):
-    """Edit profile related user data."""
+class ContributorProfileForm(forms.ModelForm):
+    """Edit contributor profile related user data."""
 
+    organization = forms.CharField(
+        label=_('Your organization'),
+        max_length=128,
+        required=True)
+    role = forms.CharField(
+        label=_('Your position'),
+        max_length=128,
+        required=True)
+    contact_phone = forms.CharField(
+        label=_('Your phone number'),
+        max_length=35,
+        required=True)
     new_password = forms.CharField(
         label=_('Choose a new password'),
         required=False,
@@ -84,13 +109,13 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['full_name', 'new_password', 'ml_consent']
+        fields = [
+            'first_name', 'last_name', 'organization', 'role', 'contact_phone',
+            'new_password',
+        ]
         labels = {
-            'full_name': _('Your full name'),
-        }
-        help_texts = {
-            'full_name':
-                _('This is how we will address you in our ' 'communications.'),
+            'first_name': _('Your first name'),
+            'last_name': _('Your last name'),
         }
 
     def _post_clean(self):
@@ -114,15 +139,3 @@ class ProfileForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-
-class ContributorProfileForm(forms.ModelForm):
-    """Edit contributor profile related user data."""
-
-    class Meta:
-        model = User
-        fields = ['organization', 'role', 'contact_phone']
-        labels = {
-            'organization': _('Your organization'),
-            'role': _('Your position'),
-        }

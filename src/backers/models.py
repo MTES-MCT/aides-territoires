@@ -2,8 +2,23 @@ from django.db import models
 from django.db.models.expressions import RawSQL
 from django.utils.translation import ugettext_lazy as _
 
+from aids.models import AidWorkflow
+
 
 class BackerQuerySet(models.QuerySet):
+    """Custom queryset with additional filtering methods for backers."""
+
+    def has_financed_aids(self):
+        """Only return backers with financed_aids."""
+
+        return self.exclude(financed_aids=None)
+
+    def has_published_financed_aids(self):
+        """Only return backers with published financed_aids."""
+
+        qs = self.filter(financed_aids__status=AidWorkflow.states.published) \
+            .distinct()
+        return qs
 
     def annotate_aids_count(self, related_fields, annotation_name):
         """Annotate the queryset with the number of related aids.

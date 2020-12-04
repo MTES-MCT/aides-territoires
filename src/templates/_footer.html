@@ -15,21 +15,20 @@
             <div class="newsletter">
                 <div class="subscribe-newsletter">
                     <h2>Recevez la newsletter</h2>
-                    <p>Restez informés des nouveautés de la plateforme</p>
+                    <p>Restez informé.e.s des nouveautés de la plateforme</p>
                     <a class="ml-btn" href="{% mailing_list_url %}">Inscrivez-vous</a>
                 </div>
 
                 <h2>{{ _("Aid backers") }}</h2>
                 <p>{% blocktrans trimmed %}
-                Login now and publish your aids.
+                Publish your aids now !
                 {% endblocktrans %}</p>
-                <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">
                 {% if user.is_authenticated %}
-                    {{ _('Contribute now') }}
+                    <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>      
                 {% else %}
-                    {{ _('Login and contribute') }}
+                    <a class="ml-btn" href="{% url 'login' %}">{{ _('Login') }}</a>      
+                    <a class="ml-btn" href="{% url 'register' %}">{{ _('Register') }}</a>      
                 {% endif %}
-                </a>
             </div>
 
             <div class="logos logos-2">
@@ -43,7 +42,7 @@
 
         <nav role="navigation">
             <ul>
-                <li><a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a></li>
+                <li><a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a></li>      
                 <li><a href="{% url 'data_doc' %}">{{ _('Data and api') }}</a></li>
                 <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
                 <li><a href="tel:{{ contact_phone }}">{{ contact_phone|phone }}</a> </li>

@@ -1064,10 +1064,13 @@ section#amend-ui {
     }
 }
 
-section#draft-list {
-    table tr.expired {
-        td.deadline {
-            @include icon(before, $fa-var-exclamation-circle);
+article#draft-list {
+    div.info {
+        span.counter {
+            @extend .badge;
+            @extend .badge-pill;
+            @extend .badge-light;
+            font-size: 125%;
         }
     }
 }

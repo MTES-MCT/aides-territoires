@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-25 15:57+0100\n"
+"POT-Creation-Date: 2020-12-01 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,17 +26,20 @@ msgstr ""
 "Nous enverrons un e-mail de confirmation à cette adresse avant de valider le "
 "compte."
 
-msgid "Your full name"
-msgstr "Votre nom complet"
+msgid "Your first name"
+msgstr "Votre prénom"
 
-msgid "This is how we will address you in our communications."
-msgstr "C'est ainsi que nous nous adresserons à vous dans nos communications."
+msgid "Your last name"
+msgstr "Votre nom"
 
-msgid "I want to receive news and communications from the service."
-msgstr "Vous souhaitez recevoir des actualités liées au service."
+msgid "Your organization"
+msgstr "Votre structure professionnelle"
 
-msgid "You will be able to unsubscribe at any time."
-msgstr "Vous pourrez vous désabonner à tout moment."
+msgid "Your position"
+msgstr "Votre fonction"
+
+msgid "Your phone number"
+msgstr "Votre numéro de téléphone"
 
 msgid "Please double-check this value."
 msgstr "Merci de bien vérifier l'adresse saisie."
@@ -56,17 +59,14 @@ msgstr "Choisissez un nouveau mot de passe"
 msgid "Leave empty to keep your existing password"
 msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
-msgid "Your organization"
-msgstr "Votre structure professionnelle"
-
-msgid "Your position"
-msgstr "Votre fonction"
-
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-msgid "Full name"
-msgstr "Nom complet"
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
 
 msgid "Date joined"
 msgstr "Date de création du compte"
@@ -87,7 +87,7 @@ msgid "Role"
 msgstr "Rôle"
 
 msgid "Contact phone number"
-msgstr "Numéro de téléphone de contact"
+msgstr "Votre numéro de téléphone"
 
 msgid "Is certified"
 msgstr "Certifié·e ?"
@@ -119,9 +119,6 @@ msgstr "nouveau-mot-de-passe/"
 msgid "password-reset-sent/"
 msgstr "mot-de-passe-envoyé/"
 
-msgid "profile/"
-msgstr "profil/"
-
 msgid "contributor-profile/"
 msgstr "profil-contributeur/"
 
@@ -137,9 +134,6 @@ msgstr ""
 
 msgid "You are now logged in. Welcome back!"
 msgstr "Vous êtes maintenant connecté·e. Bienvenue !"
-
-msgid "Your profile was updated successfully."
-msgstr "Votre profil a été mise à jour."
 
 msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
@@ -520,6 +514,9 @@ msgstr ""
 msgid "Who are you?"
 msgstr "Qui êtes-vous ?"
 
+msgid "Your full name"
+msgstr "Votre nom complet"
+
 msgid "Leave us an address if you want a followup."
 msgstr ""
 "Laissez-nous votre adresse si vous souhaitez être notifié des suites que "
@@ -744,7 +741,7 @@ msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
 
 msgid "Destinations"
-msgstr "Destinations"
+msgstr "Types de dépenses / actions couvertes"
 
 msgid "Start date"
 msgstr "Date d'ouverture"
@@ -786,7 +783,7 @@ msgid "Is this a one-off aid, is it recurring or ongoing?"
 msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
 msgid "Programs"
-msgstr "programmes"
+msgstr "Programmes"
 
 msgid "Status"
 msgstr "Statut"
@@ -1489,14 +1486,14 @@ msgstr "Déconnexion"
 msgid "Aid backers"
 msgstr "Porteur·s d'aides"
 
-msgid "Login now and publish your aids."
-msgstr "Connectez-vous et diffusez vos aides dès maintenant !"
+msgid "Publish your aids now !"
+msgstr "Diffusez vos aides dès maintenant !"
 
-msgid "Contribute now"
-msgstr "Contribuez"
+msgid "Login"
+msgstr "Connectez-vous"
 
-msgid "Login and contribute"
-msgstr "Connectez-vous et contribuez"
+msgid "Register"
+msgstr "Inscrivez-vous"
 
 msgid "Publish new aids"
 msgstr "Publier des aides"
@@ -1594,9 +1591,6 @@ msgstr "Voir moins de détails"
 msgid "Your profile"
 msgstr "Votre profil"
 
-msgid "Set up your account"
-msgstr "Configurer votre compte"
-
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
@@ -1641,12 +1635,11 @@ msgid "Fill out the required data"
 msgstr "Remplir les données requises"
 
 msgid ""
-"Some features on Aides-territoires require a contributor account. To become "
-"a contributor, all you have to do is provide additional contact data."
+"You have a contributor account. Fill in the form below to complete your "
+"subscription."
 msgstr ""
-"Certaines fonctionnalités d'Aides-territoires nécessitent un compte "
-"contributeur. Pour devenir contributeur, il vous suffit de fournir quelques "
-"informations de contact supplémentaires."
+"Vous bénéficiez d’un compte contributeur. Pour terminer votre inscription, "
+"merci de renseigner les informations ci-dessous."
 
 msgid "We will use this data to help validate the aids your contribute."
 msgstr ""
@@ -1655,9 +1648,6 @@ msgstr ""
 
 msgid "Update your personal data"
 msgstr "Mettre à jour vos données"
-
-msgid "Login"
-msgstr "Connexion"
 
 msgid "Log in to your contributor account"
 msgstr "Connexion à votre compte contributeur"
@@ -1749,11 +1739,31 @@ msgstr ""
 "contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
 "votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
-msgid "Register"
-msgstr "Inscription"
+msgid "Create an account to broadcast your aids"
+msgstr "Créez un compte pour diffuser vos aides"
 
-msgid "Create an aid backer account"
-msgstr "Créez un compte porteur d'aides"
+msgid ""
+"<span class=\"fas fa-exclamation-circle\"></span> Only create an account "
+"<strong>if you are an aid backer</strong> and want to broadcast your aids "
+"with us."
+msgstr ""
+"<span class=\"fas fa-exclamation-circle\"></span>\n"
+"Les contributeurs sont les acteurs qui référencent les aides et non ceux qui "
+"les reçoivent."
+
+#, python-format
+msgid ""
+"If you want to browse our aids catalog, <a href=\"%(search_url)s\"> use our "
+"search form</a>."
+msgstr ""
+"Si vous souhaitez bénéficier des aides financières et en ingénierie des "
+"porteurs, <a href=\"%(search_url)s\">utilisez notre recherche</a>."
+
+msgid "Personal data"
+msgstr "Informations personnelles"
+
+msgid "Professional data"
+msgstr "Informations professionnelles"
 
 #, python-format
 msgid ""
@@ -1767,6 +1777,14 @@ msgstr ""
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
+
+#, python-format
+msgid ""
+"Do you already have an account? <a href=\"%(login_url)s\">Proceed to the "
+"login form.</a>"
+msgstr ""
+"Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous au "
+"formulaire de connexion.</a>"
 
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
@@ -2193,6 +2211,12 @@ msgstr "Lien vers un descriptif complet"
 
 msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
+
+msgid "Total number of hits"
+msgstr "Nombre de vues total des aides"
+
+msgid "Number of hits in the last 30 days"
+msgstr "Nombre de vues sur les 30 derniers jours"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"

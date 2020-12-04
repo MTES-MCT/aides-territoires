@@ -30,6 +30,7 @@ class PageAdmin(FlatPageAdmin):
         }
         js = [
             'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',

@@ -1,7 +1,4 @@
 <h6 id="profile-menu">{{ _('Your profile') }}</h6>
-<a href="{% url 'profile' %}">
-    {{ _('Set up your account') }}
-</a>
 <a href="{% url 'contributor_profile' %}">
 {% if user.is_contributor %}
     {{ _('Update your contributor profile') }}
