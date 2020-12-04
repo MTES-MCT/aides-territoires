@@ -237,6 +237,22 @@ son IDE et aussi faire ceci :
 
 ## Déploiement
 
+
+### Variables d'environnement
+
+Afin de rendre disponible les variables d'environnement dans les playbooks
+ansible, nous utilons le script le fichier `.env.ansible`.
+
+
+    # Pour créer le fichier env:
+    cp .env.ansible.example .env.ansible
+
+Ce fichier est chargé grâce au script `ansible-playbook-dotenv.sh` qui est
+lui-même appelé dans le script `deploy.py`.
+
+
+### Ansible
+
 Le déploiement se fait avec
 [Ansible](https://docs.ansible.com/ansible/latest/index.html) et ne nécessite
 qu'une commande.
