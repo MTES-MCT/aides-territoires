@@ -98,20 +98,31 @@
 </div>
 </section>
 
+{% if random_backers %}
 <section id="partner">
     <div class="container-lg">
         <h1>Les porteurs d'aides</h1>
         <div id="logos">
-            {% for random_backer in random_backers  %}
-            {% if random_backer.external_link%}
-                <a href="{{ random_backer.external_link }}">
-            {% else %}
-                <a href="#">
-            {% endif %}
-                    <img src="media/{{ random_backer.logo }}" alt="Logo : {{ random_backer.name }} ">
-                </a>
+            {% for random_backer in random_backers %}
+                <div class="{% cycle 'logo1' 'logo2' 'logo3' %} active">
+                    {% if random_backers.external_link%}
+                    <a href="{{ random_backer.external_link }}">
+                    {% else %}
+                    <a href="#">
+                    {% endif %}
+                        <img src="media/{{ random_backer.logo }}" alt="Logo : {{ random_backer.name }} ">
+                    </a>
+                </div>
             {% endfor %}
+            {% resetcycle %}
         </div>
     </div>
 </section>
+{% endif%}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/carousel.js"></script>
+{% endcompress js %}
 {% endblock %}
