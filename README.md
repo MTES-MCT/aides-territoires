@@ -251,6 +251,14 @@ Ce fichier est chargé grâce au script `ansible-playbook-dotenv.sh` qui est
 lui-même appelé dans le script `deploy.py`.
 
 
+### Slack webhook
+
+Ansible lance une notification après le déploiement. Pour cela,
+il faut installer ceci:
+
+    ansible-galaxy collection install community.general
+
+
 ### Ansible
 
 Le déploiement se fait avec
