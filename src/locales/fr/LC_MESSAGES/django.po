@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-04 02:21+0100\n"
+"POT-Creation-Date: 2020-12-07 06:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1003,6 +1003,9 @@ msgstr "Vous venez de confirmer la création de l'alerte."
 msgid "The alert was deleted."
 msgstr "Votre alerte vient d'être supprimée."
 
+msgid "Description"
+msgstr "Description"
+
 msgid "Financed aids"
 msgstr "Aides financées"
 
@@ -1023,7 +1026,8 @@ msgid "Is a spotlighted backer?"
 msgstr "Le porteur est-il mis en avant?"
 
 msgid "If the backer is spotlighted, its logo appears in the HomePage"
-msgstr "Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
+msgstr ""
+"Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
 
 msgid "Logo image"
 msgstr "Logo du porteur"
@@ -1036,6 +1040,9 @@ msgstr "Lien externe"
 
 msgid "The url for the backer's website"
 msgstr "L'url externe vers laquelle renvoie un clic sur le logo du porteur"
+
+msgid "Full description of the backer"
+msgstr "Description complète du porteur d'aides"
 
 msgid "Backer"
 msgstr "Apporteur"
@@ -1309,9 +1316,6 @@ msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
-
-msgid "Description"
-msgstr "Description"
 
 msgid "Style customization"
 msgstr "Personnalisation du style"

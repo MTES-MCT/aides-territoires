@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
@@ -7,7 +8,18 @@ from import_export import resources
 from import_export.admin import ImportMixin
 from import_export.formats import base_formats
 
+from core.forms import RichTextField
+from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+
 from backers.models import Backer
+
+
+class BackerForm(forms.ModelForm):
+    description = RichTextField(label=_('Description'))
+
+    class Meta:
+        model = Backer
+        fields = '__all__'
 
 
 class BackerResource(resources.ModelResource):
@@ -25,6 +37,7 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
+    form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ['name', 'slug', 'is_corporate', 'nb_financed_aids',
                     'nb_instructed_aids', 'is_spotlighted']
@@ -81,6 +94,27 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
         related_aid_html += format_html('</ul>')
         return related_aid_html
     display_related_aids.short_description = _('Related aids')
+
+    class Media:
+        css = {
+            'all': (
+                '/static/css/admin.css',
+                '/static/trumbowyg/dist/ui/trumbowyg.css',
+            )
+        }
+        js = [
+            'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
+            '/static/js/plugins/softmaxlength.js',
+            '/static/js/search/enable_softmaxlength.js',
+            '/static/trumbowyg/dist/trumbowyg.js',
+            '/static/trumbowyg/dist/langs/fr.js',
+            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
+            '/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js',  # noqa
+            '/static/jquery-resizable-dom/dist/jquery-resizable.js',
+            '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
+            '/static/js/enable_rich_text_editor.js',
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 admin.site.register(Backer, BackerAdmin)

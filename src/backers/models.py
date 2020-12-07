@@ -7,6 +7,15 @@ from django.utils.translation import ugettext_lazy as _
 from aids.models import AidWorkflow
 
 
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'backers/{}_logo{}'.format(name, extension)
+    return filename
+
+
 class BackerQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for backers."""
 
@@ -39,15 +48,6 @@ class BackerQuerySet(models.QuerySet):
         annotation = {annotation_name: RawSQL(raw_sql, [])}
         return self.annotate(**annotation)
 
-def logo_upload_to(instance, filename):
-    """Rename uploaded files with the object's slug."""
-
-    _, extension = splitext(filename)
-    name = instance.slug
-    filename = 'backers/{}_logo{}'.format(
-        name, extension)
-    return filename
-
 
 class Backer(models.Model):
     """Represents an entity that backs aids."""
@@ -69,7 +69,8 @@ class Backer(models.Model):
     is_spotlighted = models.BooleanField(
         _('Is a spotlighted backer?'),
         default=False,
-        help_text=_('If the backer is spotlighted, its logo appears in the HomePage'))
+        help_text=_(
+            'If the backer is spotlighted, its logo appears in the HomePage'))
     logo = models.FileField(
         _('Logo image'),
         null=True, blank=True,
@@ -79,8 +80,9 @@ class Backer(models.Model):
         _('External link'),
         null=True, blank=True,
         help_text=_('The url for the backer\'s website'))
-    
-
+    description = models.TextField(
+        _('Full description of the backer'),
+        default='', blank=False)
 
     class Meta:
         verbose_name = _('Backer')
