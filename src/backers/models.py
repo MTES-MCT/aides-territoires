@@ -80,6 +80,9 @@ class Backer(models.Model):
         _('External link'),
         null=True, blank=True,
         help_text=_('The url for the backer\'s website'))
+    description = models.TextField(
+        _('Full description of the backer'),
+        default='', blank=False)
 
     class Meta:
         verbose_name = _('Backer')
