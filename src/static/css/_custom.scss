@@ -1070,17 +1070,18 @@ article#draft-list {
             @extend .badge;
             @extend .badge-pill;
             @extend .badge-light;
-            font-size: 125%;
+            font-size: $font-size-base;
         }
     }
 
     .form-container {
         select {
             @extend .custom-select;
+            @extend .ml-2;
+            @extend .mr-3;
             display: inline-block;
             width: inherit;
             border-radius: 0 1rem 1rem 1rem;
-            // border: none;
         }
         button.filter-btn {
             @extend .btn;
