@@ -103,3 +103,36 @@ def test_hidden_filter(last_month, next_month):
     AidFactory(status='reviewable')
     AidFactory(status='published', submission_deadline=last_month)
     assert Aid.objects.hidden().count() == 3
+
+
+def test_live_filter(last_month, next_month):
+    """Test the `live` filter.
+
+    Aids only appear when they have the `published` status and are not
+    expired.
+    """
+
+    # Displayed aids
+    AidFactory(
+        status='published',
+        submission_deadline=timezone.now().date(),
+        recurrence='oneoff')
+    AidFactory(
+        status='published',
+        submission_deadline=next_month,
+        recurrence='oneoff')
+    AidFactory(
+        status='published',
+        submission_deadline=None,
+        recurrence='oneoff')
+    AidFactory(
+        status='published',
+        submission_deadline=next_month,
+        recurrence='ongoing')
+    assert Aid.objects.live().count() == 4
+
+    # Hidden aids
+    AidFactory(status='draft')
+    AidFactory(status='reviewable')
+    AidFactory(status='published', submission_deadline=last_month)
+    assert Aid.objects.live().count() == 4

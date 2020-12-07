@@ -36,14 +36,16 @@ AIDS_EXPORT_EXCLUDE_FIELDS = [
 class LiveAidListFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with various statuses."""
 
-    title = _('Display status')
-    parameter_name = 'displayed'
+    title = _('State')
+    parameter_name = 'state'
 
     def lookups(self, request, model_admin):
         return (
+            # aid.state
             ('open', _('Open aids')),
+            ('deadline', _('Deadline approaching aids')),
             ('expired', _('Expired aids')),
-            ('deadline', _('Deadline approaching')),
+            # aid.display_status
             ('hidden', _('Currently not displayed')),
             ('live', _('Currently displayed')),
         )

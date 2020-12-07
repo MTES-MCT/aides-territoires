@@ -26,6 +26,15 @@
     {{ _('Number of hits in the last 30 days') }} : <span class="counter">{{ hits_last_30_days }}</span>
 </div>
 
+<form id="filter-form" action="" method="get" autocomplete='off'>
+    <div class="form-container">    
+        {{ filter_form }}
+        <button class="filter-btn" type="submit">
+            {{ _('Filter results') }}
+        </button>
+    </div>
+</form>
+
 <table class="data-table">
     <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
     <thead>
@@ -40,15 +49,25 @@
     </thead>
     <tbody>
         {% for aid in aids %}
-        <tr {% if aid.has_expired %}class="expired"{% endif %}>
+        <tr>
             <td>
                 <a href="{% url 'aid_edit_view' aid.slug %}">
                     {{ aid.name|truncatechars:50 }}
                 </a>
+                {% if aid.is_live %}
+                    <span class="fas fa-check-circle" title="{{ _('Displayed') }}"></span>
+                {% endif %}
             </td>
             <td>{{ aid.date_created|date:'d/m/y' }}</td>
             <td>{{ aid.date_updated|date:'d/m/y' }}</td>
-            <td class="deadline">{{ aid.submission_deadline|date:'d/m/y' }}</td>
+            <td>
+                {% if aid.has_approaching_deadline %}
+                    <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                {% elif aid.has_expired %}
+                    <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                {% endif %}
+                <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
+            </td>
             <td>{{ aid.get_status_display }}</td>
             <td>
                 {% if aid.is_published %}

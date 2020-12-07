@@ -717,3 +717,29 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
         required=False,
         choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)
+
+
+class DraftListAidFilterForm(forms.Form):
+    """"""
+    AID_STATE_CHOICES = [
+        ('', ''),
+        ('open', _('Open')),
+        ('deadline', _('Deadline approaching')),
+        ('expired', _('Expired')),
+    ]
+
+    AID_DISPLAY_STATUS_CHOICES = [
+        ('', ''),
+        ('hidden', _('Not displayed')),
+        ('live', _('Displayed')),
+    ]
+
+    state = forms.ChoiceField(
+        label=_('State'),
+        required=False,
+        choices=AID_STATE_CHOICES)
+
+    display_status = forms.ChoiceField(
+        label=_('Display status'),
+        required=False,
+        choices=AID_DISPLAY_STATUS_CHOICES)

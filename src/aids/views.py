@@ -22,7 +22,7 @@ from braces.views import MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
 from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
-                        AdvancedAidFilterForm)
+                        AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
 from alerts.forms import AlertForm
@@ -286,6 +286,27 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
+
+        filter_form = DraftListAidFilterForm(self.request.GET)
+        # print("304", filter_form)
+
+        if filter_form.is_valid():
+            state = filter_form.cleaned_data['state']
+            if state:
+                if state == 'open':
+                    qs = qs.open()
+                elif state == 'deadline':
+                    qs = qs.soon_expiring()
+                elif state == 'expired':
+                    qs = qs.expired()
+
+            display_status = filter_form.cleaned_data['display_status']
+            if display_status:
+                if display_status == 'hidden':
+                    qs = qs.hidden()
+                if display_status == 'live':
+                    qs = qs.live()
+
         return qs
 
     def get_ordering(self):
@@ -297,6 +318,7 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['filter_form'] = DraftListAidFilterForm(self.request.GET)
         context['ordering'] = self.get_ordering()
         aid_slugs = context['aids'].values_list('slug', flat=True)
 

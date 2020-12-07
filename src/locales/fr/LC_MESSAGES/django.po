@@ -138,23 +138,41 @@ msgstr "Vous êtes maintenant connecté·e. Bienvenue !"
 msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
 
-msgid "Display status"
-msgstr "Affichage"
+msgid "State"
+msgstr "État"
 
 msgid "Open aids"
 msgstr "Aides ouvertes"
 
+msgid "Deadline approaching aids"
+msgstr "Expirent bientôt"
+
 msgid "Expired aids"
 msgstr "Aides expirées"
 
+msgid "Open"
+msgstr "Ouverte"
+
 msgid "Deadline approaching"
-msgstr "Expirent bientôt"
+msgstr "Expire bientôt"
+
+msgid "Expired"
+msgstr "Expirée"
+
+msgid "Display status"
+msgstr "Affichage"
 
 msgid "Currently not displayed"
 msgstr "Actuellement non affichées"
 
 msgid "Currently displayed"
 msgstr "Actuellement affichées"
+
+msgid "Not displayed"
+msgstr "Non affichée"
+
+msgid "Displayed"
+msgstr "Affichée"
 
 msgid "Author"
 msgstr "Auteur"
