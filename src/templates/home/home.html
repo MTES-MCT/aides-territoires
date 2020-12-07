@@ -110,7 +110,9 @@
                     {% else %}
                     <a href="#">
                     {% endif %}
-                        <img src="media/{{ random_backer.logo }}" alt="Logo : {{ random_backer.name }} ">
+                        {% if random_backer.logo %}
+                        <img src="{{ random_backer.logo.url }}" alt="Logo : {{ random_backer.name }} ">
+                        {% endif %}
                     </a>
                 </div>
             {% endfor %}
