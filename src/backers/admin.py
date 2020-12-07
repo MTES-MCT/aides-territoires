@@ -44,7 +44,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
     filter_fields = ['is_corporate']
-    list_editable = ['is_corporate']
+    list_editable = ['is_corporate', 'is_spotlighted']
+    list_filter = ['is_corporate', 'is_spotlighted']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
