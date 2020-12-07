@@ -818,6 +818,17 @@ article#aid {
         }
     }
 
+    #logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+        & > img {
+            max-height: 100px;
+            padding: 0.5rem;
+        }
+    }
+
     .aid-details {
         @extend .col-md-8;
 

@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n aids compress %}
+{% load settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
@@ -184,6 +185,25 @@
                     </div>
                 </div>
             {% endif %}
+
+            {% if programs or financers%}
+            <div id="logos">
+                {% if programs %}
+                {% for program in programs %}
+                    {% if program.logo %}
+                    <img src="{{ program.logo }}" alt="{{ program.name }}">
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                {% if financers %}
+                {% for financer in financers %}
+                    <img src="{{ financer.logo }}" alt="{{ financer.name }}">
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+
         </div>
 
         <div class="aid-details">
