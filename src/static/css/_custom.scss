@@ -157,20 +157,44 @@
 
         div#logos {
             display: flex;
-            flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 2rem;
 
             a[href^="http"]::after {
                 display: none;
             }
-        }
 
-        img{
-            @extend .my-3;
-            @extend .mx-4;
-            max-height: 100px;
+            img {
+                @extend .my-3;
+                @extend .mx-4;
+                height: 100px;
+                max-width: 350px;
+                vertical-align: middle;
+            }
+
+            .hidden {
+                display: none;
+
+                a {
+                    display: none;
+
+                    img {
+                        display: none;
+                    }
+                }
+            }
+
+            .active {
+                display: block;
+
+                a {
+                    display: block;
+
+                    img {
+                        display: block;
+                    }
+                }
+            }
         }
     }
 }
