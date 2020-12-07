@@ -11,7 +11,7 @@ class ProgramAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
     fields = [
-        'name', 'slug', 'short_description', 'description'
+        'name', 'slug', 'logo', 'short_description', 'description'
     ]
     search_fields = ['name']
 
