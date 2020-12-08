@@ -268,9 +268,11 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     make_mark_as_CFP.short_description = _('Set as CFP')
 
     def export_csv_async(self, request, queryset):
-        exporting_tasks.export_aids_as_csv(queryset, request.user)
+        aids_id_list = list(queryset.values_list('id', flat=True))
+        exporting_tasks.export_aids_as_csv.delay(aids_id_list, request.user.id)
         self.message_user(request, _('Data was exported'))
-    export_csv_async.short_description = _('Export CSV file as background task')
+    export_csv_async.short_description = _(
+        'Export CSV file as background task')
 
 
 class AidAdmin(BaseAidAdmin):
