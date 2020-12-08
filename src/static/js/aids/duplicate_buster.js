@@ -30,7 +30,7 @@
     /**
      * Create a warning message with links to the related aids.
      */
-    var createWarningMessage = function(apiData) {
+    var displayWarningMessage = function(apiData) {
         var messageDiv = $('<div class="errornote" />');
 
         var messageP = $('<p>Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
@@ -68,23 +68,37 @@
     };
 
     /**
+     * Call the API to find aid that might be duplicates from the current one.
+     */
+    var fetchDuplicates = function() {
+        var query = buildSearchForDuplicateQuery();
+        if (query === null) {
+            // If we can't call the api, just return an empty result set
+            return new Promise(function() { return {count: 0}; });
+        }
+
+        return $.getJSON(query);
+    };
+
+    /**
+     * Hide or display a warning message depending on the duplicates found
+     */
+    var hideOrShowMessage = function(duplicates) {
+        var count = duplicates['count'];
+        if (count == 0) {
+            errorDiv.html('');
+        } else {
+            var msg = displayWarningMessage(duplicates);
+            errorDiv.html(msg);
+        }
+    };
+
+    /**
      * Display an error message if we find aids that might be duplicate.
      */
     var warnForDuplicates = function() {
-        var query = buildSearchForDuplicateQuery();
-        if (query === null)
-            return;
-
-        $.getJSON(query, function(data) {
-
-            var count = data['count'];
-            if (count == 0) {
-                errorDiv.html('');
-            } else {
-                var msg = createWarningMessage(data);
-                errorDiv.html(msg);
-            }
-        });
+        var duplicates = fetchDuplicates();
+        duplicates.then(hideOrShowMessage);
     };
 
     $(document).ready(function () {
