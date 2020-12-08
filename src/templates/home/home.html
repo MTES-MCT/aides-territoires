@@ -108,7 +108,7 @@
                     {% if random_backers.external_link%}
                     <a href="{{ random_backer.external_link }}">
                     {% else %}
-                    <a href="#">
+                    <a href="{{ random_backer.get_absolute_url }}">
                     {% endif %}
                         <img src="media/{{ random_backer.logo }}" alt="Logo : {{ random_backer.name }} ">
                     </a>

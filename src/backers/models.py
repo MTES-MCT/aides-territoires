@@ -3,6 +3,7 @@ from os.path import splitext
 from django.db import models
 from django.db.models.expressions import RawSQL
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from aids.models import AidWorkflow
 
@@ -94,3 +95,6 @@ class Backer(models.Model):
     @property
     def id_slug(self):
         return '{}-{}'.format(self.id, self.slug)
+
+    def get_absolute_url(self):
+        return reverse('backer_detail_view', args=[self.id, self.slug])

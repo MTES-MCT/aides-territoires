@@ -4,6 +4,6 @@ from backers.views import BackerDetailView
 
 urlpatterns = [
     path(
-        '<slug:slug>/', BackerDetailView.as_view(),
+        '<int:pk>-<slug:slug>/', BackerDetailView.as_view(),
         name='backer_detail_view'),
 ]
