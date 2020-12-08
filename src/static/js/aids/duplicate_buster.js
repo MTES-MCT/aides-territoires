@@ -3,6 +3,11 @@
 
     const MAX_RESULTS = 5;  // Don't display more duplicate
 
+    const API_ENDPOINT = '/api/aids/?version=1.1';
+
+    var form = $('form#aid_form');
+    var urlField = $('#id_origin_url');
+
     // Create a div to hold the error message
     var errorDiv = $('<div id="duplicate-message"></div>');
 
@@ -46,10 +51,30 @@
     };
 
     /**
+     * Create a query to fetch for duplicates.
+     * Note : if we don't have enough data, just return null.
+     */
+    var buildSearchForDuplicateQuery = function() {
+        var origin_url = $('#id_origin_url').val();
+
+        var query;
+        if (origin_url) {
+            query = API_ENDPOINT + '&origin_url=' + encodeURIComponent(origin_url);
+        } else {
+            query = null;
+        }
+
+        return query;
+    };
+
+    /**
      * Display an error message if we find aids that might be duplicate.
      */
-    var warnForDuplicates = function(form) {
-        var query = '/api/aids/?version=1.1&text=Réduire';
+    var warnForDuplicates = function() {
+        var query = buildSearchForDuplicateQuery();
+        if (query === null)
+            return;
+
         $.getJSON(query, function(data) {
 
             var count = data['count'];
