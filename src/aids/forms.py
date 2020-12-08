@@ -484,6 +484,9 @@ class BaseAidSearchForm(forms.Form):
         queryset=Perimeter.objects.all(),
         label=_('Your territory'),
         required=False)
+    origin_url = forms.URLField(
+        label=_('Origin url'),
+        required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -598,6 +601,10 @@ class BaseAidSearchForm(forms.Form):
         if backers:
             qs = qs.filter(
                 Q(financers__in=backers) | Q(instructors__in=backers))
+
+        origin_url = self.cleaned_data.get('origin_url', None)
+        if origin_url:
+            qs = qs.filter(origin_url=origin_url)
 
         return qs
 
