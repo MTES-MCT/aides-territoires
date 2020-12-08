@@ -65,19 +65,17 @@
                 <td>{{ aid.date_created|date:'d/m/y' }}</td>
                 <td>{{ aid.date_updated|date:'d/m/y' }}</td>
                 <td>
-                    {% if aid.has_approaching_deadline %}
+                    {% if aid.is_ongoing %}
+                        <span class="fas fa-parking" title="{{ _('Ongoing') }}"></span>
+                    {% elif aid.has_approaching_deadline %}
                         <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
                     {% elif aid.has_expired %}
                         <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
                     {% endif %}
-                    <strong>{{ aid.submission_deadline|date:'d/m/y' }}</strong>
+                    <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                 </td>
                 <td>{{ aid.get_status_display }}</td>
-                <td>
-                    {% if aid.is_published %}
-                        {% get hits_per_aid aid.slug 0 %}
-                    {% endif %}
-                </td>
+                <td>{% get hits_per_aid aid.slug 0 %}</td>
             </tr>
             {% endfor %}
         </tbody>

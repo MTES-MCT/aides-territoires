@@ -2234,10 +2234,10 @@ msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
 
 msgid "Total number of hits"
-msgstr "Nombre de vues total des aides"
+msgstr "Nombre de vues total des aides depuis la première publication"
 
 msgid "Number of hits in the last 30 days"
-msgstr "Nombre de vues sur les 30 derniers jours"
+msgstr "Nombre de vues total des aides sur les 30 derniers jours"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
