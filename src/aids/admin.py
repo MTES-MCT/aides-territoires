@@ -18,6 +18,7 @@ from aids.forms import AidAdminForm
 from aids.models import Aid
 from aids.resources import AidResource
 from core.admin import InputFilter
+from exporting import tasks as exporting_tasks
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -139,7 +140,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
-    actions = ExportActionMixin.actions + ['make_mark_as_CFP']
+    actions = ExportActionMixin.actions + ['make_mark_as_CFP', 'export_csv_async']
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
@@ -265,6 +266,11 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         queryset.update(is_call_for_project=True)
         self.message_user(request, _('The selected aids were set as CFP'))
     make_mark_as_CFP.short_description = _('Set as CFP')
+
+    def export_csv_async(self, request, queryset):
+        exporting_tasks.export_aids_as_csv(queryset, request.user)
+        self.message_user(request, _('Data was exported'))
+    export_csv_async.short_description = _('Export CSV file as background task')
 
 
 class AidAdmin(BaseAidAdmin):
