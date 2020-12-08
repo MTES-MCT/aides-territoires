@@ -819,13 +819,24 @@ article#aid {
     }
 
     #logos {
-        display: flex;
+        @extend .card;
+        flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
+
+        & > a[href^="http"]::after {
+            display: none;
+        }
         
-        & > img {
+        & > a > img {
             max-height: 100px;
+            max-width: 300px;
             padding: 0.5rem;
+            filter: saturate(140%);
+        }
+
+        & > a > img:hover {
+            filter: grayscale(20%);
         }
     }
 

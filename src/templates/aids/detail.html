@@ -186,19 +186,25 @@
                 </div>
             {% endif %}
 
-            {% if programs or financers%}
+            {% if programs or financers %}
             <div id="logos">
                 {% if programs %}
                 {% for program in programs %}
                     {% if program.logo %}
-                    <img src="{{ program.logo }}" alt="{{ program.name }}">
+                    <a href="#">
+                        <img src="{{ program.logo }}" alt="{{ program.name }}">
+                    </a>
                     {% endif %}
                 {% endfor %}
                 {% endif %}
 
                 {% if financers %}
                 {% for financer in financers %}
+                {% if financer.logo %}
+                <a href="#">
                     <img src="{{ financer.logo }}" alt="{{ financer.name }}">
+                </a>
+                {% endif %}
                 {% endfor %}
                 {% endif %}
             </div>
