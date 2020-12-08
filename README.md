@@ -241,7 +241,7 @@ son IDE et aussi faire ceci :
 ### Variables d'environnement
 
 Afin de rendre disponible les variables d'environnement dans les playbooks
-ansible, nous utilons le script le fichier `.env.ansible`.
+ansible, nous utilons le fichier `.env.ansible`.
 
 
     # Pour créer le fichier env:

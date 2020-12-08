@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ansible doesn't seem to have a lookup for .env files.
-# This script is a wrapper arround the ansbile command.
+# This script is a wrapper around the ansbile command.
 # It loads a dotenv file into environment variables and make them
 # available to ansible.
 
