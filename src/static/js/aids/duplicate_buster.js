@@ -13,7 +13,7 @@
 
     // Insert the message holding div into the dom
     var initializeErrorDom = function() {
-        errorDiv.insertBefore('form#aid_form > div');
+        errorDiv.insertAfter('#aid_form > div');
     };
 
     // Generate a link to a single duplicate aid
