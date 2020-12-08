@@ -74,7 +74,7 @@
         var query = buildSearchForDuplicateQuery();
         if (query === null) {
             // If we can't call the api, just return an empty result set
-            return new Promise(function() { return {count: 0}; });
+            return new Promise(function() { return {count: 0, results: []}; });
         }
 
         return $.getJSON(query);
@@ -85,7 +85,11 @@
      */
     var hideOrShowMessage = function(duplicates) {
         var count = duplicates['count'];
-        if (count == 0) {
+        var results = duplicates['results'];
+        var currentSlug = $('#id_slug').val();
+
+        // Be careful as to not count the current aid as a duplicate of itself
+        if (count == 0 || count == 1 && results[0]['slug'] == currentSlug) {
             errorDiv.html('');
         } else {
             var msg = displayWarningMessage(duplicates);
