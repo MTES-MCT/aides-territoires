@@ -411,7 +411,7 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
 
     def get_success_url(self):
         edit_url = reverse('aid_edit_view', args=[self.object.slug])
-        return '{}?preview'.format(edit_url)
+        return '{}'.format(edit_url)
 
 
 class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
