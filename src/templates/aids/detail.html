@@ -191,7 +191,7 @@
                 {% if programs %}
                 {% for program in programs %}
                     {% if program.logo %}
-                    <a href="#">
+                    <a href="{% url 'program_detail' program.slug %}">
                         <img src="{{ program.logo }}" alt="{{ program.name }}">
                     </a>
                     {% endif %}
