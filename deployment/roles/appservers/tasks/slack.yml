@@ -2,5 +2,5 @@
 - name: Slack
   community.general.slack:
     token: '{{ lookup("env", "SLACK_WEBHOOK_TOKEN") }}'
-    msg: 'Déploiement de {{ inventory_hostname }}'
+    msg: 'Déploiement de {{ project_version }} sur {{ inventory_hostname }}.'
   delegate_to: localhost
