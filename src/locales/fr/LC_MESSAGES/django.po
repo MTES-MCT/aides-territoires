@@ -1136,7 +1136,7 @@ msgid "aids/"
 msgstr "aides/"
 
 msgid "backers/"
-msgstr "financeurs/"
+msgstr "partenaires/"
 
 msgid "programs/"
 msgstr "programmes/"
