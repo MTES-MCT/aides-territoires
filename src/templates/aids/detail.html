@@ -205,7 +205,9 @@
             <h3>{{ _('Aid targeted area') }}</h3>
             <p>{{ aid.perimeter }}</p>
 
+            {% if aid.mobilization_steps or aid.destinations or aid.project_examples or aid.eligibility%}
             <h2>{{ _('Eligibility criteria') }}</h2>
+            {% endif %}
 
             {% if aid.mobilization_steps %}
                 <h3>{{ _('The aid can be mobilized during…') }}</h3>
