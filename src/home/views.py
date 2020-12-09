@@ -28,7 +28,6 @@ class HomeView(TemplateView):
         selected_backers = Backer.objects \
             .filter(Q(logo__isnull=False) & Q(is_spotlighted=True))
         random_backers = selected_backers.order_by("?")[0:12]
-        
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
