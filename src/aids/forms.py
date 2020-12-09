@@ -735,7 +735,7 @@ class DraftListAidFilterForm(forms.Form):
     ]
 
     state = forms.ChoiceField(
-        label=_('State'),
+        label=_('Deadline'),
         required=False,
         choices=AID_STATE_CHOICES)
 

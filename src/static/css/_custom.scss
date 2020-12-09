@@ -1075,6 +1075,8 @@ article#draft-list {
     }
 
     .form-container {
+        margin-bottom: 1rem;
+
         select {
             @extend .custom-select;
             @extend .ml-2;
@@ -1089,6 +1091,11 @@ article#draft-list {
             @extend .ml-3;
             @include icon(before, $fa-var-search);
         }
+    }
+
+    .table-help {
+        @extend .float-right;
+        @extend .text-muted;
     }
 }
 
