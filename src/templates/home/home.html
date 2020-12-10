@@ -105,7 +105,7 @@
         <div id="logos">
             {% for random_backer in random_backers %}
                 <div class="{% cycle 'logo1' 'logo2' 'logo3' %} active">
-                    {% if random_backers.external_link%}
+                    {% if random_backers.external_link %}
                     <a href="{{ random_backer.external_link }}">
                     {% else %}
                     <a href="{{ random_backer.get_absolute_url }}">
