@@ -21,5 +21,5 @@ function showLogos() {
 	logo2[logosIndex-1].className = logo2[logosIndex-1].className.replace("hidden", "active");
 	logo3[logosIndex-1].className = logo3[logosIndex-1].className.replace("hidden", "active"); 
 
-  setTimeout(showLogos, 2500);
+  setTimeout(showLogos, 4000);
 }
