@@ -207,28 +207,28 @@
 
             {% if aid.mobilization_steps or aid.destinations or aid.project_examples or aid.eligibility %}
             <h2>{{ _('Eligibility criteria') }}</h2>
-            {% endif %}
 
-            {% if aid.mobilization_steps %}
-                <h3>{{ _('The aid can be mobilized during…') }}</h3>
-                <p>{% choices_display aid 'mobilization_steps' %}</p>
-            {% endif %}
+                {% if aid.mobilization_steps %}
+                    <h3>{{ _('The aid can be mobilized during…') }}</h3>
+                    <p>{% choices_display aid 'mobilization_steps' %}</p>
+                {% endif %}
 
-            {% if aid.destinations %}
-                <h3>{{ _('Types of expenses covered') }}</h3>
-                <p>{% choices_display aid 'destinations' %}</p>
-            {% endif %}
+                {% if aid.destinations %}
+                    <h3>{{ _('Types of expenses covered') }}</h3>
+                    <p>{% choices_display aid 'destinations' %}</p>
+                {% endif %}
 
-            {% if aid.project_examples %}
-                <h3>{{ _('Project examples') }}</h3>
-                {{ aid.project_examples|safe }}
-            {% endif %}
+                {% if aid.project_examples %}
+                    <h3>{{ _('Project examples') }}</h3>
+                    {{ aid.project_examples|safe }}
+                {% endif %}
 
-            {% if aid.eligibility %}
-                <h3>{{ _('Other eligibility criterias') }}</h3>
-                {{ aid.eligibility|safe }}
+                {% if aid.eligibility %}
+                    <h3>{{ _('Other eligibility criterias') }}</h3>
+                    {{ aid.eligibility|safe }}
+                {% endif %}
             {% endif %}
-
+            
             <div id="going-further">
                 <h2>{{ _('Going further') }}</h2>
 
