@@ -3,6 +3,7 @@ from os.path import splitext
 from django.db import models
 from django.http import QueryDict
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from core.fields import ChoiceArrayField
@@ -144,6 +145,10 @@ class SearchPage(models.Model):
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),
         default=False)
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
 
     class Meta:
         verbose_name = _('Search page')

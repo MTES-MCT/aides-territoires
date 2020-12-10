@@ -2586,8 +2586,17 @@ msgstr "E-mails d'alertes « nouvelles aides »"
 msgid "Viewed aids"
 msgstr "Aides vues"
 
-msgid "Aids viewed within the last seven days"
+msgid "Aids viewed within the last 7 days"
 msgstr "Nombre d'aides vues pendant les 7 derniers jours"
+
+msgid "Total number of views"
+msgstr "Nombre de vues total"
+
+msgid "Number of views within the last 30 days"
+msgstr "Nombre de vues pendant les 30 derniers jours"
+
+msgid "Number of views within the last 7 days"
+msgstr "Nombre de vues pendant les 7 derniers jours"
 
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"

@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import View
 
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
-                             SiteLegalMentions, Error)
+                             SiteStats, SiteLegalMentions, Error)
 
 
 # This set of url patterns is completely independant from all other urls.
@@ -42,6 +42,8 @@ urlpatterns = [
         path(_('<slug:token>/validate/'), View.as_view(),
              name='alert_validate_view'),
     ])),
+
+    path(_('stats/'), SiteStats.as_view(), name='stats_view'),
 
     path(_('legal-mentions/'), SiteLegalMentions.as_view(),
          name='legal_mentions'),
