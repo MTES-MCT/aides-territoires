@@ -147,22 +147,26 @@
                 {% endif %}
 
                 {% if aid.has_calendar %}
-                <div class="calendar">
                     {% if aid.start_date and not aid.is_ongoing %}
+                    <div class="calendar-start">
                         <h3>{{ _('Start date') }}</h2>
                         <p>{{ aid.start_date|date }}</p>
+                    </div>
                     {% endif %}
-
+                    
                     {% if aid.predeposit_date and not aid.is_ongoing %}
+                    <div class="calendar-predeposit">
                         <h3>{{ _('Predeposit date') }}</h3>
                         <p>{{ aid.predeposit_date|date }}</p>
+                    </div>
                     {% endif %}
 
                     {% if aid.submission_deadline and not aid.is_ongoing %}
-                        <h3>{{ _('Submission deadline') }}</h3>
+                    <div class="calendar-deadline">
+                        <h3 class="submission_deadline">{{ _('Submission deadline') }}</h3>
                         <p>{{ aid.submission_deadline|date }}</p>
+                    </div>
                     {% endif %}
-                </div>
                 {% endif %}
             </div>
 

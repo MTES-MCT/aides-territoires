@@ -339,7 +339,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text=_('If fixed rate, only fill the max. rate.'))
     subvention_comment = models.CharField(
         _('Subvention rate, optional comment'),
-        max_length=256,
+        max_length=100,
         blank=True)
     contact = models.TextField(
         _('Contact'),
