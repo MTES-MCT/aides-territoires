@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-01 16:38+0100\n"
+"POT-Creation-Date: 2020-12-11 12:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,29 +150,11 @@ msgstr "Expirent bientôt"
 msgid "Expired aids"
 msgstr "Aides expirées"
 
-msgid "Open"
-msgstr "Ouverte"
-
-msgid "Deadline approaching"
-msgstr "Expire bientôt"
-
-msgid "Expired"
-msgstr "Expirée"
-
-msgid "Display status"
-msgstr "Visibilité sur le site"
-
 msgid "Currently not displayed"
 msgstr "Actuellement non affichées"
 
 msgid "Currently displayed"
 msgstr "Actuellement affichées"
-
-msgid "Not displayed"
-msgstr "Non affichée"
-
-msgid "Displayed"
-msgstr "Affichée"
 
 msgid "Author"
 msgstr "Auteur"
@@ -631,6 +613,24 @@ msgstr "Ce code postal semble invalide."
 msgid "The structure"
 msgstr "La structure"
 
+msgid "Open"
+msgstr "Ouverte"
+
+msgid "Deadline approaching"
+msgstr "Expire bientôt"
+
+msgid "Expired"
+msgstr "Expirée"
+
+msgid "Not displayed"
+msgstr "Non affichée"
+
+msgid "Displayed"
+msgstr "Affichée"
+
+msgid "Display status"
+msgstr "Affichage"
+
 msgid "Draft"
 msgstr "Brouillon"
 
@@ -907,8 +907,9 @@ msgstr "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
 msgid ""
 "Your aid will be reviewed by an admin soon. It will be published and visible "
 "for users once an admin has approved it."
-msgstr "Votre aide est actuellement en revue. Elle sera publiée et visible "
-"par les utilisateurs du site une fois que l'administrateur l’aura validé."
+msgstr ""
+"Votre aide est actuellement en revue. Elle sera publiée et visible par les "
+"utilisateurs du site une fois que l'administrateur l’aura validé."
 
 msgid "We updated your aid status."
 msgstr "Le changement de statut de votre aide a bien été pris en compte."
@@ -2508,6 +2509,16 @@ msgstr "Merci pour votre abonnement à la newsletter"
 msgid ""
 "<strong>Your subscription to the newsletter has been registered.</strong>"
 msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
+
+msgid "Do you want to extend your search&nbsp;?"
+msgstr "Vous souhaitez élargir votre recherche&nbsp;?"
+
+msgid ""
+"Find all aids for all beneficiaries and all themes in <a href=\"https://"
+"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>&nbsp;!"
+msgstr ""
+"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes les thématiques sur <a href=\"https://addna.aides-territoires.beta.gouv.fr/\"> "
+"Aides-territoires</a>&nbsp;!"
 
 msgid "Reset filters"
 msgstr "Réinitialiser"
