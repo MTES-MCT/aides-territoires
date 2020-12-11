@@ -1,4 +1,3 @@
-import requests
 from datetime import timedelta
 
 from django.http import HttpResponseRedirect
@@ -7,11 +6,11 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils import timezone
 
+from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from alerts.views import AlertCreate
-
-from minisites.mixins import NarrowedFiltersMixin
+from stats.utils import get_matomo_stats_from_page_title
 
 
 class MinisiteMixin:
@@ -158,40 +157,33 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        now_date_string = timezone.now().strftime('%Y-%m-%d')
-
         matomo_base_url = 'https://stats.data.gouv.fr/index.php?idSite={}&period=range&module=API&method=Actions.getPageTitle&pageName={}&format=json'.format(  # noqa
             settings.ANALYTICS_SITEID,
             self.search_page.meta_title or self.search_page.title,
         )
 
         # view count: all-time
-        since_date_string = self.search_page.date_created.strftime('%Y-%m-%d')
-        matomo_date_range_total_param = '&date={},{}'.format(
-            since_date_string, now_date_string)
-        res = requests.get(matomo_base_url + matomo_date_range_total_param)
-        data = res.json()
-        context['view_count_total'] = data[0]['nb_hits']
+        data = get_matomo_stats_from_page_title(
+            page_title=self.search_page.meta_title or self.search_page.title,
+            from_date_string=self.search_page.date_created.strftime('%Y-%m-%d')
+        )
+        context['view_count_total'] = data['nb_hits']
 
         # view count: last 30 days
-        since_date = timezone.now() - timedelta(days=30)
-        since_date_string = since_date.strftime('%Y-%m-%d')
-        matomo_date_range_last_30_days_param = '&date={},{}'.format(
-            since_date_string, now_date_string)
-        res = requests.get(
-            matomo_base_url + matomo_date_range_last_30_days_param)
-        data = res.json()
-        context['view_count_last_30_days'] = data[0]['nb_hits']
+        from_date = timezone.now() - timedelta(days=30)
+        data = get_matomo_stats_from_page_title(
+            page_title=self.search_page.meta_title or self.search_page.title,
+            from_date_string=from_date.strftime('%Y-%m-%d')
+        )
+        context['view_count_last_30_days'] = data['nb_hits']
 
         # view count: last 7 days
-        since_date = timezone.now() - timedelta(days=7)
-        since_date_string = since_date.strftime('%Y-%m-%d')
-        matomo_date_range_last_7_days_param = '&date={},{}'.format(
-            since_date_string, now_date_string)
-        res = requests.get(
-            matomo_base_url + matomo_date_range_last_7_days_param)
-        data = res.json()
-        context['view_count_last_7_days'] = data[0]['nb_hits']
+        from_date = timezone.now() - timedelta(days=7)
+        data = get_matomo_stats_from_page_title(
+            page_title=self.search_page.meta_title or self.search_page.title,
+            from_date_string=from_date.strftime('%Y-%m-%d')
+        )
+        context['view_count_last_7_days'] = data['nb_hits']
 
         return context
 
