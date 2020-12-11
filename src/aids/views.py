@@ -228,6 +228,7 @@ class AidDetailView(DetailView):
         base_qs = Aid.objects \
             .select_related('perimeter', 'author') \
             .prefetch_related('financers', 'instructors') \
+            .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
         user = self.request.user
@@ -251,6 +252,8 @@ class AidDetailView(DetailView):
             context['current_search'] = current_search
 
         context['aid_slug'] = self.object.slug
+
+        context['programs'] = self.object.programs.all()
 
         financers = self.object.financers.all()
         # We don't want to display instructors if they are the same as the
@@ -411,7 +414,7 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
 
     def get_success_url(self):
         edit_url = reverse('aid_edit_view', args=[self.object.slug])
-        return '{}?preview'.format(edit_url)
+        return '{}'.format(edit_url)
 
 
 class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,

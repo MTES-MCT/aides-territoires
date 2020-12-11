@@ -604,6 +604,9 @@ msgstr "Le territoire"
 msgid "Order by"
 msgstr "Trier par"
 
+msgid "Click on the column name to order"
+msgstr "Cliquer sur le nom d'une colonne pour trier"
+
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
@@ -2232,10 +2235,10 @@ msgid "Suggest a modification"
 msgstr "Suggérer des modifications"
 
 msgid "Total number of hits"
-msgstr "Nombre de vues total des aides"
+msgstr "Nombre de vues total des aides depuis la première publication"
 
 msgid "Number of hits in the last 30 days"
-msgstr "Nombre de vues sur les 30 derniers jours"
+msgstr "Nombre de vues total des aides sur les 30 derniers jours"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
@@ -2244,7 +2247,7 @@ msgid "Created on"
 msgstr "Créée le"
 
 msgid "Last modified"
-msgstr "Dernière modif."
+msgstr "Modifiée le"
 
 msgid "Hits"
 msgstr "Vues"
