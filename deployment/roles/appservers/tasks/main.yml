@@ -1,5 +1,9 @@
 ---
 - import_tasks: packages.yml
+- import_tasks: redis.yml
+  when: project_env == "production"
+- import_tasks: celery.yml
+  when: project_env == "production"
 - import_tasks: user.yml
 - import_tasks: database.yml
 - import_tasks: webserver.yml

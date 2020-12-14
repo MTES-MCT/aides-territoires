@@ -1,0 +1,27 @@
+[program:celery]
+environment=DJANGO_SETTINGS_MODULE='core.settings.production'
+directory=/home/aides/aides/src
+command=/home/aides/.virtualenvs/aides/bin/celery -A core worker -l INFO
+
+user=aides
+autostart=true
+
+stdout_logfile=/var/log/supervisor/celery.log
+redirect_stderr=true
+autostart=true
+autorestart=true
+
+;startsecs=10
+;numprocs=1
+
+; Need to wait for currently executing tasks to finish at shutdown.
+; Increase this if you have very long running tasks.
+;stopwaitsecs = 600
+
+; Causes supervisor to send the termination signal (SIGTERM) to the whole process group.
+;stopasgroup=true
+
+; Set Celery prioritydd higher than default (999)
+; so, if rabbitmq/redis is supervised, it will start first.
+;priority=1000
+
