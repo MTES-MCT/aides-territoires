@@ -261,10 +261,11 @@ class AidDetailView(DetailView):
             'instructors': instructors,
         })
 
-        if self.object.mobilization_steps or self.object.destinations \
-        or self.object.project_examples or self.object.eligibility:
-            eligibility_criteria = True
-            context['eligibility_criteria'] = eligibility_criteria
+        context['eligibility_criteria'] = any((
+            self.object.mobilization_steps,
+            self.object.destinations,
+            self.object.project_examples,
+            self.object.eligibility))
 
         return context
 
