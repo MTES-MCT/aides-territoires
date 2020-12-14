@@ -9,11 +9,11 @@
     var urlField = $('#id_origin_url');
 
     // Create a div to hold the error message
-    var errorDiv = $('<div id="duplicate-message"></div>');
+    var errorDiv = $('<div class="inline-error"></div>');
 
     // Insert the message holding div into the dom
     var initializeErrorDom = function() {
-        errorDiv.insertAfter('#aid_form > div');
+        errorDiv.insertAfter('input#id_origin_url');
     };
 
     // Generate a link to a single duplicate aid

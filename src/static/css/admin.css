@@ -90,3 +90,15 @@ form .aligned .trumbowyg-box ul {
     margin-left: inherit;
     padding-left: inherit;
 }
+
+div.inline-error {
+    margin-top: 1em;
+}
+
+div.inline-error ul {
+    margin-left: 1em;
+}
+
+div.inline-error ul li {
+    list-style-type: disc;
+}
