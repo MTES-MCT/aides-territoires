@@ -10,10 +10,6 @@ INSTALLED_APPS += [
 
 COMPRESS_OFFLINE = True
 
-CELERY_BROKER_URL = "memory://"
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
-
 # Create a .env.production file in django's root
 environ.Env.read_env('.env.production')
 env = environ.Env()
@@ -29,6 +25,8 @@ DATABASES = {
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 INTERNAL_IPS = env.list('INTERNAL_IPS')
+
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 
 RAVEN_CONFIG = {
     'dsn': env.str('RAVEN_URL'),
