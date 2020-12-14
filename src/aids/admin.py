@@ -18,7 +18,7 @@ from aids.forms import AidAdminForm
 from aids.models import Aid
 from aids.resources import AidResource
 from core.admin import InputFilter
-from exporting import tasks as exporting_tasks
+from exporting.tasks import export_aids_as_csv
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -269,7 +269,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
 
     def export_csv_async(self, request, queryset):
         aids_id_list = list(queryset.values_list('id', flat=True))
-        exporting_tasks.export_aids_as_csv.delay(aids_id_list, request.user.id)
+        export_aids_as_csv.delay(aids_id_list, request.user.id)
         self.message_user(request, _('Data was exported'))
     export_csv_async.short_description = _(
         'Export CSV file as background task')
