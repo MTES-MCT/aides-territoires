@@ -203,7 +203,7 @@
                 {% for financer in financers %}
                 {% if financer.logo %}
                 <a href="#">
-                    <img src="{{ financer.logo }}" alt="{{ financer.name }}">
+                    <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
                 </a>
                 {% endif %}
                 {% endfor %}
