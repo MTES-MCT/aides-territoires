@@ -7,11 +7,11 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'title', 'meta_description']
+    list_display = ['slug', 'title', 'meta_description', 'date_created']
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
     filter_vertical = ['available_categories']
-
+    readonly_fields = ['date_created']
     fieldsets = [
         ('', {
             'fields': (
@@ -21,6 +21,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'search_querystring',
                 'content',
                 'more_content',
+                'date_created',
             )
         }),
         (_('SEO'), {

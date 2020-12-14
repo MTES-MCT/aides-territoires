@@ -1,0 +1,56 @@
+{% extends 'stats/stats.html' %}
+{% load i18n %}
+
+{% block header %}
+    {% include 'minisites/_header.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'minisites/_footer.html' %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">Stats</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="stats">
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Total number of views') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ view_count_total }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Number of views within the last 30 days') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ view_count_last_30_days }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Number of views within the last 7 days') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ view_count_last_7_days }}</span>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include 'minisites/_css.html' %}
+{% endblock %}
