@@ -106,11 +106,11 @@ button[type=submit] {
     }
 {% endif %}
 
-a#publish-new-aids-btn[href^="http"]::after {
+a#sticky-btn[href^="http"]::after {
     display: none;
 }
 
-a#publish-new-aids-btn {
+a#sticky-btn {
     position: fixed;
     top: 50%;
     right: 0;
@@ -131,7 +131,13 @@ a#publish-new-aids-btn {
     text-decoration: none;
 }
 
-a#publish-new-aids-btn:hover {
+@media screen and (min-width: 600px) {
+    a#sticky-btn {
+        font-size: 1.1rem;
+    }
+}
+
+a#sticky-btn:hover {
     background-color: #db1c83;
     color: #fff !important;
 }
@@ -238,8 +244,7 @@ body > footer #all-logos a img {
 
 body > footer #top-footer {
     background-color: #f9f8f6 !important;
-    color: #DB1C83 !important;
-    font-weight: bold;
+    color: #1c1d1e !important;
     text-align: center;
     margin-bottom: 1rem;
     padding: 1rem 0;
