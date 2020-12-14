@@ -48,6 +48,7 @@ class NarrowedFiltersMixin:
         if not hasattr(self, 'available_categories'):
             page_categories = self.search_page \
                 .available_categories \
+                .order_by('theme__name', 'name') \
                 .select_related('theme')
             self.available_categories = page_categories
         return self.available_categories
