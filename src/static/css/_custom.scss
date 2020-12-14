@@ -784,9 +784,12 @@ article#aid {
             margin-left: -3rem;
         }
 
-        & > div.financers,
-        & > div.instructors {
+        & > div.financers {
             @include icon(before, $fa-var-handshake, 1.5rem);
+        }
+
+        & > div.instructors {
+            @include icon(before, $fa-var-search, 1.5rem);
         }
 
         & > div.call-for-project {
@@ -805,8 +808,16 @@ article#aid {
             @include icon(before, $fa-var-calendar-alt, 1.5rem);
         }
 
-        & > div.calendar {
+        & > div.calendar-start {
             @include icon(before, $fa-var-calendar-check, 1.5rem);
+        }
+
+        & > div.calendar-predeposit {
+            @include icon(before, $fa-var-calendar-day, 1.5rem);
+        }
+
+        & > div.calendar-deadline {
+            @include icon(before, $fa-var-calendar-times, 1.5rem);
         }
 
         & > div.data-origin {
