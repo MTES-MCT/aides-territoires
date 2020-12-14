@@ -22,7 +22,7 @@
         {% for message in messages %}
         <p class="warning">
             <span class="fas fa-exclamation-circle"></span>
-            {{ message }}
+            {{ message | safe }}
         </p>
     {% endfor %}
     {% endif %}
