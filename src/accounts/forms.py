@@ -1,12 +1,12 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
 
 from accounts.models import User
 
 
-class RegisterForm(forms.ModelForm):
+class RegisterForm(UserCreationForm):
     """Form used to create new user accounts."""
 
     email = forms.EmailField(
@@ -36,8 +36,8 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'email', 'organization', 'role',
-            'contact_phone'
+            'first_name', 'last_name', 'email', 'password1', 'password2',
+            'organization', 'role', 'contact_phone'
         ]
 
     def __init__(self, *args, **kwargs):
