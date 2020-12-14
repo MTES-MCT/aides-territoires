@@ -286,6 +286,7 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
     paginate_by = 50
     sortable_columns = [
         'name',
+        'perimeter__name',
         'date_created',
         'date_updated',
         'submission_deadline',

@@ -43,7 +43,8 @@
         <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
         <thead>
             <tr>
-                <th title="{{ _('Order by') }} {{ _('Aid title') }}">{% sortable_header _('Aid title') 'name' %}</th>
+                <th class="aid-name-column" title="{{ _('Order by') }} {{ _('Aid title') }}">{% sortable_header _('Aid title') 'name' %}</th>
+                <th title="{{ _('Order by') }} {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
                 <th title="{{ _('Order by') }} {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
                 <th title="{{ _('Order by') }} {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
                 <th title="{{ _('Order by') }} {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
@@ -56,12 +57,13 @@
             <tr>
                 <td>
                     <a href="{% url 'aid_edit_view' aid.slug %}">
-                        {{ aid.name|truncatechars:50 }}
+                        {{ aid.name }}
                     </a>
                     {% if aid.is_live %}
                         <span class="fas fa-check-circle" title="{{ _('Displayed') }}"></span>
                     {% endif %}
                 </td>
+                <td>{{ aid.perimeter }}</td>
                 <td>{{ aid.date_created|date:'d/m/y' }}</td>
                 <td>{{ aid.date_updated|date:'d/m/y' }}</td>
                 <td>

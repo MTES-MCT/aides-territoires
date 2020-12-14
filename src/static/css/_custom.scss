@@ -1130,6 +1130,12 @@ article#draft-list {
         @extend .float-right;
         @extend .text-muted;
     }
+
+    table {
+        th.aid-name-column {
+            width: 50%;
+        }
+    }
 }
 
 div#alert-modal {
