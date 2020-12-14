@@ -40,9 +40,7 @@ COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', False)
 MAILING_LIST_URL = env('MAILING_LIST_URL')
 
 # Celery configuration
-CELERY_BROKER_URL = "memory://"
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_BROKER_URL = 'redis://localhost:6379'
 
 # Piwik goal tracking ids
 GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID', 1)
