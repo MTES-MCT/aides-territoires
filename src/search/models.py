@@ -145,6 +145,9 @@ class SearchPage(models.Model):
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),
         default=False)
+    show_aid_type_field = models.BooleanField(
+        _('Show aid type filter?'),
+        default=False)
 
     date_created = models.DateTimeField(
         _('Date created'),

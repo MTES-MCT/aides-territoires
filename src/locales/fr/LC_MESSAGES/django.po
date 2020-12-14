@@ -1451,6 +1451,9 @@ msgstr "Montrer le champ « territoire » ?"
 msgid "Show mobilization step filter?"
 msgstr "Montrer le champ « avancement du projet » ?"
 
+msgid "Show aid type filter?"
+msgstr "Montrer le champ « nature de l'aide » ?"
+
 msgid "Search page"
 msgstr "Recherche personnalisée"
 

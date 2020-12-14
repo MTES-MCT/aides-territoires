@@ -27,6 +27,10 @@
     {% if not search_page.show_mobilization_step_field %}
         {{ form.mobilization_step.as_hidden }}
     {% endif %}
+
+    {% if not search_page.show_aid_type_field %}
+        {{ form.aid_type.as_hidden }}
+    {% endif %}
 {% endblock %}
 
 {% block other-actions %}
@@ -70,6 +74,12 @@
         {% if search_page.show_categories_field %}
             <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.categories %}
+            </div>
+        {% endif %}
+
+        {% if search_page.show_aid_type_field %}
+            <div class="col col-md-4">
+                {% include '_field_snippet.html' with field=form.aid_type %}
             </div>
         {% endif %}
 
