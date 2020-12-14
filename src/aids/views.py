@@ -264,6 +264,12 @@ class AidDetailView(DetailView):
             'instructors': instructors,
         })
 
+        context['eligibility_criteria'] = any((
+            self.object.mobilization_steps,
+            self.object.destinations,
+            self.object.project_examples,
+            self.object.eligibility))
+
         return context
 
     def get(self, request, *args, **kwargs):
