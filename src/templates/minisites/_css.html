@@ -106,11 +106,11 @@ button[type=submit] {
     }
 {% endif %}
 
-a#publish-new-aids-btn[href^="http"]::after {
+a#sticky-btn[href^="http"]::after {
     display: none;
 }
 
-a#publish-new-aids-btn {
+a#sticky-btn {
     position: fixed;
     top: 50%;
     right: 0;
@@ -131,7 +131,13 @@ a#publish-new-aids-btn {
     text-decoration: none;
 }
 
-a#publish-new-aids-btn:hover {
+@media screen and (min-width: 600px) {
+    a#sticky-btn {
+        font-size: 1.1rem;
+    }
+}
+
+a#sticky-btn:hover {
     background-color: #db1c83;
     color: #fff !important;
 }
