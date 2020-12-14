@@ -221,6 +221,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',
+            '/static/js/aids/duplicate_buster.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
     form = AidAdminForm
