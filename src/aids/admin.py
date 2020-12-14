@@ -7,6 +7,7 @@ from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.urls import reverse
 
 from import_export import fields, resources
@@ -15,6 +16,7 @@ from import_export.formats import base_formats
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from admin_auto_filters.filters import AutocompleteFilter
 
+from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid
@@ -370,6 +372,13 @@ class AidAdmin(BaseAidAdmin):
 
     def delete_queryset(self, request, queryset):
         queryset.update(status='deleted')
+
+    def save_model(self, request, obj, form, change):
+
+        # When cloning an existing aid, prefix it's title with "[Copie]"
+        if '_saveasnew' in request.POST:
+            obj.name = generate_clone_title(obj.name)
+        return super().save_model(request, obj, form, change)
 
 
 class DeletedAid(Aid):
