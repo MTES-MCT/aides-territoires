@@ -19,7 +19,8 @@
     // Generate a link to a single duplicate aid
     var formatSingleDuplicate = function(data) {
         var a = $('<a/>');
-        a.attr('href', data['url']);
+        var url = '/admin/aids/aid/' + data['id'] + '/change/';
+        a.attr('href', url);
         a.html(data['name']);
 
         var li = $('<li/>');
