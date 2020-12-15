@@ -174,8 +174,23 @@ msgstr "Actuellement affichées"
 msgid "Author"
 msgstr "Auteur"
 
+msgid "Backer"
+msgstr "Porteur d'aides"
+
 msgid "Backers"
 msgstr "Porteur·s d'aides"
+
+msgid "Backer Group"
+msgstr "Groupe de porteurs"
+
+msgid "Backer Groups"
+msgstr "Groupes de porteurs"
+
+msgid "Number of backers"
+msgstr "Nombre de porteurs"
+
+msgid "Is a corporate backer?"
+msgstr "Apporteur privé ?"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -1072,34 +1087,6 @@ msgstr "Aides instruites"
 
 msgid "Related aids"
 msgstr "Aides associées"
-
-msgid "Is a corporate backer?"
-msgstr "Apporteur privé ?"
-
-msgid "Is a spotlighted backer?"
-msgstr "Le porteur est-il mis en avant?"
-
-msgid "If the backer is spotlighted, its logo appears in the HomePage"
-msgstr ""
-"Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
-
-msgid "Logo image"
-msgstr "Logo du porteur"
-
-msgid "Make sure the file is not too heavy. Prefer svg files."
-msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
-
-msgid "External link"
-msgstr "Lien externe"
-
-msgid "The url for the backer's website"
-msgstr "L'url externe vers laquelle renvoie un clic sur le logo du porteur"
-
-msgid "Full description of the backer"
-msgstr "Description complète du porteur d'aides"
-
-msgid "Backer"
-msgstr "Apporteur"
 
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
