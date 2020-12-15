@@ -19,8 +19,10 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ['is_superuser', 'is_certified', 'ml_consent']
     fieldsets = (
         (None, {'fields': ('email', 'password', 'is_certified')}),
-        ('Personal info', {'fields': ('first_name', 'last_name',)}),
-        ('Permissions', {'fields': ('is_superuser',)}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
+        (_('Professional info'), {'fields': (
+            'organization', 'role', 'contact_phone')}),
+        (_('Permissions'), {'fields': ('is_superuser',)}),
     )
 
     add_fieldsets = (
