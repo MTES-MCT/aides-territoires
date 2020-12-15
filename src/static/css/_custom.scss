@@ -1130,6 +1130,16 @@ article#draft-list {
         @extend .float-right;
         @extend .text-muted;
     }
+
+    table {
+        th {
+            white-space: nowrap;
+        }
+        td.aid-deadline-cell,
+        td.aid-status-cell {
+            white-space: nowrap;
+        }
+    }
 }
 
 div#alert-modal {
