@@ -14,14 +14,14 @@
 {% endblock %}
 
 {% block content %}
-<section id="program">
-    <h1>
-        {{ program.name }}
-    </h1>
-    <div class="program-detail">
-        {{ program.description|linebreaks }}
+<article id="program" >
+    <h1>{{ program.name }}</h1>
+    
+    <div>
+        {{ program.description | safe | linebreaks }}
     </div>
-</section>
+
+</article>
 
 <section id="aid-list">
     {% for aid in program.aids.all %}
