@@ -24,8 +24,12 @@
 </article>
 
 <section id="aid-list">
-    {% for aid in program.aids.all %}
-        {% include 'aids/_aid_result.html' with aid=aid %}
-    {% endfor %}
+    <div class="aids">
+        {% for aid in program.aids.all %}
+        <div class="col">
+            {% include 'aids/_aid_result.html' with aid=aid %}
+        </div>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
