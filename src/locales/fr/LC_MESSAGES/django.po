@@ -2520,7 +2520,7 @@ msgid ""
 "Find all aids for all beneficiaries and all themes in <a href=\"https://"
 "aides-territoires.beta.gouv.fr/\">Aides-territoires</a>&nbsp;!"
 msgstr ""
-"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes les thématiques sur <a href=\"https://addna.aides-territoires.beta.gouv.fr/\"> "
+"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
 "Aides-territoires</a>&nbsp;!"
 
 msgid "Reset filters"
