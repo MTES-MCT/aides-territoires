@@ -87,7 +87,7 @@ msgid "Role"
 msgstr "Rôle"
 
 msgid "Contact phone number"
-msgstr "Votre numéro de téléphone"
+msgstr "Numéro de téléphone"
 
 msgid "Is certified"
 msgstr "Certifié·e ?"
