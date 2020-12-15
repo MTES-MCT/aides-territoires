@@ -1,6 +1,6 @@
 ---
 - name: Start redis
-  supervisorctl:
+  service:
     name: "redis-server"
     state: started
 
