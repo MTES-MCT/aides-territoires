@@ -2,6 +2,7 @@ from os.path import splitext
 
 from django.db import models
 from django.db.models.expressions import RawSQL
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
@@ -102,3 +103,11 @@ class Backer(models.Model):
            url_args.append(self.slug)
         return reverse('backer_detail_view', args=url_args)
 
+    def set_slug(self):
+        """Set the object's slug."""
+        if not self.id:
+            self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
