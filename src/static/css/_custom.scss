@@ -157,8 +157,15 @@
 
         div#logos {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            flex-wrap: nowrap;
             justify-content: center;
+            align-items: center;
+
+            @include media-breakpoint-up(md) {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
 
             a[href^="http"]::after {
                 display: none;
@@ -167,7 +174,7 @@
             img {
                 @extend .my-3;
                 @extend .mx-4;
-                height: 100px;
+                height: 80px;
                 max-width: 350px;
                 vertical-align: middle;
             }

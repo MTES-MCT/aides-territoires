@@ -104,9 +104,9 @@
         <h1>Les porteurs d'aides</h1>
         <div id="logos">
             {% for random_backer in random_backers %}
-                <div class="{% cycle 'logo1' 'logo2' 'logo3' %} active">
+                <div class="{% cycle 'logo1' 'logo2' 'logo3' 'logo4' 'logo5' %} active">
                     {% if random_backer.external_link %}
-                    <a href="{{ random_backer.external_link }}">
+                    <a href="{{ random_backer.external_link }}" target="_blank">
                     {% else %}
                     <a href="{{ random_backer.get_absolute_url }}">
                     {% endif %}
