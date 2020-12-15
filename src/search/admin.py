@@ -50,6 +50,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'available_audiences',
                 'show_perimeter_field',
                 'show_mobilization_step_field',
+                'show_aid_type_field',
             )
         }),
     ]
