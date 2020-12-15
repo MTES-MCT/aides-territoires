@@ -192,7 +192,7 @@ class SiteStats(MinisiteMixin, TemplateView):
 class SiteProgram(MinisiteMixin, ProgramDetail):
     """The detail page of a single program."""
 
-    template_name = 'minisites/program_detail.html'
+    template_name = 'minisites/programs/program_detail.html'
 
 
 class SiteLegalMentions(MinisiteMixin, TemplateView):
