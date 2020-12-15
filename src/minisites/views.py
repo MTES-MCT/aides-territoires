@@ -164,27 +164,27 @@ class SiteStats(MinisiteMixin, TemplateView):
         )
 
         # view count: all-time
-        data = get_matomo_stats_from_page_title(
+        context['view_count_total'] = get_matomo_stats_from_page_title(
             page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=self.search_page.date_created.strftime('%Y-%m-%d')
+            from_date_string=self.search_page.date_created.strftime('%Y-%m-%d'),  # noqa
+            result_key='nb_hits'
         )
-        context['view_count_total'] = data['nb_hits']
 
         # view count: last 30 days
         from_date = timezone.now() - timedelta(days=30)
-        data = get_matomo_stats_from_page_title(
+        context['view_count_last_30_days'] = get_matomo_stats_from_page_title(
             page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=from_date.strftime('%Y-%m-%d')
+            from_date_string=from_date.strftime('%Y-%m-%d'),
+            result_key='nb_hits'
         )
-        context['view_count_last_30_days'] = data['nb_hits']
 
         # view count: last 7 days
         from_date = timezone.now() - timedelta(days=7)
-        data = get_matomo_stats_from_page_title(
+        context['view_count_last_7_days'] = get_matomo_stats_from_page_title(
             page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=from_date.strftime('%Y-%m-%d')
+            from_date_string=from_date.strftime('%Y-%m-%d'),
+            result_key='nb_hits'
         )
-        context['view_count_last_7_days'] = data['nb_hits']
 
         return context
 

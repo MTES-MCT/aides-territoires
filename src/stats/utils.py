@@ -17,7 +17,7 @@ def log_event(category, event, meta='', value=None):
 
 
 @lru_cache()
-def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_string=timezone.now().strftime('%Y-%m-%d')):  # noqa
+def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_string=timezone.now().strftime('%Y-%m-%d'), result_key='nb_hits'):  # noqa
     """
     Get view stats of a Page Title from Matomo.
     From_date_string & to_date_string must have YYYY-MM-DD format.
@@ -34,4 +34,8 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     res = requests.get(matomo_page_title_base_url)
     data = res.json()
 
-    return data[0]
+    try:
+        return data[0][result_key]
+    except KeyError:
+        # most likely an error or missing information in the url
+        return 0
