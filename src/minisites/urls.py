@@ -45,7 +45,7 @@ urlpatterns = [
 
     path(_('stats/'), SiteStats.as_view(), name='stats_view'),
 
-    path('programs/<slug:slug>/', SiteProgram.as_view(),
+    path(_('programs/<slug:slug>/'), SiteProgram.as_view(),
          name='program_detail'),
 
     path(_('legal-mentions/'), SiteLegalMentions.as_view(),

@@ -884,6 +884,9 @@ msgstr "publications/"
 msgid "<slug:slug>/status/"
 msgstr "<slug:slug>/statut/"
 
+msgid "programs/<slug:slug>/"
+msgstr "programmes/<slug:slug>/"
+
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
