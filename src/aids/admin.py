@@ -20,7 +20,7 @@ from aids.forms import AidAdminForm
 from aids.models import Aid
 from aids.resources import AidResource
 from core.admin import InputFilter
-from exporting.tasks import export_aids_as_csv
+from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -142,7 +142,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
-    actions = ExportActionMixin.actions + ['make_mark_as_CFP', 'export_csv_async']
+    actions = ExportActionMixin.actions + \
+        ['export_csv', 'export_xlsx', 'make_mark_as_CFP']
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
@@ -269,16 +270,24 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         self.message_user(request, _('The selected aids were set as CFP'))
     make_mark_as_CFP.short_description = _('Set as CFP')
 
-    def export_csv_async(self, request, queryset):
-        aids_id_list = list(queryset.values_list('id', flat=True))
-        export_aids_as_csv.delay(aids_id_list, request.user.id)
+    def show_export_message(self, request):
         url = reverse('admin:exporting_dataexport_changelist')
         msg = _(
             f'Exported data will be available '
             f'<a href="{url}">here: {url}</a>')
         self.message_user(request, mark_safe(msg))
-    export_csv_async.short_description = _(
-        'Export CSV file as background task')
+
+    def export_csv(self, request, queryset):
+        aids_id_list = list(queryset.values_list('id', flat=True))
+        export_aids_as_csv.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+    export_csv.short_description = _('Export CSV file as background task')
+
+    def export_xlsx(self, request, queryset):
+        aids_id_list = list(queryset.values_list('id', flat=True))
+        export_aids_as_xlsx.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+    export_xlsx.short_description = _('Export XLSX file as background task')
 
 
 class AidAdmin(BaseAidAdmin):

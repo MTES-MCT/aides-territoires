@@ -9,14 +9,16 @@ from aids.resources import AidResource
 from exporting.models import DataExport
 
 
-@app.task
-def export_aids_as_csv(aids_id_list, author_id):
+def export_aids(aids_id_list, author_id, file_format):
     queryset = Aid.objects.filter(id__in=aids_id_list)
     exported_data = AidResource().export(queryset)
-    content_file = ContentFile(exported_data.csv)
+    if file_format == 'csv':
+        content_file = ContentFile(exported_data.csv)
+    if file_format == 'xlsx':
+        content_file = ContentFile(exported_data.xlsx)
     file_name = 'export-aides-'
     file_name += dateformat.format(timezone.now(), 'Y-m-d_H-i-s')
-    file_name += '.csv'
+    file_name += f'.{file_format}'
     file_object = files.File(content_file, name=file_name)
     DataExport.objects.create(
         author_id=author_id,
@@ -24,3 +26,13 @@ def export_aids_as_csv(aids_id_list, author_id):
     )
     file_object.close()
     content_file.close()
+
+
+@app.task
+def export_aids_as_csv(aids_id_list, author_id):
+    export_aids(aids_id_list, author_id, file_format='csv')
+
+
+@app.task
+def export_aids_as_xlsx(aids_id_list, author_id):
+    export_aids(aids_id_list, author_id, file_format='xlsx')
