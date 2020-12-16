@@ -142,8 +142,9 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
-    actions = ExportActionMixin.actions + \
-        ['export_csv', 'export_xlsx', 'make_mark_as_CFP']
+    actions = [
+        'export_csv', 'export_xlsx', 'export_admin_action',
+        'make_mark_as_CFP']
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
@@ -290,6 +291,11 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         self.show_export_message(request)
     export_xlsx.short_description = _(
         'Export selected Aids as XLSX as background task')
+
+    def export_admin_action(self, request, queryset):
+        return super().export_admin_action(request, queryset)
+    export_admin_action.short_description = _(
+        'Export and download selected Aids')
 
 
 class AidAdmin(BaseAidAdmin):
