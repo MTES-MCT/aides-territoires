@@ -7,7 +7,6 @@ from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.urls import reverse
 
 from import_export import fields, resources
