@@ -9,6 +9,7 @@ from django.utils import timezone
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
+from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.utils import get_matomo_stats_from_page_title
 
@@ -186,6 +187,12 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['view_count_last_7_days'] = data['nb_hits']
 
         return context
+
+
+class SiteProgram(MinisiteMixin, ProgramDetail):
+    """The detail page of a single program."""
+
+    template_name = 'minisites/program_detail.html'
 
 
 class SiteLegalMentions(MinisiteMixin, TemplateView):

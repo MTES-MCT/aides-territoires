@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import View
 
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
-                             SiteStats, SiteLegalMentions, Error)
+                             SiteStats, SiteProgram, SiteLegalMentions, Error)
 
 
 # This set of url patterns is completely independant from all other urls.
@@ -44,6 +44,9 @@ urlpatterns = [
     ])),
 
     path(_('stats/'), SiteStats.as_view(), name='stats_view'),
+
+    path(_('programs/<slug:slug>/'), SiteProgram.as_view(),
+         name='program_detail'),
 
     path(_('legal-mentions/'), SiteLegalMentions.as_view(),
          name='legal_mentions'),
