@@ -834,10 +834,11 @@ article#aid {
     }
 
     #logos {
+        @extend .card;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
-        text-align: center;
+        border: none;
 
         & > a[href^="http"]::after {
             display: none;
