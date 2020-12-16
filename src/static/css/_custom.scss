@@ -339,6 +339,10 @@ div#search {
     }
 }
 
+#program {
+    margin-bottom: 2rem;
+}
+
 section#aid-list,
 section#program-list {
 
@@ -834,6 +838,7 @@ article#aid {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
+        border: none;
 
         & > a[href^="http"]::after {
             display: none;

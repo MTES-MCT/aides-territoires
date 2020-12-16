@@ -14,18 +14,22 @@
 {% endblock %}
 
 {% block content %}
-<section id="program">
-    <h1>
-        {{ program.name }}
-    </h1>
-    <div class="program-detail">
-        {{ program.description|linebreaks }}
+<article id="program" >
+    <h1>{{ program.name }}</h1>
+    
+    <div>
+        {{ program.description | safe | linebreaks }}
     </div>
-</section>
+
+</article>
 
 <section id="aid-list">
-    {% for aid in program.aids.all %}
-        {% include 'aids/_aid_result.html' with aid=aid %}
-    {% endfor %}
+    <div class="aids">
+        {% for aid in program.aids.all %}
+        <div class="col">
+            {% include 'aids/_aid_result.html' with aid=aid %}
+        </div>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
