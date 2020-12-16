@@ -293,6 +293,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         'Export selected Aids as XLSX as background task')
 
     def export_admin_action(self, request, queryset):
+        # We do a noop override of this method, just because
+        # we want to customize it's short description
         return super().export_admin_action(request, queryset)
     export_admin_action.short_description = _(
         'Export and download selected Aids')
