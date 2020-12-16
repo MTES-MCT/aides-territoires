@@ -4,3 +4,4 @@
     src: supervisor_celery.j2
     dest: /etc/supervisor/conf.d/celery.conf
   tags: celeryd
+  
