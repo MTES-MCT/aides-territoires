@@ -281,13 +281,15 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         aids_id_list = list(queryset.values_list('id', flat=True))
         export_aids_as_csv.delay(aids_id_list, request.user.id)
         self.show_export_message(request)
-    export_csv.short_description = _('Export CSV file as background task')
+    export_csv.short_description = _(
+        'Export selected Aids as CSV in background task')
 
     def export_xlsx(self, request, queryset):
         aids_id_list = list(queryset.values_list('id', flat=True))
         export_aids_as_xlsx.delay(aids_id_list, request.user.id)
         self.show_export_message(request)
-    export_xlsx.short_description = _('Export XLSX file as background task')
+    export_xlsx.short_description = _(
+        'Export selected Aids as XLSX as background task')
 
 
 class AidAdmin(BaseAidAdmin):
