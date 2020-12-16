@@ -8,6 +8,8 @@ from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.utils.safestring import mark_safe
+
 
 from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
@@ -270,7 +272,11 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     def export_csv_async(self, request, queryset):
         aids_id_list = list(queryset.values_list('id', flat=True))
         export_aids_as_csv.delay(aids_id_list, request.user.id)
-        self.message_user(request, _('Data was exported'))
+        url = reverse('admin:exporting_dataexport_changelist')
+        msg = _(
+            f'Exported data will be available '
+            f'<a href="{url}">here: {url}</a>')
+        self.message_user(request, mark_safe(msg))
     export_csv_async.short_description = _(
         'Export CSV file as background task')
 
