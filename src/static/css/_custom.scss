@@ -165,6 +165,7 @@
             @include media-breakpoint-up(md) {
                 flex-direction: row;
                 flex-wrap: wrap;
+                margin-top: 4rem;
             }
 
             a[href^="http"]::after {
@@ -175,7 +176,7 @@
                 @extend .my-3;
                 @extend .mx-4;
                 height: 80px;
-                max-width: 350px;
+                max-width: 200px;
                 vertical-align: middle;
             }
 
