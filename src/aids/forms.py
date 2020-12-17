@@ -451,7 +451,7 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         choices=Aid.RECURRENCE)
     call_for_projects_only = forms.BooleanField(
-        label=_('Call for projects only (AAP) / Call for investment interests only (AMI)'),
+        label=_('Call for projects only'),
         required=False)
     backers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),

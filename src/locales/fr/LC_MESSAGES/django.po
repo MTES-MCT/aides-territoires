@@ -584,9 +584,6 @@ msgid "Recurrence"
 msgstr "Récurrence"
 
 msgid "Call for projects only"
-msgstr "AAP / AMI uniquement"
-
-msgid "Call for projects only (AAP) / Call for investment interests only (AMI)"
 msgstr "Appels à projets (AAP) / Appels à manifestation d’intérêt (AMI) uniquement"
 
 msgid "Aid programs"

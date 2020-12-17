@@ -61,9 +61,9 @@
                     </div> 
                     {% endfor %}
 
-                <div class="form-group checkbox-group">
+                <div class="form-check form-check-inline">
                     {{ form.call_for_projects_only }}
-                    <label>{% blocktrans %}Call for projects only{% endblocktrans %}</label>
+                    <label>{{ form.call_for_projects_only.label }}</label>
                 </div>
             </div>
 
