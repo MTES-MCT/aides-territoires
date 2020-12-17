@@ -23,7 +23,10 @@ class UserAdmin(BaseUserAdmin):
         (_('Professional info'), {'fields': (
             'organization', 'role', 'contact_phone')}),
         (_('Permissions'), {'fields': ('is_superuser',)}),
+        (_('Misc.'), {'fields': (
+            'ml_consent', 'last_login', 'date_joined',)}),
     )
+    readonly_fields = ('last_login', 'date_joined')
 
     add_fieldsets = (
         (None, {
