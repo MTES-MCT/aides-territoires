@@ -3,6 +3,7 @@
   service:
     name: nginx
     state: stopped
+  tags: certbot
 
 - name: Generate certificate using Let's Encrypt (for production)
   when: project_env == "production"
@@ -19,6 +20,7 @@
       - "{{ certbot_admin_email }}"
       - -d
       - "{{ certbot_domains | join(',') }}"
+  tags: certbot
 
 - name: Generate partners certificates using Let's Encrypt (for production)
   when: project_env == "production" and partners is defined
@@ -36,7 +38,7 @@
       - -d
       - "{{ item.domain }}"
   loop: "{{ partners }}"
-
+  tags: certbot
 
 - name: Install the certificate renewal cronjob
   when: project_env == "production"
@@ -45,12 +47,14 @@
     special_time: daily
     job: "certbot renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\""
     state: present
+  tags: certbot
 
 - name: Make sure certificate directory exists for OpenSSL
   when: project_env == "local"
   file:
     path: /etc/letsencrypt/live/{{ project_domain }}
     state: directory
+  tags: certbot
 
 - name: Generate a self-signed OpenSSL certificate (dev only)
   when: project_env == "local"
@@ -72,8 +76,10 @@
       - "/CN={{ project_domain }}"
       - -days
       - "1024"
+  tags: certbot
 
 - name: Ensure Nginx is running
   service:
     name: nginx
     state: started
+  tags: certbot
