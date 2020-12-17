@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 12:04+0100\n"
+"POT-Creation-Date: 2020-12-16 23:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,12 +165,6 @@ msgstr "Porteur·s d'aides"
 msgid "Perimeter"
 msgstr "Périmètre"
 
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
-
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
 
@@ -209,6 +203,19 @@ msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
 
 msgid "Set as CFP"
 msgstr "Marquer en tant qu'AAP"
+
+msgid "Exported data will be available "
+msgstr "Les données exportées seront disponibles "
+
+msgid "Export selected Aids as CSV in background task"
+msgstr "Exporter les Aides selectionnées en CSV en tâche de fond"
+
+msgid "Export selected Aids as XLSX as background task"
+msgstr "Exporter les Aides selectionnées en XLSX en tâche de fond"
+
+msgid "Export and download selected Aids"
+msgstr "Exporter et télécharger les Aides selectionnées"
+
 
 msgid "Deleted aid"
 msgstr "Aide supprimée"
@@ -295,6 +302,12 @@ msgstr "Collectivités"
 
 msgid "Other audiences"
 msgstr "Autres bénéficiaires"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
 
 msgid "Program title"
 msgstr "Titre du programme"
@@ -1163,6 +1176,18 @@ msgstr "data/"
 #| msgid "Upload"
 msgid "upload/"
 msgstr "Uploader"
+
+msgid "data export"
+msgstr "export de données"
+
+msgid "The person who has trigger the export"
+msgstr "La personne qui a déclanché l'export"
+
+msgid "exported file"
+msgstr "fichier exporté"
+
+msgid "Data export"
+msgstr "Export de données"
 
 msgid "<path:object_id>/upload/"
 msgstr "<path:object_id>/upload/"

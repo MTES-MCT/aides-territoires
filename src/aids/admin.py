@@ -8,30 +8,22 @@ from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
-from import_export import fields, resources
+
 from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
-from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from admin_auto_filters.filters import AutocompleteFilter
 
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid
-from geofr.utils import get_all_related_perimeter_ids
+from aids.resources import AidResource
 from core.admin import InputFilter
+from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
+from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
-
-
-AIDS_EXPORT_EXCLUDE_FIELDS = [
-    'id',
-    'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
-    'contact_email', 'contact_phone', 'contact_detail',
-    'import_uniqueid', 'import_share_licence', 'import_last_access',
-    'search_vector', 'tags', '_tags_m2m',
-    'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
-]
 
 
 class LiveAidListFilter(admin.SimpleListFilter):
@@ -127,83 +119,6 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
             return queryset.filter(perimeter__in=perimeter_qs)
 
 
-class AidResource(resources.ModelResource):
-    """Resource for Import-export."""
-
-    # custom widgets to ForeignKey/ManyToMany information instead of ids
-    author = fields.Field(
-        column_name='author',
-        attribute='author',
-        widget=ForeignKeyWidget('accounts.User', field='full_name')
-    )
-    categories = fields.Field(
-        column_name='categories',
-        attribute='categories',
-        widget=ManyToManyWidget('categories.Category', field='name')
-    )
-    financers = fields.Field(
-        column_name='financers',
-        attribute='financers',
-        widget=ManyToManyWidget('backers.Backer', field='name')
-    )
-    instructors = fields.Field(
-        column_name='instructors',
-        attribute='instructors',
-        widget=ManyToManyWidget('backers.Backer', field='name')
-    )
-    perimeter = fields.Field(
-        column_name='perimeter',
-        attribute='perimeter',
-        widget=ForeignKeyWidget('geofr.Perimeter', field='name')
-    )
-    programs = fields.Field(
-        column_name='programs',
-        attribute='programs',
-        widget=ManyToManyWidget('programs.Program', field='name')
-    )
-
-    class Meta:
-        model = Aid
-        exclude = AIDS_EXPORT_EXCLUDE_FIELDS
-        # adding custom widgets breaks the usual order
-        export_order = [field.name for field in Aid._meta.fields if field.name not in AIDS_EXPORT_EXCLUDE_FIELDS]  # noqa
-
-    def get_export_headers(self):
-        """override get_export_headers() to translate field names."""
-        headers = []
-        for field in self.get_export_fields():
-            field_model = self.Meta.model._meta.get_field(field.column_name)
-            headers.append(field_model.verbose_name)
-        return headers
-
-    def export_field(self, field, obj):
-        """override export_field() to translate field values."""
-        field_name = self.get_field_name(field)
-        method = getattr(self, 'dehydrate_%s' % field_name, None)
-        if method is not None:
-            return method(obj)
-
-        field_model = self.Meta.model._meta.get_field(field.column_name)
-        if field_model.serialize:
-            # simple fields with choices: use get_FOO_display to translate
-            if field_model.choices:
-                value = getattr(obj, f'get_{field.column_name}_display')()
-                return field.widget.render(value, obj)
-            # ChoiceArrayField fields: need to translate a list
-            elif hasattr(field_model, 'base_field') and field_model.base_field.choices:  # noqa
-                value_raw = field.get_value(obj)
-                if value_raw:
-                    # translate each dict choice
-                    value = [dict(field_model.base_field.choices).get(value, value) for value in value_raw]  # noqa
-                    return field.widget.render(value, obj)
-            # BooleanField fields: avoid returning 1 (True) and 0 (False)
-            elif field_model.get_internal_type() == 'BooleanField':
-                value_raw = field.get_value(obj)
-                if value_raw is not None:
-                    return _('Yes') if value_raw else _('No')
-        return field.export(obj)
-
-
 class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
@@ -229,7 +144,9 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
-    actions = ExportActionMixin.actions + ['make_mark_as_CFP']
+    actions = [
+        'export_csv', 'export_xlsx', 'export_admin_action',
+        'make_mark_as_CFP']
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
@@ -355,6 +272,34 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         queryset.update(is_call_for_project=True)
         self.message_user(request, _('The selected aids were set as CFP'))
     make_mark_as_CFP.short_description = _('Set as CFP')
+
+    def show_export_message(self, request):
+        url = reverse('admin:exporting_dataexport_changelist')
+        msg = _(
+            f'Exported data will be available '
+            f'<a href="{url}">here: {url}</a>')
+        self.message_user(request, mark_safe(msg))
+
+    def export_csv(self, request, queryset):
+        aids_id_list = list(queryset.values_list('id', flat=True))
+        export_aids_as_csv.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+    export_csv.short_description = _(
+        'Export selected Aids as CSV in background task')
+
+    def export_xlsx(self, request, queryset):
+        aids_id_list = list(queryset.values_list('id', flat=True))
+        export_aids_as_xlsx.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+    export_xlsx.short_description = _(
+        'Export selected Aids as XLSX as background task')
+
+    def export_admin_action(self, request, queryset):
+        # We do a noop override of this method, just because
+        # we want to customize it's short description
+        return super().export_admin_action(request, queryset)
+    export_admin_action.short_description = _(
+        'Export and download selected Aids')
 
 
 class AidAdmin(BaseAidAdmin):

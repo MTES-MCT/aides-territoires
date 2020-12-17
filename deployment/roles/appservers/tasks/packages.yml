@@ -36,6 +36,7 @@
       - python3-virtualenv
       - python3-venv
       - gnupg
+      - redis-server
 
 - name: Install nodesource apt key
   apt_key:
