@@ -3,7 +3,7 @@
 import pytest
 from django.urls import reverse
 
-from analytics import track_goal
+from analytics.utils import track_goal
 
 
 pytestmark = pytest.mark.django_db

@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import update_session_auth_hash
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
-from analytics import track_goal
+from analytics.utils import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email

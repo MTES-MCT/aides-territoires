@@ -274,7 +274,14 @@ class AidDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
-        log_event('aid', 'viewed', meta=self.object.slug, value=1)
+
+        # Here we retrieve the request's *first* subdomain
+        # e.g. https://aides-territoires.beta.gouv.fr/ --> 'aides-territoires' (default)  # noqa
+        # e.g. https://arcinnovation.aides-territoires.beta.gouv.fr/ --> 'arcinnovation'  # noqa
+        request_subdomain = request.META['HTTP_HOST'].split('.')[0]
+
+        log_event('aid', 'viewed', meta=self.object.slug, source=request_subdomain, value=1)  # noqa
+
         return response
 
 

@@ -47,6 +47,24 @@
             <span>{{ view_count_last_7_days }}</span>
         </div>
     </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Aids viewed within the last 30 days') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ aid_view_count_last_30_days }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Aids viewed within the last 7 days') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ aid_view_count_last_7_days }}</span>
+        </div>
+    </div>
 </section>
 {% endblock %}
 

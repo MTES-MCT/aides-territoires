@@ -45,7 +45,7 @@ class Command(BaseCommand):
             .filter(token__in=alerted_alerts) \
             .update(latest_alert_date=timezone.now())
         self.stdout.write('{} alerts sent'.format(updated))
-        log_event('alert', 'sent', value=updated)
+        log_event('alert', 'sent', source='send_alerts', value=updated)
         return
 
     def get_alerts(self):

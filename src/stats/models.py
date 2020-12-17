@@ -21,6 +21,10 @@ class Event(models.Model):
         _('Name'),
         max_length=256,
         default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        default='')
 
     # A numeric value to quantify the event
     # e.g 15 alerts were sent.
