@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-16 23:38+0100\n"
+"POT-Creation-Date: 2020-12-17 11:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Personal info"
+msgstr "Informations personnelles"
+
+msgid "Professional info"
+msgstr "Informations professionnelles"
+
+msgid "Permissions"
+msgstr "Permissions"
+
+msgid "Misc."
+msgstr "Divers"
+
+msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
+msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
 
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
@@ -215,7 +230,6 @@ msgstr "Exporter les Aides selectionnées en XLSX en tâche de fond"
 
 msgid "Export and download selected Aids"
 msgstr "Exporter et télécharger les Aides selectionnées"
-
 
 msgid "Deleted aid"
 msgstr "Aide supprimée"
@@ -614,11 +628,11 @@ msgstr "Vous recherchez des aides pour…"
 msgid "Your territory"
 msgstr "Le territoire"
 
+msgid "Origin url"
+msgstr "URL d'origine"
+
 msgid "Order by"
 msgstr "Trier par"
-
-msgid "Click on the column name to order"
-msgstr "Cliquer sur le nom d'une colonne pour trier"
 
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
@@ -640,6 +654,9 @@ msgstr "Non affichée"
 
 msgid "Displayed"
 msgstr "Affichée"
+
+msgid "Deadline"
+msgstr "Échéance"
 
 msgid "Display status"
 msgstr "Affichage"
@@ -897,9 +914,6 @@ msgstr "publications/"
 msgid "<slug:slug>/status/"
 msgstr "<slug:slug>/statut/"
 
-msgid "programs/<slug:slug>/"
-msgstr "programmes/<slug:slug>/"
-
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
@@ -1148,6 +1162,12 @@ msgstr "Thématique"
 msgid "Category"
 msgstr "Sous-thématique"
 
+msgid "Aides-Territoires API"
+msgstr ""
+
+msgid "API Aide"
+msgstr ""
+
 msgid "accounts/"
 msgstr "comptes/"
 
@@ -1317,6 +1337,9 @@ msgstr "logs"
 msgid "<slug:token>/validate/"
 msgstr "<slug:token>/validation/"
 
+msgid "programs/<slug:slug>/"
+msgstr "programmes/<slug:slug>/"
+
 msgid "Content"
 msgstr "Contenu"
 
@@ -1341,6 +1364,14 @@ msgstr "Description (balise meta)"
 
 msgid "This will be displayed in SERPs. Keep it under 120 characters."
 msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
+
+#, fuzzy
+#| msgid "Logo link"
+msgid "Logo"
+msgstr "Lien du logo"
+
+msgid "Make sure the file is not too heavy. Prefer svg files."
+msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
 
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
@@ -1457,9 +1488,6 @@ msgstr "Couleur de fond du pied de page"
 
 msgid "Logo image"
 msgstr "Image du logo"
-
-msgid "Make sure the file is not too heavy. Prefer svg files."
-msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
 
 msgid "Logo link"
 msgstr "Lien du logo"
@@ -2197,9 +2225,6 @@ msgstr "Enregistrer en brouillon"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgid "Deadline"
-msgstr "Échéance"
-
 msgid ""
 "Warning! This aid is <strong>currently not published</strong>. You can only "
 "see it because you are the author."
@@ -2225,9 +2250,6 @@ msgstr "Origine de la donnée"
 
 msgid "This aid was imported from another data stream."
 msgstr "Cette aide provient d'une source de données tierce"
-
-msgid "Origin url"
-msgstr "URL d'origine"
 
 msgid "NA"
 msgstr "ND"
@@ -2270,6 +2292,9 @@ msgstr "Nombre de vues total des aides depuis la première publication"
 
 msgid "Number of hits in the last 30 days"
 msgstr "Nombre de vues total des aides sur les 30 derniers jours"
+
+msgid "Click on the column name to order"
+msgstr "Cliquer sur le nom d'une colonne pour trier"
 
 msgid "Your list of published aids"
 msgstr "La liste de vos aides publiées"
@@ -2548,11 +2573,21 @@ msgid ""
 "Find all aids for all beneficiaries and all themes in <a href=\"https://"
 "aides-territoires.beta.gouv.fr/\">Aides-territoires</a>&nbsp;!"
 msgstr ""
-"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
+"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
+"les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
 "Aides-territoires</a>&nbsp;!"
 
 msgid "Reset filters"
 msgstr "Réinitialiser"
+
+msgid "Total number of views"
+msgstr "Nombre de vues total"
+
+msgid "Number of views within the last 30 days"
+msgstr "Nombre de vues pendant les 30 derniers jours"
+
+msgid "Number of views within the last 7 days"
+msgstr "Nombre de vues pendant les 7 derniers jours"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
@@ -2619,15 +2654,6 @@ msgstr "Aides vues"
 
 msgid "Aids viewed within the last 7 days"
 msgstr "Nombre d'aides vues pendant les 7 derniers jours"
-
-msgid "Total number of views"
-msgstr "Nombre de vues total"
-
-msgid "Number of views within the last 30 days"
-msgstr "Nombre de vues pendant les 30 derniers jours"
-
-msgid "Number of views within the last 7 days"
-msgstr "Nombre de vues pendant les 7 derniers jours"
 
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
