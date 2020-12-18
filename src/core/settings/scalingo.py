@@ -22,11 +22,6 @@ DJANGO_ROOT = CORE_APP_DIR.parent
 
 SECRET_KEY = env('SECRET_KEY')
 
-try:
-    database_url = env('DATABASE_URL')
-except KeyError:
-    database_url = "file:///{}".format(Path(DJANGO_ROOT, 'db.sqlite3'))
-
 DATABASES = {'default': dj_database_url.config()}
 
 DEBUG = env.bool('DEBUG', False)
