@@ -29,7 +29,7 @@ class HomeView(TemplateView):
             logo__isnull=False,
             is_spotlighted=True)
         # We only display the first 12
-        random_backers = selected_backers.order_by("?")[0:16]
+        random_backers = selected_backers.order_by("?")[0:15]
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
