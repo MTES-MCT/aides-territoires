@@ -34,7 +34,7 @@ RAVEN_CONFIG = {
     'dsn': env('RAVEN_URL'),
 }
 
-COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=True)
+COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=False)
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 
 NODE_MODULES_PATH = Path(DJANGO_ROOT, 'node_modules')
