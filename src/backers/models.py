@@ -1,8 +1,20 @@
+from os.path import splitext
+
 from django.db import models
 from django.db.models.expressions import RawSQL
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from aids.models import AidWorkflow
+
+
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'backers/{}_logo{}'.format(name, extension)
+    return filename
 
 
 class BackerQuerySet(models.QuerySet):
@@ -55,6 +67,23 @@ class Backer(models.Model):
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
+    is_spotlighted = models.BooleanField(
+        _('Is a spotlighted backer?'),
+        default=False,
+        help_text=_(
+            'If the backer is spotlighted, its logo appears in the HomePage'))
+    logo = models.FileField(
+        _('Logo image'),
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+    external_link = models.URLField(
+        _('External link'),
+        null=True, blank=True,
+        help_text=_('The url for the backer\'s website'))
+    description = models.TextField(
+        _('Full description of the backer'),
+        default='', blank=False)
 
     class Meta:
         verbose_name = _('Backer')
@@ -65,4 +94,11 @@ class Backer(models.Model):
 
     @property
     def id_slug(self):
-        return '{}-{}'.format(self.id, self.slug)
+        return '{}-{}'.format(self.pk, self.slug)
+
+    def get_absolute_url(self):
+        url_args = [self.pk]
+        if self.slug:
+           url_args.append(self.slug)
+        return reverse('backer_detail_view', args=url_args)
+

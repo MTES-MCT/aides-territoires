@@ -157,15 +157,52 @@
 
         div#logos {
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-direction: column;
+            flex-wrap: nowrap;
             justify-content: center;
-        }
+            align-items: center;
 
-        img{
-            @extend .my-3;
-            @extend .mx-4;
-            max-height: 48px;
+            @include media-breakpoint-up(md) {
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-top: 4rem;
+            }
+
+            a[href^="http"]::after {
+                display: none;
+            }
+
+            img {
+                @extend .my-3;
+                @extend .mx-4;
+                max-height: 80px;
+                max-width: 175px;
+                vertical-align: middle;
+            }
+
+            .hidden {
+                display: none;
+
+                a {
+                    display: none;
+
+                    img {
+                        display: none;
+                    }
+                }
+            }
+
+            .active {
+                display: block;
+
+                a {
+                    display: block;
+
+                    img {
+                        display: block;
+                    }
+                }
+            }
         }
     }
 }

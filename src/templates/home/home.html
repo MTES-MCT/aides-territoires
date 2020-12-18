@@ -98,31 +98,33 @@
 </div>
 </section>
 
+{% if random_backers %}
 <section id="partner">
     <div class="container-lg">
         <h1>Les porteurs d'aides</h1>
         <div id="logos">
-            <img src="/static/img/partners/logo-aesn-small.png" title="Agence de l'eau Seine Normandie" alt="Logo de l'Agence de l'eau Seine Normandie" />
-            <img src="/static/img/partners/logo-ademe.svg" title="Agence de l'environnement et de la maîtrise de l'énergie" alt="Logo de l'Agence de l'environnement et de la maîtrise de l'énergie" />
-            <img src="/static/img/partners/logo-miqcp-small.png" title="Mission Interministérielle pour la Qualité des Constructions Publiques" alt="Logo de la Mission Interministérielle pour la Qualité des Constructions Publiques" />
-            <img src="/static/img/partners/logo-seg-small.png" title="Services de l'État en Guyane" alt="Logo des Services de l'Etat en Guyane " />
-            <img src="/static/img/partners/logo-ge-small.png" title="Région Grand Est" alt="Logo de la Région Grand Est" />
-            <img src="/static/img/partners/logo-adlrmc-small.png" title="Agence de l'eau Rhône Méditarranée Corse" alt="Logo de l'Agence de l'eau Rhône Méditerranée Corse" />
-            <img src="/static/img/partners/logo-afd-small.png" title="Agence Française de Développement" alt="Logo de l'Agence française de développement" />
-            <img src="/static/img/partners/logo-bdt-small.png" title="Banque des Territoires" alt="Logo de la Banque des Territoires" />
-            <img src="/static/img/partners/logo-fff.svg" title="Fédération Française de Football" alt="Logo de la Fédération Française de Football" />
-            <img src="/static/img/partners/logo-banque-postale.svg" title="Banque Postale" alt="Logo de la Banque Postale" />
-            <img src="/static/img/partners/logo-cerema-gd.svg" title="Cerema" alt="Logo du Cerema" />
-            <img src="/static/img/partners/logo-ofb.png" title="Office Français pour la Biodiversité" alt="Logo de l'OFB" />
-            <img src="/static/img/partners/logo-ans.svg" title="Agence Nationale du Sport" alt="Logo de l'Agence Nationale du Sport" />
-            <img src="/static/img/partners/logo-agence-rhin-meuse.png" title="Agence de l'eau Rhin-Meuse" alt="Logo de l'Agence de l'Eau Rhin-Meuse " />
-            <img src="/static/img/partners/logo-amrf.svg" title="Assocation des Maires Ruraux de France" alt="Logo de l'Assocation des Maires Ruraux de France" />
-            <img src="/static/img/partners/logo-france-mobilite.svg" title="France Mobilité" alt="Logo de France Mobilité" />
-            <img src="/static/img/partners/logo-ffbb.svg" title="Fédération Française de Basket-Ball" alt="Logo de la Fédération Française de Basket-Ball" />
-            <img src="/static/img/partners/logo-anru.svg" title="Agence Nationale pour la Rénovation Urbaine" alt="Logo de l'Agence Nationale pour la Rénovation Urbaine" />
-            <img src="/static/img/partners/logo-cnracl.svg" title="Caisse Nationale de Retraites des Agents des Collectivités Locales" alt="Logo de la CNRACL" />
-            <img src="/static/img/partners/logo-agence-de-leau-loire-bretagne.svg" title="Agence de l'eau Loire-Bretagne" alt="Logo de l'agence de l'eau Loire-Bretagne" />
+            {% for random_backer in random_backers %}
+                <div class="{% cycle 'logo1' 'logo2' 'logo3' 'logo4' 'logo5' %} active">
+                    {% if random_backer.external_link %}
+                    <a href="{{ random_backer.external_link }}" target="_blank">
+                    {% else %}
+                    <a href="{{ random_backer.get_absolute_url }}">
+                    {% endif %}
+                        {% if random_backer.logo %}
+                        <img src="{{ random_backer.logo.url }}" alt="Logo : {{ random_backer.name }} ">
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+            {% resetcycle %}
         </div>
     </div>
 </section>
+{% endif%}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/carousel.js"></script>
+{% endcompress js %}
 {% endblock %}
