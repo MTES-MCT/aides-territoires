@@ -112,5 +112,6 @@ TODO
 .env.production
 .env.staging
 .env.ansible
+.env.scalingo
 
 *.xls

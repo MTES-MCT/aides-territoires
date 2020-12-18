@@ -27,6 +27,8 @@ django-activity-stream = "*"
 django-import-export = "*"
 django-admin-autocomplete-filter = "*"
 drf-yasg = "*"
+dj-static = "*"
+dj-database-url = "*"
 
 [dev-packages]
 pytest = "*"
