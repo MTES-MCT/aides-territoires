@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0007_auto_20201203_1303'),
+        ('backers', '0008_add_description_field'),
     ]
 
     operations = [

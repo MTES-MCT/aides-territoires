@@ -9,6 +9,12 @@ from aids.factories import AidFactory
 pytestmark = pytest.mark.django_db
 
 
+def test_backer_slug():
+    new_backer = BackerFactory(name="New Backer")
+
+    assert new_backer.slug == 'new-backer'
+
+
 def test_backer_filtering():
 
     BackerFactory()

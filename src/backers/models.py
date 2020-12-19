@@ -2,6 +2,7 @@ from os.path import splitext
 
 from django.db import models
 from django.db.models.expressions import RawSQL
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
@@ -61,9 +62,8 @@ class Backer(models.Model):
         db_index=True)
     slug = models.SlugField(
         _('Slug'),
-        help_text=_(
-            'Slug field is set when creating the backer '
-            'and can not be changed after.'))
+        help_text=_('Let it empty so it will be autopopulated.'),
+        blank=True)
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
@@ -102,3 +102,11 @@ class Backer(models.Model):
            url_args.append(self.slug)
         return reverse('backer_detail_view', args=url_args)
 
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
