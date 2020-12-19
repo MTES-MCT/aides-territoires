@@ -28,6 +28,10 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     Get view stats of a Page Title from Matomo.
     From_date_string & to_date_string must have YYYY-MM-DD format.
     The results are cached to speed up and avoid querying Matomo too often.
+
+    Usage example:
+    get_matomo_stats_from_page_title('Les aides du programme Petites villes de demain', '2018-01-01', to_date_string='2020-12-31')  # noqa
+    get_matomo_stats_from_page_title("Les dispositifs d'aides sur l'Arc de l'Innovation", '2018-01-01', to_date_string='2020-12-31')  # returns an error dict when the pageName has an appostrophe... # noqa
     """
     matomo_action_name = 'Actions.getPageTitle'
     matomo_page_title_base_url = 'https://stats.data.gouv.fr/index.php?idSite={}&module=API&method={}&pageName={}&period=range&date={},{}&format=json'.format(  # noqa
@@ -40,8 +44,9 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     res = requests.get(matomo_page_title_base_url)
     data = res.json()
 
-    try:
-        return data[0][result_key]
-    except KeyError:
-        # most likely an error or missing information in the url
-        return 0
+    # data should be an array
+    if type(data) == list:
+        if len(data):
+            if result_key in data[0]:
+                return data[0][result_key]
+    return '-'
