@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.urls import reverse
+from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,8 +11,24 @@ from import_export.formats import base_formats
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+from backers.models import BackerGroup, Backer
 
-from backers.models import Backer
+
+class BackerGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'nb_backers']
+    search_fields = ['name']
+    ordering = ['name']
+    prepopulated_fields = {'slug': ('name',)}
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(backer_count=Count('backers'))
+        return qs
+
+    def nb_backers(self, backer_group):
+        return backer_group.backer_count
+    nb_backers.short_description = _('Number of backers')
+    nb_backers.admin_order_field = 'backer_count'
 
 
 class BackerForm(forms.ModelForm):
@@ -39,8 +56,9 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = BackerResource
     form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
-    list_display = ['name', 'slug', 'is_corporate', 'nb_financed_aids',
+    list_display = ['name', 'slug', 'group', 'is_corporate', 'nb_financed_aids',
                     'nb_instructed_aids', 'is_spotlighted']
+    list_filter = ['group']
     search_fields = ['name']
     ordering = ['name']
     filter_fields = ['is_corporate']
@@ -102,4 +120,5 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+admin.site.register(BackerGroup, BackerGroupAdmin)
 admin.site.register(Backer, BackerAdmin)

@@ -18,6 +18,39 @@ def logo_upload_to(instance, filename):
     return filename
 
 
+class BackerGroup(models.Model):
+    """Represents a group of backers."""
+
+    name = models.CharField(
+        _('Name'),
+        max_length=256,
+        db_index=True)
+    slug = models.SlugField(
+        _('Slug'),
+        help_text=_('Let it empty so it will be autopopulated.'),
+        blank=True)
+
+    class Meta:
+        verbose_name = _('Backer Group')
+        verbose_name_plural = _('Backer Groups')
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def id_slug(self):
+        return '{}-{}'.format(self.id, self.slug)
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
+
+
 class BackerQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for backers."""
 
@@ -84,6 +117,12 @@ class Backer(models.Model):
     description = models.TextField(
         _('Full description of the backer'),
         default='', blank=False)
+    group = models.ForeignKey(
+        'BackerGroup',
+        verbose_name=_('Backer Group'),
+        related_name='backers',
+        on_delete=models.SET_NULL,
+        null=True, blank=True)
 
     class Meta:
         verbose_name = _('Backer')
@@ -110,3 +149,4 @@ class Backer(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
