@@ -56,13 +56,6 @@
         virtualenv: "{{ venv_dir }}"
         settings: "{{ django_settings }}"
 
-    - name: Compile locale files
-      django_manage:
-        command: compilemessages
-        app_path: "{{ django_root }}"
-        virtualenv: "{{ venv_dir }}"
-        settings: "{{ django_settings }}"
-
     - name: Compress assets
       when: project_env == "production"
       django_manage:

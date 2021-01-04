@@ -3,7 +3,6 @@ init:
 	pipenv install --dev
 	npm install
 	pipenv run python manage.py collectstatic --settings=core.settings.test
-	pipenv run python manage.py compilemessages --settings=core.settings.test
 
 test:
 	pipenv run py.test
