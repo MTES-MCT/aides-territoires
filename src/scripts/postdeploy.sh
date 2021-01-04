@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Entering postdeploy hook"
 python manage.py migrate
-python manage.py compilemessages
+python manage.py compilemessages --settings core.settings.scalingo
 python manage.py compress --force
 echo "Completed postdeploy hook"
