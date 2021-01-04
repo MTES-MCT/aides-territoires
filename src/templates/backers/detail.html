@@ -1,7 +1,8 @@
 {% extends '_base.html' %}
 {% load compress %}
 
-{% block extratitle %}{{ backer.name }}{% endblock %}
+{% block extratitle %}{{ backer.meta_title|default:backer.name }}{% endblock %}
+{% block meta_description %}{{ backer.meta_description }}{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">

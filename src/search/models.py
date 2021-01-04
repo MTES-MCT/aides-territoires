@@ -47,30 +47,11 @@ class SearchPage(models.Model):
         max_length=180,
         blank=True, default='',
         help_text=_('A shorter, more concise title.'))
-    meta_title = models.CharField(
-        _('Meta title'),
-        max_length=180,
-        blank=True, default='',
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 60 characters. '
-                    'Leave empty and we will reuse the page title.'))
     slug = models.SlugField(
         _('Slug'),
         help_text=_('This part is used in the url. '
                     'DON\'t change this for existing pages. '
                     'MUST be lowercase for minisites.'))
-
-    meta_description = models.TextField(
-        _('Meta description'),
-        blank=True, default='',
-        max_length=256,
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 120 characters.'))
-    meta_image = models.FileField(
-        _('Meta image'),
-        null=True, blank=True,
-        upload_to=meta_upload_to,
-        help_text=_('Make sure the file is at least 1024px long.'))
     content = models.TextField(
         _('Page content'),
         help_text=_('Full description of the page. '
@@ -82,6 +63,26 @@ class SearchPage(models.Model):
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
+
+    # SEO
+    meta_title = models.CharField(
+        _('Meta title'),
+        max_length=180,
+        blank=True, default='',
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 60 characters. '
+                    'Leave empty and we will reuse the page title.'))
+    meta_description = models.TextField(
+        _('Meta description'),
+        blank=True, default='',
+        max_length=256,
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 120 characters.'))
+    meta_image = models.FileField(
+        _('Meta image'),
+        null=True, blank=True,
+        upload_to=meta_upload_to,
+        help_text=_('Make sure the file is at least 1024px long.'))
 
     # custom_colors
     color_1 = models.CharField(

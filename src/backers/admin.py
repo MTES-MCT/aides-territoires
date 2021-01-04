@@ -15,10 +15,11 @@ from backers.models import BackerGroup, Backer
 
 
 class BackerGroupAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'nb_backers']
+    list_display = ['name', 'slug', 'nb_backers', 'date_created']
     search_fields = ['name']
     ordering = ['name']
     prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ['date_created']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -56,10 +57,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = BackerResource
     form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
-    list_display = [
-        'name', 'slug', 'group', 'is_corporate', 'nb_financed_aids',
-        'nb_instructed_aids', 'is_spotlighted'
-    ]
+    list_display = ['name', 'slug', 'group', 'is_corporate', 'is_spotlighted',
+                    'nb_financed_aids', 'nb_instructed_aids', 'date_created']
     list_filter = ['group']
     search_fields = ['name']
     ordering = ['name']
@@ -67,7 +66,28 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     list_editable = ['is_corporate', 'is_spotlighted']
     list_filter = ['is_corporate', 'is_spotlighted']
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['display_related_aids']
+    readonly_fields = ['date_created', 'display_related_aids']
+
+    fieldsets = [
+        ('', {
+            'fields': (
+                'name',
+                'slug',
+                'description',
+                'logo',
+                'external_link',
+                'is_corporate',
+                'is_spotlighted',
+                'date_created'
+            )
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description',
+            )
+        })
+    ]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

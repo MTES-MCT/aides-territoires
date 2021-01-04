@@ -2,6 +2,7 @@ from os.path import splitext
 
 from django.db import models
 from django.db.models.expressions import RawSQL
+from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
@@ -29,6 +30,10 @@ class BackerGroup(models.Model):
         _('Slug'),
         help_text=_('Let it empty so it will be autopopulated.'),
         blank=True)
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
 
     class Meta:
         verbose_name = _('Backer Group')
@@ -97,14 +102,10 @@ class Backer(models.Model):
         _('Slug'),
         help_text=_('Let it empty so it will be autopopulated.'),
         blank=True)
-    is_corporate = models.BooleanField(
-        _('Is a corporate backer?'),
-        default=False)
-    is_spotlighted = models.BooleanField(
-        _('Is a spotlighted backer?'),
-        default=False,
-        help_text=_(
-            'If the backer is spotlighted, its logo appears in the HomePage'))
+    description = models.TextField(
+        _('Full description of the backer'),
+        default='', blank=False)
+
     logo = models.FileField(
         _('Logo image'),
         null=True, blank=True,
@@ -114,15 +115,41 @@ class Backer(models.Model):
         _('External link'),
         null=True, blank=True,
         help_text=_('The url for the backer\'s website'))
-    description = models.TextField(
-        _('Full description of the backer'),
-        default='', blank=False)
+
+    is_corporate = models.BooleanField(
+        _('Is a corporate backer?'),
+        default=False)
+    is_spotlighted = models.BooleanField(
+        _('Is a spotlighted backer?'),
+        default=False,
+        help_text=_(
+            'If the backer is spotlighted, its logo appears in the HomePage'))
+
     group = models.ForeignKey(
         'BackerGroup',
         verbose_name=_('Backer Group'),
         related_name='backers',
         on_delete=models.SET_NULL,
         null=True, blank=True)
+
+    # SEO
+    meta_title = models.CharField(
+        _('Meta title'),
+        max_length=180,
+        blank=True, default='',
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 60 characters. '
+                    'Leave empty and we will reuse the backer\'s name.'))
+    meta_description = models.TextField(
+        _('Meta description'),
+        blank=True, default='',
+        max_length=256,
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 120 characters.'))
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
 
     class Meta:
         verbose_name = _('Backer')
