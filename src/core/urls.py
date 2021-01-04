@@ -14,6 +14,7 @@ from home.sitemaps import HomeSitemap
 from aids.sitemaps import AidSitemap
 from pages.sitemaps import PageSitemap
 from data.sitemaps import DataSitemap
+from search.sitemaps import SearchSitemap
 
 
 router = routers.DefaultRouter()
@@ -49,6 +50,7 @@ sitemaps = {
     'aids': AidSitemap,
     'pages': PageSitemap,
     'data': DataSitemap,
+    'search': SearchSitemap,
 }
 
 urlpatterns = [
