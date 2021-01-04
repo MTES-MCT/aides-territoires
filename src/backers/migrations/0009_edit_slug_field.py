@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0006_add_slug_help_text'),
+        ('backers', '0008_add_description_field'),
     ]
 
     operations = [
