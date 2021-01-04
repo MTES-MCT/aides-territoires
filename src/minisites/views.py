@@ -3,7 +3,6 @@ from datetime import timedelta
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
-from django.conf import settings
 from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
@@ -11,7 +10,8 @@ from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
-from stats.utils import get_matomo_stats_from_page_title
+from stats.models import Event
+from analytics.utils import get_matomo_stats_from_page_title
 
 
 class MinisiteMixin:
@@ -158,10 +158,8 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        matomo_base_url = 'https://stats.data.gouv.fr/index.php?idSite={}&period=range&module=API&method=Actions.getPageTitle&pageName={}&format=json'.format(  # noqa
-            settings.ANALYTICS_SITEID,
-            self.search_page.meta_title or self.search_page.title,
-        )
+        thirty_days_ago = timezone.now() - timedelta(days=30)
+        seven_days_ago = timezone.now() - timedelta(days=7)
 
         # view count: all-time
         context['view_count_total'] = get_matomo_stats_from_page_title(
@@ -171,20 +169,34 @@ class SiteStats(MinisiteMixin, TemplateView):
         )
 
         # view count: last 30 days
-        from_date = timezone.now() - timedelta(days=30)
         context['view_count_last_30_days'] = get_matomo_stats_from_page_title(
             page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=from_date.strftime('%Y-%m-%d'),
+            from_date_string=thirty_days_ago.strftime('%Y-%m-%d'),
             result_key='nb_hits'
         )
 
         # view count: last 7 days
-        from_date = timezone.now() - timedelta(days=7)
         context['view_count_last_7_days'] = get_matomo_stats_from_page_title(
             page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=from_date.strftime('%Y-%m-%d'),
+            from_date_string=seven_days_ago.strftime('%Y-%m-%d'),
             result_key='nb_hits'
         )
+
+        # aid view count: last 30 days & last 7 days
+        events = Event.objects \
+            .filter(category='aid', event='viewed') \
+            .filter(source=context['search_page'].slug)
+
+        events_last_30_days = events \
+            .filter(date_created__gte=thirty_days_ago) \
+            .count()
+
+        events_last_7_days = events \
+            .filter(date_created__gte=seven_days_ago) \
+            .count()
+
+        context['aid_view_count_last_30_days'] = events_last_30_days
+        context['aid_view_count_last_7_days'] = events_last_7_days
 
         return context
 
