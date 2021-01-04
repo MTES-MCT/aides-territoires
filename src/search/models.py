@@ -152,6 +152,9 @@ class SearchPage(models.Model):
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
+    date_updated = models.DateTimeField(
+        _('Date updated'),
+        auto_now=True)
 
     class Meta:
         verbose_name = _('Search page')
