@@ -27,6 +27,7 @@ DJANGO_APPS = [
     'django.contrib.postgres',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django.contrib.sitemaps',
 ]
 
 THIRD_PARTY_APPS = [
