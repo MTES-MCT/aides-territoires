@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://aides-territoires.beta.gouv.fr/sitemap.xml
