@@ -36,7 +36,7 @@ jobs:
 
     - name: Set up french locale
       run: |
-        sudo apt install langage-pack-fr
+        sudo apt install language-pack-fr
         sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
         export LANG=fr_FR.UTF-8
         export LC_ALL=fr_FR.UTF-8
