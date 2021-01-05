@@ -11,7 +11,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
     filter_vertical = ['available_categories']
-    readonly_fields = ['date_created']
+    readonly_fields = ['date_created', 'date_updated']
     fieldsets = [
         ('', {
             'fields': (
@@ -22,6 +22,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'content',
                 'more_content',
                 'date_created',
+                'date_updated',
             )
         }),
         (_('SEO'), {

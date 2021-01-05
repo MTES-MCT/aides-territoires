@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,6 +9,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from rest_framework import routers, permissions
+
+from home.sitemaps import HomeSitemap
+from aids.sitemaps import AidSitemap
+from pages.sitemaps import PageSitemap
+from data.sitemaps import DataSitemap
+from search.sitemaps import SearchSitemap
 
 
 router = routers.DefaultRouter()
@@ -27,7 +34,6 @@ schema_view = get_schema_view(
 )
 
 api_patterns = [
-
     path('', include(router.urls)),
 
     # This is the public aid list export api
@@ -37,8 +43,15 @@ api_patterns = [
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
     path('tags/', include('tags.api.urls')),
-
 ]
+
+sitemaps = {
+    'home': HomeSitemap,
+    'aids': AidSitemap,
+    'pages': PageSitemap,
+    'data': DataSitemap,
+    'search': SearchSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -55,6 +68,7 @@ urlpatterns = [
     path(_('data/'), include('data.urls')),
     path(_('search/'), include('search.urls')),
     path(_('upload/'), include('upload.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
 
     # Api related routes
     path('api/', include(api_patterns)),
