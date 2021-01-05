@@ -1,2 +1,2 @@
-web: gunicorn core.wsgi_scalingo --log-file -
+web: bash scripts/start.sh
 postdeploy: bash scripts/postdeploy.sh
