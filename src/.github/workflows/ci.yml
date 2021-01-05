@@ -1,0 +1,76 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ master, setup_ci ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    # Configure the database service
+    services:
+      database:
+        image: postgres
+        env:
+          POSTGRES_USER: aides
+          POSTGRES_PASSWORD: aides
+          POSTGRES_DB: aides
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # List of tasks to run
+    steps:
+
+    - name: Set up french locale
+      run: |
+        sudo apt install langage-pack-fr
+        sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
+        export LANG=fr_FR.UTF-8
+        export LC_ALL=fr_FR.UTF-8
+
+    - name: Checkout repository code
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Set up the npm command
+      uses: actions/setup-node@v1
+
+    - name: Set up the database
+      run: |
+        psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U aides
+
+    - name: Install pip
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Build the project
+      working-directory: ./src
+      run: |
+        make init
+
+    - name: Run linter
+      working-directory: ./src
+      run: |
+        make checkstyle
+
+    - name: Run Tests
+      working-directory: ./src
+      run: |
+        make test
