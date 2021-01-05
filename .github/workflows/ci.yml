@@ -57,7 +57,7 @@ jobs:
 
     - name: Set up the database
       run: |
-        psql -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U aides -h localhost
+        psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
       env:
         PGPASSWORD: aides
 
