@@ -1,7 +1,7 @@
 init:
 	pipenv || pip install pipenv
-	pipenv install --dev
-	npm install
+	pipenv sync
+	npm ci
 	pipenv run python manage.py collectstatic --settings=core.settings.test
 	pipenv run python manage.py compilemessages --settings=core.settings.test
 
