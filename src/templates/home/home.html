@@ -98,20 +98,20 @@
 </div>
 </section>
 
-{% if random_backers %}
+{% if subset_selected_backers %}
 <section id="partner">
     <div class="container-lg">
         <h1>Les porteurs d'aides</h1>
         <div id="logos">
-            {% for random_backer in random_backers %}
+            {% for selected_backer in subset_selected_backers %}
                 <div class="{% cycle 'logo1' 'logo2' 'logo3' 'logo4' 'logo5' %} active">
-                    {% if random_backer.external_link %}
-                    <a href="{{ random_backer.external_link }}" target="_blank">
+                    {% if selected_backer.external_link %}
+                    <a href="{{ selected_backer.external_link }}" target="_blank">
                     {% else %}
-                    <a href="{{ random_backer.get_absolute_url }}">
+                    <a href="{{ selected_backer.get_absolute_url }}">
                     {% endif %}
-                        {% if random_backer.logo %}
-                        <img src="{{ random_backer.logo.url }}" alt="Logo : {{ random_backer.name }} ">
+                        {% if selected_backer.logo %}
+                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} ">
                         {% endif %}
                     </a>
                 </div>

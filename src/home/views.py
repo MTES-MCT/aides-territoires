@@ -25,16 +25,15 @@ class HomeView(TemplateView):
             .filter(Q(id__in=financers) | Q(id__in=instructors)) \
             .values('id') \
             .count()
-        selected_backers = Backer.objects.filter(
-            logo__isnull=False,
-            is_spotlighted=True)
-        # We only display the first 12
-        random_backers = selected_backers.order_by("?")[0:15]
+        selected_backers = Backer.objects.can_be_displayed_in_carousel()
+        # We only display the first 15
+        subset_selected_backers = selected_backers.order_by("?")[0:15]
+        print(subset_selected_backers)
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
         context['nb_backers'] = nb_backers
-        context['random_backers'] = random_backers
+        context['subset_selected_backers'] = subset_selected_backers
 
         return context
 

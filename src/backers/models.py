@@ -1,6 +1,7 @@
 from os.path import splitext
 
 from django.db import models
+from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.utils import timezone
 from django.utils.text import slugify
@@ -70,6 +71,17 @@ class BackerQuerySet(models.QuerySet):
         qs = self.filter(financed_aids__status=AidWorkflow.states.published) \
             .distinct()
         return qs
+
+    def has_logo(self):
+        """Only return backers with a logo."""
+
+        return self.exclude(Q(logo='') | Q(logo=None))
+
+    def can_be_displayed_in_carousel(self):
+        """Only return spotlighted backers with a logo."""
+
+        return self.filter(is_spotlighted=True) \
+            .has_logo()
 
     def annotate_aids_count(self, related_fields, annotation_name):
         """Annotate the queryset with the number of related aids.
@@ -176,3 +188,6 @@ class Backer(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+    def has_logo(self):
+        return bool(self.logo.name)

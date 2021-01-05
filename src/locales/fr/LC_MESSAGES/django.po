@@ -193,7 +193,7 @@ msgid "Is a corporate backer?"
 msgstr "Porteur d'aides privé ?"
 
 msgid "Is a spotlighted backer?"
-msgstr "Le porteur est-il mis en avant?"
+msgstr "Le porteur est-il mis en avant ?"
 
 msgid "If the backer is spotlighted, its logo appears in the HomePage"	
 msgstr ""	
