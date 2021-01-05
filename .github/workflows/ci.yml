@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  LANG: 'fr_FR.UTF-8'
+  LC_ALL: 'fr_FR.UTF-8'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,8 +43,6 @@ jobs:
         sudo apt install language-pack-fr
         sudo locale-gen
         sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
-        export LANG=fr_FR.UTF-8
-        export LC_ALL=fr_FR.UTF-8
 
     - name: Checkout repository code
       uses: actions/checkout@v2
