@@ -57,7 +57,7 @@ jobs:
 
     - name: Set up the database
       run: |
-        psql -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U aides
+        psql -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U aides -h localhost
 
     - name: Install pip
       run: |
