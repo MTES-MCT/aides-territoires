@@ -37,10 +37,10 @@ django-debug-toolbar = "*"
 factory-boy = "*"
 ipython = "*"
 pytest-django = "*"
-ansible = "*"
 yapf = "*"
 selenium = "*"
 rope = "*"
+ansible = "*"
 
 [requires]
 python_version = "3"
