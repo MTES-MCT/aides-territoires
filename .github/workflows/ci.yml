@@ -65,6 +65,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
 
+    - name: Install the required packages
+      run: |
+        sudo apt install gettext
+
     - name: Build the project
       working-directory: ./src
       run: |
