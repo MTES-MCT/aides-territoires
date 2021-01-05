@@ -56,8 +56,10 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = BackerResource
     form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
-    list_display = ['name', 'slug', 'group', 'is_corporate', 'nb_financed_aids',
-                    'nb_instructed_aids', 'is_spotlighted']
+    list_display = [
+        'name', 'slug', 'group', 'is_corporate', 'nb_financed_aids',
+        'nb_instructed_aids', 'is_spotlighted'
+    ]
     list_filter = ['group']
     search_fields = ['name']
     ordering = ['name']
