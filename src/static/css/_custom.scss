@@ -736,6 +736,13 @@ section#stats {
             flex: 100%;
         }
     }
+
+    hr {
+        flex-basis: 100%;
+        height: 0;
+        margin: 0;
+        border: none;
+    }
 }
 
 article#aid {
