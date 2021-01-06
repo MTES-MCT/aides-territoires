@@ -1,7 +1,5 @@
 {
-  "env": {
-    "IS_REVIEW_APP": {
-      "value": "true"
-    }
+  "scripts": {
+    "first-deploy": "bash scripts/firstdeploy.sh"
   }
 }
