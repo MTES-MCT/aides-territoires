@@ -626,7 +626,7 @@ msgid "Recurrence"
 msgstr "Récurrence"
 
 msgid "Call for projects only"
-msgstr "AAP / AMI uniquement"
+msgstr "Appels à projets / Appels à manifestation d’intérêt uniquement"
 
 msgid "Aid programs"
 msgstr "Programmes d'aides"
