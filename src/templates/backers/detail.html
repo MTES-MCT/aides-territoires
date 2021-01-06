@@ -13,10 +13,65 @@
 {% endblock %}
 
 {% block content %}
-<article>
-<h1>{{ backer.name }}</h1>
+<article id="backer">
 
-{{ backer.description|safe }}
+    <section class="backer-content">
+
+        <h1>{{ backer.name }}</h1>
+
+        {% if backer.description %}
+            <div>
+                <h2>Présentation générale :</h2>
+                {{ backer.description|safe }}
+            </div>
+        {% endif %}   
+
+        {% if aids %}
+        <div>
+            <h2>Thématiques associées :</h2>
+            <ul class="backer-categories">
+            {% for key,values in categories_by_theme.items %}
+                <li class="theme">
+                    <strong>
+                        {{ key }}
+                    </strong>
+                    <ul>
+                        {% for value in values %}
+                        <li class="category">{{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if programs %}
+        <div>
+            <h2>Programmes associés :</h2>
+            <div id="program-logo">
+            {% for aid in aids %}
+            {% if aid.programs %}
+                {% for program in aid.programs.all %}
+                {% if program.logo %}
+                    <a href="{% url 'program_detail' program.slug %}">
+                        <img src="{{ program.logo.url }}" alt="{{ program.name }}">
+                    </a>
+                {% else %}
+                <p class="program">
+                    <strong>
+                        {{ program }}
+                    </strong>
+                </p>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+            
+    </section>
 
 </article>
 {% endblock %}

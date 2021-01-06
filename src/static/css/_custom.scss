@@ -1348,6 +1348,44 @@ div#search-steps {
     }
 }
 
+.backer-content {
+    @extend .px-5;
+
+    h2 {
+        background-color: $pale-background;
+        border-radius: 0 2rem 2rem 2rem;
+        padding: .5rem 1rem;
+        @extend .mt-4;
+    }
+
+    #program-logo img {
+    max-height: 120px;
+    }
+}
+
+ul.backer-categories {
+    padding: 0;
+    list-style-type: none;
+
+    li.theme {
+        text-transform: uppercase;
+        @extend .py-2;
+    }
+
+    ul {
+        padding: 0;
+        text-transform: none;
+
+        li {
+            display: inline;
+        }
+
+        li + li:before {
+            content: " + ";
+        }
+    } 
+}
+
 ul.aid-categories {
     padding: 0;
     list-style-type: none;
