@@ -65,6 +65,17 @@
 
     <div class="stat">
         <span class="stat-title">
+            {{ _('Number of new published aids') }}
+        </span>
+        <div style="min-height: 400px">
+            <canvas id="chartAids" style="width: 80%;"></canvas>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="stat">
+        <span class="stat-title">
             {{ _('Viewed aids') }}
         </span>
         <div style="min-height: 400px">
@@ -87,6 +98,59 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chartAids').getContext('2d');
+    
+      // Sample data
+      const chartData = {{ nb_aids_published_timeseries | safe }};
+    
+      // Parse the dates to JS
+      chartData.forEach((d) => {
+        d.x = new Date(d.day);
+      });
+    
+      // Render the chart
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              label: "{{ _('Number of new published aids') }}",
+              data: chartData,
+              backgroundColor: '#DB1C83',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [
+              {
+                type: 'time',
+                time: {
+                  unit: 'month',
+                  isoWeekday: true
+                },
+                gridLines: {
+                    display: false
+                },
+                offset: true
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  precision: 0
+                },
+              },
+            ],
+          },
+        },
+      });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const ctx = document.getElementById('chartAidsViewed').getContext('2d');

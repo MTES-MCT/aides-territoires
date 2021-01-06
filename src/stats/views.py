@@ -33,8 +33,19 @@ class StatsView(TemplateView):
                 output_field=CharField())) \
             .values('day') \
             .annotate(y=Count('id')) \
-            .order_by()
+            .order_by('day')
         context['nb_viewed_aids_timeseries'] = list(viewed_aids_timeseries)
+
+        aids_published_timeseries = Aid.objects.published() \
+            .annotate(day=Func(
+                F('date_created'),
+                Value('YYYY-MM-01'),
+                function='to_char',
+                output_field=CharField())) \
+            .values('day') \
+            .annotate(y=Count('id')) \
+            .order_by('day')
+        context['nb_aids_published_timeseries'] = list(aids_published_timeseries)  # noqa
 
         alerts_qs = Event.objects \
             .filter(category='alert', event='sent') \
@@ -49,7 +60,7 @@ class StatsView(TemplateView):
                 output_field=CharField())) \
             .values('day') \
             .annotate(y=Count('token')) \
-            .order_by()
+            .order_by('day')
         context['nb_alerts_created_timeseries'] = list(alerts_created_timeseries)  # noqa
 
         financers = aids_qs.values_list('financers', flat=True)

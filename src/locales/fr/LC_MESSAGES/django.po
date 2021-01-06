@@ -1645,6 +1645,9 @@ msgstr "Événements"
 msgid "Number of aids"
 msgstr "Nombre d'aides"
 
+msgid "Number of new published aids"
+msgstr "Nombre d'aides nouvelles publiées"
+
 msgid "Tag"
 msgstr "Mot clé"
 
