@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "first-deploy": "bash scripts/first_deploy.sh"
+  }
+}
