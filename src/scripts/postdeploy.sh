@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "Entering postdeploy hook"
 
-if [ "$IS_REVIEW_APP" = "true" ] ; then
-  echo "    Review Apps : Database copy"
+if [ "$IS_REVIEW_APP" = true ] ; then
+  echo "Review Apps : Database copy"
   pg_dump $STAGING_DATABASE_URL | psql $DATABASE_URL
 fi
 
