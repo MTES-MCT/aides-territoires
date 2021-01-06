@@ -68,6 +68,7 @@ jobs:
     - name: Install the required packages
       run: |
         sudo apt install gettext
+        sudo npm install -g sass
 
     - name: Build the project
       working-directory: ./src
