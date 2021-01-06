@@ -3,6 +3,7 @@ from django.db.models import Prefetch
 
 from backers.models import Backer
 from aids.models import Aid
+from programs.models import Program
 from categories.models import Category
 
 class BackerDetailView(DetailView):
@@ -15,7 +16,7 @@ class BackerDetailView(DetailView):
         categories_list = Category.objects \
             .select_related('theme') \
 
-        aids = Aid.objects.open().published() \
+        aids = Aid.objects.live() \
             .filter(financers=self.object.id) \
             .prefetch_related(Prefetch('categories', queryset=categories_list))
 
@@ -29,9 +30,11 @@ class BackerDetailView(DetailView):
         for theme in themes:
             categories_by_theme[theme] = [k for k in list_themes.keys() if list_themes[k] == theme]
 
-        programs = Aid.objects.open().published() \
-            .filter(financers=self.object.id) \
-            .filter(programs=True)
+        programs = Program.objects \
+            .filter(aids__in=aids) \
+            .exclude(logo__isnull=True) \
+            .exclude(logo='') \
+            .distinct()
 
         context = super().get_context_data(**kwargs)
         context['aids'] = aids
