@@ -3,6 +3,10 @@
 
 {% block extratitle %}{{ _('Public stats') }}{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.css" />
+{% endblock %}
+
 {% block content %}
 <section id="stats">
 
@@ -33,14 +37,14 @@
 
     <div class="stat">
         <span class="stat-title">
-            {{ _('Viewed aids') }}<br />
+            {{ _('Recently viewed aids') }}<br />
             <small>{% blocktrans trimmed %}
                 Aids viewed within the last 7 days
             {% endblocktrans %}</small>
 
         </span>
         <div class="stat-body number-stat">
-            <span>{{ nb_viewed_aids }}</span>
+            <span>{{ nb_viewed_aids_1_week }}</span>
         </div>
     </div>
 
@@ -57,5 +61,136 @@
         </div>
     </div>
 
+    <hr />
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Viewed aids') }}
+        </span>
+        <div style="min-height: 400px">
+            <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="stat">
+        <span class="stat-title">
+            Alertes crées
+        </span>
+        <div style="min-height: 400px">
+            <canvas id="chartAlertsCreated" style="width: 80%;"></canvas>
+        </div>
+    </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chartAidsViewed').getContext('2d');
+    
+      // Sample data
+      const chartData = {{ nb_viewed_aids_timeseries | safe }};
+    
+      // Parse the dates to JS
+      chartData.forEach((d) => {
+        d.x = new Date(d.day);
+      });
+    
+      // Render the chart
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              label: "{{ _('Viewed aids') }}",
+              data: chartData,
+              backgroundColor: '#DB1C83',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [
+              {
+                type: 'time',
+                time: {
+                  unit: 'month',
+                  isoWeekday: true
+                },
+                gridLines: {
+                    display: false
+                },
+                offset: true
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  precision: 0
+                },
+              },
+            ],
+          },
+        },
+      });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('chartAlertsCreated').getContext('2d');
+    
+      // Sample data
+      const chartData = {{ nb_alerts_created_timeseries | safe }};
+    
+      // Parse the dates to JS
+      chartData.forEach((d) => {
+        d.x = new Date(d.day);
+      });
+    
+      // Render the chart
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              label: "Alertes crées",
+              data: chartData,
+              backgroundColor: '#DB1C83',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [
+              {
+                type: 'time',
+                time: {
+                  unit: 'month',
+                  isoWeekday: true
+                },
+                gridLines: {
+                    display: false
+                },
+                offset: true
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  precision: 0
+                },
+              },
+            ],
+          },
+        },
+      });
+    });
+</script>
 {% endblock %}
