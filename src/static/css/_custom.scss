@@ -882,7 +882,7 @@ article#aid {
         }
         
         & > a > img {
-            max-height: 100px;
+            max-height: $height-img-base;
             max-width: 300px;
             padding: 0.5rem;
             filter: saturate(140%);
@@ -1359,7 +1359,7 @@ div#search-steps {
     }
 
     #program-logo img {
-    max-height: 120px;
+        max-height: $height-img-base;
     }
 }
 
