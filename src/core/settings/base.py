@@ -252,3 +252,4 @@ SEARCH_COOKIE_NAME = 'currentsearch'
 
 SIB_API_KEY = ''
 SIB_LIST_ID = ''
+SIB_TRANSACTIONAL_API_ENDPOINT = 'https://api.sendinblue.com/v3/smtp/email'

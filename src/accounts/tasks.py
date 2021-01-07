@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from core.celery import app
+from core.mail_backends import send_mail_with_sendinblue_transactional_api
 from accounts.models import User
 
 
@@ -48,9 +49,15 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         'base_url': base_url,
         'user_name': user.full_name,
         'full_login_url': full_login_url})
-    send_mail(
+
+    send_mail_with_sendinblue_transactional_api(
         LOGIN_SUBJECT,
         login_email_body,
-        settings.DEFAULT_FROM_EMAIL,
-        [user.email],
-        fail_silently=False)
+        user.email,
+        tag_list=['connexion'])
+    # send_mail(
+    #     LOGIN_SUBJECT,
+    #     login_email_body,
+    #     settings.DEFAULT_FROM_EMAIL,
+    #     [user.email],
+    #     fail_silently=False)
