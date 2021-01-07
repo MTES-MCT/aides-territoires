@@ -53,9 +53,9 @@ STATICFILES_DIRS = [
     Path(DJANGO_ROOT, 'node_modules'),
 ]
 
-MEDIA_URL = ''
+MEDIA_URL = env('MEDIA_URL', default='')
 
-MEDIA_ROOT = ''
+MEDIA_ROOT = env('MEDIA_ROOT', default='')
 
 TEMPLATES = TEMPLATES.copy()
 TEMPLATES[0]['DIRS'] = [Path(DJANGO_ROOT, 'templates')]
