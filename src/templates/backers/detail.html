@@ -29,21 +29,21 @@
         {% if aids %}
         <div>
             <h2>{{ _('Related themes') }}</h2>
-            <ul class="backer-categories">
-            {% for key,values in categories_by_theme.items %}
-                <li class="theme">
-                    <strong>
-                        {{ key }}
-                    </strong>
-                    <ul>
-                        {% for value in values %}
-                        <li class="category">{{ value }}</li>
+            {% regroup categories by theme as theme_list %}
+            <ul class="aid-categories">
+                {% for theme in theme_list %}
+                    <li class="theme">
+                        <strong>
+                        {{ theme.grouper }}
+                        </strong>
+                        <ul>
+                        {% for category in theme.list %}
+                            <li class="category">{{ category.name }}</li>
                         {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
-        </div>
         {% endif %}
         
         {% if programs %}

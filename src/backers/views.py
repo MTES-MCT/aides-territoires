@@ -18,18 +18,16 @@ class BackerDetailView(DetailView):
 
         aids = Aid.objects.live() \
             .filter(financers=self.object.id) \
-            .prefetch_related(Prefetch('categories', queryset=categories_list))
+            .prefetch_related(Prefetch('categories', queryset=categories_list)) \
+            .order_by('categories__theme', 'categories__name') \
 
-        list_themes = {}
-        for aid in aids:
-            for category in aid.categories.all():
-                list_themes[category] = category.theme
-        themes = set(list_themes.values())
+        categories = Category.objects \
+            .filter(aids__in=aids) \
+            .order_by('theme') \
+            .distinct()
 
-        categories_by_theme = {}
-        for theme in themes:
-            categories_by_theme[theme] = [k for k in list_themes.keys() if list_themes[k] == theme]
-
+        categories = [{'name': category.name, 'theme': category.theme} for category in categories]
+        
         programs = Program.objects \
             .filter(aids__in=aids) \
             .exclude(logo__isnull=True) \
@@ -38,7 +36,7 @@ class BackerDetailView(DetailView):
 
         context = super().get_context_data(**kwargs)
         context['aids'] = aids
-        context['categories_by_theme'] = categories_by_theme
         context['programs'] = programs
+        context['categories'] = categories
 
         return context
