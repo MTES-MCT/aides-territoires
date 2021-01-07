@@ -12,7 +12,6 @@ DATABASES = {
         'USER': 'aides',
         'PASSWORD': 'aides',
         'HOST': 'localhost',
-        'PORT': '',
     }
 }
 

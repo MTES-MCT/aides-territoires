@@ -138,7 +138,7 @@ class Backer(models.Model):
     def get_absolute_url(self):
         url_args = [self.pk]
         if self.slug:
-           url_args.append(self.slug)
+            url_args.append(self.slug)
         return reverse('backer_detail_view', args=url_args)
 
     def set_slug(self):
@@ -149,4 +149,3 @@ class Backer(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
-

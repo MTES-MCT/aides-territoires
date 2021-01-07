@@ -29,6 +29,7 @@ django-admin-autocomplete-filter = "*"
 drf-yasg = "*"
 dj-static = "*"
 dj-database-url = "*"
+importlib-metadata = "*"
 
 [dev-packages]
 pytest = "*"
@@ -37,10 +38,10 @@ django-debug-toolbar = "*"
 factory-boy = "*"
 ipython = "*"
 pytest-django = "*"
-ansible = "*"
 yapf = "*"
 selenium = "*"
 rope = "*"
+ansible = "*"
 
 [requires]
 python_version = "3"
