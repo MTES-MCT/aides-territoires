@@ -1,31 +1,35 @@
-let logosIndex = 0;
+// init
+const logoIdList = ["logo1", "logo2", "logo3", "logo4", "logo5"];
+let carousel = {};
+let currentIndex = 0;
 showLogos();
 
+/**
+ * Display up to 5 backer logos at the same time
+ * Replace them every 4 seconds
+ */
 function showLogos() {
-  let i;
-  let logo1 = document.getElementsByClassName("logo1");
-  let logo2 = document.getElementsByClassName("logo2");
-  let logo3 = document.getElementsByClassName("logo3");
-  let logo4 = document.getElementsByClassName("logo4");
-  let logo5 = document.getElementsByClassName("logo5");
-  
-  for (i = 0; i < logo1.length; i++) {
-	logo1[i].className = logo1[i].className.replace("active", "hidden");
-	logo2[i].className = logo2[i].className.replace("active", "hidden"); 
-  logo3[i].className = logo3[i].className.replace("active", "hidden");
-  logo4[i].className = logo4[i].className.replace("active", "hidden");
-  logo5[i].className = logo5[i].className.replace("active", "hidden");
-  }
+  console.log("init", currentIndex);
+  logoIdList.forEach((logoId, index) => {
+    carousel[logoId] = document.getElementsByClassName(logoId);
+    console.log(logoId, index, carousel[logoId])
 
-  logosIndex++;
-  if (logosIndex > logo1.length) {
-	  logosIndex = 1
-	}    
-	logo1[logosIndex-1].className = logo1[logosIndex-1].className.replace("hidden", "active");  
-	logo2[logosIndex-1].className = logo2[logosIndex-1].className.replace("hidden", "active");
-	logo3[logosIndex-1].className = logo3[logosIndex-1].className.replace("hidden", "active"); 
-	logo4[logosIndex-1].className = logo4[logosIndex-1].className.replace("hidden", "active"); 
-	logo5[logosIndex-1].className = logo5[logosIndex-1].className.replace("hidden", "active"); 
+    // first hide all the logos
+    for (i = 0; i < carousel[logoId].length; i++) {
+      if (carousel[logoId][i]) {
+        carousel[logoId][i].className = carousel[logoId][i].className.replace("active", "hidden");
+      }
+    }
+    // then show only the logos from the currentIndex
+    if (carousel[logoId][currentIndex]) {
+      carousel[logoId][currentIndex].className = carousel[logoId][currentIndex].className.replace("hidden", "active");
+    }
+  });
 
+  // increment currentIndex or go back to 0
+  console.log("increment ?", currentIndex, carousel[logoIdList[0]].length)
+  currentIndex = (currentIndex === carousel[logoIdList[0]].length - 1) ? 0 : currentIndex + 1;
+
+  // run every 4 seconds
   setTimeout(showLogos, 4000);
 }

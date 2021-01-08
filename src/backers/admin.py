@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.urls import reverse
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,12 +32,25 @@ class BackerGroupAdmin(admin.ModelAdmin):
     nb_backers.admin_order_field = 'backer_count'
 
 
-class BackerForm(forms.ModelForm):
-    description = RichTextField(label=_('Description'))
+class LogoFilter(admin.SimpleListFilter):
+    """Custom admin filter to target backers with logos."""
 
-    class Meta:
-        model = Backer
-        fields = '__all__'
+    title = _('Logo image')
+    parameter_name = 'logo_status'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_logo()
+        elif value == 'No':
+            return queryset.filter(Q(logo='') | Q(logo=None))
+        return queryset
 
 
 class BackerResource(resources.ModelResource):
@@ -51,20 +64,28 @@ class BackerResource(resources.ModelResource):
         fields = ('name',)
 
 
+class BackerForm(forms.ModelForm):
+    description = RichTextField(label=_('Description'))
+
+    class Meta:
+        model = Backer
+        fields = '__all__'
+
+
 class BackerAdmin(ImportMixin, admin.ModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
     form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
-    list_display = ['name', 'slug', 'group', 'is_corporate', 'is_spotlighted',
-                    'nb_financed_aids', 'nb_instructed_aids', 'date_created']
-    list_filter = ['group']
+    list_display = ['name', 'slug', 'group',
+                    'is_corporate', 'is_spotlighted', 'logo_status',
+                    'nb_financed_aids', 'nb_instructed_aids',
+                    'date_created']
+    list_filter = ['is_corporate', 'is_spotlighted', LogoFilter, 'group']
+    list_editable = ['is_corporate', 'is_spotlighted']
     search_fields = ['name']
     ordering = ['name']
-    filter_fields = ['is_corporate']
-    list_editable = ['is_corporate', 'is_spotlighted']
-    list_filter = ['is_corporate', 'is_spotlighted']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['date_created', 'display_related_aids']
 
@@ -105,6 +126,11 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
         return obj.nb_instructed_aids
     nb_instructed_aids.short_description = _('Instructed aids')
     nb_instructed_aids.admin_order_field = 'nb_instructed_aids'
+
+    def logo_status(self, backer):
+        return backer.has_logo()
+    logo_status.boolean = True
+    logo_status.short_description = _('Logo image')
 
     def display_related_aids(self, obj):
         related_aid_html = format_html('<ul>')
