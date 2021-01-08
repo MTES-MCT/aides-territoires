@@ -511,6 +511,16 @@ section#program-list {
                 padding: 0;
                 list-style: none;
             }
+
+            #aid-type-list {
+                li {
+                    display: inline;
+                }
+        
+                li + li::before {
+                    content: " | ";
+                }
+            }
         }
     }
 
