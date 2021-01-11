@@ -62,6 +62,7 @@ jobs:
         PGPASSWORD: aides
 
     - name: Install pip and pipenv
+      working-directory: ./src
       run: |
         python -m pip install --upgrade pip
         pipenv || pip install pipenv
