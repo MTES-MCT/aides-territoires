@@ -8,7 +8,7 @@ from search.forms import SearchPageAdminForm
 class DummySearchPageAdminForm(SearchPageAdminForm):
     class Meta:
         model = SearchPage
-        exclude = ['']
+        exclude = ['date_created', 'date_updated']
 
 
 def test_valid_search_page_form():
