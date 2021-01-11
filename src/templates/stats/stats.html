@@ -65,12 +65,23 @@
 
     <div class="stat">
         <span class="stat-title">
-            {{ _('Number of new published aids') }}
+            {{ _('Number of live aids') }}
         </span>
         <div style="min-height: 400px">
-            <canvas id="chartAids" style="width: 80%;"></canvas>
+            <canvas id="chartAidsLive" style="width: 80%;"></canvas>
         </div>
     </div>
+
+    <hr />
+
+    <div class="stat">
+      <span class="stat-title">
+          {{ _('Number of new published aids') }}
+      </span>
+      <div style="min-height: 400px">
+          <canvas id="chartAidsPublished" style="width: 80%;"></canvas>
+      </div>
+  </div>
 
     <hr />
 
@@ -98,12 +109,18 @@
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script>
+  // This plugin registers itself globally (opens new window), meaning that once imported, all charts will display labels.
+  // In case you want it enabled only for a few charts, you first need to unregister it globally:
+  Chart.plugins.unregister(ChartDataLabels);
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const ctx = document.getElementById('chartAids').getContext('2d');
+      const ctx = document.getElementById('chartAidsLive').getContext('2d');
     
       // Sample data
-      const chartData = {{ nb_aids_published_timeseries | safe }};
+      const chartData = {{ nb_live_aids_timeseries | safe }};
     
       // Parse the dates to JS
       chartData.forEach((d) => {
@@ -112,11 +129,12 @@
     
       // Render the chart
       const chart = new Chart(ctx, {
-        type: 'bar',
+        plugins: [ChartDataLabels],
+        type: 'line',
         data: {
           datasets: [
             {
-              label: "{{ _('Number of new published aids') }}",
+              label: "{{ _('Number of live aids') }}",
               data: chartData,
               backgroundColor: '#DB1C83',
             },
@@ -147,9 +165,74 @@
               },
             ],
           },
+          plugins: {
+            datalabels: {
+              formatter: function(value, context) {
+                return value.y;
+              },
+              anchor: 'end',
+              align: 'top',
+              font: {
+                weight: 'bold'
+              }
+            },
+          },
         },
       });
     });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('chartAidsPublished').getContext('2d');
+  
+    // Sample data
+    const chartData = {{ nb_aids_published_timeseries | safe }};
+  
+    // Parse the dates to JS
+    chartData.forEach((d) => {
+      d.x = new Date(d.day);
+    });
+  
+    // Render the chart
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        datasets: [
+          {
+            label: "{{ _('Number of new published aids') }}",
+            data: chartData,
+            backgroundColor: '#DB1C83',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [
+            {
+              type: 'time',
+              time: {
+                unit: 'month',
+                isoWeekday: true
+              },
+              gridLines: {
+                  display: false
+              },
+              offset: true
+            },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                precision: 0
+              },
+            },
+          ],
+        },
+      },
+    });
+  });
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -24,6 +24,32 @@ class StatsView(TemplateView):
             .filter(date_created__gte=one_week_ago)
         context['nb_viewed_aids_1_week'] = viewed_aids_qs.count()
 
+        # Number of new aids published per month
+        aids_published_timeseries = Aid.objects.published() \
+            .annotate(day=Func(
+                F('date_created'),
+                Value('YYYY-MM-01'),
+                function='to_char',
+                output_field=CharField())) \
+            .values('day') \
+            .annotate(y=Count('id')) \
+            .order_by('day')
+        context['nb_aids_published_timeseries'] = list(aids_published_timeseries)  # noqa
+
+        # Number of live aids (per month)
+        live_aids_timeseries = Event.objects \
+            .filter(category='aid', event='live_count') \
+            .annotate(day=Func(
+                F('date_created'),
+                Value('YYYY-MM-01'),
+                function='to_char',
+                output_field=CharField())) \
+            .values('day') \
+            .annotate(y=F('value')) \
+            .order_by('day')
+        context['nb_live_aids_timeseries'] = list(live_aids_timeseries)
+
+        # Number of aids viewed per month
         viewed_aids_timeseries = Event.objects \
             .filter(category='aid', event='viewed') \
             .annotate(day=Func(
@@ -36,22 +62,13 @@ class StatsView(TemplateView):
             .order_by('day')
         context['nb_viewed_aids_timeseries'] = list(viewed_aids_timeseries)
 
-        aids_published_timeseries = Aid.objects.published() \
-            .annotate(day=Func(
-                F('date_created'),
-                Value('YYYY-MM-01'),
-                function='to_char',
-                output_field=CharField())) \
-            .values('day') \
-            .annotate(y=Count('id')) \
-            .order_by('day')
-        context['nb_aids_published_timeseries'] = list(aids_published_timeseries)  # noqa
-
+        # Total number of alerts sent
         alerts_qs = Event.objects \
             .filter(category='alert', event='sent') \
             .aggregate(nb_sent_alerts=Sum('value'))
         context['nb_sent_alerts'] = alerts_qs['nb_sent_alerts']
 
+        # Number of alerts created per month
         alerts_created_timeseries = Alert.objects.filter(validated=True) \
             .annotate(day=Func(
                 F('date_created'),
