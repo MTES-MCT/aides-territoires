@@ -51,3 +51,33 @@ def test_api_invalid_version(client, api_url):
 
     res = client.get('f{api_url}?version=42')
     assert res.status_code == 404
+
+
+def test_superuser_can_search_among_aid_drafts(superuser_client, api_url):
+    AidFactory(name='First aid')
+    AidFactory(name='Draft aid', status='draft')
+
+    res = superuser_client.get(f'{api_url}?version=1.1')
+    assert res.status_code == 200
+    content = json.loads(res.content.decode())
+    assert content['count'] == 1
+
+    res = superuser_client.get(f'{api_url}?version=1.1&drafts=True')
+    assert res.status_code == 200
+    content = json.loads(res.content.decode())
+    assert content['count'] == 2
+
+
+def test_users_cannot_search_among_aid_drafts(user_client, api_url):
+    AidFactory(name='First aid')
+    AidFactory(name='Draft aid', status='draft')
+
+    res = user_client.get(f'{api_url}?version=1.1')
+    assert res.status_code == 200
+    content = json.loads(res.content.decode())
+    assert content['count'] == 1
+
+    res = user_client.get(f'{api_url}?version=1.1&drafts=True')
+    assert res.status_code == 200
+    content = json.loads(res.content.decode())
+    assert content['count'] == 1
