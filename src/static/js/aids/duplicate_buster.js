@@ -3,7 +3,7 @@
 
     const MAX_RESULTS = 5;  // Don't display more duplicate
 
-    const API_ENDPOINT = '/api/aids/?version=1.1';
+    const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True';
 
     var form = $('form#aid_form');
     var urlField = $('#id_origin_url');
