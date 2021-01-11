@@ -65,7 +65,7 @@ class BackerResource(resources.ModelResource):
 
 
 class BackerForm(forms.ModelForm):
-    description = RichTextField(label=_('Description'))
+    description = RichTextField(label=_('Description'), required=False)
 
     class Meta:
         model = Backer
