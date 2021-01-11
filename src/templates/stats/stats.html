@@ -104,6 +104,17 @@
             <canvas id="chartAlertsCreated" style="width: 80%;"></canvas>
         </div>
     </div>
+
+    <hr />
+
+    <div class="stat">
+      <span class="stat-title">
+          Nombre de porteurs
+      </span>
+      <div style="min-height: 400px">
+          <canvas id="chartBackers" style="width: 80%;"></canvas>
+      </div>
+  </div>
 </section>
 {% endblock %}
 
@@ -339,5 +350,58 @@
         },
       });
     });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('chartBackers').getContext('2d');
+  
+    // Sample data
+    const chartData = {{ nb_backers_timeseries | safe }};
+  
+    // Parse the dates to JS
+    chartData.forEach((d) => {
+      d.x = new Date(d.day);
+    });
+  
+    // Render the chart
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        datasets: [
+          {
+            label: "Nombre de porteurs",
+            data: chartData,
+            backgroundColor: '#DB1C83',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [
+            {
+              type: 'time',
+              time: {
+                unit: 'month',
+                isoWeekday: true
+              },
+              gridLines: {
+                  display: false
+              },
+              offset: true
+            },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                precision: 0
+              },
+            },
+          ],
+        },
+      },
+    });
+  });
 </script>
 {% endblock %}

@@ -24,6 +24,14 @@ class StatsView(TemplateView):
             .filter(date_created__gte=one_week_ago)
         context['nb_viewed_aids_1_week'] = viewed_aids_qs.count()
 
+        financers = aids_qs.values_list('financers', flat=True)
+        instructors = aids_qs.values_list('instructors', flat=True)
+        nb_backers = Backer.objects \
+            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
+            .values('id') \
+            .count()
+        context['nb_backers'] = nb_backers
+
         # Number of new aids published per month
         aids_published_timeseries = Aid.objects.published() \
             .annotate(day=Func(
@@ -80,12 +88,17 @@ class StatsView(TemplateView):
             .order_by('day')
         context['nb_alerts_created_timeseries'] = list(alerts_created_timeseries)  # noqa
 
-        financers = aids_qs.values_list('financers', flat=True)
-        instructors = aids_qs.values_list('instructors', flat=True)
-        nb_backers = Backer.objects \
-            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
-            .values('id') \
-            .count()
-        context['nb_backers'] = nb_backers
+        # Number of backers (per month)
+        # filter by backers with aids ?
+        backers_timeseries = Backer.objects \
+            .annotate(day=Func(
+                F('date_created'),
+                Value('YYYY-MM-01'),
+                function='to_char',
+                output_field=CharField())) \
+            .values('day') \
+            .annotate(y=Count('id')) \
+            .order_by('day')
+        context['nb_backers_timeseries'] = list(backers_timeseries)
 
         return context
