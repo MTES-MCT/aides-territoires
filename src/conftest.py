@@ -43,6 +43,12 @@ def superuser():
 
 
 @pytest.fixture
+def superuser_client(superuser, client):
+    client.force_login(superuser)
+    return client
+
+
+@pytest.fixture
 def backer():
     """Generates a valid Backer."""
 
