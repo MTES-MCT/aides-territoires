@@ -5,9 +5,6 @@
 
     const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True';
 
-    var form = $('form#aid_form');
-    var urlField = $('#id_origin_url');
-
     // Create a div to hold the error message
     var errorDiv = $('<div class="inline-error"></div>');
 
