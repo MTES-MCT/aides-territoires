@@ -946,7 +946,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The new aid was sucessfully created. You can keep editing it. "
-"And find the duplicated aid in <a href=\"%(url)s"\>your portfolio</a>."
+"And find the duplicated aid in <a href=\"%(url)s\">your portfolio</a>."
 msgstr ""
 "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. "
 "Et retrouvez l'aide dupliquée sur <a href=\"%(url)s\">votre portefeuille d'aides</a>."
