@@ -7,6 +7,7 @@
 
 echo "Entering first deploy hook for Review Apps"
 pg_dump --clean --if-exists --dbname $STAGING_DATABASE_URL --no-owner --no-privileges --no-comments | psql $DATABASE_URL
+psql -d $DATABASE_URL -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
 
 # We want to include commands from the post deploy hook as well:
 bash $HOME/scripts/post_deploy.sh
