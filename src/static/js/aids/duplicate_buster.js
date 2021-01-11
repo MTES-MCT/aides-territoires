@@ -115,5 +115,7 @@
         initializeErrorDom();
         aidEditForm.on('change', warnForDuplicates);
 
+        // Check duplicate when the form is first displayed
+        warnForDuplicates();
     });
 }($ || django.jQuery));
