@@ -116,7 +116,7 @@ class Backer(models.Model):
         blank=True)
     description = models.TextField(
         _('Full description of the backer'),
-        default='', blank=False)
+        default='', blank=True)
 
     logo = models.FileField(
         _('Logo image'),
