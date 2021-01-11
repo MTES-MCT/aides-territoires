@@ -33,12 +33,15 @@
      */
     var displayWarningMessage = function(apiData) {
         var messageDiv = $('<div class="errornote" />');
-
         var messageP = $('<p>Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
 
+        var currentSlug = $('#id_slug').val();
         var count = apiData['count'];
         var maxResults = Math.min(count, MAX_RESULTS);
         var duplicates = apiData['results']
+            .filter(function(result) {
+                return result['slug'] != currentSlug;
+            })
             .slice(0, maxResults)
             .map(formatSingleDuplicate);
 
