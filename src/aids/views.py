@@ -278,7 +278,8 @@ class AidDetailView(DetailView):
         # Here we retrieve the request's *first* subdomain
         # e.g. https://aides-territoires.beta.gouv.fr/ --> 'aides-territoires' (default)  # noqa
         # e.g. https://arcinnovation.aides-territoires.beta.gouv.fr/ --> 'arcinnovation'  # noqa
-        request_subdomain = request.META['HTTP_HOST'].split('.')[0]
+        host = request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
+        request_subdomain = host.split('.')[0]
 
         log_event('aid', 'viewed', meta=self.object.slug, source=request_subdomain, value=1)  # noqa
 

@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.fixture
-def aid_form_data(user, backer, perimeter):
+def aid_form_data(user, backer, perimeter, category):
     """Returns valid data to create an Aid object."""
 
     return {
@@ -24,4 +24,5 @@ def aid_form_data(user, backer, perimeter):
         'publication_status': 'open',
         'status': 'published',
         'is_call_for_project': True,
+        'categories': [category.id],
     }

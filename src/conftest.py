@@ -8,6 +8,7 @@ from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
 from geofr.factories import PerimeterFactory
 from geofr.models import Perimeter
+from categories.factories import CategoryFactory
 
 
 @pytest.fixture
@@ -71,6 +72,11 @@ def browser():
     # Sometimes, I admire Python's elegancy so much!
     yield browser
     browser.quit()
+
+
+@pytest.fixture
+def category():
+    return CategoryFactory()
 
 
 @pytest.fixture
