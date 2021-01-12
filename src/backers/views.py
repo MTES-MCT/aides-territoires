@@ -6,6 +6,7 @@ from aids.models import Aid
 from programs.models import Program
 from categories.models import Category
 
+
 class BackerDetailView(DetailView):
     context_object_name = 'backer'
     template_name = 'backers/detail.html'
@@ -18,7 +19,8 @@ class BackerDetailView(DetailView):
 
         aids = Aid.objects.live() \
             .filter(financers=self.object.id) \
-            .prefetch_related(Prefetch('categories', queryset=categories_list)) \
+            .prefetch_related(Prefetch('categories',
+                              queryset=categories_list)) \
             .order_by('categories__theme', 'categories__name') \
 
         categories = Category.objects \
@@ -26,8 +28,9 @@ class BackerDetailView(DetailView):
             .order_by('theme') \
             .distinct()
 
-        categories = [{'name': category.name, 'theme': category.theme} for category in categories]
-        
+        categories = [{'name': category.name, 'theme': category.theme}
+                      for category in categories]
+
         programs = Program.objects \
             .filter(aids__in=aids) \
             .exclude(logo__isnull=True) \
