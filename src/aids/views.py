@@ -415,8 +415,10 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.import_uniqueid = None
             obj.save()
             form.save_m2m()
-            msg = _('The new aid was sucessfully created. You can keep '
-                    'editing it.')
+            msg = _('The new aid was sucessfully created. You can keep editing it. '
+                    'And find the duplicated aid in <a href="%(url)s">your portfolio</a>.') % {
+                        'url': reverse('aid_draft_list_view')
+                    }
 
             response = HttpResponseRedirect(self.get_success_url())
         else:
