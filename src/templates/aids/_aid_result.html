@@ -71,7 +71,9 @@
             {% if aid.start_date %}
                 <li>{{ _('Opening:') }} {{ aid.start_date|date }}</li>
             {% endif %}
-            <li>{{ _('Deadline:') }} {{ aid.submission_deadline|date }}</li>
+            {% if aid.submission_deadline %}
+                <li>{{ _('Deadline:') }} {{ aid.submission_deadline|date }}</li>
+            {% endif %}
             </ul>
         {% endif %}
 
