@@ -1350,16 +1350,20 @@ div#search-steps {
 
 .backer-content {
     @extend .px-5;
+    @extend .mb-5;
+    @extend .mt-4;
+    line-height: 1.6;
 
     h2 {
         background-color: $pale-background;
         border-radius: 0 2rem 2rem 2rem;
         padding: .5rem 1rem;
-        @extend .mt-4;
+        @extend .my-4;
     }
 
     #program-logo img {
         max-height: $height-img-base;
+        @extend .pr-4;
     }
 }
 
