@@ -237,6 +237,11 @@ SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
 
+# ADDNA
+ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'
+ADDNA_ALERT_QUERYSTRING = 'perimeter=70971-nouvelle-aquitaine'
+ADDNA_ALERT_EMAIL_SUBJECT_PREFIX = '[Aides-territoires-ADDNA] '
+
 SITE_ID = 1
 
 LOGIN_URL = 'login'
