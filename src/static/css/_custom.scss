@@ -897,7 +897,7 @@ article#aid {
         }
         
         & > a > img {
-            max-height: 100px;
+            max-height: $height-img-base;
             max-width: 300px;
             padding: 0.5rem;
             filter: saturate(140%);
@@ -1361,6 +1361,48 @@ div#search-steps {
             @extend .mt-4;
         }
     }
+}
+
+.backer-content {
+    @extend .px-5;
+    @extend .mb-5;
+    @extend .mt-4;
+    line-height: 1.6;
+
+    h2 {
+        background-color: $pale-background;
+        border-radius: 0 2rem 2rem 2rem;
+        padding: .5rem 1rem;
+        @extend .my-4;
+    }
+
+    #program-logo img {
+        max-height: $height-img-base;
+        @extend .pr-4;
+    }
+}
+
+ul.backer-categories {
+    padding: 0;
+    list-style-type: none;
+
+    li.theme {
+        text-transform: uppercase;
+        @extend .py-2;
+    }
+
+    ul {
+        padding: 0;
+        text-transform: none;
+
+        li {
+            display: inline;
+        }
+
+        li + li:before {
+            content: " + ";
+        }
+    } 
 }
 
 ul.aid-categories {

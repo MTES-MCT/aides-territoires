@@ -2289,6 +2289,12 @@ msgstr "Dernière mise à jour"
 msgid "Global presentation"
 msgstr "Présentation générale"
 
+msgid "Related themes"
+msgstr "Thématiques associées"
+
+msgid "Related programs"
+msgstr "Programmes associés"
+
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
 
