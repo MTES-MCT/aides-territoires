@@ -13,16 +13,32 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
     lookup_field = 'slug'
 
-    def get_queryset(self):
-        """Filter data according to search query."""
+    def get_base_queryset(self):
+        """Get the base queryset of aid list.
+
+        For some backend features, we must allow superusers to search among
+        all aids (including aids that are not live on the frontend).
+        """
 
         qs = Aid.objects \
-            .published() \
-            .open() \
             .select_related('perimeter') \
             .prefetch_related('financers', 'instructors', 'programs') \
             .order_by('perimeter__scale', 'submission_deadline')
 
+        if self.request.user.is_superuser and 'drafts' in self.request.GET:
+            # Superusers can search among unfiltered aids
+            # (including aid drafts)
+            pass
+        else:
+            # Normal users can only see aids that are actually published
+            qs = qs.live()
+
+        return qs
+
+    def get_queryset(self):
+        """Filter data according to search query."""
+
+        qs = self.get_base_queryset()
         filter_form = AidSearchForm(data=self.request.GET)
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()

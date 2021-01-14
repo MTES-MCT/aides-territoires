@@ -3,17 +3,16 @@
 
     const MAX_RESULTS = 5;  // Don't display more duplicate
 
-    const API_ENDPOINT = '/api/aids/?version=1.1';
-
-    var form = $('form#aid_form');
-    var urlField = $('#id_origin_url');
+    const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True';
 
     // Create a div to hold the error message
-    var errorDiv = $('<div class="inline-error"></div>');
+    var topErrorDiv = $('<div class="inline-error"></div>');
+    var inlineErrorDiv = $('<div class="inline-error"></div>');
 
     // Insert the message holding div into the dom
     var initializeErrorDom = function() {
-        errorDiv.insertAfter('input#id_origin_url');
+        topErrorDiv.insertAfter('textarea#id_name');
+        inlineErrorDiv.insertAfter('input#id_origin_url');
     };
 
     // Generate a link to a single duplicate aid
@@ -33,12 +32,15 @@
      */
     var displayWarningMessage = function(apiData) {
         var messageDiv = $('<div class="errornote" />');
-
         var messageP = $('<p>Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
 
+        var currentSlug = $('#id_slug').val();
         var count = apiData['count'];
         var maxResults = Math.min(count, MAX_RESULTS);
         var duplicates = apiData['results']
+            .filter(function(result) {
+                return result['slug'] != currentSlug;
+            })
             .slice(0, maxResults)
             .map(formatSingleDuplicate);
 
@@ -91,10 +93,12 @@
 
         // Be careful as to not count the current aid as a duplicate of itself
         if (count == 0 || count == 1 && results[0]['slug'] == currentSlug) {
-            errorDiv.html('');
+            topErrorDiv.html('');
+            inlineErrorDiv.html('');
         } else {
             var msg = displayWarningMessage(duplicates);
-            errorDiv.html(msg);
+            topErrorDiv.html(msg);
+            inlineErrorDiv.html(msg.clone());
         }
     };
 
@@ -112,5 +116,7 @@
         initializeErrorDom();
         aidEditForm.on('change', warnForDuplicates);
 
+        // Check duplicate when the form is first displayed
+        warnForDuplicates();
     });
 }($ || django.jQuery));
