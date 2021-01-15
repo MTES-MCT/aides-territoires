@@ -24,6 +24,9 @@ AUDIENCES_DICT = {
 
 AIDES_URL = 'https://aides-redevances.eau-loire-bretagne.fr/home/aides/lessentiel-des-aides/aides-mode-demploi.html'
 
+LOIRE_BRETAGNE_PERIMETER_CODE = '04'
+LOIRE_BRETAGNE_FINANCER_NAME = "Agence de l'Eau Loire-Bretagne"
+
 
 class Command(BaseImportCommand):
     """Import data from the Loire-Bretagne water agency data file.
@@ -46,11 +49,11 @@ class Command(BaseImportCommand):
 
     def handle(self, *args, **options):
 
-        self.backer_loire_bretagne = Backer.objects.get(
-            name="Agence de l'Eau Loire-Bretagne")
         self.perimeter_loire_bretagne = Perimeter.objects.get(
             scale=Perimeter.TYPES.basin,
-            code='04')
+            code=LOIRE_BRETAGNE_PERIMETER_CODE)
+        self.backer_loire_bretagne = Backer.objects.get(
+            name=LOIRE_BRETAGNE_FINANCER_NAME)
         super().handle(*args, **options)
 
     def line_should_be_processed(self, line):
