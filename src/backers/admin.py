@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.db.models import Count, Q, Prefetch
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from collections import defaultdict
 import operator
 from itertools import groupby
 
@@ -16,7 +15,6 @@ from import_export.formats import base_formats
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 from backers.models import BackerGroup, Backer
-from aids.models import Aid
 from categories.models import Category
 from programs.models import Program
 
@@ -94,7 +92,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['date_created', 'display_related_aids', 'display_related_themes', 'display_related_programs']
+    readonly_fields = ['date_created', 'display_related_aids',
+                       'display_related_themes', 'display_related_programs']
 
     fieldsets = [
         ('', {
@@ -163,7 +162,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
             .select_related('theme') \
 
         aids = obj.financed_aids \
-            .prefetch_related(Prefetch('categories', queryset=categories_list)) \
+            .prefetch_related(Prefetch('categories',
+                                       queryset=categories_list)) \
             .order_by('categories__theme', 'categories__name') \
 
         categories = Category.objects \
@@ -171,7 +171,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
             .order_by('theme') \
             .distinct()
 
-        categories = [(category.name, category.theme) for category in categories]
+        categories = [(category.name, category.theme)
+                      for category in categories]
 
         categories_by_theme = {}
         for theme, g in groupby(categories, operator.itemgetter(1)):
@@ -184,7 +185,7 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
                 theme=theme[0]
             )
             for categorie in [categorie[0] for categorie in theme[1]]:
-                    related_themes_html += format_html(
+                related_themes_html += format_html(
                     '{categorie}. ',
                     categorie=categorie,
                 )
@@ -195,17 +196,16 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
 
     def display_related_programs(self, obj):
         """Display the related programs."""
-        
+
         programs = Program.objects \
             .filter(aids__in=obj.financed_aids.all()) \
             .distinct()
-
 
         related_programs_html = format_html('<ul>')
         for program in programs:
             related_programs_html += format_html(
                 '<li><strong>{program_name}</strong></li>',
-                program_name = program.name
+                program_name=program.name
             )
         related_programs_html += format_html('</ul>')
         return related_programs_html
