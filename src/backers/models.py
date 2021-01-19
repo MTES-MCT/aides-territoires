@@ -50,7 +50,7 @@ class BackerGroup(models.Model):
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[:50]
 
     def save(self, *args, **kwargs):
         self.set_slug()
@@ -183,7 +183,7 @@ class Backer(models.Model):
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[:50]
 
     def save(self, *args, **kwargs):
         self.set_slug()
