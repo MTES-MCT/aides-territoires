@@ -24,6 +24,7 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         qs = Perimeter.objects.order_by('-scale', 'name')
         accented_q = self.request.query_params.get('q', '')
         q = remove_accents(accented_q)
+
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
                 .annotate(similarity=TrigramSimilarity(Unaccent('name'), q)) \
