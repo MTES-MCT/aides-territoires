@@ -18,8 +18,8 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         q = self.request.query_params.get('q', '')
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
-                .annotate(similarity=TrigramSimilarity('name', q)) \
-                .filter(name__trigram_similar=q) \
+                .annotate(similarity=TrigramSimilarity('name__unaccent', q)) \
+                .filter(name__unaccent__trigram_similar=q) \
                 .order_by('-similarity', '-scale', 'name')
 
         return qs
