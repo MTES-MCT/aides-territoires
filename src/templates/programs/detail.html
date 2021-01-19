@@ -25,7 +25,7 @@
 
 <section id="aid-list">
     <div class="aids">
-        {% for aid in program.aids.all %}
+        {% for aid in aids %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
