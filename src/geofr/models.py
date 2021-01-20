@@ -56,6 +56,9 @@ class Perimeter(models.Model):
     manually_created = models.BooleanField(
         _('Manually created'),
         default=False)
+    is_visible_to_users = models.BooleanField(
+        _('The perimeter is visible to users'),
+        default=True)
 
     continent = models.CharField(
         _('Continent'),

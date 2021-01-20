@@ -15,11 +15,16 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         """Filter data according to search query."""
 
         qs = Perimeter.objects.order_by('-scale', 'name')
+
         q = self.request.query_params.get('q', '')
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
                 .annotate(similarity=TrigramSimilarity('name', q)) \
                 .filter(name__trigram_similar=q) \
                 .order_by('-similarity', '-scale', 'name')
+
+        is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')  # noqa
+        if is_visible_to_users == 'true':
+            qs = qs.filter(is_visible_to_users=True)
 
         return qs

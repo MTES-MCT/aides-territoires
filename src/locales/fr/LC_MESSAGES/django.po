@@ -1323,6 +1323,9 @@ msgstr "Contenu dans"
 msgid "Manually created"
 msgstr "Création manuelle"
 
+msgid "The perimeter is visible to users"
+msgstr "Le périmètre est visible pour les utilisateurs"
+
 msgid "Zip codes"
 msgstr "Codes postaux"
 

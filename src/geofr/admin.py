@@ -9,27 +9,35 @@ from geofr.admin_views import PerimeterUpload, PerimeterCombine
 
 class PerimeterAdminForm(forms.ModelForm):
     class Meta:
-        fields = ['code', 'name']
+        fields = ['code', 'name', 'is_visible_to_users']
 
 
 class PerimeterAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
 
-    list_display = ('scale', 'name', 'manually_created', 'code', 'is_overseas',
+    list_display = ('scale', 'name', 'manually_created', 'is_visible_to_users',
+                    'code', 'is_overseas',
                     'regions', 'departments', 'epci', 'zipcodes', 'basin')
     search_fields = ['name', 'code']
-    list_filter = ('scale', 'is_overseas', 'manually_created')
+    list_filter = ('scale', 'is_overseas', 'manually_created',
+                   'is_visible_to_users')
     ordering = ('-scale', 'name')
     form = PerimeterAdminForm
     readonly_fields = [
-        'scale', 'is_overseas', 'contained_in', 'manually_created', 'regions',
-        'departments', 'epci', 'basin', 'zipcodes'
+        'scale', 'is_overseas', 'contained_in', 'manually_created',
+        'regions', 'departments', 'epci', 'basin', 'zipcodes'
     ]
 
     class Media:
         css = {
             'all': ('css/admin.css',)
         }
+
+    def get_readonly_fields(self, request, obj=None):
+        """Disable is_visible_to_users edition for non-ad-hoc perimeters"""
+        if obj and not (obj.scale == Perimeter.TYPES.adhoc):
+            return ['is_visible_to_users'] + self.readonly_fields
+        return self.readonly_fields
 
     def has_add_permission(self, request):
         return True

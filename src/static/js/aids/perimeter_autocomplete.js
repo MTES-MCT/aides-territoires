@@ -10,6 +10,13 @@ $(document).ready(function () {
             url: catalog.perimeter_url,
             dataType: 'json',
             delay: 100,
+            data: function (params) {
+                var query = {
+                  q: params.term,
+                  is_visible_to_users: true,
+                }
+                return query;
+            },
             processResults: function (data, params) {
                 params.page = params.page || 1;
 
