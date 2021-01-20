@@ -1638,7 +1638,7 @@ msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
 msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le·s porteur·s parmi la liste."
+msgstr "Sélectionnez le·s porteur·s"
 
 msgid "Choose instructor(s) among the list."
 msgstr "Sélectionnez le·s instructeur·s parmi la liste."
