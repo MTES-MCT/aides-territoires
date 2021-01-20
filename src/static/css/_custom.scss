@@ -396,15 +396,26 @@ section#program-list {
 
     div.aids {
         @extend .row;
-        @extend .row-cols-1;
-        @extend .row-cols-sm-2;
-        @extend .row-cols-md-3;
         @extend .no-gutters;
         margin-left: -.5rem;
         margin-right: -.5rem;
+
+        & #alerte {
+            @extend .col-12;
+            @extend .my-3;
+            @extend .py-2;
+            @include icon(before, $fa-var-bell);
+            background-color: $contrast-color;
+            color: $gray-100;
+            border-radius: 1rem 0 1rem 1rem;
+            text-align: center;
+        }
     }
 
     div.col {
+        @extend .col-12;
+        @extend .col-sm-6;
+        @extend .col-md-4;
         padding-bottom: 1rem;
         padding-left: .5rem !important;
         padding-right: .5rem !important;

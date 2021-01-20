@@ -9,9 +9,18 @@
     {% endfor %}
 
     {% for aid in aids %}
+        {% if forloop.counter0 == 5 %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
+        <div id="alerte">
+            <strong>Créer une alerte</strong>
+        </div>
+        {% else %}
+        <div class="col">
+            {% include 'aids/_aid_result.html' with aid=aid %}
+        </div>
+        {% endif %}
     {% endfor %}
     </div>
 {% else %}
