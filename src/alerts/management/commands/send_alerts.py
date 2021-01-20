@@ -93,10 +93,18 @@ class Command(BaseCommand):
             'alerts/alert_body.txt', email_context)
         html_body = render_to_string(
             'alerts/alert_body.html', email_context)
-        email_subject = '{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
-                        'vos recherches'.format(timezone.now())
+
+        email_subject_prefix = settings.EMAIL_SUBJECT_PREFIX
+        if alert.title == settings.ADDNA_ALERT_TITLE:
+            email_subject_prefix = settings.ADDNA_ALERT_EMAIL_SUBJECT_PREFIX
+        email_subject = '{}{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
+                        'vos recherches'.format(
+                            email_subject_prefix,
+                            timezone.now())
+
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [alert.email]
+
         log_details = {
             'sender': site,
             'action_object': alert,
@@ -106,7 +114,7 @@ class Command(BaseCommand):
         }
         try:
             send_mail(
-                '{}{}'.format(settings.EMAIL_SUBJECT_PREFIX, email_subject),
+                email_subject,
                 text_body,
                 email_from,
                 email_to,
