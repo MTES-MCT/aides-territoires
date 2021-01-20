@@ -28,6 +28,17 @@
     @extend .px-4;
     @extend .text-dark;
     @extend .shadow;
+
+    #page-content {
+        @extend .px-5;
+        @extend .py-3;
+        line-height: 1.6;
+
+        h3, h2 {
+            @extend .pt-3;
+            @extend .mb-4;
+        }
+    }
 }
 
 .light-background {

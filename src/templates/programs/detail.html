@@ -15,12 +15,17 @@
 
 {% block content %}
 <article id="program" >
-    <h1>{{ program.name }}</h1>
-    
-    <div>
-        {{ program.description | safe | linebreaks }}
+    <div id="program-content">
+        <h1>{{ program.name }}</h1>
+        {% if program.description %}
+            <div>
+                <h2>{{ _('Global presentation') }}</h2>
+                <div>
+                    {{ program.description | safe | linebreaks }}
+                </div>
+            </div>
+        {% endif %}  
     </div>
-
 </article>
 
 <section id="aid-list">
