@@ -22,6 +22,7 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         """Filter data according to search query."""
 
         qs = Perimeter.objects.order_by('-scale', 'name')
+
         accented_q = self.request.query_params.get('q', '')
         q = remove_accents(accented_q)
 
@@ -30,5 +31,9 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
                 .annotate(similarity=TrigramSimilarity(Unaccent('name'), q)) \
                 .filter(name__unaccent__trigram_similar=remove_accents(q)) \
                 .order_by('-similarity', '-scale', 'name')
+
+        is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')  # noqa
+        if is_visible_to_users == 'true':
+            qs = qs.filter(is_visible_to_users=True)
 
         return qs
