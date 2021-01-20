@@ -8,11 +8,12 @@ from aids.models import Aid
 
 OPENDATA_URL = 'https://data.laregion.fr/explore/dataset/aides-et-appels-a-projets-de-la-region-occitanie/information/'  # noqa
 
-
 ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
 
-
 IGNORE_OLDER_THAN = 365
+
+OCCITANIE_PERIMETER_CODE = '76'
+OCCITANIE_FINANCER_NAME = "Conseil régional d'Occitanie"
 
 
 class Command(CrawlerImportCommand):
@@ -23,9 +24,10 @@ class Command(CrawlerImportCommand):
     def populate_cache(self, *args, **options):
         self.occitanie_perimeter = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.region) \
-            .filter(code='76') \
+            .filter(code=OCCITANIE_PERIMETER_CODE) \
             .get()
-        self.occitanie_financer = Backer.objects.get(name='Région Occitanie')
+        self.occitanie_financer = Backer.objects.get(
+            name=OCCITANIE_FINANCER_NAME)
 
     def line_should_be_processed(self, line):
         """Ignore data older than 1 year.

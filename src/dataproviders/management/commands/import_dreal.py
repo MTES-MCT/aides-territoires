@@ -27,6 +27,8 @@ AUDIENCES_DICT = {
 
 ADDNA_URL = 'http://aides-dd-na.fr/'
 
+NOUVELLE_AQUITAINE_PERIMETER_CODE = '75'
+
 
 class Command(BaseImportCommand):
     """Import data from the DREAL data feed."""
@@ -62,7 +64,7 @@ class Command(BaseImportCommand):
         self.financers_cache = {}
         self.nouvelle_aquitaine = Perimeter.objects.get(
             scale=Perimeter.TYPES.region,
-            code='75')
+            code=NOUVELLE_AQUITAINE_PERIMETER_CODE)
         self.beneficiaires = []
 
         super().handle(*args, **options)
