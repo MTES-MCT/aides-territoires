@@ -41,13 +41,14 @@ class Perimeter(models.Model):
     scale = models.PositiveIntegerField(
         _('Scale'),
         choices=TYPES)
+    name = models.CharField(
+        _('Name'),
+        max_length=128)
     code = models.CharField(
         _('Code'),
         max_length=16,
         help_text=_('Internal usage only, not relevant for Ad-hoc perimeters'))
-    name = models.CharField(
-        _('Name'),
-        max_length=128)
+
     contained_in = models.ManyToManyField(
         'geofr.Perimeter',
         verbose_name=_('Contained in'),

@@ -9,7 +9,7 @@ from geofr.admin_views import PerimeterUpload, PerimeterCombine
 
 class PerimeterAdminForm(forms.ModelForm):
     class Meta:
-        fields = ['code', 'name', 'is_visible_to_users']
+        fields = ['name', 'code', 'is_visible_to_users']
 
 
 class PerimeterAdmin(admin.ModelAdmin):
@@ -23,10 +23,7 @@ class PerimeterAdmin(admin.ModelAdmin):
                    'is_visible_to_users')
     ordering = ('-scale', 'name')
     form = PerimeterAdminForm
-    readonly_fields = [
-        'scale', 'is_overseas', 'contained_in', 'manually_created',
-        'regions', 'departments', 'epci', 'basin', 'zipcodes'
-    ]
+    # readonly_fields managed below
 
     class Media:
         css = {
@@ -34,18 +31,21 @@ class PerimeterAdmin(admin.ModelAdmin):
         }
 
     def get_readonly_fields(self, request, obj=None):
-        """Disable is_visible_to_users edition for non-ad-hoc perimeters"""
-        if obj and not (obj.scale == Perimeter.TYPES.adhoc):
-            return ['is_visible_to_users'] + self.readonly_fields
-        return self.readonly_fields
+        """
+        All fields are readonly except:
+        - Allow name is_visible_to_users edition for new or adhoc perimeters
+        - Allow code edition for new or manually_created perimeters
+        """
+        readonly_fields = [f.name for f in Perimeter._meta.fields]
+        if not obj or (obj.scale == Perimeter.TYPES.adhoc):
+            readonly_fields.remove('name')
+            readonly_fields.remove('is_visible_to_users')
+        if not obj or obj.manually_created:
+            readonly_fields.remove('code')
+        return readonly_fields
 
     def has_add_permission(self, request):
         return True
-
-    def has_change_permission(self, request, obj=None):
-        if obj:
-            return obj.manually_created
-        return False
 
     def has_delete_permission(self, request, obj=None):
         if obj:
