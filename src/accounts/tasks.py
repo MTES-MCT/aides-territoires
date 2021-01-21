@@ -6,7 +6,7 @@ from django.utils.encoding import force_bytes
 from django.urls import reverse
 
 from core.celery import app
-from core.mail_backends import send_mail_with_sendinblue_transactional_api
+from core.mail_backends import send_mail_sib
 from accounts.models import User
 
 
@@ -48,7 +48,7 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         'user_name': user.full_name,
         'full_login_url': full_login_url})
 
-    send_mail_with_sendinblue_transactional_api(
+    send_mail_sib(
         LOGIN_SUBJECT,
         login_email_body,
         user.email,

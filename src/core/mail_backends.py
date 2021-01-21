@@ -14,43 +14,23 @@ API_HEADERS = {
 }
 
 
-def send_mail_with_sendinblue_transactional_api(subject, email_body, to_email, from_email=settings.DEFAULT_FROM_EMAIL, email_body_type='text', tag_list=None):  # noqa
+def send_mail_sib(subject, email_body, to_email, from_email=settings.DEFAULT_FROM_EMAIL, email_body_type='text', tag_list=None):  # noqa
     """
-    Method to send emails using the Sendinblue API
-
-    Why the API and not the SMTP Relay ?
-    - You can add tags to the emails you send
-    - You can pass the link to an email template created in Sendinblue
-
-    More info here:
-    https://developers.sendinblue.com/docs/send-a-transactional-email
+    Sends emails using the Sendinblue Transactional API.
     """
     endpoint = settings.SIB_TRANSACTIONAL_API_ENDPOINT
-    data = {
-        'sender': {
-            'email': from_email,
-            # 'name': 'Aides-territoires'
-        },
-        'to': [{
-            'email': to_email,
-            # 'name': 'John Doe'
-        }],
+    post_data = {
+        'sender': {'email': from_email},
+        'to': [{'email': to_email}],
         'subject': subject,
-        # 'htmlContent': email_body,
-        # 'textContent': email_body,
-        # 'htmlUrl': sendinblue_template_url
-        # 'tags': ['']
     }
-    # set email_body
     if email_body_type == 'html':
-        data['htmlContent'] = email_body
+        post_data['htmlContent'] = email_body
     else:
-        data['textContent'] = email_body
-    # set sendinblue tags
+        post_data['textContent'] = email_body
     if tag_list:
-        data['tags'] = tag_list
-
-    requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
+        post_data['tags'] = tag_list
+    requests.post(endpoint, headers=API_HEADERS, data=json.dumps(post_data))
 
 
 class StagingEmailBackend(EmailBackend):
