@@ -400,15 +400,19 @@ section#program-list {
         margin-left: -.5rem;
         margin-right: -.5rem;
 
-        & #alerte {
+        & #save-alert-btn-xl {
             @extend .col-12;
             @extend .my-3;
             @extend .py-2;
+            @extend .btn;
+            @extend .btn-primary;
             @include icon(before, $fa-var-bell);
             background-color: $contrast-color;
             color: $gray-100;
             border-radius: 1rem 0 1rem 1rem;
             text-align: center;
+            font-weight: bold;
+            display: block;
         }
     }
 
@@ -416,9 +420,7 @@ section#program-list {
         @extend .col-12;
         @extend .col-sm-6;
         @extend .col-md-4;
-        padding-bottom: 1rem;
-        padding-left: .5rem !important;
-        padding-right: .5rem !important;
+        padding: 1rem .5rem !important;
     }
 
     article {
