@@ -400,19 +400,32 @@ section#program-list {
         margin-left: -.5rem;
         margin-right: -.5rem;
 
-        & #save-alert-btn-xl {
+        & #save-alert-block {
             @extend .col-12;
             @extend .my-3;
-            @extend .py-2;
-            @extend .btn;
-            @extend .btn-primary;
-            @include icon(before, $fa-var-bell);
-            background-color: $contrast-color;
-            color: $gray-100;
+            @extend .p-4;
+            background-color: $gray-100;
+            color: $font-color;
             border-radius: 1rem 0 1rem 1rem;
             text-align: center;
             font-weight: bold;
             display: block;
+
+            & > a {
+                @extend .mt-4;
+                @extend .btn;
+                @extend .btn-primary;
+                @include icon(before, $fa-var-bell);
+                font-weight: bold;
+                display: block;
+                border-radius: 0 1rem 1rem 1rem;
+
+                @include media-breakpoint-up(md) {
+                    margin-right: 5rem;
+                    float: right;
+                    width: 15em;
+                }
+            }
         }
     }
 
