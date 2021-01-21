@@ -1,11 +1,9 @@
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.urls import reverse
-from django.conf import settings
 
 from core.celery import app
 from core.mail_backends import send_mail_with_sendinblue_transactional_api
@@ -55,9 +53,3 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         login_email_body,
         user.email,
         tag_list=['connexion'])
-    # send_mail(
-    #     LOGIN_SUBJECT,
-    #     login_email_body,
-    #     settings.DEFAULT_FROM_EMAIL,
-    #     [user.email],
-    #     fail_silently=False)
