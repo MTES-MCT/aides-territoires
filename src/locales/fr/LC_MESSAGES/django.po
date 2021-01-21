@@ -1637,6 +1637,9 @@ msgstr "Votre ville, intercommunalité, département…"
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
+msgid "Select program(s)"
+msgstr "Sélectionnez un programme"
+
 msgid "Choose backer(s) among the list."
 msgstr "Sélectionnez le·s porteur·s"
 
