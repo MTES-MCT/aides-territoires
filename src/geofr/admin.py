@@ -44,6 +44,12 @@ class PerimeterAdmin(admin.ModelAdmin):
             readonly_fields.remove('code')
         return readonly_fields
 
+    def get_changeform_initial_data(self, request):
+        """Set is_visible_to_users to False for new perimeters"""
+        initial = super(PerimeterAdmin, self).get_changeform_initial_data(request)  # noqa
+        initial['is_visible_to_users'] = False
+        return initial
+
     def has_add_permission(self, request):
         return True
 

@@ -10,7 +10,7 @@ def init_is_visible_to_users_field(apps, schema_editor):
     Perimeter = apps.get_model('geofr', 'Perimeter')
     perimeters = Perimeter.objects.all()
     for perimeter in perimeters:
-        if perimeter.scale == Perimeter.TYPES.adhoc:
+        if perimeter.scale == 18: # Perimeter.TYPES.adhoc:
             perimeter.is_visible_to_users = False
             perimeter.save()
 
