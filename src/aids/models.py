@@ -255,7 +255,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Short title'),
         max_length=64,
         help_text=_('A shorter, more concise title'),
-        blank=True)
+        null=True, blank=True)
     author = models.ForeignKey(
         'accounts.User',
         on_delete=models.PROTECT,
@@ -315,11 +315,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     origin_url = models.URLField(
         _('Origin URL'),
         max_length=500,
-        blank=True)
+        null=True, blank=True)
     application_url = models.URLField(
         _('Application url'),
         max_length=500,
-        blank=True)
+        null=True, blank=True)
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
         null=True, blank=True,
@@ -369,7 +369,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     subvention_comment = models.CharField(
         _('Subvention rate, optional comment'),
         max_length=100,
-        blank=True)
+        null=True, blank=True)
     contact = models.TextField(
         _('Contact'),
         blank=True)

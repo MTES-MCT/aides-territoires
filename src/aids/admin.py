@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from import_export.admin import ExportActionMixin
+from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
 from admin_auto_filters.filters import AutocompleteFilter
 
@@ -142,7 +142,7 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
             return queryset.filter(perimeter__in=perimeter_qs)
 
 
-class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
+class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
     class Media:
