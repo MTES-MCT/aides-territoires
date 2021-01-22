@@ -9,19 +9,15 @@
     {% endfor %}
 
     {% for aid in aids %}
-        {% if forloop.counter0 == 5 %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
+        {% if forloop.counter0 == 5 %}
         <div id="save-alert-block">
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias, impedit, esse veritatis officiis nam quaerat ad voluptatibus</p>
             <a href="#" class="js" data-toggle="modal" data-target="#alert-search-modal">
                 {{ _('Create an alert') }}
             </a>
-        </div>
-        {% else %}
-        <div class="col">
-            {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
         {% endif %}
     {% endfor %}
