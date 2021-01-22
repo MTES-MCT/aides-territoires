@@ -902,11 +902,15 @@ article#aid {
 
     #logos {
         @extend .card;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column;
         justify-content: space-around;
         align-items: center;
         border: none;
+        padding: 0.5rem;
+
+        & > a {
+            @extend .py-3;
+        }
 
         & > a[href^="http"]::after {
             display: none;

@@ -192,7 +192,19 @@
                 </div>
             {% endif %}
 
-            {% if programs or financers %}
+            {% if financers %}
+            <div id="logos">
+                {% for financer in financers %}
+                {% if financer.logo %}
+                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                    <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if programs %}
             <div id="logos">
                 {% for program in programs %}
                     {% if program.logo %}
@@ -200,14 +212,6 @@
                         <img src="{{ program.logo.url }}" alt="{{ program.name }}">
                     </a>
                     {% endif %}
-                {% endfor %}
-
-                {% for financer in financers %}
-                {% if financer.logo %}
-                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                    <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
-                </a>
-                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
