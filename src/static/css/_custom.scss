@@ -1365,6 +1365,18 @@ div#search-steps {
     }
 }
 
+#backer-title {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .flex-wrap;
+    @extend .justify-content-between;
+
+    img {
+        max-height: $height-img-base;
+        max-width: 300px;
+    }
+}
+
 .backer-content {
     @extend .px-5;
     @extend .mb-5;
