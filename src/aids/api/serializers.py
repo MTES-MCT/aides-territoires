@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.utils.translation import ugettext_lazy as _
-from drf_yasg import openapi
 
 from aids.models import Aid
 
