@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.utils.translation import ugettext_lazy as _
+from drf_yasg import openapi
 
 from aids.models import Aid
 
@@ -90,7 +92,10 @@ class CategoryRelatedField(serializers.StringRelatedField):
 
 class AidSerializer12(BaseAidSerializer):
 
-    categories = CategoryRelatedField(many=True)
+    categories = CategoryRelatedField(
+        many=True,
+        label=_('Theme and category, separated by « | ».'),
+        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',

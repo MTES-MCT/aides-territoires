@@ -286,6 +286,12 @@ msgstr "<path:object_id>/merge/"
 msgid "The aid was successfully updated."
 msgstr "L'aide a bien été mise à jour."
 
+msgid "Theme and category, separated by « | »."
+msgstr "Thème et catégorie, séparés par « | »."
+
+msgid "E.g: \"Nature / environnement|Qualité de l'air\""
+msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
+
 msgid "Grant"
 msgstr "Subvention"
 
