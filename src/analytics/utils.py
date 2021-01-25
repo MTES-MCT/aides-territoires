@@ -57,25 +57,35 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     return '-'
 
 
-def get_matomo_page_urls_stats(from_date_string, to_date_string=timezone.now().strftime('%Y-%m-%d')):  # noqa
+def get_matomo_stats(api_method, custom_segment='', from_date_string='2020-01-01', to_date_string=timezone.now().strftime('%Y-%m-%d')):  # noqa
     """
-    Get view stats of all Page Urls from Matomo.
+    Get stats of all Page Urls from Matomo.
     from_date_string & to_date_string must have YYYY-MM-DD format.
 
+    API Method examples:
+    - 'Actions.getPageUrls' (views per page url)
+    - 'Actions.getPageTitles' (views per page title)
+    - 'Actions.getSiteSearchKeywords' (keywords searched in the the application)
+
+    Custom segments examples:
+    https://developer.matomo.org/api-reference/reporting-api-segmentation
+    - 'pageUrl=@actioncoeurdeville.aides-territoires.beta.gouv.fr' (url must contain string)
+    - 'pageTitle==Aides-territoires | Recherche avancée'
+
     Usage example:
-    get_matomo_stats_from_page_title('2020-01-01', to_date_string='2020-12-31')
+    get_matomo_stats_from_page_title('Actions.getPageUrls', from_date_string='2020-01-01', to_date_string='2020-12-31')  # noqa
     """
-    MATOMO_API_METHOD = 'Actions.getPageUrls'
 
     params = {
         'idSite': settings.ANALYTICS_SITEID,
         'module': 'API',
-        'method': MATOMO_API_METHOD,
+        'method': api_method,
         'period': 'range',
         'date': f'{from_date_string},{to_date_string}',
         'flat': 1,
         'filter_limit': -1,
-        'format': 'json'
+        'format': 'json',
+        'segment': custom_segment,
     }
     res = requests.get(settings.ANALYTICS_ENDPOINT, params=params)
     data = res.json()
