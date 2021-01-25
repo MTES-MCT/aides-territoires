@@ -262,22 +262,15 @@ section#search-engine {
         }
 
         #save-alert-btn {
-            @extend .btn;
-            @extend .btn-primary;
-            font-weight: bold;
+            @extend .save-alert-btn;
             width: 100%;
-            display: block;
-            @extend .mt-2;
+            min-width: 15em;
 
             @include media-breakpoint-up(md) {
                 margin-top: 0 !important;
                 width: inherit;
                 float: right;
             }
-
-            @include icon(before, $fa-var-bell);
-            border-radius: 0 1rem 1rem 1rem;
-            min-width: 15em;
         }
     }
 
@@ -401,24 +394,20 @@ section#program-list {
         margin-right: -.5rem;
 
         & #save-alert-block {
-            @extend .col-12;
+            @extend .w-100;
+            @extend .mx-1;
             @extend .my-3;
             @extend .p-4;
-            background-color: $gray-100;
+            background-color: white;
             color: $font-color;
             border-radius: 1rem 0 1rem 1rem;
+            box-shadow: $box-shadow-sm;
             text-align: center;
             font-weight: bold;
             display: block;
 
             & > a {
-                @extend .mt-4;
-                @extend .btn;
-                @extend .btn-primary;
-                @include icon(before, $fa-var-bell);
-                font-weight: bold;
-                display: block;
-                border-radius: 0 1rem 1rem 1rem;
+                @extend .save-alert-btn;
 
                 @include media-breakpoint-up(md) {
                     margin-right: 5rem;

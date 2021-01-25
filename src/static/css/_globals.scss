@@ -1045,3 +1045,12 @@ p:last-child {
     left: -9999px;
 }
 
+.save-alert-btn {
+    @extend .mt-2;
+    @extend .btn;
+    @extend .btn-primary;
+    @include icon(before, $fa-var-bell);
+    font-weight: bold;
+    display: block;
+    border-radius: 0 1rem 1rem 1rem;
+}
