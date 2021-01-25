@@ -31,6 +31,6 @@
 $(document).ready(function () {
 
     var aidEditForm = $('form.main-form');
-    var instructorDiv = $('#form-group-instructors');
+    var instructorDiv = $('#instructor-fields');
     toggleInstructorField(aidEditForm, instructorDiv);
 });
