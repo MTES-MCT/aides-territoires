@@ -59,7 +59,7 @@ def backer():
 
 @pytest.fixture
 def perimeter():
-    """Generates a valid Perimetes."""
+    """Generates a valid Perimeter."""
 
     perimeter = PerimeterFactory()
     return perimeter

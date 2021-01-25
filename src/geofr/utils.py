@@ -175,7 +175,6 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     Return the city codes that are in `add_perimeters` and not in
     `rm_perimeters`.
     """
-    print(add_perimeters)
     in_city_codes = Perimeter.objects \
         .filter(scale=Perimeter.TYPES.commune) \
         .filter(contained_in__in=add_perimeters) \
