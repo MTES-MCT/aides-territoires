@@ -1,6 +1,6 @@
 from django.views.generic import CreateView, DetailView, DeleteView
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 from braces.views import MessageMixin

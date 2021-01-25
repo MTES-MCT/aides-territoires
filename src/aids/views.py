@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.db.models import Q, Sum, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   RedirectView, DeleteView, FormView)

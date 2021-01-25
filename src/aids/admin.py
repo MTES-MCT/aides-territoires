@@ -6,7 +6,7 @@ from django.db.models.functions import Concat
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 

@@ -1,7 +1,7 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, reverse_lazy
 from braces.views import MessageMixin
 

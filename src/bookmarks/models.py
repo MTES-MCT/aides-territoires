@@ -1,12 +1,11 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.http import QueryDict
 from django.urls import reverse
 from model_utils import Choices
 
 from aids.models import Aid
-from aids.forms import AidSearchForm
 
 
 class Bookmark(models.Model):
@@ -68,6 +67,8 @@ class Bookmark(models.Model):
 
     def get_new_aids(self):
         """Get the list of aids that match the stored search params."""
+
+        from aids.forms import AidSearchForm
 
         querydict = QueryDict(self.querystring)
         search_form = AidSearchForm(querydict)

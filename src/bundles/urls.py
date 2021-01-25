@@ -1,5 +1,5 @@
 from django.urls import path
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from bundles.views import BundleListView, BundleCreateView
 
