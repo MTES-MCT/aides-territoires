@@ -8,12 +8,10 @@ class ArrayField(serializers.ListField):
     child = serializers.CharField()
 
     def __init__(self, choices, *args, **kwargs):
-
         self.repr_dict = dict(choices)
         super().__init__(*args, **kwargs)
 
     def to_representation(self, obj):
-
         representation = [self.repr_dict[choice] for choice in obj]
         return representation
 
@@ -85,6 +83,7 @@ class AidSerializer11(BaseAidSerializer):
 
 
 class CategoryRelatedField(serializers.StringRelatedField):
+
     def to_representation(self, value):
         return f'{value.theme}|{value}'
 
