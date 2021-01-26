@@ -19,15 +19,15 @@
 <article id="aid">
 
     {% if aid.submission_deadline and not aid.is_ongoing %}
-        <div class="deadline-data">
-            {% if aid.has_approaching_deadline %}
-                <span>J-{{ aid.days_before_deadline }}</span>
-            {% endif %}
-            <p>
-                <strong>{{ _('Deadline') }}</strong><br />
-                {{ aid.submission_deadline|date }}
-            </p>
-        </div>
+    <div class="deadline-data">
+        {% if aid.has_approaching_deadline %}
+        <span>J-{{ aid.days_before_deadline }}</span>
+        {% endif %}
+        <p>
+            <strong>{{ _('Deadline') }}</strong><br />
+            {{ aid.submission_deadline|date }}
+        </p>
+    </div>
     {% endif %}
 
     <h1> {{ aid.name }} </h1>
@@ -35,30 +35,32 @@
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
         {% for theme in theme_list %}
-            <li class="theme">
-                <strong>
+        <li class="theme">
+            <strong>
                 {{ theme.grouper }}
-                </strong>
-                <ul>
+            </strong>
+            <ul>
                 {% for category in theme.list %}
-                    <li class="category">{{ category }}</li>
+                <li class="category">{{ category }}</li>
                 {% endfor %}
-                </ul>
-            </li>
+            </ul>
+        </li>
         {% endfor %}
     </ul>
     {% endif %}
 
     {% if not aid.is_published %}
-        <div class="danger">
-            <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
-        </div>
+    <div class="danger">
+        <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the
+            author.') }}</p>
+    </div>
     {% endif %}
 
     {% if aid.has_expired %}
-        <div class="danger">
-            <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
-        </div>
+    <div class="danger">
+        <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical
+            purpose.') }}</p>
+    </div>
     {% endif %}
 
     <section class="aid-content">
@@ -71,14 +73,14 @@
                 <div class="financers">
                     <h3>{{ _('Financers') }}</h3>
                     <ul>
-                    {% for financer in financers %}
+                        {% for financer in financers %}
                         <li>
                             {{ financer }}
                             {% if financer.is_corporate %}
-                                ({{ _('Corporate') }})
+                            ({{ _('Corporate') }})
                             {% endif %}
                         </li>
-                    {% endfor %}
+                        {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
@@ -87,15 +89,15 @@
                 <div class="instructors">
                     <h3>{{ _('Instructors') }}</h3>
                     <ul>
-                    {% for instructor in instructors %}
+                        {% for instructor in instructors %}
                         <li>
                             {{ instructor }}
                             {% if instructor.is_corporate %}
-                                ({{ _('Corporate') }})
+                            ({{ _('Corporate') }})
                             {% endif %}
 
                         </li>
-                    {% endfor %}
+                        {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
@@ -104,16 +106,16 @@
 
             <div class="card">
                 {% if aid.is_call_for_project %}
-                    <div class="call-for-project">
-                        <h3>
-                            <acronym title="{{ _('Call for project') }}">
-                                AAP
-                            </acronym> /
-                            <acronym title="{{ _('Call for expression of interest') }}">
-                                AMI
-                            </acronym>
-                        </h3>
-                    </div>
+                <div class="call-for-project">
+                    <h3>
+                        <acronym title="{{ _('Call for project') }}">
+                            AAP
+                        </acronym> /
+                        <acronym title="{{ _('Call for expression of interest') }}">
+                            AMI
+                        </acronym>
+                    </h3>
+                </div>
                 {% endif %}
 
                 <div class="aid-type">
@@ -122,22 +124,22 @@
                 </div>
 
                 {% if aid.subvention_rate or aid.subvention_comment %}
-                    <div class="subvention-rate">
-                        <h3>{{ _('Subvention rate') }}</h3>
-                        {% if aid.subvention_rate %}
-                        <ul>
-                            {% if aid.subvention_rate.lower %}
-                                <li><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
-                            {% endif %}
-                            {% if aid.subvention_rate.upper %}
-                                <li><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
-                            {% endif %}
-                        </ul>
+                <div class="subvention-rate">
+                    <h3>{{ _('Subvention rate') }}</h3>
+                    {% if aid.subvention_rate %}
+                    <ul>
+                        {% if aid.subvention_rate.lower %}
+                        <li><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
                         {% endif %}
-                        {% if aid.subvention_comment %}
-                            {{ aid.subvention_comment }}
+                        {% if aid.subvention_rate.upper %}
+                        <li><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
                         {% endif %}
-                    </div>
+                    </ul>
+                    {% endif %}
+                    {% if aid.subvention_comment %}
+                    {{ aid.subvention_comment }}
+                    {% endif %}
+                </div>
                 {% endif %}
             </div>
 
@@ -150,73 +152,72 @@
                 {% endif %}
 
                 {% if aid.has_calendar %}
-                    {% if aid.start_date and not aid.is_ongoing %}
-                    <div class="calendar-start">
-                        <h3>{{ _('Start date') }}</h2>
+                {% if aid.start_date and not aid.is_ongoing %}
+                <div class="calendar-start">
+                    <h3>{{ _('Start date') }}</h2>
                         <p>{{ aid.start_date|date }}</p>
-                    </div>
-                    {% endif %}
+                </div>
+                {% endif %}
 
-                    {% if aid.predeposit_date and not aid.is_ongoing %}
-                    <div class="calendar-predeposit">
-                        <h3>{{ _('Predeposit date') }}</h3>
-                        <p>{{ aid.predeposit_date|date }}</p>
-                    </div>
-                    {% endif %}
+                {% if aid.predeposit_date and not aid.is_ongoing %}
+                <div class="calendar-predeposit">
+                    <h3>{{ _('Predeposit date') }}</h3>
+                    <p>{{ aid.predeposit_date|date }}</p>
+                </div>
+                {% endif %}
 
-                    {% if aid.submission_deadline and not aid.is_ongoing %}
-                    <div class="calendar-deadline">
-                        <h3 class="submission_deadline">{{ _('Submission deadline') }}</h3>
-                        <p>{{ aid.submission_deadline|date }}</p>
-                    </div>
-                    {% endif %}
+                {% if aid.submission_deadline and not aid.is_ongoing %}
+                <div class="calendar-deadline">
+                    <h3 class="submission_deadline">{{ _('Submission deadline') }}</h3>
+                    <p>{{ aid.submission_deadline|date }}</p>
+                </div>
+                {% endif %}
                 {% endif %}
             </div>
 
             {% if aid.is_imported %}
-                <div class="card">
-                    <div class="data-origin">
-                        <h3>{{ _('Data origin') }}</h3>
-                        <p>{% blocktrans trimmed %}
+            <div class="card">
+                <div class="data-origin">
+                    <h3>{{ _('Data origin') }}</h3>
+                    <p>{% blocktrans trimmed %}
                         This aid was imported from another data stream.
                         {% endblocktrans %}</p>
-                        <dl>
-                            <dt>{{ _('Origin url') }}</dt>
-                            <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
-                            <dt>{{ _('Import share license') }}</dt>
-                            <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
-                            <dt>{{ _('Last update') }}</dt>
-                            <dd>{{ aid.import_last_access|date }}</dd>
-                        </dl>
-                    </div>
+                    <dl>
+                        <dt>{{ _('Origin url') }}</dt>
+                        <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
+                        <dt>{{ _('Import share license') }}</dt>
+                        <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
+                        <dt>{{ _('Last update') }}</dt>
+                        <dd>{{ aid.import_last_access|date }}</dd>
+                    </dl>
                 </div>
+            </div>
             {% endif %}
 
-            {% if financers %}
-            <div id="logos">
+            <div id="carousel1">
                 {% for financer in financers %}
                 {% if financer.logo %}
-                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                    <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
-                </a>
+                <div class="item">
+                    <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                        <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
+                    </a>
+                </div>
                 {% endif %}
                 {% endfor %}
             </div>
-            {% endif %}
 
-            {% if programs %}
-            <div id="logos">
-                {% for program in programs %}
-                    {% if program.logo %}
-                    <a href="{% url 'program_detail' program.slug %}">
-                        <img src="{{ program.logo.url }}" alt="{{ program.name }}">
-                    </a>
-                    {% endif %}
-                {% endfor %}
+        <div id="carousel2">
+            {% for program in programs %}
+            {% if program.logo %}
+            <div class="item">
+                <a href="{% url 'program_detail' program.slug %}">
+                    <img src="{{ program.logo.url }}" alt="{{ program.name }}">
+                </a>
             </div>
             {% endif %}
-
+            {% endfor %}
         </div>
+    </div>
 
         <div class="aid-details">
 
@@ -224,14 +225,14 @@
 
             <h3>{{ _('Description') }}</h3>
             {% if aid.description %}
-                {{ aid.description|safe }}
+            {{ aid.description|safe }}
             {% else %}
-                <p> {{ _('No detailed description was submitted.') }} </p>
+            <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
 
             {% if aid.targeted_audiences %}
-                <h3>{{ _('Targeted audiences') }}</h3>
-                <p>{% choices_display aid 'targeted_audiences' %}</p>
+            <h3>{{ _('Targeted audiences') }}</h3>
+            <p>{% choices_display aid 'targeted_audiences' %}</p>
             {% endif %}
 
             <h3>{{ _('Aid targeted area') }}</h3>
@@ -240,47 +241,47 @@
             {% if eligibility_criteria %}
             <h2>{{ _('Eligibility criteria') }}</h2>
 
-                {% if aid.mobilization_steps %}
-                    <h3>{{ _('The aid can be mobilized during…') }}</h3>
-                    <p>{% choices_display aid 'mobilization_steps' %}</p>
-                {% endif %}
-
-                {% if aid.destinations %}
-                    <h3>{{ _('Types of expenses covered') }}</h3>
-                    <p>{% choices_display aid 'destinations' %}</p>
-                {% endif %}
-
-                {% if aid.project_examples %}
-                    <h3>{{ _('Project examples') }}</h3>
-                    {{ aid.project_examples|safe }}
-                {% endif %}
-
-                {% if aid.eligibility %}
-                    <h3>{{ _('Other eligibility criterias') }}</h3>
-                    {{ aid.eligibility|safe }}
-                {% endif %}
+            {% if aid.mobilization_steps %}
+            <h3>{{ _('The aid can be mobilized during…') }}</h3>
+            <p>{% choices_display aid 'mobilization_steps' %}</p>
             {% endif %}
-            
+
+            {% if aid.destinations %}
+            <h3>{{ _('Types of expenses covered') }}</h3>
+            <p>{% choices_display aid 'destinations' %}</p>
+            {% endif %}
+
+            {% if aid.project_examples %}
+            <h3>{{ _('Project examples') }}</h3>
+            {{ aid.project_examples|safe }}
+            {% endif %}
+
+            {% if aid.eligibility %}
+            <h3>{{ _('Other eligibility criterias') }}</h3>
+            {{ aid.eligibility|safe }}
+            {% endif %}
+            {% endif %}
+
             <div id="going-further">
                 <h2>{{ _('Going further') }}</h2>
 
                 {% if aid.contact %}
-                    <h3>{{ _('Contact') }}</h3>
-                    {{ aid.contact|safe }}
+                <h3>{{ _('Contact') }}</h3>
+                {{ aid.contact|safe }}
                 {% endif %}
 
                 {% if aid.origin_url %}
-                    <h3>{{ _('Link to full description') }}</h3>
-                    <p>
-                        <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-                    </p>
+                <h3>{{ _('Link to full description') }}</h3>
+                <p>
+                    <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                </p>
                 {% endif %}
 
                 {% if aid.application_url %}
-                    <h3>{{ _('Link to an online application form') }}</h3>
-                    <p>
-                        <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-                    </p>
+                <h3>{{ _('Link to an online application form') }}</h3>
+                <p>
+                    <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                </p>
                 {% endif %}
             </div>
         </div>
@@ -299,7 +300,7 @@
 
 {% block extra_js %}
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Make sure all links contained in aid description open in
         // a new tab.
         $('article#aid div.aid-details a').attr('target', '_blank');
@@ -311,5 +312,6 @@
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
 <script src="/static/js/links_on_images.js"></script>
+<script src="/static/js/aids/carousel.js"></script>
 {% endcompress %}
 {% endblock %}
