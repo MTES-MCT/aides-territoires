@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
@@ -11,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from core.celery import app
 from bookmarks.models import Bookmark
 from accounts.models import User
+from emails.sib import send_mail_sib
 
 
 TEMPLATE = 'emails/bookmark_login.txt'
@@ -60,7 +60,7 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         'bookmark': bookmark,
         'frequency': frequency
     })
-    send_mail(
+    send_mail_sib(
         SUBJECT,
         login_email_body,
         settings.DEFAULT_FROM_EMAIL,

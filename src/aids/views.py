@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from django.db.models import Q, Sum, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -30,6 +29,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
 from programs.models import Program
+from emails.sib import send_mail_sib
 from stats.models import Event
 from stats.utils import log_event
 
@@ -198,7 +198,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
             'scheme': scheme,
             'domain': site.domain,
         })
-        send_mail(
+        send_mail_sib(
             self.EMAIL_SUBJECT,
             results_body,
             settings.DEFAULT_FROM_EMAIL,

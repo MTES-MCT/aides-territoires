@@ -54,8 +54,9 @@ EMAIL_FILE_PATH = '/tmp/django_emails'
 
 ADMINS = [x.split(':') for x in env.list('ADMINS')]
 
-# For staging only, this will be ignored in production
+# For staging, we want to restrict email sending to a whitelist
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
+ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
@@ -70,3 +71,6 @@ SASS_PATH = 'make fullcss'
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
 SIB_LIST_ID = env.int('SIB_LIST_ID')
+ANYMAIL = {
+    'SENDINBLUE_API_KEY': SIB_API_KEY,
+}
