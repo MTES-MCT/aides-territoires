@@ -5,8 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf.urls.static import static
 from django.views.generic import View
 
-from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert, SiteBackers,
-                             SiteStats, SiteProgram, SiteLegalMentions, Error)
+from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
+                             SiteBackers, SiteStats, SiteProgram,
+                             SiteLegalMentions, Error)
 
 
 # This set of url patterns is completely independant from all other urls.

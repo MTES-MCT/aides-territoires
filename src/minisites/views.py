@@ -207,10 +207,12 @@ class SiteProgram(MinisiteMixin, ProgramDetail):
 
     template_name = 'minisites/program_detail.html'
 
+
 class SiteBackers(MinisiteMixin, BackerDetailView):
     """The detail page of a single backer."""
 
     template_name = 'minisites/backer_detail.html'
+
 
 class SiteLegalMentions(MinisiteMixin, TemplateView):
     template_name = 'minisites/legal_mentions.html'
