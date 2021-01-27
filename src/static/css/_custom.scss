@@ -1377,7 +1377,8 @@ div#search-steps {
     }
 }
 
-.backer-content {
+#backer-content, #program-content {
+
     @extend .px-5;
     @extend .mb-5;
     @extend .mt-4;
