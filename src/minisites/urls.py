@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf.urls.static import static
 from django.views.generic import View
 
-from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
+from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert, SiteBackers,
                              SiteStats, SiteProgram, SiteLegalMentions, Error)
 
 
@@ -47,6 +47,13 @@ urlpatterns = [
 
     path(_('programs/<slug:slug>/'), SiteProgram.as_view(),
          name='program_detail'),
+
+    path(
+        '<int:pk>/', SiteBackers.as_view(),
+        name='backer_detail_view'),
+    path(
+        '<int:pk>-<str>/', SiteBackers.as_view(),
+        name='backer_detail_view'),
 
     path(_('legal-mentions/'), SiteLegalMentions.as_view(),
          name='legal_mentions'),

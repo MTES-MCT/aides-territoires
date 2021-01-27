@@ -286,6 +286,12 @@ msgstr "<path:object_id>/merge/"
 msgid "The aid was successfully updated."
 msgstr "L'aide a bien été mise à jour."
 
+msgid "Theme and category, separated by « | »."
+msgstr "Thème et catégorie, séparés par « | »."
+
+msgid "E.g: \"Nature / environnement|Qualité de l'air\""
+msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
+
 msgid "Grant"
 msgstr "Subvention"
 
@@ -1323,6 +1329,9 @@ msgstr "Contenu dans"
 msgid "Manually created"
 msgstr "Création manuelle"
 
+msgid "The perimeter is visible to users"
+msgstr "Le périmètre est visible pour les utilisateurs"
+
 msgid "Zip codes"
 msgstr "Codes postaux"
 
@@ -1637,8 +1646,11 @@ msgstr "Votre ville, intercommunalité, département…"
 msgid "Type a few characters to see some suggestions."
 msgstr "Saisissez quelques caractères pour des suggestions."
 
+msgid "Select program(s)"
+msgstr "Sélectionnez un programme"
+
 msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le·s porteur·s parmi la liste."
+msgstr "Sélectionnez le·s porteur·s"
 
 msgid "Choose instructor(s) among the list."
 msgstr "Sélectionnez le·s instructeur·s parmi la liste."

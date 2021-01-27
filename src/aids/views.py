@@ -306,7 +306,6 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         qs = super().get_queryset()
 
         filter_form = DraftListAidFilterForm(self.request.GET)
-        # print("304", filter_form)
 
         if filter_form.is_valid():
             state = filter_form.cleaned_data['state']

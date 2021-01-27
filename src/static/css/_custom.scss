@@ -333,7 +333,8 @@ section#search-engine {
         }
 
         #form-group-text label,
-        #form-group-backers label {
+        #form-group-backers label,
+        #form-group-programs label {
             margin-bottom: 1rem;
         }
 
@@ -1364,7 +1365,20 @@ div#search-steps {
     }
 }
 
+#backer-title {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .flex-wrap;
+    @extend .justify-content-between;
+
+    img {
+        max-height: $height-img-base;
+        max-width: 300px;
+    }
+}
+
 #backer-content, #program-content {
+
     @extend .px-5;
     @extend .mb-5;
     @extend .mt-4;

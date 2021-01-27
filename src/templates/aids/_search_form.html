@@ -16,7 +16,6 @@
         {{ form.targeted_audiences.as_hidden }}
         {{ form.perimeter.as_hidden }}
         {{ form.themes.as_hidden }}
-        {{ form.programs.as_hidden }}
     {% endblock %}
 
     {% block other_actions %}
@@ -54,26 +53,19 @@
 
         {% block form-body %}
         <div class="row">
-            <div class="col col-md-4">
-                    {% for choice in form.aid_type %}
-                    <div class="form-check form-check-inline">
-                        {{ choice }}
-                    </div> 
-                    {% endfor %}
-
-                <div class="form-check form-check-inline">
-                    {{ form.call_for_projects_only }}
-                    <label>
-                        {{ form.call_for_projects_only.label }}
-                    </label>
-                </div>
+            <div class="col col-md-3">
+                {% include '_field_snippet.html' with field=form.aid_type %}
             </div>
 
-            <div class="col col-md-4">
+            <div class="col col-md-3">
+                {% include '_field_snippet.html' with field=form.programs %}
+            </div>
+
+            <div class="col col-md-3">
                 {% include '_field_snippet.html' with field=form.backers %}
             </div>
 
-            <div class="col col-md-4">
+            <div class="col col-md-3">
                 {% include '_field_snippet.html' with field=form.text %}
             </div>
         </div>
@@ -81,10 +73,10 @@
 
         {% block form-actions %}
         <div class="row actions-row">
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-3">
                 {{ form.order_by }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3 offset-md-6">
                 <button name="action" value="search" class="search-btn" type="submit">
                     {{ _('Filter results') }}
                 </button>

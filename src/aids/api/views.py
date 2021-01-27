@@ -4,7 +4,7 @@ from django.conf import settings
 
 from aids.models import Aid
 from aids.api.serializers import (
-    AidSerializer10, AidSerializer11, AidSerializerLatest)
+    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
 
 
@@ -22,7 +22,8 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
         qs = Aid.objects \
             .select_related('perimeter') \
-            .prefetch_related('financers', 'instructors', 'programs') \
+            .prefetch_related(
+                'financers', 'instructors', 'programs', 'categories__theme') \
             .order_by('perimeter__scale', 'submission_deadline')
 
         if self.request.user.is_superuser and 'drafts' in self.request.GET:
@@ -49,6 +50,8 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest
+        elif version == '1.2':
+            serializer_class = AidSerializer12
         elif version == '1.1':
             serializer_class = AidSerializer11
         elif version == '1.0':

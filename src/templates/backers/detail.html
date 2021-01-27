@@ -18,7 +18,12 @@
 
     <section id="backer-content">
 
-        <h1>{{ backer.name }}</h1>
+        <div id="backer-title">
+            <h1>{{ backer.name }}</h1>
+            {% if backer.logo %}
+            <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
+            {% endif %}
+        </div> 
 
         {% if backer.description %}
             <div>

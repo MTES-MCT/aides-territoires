@@ -187,7 +187,7 @@ REST_FRAMEWORK = {
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = '1.1'
+CURRENT_API_VERSION = '1.2'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -226,6 +226,7 @@ UNVALIDATED_ALERTS_QUOTA = 10
 MAX_ALERTS_QUOTA = 100
 
 ANALYTICS_ENABLED = False
+ANALYTICS_ENDPOINT = 'https://stats.data.gouv.fr/index.php'
 ANALYTICS_SITEID = 0
 HOTJAR_SITEID = 0
 

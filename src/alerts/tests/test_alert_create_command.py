@@ -51,7 +51,6 @@ def test_command_create_alerts_with_date(mailoutbox):
 
 def test_command_create_alerts_with_frequency(mailoutbox):
     alert_frequency = Alert.FREQUENCIES.weekly
-    print(alert_frequency)
     call_command(
         'create_alerts_from_csv_file', EMAILS_CSV_PATH,
         frequency=alert_frequency)
