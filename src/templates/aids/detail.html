@@ -194,22 +194,19 @@
             </div>
             {% endif %}
 
-                {% if financers %}
+                {% if financers_with_logo %}
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        {% for financer in financers %}
-                        {% if financer.logo %}
+                        {% for financer in financers_with_logo %}
                         {% if forloop.counter0 < 1 %} 
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
                         {% endif %}
-                        {% endif %}
                         {% endfor %}
                       </ol>
                     <div class="carousel-inner">
-                        {% for financer in financers %}
-                        {% if financer.logo %}
+                        {% for financer in financers_with_logo %}
                         {% if forloop.counter0 < 1 %} 
                         <div class="carousel-item active">
                         {% else %}
@@ -220,7 +217,6 @@
                                 <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
                             </a>
                         </div>
-                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -230,18 +226,15 @@
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for program in programs %}
-                        {% if program.logo %}
                         {% if forloop.counter0 < 1 %} 
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
                         {% endif %}
-                        {% endif %}
                         {% endfor %}
                       </ol>
                     <div class="carousel-inner">
                         {% for program in programs %}
-                        {% if program.logo %}
                         {% if forloop.counter0 < 1 %} 
                         <div class="carousel-item active">
                         {% else %}
@@ -251,7 +244,6 @@
                             <img src="{{ program.logo.url }}" alt="{{ program.name }}">
                         </a>
                         </div>
-                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
