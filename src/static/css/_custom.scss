@@ -1421,105 +1421,42 @@ ul.aid-categories {
     }
 }
 
-.carousel {
+#carouselControls {
     @extend .card;
-    position: relative;
-    overflow: hidden;
-    border: none;
-    padding: 0.5rem;
-    margin-left: 0 !important;
-
-    & > a {
-        @extend .py-3;
-    }
 
     & > a[href^="http"]::after {
         display: none;
     }
-    
-    & > a > img {
-        max-height: $height-img-base;
-        max-width: 225px;
-        padding: 0.5rem;
-        filter: saturate(140%);
+
+    & ol {
+
+        li {
+            background-color: $pale-purple;
+        }
+
+        li + li::before {
+            display: none !important;
+        }
     }
 
-    & > a > img:hover {
-        filter: grayscale(20%);
-    }
-}
-
-.carousel__container {
-    margin-left: 0 !important;
-}
-
-.carousel__container::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.carousel__item {
-    float: left;
-    margin-left: 0;
-
-    & a > img {
-        max-height: 100px;
-        max-width: 225px;
-        margin: auto;
-        display: block;
-    } 
-}
-
-.carousel__next, .carousel__prev {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 50%;
-    margin-top: -20px;
-    right: 20px;
-    cursor: pointer;
-    margin-left: 0 !important;
-
-    &::before {
+    .carousel-inner {
+        text-align: center;
         margin-left: 0 !important;
-        font-size: 2rem !important;
-        color: #e4dbe0 !important;
-        float:none !important;
     }
-}
 
-.carousel__prev {
-    right: auto;
-    @include icon(before, $fa-var-angle-left)
-}
+    .carousel-item {
 
-.carousel__next {
-    @include icon(before, $fa-var-angle-right)
-}
+        margin-bottom: 2rem;
 
-.carousel__prev--hidden, .carousel__next--hidden {
-    opacity: 0;
-}
-
-.carousel__pagination {
-    text-align: center;
-    margin-left: 0 !important;
-}
-
-.carousel__pagination__button {
-    background-color:#e4dbe0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 3px;
-    transition: transform 0.3s;
-    cursor: pointer;
-    box-shadow: 0 2px 5px #3232321a;
-    margin-left: 0 !important;
-}
-
-.carousel__pagination__button--active, .carousel__pagination__button:hover {
-    transform: scale(1.4);
+        & > a > img {
+            max-height: $height-img-base;
+            max-width: 225px;
+            padding: 0.5rem;
+            filter: saturate(140%);
+        }
+    
+        & > a > img:hover {
+            filter: grayscale(20%);
+        }
+    }
 }

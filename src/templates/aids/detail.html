@@ -194,8 +194,19 @@
             </div>
             {% endif %}
 
-            <div class="card">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                {% if financers %}
+                <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for financer in financers %}
+                        {% if financer.logo %}
+                        {% if forloop.counter0 < 1 %} 
+                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                        {% else %}
+                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                      </ol>
                     <div class="carousel-inner">
                         {% for financer in financers %}
                         {% if financer.logo %}
@@ -212,19 +223,22 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
-            </div>
+                {% endif %}
 
-            <div class="card">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                {% if programs %}
+                <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for program in programs %}
+                        {% if program.logo %}
+                        {% if forloop.counter0 < 1 %} 
+                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                        {% else %}
+                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                      </ol>
                     <div class="carousel-inner">
                         {% for program in programs %}
                         {% if program.logo %}
@@ -240,17 +254,9 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
+                {% endif %}
             </div>
-        </div>
 
         <div class="aid-details">
 
@@ -345,6 +351,5 @@
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
 <script src="/static/js/links_on_images.js"></script>
-<script src="/static/js/aids/carousel.js"></script>
 {% endcompress %}
 {% endblock %}
