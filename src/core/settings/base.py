@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'admin_auto_filters',
     'drf_yasg',
+    'anymail',
 ]
 
 LOCAL_APPS = [
