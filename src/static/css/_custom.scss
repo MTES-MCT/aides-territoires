@@ -1445,8 +1445,9 @@ ul.aid-categories {
     }
 
     .carousel-item {
-
-        margin-bottom: 2rem;
+        @extend .mt-2;
+        @extend .mb-4;
+        min-height: $height-img-base;
 
         & > a > img {
             max-height: $height-img-base;
