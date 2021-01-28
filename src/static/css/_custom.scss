@@ -262,22 +262,15 @@ section#search-engine {
         }
 
         #save-alert-btn {
-            @extend .btn;
-            @extend .btn-primary;
-            font-weight: bold;
+            @extend .save-alert-btn;
             width: 100%;
-            display: block;
-            @extend .mt-2;
+            min-width: 15em;
 
             @include media-breakpoint-up(md) {
                 margin-top: 0 !important;
                 width: inherit;
                 float: right;
             }
-
-            @include icon(before, $fa-var-bell);
-            border-radius: 0 1rem 1rem 1rem;
-            min-width: 15em;
         }
     }
 
@@ -396,18 +389,39 @@ section#program-list {
 
     div.aids {
         @extend .row;
-        @extend .row-cols-1;
-        @extend .row-cols-sm-2;
-        @extend .row-cols-md-3;
         @extend .no-gutters;
         margin-left: -.5rem;
         margin-right: -.5rem;
+
+        & #save-alert-block {
+            @extend .w-100;
+            @extend .mx-1;
+            @extend .my-3;
+            @extend .p-4;
+            background-color: white;
+            color: $font-color;
+            border-radius: 1rem 0 1rem 1rem;
+            box-shadow: $box-shadow-sm;
+            text-align: center;
+            display: block;
+
+            & > a {
+                @extend .save-alert-btn;
+
+                @include media-breakpoint-up(md) {
+                    margin-right: 5rem;
+                    float: right;
+                    width: 15em;
+                }
+            }
+        }
     }
 
     div.col {
-        padding-bottom: 1rem;
-        padding-left: .5rem !important;
-        padding-right: .5rem !important;
+        @extend .col-12;
+        @extend .col-sm-6;
+        @extend .col-md-4;
+        padding: 1rem .5rem !important;
     }
 
     article {
