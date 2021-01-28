@@ -25,6 +25,7 @@ from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
+from aids.utils import generate_clone_title
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
@@ -412,6 +413,7 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.status = AidWorkflow.states.draft
             obj.is_imported = False
             obj.import_uniqueid = None
+            obj.name = generate_clone_title(obj.name)
             obj.save()
             form.save_m2m()
             msg = _('The new aid was sucessfully created. '
