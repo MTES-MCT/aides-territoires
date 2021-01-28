@@ -23,7 +23,38 @@
 
     <div class="stat">
         <span class="stat-title">
+            {{ _('Available aids') }}<br />
+            <small>{% blocktrans trimmed %}
+                Published aids that are still open.
+            {% endblocktrans %}</small>
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ nb_live_aids }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Draft aids') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ nb_draft_aids }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
+            {{ _('Expired aids') }}<br />
+        </span>
+        <div class="stat-body number-stat">
+            <span>{{ nb_expired_aids }}</span>
+        </div>
+    </div>
+
+    <div class="stat">
+        <span class="stat-title">
             {{ _('Total number of views') }}<br />
+            <small>Depuis de sa création le {{ search_page.date_created|date:'d/m/y' }}</small>
         </span>
         <div class="stat-body number-stat">
             <span>{{ view_count_total }}</span>

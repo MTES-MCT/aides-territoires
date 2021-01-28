@@ -19,33 +19,53 @@ from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
 
 
+class AidWorkflow(xwf_models.Workflow):
+    """Defines statuses and transitions for Aids."""
+
+    log_model = ''
+
+    states = Choices(
+        ('draft', _('Draft')),
+        ('reviewable', _('Under review')),
+        ('published', pgettext_lazy('Aid (nf)', 'Published')),
+        ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
+    )
+    initial_state = 'draft'
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
+    )
+
+
 class AidQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for aids."""
 
     def existing(self):
         """Exclude deleted aids."""
 
-        return self.exclude(status='deleted')
+        return self.exclude(status=AidWorkflow.states.deleted.name)
 
     def deleted(self):
         """Only return deleted aids."""
 
-        return self.filter(status='deleted')
+        return self.filter(status=AidWorkflow.states.deleted.name)
 
     def published(self):
         """Only returns published objects."""
 
-        return self.filter(status='published')
+        return self.filter(status=AidWorkflow.states.published.name)
 
     def drafts(self):
         """Only return draft objects."""
 
-        return self.filter(status='draft')
+        return self.filter(status=AidWorkflow.states.draft.name)
 
     def under_review(self):
         """Return aids that need to be review before publication."""
 
-        return self.filter(status='reviewable')
+        return self.filter(status=AidWorkflow.states.reviewable.name)
 
     def open(self):
         """Returns aids that may appear in the search results (unexpired).
@@ -85,7 +105,7 @@ class AidQuerySet(models.QuerySet):
 
         today = timezone.now().date()
         return self.filter(
-            ~Q(status='published')
+            ~Q(status=AidWorkflow.states.published.name)
             | (
                 Q(submission_deadline__lt=today)
                 & ~Q(recurrence='ongoing')))
@@ -133,26 +153,6 @@ class AmendmentManager(models.Manager):
         qs = super().get_queryset() \
             .filter(is_amendment=True)
         return qs
-
-
-class AidWorkflow(xwf_models.Workflow):
-    """Defines statuses and transitions for Aids."""
-
-    log_model = ''
-
-    states = Choices(
-        ('draft', _('Draft')),
-        ('reviewable', _('Under review')),
-        ('published', pgettext_lazy('Aid (nf)', 'Published')),
-        ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
-    )
-    initial_state = 'draft'
-    transitions = (
-        ('submit', 'draft', 'reviewable'),
-        ('publish', 'reviewable', 'published'),
-        ('unpublish', ('reviewable', 'published'), 'draft'),
-        ('soft_delete', ('draft', 'reviewable', 'published'), 'deleted')
-    )
 
 
 class Aid(xwf_models.WorkflowEnabled, models.Model):

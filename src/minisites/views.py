@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
+from aids.models import AidWorkflow
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
@@ -159,6 +160,12 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # aid count
+        context['nb_live_aids'] = self.search_page.get_base_queryset().count()
+        all_aids_per_status = self.search_page.get_aids_per_status()
+        context['nb_expired_aids'] = all_aids_per_status.get(AidWorkflow.states.published.name, 0) - context['nb_live_aids']
+        context['nb_draft_aids'] = all_aids_per_status.get(AidWorkflow.states.draft.name, 0)
+
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
 
@@ -188,16 +195,13 @@ class SiteStats(MinisiteMixin, TemplateView):
             .filter(category='aid', event='viewed') \
             .filter(source=context['search_page'].slug)
 
-        events_last_30_days = events \
+        context['aid_view_count_last_30_days'] = events \
             .filter(date_created__gte=thirty_days_ago) \
             .count()
 
-        events_last_7_days = events \
+        context['aid_view_count_last_7_days'] = events \
             .filter(date_created__gte=seven_days_ago) \
             .count()
-
-        context['aid_view_count_last_30_days'] = events_last_30_days
-        context['aid_view_count_last_7_days'] = events_last_7_days
 
         return context
 
