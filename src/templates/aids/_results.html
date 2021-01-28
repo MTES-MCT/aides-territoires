@@ -8,7 +8,7 @@
         </div>
     {% endfor %}
 
-    {% for aid in aids %}
+    {% for aid in aids|slice:":18" %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
@@ -20,4 +20,3 @@
     </div>
 {% endif %}
 
-{% include '_pagination.html' %}
