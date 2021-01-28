@@ -32,6 +32,7 @@ from sib.transactional import send_mail
 from stats.models import Event
 from stats.utils import log_event
 
+
 class AidPaginator(Paginator):
     """Custom paginator for aids.
 

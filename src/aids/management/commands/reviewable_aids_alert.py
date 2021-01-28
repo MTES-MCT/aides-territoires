@@ -7,6 +7,7 @@ from django.conf import settings
 from aids.models import Aid
 from sib.transactional import send_mail
 
+
 class Command(BaseCommand):
     """Send an email alert when aids are waiting for review."""
 
