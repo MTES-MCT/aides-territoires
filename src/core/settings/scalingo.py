@@ -86,17 +86,8 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
 EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
-EMAIL_BACKEND = env(
-    'EMAIL_BACKEND',
-    default='django.core.mail.backends.console.EmailBackend')
+EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_FILE_PATH = '/tmp/django_emails'
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-# Piwik goal tracking ids
-GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID', 1)
-GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID', 2)
 
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
 ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
@@ -107,3 +98,10 @@ SIB_LIST_ID = env.int('SIB_LIST_ID')
 ANYMAIL = {
     'SENDINBLUE_API_KEY': SIB_API_KEY,
 }
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Piwik goal tracking ids
+GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID', 1)
+GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID', 2)
