@@ -1447,13 +1447,29 @@ ul.aid-categories {
     .carousel-item {
         @extend .mt-2;
         @extend .mb-4;
-        min-height: $height-img-base;
+
+        & > a {
+            height: 140px;
+            position: relative;
+        }
 
         & > a > img {
-            max-height: $height-img-base;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 140px;
             max-width: 225px;
             padding: 0.5rem;
             filter: saturate(140%);
+    
+            @include media-breakpoint-up(md) {
+                max-width: 160px;
+            }
+
+            @include media-breakpoint-up(lg) {
+                max-width: 225px;
+            }
         }
     
         & > a > img:hover {
