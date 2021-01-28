@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
@@ -11,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from core.celery import app
 from bookmarks.models import Bookmark
 from accounts.models import User
+from sib.transactional import send_mail
 
 
 TEMPLATE = 'emails/bookmark_login.txt'

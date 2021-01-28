@@ -7,7 +7,6 @@ import smtplib
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from django.db.models import Q, Case, When
 from django.template.loader import render_to_string
@@ -18,6 +17,7 @@ from actstream import action
 
 from stats.utils import log_event
 from alerts.models import Alert
+from sib.transactional import send_mail
 
 
 logger = logging.getLogger(__name__)

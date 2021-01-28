@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -9,7 +8,7 @@ from django.http import QueryDict
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
-
+from sib.transactional import send_mail
 
 TEMPLATE = 'emails/alert_validate.txt'
 
