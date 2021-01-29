@@ -7,10 +7,8 @@ def filter_recipients(recipient_list):
     """
     if not settings.ENABLE_EMAIL_WHITELIST:
         return recipient_list
-    filtered_recipient_list = [
+    filtered_recipients_list = [
         addr for addr in recipient_list
         if addr in settings.EMAIL_WHITELIST
     ]
-    print(filtered_recipient)
-    print(settings.EMAIL_WHITELIST)
-    return filtered_recipient
+    return filtered_recipients_list
