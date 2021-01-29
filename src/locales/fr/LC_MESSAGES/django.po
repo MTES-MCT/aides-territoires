@@ -2336,6 +2336,9 @@ msgstr "Modifiée le"
 msgid "Hits"
 msgstr "Vues"
 
+msgid "Search count"
+msgstr "Recherches"
+
 msgid "Rank"
 msgstr "Ordre"
 
@@ -2703,6 +2706,12 @@ msgstr "Tous les mots clés"
 
 msgid "All known tags"
 msgstr "Tous les mots clés"
+
+msgid "Keyword"
+msgstr "Mot clé"
+
+msgid "Top keywords searched"
+msgstr "Mots clés les plus recherchés"
 
 msgid ""
 "A tag is a label associated with one or several aids. Using tags is a great "

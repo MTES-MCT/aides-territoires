@@ -14,7 +14,7 @@ from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import Event
-from analytics.utils import get_matomo_stats_from_page_title
+from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 
 
 class MinisiteMixin:
@@ -164,8 +164,9 @@ class SiteStats(MinisiteMixin, TemplateView):
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
         all_aids_per_status = self.search_page.get_aids_per_status()
-        context['nb_expired_aids'] = all_aids_per_status.get(AidWorkflow.states.published.name, 0) - context['nb_live_aids']
-        context['nb_draft_aids'] = all_aids_per_status.get(AidWorkflow.states.draft.name, 0)
+        nb_published_aids = all_aids_per_status.get(AidWorkflow.states.published.name, 0)  # noqa
+        context['nb_expired_aids'] = nb_published_aids - context['nb_live_aids']  # noqa
+        context['nb_draft_aids'] = all_aids_per_status.get(AidWorkflow.states.draft.name, 0)  # noqa
 
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
@@ -194,7 +195,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         # aid view count: last 30 days & last 7 days
         events = Event.objects \
             .filter(category='aid', event='viewed') \
-            .filter(source=context['search_page'].slug)
+            .filter(source=self.search_page.slug)
 
         context['aid_view_count_last_30_days'] = events \
             .filter(date_created__gte=thirty_days_ago) \
@@ -209,6 +210,13 @@ class SiteStats(MinisiteMixin, TemplateView):
                                   .annotate(view_count=Count('meta')) \
                                   .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
+
+        # top 10 keywords searched
+        top_10_keywords_searched = get_matomo_stats(
+            api_method='Actions.getSiteSearchKeywords',
+            custom_segment=f'pageUrl=@{self.search_page.slug}.aides-territoires.beta.gouv.fr',  # noqa
+            from_date_string=seven_days_ago.strftime('%Y-%m-%d'))
+        context['top_10_keywords_searched'] = sorted(top_10_keywords_searched, key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
 
         return context
 

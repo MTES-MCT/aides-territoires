@@ -10,7 +10,6 @@ from django.utils.translation import gettext_lazy as _
 from core.fields import ChoiceArrayField
 from aids.constants import AUDIENCES
 from aids.models import Aid
-from aids.forms import AidSearchForm
 
 
 def logo_upload_to(instance, filename):
@@ -190,4 +189,4 @@ class SearchPage(models.Model):
         all_aids_per_status = self.get_base_queryset(all_aids=True) \
                                   .values('status') \
                                   .annotate(count=Count('id', distinct=True))
-        return {s['status'] : s['count'] for s in list(all_aids_per_status)}
+        return {s['status']: s['count'] for s in list(all_aids_per_status)}

@@ -122,6 +122,32 @@
             </table>
         </div>
     </div>
+
+    <div class="stat full-width">
+        <span class="stat-title">
+            {{ _('Top keywords searched') }} (top 10)<br />
+        </span>
+        <div class="stat-body">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ _('Rank') }}</th>
+                        <th>{{ _('Keyword') }}</th>
+                        <th>{{ _('Search count') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for keyword in top_10_keywords_searched %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ keyword.label }}</td>
+                            <td>{{ keyword.nb_hits }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 {% endblock %}
 
