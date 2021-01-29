@@ -259,6 +259,13 @@ il faut installer ceci:
     ansible-galaxy collection install community.general
 
 
+### Envoie d'email
+
+Les emails transactionnels sont envoyés via SendingBlue.
+Pour les environnements de Staging, il un mécanisme qui permet de
+n'envoyer les emails qu'à une liste restreinte d'adresses.
+Cette "Whitelist" est définie dans les `settings`.Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
+
 ### Ansible
 
 Le déploiement se fait avec
