@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
+from django.db.models import Count
 from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
@@ -202,6 +203,12 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['aid_view_count_last_7_days'] = events \
             .filter(date_created__gte=seven_days_ago) \
             .count()
+
+        # top 10 aid viewed
+        top_10_aid_viewed = events.values('meta') \
+                                  .annotate(view_count=Count('meta')) \
+                                  .order_by('-view_count')
+        context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
 
         return context
 
