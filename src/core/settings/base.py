@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'admin_auto_filters',
     'drf_yasg',
+    'anymail',
 ]
 
 LOCAL_APPS = [
@@ -63,6 +64,7 @@ LOCAL_APPS = [
     'logs',
     'upload',
     'exporting',
+    'emails',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -237,6 +239,7 @@ DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
+ENABLE_EMAIL_WHITELIST = False
 
 # ADDNA
 ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'

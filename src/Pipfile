@@ -30,6 +30,7 @@ drf-yasg = "*"
 dj-static = "*"
 dj-database-url = "*"
 importlib-metadata = "*"
+django-anymail = {extras = ["sendinblue"], version = "*"}
 
 [dev-packages]
 pytest = "*"
