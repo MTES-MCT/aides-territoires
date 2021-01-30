@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.text import slugify
 from django.db.models import Count
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from tags.models import Tag
 

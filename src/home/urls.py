@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from home.views import (HomeView, NewsletterConfirmView,
                         NewsletterSuccessView, ADDNAOptin)

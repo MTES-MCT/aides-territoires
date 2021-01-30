@@ -3,7 +3,7 @@
 from urllib.parse import quote
 
 from django import template
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from django.conf import settings
@@ -19,7 +19,7 @@ def choices_display(obj, field):
     choices_dict = dict(choices)
 
     keys = getattr(obj, field)
-    values = [force_text(choices_dict.get(key, '')) for key in keys]
+    values = [force_str(choices_dict.get(key, '')) for key in keys]
     return ', '.join(filter(None, values))
 
 
@@ -34,7 +34,7 @@ def grouped_choices_display(obj, field):
     choices_dict = dict(flat_values)
 
     keys = set(getattr(obj, field))
-    values = [force_text(choices_dict[key]) for key in keys]
+    values = [force_str(choices_dict[key]) for key in keys]
     return ', '.join(values)
 
 
