@@ -2,7 +2,6 @@
 
 from datetime import timedelta
 import logging
-import smtplib
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -104,14 +103,6 @@ class Command(BaseCommand):
 
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [alert.email]
-
-        log_details = {
-            'sender': site,
-            'action_object': alert,
-            'action_target': alert.email,
-            'description': f'To: {alert.email}\n'
-                           f'From: {email_from}\n'
-        }
         try:
             send_mail_sib(
                 email_subject,
@@ -120,8 +111,15 @@ class Command(BaseCommand):
                 email_to,
                 html_message=html_body,
                 fail_silently=False)
-            log_details['verb'] = 'alert-email-sent'
-        except smtplib.SMTPException as e:
-            log_details['verb'] = 'alert-email-not-sent'
-            log_details['description'] += str(e)
-        action.send(**log_details)
+        except Exception as e:
+            # We log, only in case there is an issue.
+            log_details = {
+                'sender': site,
+                'action_object': alert,
+                'verb': 'alert-email-not-sent',
+                'action_target': alert.email,
+                'description': f'To: {alert.email}\n'
+                               f'From: {email_from}\n'
+                               f'{e}'
+                }
+            action.send(**log_details)
