@@ -45,19 +45,11 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
 
-        print(self.request.GET)
-        print(self.request.GET.dict())
-        print(self.request.GET.urlencode())
-        print(dict(self.request.GET))
-        # print(dict(self.request.GET.iterlists()))
-
-        ase = AidSearchEvent.objects.create(
-            raw_search=dict(self.request.GET),
-            results_count=ordered_results.count(),
-            source='api')
-        print(ase.__dict__)
-        print(ase.themes_set.count())
-        print(ase.categories_set.count())
+        if not self.request.GET.get('internal', False):
+            ase = AidSearchEvent.objects.create(
+                raw_search=dict(self.request.GET),
+                results_count=ordered_results.count(),
+                source='api')
 
         return ordered_results
 

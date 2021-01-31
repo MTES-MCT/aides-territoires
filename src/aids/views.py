@@ -31,8 +31,8 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
-from stats.models import AidViewEvent
-from stats.utils import log_aidviewevent
+from stats.models import AidViewEvent, AidSearchEvent, Event
+from stats.utils import log_aidviewevent, log_event
 
 
 class AidPaginator(Paginator):
@@ -74,6 +74,16 @@ class SearchView(SearchMixin, FormMixin, ListView):
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
+
+        host = self.request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
+        request_subdomain = host.split('.')[0]
+
+        if not self.request.GET.get('internal', False):
+            ase = AidSearchEvent.objects.create(
+                raw_search=dict(self.request.GET),
+                results_count=ordered_results.count(),
+                source=request_subdomain)
+    
         return ordered_results
 
     def get_programs(self):

@@ -23,6 +23,7 @@ class AidSearchEvent(models.Model):
 
     --> populate fields asynchronously to avoid slowing down search
     --> add tests
+    --> ignore internal api calls (admin, frontend)
     """
 
     targeted_audiences = ChoiceArrayField(

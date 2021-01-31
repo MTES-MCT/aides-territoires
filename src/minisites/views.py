@@ -12,7 +12,7 @@ from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
-from stats.models import AidViewEvent
+from stats.models import AidViewEvent, AidSearchEvent, Event
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 from core.utils import get_subdomain_from_host
 
@@ -135,6 +135,15 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         targeted_audiences = data.get('targeted_audiences', [])
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
+
+        host = self.request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
+        request_subdomain = host.split('.')[0]
+
+        if not self.request.GET.get('internal', False):
+            ase = AidSearchEvent.objects.create(
+                raw_search=dict(self.request.GET),
+                results_count=qs.count(),
+                source=request_subdomain)
 
         return qs
 
