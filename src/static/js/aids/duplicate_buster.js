@@ -34,8 +34,16 @@
 
     // Generate a link to a single duplicate aid
     var formatSingleDuplicate = function(data) {
+        var url;
+        var currentPath = $(location).attr('pathname');
+
+        if (currentPath.startsWith('/admin/')) {
+            url = '/admin/aids/aid/' + data['id'] + '/change/';
+        } else {
+            url = '/aides/' + data['slug'] + '/';
+        }
+
         var a = $('<a/>');
-        var url = '/admin/aids/aid/' + data['id'] + '/change/';
         a.attr('href', url);
         a.html(data['name']);
 
