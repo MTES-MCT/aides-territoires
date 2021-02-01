@@ -2736,5 +2736,7 @@ msgstr "Uploadé à"
 msgid "Upload image"
 msgstr "Uploader l'image"
 
-msgid "Upload images"
-msgstr "Uploader les images"
+msgid "Show more"
+msgstr "Voir plus"
+
+

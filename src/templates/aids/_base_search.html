@@ -5,6 +5,10 @@
 
 {% block sectionid %}search{% endblock %}
 
+{% block extra_head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <h1>{% blocktrans with paginator.count as nb_aids trimmed %}
