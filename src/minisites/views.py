@@ -137,13 +137,11 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
         host = self.request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
-        request_subdomain = host.split('.')[0]
-
         if not self.request.GET.get('internal', False):
             ase = AidSearchEvent.objects.create(
                 raw_search=dict(self.request.GET),
                 results_count=qs.count(),
-                source=request_subdomain)
+                source=host)
 
         return qs
 

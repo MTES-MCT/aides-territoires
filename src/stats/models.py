@@ -85,29 +85,40 @@ class AidSearchEvent(models.Model):
         verbose_name = _('Aid Search Event')
         verbose_name_plural = _('Aid Search Events')
 
-    def set_search_fields(self):
-        """Populate instance search fields."""
+    def clean_and_populate_search_fields(self):
+        """
+        Method to cleanup/populate our events
+        Run asynchronously to avoid slowing down requests.
+        """
+        # Filter out empty search values
+        if self.raw_search:
+            self.raw_search = {k: v for k, v in self.raw_search.items() if v != ['']}
+        # Cleanup source field
+        # aides-territoires.beta.gouv.fr --> aides-territoires
+        # francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
+        # aides.francemobilities.fr --> aides.francemobilities.fr
+        if self.source:
+            if 'aides-territoires' in self.source:
+                self.source = self.source.split('.')[0]
+        # Populate search fields for futur querying
         if not self.fields_populated:
             if self.raw_search:
-                targeted_audiences = self.raw_search.get('targeted_audiences', None)
+                targeted_audiences = self.raw_search.get('targeted_audiences', [])
                 if len(targeted_audiences):
                     self.targeted_audiences = targeted_audiences
-                perimeter = self.raw_search.get('perimeter', None)
+                perimeter = self.raw_search.get('perimeter', [])
                 if len(perimeter):
                     perimeter_id_str = perimeter[0].split('-')[0]
                     self.perimeter = Perimeter.objects.get(id=perimeter_id_str)
-                themes = self.raw_search.get('themes', None)
+                themes = self.raw_search.get('themes', [])
                 if len(themes):
                     self.themes.set(Theme.objects.filter(slug__in=themes))
-                categories = self.raw_search.get('categories', None)
+                categories = self.raw_search.get('categories', [])
                 if len(categories):
                     self.categories.set(Category.objects.filter(slug__in=categories))
+        # Update fields_populated field to avoid re-running this method
         self.fields_populated = True
         self.save()
-
-    def save(self, *args, **kwargs):
-        # self.set_search_fields()
-        return super().save(*args, **kwargs)
 
 
 class AidViewEvent(models.Model):
