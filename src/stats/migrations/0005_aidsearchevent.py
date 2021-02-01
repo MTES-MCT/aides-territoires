@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('fields_populated', models.BooleanField(default=False, verbose_name='Fields populated?')),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
                 ('categories', models.ManyToManyField(blank=True, related_name='aid_search_events', to='categories.Category', verbose_name='Categories')),
-                ('perimeter', models.ForeignKey(blank=True, help_text='What is the searched perimeter?', null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),
+                ('perimeter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),
                 ('themes', models.ManyToManyField(blank=True, related_name='aid_search_events', to='categories.Theme', verbose_name='Themes')),
             ],
             options={

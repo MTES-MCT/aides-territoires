@@ -1639,9 +1639,6 @@ msgstr "catégorie/"
 msgid "Event"
 msgstr "Événement"
 
-msgid "Value"
-msgstr "Valeur"
-
 msgid "Events"
 msgstr "Événements"
 
@@ -1651,8 +1648,23 @@ msgstr "Événement aide vue"
 msgid "Aid View Events"
 msgstr "Événements aides vues"
 
+msgid "Aid Search Event"
+msgstr "Événement recherche d'aides"
+
+msgid "Aid Search Events"
+msgstr "Événements recherche d'aides"
+
+msgid "Value"
+msgstr "Valeur"
+
 msgid "Number of aids"
 msgstr "Nombre d'aides"
+
+msgid "Results count"
+msgstr "Nombre de résultats"
+
+msgid "Fields populated?"
+msgid "Champs mis à jour ?"
 
 msgid "Tag"
 msgstr "Mot clé"

@@ -36,8 +36,7 @@ class AidSearchEvent(models.Model):
         'geofr.Perimeter',
         verbose_name=_('Perimeter'),
         on_delete=models.PROTECT,
-        null=True, blank=True,
-        help_text=_('What is the searched perimeter?'))
+        null=True, blank=True)
     # perimeter = models.CharField(
     #     max_length=150,
     #     verbose_name=_('Perimeter'),
