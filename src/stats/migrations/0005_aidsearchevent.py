@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('targeted_audiences', core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Audience EPCI'), ('department', 'Departments'), ('region', 'Regions'), ('association', 'Associations'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organization'), ('researcher', 'Research'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences')),
-                ('raw_search', models.JSONField(blank=True, verbose_name='Raw search query')),
-                ('results_count', models.PositiveIntegerField(verbose_name='Results count')),
+                ('querystring', models.TextField(verbose_name='Querystring')),
+                ('results_count', models.PositiveIntegerField(default=0, verbose_name='Results count')),
                 ('source', models.CharField(default='', max_length=256, verbose_name='Source')),
                 ('fields_populated', models.BooleanField(default=False, verbose_name='Fields populated?')),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),

@@ -1664,7 +1664,7 @@ msgid "Results count"
 msgstr "Nombre de résultats"
 
 msgid "Fields populated?"
-msgid "Champs mis à jour ?"
+msgstr "Champs mis à jour ?"
 
 msgid "Tag"
 msgstr "Mot clé"

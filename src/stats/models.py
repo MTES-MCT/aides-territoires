@@ -1,12 +1,14 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.postgres.fields import ArrayField
+# from django.contrib.postgres.fields import ArrayField
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
-from geofr.models import Perimeter
-from categories.models import Theme, Category
+from search.utils import (
+    clean_search_querystring, get_querystring_value_list_from_key,
+    get_querystring_perimeter, get_querystring_themes,
+    get_querystring_categories)
 
 
 class AidSearchEvent(models.Model):
@@ -16,7 +18,7 @@ class AidSearchEvent(models.Model):
     - perimeter // Perimeter
     - themes // Theme
     - categories // Category
-    - other: text, programs, apply_before, order_by, call_for_projects_only, integration ?, search ?, action ?, page ?
+    - other: text, programs, apply_before, order_by, call_for_projects_only, integration ?, search ?, action ?, page ?  # noqa
     - Full url
     - Nombre de résultats
     - Timestamp
@@ -60,12 +62,12 @@ class AidSearchEvent(models.Model):
     #     verbose_name=_('Categories'),
     #     null=True, blank=True)
 
-    raw_search = models.JSONField(
-         _('Raw search query'),
-        blank=True)
+    querystring = models.TextField(
+        _('Querystring'))
 
     results_count = models.PositiveIntegerField(
-        _('Results count'))
+        _('Results count'),
+        default=0)
 
     source = models.CharField(
         'Source',
@@ -90,8 +92,8 @@ class AidSearchEvent(models.Model):
         Run asynchronously to avoid slowing down requests.
         """
         # Filter out empty search values
-        if self.raw_search:
-            self.raw_search = {k: v for k, v in self.raw_search.items() if v != ['']}
+        if self.querystring:
+            self.querystring = clean_search_querystring(self.querystring)
         # Cleanup source field
         # aides-territoires.beta.gouv.fr --> aides-territoires
         # francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
@@ -101,20 +103,11 @@ class AidSearchEvent(models.Model):
                 self.source = self.source.split('.')[0]
         # Populate search fields for futur querying
         if not self.fields_populated:
-            if self.raw_search:
-                targeted_audiences = self.raw_search.get('targeted_audiences', [])
-                if len(targeted_audiences):
-                    self.targeted_audiences = targeted_audiences
-                perimeter = self.raw_search.get('perimeter', [])
-                if len(perimeter):
-                    perimeter_id_str = perimeter[0].split('-')[0]
-                    self.perimeter = Perimeter.objects.get(id=perimeter_id_str)
-                themes = self.raw_search.get('themes', [])
-                if len(themes):
-                    self.themes.set(Theme.objects.filter(slug__in=themes))
-                categories = self.raw_search.get('categories', [])
-                if len(categories):
-                    self.categories.set(Category.objects.filter(slug__in=categories))
+            if self.querystring:
+                self.targeted_audiences = get_querystring_value_list_from_key(self.querystring, 'targeted_audiences') or None  # noqa
+                self.perimeter = get_querystring_perimeter(self.querystring)
+                self.themes.set(get_querystring_themes(self.querystring))
+                self.categories.set(get_querystring_categories(self.querystring))  # noqa
         # Update fields_populated field to avoid re-running this method
         self.fields_populated = True
         self.save()

@@ -36,7 +36,7 @@
         {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
         {% include '_field_snippet.html' with field=form.programs %}
         {% include '_field_snippet.html' with field=form.order_by %}
-        <button type="submit">
+        <button name="action" value="search-filter-advanced" type="submit">
             {{ _('Find aids') }}
         </button>
     </form>

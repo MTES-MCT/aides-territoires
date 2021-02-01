@@ -1,6 +1,4 @@
-import logging
-from datetime import datetime, timedelta
-
+# flake8: noqa
 from django.core.management.base import BaseCommand
 
 from stats.models import AidSearchEvent

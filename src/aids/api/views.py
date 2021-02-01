@@ -46,8 +46,8 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         ordered_results = filter_form.order_queryset(results).distinct()
 
         if not self.request.GET.get('internal', False):
-            ase = AidSearchEvent.objects.create(
-                raw_search=dict(self.request.GET),
+            AidSearchEvent.objects.create(
+                querystring=self.request.GET.urlencode(),
                 results_count=ordered_results.count(),
                 source='api')
 

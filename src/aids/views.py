@@ -75,13 +75,13 @@ class SearchView(SearchMixin, FormMixin, ListView):
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
 
-        host = self.request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
+        host = self.request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')  # noqa
         if not self.request.GET.get('internal', False):
-            ase = AidSearchEvent.objects.create(
-                raw_search=dict(self.request.GET),
+            AidSearchEvent.objects.create(
+                querystring=self.request.GET.urlencode(),
                 results_count=ordered_results.count(),
                 source=host)
-    
+
         return ordered_results
 
     def get_programs(self):
