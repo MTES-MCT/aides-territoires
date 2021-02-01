@@ -3,22 +3,23 @@
 <nav id="pagination" aria-label="{{ _('Search results pages') }}">
     <ul class="pagination">
         {% if page_obj.has_next %}
-            <li><a id="show_more" href="#">
+            <button id="show_more">
                 {{ _('Show more') }}
-            </a></li>
+            </button></li>
         {% endif %}
     </ul>
 </nav>
 
 <script>
+    next_url = "{% url_to_page page_obj.next_page_number %}"
     $("#show_more").on("click", function(){
         $.ajax({
             type: "GET",
-            url: "{% url_to_page page_obj.next_page_number %}",
-            data: "{{ page_obj }}",
+            url: next_url,
             cache: false,
             success: function(html){
-                $(".aids").append(html.querySelectorAll(".aids > .col"))
+                html_parsed = $.parseHTML(html)
+                $('.aids').append($(html_parsed).find(".aids > .col"))
             }   
         });
     })
