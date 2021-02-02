@@ -1,4 +1,6 @@
 # flake8: noqa
+import os
+import csv
 import locale
 import hashlib
 from datetime import datetime
@@ -7,6 +9,7 @@ from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
 from geofr.models import Perimeter
 from backers.models import Backer
+from categories.models import Category
 from aids.models import Aid
 
 
@@ -14,6 +17,18 @@ FEED_URI = 'https://les-aides.nouvelle-aquitaine.fr/fiches-rss.xml'
 SOURCE_URL = 'https://les-aides.nouvelle-aquitaine.fr/'
 
 NOUVELLE_AQUITAINE_BACKER_NAME = 'Conseil régional de Nouvelle-Aquitaine'
+
+CATEGORIES_DICT = {}
+CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_categories_mapping.csv'
+with open(CATEGORIES_MAPPING_CSV_PATH) as csv_file:
+    csvreader = csv.DictReader(csv_file, delimiter=",")
+    for index, row in enumerate(csvreader):
+        AT_MAPPING_COLUMNS = ['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3']
+        if row[AT_MAPPING_COLUMNS[0]]:
+            CATEGORIES_DICT[row['Thématique Nouvelle-Aquitaine']] = []
+            for column in AT_MAPPING_COLUMNS:
+                if row[column]:
+                    CATEGORIES_DICT[row['Thématique Nouvelle-Aquitaine']].append(Category.objects.get(name=row[column]))
 
 ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
 
@@ -52,6 +67,9 @@ class Command(CrawlerImportCommand):
             .get()
         self.nouvelle_aquitaine_financer = Backer.objects.get(
             name=NOUVELLE_AQUITAINE_BACKER_NAME)
+
+    def line_should_be_processed(self, line):
+        return True
 
     def extract_import_uniqueid(self, line):
         url_md5_hash = hashlib.md5(
@@ -107,6 +125,20 @@ class Command(CrawlerImportCommand):
             return submission_deadline
         return None
 
+    def extract_categories(self, line):
+        """
+        Exemple of string to process: "Performance et compétitivité;Agroalimentaire"
+        Split the string, loop on the values and match to our Categories
+        """
+        categories = line.get('domaines_secondaires', '').split(';')
+        aid_categories = []
+        for category in categories:
+            if category in CATEGORIES_DICT:
+                aid_categories.extend(CATEGORIES_DICT.get(category, []))
+            else:
+                self.stdout.write(self.style.ERROR(f'Category {category} not mapped'))
+        return aid_categories
+
     # def extract_targeted_audiences(self, line):
     #     return line['publics_concernes']
 
@@ -117,8 +149,7 @@ class Command(CrawlerImportCommand):
         """Use the project_examples textfield to store metadata"""
         content = ''
         metadata = {
-            'categorie': 'Catégorie',
-            'publics_concernes': 'Publics concernés',
+            'categorie': 'Thématique',
             'domaines_secondaires': 'Domaines secondaires',
             'is_dispositif_europe': 'Dispositif de l\'UE',
             'echeances': 'Échéances',
