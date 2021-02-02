@@ -1020,22 +1020,6 @@ div#bundle-modal {
     }
 }
 
-div#share-results-modal {
-    h2 {
-        @extend .h5;
-    }
-
-    form {
-        @extend .mb-3;
-
-        button {
-            @extend .btn;
-            @extend .btn-primary;
-            @extend .btn-block;
-        }
-    }
-}
-
 section#login-form {
     @extend .py-5;
 }
