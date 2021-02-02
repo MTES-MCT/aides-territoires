@@ -2,26 +2,51 @@
 {% if is_paginated %}
 <nav id="pagination" aria-label="{{ _('Search results pages') }}">
     <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="{% url_to_page 1 %}">
+                {{ _('First') }}
+            </a></li>
+            <li><a href="{% url_to_page page_obj.previous_page_number %}">
+                {{ _('Previous') }}
+            </a></li>
+        {% else %}
+            <li class="disabled"><a href="#">
+                {{ _('First') }}
+            </a></li>
+            <li class="disabled"><a href="#">
+                {{ _('Previous') }}
+            </a></li>
+        {% endif %}
+
+        <li class="disabled"><a href="#">
+            {% blocktrans with current_page=page_obj.number total_pages=paginator.num_pages trimmed %}
+            Page {{ current_page }} of {{ total_pages }}
+            {% endblocktrans %}
+
+        </a></li>
+
         {% if page_obj.has_next %}
-            <button id="show_more">
+            <li class="next"><a href="{% url_to_page page_obj.next_page_number %}">
+                {{ _('Next') }}
+            </a></li>
+            <li><a href="{% url_to_page paginator.num_pages %}">
+                {{ _('Last') }}
+            </a></li>
+        {% else %}
+            <li class="disabled"><a href="#">
+                {{ _('Next') }}
+            </a></li>
+            <li class="disabled"><a href="#">
+                {{ _('Last') }}
+            </a></li>
+        {% endif %}
+    </ul>
+    <div id="show_more" class="d-none">
+        {% if page_obj.has_next %}
+            <button id="show_more_btn">
                 {{ _('Show more') }}
             </button></li>
         {% endif %}
-    </ul>
+    </div>
 </nav>
-
-<script>
-    next_url = "{% url_to_page page_obj.next_page_number %}"
-    $("#show_more").on("click", function(){
-        $.ajax({
-            type: "GET",
-            url: next_url,
-            cache: false,
-            success: function(html){
-                html_parsed = $.parseHTML(html)
-                $('.aids').append($(html_parsed).find(".aids > .col"))
-            }   
-        });
-    })
-</script>
 {% endif %}

@@ -417,6 +417,15 @@ section#program-list {
         }
     }
 
+    & #show_more_btn {
+        @extend .mt-2;
+        @extend .btn;
+        @extend .btn-primary;
+        font-weight: bold;
+        display: block;
+        border-radius: 1rem;
+    }
+
     div.col {
         @extend .col-12;
         @extend .col-sm-6;

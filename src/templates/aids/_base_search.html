@@ -5,10 +5,6 @@
 
 {% block sectionid %}search{% endblock %}
 
-{% block extra_head %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{% endblock %}
-
 {% block content %}
 
 <h1>{% blocktrans with paginator.count as nb_aids trimmed %}
@@ -87,6 +83,7 @@
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/backers_autocomplete.js"></script>
 <script src="/static/js/aids/programs_autocomplete.js"></script>
+<script src="/static/js/aids/show_more.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/aids/bookmark_results.js"></script>
 {% endcompress %}
