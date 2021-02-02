@@ -27,7 +27,7 @@ class NouvelleAquitaineSpider(scrapy.Spider):
         title = response.css('h1.headline-aide::text').get()
         description = response.css(
             'div.container > div.chapo > div._layout > div.link-wrapper').get()
-        categorie = response.xpath('//li[@itemprop="itemListElement"]//span[@itemprop="name"]/text()')[1].get()
+        categorie = response.css('ul.m-breadcrumb__list > li:nth-child(2) > span::text').get()
 
         is_call_for_project = False
         if response.css('span.tag-appel-projet').get() or response.css('span.tag-appel-manifestation').get():
@@ -38,12 +38,12 @@ class NouvelleAquitaineSpider(scrapy.Spider):
 
         aid_header = {
             'publics_concernes': '',  # targeted_audiences
-            'domaines_secondaires': '',
+            'domaines_secondaires': '',  # categories
             'date_de_fin_de_publication': ''  # submission_deadline
         }
         for index, item in enumerate(response.css('div.categories')):
             aid_header_key = list(aid_header.keys())[index]
-            aid_header[aid_header_key] = content_prettify(item.css('p::text').get()).strip().replace('\n', '').replace('   ', '')
+            aid_header[aid_header_key] = content_prettify(item.css('p::text').get()).strip().replace('\n', '').replace('   ', '').replace('  ,  ', ';')
 
         aid_details = {
             'echeances': '',
