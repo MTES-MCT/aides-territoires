@@ -169,9 +169,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     DEFAULT_TYPOLOGY = 'standard'
+    GENERIC_TYPOLOGY = 'generic'
+    LOCAL_TYPOLOGY = 'local'
     TYPOLOGY = Choices(
-        ('generic', _('Generic')),
-        ('local', _('Local')),
+        (GENERIC_TYPOLOGY, _('Generic')),
+        (LOCAL_TYPOLOGY, _('Local')),
         (DEFAULT_TYPOLOGY, _('Standard')),
     )
 
@@ -329,6 +331,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text=_(
             "Generic aid can be used when it' coverage is national"
             "If nothing is selected, then it's a 'standard' aid."))
+    generic_aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Generic aid'),
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='local_aids',
+        limit_choices_to={'aid_typology': GENERIC_TYPOLOGY},
+        help_text=_("Generic aid associated to a local aid"))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
