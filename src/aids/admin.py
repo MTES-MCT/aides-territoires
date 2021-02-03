@@ -168,6 +168,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
         'date_updated', 'date_published']
+    raw_id_fields = ['generic_aid']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -207,6 +208,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
                 'programs',
                 'aid_types',
                 'aid_typology',
+                'generic_aid',
                 'subvention_rate',
                 'subvention_comment',
                 'mobilization_steps',
