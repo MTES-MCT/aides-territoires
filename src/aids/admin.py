@@ -206,6 +206,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
                 'is_call_for_project',
                 'programs',
                 'aid_types',
+                'aid_typology',
                 'subvention_rate',
                 'subvention_comment',
                 'mobilization_steps',
