@@ -32,7 +32,7 @@ class Project(models.Model):
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
-    
+
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')

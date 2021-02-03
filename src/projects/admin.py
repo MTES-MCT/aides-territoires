@@ -13,6 +13,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = '__all__'
 
+
 class ProjectAdmin(admin.ModelAdmin):
 
     form = ProjectForm
