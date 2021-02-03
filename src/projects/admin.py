@@ -27,8 +27,22 @@ class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ['date_created']
 
     class Media:
-        css = {'all': ('css/admin.css',)}
+        css = {'all': (
+            'css/admin.css',
+            '/static/trumbowyg/dist/ui/trumbowyg.css',
+            )
+        }
         js = [
+            'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
+            '/static/js/plugins/softmaxlength.js',
+            '/static/js/search/enable_softmaxlength.js',
+            '/static/trumbowyg/dist/trumbowyg.js',
+            '/static/trumbowyg/dist/langs/fr.js',
+            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
+            '/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js',  # noqa
+            '/static/jquery-resizable-dom/dist/jquery-resizable.js',
+            '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ]
 
