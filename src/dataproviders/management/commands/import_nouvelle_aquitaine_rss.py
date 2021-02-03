@@ -18,17 +18,33 @@ SOURCE_URL = 'https://les-aides.nouvelle-aquitaine.fr/'
 
 NOUVELLE_AQUITAINE_BACKER_NAME = 'Conseil régional de Nouvelle-Aquitaine'
 
+AUDIENCES_DICT = {}
+AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_audiences_mapping.csv'
+SOURCE_COLUMN_NAME = 'Bénéficiaires Nouvelle-Aquitaine'
+AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4']
+with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
+    csvreader = csv.DictReader(csv_file, delimiter=",")
+    for index, row in enumerate(csvreader):
+        if row[AT_COLUMN_NAMES[0]]:
+            AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]] = []
+            for column in AT_COLUMN_NAMES:
+                if row[column]:
+                    audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])
+                    AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
+
 CATEGORIES_DICT = {}
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_categories_mapping.csv'
+SOURCE_COLUMN_NAME = 'Thématique Nouvelle-Aquitaine'
+AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3']
 with open(CATEGORIES_MAPPING_CSV_PATH) as csv_file:
     csvreader = csv.DictReader(csv_file, delimiter=",")
     for index, row in enumerate(csvreader):
-        AT_MAPPING_COLUMNS = ['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3']
-        if row[AT_MAPPING_COLUMNS[0]]:
-            CATEGORIES_DICT[row['Thématique Nouvelle-Aquitaine']] = []
-            for column in AT_MAPPING_COLUMNS:
+        if row[AT_COLUMN_NAMES[0]]:
+            CATEGORIES_DICT[row[SOURCE_COLUMN_NAME]] = []
+            for column in AT_COLUMN_NAMES:
                 if row[column]:
-                    CATEGORIES_DICT[row['Thématique Nouvelle-Aquitaine']].append(Category.objects.get(name=row[column]))
+                    category = Category.objects.get(name=row[column])
+                    CATEGORIES_DICT[row[SOURCE_COLUMN_NAME]].append(category)
 
 ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
 
@@ -139,8 +155,20 @@ class Command(CrawlerImportCommand):
                 self.stdout.write(self.style.ERROR(f'Category {category} not mapped'))
         return aid_categories
 
-    # def extract_targeted_audiences(self, line):
-    #     return line['publics_concernes']
+    def extract_targeted_audiences(self, line):
+        """
+        Exemple of string to process: "Association;Collectivité territoriale;Entreprise;Établissement public"
+        Split the string, loop on the values and match to our Audiences
+        """
+        return line['publics_concernes']
+        audiences = line.get('publics_concernes', '').split(';')
+        aid_audiences = []
+        for audience in audiences:
+            if audience in AUDIENCES_DICT:
+                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
+            else:
+                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+        return aid_audiences
 
     # def extract_tags(self, line):
     #     return line['domaines_secondaires]
