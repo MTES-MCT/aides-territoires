@@ -2738,3 +2738,18 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Project"
+msgstr "Projet"
+
+msgid "Projects"
+msgstr "Projets"
+
+msgid "is_suggested"
+msgstr "est suggeré"
+
+msgid "Is a suggested project?"
+msgstr "Est-ce un projet suggéré ?"
+
+msgid "If the project is suggested by an user"
+msgstr "Si le projet est suggéré par un utilisateur"
