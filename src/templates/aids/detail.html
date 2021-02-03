@@ -286,7 +286,7 @@
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>
-            <a class="send-aid" href="mailto:?body={{ request.build_absolute_uri }}{{ aid.get_absolute_url }}">
+            <a class="send-aid" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}">
                 {{ _('Send this aid by email') }}
             </a>
             {% endblock %}
