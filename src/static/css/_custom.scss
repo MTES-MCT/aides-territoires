@@ -796,12 +796,23 @@ article#aid {
             @extend .mt-5;
             @extend .col-md-8;
             @extend .offset-md-4;
+            @extend .d-flex;
+            @extend .flex-wrap;
+            @extend .justify-content-between;
 
-            a.suggest-modification {
+            a {
                 @extend .btn;
+                @extend .mb-4;
                 @extend .btn-outline-primary;
                 border-radius: 0 1rem 1rem 1rem;
-                @include icon(before, $fa-var-pencil-alt);
+
+                &.suggest-modification {
+                    @include icon(before, $fa-var-pencil-alt);
+                }
+
+                &.send-aid {
+                    @include icon(before, $fa-var-envelope-open-text);
+                }
             }
         }
     }

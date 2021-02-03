@@ -2738,3 +2738,6 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Send this aid by email"
+msgstr "Envoyer cette aide par email"
