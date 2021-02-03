@@ -168,6 +168,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('other', _('Other')),
     )
 
+    DEFAULT_TYPOLOGY = 'standard'
+    TYPOLOGY = Choices(
+        ('generic', _('Generic')),
+        ('local', _('Local')),
+        (DEFAULT_TYPOLOGY, _('Standard')),
+    )
+
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
                       'other')
 
@@ -314,6 +321,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             max_length=32,
             choices=TYPES),
         help_text=_('Specify the aid type or types.'))
+    aid_typology = models.CharField(
+        verbose_name=_('Aid typology'),
+        max_length=32,
+        choices=TYPOLOGY,
+        default=DEFAULT_TYPOLOGY,
+        help_text=_(
+            "Generic aid can be used when it' coverage is national"
+            "If nothing is selected, then it's a 'standard' aid."))
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
