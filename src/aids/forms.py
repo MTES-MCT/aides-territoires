@@ -507,6 +507,8 @@ class BaseAidSearchForm(forms.Form):
         if perimeter:
             qs = self.perimeter_filter(qs, perimeter)
 
+        qs = self.typology_filter(qs, perimeter)
+
         mobilization_steps = self.cleaned_data.get('mobilization_step', None)
         if mobilization_steps:
             qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
@@ -685,6 +687,32 @@ class BaseAidSearchForm(forms.Form):
         """
         perimeter_qs = get_all_related_perimeter_ids(search_perimeter.id)
         qs = qs.filter(perimeter__in=perimeter_qs)
+        return qs
+
+    def typology_filter(self, qs, search_perimeter):
+        """
+        We should never have both the generic aid and it's local version
+        together on search results.
+        Which one should be removed from the result ? It depends...
+        - When searching on larger area than the local aid, then
+          we want to display the generic version.
+        - When searching on a smaller area, we want to display
+          the local version.
+        """
+        local_aids = qs.filter(aid_typology=Aid.LOCAL_TYPOLOGY)
+        for aid in local_aids:
+            if not search_perimeter:
+                searching_large = True
+                searching_small = False
+            else:
+                # TODO : this is a very naive way to find out that the search
+                # perimeter is larger or smaller than the local aid perimeter.
+                searching_large = search_perimeter.scale >= aid.perimeter.scale
+                searching_small = search_perimeter.scale <= aid.perimeter.scale
+            if searching_large and aid.generic_aid and aid.generic_aid in qs:
+                qs = qs.exclude(pk=aid.pk)
+            if searching_small and aid.generic_aid:
+                qs = qs.exclude(pk=aid.generic_aid.pk)
         return qs
 
 
