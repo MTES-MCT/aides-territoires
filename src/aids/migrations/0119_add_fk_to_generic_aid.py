@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aid',
             name='generic_aid',
-            field=models.ForeignKey(help_text='Generic aid associated to a local aid', limit_choices_to={'aid_typology': 'generic'}, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='local_aids', to='aids.aid', verbose_name='Generic aid'),
+            field=models.ForeignKey(help_text='Generic aid associated to a local aid', limit_choices_to={'aid_typology': 'generic'}, null=True, blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='local_aids', to='aids.aid', verbose_name='Generic aid'),
         ),
     ]
