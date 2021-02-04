@@ -26,10 +26,10 @@
         </a></li>
 
         {% if page_obj.has_next %}
-            <li class="next"><a href="{% url_to_page page_obj.next_page_number %}">
+            <li><a class="next" href="{% url_to_page page_obj.next_page_number %}">
                 {{ _('Next') }}
             </a></li>
-            <li><a href="{% url_to_page paginator.num_pages %}">
+            <li><a class="last" href="{% url_to_page paginator.num_pages %}">
                 {{ _('Last') }}
             </a></li>
         {% else %}
