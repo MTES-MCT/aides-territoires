@@ -2689,8 +2689,8 @@ msgstr "Nombre d'aides vues pendant les 7 derniers jours"
 msgid "Total number of views"
 msgstr "Nombre de vues total"
 
-msgid "Since its launch on"
-msgstr "Depuis de son lancement le"
+msgid "Since the launch of the page on"
+msgstr "Depuis le lancement de le page le"
 
 msgid "Number of views within the last 30 days"
 msgstr "Nombre de vues pendant les 30 derniers jours"
