@@ -128,6 +128,23 @@ def test_generic_aid_listed_if_search_perimeter_is_large(client, perimeters):
     assert local not in res.context['aids']
 
 
+def test_generic_aid_listed_if_search_perimeter_matches_exactly(client, perimeters):  #noqa
+    generic = AidFactory(
+        aid_typology=Aid.DEFAULT_TYPOLOGY,
+        perimeter=perimeters['france'])
+    local = AidFactory(
+        aid_typology=Aid.LOCAL_TYPOLOGY,
+        generic_aid=generic,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['france'].pk})
+    assert res.status_code == 200
+    # Searching on matchin perimeter: france.
+    # We expect to see the generic aid, not it's local version.
+    assert generic in res.context['aids']
+    assert local not in res.context['aids']
+
+
 def test_local_aid_listed_if_search_perimeter_is_small(client, perimeters):
     generic = AidFactory(
         aid_typology=Aid.DEFAULT_TYPOLOGY,
@@ -140,6 +157,23 @@ def test_local_aid_listed_if_search_perimeter_is_small(client, perimeters):
     res = client.get(url, data={'perimeter': perimeters['herault'].pk})
     assert res.status_code == 200
     # Searching on a small perimeter: herault is smaller than occitanie.
+    # We expect to see the local aid, not it's generic version.
+    assert generic not in res.context['aids']
+    assert local in res.context['aids']
+
+
+def test_local_aid_listed_if_search_perimeter_matches_exactly(client, perimeters):  #noqa
+    generic = AidFactory(
+        aid_typology=Aid.DEFAULT_TYPOLOGY,
+        perimeter=perimeters['france'])
+    local = AidFactory(
+        aid_typology=Aid.LOCAL_TYPOLOGY,
+        generic_aid=generic,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['occitanie'].pk})
+    assert res.status_code == 200
+    # Searching on a matching perimeter: occitanie.
     # We expect to see the local aid, not it's generic version.
     assert generic not in res.context['aids']
     assert local in res.context['aids']
