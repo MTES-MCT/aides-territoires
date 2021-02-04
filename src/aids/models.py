@@ -335,7 +335,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'aids.Aid',
         verbose_name=_('Generic aid'),
         on_delete=models.CASCADE,
-        null=True,
+        null=True, blank=True,
         related_name='local_aids',
         limit_choices_to={'aid_typology': GENERIC_TYPOLOGY},
         help_text=_("Generic aid associated to a local aid"))

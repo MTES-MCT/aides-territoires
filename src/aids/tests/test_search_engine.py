@@ -5,8 +5,9 @@ from datetime import timedelta
 from django.urls import reverse
 from django.utils import timezone
 
-from programs.factories import ProgramFactory
 from aids.factories import AidFactory
+from aids.models import Aid
+from programs.factories import ProgramFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -78,6 +79,70 @@ def test_deleted_aids_are_not_listed(client):
     res = client.get(url)
     assert res.status_code == 200
     assert len(res.context['aids']) == 0
+
+
+def test_generic_aid_is_listed(client, perimeters):
+    generic = AidFactory(
+        aid_typology=Aid.GENERIC_TYPOLOGY,
+        perimeter=perimeters['france'])
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.status_code == 200
+    assert generic in res.context['aids']
+
+
+def test_local_aid_is_listed(client, perimeters):
+    local = AidFactory(
+        aid_typology=Aid.LOCAL_TYPOLOGY,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.status_code == 200
+    assert local in res.context['aids']
+
+
+def test_standard_aid_is_listed(client, perimeters):
+    standard = AidFactory(
+        aid_typology=Aid.DEFAULT_TYPOLOGY,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url)
+    assert res.status_code == 200
+    assert standard in res.context['aids']
+
+
+def test_generic_aid_listed_if_search_perimeter_is_large(client, perimeters):
+    generic = AidFactory(
+        aid_typology=Aid.DEFAULT_TYPOLOGY,
+        perimeter=perimeters['france'])
+    local = AidFactory(
+        aid_typology=Aid.LOCAL_TYPOLOGY,
+        generic_aid=generic,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['europe'].pk})
+    assert res.status_code == 200
+    # Searching on a large perimeter: europe is larger than occitanie.
+    # We expect to see the generic aid, not it's local version.
+    assert generic in res.context['aids']
+    assert local not in res.context['aids']
+
+
+def test_local_aid_listed_if_search_perimeter_is_small(client, perimeters):
+    generic = AidFactory(
+        aid_typology=Aid.DEFAULT_TYPOLOGY,
+        perimeter=perimeters['france'])
+    local = AidFactory(
+        aid_typology=Aid.LOCAL_TYPOLOGY,
+        generic_aid=generic,
+        perimeter=perimeters['occitanie'])
+    url = reverse('search_view')
+    res = client.get(url, data={'perimeter': perimeters['herault'].pk})
+    assert res.status_code == 200
+    # Searching on a small perimeter: herault is smaller than occitanie.
+    # We expect to see the local aid, not it's generic version.
+    assert generic not in res.context['aids']
+    assert local in res.context['aids']
 
 
 def test_expired_aids_are_not_listed(client):
