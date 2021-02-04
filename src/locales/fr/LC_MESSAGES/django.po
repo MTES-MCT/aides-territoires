@@ -2751,5 +2751,5 @@ msgstr "est suggeré"
 msgid "Is a suggested project?"
 msgstr "Est-ce un projet suggéré ?"
 
-msgid "If the project is suggested by an user"
+msgid "If the project is suggested by a user"
 msgstr "Si le projet est suggéré par un utilisateur"

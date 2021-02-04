@@ -15,7 +15,7 @@ class Project(models.Model):
         help_text=_('Let it empty so it will be autopopulated.'),
         blank=True)
     description = models.TextField(
-        _('Full description of the backer'),
+        _('Full description of the project'),
         default='', blank=True)
     categories = models.ManyToManyField(
         'categories.Category',
@@ -27,7 +27,7 @@ class Project(models.Model):
         _('Is a suggested project?'),
         default=False,
         help_text=_(
-            'If the project is suggested by an user'))
+            'If the project is suggested by a user'))
 
     date_created = models.DateTimeField(
         _('Date created'),
