@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'admin_auto_filters',
     'drf_yasg',
+    'anymail',
 ]
 
 LOCAL_APPS = [
@@ -63,6 +64,7 @@ LOCAL_APPS = [
     'logs',
     'upload',
     'exporting',
+    'emails',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -187,7 +189,7 @@ REST_FRAMEWORK = {
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = '1.1'
+CURRENT_API_VERSION = '1.2'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -226,6 +228,7 @@ UNVALIDATED_ALERTS_QUOTA = 10
 MAX_ALERTS_QUOTA = 100
 
 ANALYTICS_ENABLED = False
+ANALYTICS_ENDPOINT = 'https://stats.data.gouv.fr/index.php'
 ANALYTICS_SITEID = 0
 HOTJAR_SITEID = 0
 
@@ -236,6 +239,12 @@ DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
+ENABLE_EMAIL_WHITELIST = False
+
+# ADDNA
+ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'
+ADDNA_ALERT_QUERYSTRING = 'perimeter=70971-nouvelle-aquitaine'
+ADDNA_ALERT_EMAIL_SUBJECT_PREFIX = '[Aides-territoires-ADDNA] '
 
 SITE_ID = 1
 

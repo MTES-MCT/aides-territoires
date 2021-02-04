@@ -4,11 +4,10 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from django.db.models import Q, Sum, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   RedirectView, DeleteView, FormView)
@@ -25,10 +24,12 @@ from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
+from aids.utils import generate_clone_title
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
 from programs.models import Program
+from emails.sib import send_mail_sib
 from stats.models import Event
 from stats.utils import log_event
 
@@ -197,7 +198,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
             'scheme': scheme,
             'domain': site.domain,
         })
-        send_mail(
+        send_mail_sib(
             self.EMAIL_SUBJECT,
             results_body,
             settings.DEFAULT_FROM_EMAIL,
@@ -306,7 +307,6 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         qs = super().get_queryset()
 
         filter_form = DraftListAidFilterForm(self.request.GET)
-        # print("304", filter_form)
 
         if filter_form.is_valid():
             state = filter_form.cleaned_data['state']
@@ -413,10 +413,12 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             obj.status = AidWorkflow.states.draft
             obj.is_imported = False
             obj.import_uniqueid = None
+            obj.name = generate_clone_title(obj.name)
             obj.save()
             form.save_m2m()
-            msg = _('The new aid was sucessfully created. You can keep editing it. '
-                    'And find the duplicated aid in <a href="%(url)s">your portfolio</a>.') % {
+            msg = _('The new aid was sucessfully created. '
+                    'You can keep editing it. And find the duplicated '
+                    'aid in <a href="%(url)s">your portfolio</a>.') % {
                         'url': reverse('aid_draft_list_view')
                     }
 

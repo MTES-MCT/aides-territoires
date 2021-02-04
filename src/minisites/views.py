@@ -8,6 +8,7 @@ from django.utils import timezone
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
+from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import Event
@@ -205,6 +206,12 @@ class SiteProgram(MinisiteMixin, ProgramDetail):
     """The detail page of a single program."""
 
     template_name = 'minisites/program_detail.html'
+
+
+class SiteBackers(MinisiteMixin, BackerDetailView):
+    """The detail page of a single backer."""
+
+    template_name = 'minisites/backer_detail.html'
 
 
 class SiteLegalMentions(MinisiteMixin, TemplateView):

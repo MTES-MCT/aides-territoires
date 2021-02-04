@@ -2,7 +2,7 @@ import collections
 
 from django.db import transaction
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter
@@ -175,7 +175,6 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     Return the city codes that are in `add_perimeters` and not in
     `rm_perimeters`.
     """
-    print(add_perimeters)
     in_city_codes = Perimeter.objects \
         .filter(scale=Perimeter.TYPES.commune) \
         .filter(contained_in__in=add_perimeters) \

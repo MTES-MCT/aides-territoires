@@ -44,6 +44,12 @@ def superuser():
 
 
 @pytest.fixture
+def superuser_client(superuser, client):
+    client.force_login(superuser)
+    return client
+
+
+@pytest.fixture
 def backer():
     """Generates a valid Backer."""
 
@@ -53,7 +59,7 @@ def backer():
 
 @pytest.fixture
 def perimeter():
-    """Generates a valid Perimetes."""
+    """Generates a valid Perimeter."""
 
     perimeter = PerimeterFactory()
     return perimeter

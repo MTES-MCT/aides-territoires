@@ -6,7 +6,8 @@ from dataproviders.scrapers.grand_est import GrandEstSpider
 
 ADMIN_ID = 1
 
-GRAND_EST_CODE = '44'
+GRAND_EST_PERIMETER_CODE = '44'
+GRAND_EST_FINANCER_NAME = 'Région Grand Est'
 
 
 ELIGIBILITY_TXT = '''Rendez-vous sur le site de la région Grand-Est pour
@@ -22,11 +23,10 @@ class Command(CrawlerImportCommand):
     def populate_cache(self, *args, **options):
         self.perimeter = Perimeter.objects \
             .filter(scale=Perimeter.TYPES.region) \
-            .filter(code=GRAND_EST_CODE) \
+            .filter(code=GRAND_EST_PERIMETER_CODE) \
             .get()
 
-        self.financer = Backer.objects.get(
-            name="Région Grand Est")
+        self.financer = Backer.objects.get(name=GRAND_EST_FINANCER_NAME)
 
     def extract_author_id(self, line):
         return ADMIN_ID

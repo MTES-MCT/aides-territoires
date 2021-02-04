@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.urls import path
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from geofr.models import Perimeter
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
@@ -9,35 +9,49 @@ from geofr.admin_views import PerimeterUpload, PerimeterCombine
 
 class PerimeterAdminForm(forms.ModelForm):
     class Meta:
-        fields = ['code', 'name']
+        fields = ['name', 'code', 'is_visible_to_users']
 
 
 class PerimeterAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
 
-    list_display = ('scale', 'name', 'manually_created', 'code', 'is_overseas',
+    list_display = ('scale', 'name', 'manually_created', 'is_visible_to_users',
+                    'code', 'is_overseas',
                     'regions', 'departments', 'epci', 'zipcodes', 'basin')
     search_fields = ['name', 'code']
-    list_filter = ('scale', 'is_overseas', 'manually_created')
+    list_filter = ('scale', 'is_overseas', 'manually_created',
+                   'is_visible_to_users')
     ordering = ('-scale', 'name')
     form = PerimeterAdminForm
-    readonly_fields = [
-        'scale', 'is_overseas', 'contained_in', 'manually_created', 'regions',
-        'departments', 'epci', 'basin', 'zipcodes'
-    ]
+    # readonly_fields managed below
 
     class Media:
         css = {
             'all': ('css/admin.css',)
         }
 
+    def get_readonly_fields(self, request, obj=None):
+        """
+        All fields are readonly except:
+        - Allow name is_visible_to_users edition for new or adhoc perimeters
+        - Allow code edition for new or manually_created perimeters
+        """
+        readonly_fields = [f.name for f in Perimeter._meta.fields]
+        if not obj or (obj.scale == Perimeter.TYPES.adhoc):
+            readonly_fields.remove('name')
+            readonly_fields.remove('is_visible_to_users')
+        if not obj or obj.manually_created:
+            readonly_fields.remove('code')
+        return readonly_fields
+
+    def get_changeform_initial_data(self, request):
+        """Set is_visible_to_users to False for new perimeters"""
+        initial = super(PerimeterAdmin, self).get_changeform_initial_data(request)  # noqa
+        initial['is_visible_to_users'] = False
+        return initial
+
     def has_add_permission(self, request):
         return True
-
-    def has_change_permission(self, request, obj=None):
-        if obj:
-            return obj.manually_created
-        return False
 
     def has_delete_permission(self, request, obj=None):
         if obj:

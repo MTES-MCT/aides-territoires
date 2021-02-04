@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 from aids.models import AidWorkflow
@@ -50,7 +50,7 @@ class BackerGroup(models.Model):
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[:50]
 
     def save(self, *args, **kwargs):
         self.set_slug()
@@ -183,7 +183,7 @@ class Backer(models.Model):
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name)[:50]
 
     def save(self, *args, **kwargs):
         self.set_slug()

@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
@@ -41,13 +41,14 @@ class Perimeter(models.Model):
     scale = models.PositiveIntegerField(
         _('Scale'),
         choices=TYPES)
+    name = models.CharField(
+        _('Name'),
+        max_length=128)
     code = models.CharField(
         _('Code'),
         max_length=16,
         help_text=_('Internal usage only, not relevant for Ad-hoc perimeters'))
-    name = models.CharField(
-        _('Name'),
-        max_length=128)
+
     contained_in = models.ManyToManyField(
         'geofr.Perimeter',
         verbose_name=_('Contained in'),
@@ -56,6 +57,9 @@ class Perimeter(models.Model):
     manually_created = models.BooleanField(
         _('Manually created'),
         default=False)
+    is_visible_to_users = models.BooleanField(
+        _('The perimeter is visible to users'),
+        default=True)
 
     continent = models.CharField(
         _('Continent'),

@@ -3,7 +3,7 @@ import operator
 
 from django import forms
 from django.db.models import Q, F
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
@@ -18,6 +18,7 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from aids.models import Aid
+from aids.constants import AUDIENCES
 
 
 FINANCIAL_AIDS = (
@@ -36,28 +37,6 @@ TECHNICAL_AIDS = (
 AID_TYPES = (
     (_('Financial aids'), FINANCIAL_AIDS),
     (_('Technical and methodological aids'), TECHNICAL_AIDS),
-)
-
-COLLECTIVITIES_AUDIENCES = (
-    ('commune', _('Communes')),
-    ('epci', _('Audience EPCI')),
-    ('department', _('Departments')),
-    ('region', _('Regions')),
-)
-
-OTHER_AUDIENCES = (
-    ('association', _('Associations')),
-    ('private_person', _('Individuals')),
-    ('farmer', _('Farmers')),
-    ('private_sector', _('Private sector')),
-    ('public_cies', _('Local public companies')),
-    ('public_org', _('Public organizations / State services')),
-    ('researcher', _('Research')),
-)
-
-AUDIENCES = (
-    (_('Collectivities'), COLLECTIVITIES_AUDIENCES),
-    (_('Other audiences'), OTHER_AUDIENCES)
 )
 
 IS_CALL_FOR_PROJECT = (

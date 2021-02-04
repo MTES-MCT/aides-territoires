@@ -6,10 +6,9 @@ from django.db.models.functions import Concat
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-
 
 from import_export.admin import ExportActionMixin
 from import_export.formats import base_formats
@@ -18,7 +17,7 @@ from admin_auto_filters.filters import AutocompleteFilter
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 from aids.resources import AidResource
 from core.admin import InputFilter
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
@@ -318,10 +317,10 @@ class AidAdmin(BaseAidAdmin):
         queryset.update(status='deleted')
 
     def save_model(self, request, obj, form, change):
-
         # When cloning an existing aid, prefix it's title with "[Copie]"
         if '_saveasnew' in request.POST:
             obj.name = generate_clone_title(obj.name)
+            obj.status = AidWorkflow.states.draft
         return super().save_model(request, obj, form, change)
 
 

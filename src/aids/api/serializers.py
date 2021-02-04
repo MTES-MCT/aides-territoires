@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
 
 from aids.models import Aid
 
@@ -7,12 +8,10 @@ class ArrayField(serializers.ListField):
     child = serializers.CharField()
 
     def __init__(self, choices, *args, **kwargs):
-
         self.repr_dict = dict(choices)
         super().__init__(*args, **kwargs)
 
     def to_representation(self, obj):
-
         representation = [self.repr_dict[choice] for choice in obj]
         return representation
 
@@ -83,5 +82,31 @@ class AidSerializer11(BaseAidSerializer):
                   'date_updated')
 
 
-class AidSerializerLatest(AidSerializer11):
+class CategoryRelatedField(serializers.StringRelatedField):
+
+    def to_representation(self, value):
+        return f'{value.theme}|{value}'
+
+
+class AidSerializer12(BaseAidSerializer):
+
+    categories = CategoryRelatedField(
+        many=True,
+        label=_('Theme and category, separated by « | ».'),
+        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+
+    class Meta(BaseAidSerializer.Meta):
+        fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
+                  'instructors', 'programs', 'description', 'eligibility',
+                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
+                  'categories',
+                  'application_url', 'targeted_audiences', 'aid_types',
+                  'destinations', 'start_date', 'predeposit_date',
+                  'submission_deadline', 'subvention_rate_lower_bound',
+                  'subvention_rate_upper_bound', 'contact', 'recurrence',
+                  'programs', 'project_examples', 'date_created',
+                  'date_updated')
+
+
+class AidSerializerLatest(AidSerializer12):
     pass

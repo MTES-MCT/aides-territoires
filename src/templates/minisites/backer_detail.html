@@ -1,0 +1,28 @@
+{% extends 'backers/detail.html' %}
+
+{% block header %}
+    {% include 'minisites/_header.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'minisites/_footer.html' %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Programs') }}</li>
+        <li class="active" aria-current="page">{{ program.name }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block header_warning %}{% endblock %}
+
+{% block user_menu %}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include 'minisites/_css.html' %}
+{% endblock %}

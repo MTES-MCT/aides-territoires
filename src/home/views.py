@@ -28,7 +28,6 @@ class HomeView(TemplateView):
         selected_backers = Backer.objects.can_be_displayed_in_carousel()
         # We only display the first 15
         subset_selected_backers = selected_backers.order_by("?")[0:15]
-        print(subset_selected_backers)
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()

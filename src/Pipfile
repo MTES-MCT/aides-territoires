@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "<3"
+django = "<4"
 unipath = "*"
 "psycopg2-binary" = "*"
 django-compressor = "*"
@@ -30,6 +30,7 @@ drf-yasg = "*"
 dj-static = "*"
 dj-database-url = "*"
 importlib-metadata = "*"
+django-anymail = {extras = ["sendinblue"], version = "*"}
 
 [dev-packages]
 pytest = "*"

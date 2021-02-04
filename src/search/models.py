@@ -4,10 +4,10 @@ from django.db import models
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
-from aids.forms import AUDIENCES, AidSearchForm
+from aids.constants import AUDIENCES
 
 
 def logo_upload_to(instance, filename):
@@ -169,6 +169,8 @@ class SearchPage(models.Model):
 
     def get_base_queryset(self):
         """Return the list of aids based on the initial search querysting."""
+
+        from aids.forms import AidSearchForm
 
         # Sometime, the admin person enters a prefix "?" character
         # and we don't want it here.

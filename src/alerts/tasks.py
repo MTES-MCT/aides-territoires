@@ -1,15 +1,14 @@
-from django.core.mail import send_mail
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
 
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
-
+from emails.sib import send_mail_sib
 
 TEMPLATE = 'emails/alert_validate.txt'
 
@@ -62,7 +61,7 @@ def send_alert_confirmation_email(user_email, alert_token):
         'perimeter': perimeter,
         'alert_validation_link': '{}{}'.format(base_url, alert_validation_link)
     })
-    send_mail(
+    send_mail_sib(
         subject,
         email_body,
         settings.DEFAULT_FROM_EMAIL,

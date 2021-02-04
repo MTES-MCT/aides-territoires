@@ -1,12 +1,12 @@
+import operator
+from itertools import groupby
+
 from django import forms
 from django.contrib import admin
 from django.urls import reverse
 from django.db.models import Count, Q
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
-import operator
-from itertools import groupby
-
+from django.utils.translation import gettext_lazy as _
 
 from import_export import resources
 from import_export.admin import ImportMixin
