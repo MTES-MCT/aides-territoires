@@ -40,8 +40,10 @@
         {% include '_field_snippet.html' with field=form.targeted_audiences %}
         {% include '_field_snippet.html' with field=form.financers %}
         {% include '_field_snippet.html' with field=form.financer_suggestion %}
-        {% include '_field_snippet.html' with field=form.instructors %}
-        {% include '_field_snippet.html' with field=form.instructor_suggestion %}
+        <div id="instructor-fields">
+            {% include '_field_snippet.html' with field=form.instructors %}
+            {% include '_field_snippet.html' with field=form.instructor_suggestion %}
+        </div>
     </fieldset>
 
     <fieldset>
