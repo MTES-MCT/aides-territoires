@@ -51,15 +51,13 @@
 
     {% if not aid.is_published %}
     <div class="danger">
-        <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the
-            author.') }}</p>
+        <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
     <div class="danger">
-        <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical
-            purpose.') }}</p>
+        <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
     </div>
     {% endif %}
 
