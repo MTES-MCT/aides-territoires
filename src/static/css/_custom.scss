@@ -417,13 +417,18 @@ section#program-list {
         }
     }
 
-    & #show_more_btn {
-        @extend .mt-2;
-        @extend .btn;
-        @extend .btn-primary;
-        font-weight: bold;
-        display: block;
-        border-radius: 1rem;
+    & #show_more {
+        @extend .d-flex;
+        @extend .justify-content-center;
+
+        & #show_more_btn {
+            @extend .mt-2;
+            @extend .btn;
+            @extend .btn-primary;
+            font-weight: bold;
+            display: block;
+            border-radius: 1rem;
+        }
     }
 
     div.col {
