@@ -707,12 +707,12 @@ class BaseAidSearchForm(forms.Form):
             else:
                 # TODO : this is a very naive way to find out that the search
                 # perimeter is larger or smaller than the local aid perimeter.
-                searching_large = search_perimeter.scale >= aid.perimeter.scale
                 searching_small = search_perimeter.scale <= aid.perimeter.scale
-            if searching_large and aid.generic_aid and aid.generic_aid in qs:
-                qs = qs.exclude(pk=aid.pk)
+                searching_large = search_perimeter.scale >= aid.perimeter.scale
             if searching_small and aid.generic_aid:
                 qs = qs.exclude(pk=aid.generic_aid.pk)
+            elif searching_large and aid.generic_aid and aid.generic_aid in qs:
+                qs = qs.exclude(pk=aid.pk)
         return qs
 
 
