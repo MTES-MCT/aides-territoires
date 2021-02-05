@@ -279,6 +279,8 @@ class AidDetailView(DetailView):
             self.object.project_examples,
             self.object.eligibility))
 
+        context['alert_form'] = AlertForm(label_suffix='')
+
         return context
 
     def get(self, request, *args, **kwargs):
