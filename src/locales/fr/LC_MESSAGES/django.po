@@ -1387,6 +1387,12 @@ msgstr "<slug:token>/validation/"
 msgid "programs/<slug:slug>/"
 msgstr "programmes/<slug:slug>/"
 
+msgid "backers/<slug:slug>/"
+msgstr "partenaires/<slug:slug>/"
+
+msgid "backers/<int:pk>-<str>/"
+msgstr "partenaires/<int:pk>-<str>/"
+
 msgid "Content"
 msgstr "Contenu"
 
