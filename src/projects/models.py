@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -32,6 +32,15 @@ class Project(models.Model):
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('Project')
