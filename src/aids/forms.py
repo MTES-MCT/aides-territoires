@@ -507,8 +507,6 @@ class BaseAidSearchForm(forms.Form):
         if perimeter:
             qs = self.perimeter_filter(qs, perimeter)
 
-        qs = self.typology_filter(qs, perimeter)
-
         mobilization_steps = self.cleaned_data.get('mobilization_step', None)
         if mobilization_steps:
             qs = qs.filter(mobilization_steps__overlap=mobilization_steps)
@@ -588,6 +586,8 @@ class BaseAidSearchForm(forms.Form):
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:
             qs = qs.filter(origin_url=origin_url)
+
+        qs = self.typology_filter(qs, perimeter)
 
         return qs
 
@@ -694,25 +694,35 @@ class BaseAidSearchForm(forms.Form):
         We should never have both the generic aid and it's local version
         together on search results.
         Which one should be removed from the result ? It depends...
-        - When searching on larger area than the local aid, then
-          we want to display the generic version.
-        - When searching on a smaller area, we want to display
-          the local version.
+        We consider the scale perimeter associated to the local aid.
+        - When searching a on wider area than the local aid's perimeter,
+          then we display the generic version.
+        - When searching on a smaller area than the local aid's perimeter,
+          then we display the local version.
         """
         local_aids = qs.filter(aid_typology=Aid.LOCAL_TYPOLOGY)
+        aids_to_exclude = []
+        if not search_perimeter:
+            # If the user does not specify a search perimeter, then we go wide.
+            search_smaller = False
+            search_wider = True
         for aid in local_aids:
-            if not search_perimeter:
-                searching_large = True
-                searching_small = False
-            else:
-                # TODO : this is a very naive way to find out that the search
-                # perimeter is larger or smaller than the local aid perimeter.
-                searching_small = search_perimeter.scale <= aid.perimeter.scale
-                searching_large = search_perimeter.scale >= aid.perimeter.scale
-            if searching_small and aid.generic_aid:
-                qs = qs.exclude(pk=aid.generic_aid.pk)
-            elif searching_large and aid.generic_aid and aid.generic_aid in qs:
-                qs = qs.exclude(pk=aid.pk)
+            if search_perimeter:
+                search_smaller = search_perimeter.scale <= aid.perimeter.scale
+                search_wider = search_perimeter.scale > aid.perimeter.scale
+            generic_aid_is_present = aid.generic_aid and aid.generic_aid in qs
+            # If the search perimeter is smaller or matches exactly the local
+            # perimeter, then it's relevant to keep the local and exclude
+            # the generic aid.Excluding the generic aid takes precedence
+            # over excluding the local aid.
+            if search_smaller and generic_aid_is_present:
+                aids_to_exclude.append(aid.generic_aid.pk)
+            elif search_wider and generic_aid_is_present:
+                # If the search perimeter is wider than the local perimeter
+                # then it more relevant to keep the generic aid and exclude the
+                # the local one.
+                aids_to_exclude.append(aid.pk)
+        qs = qs.exclude(pk__in=aids_to_exclude)
         return qs
 
 
