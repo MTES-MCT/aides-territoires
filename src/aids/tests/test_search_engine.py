@@ -111,7 +111,7 @@ def test_standard_aid_is_listed(client, perimeters):
     assert standard in res.context['aids']
 
 
-def test_generic_aid_listed_if_search_perimeter_is_large(client, perimeters):
+def test_get_generic_search_perimeter_is_wider(client, perimeters):
     generic = AidFactory(
         aid_typology=Aid.DEFAULT_TYPOLOGY,
         perimeter=perimeters['france'])
@@ -122,13 +122,13 @@ def test_generic_aid_listed_if_search_perimeter_is_large(client, perimeters):
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
     assert res.status_code == 200
-    # Searching on a large perimeter: europe is larger than occitanie.
+    # Searching on a wider perimeter: europe is wider than occitanie.
     # We expect to see the generic aid, not it's local version.
     assert generic in res.context['aids']
     assert local not in res.context['aids']
 
 
-def test_generic_aid_listed_if_search_perimeter_matches_exactly(client, perimeters):  #noqa
+def test_has_generic_if_search_perimeter_matches(client, perimeters):
     generic = AidFactory(
         aid_typology=Aid.DEFAULT_TYPOLOGY,
         perimeter=perimeters['france'])
@@ -145,7 +145,7 @@ def test_generic_aid_listed_if_search_perimeter_matches_exactly(client, perimete
     assert local not in res.context['aids']
 
 
-def test_local_aid_listed_if_search_perimeter_is_small(client, perimeters):
+def test_get_local_if_search_perimeter_is_smaller(client, perimeters):
     generic = AidFactory(
         aid_typology=Aid.DEFAULT_TYPOLOGY,
         perimeter=perimeters['france'])
@@ -162,7 +162,7 @@ def test_local_aid_listed_if_search_perimeter_is_small(client, perimeters):
     assert local in res.context['aids']
 
 
-def test_local_aid_listed_if_search_perimeter_matches_exactly(client, perimeters):  #noqa
+def test_get_local_aid_if_search_perimeter_matches(client, perimeters):
     generic = AidFactory(
         aid_typology=Aid.DEFAULT_TYPOLOGY,
         perimeter=perimeters['france'])
