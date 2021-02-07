@@ -1,0 +1,47 @@
+{% load i18n %}
+<div id="share-modal" class="modal">
+    <div class="modal-dialog">
+        <section>
+            <header>
+                <h1>{{ _('Share') }}</h1>
+            </header>
+
+            <div class="content">
+
+                <div class="share-target">
+                    <div class="col">
+                        <div class="fb-share-button" data-href="{{ request.build_absolute_uri }}" data-size="small">
+                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
+                                <img src="/static/img/logo_facebook.svg" alt="facebook">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <a target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}">
+                            <img src="/static/img/logo_linkedin.svg" alt="linkedin">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a class="email" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}">
+                            <img src="/static/img/logo_mail.svg" alt="mail">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="https://twitter.com/intent/tweet?status={{ request.build_absolute_uri|urlencode}}" target="_blank" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;">
+                            <img src="/static/img/logo_twitter.svg" alt="twitter">
+                        </a>
+                    </div>
+                </div>
+                      
+                <form id="copy-to-clipboard-form">
+                    <div class="form-group">
+                        <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" />
+                    </div>
+                    <button type="button" id="clipboard-btn">
+                        {{ _('Copy the current url to clipboard') }}
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

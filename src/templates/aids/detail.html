@@ -4,6 +4,10 @@
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
+{% block modals %}
+    {% include 'aids/_share_modal.html' %}
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -286,8 +290,8 @@
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>
-            <a class="send-aid" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}">
-                {{ _('Send this aid by email') }}
+            <a href="#" class="js" data-toggle="modal" data-target="#share-modal">
+                {{ _('Share') }}
             </a>
             {% endblock %}
         </footer>
@@ -310,5 +314,6 @@
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
 <script src="/static/js/links_on_images.js"></script>
+<script src="/static/js/aids/share_aid.js"></script>
 {% endcompress %}
 {% endblock %}

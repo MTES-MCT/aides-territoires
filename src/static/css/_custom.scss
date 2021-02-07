@@ -809,10 +809,6 @@ article#aid {
                 &.suggest-modification {
                     @include icon(before, $fa-var-pencil-alt);
                 }
-
-                &.send-aid {
-                    @include icon(before, $fa-var-envelope-open-text);
-                }
             }
         }
     }
@@ -1027,6 +1023,49 @@ div#bundle-modal {
         button#bundle-btn {
             @extend .btn-block;
             @extend .btn-primary;
+        }
+    }
+}
+
+div#share-modal {
+    h2 {
+        @extend .h5;
+    }
+
+    form {
+        @extend .mb-3;
+
+        button {
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-block;
+        }
+    }
+
+    .share-target {
+        @extend .row;
+        @extend .mx-2;
+        @extend .mt-2;
+        @extend .mb-4;
+    
+        & > div {
+            @extend .d-flex;
+            @extend .flex-column;
+            @extend .justify-content-center;
+            @extend .align-items-center;
+    
+            & a {
+                @extend .py-2;
+            }
+    
+            & a > img{
+                transition: transform 0.5s;
+                max-width: 50px;
+            }
+    
+            & a > img:hover{
+                transform: scale(1.2);
+            }
         }
     }
 }
