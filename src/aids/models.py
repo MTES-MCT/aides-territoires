@@ -329,7 +329,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         choices=TYPOLOGY,
         default=DEFAULT_TYPOLOGY,
         help_text=_(
-            "Generic aid can be used when it' coverage is national"
+            "Generic aid can be used when it' coverage is national. "
             "If nothing is selected, then it's a 'standard' aid."))
     generic_aid = models.ForeignKey(
         'aids.Aid',
