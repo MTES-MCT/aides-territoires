@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-06 14:36+0100\n"
+"POT-Creation-Date: 2021-02-07 16:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -691,6 +691,15 @@ msgstr "Ingénierie financière"
 msgid "Legal engineering"
 msgstr "Ingénierie juridique / administrative"
 
+msgid "Generic"
+msgstr "Générique"
+
+msgid "Local"
+msgstr "Locale"
+
+msgid "Standard"
+msgstr "Standard"
+
 msgid "Europe"
 msgstr "Europe"
 
@@ -797,6 +806,22 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
+
+msgid "Aid typology"
+msgstr "Typologie de l'aide"
+
+msgid ""
+"Generic aid can be used when it' coverage is national. If nothing is "
+"selected, then it's a 'standard' aid."
+msgstr ""
+"Une aide générique peut être utilisée pour indiquer une couverture nationnale. "
+"Si rien est séléctionné, alors il s'agit d'une aide 'standard'."
+
+msgid "Generic aid"
+msgstr "Aide générique"
+
+msgid "Generic aid associated to a local aid"
+msgstr "Aide générique associée à une aide locale"
 
 msgid "Destinations"
 msgstr "Types de dépenses / actions couvertes"

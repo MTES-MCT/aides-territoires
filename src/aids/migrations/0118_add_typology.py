@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aid',
             name='aid_typology',
-            field=models.CharField(choices=[('generic', 'Generic'), ('local', 'Local'), ('standard', 'Standard')], default='standard', help_text="Generic aid can be used when it' coverage is nationalIf nothing is selected, then it's a 'standard' aid.", max_length=32, verbose_name='Aid typology'),
+            field=models.CharField(choices=[('generic', 'Generic'), ('local', 'Local'), ('standard', 'Standard')], default='standard', help_text="Generic aid can be used when it' coverage is national. If nothing is selected, then it's a 'standard' aid.", max_length=32, verbose_name='Aid typology'),
         ),
     ]
