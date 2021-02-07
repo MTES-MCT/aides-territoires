@@ -3,7 +3,7 @@
     exports.showMoreResults = function (event) {
         event.preventDefault();
 
-        next_url = $(".form-body").serialize()
+        next_url = $("#search-form").serialize()
         next_page = $(".next")[0].href
         last_page = $(".last")[0].href
 
@@ -25,12 +25,10 @@
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
-            })        
+            })
         } else {
             $('#show_more').removeClass('d-none')
         }
-        console.log(next_page)
-        console.log(last_page)
     };
 
 })(this, catalog);
