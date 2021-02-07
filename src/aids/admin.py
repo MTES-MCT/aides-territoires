@@ -202,13 +202,18 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
             )
         }),
 
+        (_('Aid typology'), {
+            'fields': (
+                'aid_typology',
+                'generic_aid',
+            )
+        }),
+
         (_('Aid description'), {
             'fields': (
                 'is_call_for_project',
                 'programs',
                 'aid_types',
-                'aid_typology',
-                'generic_aid',
                 'subvention_rate',
                 'subvention_comment',
                 'mobilization_steps',
