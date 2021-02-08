@@ -339,6 +339,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         related_name='local_aids',
         limit_choices_to={'aid_typology': GENERIC_TYPOLOGY},
         help_text=_("Generic aid associated to a local aid"))
+    local_characteristics = models.TextField(
+        _('Local characteristics'),
+        blank=True)
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
