@@ -36,7 +36,7 @@
             <li class="disabled"><a href="#">
                 {{ _('Next') }}
             </a></li>
-            <li class="disabled"><a href="#">
+            <li class="disabled"><a href="{% url_to_page paginator.num_pages %}">
                 {{ _('Last') }}
             </a></li>
         {% endif %}
