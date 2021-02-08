@@ -418,8 +418,8 @@ section#program-list {
     }
 
     & #show_more {
-        @extend .d-flex;
-        @extend .justify-content-center;
+        display: flex;
+        justify-content: center;
 
         & #show_more_btn {
             @extend .mt-2;

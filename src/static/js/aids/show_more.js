@@ -47,6 +47,9 @@
             $('#show_more').removeClass('d-none')
         }
         current_page = new_url
+        if(current_page == last_page) {
+            $('#show_more').addClass('d-none')
+        }
     };
 
 })(this, catalog);
