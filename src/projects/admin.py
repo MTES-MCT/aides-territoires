@@ -26,7 +26,7 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['is_suggested', 'categories']
     readonly_fields = ['date_created']
-    filter_vertical = ['categories'] 
+    filter_vertical = ['categories']
 
     class Media:
         css = {'all': (

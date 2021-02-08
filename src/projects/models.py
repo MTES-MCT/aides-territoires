@@ -48,4 +48,3 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
-
