@@ -160,7 +160,6 @@ class Command(CrawlerImportCommand):
         Exemple of string to process: "Association;Collectivité territoriale;Entreprise;Établissement public"
         Split the string, loop on the values and match to our Audiences
         """
-        return line['publics_concernes']
         audiences = line.get('publics_concernes', '').split(';')
         aid_audiences = []
         for audience in audiences:
