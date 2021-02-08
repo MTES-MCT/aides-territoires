@@ -422,6 +422,8 @@ section#program-list {
         justify-content: center;
 
         & #show_more_btn {
+            padding-left: 5rem;
+            padding-right: 5rem;
             @extend .mt-2;
             @extend .btn;
             @extend .btn-primary;

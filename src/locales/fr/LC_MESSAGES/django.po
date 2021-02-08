@@ -2736,8 +2736,8 @@ msgstr "Uploadé à"
 msgid "Upload image"
 msgstr "Uploader l'image"
 
-msgid "Show more"
-msgstr "Voir plus"
+msgid "Show more aids"
+msgstr "Voir plus d'aides"
 
 msgid "Loading..."
 msgstr "Chargement en cours"

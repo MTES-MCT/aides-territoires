@@ -25,6 +25,7 @@
         var new_url = url.toString();
 
         if(current_page !== last_page) {
+            $("#show_more_btn").attr("disabled", true);
             searchXHR = $.ajax({
                 type: "GET",
                 url: new_url,
@@ -38,6 +39,7 @@
                     $('.aids').append($(html_parsed).find(".aids > .col"))
                     $('#spinner').addClass("d-none");
                     $('#show_more_text').removeClass('d-none')
+                    $("#show_more_btn").attr("disabled", false);
                 },
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
@@ -58,7 +60,7 @@ $(document).ready(function () {
 
     // Hide pagination's div and display #show_more button instead
     $('#show_more').removeClass('d-none')
-    $('.pagination').addClass('d-none')
+    $('#pagination ul.pagination').addClass('d-none')
     $('#spinner').addClass("d-none");
 
     // get current_page & last_page url

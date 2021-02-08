@@ -43,13 +43,13 @@
     </ul>
     <div id="show_more" class="d-none">
         {% if page_obj.has_next %}
-            <div id="show_more_btn">
-                <div id="show_more_text">{{ _('Show more') }}</div>
-                <div id="spinner">
+            <button id="show_more_btn">
+                <span id="show_more_text">{{ _('Show more aids') }}</span>
+                <span id="spinner">
                     <span class="spinner-border spinner-border-sm mr-3" role="status" aria-hidden="true"></span>
                     <span>{{ _('Loading...') }}</span>
-                </div>
-            </div></li>
+                </span>
+            </button>
         {% endif %}
     </div>
 </nav>
