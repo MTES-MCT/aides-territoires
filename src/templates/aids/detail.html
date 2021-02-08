@@ -325,21 +325,34 @@
     </section>
 
 </article>
+
+<div id="save-alert-block">
+    <h5>🔔 Ne manquez plus aucun dispositif et recevez les dernières aides en rapport avec votre recherche !</h5>
+    <a href="#" id="save-alert-detail-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+        {{ _('Create an alert') }}
+    </a>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'alerts/_alert_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
 <script>
     $(document).ready(function () {
-        // Make sure all links contained in aid description open in
-        // a new tab.
+        // Make sure all links contained in aid description open in a new tab.
         $('article#aid div.aid-details a').attr('target', '_blank');
     });
 </script>
 <script>
     AID_SLUG = '{{ aid_slug }}';
+    CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
+<script src="/static/js/alerts/track_alert_button_events.js"></script>
+<script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/links_on_images.js"></script>
 {% endcompress %}
 {% endblock %}
