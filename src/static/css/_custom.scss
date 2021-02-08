@@ -1049,10 +1049,10 @@ div#share-modal {
         @extend .mb-4;
     
         & > div {
-            @extend .d-flex;
-            @extend .flex-column;
-            @extend .justify-content-center;
-            @extend .align-items-center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
     
             & a {
                 @extend .py-2;
@@ -1065,6 +1065,10 @@ div#share-modal {
     
             & a > img:hover{
                 transform: scale(1.2);
+            }
+
+            & p {
+                font-size: $font-size-small;
             }
         }
     }

@@ -2169,8 +2169,8 @@ msgstr "Nouvelle recherche"
 msgid "More filters"
 msgstr "Plus de critères"
 
-msgid "Share"
-msgstr "Partager"
+msgid "Share this aid"
+msgstr "Partager cette aide"
 
 msgid "Create an alert"
 msgstr "Créer une alerte"
