@@ -139,7 +139,7 @@ def test_has_generic_if_search_perimeter_matches(client, perimeters):
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
     assert res.status_code == 200
-    # Searching on matchin perimeter: france.
+    # Searching on matching perimeter: france.
     # We expect to see the generic aid, not it's local version.
     assert generic in res.context['aids']
     assert local not in res.context['aids']
