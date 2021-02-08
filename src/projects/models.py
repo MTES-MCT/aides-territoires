@@ -33,6 +33,13 @@ class Project(models.Model):
         _('Date created'),
         default=timezone.now)
 
+    class Meta:
+        verbose_name = _('Project')
+        verbose_name_plural = _('Projects')
+
+    def __str__(self):
+        return self.name
+
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:
@@ -42,6 +49,3 @@ class Project(models.Model):
         self.set_slug()
         return super().save(*args, **kwargs)
 
-    class Meta:
-        verbose_name = _('Project')
-        verbose_name_plural = _('Projects')

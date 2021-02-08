@@ -2753,3 +2753,6 @@ msgstr "Est-ce un projet suggéré ?"
 
 msgid "If the project is suggested by a user"
 msgstr "Si le projet est suggéré par un utilisateur"
+
+msgid "Full description of the project"
+msgstr "Description complète du projet"
