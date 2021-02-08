@@ -1,13 +1,20 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
 from projects.models import Project
+from categories.fields import CategoryMultipleChoiceField
 
 
 class ProjectForm(forms.ModelForm):
     description = RichTextField(label=_('Description'), required=False)
+
+    categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        required=False,
+        widget=FilteredSelectMultiple(_('Categories'), True))
 
     class Meta:
         model = Project
