@@ -1,16 +1,33 @@
 (function (exports, catalog) {
 
-    exports.showMoreResults = function (event) {
-        event.preventDefault();
+    exports.showMoreResults = function () {
 
-        next_url = $("#search-form").serialize()
-        next_page = $(".next")[0].href
-        last_page = $(".last")[0].href
+        // get form params
+        url = new URL(current_page);
+        searchParams = url.searchParams
 
-        if(next_page !== last_page) {
+        // new value of "page" is set to "next_page_number"
+        page_number = searchParams.get("page")
+
+        if (page_number !== null) {
+            next_page_number = (parseInt(page_number) + 1).toString()
+        } else {
+            page_number = 1
+            next_page_number = (parseInt(page_number) + 1).toString()
+        }
+
+        searchParams.set('page', next_page_number)
+
+        // change the search property of the main url
+        url.search = searchParams.toString();
+
+        // the new url string
+        var new_url = url.toString();
+
+        if(current_page !== last_page) {
             searchXHR = $.ajax({
                 type: "GET",
-                url: next_page,
+                url: new_url,
                 cache: false,
                 beforeSend: function () {
                     $('#show_more_text').addClass('d-none')
@@ -29,6 +46,7 @@
         } else {
             $('#show_more').removeClass('d-none')
         }
+        current_page = new_url
     };
 
 })(this, catalog);
@@ -39,6 +57,10 @@ $(document).ready(function () {
     $('#show_more').removeClass('d-none')
     $('.pagination').addClass('d-none')
     $('#spinner').addClass("d-none");
+
+    // get current_page & last_page url
+    current_page = window.location.href
+    last_page = $(".last")[0].href
 
     // On click on #show_more button display new results on the same page. 
     $("#show_more_btn").on("click", showMoreResults);
