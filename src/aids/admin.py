@@ -206,6 +206,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
             'fields': (
                 'aid_typology',
                 'generic_aid',
+                'local_characteristics',
             )
         }),
 

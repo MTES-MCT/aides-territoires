@@ -82,6 +82,11 @@ class BaseAidForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'placeholder': _(
             'First name / last name, email, phone, comments…'
         )}))
+    local_characteristics = RichTextField(
+        label=_('Local characteristics'),
+        required=False,
+        help_text=_('Characteristics that applies to local aids.'),
+        )
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
