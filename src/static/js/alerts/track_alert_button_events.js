@@ -14,7 +14,7 @@ $(document).ready(function () {
     // Track clicks on alert button above the search form
     var resultsFormAlertButton = $('a#save-alert-btn');
     if (resultsFormAlertButton) {
-        trackResultsAlertButtonClick(resultsFormAlertButton, 'Alerte bouton click (résultats > formulaire)');
+        trackResultsAlertButtonClick(resultsFormAlertButton, 'Alerte bouton click (résultats > cartouche)');
     }
 
     // Track clicks on alert button in the aid results (alert block)
