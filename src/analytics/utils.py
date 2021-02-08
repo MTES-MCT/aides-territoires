@@ -5,6 +5,9 @@ from django.conf import settings
 from django.utils import timezone
 
 
+MATOMO_GET_PAGE_URLS_API_METHOD = 'Actions.getPageUrls'
+MATOMO_GET_PAGE_TITLES_API_METHOD = 'Actions.getPageTitles'
+MATOMO_GET_PAGE_TITLE_API_METHOD = 'Actions.getPageTitle'
 GOAL_KEY = '_analytics_goal'
 
 
@@ -23,7 +26,7 @@ def get_goal(session):
 
 
 @lru_cache()
-def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_string=timezone.now().strftime('%Y-%m-%d'), result_key='nb_hits'):  # noqa
+def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_string=None, result_key='nb_hits'):  # noqa
     """
     Get view stats of a Page Title from Matomo.
     from_date_string & to_date_string must have YYYY-MM-DD format.
@@ -33,12 +36,13 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     get_matomo_stats_from_page_title('Les aides du programme Petites villes de demain', '2018-01-01', to_date_string='2020-12-31')  # noqa
     get_matomo_stats_from_page_title("Les dispositifs d'aides sur l'Arc de l'Innovation", '2018-01-01', to_date_string='2020-12-31')  # returns an error dict when the pageName has an appostrophe... # noqa
     """
-    MATOMO_API_METHOD = 'Actions.getPageTitle'
+    if to_date_string is None:
+        to_date_string = timezone.now().strftime('%Y-%m-%d')
 
     params = {
         'idSite': settings.ANALYTICS_SITEID,
         'module': 'API',
-        'method': MATOMO_API_METHOD,
+        'method': MATOMO_GET_PAGE_TITLE_API_METHOD,
         'pageName': page_title,
         'period': 'range',
         'date': f'{from_date_string},{to_date_string}',
@@ -57,7 +61,8 @@ def get_matomo_stats_from_page_title(page_title, from_date_string, to_date_strin
     return '-'
 
 
-def get_matomo_stats(api_method, custom_segment='', from_date_string='2020-01-01', to_date_string=timezone.now().strftime('%Y-%m-%d')):  # noqa
+@lru_cache()
+def get_matomo_stats(api_method, custom_segment='', from_date_string='2020-01-01', to_date_string=None):  # noqa
     """
     Get stats of all Page Urls from Matomo.
     from_date_string & to_date_string must have YYYY-MM-DD format.
@@ -75,6 +80,8 @@ def get_matomo_stats(api_method, custom_segment='', from_date_string='2020-01-01
     Usage example:
     get_matomo_stats_from_page_title('Actions.getPageUrls', from_date_string='2020-01-01', to_date_string='2020-12-31')  # noqa
     """
+    if to_date_string is None:
+        to_date_string = timezone.now().strftime('%Y-%m-%d')
 
     params = {
         'idSite': settings.ANALYTICS_SITEID,
@@ -90,5 +97,6 @@ def get_matomo_stats(api_method, custom_segment='', from_date_string='2020-01-01
     res = requests.get(settings.ANALYTICS_ENDPOINT, params=params)
     data = res.json()
 
-    # data should be an array
+    # data should be an array if successful
+    # else it will be a dict {'result': 'error', 'message': '...'}
     return data

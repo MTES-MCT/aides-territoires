@@ -212,11 +212,12 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
 
         # top 10 keywords searched
-        top_10_keywords_searched = get_matomo_stats(
+        context['top_10_keywords_searched'] = get_matomo_stats(
             api_method='Actions.getSiteSearchKeywords',
             custom_segment=f'pageUrl=@{self.search_page.slug}.aides-territoires.beta.gouv.fr',  # noqa
             from_date_string=seven_days_ago.strftime('%Y-%m-%d'))
-        context['top_10_keywords_searched'] = sorted(top_10_keywords_searched, key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
+        if type(context['top_10_keywords_searched']) == list:
+            context['top_10_keywords_searched'] = sorted(context['top_10_keywords_searched'], key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
 
         return context
 
