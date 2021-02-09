@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 from django.contrib.postgres.search import TrigramSimilarity
-from django.contrib.postgres.lookups import Unaccent
 
 from geofr.models import Perimeter, remove_accents
 from geofr.api.serializers import PerimeterSerializer
