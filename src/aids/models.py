@@ -645,3 +645,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_live(self):
         """True if the aid must be displayed on the site."""
         return self.is_published() and not self.has_expired()
+
+    def is_local(self):
+        return self.aid_typology == self.LOCAL_TYPOLOGY
