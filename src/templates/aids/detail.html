@@ -270,13 +270,23 @@
             {% endif %}
 
             {% if aid.is_local %}
-            <h4>{{ _('Generic aid') }}</h4>
+            <h4>Aide locale</h4>
 
             {{ aid.local_characteristics|safe }}
 
             <p>
                 {{ _('Also check:')}} <a href="{{ aid.generic_aid.get_absolute_url }}">{{ aid.generic_aid }}</a>
             </p>
+
+            {% endif %}
+
+
+            {% if aid.is_generic %}
+
+            <h4>Aide générique</h4>
+            {% for local_aid in aid.local_aids.all %}
+                <br />{{ local_aid.perimeter }} - {{ local_aid }}
+            {% endfor %}
 
             {% endif %}
 

@@ -665,3 +665,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_local(self):
         return self.aid_typology == self.LOCAL_TYPOLOGY
+
+    def is_generic(self):
+        return self.aid_typology == self.GENERIC_TYPOLOGY
