@@ -1233,13 +1233,18 @@ div#save-alert-block {
     text-align: center;
     display: block;
 
-    & > a {
-        @extend .save-alert-btn;
-        width: 15em;
+    & div {
+        display: flex;
+        justify-content: center;
 
         @include media-breakpoint-up(md) {
-            float: right;
+            justify-content: flex-end;
         }
+    }
+
+    & div > a {
+        @extend .save-alert-btn;
+        width: 15em;
     }
 }
 
