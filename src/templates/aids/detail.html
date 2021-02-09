@@ -259,8 +259,15 @@
             <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
 
-            {% if aid.is_local and aid.local_characteristics %}
+            {% if aid.is_local %}
+            <h4>{{ _('Generic aid') }}</h4>
+
             {{ aid.local_characteristics|safe }}
+
+            <p>
+                {{ _('Also check:')}} <a href="{{ aid.generic_aid.get_absolute_url }}">{{ aid.generic_aid }}</a>
+            </p>
+
             {% endif %}
 
             {% if aid.targeted_audiences %}
