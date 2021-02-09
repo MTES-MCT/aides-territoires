@@ -202,14 +202,6 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
             )
         }),
 
-        (_('Aid typology'), {
-            'fields': (
-                'aid_typology',
-                'generic_aid',
-                'local_characteristics',
-            )
-        }),
-
         (_('Aid description'), {
             'fields': (
                 'is_call_for_project',
@@ -236,8 +228,17 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         (_('Aid admin'), {
             'fields': (
                 'status',
+                'aid_typology',
             )
         }),
+
+        (_('Only for local aids'), {
+            'fields': (
+                'generic_aid',
+                'local_characteristics',
+            )
+        }),
+
 
         (_('Import related data'), {
             'fields': (
