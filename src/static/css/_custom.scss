@@ -809,6 +809,12 @@ article#aid {
                 &.suggest-modification {
                     @include icon(before, $fa-var-pencil-alt);
                 }
+
+                &#share-btn {
+                    @extend .btn;
+                    @extend .btn-primary;
+                    @include icon(before, $fa-var-share);
+                }
             }
         }
     }
@@ -954,7 +960,6 @@ article#aid {
             display: block;
             margin: 3rem auto 0 auto;
         }
-
     }
 
     div.aid-actions {

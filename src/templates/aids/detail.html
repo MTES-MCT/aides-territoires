@@ -290,7 +290,7 @@
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>
-            <a href="#" class="js" data-toggle="modal" data-target="#share-modal">
+            <a id="share-btn" href="#" class="js" data-toggle="modal" data-target="#share-modal">
                 {{ _('Share this aid') }}
             </a>
             {% endblock %}
