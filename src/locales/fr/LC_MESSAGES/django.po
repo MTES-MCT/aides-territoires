@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 04:36+0100\n"
+"POT-Creation-Date: 2021-02-09 06:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,9 +189,6 @@ msgstr "Périmètre de l'aide"
 msgid "Aid calendar"
 msgstr "Calendrier de l'aide"
 
-msgid "Aid typology"
-msgstr "Typologie de l'aide"
-
 msgid "Aid description"
 msgstr "Description de l'aide"
 
@@ -200,6 +197,9 @@ msgstr "Contact et démarches"
 
 msgid "Aid admin"
 msgstr "Administration de l'aide"
+
+msgid "Only for local aids"
+msgstr "Uniquement pour les aides locales"
 
 msgid "Import related data"
 msgstr "Données liées à l'import"
@@ -815,6 +815,9 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
+
+msgid "Aid typology"
+msgstr "Typologie de l'aide"
 
 msgid ""
 "Generic aid can be used when it' coverage is national. If nothing is "
@@ -2331,6 +2334,9 @@ msgstr "Présentation générale"
 
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
+
+msgid "No local characteristics where provided."
+msgstr "Aucune caractéristique locale n'a été définie."
 
 msgid "Aid targeted area"
 msgstr "Zone géographique couverte par l'aide"
