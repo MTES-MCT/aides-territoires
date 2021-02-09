@@ -147,6 +147,20 @@ class BaseAidForm(forms.ModelForm):
                     'subvention_rate',
                     ValidationError(msg, code='missing_upper_bound'))
 
+        is_local_aid = data['aid_typology'] == Aid.LOCAL_TYPOLOGY
+        has_generic_aid = data.get('generic_aid')
+        if is_local_aid and not has_generic_aid:
+            msg = _('A local aid should be associated with a generic aid.')
+            self.add_error(
+                'generic_aid',
+                ValidationError(msg, code='missing_generic_aid'))
+
+        if has_generic_aid and not is_local_aid:
+            msg = _('Only a local aid can be associated with a generic aid.')
+            self.add_error(
+                'generic_aid',
+                ValidationError(msg, code='unexpected_generic_aid'))
+
         return data
 
     def save(self, commit=True):
