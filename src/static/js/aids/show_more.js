@@ -1,9 +1,14 @@
 (function (exports, catalog) {
 
-    exports.showMoreResults = function () {
+    exports.Pagination = function(current_page, last_page) {
+        this.current_page = current_page;
+        this.last_page = last_page;
+    };
+
+    exports.Pagination.prototype.showMoreResults = function () {
 
         // get form params
-        url = new URL(current_page);
+        url = new URL(this.current_page);
         searchParams = url.searchParams
 
         // new value of "page" is set to "next_page_number"
@@ -24,7 +29,7 @@
         // the new url string
         var new_url = url.toString();
 
-        if(current_page !== last_page) {
+        if(this.current_page !== this.last_page) {
             $("#show_more_btn").attr("disabled", true);
             searchXHR = $.ajax({
                 type: "GET",
@@ -48,8 +53,8 @@
         } else {
             $('#show_more').removeClass('d-none')
         }
-        current_page = new_url
-        if(current_page == last_page) {
+        this.current_page = new_url
+        if(this.current_page == this.last_page) {
             $('#show_more').addClass('d-none')
         }
     };
@@ -64,9 +69,8 @@ $(document).ready(function () {
     $('#spinner').addClass("d-none");
 
     // get current_page & last_page url
-    current_page = window.location.href
-    last_page = $(".last")[0].href
+    var pagination = new Pagination(window.location.href, $(".last")[0].href);
 
     // On click on #show_more button display new results on the same page. 
-    $("#show_more_btn").on("click", showMoreResults);
+    $("#show_more_btn").on("click", pagination.showMoreResults.bind(pagination));
 });
