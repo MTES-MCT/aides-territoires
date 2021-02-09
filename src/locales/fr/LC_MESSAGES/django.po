@@ -2163,6 +2163,9 @@ msgstr "Plus de critères"
 msgid "Share this aid"
 msgstr "Partager cette aide"
 
+msgid "Copy the current url to clipboard"
+msgstr "Copier l'url dans le presse-papier"
+
 msgid "Advanced search"
 msgstr "Recherche avancée"
 
