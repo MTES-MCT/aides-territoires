@@ -21,7 +21,7 @@
 {% block content %}
 <section id="stats">
 
-    <div class="stat">
+    <div class="stat  full-width">
         <span class="stat-title">
             {{ _('Available aids') }}<br />
             <small>{% blocktrans trimmed %}
@@ -30,24 +30,6 @@
         </span>
         <div class="stat-body number-stat">
             <span>{{ nb_live_aids }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <span class="stat-title">
-            {{ _('Draft aids') }}<br />
-        </span>
-        <div class="stat-body number-stat">
-            <span>{{ nb_draft_aids }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <span class="stat-title">
-            {{ _('Expired aids') }}<br />
-        </span>
-        <div class="stat-body number-stat">
-            <span>{{ nb_expired_aids }}</span>
         </div>
     </div>
 
