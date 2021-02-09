@@ -64,6 +64,26 @@
     <section class="aid-content">
         <div class="sidebar">
 
+            {% if aid.is_local or aid.is_generic %}
+                {% if aid.is_local %}
+                <div class="card">
+                    <div class="local-generic">
+                    <h3>{{ _('Local aid') }}</h3>
+                    <p>{{ _('This aid is a local variant of a national measure') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if aid.is_generic %}
+                <div class="card">
+                    <div class="local-generic">
+                    <h3>{{ _('National measure') }}</h3>
+                    <p>{{ _('This aid is a national measure declinated locally') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+
             {% if financers or instructors %}
             <div class="card">
 
@@ -196,7 +216,7 @@
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for financer in financers_with_logo %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
@@ -205,7 +225,7 @@
                       </ol>
                     <div class="carousel-inner">
                         {% for financer in financers_with_logo %}
-                        {% if forloop.first %} 
+                        {% if forloop.first %}
                         <div class="carousel-item active">
                         {% else %}
                         <div class="carousel-item">
@@ -224,7 +244,7 @@
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for program in programs %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
@@ -233,7 +253,7 @@
                       </ol>
                     <div class="carousel-inner">
                         {% for program in programs %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <div class="carousel-item active">
                         {% else %}
                         <div class="carousel-item">
@@ -270,16 +290,6 @@
 
             {% endif %}
 
-
-            {% if aid.is_generic %}
-
-            <h4>Aide générique</h4>
-            {% for local_aid in aid.local_aids.all %}
-                <br />{{ local_aid.perimeter }} - {{ local_aid }}
-            {% endfor %}
-
-            {% endif %}
-
             {% if aid.targeted_audiences %}
             <h3>{{ _('Targeted audiences') }}</h3>
             <p>{% choices_display aid 'targeted_audiences' %}</p>
@@ -310,6 +320,17 @@
             <h3>{{ _('Other eligibility criterias') }}</h3>
             {{ aid.eligibility|safe }}
             {% endif %}
+            {% endif %}
+
+            {% if aid.is_generic %}
+            <h2>{{ _('Local variants') }}</h2>
+            <p>{{  _("For more details find your local aid :") }}</p>
+            <ul>
+                {% for local_aid in aid.local_aids.all %}
+                    <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
+                {% endfor %}
+            </ul>
+            <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
             {% endif %}
 
             <div id="going-further">

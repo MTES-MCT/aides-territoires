@@ -2814,3 +2814,24 @@ msgstr "Si le projet est suggéré par un utilisateur"
 
 msgid "Full description of the project"
 msgstr "Description complète du projet"
+
+msgid "Local aid"
+msgstr "Aide locale"
+
+msgid "National measure"
+msgstr "Dispositif national"
+
+msgid "This aid is a local variant of a national measure"
+msgstr "Cette aide est une déclinaison local d'un dispositif national"
+
+msgid "This aid is a national measure declinated locally"
+msgstr "Cette aide est un dispositif national décliné en local"
+
+msgid "Local variants"
+msgstr "Déclinaisons locales"
+
+msgid "For more details find your local aid :"
+msgstr "Pour plus de précisions retrouvez votre fiche locale :"
+
+msgid "If you don't find your local aid refer to the national measure."
+msgstr "Si vous ne trouvez pas l'aide locale qui vous correspond référez vous au dispositif national"

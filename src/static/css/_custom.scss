@@ -871,6 +871,10 @@ article#aid {
             margin-left: -3rem;
         }
 
+        & > div.local-generic {
+            @include icon(before, $fa-var-map-marker-alt, 1.5rem);
+            }
+
         & > div.financers {
             @include icon(before, $fa-var-handshake, 1.5rem);
         }
