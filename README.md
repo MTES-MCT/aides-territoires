@@ -51,6 +51,11 @@ Pour les faire tourner, il conviendra donc d'en télécharger
 [la dernière version](https://github.com/mozilla/geckodriver/releases) pour
 l'intégrer dans son `$PATH`.
 
+GeckoDriver s'attend à trouver firefox installé.
+
+    # Firefox on debian
+    apt-get update
+    apt-get purge firefox-esr
 
 ## Définition du fini
 

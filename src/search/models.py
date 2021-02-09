@@ -1,6 +1,7 @@
 from os.path import splitext
 
 from django.db import models
+from django.db.models import Count
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
@@ -8,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
 from aids.constants import AUDIENCES
+from aids.models import Aid
 
 
 def logo_upload_to(instance, filename):
@@ -167,7 +169,7 @@ class SearchPage(models.Model):
     def get_absolute_url(self):
         return reverse('search_page', args=[self.slug])
 
-    def get_base_queryset(self):
+    def get_base_queryset(self, all_aids=False):
         """Return the list of aids based on the initial search querysting."""
 
         from aids.forms import AidSearchForm
@@ -177,5 +179,14 @@ class SearchPage(models.Model):
         querystring = self.search_querystring.strip('?')
         data = QueryDict(querystring)
         form = AidSearchForm(data)
-        qs = form.filter_queryset().distinct()
+        if all_aids:
+            qs = form.filter_queryset(Aid.objects.all()).distinct()
+        else:
+            qs = form.filter_queryset().distinct()
         return qs
+
+    def get_aids_per_status(self):
+        all_aids_per_status = self.get_base_queryset(all_aids=True) \
+                                  .values('status') \
+                                  .annotate(count=Count('id', distinct=True))
+        return {s['status']: s['count'] for s in list(all_aids_per_status)}

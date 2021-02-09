@@ -1,3 +1,6 @@
+import operator
+from itertools import groupby
+
 from django import forms
 from django.contrib import admin
 from django.urls import reverse
@@ -12,6 +15,8 @@ from import_export.formats import base_formats
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 from backers.models import BackerGroup, Backer
+from categories.models import Category
+from programs.models import Program
 
 
 class BackerGroupAdmin(admin.ModelAdmin):
@@ -87,7 +92,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['date_created', 'display_related_aids']
+    readonly_fields = ['date_created', 'display_related_aids',
+                       'display_related_themes', 'display_related_programs']
 
     fieldsets = [
         ('', {
@@ -99,7 +105,10 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
                 'external_link',
                 'is_corporate',
                 'is_spotlighted',
-                'date_created'
+                'date_created',
+                'display_related_aids',
+                'display_related_themes',
+                'display_related_programs'
             )
         }),
         (_('SEO'), {
@@ -145,6 +154,49 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
         related_aid_html += format_html('</ul>')
         return related_aid_html
     display_related_aids.short_description = _('Related aids')
+
+    def display_related_themes(self, obj):
+        """Display the related themes."""
+
+        categories = Category.objects \
+            .select_related('theme') \
+            .order_by('theme__name', 'name') \
+            .filter(Q(aids__financers=obj) | Q(aids__instructors=obj)) \
+            .values_list('theme__name', 'name') \
+            .distinct()
+
+        themes = groupby(categories, operator.itemgetter(0))
+
+        related_themes_html = format_html('<ul>')
+        for theme, theme_categories in themes:
+            related_themes_html += format_html(
+                '<li><strong>{theme} > </strong>',
+                theme=theme)
+            for k, theme_category in theme_categories:
+                related_themes_html += format_html(
+                    '{category}. ',
+                    category=theme_category)
+            related_themes_html += format_html('<li>')
+        related_themes_html += format_html('</ul>')
+        return related_themes_html
+    display_related_themes.short_description = _('Related themes')
+
+    def display_related_programs(self, obj):
+        """Display the related programs."""
+
+        programs = Program.objects \
+            .filter(aids__in=obj.financed_aids.all()) \
+            .distinct()
+
+        related_programs_html = format_html('<ul>')
+        for program in programs:
+            related_programs_html += format_html(
+                '<li><strong>{program_name}</strong></li>',
+                program_name=program.name
+            )
+        related_programs_html += format_html('</ul>')
+        return related_programs_html
+    display_related_programs.short_description = _('Related programs')
 
     class Media:
         css = {

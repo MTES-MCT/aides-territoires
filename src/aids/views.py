@@ -254,7 +254,10 @@ class AidDetailView(DetailView):
 
         context['aid_slug'] = self.object.slug
 
-        context['programs'] = self.object.programs.all()
+        context['programs'] = self.object.programs \
+            .exclude(logo__isnull=True) \
+            .exclude(logo='') \
+            .distinct()
 
         financers = self.object.financers.all()
         # We don't want to display instructors if they are the same as the
@@ -265,11 +268,18 @@ class AidDetailView(DetailView):
             'instructors': instructors,
         })
 
+        context['financers_with_logo'] = financers \
+            .exclude(logo__isnull=True) \
+            .exclude(logo='') \
+            .distinct()
+
         context['eligibility_criteria'] = any((
             self.object.mobilization_steps,
             self.object.destinations,
             self.object.project_examples,
             self.object.eligibility))
+
+        context['alert_form'] = AlertForm(label_suffix='')
 
         return context
 

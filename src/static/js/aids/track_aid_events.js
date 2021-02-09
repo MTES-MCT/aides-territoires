@@ -9,7 +9,7 @@
     exports.enableCTA = function(div, btnLabel, aid_slug) {
         div.addClass('collapse');
 
-        var revealBtn = $('<button type="button" class="cta-btn"></button>');
+        var revealBtn = $('<button type="button" class="cta-btn d-inline-block"></button>');
         revealBtn.html(btnLabel);
         revealBtn.insertBefore(div);
 

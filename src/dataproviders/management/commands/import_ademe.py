@@ -24,8 +24,8 @@ AUDIENCES_DICT = {
         Aid.AUDIENCES.region,
         Aid.AUDIENCES.epci,
     ],
-    'Particuliers et Eco-citoyens': Aid.AUDIENCES.private_person,
-    'Association': Aid.AUDIENCES.association,
+    'Particuliers et Eco-citoyens': [Aid.AUDIENCES.private_person],
+    'Association': [Aid.AUDIENCES.association],
     'Tout Public': [
         Aid.AUDIENCES.commune,
         Aid.AUDIENCES.department,
