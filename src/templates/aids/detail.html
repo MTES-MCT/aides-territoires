@@ -4,10 +4,6 @@
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
-{% block modals %}
-    {% include 'aids/_share_modal.html' %}
-{% endblock %}
-
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -342,6 +338,7 @@
 {% endblock %}
 
 {% block modals %}
+    {% include 'aids/_share_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
 {% endblock %}
 
