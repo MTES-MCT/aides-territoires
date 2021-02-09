@@ -269,10 +269,8 @@
             <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
 
-            {% if aid.local_characteristics %}
+            {% if aid.is_local and aid.local_characteristics %}
             {{ aid.local_characteristics|safe }}
-            {% else %}
-            <p> {{ _('No local characteristics where provided.') }} </p>
             {% endif %}
 
             {% if aid.targeted_audiences %}

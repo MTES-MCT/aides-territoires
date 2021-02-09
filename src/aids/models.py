@@ -662,3 +662,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def get_live_status_display(self):
         status = _('Displayed') if self.is_live() else _('Not displayed')
         return status
+
+    def is_local(self):
+        return self.aid_typology == self.LOCAL_TYPOLOGY
