@@ -134,11 +134,11 @@
                             font-family: $font-family-base;
                             font-size: 4rem;
                             font-weight: 200;
-                        
+
                             @include media-breakpoint-up(sm) {
                                 font-size: 6rem;
                             }
-                        }      
+                        }
                     }
 
                     p {
@@ -512,7 +512,7 @@ section#program-list {
                 li {
                     display: inline;
                 }
-        
+
                 li + li::before {
                     content: " | ";
                 }
@@ -634,6 +634,15 @@ section#aid-edit {
 
     form.main-form {
         @extend .col-md-8;
+
+        div.inline-error {
+            margin-top: .5rem;
+        }
+
+        div.errornote {
+            @extend .alert;
+            @extend .alert-danger;
+        }
 
         button[value='review'] {
             @include icon(before, $fa-var-paper-plane);
@@ -1450,7 +1459,7 @@ ul.backer-categories {
         li + li:before {
             content: " + ";
         }
-    } 
+    }
 }
 
 ul.aid-categories {

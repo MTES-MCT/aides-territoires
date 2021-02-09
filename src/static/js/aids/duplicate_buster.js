@@ -1,24 +1,49 @@
-(function ($) {
+(function (exports, $) {
     'use strict';
 
     const MAX_RESULTS = 5;  // Don't display more duplicate
-
     const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True';
 
-    // Create a div to hold the error message
-    var topErrorDiv = $('<div class="inline-error"></div>');
-    var inlineErrorDiv = $('<div class="inline-error"></div>');
+    // Create divs to hold the error message
+    const topErrorDiv = $('<div class="inline-error"></div>');
+    const inlineErrorDiv = $('<div class="inline-error"></div>');
+
+    var aidForm, nameField, slugField, originUrlField;
+
+    var DuplicateBuster = function(form) {
+        aidForm = form;
+        nameField = $('#id_name');
+        slugField = $('#id_slug');
+        originUrlField = $('#id_origin_url');
+    };
+    exports.DuplicateBuster = DuplicateBuster;
+
+    DuplicateBuster.prototype.init = function() {
+        initializeErrorDom();
+        aidForm.on('change', warnForDuplicates);
+
+        // Check duplicate when the form is first displayed
+        warnForDuplicates();
+    };
 
     // Insert the message holding div into the dom
     var initializeErrorDom = function() {
-        topErrorDiv.insertAfter('textarea#id_name');
-        inlineErrorDiv.insertAfter('input#id_origin_url');
+        topErrorDiv.insertAfter(nameField);
+        inlineErrorDiv.insertAfter(originUrlField);
     };
 
     // Generate a link to a single duplicate aid
     var formatSingleDuplicate = function(data) {
+        var url;
+        var currentPath = $(location).attr('pathname');
+
+        if (currentPath.startsWith('/admin/')) {
+            url = '/admin/aids/aid/' + data['id'] + '/change/';
+        } else {
+            url = '/aides/' + data['slug'] + '/';
+        }
+
         var a = $('<a/>');
-        var url = '/admin/aids/aid/' + data['id'] + '/change/';
         a.attr('href', url);
         a.html(data['name']);
 
@@ -31,10 +56,10 @@
      * Create a warning message with links to the related aids.
      */
     var displayWarningMessage = function(apiData) {
-        var messageDiv = $('<div class="errornote" />');
+        var messageDiv = $('<div class="errornote duplicate-error" />');
         var messageP = $('<p>Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
 
-        var currentSlug = $('#id_slug').val();
+        var currentSlug = slugField.val();
         var count = apiData['count'];
         var maxResults = Math.min(count, MAX_RESULTS);
         var duplicates = apiData['results']
@@ -58,7 +83,7 @@
      * Note : if we don't have enough data, just return null.
      */
     var buildSearchForDuplicateQuery = function() {
-        var origin_url = $('#id_origin_url').val();
+        var origin_url = originUrlField.val();
 
         var query;
         if (origin_url) {
@@ -89,7 +114,7 @@
     var hideOrShowMessage = function(duplicates) {
         var count = duplicates['count'];
         var results = duplicates['results'];
-        var currentSlug = $('#id_slug').val();
+        var currentSlug = slugField.val();
 
         // Be careful as to not count the current aid as a duplicate of itself
         if (count == 0 || count == 1 && results[0]['slug'] == currentSlug) {
@@ -110,13 +135,12 @@
         duplicates.then(hideOrShowMessage);
     };
 
+}(this, $ || django.jQuery));
+
+(function($) {
     $(document).ready(function () {
-        var aidEditForm = $('form#aid_form');
-
-        initializeErrorDom();
-        aidEditForm.on('change', warnForDuplicates);
-
-        // Check duplicate when the form is first displayed
-        warnForDuplicates();
+        var aidForm = $('#aid_form') || $('#aid-edit-form');
+        var buster = new DuplicateBuster(aidForm);
+        buster.init();
     });
-}($ || django.jQuery));
+})($ || django.jQuery);
