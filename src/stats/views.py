@@ -15,8 +15,8 @@ class StatsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        aids_qs = Aid.objects.published().open()
-        context['nb_active_aids'] = aids_qs.count()
+        aids_qs = Aid.objects.live()
+        context['nb_live_aids'] = aids_qs.count()
 
         one_week_ago = timezone.now() - timedelta(days=8)
         viewed_aids_qs = Event.objects.filter(category='aid', event='viewed') \

@@ -382,6 +382,9 @@ msgstr "Appel à projet / Manifestation d'intérêt"
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
+msgid "Aid URL"
+msgstr "URL de l'aide"
+
 msgid "Aid backer(s)"
 msgstr "Porteur·s de l'aide"
 
@@ -2333,6 +2336,12 @@ msgstr "Modifiée le"
 msgid "Hits"
 msgstr "Vues"
 
+msgid "Search count"
+msgstr "Recherches"
+
+msgid "Rank"
+msgstr "Ordre"
+
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
 
@@ -2605,21 +2614,6 @@ msgstr ""
 msgid "Reset filters"
 msgstr "Réinitialiser"
 
-msgid "Total number of views"
-msgstr "Nombre de vues total"
-
-msgid "Number of views within the last 30 days"
-msgstr "Nombre de vues pendant les 30 derniers jours"
-
-msgid "Number of views within the last 7 days"
-msgstr "Nombre de vues pendant les 7 derniers jours"
-
-msgid "Aids viewed within the last 30 days"
-msgstr "Nombre d'aides vues pendant les 30 derniers jours"
-
-msgid "Aids viewed within the last 7 days"
-msgstr "Nombre d'aides vues pendant les 7 derniers jours"
-
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
 
@@ -2683,6 +2677,27 @@ msgstr "E-mails d'alertes « nouvelles aides »"
 msgid "Viewed aids"
 msgstr "Aides vues"
 
+msgid "Top viewed aids"
+msgstr "Aides les plus vues"
+
+msgid "Aids viewed within the last 30 days"
+msgstr "Nombre d'aides vues pendant les 30 derniers jours"
+
+msgid "Aids viewed within the last 7 days"
+msgstr "Nombre d'aides vues pendant les 7 derniers jours"
+
+msgid "Total number of views"
+msgstr "Nombre de vues total"
+
+msgid "Since the launch of the page on"
+msgstr "Depuis le lancement de le page le"
+
+msgid "Number of views within the last 30 days"
+msgstr "Nombre de vues pendant les 30 derniers jours"
+
+msgid "Number of views within the last 7 days"
+msgstr "Nombre de vues pendant les 7 derniers jours"
+
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
 
@@ -2691,6 +2706,12 @@ msgstr "Tous les mots clés"
 
 msgid "All known tags"
 msgstr "Tous les mots clés"
+
+msgid "Keyword"
+msgstr "Mot clé"
+
+msgid "Top keywords searched"
+msgstr "Mots clés les plus recherchés"
 
 msgid ""
 "A tag is a label associated with one or several aids. Using tags is a great "
