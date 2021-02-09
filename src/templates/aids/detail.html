@@ -69,7 +69,9 @@
                 <div class="card">
                     <div class="local-generic">
                     <h3>{{ _('Local aid') }}</h3>
-                    <p>{{ _('This aid is a local variant of a national measure') }}</p>
+                    <p>
+                        {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                    </p>
                     </div>
                 </div>
                 {% endif %}
@@ -78,7 +80,9 @@
                 <div class="card">
                     <div class="local-generic">
                     <h3>{{ _('National measure') }}</h3>
-                    <p>{{ _('This aid is a national measure declinated locally') }}</p>
+                    <p>
+                        {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                    </p>
                     </div>
                 </div>
                 {% endif %}
@@ -323,7 +327,7 @@
             {% endif %}
 
             {% if aid.is_generic %}
-            <h2>{{ _('Local variants') }}</h2>
+            <h2 id="aides-locales">{{ _('Local variants') }}</h2>
             <p>{{  _("For more details find your local aid :") }}</p>
             <ul>
                 {% for local_aid in aid.local_aids.all %}
