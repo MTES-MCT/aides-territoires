@@ -49,12 +49,10 @@ urlpatterns = [
     path(_('programs/<slug:slug>/'), SiteProgram.as_view(),
          name='program_detail'),
 
-    path(
-        '<int:pk>/', SiteBackers.as_view(),
-        name='backer_detail_view'),
-    path(
-        '<int:pk>-<str>/', SiteBackers.as_view(),
-        name='backer_detail_view'),
+    path(_('backers/<int:pk>/'), SiteBackers.as_view(),
+         name='backer_detail_view'),
+    path(_('backers/<int:pk>-<str>/'), SiteBackers.as_view(),
+         name='backer_detail_view'),
 
     path(_('legal-mentions/'), SiteLegalMentions.as_view(),
          name='legal_mentions'),

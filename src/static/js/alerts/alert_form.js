@@ -21,6 +21,14 @@
      */
     exports.appendQuerystringToForm = function (event) {
         var querystring = searchForm.serialize();
+        // if in aid detail, searchForm is empty. Use CURRENT_SEARCH instead
+        if (!querystring && (typeof CURRENT_SEARCH !== "undefined")) {
+            // var querystring = CURRENT_SEARCH.split("&")
+            //                                 .filter(e => /^(?!.*(order_by|action)).*$/i.test(e))
+            //                                 .join("&");
+            var EMPTY_SEARCH = "integration=&text=&apply_before=&&order_by=";
+            var querystring = CURRENT_SEARCH || EMPTY_SEARCH;
+        }
         var input = $('<input />');
         input.attr('type', 'hidden');
         input.attr('name', 'querystring');
@@ -35,10 +43,9 @@
     exports.prefillAlertNameField = function (event) {
         var nameSuggestion;
 
-        var query = queryField.val();
+        var query = queryField.val() || '';
         var perimeter = perimeterField.children('option:selected').text();
         var perimeterName = perimeter.split(' (')[0];
-
 
         if (query !== '' && perimeterName !== '') {
             nameSuggestion = perimeterName + ' — ' + query;

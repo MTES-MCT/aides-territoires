@@ -121,7 +121,7 @@ class BaseImportCommand(BaseCommand):
         form_fields = AidEditForm.Meta.fields
         more_fields = [
             'author_id', 'is_imported', 'import_uniqueid', 'import_data_url',
-            'import_share_licence', 'import_last_access'
+            'import_share_licence', 'import_last_access', 'date_published'
         ]
         fields = form_fields + more_fields
 

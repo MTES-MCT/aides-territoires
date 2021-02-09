@@ -9,6 +9,7 @@ from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from aids.models import Aid
 
+ADDNA = "Aides pour le Développement Durable en Nouvelle-Aquitaine"
 
 ADMIN_ID = 1
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
@@ -38,7 +39,7 @@ PERIMETERS_DICT = {
 
 class Command(BaseImportCommand):
     """
-    Import data from the Nouvelle-Aquitaine data file (xml).
+    Import data from the Nouvelle-Aquitaine ADDNA data file (xml).
     The file is a one-time export so this script will probably be run only once.
     Fields not extracted:
     - 'tags': too many values

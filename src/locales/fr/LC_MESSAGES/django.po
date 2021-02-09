@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 11:05+0100\n"
+"POT-Creation-Date: 2021-02-06 14:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,45 +174,8 @@ msgstr "Actuellement affichées"
 msgid "Author"
 msgstr "Auteur"
 
-msgid "Backer"
-msgstr "Porteur d'aides"
-
 msgid "Backers"
 msgstr "Porteur·s d'aides"
-
-msgid "Backer Group"
-msgstr "Groupe de porteurs"
-
-msgid "Backer Groups"
-msgstr "Groupes de porteurs"
-
-msgid "Number of backers"
-msgstr "Nombre de porteurs"
-
-msgid "Is a corporate backer?"
-msgstr "Porteur d'aides privé ?"
-
-msgid "Is a spotlighted backer?"
-msgstr "Le porteur est-il mis en avant ?"
-
-msgid "If the backer is spotlighted, its logo appears in the HomePage"	
-msgstr ""	
-"Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
-
-msgid "Logo image"	
-msgstr "Logo du porteur"
-
-msgid "Make sure the file is not too heavy. Prefer svg files."	
-msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
-
-msgid "External link"	
-msgstr "Lien externe"
-
-msgid "The url for the backer's website"	
-msgstr "L'url externe vers laquelle renvoie un clic sur le logo du porteur"
-
-msgid "Full description of the backer"	
-msgstr "Description complète du porteur d'aides"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -292,33 +255,6 @@ msgstr "Thème et catégorie, séparés par « | »."
 msgid "E.g: \"Nature / environnement|Qualité de l'air\""
 msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
 
-msgid "Grant"
-msgstr "Subvention"
-
-msgid "Loan"
-msgstr "Prêt"
-
-msgid "Recoverable advance"
-msgstr "Avance récupérable"
-
-msgid "Other"
-msgstr "Autre"
-
-msgid "Technical"
-msgstr "Technique"
-
-msgid "Financial"
-msgstr "Financière"
-
-msgid "Legal"
-msgstr "Juridique / administrative"
-
-msgid "Financial aids"
-msgstr "Aides financières"
-
-msgid "Technical and methodological aids"
-msgstr "Aides en ingénierie"
-
 msgid "Communes"
 msgstr "Communes"
 
@@ -359,6 +295,33 @@ msgstr "Collectivités"
 
 msgid "Other audiences"
 msgstr "Autres bénéficiaires"
+
+msgid "Grant"
+msgstr "Subvention"
+
+msgid "Loan"
+msgstr "Prêt"
+
+msgid "Recoverable advance"
+msgstr "Avance récupérable"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Technical"
+msgstr "Technique"
+
+msgid "Financial"
+msgstr "Financière"
+
+msgid "Legal"
+msgstr "Juridique / administrative"
+
+msgid "Financial aids"
+msgstr "Aides financières"
+
+msgid "Technical and methodological aids"
+msgstr "Aides en ingénierie"
 
 msgid "Yes"
 msgstr "Oui"
@@ -419,6 +382,9 @@ msgstr "Appel à projet / Manifestation d'intérêt"
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
+msgid "Aid URL"
+msgstr "URL de l'aide"
+
 msgid "Aid backer(s)"
 msgstr "Porteur·s de l'aide"
 
@@ -468,8 +434,8 @@ msgid ""
 "This backer was suggested. Add it to the global list then add it to this aid "
 "with the field above."
 msgstr ""
-"Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant "
-"que porteur d'aides via le champ approprié."
+"Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que "
+"porteur d'aides via le champ approprié."
 
 msgid "Instructor suggestion"
 msgstr "Instructeurs suggérés"
@@ -973,11 +939,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The new aid was sucessfully created. You can keep editing it. "
-"And find the duplicated aid in <a href=\"%(url)s\">your portfolio</a>."
+"The new aid was sucessfully created. You can keep editing it. And find the "
+"duplicated aid in <a href=\"%(url)s\">your portfolio</a>."
 msgstr ""
-"La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. "
-"Et retrouvez l'aide dupliquée sur <a href=\"%(url)s\">votre portefeuille d'aides</a>."
+"La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. Et retrouvez "
+"l'aide dupliquée sur <a href=\"%(url)s\">votre portefeuille d'aides</a>."
 
 msgid "The aid was sucessfully updated. You can keep editing it."
 msgstr "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
@@ -1109,8 +1075,17 @@ msgstr "Vous venez de confirmer la création de l'alerte."
 msgid "The alert was deleted."
 msgstr "Votre alerte vient d'être supprimée."
 
+msgid "Number of backers"
+msgstr "Nombre de porteurs"
+
+msgid "Logo image"
+msgstr "Logo du porteur"
+
 msgid "Description"
 msgstr "Description"
+
+msgid "SEO"
+msgstr "SEO"
 
 msgid "Financed aids"
 msgstr "Aides financées"
@@ -1120,6 +1095,59 @@ msgstr "Aides instruites"
 
 msgid "Related aids"
 msgstr "Aides associées"
+
+msgid "Related themes"
+msgstr "Thématiques associées"
+
+msgid "Related programs"
+msgstr "Programmes associés"
+
+msgid "Backer Group"
+msgstr "Groupe de porteurs"
+
+msgid "Backer Groups"
+msgstr "Groupes de porteurs"
+
+msgid "Full description of the backer"
+msgstr "Description complète du porteur d'aides"
+
+msgid "Make sure the file is not too heavy. Prefer svg files."
+msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
+
+msgid "External link"
+msgstr "Lien externe"
+
+msgid "The url for the backer's website"
+msgstr "L'url externe vers laquelle renvoie un clic sur le logo du porteur"
+
+msgid "Is a corporate backer?"
+msgstr "Porteur d'aides privé ?"
+
+msgid "Is a spotlighted backer?"
+msgstr "Le porteur est-il mis en avant ?"
+
+msgid "If the backer is spotlighted, its logo appears in the HomePage"
+msgstr ""
+"Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
+
+msgid "Meta title"
+msgstr "Titre (balise meta)"
+
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the backer's name."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le nom du porteur d'aides."
+
+msgid "Meta description"
+msgstr "Description (balise meta)"
+
+msgid "This will be displayed in SERPs. Keep it under 120 characters."
+msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
+
+msgid "Backer"
+msgstr "Porteur d'aides"
 
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
@@ -1236,10 +1264,11 @@ msgstr "mots-clés/"
 msgid "data/"
 msgstr "data/"
 
-#, fuzzy
-#| msgid "Upload"
 msgid "upload/"
-msgstr "Uploader"
+msgstr "upload/"
+
+msgid "Emails"
+msgstr "Courriels"
 
 msgid "data export"
 msgstr "export de données"
@@ -1387,17 +1416,17 @@ msgstr "<slug:token>/validation/"
 msgid "programs/<slug:slug>/"
 msgstr "programmes/<slug:slug>/"
 
+msgid "backers/<int:pk>/"
+msgstr "partenaires/<int:pk>/"
+
+msgid "backers/<int:pk>-<str>/"
+msgstr "partenaires/<int:pk>-<str>/"
+
 msgid "Content"
 msgstr "Contenu"
 
 msgid "WARNING! DON'T CHANGE url of pages in the main menu."
 msgstr "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
-
-msgid "SEO"
-msgstr "SEO"
-
-msgid "Meta title"
-msgstr "Titre (balise meta)"
 
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
@@ -1406,18 +1435,8 @@ msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de la page."
 
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the backer's name."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le nom du porteur d'aides."
-
-msgid "Meta description"
-msgstr "Description (balise meta)"
-
-msgid "This will be displayed in SERPs. Keep it under 120 characters."
-msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
+msgid "Logo"
+msgstr "Logo"
 
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
@@ -1484,12 +1503,6 @@ msgstr ""
 "Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page "
 "existante. DOIT être en minuscule pour les sites partenaires."
 
-msgid "Meta image"
-msgstr "Image (meta)"
-
-msgid "Make sure the file is at least 1024px long."
-msgstr "Vérifiez que l'image a une largeur minimale de 1024px"
-
 msgid "Additional page content"
 msgstr "Contenu additionnel"
 
@@ -1498,6 +1511,12 @@ msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Meta image"
+msgstr "Image (meta)"
+
+msgid "Make sure the file is at least 1024px long."
+msgstr "Vérifiez que l'image a une largeur minimale de 1024px"
 
 msgid "Color 1"
 msgstr "Couleur 1"
@@ -1759,11 +1778,11 @@ msgid "Fill out the required data"
 msgstr "Remplir les données requises"
 
 msgid ""
-"You have a contributor account. Fill in the form below to update "
-"your profile."
+"You have a contributor account. Fill in the form below to update your "
+"profile."
 msgstr ""
-"Vous bénéficiez d’un compte contributeur. "
-"Vous pouvez mettre à jour vos informations ci-dessous."
+"Vous bénéficiez d’un compte contributeur. Vous pouvez mettre à jour vos "
+"informations ci-dessous."
 
 msgid "We will use this data to help validate the aids your contribute."
 msgstr ""
@@ -1883,6 +1902,14 @@ msgstr ""
 "Si vous souhaitez bénéficier des aides financières et en ingénierie des "
 "porteurs, <a href=\"%(search_url)s\">utilisez notre recherche</a>."
 
+#, python-format
+msgid ""
+"Do you already have an account? <a href=\"%(login_url)s\">Proceed to the "
+"login form.</a>"
+msgstr ""
+"Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous sur "
+"la page de connexion.</a>"
+
 msgid "Personal data"
 msgstr "Informations personnelles"
 
@@ -1901,14 +1928,6 @@ msgstr ""
 
 msgid "Create an account"
 msgstr "Créer un nouveau compte"
-
-#, python-format
-msgid ""
-"Do you already have an account? <a href=\"%(login_url)s\">Proceed to the "
-"login form.</a>"
-msgstr ""
-"Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous sur "
-"la page de connexion.</a>"
 
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
@@ -2099,37 +2118,6 @@ msgstr "<span class=\"result-count\">%(nb_aids)s résultats</span>"
 msgid "For:"
 msgstr "Pour :"
 
-msgid "Share current search results"
-msgstr "Partager les résultats courants"
-
-msgid "Bookmark this search"
-msgstr "Sauvegarder cette recherche"
-
-msgid "To save your current search filters, just bookmark the current url."
-msgstr ""
-"Pour sauvegarder vos critères de recherche actuels, il vous suffit de "
-"sauvegarder l'url courante."
-
-msgid ""
-"On most web browser, you can just type Ctrl+D or Cmd+D, or click on the star "
-"icon \"<i class=\"fa fa-star\"></i>\" in you url bar."
-msgstr ""
-"Sur la plupart des navigateurs, vous pouvez taper Ctrl+D / Cmd+D, ou cliquer "
-"sur l'icone en forme d'étoile « <i class=\"fa fa-star\"></i> » dans votre "
-"barre d'adresse."
-
-msgid "Copy to clipboard "
-msgstr "Copier dans le presse-papier"
-
-msgid ""
-"Use the following button to copy the current search url to your clipboard."
-msgstr ""
-"Utilisez le bouton suivant pour copier l'adresse de la recherche actuelle "
-"dans le presse-papier."
-
-msgid "Copy the current url to clipboard"
-msgstr "Copier l'url actuelle dans le presse-papier"
-
 msgid "Save this aid"
 msgstr "Sauvegarder cette aide"
 
@@ -2157,6 +2145,9 @@ msgstr "Prévisualisation de l'aide"
 msgid "Close"
 msgstr "Fermer"
 
+msgid "Create an alert"
+msgstr "Créer une alerte"
+
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
@@ -2171,9 +2162,6 @@ msgstr "Plus de critères"
 
 msgid "Share this aid"
 msgstr "Partager cette aide"
-
-msgid "Create an alert"
-msgstr "Créer une alerte"
 
 msgid "Advanced search"
 msgstr "Recherche avancée"
@@ -2306,12 +2294,6 @@ msgstr "Dernière mise à jour"
 msgid "Global presentation"
 msgstr "Présentation générale"
 
-msgid "Related themes"
-msgstr "Thématiques associées"
-
-msgid "Related programs"
-msgstr "Programmes associés"
-
 msgid "No detailed description was submitted."
 msgstr "Aucune description détaillée n'a été renseignée."
 
@@ -2356,6 +2338,12 @@ msgstr "Modifiée le"
 
 msgid "Hits"
 msgstr "Vues"
+
+msgid "Search count"
+msgstr "Recherches"
+
+msgid "Rank"
+msgstr "Ordre"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
@@ -2692,6 +2680,9 @@ msgstr "E-mails d'alertes « nouvelles aides »"
 msgid "Viewed aids"
 msgstr "Aides vues"
 
+msgid "Top viewed aids"
+msgstr "Aides les plus vues"
+
 msgid "Aids viewed within the last 30 days"
 msgstr "Nombre d'aides vues pendant les 30 derniers jours"
 
@@ -2700,6 +2691,9 @@ msgstr "Nombre d'aides vues pendant les 7 derniers jours"
 
 msgid "Total number of views"
 msgstr "Nombre de vues total"
+
+msgid "Since the launch of the page on"
+msgstr "Depuis le lancement de le page le"
 
 msgid "Number of views within the last 30 days"
 msgstr "Nombre de vues pendant les 30 derniers jours"
@@ -2715,6 +2709,12 @@ msgstr "Tous les mots clés"
 
 msgid "All known tags"
 msgstr "Tous les mots clés"
+
+msgid "Keyword"
+msgstr "Mot clé"
+
+msgid "Top keywords searched"
+msgstr "Mots clés les plus recherchés"
 
 msgid ""
 "A tag is a label associated with one or several aids. Using tags is a great "
@@ -2741,3 +2741,21 @@ msgstr "Uploader les images"
 
 msgid "Send this aid by email"
 msgstr "Envoyer cette aide par email"
+
+msgid "Project"
+msgstr "Projet"
+
+msgid "Projects"
+msgstr "Projets"
+
+msgid "is_suggested"
+msgstr "est suggeré"
+
+msgid "Is a suggested project?"
+msgstr "Est-ce un projet suggéré ?"
+
+msgid "If the project is suggested by a user"
+msgstr "Si le projet est suggéré par un utilisateur"
+
+msgid "Full description of the project"
+msgstr "Description complète du projet"
