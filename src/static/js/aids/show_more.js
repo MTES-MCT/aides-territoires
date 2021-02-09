@@ -51,7 +51,7 @@
                 }
             })
         } else {
-            $('#show_more').removeClass('d-none')
+            $('#show_more').addClass('d-none')
         }
         this.current_page = new_url
         if(this.current_page == this.last_page) {
