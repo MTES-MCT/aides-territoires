@@ -1,3 +1,5 @@
+import unicodedata
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -5,6 +7,15 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 
 from model_utils import Choices
+
+
+def remove_accents(input_str):
+    """Remove accents from a string.
+
+    Shamelessly stolen from SO.
+    """
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 class Perimeter(models.Model):
@@ -95,6 +106,17 @@ class Perimeter(models.Model):
         verbose_name=_('Is overseas?'),
         null=True)
 
+    # This field is used to store the name without accent, for indexing.
+    # We recently updated the perimeter search to ignore accents, and at first
+    # we were using postgres' unaccent extension.
+    # We ran into an issue where the trigram index was not being used anymore
+    # bumping the querytime from a few ms to more than 300ms.
+    # Since it's kinda hard to add an index on an unaccent expression, it's
+    # just easier to store an index the unaccented version of the name.
+    unaccented_name = models.CharField(
+        _('Name without accent (for indexing purpose)'),
+        max_length=128)
+
     class Meta:
         verbose_name = _('Perimeter')
         verbose_name_plural = _('Perimeters')
@@ -105,6 +127,10 @@ class Perimeter(models.Model):
             GinIndex(
                 name='name_trgm',
                 fields=['name'],
+                opclasses=['gin_trgm_ops']),
+            GinIndex(
+                name='unaccented_name_trgm',
+                fields=['unaccented_name'],
                 opclasses=['gin_trgm_ops']),
         ]
 
@@ -125,3 +151,7 @@ class Perimeter(models.Model):
     @property
     def id_slug(self):
         return '{}-{}'.format(self.id, slugify(self.name))
+
+    def save(self, *args, **kwargs):
+        self.unaccented_name = remove_accents(self.name)
+        return super().save(*args, **kwargs)
