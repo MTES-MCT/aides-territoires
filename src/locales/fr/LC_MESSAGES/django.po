@@ -2160,6 +2160,9 @@ msgstr "Nouvelle recherche"
 msgid "More filters"
 msgstr "Plus de critères"
 
+msgid "Share this aid"
+msgstr "Partager cette aide"
+
 msgid "Advanced search"
 msgstr "Recherche avancée"
 
@@ -2735,6 +2738,9 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Send this aid by email"
+msgstr "Envoyer cette aide par email"
 
 msgid "Project"
 msgstr "Projet"

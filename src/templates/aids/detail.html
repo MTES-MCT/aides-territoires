@@ -4,6 +4,10 @@
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
+{% block modals %}
+    {% include 'aids/_share_modal.html' %}
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -320,6 +324,9 @@
             <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
                 {{ _('Suggest a modification') }}
             </a>
+            <a id="share-btn" href="#" class="js" data-toggle="modal" data-target="#share-modal">
+                {{ _('Share this aid') }}
+            </a>
             {% endblock %}
         </footer>
     </section>
@@ -354,5 +361,6 @@
 <script src="/static/js/alerts/track_alert_button_events.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/links_on_images.js"></script>
+<script src="/static/js/aids/share_aid.js"></script>
 {% endcompress %}
 {% endblock %}
