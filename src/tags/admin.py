@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.text import slugify
 from django.db.models import Count
-from django.utils.translation import gettext_lazy as _
 
 from tags.models import Tag
 
@@ -21,7 +20,7 @@ class TagAdmin(admin.ModelAdmin):
 
     def nb_aids(self, tag):
         return tag.aid_count
-    nb_aids.short_description = _('Number of aids')
+    nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
 

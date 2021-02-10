@@ -35,9 +35,6 @@ msgstr "Permissions"
 msgid "Misc."
 msgstr "Divers"
 
-msgid "Number of aids"
-msgstr "Nombre d'aides"
-
 msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
 msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
 

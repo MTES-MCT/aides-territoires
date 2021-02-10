@@ -1,7 +1,7 @@
 from django import forms
+from django.contrib import admin
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
-from django.contrib import admin
 
 from core.forms import RichTextField
 from programs.models import Program
@@ -44,7 +44,7 @@ class ProgramAdmin(admin.ModelAdmin):
 
     def nb_aids(self, obj):
         return obj.aid_count
-    nb_aids.short_description = _('Number of aids')
+    nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
 

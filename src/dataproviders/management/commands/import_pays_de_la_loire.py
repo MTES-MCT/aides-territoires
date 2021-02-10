@@ -1,12 +1,15 @@
 # flake8: noqa
 import os
-from datetime import datetime
-import requests
+import csv
 import json
+import requests
+from datetime import datetime
 
-from django.conf import settings
+from django.utils import timezone
 from django.utils.text import slugify
 
+from dataproviders.models import DataSource
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
@@ -14,57 +17,40 @@ from backers.models import Backer
 from aids.models import Aid
 
 
+DATA_SOURCE = DataSource.objects \
+    .prefetch_related('perimeter', 'backer') \
+    .get(pk=2)
+
 OPENDATA_URL = 'https://data.paysdelaloire.fr/explore/dataset/234400034_referentiel-aides-paysdelaloirefr/information/'
-FEED_URI = 'https://data.paysdelaloire.fr/api/records/1.0/search/'
 FEED_ROWS = 1000
-FEED_PARAMS = {
-    'dataset': '234400034_referentiel-aides-paysdelaloirefr',
-    'rows': FEED_ROWS,
-    'facet': 'type_aide',
-    'facet': 'ss_thematique',
-    'facet': 'thematique_libelle',
-    'facet': 'ss_thematique_libelle',
-    'facet': 'type_de_subvention',
-    'facet': 'conditions_de_versement',
-    'facet': 'aid_benef',
-    'facet': 'type_procedure',
-    'facet': 'direction',
-    'facet': 'service',
-    'facet': 'pole',
-    'apikey': settings.API_KEY_PAYS_DE_LA_LOIRE
-}
 
-AID_URL_PREFIX = 'https://www.paysdelaloire.fr/les-aides/'
+AUDIENCES_DICT = {}
+AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_audiences_mapping.csv'
+SOURCE_COLUMN_NAME = 'Bénéficiaires Pays de la Loire'
+AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5']
+with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
+    csvreader = csv.DictReader(csv_file, delimiter=",")
+    for index, row in enumerate(csvreader):
+        if row[AT_COLUMN_NAMES[0]]:
+            AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]] = []
+            for column in AT_COLUMN_NAMES:
+                if row[column]:
+                    audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])
+                    AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
 
-AUDIENCES_COLLECTIVITE_LIST = [
-    Aid.AUDIENCES.commune,
-    Aid.AUDIENCES.epci,
-    Aid.AUDIENCES.department,
-    Aid.AUDIENCES.public_cies,
-    Aid.AUDIENCES.public_org
-]
-AUDIENCES_DICT = {
-    'Association': Aid.AUDIENCES.association,
-    # 'Collectivités - Institutions - GIP': AUDIENCES_COLLECTIVITE_LIST,  # managed seperately
-    'Entreprise': Aid.AUDIENCES.private_sector,
-    'Etablissements ESR - Organismes de recherche': Aid.AUDIENCES.researcher,
-    'Jeunes': Aid.AUDIENCES.private_person,
-    'Lycées et centres de formation': Aid.AUDIENCES.public_org,
-    'Particuliers': Aid.AUDIENCES.private_person,
-}
-
-TYPES_DICT = {
-    'Aide': Aid.TYPES.grant,
-    'Accompagnement': Aid.TYPES.technical,
-    'Aide en nature': Aid.TYPES.other,
-    'Appel à manifestations d\'intérêt': Aid.TYPES.grant,
-    'Avance remboursable': Aid.TYPES.recoverable_advance,
-    'Garantie': Aid.TYPES.other,
-    'Prêt': Aid.TYPES.loan,
-    'Prêt d\'honneur': Aid.TYPES.loan,
-    'Service': Aid.TYPES.other,
-    'Subvention': Aid.TYPES.grant,
-}
+TYPES_DICT = {}
+TYPES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_types_mapping.csv'
+SOURCE_COLUMN_NAME = 'Types Pays de la Loire'
+AT_COLUMN_NAMES = ['Types AT 1']
+with open(TYPES_MAPPING_CSV_PATH) as csv_file:
+    csvreader = csv.DictReader(csv_file, delimiter=",")
+    for index, row in enumerate(csvreader):
+        if row[AT_COLUMN_NAMES[0]]:
+            TYPES_DICT[row[SOURCE_COLUMN_NAME]] = []
+            for column in AT_COLUMN_NAMES:
+                if row[column]:
+                    audience = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
+                    TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
 
 CALL_FOR_PROJECT_LIST = [
     'Appel à projets',
@@ -76,9 +62,6 @@ RECURRENCE_DICT = {
     'Permanent': Aid.RECURRENCE.ongoing,
 }
 
-PAYS_DE_LA_LOIRE_PERIMETER_CODE = '52'
-PAYS_DE_LA_LOIRE_FINANCER_NAME = 'Conseil régional des Pays de la Loire'
-
 
 class Command(BaseImportCommand):
     """Import data from the Pays de la Loire Open Data plateform.
@@ -88,6 +71,11 @@ class Command(BaseImportCommand):
     def add_arguments(self, parser):
         parser.add_argument('data-file', nargs='?', type=str)
 
+    def handle(self, *args, **options):
+        DATA_SOURCE.date_last_access = timezone.now()
+        DATA_SOURCE.save()
+        super().handle(*args, **options)
+
     def fetch_data(self, **options):
         if options['data-file']:
             data_file = os.path.abspath(options['data-file'])
@@ -95,7 +83,7 @@ class Command(BaseImportCommand):
             for line in data['data']:
                 yield line
         else:
-            req = requests.get(FEED_URI, params=FEED_PARAMS)
+            req = requests.get(DATA_SOURCE.import_api_url)
             req.encoding = 'utf-8-sig'  # We need this to take care of the bom
             data = json.loads(req.text)
             self.stdout.write('Total number of aids: {}'.format(data['nhits']))
@@ -106,18 +94,11 @@ class Command(BaseImportCommand):
             for line in data['records']:
                 yield line['fields']
 
-    def handle(self, *args, **options):
-
-        self.pays_de_la_loire_perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
-            .filter(code=PAYS_DE_LA_LOIRE_PERIMETER_CODE) \
-            .get()
-        self.pays_de_la_loire_financer = Backer.objects.get(name=PAYS_DE_LA_LOIRE_FINANCER_NAME)
-
-        super().handle(*args, **options)
-
     def line_should_be_processed(self, line):
         return True
+
+    def extract_import_data_source(self, line):
+        return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
         unique_id = 'PDLL_{}'.format(line['intervention_id'])
@@ -127,7 +108,7 @@ class Command(BaseImportCommand):
         return OPENDATA_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line['aide_nom'][:180]
@@ -142,7 +123,7 @@ class Command(BaseImportCommand):
         return description
 
     def extract_financers(self, line):
-        return [self.pays_de_la_loire_financer]
+        return [DATA_SOURCE.backer]
 
     def extract_eligibility(self, line):
         # eligibility already has <p></p> tags
@@ -150,16 +131,16 @@ class Command(BaseImportCommand):
         return eligibility
 
     def extract_perimeter(self, line):
-        return self.pays_de_la_loire_perimeter
+        return DATA_SOURCE.perimeter
 
-    def extract_origin_url(self, line):
-        """
-        The origin url is not provided.
-        We construct it, but there may be some errors.
-        """
-        aid_name = line['aide_nom'].replace(' à ', ' ').replace(' À ', ' ')
-        aid_slug = slugify(aid_name)
-        return AID_URL_PREFIX + aid_slug
+    # def extract_origin_url(self, line):
+    #     """
+    #     The origin url is not provided.
+    #     We construct it, but there may be some errors.
+    #     """
+    #     aid_name = line['aide_nom'].replace(' à ', ' ').replace(' À ', ' ')
+    #     aid_slug = slugify(aid_name)
+    #     return 'https://www.paysdelaloire.fr/les-aides/' + aid_slug
 
     def extract_application_url(self, line):
         application_url = line.get('source_lien', None)
@@ -170,20 +151,27 @@ class Command(BaseImportCommand):
         Exemple of string to process: "Associations;Collectivités - Institutions - GIP;Entreprises"
         Split the string, loop on the values and match to our AUDIENCES
         """
-        targeted_audiences = line.get('aid_benef', '').split(';')
-        aid_targeted_audiences = [AUDIENCES_DICT.get(t, None) for t in targeted_audiences]
-        # manage custom case
-        if 'Collectivités - Institutions - GIP' in targeted_audiences:
-            aid_targeted_audiences += AUDIENCES_COLLECTIVITE_LIST
-        return [t for t in aid_targeted_audiences if t]
+        audiences = line.get('aid_benef', '').split(';')
+        aid_audiences = []
+        for audience in audiences:
+            if audience in AUDIENCES_DICT:
+                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
+            else:
+                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+        return aid_audiences
 
     def extract_aid_types(self, line):
         """
         Exemple of string to process: "Avance remboursable;Prêt"
         """
         types = line.get('type_de_subvention', '').split(';')
-        aid_types = [TYPES_DICT.get(t, None) for t in types]
-        return [t for t in aid_types if t]
+        aid_types = []
+        for type_item in types:
+            if type_item in TYPES_DICT:
+                aid_types.extend(TYPES_DICT.get(type_item, []))
+            else:
+                self.stdout.write(self.style.ERROR(f'Type {type_item} not mapped'))
+        return aid_types
 
     def extract_is_call_for_project(self, line):
         is_call_for_project = line['type_aide'] in CALL_FOR_PROJECT_LIST

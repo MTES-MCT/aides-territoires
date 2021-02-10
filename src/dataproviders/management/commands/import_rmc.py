@@ -14,7 +14,7 @@ ADMIN_ID = 1
 
 BASIN_RHONE_MED_CODE = '06'
 BASIN_CORSE_CODE = '12'
-FINANCER_NAME = "Agence de l'eau Rhône Méditerranée Corse"
+FINANCER_ID = 53  # "Agence de l'eau Rhône-Méditerranée-Corse"
 
 
 ELIGIBILITY_TXT = '''
@@ -38,7 +38,7 @@ class Command(CrawlerImportCommand):
             .filter(code=BASIN_RHONE_MED_CODE) \
             .get()
 
-        self.financer = Backer.objects.get(name=FINANCER_NAME)
+        self.financer = Backer.objects.get(id=FINANCER_ID)
 
     def extract_author_id(self, line):
         return ADMIN_ID
