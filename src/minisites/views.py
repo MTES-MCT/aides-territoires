@@ -8,7 +8,6 @@ from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
-from aids.models import AidWorkflow
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
@@ -163,10 +162,6 @@ class SiteStats(MinisiteMixin, TemplateView):
 
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
-        all_aids_per_status = self.search_page.get_aids_per_status()
-        nb_published_aids = all_aids_per_status.get(AidWorkflow.states.published.name, 0)  # noqa
-        context['nb_expired_aids'] = nb_published_aids - context['nb_live_aids']  # noqa
-        context['nb_draft_aids'] = all_aids_per_status.get(AidWorkflow.states.draft.name, 0)  # noqa
 
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
