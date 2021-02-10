@@ -394,6 +394,22 @@ section#program-list {
         margin-right: -.5rem;
     }
 
+    & #show_more {
+        display: flex;
+        justify-content: center;
+
+        & #show_more_btn {
+            padding-left: 5rem;
+            padding-right: 5rem;
+            @extend .mt-2;
+            @extend .btn;
+            @extend .btn-primary;
+            font-weight: bold;
+            display: block;
+            border-radius: 1rem;
+        }
+    }
+
     div.col {
         @extend .col-12;
         @extend .col-sm-6;
