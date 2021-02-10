@@ -365,13 +365,11 @@ div#search {
     article {
         margin-bottom: 2rem;
     }
+}
 
-    section.search-meta {
-        @extend .mb-4;
-
-        p {
-            margin-bottom: 0;
-        }
+div.search-meta {
+    p {
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -1245,6 +1243,13 @@ article#draft-list {
     }
 }
 
+div#alert-search-modal {
+    div.search-meta {
+        max-height: 150px;
+        overflow-y: scroll;
+    }
+}
+
 div#save-alert-block {
     @extend .w-100;
     @extend .mx-1;
@@ -1500,6 +1505,7 @@ ul.backer-categories {
 
 ul.aid-categories {
     padding: 0;
+    margin-bottom: 0;
     list-style-type: none;
 
     li.theme {

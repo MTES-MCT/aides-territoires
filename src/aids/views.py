@@ -108,9 +108,14 @@ class SearchView(SearchMixin, FormMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['targeted_audiences'] = self.form.cleaned_data.get('targeted_audiences', None)  # noqa
+        if context['targeted_audiences']:
+            context['targeted_audiences'] = [Aid.AUDIENCES[audience] for audience in context['targeted_audiences']]  # noqa
         context['perimeter'] = self.form.cleaned_data.get('perimeter', None)
         context['categories'] = self.form.cleaned_data.get('categories', None)
         context['themes'] = self.form.cleaned_data.get('themes', None)
+        context['programs'] = self.form.cleaned_data.get('programs', None)
+        context['backers'] = self.form.cleaned_data.get('backers', None)
         context['current_search'] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, '')
 

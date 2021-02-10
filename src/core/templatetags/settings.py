@@ -40,3 +40,8 @@ def phone(raw_phone):
         phone[6:8],
         phone[8:10])
     return phone
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

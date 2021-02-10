@@ -1,0 +1,86 @@
+{% load i18n %}
+
+<div class="search-meta">
+
+    {% if display == "all" %}
+        {% block search-meta-targeted-audiences %}
+        {% if targeted_audiences %}
+            <p title="{{ _('Targeted audiences') }}">
+                <span class="fas fa-building fa-fw"></span>
+                {{ targeted_audiences|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+    {% endif %}
+
+    {% block search-meta-perimeter %}
+    {% if perimeter %}
+        <p title="{{ _('Perimeter') }}">
+            <span class="fas fa-map-pin fa-fw"></span>
+            {{ perimeter }}
+        </p>
+    {% endif %}
+    {% endblock %}
+
+    {% if display == "all" %}
+        {% block search-meta-programs %}
+        {% if programs %}
+            <p title="{{ _('Aid programs') }}">
+                <span class="fas fa-scroll fa-fw"></span>
+                {{ programs|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-backers %}
+        {% if backers %}
+            <p title="{{ _('Aid backers') }}">
+                <span class="fas fa-user-shield fa-fw"></span>
+                {{ backers|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-text %}
+        {% if form.text.value %}
+            <p title="{{ _('Keyword') }}">
+                <span class="fas fa-quote-left fa-fw"></span>
+                {{ form.text.value }}
+            </p>
+        {% endif %}
+        {% endblock %}
+    {% endif %}
+
+    {% block search-meta-categories %}
+    {% if categories %}
+    {% regroup categories by theme as theme_list %}
+    <ul class="aid-categories" title="{{ _('Categories') }}">
+        {% for theme in theme_list %}
+            <li class="theme">
+                {% if forloop.first %}
+                    <span class="fas fa-tags fa-fw"></span>
+                {% endif %}
+                {{ theme.grouper }}
+                <ul>
+                    {% for category in theme.list %}
+                        <li class="category">{{ category }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+    {% elif themes %}
+    <ul class="aid-categories" title="{{ _('Themes') }}">
+        {% for theme in themes %}
+            <li class="theme">
+                {% if forloop.first %}
+                    <span class="fas fa-tags fa-fw"></span>
+                {% endif %}
+                {{ theme }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock %}
+
+</div>
