@@ -67,6 +67,13 @@ def test_login_email_token_works(client, user, mailoutbox):
     assert res.wsgi_request.user.is_authenticated
 
 
+def test_welcome_email_sent_on_token_login_success(client, user, mailoutbox):
+    test_login_email_token_works(client, user, mailoutbox)
+    # The first email is the token activation link, the second
+    # is expected to be the welcome email.
+    assert len(mailoutbox) == 2
+
+
 def test_login_with_wrong_token(client, user, mailoutbox):
     login_url = reverse('password_reset')
     res = client.post(login_url, {'username': user.email})
