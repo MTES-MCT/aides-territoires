@@ -189,6 +189,25 @@ body > footer {
             width: auto;
         }
 
+        & #social-network {
+            display: flex;
+            justify-content: center;
+
+            & a {
+                @extend .mt-5;
+                @extend .mx-3;
+            }
+
+            & a > img {
+                max-width: 40px;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    transition: ease-in-out .2s;
+                }
+            }
+        }
+
         @include media-breakpoint-down(md) {
             text-align: center;
             margin-top: -75px;
