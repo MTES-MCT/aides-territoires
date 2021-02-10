@@ -39,6 +39,13 @@
         <span class="counter">4</span>
         {{ _('Your categories') }}
     </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter">5</span>
+        {{ _('Your project') }}
+    </span>
 </p>
 </div>
 {% endblock %}
@@ -59,7 +66,7 @@
             {{ _('Back to previous step') }}
         </a>
 
-        <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+        <a class="next-btn" href="{% url 'search_step_project' %}?{{ querystring }}">
             {{ _('Skip to the next step') }}
         </a>
     </div>

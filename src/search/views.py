@@ -2,7 +2,8 @@ from django.views.generic import FormView
 
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
-                          ThemeSearchForm, CategorySearchForm)
+                          ThemeSearchForm, CategorySearchForm,
+                          ProjectSearchForm,)
 
 
 class SearchMixin:
@@ -75,3 +76,10 @@ class CategorySearch(SearchMixin, FormView):
             .distinct() \
             .count()
         return context
+
+
+class ProjectSearch(SearchMixin, FormView):
+    """Step 5 of the multi-page search form."""
+
+    template_name = 'search/step_project.html'
+    form_class = ProjectSearchForm

@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
+from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
 from geofr.models import Perimeter
 from aids.forms import AidSearchForm
@@ -199,6 +200,24 @@ class CategorySearchForm(forms.Form):
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name', 'categories__name')
         self.fields['categories'].queryset = categories_with_aid_count
+
+class ProjectSearchForm(forms.Form):
+    targeted_audiences = forms.MultipleChoiceField(
+        choices=AUDIENCES,
+        widget=forms.widgets.MultipleHiddenInput)
+    perimeter = forms.CharField(
+        widget=forms.widgets.HiddenInput)
+    themes = ThemeChoiceField(
+        queryset=Theme.objects.order_by('name'),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
+    categories = CategoryChoiceField(
+        queryset=Category.objects.all(),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
+    projects = forms.ModelMultipleChoiceField(
+        queryset=Project.objects.all(),
+        required=False,)
 
 
 class SearchPageAdminForm(forms.ModelForm):

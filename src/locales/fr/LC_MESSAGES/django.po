@@ -2771,3 +2771,9 @@ msgstr "Si le projet est suggéré par un utilisateur"
 
 msgid "Full description of the project"
 msgstr "Description complète du projet"
+
+msgid "Your project"
+msgstr "Votre projet"
+
+msgid "In what projects are you interested in ?"
+msgstr "Par quel projet êtes vous intéressé ?"

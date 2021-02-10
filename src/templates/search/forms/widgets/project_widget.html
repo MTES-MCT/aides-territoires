@@ -1,0 +1,9 @@
+{% with id=widget.attrs.id %}
+{% for project in projects %}
+    <div class="buttons">
+        <button type="submit" name="{{ project.name }}" value="{{ project.value }}">
+            {{ project.label }}
+        </button>
+    </div>
+{% endfor %}
+{% endwith %}
