@@ -384,4 +384,18 @@ body > footer nav ul li a[href^="http"]:hover::after {
         margin-bottom: 0;
         margin-top: 0;
     }
+}
+#save-alert-block {
+    color: {{ search_page.color_2 }} !important;
+}
+
+#show_more_btn, #save-alert-block > a {
+    border-color: {{ search_page.color_3 }} !important;
+    background-color: {{ search_page.color_3 }} !important;
+}
+
+#show_more_btn:hover, #save-alert-block > a:hover {
+        background-color: {% darken search_page.color_3 15 %} !important;
+        color: #fff !important;
+}
 </style>
