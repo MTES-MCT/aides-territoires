@@ -57,7 +57,7 @@
 {% block content %}
 <h1>{{ _('In what projects are you interested in ?') }}</h1>
 
-<form id="theme" action="{% url 'search_view' %}" method="GET">
+<form id="project" action="{% url 'search_view' %}" method="GET">
 
     {% include '_form_snippet.html' %}
 
@@ -69,10 +69,4 @@
 
     </div>
 </form>
-{% endblock %}
-
-{% block extra_js %}
-{% compress js %}
-<!-- <script src="/static/js/search/track_theme_step_events.js"></script> -->
-{% endcompress %}
 {% endblock %}

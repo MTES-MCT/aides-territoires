@@ -83,3 +83,13 @@ class ProjectSearch(SearchMixin, FormView):
 
     template_name = 'search/step_project.html'
     form_class = ProjectSearchForm
+
+    def get_initial(self):
+        GET = self.request.GET
+        initial = {
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
+            'perimeter': GET.get('perimeter', ''),
+            'themes': GET.getlist('themes', []),
+            'categories': GET.getlist('categories', []),
+        }
+        return initial
