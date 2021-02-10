@@ -1,9 +1,23 @@
+from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from accounts.models import User
+
+
+class UserAdminForm(forms.ModelForm):
+    """Custom form for inline user edition."""
+
+    first_name = forms.CharField(
+        label=_('First name'),
+        required=False,
+        max_length=256)
+    last_name = forms.CharField(
+        label=_('Last name'),
+        required=False,
+        max_length=256)
 
 
 class UserAdmin(BaseUserAdmin):
@@ -43,6 +57,9 @@ class UserAdmin(BaseUserAdmin):
     in_mailing_list.short_description = mark_safe(
         _('<abbr title="Newsletter subscriber">NL</abbr>'))
     in_mailing_list.boolean = True
+
+    def get_changelist_form(self, request, **kwargs):
+        return UserAdminForm
 
 
 admin.site.register(User, UserAdmin)
