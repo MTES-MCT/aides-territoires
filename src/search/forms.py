@@ -201,6 +201,7 @@ class CategorySearchForm(forms.Form):
             .order_by('categories__theme__name', 'categories__name')
         self.fields['categories'].queryset = categories_with_aid_count
 
+
 class ProjectSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(
         choices=AUDIENCES,
