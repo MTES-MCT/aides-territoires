@@ -1426,6 +1426,19 @@ div#search-steps {
             @extend .mt-4;
         }
     }
+
+    form#project {
+        #suggested_project {
+            @extend .my-5;
+            @extend .p-5;
+            border: 2px solid #fff;
+            border-radius: 10px;
+
+            input, p {
+                @extend .mb-4;
+            }
+        }
+    }
 }
 
 #backer-title {
