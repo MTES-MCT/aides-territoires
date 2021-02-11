@@ -202,6 +202,13 @@ class CategorySearchForm(forms.Form):
         self.fields['categories'].queryset = categories_with_aid_count
 
 
+class ProjectWidget(forms.widgets.ChoiceWidget):
+    """Custom widget to select project."""
+
+    allow_multiple_selected = False
+    template_name = 'search/forms/widgets/project_widget.html'
+
+
 class ProjectSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(
         choices=AUDIENCES,
@@ -218,7 +225,8 @@ class ProjectSearchForm(forms.Form):
         widget=forms.widgets.MultipleHiddenInput)
     projects = forms.ModelMultipleChoiceField(
         queryset=Project.objects.all(),
-        required=False,)
+        required=False,
+        widget=ProjectWidget)
 
 
 class SearchPageAdminForm(forms.ModelForm):
