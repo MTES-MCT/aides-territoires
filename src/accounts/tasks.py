@@ -59,6 +59,8 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
 @app.task
 def send_welcome_email(user_email):
     """Send a welcome email to the user."""
+    if not settings.SIB_WELCOME_EMAIL_ENABLED:
+        return
     user = User.objects.get(email=user_email)
     data = {
         'PRENOM': user.first_name,

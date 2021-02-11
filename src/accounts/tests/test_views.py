@@ -2,8 +2,10 @@
 
 import pytest
 import re
-from django.urls import reverse
+
 from django.contrib.auth import authenticate
+from django.test import override_settings
+from django.urls import reverse
 
 from accounts.models import User
 
@@ -67,11 +69,20 @@ def test_login_email_token_works(client, user, mailoutbox):
     assert res.wsgi_request.user.is_authenticated
 
 
+@override_settings(SIB_WELCOME_EMAIL_ENABLED=True)
 def test_welcome_email_sent_on_token_login_success(client, user, mailoutbox):
     test_login_email_token_works(client, user, mailoutbox)
     # The first email is the token activation link, the second
     # is expected to be the welcome email.
     assert len(mailoutbox) == 2
+
+
+@override_settings(SIB_WELCOME_EMAIL_ENABLED=False)
+def test_welcome_email_not_sent_if_disabled(client, user, mailoutbox):
+    test_login_email_token_works(client, user, mailoutbox)
+    # The first email is the token activation link, the second
+    # email should not be sent.
+    assert len(mailoutbox) == 1
 
 
 def test_login_with_wrong_token(client, user, mailoutbox):
