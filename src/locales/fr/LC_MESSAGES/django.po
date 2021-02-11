@@ -2776,4 +2776,4 @@ msgid "Your project"
 msgstr "Votre projet"
 
 msgid "In what projects are you interested in ?"
-msgstr "Par quel projet êtes vous intéressé ?"
+msgstr "Par quel projet êtes-vous intéressé-e ?"
