@@ -3,6 +3,8 @@
 from datetime import timedelta
 import logging
 
+from sentry_sdk import capture_exception
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
@@ -11,8 +13,6 @@ from django.db.models import Q, Case, When
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-
-from actstream import action
 
 from stats.utils import log_event
 from alerts.models import Alert
@@ -112,14 +112,4 @@ class Command(BaseCommand):
                 html_message=html_body,
                 fail_silently=False)
         except Exception as e:
-            # We log, only in case there is an issue.
-            log_details = {
-                'sender': site,
-                'action_object': alert,
-                'verb': 'alert-email-not-sent',
-                'action_target': alert.email,
-                'description': f'To: {alert.email}\n'
-                               f'From: {email_from}\n'
-                               f'{e}'
-                }
-            action.send(**log_details)
+            capture_exception(e)
