@@ -19,7 +19,7 @@
 {% block content %}
 <div class="article">
     <h1>{{ _('More search filters') }}</h1>
-    <form method="get" action="{% url 'search_view' %}">
+    <form id="advanced-search-form" method="get" action="{% url 'search_view' %}">
         {% for field in form.hidden_fields %}
             {{ field }}
         {% endfor %}
