@@ -20,11 +20,13 @@ def send_mail_sib(
 
 
 def send_mail_sib_with_template(
-        recipient_list, template_id, data=None,
+        recipient_list, template_id, data=None, tags=None,
         fail_silently=False):
     recipient_list = filter_recipients(recipient_list)
     message = AnymailMessage(to=recipient_list)
     message.template_id = template_id
+    if tags:
+        message.tags = tags
     message.from_email = None  # use the template's default sender
     if data:
         message.merge_global_data = data

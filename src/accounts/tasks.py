@@ -70,4 +70,5 @@ def send_welcome_email(user_email):
         recipient_list=[user_email],
         template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
         data=data,
+        tags=['bienvenue', settings.ENV_NAME],
         fail_silently=True)
