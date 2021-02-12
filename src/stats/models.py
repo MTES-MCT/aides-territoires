@@ -3,6 +3,28 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
+class AidViewEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'))
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = _('Aid View Event')
+        verbose_name_plural = _('Aid View Events')
+
+
 class Event(models.Model):
     """Stores an event in db for analytics purpose."""
 

@@ -1645,6 +1645,12 @@ msgstr "Valeur"
 msgid "Events"
 msgstr "Événements"
 
+msgid "Aid View Event"
+msgstr "Événement aide vue"
+
+msgid "Aid View Events"
+msgstr "Événements aides vues"
+
 msgid "Number of aids"
 msgstr "Nombre d'aides"
 

@@ -19,3 +19,16 @@ def reupload_files(model, fieldname):
                 item.save()
 
     return do_reupload_files
+
+
+def get_subdomain_from_host(host):
+    """
+    Cleanup host field
+    aides-territoires.beta.gouv.fr --> aides-territoires
+    staging.aides-territoires.beta.gouv.fr --> staging
+    francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
+    aides.francemobilities.fr --> aides.francemobilities.fr
+    """
+    if 'aides-territoires' in host:
+        return host.split('.')[0]
+    return host
