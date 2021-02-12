@@ -599,29 +599,37 @@ section#bundles {
 
 section#aid-edit {
     @extend .row;
-    position: relative;
     height: 100%;
 
     div.form-sidebar {
-        position: sticky;
-        top: 0;
-        height: 100%;
         @extend .col-md-4;
         @extend .py-5;
         @extend .pl-5;
-        background-color: #d9f0ec;
+        background-color: $pale-background;
 
-        #nav-form {
-            ul {
-                @extend .my-5;
+        & #nav-form {
+            @extend .my-3;
 
-                li {
+            & ul {
+                @extend .list-unstyled;
+
+                & li {
                     @extend .my-5;
-                    @extend .list-unstyled;
+                    @extend .p-3;
+                    border: solid 2px #fff;
+                    border-radius: 2px;
+                    font-size: 1rem;
+                    background-color: $pale-background;
+                    cursor: pointer;
+                }
 
-                    a {
-                        @extend .text-reset;
-                    }
+                & li:hover {
+                    background-color: #fff !important;
+                }
+
+                & li > a {
+                    @extend .text-reset;
+                    font-weight: bold;
                 }
             }
         }
@@ -680,9 +688,20 @@ section#aid-edit {
         @extend .py-5;
         @extend .pr-5;
         @extend .col-md-8;
+        height: 100vh;
+        overflow-y: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        &::-webkit-scrollbar {
+            display: none;
+          }
 
         * + fieldset {
+            @extend .mb-3;
             margin-top: 0 !important;
+            min-height: 100vh;
+            scroll-margin-top: 2rem;
         }
         
         div.inline-error {

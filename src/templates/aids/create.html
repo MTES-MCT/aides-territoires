@@ -16,26 +16,26 @@
 {% endblock %}
 
 {% block form_sidebar %}
-<div class="warning">
-    <p>{% blocktrans trimmed %}
-        <span class="fas fa-exclamation-circle"></span>
-        Before being published, your aid <strong>must be reviewed by an
-        administrator</strong>.
-    {% endblocktrans %}</p>
-    <p>{% blocktrans trimmed %}
-        You can create your aid and <strong>ask for publication</strong>
-        right away, or <strong>save it as a draft</strong>.
-    {% endblocktrans %}</p>
-</div>
-<div id="nav-form">
-    <ul>
-        <li><a href="#global_presentation">Présentation de l'aide</a></li>
-        <li><a href="#global_presentation">Périmètre de l'aide</a></li>
-        <li><a href="#global_presentation">Calendrier de l'aide</a></li>
-        <li><a href="#global_presentation">Description de l'aide</a></li>
-        <li><a href="#global_presentation">Contact et démarches</a></li>
-    </ul>
-</div>
+    <div class="warning">
+        <p>{% blocktrans trimmed %}
+            <span class="fas fa-exclamation-circle"></span>
+            Before being published, your aid <strong>must be reviewed by an
+            administrator</strong>.
+        {% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}
+            You can create your aid and <strong>ask for publication</strong>
+            right away, or <strong>save it as a draft</strong>.
+        {% endblocktrans %}</p>
+    </div>
+    <div id="nav-form">
+        <ul>
+            <li><a href="#aid-presentation">Présentation de l'aide</a></li>
+            <li><a href="#aid-perimeter">Périmètre de l'aide</a></li>
+            <li><a href="#aid-calendar">Calendrier de l'aide</a></li>
+            <li><a href="#aid-description">Description de l'aide</a></li>
+            <li><a href="#aid-contact">Contact et démarches</a></li>
+        </ul>
+    </div>
 {% endblock %}
 
 {% block form_actions %}
