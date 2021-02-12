@@ -8,7 +8,7 @@ from django.conf import settings
 
 from accounts.models import User
 from core.celery import app
-from emails.sib import send_mail_sib
+from emails.sib import send_mail_sib, send_mail_sib_with_template
 
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
@@ -54,3 +54,21 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         settings.DEFAULT_FROM_EMAIL,
         [user.email],
         fail_silently=False)
+
+
+@app.task
+def send_welcome_email(user_email):
+    """Send a welcome email to the user."""
+    if not settings.SIB_WELCOME_EMAIL_ENABLED:
+        return
+    user = User.objects.get(email=user_email)
+    data = {
+        'PRENOM': user.first_name,
+        'NOM': user.last_name,
+    }
+    send_mail_sib_with_template(
+        recipient_list=[user_email],
+        template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
+        data=data,
+        tags=['bienvenue', settings.ENV_NAME],
+        fail_silently=True)

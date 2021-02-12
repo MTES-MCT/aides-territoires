@@ -15,7 +15,7 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 from analytics.utils import track_goal
 from accounts.forms import (RegisterForm, PasswordResetForm,
                             ContributorProfileForm)
-from accounts.tasks import send_connection_email
+from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
 from django.conf import settings
 
@@ -103,6 +103,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
                             'few seconds to update your profile.')
                     track_goal(
                         self.request.session, settings.GOAL_FIRST_LOGIN_ID)
+                    send_welcome_email.delay(user.email)
                 else:
                     msg = _('You are now logged in. Welcome back!')
 
