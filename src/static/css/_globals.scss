@@ -180,6 +180,8 @@ body > footer {
         @extend .order-1;
         @extend .order-lg-2;
         text-align: center;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
 
         a:after {
             content: none;
