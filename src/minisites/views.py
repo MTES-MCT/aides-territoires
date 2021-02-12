@@ -14,6 +14,7 @@ from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import Event
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
+from core.utils import get_subdomain_from_host
 
 
 class MinisiteMixin:
@@ -70,7 +71,7 @@ class MinisiteMixin:
             page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
-            page_slug = host.split('.')[0]
+            page_slug = get_subdomain_from_host(host)
 
         qs = SearchPage.objects.filter(slug=page_slug)
         try:

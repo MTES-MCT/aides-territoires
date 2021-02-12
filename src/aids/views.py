@@ -31,8 +31,8 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
-from stats.models import Event
-from stats.utils import log_event
+from stats.models import AidViewEvent, Event
+from core.utils import get_subdomain_from_host
 
 
 class AidPaginator(Paginator):
@@ -303,13 +303,12 @@ class AidDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
-        # Here we retrieve the request's *first* subdomain
-        # e.g. https://aides-territoires.beta.gouv.fr/ --> 'aides-territoires' (default)  # noqa
-        # e.g. https://arcinnovation.aides-territoires.beta.gouv.fr/ --> 'arcinnovation'  # noqa
-        host = request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
-        request_subdomain = host.split('.')[0]
-
-        log_event('aid', 'viewed', meta=self.object.slug, source=request_subdomain, value=1)  # noqa
+        host = request.get_host()
+        source = get_subdomain_from_host(host)
+        AidViewEvent.objects.create(
+            aid=self.object,
+            querystring=response.context_data.get('current_search', ''),
+            source=source)
 
         return response
 
