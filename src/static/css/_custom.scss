@@ -591,12 +591,40 @@ section#bundles {
     }
 }
 
+#base-edit {
+    padding: 0 !important;
+    position: relative;
+    height: 100%;
+}
+
 section#aid-edit {
     @extend .row;
+    position: relative;
+    height: 100%;
 
     div.form-sidebar {
+        position: sticky;
+        top: 0;
+        height: 100%;
         @extend .col-md-4;
-        @extend .mb-3;
+        @extend .py-5;
+        @extend .pl-5;
+        background-color: #d9f0ec;
+
+        #nav-form {
+            ul {
+                @extend .my-5;
+
+                li {
+                    @extend .my-5;
+                    @extend .list-unstyled;
+
+                    a {
+                        @extend .text-reset;
+                    }
+                }
+            }
+        }
 
         div.sidebar-actions {
             @extend .card;
@@ -649,8 +677,14 @@ section#aid-edit {
     }
 
     form.main-form {
+        @extend .py-5;
+        @extend .pr-5;
         @extend .col-md-8;
 
+        * + fieldset {
+            margin-top: 0 !important;
+        }
+        
         div.inline-error {
             margin-top: .5rem;
         }
