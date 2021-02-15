@@ -2332,7 +2332,7 @@ msgid "Local aid"
 msgstr "Aide locale"
 
 msgid "This aid is a local variant of a "
-msgstr "Cette aide est une variante locale d'un "
+msgstr "Cette aide est une déclinaison locale d'un "
 
 msgid "national measure"
 msgstr "dispositif national"
@@ -2344,7 +2344,7 @@ msgid "This aid is a national measure "
 msgstr "Cette aide est un dispositif national "
 
 msgid "declinated locally"
-msgstr "décliné en local"
+msgstr "disposant de déclinaisons locales"
 
 msgid "Call for project"
 msgstr "Appel à projet"
@@ -2389,15 +2389,15 @@ msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité"
 
 msgid "Local variants"
-msgstr "Déclinaisons locales"
+msgstr "Fiches locales"
 
 msgid "For more details find your local aid :"
 msgstr "Pour plus de précisions retrouvez votre fiche locale :"
 
 msgid "If you don't find your local aid refer to the national measure."
 msgstr ""
-"Si vous ne trouvez pas l'aide locale qui vous correspond référez vous au "
-"dispositif national"
+"En l'absence d'aide locale, les informations relatives à ce dispositif "
+"générique font foi"
 
 msgid "Going further"
 msgstr "Aller plus loin"
