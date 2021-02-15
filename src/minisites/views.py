@@ -12,7 +12,7 @@ from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
-from stats.models import Event
+from stats.models import AidViewEvent
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 from core.utils import get_subdomain_from_host
 
@@ -189,8 +189,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         )
 
         # aid view count: last 30 days & last 7 days
-        events = Event.objects \
-            .filter(category='aid', event='viewed') \
+        events = AidViewEvent.objects \
             .filter(source=self.search_page.slug)
 
         context['aid_view_count_last_30_days'] = events \
@@ -202,8 +201,8 @@ class SiteStats(MinisiteMixin, TemplateView):
             .count()
 
         # top 10 aid viewed
-        top_10_aid_viewed = events.values('meta') \
-                                  .annotate(view_count=Count('meta')) \
+        top_10_aid_viewed = events.values('aid_id', 'aid__slug', 'aid__name') \
+                                  .annotate(view_count=Count('aid_id')) \
                                   .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
 
