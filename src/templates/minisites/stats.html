@@ -97,7 +97,7 @@
                     {% for aid in top_10_aid_viewed %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ aid.meta }}</td>
+                            <td>{{ aid.aid__name }}</td>
                             <td>{{ aid.view_count }}</td>
                         </tr>
                     {% endfor %}

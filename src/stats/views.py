@@ -6,7 +6,7 @@ from django.db.models import Sum, Q
 
 from aids.models import Aid
 from backers.models import Backer
-from stats.models import Event
+from stats.models import AidViewEvent, Event
 
 
 class StatsView(TemplateView):
@@ -19,7 +19,7 @@ class StatsView(TemplateView):
         context['nb_live_aids'] = aids_qs.count()
 
         one_week_ago = timezone.now() - timedelta(days=8)
-        viewed_aids_qs = Event.objects.filter(category='aid', event='viewed') \
+        viewed_aids_qs = AidViewEvent.objects \
             .filter(date_created__gte=one_week_ago)
         context['nb_viewed_aids'] = viewed_aids_qs.count()
 
