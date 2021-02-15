@@ -595,6 +595,7 @@ section#bundles {
     padding: 0 !important;
     position: relative;
     height: 100%;
+    background-color: #ffffff00;
 }
 
 div.warning {
@@ -602,36 +603,58 @@ div.warning {
 }
 
 section#aid-edit {
-    @extend .row;
     @extend .col-md-12;
     margin: 0 !important;
     padding: 0 !important;
-    height: 100vh;
 
     div.form-sidebar {
-        height: 100vh;
-        @extend .col-md-3;
+        @extend .col-md-12;
+        @extend .mt-4;
         @extend .py-5;
-        @extend .pl-2;
+        position: sticky;
         background-color: $pale-background;
 
         & #nav-form {
-            @extend .my-3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            @extend .p-2;
+            font-size: 1rem;
+            cursor: pointer;
 
-            & ul {
-                @extend .list-unstyled;
+            span.step {
+                white-space: nowrap;
+            }
+    
+            span.counter {
+                display: inline-block;
+                width: 1.5rem;
+                height: 1.5rem;
+                text-align: center;
+                vertical-align: baseline;
+                border: 1px solid;
+                border-radius: 50%;
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+    
+            span.counter.active {
+                background-color: white;
+                color: $dark;
+            }
+    
+            span.separator {
+                display: inline-block;
+                width: 2rem;
+                height: .4rem;
+                border-top: 1px solid;
+                padding: 0 .25rem;
+                vertical-align: baseline;
+            }
 
-                & li {
-                    @extend .my-5;
-                    @extend .p-3;
-                    font-size: 1rem;
-                    cursor: pointer;
-                }
-
-                & li > a {
-                    @extend .text-reset;
-                    font-weight: bold;
-                }
+            & span > a {
+                @extend .text-reset;
+                font-weight: bold;
             }
         }
 
@@ -686,17 +709,16 @@ section#aid-edit {
     }
 
     form.main-form {
-        @extend .col-md-9;
+        @extend .col-md-12;
         padding: 0 !important;
         height: 100vh;
         overflow-y: scroll;
+        background-color: #fff;
 
         > fieldset {
-            @extend .col-md-12;
+            @extend .row;
             padding: 0 !important;
             margin: 0 !important;
-            @extend .row;
-            margin-top: 0 !important;
             min-height: 100vh;
 
             .help-part {

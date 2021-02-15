@@ -30,15 +30,40 @@
 {% endblock %}
 
 {% block form_sidebar %}
-    <div id="nav-form">
-        <ul>
-            <li><a href="#aid-presentation">Présentation de l'aide</a></li>
-            <li><a href="#aid-perimeter">Périmètre de l'aide</a></li>
-            <li><a href="#aid-calendar">Calendrier de l'aide</a></li>
-            <li><a href="#aid-description">Description de l'aide</a></li>
-            <li><a href="#aid-contact">Contact et démarches</a></li>
-        </ul>
-    </div>
+<p id="nav-form">
+        <span class="step">
+            <span class="counter">1</span>
+            <a href="#aid-presentation">Présentation</a>
+        </span>
+    
+        <span class="separator"></span>
+    
+        <span class="step">
+            <span class="counter">2</span>
+            <a href="#aid-perimeter">Périmètre</a>
+        </span>
+    
+        <span class="separator"></span>
+    
+        <span class="step">
+            <span class="counter">3</span>
+            <a href="#aid-calendar">Calendrier</a>
+        </span>
+    
+        <span class="separator"></span>
+    
+        <span class="step">
+            <span class="counter">4</span>
+            <a href="#aid-description">Description</a>
+        </span>
+
+        <span class="separator"></span>
+
+        <span class="step">
+            <span class="counter">5</span>
+            <a href="#aid-contact">Contact et démarches</a>
+        </span>
+    </p>
 {% endblock %}
 
 {% block form_actions %}
