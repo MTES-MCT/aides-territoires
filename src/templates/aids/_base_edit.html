@@ -33,57 +33,77 @@
 
     {% block fields %}
     <fieldset id="aid-presentation">
-        <legend>{{ _('Aid presentation') }}</legend>
-        {% include '_field_snippet.html' with field=form.name %}
-        {% include '_checkbox_snippet.html' with field=form.in_france_relance %}
-        {% include '_field_snippet.html' with field=form.short_title %}
-        {% include '_field_snippet.html' with field=form.targeted_audiences %}
-        {% include '_field_snippet.html' with field=form.financers %}
-        {% include '_field_snippet.html' with field=form.financer_suggestion %}
-        <div id="instructor-fields">
-            {% include '_field_snippet.html' with field=form.instructors %}
-            {% include '_field_snippet.html' with field=form.instructor_suggestion %}
+        <div class="help-part">
+            <legend>{{ _('Aid presentation') }}</legend>
+        </div>
+        <div class="form-part">
+            {% include '_field_snippet.html' with field=form.name %}
+            {% include '_checkbox_snippet.html' with field=form.in_france_relance %}
+            {% include '_field_snippet.html' with field=form.short_title %}
+            {% include '_field_snippet.html' with field=form.targeted_audiences %}
+            {% include '_field_snippet.html' with field=form.financers %}
+            {% include '_field_snippet.html' with field=form.financer_suggestion %}
+            <div id="instructor-fields">
+                {% include '_field_snippet.html' with field=form.instructors %}
+                {% include '_field_snippet.html' with field=form.instructor_suggestion %}
+            </div>
         </div>
     </fieldset>
 
     <fieldset id="aid-perimeter">
-        <legend>{{ _('Aid perimeter') }}</legend>
-        {% include '_field_snippet.html' with field=form.perimeter %}
-        {% include '_field_snippet.html' with field=form.perimeter_suggestion %}
+        <div class="help-part">
+            <legend>{{ _('Aid perimeter') }}</legend>
+        </div>
+        <div class="form-part">
+            {% include '_field_snippet.html' with field=form.perimeter %}
+            {% include '_field_snippet.html' with field=form.perimeter_suggestion %}    
+        </div>
     </fieldset>
 
     <fieldset id="aid-calendar">
-        <legend>{{ _('Aid calendar') }}</legend>
-        {% include '_field_snippet.html' with field=form.recurrence %}
-        <div id="calendar-fields">
-            {% include '_field_snippet.html' with field=form.start_date %}
-            {% include '_field_snippet.html' with field=form.predeposit_date %}
-            {% include '_field_snippet.html' with field=form.submission_deadline %}
+        <div class="help-part">
+            <legend>{{ _('Aid calendar') }}</legend>
+        </div>
+        <div class="form-part">
+            {% include '_field_snippet.html' with field=form.recurrence %}
+            <div id="calendar-fields">
+                {% include '_field_snippet.html' with field=form.start_date %}
+                {% include '_field_snippet.html' with field=form.predeposit_date %}
+                {% include '_field_snippet.html' with field=form.submission_deadline %}
+            </div>    
         </div>
     </fieldset>
 
     <fieldset id="aid-description">
-        <legend>{{ _('Aid description') }}</legend>
-        {% include '_field_snippet.html' with field=form.aid_types %}
-        <div id="subvention-fields">
-            {% include '_field_snippet.html' with field=form.subvention_rate %}
-            {% include '_field_snippet.html' with field=form.subvention_comment %}
+        <div class="help-part">
+            <legend>{{ _('Aid description') }}</legend>
         </div>
-        {% include '_checkbox_snippet.html' with field=form.is_call_for_project %}
-        {% include '_field_snippet.html' with field=form.programs %}
-        {% include '_field_snippet.html' with field=form.mobilization_steps %}
-        {% include '_field_snippet.html' with field=form.destinations %}
-        {% include '_field_snippet.html' with field=form.description %}
-        {% include '_field_snippet.html' with field=form.categories %}
-        {% include '_field_snippet.html' with field=form.project_examples %}
-        {% include '_field_snippet.html' with field=form.eligibility %}
+        <div class="form-part">
+            {% include '_field_snippet.html' with field=form.aid_types %}
+            <div id="subvention-fields">
+                {% include '_field_snippet.html' with field=form.subvention_rate %}
+                {% include '_field_snippet.html' with field=form.subvention_comment %}
+            </div>
+            {% include '_checkbox_snippet.html' with field=form.is_call_for_project %}
+            {% include '_field_snippet.html' with field=form.programs %}
+            {% include '_field_snippet.html' with field=form.mobilization_steps %}
+            {% include '_field_snippet.html' with field=form.destinations %}
+            {% include '_field_snippet.html' with field=form.description %}
+            {% include '_field_snippet.html' with field=form.categories %}
+            {% include '_field_snippet.html' with field=form.project_examples %}
+            {% include '_field_snippet.html' with field=form.eligibility %}    
+        </div>
     </fieldset>
 
     <fieldset id="aid-contact">
-        <legend>{{ _('Contact and actions') }}</legend>
-        {% include '_field_snippet.html' with field=form.origin_url %}
-        {% include '_field_snippet.html' with field=form.application_url %}
-        {% include '_field_snippet.html' with field=form.contact %}
+        <div class="help-part">
+            <legend>{{ _('Contact and actions') }}</legend>
+        </div>
+        <div class="form-part">
+            {% include '_field_snippet.html' with field=form.origin_url %}
+            {% include '_field_snippet.html' with field=form.application_url %}
+            {% include '_field_snippet.html' with field=form.contact %}    
+        </div>
     </fieldset>
 
     {% endblock %}

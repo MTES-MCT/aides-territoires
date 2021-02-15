@@ -15,18 +15,21 @@
     <h1>{{ _('Publish a new aid') }}</h1>
 {% endblock %}
 
+{% block before-section %}
+<div class="warning">
+    <p>{% blocktrans trimmed %}
+        <span class="fas fa-exclamation-circle"></span>
+        Before being published, your aid <strong>must be reviewed by an
+        administrator</strong>.
+    {% endblocktrans %}</p>
+    <p>{% blocktrans trimmed %}
+        You can create your aid and <strong>ask for publication</strong>
+        right away, or <strong>save it as a draft</strong>.
+    {% endblocktrans %}</p>
+</div>
+{% endblock %}
+
 {% block form_sidebar %}
-    <div class="warning">
-        <p>{% blocktrans trimmed %}
-            <span class="fas fa-exclamation-circle"></span>
-            Before being published, your aid <strong>must be reviewed by an
-            administrator</strong>.
-        {% endblocktrans %}</p>
-        <p>{% blocktrans trimmed %}
-            You can create your aid and <strong>ask for publication</strong>
-            right away, or <strong>save it as a draft</strong>.
-        {% endblocktrans %}</p>
-    </div>
     <div id="nav-form">
         <ul>
             <li><a href="#aid-presentation">Présentation de l'aide</a></li>

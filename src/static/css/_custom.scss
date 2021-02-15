@@ -597,14 +597,21 @@ section#bundles {
     height: 100%;
 }
 
+div.warning {
+    margin-bottom: 0 !important;
+}
+
 section#aid-edit {
     @extend .row;
+    @extend .col-md-12;
+    margin: 0 !important;
+    padding: 0 !important;
     height: 100%;
 
     div.form-sidebar {
-        @extend .col-md-4;
+        @extend .col-md-3;
         @extend .py-5;
-        @extend .pl-5;
+        @extend .pl-2;
         background-color: $pale-background;
 
         & #nav-form {
@@ -616,15 +623,8 @@ section#aid-edit {
                 & li {
                     @extend .my-5;
                     @extend .p-3;
-                    border: solid 2px #fff;
-                    border-radius: 2px;
                     font-size: 1rem;
-                    background-color: $pale-background;
                     cursor: pointer;
-                }
-
-                & li:hover {
-                    background-color: #fff !important;
                 }
 
                 & li > a {
@@ -685,9 +685,8 @@ section#aid-edit {
     }
 
     form.main-form {
-        @extend .py-5;
-        @extend .pr-5;
-        @extend .col-md-8;
+        @extend .col-md-9;
+        padding: 0 !important;
         height: 100vh;
         overflow-y: scroll;
         -ms-overflow-style: none;  /* IE and Edge */
@@ -698,10 +697,32 @@ section#aid-edit {
           }
 
         * + fieldset {
-            @extend .mb-3;
+            @extend .col-md-12;
+            padding: 0 !important;
+           margin: 0 !important;
+            @extend .row;
             margin-top: 0 !important;
             min-height: 100vh;
             scroll-margin-top: 2rem;
+
+            .help-part {
+                @extend .col-md-5;
+                @extend .pt-5;
+                @extend .pl-5;
+
+                legend {
+                    font-size: 1.6rem;
+                    color: $contrast-color;
+                    font-weight: bold;
+                }
+            }
+
+            .form-part {
+                @extend .col-md-7;
+                @extend .pt-5;
+                @extend .px-5;
+                background-color: #F9F8F6;
+            }
         }
         
         div.inline-error {
