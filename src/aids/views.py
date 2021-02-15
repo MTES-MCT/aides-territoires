@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Sum, Prefetch
+from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -31,7 +31,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
-from stats.models import AidViewEvent, Event
+from stats.models import AidViewEvent
 from core.utils import get_subdomain_from_host
 
 
@@ -364,11 +364,9 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['filter_form'] = DraftListAidFilterForm(self.request.GET)
         context['ordering'] = self.get_ordering()
-        aid_slugs = context['aids'].values_list('slug', flat=True)
+        aid_ids = context['aids'].values_list('id', flat=True)
 
-        events = Event.objects \
-            .filter(category='aid', event='viewed') \
-            .filter(meta__in=aid_slugs)
+        events = AidViewEvent.objects.filter(aid_id__in=aid_ids)
 
         events_total_count = events.count()
 
@@ -378,9 +376,9 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
             .count()
 
         events_total_count_per_aid = events \
-            .values_list('meta') \
-            .annotate(nb_views=Sum('value')) \
-            .order_by('meta')
+            .values_list('aid_id') \
+            .annotate(view_count=Count('aid_id')) \
+            .order_by('aid_id')
 
         context['hits_total'] = events_total_count
         context['hits_last_30_days'] = events_last_30_days_count
