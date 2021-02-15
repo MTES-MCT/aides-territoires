@@ -716,32 +716,50 @@ section#aid-edit {
         background-color: #fff;
 
         > fieldset {
-            @extend .row;
-            padding: 0 !important;
-            margin: 0 !important;
-            min-height: 100vh;
+            @extend .col-md-12;
+            @extend .mt-5;
+            @extend .px-5;
 
-            .help-part {
-                @extend .col-md-5;
-                @extend .pt-5;
-                @extend .pl-5;
+            & > legend {
+                padding: 0;
+                font-size: 1.6rem;
+                color: $contrast-color;
+                font-weight: bold;
+                background-color: #fff;
+            }
 
-                legend {
-                    font-size: 1.6rem;
-                    color: $contrast-color;
-                    font-weight: bold;
+            .form-group {
+                @extend .row;
+                align-items: flex-start;
+            }
+
+            .form-group.checkbox {
+                padding: 0;
+
+                .part-form {
+                    padding-left: 2rem;
                 }
             }
-
-            .form-part {
+    
+            .part-form {
                 @extend .col-md-7;
-                @extend .pt-5;
-                @extend .px-5;
-                min-height: 100vh;
-                background-color: #F9F8F6;
             }
+    
+            .btn {
+                @extend .offset-md-5;
+                @extend .col-md-7;
+            }
+    
+            .help-form {
+                @extend .col-md-5;
+    
+                .field-help {
+                    margin: 0 !important;
+                }
+            }
+    
         }
-
+        
         p.warning, div.form-actions {
             @extend .mx-4;
         }
