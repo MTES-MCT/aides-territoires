@@ -201,7 +201,8 @@ class SiteStats(MinisiteMixin, TemplateView):
             .count()
 
         # top 10 aid viewed
-        top_10_aid_viewed = events.values('aid_id', 'aid__slug', 'aid__name') \
+        top_10_aid_viewed = events.select_related('aid') \
+                                  .values('aid_id', 'aid__slug', 'aid__name') \
                                   .annotate(view_count=Count('aid_id')) \
                                   .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
