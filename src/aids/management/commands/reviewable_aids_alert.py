@@ -2,10 +2,10 @@ from django.utils import timezone
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
+from django.core.mail import send_mail
 from django.conf import settings
 
 from aids.models import Aid
-from emails.sib import send_mail_sib
 
 
 class Command(BaseCommand):
@@ -34,7 +34,7 @@ class Command(BaseCommand):
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [settings.CONTACT_EMAIL]
 
-        send_mail_sib(
+        send_mail(
             email_subject,
             email_body,
             email_from,

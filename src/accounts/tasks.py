@@ -3,12 +3,13 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
 from django.urls import reverse
 from django.conf import settings
 
 from accounts.models import User
 from core.celery import app
-from emails.sib import send_mail_sib, send_mail_sib_with_template
+from emails.sib import send_mail_sib_with_template
 
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
@@ -48,7 +49,7 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         'base_url': base_url,
         'user_name': user.full_name,
         'full_login_url': full_login_url})
-    send_mail_sib(
+    send_mail(
         LOGIN_SUBJECT,
         login_email_body,
         settings.DEFAULT_FROM_EMAIL,
