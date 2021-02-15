@@ -9,7 +9,7 @@ from django.conf import settings
 
 from accounts.models import User
 from core.celery import app
-from emails.sib import send_mail_sib_with_template
+from emails.utils import send_template_email
 
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
@@ -59,15 +59,22 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
 
 @app.task
 def send_welcome_email(user_email):
-    """Send a welcome email to the user."""
+    """Send a welcome email to the user.
+
+    This email is actually stored as a template in the ESP's dashboard,
+    and can be modified by the bizdev team.
+
+    Hence we don't define any email body ourselves.
+    """
     if not settings.SIB_WELCOME_EMAIL_ENABLED:
         return
+
     user = User.objects.get(email=user_email)
     data = {
         'PRENOM': user.first_name,
         'NOM': user.last_name,
     }
-    send_mail_sib_with_template(
+    send_template_email(
         recipient_list=[user_email],
         template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
         data=data,
