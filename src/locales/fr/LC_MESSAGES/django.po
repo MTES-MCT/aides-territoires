@@ -1543,6 +1543,12 @@ msgstr ""
 msgid "Additional page content"
 msgstr "Contenu additionnel"
 
+msgid "Exclude aids from results"
+msgstr "Exclure des aides des résultats"
+
+msgid "Excluded aids"
+msgstr "Aides à exclure"
+
 msgid "Hidden content, revealed with a `See more` button"
 msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 

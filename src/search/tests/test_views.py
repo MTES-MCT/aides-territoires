@@ -35,6 +35,26 @@ def test_search_page_results(client):
     assert 'malin' not in res.content.decode()
 
 
+def test_search_page_with_excluded_aids_results(client):
+    """Test that the excluded_aids are filtered out."""
+
+    AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+    aid_to_exclude = AidFactory(name="Du fromage sans vin, ce n'est pas sain")
+
+    page = SearchPageFactory(
+        title='Gloubiboulga page',
+        search_querystring='text=fromage')
+    page.excluded_aids.set([aid_to_exclude])
+    page_url = reverse('search_page', args=[page.slug])
+    res = client.get(page_url)
+
+    assert res.status_code == 200
+    assert 'fromage' in res.content.decode()
+    assert 'malin' not in res.content.decode()
+    assert 'sain' not in res.content.decode()
+
+
 def test_search_query_overriding(client):
     """Test that manual filter add-up on top of initial filter."""
 
