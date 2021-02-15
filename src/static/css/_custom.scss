@@ -697,7 +697,7 @@ section#aid-edit {
             display: none;
           }
 
-        * + fieldset {
+        > fieldset {
             @extend .col-md-12;
             padding: 0 !important;
             margin: 0 !important;
