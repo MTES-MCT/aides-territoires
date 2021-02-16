@@ -2,9 +2,9 @@
 {% for group, options, index in widget.optgroups %}
 {% for option in options %}
     <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
+        <input type="radio" class="custom-control-input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
         <label class="custom-control-label" for="{{ option.attrs.id }}">
-            {{ option.label }}
+            {{ option.label | safe }}
         </lapel>
     </div>
 {% endfor %}

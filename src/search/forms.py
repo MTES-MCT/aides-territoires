@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
 from projects.models import Project
+from projects.fields import ProjectMultipleChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from geofr.models import Perimeter
 from aids.forms import AidSearchForm
@@ -223,7 +224,7 @@ class ProjectSearchForm(forms.Form):
         queryset=Category.objects.all(),
         to_field_name='slug',
         widget=forms.widgets.MultipleHiddenInput)
-    projects = forms.ModelMultipleChoiceField(
+    projects = ProjectMultipleChoiceField(
         queryset=Project.objects.all(),
         required=False,
         widget=ProjectWidget)
