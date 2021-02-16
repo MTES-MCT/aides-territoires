@@ -2384,7 +2384,7 @@ msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité"
 
 msgid "Local variants"
-msgstr "Fiches locales"
+msgstr "Déclinaisons locales"
 
 msgid "For more details find your local aid"
 msgstr "Voir les fiches locales"
