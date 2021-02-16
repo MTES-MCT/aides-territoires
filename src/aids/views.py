@@ -25,9 +25,10 @@ from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
 from aids.utils import generate_clone_title
+from aids.mixins import AidEditMixin
 from alerts.forms import AlertForm
 from categories.models import Category
-from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
+from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from emails.sib import send_mail_sib
 from stats.models import Event
