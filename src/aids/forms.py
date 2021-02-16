@@ -719,7 +719,7 @@ class BaseAidSearchForm(forms.Form):
         - When searching on a smaller area than the local aid's perimeter,
           then we display the local version.
         """
-        local_aids = qs.filter(aid_typology=Aid.LOCAL_TYPOLOGY)
+        local_aids = qs.local_aids()
         aids_to_exclude = []
         if not search_perimeter:
             # If the user does not specify a search perimeter, then we go wide.
@@ -729,14 +729,13 @@ class BaseAidSearchForm(forms.Form):
             if search_perimeter:
                 search_smaller = search_perimeter.scale <= aid.perimeter.scale
                 search_wider = search_perimeter.scale > aid.perimeter.scale
-            generic_aid_is_present = aid.generic_aid and aid.generic_aid in qs
             # If the search perimeter is smaller or matches exactly the local
             # perimeter, then it's relevant to keep the local and exclude
             # the generic aid.Excluding the generic aid takes precedence
             # over excluding the local aid.
-            if search_smaller and generic_aid_is_present:
+            if search_smaller:
                 aids_to_exclude.append(aid.generic_aid.pk)
-            elif search_wider and generic_aid_is_present:
+            elif search_wider:
                 # If the search perimeter is wider than the local perimeter
                 # then it more relevant to keep the generic aid and exclude the
                 # the local one.
