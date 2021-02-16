@@ -280,9 +280,7 @@ msgid "Private sector"
 msgstr "Entreprises privées"
 
 msgid "Local public companies"
-msgstr ""
-"Entreprises publiques locales (sociétés d'économie mixte, publiques locales "
-"et locales d'aménagement)"
+msgstr "Entreprises publiques locales (Sem, Spl, SemOp)"
 
 msgid "Public organizations / State services"
 msgstr "Établissements publics (écoles, bibliothèques…) / Services de l'État"
