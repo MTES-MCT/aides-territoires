@@ -150,14 +150,14 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'date_updated', 'date_published',
-        'is_imported', 'submission_deadline', 'status', 'aid_typology',
+        'is_imported', 'submission_deadline', 'status',
     ]
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
     search_fields = ['name']
     list_filter = [
-        'status', 'aid_typology', 'recurrence', 'is_imported',
+        'status', 'recurrence', 'is_imported',
         'is_call_for_project', 'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
@@ -228,7 +228,6 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         (_('Aid admin'), {
             'fields': (
                 'status',
-                'aid_typology',
             )
         }),
 

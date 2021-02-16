@@ -18,7 +18,6 @@ def aid_form_data(user, backer, perimeter, category):
         'mobilization_steps': ['preop'],
         'targeted_audiences': ['department'],
         'aid_types': ['grant', 'loan'],
-        'aid_typology': 'standard',
         'destinations': ['supply'],
         'start_date': '01/01/2019',
         'submission_deadline': '01/01/2042',

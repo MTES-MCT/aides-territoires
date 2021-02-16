@@ -82,9 +82,8 @@ def test_deleted_aids_are_not_listed(client):
 
 
 def test_generic_aid_is_listed(client, perimeters):
-    generic = AidFactory(
-        aid_typology=Aid.GENERIC_TYPOLOGY,
-        perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url)
     assert res.status_code == 200
@@ -92,19 +91,16 @@ def test_generic_aid_is_listed(client, perimeters):
 
 
 def test_local_aid_is_listed(client, perimeters):
-    local = AidFactory(
-        aid_typology=Aid.LOCAL_TYPOLOGY,
-        perimeter=perimeters['occitanie'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
-    res = client.get(url)
+    res = client.get(url, data={'perimeter': perimeters['occitanie'].pk})
     assert res.status_code == 200
     assert local in res.context['aids']
 
 
 def test_standard_aid_is_listed(client, perimeters):
-    standard = AidFactory(
-        aid_typology=Aid.DEFAULT_TYPOLOGY,
-        perimeter=perimeters['occitanie'])
+    standard = AidFactory(perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url)
     assert res.status_code == 200
@@ -112,13 +108,8 @@ def test_standard_aid_is_listed(client, perimeters):
 
 
 def test_get_generic_search_perimeter_is_wider(client, perimeters):
-    generic = AidFactory(
-        aid_typology=Aid.DEFAULT_TYPOLOGY,
-        perimeter=perimeters['france'])
-    local = AidFactory(
-        aid_typology=Aid.LOCAL_TYPOLOGY,
-        generic_aid=generic,
-        perimeter=perimeters['occitanie'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
     assert res.status_code == 200
@@ -129,13 +120,8 @@ def test_get_generic_search_perimeter_is_wider(client, perimeters):
 
 
 def test_has_generic_if_search_perimeter_matches(client, perimeters):
-    generic = AidFactory(
-        aid_typology=Aid.DEFAULT_TYPOLOGY,
-        perimeter=perimeters['france'])
-    local = AidFactory(
-        aid_typology=Aid.LOCAL_TYPOLOGY,
-        generic_aid=generic,
-        perimeter=perimeters['occitanie'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
     assert res.status_code == 200
@@ -146,13 +132,8 @@ def test_has_generic_if_search_perimeter_matches(client, perimeters):
 
 
 def test_get_local_if_search_perimeter_is_smaller(client, perimeters):
-    generic = AidFactory(
-        aid_typology=Aid.DEFAULT_TYPOLOGY,
-        perimeter=perimeters['france'])
-    local = AidFactory(
-        aid_typology=Aid.LOCAL_TYPOLOGY,
-        generic_aid=generic,
-        perimeter=perimeters['occitanie'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['herault'].pk})
     assert res.status_code == 200
@@ -163,13 +144,8 @@ def test_get_local_if_search_perimeter_is_smaller(client, perimeters):
 
 
 def test_get_local_aid_if_search_perimeter_matches(client, perimeters):
-    generic = AidFactory(
-        aid_typology=Aid.DEFAULT_TYPOLOGY,
-        perimeter=perimeters['france'])
-    local = AidFactory(
-        aid_typology=Aid.LOCAL_TYPOLOGY,
-        generic_aid=generic,
-        perimeter=perimeters['occitanie'])
+    generic = AidFactory(perimeter=perimeters['france'])
+    local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['occitanie'].pk})
     assert res.status_code == 200

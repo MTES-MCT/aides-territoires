@@ -343,7 +343,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         on_delete=models.CASCADE,
         null=True, blank=True,
         related_name='local_aids',
-        limit_choices_to={'aid_typology': GENERIC_TYPOLOGY},
         help_text=_("Generic aid associated to a local aid"))
     local_characteristics = models.TextField(
         _('Local characteristics'),
