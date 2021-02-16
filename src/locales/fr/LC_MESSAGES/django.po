@@ -2386,8 +2386,8 @@ msgstr "Autres critères d'éligibilité"
 msgid "Local variants"
 msgstr "Fiches locales"
 
-msgid "For more details find your local aid :"
-msgstr "Pour plus de précisions retrouvez votre fiche locale :"
+msgid "For more details find your local aid"
+msgstr "Voir les fiches locales"
 
 msgid "If you don't find your local aid refer to the national measure."
 msgstr ""

@@ -333,14 +333,22 @@
             {% endif %}
 
             {% if aid.is_generic %}
-            <h2 id="aides-locales">{{ _('Local variants') }}</h2>
-            <p>{{  _("For more details find your local aid :") }}</p>
-            <ul>
-                {% for local_aid in aid.local_aids.all %}
-                    <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
-                {% endfor %}
-            </ul>
-            <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+            <h3 id="aides-locales">
+                {{ _('Local variants') }}
+            </h3>
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#localAidsLinks" aria-expanded="false" aria-controls="localAidsLinks">
+                    {{  _("For more details find your local aid") }}
+                </button>
+            </p>
+            <div class="collapse" id="localAidsLinks">
+                <ul>
+                    {% for local_aid in aid.local_aids.all %}
+                        <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
+                    {% endfor %}
+                </ul>
+                <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+            </div>
             {% endif %}
 
             <div id="going-further">
