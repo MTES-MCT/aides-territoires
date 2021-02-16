@@ -602,17 +602,68 @@ div.warning {
     margin-bottom: 0 !important;
 }
 
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    @extend .row-cols-1;
+    @extend .row-cols-md-3;
+    background-color: #fff;
+    border-radius: 0.25rem;
+
+    div.sidebar-actions {
+        @extend .card;
+        @include border-radius(0);
+
+        h3 {
+            @extend .h5;
+            @extend .card-header;
+        }
+
+        &>div {
+            @extend .card-body;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        span.help {
+            @extend .text-muted;
+        }
+
+        button,
+        button.preview-btn {
+            @extend .btn;
+            @extend .btn-block;
+            @extend .btn-primary;
+            @extend .mt-3;
+        }
+
+        &.action-danger {
+            button {
+                @extend .btn-danger;
+            }
+        }
+    }
+}
+
 section#aid-edit {
     @extend .col-md-12;
     margin: 0 !important;
     padding: 0 !important;
 
     div.form-sidebar {
+        display: none;
         @extend .col-md-12;
         @extend .mt-4;
         @extend .py-5;
         position: sticky;
         background-color: $pale-background;
+
+        @include media-breakpoint-up(md) {
+            display: block;
+        }
 
         & #nav-form {
             display: flex;
@@ -651,55 +702,6 @@ section#aid-edit {
             & a {
                 @extend .text-reset;
                 font-weight: bold;
-            }
-        }
-
-        div.sidebar-actions {
-            @extend .card;
-            @include border-radius(0);
-
-            &:first-of-type {
-                @include border-top-radius($card-border-radius);
-            }
-
-            &:last-of-type {
-                @include border-bottom-radius($card-border-radius);
-            }
-
-            &:not(:last-of-type) {
-                margin-bottom: 0;
-                border-bottom: 0;
-            }
-
-            h3 {
-                @extend .h5;
-                @extend .card-header;
-            }
-
-            &>div {
-                @extend .card-body;
-
-                p:last-child {
-                    margin-bottom: 0;
-                }
-            }
-
-            span.help {
-                @extend .text-muted;
-            }
-
-            button,
-            button.preview-btn {
-                @extend .btn;
-                @extend .btn-block;
-                @extend .btn-primary;
-                @extend .mb-1;
-            }
-
-            &.action-danger {
-                button {
-                    @extend .btn-danger;
-                }
             }
         }
     }
