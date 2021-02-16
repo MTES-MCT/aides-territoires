@@ -30,40 +30,28 @@
 {% endblock %}
 
 {% block form_sidebar %}
-<p id="nav-form">
-        <span class="step">
-            <span class="counter">1</span>
-            <a href="#aid-presentation">Présentation</a>
-        </span>
-    
-        <span class="separator"></span>
-    
-        <span class="step">
-            <span class="counter">2</span>
-            <a href="#aid-perimeter">Périmètre</a>
-        </span>
-    
-        <span class="separator"></span>
-    
-        <span class="step">
-            <span class="counter">3</span>
-            <a href="#aid-calendar">Calendrier</a>
-        </span>
-    
-        <span class="separator"></span>
-    
-        <span class="step">
-            <span class="counter">4</span>
-            <a href="#aid-description">Description</a>
-        </span>
-
-        <span class="separator"></span>
-
-        <span class="step">
-            <span class="counter">5</span>
-            <a href="#aid-contact">Contact et démarches</a>
-        </span>
-    </p>
+<ul id="nav-form" class="list-group list-group-horizontal">
+    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
+        <span class="counter">1</span>
+        Présentation
+    </a>
+    <a href="#aid-perimeter" class="list-group-item list-group-item-action">
+        <span class="counter">2</span>
+        Périmètre
+    </a>
+    <a href="#aid-calendar" class="list-group-item list-group-item-action">
+        <span class="counter">3</span>
+        Calendrier
+    </a>
+    <a href="#aid-description" class="list-group-item list-group-item-action">
+        <span class="counter">4</span>
+        Description
+    </a>
+    <a href="#aid-contact" class="list-group-item list-group-item-action">
+        <span class="counter">5</span>
+        Contact
+    </a>
+</ul>
 {% endblock %}
 
 {% block form_actions %}

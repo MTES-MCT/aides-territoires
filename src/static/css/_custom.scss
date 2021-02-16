@@ -621,38 +621,34 @@ section#aid-edit {
             @extend .p-2;
             font-size: 1rem;
             cursor: pointer;
+    
+            .list-group-item  {
+                background-color: inherit;
+                border: none;
 
-            span.step {
-                white-space: nowrap;
-            }
-    
-            span.counter {
-                display: inline-block;
-                width: 1.5rem;
-                height: 1.5rem;
-                text-align: center;
-                vertical-align: baseline;
-                border: 1px solid;
-                border-radius: 50%;
-                font-size: 0.85rem;
-                line-height: 1.5;
-            }
-    
-            span.counter.active {
-                background-color: white;
-                color: $dark;
-            }
-    
-            span.separator {
-                display: inline-block;
-                width: 2rem;
-                height: .4rem;
-                border-top: 1px solid;
-                padding: 0 .25rem;
-                vertical-align: baseline;
+                span.counter {
+                    display: inline-block;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    text-align: center;
+                    vertical-align: baseline;
+                    border: 1px solid white;
+                    border-radius: 50%;
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                }
             }
 
-            & span > a {
+            .list-group-item.active {
+                background-color: inherit;
+
+                span.counter {
+                    background-color: white;
+                    color: $dark;
+                }
+            }
+
+            & a {
                 @extend .text-reset;
                 font-weight: bold;
             }
@@ -714,6 +710,7 @@ section#aid-edit {
         height: 100vh;
         overflow-y: scroll;
         background-color: #fff;
+        position: relative;
 
         > fieldset {
             @extend .col-md-12;

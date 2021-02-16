@@ -14,7 +14,7 @@
     {% block form_sidebar %}{% endblock %}
 </div>
 
-<form id="aid-edit-form" method="post" action="" class="main-form" novalidate>
+<form id="aid-edit-form" method="post" action="" class="main-form" novalidate data-spy="scroll" data-target="#nav-form" data-offset="0">
     {% block form_header %}{% endblock %}
     {% csrf_token %}
     {{ form.media }}
