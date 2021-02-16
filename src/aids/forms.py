@@ -606,7 +606,7 @@ class BaseAidSearchForm(forms.Form):
         if origin_url:
             qs = qs.filter(origin_url=origin_url)
 
-        qs = self.typology_filter(qs, perimeter)
+        qs = self.generic_aid_filter(qs, perimeter)
 
         return qs
 
@@ -708,7 +708,7 @@ class BaseAidSearchForm(forms.Form):
         qs = qs.filter(perimeter__in=perimeter_qs)
         return qs
 
-    def typology_filter(self, qs, search_perimeter):
+    def generic_aid_filter(self, qs, search_perimeter):
         """
         We should never have both the generic aid and it's local version
         together on search results.
