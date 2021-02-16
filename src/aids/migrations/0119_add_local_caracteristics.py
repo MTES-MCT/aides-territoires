@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0119_add_fk_to_generic_aid'),
+        ('aids', '0118_add_fk_to_generic_aid'),
     ]
 
     operations = [
