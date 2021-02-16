@@ -119,6 +119,11 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def local_aids(self):
+        """Returns the list of local aids"""
+
+        return self.filter(generic_aid__isnull=False)
+
 
 class BaseExistingAidsManager(models.Manager):
     """Custom manager to only keep existing aids."""
@@ -647,7 +652,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return self.is_published() and not self.has_expired()
 
     def is_local(self):
-        return self.aid_typology == self.LOCAL_TYPOLOGY
+        return self.generic_aid is not None
 
     def is_generic(self):
-        return self.aid_typology == self.GENERIC_TYPOLOGY
+        return self.local_aids.exists()
