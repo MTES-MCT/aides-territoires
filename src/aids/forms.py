@@ -695,7 +695,7 @@ class BaseAidSearchForm(forms.Form):
         together on search results.
         Which one should be removed from the result ? It depends...
         We consider the scale perimeter associated to the local aid.
-        - When searching a on wider area than the local aid's perimeter,
+        - When searching on a wider area than the local aid's perimeter,
           then we display the generic version.
         - When searching on a smaller area than the local aid's perimeter,
           then we display the local version.
