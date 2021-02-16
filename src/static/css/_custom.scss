@@ -943,6 +943,13 @@ article#aid {
             display: block;
             margin: 3rem auto 0 auto;
         }
+
+        div#localAidsLinks {
+            overflow-y: scroll;
+            max-height: 13rem;
+            background-color: #d9f0ec;
+            padding: 1rem;
+        }
     }
 
     div.aid-actions {
