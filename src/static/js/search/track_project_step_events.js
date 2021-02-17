@@ -5,7 +5,6 @@
         form.submit(function () {
             try {
                 var project = $(this).find(':checked').map(function () {
-                    console.log($(this).val().trim())
                     return $(this).val().trim();
                 });
                 if (_paq) {
