@@ -20,22 +20,51 @@
     <h1>{{ _('Amend an aid') }}</h1>
 {% endblock %}
 
-{% block form_sidebar %}
-<div class="sidebar-actions">
-    <h3>{{ _('Info') }}</h3>
-    <div>
-        <p>{% blocktrans trimmed %}
-            You have the possibility to <strong>suggest amendments</strong>
-            to the present data.
-            Your modifications will not be published until they are <strong>
-            reviewed by an administrator</strong>.
-        {% endblocktrans %}</p>
+{% block before-section %}
 
-        <p>{% blocktrans trimmed %}
-            Thank you for your contribution.
-        {% endblocktrans %}</p>
+    <div class="warning">
+        <h3>{{ _('Info') }}</h3>
+        <div>
+            <p>{% blocktrans trimmed %}
+                You have the possibility to <strong>suggest amendments</strong>
+                to the present data.
+                Your modifications will not be published until they are <strong>
+                reviewed by an administrator</strong>.
+            {% endblocktrans %}</p>
+    
+            <p>{% blocktrans trimmed %}
+                Thank you for your contribution.
+            {% endblocktrans %}</p>
+        </div>
     </div>
-</div>
+
+{% endblock %}
+
+{% block form_sidebar %}
+
+<ul id="nav-form" class="list-group list-group-horizontal">
+    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
+        <span class="counter">1</span>
+        Présentation
+    </a>
+    <a href="#aid-perimeter" class="list-group-item list-group-item-action">
+        <span class="counter">2</span>
+        Périmètre
+    </a>
+    <a href="#aid-calendar" class="list-group-item list-group-item-action">
+        <span class="counter">3</span>
+        Calendrier
+    </a>
+    <a href="#aid-description" class="list-group-item list-group-item-action">
+        <span class="counter">4</span>
+        Description
+    </a>
+    <a href="#aid-contact" class="list-group-item list-group-item-action">
+        <span class="counter">5</span>
+        Contact
+    </a>
+</ul>
+
 {% endblock %}
 
 {% block fields %}
