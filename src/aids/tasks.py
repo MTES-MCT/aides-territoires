@@ -37,10 +37,14 @@ def send_publication_email(aid_id):
     Aid = apps.get_model('aids.Aid')
     aid = Aid.objects.get(pk=aid_id)
     author = aid.author
+    site = Site.objects.get_current()
+    base_url = 'https://{}'.format(site.domain)
     data = {
         'PRENOM': author.first_name,
         'NOM': author.last_name,
         'AIDE_NOM': aid.name,
+        'AIDE_URL': aid.get_absolute_url(),
+        'BASE_URL': base_url,
     }
     send_template_email(
         recipient_list=[author.email],
