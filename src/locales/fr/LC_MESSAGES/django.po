@@ -378,10 +378,10 @@ msgid "First name / last name, email, phone, comments…"
 msgstr "Nom, prénom, e-mail, téléphone, commentaires…"
 
 msgid "Local characteristics"
-msgstr "Caractéristiques locales"
+msgstr "Spécificités locales"
 
 msgid "Characteristics that applies to local aids."
-msgstr "Caractéristiques qui s'appliquent aux aides locales."
+msgstr "Spécificités qui s'appliquent aux aides locales."
 
 msgid "Call for project / Call for expressions of interest"
 msgstr "Appel à projet / Manifestation d'intérêt"
@@ -827,7 +827,7 @@ msgid ""
 "selected, then it's a 'standard' aid."
 msgstr ""
 "Une aide générique peut être utilisée pour indiquer une couverture "
-"nationnale. Si rien est séléctionné, alors il s'agit d'une aide 'standard'."
+"nationale. Si rien est séléctionné, alors il s'agit d'une aide 'standard'."
 
 msgid "Generic aid"
 msgstr "Aide générique"
@@ -2339,16 +2339,16 @@ msgid "This aid is a local variant of a "
 msgstr "Cette aide est une déclinaison locale d'un "
 
 msgid "national measure"
-msgstr "dispositif national"
+msgstr "Aide nationale"
 
 msgid "National measure"
-msgstr "Dispositif national"
+msgstr "Aide nationale"
 
 msgid "This aid is a national measure "
-msgstr "Cette aide est un dispositif national "
+msgstr "Cette aide nationale "
 
 msgid "declinated locally"
-msgstr "disposant de déclinaisons locales"
+msgstr "dispose de déclinaisons locales"
 
 msgid "Call for project"
 msgstr "Appel à projet"
@@ -2394,8 +2394,8 @@ msgstr "Déclinaisons locales"
 
 msgid "If you don't find your local aid refer to the national measure."
 msgstr ""
-"En l'absence d'aide locale, les informations relatives à ce dispositif "
-"générique font foi"
+"En l'absence d'aide locale, les informations relatives à cette aide "
+"nationale font foi"
 
 msgid "Going further"
 msgstr "Aller plus loin"
