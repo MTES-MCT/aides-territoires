@@ -13,10 +13,10 @@ from django.db.models import Q, Case, When
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.core.mail import send_mail
 
 from stats.utils import log_event
 from alerts.models import Alert
-from emails.sib import send_mail_sib
 
 
 logger = logging.getLogger(__name__)
@@ -104,7 +104,7 @@ class Command(BaseCommand):
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [alert.email]
         try:
-            send_mail_sib(
+            send_mail(
                 email_subject,
                 text_body,
                 email_from,

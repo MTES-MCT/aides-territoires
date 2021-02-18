@@ -16,6 +16,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils.functional import cached_property
+from django.core.mail import send_mail
 
 from braces.views import MessageMixin
 
@@ -29,7 +30,6 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
 from programs.models import Program
-from emails.sib import send_mail_sib
 from stats.models import Event
 from stats.utils import log_event
 
@@ -198,7 +198,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
             'scheme': scheme,
             'domain': site.domain,
         })
-        send_mail_sib(
+        send_mail(
             self.EMAIL_SUBJECT,
             results_body,
             settings.DEFAULT_FROM_EMAIL,
