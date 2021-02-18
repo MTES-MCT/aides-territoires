@@ -2,18 +2,6 @@
 {% load i18n form_utils %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        {% if current_search %}
-            <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Your search') }}</a></li>
-        {% else %}
-            <li><a href="{% url 'search_view' %}">{{ _('All aids') }}</a></li>
-        {% endif %}
-        <li><a href="{{ aid.get_absolute_url }}">{{ _('Aid detail') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Amend') }}</li>
-    </ol>
-</nav>
 {% endblock %}
 
 {% block page_title %}

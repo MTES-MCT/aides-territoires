@@ -649,6 +649,7 @@ div.warning {
 }
 
 section#aid-edit {
+    position: relative;
     @extend .col-md-12;
     margin: 0 !important;
     padding: 0 !important;
@@ -657,12 +658,15 @@ section#aid-edit {
         display: none;
         @extend .col-md-12;
         @extend .mt-4;
-        @extend .py-5;
+        @extend .py-2;
         position: sticky;
         background-color: $pale-background;
 
         @include media-breakpoint-up(md) {
             display: block;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         & #nav-form {
@@ -708,11 +712,10 @@ section#aid-edit {
 
     form.main-form {
         @extend .col-md-12;
-        padding: 0 !important;
-        height: 100vh;
-        overflow-y: scroll;
+        @extend .py-3;
         background-color: #fff;
         position: relative;
+        z-index: -1;
 
         > fieldset {
             @extend .col-md-12;

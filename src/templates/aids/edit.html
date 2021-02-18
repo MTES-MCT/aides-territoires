@@ -1,15 +1,7 @@
 {% extends 'aids/_base_edit.html' %}
 {% load i18n form_utils compress %}
 
-{% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My published aids') }}</a></li>
-        <li class="active" aria-current="page">{{ aid.name|truncatechars:30 }}</li>
-    </ol>
-</nav>
-{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 
 {% block messages %}{% endblock %}
 
