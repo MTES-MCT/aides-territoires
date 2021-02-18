@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-16 12:16+0100\n"
+"POT-Creation-Date: 2021-02-18 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -425,12 +425,6 @@ msgstr "Merci d'indiquer un porteur d'aide."
 msgid "Please indicate the maximum subvention rate."
 msgstr "Merci d'indiquer le taux de subvention maximum."
 
-msgid "A local aid should be associated with a generic aid."
-msgstr "Une aide locale doit être associée à une aide générique."
-
-msgid "Only a local aid can be associated with a generic aid."
-msgstr "Seule un aide locale peut être associées à une aide générique."
-
 msgid "Perimeter suggestion"
 msgstr "Périmètre suggéré"
 
@@ -818,16 +812,6 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
-
-msgid "Aid typology"
-msgstr "Typologie de l'aide"
-
-msgid ""
-"Generic aid can be used when it' coverage is national. If nothing is "
-"selected, then it's a 'standard' aid."
-msgstr ""
-"Une aide générique peut être utilisée pour indiquer une couverture "
-"nationale. Si rien est séléctionné, alors il s'agit d'une aide 'standard'."
 
 msgid "Generic aid"
 msgstr "Aide générique"
