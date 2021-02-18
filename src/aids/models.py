@@ -15,6 +15,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
 
@@ -463,6 +464,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             GinIndex(fields=['search_vector']),
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # We store here the current status as we need to check if it
+        # has change - check what we do when saving the Aid instance.
+        self.original_status = self.status
+
     def set_slug(self):
         """Set the object's slug.
 
@@ -547,6 +554,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_publication_date()
+        is_being_published = self.is_published() and self.status_has_changed()
+        if is_being_published and not self.is_imported:
+            send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 
     def __str__(self):
@@ -566,6 +576,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_published(self):
         return self.status == AidWorkflow.states.published
+
+    def status_has_changed(self):
+        return self.original_status != self.status
 
     def is_financial(self):
         """Does this aid have financial parts?"""
