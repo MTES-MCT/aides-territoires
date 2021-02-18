@@ -33,7 +33,7 @@
 
     {% block fields %}
     <fieldset id="aid-presentation">
-            <legend>{{ _('Aid presentation') }}</legend>
+            <legend>1 - {{ _('Aid presentation') }}</legend>
             {% include '_field_snippet_aid_form.html' with field=form.name %}
             {% include '_checkbox_snippet_aid_form.html' with field=form.in_france_relance %}
             {% include '_field_snippet_aid_form.html' with field=form.short_title %}
@@ -47,13 +47,13 @@
     </fieldset>
 
     <fieldset id="aid-perimeter">
-        <legend>{{ _('Aid perimeter') }}</legend>
+        <legend>2 - {{ _('Aid perimeter') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
         {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
     </fieldset>
 
     <fieldset id="aid-calendar">
-        <legend>{{ _('Aid calendar') }}</legend>
+        <legend>3 - {{ _('Aid calendar') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
         <div id="calendar-fields">
             {% include '_field_snippet_aid_form.html' with field=form.start_date %}
@@ -63,7 +63,7 @@
     </fieldset>
 
     <fieldset id="aid-description">
-        <legend>{{ _('Aid description') }}</legend>
+        <legend>4 - {{ _('Aid description') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
         <div id="subvention-fields">
             {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
@@ -80,7 +80,7 @@
     </fieldset>
 
     <fieldset id="aid-contact">
-        <legend>{{ _('Contact and actions') }}</legend>
+        <legend>5 - {{ _('Contact and actions') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
         {% include '_field_snippet_aid_form.html' with field=form.application_url %}
         {% include '_field_snippet_aid_form.html' with field=form.contact %}    
