@@ -630,3 +630,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_live(self):
         """True if the aid must be displayed on the site."""
         return self.is_published() and not self.has_expired()
+
+    def get_live_status_display(self):
+        status = _('Displayed') if self.is_live() else _('Not displayed')
+        return status

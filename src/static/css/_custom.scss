@@ -1031,22 +1031,22 @@ div#share-modal {
         @extend .mx-2;
         @extend .mt-2;
         @extend .mb-4;
-    
+
         & > div {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-    
+
             & a {
                 @extend .py-2;
             }
-    
+
             & a > img{
                 transition: transform 0.5s;
                 max-width: 50px;
             }
-    
+
             & a > img:hover{
                 transform: scale(1.2);
             }
@@ -1227,11 +1227,8 @@ article#draft-list {
     }
 
     table {
-        th {
-            white-space: nowrap;
-        }
-        td.aid-deadline-cell,
-        td.aid-status-cell {
+        th,
+        td.nowrap-cell {
             white-space: nowrap;
         }
     }
@@ -1551,7 +1548,7 @@ ul.aid-categories {
             max-width: 225px;
             padding: 0.5rem;
             filter: saturate(140%);
-    
+
             @include media-breakpoint-up(md) {
                 max-width: 160px;
             }
@@ -1560,7 +1557,7 @@ ul.aid-categories {
                 max-width: 225px;
             }
         }
-    
+
         & > a > img:hover {
             filter: grayscale(20%);
         }

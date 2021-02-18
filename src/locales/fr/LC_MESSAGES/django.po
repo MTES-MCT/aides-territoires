@@ -2340,6 +2340,9 @@ msgstr "Créée le"
 msgid "Last modified"
 msgstr "Modifiée le"
 
+msgid "Is live"
+msgstr "Visibilité sur le site"
+
 msgid "Hits"
 msgstr "Vues"
 

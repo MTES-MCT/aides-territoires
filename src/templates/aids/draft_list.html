@@ -27,14 +27,14 @@
     </div>
 
     <form id="filter-form" action="" method="get" autocomplete='off'>
-        <div class="form-container">    
+        <div class="form-container">
             {{ filter_form }}
             <button class="filter-btn" type="submit">
                 {{ _('Filter results') }}
             </button>
         </div>
     </form>
-    
+
     <div class="table-help">
         {{ _('Click on the column name to order') }}
     </div>
@@ -48,7 +48,7 @@
                 <th title="{{ _('Order by') }} {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
                 <th title="{{ _('Order by') }} {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
                 <th title="{{ _('Order by') }} {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
-                <th title="{{ _('Order by') }} {{ _('Status') }}">{% sortable_header _('Status') 'status' %}</th>
+                <th>{{ _('Is live') }}</th>
                 <th>{{ _('Hits') }}</th>
             </tr>
         </thead>
@@ -66,7 +66,7 @@
                 <td>{{ aid.perimeter }}</td>
                 <td>{{ aid.date_created|date:'d/m/y' }}</td>
                 <td>{{ aid.date_updated|date:'d/m/y' }}</td>
-                <td class="aid-deadline-cell">
+                <td class="nowrap-cell">
                     {% if aid.is_ongoing %}
                         <span class="fas fa-parking" title="{{ _('Ongoing') }}"></span>
                     {% elif aid.has_approaching_deadline %}
@@ -76,7 +76,7 @@
                     {% endif %}
                     <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                 </td>
-                <td class="aid-status-cell">{{ aid.get_status_display }}</td>
+                <td class="nowrap-cell">{{ aid.get_live_status_display }}</td>
                 <td>{% get hits_per_aid aid.slug 0 %}</td>
             </tr>
             {% endfor %}
