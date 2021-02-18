@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
-from projects.models import Project
+from projects.models import Project, ProjectWorkflow
 from categories.fields import CategoryMultipleChoiceField
 
 
@@ -28,10 +28,10 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description', 'categories',
-        'is_suggested', 'date_created'
+        'is_suggested', 'date_created', 'status'
     ]
     search_fields = ['name']
-    list_filter = ['is_suggested', 'categories']
+    list_filter = ['is_suggested', 'categories', 'status']
     readonly_fields = ['date_created']
     filter_vertical = ['categories']
 

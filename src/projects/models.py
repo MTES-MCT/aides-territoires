@@ -1,10 +1,31 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
+
+from model_utils import Choices
+from django_xworkflows import models as xwf_models
 
 
-class Project(models.Model):
+class ProjectWorkflow(xwf_models.Workflow):
+    """Defines statuses for Projects."""
+
+    log_model = ''
+
+    states = Choices(
+        ('draft', _('Draft')),
+        ('reviewable', _('Under review')),
+        ('published', pgettext_lazy('Project (nf)', 'Published')),
+    )
+    initial_state = 'reviewable'
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+    )
+
+
+class Project(xwf_models.WorkflowEnabled, models.Model):
 
     name = models.CharField(
         _('Name'),
@@ -21,7 +42,7 @@ class Project(models.Model):
         'categories.Category',
         verbose_name=_('Categories'),
         related_name='projects',
-        blank=True)
+        blank=True)    
 
     is_suggested = models.BooleanField(
         _('Is a suggested project?'),
@@ -29,6 +50,9 @@ class Project(models.Model):
         help_text=_(
             'If the project is suggested by a user'))
 
+    status = xwf_models.StateField(
+        ProjectWorkflow,
+        verbose_name=_('Status'))
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
@@ -48,3 +72,12 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+    def is_draft(self):
+        return self.status == ProjectWorkflow.states.draft
+
+    def is_under_review(self):
+        return self.status == ProjectWorkflow.states.reviewable
+
+    def is_published(self):
+        return self.status == ProjectWorkflow.states.published
