@@ -293,8 +293,8 @@
             <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
 
-            {% if aid.is_local %}
-            <h4>Aide locale</h4>
+            {% if aid.is_local and aid.local_characteristics %}
+            <h4>Spécificités locales</h4>
 
             {{ aid.local_characteristics|safe }}
 
