@@ -596,6 +596,7 @@ section#bundles {
     position: relative;
     height: 100%;
     background-color: #ffffff00;
+    box-shadow: none !important;
 }
 
 div.warning {
@@ -653,6 +654,8 @@ section#aid-edit {
     @extend .col-md-12;
     margin: 0 !important;
     padding: 0 !important;
+    border-radius: 0 0 1.5rem 1.5rem !important;
+    box-shadow: 0 0.5rem 1.2rem rgba(43, 36, 101, 0.9) !important;
 
     div.form-sidebar {
         display: none;
@@ -661,6 +664,8 @@ section#aid-edit {
         @extend .py-2;
         position: sticky;
         background-color: $pale-background;
+        border-radius: 1.5rem 0 0 0 !important;
+        box-shadow: 0 0.5rem 1rem rgba(43, 36, 101, 0.9) !important;
 
         @include media-breakpoint-up(md) {
             display: block;
@@ -720,6 +725,7 @@ section#aid-edit {
         background-color: #fff;
         position: relative;
         z-index: -1;
+        border-radius: 0 0 1.5rem 1.5rem !important;
 
         @include media-breakpoint-up(md) {
             background: rgb(255,255,255);
