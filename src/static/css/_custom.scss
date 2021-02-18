@@ -621,11 +621,11 @@ div.warning {
         }
 
         &>div {
-            @extend .card-body;
-
-            p:last-child {
-                margin-bottom: 0;
-            }
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 1rem;
         }
 
         span.help {
@@ -676,6 +676,15 @@ section#aid-edit {
             @extend .p-2;
             font-size: 1rem;
             cursor: pointer;
+
+            & a {
+                @extend .text-reset;
+                font-weight: bold;
+            }
+
+            & a.active {
+                color: $contrast-color !important;
+            }
     
             .list-group-item  {
                 background-color: inherit;
@@ -699,13 +708,8 @@ section#aid-edit {
 
                 span.counter {
                     background-color: white;
-                    color: $dark;
+                    color: $contrast-color !important;
                 }
-            }
-
-            & a {
-                @extend .text-reset;
-                font-weight: bold;
             }
         }
     }
@@ -717,17 +721,28 @@ section#aid-edit {
         position: relative;
         z-index: -1;
 
+        @include media-breakpoint-up(md) {
+            background: rgb(255,255,255);
+            background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(249,248,246,1) 34%);    
+        }
+
         > fieldset {
             @extend .col-md-12;
             @extend .mt-5;
-            @extend .px-5;
+            @extend .px-3;
+
+            &::after {
+                border-bottom: 2px solid gray;
+                @extend .px-5;
+            }
 
             & > legend {
                 padding: 0;
+                margin-bottom: 2rem;
                 font-size: 1.6rem;
                 color: $contrast-color;
                 font-weight: bold;
-                background-color: #fff;
+                background-color: inherit;
             }
 
             .form-group {
@@ -739,21 +754,32 @@ section#aid-edit {
                 padding: 0;
 
                 .part-form {
-                    padding-left: 2rem;
+                    padding-left: 3rem;
                 }
             }
     
             .part-form {
-                @extend .col-md-7;
+                @extend .col-md-8;
+                padding-left: 2rem;
+
+                label {
+                    font-weight: bold;
+                }
+
+                input + label {
+                    font-weight: normal;
+                }
             }
-    
-            .btn {
-                @extend .offset-md-5;
-                @extend .col-md-7;
+
+            @include media-breakpoint-up(md) {
+                .btn {
+                    margin-left: 36%;
+                }
             }
     
             .help-form {
-                @extend .col-md-5;
+                @extend .col-md-4;
+                padding-right: 2rem;
     
                 .field-help {
                     margin: 0 !important;
