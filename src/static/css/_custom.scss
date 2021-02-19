@@ -871,6 +871,10 @@ article#aid {
             margin-left: -3rem;
         }
 
+        & > div.local-generic {
+            @include icon(before, $fa-var-map-marker-alt, 1.5rem);
+            }
+
         & > div.financers {
             @include icon(before, $fa-var-handshake, 1.5rem);
         }
@@ -938,6 +942,13 @@ article#aid {
             @extend .btn-primary;
             display: block;
             margin: 3rem auto 0 auto;
+        }
+
+        div#localAidsLinks {
+            overflow-y: scroll;
+            max-height: 13rem;
+            background-color: #d9f0ec;
+            padding: 1rem;
         }
     }
 

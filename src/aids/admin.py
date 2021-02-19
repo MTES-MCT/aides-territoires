@@ -150,15 +150,15 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'date_updated', 'date_published',
-        'is_imported', 'submission_deadline', 'status'
+        'is_imported', 'submission_deadline', 'status',
     ]
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
     search_fields = ['name']
     list_filter = [
-        'status', 'recurrence', 'is_imported', 'is_call_for_project',
-        'in_france_relance',
+        'status', 'recurrence', 'is_imported',
+        'is_call_for_project', 'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
         'programs', 'categories']
@@ -168,6 +168,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
         'date_updated', 'date_published']
+    raw_id_fields = ['generic_aid']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -229,6 +230,14 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
                 'status',
             )
         }),
+
+        (_('Only for local aids'), {
+            'fields': (
+                'generic_aid',
+                'local_characteristics',
+            )
+        }),
+
 
         (_('Import related data'), {
             'fields': (
