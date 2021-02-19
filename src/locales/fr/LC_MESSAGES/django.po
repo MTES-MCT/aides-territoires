@@ -2757,6 +2757,9 @@ msgstr "Envoyer cette aide par email"
 msgid "Project"
 msgstr "Projet"
 
+msgid "Project name"
+msgstr "nom du projet"
+
 msgid "Projects"
 msgstr "Projets"
 
@@ -2777,3 +2780,9 @@ msgstr "Votre projet"
 
 msgid "In what projects are you interested in ?"
 msgstr "Par quel projet êtes-vous intéressé-e ?"
+
+msgid "Suggest a project"
+msgstr "Suggérer un projet"
+
+msgid "Submit this project"
+msgstr "Proposer ce projet"

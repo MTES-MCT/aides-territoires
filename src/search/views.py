@@ -1,5 +1,6 @@
 from django.views.generic import FormView
 
+from projects.forms import ProjectSuggestForm
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm,
@@ -10,6 +11,7 @@ class SearchMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['querystring'] = self.request.GET.urlencode()
+        context['project_form'] = ProjectSuggestForm(label_suffix='')
         return context
 
 

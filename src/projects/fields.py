@@ -1,7 +1,5 @@
 from django import forms
 
-from projects.models import Project
-
 
 class ProjectMultipleChoiceField(forms.ModelMultipleChoiceField):
     """Custom field to select projects."""

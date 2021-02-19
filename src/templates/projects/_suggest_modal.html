@@ -1,0 +1,23 @@
+{% load i18n %}
+<div id="suggest-project-modal" class="modal">
+    <div class="modal-dialog">
+        <section>
+            <header>
+                <h1>{{ _('Suggest a project') }}</h1>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span title="{{ _('Close') }}" aria-hidden="true">&times;</span>
+                </button>
+            </header>
+
+            <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}">
+                <div class="content">
+                {% csrf_token %}
+                {% include '_field_snippet.html' with field=project_form.name %}
+                {% include '_field_snippet.html' with field=project_form.description %}
+                <button type="submit">{{ _('Submit this project') }}</button>
+                </div>
+            </form>
+            
+        </section>
+    </div>
+</div>

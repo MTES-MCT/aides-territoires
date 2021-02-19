@@ -28,7 +28,7 @@ class ProjectWorkflow(xwf_models.Workflow):
 class Project(xwf_models.WorkflowEnabled, models.Model):
 
     name = models.CharField(
-        _('Name'),
+        _('Project name'),
         max_length=256,
         db_index=True)
     slug = models.SlugField(
@@ -42,7 +42,7 @@ class Project(xwf_models.WorkflowEnabled, models.Model):
         'categories.Category',
         verbose_name=_('Categories'),
         related_name='projects',
-        blank=True)    
+        blank=True)
 
     is_suggested = models.BooleanField(
         _('Is a suggested project?'),

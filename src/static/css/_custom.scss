@@ -1426,19 +1426,23 @@ div#search-steps {
             @extend .mt-4;
         }
     }
+}
 
-    form#project {
-        #suggested_project {
-            @extend .my-5;
-            @extend .p-5;
-            border: 2px solid #fff;
-            border-radius: 10px;
+#suggested_project {
+    @extend .m-2;
 
-            input, p {
-                @extend .mb-4;
-            }
-        }
+    input, p {
+        @extend .mb-4;
     }
+
+    button {
+        width: 100%;
+    }
+}
+
+#suggest-project-btn {
+    @extend .btn;
+    @extend .btn-primary;
 }
 
 #backer-title {
