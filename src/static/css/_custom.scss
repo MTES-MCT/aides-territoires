@@ -737,11 +737,6 @@ section#aid-edit {
             @extend .mt-5;
             @extend .px-3;
 
-            &::after {
-                border-bottom: 2px solid gray;
-                @extend .px-5;
-            }
-
             & > legend {
                 padding: 0;
                 margin-bottom: 2rem;
@@ -791,9 +786,27 @@ section#aid-edit {
                     margin: 0 !important;
                 }
             }
-    
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -50px;
+                width: 70%;
+                text-align: center;
+                border-bottom: 2px solid $pale-background;
+            }
         }
-        
+
+        > fieldset + fieldset {
+            margin-top: 8rem !important;
+        }
+
+        > fieldset:last-of-type::after {
+            display: none;
+        }
+
         p.warning, div.form-actions {
             @extend .mx-4;
         }
