@@ -803,8 +803,12 @@ section#aid-edit {
             margin-top: 8rem !important;
         }
 
-        > fieldset:last-of-type::after {
-            display: none;
+        > fieldset:last-of-type {
+            @extend .mb-5;
+
+            &::after{
+                display: none;
+            }
         }
 
         p.warning, div.form-actions {
