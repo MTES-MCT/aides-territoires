@@ -174,15 +174,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('other', _('Other')),
     )
 
-    DEFAULT_TYPOLOGY = 'standard'
-    GENERIC_TYPOLOGY = 'generic'
-    LOCAL_TYPOLOGY = 'local'
-    TYPOLOGY = Choices(
-        (GENERIC_TYPOLOGY, _('Generic')),
-        (LOCAL_TYPOLOGY, _('Local')),
-        (DEFAULT_TYPOLOGY, _('Standard')),
-    )
-
     FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
                       'other')
 
