@@ -614,6 +614,7 @@ div.warning {
 
     div.sidebar-actions {
         @extend .card;
+        box-shadow: none !important;
         @include border-radius(0);
 
         h3 {
@@ -655,7 +656,7 @@ section#aid-edit {
     margin: 0 !important;
     padding: 0 !important;
     border-radius: 0 0 1.5rem 1.5rem !important;
-    box-shadow: 0 0.5rem 1.2rem rgba(43, 36, 101, 0.9) !important;
+    box-shadow: 0 1rem 1.2rem -0.4rem rgba(43, 36, 101, 0.9) !important;
 
     div.form-sidebar {
         display: none;
@@ -665,13 +666,13 @@ section#aid-edit {
         position: sticky;
         background-color: $pale-background;
         border-radius: 1.5rem 0 0 0 !important;
-        box-shadow: 0 0.5rem 1rem rgba(43, 36, 101, 0.9) !important;
+        box-shadow: 0 0rem 1.7rem 0.1rem rgba(120, 117, 153, 0.9) !important;
 
         @include media-breakpoint-up(md) {
             display: block;
             position: sticky;
             top: 0;
-            z-index: 1;
+            z-index: 5;
         }
 
         & #nav-form {
@@ -724,7 +725,7 @@ section#aid-edit {
         @extend .py-3;
         background-color: #fff;
         position: relative;
-        z-index: -1;
+        z-index: 1;
         border-radius: 0 0 1.5rem 1.5rem !important;
 
         @include media-breakpoint-up(md) {
