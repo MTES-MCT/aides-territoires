@@ -303,9 +303,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             default=STEPS.preop))
     origin_url = models.URLField(
         _('Origin URL'),
+        max_length=500,
         blank=True)
     application_url = models.URLField(
         _('Application url'),
+        max_length=500,
         blank=True)
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
