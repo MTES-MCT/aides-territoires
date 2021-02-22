@@ -35,8 +35,44 @@
         {% block search-meta-backers %}
         {% if backers %}
             <p title="{{ _('Aid backers') }}">
-                <span class="fas fa-user-shield fa-fw"></span>
+                <span class="fas fa-handshake fa-fw"></span>
                 {{ backers|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-aid-type %}
+        {% if aid_type %}
+            <p title="{{ _('Aid type') }}">
+                <span class="fas fa-cog fa-fw"></span>
+                {{ aid_type|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-mobilization-step %}
+        {% if mobilization_step %}
+            <p title="{{ _('Project progress') }}">
+                <span class="fas fa-hourglass fa-fw"></span>
+                {{ mobilization_step|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-destinations %}
+        {% if destinations %}
+            <p title="{{ _('Concerned actions') }}">
+                <span class="fas fa-wallet fa-fw"></span>
+                {{ destinations|join:', ' }}
+            </p>
+        {% endif %}
+        {% endblock %}
+
+        {% block search-meta-call-for-project %}
+        {% if call_for_projects_only %}
+            <p title="{{ _('Call for projects only') }}">
+                <span class="fas fa-thumbtack fa-fw"></span>
+                {{ _('Call for projects only') }}
             </p>
         {% endif %}
         {% endblock %}
