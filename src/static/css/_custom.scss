@@ -1437,14 +1437,21 @@ div#search-steps {
 }
 
 #backer-title {
-    @extend .d-flex;
-    @extend .flex-row;
-    @extend .flex-wrap;
-    @extend .justify-content-between;
+    @extend .row;
+
+    h1 {
+        @extend .col-md-10;
+    }
+
+    div {
+        @extend .col-md-2;
+    }
 
     img {
         max-height: $height-img-base;
         max-width: 300px;
+        display: block;
+        margin: auto;
     }
 }
 

@@ -21,7 +21,9 @@
         <div id="backer-title">
             <h1>{{ backer.name }}</h1>
             {% if backer.logo %}
-            <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
+            <div>
+                <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
+            </div>
             {% endif %}
         </div> 
 
