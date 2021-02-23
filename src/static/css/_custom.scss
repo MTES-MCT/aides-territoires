@@ -1436,7 +1436,7 @@ div#search-steps {
     }
 }
 
-#backer-title {
+#backer-title > div {
     @extend .row;
 
     h1 {
