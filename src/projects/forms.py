@@ -1,11 +1,10 @@
 from django import forms
 
-from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
 
 from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category, Theme
+from categories.models import Category
 
 
 class ProjectSuggestForm(forms.ModelForm):

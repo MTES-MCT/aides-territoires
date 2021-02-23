@@ -2786,3 +2786,6 @@ msgstr "Suggérer un projet"
 
 msgid "Submit this project"
 msgstr "Proposer ce projet"
+
+msgid "Your suggestion will be reviewed by an admin soon. Thank you for contributing."
+msgstr "Votre suggestion sera revue prochainement par un administrateur. Merci de votre contribution."
