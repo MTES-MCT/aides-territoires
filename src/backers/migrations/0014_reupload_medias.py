@@ -2,19 +2,7 @@
 
 from django.db import migrations
 from django.db.migrations.operations.special import RunPython
-from django.core.files.storage import FileSystemStorage
-
-
-def reupload_files(apps, schema_editor):
-    Backer = apps.get_model('backers', 'Backer')
-    fs_storage = FileSystemStorage()
-
-    for backer in Backer.objects.all():
-        file_name = backer.logo.name
-        if file_name and fs_storage.exists(file_name):
-            field_file = fs_storage.open(file_name)
-            backer.logo = field_file
-            backer.save()
+from core.utils import reupload_files
 
 
 class Migration(migrations.Migration):
@@ -24,5 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        RunPython(reupload_files, RunPython.noop)
+        RunPython(reupload_files('backers.Backer', 'logo'), RunPython.noop)
     ]
