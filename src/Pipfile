@@ -45,9 +45,6 @@ pytest-django = "*"
 rope = "*"
 selenium = "*"
 yapf = "*"
-python-openstackclient = "*"
-awscli = "*"
-awscli-plugin-endpoint = "*"
 
 [requires]
 python_version = "3"
