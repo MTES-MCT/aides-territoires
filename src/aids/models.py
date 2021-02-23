@@ -120,10 +120,20 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def generic_aids(self):
+        """Returns the list of generic aids"""
+
+        return self.filter(local_aids__isnull=False)
+
     def local_aids(self):
         """Returns the list of local aids"""
 
         return self.filter(generic_aid__isnull=False)
+
+    def standard_aids(self):
+        """Returns the list of aids that are nither local nor generic"""
+
+        return self.filter(generic_aid__isnull=True, local_aids__isnull=True)
 
 
 class BaseExistingAidsManager(models.Manager):

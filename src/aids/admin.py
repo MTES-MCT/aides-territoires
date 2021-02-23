@@ -59,6 +59,30 @@ class LiveAidListFilter(admin.SimpleListFilter):
             return queryset.published().open()
 
 
+class GenericAidListFilter(admin.SimpleListFilter):
+    """Custom admin filter for generic, local and standard aids."""
+
+    title = _('Generic / Local')
+    parameter_name = 'typology'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('generic', _('Generic aids')),
+            ('local', _('Local aids')),
+            ('standard', _('Standard aids')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'generic':
+            return queryset.generic_aids()
+
+        if self.value() == 'local':
+            return queryset.local_aids()
+
+        if self.value() == 'standard':
+            return queryset.standard_aids()
+
+
 class AuthorFilter(InputFilter):
     parameter_name = 'author'
     title = _('Author')
@@ -157,7 +181,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
                            'programs']
     search_fields = ['name']
     list_filter = [
-        'status', 'recurrence', 'is_imported',
+        'status', GenericAidListFilter, 'recurrence', 'is_imported',
         'is_call_for_project', 'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
