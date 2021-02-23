@@ -31,6 +31,8 @@ sentry-sdk = "*"
 unipath = "*"
 xlrd = "*"
 zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 ansible = "*"
@@ -43,6 +45,9 @@ pytest-django = "*"
 rope = "*"
 selenium = "*"
 yapf = "*"
+python-openstackclient = "*"
+awscli = "*"
+awscli-plugin-endpoint = "*"
 
 [requires]
 python_version = "3"
