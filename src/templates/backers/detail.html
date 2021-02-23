@@ -21,12 +21,12 @@
         <div id="backer-title">
             {% if backer.logo %}
             <div>
-                <h1>{{ backer.name }}</h1>
-                {% if backer.logo %}
+                <div>
+                    <h1>{{ backer.name }}</h1>
+                </div>
                 <div>
                     <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
                 </div>
-                {% endif %}
             </div>
             {% else %}
                 <h1>{{ backer.name }}</h1>
