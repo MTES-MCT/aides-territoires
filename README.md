@@ -246,7 +246,7 @@ son IDE et aussi faire ceci :
 ### Variables d'environnement
 
 Afin de rendre disponible les variables d'environnement dans les playbooks
-ansible, nous utilons le fichier `.env.ansible`.
+ansible, nous utilisons le fichier `.env.ansible`.
 
 
     # Pour créer le fichier env:
@@ -270,6 +270,12 @@ Les emails transactionnels sont envoyés via SendingBlue.
 Pour les environnements de Staging, il un mécanisme qui permet de
 n'envoyer les emails qu'à une liste restreinte d'adresses.
 Cette "Whitelist" est définie dans les `settings`.Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
+
+
+### Fichiers media
+
+Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour le stockage de tous les fichiers medias.
+
 
 ### Ansible
 
