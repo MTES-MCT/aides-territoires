@@ -1466,7 +1466,7 @@ div#search-steps {
     }
 }
 
-#suggest-project-btn {
+#suggest-project-btn, #display-results-btn {
     @extend .btn;
     @extend .btn-primary;
 }
