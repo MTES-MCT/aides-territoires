@@ -1439,7 +1439,8 @@ div#search-steps {
 #suggested_project_box {
     border: solid 2px #fff;
     border-radius: 10px;
-    @extend .p-3;
+    @extend .mb-4;
+    @extend .p-4;
 
     @include media-breakpoint-up(md) {
         & > div {

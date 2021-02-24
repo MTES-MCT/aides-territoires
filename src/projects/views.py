@@ -1,7 +1,6 @@
 from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-from django.utils.http import urlencode
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
@@ -21,7 +20,9 @@ class ProjectSuggest(MessageMixin, CreateView):
 
         querystring = self.request.GET.urlencode()
         categories_list = self.request.GET.getlist('categories', '')
-        categories = Category.objects.filter(slug__in=categories_list).values_list('id', flat=True)
+        categories = Category.objects \
+            .filter(slug__in=categories_list) \
+            .values_list('id', flat=True)
 
         project = form.save(commit=False)
         project.date_created = timezone.now()
