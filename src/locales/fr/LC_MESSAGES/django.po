@@ -2779,7 +2779,16 @@ msgid "Your project"
 msgstr "Votre projet"
 
 msgid "In what projects are you interested in ?"
-msgstr "Par quel projet êtes-vous intéressé-e ?"
+msgstr "Pour quel projet recherchez-vous une aide ?"
+
+msgid "Contribute to improve Aides-territoires !"
+msgstr "Contribuez à améliorer Aides-territoires !"
+
+msgid "Tell us the project for which you are seeking aids to improve in future the relevance of results"
+msgstr "Indiquez le projet pour lequel vous recherchez une aide pour améliorer dans le futur la pertinence des résultats qui vous seront proposés."
+
+msgid "This information will not have any impact in your search results"
+msgstr "Cette information n’aura aucune influence sur les résultats de votre recherche"
 
 msgid "Suggest a project"
 msgstr "Suggérer un projet"

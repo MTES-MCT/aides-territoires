@@ -59,7 +59,16 @@
 
 <form id="project" action="{% url 'search_view' %}" method="GET">
 
-    {% include '_form_snippet.html' %}
+    <div id="suggested_project_box">
+        <h3>{{ _('Contribute to improve Aides-territoires !') }}</h3>
+        <p>{{ _('Tell us the project for which you are seeking aids to improve in future the relevance of results') }}</p>
+        <div>
+            <p>{{ _('This information will not have any impact in your search results') }}</p>
+            <a id="suggest-project-btn" href="#" class="js" data-toggle="modal" data-target="#suggest-project-modal">
+                {{ _('Suggest a project') }}
+            </a>    
+        </div>
+    </div>
 
     <button type="submit">
         {{ _('Submit') }}
@@ -71,9 +80,6 @@
         </a>
         <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
             {{ _('Skip to the next step') }}
-        </a>
-        <a id="suggest-project-btn" href="#" class="js" data-toggle="modal" data-target="#suggest-project-modal">
-            {{ _('Suggest a project') }}
         </a>
     </div>
 </form>

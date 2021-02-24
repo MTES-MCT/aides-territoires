@@ -19,8 +19,7 @@ class ProjectSuggestForm(forms.ModelForm):
         label=_('Themes'),
         queryset=CATEGORIES_QS,
         to_field_name='slug',
-        required=False,
-        initial="voirie")
+        required=False,)
 
     class Meta:
         model = Project
