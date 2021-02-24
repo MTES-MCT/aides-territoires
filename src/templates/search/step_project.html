@@ -54,11 +54,21 @@
 </div>
 {% endblock %}
 
+{% block messages %}
+{% endblock %}
+
 {% block content %}
 <h1>{{ _('In what projects are you interested in ?') }}</h1>
 
 <form id="project" action="{% url 'search_view' %}?{{ querystring }}" method="GET">
 
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
+            {% endfor %}
+        </div>
+    {% else %}
     <div id="suggested_project_box">
         <h3>{{ _('Contribute to improve Aides-territoires !') }}</h3>
         <p>{{ _('Tell us the project for which you are seeking aids to improve in future the relevance of results') }}</p>
@@ -69,6 +79,7 @@
             </a>    
         </div>
     </div>
+    {% endif %}
 
     <div class="navigation-links">
         <a id="display-results-btn" href="{% url 'search_view' %}?{{ querystring }}">
