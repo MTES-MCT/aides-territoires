@@ -5,7 +5,7 @@ from stats.models import AidViewEvent, Event
 
 class AidViewEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
-    list_display = ['aid', 'source', 'date_created']
+    list_display = ['id', 'aid', 'source', 'date_created']
     list_filter = ['source']
 
     def has_add_permission(self, request):
