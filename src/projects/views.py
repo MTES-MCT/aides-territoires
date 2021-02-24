@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
 
 from projects.forms import ProjectSuggestForm
+from categories.models import Category
 
 
 class ProjectSuggest(MessageMixin, CreateView):
@@ -19,6 +20,8 @@ class ProjectSuggest(MessageMixin, CreateView):
     def form_valid(self, form):
 
         querystring = self.request.GET.urlencode()
+        categories_list = self.request.GET.getlist('categories', '')
+        categories = Category.objects.filter(slug__in=categories_list).values_list('id', flat=True)
 
         project = form.save(commit=False)
         project.date_created = timezone.now()
@@ -26,6 +29,7 @@ class ProjectSuggest(MessageMixin, CreateView):
 
         project.save()
         form.save_m2m()
+        project.categories.add(*categories)
 
         msg = _('Your suggestion will be reviewed by an admin soon. '
                 'Thank you for contributing.')
