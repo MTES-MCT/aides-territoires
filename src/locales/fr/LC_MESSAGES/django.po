@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-06 14:36+0100\n"
+"POT-Creation-Date: 2021-02-18 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
 
 msgid "Personal info"
 msgstr "Informations personnelles"
@@ -76,12 +82,6 @@ msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
 msgid "Email address"
 msgstr "Adresse e-mail"
-
-msgid "First name"
-msgstr "Prénom"
-
-msgid "Last name"
-msgstr "Nom"
 
 msgid "Date joined"
 msgstr "Date de création du compte"
@@ -198,6 +198,9 @@ msgstr "Contact et démarches"
 msgid "Aid admin"
 msgstr "Administration de l'aide"
 
+msgid "Only for local aids"
+msgstr "Uniquement pour les aides locales"
+
 msgid "Import related data"
 msgstr "Données liées à l'import"
 
@@ -280,9 +283,7 @@ msgid "Private sector"
 msgstr "Entreprises privées"
 
 msgid "Local public companies"
-msgstr ""
-"Entreprises publiques locales (sociétés d'économie mixte, publiques locales "
-"et locales d'aménagement)"
+msgstr "Entreprises publiques locales (Sem, Spl, SemOp)"
 
 msgid "Public organizations / State services"
 msgstr "Établissements publics (écoles, bibliothèques…) / Services de l'État"
@@ -376,14 +377,17 @@ msgstr "N'hésitez pas à ajouter plusieurs contacts"
 msgid "First name / last name, email, phone, comments…"
 msgstr "Nom, prénom, e-mail, téléphone, commentaires…"
 
+msgid "Local characteristics"
+msgstr "Spécificités locales"
+
+msgid "Characteristics that applies to local aids."
+msgstr "Spécificités qui s'appliquent aux aides locales."
+
 msgid "Call for project / Call for expressions of interest"
 msgstr "Appel à projet / Manifestation d'intérêt"
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
-
-msgid "Aid URL"
-msgstr "URL de l'aide"
 
 msgid "Aid backer(s)"
 msgstr "Porteur·s de l'aide"
@@ -693,6 +697,15 @@ msgstr "Ingénierie financière"
 msgid "Legal engineering"
 msgstr "Ingénierie juridique / administrative"
 
+msgid "Generic"
+msgstr "Générique"
+
+msgid "Local"
+msgstr "Locale"
+
+msgid "Standard"
+msgstr "Standard"
+
 msgid "Europe"
 msgstr "Europe"
 
@@ -799,6 +812,12 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
+
+msgid "Generic aid"
+msgstr "Aide générique"
+
+msgid "Generic aid associated to a local aid"
+msgstr "Aide générique associée à une aide locale"
 
 msgid "Destinations"
 msgstr "Types de dépenses / actions couvertes"
@@ -1444,6 +1463,21 @@ msgstr "Logo"
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
+msgid "Full description of the project"
+msgstr "Description complète du projet"
+
+msgid "Is a suggested project?"
+msgstr "Est-ce un projet suggéré ?"
+
+msgid "If the project is suggested by a user"
+msgstr "Si le projet est suggéré par un utilisateur"
+
+msgid "Project"
+msgstr "Projet"
+
+msgid "Projects"
+msgstr "Projets"
+
 msgid "Style customization"
 msgstr "Personnalisation du style"
 
@@ -1508,6 +1542,12 @@ msgstr ""
 
 msgid "Additional page content"
 msgstr "Contenu additionnel"
+
+msgid "Exclude aids from results"
+msgstr "Exclure des aides des résultats"
+
+msgid "Excluded aids"
+msgstr "Aides à exclure"
 
 msgid "Hidden content, revealed with a `See more` button"
 msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
@@ -1770,6 +1810,12 @@ msgstr "Suivant"
 
 msgid "Last"
 msgstr "Dernier"
+
+msgid "Show more aids"
+msgstr "Voir plus d'aides"
+
+msgid "Loading..."
+msgstr "Chargement en cours"
 
 msgid "Contributor profile"
 msgstr "Profil contributeur"
@@ -2276,6 +2322,24 @@ msgstr ""
 "Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page "
 "restera accessible pour archivage."
 
+msgid "Local aid"
+msgstr "Aide locale"
+
+msgid "This aid is a local variant of a "
+msgstr "Cette aide est une déclinaison locale d'un "
+
+msgid "national measure"
+msgstr "aide nationale"
+
+msgid "National measure"
+msgstr "Aide nationale"
+
+msgid "This aid is a national measure "
+msgstr "Cette aide nationale "
+
+msgid "declinated locally"
+msgstr "dispose de déclinaisons locales"
+
 msgid "Call for project"
 msgstr "Appel à projet"
 
@@ -2315,6 +2379,14 @@ msgstr "Dispositif applicable pour un projet"
 msgid "Other eligibility criterias"
 msgstr "Autres critères d'éligibilité"
 
+msgid "Local variants"
+msgstr "Déclinaisons locales"
+
+msgid "If you don't find your local aid refer to the national measure."
+msgstr ""
+"En l'absence d'aide locale, les informations relatives à cette aide "
+"nationale font foi"
+
 msgid "Going further"
 msgstr "Aller plus loin"
 
@@ -2342,14 +2414,11 @@ msgstr "Créée le"
 msgid "Last modified"
 msgstr "Modifiée le"
 
+msgid "Is live"
+msgstr "Visibilité sur le site"
+
 msgid "Hits"
 msgstr "Vues"
-
-msgid "Search count"
-msgstr "Recherches"
-
-msgid "Rank"
-msgstr "Ordre"
 
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
@@ -2623,6 +2692,48 @@ msgstr ""
 msgid "Reset filters"
 msgstr "Réinitialiser"
 
+msgid "Available aids"
+msgstr "Aides disponibles"
+
+msgid "Published aids that are still open."
+msgstr "Aides publiées et toujours ouvertes aux candidatures"
+
+msgid "Total number of views"
+msgstr "Nombre de vues total"
+
+msgid "Since the launch of the page on"
+msgstr "Depuis le lancement de le page le"
+
+msgid "Number of views within the last 30 days"
+msgstr "Nombre de vues pendant les 30 derniers jours"
+
+msgid "Number of views within the last 7 days"
+msgstr "Nombre de vues pendant les 7 derniers jours"
+
+msgid "Aids viewed within the last 30 days"
+msgstr "Nombre d'aides vues pendant les 30 derniers jours"
+
+msgid "Aids viewed within the last 7 days"
+msgstr "Nombre d'aides vues pendant les 7 derniers jours"
+
+msgid "Top viewed aids"
+msgstr "Aides les plus vues"
+
+msgid "Rank"
+msgstr "Ordre"
+
+msgid "Aid URL"
+msgstr "URL de l'aide"
+
+msgid "Top keywords searched"
+msgstr "Mots clés les plus recherchés"
+
+msgid "Keyword"
+msgstr "Mot clé"
+
+msgid "Search count"
+msgstr "Recherches"
+
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
 
@@ -2671,12 +2782,6 @@ msgstr "Dans quelles thématiques recherchez-vous ?"
 msgid "Public stats"
 msgstr "Statistiques publiques"
 
-msgid "Available aids"
-msgstr "Aides disponibles"
-
-msgid "Published aids that are still open."
-msgstr "Aides publiées et toujours ouvertes aux candidatures"
-
 msgid "Sent alerts"
 msgstr "Alertes envoyées"
 
@@ -2686,27 +2791,6 @@ msgstr "E-mails d'alertes « nouvelles aides »"
 msgid "Viewed aids"
 msgstr "Aides vues"
 
-msgid "Top viewed aids"
-msgstr "Aides les plus vues"
-
-msgid "Aids viewed within the last 30 days"
-msgstr "Nombre d'aides vues pendant les 30 derniers jours"
-
-msgid "Aids viewed within the last 7 days"
-msgstr "Nombre d'aides vues pendant les 7 derniers jours"
-
-msgid "Total number of views"
-msgstr "Nombre de vues total"
-
-msgid "Since the launch of the page on"
-msgstr "Depuis le lancement de le page le"
-
-msgid "Number of views within the last 30 days"
-msgstr "Nombre de vues pendant les 30 derniers jours"
-
-msgid "Number of views within the last 7 days"
-msgstr "Nombre de vues pendant les 7 derniers jours"
-
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
 
@@ -2715,12 +2799,6 @@ msgstr "Tous les mots clés"
 
 msgid "All known tags"
 msgstr "Tous les mots clés"
-
-msgid "Keyword"
-msgstr "Mot clé"
-
-msgid "Top keywords searched"
-msgstr "Mots clés les plus recherchés"
 
 msgid ""
 "A tag is a label associated with one or several aids. Using tags is a great "
@@ -2741,12 +2819,6 @@ msgstr "Uploadé à"
 
 msgid "Upload image"
 msgstr "Uploader l'image"
-
-msgid "Show more aids"
-msgstr "Voir plus d'aides"
-
-msgid "Loading..."
-msgstr "Chargement en cours"
 
 msgid "Upload images"
 msgstr "Uploader les images"

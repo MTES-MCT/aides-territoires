@@ -4,6 +4,16 @@
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
+{% block extra_head %}
+<meta property="og:title" content="{{ aid.name }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{% if financers %}{% for financer in financers %}{{ financer }}{% endfor%}{% endif %} - Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -63,6 +73,30 @@
 
     <section class="aid-content">
         <div class="sidebar">
+
+            {% if aid.is_local or aid.is_generic %}
+                {% if aid.is_local %}
+                <div class="card">
+                    <div class="local-generic">
+                    <h3>{{ _('Local aid') }}</h3>
+                    <p>
+                        {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                    </p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if aid.is_generic %}
+                <div class="card">
+                    <div class="local-generic">
+                    <h3>{{ _('National measure') }}</h3>
+                    <p>
+                        {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                    </p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
 
             {% if financers or instructors %}
             <div class="card">
@@ -196,7 +230,7 @@
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for financer in financers_with_logo %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
@@ -205,7 +239,7 @@
                       </ol>
                     <div class="carousel-inner">
                         {% for financer in financers_with_logo %}
-                        {% if forloop.first %} 
+                        {% if forloop.first %}
                         <div class="carousel-item active">
                         {% else %}
                         <div class="carousel-item">
@@ -224,7 +258,7 @@
                 <div id="carouselControls" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for program in programs %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                         {% else %}
                         <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
@@ -233,7 +267,7 @@
                       </ol>
                     <div class="carousel-inner">
                         {% for program in programs %}
-                        {% if forloop.counter0 < 1 %} 
+                        {% if forloop.counter0 < 1 %}
                         <div class="carousel-item active">
                         {% else %}
                         <div class="carousel-item">
@@ -257,6 +291,13 @@
             {{ aid.description|safe }}
             {% else %}
             <p> {{ _('No detailed description was submitted.') }} </p>
+            {% endif %}
+
+            {% if aid.is_local and aid.local_characteristics %}
+            <h4>Spécificités locales</h4>
+
+            {{ aid.local_characteristics|safe }}
+
             {% endif %}
 
             {% if aid.targeted_audiences %}
@@ -289,6 +330,20 @@
             <h3>{{ _('Other eligibility criterias') }}</h3>
             {{ aid.eligibility|safe }}
             {% endif %}
+            {% endif %}
+
+            {% if aid.is_generic %}
+            <h2 id="aides-locales">
+                {{ _('Local variants') }}
+            </h2>
+            <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+            <div id="localAidsLinks">
+                <ul>
+                    {% for local_aid in aid.local_aids.all %}
+                        <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endif %}
 
             <div id="going-further">

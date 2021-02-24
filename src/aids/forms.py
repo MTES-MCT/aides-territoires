@@ -82,6 +82,11 @@ class BaseAidForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'placeholder': _(
             'First name / last name, email, phone, comments…'
         )}))
+    local_characteristics = RichTextField(
+        label=_('Local characteristics'),
+        required=False,
+        help_text=_('Characteristics that applies to local aids.'),
+        )
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
@@ -141,7 +146,6 @@ class BaseAidForm(forms.ModelForm):
                 self.add_error(
                     'subvention_rate',
                     ValidationError(msg, code='missing_upper_bound'))
-
         return data
 
     def save(self, commit=True):
@@ -587,6 +591,8 @@ class BaseAidSearchForm(forms.Form):
         if origin_url:
             qs = qs.filter(origin_url=origin_url)
 
+        qs = self.generic_aid_filter(qs, perimeter)
+
         return qs
 
     def parse_query(self, raw_query):
@@ -685,6 +691,41 @@ class BaseAidSearchForm(forms.Form):
         """
         perimeter_qs = get_all_related_perimeter_ids(search_perimeter.id)
         qs = qs.filter(perimeter__in=perimeter_qs)
+        return qs
+
+    def generic_aid_filter(self, qs, search_perimeter):
+        """
+        We should never have both the generic aid and it's local version
+        together on search results.
+        Which one should be removed from the result ? It depends...
+        We consider the scale perimeter associated to the local aid.
+        - When searching on a wider area than the local aid's perimeter,
+          then we display the generic version.
+        - When searching on a smaller area than the local aid's perimeter,
+          then we display the local version.
+        """
+        local_aids = qs.local_aids()
+        aids_to_exclude = []
+        if not search_perimeter:
+            # If the user does not specify a search perimeter, then we go wide.
+            search_smaller = False
+            search_wider = True
+        for aid in local_aids:
+            if search_perimeter:
+                search_smaller = search_perimeter.scale <= aid.perimeter.scale
+                search_wider = search_perimeter.scale > aid.perimeter.scale
+            # If the search perimeter is smaller or matches exactly the local
+            # perimeter, then it's relevant to keep the local and exclude
+            # the generic aid.Excluding the generic aid takes precedence
+            # over excluding the local aid.
+            if search_smaller:
+                aids_to_exclude.append(aid.generic_aid.pk)
+            elif search_wider:
+                # If the search perimeter is wider than the local perimeter
+                # then it more relevant to keep the generic aid and exclude the
+                # the local one.
+                aids_to_exclude.append(aid.pk)
+        qs = qs.exclude(pk__in=aids_to_exclude)
         return qs
 
 

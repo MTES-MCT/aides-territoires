@@ -3,12 +3,13 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
 from django.urls import reverse
 from django.conf import settings
 
 from accounts.models import User
 from core.celery import app
-from emails.sib import send_mail_sib
+from emails.utils import send_template_email
 
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
@@ -48,9 +49,34 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
         'base_url': base_url,
         'user_name': user.full_name,
         'full_login_url': full_login_url})
-    send_mail_sib(
+    send_mail(
         LOGIN_SUBJECT,
         login_email_body,
         settings.DEFAULT_FROM_EMAIL,
         [user.email],
         fail_silently=False)
+
+
+@app.task
+def send_welcome_email(user_email):
+    """Send a welcome email to the user.
+
+    This email is actually stored as a template in the ESP's dashboard,
+    and can be modified by the bizdev team.
+
+    Hence we don't define any email body ourselves.
+    """
+    if not settings.SIB_WELCOME_EMAIL_ENABLED:
+        return
+
+    user = User.objects.get(email=user_email)
+    data = {
+        'PRENOM': user.first_name,
+        'NOM': user.last_name,
+    }
+    send_template_email(
+        recipient_list=[user_email],
+        template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
+        data=data,
+        tags=['bienvenue', settings.ENV_NAME],
+        fail_silently=True)

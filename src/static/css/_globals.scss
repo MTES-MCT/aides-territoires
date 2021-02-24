@@ -174,14 +174,23 @@ body > footer {
     }
 
     div.logos-2 {
+        @extend .row;
         @extend .col-12;
         @extend .col-lg-3;
         @extend .order-1;
         @extend .order-lg-2;
-        text-align: right;
+        text-align: center;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
 
         a:after {
             content: none;
+        }
+
+        a {
+            @extend .col-12;
+            @extend .order-md-2;
+            @extend .order-1;
         }
 
         img {
@@ -189,10 +198,33 @@ body > footer {
             width: auto;
         }
 
+        & #social-network {
+            @extend .order-md-1;
+            @extend .order-2;
+            @extend .col-12;
+            @extend .my-3;
+
+            & p {
+                font-size: 1.25rem;
+                font-weight: bold;
+                @extend .mb-3;
+                @extend .col-12;
+            }
+
+            & a > img {
+                max-width: 40px;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    transition: ease-in-out .2s;
+                }
+            }
+        }
+
         @include media-breakpoint-down(md) {
             text-align: center;
             margin-top: -75px;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
 
             h4 {
                 font-size: 1.8rem;

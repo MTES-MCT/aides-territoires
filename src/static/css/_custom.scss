@@ -871,6 +871,10 @@ article#aid {
             margin-left: -3rem;
         }
 
+        & > div.local-generic {
+            @include icon(before, $fa-var-map-marker-alt, 1.5rem);
+            }
+
         & > div.financers {
             @include icon(before, $fa-var-handshake, 1.5rem);
         }
@@ -938,6 +942,13 @@ article#aid {
             @extend .btn-primary;
             display: block;
             margin: 3rem auto 0 auto;
+        }
+
+        div#localAidsLinks {
+            overflow-y: scroll;
+            max-height: 13rem;
+            background-color: #d9f0ec;
+            padding: 1rem;
         }
     }
 
@@ -1031,22 +1042,22 @@ div#share-modal {
         @extend .mx-2;
         @extend .mt-2;
         @extend .mb-4;
-    
+
         & > div {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-    
+
             & a {
                 @extend .py-2;
             }
-    
+
             & a > img{
                 transition: transform 0.5s;
                 max-width: 50px;
             }
-    
+
             & a > img:hover{
                 transform: scale(1.2);
             }
@@ -1227,11 +1238,8 @@ article#draft-list {
     }
 
     table {
-        th {
-            white-space: nowrap;
-        }
-        td.aid-deadline-cell,
-        td.aid-status-cell {
+        th,
+        td.nowrap-cell {
             white-space: nowrap;
         }
     }
@@ -1462,15 +1470,22 @@ div#search-steps {
     @extend .btn-primary;
 }
 
-#backer-title {
-    @extend .d-flex;
-    @extend .flex-row;
-    @extend .flex-wrap;
-    @extend .justify-content-between;
+#backer-title > div {
+    @extend .row;
+
+    & div:first-of-type {
+        @extend .col-md-10;
+    }
+
+    & div:last-of-type {
+        @extend .col-md-2;
+    }
 
     img {
         max-height: $height-img-base;
         max-width: 300px;
+        display: block;
+        margin: auto;
     }
 }
 
@@ -1585,7 +1600,7 @@ ul.aid-categories {
             max-width: 225px;
             padding: 0.5rem;
             filter: saturate(140%);
-    
+
             @include media-breakpoint-up(md) {
                 max-width: 160px;
             }
@@ -1594,7 +1609,7 @@ ul.aid-categories {
                 max-width: 225px;
             }
         }
-    
+
         & > a > img:hover {
             filter: grayscale(20%);
         }

@@ -15,6 +15,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
 
@@ -118,6 +119,11 @@ class AidQuerySet(models.QuerySet):
           - the aid is open (see open())
         """
         return self.published().open()
+
+    def local_aids(self):
+        """Returns the list of local aids"""
+
+        return self.filter(generic_aid__isnull=False)
 
 
 class BaseExistingAidsManager(models.Manager):
@@ -297,9 +303,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             default=STEPS.preop))
     origin_url = models.URLField(
         _('Origin URL'),
+        max_length=500,
         blank=True)
     application_url = models.URLField(
         _('Application url'),
+        max_length=500,
         blank=True)
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
@@ -314,6 +322,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             max_length=32,
             choices=TYPES),
         help_text=_('Specify the aid type or types.'))
+    generic_aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Generic aid'),
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        related_name='local_aids',
+        help_text=_("Generic aid associated to a local aid"))
+    local_characteristics = models.TextField(
+        _('Local characteristics'),
+        blank=True)
     destinations = ChoiceArrayField(
         verbose_name=_('Destinations'),
         null=True,
@@ -463,6 +481,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             GinIndex(fields=['search_vector']),
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # We store here the current status as we need to check if it
+        # has change - check what we do when saving the Aid instance.
+        self.original_status = self.status
+
     def set_slug(self):
         """Set the object's slug.
 
@@ -547,6 +571,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_publication_date()
+        is_being_published = self.is_published() and self.status_has_changed()
+        if is_being_published and not self.is_imported:
+            send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 
     def __str__(self):
@@ -566,6 +593,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_published(self):
         return self.status == AidWorkflow.states.published
+
+    def status_has_changed(self):
+        return self.original_status != self.status
 
     def is_financial(self):
         """Does this aid have financial parts?"""
@@ -617,3 +647,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_live(self):
         """True if the aid must be displayed on the site."""
         return self.is_published() and not self.has_expired()
+
+    def get_live_status_display(self):
+        status = _('Displayed') if self.is_live() else _('Not displayed')
+        return status
+
+    def is_local(self):
+        return self.generic_aid is not None
+
+    def is_generic(self):
+        return self.local_aids.exists()

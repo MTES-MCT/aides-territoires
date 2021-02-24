@@ -241,6 +241,12 @@ SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
 ENABLE_EMAIL_WHITELIST = False
+SIB_API_KEY = ''
+SIB_LIST_ID = ''
+SIB_WELCOME_EMAIL_ENABLED = False
+SIB_WELCOME_EMAIL_TEMPLATE_ID = 0
+SIB_PUBLICATION_EMAIL_ENABLED = False
+SIB_PUBLICATION_EMAIL_TEMPLATE_ID = 0
 
 # ADDNA
 ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'
@@ -254,6 +260,3 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'aid_draft_list_view'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
-
-SIB_API_KEY = ''
-SIB_LIST_ID = ''

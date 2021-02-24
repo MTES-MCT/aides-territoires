@@ -1,14 +1,21 @@
-from django.conf import settings
+from anymail.message import AnymailMessage
 
 
-def filter_recipients(recipient_list):
-    """
-    Filter the recipients through a whitelist.
-    """
-    if not settings.ENABLE_EMAIL_WHITELIST:
-        return recipient_list
-    filtered_recipients_list = [
-        addr for addr in recipient_list
-        if addr in settings.EMAIL_WHITELIST
-    ]
-    return filtered_recipients_list
+def send_template_email(
+        recipient_list, template_id, data=None, tags=None,
+        fail_silently=False):
+    """Use the "template" feature provided by our ESP"""
+    message = AnymailMessage(to=recipient_list)
+    message.template_id = template_id
+    message.from_email = None  # use the template's default sender
+
+    # Tags can then be found and filtered in the ESP's analytics dashboard
+    if tags:
+        message.tags = tags
+
+    # Provide data for template replacements
+    if data:
+        # Currently working with Sendinblue
+        message.merge_global_data = data
+
+    message.send(fail_silently=fail_silently)

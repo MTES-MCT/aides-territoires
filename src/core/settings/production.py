@@ -1,12 +1,10 @@
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
 from .base import INSTALLED_APPS
 
-
-INSTALLED_APPS += [
-    'raven.contrib.django.raven_compat',
-]
 
 COMPRESS_OFFLINE = True
 
@@ -28,9 +26,14 @@ INTERNAL_IPS = env.list('INTERNAL_IPS')
 
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 
-RAVEN_CONFIG = {
-    'dsn': env.str('RAVEN_URL'),
-}
+sentry_sdk.init(
+    dsn=env.str('SENTRY_URL'),
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 MAILING_LIST_URL = env('MAILING_LIST_URL')
 
@@ -74,3 +77,7 @@ SIB_LIST_ID = env.int('SIB_LIST_ID')
 ANYMAIL = {
     'SENDINBLUE_API_KEY': SIB_API_KEY,
 }
+SIB_WELCOME_EMAIL_ENABLED = env.bool('SIB_WELCOME_EMAIL_ENABLED')
+SIB_WELCOME_EMAIL_TEMPLATE_ID = env.int('SIB_WELCOME_EMAIL_TEMPLATE_ID')
+SIB_PUBLICATION_EMAIL_ENABLED = env.bool('SIB_PUBLICATION_EMAIL_ENABLED')
+SIB_PUBLICATION_EMAIL_TEMPLATE_ID = env.int('SIB_PUBLICATION_EMAIL_TEMPLATE_ID')

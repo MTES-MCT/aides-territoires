@@ -2,6 +2,8 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
 from .base import INSTALLED_APPS, TEMPLATES
@@ -26,13 +28,14 @@ DATABASES = {'default': dj_database_url.config()}
 
 DEBUG = env.bool('DEBUG', False)
 
-INSTALLED_APPS += [
-    'raven.contrib.django.raven_compat',
-]
+sentry_sdk.init(
+    dsn=env.str('SENTRY_URL'),
+    integrations=[DjangoIntegration()],
 
-RAVEN_CONFIG = {
-    'dsn': env('RAVEN_URL'),
-}
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=False)
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
@@ -98,6 +101,10 @@ SIB_LIST_ID = env.int('SIB_LIST_ID')
 ANYMAIL = {
     'SENDINBLUE_API_KEY': SIB_API_KEY,
 }
+SIB_WELCOME_EMAIL_TEMPLATE_ID = env.int('SIB_WELCOME_EMAIL_TEMPLATE_ID', 0)
+SIB_WELCOME_EMAIL_ENABLED = env.bool('SIB_WELCOME_EMAIL_ENABLED', False)
+SIB_PUBLICATION_EMAIL_TEMPLATE_ID = env.int('SIB_PUBLICATION_EMAIL_TEMPLATE_ID', 0)
+SIB_PUBLICATION_EMAIL_ENABLED = env.bool('SIB_PUBLICATION_EMAIL_ENABLED', False)
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
