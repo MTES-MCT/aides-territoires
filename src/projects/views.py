@@ -1,6 +1,5 @@
 from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
@@ -25,7 +24,6 @@ class ProjectSuggest(MessageMixin, CreateView):
             .values_list('id', flat=True)
 
         project = form.save(commit=False)
-        project.date_created = timezone.now()
         project.is_suggested = True
 
         project.save()
