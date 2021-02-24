@@ -32,7 +32,7 @@ from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from stats.models import AidViewEvent
-from core.utils import get_subdomain_from_host
+from stats.utils import log_aidviewevent
 
 
 class AidPaginator(Paginator):
@@ -304,11 +304,10 @@ class AidDetailView(DetailView):
         response = super().get(request, *args, **kwargs)
 
         host = request.get_host()
-        source = get_subdomain_from_host(host)
-        AidViewEvent.objects.create(
-            aid=self.object,
+        log_aidviewevent.delay(
+            aid_id=self.object.id,
             querystring=response.context_data.get('current_search', ''),
-            source=source)
+            source=host)
 
         return response
 

@@ -18,7 +18,7 @@ def test_minisite_display(client, settings):
 
     page = MinisiteFactory(title='Gloubiboulga page')
     page_url = reverse('home')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     res = client.get(page_url, HTTP_HOST=page_host)
@@ -36,7 +36,7 @@ def test_minisite_results(client, settings):
         title='Gloubiboulga page',
         search_querystring='text=fromage')
     page_url = reverse('home')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     res = client.get(page_url, HTTP_HOST=page_host)
@@ -56,7 +56,7 @@ def test_minisite_results_with_prefix_question_mark(client, settings):
         title='Gloubiboulga page',
         search_querystring='?text=fromage')
     page_url = reverse('home')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     res = client.get(page_url, HTTP_HOST=page_host)
@@ -77,7 +77,7 @@ def test_minisite_results_overriding(client, settings):
         search_querystring='text=fromage')
     page_url = reverse('home')
     full_url = '{}?text=vin'.format(page_url)
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     res = client.get(full_url, HTTP_HOST=page_host)
@@ -102,7 +102,7 @@ def test_categories_filter_overriding(client, settings):
         search_querystring='text=fromage')
     page.available_categories.set(categories)
     page_url = reverse('search_view')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     # All categories appear in the form
@@ -121,7 +121,7 @@ def test_categories_filter_overriding(client, settings):
         search_querystring='text=fromage')
     page.available_categories.set(categories[:2])
     page_url = reverse('search_view')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     # Only the available categories appear in the form
@@ -142,7 +142,7 @@ def test_audiences_filter_overriding(client, settings):
         title='Gloubiboulga page',
         search_querystring='text=fromage')
     page_url = reverse('search_view')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     # All audiences appear in the form
@@ -160,7 +160,7 @@ def test_audiences_filter_overriding(client, settings):
         search_querystring='text=fromage',
         available_audiences=['commune', 'epci'])
     page_url = reverse('search_view')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     # Only the available audiences appear in the form
@@ -185,7 +185,7 @@ def test_alert_creation(client, settings, mailoutbox):
     page = MinisiteFactory(
         title='Gloubiboulga page',
         search_querystring='text=fromage')
-    page_host = '{}.testserver'.format(page.slug)
+    page_host = '{}.aides-territoires'.format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
     url = reverse('alert_create_view')
