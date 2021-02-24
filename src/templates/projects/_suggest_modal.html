@@ -9,7 +9,7 @@
                 </button>
             </header>
 
-            <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}">
+            <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
                 <div class="content">
                 {% csrf_token %}
                 {% include '_field_snippet.html' with field=project_form.name %}

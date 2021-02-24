@@ -1,6 +1,7 @@
 from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.http import urlencode
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from braces.views import MessageMixin
@@ -17,6 +18,8 @@ class ProjectSuggest(MessageMixin, CreateView):
 
     def form_valid(self, form):
 
+        querystring = self.request.GET.urlencode()
+
         project = form.save(commit=False)
         project.date_created = timezone.now()
         project.is_suggested = True
@@ -28,4 +31,5 @@ class ProjectSuggest(MessageMixin, CreateView):
                 'Thank you for contributing.')
         self.messages.success(msg)
         url = reverse('search_step_project')
+        url = '{}?{}'.format(url, querystring)
         return HttpResponseRedirect(url)
