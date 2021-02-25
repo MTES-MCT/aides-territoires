@@ -703,6 +703,7 @@ section#aid-edit {
             .list-group-item  {
                 background-color: inherit;
                 border: none;
+                text-align: center;
 
                 span.counter {
                     display: inline-block;
@@ -718,6 +719,12 @@ section#aid-edit {
                     line-height: 1.5;
                     margin-right: 0.2rem;
                 }
+            }
+
+            .separator {
+                @include icon(before, $fa-var-chevron-right);
+                color: #fff !important;
+                font-size: 1.8rem;
             }
 
             .list-group-item.active {
@@ -737,7 +744,6 @@ section#aid-edit {
         @extend .py-3;
         background-color: #fff;
         position: relative;
-        z-index: 1;
         border-radius: 0 0 1.5rem 1.5rem !important;
 
         @include media-breakpoint-up(md) {
@@ -815,7 +821,15 @@ section#aid-edit {
                 bottom: -50px;
                 width: 70%;
                 text-align: center;
-                border-bottom: 2px solid $pale-background;
+                border-bottom: 2px solid $dark-green;
+            }
+
+            .trumbowyg-box {
+                z-index:2;
+            }
+
+            .trumbowyg-fullscreen {
+                z-index: 9999 !important;
             }
         }
 
