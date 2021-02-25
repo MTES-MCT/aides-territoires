@@ -16,7 +16,7 @@ from aids.models import Aid
 FEED_URI = 'https://les-aides.nouvelle-aquitaine.fr/fiches-rss.xml'
 SOURCE_URL = 'https://les-aides.nouvelle-aquitaine.fr/'
 
-NOUVELLE_AQUITAINE_BACKER_NAME = 'Conseil régional de Nouvelle-Aquitaine'
+NOUVELLE_AQUITAINE_BACKER_ID = 90  # 'Conseil régional de Nouvelle-Aquitaine'
 
 AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_audiences_mapping.csv'
@@ -82,7 +82,7 @@ class Command(CrawlerImportCommand):
             .filter(code='75') \
             .get()
         self.nouvelle_aquitaine_financer = Backer.objects.get(
-            name=NOUVELLE_AQUITAINE_BACKER_NAME)
+            id=NOUVELLE_AQUITAINE_BACKER_ID)
 
     def line_should_be_processed(self, line):
         return True
@@ -179,10 +179,11 @@ class Command(CrawlerImportCommand):
             'categorie': 'Thématique',
             'domaines_secondaires': 'Domaines secondaires',
             'is_dispositif_europe': 'Dispositif de l\'UE',
-            'echeances': 'Échéances',
             'objectifs': 'Objectifs',
+            'calendrier': 'Calendrier',
             'beneficiaires': 'Bénéficiaires',
-            'modalites': 'Modalités',
+            'criteres': 'Critères de sélection',
+            'modalites': 'Comment faire ma demande ?',
             'pub_date': 'Date de publication'
         }
         for elem in metadata:
