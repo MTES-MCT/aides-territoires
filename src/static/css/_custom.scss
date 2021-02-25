@@ -623,6 +623,7 @@ div.warning {
         }
 
         &>div {
+            font-size: $font-size-small;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -645,6 +646,13 @@ div.warning {
         &.action-danger {
             button {
                 @extend .btn-danger;
+
+                &:disabled {
+                    background-color: #fff;
+                    color:#000;
+                    border: solid 1px #000;
+                }
+
             }
         }
     }
@@ -702,10 +710,13 @@ section#aid-edit {
                     height: 1.5rem;
                     text-align: center;
                     vertical-align: baseline;
-                    border: 1px solid white;
+                    border: 1px solid $dark-green;
+                    background-color: $dark-green;
+                    color: #fff;
                     border-radius: 50%;
                     font-size: 0.85rem;
                     line-height: 1.5;
+                    margin-right: 0.2rem;
                 }
             }
 
@@ -715,6 +726,7 @@ section#aid-edit {
                 span.counter {
                     background-color: white;
                     color: $contrast-color !important;
+                    border: 1px solid $contrast-color;
                 }
             }
         }
@@ -731,6 +743,10 @@ section#aid-edit {
         @include media-breakpoint-up(md) {
             background: rgb(255,255,255);
             background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(249,248,246,1) 34%);    
+        }
+
+        .secondary {
+            background-color: #fff;
         }
 
         > fieldset {

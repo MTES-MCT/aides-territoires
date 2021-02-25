@@ -111,8 +111,8 @@
 {% block form_actions %}
 <div class="form-actions">
     <div class="submit-buttons">
-        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
         <button type="submit" value="save">{{ _('Save changes') }}</button>
+        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Back to your portfolio') }}</a>
 </div>
