@@ -595,6 +595,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def get_admin_url(self):
         return reverse('admin:aids_aid_change', args=[self.id])
 
+    def get_sorted_local_aids(self):
+        return self.local_aids.order_by('perimeter__name')
+
     def is_draft(self):
         return self.status == AidWorkflow.states.draft
 
