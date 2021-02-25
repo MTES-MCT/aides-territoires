@@ -293,6 +293,7 @@ class AidEditForm(BaseAidForm):
             'origin_url',
             'application_url',
             'contact',
+            'local_characteristics',
         ]
         widgets = {
             'mobilization_steps': MultipleChoiceFilterWidget,

@@ -381,7 +381,7 @@ msgid "Local characteristics"
 msgstr "Spécificités locales"
 
 msgid "Characteristics that applies to local aids."
-msgstr "Spécificités qui s'appliquent aux aides locales."
+msgstr "Décrivez les spécificités de cette aide locale."
 
 msgid "Call for project / Call for expressions of interest"
 msgstr "Appel à projet / Manifestation d'intérêt"
