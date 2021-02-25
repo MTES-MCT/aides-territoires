@@ -173,8 +173,8 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
-        'author_name', 'recurrence', 'date_updated', 'date_published',
-        'is_imported', 'submission_deadline', 'status',
+        'author_name', 'recurrence', 'perimeter', 'date_updated',
+        'date_published', 'is_imported', 'submission_deadline', 'status',
     ]
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
@@ -339,7 +339,7 @@ class AidAdmin(BaseAidAdmin):
         qs = Aid.objects \
             .all() \
             .distinct() \
-            .prefetch_related('financers', 'instructors') \
+            .prefetch_related('financers', 'instructors', 'perimeter') \
             .select_related('author')
         return qs
 
