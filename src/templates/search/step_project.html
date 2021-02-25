@@ -60,37 +60,50 @@
 {% block content %}
 <h1>{{ _('In what projects are you interested in ?') }}</h1>
 
-<form id="project" action="{% url 'search_view' %}?{{ querystring }}" method="GET">
-
     {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
-            {% endfor %}
+        <div id="project_message_box">
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
+                {% endfor %}
+            </div>
+            <div class="navigation-links">
+                <a id="display-results-btn" href="{% url 'search_view' %}?{{ querystring }}">
+                    {{ _('Display results') }}
+                </a>
+                <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
+                    {{ _('Back to previous step') }}
+                </a>
+            </div>
         </div>
     {% else %}
-    <div id="suggested_project_box">
-        <h3>{{ _('Contribute to improve Aides-territoires !') }}</h3>
-        <p>{{ _('Tell us the project for which you are seeking aids to improve in future the relevance of results') }}</p>
-        <div>
-            <p>{{ _('This information will not have any impact in your search results') }}</p>
-            <a id="suggest-project-btn" href="#" class="js" data-toggle="modal" data-target="#suggest-project-modal">
-                {{ _('Suggest a project') }}
-            </a>    
+        <div id="suggested_project_box">
+            <h3>{{ _('Contribute to improve Aides-territoires !') }}</h3>
+            <div class="info">
+                <p>{{ _('Tell us the project for which you are seeking aids.') }}</p>
+                <p>{{ _('This will help us to improve in future the relevance of results') }}</p>
+            </div>
+            <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
+                <div class="content">
+                {% csrf_token %}
+                {% include '_field_snippet.html' with field=project_form.name %}
+                {% include '_field_snippet.html' with field=project_form.description %}
+                <div class="warning">
+                    <p>{{ _('This information will not have any impact in your search results') }}</p>
+                </div> 
+                <button type="submit">{{ _('Submit this project') }}</button>
+                </div>
+            </form>
         </div>
-    </div>
+        <div class="navigation-links">
+            <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+            <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
+                {{ _('Back to previous step') }}
+            </a>
+        </div>
     {% endif %}
-
-    <div class="navigation-links">
-        <a id="display-results-btn" href="{% url 'search_view' %}?{{ querystring }}">
-            {{ _('Display results') }}
-        </a>
-        <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
-            {{ _('Back to previous step') }}
-        </a>
-    </div>
-</form>
-
 {% endblock %}
 
 {% block modals %}

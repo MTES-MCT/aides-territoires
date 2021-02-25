@@ -2841,8 +2841,11 @@ msgstr "Pour quel projet recherchez-vous une aide ?"
 msgid "Contribute to improve Aides-territoires !"
 msgstr "Contribuez à améliorer Aides-territoires !"
 
-msgid "Tell us the project for which you are seeking aids to improve in future the relevance of results"
-msgstr "Indiquez le projet pour lequel vous recherchez une aide pour améliorer dans le futur la pertinence des résultats qui vous seront proposés."
+msgid "Tell us the project for which you are seeking aids."
+msgstr "Indiquez le projet pour lequel vous recherchez une aide."
+
+msgid "This will help us to improve in future the relevance of results"
+msgstr "Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés."
 
 msgid "This information will not have any impact in your search results"
 msgstr "Cette information n’aura aucune influence sur les résultats de votre recherche"
@@ -2853,8 +2856,8 @@ msgstr "Suggérer un projet"
 msgid "Submit this project"
 msgstr "Proposer ce projet"
 
-msgid "Your suggestion will be reviewed by an admin soon. Thank you for contributing."
-msgstr "Votre suggestion sera revue prochainement par un administrateur. Merci de votre contribution."
+msgid "Thank you for contributing !"
+msgstr "Merci de votre contribution !"
 
 msgid "Display results"
 msgstr "Afficher les résultats"

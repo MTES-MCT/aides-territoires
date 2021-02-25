@@ -11,7 +11,7 @@ from categories.models import Category
 class ProjectSuggest(MessageMixin, CreateView):
     """Allows users to suggest their own projects."""
 
-    template_name = 'projects/_suggest_modal.html'
+    template_name = 'search/step_project.html'
     form_class = ProjectSuggestForm
     context_object_name = 'project'
 
@@ -30,8 +30,7 @@ class ProjectSuggest(MessageMixin, CreateView):
         form.save_m2m()
         project.categories.add(*categories)
 
-        msg = _('Your suggestion will be reviewed by an admin soon. '
-                'Thank you for contributing.')
+        msg = _('Thank you for contributing !')
         self.messages.success(msg)
         url = reverse('search_step_project')
         url = '{}?{}'.format(url, querystring)

@@ -1436,21 +1436,57 @@ div#search-steps {
     }
 }
 
+#project_message_box {
+
+    & > div:first-of-type {
+        @extend .mb-5;
+    }
+
+    .navigation-links {
+        a {
+            color: #fff !important;
+        }
+
+        a:first-of-type {
+            @extend .mr-4;
+        }
+    }
+}
+
 #suggested_project_box {
     border: solid 2px #fff;
     border-radius: 10px;
-    @extend .mb-4;
-    @extend .p-4;
+    background-color: #fff;
+    color: $font-color;
+    @extend .mb-5;
+    @extend .p-5;
 
-    @include media-breakpoint-up(md) {
-        & > div {
-            display: flex;
-            align-items: baseline;
+    .content {
+        @extend .mt-4;
+    }
     
-            a {
-                margin-left: 2rem;
-            }
+    label {
+        display: block !important;
+    }
+
+    .warning {
+        p {
+            @extend .mb-0;
         }
+    }
+
+    textarea {
+        height: 8rem;
+    }
+}
+
+#suggested_project_box + .navigation-links {
+    a {
+        color: #fff !important;
+    }
+
+    a:first-of-type {
+        @extend .mr-3;
     }
 }
 
