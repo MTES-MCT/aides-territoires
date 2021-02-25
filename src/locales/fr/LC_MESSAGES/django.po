@@ -2329,7 +2329,7 @@ msgid "Local aid"
 msgstr "Aide locale"
 
 msgid "This aid is a local variant of a "
-msgstr "Cette aide est une déclinaison locale d'un "
+msgstr "Cette aide est une déclinaison locale d'une "
 
 msgid "national measure"
 msgstr "aide nationale"
