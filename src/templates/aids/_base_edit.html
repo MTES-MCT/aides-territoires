@@ -32,8 +32,8 @@
     {% endfor %}
 
     {% block fields %}
-    <fieldset id="aid-presentation">
-            <legend>1 - {{ _('Aid presentation') }}</legend>
+    <fieldset>
+            <legend><span id="aid-presentation"></span>1 - {{ _('Aid presentation') }}</legend>
             {% include '_field_snippet_aid_form.html' with field=form.name %}
             {% include '_checkbox_snippet_aid_form.html' with field=form.in_france_relance %}
             {% include '_field_snippet_aid_form.html' with field=form.short_title %}
@@ -46,14 +46,14 @@
             </div>
     </fieldset>
 
-    <fieldset id="aid-perimeter">
-        <legend>2 - {{ _('Aid perimeter') }}</legend>
+    <fieldset>
+        <legend><span id="aid-perimeter"></span>2 - {{ _('Aid perimeter') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
         {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
     </fieldset>
 
-    <fieldset id="aid-calendar">
-        <legend>3 - {{ _('Aid calendar') }}</legend>
+    <fieldset>
+        <legend><span id="aid-calendar"></span>3 - {{ _('Aid calendar') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
         <div id="calendar-fields">
             {% include '_field_snippet_aid_form.html' with field=form.start_date %}
@@ -62,8 +62,8 @@
         </div>    
     </fieldset>
 
-    <fieldset id="aid-description">
-        <legend>4 - {{ _('Aid description') }}</legend>
+    <fieldset>
+        <legend><span id="aid-description"></span>4 - {{ _('Aid description') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
         <div id="subvention-fields">
             {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
@@ -79,8 +79,8 @@
         {% include '_field_snippet_aid_form.html' with field=form.eligibility %}    
     </fieldset>
 
-    <fieldset id="aid-contact">
-        <legend>5 - {{ _('Contact and actions') }}</legend>
+    <fieldset>
+        <legend><span id="aid-contact"></span>5 - {{ _('Contact and actions') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
         {% include '_field_snippet_aid_form.html' with field=form.application_url %}
         {% include '_field_snippet_aid_form.html' with field=form.contact %}    

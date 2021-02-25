@@ -739,6 +739,9 @@ section#aid-edit {
             @extend .px-3;
 
             & > legend {
+                position: relative;
+                top: 0;
+                height: 1.6rem;
                 padding: 0;
                 margin-bottom: 2rem;
                 font-size: 1.6rem;
@@ -802,6 +805,11 @@ section#aid-edit {
 
         > fieldset + fieldset {
             margin-top: 8rem !important;
+        }
+
+        > fieldset > legend > :target{
+            position: absolute;
+            top: -100px;
         }
 
         > fieldset:last-of-type {
