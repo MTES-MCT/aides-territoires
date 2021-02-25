@@ -2499,6 +2499,9 @@ msgstr "Retour à votre portefeuille d'aides"
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
+msgid "Selected filters"
+msgstr "Les filtres sélectionnés"
+
 #, python-format
 msgid ""
 "By using this feature, you acknowledge that your data will be processed <a "

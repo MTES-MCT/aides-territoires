@@ -108,9 +108,25 @@ class SearchView(SearchMixin, FormMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['targeted_audiences'] = self.form.cleaned_data.get('targeted_audiences', None)  # noqa
+        if context['targeted_audiences']:
+            context['targeted_audiences'] = [Aid.AUDIENCES[audience] for audience in context['targeted_audiences']]  # noqa
         context['perimeter'] = self.form.cleaned_data.get('perimeter', None)
         context['categories'] = self.form.cleaned_data.get('categories', None)
         context['themes'] = self.form.cleaned_data.get('themes', None)
+        context['programs'] = self.form.cleaned_data.get('programs', None)
+        context['backers'] = self.form.cleaned_data.get('backers', None)
+        context['aid_type'] = self.form.cleaned_data.get('aid_type', None)
+        if context['aid_type']:
+            context['aid_type'] = [Aid.TYPES[aid_type] for aid_type in context['aid_type']]  # noqa
+        context['mobilization_step'] = self.form.cleaned_data.get('mobilization_step', None)  # noqa
+        if context['mobilization_step']:
+            context['mobilization_step'] = [Aid.STEPS[step] for step in context['mobilization_step']]  # noqa
+        context['destinations'] = self.form.cleaned_data.get('destinations', None)  # noqa
+        if context['destinations']:
+            context['destinations'] = [Aid.DESTINATIONS[destination] for destination in context['destinations']]  # noqa
+        context['call_for_projects_only'] = self.form.cleaned_data.get('call_for_projects_only', None)  # noqa
+
         context['current_search'] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, '')
 
