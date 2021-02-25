@@ -2733,6 +2733,9 @@ msgstr "Nombre d'aides vues pendant les 30 derniers jours"
 msgid "Aids viewed within the last 7 days"
 msgstr "Nombre d'aides vues pendant les 7 derniers jours"
 
+msgid "Aids viewed per week"
+msgstr "Nombre d'aides vues par semaine"
+
 msgid "Top viewed aids"
 msgstr "Aides les plus vues"
 

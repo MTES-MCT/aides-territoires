@@ -1,5 +1,5 @@
 {% extends 'stats/stats.html' %}
-{% load i18n %}
+{% load i18n compress %}
 
 {% block header %}
     {% include 'minisites/_header.html' %}
@@ -81,6 +81,15 @@
 
     <div class="stat full-width">
         <span class="stat-title">
+            {{ _('Aids viewed per week') }}
+        </span>
+        <div style="min-height: 400px">
+            <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
+        </div>
+    </div>
+
+    <div class="stat full-width">
+        <span class="stat-title">
             {{ _('Top viewed aids') }} (top 10)<br />
             <small>{{ _('Since the launch of the page on') }} {{ search_page.date_created|date:'d/m/Y' }}</small>
         </span>
@@ -138,4 +147,16 @@
 {% block extra_css %}
     {{ block.super }}
     {% include 'minisites/_css.html' %}
+    <link rel="stylesheet" href="/static/chart.js/dist/Chart.css" />
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    AID_VIEW_TIMESERIES = {{ aid_view_timeseries | safe }};
+</script>
+{% compress js %}
+<script src="/static/chart.js/dist/Chart.bundle.js"></script>
+<script src="/static/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"></script>
+<script src="/static/js/stats/aid_view_timeseries.js"></script>
+{% endcompress %}
 {% endblock %}

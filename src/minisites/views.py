@@ -1,9 +1,10 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
-from django.db.models import Count
+from django.db.models import Count, F, Func, Value, CharField
+from django.db.models.functions import TruncWeek
 from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
@@ -174,6 +175,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
+        beginning_of_2021 = timezone.make_aware(datetime(2021, 1, 1))
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
 
@@ -209,6 +211,19 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['aid_view_count_last_7_days'] = events \
             .filter(date_created__gte=seven_days_ago) \
             .count()
+
+        aid_view_timeseries = events \
+            .filter(date_created__gte=beginning_of_2021) \
+            .annotate(date_to_week=TruncWeek('date_created')) \
+            .annotate(day=Func(
+                F('date_to_week'),
+                Value('YYYY-MM-DD'),
+                function='to_char',
+                output_field=CharField())) \
+            .values('day') \
+            .annotate(y=Count('id')) \
+            .order_by('day')
+        context['aid_view_timeseries'] = list(aid_view_timeseries)
 
         # top 10 aid viewed
         top_10_aid_viewed = events.select_related('aid') \
