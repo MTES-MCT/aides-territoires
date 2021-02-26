@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 15:56+0100\n"
+"POT-Creation-Date: 2021-02-23 14:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,6 +170,18 @@ msgstr "Actuellement non affichées"
 
 msgid "Currently displayed"
 msgstr "Actuellement affichées"
+
+msgid "Generic / Local"
+msgstr "Générique / Locale"
+
+msgid "Generic aids"
+msgstr "Aides génériques"
+
+msgid "Local aids"
+msgstr "Aides locales"
+
+msgid "Standard aids"
+msgstr "Aides standards"
 
 msgid "Author"
 msgstr "Auteur"
@@ -696,15 +708,6 @@ msgstr "Ingénierie financière"
 
 msgid "Legal engineering"
 msgstr "Ingénierie juridique / administrative"
-
-msgid "Generic"
-msgstr "Générique"
-
-msgid "Local"
-msgstr "Locale"
-
-msgid "Standard"
-msgstr "Standard"
 
 msgid "Europe"
 msgstr "Europe"
@@ -1484,6 +1487,9 @@ msgstr "Personnalisation du style"
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
 
+msgid "Exclude aids from results"
+msgstr "Exclure des aides des résultats"
+
 msgid "A collectivity"
 msgstr "Une collectivité"
 
@@ -1543,17 +1549,14 @@ msgstr ""
 msgid "Additional page content"
 msgstr "Contenu additionnel"
 
-msgid "Exclude aids from results"
-msgstr "Exclure des aides des résultats"
-
-msgid "Excluded aids"
-msgstr "Aides à exclure"
-
 msgid "Hidden content, revealed with a `See more` button"
 msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Excluded aids"
+msgstr "Aides à exclure"
 
 msgid "Meta image"
 msgstr "Image (meta)"
@@ -2326,7 +2329,7 @@ msgid "Local aid"
 msgstr "Aide locale"
 
 msgid "This aid is a local variant of a "
-msgstr "Cette aide est une déclinaison locale d'un "
+msgstr "Cette aide est une déclinaison locale d'une "
 
 msgid "national measure"
 msgstr "aide nationale"
