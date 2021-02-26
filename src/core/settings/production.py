@@ -46,15 +46,6 @@ HOTJAR_SITEID = env('HOTJAR_SITEID')
 CONTACT_EMAIL = env('CONTACT_EMAIL')
 CONTACT_PHONE = env('CONTACT_PHONE')
 
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
-EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_BACKEND = env('EMAIL_BACKEND')
-EMAIL_FILE_PATH = '/tmp/django_emails'
-
 ADMINS = [x.split(':') for x in env.list('ADMINS')]
 
 # For staging, we want to restrict email sending to a whitelist
