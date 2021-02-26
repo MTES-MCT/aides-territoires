@@ -88,6 +88,6 @@ if settings.DEBUG and 'debug_toolbar' in settings.INSTALLED_APPS:
         path(r'__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
-if settings.DEBUG:
+if settings.DEBUG and settings.ENABLE_DJANGO_STATIC_SERVE:
     urlpatterns = static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + urlpatterns

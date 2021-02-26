@@ -260,3 +260,5 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'aid_draft_list_view'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
+
+ENABLE_DJANGO_STATIC_SERVE = False
