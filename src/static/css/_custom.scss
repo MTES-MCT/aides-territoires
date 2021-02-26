@@ -1499,6 +1499,8 @@ div#search-steps {
 
     a:first-of-type {
         @extend .mr-3;
+        @extend .btn;
+        @extend .btn-primary;
     }
 }
 
