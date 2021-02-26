@@ -1,13 +1,7 @@
 {% load i18n %}
 
-{% if aids or programs %}
+{% if aids %}
     <div class="aids">
-    {% for program in programs %}
-        <div class="col">
-            {% include 'programs/_program_result.html' with program=program %}
-        </div>
-    {% endfor %}
-
     {% for aid in aids %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
