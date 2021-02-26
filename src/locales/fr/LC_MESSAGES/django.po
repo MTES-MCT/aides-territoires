@@ -2861,3 +2861,6 @@ msgstr "Merci de votre contribution !"
 
 msgid "Build a media library, ..."
 msgstr "Construire une médiathèque, ..."
+
+msgid "Describe your project in a few words"
+msgstr "Descrivez-nous votre projet en quelques mots"
