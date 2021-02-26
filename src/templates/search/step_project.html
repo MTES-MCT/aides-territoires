@@ -54,29 +54,9 @@
 </div>
 {% endblock %}
 
-{% block messages %}
-{% endblock %}
-
 {% block content %}
 <h1>{{ _('In what projects are you interested in ?') }}</h1>
 
-    {% if messages %}
-        <div id="project_message_box">
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
-                {% endfor %}
-            </div>
-            <div class="navigation-links">
-                <a id="display-results-btn" href="{% url 'search_view' %}?{{ querystring }}">
-                    {{ _('Display results') }}
-                </a>
-                <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
-                    {{ _('Back to previous step') }}
-                </a>
-            </div>
-        </div>
-    {% else %}
         <div id="suggested_project_box">
             <h3>{{ _('Contribute to improve Aides-territoires !') }}</h3>
             <div class="info">
@@ -89,9 +69,9 @@
                 {% include '_field_snippet.html' with field=project_form.name %}
                 {% include '_field_snippet.html' with field=project_form.description %}
                 <div class="warning">
-                    <p>{{ _('This information will not have any impact in your search results') }}</p>
+                    <p>{{ _('These informations will not have any impact in your search results and will stay confidential') }}</p>
                 </div> 
-                <button type="submit">{{ _('Submit this project') }}</button>
+                <button type="submit">{{ _('Submit this project and display results') }}</button>
                 </div>
             </form>
         </div>
@@ -103,7 +83,6 @@
                 {{ _('Back to previous step') }}
             </a>
         </div>
-    {% endif %}
 {% endblock %}
 
 {% block extra_js %}

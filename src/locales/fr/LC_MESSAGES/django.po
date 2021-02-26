@@ -2847,17 +2847,17 @@ msgstr "Indiquez le projet pour lequel vous recherchez une aide."
 msgid "This will help us to improve in future the relevance of results"
 msgstr "Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés."
 
-msgid "This information will not have any impact in your search results"
-msgstr "Cette information n’aura aucune influence sur les résultats de votre recherche"
+msgid "These informations will not have any impact in your search results and will stay confidential"
+msgstr "Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles"
 
 msgid "Suggest a project"
 msgstr "Suggérer un projet"
 
-msgid "Submit this project"
-msgstr "Proposer ce projet"
+msgid "Submit this project and display results"
+msgstr "Partager mon projet et accéder aux aides disponibles"
 
 msgid "Thank you for contributing !"
 msgstr "Merci de votre contribution !"
 
-msgid "Display results"
-msgstr "Afficher les résultats"
+msgid "Build a media library, ..."
+msgstr "Construire une médiathèque, ..."

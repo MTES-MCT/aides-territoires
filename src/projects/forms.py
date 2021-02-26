@@ -21,6 +21,10 @@ class ProjectSuggestForm(forms.ModelForm):
         to_field_name='slug',
         required=False,)
 
+    name = forms.CharField(
+        label=_('Name'),
+        help_text=_('Build a media library, ...'))
+
     class Meta:
         model = Project
         fields = ['name', 'description', 'categories']

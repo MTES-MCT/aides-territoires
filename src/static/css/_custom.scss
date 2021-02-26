@@ -1458,11 +1458,20 @@ div#search-steps {
     border-radius: 10px;
     background-color: #fff;
     color: $font-color;
-    @extend .mb-5;
-    @extend .p-5;
+    @extend .mb-3;
+    @extend .px-5;
+    @extend .py-4;
 
     .content {
         @extend .mt-4;
+    }
+
+    .form-group {
+        @extend .mb-0;
+    }
+
+    .field-help {
+        font-size: $font-size-small;
     }
     
     label {
@@ -1470,6 +1479,9 @@ div#search-steps {
     }
 
     .warning {
+
+        @extend .mt-3;
+
         p {
             @extend .mb-0;
         }

@@ -32,6 +32,6 @@ class ProjectSuggest(MessageMixin, CreateView):
 
         msg = _('Thank you for contributing !')
         self.messages.success(msg)
-        url = reverse('search_step_project')
+        url = reverse('search_view')
         url = '{}?{}'.format(url, querystring)
         return HttpResponseRedirect(url)
