@@ -2835,11 +2835,11 @@ msgstr "est suggeré"
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "In what projects are you interested in ?"
-msgstr "Pour quel projet recherchez-vous une aide ?"
+msgid "In what projects are you interested in&nbsp;?"
+msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
 
-msgid "Contribute to improve Aides-territoires !"
-msgstr "Contribuez à améliorer Aides-territoires !"
+msgid "Contribute to improve Aides-territoires&nbsp;!"
+msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
 
 msgid "Tell us the project for which you are seeking aids."
 msgstr "Indiquez le projet pour lequel vous recherchez une aide."
@@ -2856,8 +2856,8 @@ msgstr "Suggérer un projet"
 msgid "Submit this project and display results"
 msgstr "Partager mon projet et accéder aux aides disponibles"
 
-msgid "Thank you for contributing !"
-msgstr "Merci de votre contribution !"
+msgid "Thank you for contributing&nbsp;!"
+msgstr "Merci de votre contribution&nbsp;!"
 
 msgid "Build a media library, ..."
 msgstr "Construire une médiathèque, ..."
