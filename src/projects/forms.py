@@ -34,13 +34,3 @@ class ProjectSuggestForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description', 'categories']
-
-    def clean_name(self):
-        data = self.cleaned_data['name']
-
-        return data
-
-    def clean_description(self):
-        data = self.cleaned_data['description']
-
-        return data

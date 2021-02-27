@@ -1488,7 +1488,7 @@ div#search-steps {
     }
 
     textarea {
-        height: 8rem;
+        height: 6rem;
     }
 }
 
@@ -1498,9 +1498,9 @@ div#search-steps {
     }
 
     a:first-of-type {
-        @extend .mr-3;
         @extend .btn;
         @extend .btn-primary;
+        @extend .mr-3;
     }
 }
 
