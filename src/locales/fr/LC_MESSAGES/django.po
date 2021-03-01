@@ -2832,8 +2832,8 @@ msgstr "nom du projet"
 msgid "is_suggested"
 msgstr "est suggeré"
 
-msgid "Your project"
-msgstr "Votre projet"
+msgid "Name of your project"
+msgstr "Nom de votre projet"
 
 msgid "In what projects are you interested in&nbsp;?"
 msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
@@ -2859,8 +2859,11 @@ msgstr "Partager mon projet et accéder aux aides disponibles"
 msgid "Thank you for contributing&nbsp;!"
 msgstr "Merci de votre contribution&nbsp;!"
 
-msgid "Build a media library, ..."
-msgstr "Construire une médiathèque, ..."
+msgid "Build a media library, build a bicycle road, ..."
+msgstr "Construire une médiathèque, mettre en place une piste cyclable, ..."
 
 msgid "Describe your project in a few words"
-msgstr "Décrivez-nous votre projet en quelques mots"
+msgstr "Parlez-nous de votre projet en quelques mots"
+
+msgid "Its goal, its mobilization step or any informations that can identify your project"
+msgstr "Quel est son objectif, son état d’avancement, ou tout autre information permettant de le qualifier"

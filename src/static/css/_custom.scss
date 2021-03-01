@@ -1498,8 +1498,6 @@ div#search-steps {
     }
 
     a:first-of-type {
-        @extend .btn;
-        @extend .btn-primary;
         @extend .mr-3;
     }
 }

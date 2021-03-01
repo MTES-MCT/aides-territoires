@@ -22,14 +22,14 @@ class ProjectSuggestForm(forms.ModelForm):
         required=False,)
 
     name = forms.CharField(
-        label=_('Name'),
-        help_text=_('Build a media library, ...'))
+        label=_('Name of your project'),
+        help_text=_('Build a media library, build a bicycle road, ...'))
 
     description = forms.CharField(
-        label=_('Description'),
+        label=_('Describe your project in a few words'),
         widget=forms.Textarea,
         required=False,
-        help_text=_('Describe your project in a few words'))
+        help_text=_('Its goal, its mobilization step or any informations that can identify your project'))
 
     class Meta:
         model = Project
