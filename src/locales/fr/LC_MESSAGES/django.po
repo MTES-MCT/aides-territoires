@@ -2866,4 +2866,4 @@ msgid "Describe your project in a few words"
 msgstr "Parlez-nous de votre projet en quelques mots"
 
 msgid "Its goal, its mobilization step or any informations that can identify your project"
-msgstr "Quel est son objectif, son état d’avancement, ou tout autre information permettant de le qualifier"
+msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"

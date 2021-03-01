@@ -29,7 +29,8 @@ class ProjectSuggestForm(forms.ModelForm):
         label=_('Describe your project in a few words'),
         widget=forms.Textarea,
         required=False,
-        help_text=_('Its goal, its mobilization step or any informations that can identify your project'))
+        help_text=_('Its goal, its mobilization step or any informations'
+                    ' that can identify your project'))
 
     class Meta:
         model = Project
