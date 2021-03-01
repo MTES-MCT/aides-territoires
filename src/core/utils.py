@@ -1,4 +1,8 @@
+from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
+
+
+site = Site.objects.get_current()
 
 
 def reupload_files(model, fieldname):
@@ -29,6 +33,6 @@ def get_subdomain_from_host(host):
     francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
     aides.francemobilities.fr --> aides.francemobilities.fr
     """
-    if 'aides-territoires' in host:
+    if site.domain in host:
         return host.split('.')[0]
     return host
