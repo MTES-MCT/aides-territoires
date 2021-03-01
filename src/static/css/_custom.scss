@@ -711,7 +711,7 @@ section#aid-edit {
                     height: 1.5rem;
                     text-align: center;
                     vertical-align: baseline;
-                    border: 1px solid $dark-green;
+                    border: 2px solid $dark-green;
                     background-color: $dark-green;
                     color: #fff;
                     border-radius: 50%;
@@ -733,7 +733,7 @@ section#aid-edit {
                 span.counter {
                     background-color: white;
                     color: $contrast-color !important;
-                    border: 1px solid $contrast-color;
+                    border: 2px solid $contrast-color;
                 }
             }
         }
@@ -755,6 +755,10 @@ section#aid-edit {
             background-color: #fff;
         }
 
+        div.inline-error {
+            font-weight: bold;
+        }
+
         > fieldset {
             @extend .col-md-12;
             @extend .mt-5;
@@ -766,7 +770,7 @@ section#aid-edit {
                 height: 1.6rem;
                 padding: 0;
                 margin-bottom: 2rem;
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 color: $contrast-color;
                 font-weight: bold;
                 background-color: inherit;
@@ -784,6 +788,10 @@ section#aid-edit {
                     padding-left: 3rem;
                 }
             }
+
+            input[type="checkbox" i]:checked {
+                filter: invert(36%) sepia(96%) saturate(6090%) hue-rotate(313deg) brightness(88%) contrast(95%);
+            }
     
             .part-form {
                 @extend .col-md-8;
@@ -795,6 +803,10 @@ section#aid-edit {
 
                 input + label {
                     font-weight: normal;
+                }
+
+                .select2-container .select2-selection--multiple .select2-selection__rendered {
+                    white-space: normal;
                 }
             }
 
@@ -826,6 +838,7 @@ section#aid-edit {
 
             .trumbowyg-box {
                 z-index:2;
+                background-color: #fff;
             }
 
             .trumbowyg-fullscreen {
