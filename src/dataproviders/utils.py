@@ -7,7 +7,7 @@ ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     'br',
 ]
-ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style']
+ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style', 'target', 'rel']
 
 
 def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
