@@ -13,7 +13,7 @@ from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
-from stats.models import AidViewEvent
+from stats.models import AidViewEvent, AidSearchEvent
 from stats.utils import log_aidsearchevent
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 from core.utils import get_subdomain_from_host
@@ -241,6 +241,17 @@ class SiteStats(MinisiteMixin, TemplateView):
                                   .annotate(view_count=Count('aid_id')) \
                                   .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
+
+        # top 10 categories filters
+        search_events = AidSearchEvent.objects \
+            .filter(source=self.search_page.slug) \
+        
+        top_10_categories_searched = search_events.prefetch_related('categories') \
+                                                  .exclude(categories=None) \
+                                                  .values('categories__id', 'categories__name') \
+                                                  .annotate(search_count=Count('categories__id')) \
+                                                  .order_by('-search_count')
+        context['top_10_categories_searched'] = list(top_10_categories_searched)[:10]
 
         # top 10 keywords searched
         context['top_10_keywords_searched'] = get_matomo_stats(

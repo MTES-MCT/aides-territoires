@@ -2739,6 +2739,9 @@ msgstr "Nombre d'aides vues par semaine"
 msgid "Top viewed aids"
 msgstr "Aides les plus vues"
 
+msgid "Top categories searched"
+msgstr "Sous-thématiques les plus recherchées"
+
 msgid "Rank"
 msgstr "Ordre"
 
