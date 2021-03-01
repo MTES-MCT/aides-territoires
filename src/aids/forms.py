@@ -721,7 +721,7 @@ class BaseAidSearchForm(forms.Form):
             # over excluding the local aid.
             if search_smaller:
                 aids_to_exclude.append(aid.generic_aid.pk)
-            elif search_wider and aid.generic_aid in qs:
+            elif search_wider:
                 # If the search perimeter is wider than the local perimeter
                 # then it more relevant to keep the generic aid and exclude the
                 # the local one.
