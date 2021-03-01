@@ -11,22 +11,16 @@ def copy_data_from_event_table(apps, schema_editor):
     all_aids = Aid.objects.all()
     events = Event.objects.filter(category='aid', event='viewed')
     
-    aid_view_events_to_created = []
-    event_ids_to_delete = []
     for event in events:
         try:
-            aid = all_aids.get(slug=aid_view_event.meta)
-            aid_view_event = AidViewEvent(
+            aid = all_aids.get(slug=event.meta)
+            AidViewEvent.objects.create(
                 aid=aid,
-                source=aid_view_event.source,
-                date_created=date_created)
-            aid_view_events_to_created.append(aid_view_event)
-            event_ids_to_delete.append(event.id)
+                source=event.source,
+                date_created=event.date_created)
+            event.delete()
         except:
             pass
-    
-    AidViewEvent.objects.bulk_create(aid_view_events_to_created)
-    Event.objects.filter(id__in=event_ids_to_delete).delete()
 
 
 class Migration(migrations.Migration):
