@@ -3,9 +3,6 @@ from django.http import QueryDict
 from geofr.models import Perimeter
 from categories.models import Theme, Category
 
-from geofr.models import Perimeter
-from categories.models import Theme, Category
-
 
 def clean_search_querystring(querystring):
     """

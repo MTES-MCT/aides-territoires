@@ -117,8 +117,35 @@
 
     <div class="stat full-width">
         <span class="stat-title">
+            {{ _('Top audiences searched') }} (top 10)<br />
+            <small>Parmi les {{ search_events_total }} recherches effectuées</small>
+        </span>
+        <div class="stat-body">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ _('Rank') }}</th>
+                        <th>{{ _('Audience') }}</th>
+                        <th>{{ _('Search count') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for audience in top_10_audiences_searched %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ audience.audience }}</td>
+                            <td>{{ audience.search_count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="stat full-width">
+        <span class="stat-title">
             {{ _('Top categories searched') }} (top 10)<br />
-            <small>{{ _('Since the launch of the page on') }} {{ search_page.date_created|date:'d/m/Y' }}</small>
+            <small>Parmi les {{ search_events_total }} recherches effectuées</small>
         </span>
         <div class="stat-body">
             <table class="data-table">
@@ -126,7 +153,7 @@
                     <tr>
                         <th>{{ _('Rank') }}</th>
                         <th>{{ _('Category') }}</th>
-                        <th>{{ _('Hits') }}</th>
+                        <th>{{ _('Search count') }}</th>
                     </tr>
                 </thead>
                 <tbody>

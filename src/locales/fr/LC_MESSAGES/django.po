@@ -803,6 +803,9 @@ msgstr "URL d'origine"
 msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
 
+msgid "Audience"
+msgstr "Bénéficiaire"
+
 msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
 
@@ -2738,6 +2741,9 @@ msgstr "Nombre d'aides vues par semaine"
 
 msgid "Top viewed aids"
 msgstr "Aides les plus vues"
+
+msgid "Top audiences searched"
+msgstr "Bénéficiaires les plus recherchés"
 
 msgid "Top categories searched"
 msgstr "Sous-thématiques les plus recherchées"
