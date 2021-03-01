@@ -43,16 +43,16 @@
                 {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
             </div>
             {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
-            {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
             {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
-            {% if aid.is_local %}
-                {% include '_field_snippet.html' with field=form.local_characteristics %}
-            {% endif %}
+            {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
 
     <fieldset>
         <legend><span id="aid-description"></span>2 - {{ _('Aid description') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.description %}
+        {% if aid.is_local %}
+            {% include '_field_snippet.html' with field=form.local_characteristics %}
+        {% endif %}
         {% include '_field_snippet_aid_form.html' with field=form.project_examples %}
         {% include '_field_snippet_aid_form.html' with field=form.categories %}
         {% include '_field_snippet_aid_form.html' with field=form.recurrence %}

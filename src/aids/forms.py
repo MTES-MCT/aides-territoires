@@ -237,11 +237,9 @@ class AidEditForm(BaseAidForm):
             <li>France</li>
             <li>Bretagne (Région)</li>
             <li>Métropole du Grand Paris (EPCI)</li>
-            <li>Y (Commune)</li>
             <li>Outre-mer</li>
             <li>Wallis et Futuna</li>
             <li>Massif Central</li>
-            <li>Action Cœur de Ville 2019</li>
             </ul>
         '''))
     perimeter_suggestion = forms.CharField(
