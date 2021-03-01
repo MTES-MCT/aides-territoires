@@ -1,26 +1,23 @@
 from django.http import QueryDict
-from django.utils.datastructures import MultiValueDict
 
 
 def clean_search_querystring(querystring):
     """
-    - remove starting ? if it exists
+    - remove starting '?' if it exists
     - remove empty params
     """
-    if querystring:
-        # Remove starting '?' if it exists
-        if querystring.startswith('?'):
-            querystring = querystring[1:]
-        if len(querystring):
-            # Remove empty params
-            querydict = QueryDict(querystring).copy()
-            dict_cleaned = dict()
-            for k, v in querydict.lists():
-                v = list(filter(None, v))
-                if len(v):
-                    dict_cleaned[k] = v
-            # Rebuild querystring
-            querydict_cleaned = QueryDict('', mutable=True)
-            querydict_cleaned.update(MultiValueDict(dict_cleaned))
-            querystring = querydict_cleaned.urlencode()
-    return querystring
+    if not querystring:
+        return querystring
+    # Sometimes the querystring contains a leading '?' character
+    # and we don't want it here.
+    querystring = querystring.strip('?')
+    # Re-build the querydict without the empty params
+    querydict = QueryDict(querystring).copy()
+    querydict_cleaned = QueryDict('', mutable=True)
+    for k, v in querydict.lists():
+        values_without_empty = list(filter(None, v))
+        if values_without_empty:
+            querydict_cleaned.setlist(k, values_without_empty)
+    # Transform the cleaned querydict into a querystring
+    querystring_cleaned = querydict_cleaned.urlencode()
+    return querystring_cleaned

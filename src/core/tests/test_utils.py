@@ -3,7 +3,7 @@ from core.utils import get_subdomain_from_host
 
 def test_get_subdomain_from_host():
     host_testset = [
-        # (host, subdomain)
+        # ('given-host', 'expected-subdomain')
         ('aides-territoires.local:8000', 'aides-territoires'),
         ('aides-territoires.beta.gouv.fr', 'aides-territoires'),
         ('francemobilities.aides-territoires.beta.gouv.fr', 'francemobilities'),  # noqa

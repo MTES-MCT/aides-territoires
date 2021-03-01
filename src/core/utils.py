@@ -29,6 +29,7 @@ def get_subdomain_from_host(host):
     francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
     aides.francemobilities.fr --> aides.francemobilities.fr
     """
+    # site = Site.objects.get_current()
     if 'aides-territoires' in host:
         return host.split('.')[0]
     return host
