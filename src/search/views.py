@@ -2,7 +2,7 @@ from django.views.generic import FormView
 
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
-                          ThemeSearchForm, CategorySearchForm)
+                          ThemeSearchForm, CategorySearchForm, MoreCriteriasSearchForm)
 
 
 class SearchMixin:
@@ -53,6 +53,34 @@ class CategorySearch(SearchMixin, FormView):
 
     template_name = 'search/step_category.html'
     form_class = CategorySearchForm
+
+    def get_initial(self):
+        GET = self.request.GET
+        initial = {
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
+            'perimeter': GET.get('perimeter', ''),
+            'themes': GET.getlist('themes', []),
+        }
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        initial = self.get_initial()
+        filter_form = AidSearchForm(initial)
+        theme_aids = filter_form.filter_queryset()
+
+        context['total_aids'] = theme_aids \
+            .values('id') \
+            .distinct() \
+            .count()
+        return context
+
+class MoreCriteriasSearch(SearchMixin, FormView):
+    """Step 5 of the multi-page search form."""
+
+    template_name = 'search/step_more_criterias.html'
+    form_class = MoreCriteriasSearchForm
 
     def get_initial(self):
         GET = self.request.GET

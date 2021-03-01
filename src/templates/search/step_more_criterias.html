@@ -1,0 +1,81 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ _('Search – More search filters') }}{% endblock %}
+
+{% block sectionid %}search-steps{% endblock %}
+
+{% block breadcrumbs %}
+<div class="search-progress">
+<p class="steps">
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your structure') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your perimeter') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your themes') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter">4</span>
+        {{ _('Your categories') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter">4</span>
+        {{ _('More criterias') }}
+    </span>
+</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ _('Do you want to precise your research?') }}</h1>
+
+<form id="advanced_search" action="{% url 'search_view' %}" method="GET">
+
+    {% include '_field_snippet.html' with field=form.aid_type %}
+    {% include '_field_snippet.html' with field=form.apply_before %}
+    {% include '_field_snippet.html' with field=form.destinations %}
+    {% include '_field_snippet.html' with field=form.mobilization_step %}
+    {% include '_field_snippet.html' with field=form.backers %}
+    {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
+    {% include '_field_snippet.html' with field=form.programs %}
+    {% include '_field_snippet.html' with field=form.order_by %}
+
+    <button type="submit">
+        {{ _('Submit') }}
+    </button>
+
+    <div class="navigation-links">
+        <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
+            {{ _('Back to previous step') }}
+        </a>
+
+        <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+            {{ _('Skip to the next step') }}
+        </a>
+    </div>
+</form>
+{% endblock %}
