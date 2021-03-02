@@ -190,9 +190,9 @@ def combine_perimeters(add_perimeters, rm_perimeters):
 
 
 @lru_cache()
-def perimeters_to_dict_with_contained():
+def perimeters_to_dict_with_contained(scale=1):
     """
-    For each perimeter, generate the list of the perimeters (INSEE codes)
+    For each perimeter, generate the list of the perimeters (codes)
     it contains.
     """
     perimeters_dict = dict()
@@ -204,15 +204,15 @@ def perimeters_to_dict_with_contained():
             .filter(to_perimeter_id=p.id) \
             .values_list('from_perimeter_id', flat=True) \
             .distinct()
-        # obtain the insee codes from the perimeter ids
-        p_contained_insee = Perimeter.objects \
+        # obtain the codes from the perimeter ids
+        p_contained_codes = Perimeter.objects \
             .filter(id__in=contained_id) \
-            .filter(scale=1) \
+            .filter(scale=scale) \
             .values_list('code', flat=True) \
             .distinct()
         perimeters_dict[p.id] = {
             'perimeter_name': p.name,
-            'perimeter_contained_insee': list(p_contained_insee)
+            'perimeter_contained_codes': list(p_contained_codes)
         }
 
     return perimeters_dict
