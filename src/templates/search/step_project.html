@@ -1,0 +1,92 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ _('Search – Project') }}{% endblock %}
+
+{% block sectionid %}search-steps{% endblock %}
+
+{% block breadcrumbs %}
+<div class="search-progress">
+<p class="steps">
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your structure') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your perimeter') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your themes') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your categories') }}
+    </span>
+
+    <span class="separator"></span>
+
+    <span class="step">
+        <span class="counter active">
+            <span class="fas fa-check"></span>
+        </span>
+        {{ _('Your project') }}
+    </span>
+</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ _('In what projects are you interested in&nbsp;?') }}</h1>
+
+        <div id="suggested_project_box">
+            <h3>{{ _('Contribute to improve Aides-territoires&nbsp;!') }}</h3>
+            <div class="info">
+                <p>{{ _('Tell us the project for which you are seeking aids.') }}</p>
+                <p>{{ _('This will help us to improve in future the relevance of results') }}</p>
+            </div>
+            <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
+                <div class="content">
+                {% csrf_token %}
+                {% include '_field_snippet.html' with field=project_form.name %}
+                {% include '_field_snippet.html' with field=project_form.description %}
+                <div class="warning">
+                    <p>{{ _('These informations will not have any impact in your search results and will stay confidential') }}</p>
+                </div> 
+                <button type="submit">{{ _('Submit this project and display results') }}</button>
+                </div>
+            </form>
+        </div>
+        <div class="navigation-links">
+            <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+            <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
+                {{ _('Back to previous step') }}
+            </a>
+        </div>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/search/track_project_step_events.js"></script>
+{% endcompress %}
+{% endblock %}
