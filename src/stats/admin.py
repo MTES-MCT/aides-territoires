@@ -20,8 +20,7 @@ class AidViewEventAdmin(admin.ModelAdmin):
 
 class AidSearchEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
-    list_display = ['source', 'results_count', 'fields_populated',
-                    'date_created']
+    list_display = ['id', 'source', 'results_count', 'date_created']
     list_filter = ['source']
 
     def has_add_permission(self, request):

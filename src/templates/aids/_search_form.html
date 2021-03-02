@@ -45,42 +45,42 @@
     {% endblock %}
 
     <div class="form-container">
-    <div class="form-body">
+        <div class="form-body">
 
-        {% block form-body %}
-        <div class="row">
-            <div class="col col-md-3">
-                {% include '_field_snippet.html' with field=form.aid_type %}
-            </div>
+            {% block form-body %}
+            <div class="row">
+                <div class="col col-md-3">
+                    {% include '_field_snippet.html' with field=form.aid_type %}
+                </div>
 
-            <div class="col col-md-3">
-                {% include '_field_snippet.html' with field=form.programs %}
-            </div>
+                <div class="col col-md-3">
+                    {% include '_field_snippet.html' with field=form.programs %}
+                </div>
 
-            <div class="col col-md-3">
-                {% include '_field_snippet.html' with field=form.backers %}
-            </div>
+                <div class="col col-md-3">
+                    {% include '_field_snippet.html' with field=form.backers %}
+                </div>
 
-            <div class="col col-md-3">
-                {% include '_field_snippet.html' with field=form.text %}
+                <div class="col col-md-3">
+                    {% include '_field_snippet.html' with field=form.text %}
+                </div>
             </div>
+            {% endblock %}
+
+            {% block form-actions %}
+            <div class="row actions-row">
+                <div class="col-md-3">
+                    {{ form.order_by }}
+                </div>
+                <div class="col-md-3 offset-md-6">
+                    <button name="action" value="search-filter" class="search-btn" type="submit">
+                        {{ _('Filter results') }}
+                    </button>
+                </div>
+            </div>
+            {% endblock %}
+
         </div>
-        {% endblock %}
-
-        {% block form-actions %}
-        <div class="row actions-row">
-            <div class="col-md-3">
-                {{ form.order_by }}
-            </div>
-            <div class="col-md-3 offset-md-6">
-                <button name="action" value="search-filter" class="search-btn" type="submit">
-                    {{ _('Filter results') }}
-                </button>
-            </div>
-        </div>
-        {% endblock %}
-
-    </div>
     </div>
 
 </form>

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('categories', '0004_auto_20200217_1136'),
         ('geofr', '0030_perimeter_is_visible_to_users_init'),
-        ('stats', '0004_event_source'),
+        ('stats', '0006_aidviewevent_copy_data'),
     ]
 
     operations = [
@@ -23,7 +23,6 @@ class Migration(migrations.Migration):
                 ('querystring', models.TextField(verbose_name='Querystring')),
                 ('results_count', models.PositiveIntegerField(default=0, verbose_name='Results count')),
                 ('source', models.CharField(default='', max_length=256, verbose_name='Source')),
-                ('fields_populated', models.BooleanField(default=False, verbose_name='Fields populated?')),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
                 ('categories', models.ManyToManyField(blank=True, related_name='aid_search_events', to='categories.Category', verbose_name='Categories')),
                 ('perimeter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),

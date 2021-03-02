@@ -23,6 +23,7 @@ def test_get_querystring_value_list_from_key():
     querystring_testset = [
         ('', 'draft', []),
         ('draft=', 'draft', []),
+        ('internal=True', 'internal', ['True']),
         ('category=musee', 'category', ['musee']),
         ('category=musee&category=', 'category', ['musee']),
         ('category=musee&category=livres', 'category', ['musee', 'livres']),

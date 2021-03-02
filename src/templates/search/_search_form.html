@@ -39,33 +39,33 @@
     {% endblock %}
 
     <div class="form-container">
-    <div class="form-body">
+        <div class="form-body">
 
-        <div class="row">
-            <div class="col col-md-4">
-                {% include '_field_snippet.html' with field=form.perimeter %}
+            <div class="row">
+                <div class="col col-md-4">
+                    {% include '_field_snippet.html' with field=form.perimeter %}
+                </div>
+
+                <div class="col col-md-4">
+                    {% include '_field_snippet.html' with field=form.targeted_audiences %}
+                </div>
+
+                <div class="col col-md-4">
+                    {% include '_field_snippet.html' with field=form.categories %}
+                </div>
             </div>
 
-            <div class="col col-md-4">
-                {% include '_field_snippet.html' with field=form.targeted_audiences %}
-            </div>
-
-            <div class="col col-md-4">
-                {% include '_field_snippet.html' with field=form.categories %}
+            <div class="row actions-row">
+                <div class="col-md-3 offset-md-5">
+                    {{ form.order_by }}
+                </div>
+                <div class="col-md-4">
+                    <button name="action" value="search-filter" class="search-btn" type="submit">
+                        {{ _('Filter results') }}
+                    </button>
+                </div>
             </div>
         </div>
-
-        <div class="row actions-row">
-            <div class="col-md-3 offset-md-5">
-                {{ form.order_by }}
-            </div>
-            <div class="col-md-4">
-                <button name="action" value="search-filter" class="search-btn" type="submit">
-                    {{ _('Filter results') }}
-                </button>
-            </div>
-        </div>
-    </div>
     </div>
 
 </form>
