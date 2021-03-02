@@ -1,11 +1,26 @@
 from django.contrib import admin
 
-from stats.models import AidViewEvent, Event
+from stats.models import AidViewEvent, AidSearchEvent, Event
 
 
 class AidViewEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
     list_display = ['id', 'aid', 'source', 'date_created']
+    list_filter = ['source']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class AidSearchEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+    list_display = ['id', 'source', 'results_count', 'date_created']
     list_filter = ['source']
 
     def has_add_permission(self, request):
@@ -24,4 +39,5 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AidViewEvent, AidViewEventAdmin)
+admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(Event, EventAdmin)

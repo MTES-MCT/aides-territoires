@@ -6,6 +6,7 @@ from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
+from stats.utils import log_aidsearchevent
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
@@ -43,6 +44,12 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         filter_form = AidSearchForm(data=self.request.GET)
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
+
+        log_aidsearchevent.delay(
+            querystring=self.request.GET.urlencode(),
+            results_count=ordered_results.count(),
+            source='api')
+
         return ordered_results
 
     def get_serializer_class(self):

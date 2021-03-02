@@ -13,6 +13,7 @@ from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent
+from stats.utils import log_aidsearchevent
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 from core.utils import get_subdomain_from_host
 
@@ -135,6 +136,12 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         targeted_audiences = data.get('targeted_audiences', [])
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
+
+        host = self.request.get_host()
+        log_aidsearchevent.delay(
+            querystring=self.request.GET.urlencode(),
+            results_count=qs.count(),
+            source=host)
 
         return qs
 
