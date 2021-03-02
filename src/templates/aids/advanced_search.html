@@ -19,7 +19,7 @@
 {% block content %}
 <div class="article">
     <h1>{{ _('More search filters') }}</h1>
-    <form method="get" action="{% url 'search_view' %}">
+    <form id="advanced-search-form" method="get" action="{% url 'search_view' %}">
         {% for field in form.hidden_fields %}
             {{ field }}
         {% endfor %}
@@ -36,7 +36,7 @@
         {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
         {% include '_field_snippet.html' with field=form.programs %}
         {% include '_field_snippet.html' with field=form.order_by %}
-        <button type="submit">
+        <button name="action" value="search-filter-advanced" type="submit">
             {{ _('Find aids') }}
         </button>
     </form>

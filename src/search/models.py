@@ -65,6 +65,11 @@ class SearchPage(models.Model):
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
+    excluded_aids = models.ManyToManyField(
+        'aids.Aid',
+        verbose_name=_('Excluded aids'),
+        related_name='excluded_from_search_pages',
+        blank=True)
 
     # SEO
     meta_title = models.CharField(
@@ -183,6 +188,10 @@ class SearchPage(models.Model):
             qs = form.filter_queryset(Aid.objects.all()).distinct()
         else:
             qs = form.filter_queryset().distinct()
+
+        # Also exlude aids contained in the excluded_aids field
+        qs = qs.exclude(id__in=self.excluded_aids.values_list('id', flat=True))
+
         return qs
 
     def get_aids_per_status(self):

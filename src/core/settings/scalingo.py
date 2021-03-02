@@ -2,6 +2,8 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
 from .base import INSTALLED_APPS, TEMPLATES
@@ -26,13 +28,14 @@ DATABASES = {'default': dj_database_url.config()}
 
 DEBUG = env.bool('DEBUG', False)
 
-INSTALLED_APPS += [
-    'raven.contrib.django.raven_compat',
-]
+sentry_sdk.init(
+    dsn=env.str('SENTRY_URL'),
+    integrations=[DjangoIntegration()],
 
-RAVEN_CONFIG = {
-    'dsn': env('RAVEN_URL'),
-}
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=False)
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
@@ -52,10 +55,6 @@ STATICFILES_DIRS = [
     Path(DJANGO_ROOT, 'static'),
     Path(DJANGO_ROOT, 'node_modules'),
 ]
-
-MEDIA_URL = env('MEDIA_URL', default='')
-
-MEDIA_ROOT = env('MEDIA_ROOT', default='')
 
 TEMPLATES = TEMPLATES.copy()
 TEMPLATES[0]['DIRS'] = [Path(DJANGO_ROOT, 'templates')]
@@ -80,15 +79,6 @@ ALLOWED_HOSTS = ["localhost"] + env_allowed_hosts
 
 MAILING_LIST_URL = env('MAILING_LIST_URL', default='')
 
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
-EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
-EMAIL_BACKEND = env('EMAIL_BACKEND')
-EMAIL_FILE_PATH = '/tmp/django_emails'
-
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
 ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
 
@@ -98,6 +88,19 @@ SIB_LIST_ID = env.int('SIB_LIST_ID')
 ANYMAIL = {
     'SENDINBLUE_API_KEY': SIB_API_KEY,
 }
+SIB_WELCOME_EMAIL_TEMPLATE_ID = env.int('SIB_WELCOME_EMAIL_TEMPLATE_ID', 0)
+SIB_WELCOME_EMAIL_ENABLED = env.bool('SIB_WELCOME_EMAIL_ENABLED', False)
+SIB_PUBLICATION_EMAIL_TEMPLATE_ID = env.int('SIB_PUBLICATION_EMAIL_TEMPLATE_ID', 0)
+SIB_PUBLICATION_EMAIL_ENABLED = env.bool('SIB_PUBLICATION_EMAIL_ENABLED', False)
+
+# File storage settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_ENDPOINT_URL = env('AWS_S3_ENDPOINT_URL')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
+AWS_DEFAULT_ACL = 'public-read'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

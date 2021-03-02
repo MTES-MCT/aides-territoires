@@ -12,8 +12,10 @@ from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
-from stats.models import Event
+from stats.models import AidViewEvent
+from stats.utils import log_aidsearchevent
 from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
+from core.utils import get_subdomain_from_host
 
 
 class MinisiteMixin:
@@ -70,7 +72,7 @@ class MinisiteMixin:
             page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
-            page_slug = host.split('.')[0]
+            page_slug = get_subdomain_from_host(host)
 
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
@@ -135,6 +137,12 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
+        host = self.request.get_host()
+        log_aidsearchevent.delay(
+            querystring=self.request.GET.urlencode(),
+            results_count=qs.count(),
+            source=host)
+
         return qs
 
 
@@ -188,8 +196,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         )
 
         # aid view count: last 30 days & last 7 days
-        events = Event.objects \
-            .filter(category='aid', event='viewed') \
+        events = AidViewEvent.objects \
             .filter(source=self.search_page.slug)
 
         context['aid_view_count_last_30_days'] = events \
@@ -201,8 +208,9 @@ class SiteStats(MinisiteMixin, TemplateView):
             .count()
 
         # top 10 aid viewed
-        top_10_aid_viewed = events.values('meta') \
-                                  .annotate(view_count=Count('meta')) \
+        top_10_aid_viewed = events.select_related('aid') \
+                                  .values('aid_id', 'aid__slug', 'aid__name') \
+                                  .annotate(view_count=Count('aid_id')) \
                                   .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
 

@@ -24,9 +24,9 @@ class NouvelleAquitaineSpider(scrapy.Spider):
                 yield request
 
     def aid_parse(self, response):
-        title = response.css('h1.headline-aide::text').get()
-        description = response.css(
-            'div.container > div.chapo > div._layout > div.link-wrapper').get()
+        title = response.css('h1.headline-aide::text').get().strip()
+        subtitle = response.css('div.mod-chapo').get().strip()
+
         categorie = response.css('ul.m-breadcrumb__list > li:nth-child(2) > span::text').get()
 
         is_call_for_project = False
@@ -46,12 +46,14 @@ class NouvelleAquitaineSpider(scrapy.Spider):
             aid_header[aid_header_key] = content_prettify(item.css('p::text').get()).strip().replace('\n', '').replace('   ', '').replace('  ,  ', ';')
 
         aid_details = {
-            'echeances': '',
             'objectifs': '',
+            'calendrier': '',
             'beneficiaires': '',
+            'montant': '',
+            'criteres': '',
             'modalites': ''
         }
-        for index, item in enumerate(response.css('section.dispositif-aide > div.container > div.texte-simple > div._layout')):
+        for index, item in enumerate(response.css('div.dispositif-aide > div.mod-textSimple')):
             aid_details_key = list(aid_details.keys())[index]
             aid_details[aid_details_key] = content_prettify(item.get())
 
@@ -61,7 +63,7 @@ class NouvelleAquitaineSpider(scrapy.Spider):
 
         yield {
             'title': title,
-            'description': content_prettify(description),
+            'description': subtitle + '<br />' + content_prettify(aid_details['objectifs']),
             'categorie': categorie,
             'is_call_for_project': is_call_for_project,
             'is_dispositif_europe': is_dispositif_europe,

@@ -1,16 +1,17 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from search.forms import SearchPageAdminForm
 from search.models import SearchPage
+from search.forms import SearchPageAdminForm
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class SearchPageAdmin(admin.ModelAdmin):
     list_display = ['slug', 'title', 'meta_description', 'date_created']
-    prepopulated_fields = {'slug': ('title',)}
     form = SearchPageAdminForm
+    prepopulated_fields = {'slug': ('title',)}
     filter_vertical = ['available_categories']
+    autocomplete_fields = ['excluded_aids']
     readonly_fields = ['date_created', 'date_updated']
     fieldsets = [
         ('', {
@@ -52,6 +53,11 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_perimeter_field',
                 'show_mobilization_step_field',
                 'show_aid_type_field',
+            )
+        }),
+        (_('Exclude aids from results'), {
+            'fields': (
+                'excluded_aids',
             )
         }),
     ]

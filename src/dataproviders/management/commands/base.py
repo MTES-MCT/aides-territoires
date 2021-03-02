@@ -4,7 +4,7 @@ from scrapy.crawler import CrawlerProcess
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.db.utils import IntegrityError
-from django.db.models import CharField
+from django.db.models import CharField, TextField
 from django.utils import timezone
 
 from aids.models import Aid
@@ -132,7 +132,8 @@ class BaseImportCommand(BaseCommand):
             extract_method_name = 'extract_{}'.format(field)
             extract_method = getattr(self, extract_method_name, None)
             model_field = Aid._meta.get_field(field)
-            empty_value = '' if isinstance(model_field, CharField) else None
+            is_text_type = isinstance(model_field, (CharField, TextField))
+            empty_value = '' if is_text_type else None
             value = extract_method(line) if extract_method else empty_value
             values[field] = value
 

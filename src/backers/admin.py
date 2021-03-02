@@ -116,6 +116,11 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
                 'meta_title',
                 'meta_description',
             )
+        }),
+        (_('Backer Group'), {
+            'fields': (
+                'group',
+            )
         })
     ]
 

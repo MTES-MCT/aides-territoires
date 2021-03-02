@@ -2,7 +2,7 @@
     'use strict';
 
     const MAX_RESULTS = 5;  // Don't display more duplicate
-    const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True';
+    const API_ENDPOINT = '/api/aids/?version=1.1&drafts=True&internal=True';
 
     // Create divs to hold the error message
     const topErrorDiv = $('<div class="inline-error"></div>');

@@ -365,13 +365,11 @@ div#search {
     article {
         margin-bottom: 2rem;
     }
+}
 
-    section.search-meta {
-        @extend .mb-4;
-
-        p {
-            margin-bottom: 0;
-        }
+div.search-meta {
+    p {
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -1094,6 +1092,10 @@ article#aid {
             margin-left: -3rem;
         }
 
+        & > div.local-generic {
+            @include icon(before, $fa-var-map-marker-alt, 1.5rem);
+            }
+
         & > div.financers {
             @include icon(before, $fa-var-handshake, 1.5rem);
         }
@@ -1161,6 +1163,13 @@ article#aid {
             @extend .btn-primary;
             display: block;
             margin: 3rem auto 0 auto;
+        }
+
+        div#localAidsLinks {
+            overflow-y: scroll;
+            max-height: 13rem;
+            background-color: #d9f0ec;
+            padding: 1rem;
         }
     }
 
@@ -1254,22 +1263,22 @@ div#share-modal {
         @extend .mx-2;
         @extend .mt-2;
         @extend .mb-4;
-    
+
         & > div {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-    
+
             & a {
                 @extend .py-2;
             }
-    
+
             & a > img{
                 transition: transform 0.5s;
                 max-width: 50px;
             }
-    
+
             & a > img:hover{
                 transform: scale(1.2);
             }
@@ -1450,13 +1459,17 @@ article#draft-list {
     }
 
     table {
-        th {
+        th,
+        td.nowrap-cell {
             white-space: nowrap;
         }
-        td.aid-deadline-cell,
-        td.aid-status-cell {
-            white-space: nowrap;
-        }
+    }
+}
+
+div#alert-search-modal {
+    div.search-meta {
+        max-height: 200px;
+        overflow-y: scroll;
     }
 }
 
@@ -1651,15 +1664,105 @@ div#search-steps {
     }
 }
 
-#backer-title {
-    @extend .d-flex;
-    @extend .flex-row;
-    @extend .flex-wrap;
-    @extend .justify-content-between;
+#project_message_box {
+
+    & > div:first-of-type {
+        @extend .mb-5;
+    }
+
+    .navigation-links {
+        a {
+            color: #fff !important;
+        }
+
+        a:first-of-type {
+            @extend .mr-4;
+        }
+    }
+}
+
+#suggested_project_box {
+    border: solid 2px #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    color: $font-color;
+    @extend .mb-3;
+    @extend .px-5;
+    @extend .py-4;
+
+    .content {
+        @extend .mt-4;
+    }
+
+    .form-group {
+        @extend .mb-0;
+    }
+
+    .field-help {
+        font-size: $font-size-small;
+    }
+    
+    label {
+        display: block !important;
+    }
+
+    .warning {
+
+        @extend .mt-3;
+
+        p {
+            @extend .mb-0;
+        }
+    }
+
+    textarea {
+        height: 6rem;
+    }
+}
+
+#suggested_project_box + .navigation-links {
+    a {
+        color: #fff !important;
+    }
+
+    a:first-of-type {
+        @extend .mr-3;
+    }
+}
+
+#suggested_project {
+    @extend .m-2;
+
+    input, p {
+        @extend .mb-4;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+#suggest-project-btn, #display-results-btn {
+    @extend .btn;
+    @extend .btn-primary;
+}
+
+#backer-title > div {
+    @extend .row;
+
+    & div:first-of-type {
+        @extend .col-md-10;
+    }
+
+    & div:last-of-type {
+        @extend .col-md-2;
+    }
 
     img {
         max-height: $height-img-base;
         max-width: 300px;
+        display: block;
+        margin: auto;
     }
 }
 
@@ -1708,6 +1811,7 @@ ul.backer-categories {
 
 ul.aid-categories {
     padding: 0;
+    margin-bottom: 0;
     list-style-type: none;
 
     li.theme {
@@ -1774,7 +1878,7 @@ ul.aid-categories {
             max-width: 225px;
             padding: 0.5rem;
             filter: saturate(140%);
-    
+
             @include media-breakpoint-up(md) {
                 max-width: 160px;
             }
@@ -1783,7 +1887,7 @@ ul.aid-categories {
                 max-width: 225px;
             }
         }
-    
+
         & > a > img:hover {
             filter: grayscale(20%);
         }

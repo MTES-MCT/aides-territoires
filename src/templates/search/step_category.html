@@ -55,11 +55,15 @@
 
 <h2>{{ _('Refine those results by selecting categories') }}</h2>
 
+{% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
+<form id="categories" action="{% url 'search_step_project' %}" method="GET">
+{% else %}
 <form id="categories" action="{% url 'search_view' %}" method="GET">
+{% endifequal %}
 
     {% include '_form_snippet.html' %}
 
-    <button type="submit">
+    <button name="action" value="search" type="submit">
         {{ _('Submit') }}
     </button>
 
@@ -67,6 +71,15 @@
         <a class="previous-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
             {{ _('Back to previous step') }}
         </a>
+        {% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
+            <a class="next-btn" href="{% url 'search_step_project' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+        {% else %}
+            <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+        {% endifequal %}
     </div>
 
 </form>

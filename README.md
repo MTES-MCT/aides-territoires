@@ -208,7 +208,7 @@ Il faudra alors manuellement lancer la compression en cas de besoin.
 
 ## Traduction : À propos des fichiers `.po` et `.mo`
 
-Ce project utilise le système de tranduction de Django : 
+Ce project utilise le système de tranduction de Django :
 Le texte dans le code est en anglais et la traduction qui
 s'affiche sur le site en Français, se trouve dans le fichier
 `.po` du dossier `locales`.
@@ -234,10 +234,10 @@ déploiement. Il n'est donc pas inclus dans le code github.
 
 Nous utilisons `pep8` et `flake8`.
 
-Pour vérifier son code, on peut intégrer le linter adapté à 
+Pour vérifier son code, on peut intégrer le linter adapté à
 son IDE et aussi faire ceci :
 
-    make checkstyle 
+    make checkstyle
 
 
 ## Déploiement
@@ -246,7 +246,7 @@ son IDE et aussi faire ceci :
 ### Variables d'environnement
 
 Afin de rendre disponible les variables d'environnement dans les playbooks
-ansible, nous utilons le fichier `.env.ansible`.
+ansible, nous utilisons le fichier `.env.ansible`.
 
 
     # Pour créer le fichier env:
@@ -264,12 +264,18 @@ il faut installer ceci:
     ansible-galaxy collection install community.general
 
 
-### Envoie d'email
+### Envoi d'email
 
 Les emails transactionnels sont envoyés via SendingBlue.
 Pour les environnements de Staging, il un mécanisme qui permet de
 n'envoyer les emails qu'à une liste restreinte d'adresses.
 Cette "Whitelist" est définie dans les `settings`.Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
+
+
+### Fichiers media
+
+Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour le stockage de tous les fichiers medias.
+
 
 ### Ansible
 

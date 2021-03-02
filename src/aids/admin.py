@@ -59,6 +59,30 @@ class LiveAidListFilter(admin.SimpleListFilter):
             return queryset.published().open()
 
 
+class GenericAidListFilter(admin.SimpleListFilter):
+    """Custom admin filter for generic, local and standard aids."""
+
+    title = _('Generic / Local')
+    parameter_name = 'typology'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('generic', _('Generic aids')),
+            ('local', _('Local aids')),
+            ('standard', _('Standard aids')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'generic':
+            return queryset.generic_aids()
+
+        if self.value() == 'local':
+            return queryset.local_aids()
+
+        if self.value() == 'standard':
+            return queryset.standard_aids()
+
+
 class AuthorFilter(InputFilter):
     parameter_name = 'author'
     title = _('Author')
@@ -149,16 +173,16 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
-        'author_name', 'recurrence', 'date_updated', 'date_published',
-        'is_imported', 'submission_deadline', 'status'
+        'author_name', 'recurrence', 'perimeter', 'date_updated',
+        'date_published', 'is_imported', 'submission_deadline', 'status',
     ]
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
     search_fields = ['name']
     list_filter = [
-        'status', 'recurrence', 'is_imported', 'is_call_for_project',
-        'in_france_relance',
+        'status', GenericAidListFilter, 'recurrence', 'is_imported',
+        'is_call_for_project', 'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
         'programs', 'categories']
@@ -168,6 +192,7 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
         'date_updated', 'date_published']
+    raw_id_fields = ['generic_aid']
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -229,6 +254,14 @@ class BaseAidAdmin(ExportActionMixin, admin.ModelAdmin):
                 'status',
             )
         }),
+
+        (_('Only for local aids'), {
+            'fields': (
+                'generic_aid',
+                'local_characteristics',
+            )
+        }),
+
 
         (_('Import related data'), {
             'fields': (
@@ -306,7 +339,7 @@ class AidAdmin(BaseAidAdmin):
         qs = Aid.objects \
             .all() \
             .distinct() \
-            .prefetch_related('financers', 'instructors') \
+            .prefetch_related('financers', 'instructors', 'perimeter') \
             .select_related('author')
         return qs
 

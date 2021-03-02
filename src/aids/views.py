@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Sum, Prefetch
+from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +16,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils.functional import cached_property
+from django.core.mail import send_mail
 
 from braces.views import MessageMixin
 
@@ -25,13 +26,13 @@ from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
 from aids.utils import generate_clone_title
+from aids.mixins import AidEditMixin
 from alerts.forms import AlertForm
 from categories.models import Category
-from minisites.mixins import SearchMixin, AidEditMixin, NarrowedFiltersMixin
+from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
-from emails.sib import send_mail_sib
-from stats.models import Event
-from stats.utils import log_event
+from stats.models import AidViewEvent
+from stats.utils import log_aidviewevent, log_aidsearchevent
 
 
 class AidPaginator(Paginator):
@@ -73,6 +74,13 @@ class SearchView(SearchMixin, FormMixin, ListView):
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
+
+        host = self.request.get_host()
+        log_aidsearchevent.delay(
+            querystring=self.request.GET.urlencode(),
+            results_count=ordered_results.count(),
+            source=host)
+
         return ordered_results
 
     def get_programs(self):
@@ -107,9 +115,25 @@ class SearchView(SearchMixin, FormMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['targeted_audiences'] = self.form.cleaned_data.get('targeted_audiences', None)  # noqa
+        if context['targeted_audiences']:
+            context['targeted_audiences'] = [Aid.AUDIENCES[audience] for audience in context['targeted_audiences']]  # noqa
         context['perimeter'] = self.form.cleaned_data.get('perimeter', None)
         context['categories'] = self.form.cleaned_data.get('categories', None)
         context['themes'] = self.form.cleaned_data.get('themes', None)
+        context['programs'] = self.form.cleaned_data.get('programs', None)
+        context['backers'] = self.form.cleaned_data.get('backers', None)
+        context['aid_type'] = self.form.cleaned_data.get('aid_type', None)
+        if context['aid_type']:
+            context['aid_type'] = [Aid.TYPES[aid_type] for aid_type in context['aid_type']]  # noqa
+        context['mobilization_step'] = self.form.cleaned_data.get('mobilization_step', None)  # noqa
+        if context['mobilization_step']:
+            context['mobilization_step'] = [Aid.STEPS[step] for step in context['mobilization_step']]  # noqa
+        context['destinations'] = self.form.cleaned_data.get('destinations', None)  # noqa
+        if context['destinations']:
+            context['destinations'] = [Aid.DESTINATIONS[destination] for destination in context['destinations']]  # noqa
+        context['call_for_projects_only'] = self.form.cleaned_data.get('call_for_projects_only', None)  # noqa
+
         context['current_search'] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, '')
 
@@ -198,7 +222,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
             'scheme': scheme,
             'domain': site.domain,
         })
-        send_mail_sib(
+        send_mail(
             self.EMAIL_SUBJECT,
             results_body,
             settings.DEFAULT_FROM_EMAIL,
@@ -286,13 +310,13 @@ class AidDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
-        # Here we retrieve the request's *first* subdomain
-        # e.g. https://aides-territoires.beta.gouv.fr/ --> 'aides-territoires' (default)  # noqa
-        # e.g. https://arcinnovation.aides-territoires.beta.gouv.fr/ --> 'arcinnovation'  # noqa
-        host = request.META.get('HTTP_HOST', 'aides-territoires.beta.gouv.fr')
-        request_subdomain = host.split('.')[0]
-
-        log_event('aid', 'viewed', meta=self.object.slug, source=request_subdomain, value=1)  # noqa
+        if self.object.is_published():
+            host = request.get_host()
+            current_search = response.context_data.get('current_search', '')
+            log_aidviewevent.delay(
+                aid_id=self.object.id,
+                querystring=current_search,
+                source=host)
 
         return response
 
@@ -348,11 +372,9 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['filter_form'] = DraftListAidFilterForm(self.request.GET)
         context['ordering'] = self.get_ordering()
-        aid_slugs = context['aids'].values_list('slug', flat=True)
+        aid_ids = context['aids'].values_list('id', flat=True)
 
-        events = Event.objects \
-            .filter(category='aid', event='viewed') \
-            .filter(meta__in=aid_slugs)
+        events = AidViewEvent.objects.filter(aid_id__in=aid_ids)
 
         events_total_count = events.count()
 
@@ -362,9 +384,9 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
             .count()
 
         events_total_count_per_aid = events \
-            .values_list('meta') \
-            .annotate(nb_views=Sum('value')) \
-            .order_by('meta')
+            .values_list('aid_id') \
+            .annotate(view_count=Count('aid_id')) \
+            .order_by('aid_id')
 
         context['hits_total'] = events_total_count
         context['hits_last_30_days'] = events_last_30_days_count
