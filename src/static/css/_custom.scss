@@ -1543,7 +1543,8 @@ div#search-steps {
             color: $dark;
         }
 
-        span.separator {
+        .step:not(:last-of-type)::after {
+            content: "";
             display: inline-block;
             width: 2rem;
             height: .4rem;

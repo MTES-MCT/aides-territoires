@@ -9,39 +9,10 @@
 {% block breadcrumbs %}
 <div class="search-progress">
 <p class="steps">
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your structure') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your perimeter') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your themes') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your categories') }}
-    </span>
+    {% include '_breadcrumb.html' with label=_('Your structure') %}
+    {% include '_breadcrumb.html' with label=_('Your perimeter') %}
+    {% include '_breadcrumb.html' with label=_('Your themes') %}
+    {% include '_breadcrumb.html' with label=_('Your categories') %}
 </p>
 </div>
 {% endblock %}

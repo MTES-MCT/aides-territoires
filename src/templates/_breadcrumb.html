@@ -1,0 +1,10 @@
+<span class="step">
+    {% if counter %}
+        <span class="counter">{{ counter }}</span>
+    {% else %}
+    <span class="counter active">
+        <span class="fas fa-check"></span>
+    </span>
+    {% endif %}
+    {{ label }}
+</span>
