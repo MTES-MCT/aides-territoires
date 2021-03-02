@@ -1,4 +1,5 @@
 import collections
+from functools import lru_cache
 
 from django.db import transaction
 from django.db.models import Q
@@ -186,3 +187,32 @@ def combine_perimeters(add_perimeters, rm_perimeters):
         .values_list('code', flat=True)
 
     return set(in_city_codes) - set(out_city_codes)
+
+
+@lru_cache()
+def perimeters_to_dict_with_contained():
+    """
+    For each perimeter, generate the list of the perimeters (INSEE codes)
+    it contains.
+    """
+    perimeters_dict = dict()
+    Through = Perimeter.contained_in.through
+
+    for p in Perimeter.objects.prefetch_related('contained_in').all():
+        # get the list of perimeter ids it contains
+        contained_id = Through.objects \
+            .filter(to_perimeter_id=p.id) \
+            .values_list('from_perimeter_id', flat=True) \
+            .distinct()
+        # obtain the insee codes from the perimeter ids
+        p_contained_insee = Perimeter.objects \
+            .filter(id__in=contained_id) \
+            .filter(scale=1) \
+            .values_list('code', flat=True) \
+            .distinct()
+        perimeters_dict[p.id] = {
+            'perimeter_name': p.name,
+            'perimeter_contained_insee': list(p_contained_insee)
+        }
+
+    return perimeters_dict
