@@ -795,7 +795,8 @@ section#aid-edit {
     
             .part-form {
                 @extend .col-md-8;
-                padding-left: 2rem;
+                @extend .order-1;
+                @extend .order-md-2;
 
                 label {
                     font-weight: bold;
@@ -814,11 +815,17 @@ section#aid-edit {
                 .btn {
                     margin-left: 36%;
                 }
+
+                .part-form {
+                    padding-left: 2rem;
+                }
             }
     
             .help-form {
                 @extend .col-md-4;
                 padding-right: 2rem;
+                @extend .order-2;
+                @extend .order-md-1;
     
                 .field-help {
                     margin: 0 !important;
