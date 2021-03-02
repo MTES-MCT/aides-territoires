@@ -1,0 +1,30 @@
+<div id="form-group-{{ field.name }}" class="form-group{% if field.field.required %} required{% endif %}">
+
+    <div class="help-form">
+        {% if field.help_text %}
+        <span class="field-help">{{ field.help_text|safe }}</span>
+        {% endif %}
+    </div>
+    
+    <div class="part-form">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if nest_field_class %}
+        <div class="{{ nest_field_class }}">
+        {% endif %}
+    
+        {{ field }}
+    
+        {% if nest_field_class %}
+        </div>
+        {% endif %}
+    
+    
+        {% if field.errors %}
+        <p class="error field-error">
+            ↑
+            {{ field.errors.0 }}
+            ↑
+        </p>
+        {% endif %}
+    </div>
+</div>

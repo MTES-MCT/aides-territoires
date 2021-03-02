@@ -1,15 +1,7 @@
 {% extends 'aids/_base_edit.html' %}
 {% load i18n form_utils compress %}
 
-{% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'aid_draft_list_view' %}">{{ _('My published aids') }}</a></li>
-        <li class="active" aria-current="page">{{ aid.name|truncatechars:30 }}</li>
-    </ol>
-</nav>
-{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 
 {% block messages %}{% endblock %}
 
@@ -26,69 +18,92 @@
         </p>
     {% endfor %}
     {% endif %}
+    <div class="actions">
+        <div class="sidebar-actions">
+            <h3>{{ aid.get_status_display }}</h3>
+    
+            {% if aid.is_draft %}
+                {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator.' as status_info %}
+                {% trans 'Send to publication' as btn_label %}
+                {% trans 'You will be able to keep editing your aid.' as status_help %}
+            {% elif aid.is_under_review %}
+                {% trans 'Pending approval by an administrator, this aid <strong>will be published anytime soon</strong>.' as status_info %}
+                {% trans 'Cancel review' as btn_label %}
+                {% trans 'You will be able to submit your aid for review later on.' as status_help %}
+            {% elif aid.is_published %}
+                {% trans 'You are editing a published aid. Please proceed with caution.' as status_info %}
+                {% trans 'Unpublish right now' as btn_label %}
+                {% trans 'You will need to request a new review to re-publish your aid.' as status_help %}
+            {% endif %}
+    
+            <div>
+                <p>{{ status_info}}</p>
+                <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
+                    <span class="help">{{ status_help }}</span>
+                    {% csrf_token %}
+                    <input type="hidden" name="current_status" value="{{ aid.status }}" />
+                    <button type="submit">{{ btn_label }}</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="sidebar-actions">
+            <h3>{{ _('Preview') }}</h3>
+            <div>
+                <p>{{ _('Check how your aid will appear to our users.') }}</p>
+                <p>
+                    <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
+                        {{ _('Preview the aid') }}
+                    </button>
+                </p>
+            </div>
+        </div>
+    
+        <div class="sidebar-actions action-danger">
+            <h3>{{ _('Delete the aid') }}</h3>
+            <div>
+                <p>{% blocktrans trimmed %}
+                    By clicking the button below, you will delete this aid. This action cannot be undone.
+                {% endblocktrans %}</p>
+                <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
+                    {% csrf_token %}
+    
+                    <div class="form-group">
+                        <input type="checkbox" name="confirm" />
+                        <label>{{ _('I understand') }}</label>
+                    </div>
+                    <button type="submit">
+                        {{ _('Delete this aid') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block form_sidebar %}
 
-    <div class="sidebar-actions">
-        <h3>{{ aid.get_status_display }}</h3>
-
-        {% if aid.is_draft %}
-            {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator.' as status_info %}
-            {% trans 'Send to publication' as btn_label %}
-            {% trans 'You will be able to keep editing your aid.' as status_help %}
-        {% elif aid.is_under_review %}
-            {% trans 'Pending approval by an administrator, this aid <strong>will be published anytime soon</strong>.' as status_info %}
-            {% trans 'Cancel review' as btn_label %}
-            {% trans 'You will be able to submit your aid for review later on.' as status_help %}
-        {% elif aid.is_published %}
-            {% trans 'You are editing a published aid. Please proceed with caution.' as status_info %}
-            {% trans 'Unpublish right now' as btn_label %}
-            {% trans 'You will need to request a new review to re-publish your aid.' as status_help %}
-        {% endif %}
-
-        <div>
-            <p>{{ status_info}}</p>
-            <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                <button type="submit">{{ btn_label }}</button>
-            </form>
-            <span class="help">{{ status_help }}</span>
-        </div>
-    </div>
-
-    <div class="sidebar-actions">
-        <h3>{{ _('Preview') }}</h3>
-        <div>
-            <p>{{ _('Check how your aid will appear to our users.') }}</p>
-            <p>
-                <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
-                    {{ _('Preview the aid') }}
-                </button>
-            </p>
-        </div>
-    </div>
-
-    <div class="sidebar-actions action-danger">
-        <h3>{{ _('Delete the aid') }}</h3>
-        <div>
-            <p>{% blocktrans trimmed %}
-                By clicking the button below, you will delete this aid. This action cannot be undone.
-            {% endblocktrans %}</p>
-            <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
-                {% csrf_token %}
-
-                <div class="form-group">
-                    <input type="checkbox" name="confirm" />
-                    <label>{{ _('I understand') }}</label>
-                </div>
-                <button type="submit">
-                    {{ _('Delete this aid') }}
-                </button>
-            </form>
-        </div>
-    </div>
+<ul id="nav-form" class="list-group list-group-horizontal">
+    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
+        <span class="counter">1</span>
+        Présentation
+    </a>
+    <span class="separator"></span>
+    <a href="#aid-description" class="list-group-item list-group-item-action">
+        <span class="counter">2</span>
+        Description
+    </a>
+    <span class="separator"></span>
+    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
+        <span class="counter">3</span>
+        Critères d'éligibilité
+    </a>
+    <span class="separator"></span>
+    <a href="#aid-contact" class="list-group-item list-group-item-action">
+        <span class="counter">4</span>
+        Contact et démarches
+    </a>
+</ul>
 
 {% endblock %}
 
