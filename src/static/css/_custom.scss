@@ -589,66 +589,289 @@ section#bundles {
     }
 }
 
+#base-edit {
+    padding: 0 !important;
+    position: relative;
+    height: 100%;
+    background-color: #ffffff00;
+    box-shadow: none !important;
+}
+
+div.warning {
+    margin-bottom: 0 !important;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    @extend .row-cols-1;
+    @extend .row-cols-md-3;
+    background-color: #fff;
+    border-radius: 0.25rem;
+
+    div.sidebar-actions {
+        @extend .card;
+        box-shadow: none !important;
+        @include border-radius(0);
+
+        h3 {
+            @extend .h5;
+            @extend .card-header;
+        }
+
+        &>div {
+            font-size: $font-size-small;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        span.help {
+            @extend .text-muted;
+        }
+
+        button,
+        button.preview-btn {
+            @extend .btn;
+            @extend .btn-block;
+            @extend .btn-primary;
+            @extend .mt-3;
+        }
+
+        &.action-danger {
+            button {
+                @extend .btn-danger;
+
+                &:disabled {
+                    background-color: #fff;
+                    color:#000;
+                    border: solid 1px #000;
+                }
+
+            }
+        }
+    }
+}
+
 section#aid-edit {
-    @extend .row;
+    position: relative;
+    @extend .col-md-12;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 0 1.5rem 1.5rem !important;
+    box-shadow: 0 1rem 1.2rem -0.4rem rgba(43, 36, 101, 0.9) !important;
 
     div.form-sidebar {
-        @extend .col-md-4;
-        @extend .mb-3;
+        display: none;
+        @extend .col-md-12;
+        @extend .mt-4;
+        @extend .py-2;
+        position: sticky;
+        background-color: $pale-background;
+        border-radius: 1.5rem 0 0 0 !important;
+        box-shadow: 0 0.5rem 1.7rem rgba(75, 72, 116, 0.41) !important;
 
-        div.sidebar-actions {
-            @extend .card;
-            @include border-radius(0);
+        @include media-breakpoint-up(md) {
+            display: block;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
 
-            &:first-of-type {
-                @include border-top-radius($card-border-radius);
+        & #nav-form {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            @extend .p-2;
+            font-size: 1rem;
+            cursor: pointer;
+
+            & a {
+                @extend .text-reset;
+                font-weight: bold;
             }
 
-            &:last-of-type {
-                @include border-bottom-radius($card-border-radius);
+            & a.active {
+                color: $contrast-color !important;
             }
+    
+            .list-group-item  {
+                background-color: inherit;
+                border: none;
+                text-align: center;
 
-            &:not(:last-of-type) {
-                margin-bottom: 0;
-                border-bottom: 0;
-            }
-
-            h3 {
-                @extend .h5;
-                @extend .card-header;
-            }
-
-            &>div {
-                @extend .card-body;
-
-                p:last-child {
-                    margin-bottom: 0;
+                span.counter {
+                    display: inline-block;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    text-align: center;
+                    vertical-align: baseline;
+                    border: 2px solid $dark-green;
+                    background-color: $dark-green;
+                    color: #fff;
+                    border-radius: 50%;
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                    margin-right: 0.2rem;
                 }
             }
 
-            span.help {
-                @extend .text-muted;
+            .separator {
+                @include icon(before, $fa-var-chevron-right);
+                color: #fff !important;
+                font-size: 1.8rem;
             }
 
-            button,
-            button.preview-btn {
-                @extend .btn;
-                @extend .btn-block;
-                @extend .btn-primary;
-                @extend .mb-1;
-            }
+            .list-group-item.active {
+                background-color: inherit;
 
-            &.action-danger {
-                button {
-                    @extend .btn-danger;
+                span.counter {
+                    background-color: white;
+                    color: $contrast-color !important;
+                    border: 2px solid $contrast-color;
                 }
             }
         }
     }
 
     form.main-form {
-        @extend .col-md-8;
+        @extend .col-md-12;
+        @extend .py-3;
+        background-color: #fff;
+        position: relative;
+        border-radius: 0 0 1.5rem 1.5rem !important;
 
+        @include media-breakpoint-up(md) {
+            background: rgb(255,255,255);
+            background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(249,248,246,1) 34%);    
+        }
+
+        .secondary {
+            background-color: #fff;
+        }
+
+        div.inline-error {
+            font-weight: bold;
+        }
+
+        > fieldset {
+            @extend .col-md-12;
+            @extend .mt-5;
+            @extend .px-3;
+
+            & > legend {
+                position: relative;
+                top: 0;
+                height: 1.6rem;
+                padding: 0;
+                margin-bottom: 2rem;
+                font-size: 1.5rem;
+                color: $contrast-color;
+                font-weight: bold;
+                background-color: inherit;
+            }
+
+            .form-group {
+                @extend .row;
+                align-items: flex-start;
+            }
+
+            .form-group.checkbox {
+                padding: 0;
+
+                .part-form {
+                    padding-left: 3rem;
+                }
+            }
+
+            input[type="checkbox" i]:checked {
+                filter: invert(36%) sepia(96%) saturate(6090%) hue-rotate(313deg) brightness(88%) contrast(95%);
+            }
+    
+            .part-form {
+                @extend .col-md-8;
+                @extend .order-1;
+                @extend .order-md-2;
+
+                label {
+                    font-weight: bold;
+                }
+
+                input + label {
+                    font-weight: normal;
+                }
+
+                .select2-container .select2-selection--multiple .select2-selection__rendered {
+                    white-space: normal;
+                }
+            }
+
+            @include media-breakpoint-up(md) {
+                .btn {
+                    margin-left: 36%;
+                }
+
+                .part-form {
+                    padding-left: 2rem;
+                }
+            }
+    
+            .help-form {
+                @extend .col-md-4;
+                padding-right: 2rem;
+                @extend .order-2;
+                @extend .order-md-1;
+    
+                .field-help {
+                    margin: 0 !important;
+                }
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -50px;
+                width: 70%;
+                text-align: center;
+                border-bottom: 2px solid $dark-green;
+            }
+
+            .trumbowyg-box {
+                z-index:2;
+                background-color: #fff;
+            }
+
+            .trumbowyg-fullscreen {
+                z-index: 9999 !important;
+            }
+        }
+
+        > fieldset + fieldset {
+            margin-top: 8rem !important;
+        }
+
+        > fieldset > legend > :target{
+            position: absolute;
+            top: -100px;
+        }
+
+        > fieldset:last-of-type {
+            @extend .mb-5;
+
+            &::after{
+                display: none;
+            }
+        }
+
+        p.warning, div.form-actions {
+            @extend .mx-4;
+        }
+        
         div.inline-error {
             margin-top: .5rem;
         }
@@ -1439,6 +1662,89 @@ div#search-steps {
             @extend .mt-4;
         }
     }
+}
+
+#project_message_box {
+
+    & > div:first-of-type {
+        @extend .mb-5;
+    }
+
+    .navigation-links {
+        a {
+            color: #fff !important;
+        }
+
+        a:first-of-type {
+            @extend .mr-4;
+        }
+    }
+}
+
+#suggested_project_box {
+    border: solid 2px #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    color: $font-color;
+    @extend .mb-3;
+    @extend .px-5;
+    @extend .py-4;
+
+    .content {
+        @extend .mt-4;
+    }
+
+    .form-group {
+        @extend .mb-0;
+    }
+
+    .field-help {
+        font-size: $font-size-small;
+    }
+    
+    label {
+        display: block !important;
+    }
+
+    .warning {
+
+        @extend .mt-3;
+
+        p {
+            @extend .mb-0;
+        }
+    }
+
+    textarea {
+        height: 6rem;
+    }
+}
+
+#suggested_project_box + .navigation-links {
+    a {
+        color: #fff !important;
+    }
+
+    a:first-of-type {
+        @extend .mr-3;
+    }
+}
+
+#suggested_project {
+    @extend .m-2;
+
+    input, p {
+        @extend .mb-4;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+#suggest-project-btn, #display-results-btn {
+    @extend .btn;
+    @extend .btn-primary;
 }
 
 #backer-title > div {

@@ -502,11 +502,9 @@ msgid ""
 "            <li>France</li>\n"
 "            <li>Bretagne (Région)</li>\n"
 "            <li>Métropole du Grand Paris (EPCI)</li>\n"
-"            <li>Y (Commune)</li>\n"
 "            <li>Outre-mer</li>\n"
 "            <li>Wallis et Futuna</li>\n"
 "            <li>Massif Central</li>\n"
-"            <li>Action Cœur de Ville 2019</li>\n"
 "            </ul>\n"
 "        "
 msgstr ""
@@ -517,11 +515,9 @@ msgstr ""
 "            <li>France</li>\n"
 "            <li>Bretagne (Région)</li>\n"
 "            <li>Métropole du Grand Paris (EPCI)</li>\n"
-"            <li>Y (Commune)</li>\n"
 "            <li>Outre-mer</li>\n"
 "            <li>Wallis et Futuna</li>\n"
 "            <li>Massif Central</li>\n"
-"            <li>Action Cœur de Ville 2019</li>\n"
 "            </ul>\n"
 "        "
 
@@ -2843,3 +2839,54 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Send this aid by email"
+msgstr "Envoyer cette aide par email"
+
+msgid "Your project"
+msgstr "Votre projet"
+
+msgid "Project name"
+msgstr "nom du projet"
+
+msgid "is_suggested"
+msgstr "est suggeré"
+
+msgid "Name of your project"
+msgstr "Nom de votre projet"
+
+msgid "In what projects are you interested in&nbsp;?"
+msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
+
+msgid "Criterias of eligibility"
+msgstr "Critères d'éligibilité de l'aide"
+
+msgid "Contribute to improve Aides-territoires&nbsp;!"
+msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
+
+msgid "Tell us the project for which you are seeking aids."
+msgstr "Indiquez le projet pour lequel vous recherchez une aide."
+
+msgid "This will help us to improve in future the relevance of results"
+msgstr "Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés."
+
+msgid "These informations will not have any impact in your search results and will stay confidential"
+msgstr "Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles"
+
+msgid "Suggest a project"
+msgstr "Suggérer un projet"
+
+msgid "Submit this project and display results"
+msgstr "Partager mon projet et accéder aux aides disponibles"
+
+msgid "Thank you for contributing&nbsp;!"
+msgstr "Merci de votre contribution&nbsp;!"
+
+msgid "Build a media library, build a bicycle road, ..."
+msgstr "Construire une médiathèque, mettre en place une piste cyclable, ..."
+
+msgid "Describe your project in a few words"
+msgstr "Parlez-nous de votre projet en quelques mots"
+
+msgid "Its goal, its mobilization step or any informations that can identify your project"
+msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"
