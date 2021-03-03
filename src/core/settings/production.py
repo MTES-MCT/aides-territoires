@@ -48,10 +48,6 @@ CONTACT_PHONE = env('CONTACT_PHONE')
 
 ADMINS = [x.split(':') for x in env.list('ADMINS')]
 
-# For staging, we want to restrict email sending to a whitelist
-EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
-ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
-
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -61,6 +57,11 @@ GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID')
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID')
 
 SASS_PATH = 'make fullcss'
+
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+
+# For staging, we want to restrict email sending to a whitelist
+EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
 
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')

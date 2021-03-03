@@ -240,7 +240,6 @@ DEFAULT_FROM_EMAIL = 'aides-territoires@beta.gouv.fr'
 SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
-ENABLE_EMAIL_WHITELIST = False
 SIB_API_KEY = ''
 SIB_LIST_ID = ''
 SIB_WELCOME_EMAIL_ENABLED = False

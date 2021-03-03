@@ -54,7 +54,6 @@ EMAIL_BACKEND = env(
     'EMAIL_BACKEND',
     default='django.core.mail.backends.console.EmailBackend')
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
-ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
 
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
