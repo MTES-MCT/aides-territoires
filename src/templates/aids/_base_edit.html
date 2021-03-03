@@ -44,6 +44,10 @@
             </div>
             {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
             {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
+            <div id="subvention-fields">
+                {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
+                {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
+            </div>
             {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
 
@@ -67,10 +71,6 @@
         <legend><span id="aid-eligibility"></span>3 - {{ _('Criterias of eligibility') }}</legend>
         {% include '_field_snippet_aid_form.html' with field=form.eligibility %}  
         {% include '_field_snippet_aid_form.html' with field=form.mobilization_steps %}
-        <div id="subvention-fields">
-            {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
-            {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
-        </div>
         {% include '_field_snippet_aid_form.html' with field=form.destinations %}
         {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
         {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
