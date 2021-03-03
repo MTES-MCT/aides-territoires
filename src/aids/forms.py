@@ -703,7 +703,11 @@ class BaseAidSearchForm(forms.Form):
         - When searching on a smaller area than the local aid's perimeter,
           then we display the local version.
         """
-        local_aids = qs.local_aids()
+        # We will consider local aids for which the associated generic
+        # aid is listed in the results - We should consider excluding a
+        # local aid, only when it's generic aid is listed.
+        generic_aids = qs.generic_aids()
+        local_aids = qs.local_aids().filter(generic_aid__in=generic_aids)
         aids_to_exclude = []
         if not search_perimeter:
             # If the user does not specify a search perimeter, then we go wide.
