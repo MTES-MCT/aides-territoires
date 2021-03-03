@@ -124,6 +124,9 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         # Start from the base queryset and add-up more filtering
         qs = self.search_page.get_base_queryset()
 
+        qs = qs.select_related('perimeter', 'author') \
+            .prefetch_related('financers', 'instructors')
+
         # Combine from filtering with the base queryset
         qs = self.form.filter_queryset(qs)
 
