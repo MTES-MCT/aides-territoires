@@ -2844,7 +2844,7 @@ msgid "Send this aid by email"
 msgstr "Envoyer cette aide par email"
 
 msgid "Your project"
-msgstr "votre projet"
+msgstr "Votre projet"
 
 msgid "Project name"
 msgstr "nom du projet"
