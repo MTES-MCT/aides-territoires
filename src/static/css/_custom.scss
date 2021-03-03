@@ -1663,6 +1663,12 @@ div#search-steps {
             @extend .mt-4;
         }
     }
+
+    form#advanced_search {
+        label {
+            display: inline;
+        }
+    }
 }
 
 #advanced_search_box {

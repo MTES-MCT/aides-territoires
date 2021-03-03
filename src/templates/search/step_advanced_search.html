@@ -29,7 +29,7 @@
     </p>
     <p><strong>{{ _('Do you want to Refine those results by adding others filters or access to results&nbsp;?') }}</strong></p>
     <div>
-        <a data-toggle="collapse" href="#advanced_search" role="button" aria-expanded="false" aria-controls="advanced_search">
+        <a data-toggle="collapse" href="#advanced_search_collapse" role="button" aria-expanded="false" aria-controls="advanced_search_collapse">
             {{ _('Add filters') }}
         </a>
         <a id='display-results-btn'  href="{% url 'search_view' %}?{{ querystring }}">
@@ -38,27 +38,32 @@
     </div>
 </div>
 
-<form id="advanced_search" action="{% url 'search_view' %}" method="GET" class="collapse">
+<form id="advanced_search" action="{% url 'search_view' %}" method="GET" >
 
-    {% include '_form_snippet.html' %}
+    <div id="advanced_search_collapse" class="collapse">
+        {% include '_form_snippet.html' %}
 
-    <button name="action" value="search" type="submit">
-        {{ _('Submit') }}
-    </button>
+        <button name="action" value="search" type="submit">
+            {{ _('Submit') }}
+        </button>
+    </div>
+
+    <div class="navigation-links">
+        <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
+            {{ _('Back to previous step') }}
+        </a>
+        {% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
+            <a class="next-btn" href="{% url 'search_step_project' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+        {% else %}
+            <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+                {{ _('Skip to the next step') }}
+            </a>
+        {% endifequal %}
+    </div>
+    
 </form>
 
-<div class="navigation-links">
-    <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
-        {{ _('Back to previous step') }}
-    </a>
-    {% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
-        <a class="next-btn" href="{% url 'search_step_project' %}?{{ querystring }}">
-            {{ _('Skip to the next step') }}
-        </a>
-    {% else %}
-        <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-            {{ _('Skip to the next step') }}
-        </a>
-    {% endifequal %}
-</div>
+
 {% endblock %}
