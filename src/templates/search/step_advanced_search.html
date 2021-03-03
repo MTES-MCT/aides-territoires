@@ -22,12 +22,12 @@
 {% block content %}
 <h1>{{ _('Refine your search results') }}</h1>
 
-<div class="advanced_search_box">
-    <p>{% blocktrans trimmed %}
+<div id="advanced_search_box">
+    <p><strong>{% blocktrans trimmed %}
         <span class="counter">{{ total_aids }}</span> aids match your research
-        {% endblocktrans %}
+        {% endblocktrans %}</strong>
     </p>
-    <p>{{ _('Do you want to Refine those results by adding others filters or access to results&nbsp;?') }}</p>
+    <p><strong>{{ _('Do you want to Refine those results by adding others filters or access to results&nbsp;?') }}</strong></p>
     <div>
         <a data-toggle="collapse" href="#advanced_search" role="button" aria-expanded="false" aria-controls="advanced_search">
             {{ _('Add filters') }}

@@ -1665,7 +1665,7 @@ div#search-steps {
     }
 }
 
-#advanced_search__box {
+#advanced_search_box {
     a {
         @extend .btn;
         @extend .btn-primary;
@@ -1693,7 +1693,7 @@ div#search-steps {
     }
 }
 
-#suggested_project_box {
+#suggested_project_box, #advanced_search_box {
     border: solid 2px #fff;
     border-radius: 10px;
     background-color: #fff;
