@@ -212,6 +212,7 @@ class SiteStats(MinisiteMixin, TemplateView):
             .filter(date_created__gte=seven_days_ago) \
             .count()
 
+        # group views by week, from 1/1/2021
         aid_view_timeseries = events \
             .filter(date_created__gte=beginning_of_2021) \
             .annotate(date_to_week=TruncWeek('date_created')) \
