@@ -79,8 +79,9 @@ ALLOWED_HOSTS = ["localhost"] + env_allowed_hosts
 
 MAILING_LIST_URL = env('MAILING_LIST_URL', default='')
 
+EMAIL_BACKEND = env('EMAIL_BACKEND')
+
 EMAIL_WHITELIST = env.list('EMAIL_WHITELIST', [])
-ENABLE_EMAIL_WHITELIST = env.bool('ENABLE_EMAIL_WHITELIST', False)
 
 # Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
