@@ -251,11 +251,11 @@ body > footer #top-footer, body > footer #subscribe-footer {
     border-bottom: 1px solid #e7e7e7;
 }
 
-#top-footer p:first-of-type, #subscribe-footer > p {
+body > footer #top-footer p:first-of-type, #subscribe-footer > p {
     font-weight: 800;
 }
 
-body > footer #top-footer a, #subscribe-footer a{
+body > footer #top-footer a, #subscribe-footer a {
     color: #DB1C83 !important;
 }
 
@@ -269,26 +269,31 @@ body > footer #top-footer a:visited, #subscribe-footer a:visited {
 
 body > footer #subscribe-footer > div {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
-#subscribe-newsletter {
+body > footer #subscribe-footer > div #subscribe-newsletter {
     display: flex;
     flex-direction: column;
+    margin: 0 5rem;
 }
 
-#subscribe-newsletter p {
+body > footer #subscribe-footer > div #subscribe-newsletter p {
     font-size: 1.8rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-#social-network img {
+body > footer #subscribe-footer > div #social-network {
+    margin: 0 5rem;
+}
+
+body > footer #subscribe-footer > div #social-network img {
     max-width: 40px;
 }
 
-#social-network img:hover {
+body > footer #subscribe-footer > div #social-network img:hover {
     transform: translateY(-2px);
     transition: ease-in-out .2s;
 }
