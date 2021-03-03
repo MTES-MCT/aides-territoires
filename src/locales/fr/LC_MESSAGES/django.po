@@ -2843,6 +2843,9 @@ msgstr "Uploader les images"
 msgid "Send this aid by email"
 msgstr "Envoyer cette aide par email"
 
+msgid "Your project"
+msgstr "votre projet"
+
 msgid "Project name"
 msgstr "nom du projet"
 
@@ -2887,3 +2890,15 @@ msgstr "Parlez-nous de votre projet en quelques mots"
 
 msgid "Its goal, its mobilization step or any informations that can identify your project"
 msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"
+
+msgid "Refine your search results"
+msgstr "Affiner les résultats de votre recherche"
+
+msgid "Do you want to Refine those results by adding others filters or access to results&nbsp;?"
+msgstr "Souhaitez-vous affiner les résultats en ajoutant d'autres critères ou accéder aux résultats&nbsp;?"
+
+msgid "Add filters"
+msgstr "Ajouter des filtres"
+
+msgid "Display results"
+msgstr "Afficher les résultats"

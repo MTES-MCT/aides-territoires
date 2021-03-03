@@ -1568,6 +1568,17 @@ div#search-steps {
         @extend .h5;
     }
 
+    div.navigation-links {
+        display: inline-block;
+        margin-top: 1.5rem;
+
+        a {
+            color: white;
+            margin-right: 1rem;
+            opacity: 0.85;
+        }
+    }
+
     form {
         margin-bottom: 3rem;
 
@@ -1582,17 +1593,6 @@ div#search-steps {
         button[type=submit] {
             display: inline-block;
             margin-right: 1rem;
-        }
-
-        div.navigation-links {
-            display: inline-block;
-            margin-top: 1.5rem;
-
-            a {
-                color: white;
-                margin-right: 1rem;
-                opacity: 0.85;
-            }
         }
 
         div.form-group > label {
@@ -1665,6 +1665,17 @@ div#search-steps {
     }
 }
 
+#advanced_search__box {
+    a {
+        @extend .btn;
+        @extend .btn-primary;
+    }
+
+    a:first-of-type {
+        @extend .mr-3;
+    }
+}
+
 #project_message_box {
 
     & > div:first-of-type {
@@ -1709,7 +1720,7 @@ div#search-steps {
 
     .warning {
 
-        @extend .mt-3;
+        @extend .my-3;
 
         p {
             @extend .mb-0;

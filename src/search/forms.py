@@ -7,13 +7,18 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 
-from core.forms.fields import RichTextField, AutocompleteModelChoiceField
+from core.forms import (
+    AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
+    MultipleChoiceFilterWidget, RichTextField)
 from categories.models import Theme, Category
 from projects.models import Project
 from projects.fields import ProjectMultipleChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from geofr.models import Perimeter
 from aids.forms import AidSearchForm
+from aids.models import Aid
+from backers.models import Backer
+from programs.models import Program
 
 
 AUDIENCES = [
@@ -30,6 +35,47 @@ AUDIENCES = [
         ('farmer', _('Farmer')),
     ))
 ]
+
+FINANCIAL_AIDS = (
+    ('grant', _('Grant')),
+    ('loan', _('Loan')),
+    ('recoverable_advance', _('Recoverable advance')),
+    ('other', _('Other')),
+)
+
+TECHNICAL_AIDS = (
+    ('technical', _('Technical')),
+    ('financial', _('Financial')),
+    ('legal', _('Legal')),
+)
+
+AID_TYPES = (
+    (_('Financial aids'), FINANCIAL_AIDS),
+    (_('Technical and methodological aids'), TECHNICAL_AIDS),
+)
+
+IS_CALL_FOR_PROJECT = (
+    (None, '----'),
+    (True, _('Yes')),
+    (False, _('No'))
+)
+
+AID_CATEGORY_CHOICES = (
+    ('', ''),
+    ('funding', _('Funding')),
+    ('non-funding', _('Non-funding')),
+)
+
+AID_TYPE_CHOICES = (
+    ('financial', _('Financial aid')),
+    ('technical', _('Engineering aid')),
+)
+
+ORDER_BY = (
+    ('relevance', _('Sort: relevance')),
+    ('publication_date', _('Sort: publication date')),
+    ('submission_deadline', _('Sort: submission deadline')),
+)
 
 
 class AudienceWidget(forms.widgets.ChoiceWidget):
@@ -229,6 +275,83 @@ class ProjectSearchForm(forms.Form):
         to_field_name='name',
         required=False,
         widget=ProjectWidget)
+
+class AdvancedSearchForm(forms.Form):
+    targeted_audiences = forms.MultipleChoiceField(
+        choices=AUDIENCES,
+        widget=forms.widgets.MultipleHiddenInput)
+    perimeter = forms.CharField(
+        widget=forms.widgets.HiddenInput)
+    themes = ThemeChoiceField(
+        queryset=Theme.objects.order_by('name'),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
+    categories = CategoryChoiceField(
+        queryset=Category.objects.all(),
+        to_field_name='slug',
+        widget=forms.widgets.MultipleHiddenInput)
+    text = forms.CharField(
+        label=_('Text search'),
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': _('Aid title, keyword, etc.')}))
+    apply_before = forms.DateField(
+        label=_('Apply before…'),
+        required=False,
+        widget=forms.TextInput(
+            attrs={'type': 'date'}))
+    published_after = forms.DateField(
+        label=_('Published after…'),
+        required=False,
+        widget=forms.TextInput(
+            attrs={'type': 'date'}))
+    aid_type = forms.MultipleChoiceField(
+        label=_('Aid type'),
+        choices=AID_TYPE_CHOICES,
+        required=False,
+        widget=forms.CheckboxSelectMultiple)
+    financial_aids = forms.MultipleChoiceField(
+        label=_('Financial aids'),
+        required=False,
+        choices=FINANCIAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+    technical_aids = forms.MultipleChoiceField(
+        label=_('Engineering aids'),
+        required=False,
+        choices=TECHNICAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+    mobilization_step = forms.MultipleChoiceField(
+        label=_('Project progress'),
+        required=False,
+        choices=Aid.STEPS,
+        widget=forms.CheckboxSelectMultiple)
+    destinations = forms.MultipleChoiceField(
+        label=_('Concerned actions'),
+        required=False,
+        choices=Aid.DESTINATIONS,
+        widget=forms.CheckboxSelectMultiple)
+    recurrence = forms.ChoiceField(
+        label=_('Recurrence'),
+        required=False,
+        choices=Aid.RECURRENCE)
+    call_for_projects_only = forms.BooleanField(
+        label=_('Call for projects only'),
+        required=False)
+    backers = AutocompleteModelMultipleChoiceField(
+        label=_('Backers'),
+        queryset=Backer.objects.all(),
+        required=False)
+    programs = forms.ModelMultipleChoiceField(
+        label=_('Aid programs'),
+        queryset=Program.objects.all(),
+        to_field_name='slug',
+        required=False)
+
+    # This field is used to sort results
+    order_by = forms.ChoiceField(
+        label=_('Order by'),
+        required=False,
+        choices=ORDER_BY)
 
 
 class SearchPageAdminForm(forms.ModelForm):

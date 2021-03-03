@@ -4,7 +4,9 @@ from projects.forms import ProjectSuggestForm
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm,
-                          ProjectSearchForm,)
+                          ProjectSearchForm, AdvancedSearchForm)
+
+from django.shortcuts import redirect, render
 
 
 class SearchMixin:
@@ -80,8 +82,39 @@ class CategorySearch(SearchMixin, FormView):
         return context
 
 
-class ProjectSearch(SearchMixin, FormView):
+class AdvancedSearch(SearchMixin, FormView):
     """Step 5 of the multi-page search form."""
+
+    template_name = 'search/step_advanced_search.html'
+    form_class = AdvancedSearchForm
+
+    def get_initial(self):
+        GET = self.request.GET
+        initial = {
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
+            'perimeter': GET.get('perimeter', ''),
+            'themes': GET.getlist('themes', []),
+            'categories': GET.getlist('categories', []),
+        }
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        initial = self.get_initial()
+        filter_form = AidSearchForm(initial)
+        aids = filter_form.filter_queryset()
+
+        context['total_aids'] = aids \
+            .values('id') \
+            .distinct() \
+            .count()
+        
+        return context
+
+
+class ProjectSearch(SearchMixin, FormView):
+    """Step 6 of the multi-page search form."""
 
     template_name = 'search/step_project.html'
     form_class = ProjectSearchForm
