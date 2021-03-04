@@ -803,6 +803,9 @@ msgstr "URL d'origine"
 msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
 
+msgid "Audience"
+msgstr "Bénéficiaire"
+
 msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
 
@@ -2718,8 +2721,11 @@ msgstr "Aides publiées et toujours ouvertes aux candidatures"
 msgid "Total number of views"
 msgstr "Nombre de vues total"
 
-msgid "Since the launch of the page on"
-msgstr "Depuis le lancement de le page le"
+msgid "Page launch date"
+msgstr "Date de lancement de le page"
+
+msgid "Since the launch of the page"
+msgstr "Depuis le lancement de le page"
 
 msgid "Number of views within the last 30 days"
 msgstr "Nombre de vues pendant les 30 derniers jours"
@@ -2739,6 +2745,12 @@ msgstr "Nombre d'aides vues par semaine"
 msgid "Top viewed aids"
 msgstr "Aides les plus vues"
 
+msgid "Top audiences searched"
+msgstr "Bénéficiaires les plus recherchés"
+
+msgid "Top categories searched"
+msgstr "Sous-thématiques les plus recherchées"
+
 msgid "Rank"
 msgstr "Ordre"
 
@@ -2753,6 +2765,9 @@ msgstr "Mot clé"
 
 msgid "Search count"
 msgstr "Recherches"
+
+msgid "No data"
+msgstr "Pas de données"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
