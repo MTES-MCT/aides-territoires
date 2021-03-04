@@ -939,8 +939,12 @@ section#stats {
         margin-bottom: $card-group-margin * 2;
         color: $dark;
 
-        span.stat-title {
+        div.stat-title {
             @extend .card-header;
+
+            h6 {
+                margin-bottom: 0;
+            }
         }
 
         div.stat-body {
@@ -953,6 +957,9 @@ section#stats {
             }
         }
 
+        &.half-width {
+            flex: 45%;
+        }
         &.full-width {
             flex: 100%;
         }

@@ -214,7 +214,7 @@ class SiteStats(MinisiteMixin, TemplateView):
             .count()
 
         # group views by week, from 1/1/2021
-        aid_view_timeseries = events \
+        aid_view_timeseries = view_events \
             .filter(date_created__gte=beginning_of_2021) \
             .annotate(date_to_week=TruncWeek('date_created')) \
             .annotate(day=Func(
@@ -228,12 +228,12 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['aid_view_timeseries'] = list(aid_view_timeseries)
 
         # top 10 aid viewed
-        top_10_aid_viewed = view_events \
+        top_aid_viewed = view_events \
             .select_related('aid') \
             .values('aid_id', 'aid__slug', 'aid__name') \
             .annotate(view_count=Count('aid_id')) \
             .order_by('-view_count')
-        context['top_10_aid_viewed'] = list(top_10_aid_viewed)[:10]
+        context['top_10_aid_viewed'] = list(top_aid_viewed)[:10]
 
         # search count
         search_events = AidSearchEvent.objects \
@@ -242,34 +242,34 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['search_events_total'] = search_events.count()
 
         # top 10 targeted_audiences filters
-        top_10_audiences_searched = search_events \
-            .exclude(targeted_audiences=None) \
+        top_audiences_searched = search_events \
+            .filter(targeted_audiences__isnull=False) \
             .annotate(audience=Func(
                 F('targeted_audiences'), function='unnest')) \
             .values('audience') \
             .annotate(search_count=Count('id')) \
             .order_by('-search_count')
-        # get the display name of audiences
-        for (index, item) in enumerate(top_10_audiences_searched):
-            top_10_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
-        context['top_10_audiences_searched'] = list(top_10_audiences_searched)[:10]  # noqa
+        # get the display_name of each audience
+        for (index, item) in enumerate(top_audiences_searched):
+            top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
+        context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
         # top 10 categories filters
-        top_10_categories_searched = search_events \
+        top_categories_searched = search_events \
             .prefetch_related('categories') \
             .exclude(categories=None) \
             .values('categories__id', 'categories__name') \
             .annotate(search_count=Count('categories__id')) \
             .order_by('-search_count')
-        context['top_10_categories_searched'] = list(top_10_categories_searched)[:10]  # noqa
+        context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
         # top 10 keywords searched
-        context['top_10_keywords_searched'] = get_matomo_stats(
+        top_keywords_searched = get_matomo_stats(
             api_method='Actions.getSiteSearchKeywords',
             custom_segment=f'pageUrl=@{self.search_page.slug}.aides-territoires.beta.gouv.fr',  # noqa
             from_date_string=seven_days_ago.strftime('%Y-%m-%d'))
-        if type(context['top_10_keywords_searched']) == list:
-            context['top_10_keywords_searched'] = sorted(context['top_10_keywords_searched'], key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
+        if top_keywords_searched == list:
+            context['top_10_keywords_searched'] = sorted(top_keywords_searched, key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
 
         return context
 

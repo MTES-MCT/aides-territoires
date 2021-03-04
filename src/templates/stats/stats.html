@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n humanize %}
 
 {% block extratitle %}{{ _('Public stats') }}{% endblock %}
 
@@ -7,53 +7,51 @@
 <section id="stats">
 
     <div class="stat">
-        <span class="stat-title">
-            {{ _('Available aids') }}<br />
+        <div class="stat-title">
+            <h6>{{ _('Available aids') }}</h6>
             <small>{% blocktrans trimmed %}
                 Published aids that are still open.
             {% endblocktrans %}</small>
-        </span>
+        </div>
         <div class="stat-body number-stat">
-            <span>{{ nb_live_aids }}</span>
+            <span>{{ nb_live_aids|intcomma }}</span>
         </div>
     </div>
 
     <div class="stat">
-        <span class="stat-title">
-            {{ _('Sent alerts') }}<br />
+        <div class="stat-title">
+            <h6>{{ _('Sent alerts') }}</h6>
             <small>{% blocktrans trimmed %}
                 Emails sent with new alerts notification
             {% endblocktrans %}
             </small>
-        </span>
+        </div>
         <div class="stat-body number-stat">
-            <span>{{ nb_sent_alerts }}</span>
+            <span>{{ nb_sent_alerts|intcomma }}</span>
         </div>
     </div>
 
     <div class="stat">
-        <span class="stat-title">
-            {{ _('Viewed aids') }}<br />
+        <div class="stat-title">
+            <h6>{{ _('Viewed aids') }}</h6>
             <small>{% blocktrans trimmed %}
                 Aids viewed within the last 7 days
             {% endblocktrans %}</small>
-
-        </span>
+        </div>
         <div class="stat-body number-stat">
-            <span>{{ nb_viewed_aids }}</span>
+            <span>{{ nb_viewed_aids|intcomma }}</span>
         </div>
     </div>
 
     <div class="stat">
-        <span class="stat-title">
-            {{ _('Aid backers') }}<br />
+        <div class="stat-title">
+            <h6>{{ _('Aid backers') }}</h6>
             <small>{% blocktrans trimmed %}
                 Organizations that are financing or instructing aids
             {% endblocktrans %}</small>
-
-        </span>
+        </div>
         <div class="stat-body number-stat">
-            <span>{{ nb_backers }}</span>
+            <span>{{ nb_backers|intcomma }}</span>
         </div>
     </div>
 
