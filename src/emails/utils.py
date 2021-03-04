@@ -1,4 +1,28 @@
+from django.conf import settings
+
 from anymail.message import AnymailMessage
+
+
+def send_email(
+        subject, body, recipient_list,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        html_body=None, tags=None,
+        fail_silently=False):
+    message = AnymailMessage(
+        subject=subject,
+        body=body,
+        to=recipient_list)
+
+    message.from_email = from_email
+
+    if html_body:
+        message.attach_alternative(html_body, 'text/html')
+
+    # Tags can then be found and filtered in the ESP's analytics dashboard
+    if tags:
+        message.tags = tags
+
+    message.send(fail_silently=fail_silently)
 
 
 def send_template_email(
