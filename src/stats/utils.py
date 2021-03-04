@@ -1,7 +1,8 @@
 from core.celery import app
 from core.utils import get_subdomain_from_host
 from search.utils import (
-    clean_search_querystring, get_querystring_value_list_from_key,
+    clean_search_querystring,
+    get_querystring_value_from_key, get_querystring_value_list_from_key,
     get_querystring_perimeter,
     get_querystring_themes, get_querystring_categories)
 from stats.models import AidViewEvent, AidSearchEvent, Event
@@ -34,13 +35,15 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
     if not is_internal_search:  # noqa
         targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
         perimeter = get_querystring_perimeter(querystring)
+        text = get_querystring_value_from_key(querystring, 'text')
 
         event = AidSearchEvent.objects.create(
             querystring=querystring_cleaned,
             source=source_cleaned,
             results_count=results_count,
             targeted_audiences=targeted_audiences,
-            perimeter=perimeter)
+            perimeter=perimeter,
+            text=text)
 
         themes = get_querystring_themes(querystring)
         categories = get_querystring_categories(querystring)

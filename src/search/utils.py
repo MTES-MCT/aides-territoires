@@ -26,6 +26,12 @@ def clean_search_querystring(querystring):
     return querystring_cleaned
 
 
+def get_querystring_value_from_key(querystring, key):
+    querydict = QueryDict(querystring)
+    value = querydict.get(key)
+    return value
+
+
 def get_querystring_value_list_from_key(querystring, key):
     querydict = QueryDict(querystring)
     value_list = querydict.getlist(key)
