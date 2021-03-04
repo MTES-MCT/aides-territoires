@@ -47,8 +47,11 @@ def get_querystring_perimeter(querystring):
     PERIMETER_KEY = 'perimeter'
     perimeter_list = get_querystring_value_list_from_key(querystring, PERIMETER_KEY)  # noqa
     if len(perimeter_list):
-        perimeter_id_str = perimeter_list[0].split('-')[0]
-        return Perimeter.objects.get(id=perimeter_id_str)
+        try:
+            perimeter_id_str = perimeter_list[0].split('-')[0]
+            return Perimeter.objects.get(id=perimeter_id_str)
+        except Exception:
+            return None
     else:
         return None
 
