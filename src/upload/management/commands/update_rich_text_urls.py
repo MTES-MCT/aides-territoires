@@ -26,7 +26,8 @@ class Command(BaseCommand):
     def update_urls(self, Model, field_name):
         """For a given model and field, rewrite media urls."""
 
-        items = Model.objects.filter(**{f'{field_name}__contains': 'src="/media/'})
+        items = Model.objects.filter(
+            **{f'{field_name}__contains': 'src="/media/'})
         for item in items:
             value = getattr(item, field_name)
             urls = re.findall('src="/media/([^"]+)"', value)
