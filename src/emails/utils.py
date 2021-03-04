@@ -25,7 +25,7 @@ def send_email(
     message.send(fail_silently=fail_silently)
 
 
-def send_template_email(
+def send_email_with_template(
         recipient_list, template_id, data=None, tags=None,
         fail_silently=False):
     """Use the "template" feature provided by our ESP"""

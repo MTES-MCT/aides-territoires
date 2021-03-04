@@ -4,11 +4,11 @@ from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
-from django.core.mail import send_mail
 
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
+from emails.utils import send_email
 
 TEMPLATE = 'emails/alert_validate.txt'
 
@@ -54,16 +54,17 @@ def send_alert_confirmation_email(user_email, alert_token):
     else:
         frequency = _('You will receive a weekly email whenever new matching aids will be published.')  # noqa
 
-    email_body = render_to_string(TEMPLATE, {
+    text_body = render_to_string(TEMPLATE, {
         'base_url': base_url,
         'alert': alert,
         'frequency': frequency,
         'perimeter': perimeter,
         'alert_validation_link': '{}{}'.format(base_url, alert_validation_link)
     })
-    send_mail(
-        subject,
-        email_body,
-        settings.DEFAULT_FROM_EMAIL,
-        [user_email],
+    send_email(
+        subject=subject,
+        body=text_body,
+        recipient_list=[user_email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=['alerte_confirmation', settings.ENV_NAME],
         fail_silently=False)

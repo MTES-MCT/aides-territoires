@@ -9,7 +9,7 @@ from django.conf import settings
 
 from accounts.models import User
 from core.celery import app
-from emails.utils import send_template_email
+from emails.utils import send_email_with_template
 
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
@@ -74,7 +74,7 @@ def send_welcome_email(user_email):
         'PRENOM': user.first_name,
         'NOM': user.last_name,
     }
-    send_template_email(
+    send_email_with_template(
         recipient_list=[user_email],
         template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
         data=data,

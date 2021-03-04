@@ -1084,7 +1084,7 @@ msgid "delete/"
 msgstr "supprimer/"
 
 msgid "We just sent you an email to validate your alert."
-msgstr "Nous venons d'envoyer un e-mail pour valider votre alerte."
+msgstr "Nous venons de vous envoyer un e-mail afin de valider votre alerte."
 
 msgid "We could not create your alert because of those errors: {}"
 msgstr ""
@@ -1210,7 +1210,7 @@ msgstr ""
 "votre liste d'alertes.</a>"
 
 msgid "We just sent you an email to validate your address."
-msgstr "Nous venons d'envoyer un e-mail pour valider votre adresse."
+msgstr "Nous venons de vous envoyer un e-mail afin de valider votre adresse."
 
 msgid "We could not create your bookmark because of those errors: {}"
 msgstr ""
