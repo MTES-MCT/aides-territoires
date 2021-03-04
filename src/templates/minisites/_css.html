@@ -227,6 +227,7 @@ body > footer #all-logos {
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 body > footer #all-logos a {
@@ -242,25 +243,64 @@ body > footer #all-logos a img {
     width: auto;
 }
 
-body > footer #top-footer {
+body > footer #top-footer,
+body > footer #subscribe-footer {
     background-color: #f9f8f6 !important;
     color: #1c1d1e !important;
     text-align: center;
-    margin-bottom: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid #e7e7e7;
 }
 
-body > footer #top-footer a{
+body > footer #top-footer p:first-of-type,
+body > footer #subscribe-footer > p {
+    font-weight: 800;
+}
+
+body > footer #top-footer a,
+body > footer #subscribe-footer a {
     color: #DB1C83 !important;
 }
 
-body > footer #top-footer a:hover{
+body > footer #top-footer a:hover,
+body > footer #subscribe-footer a:hover {
     color: #DB1C83 !important;
 }
 
-body > footer #top-footer a:visited {
+body > footer #top-footer a:visited,
+body > footer #subscribe-footer a:visited {
     color: #DB1C83 !important;
+}
+
+body > footer #subscribe-footer > div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+body > footer #subscribe-footer > div #subscribe-newsletter {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5rem;
+}
+
+body > footer #subscribe-footer > div #subscribe-newsletter p {
+    font-size: 1.8rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+body > footer #subscribe-footer > div #social-network {
+    margin: 0 5rem;
+}
+
+body > footer #subscribe-footer > div #social-network img {
+    max-width: 40px;
+}
+
+body > footer #subscribe-footer > div #social-network img:hover {
+    transform: translateY(-2px);
+    transition: ease-in-out .2s;
 }
 
 body > footer > .other_links_nav {
@@ -326,6 +366,14 @@ body > footer nav ul li {
     text-align: center;
 }
 
+body > footer nav ul li:last-child a {
+    text-align: left !important;
+}
+
+body > footer nav ul li:first-of-type a {
+    text-align: right !important;
+}
+
 body > footer nav ul li a {
     white-space: nowrap;
     color: #000 !important;
@@ -386,7 +434,12 @@ body > footer nav ul li a[href^="http"]:hover::after {
         margin-bottom: 0;
         margin-top: 0;
     }
+
+    body > footer #subscribe-footer > div #subscribe-newsletter p {
+        margin-bottom: 0;
+    }
 }
+
 #save-alert-block {
     color: {{ search_page.color_2 }} !important;
 }

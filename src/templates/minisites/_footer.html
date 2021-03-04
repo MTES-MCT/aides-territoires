@@ -1,4 +1,6 @@
-{% load settings i18n %}<footer>
+{% load settings i18n %}
+{% load i18n mailing_list %}
+<footer>
     <div id="top-footer">
         <div class="container">
             <p>{% blocktrans trimmed %}
@@ -8,6 +10,20 @@
                 Find all aids for all beneficiaries and all themes  
                 in <a href="https://aides-territoires.beta.gouv.fr/">Aides-territoires</a>&nbsp;!
                 {% endblocktrans %}</p>    
+        </div>
+    </div>
+    <div id="subscribe-footer">
+        <p>Restez informé·e·s des nouveautés de la plateforme</p>
+        <div>
+            <div id="subscribe-newsletter">
+                <a id="newsletter-btn" href="{% mailing_list_url %}">Inscrivez-vous à la newsletter</a>
+                <p>📬</p>
+            </div>
+            <div id="social-network">
+                <p>Suivez nos actualités sur&nbsp:</p>
+                <a href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter" target="_blank" rel="noopener"><img src="/static/img/logo_twitter.svg" alt="logo twitter"></a>
+                <a href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener"><img src="/static/img/logo_linkedin.svg" alt="logo linkedin"></a>    
+            </div>
         </div>
     </div>
     <div class="container">
@@ -42,7 +58,6 @@
                     <li><a href="https://aides-territoires.beta.gouv.fr/comptes/profil-contributeur/?next=/aides/publications/">Publier des aides</a></li>
                     <li><a href="https://aides-territoires.beta.gouv.fr/data/">Données et API</a></li>
                     <li><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
-                    <li><a href="tel:{{ contact_phone }}">{{ contact_phone | phone }}</a> </li>
                     <li><a href="https://aides-territoires.beta.gouv.fr/mentions-légales/">Mentions Légales</a></li>
                     <li><a href="https://github.com/MTES-MCT/aides-territoires" title="Ouvrir « https://github.com/MTES-MCT/aides-territoires » dans une nouvelle fenêtre">Code Source</a></li>
                 </ul>
