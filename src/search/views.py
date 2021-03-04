@@ -7,6 +7,9 @@ from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ProjectSearchForm, AdvancedSearchForm)
 
 from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.views.generic.base import RedirectView
 
 
 class SearchMixin:
@@ -81,6 +84,38 @@ class CategorySearch(SearchMixin, FormView):
             .count()
         return context
 
+
+class CountResult(RedirectView):
+    
+    def count_aids(self):
+        GET = self.request.GET
+        initial = {
+            'targeted_audiences': GET.getlist('targeted_audiences', ''),
+            'perimeter': GET.get('perimeter', ''),
+            'themes': GET.getlist('themes', []),
+            'categories': GET.getlist('categories', []),
+        }
+
+        filter_form = AidSearchForm(initial)
+        aids = filter_form.filter_queryset()
+
+        total_aids = aids \
+            .values('id') \
+            .distinct() \
+            .count()
+
+        if total_aids < 18: 
+            pattern_name = 'search_view'
+        else:
+            pattern_name = 'search_step_advanced'
+        
+        return pattern_name
+
+    def get_redirect_url(self):
+        querystring = self.request.GET.urlencode()
+        url = reverse(self.count_aids())
+        url = '{}?{}'.format(url, querystring)
+        return url
 
 class AdvancedSearch(SearchMixin, FormView):
     """Step 5 of the multi-page search form."""

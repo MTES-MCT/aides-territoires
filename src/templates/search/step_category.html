@@ -26,7 +26,7 @@
 
 <h2>{{ _('Refine those results by selecting categories') }}</h2>
 
-<form id="categories" action="{% url 'search_step_advanced' %}" method="GET">
+<form id="categories" action="{% url 'search_count_result' %}?{{ querystring }}" method="GET">
 
     {% include '_form_snippet.html' %}
 
