@@ -18,7 +18,9 @@ def choices_display(obj, field):
     choices = obj._meta.get_field(field).base_field.choices
     choices_dict = dict(choices)
 
-    keys = getattr(obj, field)
+    # set to empty list if None
+    keys = getattr(obj, field) or []
+
     values = [force_str(choices_dict.get(key, '')) for key in keys]
     return ', '.join(filter(None, values))
 
