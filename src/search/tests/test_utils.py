@@ -1,13 +1,31 @@
 import pytest
 
 from search.utils import (
+    extract_id_from_string,
     clean_search_querystring,
     get_querystring_value_from_key, get_querystring_value_list_from_key,
-    get_querystring_perimeter)
-# get_querystring_themes, get_querystring_categories)
+    get_querystring_perimeter,
+    # get_querystring_themes, get_querystring_categories
+    get_querystring_backers)
+from backers.factories import BackerFactory
 
 
 pytestmark = pytest.mark.django_db
+
+
+id_slug_string_testset = [
+    ('', None),
+    ('test', None),
+    ('123', 123),
+    ('123-', 123),
+    ('123-test', 123),
+]
+
+
+@pytest.mark.parametrize('input_string,expected_cleaned_id', id_slug_string_testset)  # noqa
+def test_extract_id_from_string(input_string, expected_cleaned_id):
+
+    assert extract_id_from_string(input_string) == expected_cleaned_id
 
 
 querystring_testset = [
@@ -76,7 +94,34 @@ def test_get_querystring_perimeter(input_querystring, expected_output):  # noqa
     assert get_querystring_perimeter(input_querystring) == expected_output  # noqa
 
 
-def test_get_querystring_perimeter_with_fixture(perimeters):
+def test_get_querystring_perimeter_with_db(perimeters):
     assert get_querystring_perimeter('perimeter=france') is None
     assert get_querystring_perimeter(f"perimeter={perimeters['france'].id}") == perimeters['france']  # noqa
     assert get_querystring_perimeter(f"perimeter={perimeters['france'].id}-france") == perimeters['france']  # noqa
+
+
+querystring_testset = [
+    ('', None),
+    ('drafts=True', None),
+    ('backers=', None),
+    ('backers=abc', None),
+]
+
+
+@pytest.mark.parametrize('input_querystring,expected_output', querystring_testset)  # noqa
+def test_get_querystring_backers(input_querystring, expected_output):  # noqa
+
+    assert get_querystring_backers(input_querystring) == expected_output  # noqa
+
+
+def test_get_querystring_backers_with_db():
+    ademe = BackerFactory(name='ADEME')
+    bpi = BackerFactory(name='Bpi France')
+
+    assert len(get_querystring_backers(f"backers={ademe.id}")) == 1
+    assert get_querystring_backers(f"backers={ademe.id}")[0] == ademe
+    assert get_querystring_backers(f"backers={ademe.id}-{ademe.slug}")[0] == ademe  # noqa
+    assert len(get_querystring_backers(f"backers={ademe.id}&backers=")) == 1
+    assert len(get_querystring_backers(f"backers={ademe.id}&backers={bpi.id}")) == 2  # noqa
+    assert get_querystring_backers(f"backers={ademe.id}&backers={bpi.id}")[1] == bpi  # noqa
+    assert get_querystring_backers(f"backers={bpi.id}&backers={ademe.id}")[1] == bpi  # ordered by id  # noqa

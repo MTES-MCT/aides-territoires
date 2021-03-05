@@ -2,6 +2,19 @@ from django.http import QueryDict
 
 from geofr.models import Perimeter
 from categories.models import Theme, Category
+from backers.models import Backer
+
+
+def extract_id_from_string(id_slug_str):
+    """
+    For some models, we concatenate the objects id with their slug
+    Example: '22-ademe'
+    """
+    id_str = id_slug_str.split('-')[0]
+    try:
+        return int(id_str)
+    except:  # noqa
+        return None
 
 
 def clean_search_querystring(querystring):
@@ -48,8 +61,8 @@ def get_querystring_perimeter(querystring):
     perimeter_list = get_querystring_value_list_from_key(querystring, PERIMETER_KEY)  # noqa
     if len(perimeter_list):
         try:
-            perimeter_id_str = perimeter_list[0].split('-')[0]
-            return Perimeter.objects.get(id=perimeter_id_str)
+            perimeter_id = extract_id_from_string(perimeter_list[0])
+            return Perimeter.objects.get(id=perimeter_id)
         except Exception:
             return None
     else:
@@ -66,3 +79,10 @@ def get_querystring_categories(querystring):
     CATEGORIES_KEY = 'categories'
     categories_list = get_querystring_value_list_from_key(querystring, CATEGORIES_KEY)  # noqa
     return Category.objects.filter(slug__in=categories_list)
+
+
+def get_querystring_backers(querystring):
+    BACKERS_KEY = 'backers'
+    backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)  # noqa
+    backers_list_id_str = [extract_id_from_string(backer) for backer in backers_list]  # noqa
+    return Backer.objects.filter(id__in=backers_list_id_str)
