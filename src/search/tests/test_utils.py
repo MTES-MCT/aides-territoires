@@ -7,6 +7,9 @@ from search.utils import (
 # get_querystring_themes, get_querystring_categories)
 
 
+pytestmark = pytest.mark.django_db
+
+
 querystring_testset = [
     ('', ''),  # expecting nothing
     ('drafts=True&call_for_projects_only=False', 'drafts=True&call_for_projects_only=False'),  # noqa
@@ -62,7 +65,8 @@ def test_get_querystring_value_list_from_key(input_querystring, key, expected_ou
 querystring_testset = [
     ('', None),
     ('drafts=True', None),
-    ('perimeter=', None)
+    ('perimeter=', None),
+    ('perimeter=abc', None),
 ]
 
 
@@ -70,3 +74,9 @@ querystring_testset = [
 def test_get_querystring_perimeter(input_querystring, expected_output):  # noqa
 
     assert get_querystring_perimeter(input_querystring) == expected_output  # noqa
+
+
+def test_get_querystring_perimeter_with_fixture(perimeters):
+    assert get_querystring_perimeter('perimeter=france') is None
+    assert get_querystring_perimeter(f"perimeter={perimeters['france'].id}") == perimeters['france']  # noqa
+    assert get_querystring_perimeter(f"perimeter={perimeters['france'].id}-france") == perimeters['france']  # noqa
