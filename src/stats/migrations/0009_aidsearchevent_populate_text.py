@@ -9,7 +9,7 @@ def populate_aidsearchevent_text(apps, schema_editor):
     AidSearchEvent = apps.get_model('stats', 'AidSearchEvent')
     for event in AidSearchEvent.objects.all():
         event_text = get_querystring_value_from_key(event.querystring, 'text')
-        event.text = event_text[:256]
+        event.text = event_text[:256] if event_text else ''
         event.save()
 
 
