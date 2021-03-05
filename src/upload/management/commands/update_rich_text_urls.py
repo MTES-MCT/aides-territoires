@@ -37,5 +37,6 @@ class Command(BaseCommand):
                 value = value.replace(
                     f'/media/{url}',
                     new_url)
+                self.stdout.write(f'    Updating {item} #{item.pk}: {url} => {new_url}')
             setattr(item, field_name, value)
             item.save()
