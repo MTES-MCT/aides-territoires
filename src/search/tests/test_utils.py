@@ -6,8 +6,9 @@ from search.utils import (
     get_querystring_value_from_key, get_querystring_value_list_from_key,
     get_querystring_perimeter,
     # get_querystring_themes, get_querystring_categories
-    get_querystring_backers)
+    get_querystring_backers, get_querystring_programs)
 from backers.factories import BackerFactory
+from programs.factories import ProgramFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -101,23 +102,24 @@ def test_get_querystring_perimeter_with_db(perimeters):
 
 
 querystring_testset = [
-    ('', None),
-    ('drafts=True', None),
-    ('backers=', None),
-    ('backers=abc', None),
+    ('', []),
+    ('drafts=True', []),
+    ('backers=', []),
+    ('backers=abc', []),
 ]
 
 
 @pytest.mark.parametrize('input_querystring,expected_output', querystring_testset)  # noqa
 def test_get_querystring_backers(input_querystring, expected_output):  # noqa
 
-    assert get_querystring_backers(input_querystring) == expected_output  # noqa
+    assert list(get_querystring_backers(input_querystring)) == expected_output  # noqa
 
 
 def test_get_querystring_backers_with_db():
     ademe = BackerFactory(name='ADEME')
     bpi = BackerFactory(name='Bpi France')
 
+    assert list(get_querystring_backers(f"backers={ademe.slug}")) == []
     assert len(get_querystring_backers(f"backers={ademe.id}")) == 1
     assert get_querystring_backers(f"backers={ademe.id}")[0] == ademe
     assert get_querystring_backers(f"backers={ademe.id}-{ademe.slug}")[0] == ademe  # noqa
@@ -125,3 +127,30 @@ def test_get_querystring_backers_with_db():
     assert len(get_querystring_backers(f"backers={ademe.id}&backers={bpi.id}")) == 2  # noqa
     assert get_querystring_backers(f"backers={ademe.id}&backers={bpi.id}")[1] == bpi  # noqa
     assert get_querystring_backers(f"backers={bpi.id}&backers={ademe.id}")[1] == bpi  # ordered by id  # noqa
+
+
+querystring_testset = [
+    ('', []),
+    ('drafts=True', []),
+    ('programs=', []),
+    ('programs=abc', []),
+]
+
+
+@pytest.mark.parametrize('input_querystring,expected_output', querystring_testset)  # noqa
+def test_get_querystring_programs(input_querystring, expected_output):  # noqa
+
+    assert list(get_querystring_programs(input_querystring)) == expected_output  # noqa
+
+
+def test_get_querystring_programs_with_db():
+    program_1 = ProgramFactory(name='Big plan')
+    program_2 = ProgramFactory(name='Local plan')
+
+    assert list(get_querystring_programs(f"programs={program_1.id}")) == []
+    assert len(get_querystring_programs(f"programs={program_1.slug}")) == 1
+    assert get_querystring_programs(f"programs={program_1.slug}")[0] == program_1  # noqa
+    assert len(get_querystring_programs(f"programs={program_1.slug}&programs=")) == 1  # noqa
+    assert len(get_querystring_programs(f"programs={program_1.slug}&programs={program_2.slug}")) == 2  # noqa
+    assert get_querystring_programs(f"programs={program_1.slug}&programs={program_2.slug}")[1] == program_2  # noqa
+    assert get_querystring_programs(f"programs={program_2.slug}&programs={program_1.slug}")[1] == program_2  # ordered by id  # noqa

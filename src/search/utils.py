@@ -3,6 +3,7 @@ from django.http import QueryDict
 from geofr.models import Perimeter
 from categories.models import Theme, Category
 from backers.models import Backer
+from programs.models import Program
 
 
 def extract_id_from_string(id_slug_str):
@@ -82,7 +83,19 @@ def get_querystring_categories(querystring):
 
 
 def get_querystring_backers(querystring):
+    """
+    Returns a QuerySet
+    """
     BACKERS_KEY = 'backers'
     backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)  # noqa
-    backers_list_id_str = [extract_id_from_string(backer) for backer in backers_list]  # noqa
-    return Backer.objects.filter(id__in=backers_list_id_str)
+    backers_list_id = [extract_id_from_string(backer) for backer in backers_list]  # noqa
+    return Backer.objects.filter(id__in=backers_list_id)
+
+
+def get_querystring_programs(querystring):
+    """
+    Returns a QuerySet
+    """
+    PROGRAMS_KEY = 'programs'
+    programs_list = get_querystring_value_list_from_key(querystring, PROGRAMS_KEY)  # noqa
+    return Program.objects.filter(slug__in=programs_list)
