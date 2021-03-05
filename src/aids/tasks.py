@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 
 from core.celery import app
 from django.apps import apps
-from emails.utils import send_template_email
+from emails.utils import send_email_with_template
 
 
 @app.task
@@ -46,7 +46,7 @@ def send_publication_email(aid_id):
         'AIDE_URL': aid.get_absolute_url(),
         'BASE_URL': base_url,
     }
-    send_template_email(
+    send_email_with_template(
         recipient_list=[author.email],
         template_id=settings.SIB_PUBLICATION_EMAIL_TEMPLATE_ID,
         data=data,
