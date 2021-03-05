@@ -1,4 +1,10 @@
 {
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    }
+  },
   "scripts": {
     "first-deploy": "bash scripts/first_deploy.sh"
   }
