@@ -15,6 +15,7 @@ def test_log_aid_search_event(perimeters):
     theme_1 = ThemeFactory(name='Nature environnement risques')
     theme_2 = ThemeFactory(name='Developpement economique')
     category_1 = CategoryFactory(name='economie circulaire')
+    # category_2 = CategoryFactory(name='musee')
     backer_1 = BackerFactory(name='ADEME')
     program_1 = ProgramFactory(name='Programme')
 

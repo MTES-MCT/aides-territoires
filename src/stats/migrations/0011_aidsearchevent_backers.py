@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('backers', '0014_reupload_medias'),
-        ('stats', '0009_aidsearchevent_populate_text'),
+        ('stats', '0010_auto_20210305_1619'),
     ]
 
     operations = [

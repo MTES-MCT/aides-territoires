@@ -16,7 +16,7 @@ def populate_aidsearchevent_programs(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0012_aidsearchevent_programs'),
+        ('stats', '0013_aidsearchevent_programs'),
     ]
 
     operations = [
