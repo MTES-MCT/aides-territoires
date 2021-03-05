@@ -8,7 +8,8 @@ from search.utils import get_querystring_value_from_key
 def populate_aidsearchevent_text(apps, schema_editor):
     AidSearchEvent = apps.get_model('stats', 'AidSearchEvent')
     for event in AidSearchEvent.objects.all():
-        event.text = get_querystring_value_from_key(event.querystring, 'text')
+        event_text = get_querystring_value_from_key(event.querystring, 'text')
+        event.text = event_text[:256]
         event.save()
 
 

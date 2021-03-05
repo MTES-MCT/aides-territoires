@@ -36,6 +36,7 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
         targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
         perimeter = get_querystring_perimeter(querystring)
         text = get_querystring_value_from_key(querystring, 'text')
+        text_cleaned = text[:256]
 
         event = AidSearchEvent.objects.create(
             querystring=querystring_cleaned,
@@ -43,7 +44,7 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
             results_count=results_count,
             targeted_audiences=targeted_audiences,
             perimeter=perimeter,
-            text=text)
+            text=text_cleaned)
 
         themes = get_querystring_themes(querystring)
         categories = get_querystring_categories(querystring)
