@@ -54,7 +54,7 @@ class AidSearchEvent(models.Model):
     text = models.CharField(
         _('Text search'),
         max_length=256,
-        null=True, blank=True)
+        blank=True, default='')
 
     querystring = models.TextField(
         _('Querystring'))
@@ -64,7 +64,7 @@ class AidSearchEvent(models.Model):
     source = models.CharField(
         'Source',
         max_length=256,
-        default='')
+        blank=True, default='')
 
     date_created = models.DateTimeField(
         _('Date created'),
@@ -73,6 +73,14 @@ class AidSearchEvent(models.Model):
     class Meta:
         verbose_name = _('Aid Search Event')
         verbose_name_plural = _('Aid Search Events')
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        return super().save(*args, **kwargs)
+
+    def clean_fields(self):
+        self.text = self.text[:256] if self.text else ''
+        self.source = self.source[:256] if self.source else ''
 
 
 class Event(models.Model):
