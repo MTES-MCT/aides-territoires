@@ -1,4 +1,5 @@
 from django.utils.translation import gettext_lazy as _
+from django.db.models.fields import TextField, CharField, URLField
 
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
@@ -15,13 +16,19 @@ AIDS_BOOLEAN_FIELDS = ['is_call_for_project', 'in_france_relance',
                        'is_imported']  # is_amendment
 
 AIDS_EXPORT_EXCLUDE_FIELDS = [
-    'id',
+    'id', 'short_title',
     'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'contact_email', 'contact_phone', 'contact_detail',
     'import_uniqueid', 'import_share_licence', 'import_last_access',
     'search_vector', 'tags', '_tags_m2m',
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
-]
+    'local_characteristics']
+AIDS_IMPORT_EXCLUDE_FIELDS = [
+    'slug', 'status', 'date_updated', 'date_published']
+AIDS_IMPORT_CLEAN_FIELDS = [
+    'is_imported', 'author', 'subvention_rate']
+
+ADMIN_EMAIL = 'admin@test.com'
 
 
 class AidResource(resources.ModelResource):
@@ -67,22 +74,46 @@ class AidResource(resources.ModelResource):
         export_order = [field.name for field in Aid._meta.fields if field.name not in AIDS_EXPORT_EXCLUDE_FIELDS]  # noqa
 
     def before_import_row(self, row, **kwargs):
-        """Override before_import_row() to revert the translation
-        of row keys (header)."""
+        """
+        Why do we need to override before_import_row() ?
+        - to revert the translation of row keys (header)
+        - to clean/set some values
+        """
+        # rename keys
         for key in list(row.keys()):
             for field in (Aid._meta.model._meta.fields + Aid._meta.model._meta.many_to_many): # noqa
                 if field.verbose_name == key:
                     row[field.name] = row[key]
                     del row[key]
+        # remove keys
+        for key in AIDS_IMPORT_EXCLUDE_FIELDS:
+            if key in row:
+                del row[key]
+        # add/set keys
+        row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
+        row['is_imported'] = True
+        if 'subvention_rate' in row:
+            if row['subvention_rate']:
+                row['subvention_rate'] = row['subvention_rate'] \
+                    .replace('(', '[') \
+                    .replace('None', '')
 
     def import_field(self, field, obj, data, is_m2m=False):
-        """Override import_field() to revert the translation
-        of some specific fields."""
+        """
+        Why do we need to override import_field() ?
+        - avoid None in text fields
+        - avoid empty string in lists & relations
+        - revert the translation of some specific fields
+        """
         if field.attribute and field.column_name in data:
             field_model = Aid._meta.get_field(field.column_name)
+            # avoid None for fields text fields (happens from xlsx)
+            if type(field_model) in [TextField, CharField, URLField]:
+                data[field.column_name] = data.get(field.column_name, '') or ''
             # avoid empty string for fields with base_field
             if hasattr(field_model, 'base_field') and not data[field.column_name]:  # noqa
                 data[field.column_name] = None
+            # revert the translation of some specific fields
             if data[field.column_name]:
                 # simple fields with choices
                 if field_model.choices:
@@ -134,4 +165,14 @@ class AidResource(resources.ModelResource):
                 value_raw = field.get_value(obj)
                 if value_raw is not None:
                     return _('Yes') if value_raw else _('No')
+
+        # subvention_rate
+        if field.column_name == 'subvention_rate':
+            if field.get_value(obj) is None:
+                return ''
+            else:
+                lower = field.get_value(obj).lower or ''
+                upper = field.get_value(obj).upper or ''
+                return f'[{lower}, {upper})'
+
         return field.export(obj)
