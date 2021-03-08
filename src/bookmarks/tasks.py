@@ -1,4 +1,3 @@
-from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
@@ -8,6 +7,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 
+from core.utils import get_base_url
 from core.celery import app
 from bookmarks.models import Bookmark
 from accounts.models import User
@@ -36,14 +36,10 @@ def send_alert_confirmation_email(user_email, bookmark_id):
         # on our site.
         return
 
-    site = Site.objects.get_current()
-    scheme = 'https'
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
     login_url = reverse('token_login', args=[user_uid, login_token])
-    base_url = '{scheme}://{domain}'.format(
-        scheme=scheme,
-        domain=site.domain)
+    base_url = get_base_url()
     full_login_url = '{base_url}{url}'.format(
         base_url=base_url,
         url=login_url)

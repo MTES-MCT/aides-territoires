@@ -1,10 +1,10 @@
-from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
 
+from core.utils import get_base_url
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
@@ -38,11 +38,7 @@ def send_alert_confirmation_email(user_email, alert_token):
     else:
         perimeter = None
 
-    site = Site.objects.get_current()
-    scheme = 'https'
-    base_url = '{scheme}://{domain}'.format(
-        scheme=scheme,
-        domain=site.domain)
+    base_url = get_base_url()
     alert_validation_link = reverse('alert_validate_view', args=[alert_token])
     alert_date = '{:%d/%m/%Y %H:%M:%S}'.format(alert.date_created)
     subject = _('Please confirm your Aides-territoires alert (%(date)s)') % {
