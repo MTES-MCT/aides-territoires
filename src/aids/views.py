@@ -21,7 +21,7 @@ from django.core.mail import send_mail
 from braces.views import MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
-from aids.forms import (AidEditForm, AidAmendForm, AidSearchForm,
+from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
 from aids.tasks import log_admins
@@ -526,51 +526,3 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
-
-
-class AidAmendView(MessageMixin, UpdateView):
-    """Offers a way to users to amend existing aids."""
-
-    template_name = 'aids/amend.html'
-    form_class = AidAmendForm
-    context_object_name = 'aid'
-
-    def get_queryset(self):
-        return Aid.objects.published().open()
-
-    def get_initial(self):
-        initial = super().get_initial()
-        if self.request.user.is_authenticated:
-            initial.update({
-                'amendment_author_name': self.request.user.full_name,
-                'amendment_author_email': self.request.user.email,
-                'amendment_author_org': self.request.user.organization,
-            })
-        return initial
-
-    def form_valid(self, form):
-        amended_aid_pk = form.instance.pk
-        amended_aid_slug = form.instance.slug
-
-        aid = form.save(commit=False)
-        aid.pk = None
-        aid.date_created = timezone.now()
-        aid.date_updated = None
-        aid.is_amendment = True
-        aid.amended_aid_id = amended_aid_pk
-        aid.is_imported = False
-        aid.import_uniqueid = None
-
-        if self.request.user.is_authenticated:
-            aid.author = self.request.user
-        else:
-            aid.author = None
-
-        aid.save()
-        form.save_m2m()
-
-        msg = _('Your amendment will be reviewed by an admin soon. '
-                'Thank you for contributing.')
-        self.messages.success(msg)
-        url = reverse('aid_detail_view', args=[amended_aid_slug])
-        return HttpResponseRedirect(url)
