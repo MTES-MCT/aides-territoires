@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 
 from core.forms import (
     AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
-    MultipleChoiceFilterWidget, RichTextField)
+    RichTextField)
 from categories.models import Theme, Category
 from projects.models import Project
 from projects.fields import ProjectMultipleChoiceField
@@ -275,6 +275,7 @@ class ProjectSearchForm(forms.Form):
         to_field_name='name',
         required=False,
         widget=ProjectWidget)
+
 
 class AdvancedSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(

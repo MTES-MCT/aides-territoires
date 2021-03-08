@@ -2,7 +2,8 @@ from django.urls import path, include
 from django.utils.translation import gettext_lazy as _
 
 from search.views import (AudienceSearch, PerimeterSearch, ThemeSearch,
-                          CategorySearch, ProjectSearch, AdvancedSearch, CountResult)
+                          CategorySearch, ProjectSearch, AdvancedSearch,
+                          CountResult)
 from minisites.views import SiteHome
 
 
