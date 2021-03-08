@@ -102,11 +102,12 @@ class CountResult(RedirectView):
             .distinct() \
             .count()
 
+        targeted_audiences = self.request.GET.get('targeted_audiences')
+        perimeter = self.request.GET.get('perimeter')
+
         if self.request.GET.get('themes') == 'urbanisme-logement-amenagement':
             pattern_name = 'search_step_project'
-        elif total_aids > 18 \
-           and self.request.GET.get('targeted_audiences', False) \
-           and self.request.GET.get('perimeter', False):
+        elif total_aids > 18 and targeted_audiences and perimeter:
             pattern_name = 'search_step_advanced'
         else:
             pattern_name = 'search_view'
