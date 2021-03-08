@@ -1,3 +1,4 @@
+from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
 
 
@@ -19,6 +20,15 @@ def reupload_files(model, fieldname):
                 item.save()
 
     return do_reupload_files
+
+
+def get_base_url():
+    site = Site.objects.get_current()
+    scheme = 'https'
+    base_url = '{scheme}://{domain}'.format(
+        scheme=scheme,
+        domain=site.domain)
+    return base_url
 
 
 def get_subdomain_from_host(host):
