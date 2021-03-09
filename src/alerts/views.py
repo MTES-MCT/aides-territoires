@@ -13,11 +13,16 @@ from alerts.models import Alert
 class AlertCreate(MessageMixin, CreateView):
     """Create a alert by saving a search view querystring."""
 
-    http_method_names = ['post']
     form_class = AlertForm
 
     def form_valid(self, form):
-        alert = form.save()
+        querystring = self.request.GET.urlencode()
+        alert = form.save(commit=False)
+        if not querystring:
+            alert.querystring = alert.querystring
+        else:
+            alert.querystring = querystring
+        alert.save()
         send_alert_confirmation_email.delay(alert.email, alert.token)
         message = _('We just sent you an email to validate your alert.')
         self.messages.success(message)

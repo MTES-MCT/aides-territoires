@@ -164,8 +164,7 @@ class SiteAid(MinisiteMixin, AidDetailView):
 
 
 class SiteAlert(MinisiteMixin, AlertCreate):
-    pass
-
+    template_name = 'minisites/_alert_modal.html'
 
 class SiteStats(MinisiteMixin, TemplateView):
     template_name = 'minisites/stats.html'

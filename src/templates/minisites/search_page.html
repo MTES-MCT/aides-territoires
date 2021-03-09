@@ -24,6 +24,10 @@
     {% include 'minisites/_sticky-btn.html' %}
 {% endblock %}
 
+{% block modals %}
+    {% include 'minisites/_alert_modal.html' with form=form %}
+{% endblock %}
+
 {% block footer %}
     {% include 'minisites/_footer.html' %}
 {% endblock %}
