@@ -23,7 +23,7 @@
                     {% include '_field_snippet.html' with field=alert_form.email %}
                     {% include '_field_snippet.html' with field=alert_form.title %}
                     {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
-                    {% include '_field_snippet.html' with field=alert_form.querystring %}
+                    {% include '_field_snippet.html' with field=alert_form.querystring.as_hidden  %}
 
                     <p class="info">
                         <span class="fas fa-check"></span>

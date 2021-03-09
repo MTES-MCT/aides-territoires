@@ -13,6 +13,7 @@ from alerts.models import Alert
 class AlertCreate(MessageMixin, CreateView):
     """Create a alert by saving a search view querystring."""
 
+    http_method_names = ['post']
     form_class = AlertForm
 
     def form_valid(self, form):
