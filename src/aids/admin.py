@@ -1,7 +1,7 @@
 from functools import reduce
 from operator import and_
 
-from django.db.models import Q, CharField, Count, Value as V
+from django.db.models import Q, CharField, Value as V
 from django.db.models.functions import Concat
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
@@ -198,7 +198,6 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
             'fields': (
                 'name',
                 'slug',
-                'sibling_aids',
                 'in_france_relance',
                 'short_title',
                 'categories',
@@ -208,6 +207,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'instructors',
                 'instructor_suggestion',
                 'author',
+                'sibling_aids',
             )
         }),
 
