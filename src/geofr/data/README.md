@@ -26,7 +26,7 @@ DATE = '20210307'
 COLUMN_TO_DISPLAY = 'nb_live_aids'  # nb_live_aids_type_technical, nb_live_aids_category_transition
 
 # scale = communes
-scale_geojson = gpd.read_file(os.getcwd() + f'/geofr/data/{SCALE}s-1000m.json')
+scale_geojson = gpd.read_file(os.getcwd() + f'/geofr/data/{SCALE}s-1000m.geojson')
 scale_aids_csv = pd.read_csv(os.getcwd() + f'/geofr/data/{SCALE}s_aids_count_{DATE}.csv', dtype={'code': 'str'})
 list(scale_aids_csv.columns)
 
@@ -38,4 +38,29 @@ plt.show()
 # With plotly (web page, slow...)
 fig = px.choropleth(scale_aids_csv, geojson=scale_geojson, featureidkey='properties.code', locations='code', color=COLUMN_TO_DISPLAY)
 fig.show()
+```
+
+## Générer un geojson enrichi
+
+```python
+# (...)
+
+scale_geojson = gpd.read_file(os.getcwd() + f'/geofr/data/{SCALE}s-1000m.geojson')
+scale_aids_csv = pd.read_csv(os.getcwd() + f'/geofr/data/{SCALE}s_aids_count_{DATE}.csv', dtype={'code': 'str'})
+
+merged_gpd = scale_geojson.merge(scale_aids_csv, on='code')
+merged_gpd.to_file(f'geofr/data/{SCALE}s-1000m_enriched-{DATE}.geojson', driver='GeoJSON')
+
+# minifier
+jq -c . < input.json > minified.json
+```
+
+## Afficher les cartes html
+
+```
+cd /src
+python -m http.server
+http://localhost:8000/ > geofr > data > *.html
+
+Pour Mapbox, mettre l'accessToken
 ```

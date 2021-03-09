@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            .map-overlay {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.8);
+                margin-right: 20px;
+                font-family: Arial, sans-serif;
+                overflow: auto;
+                border-radius: 3px;
+            }
+            #legend {
+                padding: 10px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                line-height: 18px;
+                height: 150px;
+                margin-bottom: 40px;
+                width: 200px;
+            }
+            #legend > div > span.legend-color {
+                display: inline-block;
+                border-radius: 20%;
+                width: 10px;
+                height: 10px;
+                margin-right: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='map' style='width: 100%; height: 100%;'></div>
+        <div class="map-overlay" id="legend">
+            <h5>Légende</h5>
+            <form>
+                <select id="legend-select"></select>
+            </form>
+            <div>
+                <span class="legend-color" style="background-color:#440154"></span>
+                <span class="legend-value"></span>
+            </div>
+            <div>
+                <span class="legend-color" style="background-color:#fde725"></span>
+                <span class="legend-value"></span>
+            </div>
+        </div>
+        <script>
+            // data
+            var layers = [
+                { key: 'nb_live_aids', 'name': 'Aides', min: 400, max: 800 },
+                { key: 'nb_live_aids_type_technical', 'name': 'Aides ingénierie technique', min: 100, max: 200 },
+                { key: 'nb_live_aids_type_financial', 'name': 'Aides ingénierie financière', min: 50, max: 100 },
+                { key: 'nb_live_aids_type_legal', 'name': 'Aides ingénierie légale', min: 25, max: 50 },
+            ]
+            var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026']; // yellow > red
+            var colors = ['#440154', '#21918c', '#fde725']; // viridis
+
+            // map
+            mapboxgl.accessToken = 'ACCESS-TOKEN';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [3, 46],
+                zoom: 5
+            });
+
+            map.on('load', function () {
+                initSource();
+                createLegend();
+            });
+
+            async function initSource() {
+                let resp = await fetch('./communes-1000m_enriched_with_aids_count-20210308_minified.geojson');
+                let geojsonFeature = await resp.json();
+
+                map.addSource('commmunes', {
+                    'type': 'geojson',
+                    'data': geojsonFeature
+                });
+
+                map.addLayer({
+                    'id': 'commmunes',
+                    'type': 'fill',
+                    'source': 'commmunes',
+                    'paint': {
+                        'fill-color': getFillColorArray('nb_live_aids'),
+                        'fill-outline-color': '#000000',
+                        'fill-opacity': 0.7
+                    }
+                });
+            }
+
+            function createLegend() {
+                // layers.forEach(function (layer) {
+                //     var item = document.createElement('p');
+                //     item.innerHTML = layer.name;
+
+                //     console.log(layer)
+                //     item.addEventListener('click', function (event) {
+                //         console.log(event)
+                //         map.setPaintProperty('commmunes', 'fill-color', getFillColorArray(layer.key));
+                //     });
+
+                //     legend.appendChild(item);
+                // })
+                var select = document.getElementById("legend-select");
+                document.getElementsByClassName('legend-value')[0].innerText = layers[0].min;
+                    document.getElementsByClassName('legend-value')[1].innerText = layers[0].max;
+                
+                layers.forEach(function (layer) {
+                    var option = document.createElement("option");
+                    option.value = layer.key;
+                    option.text = layer.name;
+                    select.options.add(option);
+                });
+
+                select.addEventListener('change', function() {
+                    var fillColor = getFillColorArray(this.value);
+                    // change map
+                    map.setPaintProperty('commmunes', 'fill-color', fillColor);
+                    // update legend
+                    document.getElementsByClassName('legend-value')[0].innerText = fillColor[3];
+                    document.getElementsByClassName('legend-value')[1].innerText = fillColor[5];
+                })
+            }
+
+            function getFillColorArray(key) {
+                var layer = layers.find(l => l.key === key);
+                var fillColorArray = [
+                    'interpolate',
+                    ['linear'],
+                    ['get', layer.key],
+                    layer.min,
+                    ['to-color', colors[0]],
+                    layer.max,
+                    ['to-color', colors[2]]
+                ]
+                console.log(fillColorArray)
+                return fillColorArray;
+            }
+        </script>
+    </body>
+</html>

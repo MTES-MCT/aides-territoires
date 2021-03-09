@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
+        <style>
+            #mapid { height: 500px; }
+        </style>
+
+    </head>
+    <body>
+        <div id="mapid"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', init, false);
+
+            async function init() {
+                // map
+                var map = L.map('mapid').setView([46, 2], 5);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                let resp = await fetch('./communes-1000m.geojson');
+                let geojsonFeature = await resp.json();
+
+                let style = {
+                    weight: 0,
+                    fillColor: '#BCD4E6'
+                };
+                L.geoJSON(geojsonFeature, { style: style }).addTo(map);
+            }
+        </script>
+    </body>
+</html>
