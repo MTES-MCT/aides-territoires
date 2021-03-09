@@ -35,6 +35,7 @@
     <fieldset>
             <legend><span id="aid-presentation"></span>1 - {{ _('Aid presentation') }}</legend>
             {% include '_field_snippet_aid_form.html' with field=form.name %}
+            {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
             {% include '_field_snippet_aid_form.html' with field=form.programs %}
             {% include '_field_snippet_aid_form.html' with field=form.financers %}
             {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
