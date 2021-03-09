@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Count
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -24,8 +25,8 @@ class UserAdmin(BaseUserAdmin):
     """Admin module for users."""
 
     list_display = [
-        'email', 'first_name', 'last_name', 'organization', 'is_certified',
-        'in_mailing_list', 'date_joined', 'last_login'
+        'email', 'first_name', 'last_name', 'organization', 'nb_aids',
+        'is_certified', 'in_mailing_list', 'date_joined', 'last_login'
     ]
     list_editable = ['first_name', 'last_name']
     search_fields = ['email', 'first_name', 'last_name']
@@ -51,6 +52,16 @@ class UserAdmin(BaseUserAdmin):
             )}
          ),
     )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(aid_count=Count('aids'))
+        return qs
+
+    def nb_aids(self, user):
+        return user.aid_count
+    nb_aids.short_description = _('Number of aids')
+    nb_aids.admin_order_field = 'aid_count'
 
     def in_mailing_list(self, obj):
         return obj.ml_consent
