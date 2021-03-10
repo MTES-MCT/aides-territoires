@@ -2,7 +2,11 @@
 
 <div id="alert-search-modal" class="anonymous-modal modal">
     <div class="modal-dialog modal-lg">
+        {% if search_page_querystring %}
+        <form id="alert-form" action="{% url 'alert_create_view' %}?{{ search_page_querystring }}&{{ request.GET.urlencode }}" method="post">
+        {% else %}
         <form id="alert-form" action="{% url 'alert_create_view' %}?{{ request.GET.urlencode }}" method="post">
+        {% endif %}    
             <section>
                 <header>
                     <h1>{{ _('Receive new aids before everyone!') }}</h1>

@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block modals %}
-    {% include 'minisites/_alert_modal.html' with form=form %}
+    {% include 'alerts/_alert_modal.html' with form=form search_page_querystring=search_page.search_querystring %}
 {% endblock %}
 
 {% block footer %}
