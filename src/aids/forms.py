@@ -316,6 +316,8 @@ class AidEditForm(BaseAidForm):
             self.fields['mobilization_steps'].required = True
         if 'categories' in self.fields:
             self.fields['categories'].required = True
+        if 'aid_types' in self.fields:
+            self.fields['aid_types'].required = True
 
     def clean(self):
         """Validation routine (frontend form only)."""
