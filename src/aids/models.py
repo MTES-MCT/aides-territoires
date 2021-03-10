@@ -370,6 +370,18 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         _('Subvention rate, optional comment'),
         max_length=100,
         blank=True)
+    loan_rate = PercentRangeField(
+        _('Loan rate, min. and max. (in round %)'),
+        null=True, blank=True,
+        help_text=_('If fixed rate, only fill the max. rate.'))
+    recoverable_advance_rate = PercentRangeField(
+        _('Recoverable_advance rate, min. and max. (in round %)'),
+        null=True, blank=True,
+        help_text=_('If fixed rate, only fill the max. rate.'))
+    other_financial_aid_comment = models.CharField(
+        _('Other financial aid, optional comment'),
+        max_length=100,
+        blank=True)
     contact = models.TextField(
         _('Contact'),
         blank=True)

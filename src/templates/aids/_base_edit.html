@@ -49,6 +49,15 @@
                 {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
                 {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
             </div>
+            <div id="loan-field">
+                {% include '_field_snippet_aid_form.html' with field=form.loan_rate %}
+            </div>
+            <div id="recoverable-advance-field">
+                {% include '_field_snippet_aid_form.html' with field=form.recoverable_advance_rate %}
+            </div>
+            <div id="other-financial-aid-field">
+                {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
+            </div>
             {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
 

@@ -2908,3 +2908,33 @@ msgstr "Parlez-nous de votre projet en quelques mots"
 
 msgid "Its goal, its mobilization step or any informations that can identify your project"
 msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"
+
+msgid "Loan rate"
+msgstr "Taux de prêt"
+
+msgid "Please indicate the maximum loan rate."
+msgstr "Merci d'indiquer le taux de prêt maximum."
+
+msgid "Min. loan rate"
+msgstr "Taux de prêt min."
+
+msgid "Max. loan rate"
+msgstr "Taux de prêt max."
+
+msgid "Loan rate, min. and max. (in round %)"
+msgstr "Taux de prêt, min. et max. (en %, nombre entier)"
+
+msgid "Recoverable advance rate"
+msgstr "Taux d'avance récupérable"
+
+msgid "Min. recoverable_advance rate"
+msgstr "Taux d'avance min."
+
+msgid "Max. recoverable_advance rate"
+msgstr "Taux d'avance max."
+
+msgid "Recoverable_advance rate, min. and max. (in round %)"
+msgstr "Taux d'avance, min. et max. (en %, nombre entier)"
+
+msgid "Other financial aid, optional comment"
+msgstr "Autre aide financière, commentaire optionnel"
