@@ -29,23 +29,32 @@ class Command(BaseCommand):
         latest_published = live_aids.last()
         draft_aids = existing_aids.drafts().order_by('date_created')
         latest_draft = draft_aids.last()
+        expired_aids = existing_aids.expired().order_by('submission_deadline')
+        latest_expired = expired_aids.last()
+
         attributes = {
             'PRENOM': user.first_name,
             'NOM': user.last_name,
             'NOMBRE_AIDES_ACTIVES': existing_aids.count(),
             'DATE_CREATION_COMPTE': user.date_joined.isoformat(),
             'NOMBRE_AIDES_BROUILLONS': draft_aids.count(),
-            'NOMBRE_AIDES_AFICHEES': live_aids.count()
+            'NOMBRE_AIDES_AFICHEES': live_aids.count(),
+            'NOMBRE_AIDES_EXPIREES': expired_aids.count(),
         }
+        if latest_published:
+            published_date = latest_published.date_published.isoformat()
+            attributes.update({
+                'DATE_DERNIERE_AIDE_PUBLIEE': published_date,
+            })
         if latest_draft:
             draft_date = latest_draft.date_created.isoformat()
             attributes.update({
                 'DATE_DERNIER_BROUILLON': draft_date
             })
-        if latest_published:
-            published_date = latest_published.date_published.isoformat()
+        if latest_expired:
+            expiration_date = latest_expired.submission_deadline.isoformat()
             attributes.update({
-                'DATE_DERNIERE_AIDE_PUBLIEE': published_date,
+                'DATE_DERNIERE_EXPIRATION': expiration_date
             })
         data = {
             'email': user.email,
