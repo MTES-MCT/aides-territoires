@@ -44,7 +44,7 @@
                 {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
             </div>
             {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
-            {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
+            {% include '_field_snippet_aid_form.html' with field=form.financial_aids %}
             <div id="subvention-fields">
                 {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
                 {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
@@ -58,6 +58,7 @@
             <div id="other-financial-aid-field">
                 {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
             </div>
+            {% include '_field_snippet_aid_form.html' with field=form.technical_aids %}
             {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
 

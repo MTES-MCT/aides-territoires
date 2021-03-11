@@ -259,6 +259,16 @@ class AidEditForm(BaseAidForm):
         label=_('Aid categories'),
         help_text=_('Choose one or several categories that match your aid.'),
         required=False)
+    financial_aids = forms.MultipleChoiceField(
+        label=_('Financial aids'),
+        required=False,
+        choices=FINANCIAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
+    technical_aids = forms.MultipleChoiceField(
+        label=_('Engineering aids'),
+        required=False,
+        choices=TECHNICAL_AIDS,
+        widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Aid
@@ -282,7 +292,8 @@ class AidEditForm(BaseAidForm):
             'perimeter_suggestion',
             'is_call_for_project',
             'programs',
-            'aid_types',
+            'financial_aids',
+            'technical_aids',
             'subvention_rate',
             'subvention_comment',
             'loan_rate',
@@ -319,8 +330,6 @@ class AidEditForm(BaseAidForm):
             self.fields['mobilization_steps'].required = True
         if 'categories' in self.fields:
             self.fields['categories'].required = True
-        if 'aid_types' in self.fields:
-            self.fields['aid_types'].required = True
 
     def clean(self):
         """Validation routine (frontend form only)."""
@@ -335,6 +344,20 @@ class AidEditForm(BaseAidForm):
                 self.add_error(
                     'submission_deadline',
                     ValidationError(msg, code='missing_submission_deadline'))
+                    
+        if 'financial_aids' and 'technical_aids' in self.fields:
+            if len(data['financial_aids'] + data['technical_aids']) < 1:
+                msg = _('You must indicate one type for the aid at least.')  # noqa
+                self.add_error(
+                    'technical_aids',
+                    ValidationError(msg, code='missing_aid_types'))
+
+        if 'financial_aids' in self.fields:
+            if len(data['financial_aids']) > 1:
+                msg = _('Only one financial aid type can be selected.')  # noqa
+                self.add_error(
+                    'financial_aids',
+                    ValidationError(msg, code='over_selected_financial_aids'))
 
         return data
 

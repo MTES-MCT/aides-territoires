@@ -777,6 +777,11 @@ section#aid-edit {
             .form-group {
                 @extend .row;
                 align-items: flex-start;
+
+                ul {
+                    list-style: none !important;
+                    padding-left: 0 !important;
+                }
             }
 
             .form-group.checkbox {
