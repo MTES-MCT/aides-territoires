@@ -18,7 +18,11 @@ class Command(BaseCommand):
     help = 'Export all accounts to the newsletter provider'
 
     def handle(self, *args, **options):
-        accounts = User.objects.filter(email__in=['TODO'])
+        allowed = settings.ENV_NAME == 'production' and settings.EXPORT_CONTACTS_ENABLED  # noqa
+        if not allowed:
+            self.stdout.write('Command not allowed on this environment')
+            return
+        accounts = User.objects.filter(last_login__isnull=False)
         for account in accounts:
             self.export_account(account)
 
@@ -64,4 +68,3 @@ class Command(BaseCommand):
         }
         requests.post(endpoint, headers=API_HEADERS, data=json.dumps(data))
         self.stdout.write('Exporting {}'.format(user.email))
-        self.stdout.write('Exporting {}'.format(data))
