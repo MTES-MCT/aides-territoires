@@ -37,14 +37,6 @@
     hour: "2"
     job: "cd {{ django_root }} && source {{ activate_bin }} && {{ pipenv_bin }} run ./manage.py import_ademe --settings={{ django_settings }} &>> {{ cron_log_root }}"
 
-- name: Install the daily occitanie data import task
-  cron:
-    name: Import data from the region occitanie's feed
-    user: "{{ user_name }}"
-    minute: "52"
-    hour: "2"
-    job: "cd {{ django_root }} && source {{ activate_bin }} && {{ pipenv_bin }} run ./manage.py import_occitanie --settings={{ django_settings }} &>> {{ cron_log_root }}"
-
 - name: Install the alert sending task
   cron:
     name: Send alert emails
