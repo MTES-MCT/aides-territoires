@@ -372,9 +372,15 @@
 
         <footer class="mobile-center">
             {% block aid_footer %}
-            <a class="suggest-modification" href="{% url 'aid_amend_view' aid.slug %}">
-                {{ _('Suggest a modification') }}
-            </a>
+            <div class="suggest-modification">
+                <div>
+                    <p>Une question, une remarque sur cette aide&nbsp;?</p>
+                    <p>Envoyez-nous un e-mail</p>
+                </div>
+                <a href="mailto:?subject=Amendement%20d%20'%20une%20aide&body={{ request.build_absolute_uri }}">
+                    Contacter Aides-territoires
+                </a>    
+            </div>
             <a id="share-btn" href="#" class="js" data-toggle="modal" data-target="#share-modal">
                 {{ _('Share this aid') }}
             </a>

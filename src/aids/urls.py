@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from aids.views import (SearchView, AdvancedSearchView, ResultsView,
                         ResultsReceiveView, AidDetailView, AidCreateView,
                         AidDraftListView, AidEditView, AidStatusUpdate,
-                        AidDeleteView, AidAmendView)
+                        AidDeleteView)
 
 urlpatterns = [
     path('', SearchView.as_view(), name='search_view'),
@@ -25,6 +25,5 @@ urlpatterns = [
 
     path('<slug:slug>/', include([
         path('', AidDetailView.as_view(), name='aid_detail_view'),
-        path(_('amend/'), AidAmendView.as_view(), name='aid_amend_view'),
     ])),
 ]

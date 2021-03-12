@@ -1038,7 +1038,7 @@ article#aid {
                 @extend .btn-outline-primary;
                 border-radius: 0 1rem 1rem 1rem;
 
-                &.suggest-modification {
+                &.suggest-modification a {
                     @include icon(before, $fa-var-pencil-alt);
                 }
 
@@ -1195,10 +1195,34 @@ article#aid {
             &.bundle {
                 @include icon(before, $fa-var-bars);
             }
+        }
+    }
 
-            &.suggest-modification {
-                @include icon(before, $fa-var-pen);
+    div.suggest-modification {
+        @extend .col-md-12;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        border: solid 2px $font-color;
+        border-radius: 10px;
+        @extend .mb-5;
+        @extend .py-4;
+
+        div {
+            @extend .pb-3;
+            font-weight: bolder;
+        }
+
+        @include media-breakpoint-up(md) {
+            div {
+                padding: 0;
             }
+        }
+
+        a {
+            @include icon(before, $fa-var-pen);
+            margin-bottom: 0 !important;
         }
     }
 

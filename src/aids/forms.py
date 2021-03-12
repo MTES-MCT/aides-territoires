@@ -47,7 +47,7 @@ IS_CALL_FOR_PROJECT = (
 
 
 class BaseAidForm(forms.ModelForm):
-    """Base for all aid edition forms (front, admin, amendments)."""
+    """Base for all aid edition forms (front, admin)."""
 
     short_title = forms.CharField(
         label=_('Program title'),
@@ -332,36 +332,6 @@ class AidEditForm(BaseAidForm):
                     ValidationError(msg, code='missing_submission_deadline'))
 
         return data
-
-
-class AidAmendForm(AidEditForm):
-    amendment_author_name = forms.CharField(
-        label=_('Who are you?'),
-        widget=forms.TextInput(attrs={
-            'maxlength': 256,
-            'placeholder': _('Your full name')}),
-        required=True,
-        max_length=256)
-    amendment_author_email = forms.EmailField(
-        label=_('Your email address'),
-        required=False,
-        help_text=_('Leave us an address if you want a followup.'))
-    amendment_author_org = forms.CharField(
-        label=_('Your organization'),
-        required=False,
-        help_text=_('Help us understand who you are.'))
-    amendment_comment = forms.CharField(
-        label=_('Care to comment?'),
-        widget=forms.Textarea(attrs={'rows': 2}),
-        required=False,
-        help_text=_('If you want to pass additional details about your \
-                     amendment, please tell us here.'))
-
-    class Meta(AidEditForm.Meta):
-        fields = AidEditForm.Meta.fields + [
-            'amendment_author_name', 'amendment_author_email',
-            'amendment_author_org', 'amendment_comment'
-        ]
 
 
 class BaseAidSearchForm(forms.Form):
