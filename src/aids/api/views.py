@@ -44,12 +44,6 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         filter_form = AidSearchForm(data=self.request.GET)
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
-
-        log_aidsearchevent.delay(
-            querystring=self.request.GET.urlencode(),
-            results_count=ordered_results.count(),
-            source='api')
-
         return ordered_results
 
     def get_serializer_class(self):
@@ -67,3 +61,14 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             raise NotFound('This api version does not exist.')
 
         return serializer_class
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        if self.detail:
+            results_count = 1
+        else:
+            results_count = response.data.get('count', 0)
+        log_aidsearchevent.delay(
+            querystring=self.request.GET.urlencode(),
+            results_count=results_count,
+            source='api')
+        return super().finalize_response(request, response, *args, **kwargs)
