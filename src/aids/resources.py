@@ -73,6 +73,12 @@ class AidResource(resources.ModelResource):
         # adding custom widgets breaks the usual order
         export_order = [field.name for field in Aid._meta.fields if field.name not in AIDS_EXPORT_EXCLUDE_FIELDS]  # noqa
 
+    def get_import_fields(self):
+        return [field for field in self.get_fields() if field.column_name not in AIDS_IMPORT_EXCLUDE_FIELDS]  # noqa
+
+    def get_user_visible_fields(self):
+        return [field for field in self.get_fields() if field.column_name not in AIDS_IMPORT_EXCLUDE_FIELDS]  # noqa
+
     def before_import_row(self, row, **kwargs):
         """
         Why do we need to override before_import_row() ?

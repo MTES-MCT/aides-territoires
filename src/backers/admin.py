@@ -8,13 +8,13 @@ from django.db.models import Count, Q
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from import_export import resources
-from import_export.admin import ImportMixin
+from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 from backers.models import BackerGroup, Backer
+from backers.resources import BackerResource
 from categories.models import Category
 from programs.models import Program
 
@@ -58,17 +58,6 @@ class LogoFilter(admin.SimpleListFilter):
         return queryset
 
 
-class BackerResource(resources.ModelResource):
-    """Resource for Import-export."""
-
-    class Meta:
-        model = Backer
-        skip_unchanged = True
-        # name must be unique
-        import_id_fields = ('name',)
-        fields = ('name',)
-
-
 class BackerForm(forms.ModelForm):
     description = RichTextField(label=_('Description'), required=False)
 
@@ -77,7 +66,7 @@ class BackerForm(forms.ModelForm):
         fields = '__all__'
 
 
-class BackerAdmin(ImportMixin, admin.ModelAdmin):
+class BackerAdmin(ImportExportActionModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
@@ -93,7 +82,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     ordering = ['name']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['date_created', 'display_related_aids',
-                       'display_related_themes', 'display_related_programs']
+                       'display_related_themes', 'display_related_programs',
+                       'nb_financed_aids', 'nb_instructed_aids']
 
     fieldsets = [
         ('', {
@@ -106,6 +96,8 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
                 'is_corporate',
                 'is_spotlighted',
                 'date_created',
+                'nb_financed_aids',
+                'nb_instructed_aids',
                 'display_related_aids',
                 'display_related_themes',
                 'display_related_programs'
