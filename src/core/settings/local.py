@@ -11,6 +11,7 @@ TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.template.context
 
 INSTALLED_APPS += [
     'debug_toolbar',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
