@@ -84,6 +84,8 @@
                 div {
                     @extend .col-md-4;
                     @extend .mb-5;
+                    padding-right: 10px;
+                    padding-left: 10px;
 
                     img {
                         display: block;
