@@ -27,3 +27,10 @@
     {{ block.super }}
     {% include 'minisites/_css.html' %}
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
+</script>
+{{ block.super }}
+{% endblock %}

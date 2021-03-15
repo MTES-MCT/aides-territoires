@@ -22,16 +22,20 @@ class AlertCreate(MessageMixin, CreateView):
         message = _('We just sent you an email to validate your alert.')
         self.messages.success(message)
         redirect_url = reverse('search_view')
-        return HttpResponseRedirect('{}?{}'.format(
-            redirect_url, alert.querystring))
+        if alert.source == 'aides-territoires':
+            redirect_url += '?{}'.format(alert.querystring)
+        return HttpResponseRedirect(redirect_url)
 
     def form_invalid(self, form):
+        querystring = form.cleaned_data.get('querystring', '')
+        source = form.cleaned_data.get('source', 'aides-territoires')
         msg = _('We could not create your alert because of those '
                 'errors: {}').format(form.errors.as_text())
         self.messages.error(msg)
         redirect_url = reverse('search_view')
-        querystring = form.cleaned_data.get('querystring', '')
-        return HttpResponseRedirect('{}?{}'.format(redirect_url, querystring))
+        if source == 'aides-territoires':
+            redirect_url += '?{}'.format(querystring)
+        return HttpResponseRedirect(redirect_url)
 
 
 class AlertValidate(MessageMixin, DetailView):

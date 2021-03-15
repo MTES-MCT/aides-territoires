@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from alerts.models import Alert
+from search.models import SearchPage
 
 
 class AlertForm(forms.ModelForm):
@@ -18,15 +19,16 @@ class AlertForm(forms.ModelForm):
         label=_('Alert frequency'),
         choices=Alert.FREQUENCIES,
         help_text=_('How often do you want to receive alerts?'))
-    querystring = forms.CharField(widget=forms.HiddenInput)
+    querystring = forms.CharField(widget=forms.HiddenInput, required=False)
+    source = forms.CharField(widget=forms.HiddenInput, required=False)
 
     class Meta:
         model = Alert
-        fields = ['email', 'title', 'alert_frequency', 'querystring']
+        fields = ['email', 'title', 'alert_frequency', 'querystring', 'source']
 
     def clean(self):
-        """Enforce the unvalidated alert quota.
-
+        """
+        Enforce the unvalidated alert quota.
         For security reasons, there's a max amount of alerts a user can
         create without validating them.
         """
@@ -54,3 +56,17 @@ class AlertForm(forms.ModelForm):
                 self.add_error('email', msg)
 
         return data
+
+    def save(self, commit=True):
+        """
+        If the alert comes from a SearchPage, override the querystring
+        with the SearchPage's querystring.
+        """
+        source = self.cleaned_data.get('source') or 'aides-territoires'
+        if source != 'aides-territoires':
+            try:
+                search_page = SearchPage.objects.get(slug=source)
+                self.instance.querystring = search_page.search_querystring
+            except SearchPage.DoesNotExist:
+                pass
+        return super().save(commit=commit)

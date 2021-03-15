@@ -1,10 +1,13 @@
 import pytest
+
 from django.urls import reverse
 from django.utils import timezone
 
-from accounts.models import User
 from alerts.models import Alert
 from alerts.factories import AlertFactory
+from geofr.factories import PerimeterFactory
+from accounts.models import User
+from search.factories import SearchPageFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -25,6 +28,7 @@ def test_anonymous_can_create_a_alert(client, mailoutbox):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=on',
+        'source': 'aides-territoires'
     })
     assert res.status_code == 302
     assert alerts.count() == 1
@@ -60,6 +64,7 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=on',
+        'source': 'aides-territoires'
     })
     assert res.status_code == 302
     assert alerts.count() == 1
@@ -70,6 +75,7 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=off',
+        'source': 'aides-territoires'
     })
     assert res.status_code == 302
     assert alerts.count() == 2
@@ -81,6 +87,45 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
 
     # We send validation email for every alert
     assert len(mailoutbox) == 2
+
+
+def test_alert_perimeter(client, mailoutbox):
+    """The search perimeter is displayed in the validation email."""
+
+    perimeter = PerimeterFactory.create(name='Bretagne')
+    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
+    url = reverse('alert_create_view')
+    res = client.post(url, data={
+        'title': 'Test',
+        'email': 'alert-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': 'text=Ademe&perimeter={}'.format(perimeter_id),
+        'source': 'aides-territoires'
+    })
+    assert res.status_code == 302
+    assert len(mailoutbox) == 1
+    assert perimeter_id in Alert.objects.last().querystring
+
+
+def test_alert_from_search_page(client, mailoutbox):
+    """The search perimeter is displayed in the validation email."""
+
+    perimeter = PerimeterFactory.create(name='Bretagne')
+    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
+    page = SearchPageFactory(
+        title='Minisite',
+        search_querystring='perimeter={}'.format(perimeter_id))
+    url = reverse('alert_create_view')
+    res = client.post(url, data={
+        'title': 'Test',
+        'email': 'alert-user@example.com',
+        'alert_frequency': 'daily',
+        'querystring': '',
+        'source': page.slug
+    })
+    assert res.status_code == 302
+    assert len(mailoutbox) == 1
+    assert perimeter_id in Alert.objects.last().querystring
 
 
 def test_unvalidated_alerts_creation_quotas(client):
@@ -100,6 +145,7 @@ def test_unvalidated_alerts_creation_quotas(client):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=on',
+        'source': 'aides-territoires'
     })
     assert res.status_code == 302
     assert alerts.count() == 10
@@ -121,6 +167,7 @@ def test_alert_creation_quotas(client):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=on',
+        'source': 'aides-territoires'
     })
     assert res.status_code == 302
     assert alerts.count() == 100
