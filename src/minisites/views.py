@@ -241,27 +241,29 @@ class SiteStats(MinisiteMixin, TemplateView):
 
         context['search_events_total'] = search_events.count()
 
-        # top 10 targeted_audiences filters
-        top_audiences_searched = search_events \
-            .filter(targeted_audiences__isnull=False) \
-            .annotate(audience=Func(
-                F('targeted_audiences'), function='unnest')) \
-            .values('audience') \
-            .annotate(search_count=Count('id')) \
-            .order_by('-search_count')
-        # get the display_name of each audience
-        for (index, item) in enumerate(top_audiences_searched):
-            top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
-        context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
+        if self.search_page.show_audience_field:
+            # top 10 targeted_audiences filters
+            top_audiences_searched = search_events \
+                .filter(targeted_audiences__isnull=False) \
+                .annotate(audience=Func(
+                    F('targeted_audiences'), function='unnest')) \
+                .values('audience') \
+                .annotate(search_count=Count('id')) \
+                .order_by('-search_count')
+            # get the display_name of each audience
+            for (index, item) in enumerate(top_audiences_searched):
+                top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
+            context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
-        # top 10 categories filters
-        top_categories_searched = search_events \
-            .prefetch_related('categories') \
-            .exclude(categories=None) \
-            .values('categories__id', 'categories__name') \
-            .annotate(search_count=Count('categories__id')) \
-            .order_by('-search_count')
-        context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
+        if self.search_page.show_categories_field:
+            # top 10 categories filters
+            top_categories_searched = search_events \
+                .prefetch_related('categories') \
+                .exclude(categories=None) \
+                .values('categories__id', 'categories__name') \
+                .annotate(search_count=Count('categories__id')) \
+                .order_by('-search_count')
+            context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
         # top 10 keywords searched
         top_keywords_searched = get_matomo_stats(
