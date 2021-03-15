@@ -303,6 +303,8 @@ class AidDetailView(DetailView):
             self.object.project_examples,
             self.object.eligibility))
 
+        context['aid_entreprise'] = 'private_sector' in self.object.targeted_audiences
+
         context['alert_form'] = AlertForm(label_suffix='')
 
         return context

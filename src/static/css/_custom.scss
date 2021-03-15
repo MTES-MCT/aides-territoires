@@ -1146,6 +1146,16 @@ article#aid {
                 margin-bottom: 0;
             }
         }
+
+        & > div.aid-entreprise {
+            @include icon(before, $fa-var-building, 1.5rem);
+            margin-top: 0.5rem;
+        }
+    }
+
+    #aid-entreprise.card > p {
+        padding: 0 1rem 1rem 1rem;
+        margin-left: 1rem;
     }
 
     .aid-details {
