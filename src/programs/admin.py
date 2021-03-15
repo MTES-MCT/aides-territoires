@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
 
@@ -30,12 +31,21 @@ class ProgramAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
     form = ProgramAdminForm
-    list_display = ['name']
-    prepopulated_fields = {'slug': ('name',)}
-    fields = [
-        'name', 'slug', 'logo', 'short_description', 'description'
-    ]
+    list_display = ['name', 'slug', 'nb_aids', 'date_created']
     search_fields = ['name']
+    prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ['date_created']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.prefetch_related('aids') \
+               .annotate(aid_count=Count('aids'))
+        return qs
+
+    def nb_aids(self, obj):
+        return obj.aid_count
+    nb_aids.short_description = _('Number of aids')
+    nb_aids.admin_order_field = 'aid_count'
 
 
 admin.site.register(Program, ProgramAdmin)

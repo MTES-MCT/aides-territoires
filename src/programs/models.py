@@ -1,6 +1,8 @@
 from os.path import splitext
 
 from django.db import models
+from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -40,9 +42,22 @@ class Program(models.Model):
     description = models.TextField(
         _('Description'))
 
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
     class Meta:
         verbose_name = _('Aid program')
         verbose_name_plural = _('Aid programs')
 
     def __str__(self):
         return self.name
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
