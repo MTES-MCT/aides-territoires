@@ -44,6 +44,9 @@ class Command(BaseCommand):
             'NOMBRE_AIDES_BROUILLONS': draft_aids.count(),
             'NOMBRE_AIDES_AFICHEES': live_aids.count(),
             'NOMBRE_AIDES_EXPIREES': expired_aids.count(),
+            'DATE_DERNIERE_AIDE_PUBLIEE': None,
+            'DATE_DERNIER_BROUILLON': None,
+            'DATE_DERNIERE_EXPIRATION': None,
         }
         if latest_published:
             published_date = latest_published.date_published.isoformat()
