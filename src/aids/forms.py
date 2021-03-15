@@ -46,6 +46,57 @@ IS_CALL_FOR_PROJECT = (
 )
 
 
+class AidTypesWidget(forms.MultiWidget):
+    def __init__(self, *args, **kwargs):
+        self.widgets = [
+            forms.CheckboxSelectMultiple(choices=FINANCIAL_AIDS),
+            forms.CheckboxSelectMultiple(choices=TECHNICAL_AIDS)
+        ]
+        super().__init__(self.widgets, *args, **kwargs)
+
+    def decompress(self, value):
+        if value:
+            return value.split()
+        return ['', '']
+
+
+class AidTypesField(forms.MultiValueField):
+    widget = AidTypesWidget()
+
+    def __init__(self, *args, required=False, **kwargs):
+        fields = (
+            forms.MultipleChoiceField(
+                choices=FINANCIAL_AIDS,
+                required=False,),
+            forms.MultipleChoiceField(
+                choices=TECHNICAL_AIDS,
+                required=False,)
+        )
+
+        super(AidTypesField, self).__init__(
+            fields,
+            label=_('Aid types'),
+            required=False,
+            require_all_fields=False,
+            *args, **kwargs
+        )
+
+    def compress(self, data_list):
+
+        if data_list == []:
+            msg = _('Please choose one type of aid at least.')
+            raise ValidationError(msg, code='invalid')
+
+        if len(data_list[0]) > 1:
+            msg = _('Please choose only one financial aid.')
+            raise ValidationError(msg, code='invalid')
+
+        data_list = (', ').join(data_list[0]) + \
+            ', ' + (', ').join(data_list[1])
+        data_list = data_list.split(', ')
+        return data_list
+
+
 class BaseAidForm(forms.ModelForm):
     """Base for all aid edition forms (front, admin, amendments)."""
 
@@ -90,12 +141,10 @@ class BaseAidForm(forms.ModelForm):
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
+    aid_types = AidTypesField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        if 'aid_types' in self.fields:
-            self.fields['aid_types'].choices = AID_TYPES
 
         if 'targeted_audiences' in self.fields:
             self.fields['targeted_audiences'].choices = AUDIENCES
@@ -192,7 +241,6 @@ class AidAdminForm(BaseAidForm):
             'name': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiences': forms.CheckboxSelectMultiple,
-            'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
         }
 
@@ -259,16 +307,7 @@ class AidEditForm(BaseAidForm):
         label=_('Aid categories'),
         help_text=_('Choose one or several categories that match your aid.'),
         required=False)
-    financial_aids = forms.MultipleChoiceField(
-        label=_('Financial aids'),
-        required=False,
-        choices=FINANCIAL_AIDS,
-        widget=forms.CheckboxSelectMultiple)
-    technical_aids = forms.MultipleChoiceField(
-        label=_('Engineering aids'),
-        required=False,
-        choices=TECHNICAL_AIDS,
-        widget=forms.CheckboxSelectMultiple)
+    aid_types = AidTypesField()
 
     class Meta:
         model = Aid
@@ -292,8 +331,7 @@ class AidEditForm(BaseAidForm):
             'perimeter_suggestion',
             'is_call_for_project',
             'programs',
-            'financial_aids',
-            'technical_aids',
+            'aid_types',
             'subvention_rate',
             'subvention_comment',
             'loan_rate',
@@ -311,7 +349,6 @@ class AidEditForm(BaseAidForm):
             'mobilization_steps': MultipleChoiceFilterWidget,
             'destinations': MultipleChoiceFilterWidget,
             'targeted_audiences': MultipleChoiceFilterWidget,
-            'aid_types': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
                 attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
             'predeposit_date': forms.TextInput(
@@ -344,20 +381,6 @@ class AidEditForm(BaseAidForm):
                 self.add_error(
                     'submission_deadline',
                     ValidationError(msg, code='missing_submission_deadline'))
-                    
-        if 'financial_aids' and 'technical_aids' in self.fields:
-            if len(data['financial_aids'] + data['technical_aids']) < 1:
-                msg = _('You must indicate one type for the aid at least.')  # noqa
-                self.add_error(
-                    'technical_aids',
-                    ValidationError(msg, code='missing_aid_types'))
-
-        if 'financial_aids' in self.fields:
-            if len(data['financial_aids']) > 1:
-                msg = _('Only one financial aid type can be selected.')  # noqa
-                self.add_error(
-                    'financial_aids',
-                    ValidationError(msg, code='over_selected_financial_aids'))
 
         return data
 
