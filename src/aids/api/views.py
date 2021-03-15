@@ -6,7 +6,7 @@ from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
-from stats.utils import log_aidsearchevent
+from stats.utils import log_aidviewevent, log_aidsearchevent
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
@@ -63,12 +63,17 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         return serializer_class
 
     def finalize_response(self, request, response, *args, **kwargs):
+        # Fetching only 1 aid --> AidViewEvent
         if self.detail:
-            results_count = 1
+            if response.data.get('id'):
+                log_aidviewevent.delay(
+                    aid_id=response.data.get('id'),
+                    querystring=self.request.GET.urlencode(),
+                    source='api')
+        # Fetching all aids (with or without filters) --> AidSearchEvent
         else:
-            results_count = response.data.get('count', 0)
-        log_aidsearchevent.delay(
-            querystring=self.request.GET.urlencode(),
-            results_count=results_count,
-            source='api')
+            log_aidsearchevent.delay(
+                querystring=self.request.GET.urlencode(),
+                results_count=response.data.get('count', 0),
+                source='api')
         return super().finalize_response(request, response, *args, **kwargs)
