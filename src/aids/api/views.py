@@ -6,7 +6,7 @@ from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
-from stats.utils import log_aidsearchevent
+from stats.utils import log_aidviewevent, log_aidsearchevent
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
@@ -44,12 +44,6 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         filter_form = AidSearchForm(data=self.request.GET)
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
-
-        log_aidsearchevent.delay(
-            querystring=self.request.GET.urlencode(),
-            results_count=ordered_results.count(),
-            source='api')
-
         return ordered_results
 
     def get_serializer_class(self):
@@ -67,3 +61,19 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             raise NotFound('This api version does not exist.')
 
         return serializer_class
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        # Fetching only 1 aid --> AidViewEvent
+        if self.detail:
+            if response.data.get('id'):
+                log_aidviewevent.delay(
+                    aid_id=response.data.get('id'),
+                    querystring=self.request.GET.urlencode(),
+                    source='api')
+        # Fetching all aids (with or without filters) --> AidSearchEvent
+        else:
+            log_aidsearchevent.delay(
+                querystring=self.request.GET.urlencode(),
+                results_count=response.data.get('count', 0),
+                source='api')
+        return super().finalize_response(request, response, *args, **kwargs)
