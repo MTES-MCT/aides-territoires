@@ -490,7 +490,7 @@ class BaseAidSearchForm(forms.Form):
         technical_aids = self.cleaned_data.get('technical_aids', [])
         aid_types = financial_aids + technical_aids
 
-        aid_type = self.cleaned_data['aid_type']
+        aid_type = self.cleaned_data.get('aid_type', [])
         if 'financial' in aid_type:
             aid_types += Aid.FINANCIAL_AIDS
         if 'technical' in aid_type:
