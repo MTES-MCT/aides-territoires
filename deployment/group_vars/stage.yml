@@ -4,6 +4,7 @@ certbot_admin_email: certbot@thibault.miximum.fr
 certbot_domains:
  - "{{ project_domain }}"
  - "francemobilites.{{ project_domain }}"
+ - "demo-2.{{ project_domain }}"
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
 project_env: production
