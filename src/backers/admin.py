@@ -148,10 +148,13 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
 
     def display_related_aids(self, obj):
         related_aid_html = format_html('<div>')
-        for aid in obj.financed_aids.all().order_by('name'):
+        for aid in obj.financed_aids.all().order_by('name') \
+                .select_related('author'):
             url = reverse("admin:aids_aid_change", args=(aid.pk,))
             related_aid_html += format_html(
-                '<p>auteur : {author} <a href="{url}">{name} (ID : {id})</a></p>',
+                '<p>auteur : {author} \
+                    <a href="{url}">{name} (ID : {id})</a> \
+                </p>',
                 url=url,
                 name=aid.name,
                 id=aid.pk,
