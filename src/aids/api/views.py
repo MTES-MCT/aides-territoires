@@ -1,12 +1,31 @@
+from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
-from django.conf import settings
+
 
 from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
+
+
+def noop_decorator(func):
+    return func
+
+
+cache_list_page = noop_decorator
+if settings.ENABLE_AID_LIST_API_CACHE:
+    timeout = settings.AID_LIST_API_CACHE_TIMEOUT
+    cache_list_page = method_decorator(cache_page(timeout))
+
+cache_detail_page = noop_decorator
+if settings.ENABLE_AID_DETAIL_API_CACHE:
+    timeout = settings.AID_DETAIL_API_CACHE_TIMEOUT
+    cache_detail_page = method_decorator(cache_page(timeout))
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
@@ -61,6 +80,14 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             raise NotFound('This api version does not exist.')
 
         return serializer_class
+
+    @cache_list_page
+    def list(self, request):
+        return super().list(request)
+
+    @cache_detail_page
+    def retrieve(self, request, slug):
+        return super().retrieve(request, slug)
 
     def finalize_response(self, request, response, *args, **kwargs):
         # Fetching only 1 aid --> AidViewEvent
