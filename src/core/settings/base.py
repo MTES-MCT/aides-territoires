@@ -220,6 +220,12 @@ LOGGING = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+
 ADMINS = [('Aides-territoires', 'nowhere@example.org')]
 
 MAILING_LIST_URL = None

@@ -33,6 +33,7 @@ xlrd = "*"
 zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 django-storages = "*"
 boto3 = "*"
+django-redis = "*"
 
 [dev-packages]
 ansible = "*"

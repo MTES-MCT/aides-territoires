@@ -32,6 +32,13 @@ DATABASES = {
         default='psql://aidesterritoires:aidesterritoires@localhost/aidesterritoires')
 }
 
+CACHES.update({
+    'default': {
+        'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': env('CACHE_LOCATION', default=''),
+    }
+})
+
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['.aides-territoires.local'])
 
 INTERNAL_IPS = env.list('INTERNAL_IPS', default=['127.0.0.1'])

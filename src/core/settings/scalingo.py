@@ -63,6 +63,13 @@ LOCALE_PATHS = [
     Path(DJANGO_ROOT, 'locales'),
 ]
 
+CACHES.update({
+    'default': {
+        'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': env('CACHE_LOCATION', default=''),
+    }
+})
+
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='memory://')
 CELERY_TASK_ALWAYS_EAGER = env('CELERY_TASK_ALWAYS_EAGER', default=True)
 CELERY_TASK_EAGER_PROPAGATES = env('CELERY_TASK_EAGER_PROPAGATES', default=True)

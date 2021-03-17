@@ -20,6 +20,13 @@ DATABASES = {
     'default': env.db()
 }
 
+CACHES.update({
+    'default': {
+        'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': env('CACHE_LOCATION', default=''),
+    }
+})
+
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 INTERNAL_IPS = env.list('INTERNAL_IPS')
