@@ -4,7 +4,8 @@ from search.utils import (
     clean_search_querystring,
     get_querystring_value_from_key, get_querystring_value_list_from_key,
     get_querystring_perimeter,
-    get_querystring_themes, get_querystring_categories)
+    get_querystring_themes, get_querystring_categories,
+    get_querystring_backers, get_querystring_programs)
 from stats.models import AidViewEvent, AidSearchEvent, Event
 
 
@@ -47,8 +48,12 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
 
         themes = get_querystring_themes(querystring)
         categories = get_querystring_categories(querystring)
+        backers = get_querystring_backers(querystring)
+        programs = get_querystring_programs(querystring)
         event.themes.set(themes)
         event.categories.set(categories)
+        event.backers.set(backers)
+        event.programs.set(programs)
 
 
 def log_event(category, event, meta='', source='', value=None):

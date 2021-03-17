@@ -3,6 +3,7 @@ import datetime
 import pytest
 
 from django.core.management import call_command
+from django.utils import timezone
 
 from alerts.models import Alert
 
@@ -44,7 +45,7 @@ def test_command_create_alerts_with_date(mailoutbox):
         'create_alerts_from_csv_file', EMAILS_CSV_PATH,
         latest_alert_date=alert_latest_alert_date)
     assert Alert.objects.count() == 2
-    assert Alert.objects.last().date_created.date() == datetime.date.today()
+    assert Alert.objects.last().date_created.date() == timezone.now().date()
     assert Alert.objects.last().latest_alert_date.date() == datetime.datetime.strptime(alert_latest_alert_date, '%Y-%m-%d').date()  # noqa
     assert len(mailoutbox) == 2
 

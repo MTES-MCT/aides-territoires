@@ -51,6 +51,17 @@ class AidSearchEvent(models.Model):
         verbose_name=_('Categories'),
         related_name='aid_search_events',
         blank=True)
+
+    backers = models.ManyToManyField(
+        'backers.Backer',
+        verbose_name=_('Backers'),
+        related_name='aid_search_events',
+        blank=True)
+    programs = models.ManyToManyField(
+        'programs.Program',
+        verbose_name=_('Programs'),
+        related_name='aid_search_events',
+        blank=True)
     text = models.CharField(
         _('Text search'),
         max_length=256,

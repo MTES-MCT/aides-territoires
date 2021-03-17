@@ -2,6 +2,21 @@ from django.http import QueryDict
 
 from geofr.models import Perimeter
 from categories.models import Theme, Category
+from backers.models import Backer
+from programs.models import Program
+
+
+def extract_id_from_string(id_slug_str):
+    """
+    For some models, we display in the querystring
+    the concatenation of the object's id with their slug
+    Example: '22-ademe'
+    """
+    id_str = id_slug_str.split('-')[0]
+    try:
+        return int(id_str)
+    except Exception:
+        return None
 
 
 def clean_search_querystring(querystring):
@@ -41,15 +56,15 @@ def get_querystring_value_list_from_key(querystring, key):
 
 def get_querystring_perimeter(querystring):
     """
-    We expect only 1 perimeter in the querystring
-    Format ? It is prefixed with its 'id' (e.g. '71045-rhone')
+    Format ? 'id-slug' (e.g. '71045-rhone')
+    Returns None or 1 perimeter
     """
     PERIMETER_KEY = 'perimeter'
     perimeter_list = get_querystring_value_list_from_key(querystring, PERIMETER_KEY)  # noqa
     if len(perimeter_list):
         try:
-            perimeter_id_str = perimeter_list[0].split('-')[0]
-            return Perimeter.objects.get(id=perimeter_id_str)
+            perimeter_id = extract_id_from_string(perimeter_list[0])
+            return Perimeter.objects.get(id=perimeter_id)
         except Exception:
             return None
     else:
@@ -57,12 +72,41 @@ def get_querystring_perimeter(querystring):
 
 
 def get_querystring_themes(querystring):
+    """
+    Format ? 'slug'
+    Returns a QuerySet
+    """
     THEMES_KEY = 'themes'
     themes_list = get_querystring_value_list_from_key(querystring, THEMES_KEY)
     return Theme.objects.filter(slug__in=themes_list)
 
 
 def get_querystring_categories(querystring):
+    """
+    Format ? 'slug'
+    Returns a QuerySet
+    """
     CATEGORIES_KEY = 'categories'
     categories_list = get_querystring_value_list_from_key(querystring, CATEGORIES_KEY)  # noqa
     return Category.objects.filter(slug__in=categories_list)
+
+
+def get_querystring_backers(querystring):
+    """
+    Format ? 'id-slug'
+    Returns a QuerySet
+    """
+    BACKERS_KEY = 'backers'
+    backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)  # noqa
+    backers_list_id = [extract_id_from_string(backer) for backer in backers_list]  # noqa
+    return Backer.objects.filter(id__in=backers_list_id)
+
+
+def get_querystring_programs(querystring):
+    """
+    Format ? 'slug'
+    Returns a QuerySet
+    """
+    PROGRAMS_KEY = 'programs'
+    programs_list = get_querystring_value_list_from_key(querystring, PROGRAMS_KEY)  # noqa
+    return Program.objects.filter(slug__in=programs_list)
