@@ -141,11 +141,6 @@ class BaseAidForm(forms.ModelForm):
         if 'subvention_rate' in data and data['subvention_rate']:
             lower = data['subvention_rate'].lower
             upper = data['subvention_rate'].upper
-            if lower and not upper:
-                msg = _('Please indicate the maximum subvention rate.')
-                self.add_error(
-                    'subvention_rate',
-                    ValidationError(msg, code='missing_upper_bound'))
         return data
 
     def save(self, commit=True):
