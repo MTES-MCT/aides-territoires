@@ -32,7 +32,6 @@ class RangeMaxValueOrNoneValidator(validators.RangeMaxValueValidator):
 
     def compare(self, a, b):
         return a.upper is not None and a.upper > b
-        message = _('Ensure that this range is completely less than or equal to %(limit_value)s.')
 
 
 class PercentRangeField(IntegerRangeField):

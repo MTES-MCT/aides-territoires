@@ -138,9 +138,6 @@ class BaseAidForm(forms.ModelForm):
                 msg = _('Please provide a financer, or suggest a new one.')
                 self.add_error('financers', msg)
 
-        if 'subvention_rate' in data and data['subvention_rate']:
-            lower = data['subvention_rate'].lower
-            upper = data['subvention_rate'].upper
         return data
 
     def save(self, commit=True):
