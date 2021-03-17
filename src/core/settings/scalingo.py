@@ -6,7 +6,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
-from .base import INSTALLED_APPS, TEMPLATES
+from .base import TEMPLATES, CACHES
 
 
 # Sometime, we want to load Scalingo environment from a dotenv file.
@@ -63,12 +63,13 @@ LOCALE_PATHS = [
     Path(DJANGO_ROOT, 'locales'),
 ]
 
-CACHES.update({
+cache_config = {
     'default': {
         'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
         'LOCATION': env('CACHE_LOCATION', default=''),
     }
-})
+}
+CACHES.update(cache_config)
 
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='memory://')
 CELERY_TASK_ALWAYS_EAGER = env('CELERY_TASK_ALWAYS_EAGER', default=True)

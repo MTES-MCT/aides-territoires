@@ -3,7 +3,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
-from .base import INSTALLED_APPS
+from .base import CACHES
 
 
 COMPRESS_OFFLINE = True
@@ -20,12 +20,13 @@ DATABASES = {
     'default': env.db()
 }
 
-CACHES.update({
+cache_config = {
     'default': {
         'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
         'LOCATION': env('CACHE_LOCATION', default=''),
     }
-})
+}
+CACHES.update(cache_config)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
