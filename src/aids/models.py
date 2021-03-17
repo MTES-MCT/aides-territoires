@@ -15,6 +15,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from aids.constants import COLLECTIVITIES_AUDIENCES, OTHER_AUDIENCES
 from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
@@ -207,18 +208,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     AUDIENCES = Choices(
-        ('commune', _('Communes')),
-        ('epci', _('Audience EPCI')),
-        ('department', _('Departments')),
-        ('region', _('Regions')),
-        ('association', _('Associations')),
-        ('private_sector', _('Private sector')),
-        ('public_cies', _('Local public companies')),
-        ('public_org', _('Public organization')),
-        ('researcher', _('Research')),
-        ('private_person', _('Individuals')),
-        ('farmer', _('Farmers')),
-        ('other', _('Other')),
+        *COLLECTIVITIES_AUDIENCES,
+        *OTHER_AUDIENCES
     )
 
     DESTINATIONS = Choices(

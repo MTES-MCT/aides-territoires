@@ -18,7 +18,7 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from aids.models import Aid
-from aids.constants import AUDIENCES
+from aids.constants import AUDIENCES_GROUPED
 
 
 FINANCIAL_AIDS = (
@@ -98,7 +98,7 @@ class BaseAidForm(forms.ModelForm):
             self.fields['aid_types'].choices = AID_TYPES
 
         if 'targeted_audiences' in self.fields:
-            self.fields['targeted_audiences'].choices = AUDIENCES
+            self.fields['targeted_audiences'].choices = AUDIENCES_GROUPED
 
         if 'recurrence' in self.fields:
             self.fields['recurrence'].required = True

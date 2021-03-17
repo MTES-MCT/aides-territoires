@@ -37,7 +37,6 @@ AUDIENCES = {
     'entreprises': 'company',
     'societe_civile': 'civil_society',
     'associations': 'association',
-    'autre': 'other',
 }
 
 TYPES = {

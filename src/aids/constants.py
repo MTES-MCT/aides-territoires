@@ -10,15 +10,15 @@ COLLECTIVITIES_AUDIENCES = (
 
 OTHER_AUDIENCES = (
     ('association', _('Associations')),
-    ('private_person', _('Individuals')),
-    ('farmer', _('Farmers')),
     ('private_sector', _('Private sector')),
     ('public_cies', _('Local public companies')),
     ('public_org', _('Public organizations / State services')),
     ('researcher', _('Research')),
+    ('farmer', _('Farmers')),
+    ('private_person', _('Individuals')),
 )
 
-AUDIENCES = (
+AUDIENCES_GROUPED = (
     (_('Collectivities'), COLLECTIVITIES_AUDIENCES),
     (_('Other audiences'), OTHER_AUDIENCES)
 )
