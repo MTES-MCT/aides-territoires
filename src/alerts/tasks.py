@@ -1,16 +1,12 @@
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
 
 from core.utils import get_base_url
 from core.celery import app
 from aids.forms import AidSearchForm
 from alerts.models import Alert
-from emails.utils import send_email
-
-TEMPLATE = 'emails/alert_validate.txt'
+from emails.utils import send_email_with_template
 
 
 @app.task
@@ -41,26 +37,23 @@ def send_alert_confirmation_email(user_email, alert_token):
     base_url = get_base_url()
     alert_validation_link = reverse('alert_validate_view', args=[alert_token])
     alert_date = '{:%d/%m/%Y %H:%M:%S}'.format(alert.date_created)
-    subject = _('Please confirm your Aides-territoires alert (%(date)s)') % {
-        'date': alert_date
-    }
 
     if alert.alert_frequency == Alert.FREQUENCIES.daily:
-        frequency = _('You will receive a daily email whenever new matching aids will be published.')  # noqa
+        frequency = 'quotidien'
     else:
-        frequency = _('You will receive a weekly email whenever new matching aids will be published.')  # noqa
+        frequency = 'hebdomadaire'
 
-    text_body = render_to_string(TEMPLATE, {
-        'base_url': base_url,
-        'alert': alert,
-        'frequency': frequency,
-        'perimeter': perimeter,
-        'alert_validation_link': '{}{}'.format(base_url, alert_validation_link)
-    })
-    send_email(
-        subject=subject,
-        body=text_body,
+    data = {
+        'URL_SITE': base_url,
+        'FREQUENCE': frequency,
+        'PERIMETRE': str(perimeter),
+        'DATE_ALERTE': alert_date,
+        'LIEN_VALIDATION': '{}{}'.format(base_url, alert_validation_link)
+    }
+
+    send_email_with_template(
         recipient_list=[user_email],
-        from_email=settings.DEFAULT_FROM_EMAIL,
+        template_id=settings.SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID,
+        data=data,
         tags=['alerte_confirmation', settings.ENV_NAME],
-        fail_silently=False)
+        fail_silently=True)
