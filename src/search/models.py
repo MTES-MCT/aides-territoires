@@ -8,8 +8,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
-from aids.constants import AUDIENCES
 from aids.models import Aid
+from aids.constants import AUDIENCES_GROUPED
 
 
 def logo_upload_to(instance, filename):
@@ -145,7 +145,7 @@ class SearchPage(models.Model):
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
-            choices=AUDIENCES))
+            choices=AUDIENCES_GROUPED))
 
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),

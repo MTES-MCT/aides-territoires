@@ -2865,7 +2865,7 @@ msgid "Your project"
 msgstr "Votre projet"
 
 msgid "Project name"
-msgstr "nom du projet"
+msgstr "Nom du projet"
 
 msgid "is_suggested"
 msgstr "est suggeré"

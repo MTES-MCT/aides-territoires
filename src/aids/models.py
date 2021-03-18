@@ -218,7 +218,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('researcher', _('Research')),
         ('private_person', _('Individuals')),
         ('farmer', _('Farmers')),
-        ('other', _('Other')),
     )
 
     DESTINATIONS = Choices(
