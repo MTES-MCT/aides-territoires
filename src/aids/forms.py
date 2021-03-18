@@ -56,7 +56,7 @@ class AidTypesWidget(forms.MultiWidget):
 
     def decompress(self, value):
         if value:
-            return value.split()
+            return value
         return ['', '']
 
 
@@ -141,7 +141,6 @@ class BaseAidForm(forms.ModelForm):
     is_call_for_project = forms.BooleanField(
         label=_('Call for project / Call for expressions of interest'),
         required=False)
-    aid_types = AidTypesField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -241,6 +240,7 @@ class AidAdminForm(BaseAidForm):
             'name': forms.Textarea(attrs={'rows': 3}),
             'mobilization_steps': forms.CheckboxSelectMultiple,
             'targeted_audiences': forms.CheckboxSelectMultiple,
+            'aid_types': forms.CheckboxSelectMultiple,
             'destinations': forms.CheckboxSelectMultiple,
         }
 
