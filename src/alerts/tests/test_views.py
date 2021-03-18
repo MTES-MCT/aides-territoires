@@ -2,7 +2,6 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from geofr.factories import PerimeterFactory
 from accounts.models import User
 from alerts.models import Alert
 from alerts.factories import AlertFactory
