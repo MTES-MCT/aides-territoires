@@ -34,7 +34,8 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
     unquoted = unescaped \
         .replace('“', '"') \
         .replace('”', '"') \
-        .replace('’', "'")
+        .replace('’', "'") \
+        .replace('target="_blank"', 'target="_blank" rel="noopener"')
     normalized = normalize('NFKC', unquoted)
 
     # Cleaning html markup
