@@ -29,10 +29,10 @@ def send_alert_confirmation_email(user_email, alert_token):
     # extract the perimeter
     querydict = QueryDict(alert.querystring)
     search_form = AidSearchForm(querydict)
+    perimeter = ''
     if search_form.is_valid():
-        perimeter = search_form.cleaned_data.get('perimeter', None)
-    else:
-        perimeter = None
+        perimeter = search_form.cleaned_data.get('perimeter') or ''
+        perimeter = str(perimeter)
 
     base_url = get_base_url()
     alert_validation_link = reverse('alert_validate_view', args=[alert_token])
@@ -46,7 +46,7 @@ def send_alert_confirmation_email(user_email, alert_token):
     data = {
         'URL_SITE': base_url,
         'FREQUENCE': frequency,
-        'PERIMETRE': str(perimeter),
+        'PERIMETRE': perimeter,
         'DATE_ALERTE': alert_date,
         'LIEN_VALIDATION': '{}{}'.format(base_url, alert_validation_link)
     }
