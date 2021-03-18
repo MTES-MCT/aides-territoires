@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-23 14:38+0100\n"
+"POT-Creation-Date: 2021-03-18 03:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,9 @@ msgstr "Permissions"
 
 msgid "Misc."
 msgstr "Divers"
+
+msgid "Number of aids"
+msgstr "Nombre d'aides"
 
 msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
 msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
@@ -559,30 +562,6 @@ msgstr ""
 "Sauf pour les aides permanentes, veuillez indiquer la date limite de "
 "soumission."
 
-msgid "Who are you?"
-msgstr "Qui êtes-vous ?"
-
-msgid "Your full name"
-msgstr "Votre nom complet"
-
-msgid "Leave us an address if you want a followup."
-msgstr ""
-"Laissez-nous votre adresse si vous souhaitez être notifié des suites que "
-"nous donnerons à votre amendement."
-
-msgid "Help us understand who you are."
-msgstr "Aidez-nous à savoir qui vous êtes."
-
-msgid "Care to comment?"
-msgstr "Voulez-vous ajouter un commentaire ?"
-
-msgid ""
-"If you want to pass additional details about your                      "
-"amendment, please tell us here."
-msgstr ""
-"Vous pouvez nous communiquer des détails supplémentaires concernant votre "
-"amendement."
-
 msgid "Funding"
 msgstr "Financière"
 
@@ -803,9 +782,6 @@ msgstr "URL d'origine"
 msgid "Application url"
 msgstr "Lien vers une démarche en ligne"
 
-msgid "Audience"
-msgstr "Bénéficiaire"
-
 msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
 
@@ -947,9 +923,6 @@ msgstr "<slug:slug>/statut/"
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
-msgid "amend/"
-msgstr "amender/"
-
 #, python-format
 msgid ""
 "Your aid was sucessfully created. You can keep editing it or <a href="
@@ -981,12 +954,6 @@ msgstr "Le changement de statut de votre aide a bien été pris en compte."
 
 msgid "Your aid was deleted."
 msgstr "Votre aide a été supprimée."
-
-msgid ""
-"Your amendment will be reviewed by an admin soon. Thank you for contributing."
-msgstr ""
-"Votre amendement va bientôt être examiné par un·e administrateur. Merci pour "
-"votre contribution."
 
 msgid "We will send an email to confirm your address"
 msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
@@ -1057,23 +1024,6 @@ msgstr "Alerte"
 msgid "Alerts"
 msgstr "Alertes"
 
-#, python-format
-msgid "Please confirm your Aides-territoires alert (%(date)s)"
-msgstr ""
-"📢 Attention ! Validez maintenant votre alerte Aides-territoires (%(date)s)"
-
-msgid ""
-"You will receive a daily email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par jour dès lors qu'une aide est "
-"publiée."
-
-msgid ""
-"You will receive a weekly email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par semaine dès lors qu'une aide est "
-"publiée."
-
 msgid "create/"
 msgstr "créer/"
 
@@ -1108,6 +1058,9 @@ msgstr "Description"
 msgid "SEO"
 msgstr "SEO"
 
+msgid "Backer Group"
+msgstr "Groupe de porteurs"
+
 msgid "Financed aids"
 msgstr "Aides financées"
 
@@ -1122,9 +1075,6 @@ msgstr "Thématiques associées"
 
 msgid "Related programs"
 msgstr "Programmes associés"
-
-msgid "Backer Group"
-msgstr "Groupe de porteurs"
 
 msgid "Backer Groups"
 msgstr "Groupes de porteurs"
@@ -1198,6 +1148,18 @@ msgstr "Recherches sauvegardées"
 msgid "Please confirm your Aides-territoires alert"
 msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires."
 
+msgid ""
+"You will receive a daily email whenever new matching aids will be published."
+msgstr ""
+"Un e-mail vous sera envoyé une fois par jour dès lors qu'une aide est "
+"publiée."
+
+msgid ""
+"You will receive a weekly email whenever new matching aids will be published."
+msgstr ""
+"Un e-mail vous sera envoyé une fois par semaine dès lors qu'une aide est "
+"publiée."
+
 msgid "update/"
 msgstr "mise-à-jour/"
 
@@ -1269,6 +1231,9 @@ msgstr "partenaires/"
 
 msgid "programs/"
 msgstr "programmes/"
+
+msgid "projects/"
+msgstr "projets/"
 
 msgid "integration/"
 msgstr "integration/"
@@ -1465,6 +1430,29 @@ msgstr "Logo"
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
+msgid "Name of your project"
+msgstr "Nom de votre projet"
+
+msgid "Build a media library, build a bicycle road, ..."
+msgstr "Construire une médiathèque, mettre en place une piste cyclable, ..."
+
+msgid "Describe your project in a few words"
+msgstr "Parlez-nous de votre projet en quelques mots"
+
+msgid ""
+"Its goal, its mobilization step or any informations that can identify your "
+"project"
+msgstr ""
+"Quel est son objectif, son état d’avancement ou tout autre information "
+"permettant de le qualifier"
+
+msgctxt "Project (nf)"
+msgid "Published"
+msgstr "Publiée"
+
+msgid "Project name"
+msgstr "nom du projet"
+
 msgid "Full description of the project"
 msgstr "Description complète du projet"
 
@@ -1479,6 +1467,12 @@ msgstr "Projet"
 
 msgid "Projects"
 msgstr "Projets"
+
+msgid "suggest/"
+msgstr "suggestion/"
+
+msgid "Thank you for contributing&nbsp;!"
+msgstr "Merci de votre contribution&nbsp;!"
 
 msgid "Style customization"
 msgstr "Personnalisation du style"
@@ -1635,11 +1629,8 @@ msgstr "thème/"
 msgid "category/"
 msgstr "catégorie/"
 
-msgid "Event"
-msgstr "Événement"
-
-msgid "Events"
-msgstr "Événements"
+msgid "project/"
+msgstr "projet/"
 
 msgid "Aid View Event"
 msgstr "Événement aide vue"
@@ -1647,20 +1638,23 @@ msgstr "Événement aide vue"
 msgid "Aid View Events"
 msgstr "Événements aides vues"
 
+msgid "Results count"
+msgstr "Nombre de résultats"
+
 msgid "Aid Search Event"
 msgstr "Événement recherche d'aides"
 
 msgid "Aid Search Events"
 msgstr "Événements recherche d'aides"
 
+msgid "Event"
+msgstr "Événement"
+
 msgid "Value"
 msgstr "Valeur"
 
-msgid "Number of aids"
-msgstr "Nombre d'aides"
-
-msgid "Results count"
-msgstr "Nombre de résultats"
+msgid "Events"
+msgstr "Événements"
 
 msgid "Tag"
 msgstr "Mot clé"
@@ -2174,15 +2168,15 @@ msgstr "Échéance :"
 msgid "Aid edition"
 msgstr "Édition de l'aide"
 
+msgid "Criterias of eligibility"
+msgstr "Critères d'éligibilité de l'aide"
+
 msgid "Search"
 msgstr "Recherche"
 
 #, python-format
 msgid "<span class=\"result-count\">%(nb_aids)s results</span>"
 msgstr "<span class=\"result-count\">%(nb_aids)s résultats</span>"
-
-msgid "For:"
-msgstr "Pour :"
 
 msgid "Save this aid"
 msgstr "Sauvegarder cette aide"
@@ -2226,6 +2220,9 @@ msgstr "Nouvelle recherche"
 msgid "More filters"
 msgstr "Plus de critères"
 
+msgid "Keyword"
+msgstr "Mot clé"
+
 msgid "Share this aid"
 msgstr "Partager cette aide"
 
@@ -2243,54 +2240,6 @@ msgstr "Plus de critères"
 
 msgid "Find aids"
 msgstr "Trouver des aides"
-
-msgid "Your search"
-msgstr "Votre recherche"
-
-msgid "All aids"
-msgstr "Toutes les aides"
-
-msgid "Aid detail"
-msgstr "Détail de l'aide"
-
-msgid "Amend"
-msgstr "Amender"
-
-msgid "Amend an aid"
-msgstr "Amender une aide"
-
-msgid "Info"
-msgstr "Information"
-
-msgid ""
-"You have the possibility to <strong>suggest amendments</strong> to the "
-"present data. Your modifications will not be published until they are "
-"<strong> reviewed by an administrator</strong>."
-msgstr ""
-"Vous avez la possibilité de <strong>suggérer des amendements</strong> aux "
-"données présentes. Vos modifications ne seront <strong>pas publiées avant "
-"d'avoir été revues par un·e administrateur</strong>."
-
-msgid "Thank you for your contribution."
-msgstr "Merci pour votre contribution."
-
-msgid "Suggest some modifications"
-msgstr "Suggérez des modifications"
-
-msgid "Tell us about yourself"
-msgstr "Dites-nous en plus sur vous"
-
-msgid "Tell us more about your amendment"
-msgstr "Dites-nous en plus"
-
-msgid "Suggest amendments"
-msgstr "Suggérer des modifications"
-
-msgid "Cancel and go back to the aid detail"
-msgstr "Annuler et revenir au détail de l'aide"
-
-msgid "My published aids"
-msgstr "Mes aides publiées"
 
 msgid ""
 "<span class=\"fas fa-exclamation-circle\"></span> Before being published, "
@@ -2324,6 +2273,9 @@ msgstr "Enregistrer en brouillon"
 
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "Aid detail"
+msgstr "Détail de l'aide"
 
 msgid ""
 "Warning! This aid is <strong>currently not published</strong>. You can only "
@@ -2409,9 +2361,6 @@ msgstr "Aller plus loin"
 
 msgid "Link to full description"
 msgstr "Lien vers un descriptif complet"
-
-msgid "Suggest a modification"
-msgstr "Suggérer des modifications"
 
 msgid "Total number of hits"
 msgstr "Nombre de vues total des aides depuis la première publication"
@@ -2718,11 +2667,11 @@ msgstr "Aides disponibles"
 msgid "Published aids that are still open."
 msgstr "Aides publiées et toujours ouvertes aux candidatures"
 
-msgid "Total number of views"
-msgstr "Nombre de vues total"
-
 msgid "Page launch date"
 msgstr "Date de lancement de le page"
+
+msgid "Total number of views"
+msgstr "Nombre de vues total"
 
 msgid "Since the launch of the page"
 msgstr "Depuis le lancement de le page"
@@ -2745,29 +2694,29 @@ msgstr "Nombre d'aides vues par semaine"
 msgid "Top viewed aids"
 msgstr "Aides les plus vues"
 
-msgid "Top audiences searched"
-msgstr "Bénéficiaires les plus recherchés"
-
-msgid "Top categories searched"
-msgstr "Sous-thématiques les plus recherchées"
-
 msgid "Rank"
 msgstr "Ordre"
 
 msgid "Aid URL"
 msgstr "URL de l'aide"
 
-msgid "Top keywords searched"
-msgstr "Mots clés les plus recherchés"
+msgid "No data"
+msgstr "Pas de données"
 
-msgid "Keyword"
-msgstr "Mot clé"
+msgid "Top audiences searched"
+msgstr "Bénéficiaires les plus recherchés"
+
+msgid "Audience"
+msgstr "Bénéficiaire"
 
 msgid "Search count"
 msgstr "Recherches"
 
-msgid "No data"
-msgstr "Pas de données"
+msgid "Top categories searched"
+msgstr "Sous-thématiques les plus recherchées"
+
+msgid "Top keywords searched"
+msgstr "Mots clés les plus recherchés"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
@@ -2807,6 +2756,36 @@ msgstr "Revenir en arrière"
 
 msgid "Search – Perimeter"
 msgstr "Recherche – Périmètre"
+
+msgid "Search – Project"
+msgstr "Recherche – Projet"
+
+msgid "Your project"
+msgstr "Votre projet"
+
+msgid "In what projects are you interested in&nbsp;?"
+msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
+
+msgid "Contribute to improve Aides-territoires&nbsp;!"
+msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
+
+msgid "Tell us the project for which you are seeking aids."
+msgstr "Indiquez le projet pour lequel vous recherchez une aide."
+
+msgid "This will help us to improve in future the relevance of results"
+msgstr ""
+"Cela nous permettra d'améliorer dans le futur la pertinence des résultats "
+"qui vous seront proposés."
+
+msgid ""
+"These informations will not have any impact in your search results and will "
+"stay confidential"
+msgstr ""
+"Ces informations n’auront aucune influence sur les résultats de votre "
+"recherche et resteront confidentielles"
+
+msgid "Submit this project and display results"
+msgstr "Partager mon projet et accéder aux aides disponibles"
 
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
@@ -2857,6 +2836,7 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+<<<<<<< HEAD
 
 msgid "Send this aid by email"
 msgstr "Envoyer cette aide par email"
@@ -2908,3 +2888,5 @@ msgstr "Parlez-nous de votre projet en quelques mots"
 
 msgid "Its goal, its mobilization step or any informations that can identify your project"
 msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"
+=======
+>>>>>>> Update translations
