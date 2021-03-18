@@ -1,5 +1,6 @@
 import pytest
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import BaseImportCommand
 from accounts.factories import UserFactory
 from backers.factories import BackerFactory
@@ -37,7 +38,7 @@ class ImportStub(BaseImportCommand):
         return 'https:///example.com/aid/{}'.format(line.id)
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_description(self, line):
         return line.description

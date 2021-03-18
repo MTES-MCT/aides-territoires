@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from xml.etree import ElementTree
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
@@ -81,7 +82,7 @@ class Command(BaseImportCommand):
         return None
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         """name max_length is 180"""

@@ -6,6 +6,7 @@ import csv
 
 from django.contrib.postgres.search import TrigramSimilarity
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
@@ -84,7 +85,7 @@ class Command(BaseImportCommand):
         return ADDNA_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.openlicence20
+        return IMPORT_LICENCES.openlicence20
 
     def extract_submission_deadline(self, line):
         try:

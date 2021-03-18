@@ -5,6 +5,7 @@ import locale
 import hashlib
 from datetime import datetime
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
 from geofr.models import Perimeter
@@ -97,7 +98,7 @@ class Command(CrawlerImportCommand):
         return SOURCE_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line['title'][:180]
