@@ -26,5 +26,6 @@ var trumbowygConfig = {
             serverPath: '/upload/',
             fileFieldName: 'image'
         }
-    }
+    },
+    defaultLinkTarget: '_blank',
 }
