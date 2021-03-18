@@ -40,8 +40,6 @@ def test_anonymous_can_create_a_alert(client, mailoutbox):
     assert alert.date_validated is None
 
     assert len(mailoutbox) == 1
-    mail_body = mailoutbox[0].body
-    assert 'Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires' in mail_body  # noqa
 
 
 def test_anonymous_can_create_several_alerts(client, mailoutbox):
@@ -84,27 +82,6 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
 
     # We send validation email for every alert
     assert len(mailoutbox) == 2
-    mail_body = mailoutbox[0].body
-    assert 'Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires' in mail_body  # noqa
-
-
-def test_alert_perimeter(client, mailoutbox):
-    """The search perimeter is displayed in the validation email."""
-
-    perimeter = PerimeterFactory.create(name='Bretagne')
-    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'Test',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&perimeter={}'.format(perimeter_id),
-    })
-    assert res.status_code == 302
-    assert len(mailoutbox) == 1
-
-    content = mailoutbox[0].body
-    assert 'Bretagne (Région)' in content
 
 
 def test_unvalidated_alerts_creation_quotas(client):
