@@ -18,7 +18,7 @@ OTHER_AUDIENCES = (
     ('researcher', _('Research')),
 )
 
-AUDIENCES = (
+AUDIENCES_GROUPED = (
     (_('Collectivities'), COLLECTIVITIES_AUDIENCES),
     (_('Other audiences'), OTHER_AUDIENCES)
 )
