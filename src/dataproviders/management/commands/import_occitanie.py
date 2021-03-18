@@ -1,9 +1,10 @@
 from datetime import datetime
+
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.occitanie import OccitanieSpider
 from geofr.models import Perimeter
 from backers.models import Backer
-from aids.models import Aid
 
 
 OPENDATA_URL = 'https://data.laregion.fr/explore/dataset/aides-et-appels-a-projets-de-la-region-occitanie/information/'  # noqa
@@ -62,7 +63,7 @@ class Command(CrawlerImportCommand):
         return OPENDATA_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.openlicence20
+        return IMPORT_LICENCES.openlicence20
 
     def extract_name(self, line):
         title = line['title']
