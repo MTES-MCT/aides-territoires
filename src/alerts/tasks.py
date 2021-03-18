@@ -56,4 +56,4 @@ def send_alert_confirmation_email(user_email, alert_token):
         template_id=settings.SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID,
         data=data,
         tags=['alerte_confirmation', settings.ENV_NAME],
-        fail_silently=True)
+        fail_silently=False)
