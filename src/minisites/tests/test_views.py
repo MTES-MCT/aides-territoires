@@ -208,5 +208,3 @@ def test_alert_creation(client, settings, mailoutbox):
     assert alert.date_validated is None
 
     assert len(mailoutbox) == 1
-    mail_body = mailoutbox[0].body
-    assert 'Cliquez sur ce lien pour confirmer la création de votre alerte Aides-territoires' in mail_body  # noqa
