@@ -147,20 +147,25 @@ class BackerAdmin(ImportMixin, admin.ModelAdmin):
     logo_status.short_description = _('Logo image')
 
     def display_related_aids(self, obj):
-        related_aid_html = format_html('<div>')
+        related_aid_html = format_html('<table> \
+            <thead><tr> \
+            <th>Auteur</th> \
+            <th>Aide</th> \
+            </tr></thead> \
+            <tbody>')
         for aid in obj.financed_aids.all().order_by('name') \
                 .select_related('author'):
             url = reverse("admin:aids_aid_change", args=(aid.pk,))
             related_aid_html += format_html(
-                '<p>auteur : {author} \
-                    <a href="{url}">{name} (ID : {id})</a> \
-                </p>',
+                '<tr><td>{author}</td> \
+                    <td><a href="{url}">{name} (ID : {id})</a></td> \
+                </tr>',
                 url=url,
                 name=aid.name,
                 id=aid.pk,
                 author=aid.author
             )
-        related_aid_html += format_html('</div>')
+        related_aid_html += format_html('</tbody></table>')
         return related_aid_html
     display_related_aids.short_description = _('Related aids')
 
