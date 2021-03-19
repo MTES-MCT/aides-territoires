@@ -330,12 +330,11 @@ def test_aid_edition_subvention_rate_validation(aid_form_data):
     form = AidEditForm(aid_form_data)
     assert form.is_valid()
 
-    # Upper range is mandatory
+    # Upper range is optional
     aid_form_data['subvention_rate_0'] = 40
     aid_form_data['subvention_rate_1'] = None
     form = AidEditForm(aid_form_data)
-    assert not form.is_valid()
-    assert form.has_error('subvention_rate', 'missing_upper_bound')
+    assert form.is_valid()
 
     # Range must be in the correct order
     aid_form_data['subvention_rate_0'] = 50
