@@ -650,7 +650,7 @@ form {
         @extend .text-dark;
 
         &:hover {
-            @extend .text-white;
+            background-color: $gray-100;
         }
     }
 

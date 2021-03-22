@@ -58,6 +58,7 @@ class BaseAidForm(forms.ModelForm):
         ))
     description = RichTextField(
         label=_('Full description of the aid and its objectives'),
+        required=False,
         widget=forms.Textarea(attrs={'placeholder': _(
             'If you have a description, do not hesitate to copy it here.\n'
             'Try to complete the description with the maximum of'
@@ -77,7 +78,7 @@ class BaseAidForm(forms.ModelForm):
         required=False)
     contact = RichTextField(
         label=_('Contact to apply'),
-        required=True,
+        required=False,
         help_text=_('Feel free to add several contacts'),
         widget=forms.Textarea(attrs={'placeholder': _(
             'First name / last name, email, phone, comments…'
@@ -96,12 +97,8 @@ class BaseAidForm(forms.ModelForm):
 
         if 'aid_types' in self.fields:
             self.fields['aid_types'].choices = AID_TYPES
-
         if 'targeted_audiences' in self.fields:
             self.fields['targeted_audiences'].choices = AUDIENCES_GROUPED
-
-        if 'recurrence' in self.fields:
-            self.fields['recurrence'].required = True
 
         custom_labels = {
             'name': _('Aid title'),
@@ -126,19 +123,6 @@ class BaseAidForm(forms.ModelForm):
         for field, help_text in custom_help_text.items():
             if field in self.fields:
                 self.fields[field].help_text = help_text
-
-    def clean(self):
-        """Custom validation routine."""
-
-        data = self.cleaned_data
-
-        if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
-                self.add_error('financers', msg)
-
-        return data
 
     def save(self, commit=True):
         """Saves the instance.
@@ -226,6 +210,7 @@ class AidEditForm(BaseAidForm):
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
         label=_('Targeted area'),
+        required=False,
         help_text=_('''
             The geographical zone where the aid is available.<br />
             Example of valid zones:
@@ -249,8 +234,8 @@ class AidEditForm(BaseAidForm):
         '''))
     categories = CategoryMultipleChoiceField(
         label=_('Aid categories'),
-        help_text=_('Choose one or several categories that match your aid.'),
-        required=False)
+        required=False,
+        help_text=_('Choose one or several categories that match your aid.'))
 
     class Meta:
         model = Aid
@@ -299,29 +284,47 @@ class AidEditForm(BaseAidForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.requested_status = kwargs.pop('requested_status', None)
         super().__init__(*args, **kwargs)
         if 'subvention_rate' in self.fields:
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
-        if 'mobilization_steps' in self.fields:
-            self.fields['mobilization_steps'].required = True
-        if 'categories' in self.fields:
-            self.fields['categories'].required = True
+
+        if self.requested_status == "review":
+            if 'description' in self.fields:
+                self.fields['description'].required = True
+            if 'recurrence' in self.fields:
+                self.fields['recurrence'].required = True
+            if 'mobilization_steps' in self.fields:
+                self.fields['mobilization_steps'].required = True
+            if 'categories' in self.fields:
+                self.fields['categories'].required = True
+            if 'contact' in self.fields:
+                self.fields['contact'].required = True
 
     def clean(self):
         """Validation routine (frontend form only)."""
 
         data = super().clean()
-        if 'recurrence' in data and data['recurrence']:
-            recurrence = data['recurrence']
-            submission_deadline = data.get('submission_deadline', None)
 
-            if recurrence != 'ongoing' and not submission_deadline:
-                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
-                self.add_error(
-                    'submission_deadline',
-                    ValidationError(msg, code='missing_submission_deadline'))
+        # some fields are required only if the aid is reviewable
+        if self.requested_status == 'review':
+            if 'financers' in self.fields:
+                if not any((data.get('financers'),
+                            data.get('financer_suggestion'))):
+                    msg = _('Please provide a financer, or suggest a new one.')
+                    self.add_error('financers', msg)
+
+            if 'recurrence' in data and data['recurrence']:
+                recurrence = data['recurrence']
+                submission_deadline = data.get('submission_deadline', None)
+
+                if recurrence != 'ongoing' and not submission_deadline:
+                    msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
+                    self.add_error(
+                        'submission_deadline',
+                        ValidationError(msg, code='missing_submission_deadline'))  # noqa
 
         return data
 

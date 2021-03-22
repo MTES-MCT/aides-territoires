@@ -16,15 +16,15 @@
             <span class="fas fa-exclamation-circle"></span>
             {{ message | safe }}
         </p>
-    {% endfor %}
+        {% endfor %}
     {% endif %}
     <div class="actions">
         <div class="sidebar-actions">
             <h3>{{ aid.get_status_display }}</h3>
     
             {% if aid.is_draft %}
-                {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator.' as status_info %}
-                {% trans 'Send to publication' as btn_label %}
+                {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator. Simply click on the save button at the bottom of the form.' as status_info %}
+                {% trans 'Demander la publication' as btn_label %}
                 {% trans 'You will be able to keep editing your aid.' as status_help %}
             {% elif aid.is_under_review %}
                 {% trans 'Pending approval by an administrator, this aid <strong>will be published anytime soon</strong>.' as status_info %}
@@ -37,13 +37,20 @@
             {% endif %}
     
             <div>
-                <p>{{ status_info}}</p>
-                <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
-                    <span class="help">{{ status_help }}</span>
-                    {% csrf_token %}
-                    <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                    <button type="submit">{{ btn_label }}</button>
-                </form>
+                <p>{{ status_info }}</p>
+                <div><span class="help">{{ status_help }}</span></div>
+                {% if not aid.is_draft %}
+                    <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
+                        <span class="help">{{ status_help }}</span>
+                        {% csrf_token %}
+                        <input type="hidden" name="current_status" value="{{ aid.status }}" />
+                        {% if aid.is_draft %}
+                            <p>{{ btn_label }}</p>
+                        {% else %}
+                        <button type="submit">{{ btn_label }}</button>
+                        {% endif %}
+                    </form>
+                {% endif %}
             </div>
         </div>
     
@@ -82,35 +89,18 @@
 {% endblock %}
 
 {% block form_sidebar %}
-
-<ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
-        <span class="counter">1</span>
-        Présentation
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-description" class="list-group-item list-group-item-action">
-        <span class="counter">2</span>
-        Description
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
-        <span class="counter">3</span>
-        Critères d'éligibilité
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-contact" class="list-group-item list-group-item-action">
-        <span class="counter">4</span>
-        Contact et démarches
-    </a>
-</ul>
-
+    {% include 'aids/_base_edit_sidebar.html' %}
 {% endblock %}
 
 {% block form_actions %}
 <div class="form-actions">
     <div class="submit-buttons">
         <button type="submit" value="save">{{ _('Save changes') }}</button>
+        <button name="status" value="review" type="submit">{{ _('Save and request publication') }}</button>
+    </div>
+</div>
+<div class="form-actions">
+    <div class="submit-buttons">
         <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Back to your portfolio') }}</a>

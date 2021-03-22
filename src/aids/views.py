@@ -401,13 +401,15 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
     template_name = 'aids/create.html'
     form_class = AidEditForm
 
-    def form_valid(self, form):
-        self.object = aid = form.save(commit=False)
-
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
         requested_status = self.request.POST.get('status', None)
-        if requested_status == 'review':
-            aid.status = 'reviewable'
+        kwargs['requested_status'] = requested_status
+        return kwargs
 
+    def form_valid(self, form):
+        requested_status = self.request.POST.get('status', None)
+        self.object = aid = form.save(commit=False)
         aid.author = self.request.user
         aid.save()
         form.save_m2m()
@@ -416,6 +418,12 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
                 '<a href="%(url)s" target="_blank">preview it</a>.') % {
                     'url': aid.get_absolute_url()
                 }
+
+        if requested_status == 'review':
+            aid.submit()
+            msg = _('Your aid will be reviewed by an admin soon. '
+                    'It will be published and visible for users '
+                    'once an admin has approved it.')
 
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
@@ -433,9 +441,15 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
     context_object_name = 'aid'
     form_class = AidEditForm
 
-    def form_valid(self, form):
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        requested_status = self.request.POST.get('status', None)
+        kwargs['requested_status'] = requested_status
+        return kwargs
 
-        save_as_new = '_save_as_new' in self.request.POST
+    def form_valid(self, form):
+        requested_status = self.request.POST.get('status', None)
+        save_as_new = self.request.POST.get('_save_as_new', None)
         if save_as_new:
             obj = form.save(commit=False)
             obj.id = None
@@ -456,9 +470,17 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
 
             response = HttpResponseRedirect(self.get_success_url())
         else:
+            aid = form.save(commit=False)
+            aid.save()
+            form.save_m2m()
             response = super().form_valid(form)
             msg = _('The aid was sucessfully updated. You can keep '
                     'editing it.')
+            if requested_status == 'review':
+                aid.submit()
+                msg = _('Your aid will be reviewed by an admin soon. '
+                        'It will be published and visible for users '
+                        'once an admin has approved it.')
 
         self.messages.success(msg)
         return response
@@ -498,6 +520,7 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
             msg = _('Your aid will be reviewed by an admin soon. '
                     'It will be published and visible for users '
                     'once an admin has approved it.')
+            messages.success(self.request, msg)
         elif aid.status in (STATES.reviewable, STATES.published):
             aid.unpublish()
             log_admins.delay(
@@ -505,8 +528,7 @@ class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
                 'Une aide vient d\'être dépubliée.\n\n{}'.format(aid),
                 aid.get_absolute_url())
             msg = _('We updated your aid status.')
-
-        messages.success(self.request, msg)
+            messages.success(self.request, msg)
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('aid_edit_view', args=[self.object.slug])
