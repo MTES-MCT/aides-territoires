@@ -28,7 +28,7 @@ class Command(BaseCommand):
 
     def export_account(self, user):
         endpoint = 'https://api.sendinblue.com/v3/contacts/'
-        existing_aids = user.aid_set.existing()
+        existing_aids = user.aids.existing()
         live_aids = existing_aids.live().order_by('date_published')
         latest_published = live_aids.last()
         draft_aids = existing_aids.drafts().order_by('date_created')
