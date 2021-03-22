@@ -61,8 +61,8 @@ class AidTypesWidget(forms.MultiWidget):
                 widget.is_localized = self.is_localized
         # value is a list of values, each corresponding to a widget
         # in self.widgets.
-
-        value = self.decompress(value)
+        if not isinstance(value, list) or not isinstance(value[1], list):
+            value = self.decompress(value)
 
         final_attrs = context['widget']['attrs']
         input_type = final_attrs.pop('type', None)
