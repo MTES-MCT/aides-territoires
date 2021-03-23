@@ -194,6 +194,7 @@ def test_alert_creation(client, settings, mailoutbox):
         'email': 'alert-user@example.com',
         'alert_frequency': 'daily',
         'querystring': 'text=Ademe&call_for_projects_only=on',
+        'source': page.slug
     }, HTTP_HOST=page_host)
     assert res.status_code == 302
     assert alerts.count() == 1
@@ -202,8 +203,8 @@ def test_alert_creation(client, settings, mailoutbox):
     alert = alerts[0]
     assert alert.email == 'alert-user@example.com'
     assert alert.title == 'My new search'
-    assert 'text=Ademe' in alert.querystring
-    assert 'call_for_projects_only=on' in alert.querystring
+    assert 'text=fromage' in alert.querystring  # querystring overrriden
+    assert 'call_for_projects_only=on' not in alert.querystring
     assert not alert.validated
     assert alert.date_validated is None
 
