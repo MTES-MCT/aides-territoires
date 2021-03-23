@@ -51,7 +51,7 @@
     job: "cd {{ django_root }} && source {{ activate_bin }} && {{ pipenv_bin }} run ./manage.py send_alerts --settings={{ django_settings }} &>> {{ cron_log_root }}"
   tags: cronjobs
 
-- name: Install the task for exporting contacts to Sending Blue
+- name: Install the task for exporting contacts to SendinBlue
   cron:
     name: Export contacts
     user: "{{ user_name }}"
