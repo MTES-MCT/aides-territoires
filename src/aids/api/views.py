@@ -14,6 +14,9 @@ from stats.utils import log_aidviewevent, log_aidsearchevent
 
 
 def noop_decorator(func):
+    """
+    We use this "noop" decorator in order to disable caching.
+    """
     return func
 
 
