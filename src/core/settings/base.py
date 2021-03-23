@@ -220,6 +220,12 @@ LOGGING = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+
 ADMINS = [('Aides-territoires', 'nowhere@example.org')]
 
 MAILING_LIST_URL = None
@@ -264,3 +270,8 @@ LOGIN_REDIRECT_URL = 'aid_draft_list_view'
 SEARCH_COOKIE_NAME = 'currentsearch'
 
 ENABLE_DJANGO_STATIC_SERVE = False
+
+ENABLE_AID_LIST_API_CACHE = False
+AID_LIST_API_CACHE_TIMEOUT = 0
+ENABLE_AID_DETAIL_API_CACHE = False
+AID_DETAIL_API_CACHE_TIMEOUT = 0
