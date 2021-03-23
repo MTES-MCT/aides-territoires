@@ -303,8 +303,6 @@ class AidDetailView(DetailView):
             self.object.project_examples,
             self.object.eligibility))
 
-        context['aid_entreprise'] = self.object.is_corporate_aid()
-
         context['alert_form'] = AlertForm(label_suffix='')
 
         return context
