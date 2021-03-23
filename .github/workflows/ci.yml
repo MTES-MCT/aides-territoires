@@ -53,7 +53,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Set up the npm command
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
 
     - name: Set up the database
       run: |
