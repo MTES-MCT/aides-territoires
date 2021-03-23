@@ -2833,3 +2833,9 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Blog"
+msgstr "Actualités"
+
+msgid "blog/"
+msgstr "actualités/"

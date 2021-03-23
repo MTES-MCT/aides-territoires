@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'post_list_view' %}">{{ _('Blog') }}</a></li>
+        <li class="active" aria-current="page">{{ post.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article id="post">
+
+    <section id="post-content">
+
+        <div id="post-title">
+            <h1>{{ post.title }}</h1>
+            {% if post.categorie %}
+            {% for categorie in post.categorie %}
+            <p class="post_categorie">{{ categorie }}</p>
+            {% endfor %}
+            {% endif %}
+        </div> 
+
+        {% if post.text %}
+            {{ post.text|safe }}
+        {% endif %}   
+        
+    </section>
+
+</article>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/links_on_images.js"></script>
+{% endcompress %}
+{% endblock %}

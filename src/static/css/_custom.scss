@@ -380,14 +380,15 @@ div.search-meta {
 }
 
 section#aid-list,
-section#program-list {
-
+section#program-list,
+section#post-list {
 
     &.loading {
         opacity: 0.3;
     }
 
-    div.aids {
+    div.aids, 
+    div.posts {
         @extend .row;
         @extend .no-gutters;
         margin-left: -.5rem;
@@ -1799,7 +1800,9 @@ div#search-steps {
     }
 }
 
-#backer-content, #program-content {
+#backer-content, 
+#program-content, 
+#post-content {
 
     @extend .px-5;
     @extend .mb-5;
@@ -1816,6 +1819,25 @@ div#search-steps {
     #program-logo img {
         max-height: $height-img-base;
         @extend .pr-4;
+    }
+
+    #post-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .post_categorie {
+        @include icon(before, $fa-var-tags);
+        font-weight: bolder;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    
+        &::before {
+            color: $contrast-color;
+        }
     }
 }
 

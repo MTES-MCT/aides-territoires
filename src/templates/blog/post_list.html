@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+{% load i18n compress %}
+
+{% block extratitle %}{{ post.title }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Blog') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section id="post-list">
+
+    <h1>
+        {{ _('Blog') }}
+    </h1>
+
+    <div class="posts">
+        {% for post in posts %}
+        <div class="col">
+            <article id="post">
+                <div>
+                    <h1><a href="{% url 'post_detail_view' post.slug %}">
+                        {{ post.title }}
+                    </a></h1>
+                    <p>{{ post.short_text }}</p>
+                    <a href="{% url 'post_detail_view' post.slug %}">Voir plus</a>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% include '_pagination.html' %}
+
+{% endblock %}
