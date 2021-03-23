@@ -31,9 +31,10 @@ class PostWorkflow(xwf_models.Workflow):
 class Post(xwf_models.WorkflowEnabled, models.Model):
 
     POST_CATEGORIES = Choices(
-        ('webinar', _('Webinar')),
-        ('categorie2', _('Categorie 2')),
-        ('categorie3', _('Categorie 3')),
+        ('webinar', _('webinar')),
+        ('newsletter', _('newsletter')),
+        ('communication', _('communication')),
+        ('team', _('team')),
     )
 
     title = models.CharField(

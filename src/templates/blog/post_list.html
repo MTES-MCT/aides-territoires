@@ -15,23 +15,29 @@
 {% block content %}
 <section id="post-list">
 
-    <h1>
-        {{ _('Blog') }}
-    </h1>
+    <div id="blog-content">
+        <h1>
+            {{ _('Blog') }}
+        </h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque dolorum sed cumque 
+            beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
+            illum iusto, veritatis perspiciatis neque?
+        </p>
+    </div>
 
     <div class="posts">
         {% for post in posts %}
-        <div class="col">
             <article id="post">
                 <div>
                     <h1><a href="{% url 'post_detail_view' post.slug %}">
                         {{ post.title }}
                     </a></h1>
                     <p>{{ post.short_text }}</p>
-                    <a href="{% url 'post_detail_view' post.slug %}">Voir plus</a>
+                    <div>
+                        <a class="cta-btn" href="{% url 'post_detail_view' post.slug %}">Voir plus</a>
+                    </div>
                 </div>
             </article>
-        </div>
         {% endfor %}
     </div>
 </section>

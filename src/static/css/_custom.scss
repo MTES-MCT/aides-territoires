@@ -387,8 +387,7 @@ section#post-list {
         opacity: 0.3;
     }
 
-    div.aids, 
-    div.posts {
+    div.aids {
         @extend .row;
         @extend .no-gutters;
         margin-left: -.5rem;
@@ -562,6 +561,49 @@ section#post-list {
                 a {
                     @extend .dropdown-item;
                 }
+            }
+        }
+    }
+
+    #blog-content {
+        @extend .my-5;
+        @extend .px-5;
+        @extend .py-4;
+        background-color: #fff;
+        color: $font-color;
+        border-radius: 2rem 0 2rem 2rem;
+
+        h1 {
+            @extend .mb-4;
+        }
+
+        p {
+            @extend .mx-4;
+            @extend .mb-3;
+        }
+    }
+    
+    #post > div {
+
+        @extend .mt-2;
+        @extend .mx-4;
+
+        h1 {
+            margin-bottom: 1rem !important;
+        }
+
+        p {
+            @extend .mx-4;
+        }
+    
+        div:last-of-type {
+            display: flex;
+            justify-content: flex-end;
+            @extend .pt-0;
+    
+            .cta-btn {
+                @extend .btn;
+                @extend .btn-primary;
             }
         }
     }
