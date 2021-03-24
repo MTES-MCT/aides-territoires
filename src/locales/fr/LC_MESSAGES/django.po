@@ -2838,4 +2838,7 @@ msgid "Blog"
 msgstr "Actualités"
 
 msgid "blog/"
-msgstr "actualités/"
+msgstr "actualites/"
+
+msgid "Post category"
+msgstr "Catégorie des articles"

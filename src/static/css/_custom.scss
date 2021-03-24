@@ -581,6 +581,27 @@ section#post-list {
             @extend .mx-4;
             @extend .mb-3;
         }
+
+        #search-posts-form {
+            @extend .mx-4;
+            @extend .mb-3;
+    
+            select {
+                @extend .custom-select;
+                @extend .ml-2;
+                @extend .mr-3;
+                display: inline-block;
+                width: inherit;
+                border-radius: 0 1rem 1rem 1rem;
+            }
+            button.filter-btn {
+                @extend .btn;
+                @extend .btn-primary;
+                @extend .ml-3;
+                @include icon(before, $fa-var-search);
+            }
+        }
+    
     }
     
     #post > div {

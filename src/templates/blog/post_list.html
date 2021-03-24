@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
-{% load i18n compress %}
+{% load i18n %}
+
 
 {% block extratitle %}{{ post.title }}{% endblock %}
 
@@ -23,6 +24,13 @@
             beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
             illum iusto, veritatis perspiciatis neque?
         </p>
+        <form id="search-posts-form" action="{% url 'post_list_view' %}" method="get" autocomplete='off'>
+            <label for="id_categorie">{{ _('Post category')}} :</label>
+            {{ form.categorie }}
+            <button class="filter-btn" type="submit">
+                {{ _('Filter results') }}
+            </button>
+        </form>
     </div>
 
     <div class="posts">
