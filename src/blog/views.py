@@ -22,10 +22,12 @@ class PostList(SearchMixin, FormMixin, ListView):
 
         if qs_categorie:
             qs_categorie = qs_categorie.split()
-            FilterForm = Post.objects.filter(categorie__contains=qs_categorie)
+            FilterForm = Post.objects \
+                .filter(status='published') \
+                .filter(categorie__contains=qs_categorie)
             return FilterForm
         else:
-            return Post.objects.all()
+            return Post.objects.filter(status='published')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,7 +42,7 @@ class PostList(SearchMixin, FormMixin, ListView):
 class PostDetail(DetailView):
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(status='published')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
