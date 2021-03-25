@@ -27,6 +27,7 @@
         </form>
     </div>
 
+    {% if posts %}
     <div class="posts">
         {% for post in posts %}
             <article id="post">
@@ -42,6 +43,13 @@
             </article>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="posts">
+        <div id="no_result">
+            <p>Aucun article n'est disponible.</p>
+        </div>
+    </div>
+    {% endif %}
 </section>
 
 {% include '_pagination.html' %}

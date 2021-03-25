@@ -24,10 +24,13 @@ class PostList(SearchMixin, FormMixin, ListView):
             qs_categorie = qs_categorie.split()
             FilterForm = Post.objects \
                 .filter(status='published') \
-                .filter(categorie__contains=qs_categorie)
+                .filter(categorie__contains=qs_categorie) \
+                .order_by('-date_created')
             return FilterForm
         else:
-            return Post.objects.filter(status='published')
+            return Post.objects \
+                .filter(status='published') \
+                .order_by('-date_created')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

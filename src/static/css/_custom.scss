@@ -565,7 +565,8 @@ section#post-list {
         }
     }
 
-    #blog-content {
+    #blog-content, 
+    #no_result {
         @extend .my-5;
         @extend .px-5;
         @extend .py-4;
@@ -608,7 +609,13 @@ section#post-list {
                 }
             }
         }
-    
+    }
+
+    #no_result {
+        p {
+            margin-bottom: 0 !important;
+            font-weight: bolder;
+        }
     }
     
     #post > div {
