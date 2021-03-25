@@ -1,6 +1,9 @@
 {% extends '_base.html' %}
 {% load compress %}
 
+{% block extratitle %}{{ post.meta_title|default:post.title }}{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.short_text }}{% endblock %}
+
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
