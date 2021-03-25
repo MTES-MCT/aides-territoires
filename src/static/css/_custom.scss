@@ -1904,14 +1904,23 @@ div#search-steps {
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: 2rem;
+        }
     }
 
     .post_categorie {
         @include icon(before, $fa-var-tags);
         font-weight: bolder;
         font-size: 1.1rem;
-        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+
+        @include media-breakpoint-up(md) {
+            margin-top: 0rem;
+            margin-bottom: 2rem;
+        }
     
         &::before {
             color: $contrast-color;
