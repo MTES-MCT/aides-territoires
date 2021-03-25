@@ -22,7 +22,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'categorie', 'date_created', 'status']
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
-    list_filter = ['title', 'status', 'categorie', ]
+    list_filter = ['status', 'categorie']
 
     fieldsets = [
         (_('General content'), {
