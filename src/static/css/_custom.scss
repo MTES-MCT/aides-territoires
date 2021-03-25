@@ -583,22 +583,29 @@ section#post-list {
         }
 
         #search-posts-form {
-            @extend .mx-4;
-            @extend .mb-3;
+            @extend .m-4;
     
             select {
                 @extend .custom-select;
-                @extend .ml-2;
-                @extend .mr-3;
+                @extend .mx-2;
+                @extend .mb-2;
                 display: inline-block;
                 width: inherit;
                 border-radius: 0 1rem 1rem 1rem;
+
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 0rem;
+                }
             }
             button.filter-btn {
                 @extend .btn;
                 @extend .btn-primary;
-                @extend .ml-3;
+                @extend .mb-2;
                 @include icon(before, $fa-var-search);
+
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 0rem;
+                }
             }
         }
     
@@ -611,6 +618,14 @@ section#post-list {
 
         h1 {
             margin-bottom: 1rem !important;
+
+            &::after {
+                margin: 0.5rem 0 0 0 !important; 
+
+                @include media-breakpoint-up(md) {
+                    margin: 0.5rem 0 0 0;
+                }
+            }
         }
 
         p {
