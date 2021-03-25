@@ -5,12 +5,6 @@
 {% block extratitle %}{{ post.title }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Blog') }}</li>
-    </ol>
-</nav>
 {% endblock %}
 
 {% block content %}
