@@ -63,7 +63,23 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
 
     status = xwf_models.StateField(
         PostWorkflow,
-        verbose_name='Status')
+        verbose_name=_('Status'))
+
+    # SEO
+    meta_title = models.CharField(
+        _('Meta title'),
+        max_length=180,
+        blank=True, default='',
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 60 characters. '
+                    'Leave empty and we will reuse the post\'s title.'))
+    meta_description = models.TextField(
+        _('Meta description'),
+        blank=True, default='',
+        max_length=256,
+        help_text=_('This will be displayed in SERPs. '
+                    'Keep it under 120 characters.'))
+
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)

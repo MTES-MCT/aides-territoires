@@ -22,5 +22,5 @@ class PostSearchForm(forms.ModelForm):
         widget=forms.Select)
 
     class Meta:
-        model= Post
-        fields= ["categorie"]
+        model = Post
+        fields = ["categorie"]

@@ -19,14 +19,30 @@ class PostForm(forms.ModelForm):
 class PostAdmin(admin.ModelAdmin):
 
     form = PostForm
-    list_display = ['title']
+    list_display = ['title', 'categorie', 'date_created', 'status']
     prepopulated_fields = {'slug': ('title',)}
-    fields = [
-        'title', 'slug', 'short_text', 'text', 'categorie',
-        'status', 'date_created'
-    ]
     search_fields = ['title']
-    list_filter = ['title', 'status']
+    list_filter = ['title', 'status', 'categorie', ]
+
+    fieldsets = [
+        (_('General content'), {
+            'fields': (
+                'title',
+                'slug',
+                'short_text',
+                'text',
+                'categorie',
+                'status',
+                'date_created',
+            )
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description',
+            )
+        }),
+    ]
 
     class Media:
         css = {

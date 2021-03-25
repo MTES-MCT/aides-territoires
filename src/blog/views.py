@@ -1,13 +1,12 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from blog.forms import PostSearchForm
-from django.conf import settings
 from minisites.mixins import SearchMixin
 
 from blog.models import Post
 
 
-class PostList(SearchMixin,FormMixin, ListView):
+class PostList(SearchMixin, FormMixin, ListView):
     template_name = 'blog/post_list.html'
     form_class = PostSearchForm
     context_object_name = 'posts'
@@ -19,7 +18,7 @@ class PostList(SearchMixin,FormMixin, ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        qs_categorie= self.request.GET.get('categorie')
+        qs_categorie = self.request.GET.get('categorie')
 
         if qs_categorie:
             qs_categorie = qs_categorie.split()
@@ -36,6 +35,7 @@ class PostList(SearchMixin,FormMixin, ListView):
             context['categorie'] = [Post.POST_CATEGORIES[categorie] for categorie in context['categorie']]  # noqa
 
         return context
+
 
 class PostDetail(DetailView):
     template_name = 'blog/post_detail.html'
