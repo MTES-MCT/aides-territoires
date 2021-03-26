@@ -1,13 +1,18 @@
-from django.views.generic import TemplateView
 from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView
+from django.contrib.messages.views import SuccessMessageMixin
 
+from home.forms import ContactForm
+from home.tasks import send_contact_form_email
 from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
 
 
 class HomeView(TemplateView):
-    """Display the home page and the mailing list registration form.
+    """Display the home page, as well as some other pages
+    (contact form, mailing list registration form, ...)
 
     Said mailing list is directly posted to the email provider, so we don't
     have to process it ourselves.
@@ -35,6 +40,31 @@ class HomeView(TemplateView):
         context['subset_selected_backers'] = subset_selected_backers
 
         return context
+
+
+class ContactView(SuccessMessageMixin, FormView):
+    """Display the contact form."""
+
+    form_class = ContactForm
+    template_name = 'home/contact.html'
+    success_message = 'Votre message a bien été envoyé, merci !'
+    success_url = reverse_lazy('contact')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        if self.request.user.is_authenticated:
+            initial['first_name'] = self.request.user.first_name
+            initial['last_name'] = self.request.user.last_name
+            initial['email'] = self.request.user.email
+        return initial
+
+    def form_valid(self, form):
+        """Send the content of the form via email."""
+        response = super().form_valid(form)
+        form_dict = form.cleaned_data
+        send_contact_form_email.delay(form_dict)
+        # track_goal(self.request.session, settings.GOAL_CONTACT_ID)
+        return response
 
 
 class NewsletterConfirmView(TemplateView):

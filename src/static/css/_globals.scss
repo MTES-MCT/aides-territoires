@@ -274,12 +274,9 @@ body > footer {
             white-space: nowrap;
         }
 
-        a[href^='mailto:'] {
+        a.contact {
             @include icon(before, $fa-var-envelope);
-        }
-
-        a[href^='tel:'] {
-            @include icon(before, $fa-var-phone);
+            @extend .text-light;
         }
     }
 }

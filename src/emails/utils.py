@@ -6,6 +6,7 @@ from anymail.message import AnymailMessage
 def send_email(
         subject, body, recipient_list,
         from_email=settings.DEFAULT_FROM_EMAIL,
+        reply_to=None,
         html_body=None, tags=None,
         fail_silently=False):
     message = AnymailMessage(
@@ -14,6 +15,9 @@ def send_email(
         to=recipient_list)
 
     message.from_email = from_email
+
+    if reply_to:
+        message.reply_to = reply_to
 
     if html_body:
         message.attach_alternative(html_body, 'text/html')
