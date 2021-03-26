@@ -12,6 +12,8 @@
     argv:
       - certbot
       - certonly
+      - --cert-name
+      - "{{ project_domain }}"
       - --noninteractive
       - --agree-tos
       - --standalone
