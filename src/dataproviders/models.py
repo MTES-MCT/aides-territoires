@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from dataproviders.constants import FREQUENCIES, IMPORT_LICENCES
+from dataproviders.constants import IMPORT_LICENCES
 
 
 class DataSource(models.Model):
@@ -11,6 +11,9 @@ class DataSource(models.Model):
         max_length=256)
     description = models.TextField(
         _('Full description of the data source'),
+        blank=True)
+    import_details = models.TextField(
+        _('Additional details about this import'),
         blank=True)
 
     backer = models.ForeignKey(
@@ -30,10 +33,6 @@ class DataSource(models.Model):
     import_data_url = models.URLField(
         _('Origin url of the imported data'),
         null=True, blank=True)
-    import_frequency = models.CharField(
-        max_length=32,
-        choices=FREQUENCIES,
-        default=FREQUENCIES.once)
     import_licence = models.CharField(
         _('Under which license was this source imported?'),
         max_length=50,
@@ -43,6 +42,7 @@ class DataSource(models.Model):
     contact_team = models.ForeignKey(
         'accounts.User',
         on_delete=models.PROTECT,
+        limit_choices_to={'is_superuser': True},
         verbose_name=_('Contact AT team'),
         null=True)
     contact_backer = models.TextField(

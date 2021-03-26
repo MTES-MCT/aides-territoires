@@ -2855,12 +2855,6 @@ msgstr "Uploader les images"
 msgid "Send this aid by email"
 msgstr "Envoyer cette aide par email"
 
-msgid "These informations will not have any impact in your search results and will stay confidential"
-msgstr "Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles"
-
-msgid "Its goal, its mobilization step or any informations that can identify your project"
-msgstr "Quel est son objectif, son état d’avancement ou tout autre information permettant de le qualifier"
-
 msgid "Data Source"
 msgstr "Source de données"
 
@@ -2869,6 +2863,9 @@ msgstr "Sources de données"
 
 msgid "Full description of the data source"
 msgstr "Description complète de la source de données"
+
+msgid "Additional details about this import"
+msgstr "Détails additionels concernant l'import"
 
 msgid "API url of the imported data"
 msgstr "Url de l'API de la donnée importée"

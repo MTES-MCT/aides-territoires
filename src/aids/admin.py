@@ -181,7 +181,8 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                            'programs']
     search_fields = ['name']
     list_filter = [
-        'status', GenericAidListFilter, 'recurrence', 'is_imported',
+        'status', GenericAidListFilter, 'recurrence',
+        'is_imported', 'import_data_source',
         'is_call_for_project', 'in_france_relance',
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
@@ -189,9 +190,9 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
 
     filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
-        'sibling_aids', 'is_imported', 'import_uniqueid', 'import_data_url',
-        'import_share_licence', 'import_last_access', 'date_created',
-        'date_updated', 'date_published']
+        'sibling_aids',
+        'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
+        'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
     fieldsets = [
         (_('Aid presentation'), {
@@ -267,6 +268,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         (_('Import related data'), {
             'fields': (
                 'is_imported',
+                'import_data_source',
                 'import_uniqueid',
                 'import_data_url',
                 'import_share_licence',

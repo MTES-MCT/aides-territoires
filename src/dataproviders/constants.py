@@ -8,10 +8,10 @@ IMPORT_LICENCES = Choices(
     ('openlicence20', _('Open licence 2.0')),
 )
 
-FREQUENCIES = Choices(
-    ('once', _('Once')),
-    ('daily', _('Daily')),
-    ('weekly', _('Weekly')),
-    ('monthly', _('Monthly')),
-    ('yearly', _('Yearly'))
-)
+# FREQUENCIES = Choices(
+#     ('once', _('Once')),
+#     ('daily', _('Daily')),
+#     ('weekly', _('Weekly')),
+#     ('monthly', _('Monthly')),
+#     ('yearly', _('Yearly'))
+# )
