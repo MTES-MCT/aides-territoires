@@ -43,6 +43,7 @@ class DataSource(models.Model):
     contact_team = models.ForeignKey(
         'accounts.User',
         on_delete=models.PROTECT,
+        limit_choices_to={'is_superuser': True},
         verbose_name=_('Contact AT team'),
         null=True)
     contact_backer = models.TextField(

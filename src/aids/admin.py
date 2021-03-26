@@ -266,6 +266,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         (_('Import related data'), {
             'fields': (
                 'is_imported',
+                'import_data_source',
                 'import_uniqueid',
                 'import_data_url',
                 'import_share_licence',
