@@ -189,7 +189,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
 
     filter_vertical = ['categories']  # Overriden in the widget definition
     readonly_fields = [
-        'is_imported', 'import_uniqueid', 'import_data_url',
+        'sibling_aids', 'is_imported', 'import_uniqueid', 'import_data_url',
         'import_share_licence', 'import_last_access', 'date_created',
         'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
@@ -207,6 +207,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'instructors',
                 'instructor_suggestion',
                 'author',
+                'sibling_aids',
             )
         }),
 
@@ -280,6 +281,23 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
             )
         }),
     ]
+
+    def sibling_aids(self, aid):
+        """Number of other (non draft) aids created by the same author."""
+
+        return Aid.objects \
+            .exclude(id=aid.id) \
+            .filter(author=aid.author) \
+            .filter(status__in=('reviewable', 'published')) \
+            .count()
+    sibling_aids.short_description = _('From the same author')
+    sibling_aids.help_text = _('Nb of (non-draft) aids by the same author')
+
+    def get_form(self, request, obj=None, **kwargs):
+        """Set readonly fields help texts."""
+        help_texts = {'sibling_aids': self.sibling_aids.help_text}
+        kwargs.update({'help_texts': help_texts})
+        return super().get_form(request, obj, **kwargs)
 
     def author_name(self, aid):
         return aid.author.full_name

@@ -222,6 +222,12 @@ msgstr "Données liées à l'import"
 msgid "Misc data"
 msgstr "Données diverses"
 
+msgid "From the same author"
+msgstr "Du même auteur"
+
+msgid "Nb of (non-draft) aids by the same author"
+msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
+
 msgid "Financers"
 msgstr "Porteur·s d’aides"
 
@@ -2026,6 +2032,12 @@ msgid ""
 msgstr ""
 "Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
+
+msgid "Aids by this author"
+msgstr "Aides par cet auteur"
+
+msgid "There are no related aids"
+msgstr "Il n'y a pas d'aides à afficher"
 
 msgid "Amendment merge"
 msgstr "Intégration d'amendement"

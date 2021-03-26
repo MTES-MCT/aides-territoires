@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from aids.models import Aid
 from accounts.models import User
 
 
@@ -71,6 +72,21 @@ class UserAdmin(BaseUserAdmin):
 
     def get_changelist_form(self, request, **kwargs):
         return UserAdminForm
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        """Add aids by same author in context."""
+
+        other_aids = Aid.objects \
+            .existing() \
+            .filter(author_id=object_id) \
+            .prefetch_related('financers') \
+            .order_by('-date_published')
+
+        context = extra_context or {}
+        context['other_aids'] = other_aids
+
+        return super().change_view(
+            request, object_id, form_url=form_url, extra_context=context)
 
 
 admin.site.register(User, UserAdmin)
