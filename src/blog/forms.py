@@ -1,26 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from blog.models import Post
+from blog.models import PostCategory
+from blog.fields import PostCategoryChoiceField
 
 
-class PostSearchForm(forms.ModelForm):
+class PostSearchForm(forms.Form):
     """form for filter posts by categorie."""
 
-    POST_CATEGORIES = (
-        ('', _('')),
-        ('webinar', _('webinar')),
-        ('newsletter', _('newsletter')),
-        ('communication', _('communication')),
-        ('team', _('team')),
-    )
-
-    categorie = forms.MultipleChoiceField(
+    category = PostCategoryChoiceField(
         label=_('You are seeking posts about…'),
-        required=False,
-        choices=POST_CATEGORIES,
-        widget=forms.Select)
-
-    class Meta:
-        model = Post
-        fields = ["categorie"]
+        queryset=PostCategory.objects.all(),
+        to_field_name='slug',
+        required=False)

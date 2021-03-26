@@ -1,9 +1,48 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
-from blog.forms import PostSearchForm
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
 from minisites.mixins import SearchMixin
 
-from blog.models import Post
+from blog.forms import PostSearchForm
+from blog.models import Post, PostCategory
+
+
+class PostListCategory(SearchMixin, FormMixin, ListView):
+    template_name = 'blog/post_list.html'
+    form_class = PostSearchForm
+    context_object_name = 'posts'
+    paginate_by = 18
+
+    def get_queryset(self):
+        qs_category = self.request.GET.get('category')
+
+        if qs_category:
+            category_name = PostCategory.objects \
+                .filter(slug=qs_category) \
+                .values('id') \
+                .distinct()
+
+            FilterForm = Post.objects \
+                .select_related('category') \
+                .filter(status='published') \
+                .filter(category__in=category_name) \
+                .order_by('-date_created')
+            return FilterForm
+
+        else:
+            url = reverse('post_list_view')
+            return HttpResponseRedirect(url)
+
+    def get_context_data(self, **kwargs):
+        qs_category = self.request.GET.get('category')
+        context = super().get_context_data(**kwargs)
+        if qs_category:
+            context['category'] = PostCategory.objects \
+                    .get(slug=qs_category)
+
+        return context
 
 
 class PostList(SearchMixin, FormMixin, ListView):
@@ -12,40 +51,19 @@ class PostList(SearchMixin, FormMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 18
 
-    def get(self, request, *args, **kwargs):
-        self.form = self.get_form()
-        self.form.full_clean()
-        return super().get(request, *args, **kwargs)
-
     def get_queryset(self):
-        qs_categorie = self.request.GET.get('categorie')
-
-        if qs_categorie:
-            qs_categorie = qs_categorie.split()
-            FilterForm = Post.objects \
-                .filter(status='published') \
-                .filter(categorie__contains=qs_categorie) \
-                .order_by('-date_created')
-            return FilterForm
-        else:
-            return Post.objects \
-                .filter(status='published') \
-                .order_by('-date_created')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['categorie'] = self.form.cleaned_data.get('categorie', None)
-        if context['categorie']:
-            context['categorie'] = [Post.POST_CATEGORIES[categorie] for categorie in context['categorie']]  # noqa
-
-        return context
+        return Post.objects \
+            .select_related('category') \
+            .filter(status='published') \
+            .order_by('-date_created')
 
 
 class PostDetail(DetailView):
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-    queryset = Post.objects.filter(status='published')
+    queryset = Post.objects \
+        .select_related('category') \
+        .filter(status='published')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

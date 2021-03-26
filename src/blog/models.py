@@ -6,8 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
-from core.fields import ChoiceArrayField
-
 
 class PostWorkflow(xwf_models.Workflow):
     """Defines statuses for Posts."""
@@ -30,13 +28,6 @@ class PostWorkflow(xwf_models.Workflow):
 
 class Post(xwf_models.WorkflowEnabled, models.Model):
 
-    POST_CATEGORIES = Choices(
-        ('webinar', _('webinar')),
-        ('newsletter', _('newsletter')),
-        ('communication', _('communication')),
-        ('team', _('team')),
-    )
-
     title = models.CharField(
         _('Title'),
         max_length=256,
@@ -54,12 +45,12 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
         _('Full text of the post'),
         blank=False)
 
-    categorie = ChoiceArrayField(
-        verbose_name=_('categorie'),
+    category = models.ForeignKey(
+        'PostCategory',
         null=True, blank=True,
-        base_field=models.CharField(
-            max_length=32,
-            choices=POST_CATEGORIES))
+        verbose_name=_('Post category'),
+        related_name='categories',
+        on_delete=models.PROTECT)
 
     status = xwf_models.StateField(
         PostWorkflow,
@@ -101,3 +92,30 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
 
     def is_published(self):
         return self.status == PostWorkflow.states.published
+
+
+class PostCategory(models.Model):
+
+    name = models.CharField(
+        _('Name'),
+        max_length=256,
+        db_index=True)
+    slug = models.SlugField(
+        _('Slug'),
+        help_text=_('Let it empty so it will be autopopulated.'),
+        blank=True)
+    description = models.TextField(
+        _('Description of the category'),
+        blank=False)
+
+    class Meta:
+        verbose_name = 'PostCategory'
+        verbose_name_plural = 'PostCategories'
+
+    def __str__(self):
+        return self.name
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]

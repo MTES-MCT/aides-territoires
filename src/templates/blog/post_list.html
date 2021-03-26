@@ -11,6 +11,12 @@
 <section id="post-list">
 
     <div id="blog-content">
+        {% if category %}
+            <h1>
+                {{ category.name }}
+            </h1>
+            <p>{{ category.description }}</p>
+        {% else %}
         <h1>
             {{ _('Blog') }}
         </h1>
@@ -18,13 +24,14 @@
             beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
             illum iusto, veritatis perspiciatis neque?
         </p>
-        <form id="search-posts-form" action="{% url 'post_list_view' %}" method="get" autocomplete='off'>
-            <label for="id_categorie">{{ _('Post category')}} :</label>
-            {{ form.categorie }}
+        <form id="search-posts-form" action="{% url 'post_list_category_view' %}" method="get" autocomplete='off'>
+            <label for="id_categorie">{{ _('Post category') }} :</label>
+            {{ form.category }}
             <button class="filter-btn" type="submit">
                 {{ _('Filter results') }}
             </button>
         </form>
+        {% endif %}
     </div>
 
     {% if posts %}

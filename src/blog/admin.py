@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
-from blog.models import Post
+from blog.models import Post, PostCategory
 
 
 class PostForm(forms.ModelForm):
@@ -19,10 +19,10 @@ class PostForm(forms.ModelForm):
 class PostAdmin(admin.ModelAdmin):
 
     form = PostForm
-    list_display = ['title', 'categorie', 'date_created', 'status']
+    list_display = ['title', 'category', 'date_created', 'status']
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
-    list_filter = ['status', 'categorie']
+    list_filter = ['status', 'category']
 
     fieldsets = [
         (_('General content'), {
@@ -31,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
                 'slug',
                 'short_text',
                 'text',
-                'categorie',
+                'category',
                 'status',
                 'date_created',
             )
@@ -66,4 +66,13 @@ class PostAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+class PostCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    fields = ['name', 'slug', 'description']
+    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name']
+    ordering = ['name']
+
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(PostCategory, PostCategoryAdmin)
