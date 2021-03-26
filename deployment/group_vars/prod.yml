@@ -17,7 +17,6 @@ certbot_domains:
   - "france-relance-hdf.{{ project_domain }}"
   - "france-relance-pdl.{{ project_domain }}"
   - "france-relance-normandie.{{ project_domain }}"
-  - "france-relance-grand-est.{{ project_domain }}"
   - "france-relance-cvl.{{ project_domain }}"
   - "france-relance-guyane.{{ project_domain }}"
   - "france-relance-reunion.{{ project_domain }}"
@@ -34,6 +33,8 @@ certbot_domains:
   - "relance-grand-est.{{ project_domain }}"
   - "actioncoeurdeville.{{ project_domain }}"
   - "renotertiaire-aura.{{ project_domain }}"
+  - "demo-2.{{ project_domain }}"
+  - "renovation-energetique.{{ project_domain }}"
 
 django_settings: core.settings.production
 minisites_settings: minisites.settings.production
