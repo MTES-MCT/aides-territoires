@@ -21,11 +21,7 @@
 
         <div id="post-title">
             <h1>{{ post.title }}</h1>
-            {% if post.categorie %}
-            {% for categorie in post.categorie %}
-            <p class="post_categorie">{{ categorie }}</p>
-            {% endfor %}
-            {% endif %}
+            <p class="post_categorie">{{ post.category.name }}</p>
         </div> 
 
         {% if post.text %}
