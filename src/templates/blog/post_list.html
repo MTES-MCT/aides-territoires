@@ -24,13 +24,16 @@
             beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
             illum iusto, veritatis perspiciatis neque?
         </p>
-        <form id="search-posts-form" action="{% url 'post_list_category_view' %}" method="get" autocomplete='off'>
-            <label for="id_categorie">{{ _('Post category') }} :</label>
-            {{ form.category }}
-            <button class="filter-btn" type="submit">
-                {{ _('Filter results') }}
-            </button>
-        </form>
+            {% if posts %}
+            <div>
+                <label for="id_categorie">{{ _('Filter post by category') }} :</label>
+                {% for post in posts|dictsort:'category.name' %}
+                    {% ifchanged %}
+                    <a href="{% url 'post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
+                    {% endifchanged %}
+                {% endfor %}
+            </div>
+            {% endif %}
         {% endif %}
     </div>
 
