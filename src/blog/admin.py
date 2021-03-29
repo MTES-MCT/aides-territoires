@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
-from blog.models import BlogPost, BlogPostCategory, BlogPostWorkflow
+from blog.models import BlogPost, BlogPostCategory
 
 
 class BlogPostForm(forms.ModelForm):
