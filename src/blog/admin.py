@@ -5,20 +5,20 @@ from django.utils.translation import gettext_lazy as _
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
-from blog.models import Post, PostCategory
+from blog.models import BlogPost, BlogPostCategory, BlogPostWorkflow
 
 
-class PostForm(forms.ModelForm):
+class BlogPostForm(forms.ModelForm):
     text = RichTextField(label=_('Text'), required=False)
 
     class Meta:
-        model = Post
+        model = BlogPost
         fields = '__all__'
 
 
-class PostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(admin.ModelAdmin):
 
-    form = PostForm
+    form = BlogPostForm
     list_display = ['title', 'category', 'date_created', 'status']
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
@@ -34,6 +34,7 @@ class PostAdmin(admin.ModelAdmin):
                 'category',
                 'status',
                 'date_created',
+                'date_published',
             )
         }),
         (_('SEO'), {
@@ -66,13 +67,13 @@ class PostAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class PostCategoryAdmin(admin.ModelAdmin):
+class BlogPostCategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
-    fields = ['name', 'slug', 'description']
+    fields = ['name', 'slug', 'description', 'date_created']
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
     ordering = ['name']
 
 
-admin.site.register(Post, PostAdmin)
-admin.site.register(PostCategory, PostCategoryAdmin)
+admin.site.register(BlogPost, BlogPostAdmin)
+admin.site.register(BlogPostCategory, BlogPostCategoryAdmin)

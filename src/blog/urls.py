@@ -1,12 +1,12 @@
 from django.urls import path, include
 
-from blog.views import PostList, PostDetail
+from blog.views import BlogPostList, BlogPostDetail
 
 urlpatterns = [
-    path('', PostList.as_view(), name='post_list_view'),
-    path('<category>', PostList.as_view(), name='post_list_view'),
+    path('', BlogPostList.as_view(), name='blog_post_list_view'),
+    path('<category>', BlogPostList.as_view(), name='blog_post_list_view'),
 
     path('<slug:slug>/', include([
-        path('', PostDetail.as_view(), name='post_detail_view'),
+        path('', BlogPostDetail.as_view(), name='blog_post_detail_view'),
     ])),
 ]

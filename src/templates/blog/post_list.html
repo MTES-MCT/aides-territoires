@@ -32,7 +32,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for post in posts|dictsort:'category.name' %}
                     {% ifchanged %}
-                    <a class="dropdown-item" href="{% url 'post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
+                    <a class="dropdown-item" href="{% url 'blog_post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
                     {% endifchanged %}
                     {% endfor %}
                     </div>
@@ -46,12 +46,12 @@
         {% for post in posts %}
             <article id="post">
                 <div>
-                    <h1><a href="{% url 'post_detail_view' post.slug %}">
+                    <h1><a href="{% url 'blog_post_detail_view' post.slug %}">
                         {{ post.title }}
                     </a></h1>
                     <p>{{ post.short_text }}</p>
                     <div>
-                        <a class="cta-btn" href="{% url 'post_detail_view' post.slug %}">Voir plus</a>
+                        <a class="cta-btn" href="{% url 'blog_post_detail_view' post.slug %}">Voir plus</a>
                     </div>
                 </div>
             </article>

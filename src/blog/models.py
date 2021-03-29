@@ -1,4 +1,6 @@
 from django.db import models
+from uuid import uuid4
+from datetime import timedelta
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -7,7 +9,7 @@ from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
 
-class PostWorkflow(xwf_models.Workflow):
+class BlogPostWorkflow(xwf_models.Workflow):
     """Defines statuses for Posts."""
 
     log_model = ''
@@ -26,7 +28,15 @@ class PostWorkflow(xwf_models.Workflow):
     )
 
 
-class Post(xwf_models.WorkflowEnabled, models.Model):
+class BlogPostQuerySet(models.QuerySet):
+
+    def published(self):
+        """Only returns published objects."""
+
+        return self.filter(status=BlogPostWorkflow.states.published.name)
+
+
+class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
     title = models.CharField(
         _('Title'),
@@ -46,14 +56,14 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
         blank=False)
 
     category = models.ForeignKey(
-        'PostCategory',
+        'BlogPostCategory',
         null=True, blank=True,
         verbose_name=_('Post category'),
         related_name='categories',
         on_delete=models.PROTECT)
 
     status = xwf_models.StateField(
-        PostWorkflow,
+        BlogPostWorkflow,
         verbose_name=_('Status'))
 
     # SEO
@@ -74,10 +84,16 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
+    date_updated = models.DateTimeField(
+        _('Date updated'),
+        auto_now=True)
+    date_published = models.DateTimeField(
+        _('First publication date'),
+        null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
+        verbose_name = 'BlogPost'
+        verbose_name_plural = 'BlogPosts'
 
     def __str__(self):
         return self.title
@@ -87,14 +103,22 @@ class Post(xwf_models.WorkflowEnabled, models.Model):
         if not self.slug:
             self.slug = slugify(self.title)[:50]
 
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
+
     def is_draft(self):
-        return self.status == PostWorkflow.states.draft
+        return self.status == BlogPostWorkflow.states.draft
 
     def is_published(self):
-        return self.status == PostWorkflow.states.published
+        return self.status == BlogPostWorkflow.states.published
+
+    def set_publication_date(self):
+        if self.is_published() and self.date_published is None:
+            self.date_published = timezone.now()
 
 
-class PostCategory(models.Model):
+class BlogPostCategory(models.Model):
 
     name = models.CharField(
         _('Name'),
@@ -107,10 +131,13 @@ class PostCategory(models.Model):
     description = models.TextField(
         _('Description of the category'),
         blank=False)
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
 
     class Meta:
-        verbose_name = 'PostCategory'
-        verbose_name_plural = 'PostCategories'
+        verbose_name = 'BlogPostCategory'
+        verbose_name_plural = 'BlogPostCategories'
 
     def __str__(self):
         return self.name
@@ -119,3 +146,7 @@ class PostCategory(models.Model):
         """Set the object's slug if it is missing."""
         if not self.slug:
             self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
