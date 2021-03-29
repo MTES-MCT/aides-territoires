@@ -581,8 +581,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_publication_date()
+        is_new = not self.id  # There's no ID => newly created aid
         is_being_published = self.is_published() and self.status_has_changed()
-        if is_being_published and not self.is_imported:
+        if not is_new and is_being_published and not self.is_imported:
             send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 
