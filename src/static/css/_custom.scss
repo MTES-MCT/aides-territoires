@@ -583,21 +583,9 @@ section#post-list {
             @extend .mb-3;
         }
 
-        #search-posts-form {
+        #search-posts {
             @extend .m-4;
     
-            select {
-                @extend .custom-select;
-                @extend .mx-2;
-                @extend .mb-2;
-                display: inline-block;
-                width: inherit;
-                border-radius: 0 1rem 1rem 1rem;
-
-                @include media-breakpoint-up(md) {
-                    margin-bottom: 0rem;
-                }
-            }
             button.filter-btn {
                 @extend .btn;
                 @extend .btn-primary;

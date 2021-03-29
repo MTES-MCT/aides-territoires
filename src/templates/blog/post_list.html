@@ -25,14 +25,18 @@
             illum iusto, veritatis perspiciatis neque?
         </p>
             {% if posts %}
-            <div>
-                <label for="id_categorie">{{ _('Filter post by category') }} :</label>
-                {% for post in posts|dictsort:'category.name' %}
+                <div id="search-posts">
+                    <button class="btn filter-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ _('Filter post by category') }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for post in posts|dictsort:'category.name' %}
                     {% ifchanged %}
-                    <a href="{% url 'post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
+                    <a class="dropdown-item" href="{% url 'post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
                     {% endifchanged %}
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                    </div>
+                  </div>
             {% endif %}
         {% endif %}
     </div>

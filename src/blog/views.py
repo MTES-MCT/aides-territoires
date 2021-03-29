@@ -12,7 +12,7 @@ class PostList(ListView):
         if self.kwargs:
             if self.kwargs['category']:
                 category = self.kwargs['category']
-                category_name = PostCategory.objects \
+                category_slug = PostCategory.objects \
                     .filter(slug=category) \
                     .values('id') \
                     .distinct()
@@ -20,7 +20,7 @@ class PostList(ListView):
                 return Post.objects \
                     .select_related('category') \
                     .filter(status='published') \
-                    .filter(category__in=category_name) \
+                    .filter(category__in=category_slug) \
                     .order_by('-date_created')
 
         else: 
@@ -31,11 +31,9 @@ class PostList(ListView):
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            if category is not None:
+            if self.category_slug:
                 context['category'] = PostCategory.objects \
-                        .get(slug=category)
-            else:
-                context['category'] = PostCategory.objects.values('name').distinct()
+                        .get(slug=self.category_slug)
 
             return context
 
