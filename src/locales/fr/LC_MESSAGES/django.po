@@ -2852,9 +2852,6 @@ msgstr "Introduction concise (Inférieure à 256 caractères)"
 msgid "Short text"
 msgstr "Texte d'introduction"
 
-msgid "Filter post by category"
-msgstr "Filter les articles par catégories"
-
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
 "and we will reuse the post's title."

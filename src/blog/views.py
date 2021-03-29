@@ -23,19 +23,20 @@ class PostList(ListView):
                     .filter(category__in=category_slug) \
                     .order_by('-date_created')
 
-        else: 
+        else:
             return Post.objects \
                 .select_related('category') \
                 .filter(status='published') \
                 .order_by('-date_created')
 
-        def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            if self.category_slug:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.kwargs:
+            if self.kwargs['category']:
                 context['category'] = PostCategory.objects \
-                        .get(slug=self.category_slug)
+                        .get(slug=self.kwargs['category'])
 
-            return context
+        return context
 
 
 class PostDetail(DetailView):

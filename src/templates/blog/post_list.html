@@ -27,7 +27,7 @@
             {% if posts %}
                 <div id="search-posts">
                     <button class="btn filter-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ _('Filter post by category') }}
+                        Filtrer les articles par catégorie
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for post in posts|dictsort:'category.name' %}
