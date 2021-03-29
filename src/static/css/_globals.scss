@@ -198,6 +198,14 @@ body > footer {
             width: auto;
         }
 
+        & > #accessibility {
+            @extend .mt-4;
+            @extend .col-12;
+            @extend .order-md-3;
+            @extend .order-3;
+            font-size: $font-size-small;
+        }
+
         & #social-network {
             @extend .order-md-1;
             @extend .order-2;
