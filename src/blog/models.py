@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
+
 
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
@@ -95,7 +97,6 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     def __str__(self):
         return self.title
 
-
     def is_draft(self):
         return self.status == BlogPostWorkflow.states.draft
 
@@ -105,6 +106,9 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     def set_publication_date(self):
         if self.is_published() and self.date_published is None:
             self.date_published = timezone.now()
+
+    def get_absolute_url(self):
+        return reverse('blog_post_detail_view', args=[self.slug])
 
 
 class BlogPostCategory(models.Model):
