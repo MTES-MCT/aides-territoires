@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 14:20+0100\n"
+"POT-Creation-Date: 2021-03-30 14:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1117,6 +1117,47 @@ msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 msgid "Backer"
 msgstr "Porteur d'aides"
 
+msgid "Text"
+msgstr ""
+
+msgid "General content"
+msgstr "Contenu général"
+
+msgid "Short text"
+msgstr "Texte d'introduction"
+
+msgid "A short, concise introduction"
+msgstr "Introduction concise (Inférieure à 256 caractères)"
+
+msgid "Full text of the post"
+msgstr "Description complète de l'article"
+
+msgid "Post category"
+msgstr "Catégorie des articles"
+
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the post's title."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le titre de l'article."
+
+msgid "Blog Post"
+msgstr "Article de blog"
+
+msgid "Blog Posts"
+msgstr "Articles de blog"
+
+msgid "Description of the category"
+msgstr "Description complète de la catégorie"
+
+msgid "Blog Post Category"
+msgstr "Catégorie des articles"
+
+
+msgid "Blog Post Categories"
+msgstr "Catégories des articles"
+
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
@@ -1225,6 +1266,9 @@ msgstr "aides/"
 
 msgid "backers/"
 msgstr "partenaires/"
+
+msgid "blog/"
+msgstr "actualites/"
 
 msgid "programs/"
 msgstr "programmes/"
@@ -2517,6 +2561,9 @@ msgstr ""
 msgid "Confirm alert creation"
 msgstr "Confirmez la création de l'alerte"
 
+msgid "Blog"
+msgstr "Actualités"
+
 msgid "Aid bundles"
 msgstr "Listes d'aides"
 
@@ -2833,28 +2880,3 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
-
-msgid "Blog"
-msgstr "Actualités"
-
-msgid "blog/"
-msgstr "actualites/"
-
-msgid "Post category"
-msgstr "Catégorie des articles"
-
-msgid "General content"
-msgstr "Contenu général"
-
-msgid "A short, concise introduction"
-msgstr "Introduction concise (Inférieure à 256 caractères)"
-
-msgid "Short text"
-msgstr "Texte d'introduction"
-
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the post's title."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le titre de l'article."
