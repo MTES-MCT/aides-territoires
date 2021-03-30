@@ -32,7 +32,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for category in categories %}
                     {% ifchanged %}
-                    <a class="dropdown-item" href="{% url 'blog_post_list_view' category=category.slug %}">{{ category.name }}</a>
+                    <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                     {% endifchanged %}
                     {% endfor %}
                     </div>

@@ -137,3 +137,6 @@ class BlogPostCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('blog_post_list_view', kwargs={'category': self.slug})
