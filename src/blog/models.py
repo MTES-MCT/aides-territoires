@@ -93,6 +93,7 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     class Meta:
         verbose_name = _('Blog Post')
         verbose_name_plural = _('Blog Posts')
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.title
