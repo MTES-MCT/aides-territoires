@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from model_utils import Choices
@@ -43,7 +42,7 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     slug = models.SlugField(
         _('Slug'),
         help_text=_('Let it empty so it will be autopopulated.'),
-        blank=True)
+        unique=True)
     short_text = models.TextField(
         _('Short text'),
         help_text=_('A short, concise introduction'),
@@ -96,14 +95,6 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     def __str__(self):
         return self.title
 
-    def set_slug(self):
-        """Set the object's slug if it is missing."""
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
-
-    def save(self, *args, **kwargs):
-        self.set_slug()
-        return super().save(*args, **kwargs)
 
     def is_draft(self):
         return self.status == BlogPostWorkflow.states.draft
@@ -125,7 +116,7 @@ class BlogPostCategory(models.Model):
     slug = models.SlugField(
         _('Slug'),
         help_text=_('Let it empty so it will be autopopulated.'),
-        blank=True)
+        unique=True)
     description = models.TextField(
         _('Description of the category'),
         blank=False)
@@ -139,12 +130,3 @@ class BlogPostCategory(models.Model):
 
     def __str__(self):
         return self.name
-
-    def set_slug(self):
-        """Set the object's slug if it is missing."""
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
-
-    def save(self, *args, **kwargs):
-        self.set_slug()
-        return super().save(*args, **kwargs)
