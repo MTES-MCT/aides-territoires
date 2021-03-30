@@ -31,9 +31,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for category in categories %}
-                    {% ifchanged %}
                     <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-                    {% endifchanged %}
                     {% endfor %}
                     </div>
                   </div>
