@@ -866,9 +866,6 @@ msgstr "Importé ?"
 msgid "Unique identifier for imported data"
 msgstr "Identifiant d'import unique"
 
-msgid "Origin url of the imported data"
-msgstr "Url d'origine de la donnée importée"
-
 msgid "Under which license was this aid shared?"
 msgstr "Sous quelle licence cette aide a-t-elle été partagée ?"
 
@@ -994,11 +991,20 @@ msgstr ""
 "Vous avez atteint le nombre maximum d'alertes qu'il est possible de créer "
 "pour une seule adresse e-mail."
 
+msgid "Once"
+msgstr "Une seule fois"
+
 msgid "Daily"
 msgstr "Quotidiennement"
 
 msgid "Weekly"
 msgstr "Hebdomadairement"
+
+msgid "Monthly"
+msgstr "Mensuellement"
+
+msgid "Yearly"
+msgstr "Annuellement"
 
 msgid "Secret token"
 msgstr "Clé secrète"
@@ -2845,3 +2851,33 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Send this aid by email"
+msgstr "Envoyer cette aide par email"
+
+msgid "Data Source"
+msgstr "Source de données"
+
+msgid "Data Sources"
+msgstr "Sources de données"
+
+msgid "Full description of the data source"
+msgstr "Description complète de la source de données"
+
+msgid "Additional details about this import"
+msgstr "Détails additionels concernant l'import"
+
+msgid "API url of the imported data"
+msgstr "Url de l'API de la donnée importée"
+
+msgid "Origin url of the imported data"
+msgstr "Url d'origine de la donnée importée"
+
+msgid "Under which license was this source imported?"
+msgstr "Sous quelle licence cette source a-t-elle été importée ?"
+
+msgid "Contact AT team"
+msgstr "Contact (team AT)"
+
+msgid "Contact backer"
+msgstr "Contact du porteur"

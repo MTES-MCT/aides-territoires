@@ -1,11 +1,14 @@
 from datetime import datetime
+
 from django.utils import timezone
 
+from dataproviders.constants import IMPORT_LICENCES
+from dataproviders.management.commands.base import CrawlerImportCommand
+from dataproviders.scrapers.rmc import RMCSpider
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
-from dataproviders.management.commands.base import CrawlerImportCommand
-from dataproviders.scrapers.rmc import RMCSpider
+
 
 ADMIN_ID = 1
 
@@ -50,7 +53,7 @@ class Command(CrawlerImportCommand):
         return line['current_url']
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         return line['title']
