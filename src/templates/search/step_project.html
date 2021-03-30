@@ -57,12 +57,24 @@
 {% block content %}
 <h1>{{ _('In what projects are you interested in&nbsp;?') }}</h1>
 
+<div>
+    <form id="projects" action="{% url 'search_view' %}" method="GET">
+        
+        {% include '_form_snippet.html' %}
+    
+        <button name="action" value="search" type="submit">
+            {{ _('Submit') }}
+        </button>
+    </form>
+</div>
+
 <div id="suggested_project_box">
     <h3>{{ _('Contribute to improve Aides-territoires&nbsp;!') }}</h3>
     <div class="info">
         <p>{{ _('Tell us the project for which you are seeking aids.') }}</p>
         <p>{{ _('This will help us to improve in future the relevance of results') }}</p>
     </div>
+
     <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
         <div class="content">
             {% csrf_token %}
