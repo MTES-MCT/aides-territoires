@@ -48,6 +48,19 @@ def test_clean_search_querystring(input_querystring, expected_cleaned_querystrin
 
 
 querystring_testset = [
+    ('', ''),  # expecting nothing
+    ('drafts=True&call_for_projects_only=False', 'drafts=True'),  # noqa
+    ('text=&order_by=relevance&perimeter=', ''),
+]
+
+
+@pytest.mark.parametrize('input_querystring,expected_cleaned_querystring', querystring_testset)  # noqa
+def test_clean_search_querystring_with_remove_extra_fields(input_querystring, expected_cleaned_querystring):  # noqa
+
+    assert clean_search_querystring(input_querystring, remove_extra_fields=True) == expected_cleaned_querystring  # noqa
+
+
+querystring_testset = [
     ('', 'draft', None),
     ('draft=', 'draft', ''),
     ('internal=True', 'internal', 'True'),

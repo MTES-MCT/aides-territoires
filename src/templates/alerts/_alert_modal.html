@@ -12,12 +12,10 @@
                 </header>
 
                 <div class="content">
-                    {% if form %}
-                        <div class="info">
-                            <h5>{{ _('Selected filters') }}</h5>
-                            {% include 'aids/_search_meta.html' with display="all" %}
-                        </div>
-                    {% endif %}
+                    <div class="info">
+                        <h5>{{ _('Selected filters') }}</h5>
+                        {% include 'aids/_search_meta.html' with display="all" %}
+                    </div>
 
                     {% csrf_token %}
                     {% include '_field_snippet.html' with field=alert_form.email %}
