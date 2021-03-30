@@ -30,9 +30,9 @@
                         Filtrer les articles par catégorie
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for post in posts|dictsort:'category.name' %}
+                    {% for category in categories %}
                     {% ifchanged %}
-                    <a class="dropdown-item" href="{% url 'blog_post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
+                    <a class="dropdown-item" href="{% url 'blog_post_list_view' category=category.slug %}">{{ category.name }}</a>
                     {% endifchanged %}
                     {% endfor %}
                     </div>

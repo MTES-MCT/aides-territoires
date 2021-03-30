@@ -37,6 +37,8 @@ class BlogPostQuerySet(models.QuerySet):
 
 class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
+    objects = BlogPostQuerySet.as_manager()
+
     title = models.CharField(
         _('Title'),
         max_length=256,
