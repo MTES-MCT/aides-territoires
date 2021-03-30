@@ -11,11 +11,11 @@
 <section id="post-list">
 
     <div id="blog-content">
-        {% if category %}
+        {% if selected_category %}
             <h1>
-                {{ category.name }}
+                {{ selected_category.name }}
             </h1>
-            <p>{{ category.description }}</p>
+            <p>{{ selected_category.description }}</p>
         {% else %}
         <h1>
             {{ _('Blog') }}
@@ -24,7 +24,7 @@
             beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
             illum iusto, veritatis perspiciatis neque?
         </p>
-            {% if posts %}
+            {% if not selected_category %}
                 <div id="search-posts">
                     <button class="btn filter-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Filtrer les articles par catégorie

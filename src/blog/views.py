@@ -21,7 +21,8 @@ class BlogPostList(ListView):
         context['categories'] = categories
         category_slug = self.kwargs.get('category')
         if category_slug:
-            context['category'] = categories.filter(slug=category_slug).first()
+            context['selected_category'] = \
+                categories.filter(slug=category_slug).first()
         return context
 
 
