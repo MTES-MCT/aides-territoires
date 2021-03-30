@@ -46,12 +46,12 @@
         {% for post in posts %}
             <article id="post">
                 <div>
-                    <h1><a href="{% url 'blog_post_detail_view' post.slug %}">
+                    <h1><a href="{{ post.get_absolute_url }}">
                         {{ post.title }}
                     </a></h1>
                     <p>{{ post.short_text }}</p>
                     <div>
-                        <a class="cta-btn" href="{% url 'blog_post_detail_view' post.slug %}">Voir plus</a>
+                        <a class="cta-btn" href="{{ post.get_absolute_url }}">Voir plus</a>
                     </div>
                 </div>
             </article>
