@@ -114,10 +114,10 @@ msgid "Display a badge next to this user's aids"
 msgstr "Afficher un badge à côté des aides publiées par ce compte."
 
 msgid "User"
-msgstr "Utilisateur·ice"
+msgstr "Utilisateur"
 
 msgid "Users"
-msgstr "Utilisateur·ices"
+msgstr "Utilisateurs"
 
 msgid "register/"
 msgstr "inscription/"
@@ -544,7 +544,7 @@ msgstr ""
 "périmètre souhaité."
 
 msgid "Aid categories"
-msgstr "Thématique(s) de l'aide"
+msgstr "Thématiques de l'aide"
 
 msgid "Choose one or several categories that match your aid."
 msgstr ""
@@ -1474,7 +1474,7 @@ msgstr "Projets"
 msgid "suggest/"
 msgstr "suggestion/"
 
-msgid "Thank you for contributing&nbsp;!"
+msgid "Thank you for contributing!"
 msgstr "Merci de votre contribution&nbsp;!"
 
 msgid "Style customization"
@@ -1726,10 +1726,10 @@ msgid "Select program(s)"
 msgstr "Sélectionnez un programme"
 
 msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le·s porteur·s"
+msgstr "Sélectionnez le ou les porteurs"
 
 msgid "Choose instructor(s) among the list."
-msgstr "Sélectionnez le·s instructeur·s parmi la liste."
+msgstr "Sélectionnez le ou les instructeurs parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"
@@ -1798,7 +1798,7 @@ msgid "Become a contributor"
 msgstr "Devenir contributeur"
 
 msgid "Are you a contributor?"
-msgstr "Vous êtes contributeur·ice ?"
+msgstr "Vous êtes contributeur ?"
 
 msgid "My portfolio"
 msgstr "Mon portefeuille d'aides"
@@ -2087,7 +2087,7 @@ msgid "Admin edit"
 msgstr "Éditer dans l'admin"
 
 msgid "The user left this comment:"
-msgstr "L'utilisateur·ice a laissé ce commentaire :"
+msgstr "L'utilisateur a laissé ce commentaire :"
 
 msgid "Update the aid and discard the amendment"
 msgstr "Mettre à jour l'aide et supprimer l'amendement"
@@ -2656,12 +2656,12 @@ msgid ""
 "<strong>Your subscription to the newsletter has been registered.</strong>"
 msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
 
-msgid "Do you want to extend your search&nbsp;?"
+msgid "Do you want to extend your search?"
 msgstr "Vous souhaitez élargir votre recherche&nbsp;?"
 
 msgid ""
 "Find all aids for all beneficiaries and all themes in <a href=\"https://"
-"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>&nbsp;!"
+"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>!"
 msgstr ""
 "Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
 "les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
@@ -2772,10 +2772,10 @@ msgstr "Recherche – Projet"
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "In what projects are you interested in&nbsp;?"
+msgid "In what projects are you interested in?"
 msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
 
-msgid "Contribute to improve Aides-territoires&nbsp;!"
+msgid "Contribute to improve Aides-territoires!"
 msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
 
 msgid "Tell us the project for which you are seeking aids."

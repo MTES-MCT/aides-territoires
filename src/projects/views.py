@@ -30,7 +30,7 @@ class ProjectSuggest(MessageMixin, CreateView):
         form.save_m2m()
         project.categories.add(*categories)
 
-        msg = _('Thank you for contributing&nbsp;!')
+        msg = _('Thank you for contributing!')
         self.messages.success(msg)
         url = reverse('search_view')
         url = '{}?{}'.format(url, querystring)
