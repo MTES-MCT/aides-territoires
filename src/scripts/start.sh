@@ -5,6 +5,12 @@
 # after a deployment or when the container is restarted.
 
 echo "Entering deployment start script"
+WSGI_MODULE=$1
+if [ -z "$WSGI_MODULE" ]
+  then
+    echo "The start script expects the WSGI_MODULE as first argument"
+fi
+echo "Using WSGI module: $WSGI_MODULE"
 python manage.py compilemessages
-gunicorn core.wsgi_scalingo --log-file -
+gunicorn $WSGI_MODULE --log-file -
 echo "Completed deployment start script"
