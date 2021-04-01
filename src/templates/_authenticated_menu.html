@@ -1,11 +1,6 @@
 <ul class="navbar-menu">
     {% if user.is_superuser %}
     <li class="stat">
-        <a href="{% url 'blog_post_list_view' %}">
-            Actualités
-        </a>
-    </li>
-    <li class="stat">
         <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=draft">
             {{ _('Drafts') }}
             <span class="counter draft-counter">
