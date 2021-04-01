@@ -1274,6 +1274,41 @@ article#aid {
                 margin-bottom: 0;
             }
         }
+
+        & > div.aid-entreprise {
+            @include icon(before, $fa-var-building, 1.5rem);
+            
+            &::before {
+                margin-top: 0.5rem;
+            }
+        }
+
+        & > div.suggest-modification {
+            @include icon(before, $fa-var-pen, 1.5rem);
+            hyphens: none;
+
+            &::before {
+                margin-top: 0.2rem;
+            }
+
+            h3 {
+                margin-bottom: 1rem;
+            }
+    
+            div {
+                @extend .pb-3;
+            }
+    
+            @include media-breakpoint-up(md) {
+                div {
+                    padding: 0;
+                }
+            }
+    
+            a {
+                margin-bottom: 0 !important;
+            }
+        }
     }
 
     .aid-details {
@@ -1323,34 +1358,6 @@ article#aid {
             &.bundle {
                 @include icon(before, $fa-var-bars);
             }
-        }
-    }
-
-    div.suggest-modification {
-        @extend .col-md-12;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        border: solid 2px $font-color;
-        border-radius: 10px;
-        @extend .mb-5;
-        @extend .py-4;
-
-        div {
-            @extend .pb-3;
-            font-weight: bolder;
-        }
-
-        @include media-breakpoint-up(md) {
-            div {
-                padding: 0;
-            }
-        }
-
-        a {
-            @include icon(before, $fa-var-pen);
-            margin-bottom: 0 !important;
         }
     }
 

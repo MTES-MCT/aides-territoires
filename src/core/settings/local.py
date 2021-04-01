@@ -1,7 +1,7 @@
 import environ
 
 from .base import *  # noqa
-from .base import INSTALLED_APPS, MIDDLEWARE, TEMPLATES
+from .base import INSTALLED_APPS, MIDDLEWARE, TEMPLATES, CACHES
 
 DEBUG = True
 
@@ -31,6 +31,14 @@ DATABASES = {
     'default': env.db(
         default='psql://aidesterritoires:aidesterritoires@localhost/aidesterritoires')
 }
+
+cache_config = {
+    'default': {
+        'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': env('CACHE_LOCATION', default=''),
+    }
+}
+CACHES.update(cache_config)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['.aides-territoires.local'])
 
@@ -69,3 +77,8 @@ SIB_PUBLICATION_EMAIL_TEMPLATE_ID = env.int('SIB_PUBLICATION_EMAIL_TEMPLATE_ID',
 SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID = env.int('SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID', 0)
 
 ENABLE_DJANGO_STATIC_SERVE = env.bool('ENABLE_DJANGO_STATIC_SERVE', True)
+
+ENABLE_AID_LIST_API_CACHE = env.bool('ENABLE_AID_LIST_API_CACHE', False)
+AID_LIST_API_CACHE_TIMEOUT = env.int('AID_LIST_API_CACHE_TIMEOUT', 0)
+ENABLE_AID_DETAIL_API_CACHE = env.bool('ENABLE_AID_DETAIL_API_CACHE', False)
+AID_DETAIL_API_CACHE_TIMEOUT = env.int('AID_DETAIL_API_CACHE_TIMEOUT', 0)

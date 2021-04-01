@@ -1,0 +1,32 @@
+{% extends 'admin/change_form.html' %}
+
+{% block after_field_sets %}
+<div class="inline-group">
+    <fieldset>
+        <h2>{{ _('Aids by this author') }} ({{ other_aids.count }})</h2>
+
+        {% if other_aids %}
+            <table>
+                <thead>
+                    <th>Aide</th>
+                    <th>Statut</th>
+                    <th>Première date de publication</th>
+                    <th>Porteurs d’aides</th>
+                </thead>
+                <tbody>
+                    {% for aid in other_aids %}
+                    <tr>
+                        <td><a href="{{ aid.get_admin_url }}">{{ aid }}</a></td>
+                        <td>{{ aid.get_status_display }}</td>
+                        <td>{{ aid.date_published|default_if_none:'' }}</td>
+                        <td>{{ aid.financers.all|join:" / " }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div>{{ _('There are no related aids') }}</div>
+        {% endif %}
+    </fieldset>
+</div>
+{% endblock %}

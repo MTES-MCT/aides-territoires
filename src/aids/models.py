@@ -18,6 +18,7 @@ from django_xworkflows import models as xwf_models
 from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from tags.models import Tag
+from dataproviders.constants import IMPORT_LICENCES
 
 
 class AidWorkflow(xwf_models.Workflow):
@@ -231,11 +232,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('recurring', _('Recurring')),
     )
 
-    IMPORT_LICENCES = Choices(
-        ('unknown', _('Unknown')),
-        ('openlicence20', _('Open licence 2.0')),
-    )
-
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
     deleted_aids = DeletedAidsManager()
@@ -420,6 +416,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     is_imported = models.BooleanField(
         _('Is imported?'),
         default=False)
+    import_data_source = models.ForeignKey(
+        'dataproviders.DataSource',
+        verbose_name=_('Data Source'),
+        related_name='aids',
+        on_delete=models.PROTECT,
+        null=True)
     # Even if this field is a CharField, we make it nullable with `null=True`
     # because null values are not taken into account by postgresql when
     # enforcing the `unique` constraint, which is very handy for us.
@@ -581,8 +583,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_publication_date()
+        is_new = not self.id  # There's no ID => newly created aid
         is_being_published = self.is_published() and self.status_has_changed()
-        if is_being_published and not self.is_imported:
+        if not is_new and is_being_published and not self.is_imported:
             send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 
@@ -670,3 +673,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_generic(self):
         return self.local_aids.exists()
+
+    def is_corporate_aid(self):
+        return 'private_sector' in self.targeted_audiences

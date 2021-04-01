@@ -108,16 +108,16 @@ msgid "Contact phone number"
 msgstr "Numéro de téléphone"
 
 msgid "Is certified"
-msgstr "Certifié·e ?"
+msgstr "Certifié ?"
 
 msgid "Display a badge next to this user's aids"
 msgstr "Afficher un badge à côté des aides publiées par ce compte."
 
 msgid "User"
-msgstr "Utilisateur·ice"
+msgstr "Utilisateur"
 
 msgid "Users"
-msgstr "Utilisateur·ices"
+msgstr "Utilisateurs"
 
 msgid "register/"
 msgstr "inscription/"
@@ -147,11 +147,11 @@ msgid ""
 "You are now logged in. Welcome! Please take a few seconds to update your "
 "profile."
 msgstr ""
-"Vous êtes maintenant connecté·e. Bienvenue ! Pourriez-vous prendre quelques "
+"Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques "
 "secondes pour mettre à jour votre profil ?"
 
 msgid "You are now logged in. Welcome back!"
-msgstr "Vous êtes maintenant connecté·e. Bienvenue !"
+msgstr "Vous êtes maintenant connecté. Bienvenue !"
 
 msgid "Your contributor profile was updated successfully."
 msgstr "Votre profil a été mise à jour."
@@ -190,7 +190,7 @@ msgid "Author"
 msgstr "Auteur"
 
 msgid "Backers"
-msgstr "Porteur·s d'aides"
+msgstr "Porteurs d'aides"
 
 msgid "Perimeter"
 msgstr "Périmètre"
@@ -222,11 +222,17 @@ msgstr "Données liées à l'import"
 msgid "Misc data"
 msgstr "Données diverses"
 
+msgid "From the same author"
+msgstr "Du même auteur"
+
+msgid "Nb of (non-draft) aids by the same author"
+msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
+
 msgid "Financers"
-msgstr "Porteur·s d’aides"
+msgstr "Porteurs d’aides"
 
 msgid "Instructors"
-msgstr "Instructeur·s"
+msgstr "Instructeurs"
 
 msgid "Live"
 msgstr "Live"
@@ -384,7 +390,7 @@ msgid "Other eligibility criterias?"
 msgstr "Conditions d'éligibilité"
 
 msgid "Contact to apply"
-msgstr "Contact·s pour candidater"
+msgstr "Contact pour candidater"
 
 msgid "Feel free to add several contacts"
 msgstr "N'hésitez pas à ajouter plusieurs contacts"
@@ -405,10 +411,10 @@ msgid "Aid title"
 msgstr "Nom de l'aide"
 
 msgid "Aid backer(s)"
-msgstr "Porteur·s de l'aide"
+msgstr "Porteur de l'aide"
 
 msgid "Aid instructor(s)"
-msgstr "Instructeur·s de l'aide"
+msgstr "Instructeur de l'aide"
 
 msgid "…or add a new financer"
 msgstr "…ou ajoutez un nouveau porteur d'aide"
@@ -538,7 +544,7 @@ msgstr ""
 "périmètre souhaité."
 
 msgid "Aid categories"
-msgstr "Thématique(s) de l'aide"
+msgstr "Thématiques de l'aide"
 
 msgid "Choose one or several categories that match your aid."
 msgstr ""
@@ -860,9 +866,6 @@ msgstr "Importé ?"
 msgid "Unique identifier for imported data"
 msgstr "Identifiant d'import unique"
 
-msgid "Origin url of the imported data"
-msgstr "Url d'origine de la donnée importée"
-
 msgid "Under which license was this aid shared?"
 msgstr "Sous quelle licence cette aide a-t-elle été partagée ?"
 
@@ -988,11 +991,20 @@ msgstr ""
 "Vous avez atteint le nombre maximum d'alertes qu'il est possible de créer "
 "pour une seule adresse e-mail."
 
+msgid "Once"
+msgstr "Une seule fois"
+
 msgid "Daily"
 msgstr "Quotidiennement"
 
 msgid "Weekly"
 msgstr "Hebdomadairement"
+
+msgid "Monthly"
+msgstr "Mensuellement"
+
+msgid "Yearly"
+msgstr "Annuellement"
 
 msgid "Secret token"
 msgstr "Clé secrète"
@@ -1468,7 +1480,7 @@ msgstr "Projets"
 msgid "suggest/"
 msgstr "suggestion/"
 
-msgid "Thank you for contributing&nbsp;!"
+msgid "Thank you for contributing!"
 msgstr "Merci de votre contribution&nbsp;!"
 
 msgid "Style customization"
@@ -1675,7 +1687,7 @@ msgid "Log out"
 msgstr "Déconnexion"
 
 msgid "Aid backers"
-msgstr "Porteur·s d'aides"
+msgstr "Porteur d'aides"
 
 msgid "Publish your aids now !"
 msgstr "Diffusez vos aides dès maintenant !"
@@ -1720,14 +1732,14 @@ msgid "Select program(s)"
 msgstr "Sélectionnez un programme"
 
 msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le·s porteur·s"
+msgstr "Sélectionnez le ou les porteurs"
 
 msgid "Choose instructor(s) among the list."
-msgstr "Sélectionnez le·s instructeur·s parmi la liste."
+msgstr "Sélectionnez le ou les instructeurs parmi la liste."
 
 msgctxt "js_catalog"
 msgid "What kind of aids are you looking for?"
-msgstr "Quel·s type·s d\\'aide cherchez-vous ?"
+msgstr "Quels types d\\'aide cherchez-vous ?"
 
 msgctxt "js_catalog"
 msgid "When to mobilize the aid?"
@@ -1764,7 +1776,7 @@ msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
 
 msgid "Are you sure you want to quit? You might lose some changes."
 msgstr ""
-"Êtes-vous certain·e de vouloir quitter cette page ? Vos modifications seront "
+"Êtes-vous certain de vouloir quitter cette page ? Vos modifications seront "
 "perdues."
 
 msgid "No results were found."
@@ -1792,7 +1804,7 @@ msgid "Become a contributor"
 msgstr "Devenir contributeur"
 
 msgid "Are you a contributor?"
-msgstr "Vous êtes contributeur·ice ?"
+msgstr "Vous êtes contributeur ?"
 
 msgid "My portfolio"
 msgstr "Mon portefeuille d'aides"
@@ -2027,6 +2039,12 @@ msgstr ""
 "Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
 "territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
+msgid "Aids by this author"
+msgstr "Aides par cet auteur"
+
+msgid "There are no related aids"
+msgstr "Il n'y a pas d'aides à afficher"
+
 msgid "Amendment merge"
 msgstr "Intégration d'amendement"
 
@@ -2075,7 +2093,7 @@ msgid "Admin edit"
 msgstr "Éditer dans l'admin"
 
 msgid "The user left this comment:"
-msgstr "L'utilisateur·ice a laissé ce commentaire :"
+msgstr "L'utilisateur a laissé ce commentaire :"
 
 msgid "Update the aid and discard the amendment"
 msgstr "Mettre à jour l'aide et supprimer l'amendement"
@@ -2192,7 +2210,7 @@ msgid ""
 "\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
 "\">sign up for a new account</a>."
 msgstr ""
-"Vous devez être identifé·e pour utiliser les listes d'aides. <a href="
+"Vous devez être identifé pour utiliser les listes d'aides. <a href="
 "\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
 "\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
@@ -2279,7 +2297,7 @@ msgid ""
 "see it because you are the author."
 msgstr ""
 "Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
-"strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur·e."
+"strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur."
 
 msgid ""
 "Warning! This aid is <strong>no longer available</strong>. It is still "
@@ -2487,7 +2505,7 @@ msgid ""
 "to continue?"
 msgstr ""
 "Vous êtes sur le point de supprimer l'alerte « %(alert_title)s ». Êtes vous "
-"certain·e de vouloir continuer ?"
+"certain de vouloir continuer ?"
 
 msgid "Yes, delete this alert now"
 msgstr "Oui, supprimer cette alerte"
@@ -2545,7 +2563,7 @@ msgid ""
 "Leave your email to be informed in priority about new aids for your "
 "territory."
 msgstr ""
-"Laissez votre email pour être informé·e en priorité des nouvelles aides pour "
+"Laissez votre email pour être informé en priorité des nouvelles aides pour "
 "votre territoire."
 
 msgid "Register to the mailing-list"
@@ -2644,12 +2662,12 @@ msgid ""
 "<strong>Your subscription to the newsletter has been registered.</strong>"
 msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
 
-msgid "Do you want to extend your search&nbsp;?"
+msgid "Do you want to extend your search?"
 msgstr "Vous souhaitez élargir votre recherche&nbsp;?"
 
 msgid ""
 "Find all aids for all beneficiaries and all themes in <a href=\"https://"
-"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>&nbsp;!"
+"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>!"
 msgstr ""
 "Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
 "les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
@@ -2760,10 +2778,10 @@ msgstr "Recherche – Projet"
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "In what projects are you interested in&nbsp;?"
+msgid "In what projects are you interested in?"
 msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
 
-msgid "Contribute to improve Aides-territoires&nbsp;!"
+msgid "Contribute to improve Aides-territoires!"
 msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
 
 msgid "Tell us the project for which you are seeking aids."
@@ -2858,3 +2876,33 @@ msgid ""
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
+
+msgid "Send this aid by email"
+msgstr "Envoyer cette aide par email"
+
+msgid "Data Source"
+msgstr "Source de données"
+
+msgid "Data Sources"
+msgstr "Sources de données"
+
+msgid "Full description of the data source"
+msgstr "Description complète de la source de données"
+
+msgid "Additional details about this import"
+msgstr "Détails additionels concernant l'import"
+
+msgid "API url of the imported data"
+msgstr "Url de l'API de la donnée importée"
+
+msgid "Origin url of the imported data"
+msgstr "Url d'origine de la donnée importée"
+
+msgid "Under which license was this source imported?"
+msgstr "Sous quelle licence cette source a-t-elle été importée ?"
+
+msgid "Contact AT team"
+msgstr "Contact (team AT)"
+
+msgid "Contact backer"
+msgstr "Contact du porteur"

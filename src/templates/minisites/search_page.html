@@ -43,7 +43,14 @@
      {% include 'minisites/_search_form.html' %}
 {% endblock %}
 
+{% block modals %}
+    {% include 'alerts/_alert_modal.html' with form=form %}
+{% endblock %}
+
 {% block extra_js %}
+<script>
+    SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
+</script>
 {{ block.super }}
 {% compress js %}
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>

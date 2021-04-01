@@ -1,13 +1,14 @@
 import uuid
 
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
 from django.urls import reverse
 from model_utils import Choices
 
 from aids.models import Aid
+from search.utils import clean_search_querystring
 
 
 class Alert(models.Model):
@@ -34,6 +35,10 @@ class Alert(models.Model):
         max_length=32,
         choices=FREQUENCIES,
         default=FREQUENCIES.daily)
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
     validated = models.BooleanField(
         _('Confirmed?'),
         default=False)
@@ -57,6 +62,13 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.clean_querystring()
+        return super().save(*args, **kwargs)
+
+    def clean_querystring(self):
+        self.querystring = clean_search_querystring(self.querystring)
 
     def validate(self):
         self.validated = True

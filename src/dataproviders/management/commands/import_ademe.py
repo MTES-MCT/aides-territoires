@@ -3,6 +3,7 @@ from datetime import datetime
 from xml.etree import ElementTree
 import requests
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
@@ -95,7 +96,7 @@ class Command(BaseImportCommand):
         return ADEME_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line.find('.//titre').text

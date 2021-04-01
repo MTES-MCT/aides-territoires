@@ -51,13 +51,15 @@ class NouvelleAquitaineSpider(scrapy.Spider):
             'beneficiaires': '',
             'montant': '',
             'criteres': '',
-            'modalites': ''
+            'modalites': '',
+            # 'documents': '',
+            # 'contact': ''
         }
         for index, item in enumerate(response.css('div.dispositif-aide > div.mod-textSimple')):
             aid_details_key = list(aid_details.keys())[index]
             aid_details[aid_details_key] = content_prettify(item.get())
 
-        contact = response.css('div.contact-adresses').get()
+        contact = response.css('div.mod-contactAddress').get()
 
         current_url = response.request.url
 

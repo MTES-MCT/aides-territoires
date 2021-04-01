@@ -18,7 +18,7 @@ Rendez-vous sur Aides-territoires pour les découvrir.
 https://{{ domain }}{{ alert.get_absolute_url|safe }}
 {% endif %}
 
-N'hésitez pas à créer d’autres alertes pour être toujours bien informé·e.
+N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
 Vous pouvez également transférer cet email à vos partenaires afin qu'ils prennent connaissance de ces aides.
 
 Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :

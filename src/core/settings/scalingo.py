@@ -6,7 +6,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *  # noqa
-from .base import INSTALLED_APPS, TEMPLATES
+from .base import TEMPLATES, CACHES
 
 
 # Sometime, we want to load Scalingo environment from a dotenv file.
@@ -63,6 +63,14 @@ LOCALE_PATHS = [
     Path(DJANGO_ROOT, 'locales'),
 ]
 
+cache_config = {
+    'default': {
+        'BACKEND': env('CACHE_BACKEND', default='django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': env('CACHE_LOCATION', default=''),
+    }
+}
+CACHES.update(cache_config)
+
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='memory://')
 CELERY_TASK_ALWAYS_EAGER = env('CELERY_TASK_ALWAYS_EAGER', default=True)
 CELERY_TASK_EAGER_PROPAGATES = env('CELERY_TASK_EAGER_PROPAGATES', default=True)
@@ -110,3 +118,8 @@ CSRF_COOKIE_SECURE = True
 # Piwik goal tracking ids
 GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID', 1)
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID', 2)
+
+ENABLE_AID_LIST_API_CACHE = env.bool('ENABLE_AID_LIST_API_CACHE', False)
+AID_LIST_API_CACHE_TIMEOUT = env.int('AID_LIST_API_CACHE_TIMEOUT', 0)
+ENABLE_AID_DETAIL_API_CACHE = env.bool('ENABLE_AID_DETAIL_API_CACHE', False)
+AID_DETAIL_API_CACHE_TIMEOUT = env.int('AID_DETAIL_API_CACHE_TIMEOUT', 0)

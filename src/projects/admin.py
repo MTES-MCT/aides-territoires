@@ -3,9 +3,15 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
+from import_export.admin import ImportExportActionModelAdmin
+from import_export.formats import base_formats
+from import_export import fields, resources
+from import_export.widgets import ManyToManyWidget
+
 from core.forms import RichTextField
 from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
+from categories.models import Category
 
 
 class ProjectForm(forms.ModelForm):
@@ -21,8 +27,24 @@ class ProjectForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectResource(resources.ModelResource):
 
+    categories = fields.Field(
+        column_name='categories',
+        attribute='categories',
+        widget=ManyToManyWidget(Category, field='name')
+    )
+
+    class Meta:
+        model = Project
+        fields = ('name', 'description', 'categories', 'date_created')
+        export_order = ('name', 'description', 'categories', 'date_created')
+
+
+class ProjectAdmin(ImportExportActionModelAdmin):
+
+    resource_class = ProjectResource
+    formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}

@@ -5,6 +5,7 @@ import locale
 import hashlib
 from datetime import datetime
 
+from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
 from geofr.models import Perimeter
@@ -97,7 +98,7 @@ class Command(CrawlerImportCommand):
         return SOURCE_URL
 
     def extract_import_share_licence(self, line):
-        return Aid.IMPORT_LICENCES.unknown
+        return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line['title'][:180]
@@ -105,6 +106,8 @@ class Command(CrawlerImportCommand):
 
     def extract_description(self, line):
         description = line['description']
+        if line['objectifs']:
+            description += '<strong>{}</strong>: {}<br /><br />'.format('Objectifs', line['objectifs'])
         return description
 
     def extract_origin_url(self, line):
@@ -112,7 +115,17 @@ class Command(CrawlerImportCommand):
         return origin_url
 
     def extract_eligibility(self, line):
-        return ELIGIBILITY_TXT
+        eligibility = ''
+        metadata = {
+            'calendrier': 'Calendrier',
+            'beneficiaires': 'Bénéficiaires',
+            'criteres': 'Critères de sélection',
+            'modalites': 'Comment faire ma demande ?',
+        }
+        for elem in metadata:
+            if line[elem]:
+                eligibility += '<strong>{}</strong>: {}<br /><br />'.format(metadata[elem], line[elem])
+        return eligibility
 
     def extract_perimeter(self, line):
         return self.nouvelle_aquitaine_perimeter
@@ -177,14 +190,10 @@ class Command(CrawlerImportCommand):
         content = ''
         metadata = {
             'categorie': 'Thématique',
-            'domaines_secondaires': 'Domaines secondaires',
+            # 'domaines_secondaires': 'Domaines secondaires',
             'is_dispositif_europe': 'Dispositif de l\'UE',
-            'objectifs': 'Objectifs',
-            'calendrier': 'Calendrier',
-            'beneficiaires': 'Bénéficiaires',
-            'criteres': 'Critères de sélection',
-            'modalites': 'Comment faire ma demande ?',
-            'pub_date': 'Date de publication'
+            # 'objectifs': 'Objectifs',
+            # 'pub_date': 'Date de publication'
         }
         for elem in metadata:
             if line[elem]:
