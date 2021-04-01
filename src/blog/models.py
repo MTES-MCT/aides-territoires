@@ -1,10 +1,22 @@
+from os.path import splitext
+
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
+
+
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = 'blog/{}_logo{}'.format(name, extension)
+    return filename
 
 
 class BlogPostWorkflow(xwf_models.Workflow):
@@ -36,6 +48,8 @@ class BlogPostQuerySet(models.QuerySet):
 
 class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
+    objects = BlogPostQuerySet.as_manager()
+
     title = models.CharField(
         _('Title'),
         max_length=256,
@@ -52,6 +66,11 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     text = models.TextField(
         _('Full text of the post'),
         blank=False)
+    logo = models.FileField(
+        _('Logo image'),
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
 
     category = models.ForeignKey(
         'BlogPostCategory',
@@ -90,8 +109,9 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
         null=True, blank=True)
 
     class Meta:
-        verbose_name = 'BlogPost'
-        verbose_name_plural = 'BlogPosts'
+        verbose_name = 'Blog Post'
+        verbose_name_plural = 'Blog Posts'
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.title
@@ -104,6 +124,9 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('blog_post_detail_view', args=[self.slug])
 
     def is_draft(self):
         return self.status == BlogPostWorkflow.states.draft
@@ -125,7 +148,7 @@ class BlogPostCategory(models.Model):
     slug = models.SlugField(
         _('Slug'),
         help_text=_('Let it empty so it will be autopopulated.'),
-        blank=True)
+        unique=True)
     description = models.TextField(
         _('Description of the category'),
         blank=False)
@@ -134,8 +157,8 @@ class BlogPostCategory(models.Model):
         default=timezone.now)
 
     class Meta:
-        verbose_name = 'BlogPostCategory'
-        verbose_name_plural = 'BlogPostCategories'
+        verbose_name = 'Blog Post Category'
+        verbose_name_plural = 'Blog Post Categories'
 
     def __str__(self):
         return self.name
@@ -148,3 +171,6 @@ class BlogPostCategory(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('blog_post_list_view', kwargs={'category': self.slug})

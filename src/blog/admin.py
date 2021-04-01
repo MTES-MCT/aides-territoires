@@ -30,6 +30,7 @@ class BlogPostAdmin(admin.ModelAdmin):
                 'title',
                 'slug',
                 'short_text',
+                'logo',
                 'text',
                 'category',
                 'status',

@@ -9,33 +9,20 @@ class BlogPostList(ListView):
     paginate_by = 18
 
     def get_queryset(self):
-        if self.kwargs:
-            if self.kwargs['category']:
-                category = self.kwargs['category']
-                category_slug = BlogPostCategory.objects \
-                    .filter(slug=category) \
-                    .values('id') \
-                    .distinct()
-
-                return BlogPost.objects \
-                    .select_related('category') \
-                    .filter(status='published') \
-                    .filter(category__in=category_slug) \
-                    .order_by('-date_created')
-
-        else:
-            return BlogPost.objects \
-                .select_related('category') \
-                .filter(status='published') \
-                .order_by('-date_created')
+        queryset = BlogPost.objects.select_related('category').published()
+        category_slug = self.kwargs.get('category')
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.kwargs:
-            if self.kwargs['category']:
-                context['category'] = BlogPostCategory.objects \
-                        .get(slug=self.kwargs['category'])
-
+        categories = BlogPostCategory.objects.all()
+        context['categories'] = categories
+        category_slug = self.kwargs.get('category')
+        if category_slug:
+            context['selected_category'] = \
+                categories.filter(slug=category_slug).first()
         return context
 
 
@@ -48,4 +35,10 @@ class BlogPostDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['related_articles'] = BlogPost.objects \
+            .select_related('category') \
+            .filter(status='published') \
+            .filter(category=self.object.category) \
+            .exclude(id=self.object.id)
         return context

@@ -25,9 +25,24 @@
         </div> 
 
         {% if post.text %}
+        <div>
             {{ post.text|safe }}
-        {% endif %}   
-        
+        </div>
+        {% endif %}
+
+        {% if related_articles %}
+        <div id="related-articles">
+            <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
+            <ul>
+            {% for related_article in related_articles %}
+            <li>
+                <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
     </section>
 
 </article>

@@ -11,11 +11,11 @@
 <section id="post-list">
 
     <div id="blog-content">
-        {% if category %}
+        {% if selected_category %}
             <h1>
-                {{ category.name }}
+                {{ selected_category.name }}
             </h1>
-            <p>{{ category.description }}</p>
+            <p>{{ selected_category.description }}</p>
         {% else %}
         <h1>
             {{ _('Blog') }}
@@ -24,16 +24,14 @@
             beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
             illum iusto, veritatis perspiciatis neque?
         </p>
-            {% if posts %}
+            {% if not selected_category %}
                 <div id="search-posts">
                     <button class="btn filter-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Filtrer les articles par catégorie
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for post in posts|dictsort:'category.name' %}
-                    {% ifchanged %}
-                    <a class="dropdown-item" href="{% url 'blog_post_list_view' category=post.category.name|lower %}">{{ post.category.name }}</a>
-                    {% endifchanged %}
+                    {% for category in categories %}
+                        <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                     {% endfor %}
                     </div>
                   </div>
@@ -45,15 +43,23 @@
     <div class="posts">
         {% for post in posts %}
             <article id="post">
-                <div>
-                    <h1><a href="{% url 'blog_post_detail_view' post.slug %}">
-                        {{ post.title }}
-                    </a></h1>
-                    <p>{{ post.short_text }}</p>
-                    <div>
-                        <a class="cta-btn" href="{% url 'blog_post_detail_view' post.slug %}">Voir plus</a>
+                    {% if post.logo %}
+                    <div id="post-thumbnail">
+                        <img src="{{ post.logo.url }}" alt="{{ post.title }}">
                     </div>
-                </div>
+                    {% endif %}
+                    <div>
+                        <h2><a href="{{ post.get_absolute_url }}">
+                            {{ post.title }}
+                        </a></h2>
+                        <p>{{ post.short_text }}</p>
+                        <div id="more-infos">
+                            <p class="post_categorie">{{ post.category.name }}</p>
+                            <div id="show-article">
+                                <a class="cta-btn" href="{{ post.get_absolute_url }}">Lire l'article</a>
+                            </div>
+                        </div>
+                    </div>
             </article>
         {% endfor %}
     </div>
