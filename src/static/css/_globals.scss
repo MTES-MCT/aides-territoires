@@ -199,7 +199,6 @@ body > footer {
         }
 
         & > #accessibility {
-            @extend .mt-4;
             @extend .col-12;
             @extend .order-md-3;
             @extend .order-3;
@@ -211,6 +210,10 @@ body > footer {
             @extend .order-2;
             @extend .col-12;
             @extend .my-3;
+            
+            @include media-breakpoint-down(md) {
+                margin-top: 0 !important;
+            }
 
             & p {
                 font-size: 1.25rem;
