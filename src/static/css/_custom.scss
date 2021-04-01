@@ -1163,6 +1163,10 @@ article#aid {
             &::before {
                 margin-top: 0.2rem;
             }
+
+            h3 {
+                margin-bottom: 1rem;
+            }
     
             div {
                 @extend .pb-3;
