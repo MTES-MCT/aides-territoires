@@ -1159,6 +1159,7 @@ article#aid {
 
         & > div.suggest-modification {
             @include icon(before, $fa-var-pen, 1.5rem);
+            hyphens: none;
 
             &::before {
                 margin-top: 0.2rem;
