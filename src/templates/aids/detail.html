@@ -289,6 +289,18 @@
                     </div>
                 </div>
                 {% endif %}
+
+                <div class="card">
+                    <div class="suggest-modification">
+                        <div>
+                            <h3><strong>Améliorer cette aide</strong></h3>
+                            <p>Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
+                        </div>
+                        <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
+                            Envoyez-nous un e-mail
+                        </a>   
+                    </div> 
+                </div>
             </div>
 
         <div class="aid-details">
@@ -381,15 +393,6 @@
 
         <footer class="mobile-center">
             {% block aid_footer %}
-            <div class="suggest-modification">
-                <div>
-                    <p>Une question, une remarque sur cette aide&nbsp;?</p>
-                    <p>Envoyez-nous un e-mail</p>
-                </div>
-                <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
-                    Contacter Aides-territoires
-                </a>    
-            </div>
             <a id="share-btn" href="#" class="js" data-toggle="modal" data-target="#share-modal">
                 {{ _('Share this aid') }}
             </a>
