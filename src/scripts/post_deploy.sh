@@ -7,5 +7,4 @@
 
 echo "Entering post deploy hook"
 python manage.py migrate
-python manage.py compress --force
 echo "Completed post deploy hook"
