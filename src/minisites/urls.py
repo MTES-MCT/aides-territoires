@@ -70,11 +70,12 @@ handler403 = Error.as_view(template_name='minisites/403.html', status_code=403)
 handler404 = Error.as_view(template_name='minisites/404.html', status_code=404)
 
 
-if settings.DEBUG:
+if settings.DEBUG and 'debug_toolbar' in settings.INSTALLED_APPS:
     import debug_toolbar
     urlpatterns = [
         path(r'__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
+if settings.DEBUG and settings.ENABLE_DJANGO_STATIC_SERVE:
     urlpatterns = static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + urlpatterns
