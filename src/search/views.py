@@ -73,6 +73,11 @@ class CategorySearch(SearchMixin, FormView):
         filter_form = AidSearchForm(initial)
         theme_aids = filter_form.filter_queryset()
 
+        context['suggest_project'] = any((
+            'energies-dechets' in self.request.GET.getlist('themes', []),
+            'urbanisme-logement-amenagement'
+            in self.request.GET.getlist('themes', [])))
+
         context['total_aids'] = theme_aids \
             .values('id') \
             .distinct() \
