@@ -1,0 +1,55 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ post.meta_title|default:post.title }}{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.short_text }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'blog_post_list_view' %}">{{ _('Blog') }}</a></li>
+        <li class="active" aria-current="page">{{ post.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article id="post">
+
+    <section id="post-content">
+
+        <div id="post-title">
+            <h1>{{ post.title }}</h1>
+            <p class="post_categorie">{{ post.category.name }}</p>
+        </div> 
+
+        {% if post.text %}
+        <div>
+            {{ post.text|safe }}
+        </div>
+        {% endif %}
+
+        {% if related_articles %}
+        <div id="related-articles">
+            <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
+            <ul>
+            {% for related_article in related_articles %}
+            <li>
+                <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </section>
+
+</article>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/links_on_images.js"></script>
+{% endcompress %}
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+
+{% block extratitle %}{{ post.title }}{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+<section id="post-list">
+
+    <div id="blog-content">
+        {% if selected_category %}
+            <h1>
+                {{ selected_category.name }}
+            </h1>
+            <p>{{ selected_category.description }}</p>
+        {% else %}
+        <h1>
+            {{ _('Blog') }}
+        </h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque dolorum sed cumque 
+            beatae unde esse quam! Aliquam quasi corrupti unde magnam facilis culpa? Quas impedit 
+            illum iusto, veritatis perspiciatis neque?
+        </p>
+            {% if not selected_category %}
+                <div id="search-posts">
+                    <button class="btn filter-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filtrer les articles par catégorie
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for category in categories %}
+                        <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                    {% endfor %}
+                    </div>
+                  </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% if posts %}
+    <div class="posts">
+        {% for post in posts %}
+            <article id="post">
+                    {% if post.logo %}
+                    <div id="post-thumbnail">
+                        <img src="{{ post.logo.url }}" alt="{{ post.title }}">
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h2><a href="{{ post.get_absolute_url }}">
+                            {{ post.title }}
+                        </a></h2>
+                        <p>{{ post.short_text }}</p>
+                        <div id="more-infos">
+                            <p class="post_categorie">{{ post.category.name }}</p>
+                            <div id="show-article">
+                                <a class="cta-btn" href="{{ post.get_absolute_url }}">Lire l'article</a>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="posts">
+        <div id="no_result">
+            <p>Aucun article n'est disponible.</p>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+{% include '_pagination.html' %}
+
+{% endblock %}

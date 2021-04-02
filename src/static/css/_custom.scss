@@ -382,7 +382,6 @@ div.search-meta {
 section#aid-list,
 section#program-list {
 
-
     &.loading {
         opacity: 0.3;
     }
@@ -560,6 +559,133 @@ section#program-list {
 
                 a {
                     @extend .dropdown-item;
+                }
+            }
+        }
+    }
+}
+
+section#post-list {
+    #blog-content, 
+    #no_result, 
+    #post {
+        @extend .mb-5;
+        @extend .px-5;
+        @extend .py-4;
+        background-color: #fff;
+        color: $font-color;
+        border-radius: 2rem 0 2rem 2rem;
+
+        h2 {
+            @extend .h5;
+            @extend .card-title;
+            @extend .pb-3;
+            text-align: left;
+
+            a {
+                color: $font-color;
+            }
+
+            &::after {
+                content: "";
+                color: transparent;
+                background-color: #DB1C83;
+                display: block;
+                width: 6rem;
+                height: 0px;
+                max-height: 1px;
+                padding: 0;
+                border: 2px solid #DB1C83;
+                border-radius: 4px;
+                margin: 0.5rem 0 0 0 !important; 
+
+                @include media-breakpoint-up(md) {
+                    margin: 0.5rem 0 0 0;
+                }
+            }
+        }
+
+        p {
+            @extend .mb-3;
+        }
+
+        #search-posts {
+    
+            button.filter-btn {
+                @extend .btn;
+                @extend .btn-primary;
+                @extend .mb-2;
+                @include icon(before, $fa-var-search);
+
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 0rem;
+                }
+            }
+        }
+    }
+
+    #no_result {
+        p {
+            margin-bottom: 0 !important;
+            font-weight: bolder;
+        }
+    }
+
+    #post {
+        background-color: #fff;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+
+        @include media-breakpoint-up(md) {
+            flex-wrap: nowrap;
+        }
+    }
+
+    #post > #post-thumbnail {
+
+        margin-bottom: 2rem;
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: 0;
+        }
+
+        img {
+            max-width: 300px;
+            max-height: 200px;
+        }
+    }
+    
+    #post > div {
+
+        @extend .mt-2;
+        @extend .mx-4;
+
+        h1 {
+            margin-bottom: 1rem !important;
+
+            &::after {
+                margin: 0.5rem 0 0 0 !important; 
+
+                @include media-breakpoint-up(md) {
+                    margin: 0.5rem 0 0 0;
+                }
+            }
+        }
+
+        div#more-infos {
+            display: flex;
+            justify-content: space-between;
+
+            div#show-article {
+                display: flex;
+                justify-content: flex-end;
+                @extend .pt-0;
+        
+                .cta-btn {
+                    @extend .btn;
+                    @extend .btn-primary;
                 }
             }
         }
@@ -1806,7 +1932,9 @@ div#search-steps {
     }
 }
 
-#backer-content, #program-content {
+#backer-content, 
+#program-content, 
+#post-content {
 
     @extend .px-5;
     @extend .mb-5;
@@ -1823,6 +1951,39 @@ div#search-steps {
     #program-logo img {
         max-height: $height-img-base;
         @extend .pr-4;
+    }
+
+    #post-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: 2rem;
+        }
+    }
+
+    #related-articles {
+        @extend .my-5;
+        font-weight: bolder;
+    }
+}
+
+.post_categorie {
+    @include icon(before, $fa-var-tags);
+    font-weight: bolder;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+
+    @include media-breakpoint-up(md) {
+        margin-top: 0rem;
+        margin-bottom: 2rem;
+    }
+
+    &::before {
+        color: $contrast-color;
     }
 }
 

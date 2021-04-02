@@ -40,7 +40,8 @@
                 {{ _('Last') }}
             </a></li>
         {% endif %}
-    </ul>
+    </ul> 
+    {% if aids %}
     <div id="show_more" class="d-none">
         {% if page_obj.has_next %}
             <button id="show_more_btn">
@@ -52,5 +53,6 @@
             </button>
         {% endif %}
     </div>
+    {% endif %}
 </nav>
 {% endif %}
