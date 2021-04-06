@@ -1,2 +1,2 @@
-web: bash scripts/start.sh
+web: bash scripts/start.sh $WSGI_MODULE
 postdeploy: bash scripts/post_deploy.sh
