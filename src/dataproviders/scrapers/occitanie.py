@@ -5,14 +5,14 @@ from dataproviders.utils import content_prettify
 from bs4 import BeautifulSoup as bs
 
 
-def custom_prettify(raw_text):
+def custom_prettify(raw_text, base_url=None):
     """Prettify content and performs some specific cleaning tasks."""
     soup = bs(raw_text, features='html.parser')
     download_box = soup.select('div.boite_telechargements_libre')
     for box in download_box:
         box.decompose()
 
-    return content_prettify(soup.prettify())
+    return content_prettify(soup.prettify(), base_url=base_url)
 
 
 class OccitanieSpider(scrapy.Spider):
@@ -43,7 +43,8 @@ class OccitanieSpider(scrapy.Spider):
 
         yield {
             'title': content_prettify(title),
-            'description': custom_prettify(description),
+            'description': custom_prettify(
+                description, base_url=self.BASE_URL),
             'url': fields['url'],
             'uniqueid': response.meta['uniqueid'],
             'thematique': fields.get('thematique', None),
