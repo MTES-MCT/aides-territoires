@@ -6,7 +6,8 @@ from search.utils import (
     get_querystring_perimeter,
     get_querystring_themes, get_querystring_categories,
     get_querystring_backers, get_querystring_programs)
-from stats.models import AidViewEvent, AidSearchEvent, Event
+from stats.models import (AidViewEvent, AidSearchEvent, Event,
+                          AidMatchProjectEvent)
 
 
 @app.task
@@ -18,6 +19,14 @@ def log_aidviewevent(aid_id, querystring='', source=''):
             aid_id=aid_id,
             querystring=querystring_cleaned,
             source=source_cleaned)
+
+
+@app.task
+def log_aidmatchprojectevent(aid_id, project_id=''):
+
+    AidMatchProjectEvent.objects.create(
+            aid_id=aid_id,
+            project_id=project_id)
 
 
 @app.task

@@ -188,7 +188,10 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         PerimeterAutocompleteFilter,
         'programs', 'categories']
 
-    filter_vertical = ['categories', 'projects']  # Overriden in the widget definition
+    filter_vertical = [
+        'categories',
+        'projects',
+    ]  # Overriden in the widget definition
     readonly_fields = [
         'sibling_aids',
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa

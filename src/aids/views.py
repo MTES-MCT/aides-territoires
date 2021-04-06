@@ -33,7 +33,8 @@ from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
-from stats.utils import log_aidviewevent, log_aidsearchevent
+from stats.utils import (log_aidviewevent, log_aidsearchevent,
+                         log_aidmatchprojectevent)
 
 
 class AidPaginator(Paginator):
@@ -529,6 +530,13 @@ class AidProjectUpdate(UpdateView):
             updateAid = aid
             updateAid.projects.set(projects)
             updateAid.save()
+
+            project_id_list = [project.id for project in projects]
+
+            log_aidmatchprojectevent.delay(
+                aid_id=self.object.id,
+                project_id=int(''.join(str(i) for i in project_id_list))
+            )
 
             msg = _('Merci pour votre contribution!')
             messages.success(self.request, msg)

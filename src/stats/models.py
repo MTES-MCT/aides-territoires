@@ -132,3 +132,23 @@ class Event(models.Model):
         indexes = [
             models.Index(fields=['category', 'event']),
         ]
+
+
+class AidMatchProjectEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    project = models.ForeignKey(
+        'projects.Project',
+        verbose_name=_('Project'),
+        on_delete=models.PROTECT)
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = _('Aid Match Project Event')
+        verbose_name_plural = _('Aid Match Project Events')
