@@ -66,10 +66,11 @@ class GrandEstSpider(scrapy.Spider):
 
         yield {
             'title': content_prettify(title),
-            'description': content_prettify(description),
+            'description': content_prettify(
+                description, base_url=self.BASE_URL),
             'current_url': current_url,
             'uniqueid': unique_id,
-            'contact': content_prettify(contact),
+            'contact': content_prettify(contact, base_url=self.BASE_URL),
             'category': response.meta['category'],
             'is_call_for_project': response.meta['is_call_for_project'],
             'submission_deadline': response.meta['submission_deadline'],

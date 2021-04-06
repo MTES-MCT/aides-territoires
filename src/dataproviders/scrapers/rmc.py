@@ -26,7 +26,8 @@ class RMCSpider(scrapy.Spider):
 
         yield {
             'title': title,
-            'description': content_prettify(description),
+            'description': content_prettify(
+                description, base_url=self.BASE_URL),
             'current_url': current_url,
             'uniqueid': unique_id,
         }
