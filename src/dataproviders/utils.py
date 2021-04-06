@@ -1,17 +1,21 @@
 from html import unescape
 from unicodedata import normalize
 from bs4 import BeautifulSoup as bs
+from urllib.parse import urljoin
 
 REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'br',
+    'br', 'a'
 ]
 ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style',
                  'target', 'rel']  # for links opening in a new tab
 
 
-def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
+def content_prettify(raw_text,
+                     more_allowed_tags=[],
+                     more_allowed_attrs=[],
+                     base_url=None):
     """Clean imported data.
 
     We import data from many data sources, and it's not always directly
@@ -24,6 +28,7 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
      * removes all `script` html tags
      * removes most of html tags (but leave their content)
      * removes all html tag attributes
+     * replaces relative urls with absolute ones
      * autoindent existing html
 
     """
@@ -63,6 +68,10 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[]):
                 # Remove tags with empty strings (or newlines, etc.)
                 elif tag.string and not tag.string.strip():
                     tag.decompose()
+
+                # Replace relative urls with absolute ones
+                if tag.name == 'a' and base_url:
+                    tag['href'] = urljoin(base_url, tag['href'])
 
             # Some tags are not allowed, but we do not want to remove
             # their content.
