@@ -13,8 +13,10 @@ from accounts.admin import AuthorFilter
 
 
 class EligibilityTestForm(forms.ModelForm):
-    introduction = RichTextField()
-    conclusion = RichTextField()
+    introduction = RichTextField(label='Une introduction')
+    conclusion_success = RichTextField(label='Une conclusion si le test est positif')  # noqa
+    conclusion_failure = RichTextField(label='Une conclusion si le test est négatif')  # noqa
+    conclusion = RichTextField(label='Une conclusion générale')
 
     class Meta:
         model = EligibilityTest
@@ -32,15 +34,20 @@ class EligibilityTestAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = [AuthorFilter]
     form = EligibilityTestForm
-    autocomplete_fields = ['author']
     inlines = [EligibilityQuestionInline]
-    readonly_fields = ['date_created', 'date_updated', 'display_related_aids']
+    readonly_fields = ['author', 'date_created', 'date_updated',
+                       'display_related_aids']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.select_related('author') \
                .annotate(aid_count=Count('aids'))
         return qs
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
 
     def nb_aids(self, eligibility_test):
         return eligibility_test.aid_count
@@ -97,8 +104,8 @@ class EligibilityQuestionAdmin(admin.ModelAdmin):
     list_display = ['text', 'author', 'nb_tests', 'date_created']
     search_fields = ['text']
     list_filter = [AuthorFilter]
-    autocomplete_fields = ['author']
-    readonly_fields = ['date_created', 'date_updated', 'display_related_tests']
+    readonly_fields = ['author', 'date_created', 'date_updated',
+                       'display_related_tests']
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -106,6 +113,11 @@ class EligibilityQuestionAdmin(admin.ModelAdmin):
                .prefetch_related('eligibility_tests') \
                .annotate(test_count=Count('eligibility_tests'))
         return qs
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
 
     def nb_tests(self, eligibility_question):
         return eligibility_question.test_count
