@@ -12,5 +12,7 @@ if [ -z "$WSGI_MODULE" ]
 fi
 echo "Using WSGI module: $WSGI_MODULE"
 python manage.py compilemessages
+python manage.py collectstatic --noinput
+python manage.py compress --force
 gunicorn $WSGI_MODULE --log-file -
 echo "Completed deployment start script"
