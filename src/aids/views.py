@@ -530,6 +530,10 @@ class AidProjectUpdate(UpdateView):
             updateAid.projects.set(projects)
             updateAid.save()
 
-            success_url = reverse('aid_detail_view', args=[self.object.slug])
-            redirect = HttpResponseRedirect(success_url)
-            return redirect
+            msg = _('Merci pour votre contribution!')
+            messages.success(self.request, msg)
+            return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        success_url = reverse('aid_detail_view', args=[self.object.slug])
+        return '{}'.format(success_url)

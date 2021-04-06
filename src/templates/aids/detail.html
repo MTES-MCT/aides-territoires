@@ -308,6 +308,13 @@
 
             {% if current_search_dict.projects %}
             <div id="fit-project">
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
+                        {% endfor %}
+                    </div>
+                {% else %}
                 <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />
@@ -316,6 +323,7 @@
                         <button class="btn" type="submit">Oui</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
             {% endif %}
 
