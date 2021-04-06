@@ -6,6 +6,9 @@ from backers.models import Backer
 from programs.models import Program
 
 
+SEARCH_EXTRA_FIELDS = ['integration', 'order_by', 'action']
+
+
 def extract_id_from_string(id_slug_str):
     """
     For some models, we display in the querystring
@@ -19,7 +22,19 @@ def extract_id_from_string(id_slug_str):
         return None
 
 
-def clean_search_querystring(querystring):
+def clean_search_form(search_form, remove_extra_fields=False):
+    """
+    By cleaning the form, we can detect if it is empty for example.
+    """
+    # Keep only keys with a value
+    search_form_dict = {k: v for k, v in search_form.items() if v}
+    # Remove extra fields
+    if remove_extra_fields:
+        search_form_dict = {k: v for k, v in search_form_dict.items() if k not in SEARCH_EXTRA_FIELDS}  # noqa
+    return search_form_dict
+
+
+def clean_search_querystring(querystring, remove_extra_fields=False, return_querydict=False):  # noqa
     """
     - remove starting '?' if it exists
     - remove empty params
@@ -35,7 +50,10 @@ def clean_search_querystring(querystring):
     for k, v in querydict.lists():
         values_without_empty = list(filter(None, v))
         if values_without_empty:
-            querydict_cleaned.setlist(k, values_without_empty)
+            if not remove_extra_fields or (remove_extra_fields and (k not in SEARCH_EXTRA_FIELDS and values_without_empty[0] != 'False')):  # noqa
+                querydict_cleaned.setlist(k, values_without_empty)
+    if return_querydict:
+        return querydict_cleaned
     # Transform the cleaned querydict into a querystring
     querystring_cleaned = querydict_cleaned.urlencode()
     return querystring_cleaned
