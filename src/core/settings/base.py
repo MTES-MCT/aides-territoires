@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'anymail',
     'django_celery_beat',
+    'adminsortable2',
 ]
 
 LOCAL_APPS = [
@@ -69,6 +70,7 @@ LOCAL_APPS = [
     'emails',
     'projects',
     'blog',
+    'eligibility',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

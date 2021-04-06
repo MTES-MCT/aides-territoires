@@ -17,8 +17,8 @@ class DataSourceAdmin(admin.ModelAdmin):
                .annotate(aid_count=Count('aids'))
         return qs
 
-    def nb_aids(self, elgibility_test):
-        return elgibility_test.aid_count
+    def nb_aids(self, data_source):
+        return data_source.aid_count
     nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 

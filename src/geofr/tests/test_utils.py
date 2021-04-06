@@ -27,7 +27,7 @@ def test_get_all_related_perimeter_ids(perimeters):
     """Finding related perimeters works as expected."""
 
     related_perimeters_france = get_all_related_perimeter_ids(perimeters['herault'].id)  # noqa
-    print(related_perimeters_france)
+
     assert {'id': perimeters['france'].id} in related_perimeters_france
     assert {'id': perimeters['montpellier'].id} in related_perimeters_france
     assert {'id': perimeters['aveyron'].id} not in related_perimeters_france

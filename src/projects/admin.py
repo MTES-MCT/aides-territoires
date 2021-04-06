@@ -58,9 +58,10 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     filter_vertical = ['categories']
 
     class Media:
-        css = {'all': (
-            'css/admin.css',
-            '/static/trumbowyg/dist/ui/trumbowyg.css',
+        css = {
+            'all': (
+                'css/admin.css',
+                '/static/trumbowyg/dist/ui/trumbowyg.css',
             )
         }
         js = [

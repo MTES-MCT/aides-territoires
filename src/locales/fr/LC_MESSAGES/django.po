@@ -2903,3 +2903,9 @@ msgstr "Contact (team AT)"
 
 msgid "Contact backer"
 msgstr "Contact du porteur"
+
+msgid "Eligibility test"
+msgstr "Test d'éligibilité"
+
+msgid "Eligibility tests"
+msgstr "Tests d'éligibilité"
