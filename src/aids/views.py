@@ -513,3 +513,23 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
+
+
+class AidProjectUpdate(UpdateView):
+    """Update an aid projects."""
+    model = Aid
+    fields = ['projects']
+
+    def post(self, request, *args, **kwargs):
+        self.object = aid = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            projects = form.cleaned_data['projects']
+            updateAid = aid
+            updateAid.projects.set(projects)
+            updateAid.save()
+
+            success_url = reverse('aid_detail_view', args=[self.object.slug])
+            redirect = HttpResponseRedirect(success_url)
+            return redirect

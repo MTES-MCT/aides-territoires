@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n aids compress %}
+{% load i18n aids%}
 {% load settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
@@ -304,6 +305,19 @@
             </div>
 
         <div class="aid-details">
+
+            {% if current_search_dict.projects %}
+            <div id="fit-project">
+                <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />
+                    <p>Cette aide est-elle pertinente pour votre projet&nbsp;?</p>
+                    <div>
+                        <button class="btn" type="submit">Oui</button>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
 
             <h2>{{ _('Global presentation') }}</h2>
 

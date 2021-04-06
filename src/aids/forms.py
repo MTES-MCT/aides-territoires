@@ -14,6 +14,7 @@ from core.forms import (
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
+from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
@@ -284,6 +285,7 @@ class AidEditForm(BaseAidForm):
             'application_url',
             'contact',
             'local_characteristics',
+            'projects'
         ]
         widgets = {
             'mobilization_steps': MultipleChoiceFilterWidget,
@@ -400,6 +402,10 @@ class BaseAidSearchForm(forms.Form):
     backers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
+        required=False)
+    projects = AutocompleteModelMultipleChoiceField(
+        label=_('Projects'),
+        queryset=Project.objects.all(),
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label=_('Aid programs'),
@@ -743,3 +749,11 @@ class DraftListAidFilterForm(forms.Form):
         label=_('Display status'),
         required=False,
         choices=AID_DISPLAY_STATUS_CHOICES)
+
+
+class AidMatchProjectForm(forms.ModelForm):
+    """form for project matching the aid."""
+
+    class Meta:
+        model = Aid
+        fields = ['projects']

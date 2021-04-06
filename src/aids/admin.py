@@ -240,6 +240,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'description',
                 'project_examples',
                 'eligibility',
+                'projects'
             )
         }),
 

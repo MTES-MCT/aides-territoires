@@ -1328,6 +1328,26 @@ article#aid {
             @extend .mt-4;
         }
 
+        div#fit-project {
+            position: fixed;
+            top: 45%;
+            right: 0;
+            z-index: 999;
+            display: inline-block;
+            max-width: 300px;
+            text-align: center;
+            padding: 1rem;
+            border: 2px solid $contrast-color;
+            border-radius: 1rem 0 0 1rem;
+            color: $font-color;
+            background-color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 1.5;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
         button.cta-btn {
             @extend .btn;
             @extend .btn-primary;

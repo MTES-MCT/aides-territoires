@@ -57,6 +57,19 @@
 {% block content %}
 <h1>{{ _('In what projects are you interested in?') }}</h1>
 
+{% if project_choices %}
+<div>
+    <form id="projects" action="{% url 'search_view' %}" method="GET">
+
+        {% include '_form_snippet.html' %}
+
+        <button name="action" value="search" type="submit">
+            {{ _('Submit') }}
+        </button>
+    </form>
+</div>
+{% endif %}
+
 <div id="suggested_project_box">
     <h3>{{ _('Contribute to improve Aides-territoires!') }}</h3>
     <div class="info">
