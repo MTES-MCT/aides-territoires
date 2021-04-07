@@ -109,8 +109,8 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
         null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Blog Post'
-        verbose_name_plural = 'Blog Posts'
+        verbose_name = _('Blog Post')
+        verbose_name_plural = _('Blog Posts')
         ordering = ['-date_created']
 
     def __str__(self):
@@ -157,8 +157,8 @@ class BlogPostCategory(models.Model):
         default=timezone.now)
 
     class Meta:
-        verbose_name = 'Blog Post Category'
-        verbose_name_plural = 'Blog Post Categories'
+        verbose_name = _('Blog Post Category')
+        verbose_name_plural = _('Blog Post Categories')
 
     def __str__(self):
         return self.name
