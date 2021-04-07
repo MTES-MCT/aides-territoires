@@ -2906,3 +2906,15 @@ msgstr "Contact (team AT)"
 
 msgid "Contact backer"
 msgstr "Contact du porteur"
+
+msgid "Aid Match Project Event"
+msgstr "Événement aide liée à un projet"
+
+msgid "Aid Match Project Events"
+msgstr "Événements aide liée à un projet"
+
+msgid "Blog Posts"
+msgstr "Articles de blog"
+
+msgid "Blog Post Categories"
+msgstr "Catégories des articles de blog"
