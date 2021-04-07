@@ -8,6 +8,9 @@ from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from django.conf import settings
 
+from aids.models import Aid
+
+
 register = template.Library()
 
 
@@ -27,7 +30,7 @@ def choices_display(obj, field):
 
 @register.simple_tag
 def grouped_choices_display(obj, field):
-    """Correct rendering of `ChoiceArrayField` values.."""
+    """Correct rendering of grouped `ChoiceArrayField` values.."""
 
     choices = obj._meta.get_field(field).base_field.choices
     flat_values = []
@@ -36,8 +39,32 @@ def grouped_choices_display(obj, field):
     choices_dict = dict(flat_values)
 
     keys = set(getattr(obj, field))
+
     values = [force_str(choices_dict[key]) for key in keys]
     return ', '.join(values)
+
+
+@register.simple_tag
+def form_choices_display(obj, field):
+    """Correct rendering of `MultipleChoiceField` values.."""
+
+    choices_dict = dict()
+
+    if field == 'targeted_audiences':
+        choices_dict = dict(Aid.AUDIENCES)
+    elif field in ['aid_type', 'aid_types']:
+        choices_dict = dict(Aid.TYPES)
+    elif field in ['mobilization_step', 'mobilization_steps']:
+        choices_dict = dict(Aid.STEPS)
+    elif field == 'destinations':
+        choices_dict = dict(Aid.DESTINATIONS)
+    # recurrence ? ChoiceField
+
+    # set to empty list if None
+    keys = obj.get(field, [])
+
+    values = [force_str(choices_dict.get(key, '')) for key in keys]
+    return ', '.join(filter(None, values))
 
 
 @register.simple_tag(takes_context=True)

@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q, Count, Prefetch
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -31,6 +31,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
@@ -109,33 +110,16 @@ class SearchView(SearchMixin, FormMixin, ListView):
         This is needed to provide the correct "go back to your search" link in
         other pages' breadcrumbs.
         """
-        search_query = self.request.GET.urlencode()
-        self.request.session[settings.SEARCH_COOKIE_NAME] = search_query
+        current_search_query = self.request.GET.urlencode()
+        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query  # noqa
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['targeted_audiences'] = self.form.cleaned_data.get('targeted_audiences', None)  # noqa
-        if context['targeted_audiences']:
-            context['targeted_audiences'] = [Aid.AUDIENCES[audience] for audience in context['targeted_audiences']]  # noqa
-        context['perimeter'] = self.form.cleaned_data.get('perimeter', None)
-        context['categories'] = self.form.cleaned_data.get('categories', None)
-        context['themes'] = self.form.cleaned_data.get('themes', None)
-        context['programs'] = self.form.cleaned_data.get('programs', None)
-        context['backers'] = self.form.cleaned_data.get('backers', None)
-        context['aid_type'] = self.form.cleaned_data.get('aid_type', None)
-        if context['aid_type']:
-            context['aid_type'] = [Aid.TYPES[aid_type] for aid_type in context['aid_type']]  # noqa
-        context['mobilization_step'] = self.form.cleaned_data.get('mobilization_step', None)  # noqa
-        if context['mobilization_step']:
-            context['mobilization_step'] = [Aid.STEPS[step] for step in context['mobilization_step']]  # noqa
-        context['destinations'] = self.form.cleaned_data.get('destinations', None)  # noqa
-        if context['destinations']:
-            context['destinations'] = [Aid.DESTINATIONS[destination] for destination in context['destinations']]  # noqa
-        context['call_for_projects_only'] = self.form.cleaned_data.get('call_for_projects_only', None)  # noqa
-
         context['current_search'] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, '')
+        context['current_search_dict'] = clean_search_form(
+            self.form.cleaned_data, remove_extra_fields=True)
 
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
@@ -272,11 +256,14 @@ class AidDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         current_search = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, None)
-        if current_search:
-            context['current_search'] = current_search
-
-        context['aid_slug'] = self.object.slug
+            settings.SEARCH_COOKIE_NAME, '')
+        context['current_search'] = current_search
+        # Here we reconstruct the AidSearchForm from the current_search
+        # querystring. This is needed to display some of the search filters.
+        current_search_form = AidSearchForm(data=QueryDict(current_search))
+        if current_search_form.is_valid():
+            context['current_search_dict'] = clean_search_form(
+                current_search_form.cleaned_data, remove_extra_fields=True)
 
         context['programs'] = self.object.programs \
             .exclude(logo__isnull=True) \
