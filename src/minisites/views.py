@@ -142,6 +142,8 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
+        qs = self.form.order_queryset(qs).distinct()
+
         host = self.request.get_host()
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
