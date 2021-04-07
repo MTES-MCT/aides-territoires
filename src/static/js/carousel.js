@@ -9,10 +9,8 @@ showLogos();
  * Replace them every 4 seconds
  */
 function showLogos() {
-  console.log("init", currentIndex);
   logoIdList.forEach((logoId, index) => {
     carousel[logoId] = document.getElementsByClassName(logoId);
-    console.log(logoId, index, carousel[logoId])
 
     // first hide all the logos
     for (i = 0; i < carousel[logoId].length; i++) {
@@ -27,7 +25,6 @@ function showLogos() {
   });
 
   // increment currentIndex or go back to 0
-  console.log("increment ?", currentIndex, carousel[logoIdList[0]].length)
   currentIndex = (currentIndex === carousel[logoIdList[0]].length - 1) ? 0 : currentIndex + 1;
 
   // run every 4 seconds
