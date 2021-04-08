@@ -299,7 +299,7 @@
                         </div>
                         <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
                             Envoyez-nous un e-mail
-                        </a>   
+                        </a>
                     </div> 
                 </div>
             </div>
@@ -307,16 +307,7 @@
         <div class="aid-details">
 
             {% if current_search_dict.projects and not messages %}
-            <div id="fit-project">
-                <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />
-                    <p>Cette aide est-elle pertinente pour votre projet&nbsp;?</p>
-                    <div>
-                        <button class="btn" type="submit">Oui</button>
-                    </div>
-                </form>
-            </div>
+            <a href="#" id="fit_project_btn" class="js" data-toggle="modal" data-target="#match-project-modal">Evaluez cette aide</a>
             {% endif %}
 
             <h2>{{ _('Global presentation') }}</h2>
@@ -428,6 +419,7 @@
 
 {% block modals %}
     {% include 'aids/_share_modal.html' %}
+    {% include 'aids/_match_project_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
 {% endblock %}
 

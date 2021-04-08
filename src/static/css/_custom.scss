@@ -1328,19 +1328,24 @@ article#aid {
             @extend .mt-4;
         }
 
-        div#fit-project {
+        a#fit_project_btn[href^="http"]::after {
+            display: none;
+        }
+        
+        a#fit_project_btn {
             position: fixed;
-            top: 45%;
+            top: 50%;
             right: 0;
             z-index: 999;
+            transform: rotate(270deg);
+            transform-origin: right bottom;
             display: inline-block;
-            max-width: 300px;
             text-align: center;
-            padding: 1rem;
+            padding: 0.375rem 0.7rem;
             border: 2px solid $contrast-color;
-            border-radius: 1rem 0 0 1rem;
-            color: $font-color;
-            background-color: #fff;
+            border-radius: 1rem 1rem 0 0;
+            color: #fff !important;
+            background-color: $contrast-color;
             font-weight: bold;
             font-size: 1rem;
             line-height: 1.5;

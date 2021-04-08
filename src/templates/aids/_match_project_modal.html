@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<div id="match-project-modal" class="anonymous-modal modal">
+    <div class="modal-dialog modal-lg">
+        <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
+            <section>
+                <header>
+                    <h1>Cette aide est-elle pertinente pour votre projet&nbsp;?</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ _('Close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </header>
+
+                {% csrf_token %}
+                
+                <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />
+            
+                <footer>
+                    <button class="btn-block" type="submit">Oui</button>
+                    <button type="button" class="close" data-dismiss="modal">Non</button>
+                </footer>
+            </section>
+        </form>
+    </div>
+</div>
