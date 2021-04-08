@@ -5,18 +5,29 @@
         <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
             <section>
                 <header>
-                    <h1>Cette aide est-elle pertinente pour votre projet&nbsp;?</h1>
+                    <h1>Évaluez cette aide</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="{{ _('Close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </header>
 
-                {% csrf_token %}
-                
-                <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />
-            
+                <div class="content">
+                    <div class="info">
+                        <p><strong>Cette aide est-elle pertinente pour le projet ci-dessous&nbsp;?</strong></p>
+                        <p><strong>
+                                {% for project in current_search_dict.projects %}
+                                {{ project.name|upper }}
+                                {% endfor %}
+                        </strong></p>
+                    </div>
+    
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.id }}"{% endfor %} />    
+                </div>
+
                 <footer>
-                    <button class="btn-block" type="submit">Oui</button>
+                    <button class="btn" type="submit">Oui</button>
                     <button type="button" class="close" data-dismiss="modal">Non</button>
                 </footer>
             </section>
