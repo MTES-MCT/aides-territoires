@@ -3,6 +3,19 @@
     "web": {
       "amount": 1,
       "size": "S"
+    },
+    "worker": {
+      "amount": 0,
+      "size": "S"
+    },
+    "beat": {
+      "amount": 0,
+      "size": "S"
+    }
+  },
+  "env": {
+    "CELERY_BROKER_URL": {
+      "value": "memory://"
     }
   },
   "scripts": {

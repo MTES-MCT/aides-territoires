@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = [
     'admin_auto_filters',
     'drf_yasg',
     'anymail',
+    'django_celery_beat',
 ]
 
 LOCAL_APPS = [
@@ -227,6 +228,8 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
     }
 }
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 ADMINS = [('Aides-territoires', 'nowhere@example.org')]
 
