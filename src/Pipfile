@@ -11,12 +11,13 @@ django-activity-stream = "*"
 django-admin-autocomplete-filter = "*"
 django-anymail = {extras = ["sendinblue"],version = "*"}
 django-braces = "*"
+django-celery-beat = "*"
 django-compressor = "*"
 django-cors-headers = "*"
-django-redis = "*"
 django-environ = "*"
 django-import-export = "*"
 django-model-utils = "*"
+django-redis = "*"
 django-rest-framework = "*"
 drf-yasg = "*"
 django-xworkflows = "*"
@@ -35,7 +36,6 @@ zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
-django-celery-beat = "*"
 
 [dev-packages]
 ansible = "*"
