@@ -1351,6 +1351,8 @@ article#aid {
             line-height: 1.5;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             text-decoration: none;
+
+            @include icon(before, $fa-var-check-circle);
         }
 
         button.cta-btn {
