@@ -1867,6 +1867,34 @@ div#search-steps {
     }
 }
 
+#projects {
+    .form-group {
+        @extend .mb-4;
+    }
+}
+
+#other_project_box {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; 
+    @extend .mb-4;
+    @extend .px-5;
+    @extend .py-4;
+    border: solid 2px #fff;
+    border-radius: 10px;
+
+    @include media-breakpoint-up(md) {
+        p {
+            margin-bottom: 0 !important;
+        }
+
+        .btn {
+            margin-left: 2rem;
+        }
+    }
+}
+
 #suggested_project_box {
     border: solid 2px #fff;
     border-radius: 10px;
