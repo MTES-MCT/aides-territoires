@@ -1406,6 +1406,22 @@ article#aid {
     }
 }
 
+#match-project-modal {
+    .info {
+        p:last-of-type {
+            text-align: center;
+        }
+    }
+
+    footer {
+        justify-content: center;
+
+        button {
+            padding: 0.5rem 4rem;
+        }
+    }
+}
+
 div#error-report-modal {
     p.center {
         a {
