@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load compress %}
+{% load i18n %}
 
 {% block extratitle %}{{ _('Search – Project') }}{% endblock %}
 
@@ -8,54 +9,17 @@
 {% block breadcrumbs %}
 <div class="search-progress">
 <p class="steps">
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your structure') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your perimeter') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your themes') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your categories') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your project') }}
-    </span>
+    {% include 'search/_breadcrumb.html' with label='La structure' %}
+    {% include 'search/_breadcrumb.html' with label='Le territoire' %}
+    {% include 'search/_breadcrumb.html' with label='Les thématiques' %}
+    {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' %}
+    {% include 'search/_breadcrumb.html' with label='Votre projet' %}
 </p>
 </div>
 {% endblock %}
 
 {% block content %}
-<h1>{{ _('In what projects are you interested in?') }}</h1>
+<h1>Pour quel projet recherchez-vous une aide&nbsp;?</h1>
 
 {% if project_choices %}
 <div>
@@ -69,7 +33,7 @@
         </div>
 
         <button name="action" value="search" type="submit">
-            {{ _('Submit') }}
+            Envoyer
         </button>
     </form>
 </div>
@@ -78,10 +42,10 @@
 {% else %}
 <div id="suggested_project_box">
 {% endif %}
-    <h3>{{ _('Contribute to improve Aides-territoires!') }}</h3>
+    <h3>Contribuez à améliorer Aides-territoires !</h3>
     <div class="info">
-        <p>{{ _('Tell us the project for which you are seeking aids.') }}</p>
-        <p>{{ _('This will help us to improve in future the relevance of results') }}</p>
+        <p>Indiquez le projet pour lequel vous recherchez une aide.</p>
+        <p>Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés.</p>
     </div>
     <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
         <div class="content">
@@ -89,10 +53,10 @@
             {% include '_field_snippet.html' with field=project_form.name %}
             {% include '_field_snippet.html' with field=project_form.description %}
             <div class="warning">
-                <p>{{ _('These informations will not have any impact in your search results and will stay confidential') }}</p>
+                <p>Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles</p>
             </div> 
             <button name="action" value="search" type="submit">
-                {{ _('Submit this project and display results') }}
+                Partager mon projet et accéder aux aides disponibles
             </button>
         </div>
     </form>
@@ -100,10 +64,10 @@
 
 <div class="navigation-links">
     <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-        {{ _('Skip to the next step') }}
+        Passer cette étape
     </a>
     <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
-        {{ _('Back to previous step') }}
+        Revenir en arrière
     </a>
 </div>
 {% endblock %}

@@ -8,33 +8,10 @@
 {% block breadcrumbs %}
 <div class="search-progress">
 <p class="steps">
-    <span class="step">
-        <span class="counter active">
-            <span class="fas fa-check"></span>
-        </span>
-        {{ _('Your structure') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter">2</span>
-        {{ _('Your perimeter') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter">3</span>
-        {{ _('Your themes') }}
-    </span>
-
-    <span class="separator"></span>
-
-    <span class="step">
-        <span class="counter">4</span>
-        {{ _('Your categories') }}
-    </span>
+    {% include 'search/_breadcrumb.html' with label='La structure' %}
+    {% include 'search/_breadcrumb.html' with label='Le territoire' counter=2 %}
+    {% include 'search/_breadcrumb.html' with label='Les thématiques' counter=3 %}
+    {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' counter=4 %}
 </p>
 </div>
 {% endblock %}

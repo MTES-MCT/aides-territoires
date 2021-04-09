@@ -1752,7 +1752,8 @@ div#search-steps {
             color: $dark;
         }
 
-        span.separator {
+        .step:not(:last-of-type)::after {
+            content: "";
             display: inline-block;
             width: 2rem;
             height: .4rem;
@@ -1945,7 +1946,7 @@ div#search-steps {
 
     .warning {
 
-        @extend .mt-3;
+        @extend .my-3;
 
         p {
             @extend .mb-0;
