@@ -56,6 +56,8 @@ STATICFILES_DIRS = [
     Path(DJANGO_ROOT, 'node_modules'),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 TEMPLATES = TEMPLATES.copy()
 TEMPLATES[0]['DIRS'] = [Path(DJANGO_ROOT, 'templates')]
 

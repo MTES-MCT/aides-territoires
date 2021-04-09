@@ -6,13 +6,14 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 celery = "*"
-django = "<4"
+django = "==3.1.8"
 django-activity-stream = "*"
 django-admin-autocomplete-filter = "*"
 django-anymail = {extras = ["sendinblue"],version = "*"}
 django-braces = "*"
 django-compressor = "*"
 django-cors-headers = "*"
+django-redis = "*"
 django-environ = "*"
 django-import-export = "*"
 django-model-utils = "*"
@@ -33,7 +34,7 @@ xlrd = "*"
 zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 django-storages = "*"
 boto3 = "*"
-django-redis = "*"
+whitenoise = "*"
 
 [dev-packages]
 ansible = "*"
