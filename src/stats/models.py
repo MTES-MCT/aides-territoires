@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-# from django.contrib.postgres.fields import ArrayField
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
-from eligibility.models import EligibilityTest
 
 
 class AidViewEvent(models.Model):
@@ -109,7 +107,8 @@ class AidEligibilityTestEvent(models.Model):
     answer_details = models.JSONField(null=True)
 
     querystring = models.TextField(
-        _('Querystring'))
+        _('Querystring'),
+        default='')
     source = models.CharField(
         'Source',
         max_length=256,

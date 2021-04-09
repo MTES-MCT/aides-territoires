@@ -74,6 +74,7 @@
         event.preventDefault();
         // get form data
         var formData = eligibilityTestForm.serializeArray();
+        console.log(formData);
         // now we can disable the form
         eligibilityTestForm.find('input').prop("disabled", true);
         submitButton.remove();
@@ -81,16 +82,28 @@
         var results = true;
         eligibilityTestResults.show();
         
-        formData.forEach(answer => {
-            // get questionId from the answer 'name' key
+        formData.forEach((answer, index) => {
+            // answer = { name: '<question id>', value: '<answer choice letter>' }
             var questionId = parseInt(answer.name);
-            // check if the answer is correct
-            var answerSuccess = event.data.eligibilityTestJson.questions.find(q => q.id === questionId).answer_correct === answer.value;
+            var question = event.data.eligibilityTestJson.questions.find(q => q.id === questionId);
+            var answerSuccess = question.answer_correct === answer.value;
             // update results if answerSuccess is false
-            results = !answerSuccess ? answerSuccess : results;
+            results = !answerSuccess ?  answerSuccess : results;
+            // build stats answer object
+            // answer = { id: '<question id>', text: '<question text>', answer: '<answer choice>' }
+            answer.id = question.id;
+            answer.text = question.text;
+            answer.answer = question[`answer_choice_${answer.value}`];
+            answer.answer_correct = question.answer_correct;
+            delete answer.name;
+            delete answer.value;
         });
-    
-        // show result message & conclusion
+
+        // send results
+        console.log(formData);
+        sendEligibilityTestData(formData, results);
+
+        // show results
         if (results) {
             eligibilityTestResultMessage.attr('class', 'success').text(SUCCESS_MESSAGE);
             eligibilityTestConclusion.html(event.data.eligibilityTestJson.conclusion_success); // .attr('class', 'info')
@@ -99,6 +112,25 @@
             eligibilityTestConclusion.html(event.data.eligibilityTestJson.conclusion_failure); // .attr('class', 'info')
         }
         eligibilityTestConclusion.append(event.data.eligibilityTestJson.conclusion);
+    }
+
+    exports.sendEligibilityTestData = function(formData, results) {
+        var statsData = JSON.stringify({
+            aid: AID_ID,
+            eligibility_test: AID_ELIGIBILITY_TEST_ID,
+            answer_success: results,
+            answer_details: formData,
+            querystring: CURRENT_SEARCH
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/stats/aid-eligibility-test-events/`,
+            contentType: 'application/json',
+            headers: { 'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value },
+            dataType: 'json',
+            data: statsData
+        })
     }
 
     exports.resetEligibilityTest = function (event) {

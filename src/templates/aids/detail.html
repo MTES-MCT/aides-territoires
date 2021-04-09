@@ -446,6 +446,7 @@
     });
 </script>
 <script>
+    AID_ID = parseInt('{{ aid.id }}');
     AID_SLUG = '{{ aid.slug }}';
     AID_ID = '{{ aid.id }}';
     PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';

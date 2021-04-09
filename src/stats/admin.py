@@ -1,7 +1,10 @@
+import json
+
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from stats.models import (AidViewEvent, AidSearchEvent,
-                          AidEligibilityTestEvent,
+                          AidMatchProjectEvent, AidEligibilityTestEvent,
                           Event)
 
 
@@ -38,10 +41,11 @@ class AidSearchEventAdmin(admin.ModelAdmin):
 
 
 class AidEligibilityTestEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
     list_display = ['id', 'aid', 'eligibility_test', 'answer_success',
                     'source', 'date_created']
-    list_filter = ['source']
-    """The model is set to readonly"""
+    list_filter = ['eligibility_test', 'source']
 
     def has_add_permission(self, request):
         return False
@@ -51,6 +55,13 @@ class AidEligibilityTestEventAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def answer_details(self, instance):
+        """Function to display pretty version of answer_details"""
+        print(instance)
+        response = json.dumps(instance.data, sort_keys=True, indent=2)
+        print(response)
+        return mark_safe(response)
 
 
 class AidMatchProjectEventAdmin(admin.ModelAdmin):

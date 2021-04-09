@@ -19,5 +19,5 @@ def test_aid_eligibility():
     assert EligibilityTest.objects.count() == 1
     assert Aid.objects.count() == 2
     assert Aid.objects.has_eligibility_test().count() == 1
-    assert aid_1.has_eligibility_test() == False
-    assert aid_2.has_eligibility_test() == True
+    assert aid_1.has_eligibility_test() is False
+    assert aid_2.has_eligibility_test() is True
