@@ -5,14 +5,14 @@
 # after a deployment or when the container is restarted.
 
 echo "Entering deployment start script"
-WSGI_MODULE=$1
-if [ -z "$WSGI_MODULE" ]
+export DJANGO_SETTINGS_MODULE=$1
+if [ -z "$DJANGO_SETTINGS_MODULE" ]
   then
-    echo "The start script expects the WSGI_MODULE as first argument"
+    echo "The start script expects the DJANGO_SETTINGS_MODULE as first argument"
 fi
-echo "Using WSGI module: $WSGI_MODULE"
+echo "Using Django settings module: $DJANGO_SETTINGS_MODULE"
 python manage.py compilemessages
 python manage.py collectstatic --noinput
 python manage.py compress --force
-gunicorn $WSGI_MODULE --log-file -
+gunicorn core.wsgi_scalingo --log-file -
 echo "Completed deployment start script"
