@@ -141,7 +141,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
-STATIC_ROOT = PUBLIC_ROOT.child('staticfiles')
+STATIC_ROOT = PUBLIC_ROOT.child('static')
 
 MEDIA_URL = '/media/'
 
