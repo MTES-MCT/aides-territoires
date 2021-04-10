@@ -61,7 +61,7 @@ class UserAdmin(BaseUserAdmin):
 
     def nb_aids(self, user):
         return user.aid_count
-    nb_aids.short_description = _('Number of aids')
+    nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
     def in_mailing_list(self, obj):

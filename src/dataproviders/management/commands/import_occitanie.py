@@ -14,7 +14,7 @@ ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
 IGNORE_OLDER_THAN = 365
 
 OCCITANIE_PERIMETER_CODE = '76'
-OCCITANIE_FINANCER_NAME = "Conseil régional d'Occitanie"
+OCCITANIE_FINANCER_ID = 91  # "Conseil régional d'Occitanie"
 
 
 class Command(CrawlerImportCommand):
@@ -28,7 +28,7 @@ class Command(CrawlerImportCommand):
             .filter(code=OCCITANIE_PERIMETER_CODE) \
             .get()
         self.occitanie_financer = Backer.objects.get(
-            name=OCCITANIE_FINANCER_NAME)
+            id=OCCITANIE_FINANCER_ID)
 
     def line_should_be_processed(self, line):
         """Ignore data older than 1 year.
