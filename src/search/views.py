@@ -113,6 +113,7 @@ class ProjectSearch(SearchMixin, FormView):
             .filter(categories__in=category_id) \
             .distinct()
 
-        context['categories_length'] = len(self.request.GET.getlist('categories', []))
+        context['categories_length'] = len(self.request.GET
+                                           .getlist('categories', []))
 
         return context
