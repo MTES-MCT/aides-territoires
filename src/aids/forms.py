@@ -403,9 +403,10 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
-    projects = AutocompleteModelMultipleChoiceField(
+    projects = forms.ModelMultipleChoiceField(
         label=_('Projects'),
         queryset=Project.objects.all(),
+        to_field_name='slug',
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label=_('Aid programs'),

@@ -113,7 +113,13 @@ class ProjectSearch(SearchMixin, FormView):
             .filter(categories__in=category_id) \
             .distinct()
 
+        '''
+        Here we check if the user choose less than 4 categories.
+        If so, in step "projects" we display project-entry.
+        Else, in step "projects" we only display the suggest-project form
+        '''
+
         context['categories_length'] = len(self.request.GET
-                                           .getlist('categories', []))
+                                           .getlist('categories', [])) < 5
 
         return context

@@ -1351,8 +1351,22 @@ article#aid {
             line-height: 1.5;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             text-decoration: none;
+            animation: climb linear 1s;
 
-            @include icon(before, $fa-var-check-circle);
+            @include icon(before, $fa-var-check);
+
+            &::before {
+                color: $dark-green;
+            }
+        }
+          
+        @keyframes climb {
+            0% {
+                transform:  translate(0px,200px)  rotate(270deg) ;
+              }
+              100% {
+                transform:  translate(0px, 0px)  rotate(270deg) ;
+              }
         }
 
         button.cta-btn {
@@ -1411,6 +1425,10 @@ article#aid {
         p:last-of-type {
             text-align: center;
         }
+    }
+
+    #project-name {
+        text-transform: uppercase;
     }
 
     footer {

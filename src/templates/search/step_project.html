@@ -21,7 +21,7 @@
 {% block content %}
 <h1>Pour quel projet recherchez-vous une aide&nbsp;?</h1>
 
-{% if project_choices and categories_length < 4 %}
+{% if project_choices and categories_length %}
 <div>
     <form id="projects" action="{% url 'search_view' %}" method="GET">
 

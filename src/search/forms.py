@@ -226,6 +226,7 @@ class ProjectSearchForm(forms.Form):
         widget=forms.widgets.MultipleHiddenInput)
     projects = ProjectMultipleChoiceField(
         queryset=Project.objects.all(),
+        to_field_name='slug',
         required=False,
         widget=ProjectWidget)
 
