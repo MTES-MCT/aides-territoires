@@ -67,11 +67,19 @@ class SearchView(SearchMixin, FormMixin, ListView):
     def get_queryset(self):
         """Return the list of results to display."""
 
+        financers_qs = Backer.objects \
+            .order_by('aidfinancer__order', 'name')
+
+        instructors_qs = Backer.objects \
+            .order_by('aidinstructor__order', 'name')
+
         qs = Aid.objects \
             .published() \
             .open() \
             .select_related('perimeter', 'author') \
-            .prefetch_related('financers', 'instructors')
+            .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
+            .prefetch_related(Prefetch('instructors',
+                                       queryset=instructors_qs)) \
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)

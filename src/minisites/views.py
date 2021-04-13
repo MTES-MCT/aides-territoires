@@ -3,12 +3,13 @@ from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.sites.models import Site
-from django.db.models import Count, Func, F, Value, CharField
+from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
 from django.utils import timezone
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
+from backers.models import Backer
 from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
@@ -122,11 +123,19 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 
-        # Start from the base queryset and add-up more filtering
-        qs = self.search_page.get_base_queryset()
+        financers_qs = Backer.objects \
+            .order_by('aidfinancer__order', 'name')
 
-        qs = qs.select_related('perimeter', 'author') \
-            .prefetch_related('financers', 'instructors')
+        instructors_qs = Backer.objects \
+            .order_by('aidinstructor__order', 'name')
+
+        # Start from the base queryset and add-up more filtering
+        qs = self.search_page.get_base_queryset() \
+            .select_related('perimeter', 'author') \
+            .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
+            .prefetch_related(Prefetch('instructors',
+                                       queryset=instructors_qs)) \
+
 
         # Combine from filtering with the base queryset
         qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
