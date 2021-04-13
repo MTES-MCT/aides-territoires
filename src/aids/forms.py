@@ -750,11 +750,3 @@ class DraftListAidFilterForm(forms.Form):
         label=_('Display status'),
         required=False,
         choices=AID_DISPLAY_STATUS_CHOICES)
-
-
-class AidMatchProjectForm(forms.ModelForm):
-    """form for project matching the aid."""
-
-    class Meta:
-        model = Aid
-        fields = ['projects']

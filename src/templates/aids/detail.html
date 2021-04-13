@@ -432,11 +432,14 @@
 </script>
 <script>
     AID_SLUG = '{{ aid.slug }}';
+    AID_ID = '{{ aid.id }}';
+    PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';
     CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
 <script src="/static/js/alerts/track_alert_button_events.js"></script>
+<script src="/static/js/aids/match_project_form.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>

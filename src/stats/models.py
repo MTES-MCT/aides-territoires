@@ -145,6 +145,21 @@ class AidMatchProjectEvent(models.Model):
         verbose_name=_('Project'),
         on_delete=models.PROTECT)
 
+    is_matching = models.BooleanField(
+        _('Is the project match the aid?'),
+        default=False,
+        help_text=_(
+            'If the project match the aid'))
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)

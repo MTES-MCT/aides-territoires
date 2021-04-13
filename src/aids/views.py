@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
@@ -35,8 +34,7 @@ from programs.models import Program
 from projects.models import Project
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
-from stats.utils import (log_aidviewevent, log_aidsearchevent,
-                         log_aidmatchprojectevent)
+from stats.utils import (log_aidviewevent, log_aidsearchevent)
 
 
 class AidPaginator(Paginator):
@@ -516,53 +514,3 @@ class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
-
-
-class AidProjectUpdate(UpdateView):
-    """Allow user to associate a project with an aid"""
-    model = Aid
-    fields = ['projects']
-    http_method_names = ['post']
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        project_slug = self.request.POST['projects']
-
-        '''
-        Before update aid object we check if the project is published
-        '''
-
-        is_published_project = Project.objects \
-            .filter(is_suggested=False) \
-            .filter(slug=project_slug) \
-            .exists()
-
-        if is_published_project:
-            self.object.projects.add(Project.objects.get(slug=project_slug))
-        else:
-            raise PermissionDenied()
-            msg = _('Votre contribution n\'a pu être prise en compte')
-            messages.error(self.request, msg)
-
-        '''
-        To save the matching event between aid and project
-        in database we need the project id.
-        '''
-        projects = Project.objects \
-            .filter(slug=project_slug) \
-            .values_list('id', flat=True)
-        project_id_list = [project for project in projects]
-        project_id = int(''.join(str(i) for i in project_id_list))
-
-        log_aidmatchprojectevent.delay(
-            aid_id=self.object.id,
-            project_id=project_id
-        )
-
-        msg = _('Merci pour votre contribution!')
-        messages.success(self.request, msg)
-        return HttpResponseRedirect(self.get_success_url())
-
-    def get_success_url(self):
-        success_url = reverse('aid_detail_view', args=[self.object.slug])
-        return '{}'.format(success_url)

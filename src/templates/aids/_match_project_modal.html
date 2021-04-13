@@ -2,7 +2,6 @@
 
 <div id="match-project-modal" class="anonymous-modal modal">
     <div class="modal-dialog modal-lg">
-        <form action="{% url 'aid_project_update_view' aid.slug %}" method="post">
             <section>
                 <header>
                     <h1>Évaluez cette aide</h1>
@@ -23,14 +22,12 @@
     
                     {% csrf_token %}
                     
-                    <input type="hidden" name="projects" {% for project in current_search_dict.projects %} value="{{ project.slug }}"{% endfor %} />    
                 </div>
 
                 <footer>
-                    <button class="btn" type="submit">Oui</button>
-                    <button type="button" class="close" data-dismiss="modal">Non</button>
+                    <button type="submit" id="match_project_btn" class="btn close" data-dismiss="modal">Oui</button>
+                    <button type="submit" id="no_match_project_btn" class="close" data-dismiss="modal">Non</button>
                 </footer>
             </section>
-        </form>
     </div>
 </div>
