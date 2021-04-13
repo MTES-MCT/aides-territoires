@@ -21,6 +21,7 @@ from django.core.mail import send_mail
 from braces.views import MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
+from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
@@ -234,9 +235,17 @@ class AidDetailView(DetailView):
             .select_related('theme') \
             .order_by('theme__name', 'name')
 
+        financers_qs = Backer.objects \
+            .order_by('aidfinancer__order', 'name')
+
+        instructors_qs = Backer.objects \
+            .order_by('aidinstructor__order', 'name')
+
         base_qs = Aid.objects \
             .select_related('perimeter', 'author') \
-            .prefetch_related('financers', 'instructors') \
+            .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
+            .prefetch_related(Prefetch('instructors',
+                                       queryset=instructors_qs)) \
             .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
@@ -269,11 +278,12 @@ class AidDetailView(DetailView):
             .exclude(logo__isnull=True) \
             .exclude(logo='') \
             .distinct()
-
         financers = self.object.financers.all()
+
         # We don't want to display instructors if they are the same as the
         # financers
-        instructors = list(set(self.object.instructors.all()) - set(financers))
+        all_instructors = self.object.instructors.all()
+        instructors = [i for i in all_instructors if i not in financers]
         context.update({
             'financers': financers,
             'instructors': instructors,
