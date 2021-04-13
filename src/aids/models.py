@@ -182,6 +182,14 @@ class AidFinancer(models.Model):
 
     aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
     backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(
+        _('Order'),
+        blank=False,
+        default=1)
+
+    class Meta:
+        unique_together = ['aid', 'backer']
+        ordering = ['order', 'backer__name']
 
 
 class AidInstructor(models.Model):
@@ -189,6 +197,14 @@ class AidInstructor(models.Model):
 
     aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
     backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(
+        _('Order'),
+        blank=False,
+        default=1)
+
+    class Meta:
+        unique_together = ['aid', 'backer']
+        ordering = ['order', 'backer__name']
 
 
 class Aid(xwf_models.WorkflowEnabled, models.Model):
