@@ -177,6 +177,20 @@ class AmendmentManager(models.Manager):
         return qs
 
 
+class AidFinancer(models.Model):
+    """The Aid -> Financers relationship `through` model."""
+
+    aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
+    backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+
+
+class AidInstructor(models.Model):
+    """The Aid -> Instructors relationship `through` model."""
+
+    aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
+    backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+
+
 class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
@@ -270,6 +284,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     financers = models.ManyToManyField(
         'backers.Backer',
+        through=AidFinancer,
         related_name='financed_aids',
         verbose_name=_('Financers'))
     financer_suggestion = models.CharField(
@@ -278,6 +293,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     instructors = models.ManyToManyField(
         'backers.Backer',
+        through=AidInstructor,
         blank=True,
         related_name='instructed_aids',
         verbose_name=_('Instructors'))

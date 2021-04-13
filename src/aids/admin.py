@@ -15,9 +15,8 @@ from admin_auto_filters.filters import AutocompleteFilter
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
-from aids.models import Aid, AidWorkflow
+from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
-from backers.models import Backer
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
@@ -150,7 +149,7 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
 class FinancersInline(admin.TabularInline):
     """Configure the formset to the financers m2m field."""
 
-    model = Aid.financers.through
+    model = AidFinancer
     verbose_name = _('Financer')
     verbose_name_plural = _('Financers')
     autocomplete_fields = ['backer']
@@ -159,7 +158,7 @@ class FinancersInline(admin.TabularInline):
 class InstructorsInline(admin.TabularInline):
     """Configure the formset to the instructors m2m field."""
 
-    model = Aid.instructors.through
+    model = AidInstructor
     verbose_name = _('Instructor')
     verbose_name_plural = _('Instructors')
     autocomplete_fields = ['backer']
