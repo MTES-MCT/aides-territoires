@@ -391,10 +391,6 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = aid = form.save(commit=False)
 
-        requested_status = self.request.POST.get('status', None)
-        if requested_status == 'review':
-            aid.status = 'reviewable'
-
         aid.author = self.request.user
         aid.save()
         form.save_m2m()
@@ -421,7 +417,6 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
     form_class = AidEditForm
 
     def form_valid(self, form):
-
         save_as_new = '_save_as_new' in self.request.POST
         if save_as_new:
             obj = form.save(commit=False)

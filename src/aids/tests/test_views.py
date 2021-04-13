@@ -102,6 +102,7 @@ def test_aid_creation_view(client, contributor, amendment_form_data):
     assert aids.count() == 0
 
     amendment_form_data['name'] = 'Very unique title'
+    amendment_form_data['status'] = 'draft'
     res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -129,19 +130,35 @@ def test_aid_creation_status_as_review(client, contributor,
     form_url = reverse('aid_create_view')
     client.force_login(contributor)
     aids = Aid.objects.filter(author=contributor)
-    amendment_form_data['status'] = 'review'
+    amendment_form_data['status'] = 'reviewable'
     res = client.post(form_url, data=amendment_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].status == 'reviewable'
 
 
+def test_aid_creation_status_as_review_fails_if_invalid(client, contributor,
+                                                        amendment_form_data):
+
+    form_url = reverse('aid_create_view')
+    client.force_login(contributor)
+    aids = Aid.objects.filter(author=contributor)
+    amendment_form_data_invalid = {
+        'name': 'Almost empty aid',
+        'status': 'reviewable'
+    }
+    res = client.post(form_url, data=amendment_form_data_invalid)
+    assert res.status_code == 200
+    assert aids.count() == 0
+
+
 def test_aid_edition_view(client, contributor, amendment_form_data):
     """Test the aid edition form and view."""
 
     aid = AidFactory(name='First title', author=contributor)
-    # Anonymous, no access
     form_url = reverse('aid_edit_view', args=[aid.slug])
+
+    # Anonymous, no access
     res = client.get(form_url)
     assert res.status_code == 302
 
@@ -158,6 +175,29 @@ def test_aid_edition_view(client, contributor, amendment_form_data):
     assert res.status_code == 302
     assert aids.count() == 1
     assert aids[0].name == 'New title'
+    assert aids[0].author == contributor
+
+
+def test_aid_edition_status_as_review_fails_if_invalid(client, contributor,
+                                                       amendment_form_data):
+    aid = AidFactory(name='First title', author=contributor, status='draft')
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+
+    client.force_login(contributor)
+    res = client.get(form_url)
+    assert res.status_code == 200
+
+    aids = Aid.objects.filter(author=contributor)
+    assert aids.count() == 1
+
+    amendment_form_data['name'] = 'New title'
+    amendment_form_data['status'] = 'published'
+    amendment_form_data['description'] = ''  # form invalid if 'published'
+    res = client.post(form_url, data=amendment_form_data)
+    assert res.status_code == 200
+    assert aids.count() == 1
+    assert aids[0].name == 'First title'
+    assert aids[0].status == 'draft'
     assert aids[0].author == contributor
 
 

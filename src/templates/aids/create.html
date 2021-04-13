@@ -22,27 +22,7 @@
 {% endblock %}
 
 {% block form_sidebar %}
-<ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
-        <span class="counter">1</span>
-        Présentation
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-description" class="list-group-item list-group-item-action">
-        <span class="counter">2</span>
-        Description
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
-        <span class="counter">3</span>
-        Critères d'éligibilité
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-contact" class="list-group-item list-group-item-action">
-        <span class="counter">4</span>
-        Contact et démarches
-    </a>
-</ul>
+    {% include 'aids/_base_edit_sidebar.html' %}
 {% endblock %}
 
 {% block form_actions %}
@@ -53,8 +33,8 @@ Your aid <strong>will not be published</strong> until it is reviewed by an admin
 
 <div class="form-actions">
     <div class="submit-buttons">
-        <button name="status" value="review" type="submit">{{ _('Save and request publication') }}</button>
-        <button name="status" value="draft" type="submit" class="secondary">{{ _('Save as a draft') }}</button>
+        <button id="save" type="submit" name="status" value="draft">{{ _('Save as a draft') }}</button>
+        <button type="submit" name="status" value="reviewable">{{ _('Save and request publication') }}</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
 </div>

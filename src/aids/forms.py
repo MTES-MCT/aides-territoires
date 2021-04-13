@@ -21,6 +21,12 @@ from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED
 
 
+DRAFT_FIELDS_NOT_REQUIRED = [
+    'financers',
+    'description', 'categories', 'recurrence',
+    'mobilization_steps', 'perimeter',
+    'contact']
+
 FINANCIAL_AIDS = (
     ('grant', _('Grant')),
     ('loan', _('Loan')),
@@ -127,16 +133,22 @@ class BaseAidForm(forms.ModelForm):
             if field in self.fields:
                 self.fields[field].help_text = help_text
 
+        aid_status = kwargs.get('data', {}).get('status')
+        if self.instance and aid_status == 'draft':
+            for field in DRAFT_FIELDS_NOT_REQUIRED:
+                if field in self.fields:
+                    self.fields[field].required = False
+
     def clean(self):
         """Custom validation routine."""
 
         data = self.cleaned_data
 
-        if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
-                self.add_error('financers', msg)
+        if data.get('status') != 'draft':
+            if 'financers' in self.fields:
+                if not any((data.get('financers'), data.get('financer_suggestion'))):  # noqa
+                    msg = _('Please provide a financer, or suggest a new one.')
+                    self.add_error('financers', msg)
 
         return data
 
@@ -222,7 +234,6 @@ class AidEditForm(BaseAidForm):
         required=False,
         help_text=_('Suggest an instructor if you don\'t find '
                     'the correct choice in the main list.'))
-
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
         label=_('Targeted area'),
@@ -249,8 +260,8 @@ class AidEditForm(BaseAidForm):
         '''))
     categories = CategoryMultipleChoiceField(
         label=_('Aid categories'),
-        help_text=_('Choose one or several categories that match your aid.'),
-        required=False)
+        required=False,
+        help_text=_('Choose one or several categories that match your aid.'))
 
     class Meta:
         model = Aid
@@ -274,6 +285,7 @@ class AidEditForm(BaseAidForm):
             'perimeter_suggestion',
             'is_call_for_project',
             'programs',
+            'status',
             'aid_types',
             'subvention_rate',
             'subvention_comment',
@@ -304,24 +316,25 @@ class AidEditForm(BaseAidForm):
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
-        if 'mobilization_steps' in self.fields:
-            self.fields['mobilization_steps'].required = True
-        if 'categories' in self.fields:
-            self.fields['categories'].required = True
+        aid_status = kwargs.get('data', {}).get('status')
+        if self.instance and aid_status != 'draft':
+            if 'mobilization_steps' in self.fields:
+                self.fields['mobilization_steps'].required = True
+            if 'categories' in self.fields:
+                self.fields['categories'].required = True
 
     def clean(self):
         """Validation routine (frontend form only)."""
 
         data = super().clean()
-        if 'recurrence' in data and data['recurrence']:
-            recurrence = data['recurrence']
-            submission_deadline = data.get('submission_deadline', None)
 
-            if recurrence != 'ongoing' and not submission_deadline:
-                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
-                self.add_error(
-                    'submission_deadline',
-                    ValidationError(msg, code='missing_submission_deadline'))
+        recurrence = data.get('recurrence', None)
+        submission_deadline = data.get('submission_deadline', None)
+        if recurrence != 'ongoing' and not submission_deadline:
+            msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
+            self.add_error(
+                'submission_deadline',
+                ValidationError(msg, code='missing_submission_deadline'))
 
         return data
 

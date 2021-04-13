@@ -16,7 +16,7 @@
             <span class="fas fa-exclamation-circle"></span>
             {{ message | safe }}
         </p>
-    {% endfor %}
+        {% endfor %}
     {% endif %}
     <div class="actions">
         <div class="sidebar-actions">
@@ -37,7 +37,7 @@
             {% endif %}
     
             <div>
-                <p>{{ status_info}}</p>
+                <p>{{ status_info }}</p>
                 <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
                     <span class="help">{{ status_help }}</span>
                     {% csrf_token %}
@@ -82,38 +82,21 @@
 {% endblock %}
 
 {% block form_sidebar %}
-
-<ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
-        <span class="counter">1</span>
-        Présentation
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-description" class="list-group-item list-group-item-action">
-        <span class="counter">2</span>
-        Description
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
-        <span class="counter">3</span>
-        Critères d'éligibilité
-    </a>
-    <span class="separator"></span>
-    <a href="#aid-contact" class="list-group-item list-group-item-action">
-        <span class="counter">4</span>
-        Contact et démarches
-    </a>
-</ul>
-
+    {% include 'aids/_base_edit_sidebar.html' %}
 {% endblock %}
 
 {% block form_actions %}
 <div class="form-actions">
     <div class="submit-buttons">
-        <button type="submit" value="save">{{ _('Save changes') }}</button>
-        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
+        <button id="save" type="submit" name="status" value="{{ aid.status }}">{{ _('Save changes') }}</button>
+        <!-- <button type="submit" name="status" value="reviewable">{{ _('Save and request publication') }}</button> -->
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Back to your portfolio') }}</a>
+</div>
+<div class="form-actions">
+    <div class="submit-buttons">
+        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
+    </div>
 </div>
 {% endblock %}
 

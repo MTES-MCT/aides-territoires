@@ -1009,15 +1009,12 @@ section#aid-edit {
             @extend .alert-danger;
         }
 
-        button[value='review'] {
+        button[value='reviewable'] {
             @include icon(before, $fa-var-paper-plane);
         }
 
-        button[value='draft'] {
-            @include icon(before, $fa-var-save);
-        }
-
-        button[value='save'] {
+        button#save {
+            @extend .secondary;
             @include icon(before, $fa-var-save);
         }
 

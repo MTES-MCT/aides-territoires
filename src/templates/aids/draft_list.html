@@ -63,7 +63,11 @@
                         <span class="fas fa-check-circle" title="{{ _('Displayed') }}"></span>
                     {% endif %}
                 </td>
-                <td>{{ aid.perimeter }}</td>
+                <td>
+                    {% if aid.perimeter %}
+                        <span>{{ aid.perimeter }}</span>
+                    {% endif %}
+                </td>
                 <td>{{ aid.date_created|date:'d/m/y' }}</td>
                 <td>{{ aid.date_updated|date:'d/m/y' }}</td>
                 <td class="nowrap-cell">

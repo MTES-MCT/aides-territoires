@@ -33,23 +33,23 @@
 
     {% block fields %}
     <fieldset>
-            <legend><span id="aid-presentation"></span>1 - {{ _('Aid presentation') }}</legend>
-            {% include '_field_snippet_aid_form.html' with field=form.name %}
-            {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
-            {% include '_field_snippet_aid_form.html' with field=form.programs %}
-            {% include '_field_snippet_aid_form.html' with field=form.financers %}
-            {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
-            <div id="instructor-fields">
-                {% include '_field_snippet_aid_form.html' with field=form.instructors %}
-                {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
-            </div>
-            {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
-            {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
-            <div id="subvention-fields">
-                {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
-                {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
-            </div>
-            {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
+        <legend><span id="aid-presentation"></span>1 - {{ _('Aid presentation') }}</legend>
+        {% include '_field_snippet_aid_form.html' with field=form.name %}
+        {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
+        {% include '_field_snippet_aid_form.html' with field=form.programs %}
+        {% include '_field_snippet_aid_form.html' with field=form.financers %}
+        {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
+        <div id="instructor-fields">
+            {% include '_field_snippet_aid_form.html' with field=form.instructors %}
+            {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
+        </div>
+        {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
+        {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
+        <div id="subvention-fields">
+            {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
+            {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
+        </div>
+        {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
 
     <fieldset>
