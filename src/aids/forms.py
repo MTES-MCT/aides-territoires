@@ -191,7 +191,6 @@ class AidAdminForm(BaseAidForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['financers'].required = False
         self.fields['start_date'].required = False
 
 
