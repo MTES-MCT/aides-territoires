@@ -23,10 +23,8 @@
 
     <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Available aids') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Published aids that are still open.
-            {% endblocktrans %}</small>
+            <h6>Aides disponibles</h6>
+            <small>Aides publiées et toujours ouvertes aux candidatures</small>
         </div>
         <div class="stat-body number-stat">
             <span>{{ nb_live_aids|intcomma }}</span>
@@ -35,53 +33,43 @@
 
     <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Page launch date') }}</h6>
+            <h6>Date de lancement de le page</h6>
         </div>
         <div class="stat-body number-stat">
             <span>{{ search_page.date_created|date:'d/m/Y' }}</span>
         </div>
     </div>
 
-    <div class="stat">
+    <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Total number of views') }}</h6>
-            <small>{{ _('Since the launch of the page') }}</small>
+            <h6>Nombre de recherches pendant les 30 derniers jours</h6>
         </div>
         <div class="stat-body number-stat">
-            <span>{{ view_count_total|intcomma }}</span>
+            <span>{{ search_count_last_30_days|intcomma }}</span>
         </div>
     </div>
 
-    <div class="stat">
+    <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Number of views within the last 30 days') }}</h6>
+            <h6>Nombre de recherches pendant les 7 derniers jours</h6>
         </div>
         <div class="stat-body number-stat">
-            <span>{{ view_count_last_30_days|intcomma }}</span>
+            <span>{{ search_count_last_7_days|intcomma }}</span>
         </div>
     </div>
 
-    <div class="stat">
+    <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Number of views within the last 7 days') }}</h6>
-        </div>
-        <div class="stat-body number-stat">
-            <span>{{ view_count_last_7_days|intcomma }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <div class="stat-title">
-            <h6>{{ _('Aids viewed within the last 30 days') }}</h6>
+            <h6>Nombre d'aides vues pendant les 30 derniers jours</h6>
         </div>
         <div class="stat-body number-stat">
             <span>{{ aid_view_count_last_30_days|intcomma }}</span>
         </div>
     </div>
 
-    <div class="stat">
+    <div class="stat half-width">
         <div class="stat-title">
-            <h6>{{ _('Aids viewed within the last 7 days') }}</h6>
+            <h6>Nombre d'aides vues pendant les 7 derniers jours</h6>
         </div>
         <div class="stat-body number-stat">
             <span>{{ aid_view_count_last_7_days|intcomma }}</span>
@@ -90,7 +78,7 @@
 
     <div class="stat full-width">
         <div class="stat-title">
-            <h6>{{ _('Aids viewed per week') }}</h6>
+            <h6>Nombre d'aides vues par semaine</h6>
         </div>
         <div style="min-height: 400px">
             <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
@@ -99,17 +87,17 @@
 
     <div class="stat full-width">
         <div class="stat-title">
-            <h6>{{ _('Top viewed aids') }} (top 10)</h6>
-            <small>{{ _('Since the launch of the page') }}</small>
+            <h6>Aides les plus vues (top 10)</h6>
+            <small>Depuis le lancement de le page</small>
         </div>
         <div class="stat-body">
             {% if top_10_aid_viewed %}
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>{{ _('Rank') }}</th>
-                            <th>{{ _('Aid URL') }}</th>
-                            <th>{{ _('Hits') }}</th>
+                            <th class="order-column">Ordre</th>
+                            <th>Nom de l'aide</th>
+                            <th class="value-column">Vues</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,7 +111,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <span>{{ _('No data') }}</span>
+                <span>Pas de données</span>
             {% endif %}
         </div>
     </div>
@@ -131,17 +119,17 @@
     {% if search_page.show_audience_field %}
     <div class="stat full-width">
         <div class="stat-title">
-            <h6>{{ _('Top audiences searched') }} (top 10)</h6>
-            <small>Parmi les {{ search_events_total }} recherches effectuées</small>
+            <h6>Bénéficiaires les plus recherchés (top 10)</h6>
+            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
         </div>
         <div class="stat-body">
             {% if top_10_audiences_searched %}
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>{{ _('Rank') }}</th>
-                            <th>{{ _('Audience') }}</th>
-                            <th>{{ _('Search count') }}</th>
+                            <th class="order-column">Ordre</th>
+                            <th>Bénéficiaire</th>
+                            <th class="value-column">Recherches</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,7 +143,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <span>{{ _('No data') }}</span>
+                <span>Pas de données</span>
             {% endif %}
         </div>
     </div>
@@ -164,17 +152,17 @@
     {% if search_page.show_categories_field %}
     <div class="stat full-width">
         <div class="stat-title">
-            <h6>{{ _('Top categories searched') }} (top 10)</h6>
-            <small>Parmi les {{ search_events_total }} recherches effectuées</small>
+            <h6>Sous-thématiques les plus recherchées (top 10)</h6>
+            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
         </div>
         <div class="stat-body">
             {% if top_10_categories_searched %}
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>{{ _('Rank') }}</th>
-                            <th>{{ _('Category') }}</th>
-                            <th>{{ _('Search count') }}</th>
+                            <th class="order-column">Ordre</th>
+                            <th>Sous-thématique</th>
+                            <th class="value-column">Recherches</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -188,7 +176,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <span>{{ _('No data') }}</span>
+                <span>Pas de données</span>
             {% endif %}
         </div>
     </div>
@@ -196,31 +184,31 @@
 
     <div class="stat full-width">
         <div class="stat-title">
-            <h6>{{ _('Top keywords searched') }} (top 10)</h6>
-            <small>{{ _('Since the launch of the page') }}</small>
+            <h6>Mots clés les plus recherchés (top 10)</h6>
+            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
         </div>
         <div class="stat-body">
             {% if top_10_keywords_searched %}
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>{{ _('Rank') }}</th>
-                            <th>{{ _('Keyword') }}</th>
-                            <th>{{ _('Search count') }}</th>
+                            <th class="order-column">Ordre</th>
+                            <th>Mot clé</th>
+                            <th class="value-column">Recherches</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for keyword in top_10_keywords_searched %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ keyword.label }}</td>
-                                <td>{{ keyword.nb_hits }}</td>
+                                <td>{{ keyword.text }}</td>
+                                <td>{{ keyword.search_count }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             {% else %}
-                <span>{{ _('No data') }}</span>
+                <span>Pas de données</span>
             {% endif %}
         </div>
     </div>

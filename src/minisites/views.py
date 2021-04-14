@@ -16,7 +16,6 @@ from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from stats.utils import log_aidsearchevent
-from analytics.utils import get_matomo_stats_from_page_title, get_matomo_stats
 from core.utils import get_subdomain_from_host
 
 
@@ -182,26 +181,17 @@ class SiteStats(MinisiteMixin, TemplateView):
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
 
-        # view count: all-time
-        context['view_count_total'] = get_matomo_stats_from_page_title(
-            page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=self.search_page.date_created.strftime('%Y-%m-%d'),  # noqa
-            result_key='nb_hits'
-        )
+        # page view count: last 30 days & last 7 days
+        search_events = AidSearchEvent.objects \
+            .filter(source=self.search_page.slug)
 
-        # view count: last 30 days
-        context['view_count_last_30_days'] = get_matomo_stats_from_page_title(
-            page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=thirty_days_ago.strftime('%Y-%m-%d'),
-            result_key='nb_hits'
-        )
-
-        # view count: last 7 days
-        context['view_count_last_7_days'] = get_matomo_stats_from_page_title(
-            page_title=self.search_page.meta_title or self.search_page.title,
-            from_date_string=seven_days_ago.strftime('%Y-%m-%d'),
-            result_key='nb_hits'
-        )
+        context['search_count_total'] = search_events.count()
+        context['search_count_last_30_days'] = search_events \
+            .filter(date_created__gte=thirty_days_ago) \
+            .count()
+        context['search_count_last_7_days'] = search_events \
+            .filter(date_created__gte=seven_days_ago) \
+            .count()
 
         # aid view count: last 30 days & last 7 days
         view_events = AidViewEvent.objects \
@@ -210,12 +200,11 @@ class SiteStats(MinisiteMixin, TemplateView):
         context['aid_view_count_last_30_days'] = view_events \
             .filter(date_created__gte=thirty_days_ago) \
             .count()
-
         context['aid_view_count_last_7_days'] = view_events \
             .filter(date_created__gte=seven_days_ago) \
             .count()
 
-        # group views by week, from 1/1/2021
+        # aid view grouped by week (since 1/1/2021)
         aid_view_timeseries = view_events \
             .filter(date_created__gte=beginning_of_2021) \
             .annotate(date_to_week=TruncWeek('date_created')) \
@@ -237,14 +226,8 @@ class SiteStats(MinisiteMixin, TemplateView):
             .order_by('-view_count')
         context['top_10_aid_viewed'] = list(top_aid_viewed)[:10]
 
-        # search count
-        search_events = AidSearchEvent.objects \
-            .filter(source=self.search_page.slug)
-
-        context['search_events_total'] = search_events.count()
-
+        # top 10 targeted_audiences filters
         if self.search_page.show_audience_field:
-            # top 10 targeted_audiences filters
             top_audiences_searched = search_events \
                 .filter(targeted_audiences__isnull=False) \
                 .annotate(audience=Func(
@@ -257,8 +240,8 @@ class SiteStats(MinisiteMixin, TemplateView):
                 top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
             context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
+        # top 10 categories filters
         if self.search_page.show_categories_field:
-            # top 10 categories filters
             top_categories_searched = search_events \
                 .prefetch_related('categories') \
                 .exclude(categories=None) \
@@ -268,12 +251,12 @@ class SiteStats(MinisiteMixin, TemplateView):
             context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
         # top 10 keywords searched
-        top_keywords_searched = get_matomo_stats(
-            api_method='Actions.getSiteSearchKeywords',
-            custom_segment=f'pageUrl=@{self.search_page.slug}.aides-territoires.beta.gouv.fr',  # noqa
-            from_date_string=seven_days_ago.strftime('%Y-%m-%d'))
-        if top_keywords_searched == list:
-            context['top_10_keywords_searched'] = sorted(top_keywords_searched, key=lambda k: k['nb_hits'], reverse=True)[:10]  # noqa
+        top_keywords_searched = search_events \
+            .exclude(text__isnull=True).exclude(text__exact='') \
+            .values('text') \
+            .annotate(search_count=Count('id')) \
+            .order_by('-search_count')
+        context['top_10_keywords_searched'] = list(top_keywords_searched)[:10]
 
         return context
 

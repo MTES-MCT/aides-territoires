@@ -1083,6 +1083,11 @@ section#stats {
                 text-align: center;
                 margin-bottom: 0;
             }
+
+            th.order-column,
+            th.value-column {
+                width: 15%;
+            }
         }
 
         &.half-width {
