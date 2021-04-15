@@ -74,6 +74,7 @@ class CategorySearch(SearchMixin, FormView):
         theme_aids = filter_form.filter_queryset()
 
         context['suggest_project'] = any((
+            'mobilite-transports' in self.request.GET.getlist('themes', []),
             'energies-dechets' in self.request.GET.getlist('themes', []),
             'urbanisme-logement-amenagement'
             in self.request.GET.getlist('themes', [])))
