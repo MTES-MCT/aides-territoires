@@ -1,0 +1,12 @@
+Message reçu via le formulaire de contact.
+
+De :
+{% if form_dict.first_name or form_dict.last_name %}- Nom : {{ form_dict.first_name }} {{ form_dict.last_name }}{% endif %}
+- E-mail : {{ form_dict.email }}
+{% if form_dict.phone %}- Téléphone : {{ form_dict.phone }}{% endif %}
+{% if form_dict.organization_and_role %}- Structure et fonction : {{ form_dict.organization_and_role }}{% endif %}
+
+Sujet : {{ subject_display }}
+
+Message : 
+{{ form_dict.message }}
