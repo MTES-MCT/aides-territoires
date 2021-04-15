@@ -206,6 +206,12 @@ Il faudra alors manuellement lancer la compression en cas de besoin.
     python manage.py compress
 
 
+## Utilisation de Redis
+
+Nous utilisons Redis en production :- Comme backend de cache pour Django- Comme broker pour Celery
+En locale et pour les Review Apps, il nous généralement pas besoin d'utiliser Redis.
+
+
 ## Traduction : À propos des fichiers `.po` et `.mo`
 
 Ce project utilise le système de tranduction de Django :
