@@ -45,9 +45,9 @@
     {% if aid.categories %}
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
-        {% if theme_list|length > 3 %}
+        {% if theme_list|length > 4 %}
             {% for theme in theme_list %}
-                {% if forloop.counter < 4 %}
+                {% if forloop.counter < 5 %}
                 <li class="theme">
                     <strong>
                         {{ theme.grouper }}
