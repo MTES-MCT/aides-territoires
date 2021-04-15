@@ -1126,6 +1126,16 @@ article#aid {
         }
     }
 
+    a#collapse-categories-btn {
+        @extend .btn;
+        @extend .btn-primary;
+        @extend .mt-3;
+
+        &[aria-expanded="true"] {
+            display: none;
+        }
+    }
+
     div.deadline-data {
         float: right;
         @extend .ml-3;
