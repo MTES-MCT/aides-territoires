@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 celery = "*"
-django = "==3.1.8"
+django = "<4"
 django-activity-stream = "*"
 django-admin-autocomplete-filter = "*"
 django-anymail = {extras = ["sendinblue"],version = "*"}
