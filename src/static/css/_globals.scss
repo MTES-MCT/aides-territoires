@@ -889,9 +889,6 @@ html.integration {
         div.header-warning,
         nav[aria-label=breadcrumb],
         &>footer,
-        section.aid-content footer {
-            display: none;
-        }
 
         main {
             @extend .pb-3;
@@ -1078,15 +1075,6 @@ nav.form-steps {
 ul:last-child,
 p:last-child {
     margin-bottom: 0;
-}
-
-.mobile-center {
-    text-align: left;
-
-    @include media-breakpoint-down(md) {
-        text-align: center;
-        margin: inherit auto;
-    }
 }
 
 .btn {

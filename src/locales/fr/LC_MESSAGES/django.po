@@ -2235,9 +2235,6 @@ msgstr "Plus de critères"
 msgid "Keyword"
 msgstr "Mot clé"
 
-msgid "Share this aid"
-msgstr "Partager cette aide"
-
 msgid "Copy the current url to clipboard"
 msgstr "Copier l'url dans le presse-papier"
 
