@@ -2395,9 +2395,6 @@ msgstr "Modifiée le"
 msgid "Is live"
 msgstr "Visibilité sur le site"
 
-msgid "Hits"
-msgstr "Vues"
-
 msgid "Edit an aid"
 msgstr "Modifiez une aide"
 
@@ -2672,63 +2669,6 @@ msgstr ""
 
 msgid "Reset filters"
 msgstr "Réinitialiser"
-
-msgid "Available aids"
-msgstr "Aides disponibles"
-
-msgid "Published aids that are still open."
-msgstr "Aides publiées et toujours ouvertes aux candidatures"
-
-msgid "Page launch date"
-msgstr "Date de lancement de le page"
-
-msgid "Total number of views"
-msgstr "Nombre de vues total"
-
-msgid "Since the launch of the page"
-msgstr "Depuis le lancement de le page"
-
-msgid "Number of views within the last 30 days"
-msgstr "Nombre de vues pendant les 30 derniers jours"
-
-msgid "Number of views within the last 7 days"
-msgstr "Nombre de vues pendant les 7 derniers jours"
-
-msgid "Aids viewed within the last 30 days"
-msgstr "Nombre d'aides vues pendant les 30 derniers jours"
-
-msgid "Aids viewed within the last 7 days"
-msgstr "Nombre d'aides vues pendant les 7 derniers jours"
-
-msgid "Aids viewed per week"
-msgstr "Nombre d'aides vues par semaine"
-
-msgid "Top viewed aids"
-msgstr "Aides les plus vues"
-
-msgid "Rank"
-msgstr "Ordre"
-
-msgid "Aid URL"
-msgstr "URL de l'aide"
-
-msgid "No data"
-msgstr "Pas de données"
-
-msgid "Top audiences searched"
-msgstr "Bénéficiaires les plus recherchés"
-
-msgid "Audience"
-msgstr "Bénéficiaire"
-
-msgid "Search count"
-msgstr "Recherches"
-
-msgid "Top categories searched"
-msgstr "Sous-thématiques les plus recherchées"
-
-msgid "Top keywords searched"
-msgstr "Mots clés les plus recherchés"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
