@@ -15,15 +15,15 @@ class PerimeterAdminForm(forms.ModelForm):
 class PerimeterAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
 
+    form = PerimeterAdminForm
     list_display = ('scale', 'name', 'manually_created', 'is_visible_to_users',
                     'code', 'is_overseas',
                     'regions', 'departments', 'epci', 'zipcodes', 'basin')
-    search_fields = ['name', 'code']
     list_filter = ('scale', 'is_overseas', 'manually_created',
                    'is_visible_to_users')
+    search_fields = ['id', 'name', 'code']
     ordering = ('-scale', 'name')
-    form = PerimeterAdminForm
-    # readonly_fields managed below
+    # readonly_fields ? managed below
 
     class Media:
         css = {

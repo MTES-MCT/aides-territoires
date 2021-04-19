@@ -21,7 +21,7 @@ from programs.models import Program
 
 class BackerGroupAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'nb_backers', 'date_created']
-    search_fields = ['name']
+    search_fields = ['id', 'name']
     ordering = ['name']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['date_created']
