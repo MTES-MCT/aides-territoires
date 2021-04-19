@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -25,7 +24,6 @@ class HomeView(TemplateView):
 
         aids_qs = Aid.objects.open().published()
         financers = aids_qs.values_list('financers', flat=True)
-        instructors = aids_qs.values_list('instructors', flat=True)
         nb_backers = Backer.objects \
             .filter(id__in=financers) \
             .values('id') \
