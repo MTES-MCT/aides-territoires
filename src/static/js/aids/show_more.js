@@ -5,6 +5,28 @@
         this.last_page = last_page;
     };
 
+    exports.getResults = function(new_url) {
+        searchXHR = $.ajax({
+            type: "GET",
+            url: new_url,
+            cache: false,
+            beforeSend: function () {
+                $('#show_more_text').addClass('d-none')
+                $('#spinner').removeClass("d-none");
+            },
+            success: function(html){
+                html_parsed = $.parseHTML(html)
+                $('.aids').append($(html_parsed).find(".aids > .col"))
+                $('#spinner').addClass("d-none");
+                $('#show_more_text').removeClass('d-none')
+                $("#show_more_btn").attr("disabled", false);
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+    }
+
     exports.Pagination.prototype.backToResults = function () {
 
         // Here we want to allow user to go back to the previous results page
@@ -48,25 +70,7 @@
 
                 if(this.current_page !== this.last_page) {
                     $("#show_more_btn").attr("disabled", true);
-                    searchXHR = $.ajax({
-                        type: "GET",
-                        url: new_url,
-                        cache: false,
-                        beforeSend: function () {
-                            $('#show_more_text').addClass('d-none')
-                            $('#spinner').removeClass("d-none");
-                        },
-                        success: function(html){
-                            html_parsed = $.parseHTML(html)
-                            $('.aids').append($(html_parsed).find(".aids > .col"))
-                            $('#spinner').addClass("d-none");
-                            $('#show_more_text').removeClass('d-none')
-                            $("#show_more_btn").attr("disabled", false);
-                        },
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
+                    getResults(new_url)
                 } else {
                     $('#show_more').addClass('d-none')
                 }
@@ -106,25 +110,7 @@
 
         if(this.current_page !== this.last_page) {
             $("#show_more_btn").attr("disabled", true);
-            searchXHR = $.ajax({
-                type: "GET",
-                url: new_url,
-                cache: false,
-                beforeSend: function () {
-                    $('#show_more_text').addClass('d-none')
-                    $('#spinner').removeClass("d-none");
-                },
-                success: function(html){
-                    html_parsed = $.parseHTML(html)
-                    $('.aids').append($(html_parsed).find(".aids > .col"))
-                    $('#spinner').addClass("d-none");
-                    $('#show_more_text').removeClass('d-none')
-                    $("#show_more_btn").attr("disabled", false);
-                },
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
+            getResults(new_url)
         } else {
             $('#show_more').addClass('d-none')
         }
