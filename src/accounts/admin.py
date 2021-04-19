@@ -1,12 +1,30 @@
 from django import forms
-from django.db.models import Count
+from django.db.models import Count, Q, CharField, Value as V
+from django.db.models.functions import Concat
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from core.admin import InputFilter
 from aids.models import Aid
 from accounts.models import User
+
+
+class AuthorFilter(InputFilter):
+    parameter_name = 'author'
+    title = _('Author')
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+            qs = queryset \
+                .annotate(
+                    author_name=Concat(
+                        'author__first_name', V(' '), 'author__last_name',
+                        output_field=CharField())) \
+                .filter(Q(author_name__icontains=value))
+            return qs
 
 
 class UserAdminForm(forms.ModelForm):
@@ -61,7 +79,7 @@ class UserAdmin(BaseUserAdmin):
 
     def nb_aids(self, user):
         return user.aid_count
-    nb_aids.short_description = _('Number of aids')
+    nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
     def in_mailing_list(self, obj):

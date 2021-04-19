@@ -120,8 +120,10 @@ class BaseImportCommand(BaseCommand):
         """
         form_fields = AidEditForm.Meta.fields
         more_fields = [
-            'author_id', 'is_imported', 'import_uniqueid', 'import_data_url',
-            'import_share_licence', 'import_last_access', 'date_published'
+            'author_id',
+            'import_data_source', 'is_imported', 'import_uniqueid',
+            'import_data_url', 'import_share_licence', 'import_last_access',
+            'date_published'
         ]
         fields = form_fields + more_fields
 
@@ -150,6 +152,10 @@ class BaseImportCommand(BaseCommand):
 
     def extract_author_id(self, line):
         return ADMIN_ID
+
+    def extract_import_data_source(self, line):
+        # raise NotImplementedError
+        return None
 
     def extract_import_uniqueid(self, line):
         """Must return an unique import reference.

@@ -2,11 +2,14 @@ from django.urls import path
 from django.views.generic import TemplateView
 from django.utils.translation import gettext_lazy as _
 
-from home.views import (HomeView, NewsletterConfirmView,
-                        NewsletterSuccessView, ADDNAOptin)
+from home.views import (HomeView, ContactView,
+                        NewsletterConfirmView, NewsletterSuccessView,
+                        ADDNAOptin)
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+
+    path('contact/', ContactView.as_view(), name='contact'),
     path(
         _('legal-mentions/'),
         TemplateView.as_view(template_name='home/legal_mentions.html'),

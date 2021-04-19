@@ -41,6 +41,8 @@ THIRD_PARTY_APPS = [
     'admin_auto_filters',
     'drf_yasg',
     'anymail',
+    'django_celery_beat',
+    'adminsortable2',
 ]
 
 LOCAL_APPS = [
@@ -68,9 +70,12 @@ LOCAL_APPS = [
     'emails',
     'projects',
     'blog',
+    'eligibility',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,6 +85,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -107,7 +113,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': VALIDATORS_PATH + '.NumericPasswordValidator',
     },
 ]
+
+# Models
+
 AUTH_USER_MODEL = 'accounts.User'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Internationalization
@@ -227,6 +238,8 @@ CACHES = {
     }
 }
 
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
 ADMINS = [('Aides-territoires', 'nowhere@example.org')]
 
 MAILING_LIST_URL = None
@@ -276,3 +289,4 @@ ENABLE_AID_LIST_API_CACHE = False
 AID_LIST_API_CACHE_TIMEOUT = 0
 ENABLE_AID_DETAIL_API_CACHE = False
 AID_DETAIL_API_CACHE_TIMEOUT = 0
+

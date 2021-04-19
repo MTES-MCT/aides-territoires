@@ -121,6 +121,11 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def has_eligibility_test(self):
+        """Only return aids with an eligibility test."""
+
+        return self.filter(eligibility_test__isnull=False)
+
     def generic_aids(self):
         """Returns the list of generic aids"""
 
@@ -396,6 +401,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     status = xwf_models.StateField(
         AidWorkflow,
         verbose_name=_('Status'))
+
+    # Eligibility
+    eligibility_test = models.ForeignKey(
+        'eligibility.EligibilityTest',
+        on_delete=models.PROTECT,
+        verbose_name=_('Eligibility test'),
+        related_name='aids',
+        null=True, blank=True)
+
+    # Dates
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
@@ -667,6 +682,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def get_live_status_display(self):
         status = _('Displayed') if self.is_live() else _('Not displayed')
         return status
+
+    def has_eligibility_test(self):
+        return self.eligibility_test is not None
 
     def is_local(self):
         return self.generic_aid is not None

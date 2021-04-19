@@ -1,8 +1,6 @@
 from functools import reduce
 from operator import and_
-
-from django.db.models import Q, CharField, Value as V
-from django.db.models.functions import Concat
+from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
@@ -20,6 +18,7 @@ from aids.forms import AidAdminForm
 from aids.models import Aid, AidWorkflow
 from aids.resources import AidResource
 from core.admin import InputFilter
+from accounts.admin import AuthorFilter
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
@@ -59,6 +58,27 @@ class LiveAidListFilter(admin.SimpleListFilter):
             return queryset.published().open()
 
 
+class EligibilityTestFilter(admin.SimpleListFilter):
+    """Custom admin filter to target aids with eligibility tests."""
+
+    title = _('Eligibility test')
+    parameter_name = 'has_eligibility_test'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_eligibility_test()
+        elif value == 'No':
+            return queryset.filter(eligibility_test__isnull=True)  # noqa
+        return queryset
+
+
 class GenericAidListFilter(admin.SimpleListFilter):
     """Custom admin filter for generic, local and standard aids."""
 
@@ -81,22 +101,6 @@ class GenericAidListFilter(admin.SimpleListFilter):
 
         if self.value() == 'standard':
             return queryset.standard_aids()
-
-
-class AuthorFilter(InputFilter):
-    parameter_name = 'author'
-    title = _('Author')
-
-    def queryset(self, request, queryset):
-        value = self.value()
-        if value is not None:
-            qs = queryset \
-                .annotate(
-                    author_name=Concat(
-                        'author__first_name', V(' '), 'author__last_name',
-                        output_field=CharField())) \
-                .filter(Q(author_name__icontains=value))
-            return qs
 
 
 class BackersFilter(InputFilter):
@@ -184,6 +188,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         'status', GenericAidListFilter, 'recurrence',
         'is_imported', 'import_data_source',
         'is_call_for_project', 'in_france_relance',
+        EligibilityTestFilter,
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
         'programs', 'categories']
@@ -250,6 +255,12 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'origin_url',
                 'application_url',
                 'contact',
+            )
+        }),
+
+        (_('Eligibility'), {
+            'fields': (
+                'eligibility_test',
             )
         }),
 
@@ -322,6 +333,11 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     live_status.boolean = True
     live_status.short_description = _('Live')
 
+    def has_eligibility_test(self, aid):
+        return aid.has_eligibility_test()
+    has_eligibility_test.boolean = True
+    has_eligibility_test.short_description = _('Eligibility test')
+
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
         self.message_user(request, _('The selected aids were set as CFP'))
@@ -362,7 +378,7 @@ class AidAdmin(BaseAidAdmin):
             .all() \
             .distinct() \
             .prefetch_related('financers', 'instructors', 'perimeter') \
-            .select_related('author')
+            .select_related('author', 'eligibility_test')
         return qs
 
     def delete_model(self, request, obj):
@@ -391,7 +407,7 @@ class DeletedAidAdmin(BaseAidAdmin):
         qs = Aid.deleted_aids \
             .all() \
             .prefetch_related('financers', 'instructors') \
-            .select_related('author')
+            .select_related('author', 'eligibility_test')
         return qs
 
 
@@ -418,7 +434,7 @@ class AmendmentAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = Aid.amendments.all()
         qs = qs.prefetch_related('financers')
-        qs = qs.select_related('author')
+        qs = qs.select_related('author', 'eligibility_test')
         return qs
 
     def get_urls(self):

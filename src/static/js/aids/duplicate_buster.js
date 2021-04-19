@@ -1,3 +1,9 @@
+/**
+ * Script to detect duplicate aids.
+ * Where? Admin aid detail form & App aid create/edit form
+ * How? On the 'origin_url' field
+ * When? once the form is initialized, and everytime the form is changed
+ */
 (function (exports, $) {
     'use strict';
 
@@ -139,7 +145,7 @@
 
 (function($) {
     $(document).ready(function () {
-        var aidForm = $('#aid_form') || $('#aid-edit-form');
+        var aidForm = $('#aid_form').length ? $('#aid_form') : $('#aid-edit-form');
         var buster = new DuplicateBuster(aidForm);
         buster.init();
     });

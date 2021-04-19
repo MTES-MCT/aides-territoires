@@ -3,9 +3,36 @@
     "web": {
       "amount": 1,
       "size": "S"
+    },
+    "worker": {
+      "amount": 0,
+      "size": "S"
+    },
+    "beat": {
+      "amount": 0,
+      "size": "S"
+    }
+  },
+  "env": {
+    "DEBUG": {
+      "value": "True"
+    },
+    "CELERY_BROKER_URL": {
+      "value": "memory://"
+    },
+    "CACHE_BACKEND": {
+      "value": "django.core.cache.backends.locmem.LocMemCache"
+    },
+    "CACHE_LOCATION": {
+      "value": null
     }
   },
   "scripts": {
     "first-deploy": "bash scripts/first_deploy.sh"
-  }
+  },
+  "addons": [
+    {
+      "plan": "postgresql:postgresql-starter-512"
+    }
+  ]
 }

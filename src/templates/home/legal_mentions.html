@@ -2,6 +2,15 @@
 
 {% block extratitle %}{{ _('Legal mentions') }}{% endblock %}
 
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">{{ _('Legal mentions') }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
 <article>
     <div id="page-content">
@@ -80,10 +89,10 @@
         d'aides de publier des aides sur le site, nous recueillons les données suivantes :</p>
 
         <ul>
-        <li>nom complet ;</li>
-        <li>adresse e-mail ;</li>
-        <li>employeur / structure / poste professionnel ;</li>
-        <li>téléphone.</li>
+        <li>nom complet</li>
+        <li>adresse e-mail</li>
+        <li>employeur / structure / poste professionnel</li>
+        <li>téléphone</li>
         </ul>
 
         <p>La base légale du traitement est celle du consentement. Vous pouvez retirer
@@ -101,7 +110,7 @@
         (newsletter), nous recueillons les données suivantes :</p>
 
         <ul>
-        <li> adresse e-mail ; </li>
+        <li>adresse e-mail</li>
         </ul>
 
         <p>La base légale est celle du consentement. Vous pouvez retirer à tout moment
@@ -114,7 +123,7 @@
         immatriculée au RCS de Paris sous le numéro 498 019 298 et dont le siège
         social est situé 55 rue d'Amsterdam, 75008 Paris, France.</p>
 
-        <p>Elles sont conservées jusqu'à un an après la desinscription à la newsletter.</p>
+        <p>Elles sont conservées jusqu'à un an après la désinscription à la newsletter.</p>
 
         <h4>Alerte pour nouveaux résultats</h4>
 
@@ -122,7 +131,7 @@
         les données suivantes :</p>
 
         <ul>
-        <li>adresse e-mail ;</li>
+        <li>adresse e-mail</li>
         </ul>
 
         <p>La base légale est celle du consentement. Vous pouvez retirer à tout moment
@@ -131,8 +140,26 @@
 
         <p>Les données sont communiquées au DPO.</p>
 
-        <p>Elles sont conservées jusqu'à un an après la desinscription au service
+        <p>Elles sont conservées jusqu'à un an après la désinscription au service
         d'alerte.</p>
+
+        <h4>Formulaire de contact</h4>
+
+        <p>Dans le cadre de l'envoi d'un message à partir de notre formulaire de contact,
+        et afin de pouvoir vous répondre au mieux, nous recueillons les données suivantes :</p>
+
+        <ul>
+        <li>prénom ; nom ; téléphone ; structure et fonction (champs optionnels)</li>
+        <li>adresse e-mail</li>
+        </ul>
+
+        <p>La base légale du traitement est celle du consentement. Vous pouvez retirer
+        à tout moment votre consentement en envoyant votre demande aux coordonnées
+        présentes dans le pied de page.</p>
+    
+        <p>Les données sont communiquées au DPO.</p>
+
+        <p>Elles sont conservées jusqu'à un an après l'envoi de votre message.</p>
 
         <h2>Suivi d'audience et vie privée</h2>
 

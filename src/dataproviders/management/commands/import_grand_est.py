@@ -9,7 +9,7 @@ from aids.models import Aid
 ADMIN_ID = 1
 
 GRAND_EST_PERIMETER_CODE = '44'
-GRAND_EST_FINANCER_NAME = 'Région Grand Est'
+GRAND_EST_FINANCER_ID = 87  # "Conseil régional du Grand Est"
 
 
 ELIGIBILITY_TXT = '''Rendez-vous sur le site de la région Grand-Est pour
@@ -28,7 +28,7 @@ class Command(CrawlerImportCommand):
             .filter(code=GRAND_EST_PERIMETER_CODE) \
             .get()
 
-        self.financer = Backer.objects.get(name=GRAND_EST_FINANCER_NAME)
+        self.financer = Backer.objects.get(id=GRAND_EST_FINANCER_ID)
 
     def extract_author_id(self, line):
         return ADMIN_ID

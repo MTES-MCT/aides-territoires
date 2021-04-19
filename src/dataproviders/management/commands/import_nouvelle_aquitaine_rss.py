@@ -5,6 +5,9 @@ import locale
 import hashlib
 from datetime import datetime
 
+from django.utils import timezone
+
+from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
@@ -14,10 +17,9 @@ from categories.models import Category
 from aids.models import Aid
 
 
-FEED_URI = 'https://les-aides.nouvelle-aquitaine.fr/fiches-rss.xml'
-SOURCE_URL = 'https://les-aides.nouvelle-aquitaine.fr/'
-
-NOUVELLE_AQUITAINE_BACKER_ID = 90  # 'Conseil régional de Nouvelle-Aquitaine'
+DATA_SOURCE = DataSource.objects \
+    .prefetch_related('perimeter', 'backer') \
+    .get(pk=1)
 
 AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_audiences_mapping.csv'
@@ -77,16 +79,16 @@ class Command(CrawlerImportCommand):
 
     SPIDER_CLASS = NouvelleAquitaineSpider
 
-    def populate_cache(self, *args, **options):
-        self.nouvelle_aquitaine_perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
-            .filter(code='75') \
-            .get()
-        self.nouvelle_aquitaine_financer = Backer.objects.get(
-            id=NOUVELLE_AQUITAINE_BACKER_ID)
+    def handle(self, *args, **options):
+        DATA_SOURCE.date_last_access = timezone.now()
+        DATA_SOURCE.save()
+        super().handle(*args, **options)
 
     def line_should_be_processed(self, line):
         return True
+
+    def extract_import_data_source(self, line):
+        return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
         url_md5_hash = hashlib.md5(
@@ -95,10 +97,10 @@ class Command(CrawlerImportCommand):
         return unique_id
 
     def extract_import_data_url(self, line):
-        return SOURCE_URL
+        return DATA_SOURCE.import_data_url
 
     def extract_import_share_licence(self, line):
-        return IMPORT_LICENCES.unknown
+        return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
         title = line['title'][:180]
@@ -128,10 +130,10 @@ class Command(CrawlerImportCommand):
         return eligibility
 
     def extract_perimeter(self, line):
-        return self.nouvelle_aquitaine_perimeter
+        return DATA_SOURCE.perimeter
 
     def extract_financers(self, line):
-        return [self.nouvelle_aquitaine_financer]
+        return [DATA_SOURCE.backer]
 
     def extract_contact(self, line):
         return line['contact']
@@ -181,9 +183,6 @@ class Command(CrawlerImportCommand):
             else:
                 self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
         return aid_audiences
-
-    # def extract_tags(self, line):
-    #     return line['domaines_secondaires]
 
     def extract_project_examples(self, line):
         """Use the project_examples textfield to store metadata"""

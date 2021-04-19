@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Contact{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
+        <li class="active" aria-current="page">Contact</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="article narrow">
+    <form id="contact-form" action="{% url 'contact' %}" method="post">
+        <section>
+            <header>
+                <h1>Nous contacter</h1>
+            </header>
+
+            <div class="content">
+                {% csrf_token %}
+                <fieldset>
+                    {% include '_field_snippet.html' with field=form.first_name %}
+                    {% include '_field_snippet.html' with field=form.last_name %}
+                    {% include '_field_snippet.html' with field=form.email %}
+                    {% include '_field_snippet.html' with field=form.phone %}
+                    {% include '_field_snippet.html' with field=form.organization_and_role %}
+                </fieldset>
+
+                <fieldset>
+                    {% include '_field_snippet.html' with field=form.subject %}
+                </fieldset>
+
+                <fieldset>
+                    {% include '_field_snippet.html' with field=form.message %}
+                </fieldset>
+            </div>
+
+            <p class="info">
+                <span class="fas fa-check"></span>
+                {% url 'legal_mentions' as legal_mentions_url %}
+                {% blocktrans trimmed %}
+                By using this feature, you acknowledge that your data will
+                be processed <a href="{{ legal_mentions_url }}" target="_blank">
+                    according to our privacy policy</a>.
+                {% endblocktrans %}
+            </p>
+
+            <footer>
+                <button type="submit">Envoyer</button>
+            </footer>
+        </section>
+    </form>
+</div>
+{% endblock %}

@@ -35,9 +35,6 @@ msgstr "Permissions"
 msgid "Misc."
 msgstr "Divers"
 
-msgid "Number of aids"
-msgstr "Nombre d'aides"
-
 msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
 msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
 
@@ -2894,3 +2891,9 @@ msgstr "Articles de blog"
 
 msgid "Blog Post Categories"
 msgstr "Catégories des articles de blog"
+
+msgid "Eligibility test"
+msgstr "Test d'éligibilité"
+
+msgid "Eligibility tests"
+msgstr "Tests d'éligibilité"
