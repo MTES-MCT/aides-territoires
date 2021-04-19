@@ -715,6 +715,14 @@ form {
     }
 }
 
+.secondary {
+    background-color: #fff;
+
+    &:hover {
+        background-color: $contrast-color !important;
+    }
+}
+
 h1 {
     text-align: center;
 
