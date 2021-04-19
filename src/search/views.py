@@ -120,7 +120,7 @@ class ProjectSearch(SearchMixin, FormView):
             .distinct()
 
         '''
-        Here we check if the user choose less than 4 categories. 
+        Here we check if the user choose less than 4 categories.
         If so, in step "projects" we display project-entry.
         Else, in step "projects" we only display the suggest-project form
         (we consider that if the user choose more than 4 categories,

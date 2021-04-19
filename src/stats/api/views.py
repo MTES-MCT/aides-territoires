@@ -6,7 +6,7 @@ from stats.api.serializers import AidMatchProjectEventSerializer
 
 
 class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
-                                     viewsets.GenericViewSet):
+                                  viewsets.GenericViewSet):
     queryset = AidMatchProjectEvent.objects.all()
     serializer_class = AidMatchProjectEventSerializer
 
