@@ -879,6 +879,10 @@ section#aid-edit {
 
         .secondary {
             background-color: #fff;
+
+            &:hover {
+                background-color: $contrast-color !important;
+            }
         }
 
         div.inline-error {
