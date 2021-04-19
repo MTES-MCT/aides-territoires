@@ -75,6 +75,12 @@ class CategorySearch(SearchMixin, FormView):
         filter_form = AidSearchForm(initial)
         theme_aids = filter_form.filter_queryset()
 
+        context['suggest_project'] = any((
+            'mobilite-transports' in self.request.GET.getlist('themes', []),
+            'energies-dechets' in self.request.GET.getlist('themes', []),
+            'urbanisme-logement-amenagement'
+            in self.request.GET.getlist('themes', [])))
+
         context['total_aids'] = theme_aids \
             .values('id') \
             .distinct() \
@@ -114,9 +120,11 @@ class ProjectSearch(SearchMixin, FormView):
             .distinct()
 
         '''
-        Here we check if the user choose less than 4 categories.
+        Here we check if the user choose less than 4 categories. 
         If so, in step "projects" we display project-entry.
         Else, in step "projects" we only display the suggest-project form
+        (we consider that if the user choose more than 4 categories,
+        we can't guess what is his project so we don't display project-entry)
         '''
 
         context['categories_length'] = len(self.request.GET

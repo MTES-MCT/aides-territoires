@@ -26,11 +26,11 @@
 
 <h2>{{ _('Refine those results by selecting categories') }}</h2>
 
-{% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
+{% if suggest_project %}
 <form id="categories" action="{% url 'search_step_project' %}" method="GET">
 {% else %}
 <form id="categories" action="{% url 'search_view' %}" method="GET">
-{% endifequal %}
+{% endif %}
 
     {% include '_form_snippet.html' %}
 
