@@ -1293,6 +1293,12 @@ article#aid {
         }
     }
 
+    #share-btn {
+        @extend .btn;
+        @extend .btn-primary;
+        @include icon(before, $fa-var-share);
+    }
+
     .aid-details {
         @extend .col-md-8;
 
@@ -1306,8 +1312,10 @@ article#aid {
             @extend .mt-4;
         }
 
-        div#going-further {
-            @extend .mt-4;
+        div.fake-collapse {
+            max-height: 100px;
+            overflow-y: hidden;
+            opacity: 0.1;
         }
 
         a#fit_project_btn[href^="http"]::after {
@@ -1355,7 +1363,8 @@ article#aid {
             @extend .btn;
             @extend .btn-primary;
             display: block;
-            margin: 3rem auto 0 auto;
+            // margin: 3rem auto 0 auto;
+            @include icon(before, $fa-var-arrow-down);
         }
 
         div#localAidsLinks {

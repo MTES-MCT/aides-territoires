@@ -1883,9 +1883,6 @@ msgstr ""
 msgid "No results were found."
 msgstr "Aucun résultat trouvé."
 
-msgid "See contacts and full description"
-msgstr "Voir les contacts et le descriptif complet"
-
 msgid "Add a new instructor if different from financer"
 msgstr "Ajouter un instructeur s\\'il est différent du porteur"
 
