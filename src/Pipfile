@@ -9,6 +9,7 @@ celery = "*"
 django = "<4"
 django-activity-stream = "*"
 django-admin-autocomplete-filter = "*"
+django-admin-sortable2 = "*"
 django-anymail = {extras = ["sendinblue"],version = "*"}
 django-braces = "*"
 django-celery-beat = "*"
