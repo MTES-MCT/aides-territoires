@@ -33,7 +33,7 @@ from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
-from stats.utils import log_aidviewevent, log_aidsearchevent
+from stats.utils import (log_aidviewevent, log_aidsearchevent)
 
 
 class AidPaginator(Paginator):
@@ -256,7 +256,7 @@ class AidDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         current_search = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, '')
+             settings.SEARCH_COOKIE_NAME, '')
         context['current_search'] = current_search
         # Here we reconstruct the AidSearchForm from the current_search
         # querystring. This is needed to display some of the search filters.

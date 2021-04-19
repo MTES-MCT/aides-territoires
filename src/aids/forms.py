@@ -14,6 +14,7 @@ from core.forms import (
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
+from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
@@ -400,6 +401,11 @@ class BaseAidSearchForm(forms.Form):
     backers = AutocompleteModelMultipleChoiceField(
         label=_('Backers'),
         queryset=Backer.objects.all(),
+        required=False)
+    projects = forms.ModelMultipleChoiceField(
+        label=_('Projects'),
+        queryset=Project.objects.all(),
+        to_field_name='slug',
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label=_('Aid programs'),

@@ -2775,30 +2775,6 @@ msgstr "Recherche – Projet"
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "In what projects are you interested in?"
-msgstr "Pour quel projet recherchez-vous une aide&nbsp;?"
-
-msgid "Contribute to improve Aides-territoires!"
-msgstr "Contribuez à améliorer Aides-territoires&nbsp;!"
-
-msgid "Tell us the project for which you are seeking aids."
-msgstr "Indiquez le projet pour lequel vous recherchez une aide."
-
-msgid "This will help us to improve in future the relevance of results"
-msgstr ""
-"Cela nous permettra d'améliorer dans le futur la pertinence des résultats "
-"qui vous seront proposés."
-
-msgid ""
-"These informations will not have any impact in your search results and will "
-"stay confidential"
-msgstr ""
-"Ces informations n’auront aucune influence sur les résultats de votre "
-"recherche et resteront confidentielles"
-
-msgid "Submit this project and display results"
-msgstr "Partager mon projet et accéder aux aides disponibles"
-
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
 
@@ -2903,6 +2879,18 @@ msgstr "Contact (team AT)"
 
 msgid "Contact backer"
 msgstr "Contact du porteur"
+
+msgid "Aid Match Project Event"
+msgstr "Événement aide liée à un projet"
+
+msgid "Aid Match Project Events"
+msgstr "Événements aide liée à un projet"
+
+msgid "Blog Posts"
+msgstr "Articles de blog"
+
+msgid "Blog Post Categories"
+msgstr "Catégories des articles de blog"
 
 msgid "Eligibility test"
 msgstr "Test d'éligibilité"

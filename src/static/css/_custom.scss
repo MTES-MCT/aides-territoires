@@ -1328,6 +1328,47 @@ article#aid {
             @extend .mt-4;
         }
 
+        a#fit_project_btn[href^="http"]::after {
+            display: none;
+        }
+        
+        a#fit_project_btn {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            z-index: 999;
+            transform: rotate(270deg);
+            transform-origin: right bottom;
+            display: inline-block;
+            text-align: center;
+            padding: 0.375rem 0.7rem;
+            border: 2px solid $contrast-color;
+            border-radius: 1rem 1rem 0 0;
+            color: #fff !important;
+            background-color: $contrast-color;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 1.5;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            text-decoration: none;
+            animation: climb linear 1s;
+
+            @include icon(before, $fa-var-check);
+
+            &::before {
+                color: $dark-green;
+            }
+        }
+          
+        @keyframes climb {
+            0% {
+                transform:  translate(0px,200px)  rotate(270deg) ;
+              }
+              100% {
+                transform:  translate(0px, 0px)  rotate(270deg) ;
+              }
+        }
+
         button.cta-btn {
             @extend .btn;
             @extend .btn-primary;
@@ -1375,6 +1416,26 @@ article#aid {
             li {
                 @extend .list-group-item;
             }
+        }
+    }
+}
+
+#match-project-modal {
+    .info {
+        p:last-of-type {
+            text-align: center;
+        }
+    }
+
+    #project-name {
+        text-transform: uppercase;
+    }
+
+    footer {
+        justify-content: center;
+
+        button {
+            padding: 0.5rem 4rem;
         }
     }
 }
@@ -1709,7 +1770,8 @@ div#search-steps {
             color: $dark;
         }
 
-        span.separator {
+        .step:not(:last-of-type)::after {
+            content: "";
             display: inline-block;
             width: 2rem;
             height: .4rem;
@@ -1847,6 +1909,34 @@ div#search-steps {
     }
 }
 
+#projects {
+    .form-group {
+        @extend .mb-4;
+    }
+}
+
+#other_project_box {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; 
+    @extend .mb-4;
+    @extend .px-5;
+    @extend .py-4;
+    border: solid 2px #fff;
+    border-radius: 10px;
+
+    @include media-breakpoint-up(md) {
+        p {
+            margin-bottom: 0 !important;
+        }
+
+        .btn {
+            margin-left: 2rem;
+        }
+    }
+}
+
 #suggested_project_box {
     border: solid 2px #fff;
     border-radius: 10px;
@@ -1874,7 +1964,7 @@ div#search-steps {
 
     .warning {
 
-        @extend .mt-3;
+        @extend .my-3;
 
         p {
             @extend .mb-0;

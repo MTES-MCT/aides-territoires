@@ -5,6 +5,8 @@ from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm,
                           ProjectSearchForm,)
+from categories.models import Category
+from projects.models import Project
 
 
 class SearchMixin:
@@ -101,3 +103,31 @@ class ProjectSearch(SearchMixin, FormView):
             'categories': GET.getlist('categories', []),
         }
         return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        categories = self.request.GET.getlist('categories', [])
+
+        category_id = Category.objects \
+            .filter(slug__in=categories) \
+            .values('id') \
+            .distinct()
+
+        context['project_choices'] = Project.objects \
+            .filter(status='published') \
+            .filter(categories__in=category_id) \
+            .distinct()
+
+        '''
+        Here we check if the user choose less than 4 categories.
+        If so, in step "projects" we display project-entry.
+        Else, in step "projects" we only display the suggest-project form
+        (we consider that if the user choose more than 4 categories,
+        we can't guess what is his project so we don't display project-entry)
+        '''
+
+        context['categories_length'] = len(self.request.GET
+                                           .getlist('categories', [])) < 5
+
+        return context

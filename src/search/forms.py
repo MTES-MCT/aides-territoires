@@ -225,10 +225,25 @@ class ProjectSearchForm(forms.Form):
         to_field_name='slug',
         widget=forms.widgets.MultipleHiddenInput)
     projects = ProjectMultipleChoiceField(
-        queryset=Project.objects.filter(status='published'),
-        to_field_name='name',
+        queryset=Project.objects.all(),
+        to_field_name='slug',
         required=False,
         widget=ProjectWidget)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        categories = self.initial.get('categories', [])
+
+        category_id = Category.objects \
+            .filter(slug__in=categories) \
+            .values('id') \
+            .distinct()
+
+        self.fields['projects'].queryset = Project.objects \
+            .filter(status='published') \
+            .filter(categories__in=category_id) \
+            .distinct()
 
 
 class SearchPageAdminForm(forms.ModelForm):
