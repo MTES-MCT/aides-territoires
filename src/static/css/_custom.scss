@@ -1127,9 +1127,10 @@ article#aid {
     }
 
     a#collapse-categories-btn {
-        @extend .btn;
-        @extend .btn-primary;
-        @extend .mt-3;
+        display: inline-block;
+        color: $dark-green !important;
+        font-weight: 900;
+        @extend .mt-1;
 
         &[aria-expanded="true"] {
             display: none;
