@@ -190,7 +190,6 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
 
     filter_vertical = [
         'categories',
-        'projects',
     ]  # Overriden in the widget definition
     readonly_fields = [
         'sibling_aids',
@@ -243,7 +242,6 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'description',
                 'project_examples',
                 'eligibility',
-                'projects'
             )
         }),
 

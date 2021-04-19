@@ -263,11 +263,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name=_('Categories'),
         related_name='aids',
         blank=True)
-    projects = models.ManyToManyField(
-        'projects.Project',
-        verbose_name=_('Projects'),
-        related_name='aids',
-        blank=True)
     financers = models.ManyToManyField(
         'backers.Backer',
         related_name='financed_aids',

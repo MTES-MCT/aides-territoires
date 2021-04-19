@@ -285,7 +285,6 @@ class AidEditForm(BaseAidForm):
             'application_url',
             'contact',
             'local_characteristics',
-            'projects'
         ]
         widgets = {
             'mobilization_steps': MultipleChoiceFilterWidget,
