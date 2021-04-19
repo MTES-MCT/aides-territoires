@@ -27,7 +27,7 @@ class HomeView(TemplateView):
         financers = aids_qs.values_list('financers', flat=True)
         instructors = aids_qs.values_list('instructors', flat=True)
         nb_backers = Backer.objects \
-            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
+            .filter(id__in=financers) \
             .values('id') \
             .count()
         selected_backers = Backer.objects.can_be_displayed_in_carousel()
