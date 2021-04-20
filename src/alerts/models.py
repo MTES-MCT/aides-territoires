@@ -76,11 +76,11 @@ class Alert(models.Model):
 
     def get_absolute_url(self):
         # When accessing the alert URL, we want to keep only
-        # things that were published after the last alert
-        # was sent.
+        # things that were published after the last alert was sent.
         querydict = QueryDict(self.querystring).copy()
         published_after = self.latest_alert_date.strftime('%Y-%m-%d')
         querydict['published_after'] = published_after
+        querydict['action'] = 'alert'
         return '{}?{}'.format(reverse('search_view'), querydict.urlencode())
 
     def get_new_aids(self):
