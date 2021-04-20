@@ -143,7 +143,7 @@ class Command(BaseImportCommand):
     #     return 'https://www.paysdelaloire.fr/les-aides/' + aid_slug
 
     def extract_application_url(self, line):
-        application_url = line.get('source_lien', None)
+        application_url = line.get('source_lien', '')
         return application_url
 
     def extract_targeted_audiences(self, line):
