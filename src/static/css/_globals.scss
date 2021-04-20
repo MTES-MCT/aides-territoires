@@ -656,9 +656,12 @@ form {
     button[type=submit].secondary {
         @extend .btn-outline-primary;
         @extend .text-dark;
+        background-color: #fff;
 
         &:hover {
             @extend .text-white;
+            background-color: $contrast-color !important;
+
         }
     }
 
@@ -712,14 +715,6 @@ form {
                 @include icon(before, $fa-var-long-arrow-alt-right);
             }
         }
-    }
-}
-
-.secondary {
-    background-color: #fff;
-
-    &:hover {
-        background-color: $contrast-color !important;
     }
 }
 
