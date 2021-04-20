@@ -172,10 +172,10 @@ class Backer(models.Model):
 
     @property
     def id_slug(self):
-        return '{}-{}'.format(self.pk, self.slug)
+        return '{}-{}'.format(self.id, self.slug)
 
     def get_absolute_url(self):
-        url_args = [self.pk]
+        url_args = [self.id]
         if self.slug:
             url_args.append(self.slug)
         return reverse('backer_detail_view', args=url_args)

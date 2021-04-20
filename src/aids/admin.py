@@ -183,7 +183,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display_links = ['name']
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
-    search_fields = ['name']
+    search_fields = ['id', 'name']
     list_filter = [
         'status', GenericAidListFilter, 'recurrence',
         'is_imported', 'import_data_source',
