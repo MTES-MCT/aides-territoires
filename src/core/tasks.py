@@ -1,8 +1,10 @@
-from django.core import management
 import logging
 
+from django.core import management
 
 from core.celery import app
+
+
 logger = logging.getLogger(__name__)
 
 
