@@ -18,7 +18,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ _('In what themes are you interested in?') }}</h1>
+<div id='themes-step'>
+    <h1>{{ _('In what themes are you interested in?') }}</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa aspernatur cumque quasi molestias placeat. Dolores adipisci ex mollitia, voluptates saepe tempore, excepturi rem voluptatem nam, fugit consectetur? Quas, architecto eos.</p>    
+</div>
 
 <form id="theme" action="{% url 'search_step_category' %}" method="GET">
 
