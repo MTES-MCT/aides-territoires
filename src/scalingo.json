@@ -25,6 +25,24 @@
     },
     "CACHE_LOCATION": {
       "value": null
+    },
+    "EXPORT_CONTACTS_ENABLED": {
+      "value": "False"
+    },
+    "MAILING_LIST_URL": {
+      "value": ""
+    },
+    "ANALYTICS_ENABLED": {
+      "value": "False"
+    },
+    "ANALYTICS_SITEID": {
+      "value": "0"
+    },
+    "HOTJAR_SITEID": {
+      "value": "0"
+    },
+    "ENV_NAME": {
+      "value": "staging"
     }
   },
   "scripts": {
