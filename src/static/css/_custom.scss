@@ -1809,6 +1809,16 @@ div#search-steps {
 
     }
 
+    #themes-step {
+        h1 {
+            @extend .mb-4;
+        }
+
+        p {
+            @extend .mb-5;
+        }
+    }
+
     h1 {
         @extend .mb-5;
         @extend .h2;
@@ -1918,6 +1928,17 @@ div#search-steps {
             border-radius: 0 1.5rem 1.5rem 0;
             @extend .px-5;
             @include icon(before, $fa-var-search);
+        }
+    }
+
+    form#theme {
+        label {
+            text-transform: uppercase;
+
+            & > span {
+                display: block;
+                text-transform: capitalize;
+            }   
         }
     }
 
