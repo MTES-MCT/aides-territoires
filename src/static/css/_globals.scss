@@ -656,9 +656,11 @@ form {
     button[type=submit].secondary {
         @extend .btn-outline-primary;
         @extend .text-dark;
+        background-color: #fff;
 
         &:hover {
             @extend .text-white;
+            background-color: $contrast-color !important;
         }
     }
 
