@@ -460,7 +460,7 @@ class BaseAidSearchForm(forms.Form):
 
         return zipcode
 
-    def filter_queryset(self, qs=None):
+    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):
         """Filter querysets depending of input data."""
 
         # If no qs was passed, just start with all published aids
@@ -558,7 +558,8 @@ class BaseAidSearchForm(forms.Form):
         if origin_url:
             qs = qs.filter(origin_url=origin_url)
 
-        qs = self.generic_aid_filter(qs, perimeter)
+        if apply_generic_aid_filter:
+            qs = self.generic_aid_filter(qs)
 
         return qs
 
@@ -660,7 +661,7 @@ class BaseAidSearchForm(forms.Form):
         qs = qs.filter(perimeter__in=perimeter_qs)
         return qs
 
-    def generic_aid_filter(self, qs, search_perimeter):
+    def generic_aid_filter(self, qs):
         """
         We should never have both the generic aid and it's local version
         together on search results.
@@ -671,6 +672,7 @@ class BaseAidSearchForm(forms.Form):
         - When searching on a smaller area than the local aid's perimeter,
           then we display the local version.
         """
+        search_perimeter = self.cleaned_data.get('perimeter', None)
         # We will consider local aids for which the associated generic
         # aid is listed in the results - We should consider excluding a
         # local aid, only when it's generic aid is listed.

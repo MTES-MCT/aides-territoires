@@ -185,9 +185,12 @@ class SearchPage(models.Model):
         data = QueryDict(querystring)
         form = AidSearchForm(data)
         if all_aids:
-            qs = form.filter_queryset(Aid.objects.all()).distinct()
+            qs = form.filter_queryset(
+                qs=Aid.objects.all(),
+                apply_generic_aid_filter=False).distinct()
         else:
-            qs = form.filter_queryset().distinct()
+            qs = form.filter_queryset(
+                apply_generic_aid_filter=False).distinct()
 
         # Also exlude aids contained in the excluded_aids field
         qs = qs.exclude(id__in=self.excluded_aids.values_list('id', flat=True))
