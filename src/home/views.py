@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -23,12 +22,10 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
 
-        aids_qs = Aid.objects.open().published()
-        financers = aids_qs.values_list('financers', flat=True)
-        instructors = aids_qs.values_list('instructors', flat=True)
+        aids_qs = Aid.objects.live()
         nb_backers = Backer.objects \
-            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
-            .values('id') \
+            .filter(financed_aids__in=aids_qs) \
+            .distinct() \
             .count()
         selected_backers = Backer.objects.can_be_displayed_in_carousel()
         # We only display the first 15
