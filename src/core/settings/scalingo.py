@@ -42,7 +42,9 @@ COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 
 NODE_MODULES_PATH = Path(DJANGO_ROOT, 'node_modules')
 
-SASS_PATH = 'make css'  # 'make fullcss' ?
+# When we generate css files we ALSO generate autoprefixer (-moz-, -wk-, -ms-)
+# In local env we only do "make css" command for performances reasons.
+SASS_PATH = 'make fullcss'
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', '{} include={} infile={{infile}} outfile={{outfile}}'.format(
