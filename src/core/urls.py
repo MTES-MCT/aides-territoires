@@ -59,8 +59,8 @@ urlpatterns = [
 
     path('', include('home.urls')),
     path(_('accounts/'), include('accounts.urls')),
-    path(_('aids/'), include('aids.urls')),
-    path('aids/', include('aids.urls')),
+    path('aids/', include('aids.urls')),  # Temporary fix wrong URL
+    path('aides/', include('aids.urls')),
     path(_('backers/'), include('backers.urls')),
     path(_('blog/'), include('blog.urls')),
     path(_('programs/'), include('programs.urls')),
