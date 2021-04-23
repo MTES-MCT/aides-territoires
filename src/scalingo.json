@@ -30,7 +30,7 @@
       "value": "False"
     },
     "MAILING_LIST_URL": {
-      "value": ""
+      "value": "ignore-this-url"
     },
     "ANALYTICS_ENABLED": {
       "value": "False"
