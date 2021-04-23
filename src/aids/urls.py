@@ -1,5 +1,7 @@
 from django.urls import path, include
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import RedirectView
+from django.urls import reverse_lazy
 
 from aids.views import (SearchView, AdvancedSearchView, ResultsView,
                         ResultsReceiveView, AidDetailView, AidCreateView,
