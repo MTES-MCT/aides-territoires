@@ -64,6 +64,8 @@ CSRF_COOKIE_SECURE = True
 GOAL_REGISTER_ID = env.int('GOAL_REGISTER_ID')
 GOAL_FIRST_LOGIN_ID = env.int('GOAL_FIRST_LOGIN_ID')
 
+# When we generate css files we ALSO generate prefix (-moz-, -wk-, -ms-)
+# In local env we only do "make css" command for performances reasons.
 SASS_PATH = 'make fullcss'
 
 EMAIL_BACKEND = env('EMAIL_BACKEND')
