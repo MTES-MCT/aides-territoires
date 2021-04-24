@@ -12,5 +12,5 @@ if [ -z "$DJANGO_SETTINGS_MODULE" ]
 fi
 echo "Using Django settings module: $DJANGO_SETTINGS_MODULE"
 python manage.py compilemessages
-celery -A core worker --events --loglevel info
+celery -A core worker --events --concurrency=4 --loglevel info
 echo "Completed start celery event script"
