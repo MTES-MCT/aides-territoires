@@ -1,4 +1,4 @@
-web: bash scripts/start.sh $DJANGO_SETTINGS_MODULE
+web: bash scripts/start_web.sh $DJANGO_SETTINGS_MODULE
 postdeploy: bash scripts/post_deploy.sh
-worker: DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE celery -A core worker --events --loglevel info
-beat: DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE celery -A core worker --beat
+event: bash scripts/start_celery_event.sh $DJANGO_SETTINGS_MODULE
+beat: bash scripts/start_celery_beat.sh $DJANGO_SETTINGS_MODULE
