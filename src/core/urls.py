@@ -10,12 +10,12 @@ from drf_yasg import openapi
 
 from rest_framework import routers, permissions
 
-from home.sitemaps import HomeSitemap
 from aids.sitemaps import AidSitemap
-from pages.sitemaps import PageSitemap
+from core.utils import RedirectAidDetailView
 from data.sitemaps import DataSitemap
+from home.sitemaps import HomeSitemap
+from pages.sitemaps import PageSitemap
 from search.sitemaps import SearchSitemap
-
 
 router = routers.DefaultRouter()
 
@@ -59,7 +59,7 @@ urlpatterns = [
 
     path('', include('home.urls')),
     path(_('accounts/'), include('accounts.urls')),
-    path('aids/', include('aids.urls')),  # Temporary fix wrong URL
+    path('aids/<slug:slug>/', RedirectAidDetailView.as_view()),
     path('aides/', include('aids.urls')),
     path(_('backers/'), include('backers.urls')),
     path(_('blog/'), include('blog.urls')),

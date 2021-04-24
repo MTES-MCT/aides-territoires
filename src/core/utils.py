@@ -1,5 +1,6 @@
 from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
+from django.views.generic import RedirectView
 
 
 def reupload_files(model, fieldname):
@@ -43,3 +44,17 @@ def get_subdomain_from_host(host):
     if 'aides-territoires' in host:
         return host.split('.')[0]
     return host
+
+
+class RedirectAidDetailView(RedirectView):
+    """
+    We are using this view as a temporary fix.
+    Some links have been sent to users using the
+    wrong aid detail URL - it was an issue with
+    translations.
+    """
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        slug = kwargs.get('slug')
+        return f'/aides/{slug}/'
