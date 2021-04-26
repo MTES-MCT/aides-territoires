@@ -1,6 +1,8 @@
 init:
 	pipenv sync --dev
 	npm ci
+
+build:
 	pipenv run python manage.py collectstatic --settings=core.settings.test --no-input
 	pipenv run python manage.py compilemessages --settings=core.settings.test
 
