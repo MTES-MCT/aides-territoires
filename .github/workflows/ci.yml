@@ -62,7 +62,7 @@ jobs:
       env:
         PGPASSWORD: aides
 
-  - name: Install the required packages
+    - name: Install the required packages
       run: |
         sudo apt install gettext
         sudo npm install -g sass
