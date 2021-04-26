@@ -5,7 +5,7 @@ init:
 	pipenv run python manage.py compilemessages --settings=core.settings.test
 
 test:
-	pipenv run py.test -v
+	pipenv run py.test -v --nomigrations
 
 checkstyle:
 	pipenv run flake8 --config=flake8.ini
