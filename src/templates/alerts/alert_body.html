@@ -14,7 +14,7 @@
 {% for aid in new_aids %}
     <li>
         <strong>Titre :</strong>
-        <a href="https://{{ domain }}{{ aid.get_absolute_url|safe }}">
+        <a href="https://{{ domain_with_subdomain }}{{ aid.get_absolute_url|safe }}">
             {{ aid.name|safe }}
         </a>
         {% if aid.submission_deadline %}<br /><strong>Clôture :</strong> {{ aid.submission_deadline|date }}{% endif %}
@@ -25,7 +25,7 @@
 {% if nb_aids > 3 %}
     <p>
         Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
-        <a href="https://{{ domain }}{{ alert.get_absolute_url|safe }}">
+        <a href="https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}">
             Rendez-vous sur Aides-territoires pour les découvrir.
         </a>
     </p>
