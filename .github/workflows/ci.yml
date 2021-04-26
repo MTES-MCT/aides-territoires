@@ -62,13 +62,18 @@ jobs:
       env:
         PGPASSWORD: aides
 
+  - name: Install the required packages
+      run: |
+        sudo apt install gettext
+        sudo npm install -g sass
+
     - name: Install pip and pipenv
       working-directory: ./src
       run: |
         python -m pip install --upgrade pip
         pipenv || pip install pipenv
 
-    - name: Use python packages cache
+    - name: Configure the pip cache
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
@@ -76,10 +81,29 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Install the required packages
-      run: |
-        sudo apt install gettext
-        sudo npm install -g sass
+    - name: Configure the pipenv cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pipenv
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
+    - name: Configure the pip-tools cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip-tools
+        key: ${{ runner.os }}-piptools-${{ hashFiles('**/Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-piptools-
+
+    - name: Configure the npm cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
     - name: Build the project
       working-directory: ./src
