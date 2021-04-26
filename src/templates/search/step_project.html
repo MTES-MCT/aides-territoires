@@ -72,8 +72,17 @@
 </div>
 {% endblock %}
 
+{% block extra_css %}
+{% compress css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endcompress %}
+{% endblock %}
+
 {% block extra_js %}
 {% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/search/track_project_step_events.js"></script>
+<script src="/static/js/aids/project_autocomplete.js"></script>
 {% endcompress %}
 {% endblock %}
