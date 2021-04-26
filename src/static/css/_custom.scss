@@ -1814,8 +1814,12 @@ div#search-steps {
             @extend .mb-4;
         }
 
-        p {
+        div.info {
             @extend .mb-5;
+            @extend .p-4;
+            @extend .col-md-11;
+            font-weight: 900;
+            color: $font-color !important;
         }
     }
 

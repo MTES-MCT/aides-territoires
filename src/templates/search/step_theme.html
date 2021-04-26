@@ -20,7 +20,11 @@
 {% block content %}
 <div id='themes-step'>
     <h1>{{ _('In what themes are you interested in?') }}</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa aspernatur cumque quasi molestias placeat. Dolores adipisci ex mollitia, voluptates saepe tempore, excepturi rem voluptatem nam, fugit consectetur? Quas, architecto eos.</p>    
+    <div class="info">
+        <p>Pour filtrer vos résultats de recherche, nous vous proposons de sélectionner une ou plusieurs thématiques. Vous pourrez ensuite sélectionner des sous-thématiques.</p>
+        <p>Une fois les résultats filtrés, vous pourrez rajouter des critères de filtre ou tester le moteur de recherche textuel.</p>   
+        <p>Vous pouvez également passer ces étapes et accéder directement à la page de résultat et au moteur de recherche textuel</p>    
+    </div>
 </div>
 
 <form id="theme" action="{% url 'search_step_category' %}" method="GET">
