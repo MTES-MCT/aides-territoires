@@ -7,7 +7,7 @@ build:
 	pipenv run python manage.py compilemessages --settings=core.settings.test
 
 test:
-	pipenv run py.test -v
+	pipenv run py.test -v -n 8
 
 checkstyle:
 	pipenv run flake8 --config=flake8.ini

@@ -52,6 +52,7 @@ pydot = "*"
 rope = "*"
 selenium = "*"
 yapf = "*"
+pytest-xdist = "*"
 
 [requires]
 python_version = "3"
