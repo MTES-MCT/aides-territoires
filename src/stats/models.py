@@ -260,3 +260,4 @@ class AlertFeedbackEvent(models.Model):
     class Meta:
         verbose_name = _('Alert feedback event')
         verbose_name_plural = _('Alert feedback events')
+        ordering = ['-id']
