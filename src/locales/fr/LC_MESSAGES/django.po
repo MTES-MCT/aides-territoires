@@ -640,12 +640,6 @@ msgstr "Aides France Relance :"
 msgid "Themes"
 msgstr "Thématiques"
 
-msgid "You are seeking aids for…"
-msgstr "Vous recherchez des aides pour…"
-
-msgid "Your territory"
-msgstr "Le territoire"
-
 msgid "Origin url"
 msgstr "URL d'origine"
 
@@ -2685,32 +2679,26 @@ msgstr ""
 msgid "Reset filters"
 msgstr "Réinitialiser"
 
-msgid "Search – Audience"
-msgstr "Recherche – Audience"
+msgid "All aid programs"
+msgstr "Tous les programmes d'aides"
 
-msgid "Skip to the next step"
-msgstr "Passer cette étape"
+msgid "Your structure"
+msgstr "La structure"
 
-msgid "Search – Categories"
-msgstr "Recherche – Catégories"
+msgid "Your perimeter"
+msgstr "Le territoire"
+
+msgid "Your themes"
+msgstr "Les thématiques d'aides"
+
+msgid "Your categories"
+msgstr "Les sous-thématiques d'aides"
 
 #, python-format
 msgid "<span class=\"counter\">%(total_aids)s</span> aids match your research"
 msgstr ""
 "<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre "
 "recherche"
-
-msgid "Refine those results by selecting categories"
-msgstr "Affinez ces résultats en sélectionnant des sous-thématiques"
-
-msgid "Back to previous step"
-msgstr "Revenir en arrière"
-
-msgid "Search – Perimeter"
-msgstr "Recherche – Périmètre"
-
-msgid "Search – Project"
-msgstr "Recherche – Projet"
 
 msgid "Your project"
 msgstr "Votre projet"

@@ -85,8 +85,7 @@ class ThemeChoiceField(forms.ModelMultipleChoiceField):
                     '<span>{theme_short_description}</span>',
                     theme_name=obj['categories__theme__name'],
                     nb_aids=obj['nb_aids'],
-                    theme_short_description=obj['categories__theme'
-                                                '__short_description'],
+                    theme_short_description=obj['categories__theme__short_description'], # noqa
                 )
 
 
