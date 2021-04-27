@@ -50,7 +50,8 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description', 'categories',
-        'is_suggested', 'date_created', 'status'
+        'key_words', 'is_suggested', 'date_created',
+        'status'
     ]
     search_fields = ['name']
     list_filter = ['is_suggested', 'categories', 'status']

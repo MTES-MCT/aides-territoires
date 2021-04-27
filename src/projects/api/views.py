@@ -23,7 +23,7 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
         q_filters = []
         for term in terms:
             if len(term) >= MIN_SEARCH_LENGTH:
-                q_filters.append(Q(name__icontains=term))
+                q_filters.append(Q(key_words__icontains=term))
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
