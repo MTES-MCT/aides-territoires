@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
@@ -213,7 +214,11 @@ class AlertFeedbackEvent(models.Model):
         verbose_name=_('Alert'),
         on_delete=models.CASCADE)
     rate = models.PositiveIntegerField(
-        _('Feedback rate'))
+        _('Feedback rate'),
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ])
     feedback = models.TextField(
         _('Feedback'))
 

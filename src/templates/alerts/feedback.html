@@ -1,16 +1,22 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
+{% block sectionid %}alert-feedback{% endblock %}
+
 {% block extraclasses %}light{% endblock %}
 
 {% block extratitle %}Aidez-nous à améliorer vos alertes{% endblock %}
 
 {% block content %}
-<div class="narrow-form">
+<div class="article narrow">
     <h1>Aidez-nous à améliorer vos alertes !</h1>
 
     <p class="lead">
         Notez cette alerte et faites-nous part de vos remarques.
+    </p>
+
+    <p>
+        (Votre alerte : {{ alert.title }})
     </p>
 
     <form id="validation-form" method="POST" action="">
