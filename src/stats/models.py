@@ -234,3 +234,24 @@ class AidMatchProjectEvent(models.Model):
     class Meta:
         verbose_name = _('Aid Match Project Event')
         verbose_name_plural = _('Aid Match Project Events')
+
+
+class AlertFeedbackEvent(models.Model):
+    """Happens when a user gives an alert relevancy feedback."""
+
+    alert = models.ForeignKey(
+        'alerts.Alert',
+        verbose_name=_('Alert'),
+        on_delete=models.CASCADE)
+    rate = models.PositiveIntegerField(
+        _('Feedback rate'))
+    feedback = models.TextField(
+        _('Feedback'))
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = _('Alert feedback event')
+        verbose_name_plural = _('Alert feedback events')
