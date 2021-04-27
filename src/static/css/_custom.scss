@@ -2215,6 +2215,8 @@ ul.aid-categories {
 #alert-feedback {
     #form-group-rate {
 
+        // Uses a css trick to create a star rating widget using an input range
+        // See here https://medium.com/@daix/build-a-star-rater-with-input-type-range-da5428d2f8f2
         $background: gold;
         $foreground: lightgray;
         $size: 50px;
