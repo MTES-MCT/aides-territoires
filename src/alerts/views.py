@@ -142,4 +142,4 @@ class AlertFeedback(MessageMixin, CreateView):
         return HttpResponseRedirect(redirect_url)
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('search_view')
