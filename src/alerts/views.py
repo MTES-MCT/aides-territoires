@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 from braces.views import MessageMixin
 
+from stats.models import AlertFeedbackEvent
+from stats.forms import AlertFeedbackEventForm
 from alerts.tasks import send_alert_confirmation_email
 from alerts.forms import AlertForm
 from alerts.models import Alert
@@ -95,3 +97,11 @@ class AlertDelete(MessageMixin, DeleteView):
         res = super().delete(*args, **kwargs)
         self.messages.success(_('The alert was deleted.'))
         return res
+
+
+class AlertFeedback(MessageMixin, CreateView):
+    """Post an alert feedback."""
+
+    model = AlertFeedbackEvent
+    form_class = AlertFeedbackEventForm
+    template_name = 'alerts/feedback.html'

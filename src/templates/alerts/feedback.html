@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}Aidez-nous à améliorer vos alertes{% endblock %}
+
+{% block content %}
+<div class="narrow-form">
+    <h1>Aidez-nous à améliorer vos alertes !</h1>
+
+    <p class="lead">
+        Notez cette alerte et faites-nous part de vos remarques.
+    </p>
+
+    <form id="validation-form" method="POST" action="">
+        {% csrf_token %}
+
+        {% include '_form_snippet.html' with form=form %}
+
+        <button type="submit">
+            Envoyer
+        </button>
+    </form>
+</div>
+{% endblock %}
