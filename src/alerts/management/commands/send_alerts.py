@@ -13,6 +13,7 @@ from django.db.models import Q, Case, When
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import activate
 
 from core.utils import build_host_with_subdomain
 from alerts.models import Alert
@@ -28,6 +29,8 @@ class Command(BaseCommand):
     """Send an email alert upon new aid results."""
 
     def handle(self, *args, **options):
+
+        activate('fr')  # make sure the urls are correct
 
         alerts = self.get_alerts()
         alerted_alerts = []
