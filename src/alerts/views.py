@@ -105,3 +105,41 @@ class AlertFeedback(MessageMixin, CreateView):
     model = AlertFeedbackEvent
     form_class = AlertFeedbackEventForm
     template_name = 'alerts/feedback.html'
+
+    def get_alert(self):
+        token = self.kwargs.get('token', None)
+        try:
+            alert = Alert.objects.get(token=token)
+        except Alert.DoesNotExist:
+            raise Http404()
+        except ValidationError:
+            raise Http404()
+
+        return alert
+
+    def get(self, request, *args, **kwargs):
+        self.alert = self.get_alert()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.alert = self.get_alert()
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['alert'] = self.alert
+        return context
+
+    def form_valid(self, form):
+        feedback = form.save(commit=False)
+        feedback.alert = self.alert
+        feedback.save()
+
+        message = _('Thank you for your feedback!')
+        self.messages.success(message)
+
+        redirect_url = self.get_success_url()
+        return HttpResponseRedirect(redirect_url)
+
+    def get_success_url(self):
+        return reverse('home')
