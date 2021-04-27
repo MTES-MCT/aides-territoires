@@ -2715,12 +2715,6 @@ msgstr "Recherche – Projet"
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "Search – Theme"
-msgstr "Recherche – Thématique"
-
-msgid "In what themes are you interested in?"
-msgstr "Dans quelles thématiques recherchez-vous ?"
-
 msgid "Public stats"
 msgstr "Statistiques publiques"
 
