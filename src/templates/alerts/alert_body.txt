@@ -26,5 +26,10 @@ Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cl
 
 https://{{ domain }}{{ delete_url|safe }}
 
+Aidez-nous à améliorer vos alertes !
+Notez cette alerte de 1 à 5 et faites-nous part de vos remarques :
+
+https://{{ domain }}{{ feedback_url|safe }}
+
 À très vite !
 L'équipe d'Aides-territoires.

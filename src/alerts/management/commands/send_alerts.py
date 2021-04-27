@@ -79,6 +79,7 @@ class Command(BaseCommand):
         """Send an email alert with a summary of the newly published aids."""
 
         delete_url = reverse('alert_delete_view', args=[alert.token])
+        feedback_url = reverse('alert_feedback_view', args=[alert.token])
         site = Site.objects.get_current()
         email_context = {
             'domain': site.domain,
@@ -88,6 +89,7 @@ class Command(BaseCommand):
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
             'delete_url': delete_url,
+            'feedback_url': feedback_url,
         }
 
         text_body = render_to_string(
