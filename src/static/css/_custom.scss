@@ -1152,32 +1152,6 @@ article#aid {
         overflow-wrap: break-word;
         word-wrap: break-word;
         hyphens: auto;
-
-        footer {
-            @extend .mt-5;
-            @extend .col-md-8;
-            @extend .offset-md-4;
-            @extend .d-flex;
-            @extend .flex-wrap;
-            @extend .justify-content-between;
-
-            a {
-                @extend .btn;
-                @extend .mb-4;
-                @extend .btn-outline-primary;
-                border-radius: 0 1rem 1rem 1rem;
-
-                &.suggest-modification a {
-                    @include icon(before, $fa-var-pencil-alt);
-                }
-
-                &#share-btn {
-                    @extend .btn;
-                    @extend .btn-primary;
-                    @include icon(before, $fa-var-share);
-                }
-            }
-        }
     }
 
     .sidebar {
@@ -1281,6 +1255,14 @@ article#aid {
             
             &::before {
                 margin-top: 0.5rem;
+            }
+        }
+
+        & > div.share {
+            @include icon(before, $fa-var-share, 1.5rem);
+
+            h3 {
+                margin-bottom: 1rem;
             }
         }
 
