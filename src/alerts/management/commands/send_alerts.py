@@ -85,7 +85,6 @@ class Command(BaseCommand):
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
             'delete_url': delete_url,
-            'contact_phone': settings.CONTACT_PHONE,
         }
 
         text_body = render_to_string(

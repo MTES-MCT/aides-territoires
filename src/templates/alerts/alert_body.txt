@@ -26,7 +26,5 @@ Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cl
 
 https://{{ domain }}{{ delete_url|safe }}
 
-Vous avez une remarque sur le service ou besoin d'aide dans votre recherche ? Nous sommes joignables au {{ contact_phone|phone }}.
-
 À très vite !
 L'équipe d'Aides-territoires.
