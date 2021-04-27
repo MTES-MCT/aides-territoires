@@ -12,6 +12,13 @@ class AidViewEvent(models.Model):
         verbose_name=_('Aid'),
         on_delete=models.PROTECT)
 
+    targeted_audiences = ChoiceArrayField(
+        verbose_name=_('Targeted audiences'),
+        null=True, blank=True,
+        base_field=models.CharField(
+            max_length=32,
+            choices=Aid.AUDIENCES))
+
     querystring = models.TextField(
         _('Querystring'))
     source = models.CharField(
