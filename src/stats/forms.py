@@ -11,7 +11,7 @@ class AlertFeedbackEventForm(forms.ModelForm):
         max_value=5,
         widget=forms.TextInput(attrs={
             'type': 'range',
-            'min': 0,
+            'min': 1,
             'max': 5,
             'step': 1}))
 

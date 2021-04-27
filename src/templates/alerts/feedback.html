@@ -22,7 +22,8 @@
     <form id="validation-form" method="POST" action="">
         {% csrf_token %}
 
-        {% include '_form_snippet.html' with form=form %}
+        {% include '_field_snippet.html' with field=form.rate nest_field_class='rate-container' %}
+        {% include '_field_snippet.html' with field=form.feedback %}
 
         <button type="submit">
             Envoyer
