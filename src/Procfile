@@ -1,4 +1,4 @@
-web: bash scripts/start_web.sh $DJANGO_SETTINGS_MODULE
+web: bash scripts/start_web.sh
 postdeploy: bash scripts/post_deploy.sh
-event: bash scripts/start_celery_event.sh $DJANGO_SETTINGS_MODULE
-beat: bash scripts/start_celery_beat.sh $DJANGO_SETTINGS_MODULE
+events: bash scripts/start_celery_events.sh
+beat: bash scripts/start_celery_beat.sh

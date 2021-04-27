@@ -5,11 +5,6 @@
 # after a deployment or when the container is restarted.
 
 echo "Entering start web script"
-export DJANGO_SETTINGS_MODULE=$1
-if [ -z "$DJANGO_SETTINGS_MODULE" ]
-  then
-    echo "The script expects the DJANGO_SETTINGS_MODULE as first argument"
-fi
 echo "Using Django settings module: $DJANGO_SETTINGS_MODULE"
 python manage.py compilemessages
 python manage.py collectstatic --noinput
