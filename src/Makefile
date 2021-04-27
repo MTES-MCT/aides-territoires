@@ -1,11 +1,13 @@
 init:
 	pipenv sync --dev
 	npm ci
+
+build:
 	pipenv run python manage.py collectstatic --settings=core.settings.test --no-input
 	pipenv run python manage.py compilemessages --settings=core.settings.test
 
 test:
-	pipenv run py.test -v
+	pipenv run py.test -v -n 10
 
 checkstyle:
 	pipenv run flake8 --config=flake8.ini

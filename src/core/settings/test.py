@@ -25,3 +25,6 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # Piwik goal tracking ids
 GOAL_REGISTER_ID = 1
 GOAL_FIRST_LOGIN_ID = 2
+
+# Speedup user creation
+PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
