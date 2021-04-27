@@ -1051,6 +1051,9 @@ msgstr "validation/"
 msgid "delete/"
 msgstr "supprimer/"
 
+msgid "feedback/"
+msgstr "remarques/"
+
 msgid "We just sent you an email to validate your alert."
 msgstr "Nous venons de vous envoyer un e-mail afin de valider votre alerte."
 
@@ -1063,6 +1066,9 @@ msgstr "Vous venez de confirmer la création de l'alerte."
 
 msgid "The alert was deleted."
 msgstr "Votre alerte vient d'être supprimée."
+
+msgid "Thank you for your feedback!"
+msgstr "Merci de votre contribution !"
 
 msgid "Number of backers"
 msgstr "Nombre de porteurs"
@@ -1730,6 +1736,12 @@ msgstr "catégorie/"
 msgid "project/"
 msgstr "projet/"
 
+msgid "Rate this alert relevancy from 1 to 5"
+msgstr "Notez cette alerte de 1 à 5"
+
+msgid "Leave your feedback of this alert (issues, suggestions…)"
+msgstr "Faites-nous part de vos remarques (problèmes rencontrés, suggestion d'améliorations…)"
+
 msgid "Aid View Event"
 msgstr "Événement aide vue"
 
@@ -1765,6 +1777,18 @@ msgstr "Événement aide liée à un projet"
 
 msgid "Aid Match Project Events"
 msgstr "Événements aide liée à un projet"
+
+msgid "Feedback rate"
+msgstr "Note"
+
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "Alert feedback event"
+msgstr "Événement feedback alerte"
+
+msgid "Alert feedback events"
+msgstr "Événements feedback alerte"
 
 msgid "Tag"
 msgstr "Mot clé"

@@ -6,7 +6,7 @@ from stats.models import AlertFeedbackEvent
 
 class AlertFeedbackEventForm(forms.ModelForm):
     rate = forms.IntegerField(
-        label=_('Rate this alert relevancy from 0 to 5'),
+        label=_('Rate this alert relevancy from 1 to 5'),
         min_value=0,
         max_value=5,
         widget=forms.TextInput(attrs={
