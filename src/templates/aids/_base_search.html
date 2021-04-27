@@ -8,11 +8,7 @@
 {% block content %}
 <h1>
     {% with paginator.count as nb_aids %}
-    {% if nb_aids < 2 %}
-    <span class="result-count">{{ nb_aids }} resultat</span>
-    {% else %}
-    <span class="result-count">{{ nb_aids }} resultats</span>
-    {% endif %}
+    <span class="result-count">{{ nb_aids }} resultat{{ nb_aids|pluralize:"s" }}</span>
     {% endwith %}
 </h1>
 
