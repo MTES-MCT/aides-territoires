@@ -15,7 +15,8 @@
     <form method="post" action="" novalidate>
         {% csrf_token %}
 
-        {% include '_form_snippet.html' with form=form %}
+        {% include '_field_snippet.html' with field=form.feedback %}
+
         <button type="submit">{{ _('Login') }}</button>
     </form>
 
