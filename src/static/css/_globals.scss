@@ -998,6 +998,16 @@ span {
     }
 }
 
+span.badge {
+    @extend .badge;
+    vertical-align: top;
+
+    &.badge-lg {
+        font-size: 90%; // default: 75%
+        padding: 0.5em 0.5em; // default: 0.25em 0.4em
+    }
+}
+
 html {
     // Hide some elements when js is detected
     &.js .nojs {

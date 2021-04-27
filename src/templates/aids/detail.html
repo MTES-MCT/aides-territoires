@@ -237,7 +237,7 @@
                     <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
                     {% endif %}
                     {% endfor %}
-                    </ol>
+                </ol>
                 <div class="carousel-inner">
                     {% for financer in financers_with_logo %}
                     {% if forloop.first %}
@@ -265,7 +265,7 @@
                     <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
                     {% endif %}
                     {% endfor %}
-                    </ol>
+                </ol>
                 <div class="carousel-inner">
                     {% for program in programs %}
                     {% if forloop.counter0 < 1 %}
@@ -273,9 +273,9 @@
                     {% else %}
                     <div class="carousel-item">
                     {% endif %}
-                    <a class="d-block w-100" href="{% url 'program_detail' program.slug %}">
-                        <img src="{{ program.logo.url }}" alt="{{ program.name }}">
-                    </a>
+                        <a class="d-block w-100" href="{% url 'program_detail' program.slug %}">
+                            <img src="{{ program.logo.url }}" alt="{{ program.name }}">
+                        </a>
                     </div>
                     {% endfor %}
                 </div>
@@ -310,7 +310,7 @@
                     </div>
                     <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
                         Envoyez-nous un e-mail
-                    </a>
+                    </a>   
                 </div> 
             </div>
 
@@ -346,7 +346,7 @@
             <h3>{{ _('Aid targeted area') }}</h3>
             <p>{{ aid.perimeter }}</p>
 
-            {% if eligibility_criteria %}
+            {% if eligibility_criteria or aid.has_eligibility_test %}
             <h2>{{ _('Eligibility criteria') }}</h2>
 
             {% if aid.mobilization_steps %}
@@ -368,6 +368,14 @@
             <h3>{{ _('Other eligibility criterias') }}</h3>
             {{ aid.eligibility|safe }}
             {% endif %}
+            {% endif %}
+
+            {% if aid.has_eligibility_test %}
+            <div class="center">
+                <a href="#" id="aid-eligibility-test-block-btn" class="btn btn-primary js" data-toggle="modal" data-target="#aid-eligibility-test-modal">
+                    Tester mon éligibilité !
+                </a>
+            </div>
             {% endif %}
 
             {% if aid.is_generic %}
@@ -406,6 +414,7 @@
                 </p>
                 {% endif %}
             </div>
+
         </div>
 
     </section>
@@ -426,6 +435,7 @@
     {% include 'aids/_share_modal.html' %}
     {% include 'aids/_match_project_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
+    {% include 'eligibility/_eligibility_test_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
@@ -439,6 +449,7 @@
     AID_SLUG = '{{ aid.slug }}';
     AID_ID = '{{ aid.id }}';
     PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';
+    AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
     CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>
 {% compress js %}
@@ -446,6 +457,7 @@
 <script src="/static/js/alerts/track_alert_button_events.js"></script>
 <script src="/static/js/aids/match_project_form.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
+<script src="/static/js/eligibility/eligibility_test_form.js"></script>
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>
 {% endcompress %}

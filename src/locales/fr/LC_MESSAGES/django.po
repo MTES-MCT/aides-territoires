@@ -1831,9 +1831,6 @@ msgstr "Dernier"
 msgid "Show more aids"
 msgstr "Voir plus d'aides"
 
-msgid "Loading..."
-msgstr "Chargement en cours"
-
 msgid "Contributor profile"
 msgstr "Profil contributeur"
 

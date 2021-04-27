@@ -425,7 +425,7 @@ section#program-list {
         border-radius: 2rem 0 1rem 1rem;
         margin-bottom: $card-columns-gap !important;
 
-        div {
+        &>div {
             @extend .card-body;
 
             span.deadline {
@@ -459,7 +459,6 @@ section#program-list {
                 @extend .h5;
                 @extend .card-title;
                 @extend .mb-4;
-                @extend .pb-3;
                 text-align: left;
 
                 a {
