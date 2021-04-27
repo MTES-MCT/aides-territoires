@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load compress %}
 
-{% block extratitle %}{{ _('Search – Theme') }}{% endblock %}
+{% block extratitle %}Recherche – Thématique{% endblock %}
 
 {% block sectionid %}search-steps{% endblock %}
 
@@ -19,11 +19,11 @@
 
 {% block content %}
 <div id='themes-step'>
-    <h1>{{ _('In what themes are you interested in?') }}</h1>
+    <h1>Dans quelles thématiques recherchez-vous ?</h1>
     <div class="info">
         <p>Pour filtrer vos résultats de recherche, nous vous proposons de sélectionner une ou plusieurs thématiques. Vous pourrez ensuite sélectionner des sous-thématiques.</p>
-        <p>Une fois les résultats filtrés, vous pourrez rajouter des critères de filtre ou tester le moteur de recherche textuel.</p>   
-        <p>Vous pouvez également passer ces étapes et accéder directement à la page de résultat et au moteur de recherche textuel</p>    
+        <p>Une fois les résultats filtrés, vous pourrez ajouter des critères de filtre ou tester le moteur de recherche textuel.</p>   
+        <p>Vous pouvez également passer ces étapes et accéder directement à la page de résultats et au moteur de recherche textuel</p>    
     </div>
 </div>
 
@@ -32,16 +32,16 @@
     {% include '_form_snippet.html' %}
 
     <button name="action" value="search" type="submit">
-        {{ _('Submit') }}
+        Envoyer
     </button>
 
     <div class="navigation-links">
         <a class="previous-btn" href="{% url 'search_step_perimeter' %}?{{ querystring }}">
-            {{ _('Back to previous step') }}
+            Revenir en arrière
         </a>
 
         <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-            {{ _('Skip to the next step') }}
+            Passer cette étape
         </a>
     </div>
 </form>

@@ -2709,11 +2709,11 @@ msgstr "Revenir en arrière"
 msgid "Search – Perimeter"
 msgstr "Recherche – Périmètre"
 
-msgid "Search – Theme"
-msgstr "Recherche – Thématique"
+msgid "Search – Project"
+msgstr "Recherche – Projet"
 
-msgid "In what themes are you interested in?"
-msgstr "Dans quelles thématiques recherchez-vous ?"
+msgid "Your project"
+msgstr "Votre projet"
 
 msgid "Public stats"
 msgstr "Statistiques publiques"
