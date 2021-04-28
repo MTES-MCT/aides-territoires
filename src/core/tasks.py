@@ -27,3 +27,15 @@ def task_export_contacts():
     """Export all accounts to the newsletter provider"""
     logger.info('Starting export contact tasks')
     management.call_command('export_contacts', verbosity=1)
+
+
+@app.task
+def task_scale_up_scalingo_review_apps():
+    logger.info('Starting Scalingo Review Apps scaling task')
+    management.call_command('scale_scalingo_review_apps', 'up', verbosity=1)
+
+
+@app.task
+def task_scale_down_scalingo_review_apps():
+    logger.info('Starting Scalingo Review Apps scaling task')
+    management.call_command('scale_scalingo_review_apps', 'down', verbosity=1)
