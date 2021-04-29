@@ -9,14 +9,14 @@ au format HTML. Il est possible que les liens ne s'affichent pas correctement.
 {% for aid in new_aids %}
   * Titre : {{ aid.name|safe }}{% if aid.submission_deadline %}
     Clôture : {{ aid.submission_deadline|date }}{% endif %}
-    https://{{ domain }}{{ aid.get_absolute_url|safe }}
+    https://{{ domain_with_subdomain }}{{ aid.get_absolute_url|safe }}
 {% endfor %}
 
 {% if nb_aids > 3 %}
 Attention, il semble qu'il y ait encore d'autres aides disponibles !
 Rendez-vous sur Aides-territoires pour les découvrir.
 
-https://{{ domain }}{{ alert.get_absolute_url|safe }}
+https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}
 {% endif %}
 
 N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
