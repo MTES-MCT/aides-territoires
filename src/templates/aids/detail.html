@@ -45,48 +45,24 @@
     {% if aid.categories %}
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
-        {% if theme_list|length > 4 %}
-            {% for theme in theme_list %}
-                {% if forloop.counter < 5 %}
-                <li class="theme">
-                    <strong>
-                        {{ theme.grouper }}
-                    </strong>
-                    <ul>
-                        {% for category in theme.list %}
-                        <li class="category">{{ category }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% else %}
-                <div class="collapse hidden-categories">
-                    <li class="theme">
-                        <strong>
-                            {{ theme.grouper }}
-                        </strong>
-                        <ul>
-                            {% for category in theme.list %}
-                            <li class="category">{{ category }}</li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </div>
-                {% endif %}
-            {% endfor %}
-            <a href=".hidden-categories" data-toggle="collapse" id="collapse-categories-btn">Afficher toutes les thématiques</a>
+        {% for theme in theme_list %}
+        {% if forloop.counter < 5 %}
+        <li class="theme">
         {% else %}
-            {% for theme in theme_list %}
-            <li class="theme">
-                <strong>
-                    {{ theme.grouper }}
-                </strong>
-                <ul>
-                    {% for category in theme.list %}
-                    <li class="category">{{ category }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endfor %}
+        <li class=" theme collapse hidden-categories">
+        {% endif %}
+            <strong>
+                {{ theme.grouper }}
+            </strong>
+            <ul>
+                {% for category in theme.list %}
+                <li class="category">{{ category }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+        {% if theme_list|length > 4%}
+        <a href=".hidden-categories" data-toggle="collapse" id="collapse-categories-btn">Afficher toutes les thématiques</a>
         {% endif %}
     </ul>
     {% endif %}
