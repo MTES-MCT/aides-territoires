@@ -129,7 +129,7 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
             .prefetch_related('financers', 'instructors')
 
         # Combine from filtering with the base queryset
-        qs = self.form.filter_queryset(qs)
+        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
 
         data = self.form.cleaned_data
 

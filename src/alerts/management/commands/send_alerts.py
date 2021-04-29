@@ -14,8 +14,9 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 
-from stats.utils import log_event
+from core.utils import build_host_with_subdomain
 from alerts.models import Alert
+from stats.utils import log_event
 from emails.utils import send_email
 
 
@@ -81,11 +82,12 @@ class Command(BaseCommand):
         site = Site.objects.get_current()
         email_context = {
             'domain': site.domain,
+            'domain_with_subdomain': build_host_with_subdomain(
+                site.domain, alert.source),
             'alert': alert,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
             'delete_url': delete_url,
-            'contact_phone': settings.CONTACT_PHONE,
         }
 
         text_body = render_to_string(

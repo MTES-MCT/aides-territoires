@@ -889,9 +889,6 @@ html.integration {
         div.header-warning,
         nav[aria-label=breadcrumb],
         &>footer,
-        section.aid-content footer {
-            display: none;
-        }
 
         main {
             @extend .pb-3;
@@ -1001,6 +998,16 @@ span {
     }
 }
 
+span.badge {
+    @extend .badge;
+    vertical-align: top;
+
+    &.badge-lg {
+        font-size: 90%; // default: 75%
+        padding: 0.5em 0.5em; // default: 0.25em 0.4em
+    }
+}
+
 html {
     // Hide some elements when js is detected
     &.js .nojs {
@@ -1078,15 +1085,6 @@ nav.form-steps {
 ul:last-child,
 p:last-child {
     margin-bottom: 0;
-}
-
-.mobile-center {
-    text-align: left;
-
-    @include media-breakpoint-down(md) {
-        text-align: center;
-        margin: inherit auto;
-    }
 }
 
 .btn {

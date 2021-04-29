@@ -79,10 +79,10 @@
                 {% if aid.is_local %}
                 <div class="card">
                     <div class="local-generic">
-                    <h3>{{ _('Local aid') }}</h3>
-                    <p>
-                        {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
-                    </p>
+                        <h3>{{ _('Local aid') }}</h3>
+                        <p>
+                            {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                        </p>
                     </div>
                 </div>
                 {% endif %}
@@ -90,10 +90,10 @@
                 {% if aid.is_generic %}
                 <div class="card">
                     <div class="local-generic">
-                    <h3>{{ _('National measure') }}</h3>
-                    <p>
-                        {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
-                    </p>
+                        <h3>{{ _('National measure') }}</h3>
+                        <p>
+                            {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                        </p>
                     </div>
                 </div>
                 {% endif %}
@@ -227,82 +227,94 @@
             </div>
             {% endif %}
 
-                {% if financers_with_logo %}
-                <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {% for financer in financers_with_logo %}
-                        {% if forloop.counter0 < 1 %}
-                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-                        {% else %}
-                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-                        {% endif %}
-                        {% endfor %}
-                      </ol>
-                    <div class="carousel-inner">
-                        {% for financer in financers_with_logo %}
-                        {% if forloop.first %}
-                        <div class="carousel-item active">
-                        {% else %}
-                        <div class="carousel-item">
-                        {% endif %}
-                            <a class="d-block w-100"
-                                href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                                <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
-                            </a>
-                        </div>
-                        {% endfor %}
+            {% if financers_with_logo %}
+            <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for financer in financers_with_logo %}
+                    {% if forloop.counter0 < 1 %}
+                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                    {% else %}
+                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for financer in financers_with_logo %}
+                    {% if forloop.first %}
+                    <div class="carousel-item active">
+                    {% else %}
+                    <div class="carousel-item">
+                    {% endif %}
+                        <a class="d-block w-100"
+                            href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                            <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
+                        </a>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                {% if programs %}
-                <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {% for program in programs %}
-                        {% if forloop.counter0 < 1 %}
-                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-                        {% else %}
-                        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-                        {% endif %}
-                        {% endfor %}
-                      </ol>
-                    <div class="carousel-inner">
-                        {% for program in programs %}
-                        {% if forloop.counter0 < 1 %}
-                        <div class="carousel-item active">
-                        {% else %}
-                        <div class="carousel-item">
-                        {% endif %}
+            {% if programs %}
+            <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for program in programs %}
+                    {% if forloop.counter0 < 1 %}
+                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                    {% else %}
+                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for program in programs %}
+                    {% if forloop.counter0 < 1 %}
+                    <div class="carousel-item active">
+                    {% else %}
+                    <div class="carousel-item">
+                    {% endif %}
                         <a class="d-block w-100" href="{% url 'program_detail' program.slug %}">
                             <img src="{{ program.logo.url }}" alt="{{ program.name }}">
                         </a>
-                        </div>
-                        {% endfor %}
                     </div>
-                </div>
-                {% endif %}
-
-                {% if aid.is_corporate_aid %}
-                <div class="card" id="aid-entreprise">
-                    <div class="aid-entreprise">
-                        <p><strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong></p>
-                        <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
-                    </div>
-                </div>
-                {% endif %}
-
-                <div class="card">
-                    <div class="suggest-modification">
-                        <div>
-                            <h3><strong>Améliorer cette aide</strong></h3>
-                            <p>Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
-                        </div>
-                        <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
-                            Envoyez-nous un e-mail
-                        </a>
-                    </div> 
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
+
+            {% if aid.is_corporate_aid %}
+            <div class="card" id="aid-entreprise">
+                <div class="aid-entreprise">
+                    <p><strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong></p>
+                    <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="share">
+                    <div>
+                        <h3><strong>Partager cette aide</strong></h3>
+                    </div>
+                    <a href="#" class="js" data-toggle="modal" data-target="#share-modal">
+                        Sauvegarder ou envoyer à mon réseau
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="suggest-modification">
+                    <div>
+                        <h3><strong>Améliorer cette aide</strong></h3>
+                        <p>Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
+                    </div>
+                    <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
+                        Envoyez-nous un e-mail
+                    </a>   
+                </div> 
+            </div>
+
+        </div>
 
         <div class="aid-details">
 
@@ -334,7 +346,7 @@
             <h3>{{ _('Aid targeted area') }}</h3>
             <p>{{ aid.perimeter }}</p>
 
-            {% if eligibility_criteria %}
+            {% if eligibility_criteria or aid.has_eligibility_test %}
             <h2>{{ _('Eligibility criteria') }}</h2>
 
             {% if aid.mobilization_steps %}
@@ -356,6 +368,14 @@
             <h3>{{ _('Other eligibility criterias') }}</h3>
             {{ aid.eligibility|safe }}
             {% endif %}
+            {% endif %}
+
+            {% if aid.has_eligibility_test %}
+            <div class="center">
+                <a href="#" id="aid-eligibility-test-block-btn" class="btn btn-primary js" data-toggle="modal" data-target="#aid-eligibility-test-modal">
+                    Tester mon éligibilité !
+                </a>
+            </div>
             {% endif %}
 
             {% if aid.is_generic %}
@@ -394,15 +414,9 @@
                 </p>
                 {% endif %}
             </div>
+
         </div>
 
-        <footer class="mobile-center">
-            {% block aid_footer %}
-            <a id="share-btn" href="#" class="js" data-toggle="modal" data-target="#share-modal">
-                {{ _('Share this aid') }}
-            </a>
-            {% endblock %}
-        </footer>
     </section>
 
 </article>
@@ -421,6 +435,7 @@
     {% include 'aids/_share_modal.html' %}
     {% include 'aids/_match_project_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
+    {% include 'eligibility/_eligibility_test_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
@@ -434,6 +449,7 @@
     AID_SLUG = '{{ aid.slug }}';
     AID_ID = '{{ aid.id }}';
     PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';
+    AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
     CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>
 {% compress js %}
@@ -441,6 +457,7 @@
 <script src="/static/js/alerts/track_alert_button_events.js"></script>
 <script src="/static/js/aids/match_project_form.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
+<script src="/static/js/eligibility/eligibility_test_form.js"></script>
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>
 {% endcompress %}

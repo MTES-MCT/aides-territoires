@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 14:20+0100\n"
+"POT-Creation-Date: 2021-04-29 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Author"
+msgstr "Auteur"
 
 msgid "First name"
 msgstr "Prénom"
@@ -171,6 +174,15 @@ msgstr "Actuellement non affichées"
 msgid "Currently displayed"
 msgstr "Actuellement affichées"
 
+msgid "Eligibility test"
+msgstr "Test d'éligibilité"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Generic / Local"
 msgstr "Générique / Locale"
 
@@ -182,9 +194,6 @@ msgstr "Aides locales"
 
 msgid "Standard aids"
 msgstr "Aides standards"
-
-msgid "Author"
-msgstr "Auteur"
 
 msgid "Backers"
 msgstr "Porteurs d'aides"
@@ -206,6 +215,9 @@ msgstr "Description de l'aide"
 
 msgid "Contact and actions"
 msgstr "Contact et démarches"
+
+msgid "Eligibility"
+msgstr "Éligibilité"
 
 msgid "Aid admin"
 msgstr "Administration de l'aide"
@@ -341,12 +353,6 @@ msgstr "Aides financières"
 
 msgid "Technical and methodological aids"
 msgstr "Aides en ingénierie"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
 
 msgid "Program title"
 msgstr "Titre du programme"
@@ -613,6 +619,9 @@ msgstr "Récurrence"
 msgid "Call for projects only"
 msgstr "Appels à projets / Appels à manifestation d’intérêt uniquement"
 
+msgid "Projects"
+msgstr "Projets"
+
 msgid "Aid programs"
 msgstr "Programmes d'aides"
 
@@ -732,12 +741,6 @@ msgstr "Permanente"
 msgid "Recurring"
 msgstr "Récurrente"
 
-msgid "Unknown"
-msgstr "Inconnu"
-
-msgid "Open licence 2.0"
-msgstr "Licence ouverte 2.0"
-
 msgid "Slug"
 msgstr "Fragment d'URL"
 
@@ -766,9 +769,6 @@ msgstr "Porteurs d'aides suggérés"
 
 msgid "Project examples"
 msgstr "Exemples de projets réalisables"
-
-msgid "Eligibility"
-msgstr "Éligibilité"
 
 msgid "What is the aid broadcasting perimeter?"
 msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
@@ -860,8 +860,14 @@ msgstr "Cette aide est-elle éligible au programme France Relance ?"
 msgid "Is imported?"
 msgstr "Importé ?"
 
+msgid "Data Source"
+msgstr "Source de données"
+
 msgid "Unique identifier for imported data"
 msgstr "Identifiant d'import unique"
+
+msgid "Origin url of the imported data"
+msgstr "Url d'origine de la donnée importée"
 
 msgid "Under which license was this aid shared?"
 msgstr "Sous quelle licence cette aide a-t-elle été partagée ?"
@@ -988,20 +994,11 @@ msgstr ""
 "Vous avez atteint le nombre maximum d'alertes qu'il est possible de créer "
 "pour une seule adresse e-mail."
 
-msgid "Once"
-msgstr "Une seule fois"
-
 msgid "Daily"
 msgstr "Quotidiennement"
 
 msgid "Weekly"
 msgstr "Hebdomadairement"
-
-msgid "Monthly"
-msgstr "Mensuellement"
-
-msgid "Yearly"
-msgstr "Annuellement"
 
 msgid "Secret token"
 msgstr "Clé secrète"
@@ -1126,6 +1123,47 @@ msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 msgid "Backer"
 msgstr "Porteur d'aides"
 
+msgid "Text"
+msgstr ""
+
+msgid "General content"
+msgstr "Contenu général"
+
+msgid "Short text"
+msgstr "Texte d'introduction"
+
+msgid "A short, concise introduction"
+msgstr "Introduction concise (Inférieure à 256 caractères)"
+
+msgid "Full text of the post"
+msgstr "Description de l'article"
+
+msgid "Post category"
+msgstr "Catégorie des articles"
+
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the post's title."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le titre de l'article."
+
+msgid "Blog Post"
+msgstr "Articles de blog"
+
+msgid "Blog Posts"
+msgstr "Articles de blog"
+
+#| msgid "Full description of the backer"
+msgid "Description of the category"
+msgstr "Description complète du porteur d'aides"
+
+msgid "Blog Post Category"
+msgstr "Catégories des articles de blog"
+
+msgid "Blog Post Categories"
+msgstr "Catégories des articles de blog"
+
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
@@ -1229,11 +1267,11 @@ msgstr ""
 msgid "accounts/"
 msgstr "comptes/"
 
-msgid "aids/"
-msgstr "aides/"
-
 msgid "backers/"
 msgstr "partenaires/"
+
+msgid "blog/"
+msgstr "actualites/"
 
 msgid "programs/"
 msgstr "programmes/"
@@ -1258,6 +1296,39 @@ msgstr "data/"
 
 msgid "upload/"
 msgstr "upload/"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Open licence 2.0"
+msgstr "Licence ouverte 2.0"
+
+msgid "Full description of the data source"
+msgstr "Description complète de la source de données"
+
+msgid "Additional details about this import"
+msgstr "Détails additionels concernant l'import"
+
+msgid "API url of the imported data"
+msgstr "Url de l'API de la donnée importée"
+
+msgid "Under which license was this source imported?"
+msgstr "Sous quelle licence cette source a-t-elle été importée ?"
+
+msgid "Contact AT team"
+msgstr "Contact (team AT)"
+
+msgid "Contact backer"
+msgstr "Contact du porteur"
+
+msgid "Data Sources"
+msgstr "Sources de données"
+
+msgid "Number of aids"
+msgstr "Nombre d'aides'"
+
+msgid "Eligibility tests"
+msgstr "Tests d'éligibilité"
 
 msgid "Emails"
 msgstr "Courriels"
@@ -1471,9 +1542,6 @@ msgstr "Si le projet est suggéré par un utilisateur"
 msgid "Project"
 msgstr "Projet"
 
-msgid "Projects"
-msgstr "Projets"
-
 msgid "suggest/"
 msgstr "suggestion/"
 
@@ -1662,6 +1730,18 @@ msgstr "Valeur"
 msgid "Events"
 msgstr "Événements"
 
+msgid "Is the project match the aid?"
+msgstr ""
+
+msgid "If the project match the aid"
+msgstr "Si le projet correspond à l'aide"
+
+msgid "Aid Match Project Event"
+msgstr "Événement aide liée à un projet"
+
+msgid "Aid Match Project Events"
+msgstr "Événements aide liée à un projet"
+
 msgid "Tag"
 msgstr "Mot clé"
 
@@ -1830,9 +1910,6 @@ msgstr "Dernier"
 
 msgid "Show more aids"
 msgstr "Voir plus d'aides"
-
-msgid "Loading..."
-msgstr "Chargement en cours"
 
 msgid "Contributor profile"
 msgstr "Profil contributeur"
@@ -2186,10 +2263,6 @@ msgstr "Critères d'éligibilité de l'aide"
 msgid "Search"
 msgstr "Recherche"
 
-#, python-format
-msgid "<span class=\"result-count\">%(nb_aids)s results</span>"
-msgstr "<span class=\"result-count\">%(nb_aids)s résultats</span>"
-
 msgid "Save this aid"
 msgstr "Sauvegarder cette aide"
 
@@ -2214,9 +2287,6 @@ msgstr ""
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
 
-msgid "Close"
-msgstr "Fermer"
-
 msgid "Create an alert"
 msgstr "Créer une alerte"
 
@@ -2234,9 +2304,6 @@ msgstr "Plus de critères"
 
 msgid "Keyword"
 msgstr "Mot clé"
-
-msgid "Share this aid"
-msgstr "Partager cette aide"
 
 msgid "Copy the current url to clipboard"
 msgstr "Copier l'url dans le presse-papier"
@@ -2529,6 +2596,9 @@ msgstr ""
 msgid "Confirm alert creation"
 msgstr "Confirmez la création de l'alerte"
 
+msgid "Blog"
+msgstr "Actualités"
+
 msgid "Aid bundles"
 msgstr "Listes d'aides"
 
@@ -2676,18 +2746,6 @@ msgstr "Tous les programmes d'aides"
 msgid "Search – Audience"
 msgstr "Recherche – Audience"
 
-msgid "Your structure"
-msgstr "La structure"
-
-msgid "Your perimeter"
-msgstr "Le territoire"
-
-msgid "Your themes"
-msgstr "Les thématiques d'aides"
-
-msgid "Your categories"
-msgstr "Les sous-thématiques d'aides"
-
 msgid "Skip to the next step"
 msgstr "Passer cette étape"
 
@@ -2712,9 +2770,6 @@ msgstr "Recherche – Périmètre"
 msgid "Search – Project"
 msgstr "Recherche – Projet"
 
-msgid "Your project"
-msgstr "Votre projet"
-
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
 
@@ -2732,6 +2787,9 @@ msgstr "E-mails d'alertes « nouvelles aides »"
 
 msgid "Viewed aids"
 msgstr "Aides vues"
+
+msgid "Aids viewed within the last 7 days"
+msgstr "Aides vues sur les 7 derniers jours"
 
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
@@ -2764,79 +2822,6 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
-
-msgid "Blog"
-msgstr "Actualités"
-
-msgid "blog/"
-msgstr "actualites/"
-
-msgid "Post category"
-msgstr "Catégorie des articles"
-
-msgid "General content"
-msgstr "Contenu général"
-
-msgid "A short, concise introduction"
-msgstr "Introduction concise (Inférieure à 256 caractères)"
-
-msgid "Short text"
-msgstr "Texte d'introduction"
-
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the post's title."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le titre de l'article."
-
-msgid "Send this aid by email"
-msgstr "Envoyer cette aide par email"
-
-msgid "Data Source"
-msgstr "Source de données"
-
-msgid "Data Sources"
-msgstr "Sources de données"
-
-msgid "Full description of the data source"
-msgstr "Description complète de la source de données"
-
-msgid "Additional details about this import"
-msgstr "Détails additionels concernant l'import"
-
-msgid "API url of the imported data"
-msgstr "Url de l'API de la donnée importée"
-
-msgid "Origin url of the imported data"
-msgstr "Url d'origine de la donnée importée"
-
-msgid "Under which license was this source imported?"
-msgstr "Sous quelle licence cette source a-t-elle été importée ?"
-
-msgid "Contact AT team"
-msgstr "Contact (team AT)"
-
-msgid "Contact backer"
-msgstr "Contact du porteur"
-
-msgid "Aid Match Project Event"
-msgstr "Événement aide liée à un projet"
-
-msgid "Aid Match Project Events"
-msgstr "Événements aide liée à un projet"
-
-msgid "Blog Posts"
-msgstr "Articles de blog"
-
-msgid "Blog Post Categories"
-msgstr "Catégories des articles de blog"
-
-msgid "Eligibility test"
-msgstr "Test d'éligibilité"
-
-msgid "Eligibility tests"
-msgstr "Tests d'éligibilité"
 
 msgid "key words associated to the project"
 msgstr "mots-clés associés au projet"

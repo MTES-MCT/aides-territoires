@@ -6,9 +6,11 @@
 {% block sectionid %}search{% endblock %}
 
 {% block content %}
-<h1>{% blocktrans with paginator.count as nb_aids trimmed %}
-    <span class="result-count">{{ nb_aids }} results</span>
-{% endblocktrans %}</h1>
+<h1>
+    {% with paginator.count as nb_aids %}
+    <span class="result-count">{{ nb_aids }} résultat{{ nb_aids|pluralize:"s" }}</span>
+    {% endwith %}
+</h1>
 
 {% if request.GET.published_after %}
     <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>

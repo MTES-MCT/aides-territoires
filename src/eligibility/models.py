@@ -11,8 +11,20 @@ class EligibilityTest(models.Model):
     name = models.CharField(
         _('Name'),
         max_length=256)
+
     introduction = models.TextField('Une introduction', blank=True)
-    conclusion = models.TextField('Une conclusion', blank=True)
+    conclusion_success = models.TextField(
+        'Une conclusion si le test est positif',
+        blank=True
+    )
+    conclusion_failure = models.TextField(
+        'Une conclusion si le test est négatif',
+        blank=True
+    )
+    conclusion = models.TextField(
+        'Une conclusion générale',
+        blank=True
+    )
 
     questions = models.ManyToManyField(
         'EligibilityQuestion',
@@ -55,8 +67,6 @@ class EligibilityQuestion(models.Model):
     #     default=constants.QUESTION_TYPE_VF,
     #     blank=False,
     # )
-
-    # category =
 
     answer_choice_a = models.CharField('Réponse a', max_length=256)
     answer_choice_b = models.CharField('Réponse b', max_length=256)

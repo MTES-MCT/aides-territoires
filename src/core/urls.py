@@ -44,7 +44,8 @@ api_patterns = [
     path('backers/', include('backers.api.urls')),
     path('projects/', include('projects.api.urls')),
     path('stats/', include('stats.api.urls')),
-    path('tags/', include('tags.api.urls')),
+    path('eligibility/', include('eligibility.api.urls')),
+    # path('tags/', include('tags.api.urls')),
 ]
 
 sitemaps = {

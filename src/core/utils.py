@@ -46,6 +46,15 @@ def get_subdomain_from_host(host):
     return host
 
 
+def build_host_with_subdomain(host, subdomain):
+    """
+    Build domain with subdomain
+    """
+    if subdomain and subdomain != 'aides-territoires':
+        return f'{subdomain}.{host}'
+    return host
+
+
 class RedirectAidDetailView(RedirectView):
     """
     We are using this view as a temporary fix.
