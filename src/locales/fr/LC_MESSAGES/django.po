@@ -2837,3 +2837,9 @@ msgstr "Test d'éligibilité"
 
 msgid "Eligibility tests"
 msgstr "Tests d'éligibilité"
+
+msgid "key words associated to the project"
+msgstr "mots-clés associés au projet"
+
+msgid "Key words"
+msgstr "Mots-clés"
