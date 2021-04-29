@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('backers', '0014_reupload_medias'),
-        ('aids', '0123_aid_import_data_source'),
+        ('aids', '0124_aid_eligibility_test'),
     ]
 
     operations = [
