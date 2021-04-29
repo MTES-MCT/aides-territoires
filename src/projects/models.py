@@ -45,7 +45,7 @@ class Project(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     key_words = models.TextField(
         _('Key words'),
-        help_text= _('key words associated to the project'),
+        help_text=_('key words associated to the project'),
         default='', blank=True)
 
     is_suggested = models.BooleanField(
