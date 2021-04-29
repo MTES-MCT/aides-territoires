@@ -5,8 +5,9 @@ from projects.models import Project
 
 class ProjectSerializer(serializers.ModelSerializer):
 
+    id = serializers.CharField(source='slug')
     text = serializers.CharField(source='name')
 
     class Meta:
         model = Project
-        fields = ('slug', 'text', 'key_words', 'status',)
+        fields = ('id', 'text', 'key_words', 'status',)

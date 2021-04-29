@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $('select#id_projects').select2({
-        placeholder: catalog.projects_placeholder,
+        placeholder: catalog.project_placeholder,
         language: 'fr',
         minimumInputLength: 3,
         language: {

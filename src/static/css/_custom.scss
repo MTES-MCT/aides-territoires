@@ -1862,7 +1862,8 @@ div#search-steps {
         }
     }
 
-    form#perimeter {
+    form#perimeter,
+    form#projects {
 
         div.form-group,
         button,
@@ -1871,7 +1872,8 @@ div#search-steps {
             margin-top: 1rem;
         }
 
-        div#form-group-perimeter {
+        div#form-group-perimeter,
+        div#form-group-projects {
             width: 30rem;
             max-width: 100%;
             display: inline-block;
