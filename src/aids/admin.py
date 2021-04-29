@@ -15,7 +15,7 @@ from admin_auto_filters.filters import AutocompleteFilter
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
-from aids.models import Aid, AidWorkflow
+from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
@@ -146,6 +146,24 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
             return queryset.filter(perimeter__in=perimeter_qs)
 
 
+class FinancersInline(admin.TabularInline):
+    """Configure the formset to the financers m2m field."""
+
+    model = AidFinancer
+    verbose_name = _('Financer')
+    verbose_name_plural = _('Financers')
+    autocomplete_fields = ['backer']
+
+
+class InstructorsInline(admin.TabularInline):
+    """Configure the formset to the instructors m2m field."""
+
+    model = AidInstructor
+    verbose_name = _('Instructor')
+    verbose_name_plural = _('Instructors')
+    autocomplete_fields = ['backer']
+
+
 class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
@@ -201,6 +219,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
         'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
+    inlines = [FinancersInline, InstructorsInline]
     fieldsets = [
         (_('Aid presentation'), {
             'fields': (
@@ -210,9 +229,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'short_title',
                 'categories',
                 'targeted_audiences',
-                'financers',
                 'financer_suggestion',
-                'instructors',
                 'instructor_suggestion',
                 'author',
                 'sibling_aids',
