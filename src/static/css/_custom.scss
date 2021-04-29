@@ -1878,7 +1878,14 @@ div#search-steps {
             max-width: 100%;
             display: inline-block;
             margin-right: .5rem;
+        }
+
+        div#form-group-perimeter {
             vertical-align: bottom;
+        }
+
+        div#form-group-projects {
+            vertical-align: top;
         }
 
         button[type=submit] {
