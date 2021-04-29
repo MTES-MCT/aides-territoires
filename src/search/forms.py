@@ -19,7 +19,7 @@ from aids.forms import AidSearchForm
 AUDIENCES = [
     (_('A collectivity'), (
         ('commune', _('Commune')),
-        ('epci', _('Intercommunality')),
+        ('epci', _('Intercommunality / Country')),
         ('department', _('Department')),
         ('region', _('Region')),
     )),
