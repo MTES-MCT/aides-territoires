@@ -10,7 +10,6 @@ from django.core.exceptions import ValidationError
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from categories.models import Theme, Category
 from projects.models import Project
-from projects.fields import ProjectMultipleChoiceField
 from categories.fields import CategoryMultipleChoiceField
 from geofr.models import Perimeter
 from aids.forms import AidSearchForm
@@ -203,13 +202,6 @@ class CategorySearchForm(forms.Form):
         self.fields['categories'].queryset = categories_with_aid_count
 
 
-class ProjectWidget(forms.widgets.ChoiceWidget):
-    """Custom widget to select project."""
-
-    allow_multiple_selected = False
-    template_name = 'search/forms/widgets/project_widget.html'
-
-
 class ProjectSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(
         choices=AUDIENCES,
@@ -224,11 +216,9 @@ class ProjectSearchForm(forms.Form):
         queryset=Category.objects.all(),
         to_field_name='slug',
         widget=forms.widgets.MultipleHiddenInput)
-    projects = ProjectMultipleChoiceField(
+    projects = AutocompleteModelChoiceField(
         queryset=Project.objects.all(),
-        to_field_name='slug',
-        required=False,
-        widget=ProjectWidget)
+        required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

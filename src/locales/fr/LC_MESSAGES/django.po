@@ -2822,3 +2822,9 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "key words associated to the project"
+msgstr "mots-clés associés au projet"
+
+msgid "Key words"
+msgstr "Mots-clés"

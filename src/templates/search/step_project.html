@@ -2,7 +2,7 @@
 {% load compress %}
 {% load i18n %}
 
-{% block extratitle %}{{ _('Search – Project') }}{% endblock %}
+{% block extratitle %}Recherche - Projet{% endblock %}
 
 {% block sectionid %}search-steps{% endblock %}
 
@@ -22,20 +22,28 @@
 <h1>Pour quel projet recherchez-vous une aide&nbsp;?</h1>
 
 {% if project_choices and categories_length %}
-<div>
-    <form id="projects" action="{% url 'search_view' %}" method="GET">
+<form id="projects" action="{% url 'search_view' %}" method="GET">
 
-        {% include '_form_snippet.html' %}
+    {% include '_form_snippet.html' %}
 
-        <div id="other_project_box">
-            <p>Aucun de ces projets ne correspond à votre recherche ? </p>
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#suggested_project_box">Améliorez Aides-territoires</button>
-        </div>
+    <button name="action" value="search" type="submit">
+        Envoyer
+    </button>
 
-        <button name="action" value="search" type="submit">
-            Envoyer
-        </button>
-    </form>
+    <div class="navigation-links">
+        <a class="previous-btn" href="{% url 'search_step_audience' %}?{{ querystring }}">
+            {{ _('Back to previous step') }}
+        </a>
+
+        <a class="next-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
+            {{ _('Skip to the next step') }}
+        </a>
+    </div>
+
+</form>
+<div id="other_project_box">
+    <p>Aucun de ces projets ne correspond à votre recherche ? </p>
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#suggested_project_box">Améliorez Aides-territoires</button>
 </div>
 
 <div id="suggested_project_box" class="collapse">
@@ -62,6 +70,7 @@
     </form>
 </div>
 
+{% if not project_choices and not categories_length %}
 <div class="navigation-links">
     <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
         Passer cette étape
@@ -70,10 +79,20 @@
         Revenir en arrière
     </a>
 </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+{% compress css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endcompress %}
 {% endblock %}
 
 {% block extra_js %}
 {% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/search/track_project_step_events.js"></script>
+<script src="/static/js/aids/project_autocomplete.js"></script>
 {% endcompress %}
 {% endblock %}
