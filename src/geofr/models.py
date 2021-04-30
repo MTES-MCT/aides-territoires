@@ -1,6 +1,7 @@
 import unicodedata
 
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
@@ -116,6 +117,13 @@ class Perimeter(models.Model):
     unaccented_name = models.CharField(
         _('Name without accent (for indexing purpose)'),
         max_length=128)
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+    date_updated = models.DateTimeField(
+        _('Date updated'),
+        auto_now=True)
 
     class Meta:
         verbose_name = _('Perimeter')
