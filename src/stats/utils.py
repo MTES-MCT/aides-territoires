@@ -15,15 +15,17 @@ def log_aidviewevent(aid_id, querystring='', source=''):
     source_cleaned = get_subdomain_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
+    targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
+
     AidViewEvent.objects.create(
             aid_id=aid_id,
+            targeted_audiences=targeted_audiences,
             querystring=querystring_cleaned,
             source=source_cleaned)
 
 
 @app.task
 def log_aidmatchprojectevent(aid_id, project_id=''):
-
     AidMatchProjectEvent.objects.create(
             aid_id=aid_id,
             project_id=project_id)
