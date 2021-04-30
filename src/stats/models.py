@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-# from django.contrib.postgres.fields import ArrayField
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
@@ -92,6 +91,36 @@ class AidSearchEvent(models.Model):
     def clean_fields(self):
         self.text = self.text[:256] if self.text else ''
         self.source = self.source[:256] if self.source else ''
+
+
+class AidEligibilityTestEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+    eligibility_test = models.ForeignKey(
+        'eligibility.EligibilityTest',
+        verbose_name=_('Eligibility test'),
+        on_delete=models.PROTECT)
+
+    answer_success = models.BooleanField(null=True)
+    answer_details = models.JSONField(null=True)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Événement test d\'éligibilité'
+        verbose_name_plural = 'Événements tests d\'éligibilité'
 
 
 class Event(models.Model):
