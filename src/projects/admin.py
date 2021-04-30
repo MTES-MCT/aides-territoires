@@ -46,7 +46,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ['name']
+    list_display = ['name', 'date_created', 'status']
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description', 'categories',
@@ -54,7 +54,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         'status'
     ]
     search_fields = ['name']
-    list_filter = ['is_suggested', 'categories', 'status']
+    list_filter = ['is_suggested', 'categories__theme', 'categories', 'status']
     readonly_fields = ['date_created']
     filter_vertical = ['categories']
 
