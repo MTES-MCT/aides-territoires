@@ -6,7 +6,7 @@
 {% block messages %}{% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Edit an aid') }}</h1>
+    <h1>Modifiez une aide</h1>
 {% endblock %}
 
 {% block before-section %}
@@ -20,60 +20,61 @@
     {% endif %}
     <div class="actions">
         <div class="sidebar-actions">
-            <h3>{{ aid.get_status_display }}</h3>
-    
-            {% if aid.is_draft %}
-                {% trans 'This aid is <strong>currently not displayed on the site</strong>. You can send it to publication by requesting a review by an administrator.' as status_info %}
-                {% trans 'Send to publication' as btn_label %}
-                {% trans 'You will be able to keep editing your aid.' as status_help %}
-            {% elif aid.is_under_review %}
-                {% trans 'Pending approval by an administrator, this aid <strong>will be published anytime soon</strong>.' as status_info %}
-                {% trans 'Cancel review' as btn_label %}
-                {% trans 'You will be able to submit your aid for review later on.' as status_help %}
-            {% elif aid.is_published %}
-                {% trans 'You are editing a published aid. Please proceed with caution.' as status_info %}
-                {% trans 'Unpublish right now' as btn_label %}
-                {% trans 'You will need to request a new review to re-publish your aid.' as status_help %}
-            {% endif %}
-    
+            <h3>{{ aid.get_status_display }}</h3>                
             <div>
-                <p>{{ status_info}}</p>
+                {% if aid.is_draft %}
+                <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
                 <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
-                    <span class="help">{{ status_help }}</span>
+                    <span class="help">Vous pourrez continuer à modifier votre aide.</span>
                     {% csrf_token %}
                     <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                    <button type="submit">{{ btn_label }}</button>
+                    <button type="submit">Demander la publication</button>
                 </form>
+                {% elif aid.is_under_review %}
+                    <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
+                    <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
+                        <span class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</span>
+                        {% csrf_token %}
+                        <input type="hidden" name="current_status" value="{{ aid.status }}" />
+                        <button type="submit">Annuler la revue</button>
+                    </form>
+                {% elif aid.is_published %}
+                    <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url}}">cette adresse</a>. Merci de procéder avec prudence.</p>
+                    <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
+                        <span class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</span>
+                        {% csrf_token %}
+                        <input type="hidden" name="current_status" value="{{ aid.status }}" />
+                        <button type="submit">Dépublier maintenant</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     
         <div class="sidebar-actions">
-            <h3>{{ _('Preview') }}</h3>
+            <h3>Prévisualisation</h3>
             <div>
-                <p>{{ _('Check how your aid will appear to our users.') }}</p>
+                <p>Vérifiez le rendu de votre aide pour notre public.</p>
                 <p>
                     <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
-                        {{ _('Preview the aid') }}
+                        Prévisualiser cette aide
                     </button>
                 </p>
             </div>
         </div>
     
         <div class="sidebar-actions action-danger">
-            <h3>{{ _('Delete the aid') }}</h3>
+            <h3>Suppression de l'aide</h3>
             <div>
-                <p>{% blocktrans trimmed %}
-                    By clicking the button below, you will delete this aid. This action cannot be undone.
-                {% endblocktrans %}</p>
+                <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
                 <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
                     {% csrf_token %}
     
                     <div class="form-group">
                         <input type="checkbox" name="confirm" />
-                        <label>{{ _('I understand') }}</label>
+                        <label>Je comprends</label>
                     </div>
                     <button type="submit">
-                        {{ _('Delete this aid') }}
+                        Supprimer cette aide
                     </button>
                 </form>
             </div>
@@ -110,10 +111,10 @@
 {% block form_actions %}
 <div class="form-actions">
     <div class="submit-buttons">
-        <button type="submit" value="save">{{ _('Save changes') }}</button>
-        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">{{ _('Copy this aid') }}</button>
+        <button type="submit" value="save">Enregistrer vos modifications</button>
+        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">Dupliquer cette aide</button>
     </div>
-    <a href="{% url 'aid_draft_list_view' %}">{{ _('Back to your portfolio') }}</a>
+    <a href="{% url 'aid_draft_list_view' %}">Retour à votre portefeuille d'aides</a>
 </div>
 {% endblock %}
 
