@@ -20,7 +20,7 @@ class ReadOnlyModelAdminMixin:
 class AidViewEventAdmin(ReadOnlyModelAdminMixin, admin.ModelAdmin):
     """The model is set to readonly"""
 
-    list_display = ['id', 'source', 'results_count', 'date_created']
+    list_display = ['id', 'source', 'date_created']
     list_filter = ['source']
 
 
