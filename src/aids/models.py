@@ -129,7 +129,7 @@ class AidQuerySet(models.QuerySet):
     def generic_aids(self):
         """Returns the list of generic aids"""
 
-        return self.filter(local_aids__isnull=False)
+        return self.filter(is_generic=True)
 
     def local_aids(self):
         """Returns the list of local aids"""
@@ -139,7 +139,7 @@ class AidQuerySet(models.QuerySet):
     def standard_aids(self):
         """Returns the list of aids that are nither local nor generic"""
 
-        return self.filter(generic_aid__isnull=True, local_aids__isnull=True)
+        return self.filter(generic_aid__isnull=True, is_generic=False)
 
 
 class BaseExistingAidsManager(models.Manager):
@@ -365,6 +365,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             max_length=32,
             choices=TYPES),
         help_text=_('Specify the aid type or types.'))
+    is_generic = models.BooleanField(_('Is generic aid'), default=False)
     generic_aid = models.ForeignKey(
         'aids.Aid',
         verbose_name=_('Generic aid'),
@@ -720,9 +721,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_local(self):
         return self.generic_aid is not None
-
-    def is_generic(self):
-        return self.local_aids.exists()
 
     def is_corporate_aid(self):
         return (

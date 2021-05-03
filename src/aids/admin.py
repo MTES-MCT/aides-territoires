@@ -287,6 +287,12 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
             )
         }),
 
+        (_('Only for generic aids'), {
+            'fields': (
+                'is_generic',
+            )
+        }),
+
         (_('Only for local aids'), {
             'fields': (
                 'generic_aid',

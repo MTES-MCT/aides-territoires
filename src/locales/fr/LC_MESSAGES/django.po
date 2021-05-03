@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-29 15:08+0200\n"
+"POT-Creation-Date: 2021-05-04 11:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,6 +201,18 @@ msgstr "Porteurs d'aides"
 msgid "Perimeter"
 msgstr "Périmètre"
 
+msgid "Financer"
+msgstr "Porteur d’aide"
+
+msgid "Financers"
+msgstr "Porteurs d’aides"
+
+msgid "Instructor"
+msgstr "Instructeurs"
+
+msgid "Instructors"
+msgstr "Instructeurs"
+
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
 
@@ -222,6 +234,9 @@ msgstr "Éligibilité"
 msgid "Aid admin"
 msgstr "Administration de l'aide"
 
+msgid "Only for generic aids"
+msgstr "Uniquement pour les aides génériques"
+
 msgid "Only for local aids"
 msgstr "Uniquement pour les aides locales"
 
@@ -236,12 +251,6 @@ msgstr "Du même auteur"
 
 msgid "Nb of (non-draft) aids by the same author"
 msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
-
-msgid "Financers"
-msgstr "Porteurs d’aides"
-
-msgid "Instructors"
-msgstr "Instructeurs"
 
 msgid "Live"
 msgstr "Live"
@@ -684,6 +693,9 @@ msgctxt "Aid (nf)"
 msgid "Deleted"
 msgstr "Supprimée"
 
+msgid "Order"
+msgstr "Trier par"
+
 msgid "Technical engineering"
 msgstr "Ingénierie technique"
 
@@ -790,6 +802,9 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
+
+msgid "Is generic aid"
+msgstr "Est une aide générique ?"
 
 msgid "Generic aid"
 msgstr "Aide générique"
@@ -1154,7 +1169,6 @@ msgstr "Articles de blog"
 msgid "Blog Posts"
 msgstr "Articles de blog"
 
-#| msgid "Full description of the backer"
 msgid "Description of the category"
 msgstr "Description complète du porteur d'aides"
 
@@ -1532,6 +1546,12 @@ msgstr "Nom du projet"
 
 msgid "Full description of the project"
 msgstr "Description complète du projet"
+
+msgid "Key words"
+msgstr "Mots-clés"
+
+msgid "key words associated to the project"
+msgstr "mots-clés associés au projet"
 
 msgid "Is a suggested project?"
 msgstr "Est-ce un projet suggéré ?"
@@ -2767,9 +2787,6 @@ msgstr "Revenir en arrière"
 msgid "Search – Perimeter"
 msgstr "Recherche – Périmètre"
 
-msgid "Search – Project"
-msgstr "Recherche – Projet"
-
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
 
@@ -2822,9 +2839,3 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
-
-msgid "key words associated to the project"
-msgstr "mots-clés associés au projet"
-
-msgid "Key words"
-msgstr "Mots-clés"
