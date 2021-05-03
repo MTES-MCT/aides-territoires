@@ -70,7 +70,7 @@
     </form>
 </div>
 
-{% if not project_choices and not categories_length %}
+{% if not project_choices %}
 <div class="navigation-links">
     <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
         Passer cette étape
