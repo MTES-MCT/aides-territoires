@@ -725,4 +725,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return self.local_aids.exists()
 
     def is_corporate_aid(self):
-        return 'private_sector' in self.targeted_audiences
+        return (
+            self.targeted_audiences and
+            'private_sector' in self.targeted_audiences)
