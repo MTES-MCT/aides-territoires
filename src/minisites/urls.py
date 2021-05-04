@@ -7,7 +7,7 @@ from django.views.generic import View
 
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
                              SiteBackers, SiteStats, SiteProgram,
-                             SiteLegalMentions, Error)
+                             SiteLegalMentions, Error, PageList, PageDetail)
 
 
 # This set of url patterns is completely independant from all other urls.
@@ -63,6 +63,12 @@ urlpatterns = [
     # The aid detail view
     path('<slug:slug>/', include([
         path('', SiteAid.as_view(), name='aid_detail_view')])),
+
+    # Static pages
+    path(_('pages/'), include([
+        path('', PageList.as_view(), name='page_list_view'),
+        path('<path:url>', PageDetail.as_view(), name='page_detail_view')
+    ]))
 ]
 
 handler400 = Error.as_view(template_name='minisites/400.html', status_code=400)
