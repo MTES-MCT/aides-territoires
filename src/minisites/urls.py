@@ -60,15 +60,14 @@ urlpatterns = [
     # Api related routes
     path('api/', include(api_patterns)),
 
+    path('pages/', PageList.as_view(), name='page_list_view'),
+
     # The aid detail view
     path('<slug:slug>/', include([
         path('', SiteAid.as_view(), name='aid_detail_view')])),
 
     # Static pages
-    path(_('pages/'), include([
-        path('', PageList.as_view(), name='page_list_view'),
-        path('<path:url>', PageDetail.as_view(), name='page_detail_view')
-    ]))
+    path('pages/<path:url>', PageDetail.as_view(), name='page_detail_view')
 ]
 
 handler400 = Error.as_view(template_name='minisites/400.html', status_code=400)

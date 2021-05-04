@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
 from django.http import HttpResponseRedirect, Http404
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, DetailView
 from django.contrib.sites.models import Site
 from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
 from django.utils import timezone
+from django.views.generic.base import RedirectView
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
@@ -299,9 +300,8 @@ class Error(MinisiteMixin, TemplateView):
         return super().render_to_response(context, **response_kwargs)
 
 
-class PageList(MinisiteMixin, ListView):
-    template_name = 'minisites/page_list.html'
-    context_object_name = 'pages'
+class PageList(MinisiteMixin, RedirectView):
+    pattern_name = 'home'
 
 
 class PageDetail(MinisiteMixin, DetailView):
