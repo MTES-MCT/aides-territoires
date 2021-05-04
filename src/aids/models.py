@@ -700,6 +700,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         deadline_delta = self.submission_deadline - today
         return deadline_delta.days
 
+    def is_coming_soon(self):
+        if not self.start_date:
+            return None
+
+        today = timezone.now().date()
+        if self.start_date > today:
+            return True
+
     def has_expired(self):
         if not self.submission_deadline:
             return False

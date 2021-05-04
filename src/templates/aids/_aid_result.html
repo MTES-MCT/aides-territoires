@@ -68,6 +68,9 @@
         {% if aid.has_calendar %}
             <h2 class="deadline">{{ _('Calendar') }}</h2>
             <ul>
+            {% if aid.is_coming_soon %}
+            <li>Ouverture prochaine de l'aide&nbsp;!</li>
+            {% endif %}
             {% if aid.start_date %}
                 <li>{{ _('Opening:') }} {{ aid.start_date|date }}</li>
             {% endif %}
@@ -82,7 +85,6 @@
                 <span class="badge badge-lg badge-primary">☑️ Test d'éligibilité disponible</span>
             </div>
         {% endif %}
-
     </div>
 
 </article>
