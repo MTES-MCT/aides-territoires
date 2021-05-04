@@ -1324,9 +1324,6 @@ msgstr "Contact du porteur"
 msgid "Data Sources"
 msgstr "Sources de données"
 
-msgid "Number of aids"
-msgstr "Nombre d'aides'"
-
 msgid "Eligibility tests"
 msgstr "Tests d'éligibilité"
 

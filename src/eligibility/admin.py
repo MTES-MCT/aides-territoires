@@ -13,10 +13,18 @@ from accounts.admin import AuthorFilter
 
 
 class EligibilityTestForm(forms.ModelForm):
-    introduction = RichTextField(label='Une introduction')
-    conclusion_success = RichTextField(label='Une conclusion si le test est positif')  # noqa
-    conclusion_failure = RichTextField(label='Une conclusion si le test est négatif')  # noqa
-    conclusion = RichTextField(label='Une conclusion générale')
+    introduction = RichTextField(
+        label='Une introduction',
+        required=False)
+    conclusion_success = RichTextField(
+        label='Une conclusion si le test est positif',
+        required=False)
+    conclusion_failure = RichTextField(
+        label='Une conclusion si le test est négatif',
+        required=False)
+    conclusion = RichTextField(
+        label='Une conclusion générale',
+        required=False)
 
     class Meta:
         model = EligibilityTest
@@ -30,7 +38,7 @@ class EligibilityQuestionInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class EligibilityTestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'author', 'nb_aids', 'date_created']
+    list_display = ['name', 'author', 'nb_aids', 'nb_results', 'date_created']
     search_fields = ['name']
     list_filter = [AuthorFilter]
     form = EligibilityTestForm
@@ -41,7 +49,8 @@ class EligibilityTestAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.select_related('author') \
-               .annotate(aid_count=Count('aids'))
+               .annotate(aid_count=Count('aids', distinct=True)) \
+               .annotate(result_count=Count('aideligibilitytestevent', distinct=True))  # noqa
         return qs
 
     def save_model(self, request, obj, form, change):
@@ -51,8 +60,13 @@ class EligibilityTestAdmin(admin.ModelAdmin):
 
     def nb_aids(self, eligibility_test):
         return eligibility_test.aid_count
-    nb_aids.short_description = _('Number of aids')
+    nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
+
+    def nb_results(self, eligibility_test):
+        return eligibility_test.result_count
+    nb_results.short_description = "Nombre de résultats"
+    nb_results.admin_order_field = 'result_count'
 
     def display_related_aids(self, obj):
         related_aid_html = format_html('<table> \
