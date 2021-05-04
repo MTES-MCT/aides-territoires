@@ -314,7 +314,9 @@ class PageDetail(MinisiteMixin, DetailView):
             url = '/' + url
 
         try:
-            page = Page.objects.get(url=url)
+            page = Page.objects \
+                .filter(minisite=self.search_page) \
+                .get(url=url)
         except Page.DoesNotExist:
             raise Http404('No page found')
 
