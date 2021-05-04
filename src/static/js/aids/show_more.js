@@ -37,19 +37,21 @@
         searchParams = url.searchParams
 
         // We check if the search params extracted from url in localStorage
-        // are identiqual to actual search (except page parameter)
+        // are identiqual to actual search (except page parameter and '_' (cache busting parameter))
         // If so, we use the value of current_page from localStorage to display previous page of results
         // else clear the localStorage and return
         url_LS = new URL(localStorage.getItem('current_page_LS'))
         searchParams_LS = url_LS.searchParams
         searchParams.delete("page")
         searchParams_LS.delete("page")
+        searchParams.delete("_")
+        searchParams_LS.delete("_")
 
         if (searchParams_LS.toString() == searchParams.toString()) {
             url = new URL(localStorage.getItem('current_page_LS'))
             searchParams = url.searchParams
         } else {
-            localStorage.clear();
+            localStorage.removeItem('current_page_LS');
             return
         }
 
