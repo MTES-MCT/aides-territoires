@@ -122,6 +122,11 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         kwargs['data'] = data
         return kwargs
 
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
+
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 

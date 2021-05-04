@@ -43,6 +43,17 @@
      {% include 'minisites/_search_form.html' %}
 {% endblock %}
 
+{% block content %}
+{% if pages %}
+<nav class="nav breadcrumb">
+    {% for page in pages %}
+        <a class="nav-link" href="{{ page.url }}">{{ page.title }}</a>
+    {% endfor %}
+</nav>
+{% endif %}
+{{ block.super }}
+{% endblock %}
+
 {% block modals %}
     {% include 'alerts/_alert_modal.html' with form=form %}
 {% endblock %}
