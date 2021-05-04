@@ -39,11 +39,18 @@ class PageAdmin(FlatPageAdmin):
     form = PageForm
     fieldsets = (
         (None, {
-            'fields': ('url', 'title', 'content'),
+            'fields': ('url', 'minisite', 'title', 'content'),
             'description': '<div class="help">{}</div>'.format(HELP)}),
         (_('SEO'), {'fields': (
             'meta_title', 'meta_description')})
     )
+    autocomplete_fields = ['minisite']
+    list_display = ['url', 'title', 'minisite']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.select_related('minisite')
+        return qs
 
 
 admin.site.unregister(FlatPage)
