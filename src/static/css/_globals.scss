@@ -835,12 +835,14 @@ ol.breadcrumb {
         align-items: center;
     }
 
+    li + li {
+        @include icon(before, $fa-var-chevron-right);
+    }
+
     li + li::before {
         padding-right: 0.5rem;
         color: $font-color;
-        content: ">";
-        @include icon(before, $fa-var-chevron-right);
-        font-size: 1.8rem;
+        font-size: 1rem;
     }
 }
 
