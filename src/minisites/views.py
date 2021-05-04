@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect, Http404
+from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.sites.models import Site
 from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
@@ -16,6 +16,7 @@ from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
+from pages.models import Page
 from stats.utils import log_aidsearchevent
 from core.utils import get_site_from_host
 
@@ -296,3 +297,25 @@ class Error(MinisiteMixin, TemplateView):
     def render_to_response(self, context, **response_kwargs):
         response_kwargs['status'] = self.status_code
         return super().render_to_response(context, **response_kwargs)
+
+
+class PageList(MinisiteMixin, ListView):
+    template_name = 'minisites/page_list.html'
+    context_object_name = 'pages'
+
+
+class PageDetail(MinisiteMixin, DetailView):
+    template_name = 'minisites/page_detail.html'
+    context_object_name = 'page'
+
+    def get_object(self):
+        url = self.kwargs.get('url')
+        if not url.startswith('/'):
+            url = '/' + url
+
+        try:
+            page = Page.objects.get(url=url)
+        except Page.DoesNotExist:
+            raise Http404('No page found')
+
+        return page
