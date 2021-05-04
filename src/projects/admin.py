@@ -46,7 +46,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ['name', 'date_created', 'status']
+    list_display = ['name', 'status', 'date_created']
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description', 'categories',
