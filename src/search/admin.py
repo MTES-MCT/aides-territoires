@@ -13,6 +13,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     filter_vertical = ['available_categories']
     autocomplete_fields = ['excluded_aids']
     readonly_fields = ['date_created', 'date_updated']
+    search_fields = ['title']
     fieldsets = [
         ('', {
             'fields': (
