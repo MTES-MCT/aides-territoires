@@ -19,3 +19,9 @@ class Page(FlatPage):
         max_length=256,
         help_text=_('This will be displayed in SERPs. '
                     'Keep it under 120 characters.'))
+
+    minisite = models.ForeignKey(
+        'search.SearchPage',
+        verbose_name=_('Minisite'),
+        on_delete=models.PROTECT,
+        null=True, blank=True)
