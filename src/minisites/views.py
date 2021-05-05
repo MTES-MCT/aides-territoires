@@ -17,7 +17,7 @@ from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from stats.utils import log_aidsearchevent
-from core.utils import get_subdomain_from_host
+from core.utils import get_site_from_host
 
 
 class MinisiteMixin:
@@ -74,7 +74,7 @@ class MinisiteMixin:
             page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
-            page_slug = get_subdomain_from_host(host)
+            page_slug = get_site_from_host(host)
 
         qs = SearchPage.objects.filter(slug=page_slug)
         try:

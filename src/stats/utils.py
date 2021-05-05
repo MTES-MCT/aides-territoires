@@ -1,5 +1,5 @@
 from core.celery import app
-from core.utils import get_subdomain_from_host
+from core.utils import get_site_from_host
 from search.utils import (
     clean_search_querystring,
     get_querystring_value_from_key, get_querystring_value_list_from_key,
@@ -12,7 +12,7 @@ from stats.models import (AidViewEvent, AidSearchEvent, Event,
 
 @app.task
 def log_aidviewevent(aid_id, querystring='', source=''):
-    source_cleaned = get_subdomain_from_host(source)
+    source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
     targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
@@ -37,7 +37,7 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
     Method to cleanup/populate the AidSearchEvents
     Run asynchronously to avoid slowing down requests.
     """
-    source_cleaned = get_subdomain_from_host(source)
+    source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
     # sometimes we query our API for internal (e.g. admin) purposes

@@ -33,7 +33,7 @@ def get_base_url():
     return base_url
 
 
-def get_subdomain_from_host(host):
+def get_site_from_host(host):
     """
     Return the string bit that identify a site.
     This can be the subdomain or a minisite slug.
