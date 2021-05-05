@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
+from search.utils import clean_search_querystring
 from aids.models import Aid
 
 
@@ -33,6 +34,36 @@ class AidViewEvent(models.Model):
     class Meta:
         verbose_name = _('Aid View Event')
         verbose_name_plural = _('Aid View Events')
+
+
+class AidContactClickEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+    
+    class Meta:
+        verbose_name = 'Événement aide voir les contacts'
+        verbose_name_plural = 'Événements aide voir les contacts'
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        return super().save(*args, **kwargs)
+
+    def clean_fields(self):
+        self.querystring = clean_search_querystring(self.querystring)
 
 
 class AidSearchEvent(models.Model):
@@ -203,3 +234,4 @@ class AidMatchProjectEvent(models.Model):
     class Meta:
         verbose_name = _('Aid Match Project Event')
         verbose_name_plural = _('Aid Match Project Events')
+
