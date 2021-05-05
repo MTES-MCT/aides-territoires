@@ -1557,8 +1557,8 @@ msgstr "Exclure des aides des résultats"
 msgid "A collectivity"
 msgstr "Une collectivité"
 
-msgid "Intercommunality"
-msgstr "Intercommunalité"
+msgid "Intercommunality / Country"
+msgstr "Intercommunalité / Pays"
 
 msgid "An other beneficiary"
 msgstr "Un autre bénéficiaire"
