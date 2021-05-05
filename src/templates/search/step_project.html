@@ -32,11 +32,11 @@
 
     <div class="navigation-links">
         <a class="previous-btn" href="{% url 'search_step_audience' %}?{{ querystring }}">
-            {{ _('Back to previous step') }}
+            Revenir en arrière
         </a>
 
         <a class="next-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
-            {{ _('Skip to the next step') }}
+            Passer cette étape
         </a>
     </div>
 
@@ -70,13 +70,13 @@
     </form>
 </div>
 
-{% if not project_choices and not categories_length %}
+{% if not project_choices %}
 <div class="navigation-links">
-    <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-        Passer cette étape
-    </a>
     <a class="previous-btn" href="{% url 'search_step_category' %}?{{ querystring }}">
         Revenir en arrière
+    </a>
+    <a id="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+        Passer cette étape
     </a>
 </div>
 {% endif %}
