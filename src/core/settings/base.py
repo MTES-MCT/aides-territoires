@@ -270,6 +270,15 @@ SIB_PUBLICATION_EMAIL_TEMPLATE_ID = 0
 SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID=0
 EXPORT_CONTACTS_ENABLED = False
 
+# Minisites detection:
+# This is a mapping between a DNS host and a minisite slug.
+# Sometimes, a minisite can be served under a custom domain.
+# If that context, we use this mapping in order to identify
+# which ministe the custom domain should be linked to.
+MAP_DNS_TO_MINISITES = [
+    ('aides.francemobilites.fr', 'francemobilites'),
+]
+
 # ADDNA
 ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'
 ADDNA_ALERT_QUERYSTRING = 'perimeter=70971-nouvelle-aquitaine'
