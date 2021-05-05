@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import RedirectView
@@ -32,15 +33,20 @@ def get_base_url():
     return base_url
 
 
-def get_subdomain_from_host(host):
+def get_site_from_host(host):
     """
-    Cleanup host field
+    Return the string bit that identify a site.
+    This can be the subdomain or a minisite slug.
     aides-territoires.beta.gouv.fr --> aides-territoires
     staging.aides-territoires.beta.gouv.fr --> staging
-    francemobilities.aides-territoires.beta.gouv.fr --> francemobilities
-    aides.francemobilities.fr --> aides.francemobilities.fr
+    francemobilites.aides-territoires.beta.gouv.fr --> francemobilites
+    aides.francemobilites.fr --> francemobilites  # Using the mapping
     """
-    # site = Site.objects.get_current()
+    for minisite_host, minisite_slug in settings.MAP_DNS_TO_MINISITES:
+        # If we detect that a mapping is defined for the incoming
+        # DNS host, then we get the minisite slug from that mapping.
+        if minisite_host in host:
+            return minisite_slug
     if 'aides-territoires' in host:
         return host.split('.')[0]
     return host

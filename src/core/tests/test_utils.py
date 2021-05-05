@@ -1,21 +1,21 @@
-from core.utils import get_subdomain_from_host, build_host_with_subdomain
+from core.utils import get_site_from_host, build_host_with_subdomain
 
 
-def test_get_subdomain_from_host():
+def test_get_site_from_host():
     host_testset = [
         # ('given-host', 'expected-subdomain')
         ('aides-territoires.local:8000', 'aides-territoires'),
         ('aides-territoires.beta.gouv.fr', 'aides-territoires'),
         ('aides-territoires.osc-fr1.scalingo.io', 'aides-territoires'),
-        ('francemobilities.aides-territoires.beta.gouv.fr', 'francemobilities'),  # noqa
+        ('francemobilites.aides-territoires.beta.gouv.fr', 'francemobilites'),  # noqa
         ('staging.aides-territoires.beta.gouv.fr', 'staging'),
         ('staging.aides-territoires.osc-fr1.scalingo.io', 'staging'),
         ('aides-territoires-pr123.osc-fr1.scalingo.io', 'aides-territoires-pr123'),  # noqa
-        ('aides.francemobilities.fr', 'aides.francemobilities.fr'),
+        ('aides.francemobilites.fr', 'francemobilites'),
         ('', ''),
     ]
     for host in host_testset:
-        assert get_subdomain_from_host(host[0]) == host[1]
+        assert get_site_from_host(host[0]) == host[1]
 
 
 def test_build_host_with_subdomain():
@@ -25,11 +25,11 @@ def test_build_host_with_subdomain():
         ('aides-territoires.beta.gouv.fr', 'aides-territoires', 'aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.beta.gouv.fr', '', 'aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.osc-fr1.scalingo.io', 'aides-territoires', 'aides-territoires.osc-fr1.scalingo.io'),  # noqa
-        ('aides-territoires.beta.gouv.fr', 'francemobilities', 'francemobilities.aides-territoires.beta.gouv.fr'),  # noqa
+        ('aides-territoires.beta.gouv.fr', 'francemobilites', 'francemobilites.aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.beta.gouv.fr', 'staging', 'staging.aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.osc-fr1.scalingo.io', 'staging', 'staging.aides-territoires.osc-fr1.scalingo.io'),  # noqa
         ('osc-fr1.scalingo.io', 'aides-territoires-pr123', 'aides-territoires-pr123.osc-fr1.scalingo.io'),  # noqa
-        # ('aides.francemobilities.fr', 'aides.francemobilities.fr'),
+        # ('aides.francemobilites.fr', 'aides.francemobilites.fr'),
     ]
     for host in host_testset:
         assert build_host_with_subdomain(host[0], host[1]) == host[2]
