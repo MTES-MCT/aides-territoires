@@ -1,13 +1,14 @@
 {% extends '_base.html' %}
 {% load i18n aids %}
 
-{% block extratitle %}{{ program.name }}{% endblock %}
+{% block extratitle %}{{ program.meta_title|default:program.name }}{% endblock %}
+{% block meta_description %}{{ program.meta_description }}{% endblock %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'program_list' %}">{{ _('All aid programs') }}</a></li>
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li><a href="{% url 'program_list' %}">Tous les programmes d'aides</a></li>
         <li class="active" aria-current="page">{{ program.name }}</li>
     </ol>
 </nav>
@@ -19,7 +20,7 @@
         <h1>{{ program.name }}</h1>
         {% if program.description %}
             <div>
-                <h2>{{ _('Global presentation') }}</h2>
+                <h2>Présentation générale</h2>
                 <div>
                     {{ program.description | safe }}
                 </div>

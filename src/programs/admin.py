@@ -36,6 +36,25 @@ class ProgramAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['date_created']
 
+    fieldsets = [
+            ('', {
+                'fields': (
+                    'name',
+                    'slug',
+                    'short_description',
+                    'description',
+                    'logo',
+                    'date_created',
+                )
+            }),
+            (_('SEO'), {
+                'fields': (
+                    'meta_title',
+                    'meta_description',
+                )
+            }),
+        ]
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.prefetch_related('aids') \
