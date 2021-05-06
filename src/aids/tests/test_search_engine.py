@@ -81,7 +81,7 @@ def test_deleted_aids_are_not_listed(client):
 
 
 def test_generic_aid_is_listed(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url)
@@ -90,7 +90,7 @@ def test_generic_aid_is_listed(client, perimeters):
 
 
 def test_local_aid_is_listed(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['occitanie'].pk})
@@ -107,7 +107,7 @@ def test_standard_aid_is_listed(client, perimeters):
 
 
 def test_get_generic_search_perimeter_is_wider(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['europe'].pk})
@@ -119,7 +119,7 @@ def test_get_generic_search_perimeter_is_wider(client, perimeters):
 
 
 def test_has_generic_if_search_perimeter_matches(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['france'].pk})
@@ -131,7 +131,7 @@ def test_has_generic_if_search_perimeter_matches(client, perimeters):
 
 
 def test_get_local_if_search_perimeter_is_smaller(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['herault'].pk})
@@ -143,7 +143,7 @@ def test_get_local_if_search_perimeter_is_smaller(client, perimeters):
 
 
 def test_get_local_aid_if_search_perimeter_matches(client, perimeters):
-    generic = AidFactory(perimeter=perimeters['france'])
+    generic = AidFactory(perimeter=perimeters['france'], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters['occitanie'])
     url = reverse('search_view')
     res = client.get(url, data={'perimeter': perimeters['occitanie'].pk})
