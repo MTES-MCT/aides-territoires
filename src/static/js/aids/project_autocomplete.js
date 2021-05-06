@@ -22,6 +22,10 @@ $(document).ready(function () {
               processResults: function (data, params) {
                   params.page = params.page || 1;
 
+                  if (data.results.length === 0) {
+                      console.log('lala')
+                    $("#other_project_box").removeClass("d-none");
+                  } 
                   return {
                       results: data.results,
                       pagination: {
