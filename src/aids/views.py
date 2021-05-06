@@ -636,3 +636,45 @@ class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin,
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
+
+
+class GenericToLocalAidView(ContributorRequiredMixin,
+                            SingleObjectMixin, RedirectView):
+    """Copy a generic aid into a local aid."""
+
+    http_method_names = ['post']
+
+    def get_queryset(self):
+        qs = Aid.objects.filter(is_generic=True)
+        self.queryset = qs
+        return super().get_queryset()
+
+    def post(self, request, *args, **kwargs):
+        existing_aid = self.get_object()
+        new_aid = existing_aid
+        new_aid.id = None
+        new_aid.name = generate_clone_title(existing_aid.name)
+        new_aid.slug = None
+        new_aid.date_created = timezone.now()
+        new_aid.date_published = None
+        new_aid.status = AidWorkflow.states.draft
+        new_aid.is_imported = False
+        new_aid.import_uniqueid = None
+        new_aid.save()
+
+        # At this point, the new aid is created and we want to
+        # add specific data for local aid.
+        existing_aid = self.get_object()
+        new_aid.author = self.request.user
+        new_aid.name = existing_aid.name
+        new_aid.is_generic = False
+        new_aid.generic_aid = existing_aid
+        new_aid.save()
+
+        self.new_aid = new_aid
+        msg = "Cette aide à été dupliquée"
+        messages.success(self.request, msg)
+        return super().post(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('aid_edit_view', args=[self.new_aid.slug])

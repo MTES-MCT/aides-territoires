@@ -424,6 +424,13 @@
                 {% endif %}
             </div>
 
+            <div>
+                <form name="generic_to_local" action="{% url 'aid_generic_to_local_view' aid.slug %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="cta-btn d-inline-block">Créer une variante locale de cette aide</button>
+                </form>
+            </div>
+
         </div>
 
     </section>
