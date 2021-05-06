@@ -1883,20 +1883,47 @@ div#search-steps {
     }
 }
 
-#project_message_box {
+#before-project-modal{
+    height: 80vh;
+}
 
-    & > div:first-of-type {
-        @extend .mb-5;
+.fake_results_bg{
+    background-image: url('../img/fake_results.png') !important;
+}
+
+#project-modal {
+    display: block !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    header > h1 {
+        margin-bottom: 1rem !important;
+    }
+
+    div.content form {
+        margin-bottom: 1rem !important;
+    }
+
+    div.warning {
+        margin-bottom: 1rem !important;
     }
 
     .navigation-links {
+
         a {
-            color: #fff !important;
+            color: $font-color !important;
         }
 
         a:first-of-type {
             @extend .mr-4;
         }
+    }
+}
+
+#project_message_box {
+
+    & > div:first-of-type {
+        @extend .mb-5;
     }
 }
 
@@ -1910,11 +1937,11 @@ div#search-steps {
 
     display: flex;
     flex-wrap: wrap;
-    align-items: center; 
-    @extend .mb-4;
-    @extend .px-5;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    background-color: #d9f0ec;
     @extend .py-4;
-    border: solid 2px #fff;
     border-radius: 10px;
 
     @include media-breakpoint-up(md) {
