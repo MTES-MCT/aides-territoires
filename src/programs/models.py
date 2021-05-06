@@ -45,7 +45,7 @@ class Program(models.Model):
     # SEO
     meta_title = models.CharField(
         _('Meta title'),
-        max_length=180,
+        max_length=60,
         blank=True, default='',
         help_text=_('This will be displayed in SERPs. '
                     'Keep it under 60 characters. '
@@ -53,7 +53,7 @@ class Program(models.Model):
     meta_description = models.TextField(
         _('Meta description'),
         blank=True, default='',
-        max_length=256,
+        max_length=120,
         help_text=_('This will be displayed in SERPs. '
                     'Keep it under 120 characters.'))
 
