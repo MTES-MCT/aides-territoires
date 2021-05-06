@@ -833,6 +833,10 @@ ol.breadcrumb {
     li {
         @extend .breadcrumb-item;
         align-items: center;
+
+        a {
+            font-weight: bold;
+        }
     }
 
     li + li {
