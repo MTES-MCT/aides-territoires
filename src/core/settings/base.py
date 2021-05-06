@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = [
     'anymail',
     'django_celery_beat',
     'adminsortable2',
+    'fieldsets_with_inlines',
 ]
 
 LOCAL_APPS = [
