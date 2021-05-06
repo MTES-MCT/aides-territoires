@@ -78,8 +78,12 @@
         {% endif %}
 
         {% if aid.has_eligibility_test %}
-            <div class="center">
-                <span class="badge badge-lg badge-primary">☑️ Test d'éligibilité disponible</span>
+            <div class="eligibility-badge">
+                <span class="badge badge-lg badge-primary">
+                    <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
+                        ☑️ Test d'éligibilité disponible
+                    </a>
+                </span>
             </div>
         {% endif %}
 

@@ -531,6 +531,18 @@ section#program-list {
                     content: " | ";
                 }
             }
+
+            .eligibility-badge {
+                position: absolute;
+                text-align: center;
+                left: 0;
+                right: 0;
+                bottom: 1.25rem; // .card-body padding
+
+                span > a {
+                    @extend .text-reset;
+                }
+            }
         }
     }
 
