@@ -1,6 +1,6 @@
 import os
 import csv
-import datetime
+from datetime import datetime
 import logging
 
 from django.db import transaction
@@ -92,7 +92,7 @@ class Command(BaseCommand):
         alert_title = options['title']
         alert_latest_alert_date = options['latest_alert_date']
         if alert_latest_alert_date:
-            alert_latest_alert_date = datetime.datetime \
+            alert_latest_alert_date = datetime \
                 .strptime(options['latest_alert_date'], '%Y-%m-%d') \
                 .replace(hour=12, minute=0)
             alert_latest_alert_date = timezone.make_aware(
