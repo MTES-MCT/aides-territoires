@@ -11,6 +11,8 @@ from django.utils.safestring import mark_safe
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
 from admin_auto_filters.filters import AutocompleteFilter
+from fieldsets_with_inlines import FieldsetsInlineMixin
+from adminsortable2.admin import SortableInlineAdminMixin
 
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
@@ -146,25 +148,29 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
             return queryset.filter(perimeter__in=perimeter_qs)
 
 
-class FinancersInline(admin.TabularInline):
+class FinancersInline(SortableInlineAdminMixin, admin.TabularInline):
     """Configure the formset to the financers m2m field."""
 
     model = AidFinancer
+    extra = 1
     verbose_name = _('Financer')
     verbose_name_plural = _('Financers')
     autocomplete_fields = ['backer']
 
 
-class InstructorsInline(admin.TabularInline):
+class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
     """Configure the formset to the instructors m2m field."""
 
     model = AidInstructor
+    extra = 1
     verbose_name = _('Instructor')
     verbose_name_plural = _('Instructors')
     autocomplete_fields = ['backer']
 
 
-class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
+class BaseAidAdmin(FieldsetsInlineMixin,
+                   ImportMixin, ExportActionMixin,
+                   admin.ModelAdmin):
     """Admin module for aids."""
 
     class Media:
@@ -196,11 +202,8 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'perimeter', 'date_updated',
-        'date_published', 'is_imported', 'submission_deadline', 'status',
-    ]
+        'date_published', 'is_imported', 'submission_deadline', 'status']
     list_display_links = ['name']
-    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
-                           'programs']
     search_fields = ['id', 'name']
     list_filter = [
         'status', GenericAidListFilter, 'recurrence',
@@ -211,6 +214,8 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         PerimeterAutocompleteFilter,
         'programs', 'categories']
 
+    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
+                           'programs']
     filter_vertical = [
         'categories',
     ]  # Overriden in the widget definition
@@ -219,8 +224,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
         'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
-    inlines = [FinancersInline, InstructorsInline]
-    fieldsets = [
+    fieldsets_with_inlines = [
         (_('Aid presentation'), {
             'fields': (
                 'name',
@@ -235,6 +239,9 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'sibling_aids',
             )
         }),
+
+        FinancersInline,
+        InstructorsInline,
 
         (_('Aid perimeter'), {
             'fields': (

@@ -33,8 +33,7 @@ class EligibilityTestForm(forms.ModelForm):
 
 class EligibilityQuestionInline(SortableInlineAdminMixin, admin.TabularInline):
     model = EligibilityTest.questions.through
-    min_num = 1
-    extra = 0
+    extra = 1
 
 
 class EligibilityTestAdmin(admin.ModelAdmin):
