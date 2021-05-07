@@ -1,7 +1,8 @@
 """Test methods for the search engine view."""
 
 import pytest
-from datetime import timedelta
+from datetime import datetime, timedelta
+
 from django.urls import reverse
 from django.utils import timezone
 
@@ -27,8 +28,7 @@ def aids(perimeters):
         *AidFactory.create_batch(10, perimeter=perimeters['eure']),
         *AidFactory.create_batch(11, perimeter=perimeters['st-cyr']),
         *AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
-        *AidFactory.create_batch(13,
-                                 perimeter=perimeters['rhone-mediterannee']),
+        *AidFactory.create_batch(13, perimeter=perimeters['rhone-mediterannee']),  # noqa
         *AidFactory.create_batch(14, perimeter=perimeters['fort-de-france']),
         *AidFactory.create_batch(15, perimeter=perimeters['outre-mer']),
 
@@ -440,15 +440,15 @@ def test_aids_can_be_filterd_by_published_after(client, perimeters):
     AidFactory(
         name='Aide A',
         perimeter=perimeters['europe'],
-        date_published='2020-09-03')
+        date_published=timezone.make_aware(datetime(2020, 9, 3)))
     AidFactory(
         name='Aide B',
         perimeter=perimeters['europe'],
-        date_published='2020-09-02')
+        date_published=timezone.make_aware(datetime(2020, 9, 2)))
     AidFactory(
         name='Aide C',
         perimeter=perimeters['europe'],
-        date_published='2019-01-01')
+        date_published=timezone.make_aware(datetime(2019, 1, 1)))
 
     url = reverse('search_view')
     res = client.get(url)
