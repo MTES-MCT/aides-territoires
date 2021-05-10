@@ -13,8 +13,8 @@ class SearchPageAdmin(admin.ModelAdmin):
     form = SearchPageAdminForm
     prepopulated_fields = {'slug': ('title',)}
     filter_vertical = ['available_categories']
-    autocomplete_fields = ['excluded_aids']
     search_fields = ['title']
+    autocomplete_fields = ['highlighted_aids', 'excluded_aids']
     readonly_fields = [
         'all_aids_count', 'live_aids_count',
         'date_created', 'date_updated']
@@ -66,7 +66,12 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'live_aids_count'
             )
         }),
-        (_('Exclude aids from results'), {
+        ('Mettre en avant des aides', {
+            'fields': (
+                'highlighted_aids',
+            )
+        }),
+        ('Exclure des aides des résultats', {
             'fields': (
                 'excluded_aids',
             )

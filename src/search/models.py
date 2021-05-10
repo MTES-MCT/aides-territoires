@@ -65,6 +65,12 @@ class SearchPage(models.Model):
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
+
+    highlighted_aids = models.ManyToManyField(
+        'aids.Aid',
+        verbose_name=_('Highlighted aids'),
+        related_name='highlighted_in_search_pages',
+        blank=True)
     excluded_aids = models.ManyToManyField(
         'aids.Aid',
         verbose_name=_('Excluded aids'),
