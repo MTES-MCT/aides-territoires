@@ -14,8 +14,10 @@ class SearchPageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     filter_vertical = ['available_categories']
     autocomplete_fields = ['excluded_aids']
-    readonly_fields = ['date_created', 'date_updated']
     search_fields = ['title']
+    readonly_fields = [
+        'all_aids_count', 'live_aids_count',
+        'date_created', 'date_updated']
     fieldsets = [
         ('', {
             'fields': (
@@ -58,12 +60,26 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_aid_type_field',
             )
         }),
+        ('Aides concernées', {
+            'fields': (
+                'all_aids_count',
+                'live_aids_count'
+            )
+        }),
         (_('Exclude aids from results'), {
             'fields': (
                 'excluded_aids',
             )
         }),
     ]
+
+    def all_aids_count(self, search_page):
+        return search_page.get_base_queryset(all_aids=True).count()
+    all_aids_count.short_description = "Nombre total d'aides concernées"
+
+    def live_aids_count(self, search_page):
+        return search_page.get_base_queryset().count()
+    live_aids_count.short_description = "Nombre d'aides visibles"
 
     class Media:
         css = {
