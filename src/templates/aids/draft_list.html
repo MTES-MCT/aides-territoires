@@ -76,7 +76,7 @@
                     {% endif %}
                     <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                 </td>
-                <td class="nowrap-cell">{{ aid.get_status_display }}</td>
+                <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
                 <td>{% get hits_per_aid aid.id 0 %}</td>
             </tr>
             {% endfor %}
