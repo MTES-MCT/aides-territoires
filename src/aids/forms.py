@@ -238,6 +238,15 @@ class AidEditForm(BaseAidForm):
         label=_('Aid categories'),
         help_text=_('Choose one or several categories that match your aid.'),
         required=False)
+    projects = AutocompleteModelMultipleChoiceField(
+        label=_('Projects'),
+        queryset=Project.objects.all(),
+        required=False,
+        help_text=_('''
+            This field is a beta functionnality to associate the aid with projects example.
+            This will allow users in future to research aid by projects.
+            You can had several projects.
+        '''))
 
     class Meta:
         model = Aid
@@ -259,6 +268,7 @@ class AidEditForm(BaseAidForm):
             'submission_deadline',
             'perimeter',
             'perimeter_suggestion',
+            'projects',
             'is_call_for_project',
             'programs',
             'aid_types',
@@ -419,10 +429,9 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
-    projects = forms.ModelMultipleChoiceField(
+    projects = AutocompleteModelMultipleChoiceField(
         label=_('Projects'),
         queryset=Project.objects.all(),
-        to_field_name='slug',
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label=_('Aid programs'),

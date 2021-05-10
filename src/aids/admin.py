@@ -215,7 +215,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'programs', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
-                           'programs']
+                           'programs', 'projects']
     filter_vertical = [
         'categories',
     ]  # Overriden in the widget definition
@@ -270,6 +270,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'destinations',
                 'description',
                 'project_examples',
+                'projects',
                 'eligibility',
             )
         }),
