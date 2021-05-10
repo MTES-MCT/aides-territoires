@@ -253,9 +253,9 @@ class AidEditForm(BaseAidForm):
         required=False)
     projects = AutocompleteModelMultipleChoiceField(
         label=_('Projects that may fit the aid'),
-        queryset=Project.objects \
-            .filter(status='published') \
-            .distinct(),
+        queryset=Project.objects
+        .filter(status='published')
+        .distinct(),
         required=False,
         help_text=_('''
             This field is <span>a beta functionnality</span> to associate
