@@ -10,7 +10,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     for the autocomplete input field in step project
     '''
 
-    id = serializers.CharField(source='slug')
+    id = serializers.CharField(source='id_slug')
     text = serializers.CharField(source='name')
 
     class Meta:
