@@ -18,9 +18,9 @@
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'search_step_audience' %}?{{ current_search }}">{{ _('Search') }}</a></li>
-        <li><a href="{% url 'search_view' %}?{{ current_search }}">{{ _('Results') }}</a></li>
+        <li><a href="{% url 'home' %}" title="Revenir à l'accueil">{{ _('Home') }}</a></li>
+        <li><a href="{% url 'search_step_audience' %}?{{ current_search }}" title="Lancer une nouvelle recherche">{{ _('Search') }}</a></li>
+        <li><a href="{% url 'search_view' %}?{{ current_search }}" title="Revenir aux résultats">{{ _('Results') }}</a></li>
         <li class="active" aria-current="page">{{ _('Aid detail') }}</li>
     </ol>
 </nav>
