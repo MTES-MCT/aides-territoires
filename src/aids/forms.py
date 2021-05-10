@@ -299,15 +299,35 @@ class AidEditForm(BaseAidForm):
         }
 
     def __init__(self, *args, **kwargs):
+
+        # The form validation rule will change depending on the
+        # new aid status.
+        self.requested_status = kwargs.pop('requested_status')
+
         super().__init__(*args, **kwargs)
+
+        if self.requested_status is None:
+            self.requested_status = self.instance.status
+
         if 'subvention_rate' in self.fields:
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+
         if 'mobilization_steps' in self.fields:
             self.fields['mobilization_steps'].required = True
+
         if 'categories' in self.fields:
             self.fields['categories'].required = True
+
+    def full_clean(self):
+        if self.requested_status == 'draft':
+            for field_name in self.fields.keys():
+                if field_name == 'name':
+                    continue
+                self.fields[field_name].required = False
+
+        return super().full_clean()
 
     def clean(self):
         """Validation routine (frontend form only)."""

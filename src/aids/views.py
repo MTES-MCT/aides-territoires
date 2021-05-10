@@ -406,6 +406,11 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
     template_name = 'aids/create.html'
     form_class = AidEditForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['requested_status'] = self.request.POST.get('status', None)
+        return kwargs
+
     def form_valid(self, form):
         self.object = aid = form.save(commit=False)
 
@@ -437,6 +442,11 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
     template_name = 'aids/edit.html'
     context_object_name = 'aid'
     form_class = AidEditForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['requested_status'] = self.request.POST.get('status', None)
+        return kwargs
 
     def form_valid(self, form):
 
