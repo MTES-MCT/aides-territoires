@@ -133,11 +133,11 @@ class BaseAidForm(forms.ModelForm):
 
         data = self.cleaned_data
 
-        if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
-                self.add_error('financers', msg)
+        # if 'financers' in self.fields:
+        #     if not any((data.get('financers'),
+        #                 data.get('financer_suggestion'))):
+        #         msg = _('Please provide a financer, or suggest a new one.')
+        #         self.add_error('financers', msg)
 
         return data
 
