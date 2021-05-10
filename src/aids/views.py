@@ -408,14 +408,19 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['requested_status'] = self.request.POST.get('status', None)
+
+        # The value of this flag is given to the form and will change
+        # the way the form data is validated.
+        # When the aid is saved as a draft, we don't enforce a full validity,
+        # to allow users to save incomplete data.
+        kwargs['requested_status'] = self.request.POST.get('_status', None)
         return kwargs
 
     def form_valid(self, form):
         self.object = aid = form.save(commit=False)
 
-        requested_status = self.request.POST.get('status', None)
-        if requested_status == 'review':
+        requested_status = self.request.POST.get('_status', None)
+        if requested_status == 'reviewable':
             aid.status = 'reviewable'
 
         aid.author = self.request.user
@@ -424,8 +429,7 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
 
         msg = _('Your aid was sucessfully created. You can keep editing it or '
                 '<a href="%(url)s" target="_blank">preview it</a>.') % {
-                    'url': aid.get_absolute_url()
-                }
+                    'url': aid.get_absolute_url()}
 
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
@@ -446,17 +450,36 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
 
-        if '_save_as_new' in self.request.POST:
+        # There are several submit buttons that have different actions
+        # The user can save the form, save as a duplicate, or save and
+        # publish / unpublish the aid.
+        # Depending on the action, the aid object will be
+        # given a different status
+        action = self.request.POST.get('_action', None)
+
+        # Duplicates must be saved as drafts
+        if action == 'save_as_new':
             kwargs['requested_status'] = 'draft'
+
+        # Drafts can pass in review
+        # Aids in review or published can go back to draft
+        elif action == 'update_status':
+            if self.object.status == 'draft':
+                kwargs['requested_status'] = 'review'
+            else:
+                kwargs['requested_status'] = 'draft'
+
+        # Normal form saving, keep current status untouched
         else:
-            kwargs['requested_status'] = self.request.POST.get('status', None)
+            kwargs['requested_status'] = None
 
         return kwargs
 
     def form_valid(self, form):
 
-        save_as_new = '_save_as_new' in self.request.POST
-        if save_as_new:
+        action = self.request.POST.get('_action', None)
+
+        if action == 'save_as_new':
             obj = form.save(commit=False)
             obj.id = None
             obj.slug = None
@@ -471,14 +494,25 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
             msg = _('The new aid was sucessfully created. '
                     'You can keep editing it. And find the duplicated '
                     'aid in <a href="%(url)s">your portfolio</a>.') % {
-                        'url': reverse('aid_draft_list_view')
-                    }
-
+                        'url': reverse('aid_draft_list_view')}
             response = HttpResponseRedirect(self.get_success_url())
         else:
+
             response = super().form_valid(form)
-            msg = _('The aid was sucessfully updated. You can keep '
-                    'editing it.')
+
+            if action == 'update_status':
+                aid = self.object
+                if aid.is_draft():
+                    aid.submit()
+                    msg = _('Your aid will be reviewed by an admin soon. '
+                            'It will be published and visible for users '
+                            'once an admin has approved it.')
+                else:
+                    aid.unpublish()
+                    msg = _('We updated your aid status.')
+            else:
+                msg = _('The aid was sucessfully updated. You can keep '
+                        'editing it.')
 
         self.messages.success(msg)
         return response
@@ -486,50 +520,6 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
     def get_success_url(self):
         edit_url = reverse('aid_edit_view', args=[self.object.slug])
         return '{}'.format(edit_url)
-
-
-class AidStatusUpdate(ContributorRequiredMixin, AidEditMixin,
-                      SingleObjectMixin, RedirectView):
-    """Update an aid status."""
-
-    http_method_names = ['post']
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.update_aid_status()
-        return super().post(request, *args, **kwargs)
-
-    def update_aid_status(self):
-        """Move the aid to the next step in the workflow.
-
-        None of these transitions require any special permission, hence we
-        don't run any additional checks.
-        """
-        aid = self.object
-
-        # Check that submitted form data is still consistent
-        current_status = self.request.POST.get('current_status', None)
-        if aid.status != current_status:
-            return
-
-        STATES = AidWorkflow.states
-        if aid.status == STATES.draft:
-            aid.submit()
-            msg = _('Your aid will be reviewed by an admin soon. '
-                    'It will be published and visible for users '
-                    'once an admin has approved it.')
-        elif aid.status in (STATES.reviewable, STATES.published):
-            aid.unpublish()
-            log_admins.delay(
-                'Aide dépubliée',
-                'Une aide vient d\'être dépubliée.\n\n{}'.format(aid),
-                aid.get_absolute_url())
-            msg = _('We updated your aid status.')
-
-        messages.success(self.request, msg)
-
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse('aid_edit_view', args=[self.object.slug])
 
 
 class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):

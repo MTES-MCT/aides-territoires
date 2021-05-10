@@ -53,8 +53,8 @@ Your aid <strong>will not be published</strong> until it is reviewed by an admin
 
 <div class="form-actions">
     <div class="submit-buttons">
-        <button name="status" value="review" type="submit">{{ _('Save and request publication') }}</button>
-        <button name="status" value="draft" type="submit" class="secondary">{{ _('Save as a draft') }}</button>
+        <button name="_status" value="reviewable" type="submit">{{ _('Save and request publication') }}</button>
+        <button name="_status" value="draft" type="submit" class="secondary">{{ _('Save as a draft') }}</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
 </div>

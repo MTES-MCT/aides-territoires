@@ -41,7 +41,7 @@ def test_aid_creation_view(client, contributor, aid_form_data):
     assert aids.count() == 0
 
     aid_form_data['name'] = 'Very unique title'
-    aid_form_data['status'] = 'draft'
+    aid_form_data['_status'] = 'draft'
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -63,7 +63,7 @@ def test_invalid_aid_drafts_can_be_saved(client, contributor):
 
     data = {
         'name': 'Very unique title',
-        'status': 'draft'}
+        '_status': 'draft'}
     res = client.post(form_url, data=data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -83,7 +83,7 @@ def test_drafts_require_at_least_a_title(client, contributor):
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 0
 
-    data = {'status': 'draft'}
+    data = {'_status': 'draft'}
     res = client.post(form_url, data=data)
     assert res.status_code == 200
     assert aids.count() == 0
@@ -97,7 +97,7 @@ def test_reviewable_aid_creation(client, contributor, aid_form_data):
     aids = Aid.objects.filter(author=contributor)
     assert aids.count() == 0
 
-    aid_form_data['status'] = 'review'
+    aid_form_data['_status'] = 'reviewable'
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -114,7 +114,7 @@ def test_invalid_aids_cannot_become_reviewable(client, contributor):
 
     invalid_data = {
         'name': 'Almost empty aid',
-        'status': 'reviewa'
+        '_status': 'reviewa'
     }
     res = client.post(form_url, data=invalid_data)
     assert res.status_code == 200
@@ -161,7 +161,7 @@ def test_aid_edition_view(client, contributor, aid_form_data):
 def test_draft_aids_can_stay_invalid(client, contributor, aid_form_data):
     """Draft aids don't need to be valid to be saved."""
 
-    aid = AidFactory(name='Ttile', author=contributor, status='draft')
+    aid = AidFactory(name='Title', author=contributor, status='draft')
     form_url = reverse('aid_edit_view', args=[aid.slug])
     client.force_login(contributor)
     res = client.get(form_url)
@@ -231,7 +231,7 @@ def test_aid_edition_save_as_new(client, contributor, aid_form_data):
     client.force_login(contributor)
     form_url = reverse('aid_edit_view', args=[aid.slug])
     aid_form_data['name'] = 'Second title'
-    aid_form_data['_save_as_new'] = '_save_as_new'
+    aid_form_data['_action'] = 'save_as_new'
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 2
@@ -259,7 +259,7 @@ def test_save_invalid_aid_as_new(client, contributor, aid_form_data):
     form_url = reverse('aid_edit_view', args=[aid.slug])
     aid_form_data['name'] = 'Second title'
     aid_form_data['description'] = ''
-    aid_form_data['_save_as_new'] = '_save_as_new'
+    aid_form_data['_action'] = 'save_as_new'
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 2
@@ -277,22 +277,21 @@ def test_save_invalid_aid_as_new(client, contributor, aid_form_data):
     assert aids[1].description == ''
 
 
-def test_edition_of_aid_status(client, contributor):
+def test_aid_status_workflow(client, contributor, aid_form_data):
     """Test that the publication workflow works as expected."""
 
     aid = AidFactory(status='draft', author=contributor)
     client.force_login(contributor)
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    aid_form_data.update({'_action': 'update_status'})
 
-    update_status_url = reverse('aid_status_update_view', args=[aid.slug])
-    res = client.get(update_status_url)
-    assert res.status_code == 405  # Method not allowed, only post
-
-    res = client.post(update_status_url, {'current_status': 'draft'})
+    res = client.post(form_url, data=aid_form_data)
     aid.refresh_from_db()
     assert res.status_code == 302
     assert aid.status == 'reviewable'
 
-    res = client.post(update_status_url, {'current_status': 'reviewable'})
+    # _action is still "update_status"
+    res = client.post(form_url, data=aid_form_data)
     aid.refresh_from_db()
     assert res.status_code == 302
     assert aid.status == 'draft'
@@ -300,10 +299,56 @@ def test_edition_of_aid_status(client, contributor):
     aid.status = 'published'
     aid.save()
 
-    res = client.post(update_status_url, {'current_status': 'published'})
+    res = client.post(form_url, data=aid_form_data)
     aid.refresh_from_db()
     assert res.status_code == 302
     assert aid.status == 'draft'
+
+
+def test_invalid_aids_cannot_be_in_review(client, contributor, aid_form_data):
+    """Draft aids don't need to be valid to be saved."""
+
+    aid = AidFactory(name='Title', author=contributor, status='draft')
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    client.force_login(contributor)
+    res = client.get(form_url)
+    assert res.status_code == 200
+
+    aids = Aid.objects.filter(author=contributor)
+    assert aids.count() == 1
+    assert aids[0].status == 'draft'
+
+    aid_form_data.update({
+        'description': '',
+        '_action': 'update_status'})
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 200
+    assert aids.count() == 1
+    assert aids[0].description != ''
+    assert aids[0].status == 'draft'
+
+
+def test_invalid_aids_can_be_unpublished(client, contributor, aid_form_data):
+    """Draft aids don't need to be valid to be saved."""
+
+    aid = AidFactory(name='Title', author=contributor, status='published')
+    form_url = reverse('aid_edit_view', args=[aid.slug])
+    client.force_login(contributor)
+    res = client.get(form_url)
+    assert res.status_code == 200
+
+    aids = Aid.objects.filter(author=contributor)
+    assert aids.count() == 1
+    assert aids[0].status == 'published'
+
+    aid_form_data.update({
+        'description': '',
+        '_action': 'update_status'})
+    res = client.post(form_url, data=aid_form_data)
+    assert res.status_code == 302
+    assert aids.count() == 1
+    assert aids[0].description == ''
+    assert aids[0].status == 'draft'
 
 
 def test_aid_deletion(client, contributor):

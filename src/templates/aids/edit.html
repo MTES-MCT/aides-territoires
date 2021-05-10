@@ -20,55 +20,44 @@
     {% endif %}
     <div class="actions">
         <div class="sidebar-actions">
-            <h3>{{ aid.get_status_display }}</h3>                
+            <h3>{{ aid.get_status_display }}</h3>
             <div>
                 {% if aid.is_draft %}
-                <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
-                <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
+                    <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
                     <span class="help">Vous pourrez continuer à modifier votre aide.</span>
-                    {% csrf_token %}
-                    <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                    <button type="submit">Demander la publication</button>
+                    <button type="submit" name="_action" value="update_status" form="aid-edit-form">Demander la publication</button>
                 </form>
                 {% elif aid.is_under_review %}
                     <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
-                    <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
                         <span class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</span>
-                        {% csrf_token %}
-                        <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                        <button type="submit">Annuler la revue</button>
-                    </form>
+                        <button type="submit" name="_action" value="update_status" form="aid-edit-form">Annuler la revue</button>
                 {% elif aid.is_published %}
                     <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url}}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
-                    <form id="unpublish-form" action="{% url 'aid_status_update_view' aid.slug %}" method="post">
-                        <span class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</span>
-                        {% csrf_token %}
-                        <input type="hidden" name="current_status" value="{{ aid.status }}" />
-                        <button type="submit">Dépublier maintenant</button>
-                    </form>
+                    <span class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</span>
+                    <button type="submit" name="_action" value="update_status" form="aid-edit-form">Dépublier maintenant</button>
                 {% endif %}
             </div>
         </div>
-    
+
         <div class="sidebar-actions">
             <h3>Prévisualisation</h3>
             <div>
                 <p>Vérifiez le rendu de votre aide pour notre public.</p>
                 <p>
-                    <button class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
+                    <button typo="button" class="preview-btn" data-target="#aid-preview-modal" data-toggle="modal" data-preview-url="{{ aid.get_absolute_url }}?integration=integration">
                         Prévisualiser cette aide
                     </button>
                 </p>
             </div>
         </div>
-    
+
         <div class="sidebar-actions action-danger">
             <h3>Suppression de l'aide</h3>
             <div>
                 <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
                 <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
                     {% csrf_token %}
-    
+
                     <div class="form-group">
                         <input type="checkbox" name="confirm" />
                         <label>Je comprends</label>
@@ -112,7 +101,7 @@
 <div class="form-actions">
     <div class="submit-buttons">
         <button type="submit" value="save">Enregistrer vos modifications</button>
-        <button class="secondary" type="submit" name="_save_as_new" value="_save_as_new">Dupliquer cette aide</button>
+        <button class="secondary" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
     </div>
     <a href="{% url 'aid_draft_list_view' %}">Retour à votre portefeuille d'aides</a>
 </div>
