@@ -239,11 +239,12 @@ class AidEditForm(BaseAidForm):
         help_text=_('Choose one or several categories that match your aid.'),
         required=False)
     projects = AutocompleteModelMultipleChoiceField(
-        label=_('Projects'),
+        label=_('Projects that may fit the aid'),
         queryset=Project.objects.all(),
         required=False,
         help_text=_('''
-            This field is a beta functionnality to associate the aid with projects example.
+            This field is <span>a beta functionnality</span> to associate
+             the aid with projects example.
             This will allow users in future to research aid by projects.
             You can had several projects.
         '''))

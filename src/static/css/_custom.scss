@@ -919,6 +919,14 @@ section#aid-edit {
                 align-items: flex-start;
             }
 
+            #form-group-projects {
+                .field-help span {
+                    font-weight: bold;
+                    text-decoration: underline;
+                    color: $dark-green;
+                }
+            }
+
             .form-group.checkbox {
                 padding: 0;
 
