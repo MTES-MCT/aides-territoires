@@ -10,9 +10,8 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  RedirectView, DeleteView, FormView)
+                                  DeleteView, FormView)
 from django.views.generic.edit import FormMixin
-from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils.functional import cached_property
@@ -25,7 +24,6 @@ from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid, AidWorkflow
-from aids.tasks import log_admins
 from aids.utils import generate_clone_title
 from aids.mixins import AidEditMixin
 from alerts.forms import AlertForm
