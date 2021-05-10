@@ -445,7 +445,12 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['requested_status'] = self.request.POST.get('status', None)
+
+        if '_save_as_new' in self.request.POST:
+            kwargs['requested_status'] = 'draft'
+        else:
+            kwargs['requested_status'] = self.request.POST.get('status', None)
+
         return kwargs
 
     def form_valid(self, form):
