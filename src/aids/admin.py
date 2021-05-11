@@ -185,6 +185,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             '/static/js/shared_config.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
+            '/static/js/project_autocomplete_admin.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',
@@ -215,7 +216,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'programs', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
-                           'programs', 'projects']
+                           'programs']
     filter_vertical = [
         'categories',
     ]  # Overriden in the widget definition
@@ -269,8 +270,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'mobilization_steps',
                 'destinations',
                 'description',
-                'project_examples',
                 'projects',
+                'project_examples',
                 'eligibility',
             )
         }),

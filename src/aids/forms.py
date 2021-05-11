@@ -5,7 +5,9 @@ from django import forms
 from django.db.models import Q, F
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.contrib import admin
+from django.contrib.admin.widgets import FilteredSelectMultiple, AutocompleteSelectMultiple
+
 from django.contrib.postgres.search import SearchQuery, SearchRank
 
 from core.forms import (
@@ -166,6 +168,18 @@ class AidAdminForm(BaseAidForm):
         label=_('Categories'),
         required=False,
         widget=FilteredSelectMultiple(_('Categories'), True))
+    projects = AutocompleteModelMultipleChoiceField(
+        label=_('Projects that may fit the aid'),
+        queryset=Project.objects
+        .filter(status='published')
+        .distinct(),
+        required=False,
+        help_text=_('''
+            This field is <span>a beta functionnality</span> to associate
+             the aid with projects example.
+            This will allow users in future to research aid by projects.
+            You can had several projects.
+        '''))
 
     class Meta:
         widgets = {
