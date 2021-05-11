@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('select#id_projects').select2({
         placeholder: catalog.project_placeholder,
         language: 'fr',
-        minimumInputLength: 3,
+        minimumInputLength: 0,
         language: {
             inputTooShort: function() { return catalog.autocomplete_placeholder; },
         },
