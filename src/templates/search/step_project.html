@@ -47,13 +47,20 @@
                     <h3>Contribuez à améliorer Aides-territoires !</h3>
                     <div class="info">
                         <p>Indiquez le projet pour lequel vous recherchez une aide.</p>
+                        {% if no project_choices %}
                         <p>Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés.</p>
+                        {% endif %}
                     </div>
                     <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
                         <div class="content">
                             {% csrf_token %}
                             {% include '_field_snippet.html' with field=project_form.name %}
                             {% include '_field_snippet.html' with field=project_form.description %}
+                            {% if no project_choices %}
+                            <div class="warning">
+                                <p>Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles</p>
+                            </div>
+                            {% endif %}
                             <button name="action" value="search" type="submit">
                                 Partager mon projet et accéder aux aides disponibles
                             </button>
