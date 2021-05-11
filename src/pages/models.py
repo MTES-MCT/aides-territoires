@@ -3,8 +3,18 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.flatpages.models import FlatPage
 
 
+class PageQueryset(models.QuerySet):
+    def at_pages(self):
+        return self.filter(minisite__isnull=True)
+
+    def minisite_pages(self):
+        return self.filter(minisite__isnull=False)
+
+
 class Page(FlatPage):
     """A static page that can be created/customized in admin."""
+
+    objects = PageQueryset.as_manager()
 
     meta_title = models.CharField(
         _('Meta title'),
