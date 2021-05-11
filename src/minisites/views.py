@@ -246,7 +246,10 @@ class SiteStats(MinisiteMixin, TemplateView):
                 .order_by('-search_count')
             # get the display_name of each audience
             for (index, item) in enumerate(top_audiences_searched):
-                top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
+                try:
+                    top_audiences_searched[index]['audience'] = Aid.AUDIENCES[item['audience']]  # noqa
+                except KeyError:
+                    top_audiences_searched[index]['audience'] = item['audience']  # noqa
             context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
         # top 10 categories filters
