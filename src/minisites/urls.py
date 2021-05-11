@@ -67,7 +67,7 @@ urlpatterns = [
         path('', SiteAid.as_view(), name='aid_detail_view')])),
 
     # Static pages
-    path('pages/<path:url>', PageDetail.as_view(), name='page_detail_view')
+    path('pages<path:url>', PageDetail.as_view(), name='page_detail_view')
 ]
 
 handler400 = Error.as_view(template_name='minisites/400.html', status_code=400)

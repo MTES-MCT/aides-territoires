@@ -47,7 +47,7 @@
 {% if pages %}
 <nav class="nav breadcrumb">
     {% for page in pages %}
-        <a class="nav-link" href="{{ page.url }}">{{ page.title }}</a>
+        <a class="nav-link" href="{% url 'page_detail_view' page.url %}">{{ page.title }}</a>
     {% endfor %}
 </nav>
 {% endif %}
