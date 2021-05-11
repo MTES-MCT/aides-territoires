@@ -1,20 +1,14 @@
 (function (exports) {
-    "use strict";
+    'use strict';
 
     /**
      * Hide some piece of information until some button is clicked.
-     *
      * This is required to track user engagement.
      */
-    exports.enableCTA = function(div, btnLabel, aid_slug) {
-        div.addClass('collapse');
-
-        var revealBtn = $('<button type="button" class="cta-btn d-inline-block"></button>');
-        revealBtn.html(btnLabel);
-        revealBtn.insertBefore(div);
+    exports.enableCTA = function(dataDiv, revealBtn, aid_slug) {
 
         revealBtn.click(function() {
-            div.collapse('show');
+            dataDiv.removeClass('fake-collapse', { duration: 500 });
 
             // Use the global Matomo tracker
             if (_paq) {
@@ -35,11 +29,13 @@
 })(this);
 
 $(document).ready(function () {
+    var dataDiv = $('div#going-further');
+    var revealBtn = $('button#going-further-reveal-button');
+
     // Track clicks on "Going further" button
-    var dataDiv = $('#going-further');
-    enableCTA(dataDiv, catalog.going_further_cta_label, AID_SLUG);
+    enableCTA(dataDiv, revealBtn, AID_SLUG);
 
     // Track clicks on outlinks
     var links = dataDiv.find('a');
-    trackOutclicks(links, AID_SLUG)
+    trackOutclicks(links, AID_SLUG);
 });

@@ -392,9 +392,11 @@
             </div>
             {% endif %}
 
-            <div id="going-further">
-                <h2>{{ _('Going further') }}</h2>
-
+            <h2>{{ _('Going further') }}</h2>
+            <button type="button" id="going-further-reveal-button" class="cta-btn d-inline-block">
+                Poursuivre la démarche pour obtenir l'aide
+            </button>
+            <div id="going-further" class="fake-collapse" aria-expanded="false">
                 {% if aid.contact %}
                 <h3>{{ _('Contact') }}</h3>
                 {{ aid.contact|safe }}
