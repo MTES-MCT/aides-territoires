@@ -15,13 +15,13 @@
                 <h1>Quel est votre projet&nbsp;?</h1>
             </header>
 
-            <div class="content">
+            <div class="content">            
+                {% if project_choices and categories_length %}
                 <div class="info">
                     <p><strong>Indiquez le projet pour lequel vous recherchez une aide.</strong></p>
                     <p><strong>Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés.</strong></p>
                 </div>
-            
-                {% if project_choices and categories_length %}
+
                 <form id="projects" action="{% url 'search_view' %}" method="GET">
                 
                     {% include '_form_snippet.html' %}
