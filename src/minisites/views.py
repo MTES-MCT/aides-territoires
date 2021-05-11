@@ -313,6 +313,11 @@ class PageDetail(MinisiteMixin, DetailView):
     template_name = 'minisites/page_detail.html'
     context_object_name = 'page'
 
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
+
     def get_object(self):
         url = self.kwargs.get('url')
         if not url.startswith('/'):

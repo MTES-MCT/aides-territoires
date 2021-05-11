@@ -43,15 +43,19 @@
      {% include 'minisites/_search_form.html' %}
 {% endblock %}
 
-{% block content %}
+{% block before_title %}
 {% if pages %}
-<nav class="nav breadcrumb">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="/">Accueil</a>
+    </li>
     {% for page in pages %}
+    <li class="nav-item">
         <a class="nav-link" href="{% url 'page_detail_view' page.url %}">{{ page.title }}</a>
+    </li>
     {% endfor %}
-</nav>
+</ul>
 {% endif %}
-{{ block.super }}
 {% endblock %}
 
 {% block modals %}

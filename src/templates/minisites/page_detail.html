@@ -12,16 +12,6 @@
     {% include 'minisites/_footer.html' %}
 {% endblock %}
 
-{% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'page_list_view' %}">{{ _('Pages') }}</a></li>
-        <li class="active" aria-current="page">{{ page.title }}</li>
-    </ol>
-</nav>
-{% endblock %}
-
 {% block header_warning %}{% endblock %}
 
 {% block user_menu %}{% endblock %}
@@ -43,6 +33,16 @@
 
 {% block content %}
 <article>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/">Accueil</a>
+    </li>
+    {% for p in pages %}
+    <li class="nav-item">
+        <a class="nav-link{% if p.url == page.url %} active{% endif %}" href="{% url 'page_detail_view' p.url %}">{{ p.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
 <div id="page-content">
     <h1>{{ page.title }}</h1>
 

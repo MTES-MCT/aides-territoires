@@ -187,6 +187,14 @@ ol.breadcrumb li.active {
     color: {{ search_page.color_4 }} !important;
 }
 
+.dark-background .main-content > article .nav {
+    margin-bottom: 1.5rem;
+}
+
+.dark-background .main-content > article a.nav-link {
+    text-decoration: none;
+}
+
 {% if search_page.color_4 %}
     .dark-background .main-content > article a:hover,
     section#aid-list article.aid div h1 a:hover,
@@ -385,7 +393,7 @@ body > footer nav ul li a {
 
 body > footer nav ul li a:hover {
     color: #000 !important;
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 body > footer nav ul li a:focus{
@@ -430,7 +438,7 @@ body > footer nav ul li a[href^="http"]:hover::after {
         justify-content: space-between;
         align-items: center;
         margin-top: 1rem;
-        margin-bottom: 1rem; 
+        margin-bottom: 1rem;
     }
 
     .logo_RF img {
