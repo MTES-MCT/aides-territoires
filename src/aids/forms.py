@@ -302,7 +302,7 @@ class AidEditForm(BaseAidForm):
 
         # The form validation rule will change depending on the
         # new aid status.
-        self.requested_status = kwargs.pop('requested_status')
+        self.requested_status = kwargs.pop('requested_status', None)
 
         super().__init__(*args, **kwargs)
 
