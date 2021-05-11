@@ -128,19 +128,6 @@ class BaseAidForm(forms.ModelForm):
             if field in self.fields:
                 self.fields[field].help_text = help_text
 
-    def clean(self):
-        """Custom validation routine."""
-
-        data = self.cleaned_data
-
-        # if 'financers' in self.fields:
-        #     if not any((data.get('financers'),
-        #                 data.get('financer_suggestion'))):
-        #         msg = _('Please provide a financer, or suggest a new one.')
-        #         self.add_error('financers', msg)
-
-        return data
-
     def save(self, commit=True):
         """Saves the instance.
 
@@ -333,6 +320,11 @@ class AidEditForm(BaseAidForm):
         """Validation routine (frontend form only)."""
 
         data = super().clean()
+
+        # If the aid is saved as draft, don't perform any data validation
+        if self.requested_status == 'draft':
+            return data
+
         if 'recurrence' in data and data['recurrence']:
             recurrence = data['recurrence']
             submission_deadline = data.get('submission_deadline', None)
@@ -342,6 +334,12 @@ class AidEditForm(BaseAidForm):
                 self.add_error(
                     'submission_deadline',
                     ValidationError(msg, code='missing_submission_deadline'))
+
+        if 'financers' in self.fields:
+            if not any((data.get('financers'),
+                        data.get('financer_suggestion'))):
+                msg = _('Please provide a financer, or suggest a new one.')
+                self.add_error('financers', msg)
 
         return data
 
