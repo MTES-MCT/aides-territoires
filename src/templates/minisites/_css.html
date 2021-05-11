@@ -180,6 +180,10 @@ article#aid .card > div::before {
     color: {{ search_page.color_3 }};
 }
 
+.dark-background #search.main-content > article {
+    border-radius: 0 1.5rem 1.5rem 1.5rem;
+}
+
 .dark-background .main-content > article a,
 section#aid-list article.aid div h1 a,
 nav#pagination ul li a,
@@ -467,4 +471,17 @@ body > footer nav ul li a[href^="http"]:hover::after {
         color: #fff !important;
 }
 {% endif %}
+
+.pages-nav {
+    border-bottom: none;
+}
+
+.pages-nav a.nav-link {
+    background-color: #f9f8f6;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
 </style>
