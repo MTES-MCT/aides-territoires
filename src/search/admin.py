@@ -1,13 +1,10 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.contrib.flatpages.admin import FlatPageAdmin
-from django.contrib.flatpages.forms import FlatpageForm
 
-from core.forms import RichTextField
 from search.models import SearchPage
 from search.forms import SearchPageAdminForm
 from pages.models import Page
-from pages.admin import PageForm, PageAdmin
+from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
