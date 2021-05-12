@@ -46,10 +46,10 @@
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
         {% for theme in theme_list %}
-        {% if forloop.counter < 5 %}
+        {% if forloop.counter <= 4 %}
         <li class="theme">
         {% else %}
-        <li class=" theme collapse hidden-categories">
+        <li class="theme collapse hidden-categories">
         {% endif %}
             <strong>
                 {{ theme.grouper }}
