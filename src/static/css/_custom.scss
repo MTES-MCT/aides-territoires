@@ -428,12 +428,16 @@ section#program-list {
         &>div {
             @extend .card-body;
 
+            #coming-soon {
+                color: $contrast-color;
+                font-weight: 900;
+            }
+
             span.deadline {
                 float: right;
                 display: block;
                 @extend .ml-2;
                 @extend .mb-2;
-
             }
 
             span.deadline-delta {

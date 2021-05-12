@@ -64,10 +64,12 @@
             <p>{{ aid.get_recurrence_display }}</p>
         {% endif %}
 
-
         {% if aid.has_calendar %}
             <h2 class="deadline">{{ _('Calendar') }}</h2>
             <ul>
+            {% if aid.is_coming_soon %}
+            <li id="coming-soon">Ouverture prochaine de l'aide&nbsp;!</li>
+            {% endif %}
             {% if aid.start_date %}
                 <li>{{ _('Opening:') }} {{ aid.start_date|date }}</li>
             {% endif %}
