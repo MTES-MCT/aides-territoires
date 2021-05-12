@@ -10,6 +10,7 @@ from categories.models import Category
 from backers.models import Backer
 from geofr.models import Perimeter
 from programs.models import Program
+from projects.models import Project
 
 
 AIDS_BOOLEAN_FIELDS = ['is_call_for_project', 'in_france_relance',
