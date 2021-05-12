@@ -30,6 +30,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from projects.models import Project
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import (log_aidviewevent, log_aidsearchevent)
@@ -71,6 +72,10 @@ class SearchView(SearchMixin, FormMixin, ListView):
         instructors_qs = Backer.objects \
             .order_by('aidinstructor__order', 'name')
 
+        projects_qs = Project.objects \
+            .filter(status='published') \
+            .distinct()
+
         qs = Aid.objects \
             .published() \
             .open() \
@@ -78,15 +83,19 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
             .prefetch_related(Prefetch('instructors',
                                        queryset=instructors_qs)) \
+            .prefetch_related(Prefetch('projects', queryset=projects_qs)) \
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
-        ordered_results = filter_form.order_queryset(results).distinct()
+        if self.request.GET.get('projects'):
+            ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count('projects')).order_by('-num_projects')
+        else:
+            ordered_results = filter_form.order_queryset(results).distinct()
 
         host = self.request.get_host()
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
-            results_count=ordered_results.count(),
+            #results_count=ordered_results.count(),
             source=host)
 
         return ordered_results
@@ -127,7 +136,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             settings.SEARCH_COOKIE_NAME, '')
         context['current_search_dict'] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True)
-
+            
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
         order_labels = dict(AidSearchForm.ORDER_BY)
