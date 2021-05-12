@@ -83,8 +83,6 @@ class SearchView(SearchMixin, FormMixin, ListView):
         results = filter_form.filter_queryset(qs)
         ordered_results = filter_form.order_queryset(results).distinct()
 
-        # push highlighted_aids up
-
         host = self.request.get_host()
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),

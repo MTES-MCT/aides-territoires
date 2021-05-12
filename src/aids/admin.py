@@ -1,5 +1,7 @@
+import re
 from functools import reduce
 from operator import and_
+
 from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
@@ -21,6 +23,7 @@ from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
+from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
@@ -318,6 +321,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'import_last_access',
             )
         }),
+
         (_('Misc data'), {
             'fields': (
                 'date_created',
@@ -331,19 +335,19 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         """Override autocomplete_fields of other admin models using Aids."""
 
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)  # noqa
-        
-        meta_http_referer = request.META.get('HTTP_REFERER', '')  # 'http://aides-territoires.local:8000/admin/search/searchpage/35/change/'
-        meta_query_string = request.META.get('QUERY_STRING', '')  # 'app_label=search&model_name=searchpage&field_name=highlighted_aids'
-        
-        # filter SearchPage.highlighted_aids
-        if meta_query_string and ('searchpage' in meta_query_string) and ('highlighted_aids' in meta_query_string):
+
+        # e.g. '<host>/admin/search/searchpage/35/change/'
+        meta_http_referer = request.META.get('HTTP_REFERER', '')
+        # e.g. 'app_label=search&model_name=searchpage&field_name=highlighted_aids'  # noqa
+        meta_query_string = request.META.get('QUERY_STRING', '')
+
+        # custom SearchPage.highlighted_aids autocomplete filter
+        if meta_query_string and all(x in meta_query_string for x in ['searchpage', 'highlighted_aids']):  # noqa
             try:
-                import re
-                from search.models import SearchPage
-                search_page_id_str = re.search('searchpage/(.*?)/change', meta_http_referer).group(1)
+                search_page_id_str = re.search('searchpage/(.*?)/change', meta_http_referer).group(1)  # noqa
                 queryset = SearchPage.objects.get(pk=int(search_page_id_str)) \
                                              .get_base_queryset(all_aids=True)
-            except:
+            except AttributeError:  # regex error
                 pass
 
         return queryset, use_distinct

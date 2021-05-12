@@ -630,12 +630,16 @@ class BaseAidSearchForm(forms.Form):
 
         return query
 
-    def get_order_fields(self, qs):
+    def get_order_fields(self, qs, has_highlighted_aids=False):
         """On which fields must this queryset be sorted?."""
 
         # Default results order
-        # We show the narrower perimet first, then aids with a deadline
+        # show the narrower perimeter first, then aids with a deadline
         order_fields = ['perimeter__scale', 'submission_deadline']
+
+        # If the search comes from a PP
+        if has_highlighted_aids:
+            order_fields = ['-is_highlighted_aid'] + order_fields
 
         # If the user submitted a text query, we order by query rank first
         text = self.cleaned_data.get('text', None)
@@ -651,9 +655,9 @@ class BaseAidSearchForm(forms.Form):
 
         return order_fields
 
-    def order_queryset(self, qs):
+    def order_queryset(self, qs, has_highlighted_aids=False):
         """Set the order value on the queryset."""
-        qs = qs.order_by(*self.get_order_fields(qs))
+        qs = qs.order_by(*self.get_order_fields(qs, has_highlighted_aids=has_highlighted_aids))  # noqa
         return qs
 
     def perimeter_filter(self, qs, search_perimeter):
