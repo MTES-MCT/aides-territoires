@@ -2023,11 +2023,11 @@ div#search-steps {
     @extend .row;
 
     & div:first-of-type {
-        @extend .col-md-10;
+        @extend .col-md-8;
     }
 
     & div:last-of-type {
-        @extend .col-md-2;
+        @extend .col-md-4;
     }
 
     img {
