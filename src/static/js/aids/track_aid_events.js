@@ -10,7 +10,21 @@
         revealBtn.click(function() {
             dataDiv.removeClass('fake-collapse', { duration: 500 });
 
-            // Use the global Matomo tracker
+            // Send an event to our stats DB
+            var statsData = JSON.stringify({
+                aid: AID_ID,
+                querystring: CURRENT_SEARCH
+            });
+            $.ajax({
+                type: 'POST',
+                url: `/api/stats/aid-contact-click-events/`,
+                contentType: 'application/json',
+                headers: { 'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value },
+                dataType: 'json',
+                data: statsData
+            })
+
+            // Send an event to Matomo
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Voir contacts', aid_slug]);
             }
@@ -20,6 +34,7 @@
 
     exports.trackOutclicks = function(links, aid_slug) {
         links.click(function(evt) {
+            // Send an event to Matomo
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Voir lien du porteur', aid_slug, this.href]);
             }
