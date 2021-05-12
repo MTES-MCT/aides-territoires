@@ -13,6 +13,9 @@
         <section>
             <header>
                 <h1>Quel est votre projet&nbsp;?</h1>
+                <a href="{% url 'search_view' %}?{{ querystring }}" class="close" aria-label="Fermer">
+                    <span aria-hidden="true">&times;</span>
+                </a>
             </header>
 
             <div class="content">            
