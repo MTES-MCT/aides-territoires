@@ -46,7 +46,11 @@
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
         {% for theme in theme_list %}
+        {% if forloop.counter <= 4 %}
         <li class="theme">
+        {% else %}
+        <li class="theme collapse hidden-categories">
+        {% endif %}
             <strong>
                 {{ theme.grouper }}
             </strong>
@@ -57,6 +61,9 @@
             </ul>
         </li>
         {% endfor %}
+        {% if theme_list|length > 4 %}
+        <a href=".hidden-categories" data-toggle="collapse" id="collapse-categories-btn">Afficher toutes les thématiques</a>
+        {% endif %}
     </ul>
     {% endif %}
 

@@ -1126,6 +1126,17 @@ article#aid {
         }
     }
 
+    a#collapse-categories-btn {
+        display: inline-block;
+        color: $dark-green !important;
+        font-weight: 900;
+        @extend .mt-1;
+
+        &[aria-expanded="true"] {
+            display: none;
+        }
+    }
+
     div.deadline-data {
         float: right;
         @extend .ml-3;
@@ -1162,7 +1173,7 @@ article#aid {
 
     .aid-content {
         @extend .row;
-        @extend .mt-5;
+        @extend .mt-4;
 
         overflow-wrap: break-word;
         word-wrap: break-word;
