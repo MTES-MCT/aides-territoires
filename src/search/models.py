@@ -200,6 +200,7 @@ class SearchPage(models.Model):
 
         # Annotate aids contained in the highlighted_aids field
         # This field will be helpful to order the queryset
+        # source: https://stackoverflow.com/a/44048355
         highlighted_aids_id_list = self.highlighted_aids.values_list('id', flat=True)  # noqa
         qs = qs.annotate(is_highlighted_aid=Count(
             Case(

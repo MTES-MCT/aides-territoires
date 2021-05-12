@@ -332,7 +332,13 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     ]
 
     def get_search_results(self, request, queryset, search_term):
-        """Override autocomplete_fields of other admin models using Aids."""
+        """
+        Here we can override the result of 'aids' autocomplete_fields
+        used in other admins.
+        Usage:
+        - autocomplete_fields is used on 'highlighted_aids' in the SearchPage
+        admin. But we want to restrict the queryset to only the SearchPage aids
+        """
 
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)  # noqa
 
