@@ -65,6 +65,11 @@ class AidResource(resources.ModelResource):
         attribute='programs',
         widget=ManyToManyWidget(Program, field='name')
     )
+    projects = fields.Field(
+        column_name='projects',
+        attribute='projects',
+        widget=ManyToManyWidget(Project, field='name')
+    )
 
     class Meta:
         model = Aid
