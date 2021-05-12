@@ -1,4 +1,3 @@
-import json
 import pytest
 
 from django.urls import reverse
@@ -24,7 +23,7 @@ def test_aid_contact_click_events_api(client, api_url):
         'aid': aid.id,
         # 'querystring': ''
     }
-    res = client.post(api_url, data=data)
+    client.post(api_url, data=data)
     assert AidContactClickEvent.objects.count() == 0
 
     # querystring can be empty
@@ -32,7 +31,7 @@ def test_aid_contact_click_events_api(client, api_url):
         'aid': aid.id,
         'querystring': ''
     }
-    res = client.post(api_url, data=data)
+    client.post(api_url, data=data)
     assert AidContactClickEvent.objects.count() == 1
 
     # querystring will be cleaned
@@ -40,7 +39,7 @@ def test_aid_contact_click_events_api(client, api_url):
         'aid': aid.id,
         'querystring': 'perimeter=&aid_type=financial'
     }
-    res = client.post(api_url, data=data)
+    client.post(api_url, data=data)
     assert AidContactClickEvent.objects.count() == 2
     event = AidContactClickEvent.objects.last()
     assert event.querystring == 'aid_type=financial'

@@ -53,7 +53,7 @@ class AidContactClickEvent(models.Model):
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
-    
+
     class Meta:
         verbose_name = 'Événement aide voir les contacts'
         verbose_name_plural = 'Événements aide voir les contacts'
@@ -234,4 +234,3 @@ class AidMatchProjectEvent(models.Model):
     class Meta:
         verbose_name = _('Aid Match Project Event')
         verbose_name_plural = _('Aid Match Project Events')
-

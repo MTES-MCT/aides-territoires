@@ -15,7 +15,7 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin,
 
     def perform_create(self, serializer):
         host = self.request.get_host()
-        source_cleaned = get_subdomain_from_host(host)
+        source_cleaned = get_site_from_host(host)
         serializer.save(source=source_cleaned)
 
 
