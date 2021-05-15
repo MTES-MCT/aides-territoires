@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
-from search.utils import clean_search_querystring
 from aids.models import Aid
 
 
@@ -57,13 +56,6 @@ class AidContactClickEvent(models.Model):
     class Meta:
         verbose_name = 'Événement aide voir les contacts'
         verbose_name_plural = 'Événements aide voir les contacts'
-
-    def save(self, *args, **kwargs):
-        self.clean_fields()
-        return super().save(*args, **kwargs)
-
-    def clean_fields(self):
-        self.querystring = clean_search_querystring(self.querystring)
 
 
 class AidSearchEvent(models.Model):
