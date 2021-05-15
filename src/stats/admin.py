@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from core.admin import pretty_print_readonly_jsonfield
 from stats.models import (AidSearchEvent,
                           AidViewEvent, AidContactClickEvent,
                           AidMatchProjectEvent, AidEligibilityTestEvent,
@@ -60,6 +61,13 @@ class AidEligibilityTestEventAdmin(admin.ModelAdmin):
     list_display = ['id', 'aid', 'eligibility_test', 'answer_success',
                     'source', 'date_created']
     list_filter = ['eligibility_test', 'source']
+    readonly_fields = ['get_pprint_answer_details']
+
+    def get_pprint_answer_details(self, obj=None):
+        if obj:
+            return pretty_print_readonly_jsonfield(obj.answer_details)
+        return ''
+    get_pprint_answer_details.short_description = 'Answer details (pretty)'
 
     def has_add_permission(self, request):
         return False

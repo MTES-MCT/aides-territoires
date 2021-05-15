@@ -1,4 +1,7 @@
+import json
+
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 
 class InputFilter(admin.SimpleListFilter):
@@ -19,3 +22,19 @@ class InputFilter(admin.SimpleListFilter):
             for k, v in changelist.get_filters_params().items()
             if k != self.parameter_name)
         yield all_choice
+
+
+def pretty_print_readonly_jsonfield(jsonfield_data):
+    """
+    Display a pretty readonly version of a JSONField
+    https://stackoverflow.com/a/60219265
+    """
+
+    result = ''
+
+    if jsonfield_data:
+        result = json.dumps(jsonfield_data, indent=4, ensure_ascii=False)
+        result_str = f'<pre>{result}</pre>'
+        result = mark_safe(result_str)
+
+    return result
