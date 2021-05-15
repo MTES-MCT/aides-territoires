@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Count, Prefetch
+from django.db.models import Q, Count, Prefetch, Case, When, IntegerField
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -88,7 +88,15 @@ class SearchView(SearchMixin, FormMixin, ListView):
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
         if self.request.GET.get('projects'):
-            ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count('projects')).order_by('-num_projects')
+            project_id = int(self.request.GET.get('projects').split('-')[0])
+            is_associate_to_the_project_list = qs.filter(projects=project_id)
+            #ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count('projects')).order_by('-num_projects')
+            ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count(
+                Case(
+                    When(id__in=is_associate_to_the_project_list, then=1),
+                    output_field=IntegerField()
+                )
+            )).order_by('-num_projects')
         else:
             ordered_results = filter_form.order_queryset(results).distinct()
 
