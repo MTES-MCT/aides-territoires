@@ -498,6 +498,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     import_last_access = models.DateField(
         _('Date of the latest access'),
         null=True, blank=True)
+    import_raw_object = models.JSONField(null=True)
 
     # This field is used to index searchable text content
     search_vector = SearchVectorField(

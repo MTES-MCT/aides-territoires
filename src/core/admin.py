@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import admin
+from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 
@@ -34,7 +35,6 @@ def pretty_print_readonly_jsonfield(jsonfield_data):
 
     if jsonfield_data:
         result = json.dumps(jsonfield_data, indent=4, ensure_ascii=False)
-        result_str = f'<pre>{result}</pre>'
-        result = mark_safe(result_str)
+        result = mark_safe(f'<pre>{escape(result)}</pre>')
 
     return result
