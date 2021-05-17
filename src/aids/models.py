@@ -121,6 +121,9 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def has_projects(self):
+        return self.filter(projects__isnull=False)
+
     def has_eligibility_test(self):
         """Only return aids with an eligibility test."""
 
@@ -724,6 +727,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_live(self):
         """True if the aid must be displayed on the site."""
         return self.is_published() and not self.has_expired()
+
+    def has_projects(self):
+        return self.projects is not None
 
     def get_live_status_display(self):
         status = _('Displayed') if self.is_live() else _('Not displayed')

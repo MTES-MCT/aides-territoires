@@ -81,6 +81,27 @@ class EligibilityTestFilter(admin.SimpleListFilter):
         return queryset
 
 
+class ProjectFilter(admin.SimpleListFilter):
+    """Custom admin filter to target aids with projects."""
+
+    title = _('Projects associated')
+    parameter_name = 'has_projects'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_projects()
+        elif value == 'No':
+            return queryset.filter(projects__isnull=True)  # noqa
+        return queryset
+
+
 class GenericAidListFilter(admin.SimpleListFilter):
     """Custom admin filter for generic, local and standard aids."""
 
@@ -212,7 +233,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'is_call_for_project', 'in_france_relance',
         EligibilityTestFilter,
         LiveAidListFilter, AuthorFilter, BackersFilter,
-        PerimeterAutocompleteFilter,
+        PerimeterAutocompleteFilter, ProjectFilter,
         'programs', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
@@ -364,6 +385,11 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return aid.is_live()
     live_status.boolean = True
     live_status.short_description = _('Live')
+
+    def has_projects(self, aid):
+        return aid.has_projects()
+    has_projects.boolean = True
+    has_projects.short_description = _('Has projects associated')
 
     def has_eligibility_test(self, aid):
         return aid.has_eligibility_test()
