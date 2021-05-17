@@ -322,69 +322,69 @@ def test_search_from_filter_by_audiences(aids):
 
 
 def test_aid_edition_subvention_rate_validation(aid_form_data):
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     # Lower range is optional
     aid_form_data['subvention_rate_0'] = None
     aid_form_data['subvention_rate_1'] = 40
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     # Upper range is optional
     aid_form_data['subvention_rate_0'] = 40
     aid_form_data['subvention_rate_1'] = None
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     # Range must be in the correct order
     aid_form_data['subvention_rate_0'] = 50
     aid_form_data['subvention_rate_1'] = 40
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert not form.is_valid()
     assert form.has_error('subvention_rate', 'bound_ordering')
 
     # Range must be between 0 and 100
     aid_form_data['subvention_rate_0'] = -10
     aid_form_data['subvention_rate_1'] = 150
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert not form.is_valid()
     assert form.has_error('subvention_rate', 'min_value')
     assert form.has_error('subvention_rate', 'max_value')
 
 
 def test_aid_calendar_fields_validation(aid_form_data):
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'oneoff',
         'submission_deadline': ''})
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert not form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'oneoff',
         'submission_deadline': '01/01/2020'})
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'recurring',
         'submission_deadline': ''})
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert not form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'recurring',
         'submission_deadline': '01/01/2020'})
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     aid_form_data.update({
         'recurrence': 'ongoing',
         'submission_deadline': ''})
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
 
@@ -402,7 +402,7 @@ def test_aid_creation_description_sanitization(aid_form_data):
         </div>
         '''
     })
-    form = AidEditForm(aid_form_data)
+    form = AidEditForm(aid_form_data, requested_status='reviewable')
     assert form.is_valid()
 
     description = form.cleaned_data['description']
