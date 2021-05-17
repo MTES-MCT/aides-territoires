@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from stats.models import (AidSearchEvent,
                           AidViewEvent, AidContactClickEvent,
@@ -57,11 +59,34 @@ class AlertFeedbackEventAdmin(ReadOnlyModelAdminMixin, admin.ModelAdmin):
     list_display = [
         'alert', 'email', 'rate', 'feedback', 'date_created']
     search_fields = ['alert__email']
+    fieldsets = [
+        (_('Alert'), {
+            'fields': (
+                'alert',
+                'querystring',
+            )}),
+        (_('Feedback'), {
+            'fields': (
+                'email',
+                'rate',
+                'feedback',
+                'date_created',
+            )})
+    ]
 
     def email(self, obj):
         return obj.alert.email
     email.admin_order_field = 'alert__email'
     email.short_description = _('Email')
+
+    def user(self, obj):
+        return obj.alert.user
+
+    def querystring(self, obj):
+        url = reverse('search_view')
+        query = obj.alert.querystring
+        link = f'<a href="{url}?{query}">{query}</a>'
+        return mark_safe(link)
 
 
 class EventAdmin(admin.ModelAdmin):
