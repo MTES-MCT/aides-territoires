@@ -64,11 +64,9 @@ class Alert(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.clean_querystring()
+        if not self.id:
+            self.querystring = clean_search_querystring(self.querystring)
         return super().save(*args, **kwargs)
-
-    def clean_querystring(self):
-        self.querystring = clean_search_querystring(self.querystring)
 
     def validate(self):
         self.validated = True
