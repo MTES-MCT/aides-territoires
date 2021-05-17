@@ -5,14 +5,11 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
-from import_export import fields, resources
-from import_export.widgets import ManyToManyWidget
 
 from core.forms import RichTextField
 from projects.models import Project
 from projects.resources import ProjectResource
 from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category
 
 
 class ProjectForm(forms.ModelForm):

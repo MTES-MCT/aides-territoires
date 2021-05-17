@@ -1,5 +1,4 @@
 from django.utils.translation import gettext_lazy as _
-from django.db.models.fields import TextField, CharField, URLField
 
 from import_export import fields, resources
 from import_export.widgets import ManyToManyWidget
@@ -8,7 +7,6 @@ from projects.models import Project
 from categories.models import Category
 
 PROJECTS_BOOLEAN_FIELDS = ['is_suggested']
-
 PROJECTS_IMPORT_EXCLUDE_FIELDS = ['slug', 'date_created']
 
 
