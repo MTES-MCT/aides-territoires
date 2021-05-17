@@ -64,7 +64,7 @@ class Alert(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.id:
+        if not self.pk:
             self.querystring = clean_search_querystring(self.querystring)
         return super().save(*args, **kwargs)
 
