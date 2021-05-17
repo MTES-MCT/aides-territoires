@@ -90,20 +90,20 @@ class SearchView(SearchMixin, FormMixin, ListView):
         if self.request.GET.get('projects'):
             project_id = int(self.request.GET.get('projects').split('-')[0])
             is_associate_to_the_project_list = qs.filter(projects=project_id)
-            #ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count('projects')).order_by('-num_projects')
-            ordered_results = filter_form.order_queryset(results).annotate(num_projects=Count(
-                Case(
-                    When(id__in=is_associate_to_the_project_list, then=1),
-                    output_field=IntegerField()
-                )
-            )).order_by('-num_projects')
+            ordered_results = filter_form.order_queryset(results) \
+                .annotate(num_projects=Count(
+                    Case(
+                        When(id__in=is_associate_to_the_project_list, then=1),
+                        output_field=IntegerField()
+                    )
+                )).order_by('-num_projects')
         else:
             ordered_results = filter_form.order_queryset(results).distinct()
 
         host = self.request.get_host()
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
-            #results_count=ordered_results.count(),
+            results_count=ordered_results.count(),
             source=host)
 
         return ordered_results
@@ -144,7 +144,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             settings.SEARCH_COOKIE_NAME, '')
         context['current_search_dict'] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True)
-            
+
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
         order_labels = dict(AidSearchForm.ORDER_BY)

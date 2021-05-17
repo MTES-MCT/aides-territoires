@@ -595,10 +595,7 @@ class BaseAidSearchForm(forms.Form):
             qs = qs.filter(
                 Q(financers__in=backers) | Q(instructors__in=backers))
 
-        # Uncomment to filter results with projects
-        projects = self.cleaned_data.get('projects', None)
-        #if projects:
-        #   qs = qs.filter(projects__in=projects) 
+        projects = self.cleaned_data.get('projects', None) # noqa
 
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:
