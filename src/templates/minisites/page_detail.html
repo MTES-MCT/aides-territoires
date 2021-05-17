@@ -4,6 +4,8 @@
 {% block extratitle %}{{ page.meta_title|default:page.title }}{% endblock %}
 {% block meta_description %}{{ page.meta_description }}{% endblock %}
 
+{% block sectionid %}search{% endblock %}
+
 {% block header %}
     {% include 'minisites/_header.html' %}
 {% endblock %}
@@ -32,8 +34,8 @@
 {% endblock %}
 
 {% block content %}
-<article>
-<ul class="nav nav-tabs">
+{% if pages %}
+<ul class="nav nav-tabs pages-nav">
     <li class="nav-item">
         <a class="nav-link" href="/">Accueil</a>
     </li>
@@ -43,6 +45,9 @@
     </li>
     {% endfor %}
 </ul>
+{% endif %}
+<article>
+
 <div id="page-content">
     <h1>{{ page.title }}</h1>
 
