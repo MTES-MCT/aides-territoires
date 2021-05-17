@@ -13,7 +13,7 @@ au format HTML. Il est possible que les liens ne s'affichent pas correctement.
 {% endfor %}
 
 {% if nb_aids > 3 %}
-Attention, il semble qu'il y ait encore d'autres aides disponibles !
+🔍 Attention, il semble qu'il y ait encore d'autres aides disponibles !
 Rendez-vous sur Aides-territoires pour les découvrir.
 
 https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}
@@ -22,12 +22,12 @@ https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}
 N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
 Vous pouvez également transférer cet email à vos partenaires afin qu'ils prennent connaissance de ces aides.
 
-Aidez-nous à améliorer vos alertes !
+🌟 Aidez-nous à améliorer vos alertes !
 Notez cette alerte de 1 à 5 et faites-nous part de vos remarques :
 
 https://{{ domain }}{{ feedback_url|safe }}
 
-Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :
+🔕 Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :
 
 https://{{ domain }}{{ delete_url|safe }}
 

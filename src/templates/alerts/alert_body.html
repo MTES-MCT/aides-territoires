@@ -24,7 +24,7 @@
 
 {% if nb_aids > 3 %}
     <p>
-        Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
+        🔍 Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
         <a href="https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}">
             Rendez-vous sur Aides-territoires pour les découvrir.
         </a>
@@ -38,14 +38,14 @@ prennent connaissance de ces aides.
 </p>
 
 <p>
-    Aidez-nous à améliorer vos alertes ! <br />
+    🌟 Aidez-nous à améliorer vos alertes ! <br />
     <a href="https://{{ domain }}{{ feedback_url|safe }}">
         Notez cette alerte de 1 à 5 et faites-nous part de vos remarques.
     </a>
 </p>
 
 <p>
-    Cette alerte ne correspond plus à vos besoins ? <br />
+    🔕 Cette alerte ne correspond plus à vos besoins ? <br />
     <a href="https://{{ domain }}{{ delete_url|safe }}">
         Vous pouvez la supprimer.
     </a>
