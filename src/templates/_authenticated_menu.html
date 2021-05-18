@@ -24,7 +24,7 @@
             </span>
         </a>
     </li>
-    {% elif user.is_contibutor %}
+    {% elif user.is_contributor %}
     <li class="stat">
         <a href="{% url 'aid_draft_list_view' %}?order=status">
             {{ _('Draft aids') }}
@@ -41,10 +41,6 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             {% include '_menu_actions.html' %}
-            <hr />
-            <a href="{% url 'logout' %}">
-                {{ _('Log out') }}
-            </a>
         </div>
     </li>
 </ul>

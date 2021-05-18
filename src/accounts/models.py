@@ -86,6 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Contact phone number'),
         max_length=35,
         blank=True)
+    is_contributor = models.BooleanField(
+        _('Is contributor'),
+        help_text=_('Can access a dashboard to create aids'),
+        default=False)
     is_certified = models.BooleanField(
         _('Is certified'),
         help_text=_('Display a badge next to this user\'s aids'),
@@ -112,6 +116,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
     @property
-    def is_contributor(self):
+    def profile_complete(self):
         """Contributors need to specify more personal data."""
         return self.organization and self.role and self.contact_phone

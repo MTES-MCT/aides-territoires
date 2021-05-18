@@ -1,23 +1,22 @@
+from django.conf import settings
 from django.views.generic import (FormView, TemplateView, CreateView,
                                   UpdateView)
-from django.urls import reverse_lazy
-from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse, reverse_lazy
 from django.utils.http import urlsafe_base64_decode
 from django.http import HttpResponseRedirect
-from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
+from django.contrib.auth import login, update_session_auth_hash
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import update_session_auth_hash
+
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
-from analytics.utils import track_goal
+from accounts.mixins import ContributorRequiredMixin
 from accounts.forms import (RegisterForm, PasswordResetForm,
                             ContributorProfileForm)
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
-from django.conf import settings
+from analytics.utils import track_goal
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
@@ -114,7 +113,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class ContributorProfileView(LoginRequiredMixin, SuccessMessageMixin,
+class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin,
                              UpdateView):
     """Update contributor profile data."""
 

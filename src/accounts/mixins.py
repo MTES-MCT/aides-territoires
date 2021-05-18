@@ -16,17 +16,25 @@ class ContributorRequiredMixin(UserPassesTestMixin):
         return user.is_authenticated and user.is_contributor
 
     def get_register_url(self):
-        if not self.request.user.is_authenticated:
+        user = self.request.user
+        if not user.is_authenticated:
             url = 'register'
         else:
-            url = 'contributor_profile'
+            if user.is_contributor:
+                url = 'contributor_profile'
+            else:
+                url = 'home'
         return url
 
     def get_login_url(self):
-        if not self.request.user.is_authenticated:
+        user = self.request.user
+        if not user.is_authenticated:
             login_url = settings.LOGIN_URL
         else:
-            login_url = 'contributor_profile'
+            if user.is_contributor:
+                login_url = 'contributor_profile'
+            else:
+                login_url = 'home'
         return login_url
 
     def handle_no_permission(self):
