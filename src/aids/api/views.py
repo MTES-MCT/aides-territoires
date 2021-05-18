@@ -5,7 +5,6 @@ from django.views.decorators.cache import cache_page
 from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
 
-
 from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
