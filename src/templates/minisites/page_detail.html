@@ -1,0 +1,57 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ page.meta_title|default:page.title }}{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+
+{% block sectionid %}search{% endblock %}
+
+{% block header %}
+    {% include 'minisites/_header.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'minisites/_footer.html' %}
+{% endblock %}
+
+{% block header_warning %}{% endblock %}
+
+{% block user_menu %}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include 'minisites/_css.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
+</script>
+{% compress js %}
+<script src="/static/js/links_on_images.js"></script>
+{% endcompress %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% if pages %}
+<ul class="nav nav-tabs pages-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="/">Accueil</a>
+    </li>
+    {% for p in pages %}
+    <li class="nav-item">
+        <a class="nav-link{% if p.url == page.url %} active{% endif %}" href="{% url 'page_detail_view' p.url %}">{{ p.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<article>
+
+<div id="page-content">
+    <h1>{{ page.title }}</h1>
+
+    {{ page.content|safe }}
+</div>
+</article>
+{% endblock %}

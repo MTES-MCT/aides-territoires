@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect, Http404
+from django.views.generic import TemplateView, DetailView
 from django.contrib.sites.models import Site
 from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
 from django.utils import timezone
+from django.views.generic.base import RedirectView
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
@@ -16,6 +17,7 @@ from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
+from pages.models import Page
 from stats.utils import log_aidsearchevent
 from core.utils import get_site_from_host
 
@@ -119,6 +121,11 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         kwargs = super().get_form_kwargs()
         kwargs['data'] = data
         return kwargs
+
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
 
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
@@ -296,3 +303,31 @@ class Error(MinisiteMixin, TemplateView):
     def render_to_response(self, context, **response_kwargs):
         response_kwargs['status'] = self.status_code
         return super().render_to_response(context, **response_kwargs)
+
+
+class PageList(MinisiteMixin, RedirectView):
+    pattern_name = 'home'
+
+
+class PageDetail(MinisiteMixin, DetailView):
+    template_name = 'minisites/page_detail.html'
+    context_object_name = 'page'
+
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
+
+    def get_object(self):
+        url = self.kwargs.get('url')
+        if not url.startswith('/'):
+            url = '/' + url
+
+        try:
+            page = Page.objects \
+                .filter(minisite=self.search_page) \
+                .get(url=url)
+        except Page.DoesNotExist:
+            raise Http404('No page found')
+
+        return page

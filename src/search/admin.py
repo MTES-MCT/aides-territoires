@@ -3,6 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 from search.models import SearchPage
 from search.forms import SearchPageAdminForm
+from pages.models import Page
+from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
@@ -13,6 +15,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     filter_vertical = ['available_categories']
     autocomplete_fields = ['excluded_aids']
     readonly_fields = ['date_created', 'date_updated']
+    search_fields = ['title']
     fieldsets = [
         ('', {
             'fields': (
@@ -84,4 +87,34 @@ class SearchPageAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+# Dummy class so the model can be registered twice
+class MinisitePage(Page):
+    class Meta:
+        proxy = True
+        verbose_name = _('Page')
+        verbose_name_plural = _('Pages')
+
+
+class MinisitePageAdmin(PageAdmin):
+
+    HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
+
+    fieldsets = (
+        (None, {
+            'fields': ('url', 'minisite', 'title', 'content'),
+            'description': '<div class="help">{}</div>'.format(HELP)}),
+        (_('SEO'), {'fields': (
+            'meta_title', 'meta_description')})
+    )
+    autocomplete_fields = ['minisite']
+    list_display = ['url', 'title', 'minisite']
+
+    def get_queryset(self, request):
+        qs = Page.objects \
+            .minisite_pages() \
+            .select_related('minisite')
+        return qs
+
+
 admin.site.register(SearchPage, SearchPageAdmin)
+admin.site.register(MinisitePage, MinisitePageAdmin)
