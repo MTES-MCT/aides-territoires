@@ -1719,18 +1719,27 @@ div#alert-search-modal {
     }
 }
 
-div#save-alert-block {
+div#save-alert-block,
+div.promotions-slide {
     @extend .w-100;
     @extend .mx-1;
     @extend .my-3;
     @extend .p-4;
     background-color: white;
     color: $font-color;
-    border-radius: 1rem 0 1rem 1rem;
+    border-radius: 1rem 0 1rem 1rem !important;
     box-shadow: $box-shadow-sm;
     text-align: center;
     display: block;
 
+    & div > a {
+        @extend .save-alert-btn;
+        width: 15em;
+    }
+}
+
+div#save-alert-block,
+div#promotion-block {
     & div {
         display: flex;
         justify-content: center;
@@ -1738,11 +1747,6 @@ div#save-alert-block {
         @include media-breakpoint-up(md) {
             justify-content: flex-end;
         }
-    }
-
-    & div > a {
-        @extend .save-alert-btn;
-        width: 15em;
     }
 }
 

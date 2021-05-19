@@ -2764,3 +2764,15 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Promotion post"
+msgstr "Communication promotionnelle"
+
+msgid "Promotion posts"
+msgstr "Communications promotionnelles"
+
+msgid "Button link"
+msgstr "Lien du bouton"
+
+msgid "Button title"
+msgstr "Titre du bouton"

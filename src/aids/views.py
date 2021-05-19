@@ -30,6 +30,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import (log_aidviewevent, log_aidsearchevent)
@@ -135,6 +136,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             order_value, order_labels[default_order])
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
+        context['promotions'] = PromotionPost.objects.all()
 
         return context
 
