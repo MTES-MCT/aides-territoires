@@ -378,7 +378,7 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
-    published_after = forms.DateField(
+    published_after = forms.DateTimeField(
         label=_('Published after…'),
         required=False,
         widget=forms.TextInput(

@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime
 import pytest
 
 from django.core.management import call_command
@@ -46,7 +46,7 @@ def test_command_create_alerts_with_date(mailoutbox):
         latest_alert_date=alert_latest_alert_date)
     assert Alert.objects.count() == 2
     assert Alert.objects.last().date_created.date() == timezone.now().date()
-    assert Alert.objects.last().latest_alert_date.date() == datetime.datetime.strptime(alert_latest_alert_date, '%Y-%m-%d').date()  # noqa
+    assert Alert.objects.last().latest_alert_date.date() == datetime.strptime(alert_latest_alert_date, '%Y-%m-%d').date()  # noqa
     assert len(mailoutbox) == 2
 
 
