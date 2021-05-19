@@ -5,7 +5,7 @@ from stats.models import (AidContactClickEvent,
 
 
 class AidContactClickEventSerializer(serializers.ModelSerializer):
-    querystring = serializers.CharField(allow_blank=True)  # required=False
+    querystring = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = AidContactClickEvent
