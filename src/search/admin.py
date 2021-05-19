@@ -9,13 +9,17 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'title', 'meta_description', 'date_created']
     form = SearchPageAdminForm
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ['slug', 'title', 'meta_description', 'date_created']
     filter_vertical = ['available_categories']
-    autocomplete_fields = ['excluded_aids']
-    readonly_fields = ['date_created', 'date_updated']
     search_fields = ['title']
+
+    prepopulated_fields = {'slug': ('title',)}
+    autocomplete_fields = ['highlighted_aids', 'excluded_aids']
+    readonly_fields = [
+        'all_aids_count', 'live_aids_count',
+        'date_created', 'date_updated']
+
     fieldsets = [
         ('', {
             'fields': (
@@ -58,12 +62,33 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_aid_type_field',
             )
         }),
-        (_('Exclude aids from results'), {
+        ('Aides concernées', {
+            'fields': (
+                'all_aids_count',
+                'live_aids_count'
+            )
+        }),
+        ('Mettre en avant des aides', {
+            'fields': (
+                'highlighted_aids',
+            )
+        }),
+        ('Exclure des aides des résultats', {
             'fields': (
                 'excluded_aids',
             )
         }),
     ]
+
+    def all_aids_count(self, search_page):
+        return search_page.get_base_queryset(all_aids=True).count()
+    all_aids_count.short_description = "Nombre d'aides total (querystring)"
+
+    def live_aids_count(self, search_page):
+        live_aids_count = search_page.get_base_queryset().count()
+        live_aids_local_count = search_page.get_base_queryset().local_aids().count()  # noqa
+        return f'{live_aids_count} (dont aides locales : {live_aids_local_count})'  # noqa
+    live_aids_count.short_description = "Nombre d'aides actuellement visibles"
 
     class Media:
         css = {

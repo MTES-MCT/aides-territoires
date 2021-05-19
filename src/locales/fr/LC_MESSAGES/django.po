@@ -1578,9 +1578,6 @@ msgstr "Personnalisation du style"
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
 
-msgid "Exclude aids from results"
-msgstr "Exclure des aides des résultats"
-
 msgid "A collectivity"
 msgstr "Une collectivité"
 
@@ -1645,6 +1642,9 @@ msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Highlighted aids"
+msgstr "Aides à mettre en avant"
 
 msgid "Excluded aids"
 msgstr "Aides à exclure"
