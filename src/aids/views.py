@@ -30,6 +30,8 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from geofr.models import Perimeter
+from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
@@ -112,6 +114,35 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .filter(q_exact_match | q_container_match)
         return programs
 
+    def get_promotions(self):
+
+        searched_backers = self.form.cleaned_data.get('backers', None)
+        if not searched_backers:
+            searched_backers = [None]
+
+        searched_programs = self.form.cleaned_data.get('programs', None)
+        if not searched_programs:
+            searched_programs = [None]
+
+        searched_categories = self.form.cleaned_data.get('categories', None)
+        if not searched_categories:
+            searched_categories = [None]
+
+        searched_perimeter = self.form.cleaned_data.get('perimeter', None)
+        searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
+        if not searched_perimeter:
+            searched_perimeter = [None]
+
+        promotions = PromotionPost.objects \
+            .filter(status='published') \
+            .filter(backers=searched_backers) \
+            .filter(programs=searched_programs) \
+            .filter(categories=searched_categories) \
+            .filter(perimeter__in=searched_perimeter) \
+            .distinct()
+        
+        return promotions
+
     def store_current_search(self):
         """Store the current search query in a cookie.
 
@@ -136,7 +167,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             order_value, order_labels[default_order])
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
-        context['promotions'] = PromotionPost.objects.all()
+        context['promotions'] = self.get_promotions()
 
         return context
 

@@ -217,8 +217,25 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
         _('Button title'),
         max_length=120,
         db_index=True)
-    querystring = models.TextField(
-        _('Querystring'),
+    perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name=_('Perimeter'),
+        on_delete=models.PROTECT,
+        null=True, blank=True)
+    categories = models.ManyToManyField(
+        'categories.Category',
+        verbose_name=_('Categories'),
+        related_name='promotionsPost',
+        blank=True)
+    programs = models.ManyToManyField(
+        'programs.Program',
+        related_name='promotionsPost',
+        verbose_name=_('Programs'),
+        blank=True)
+    backers = models.ManyToManyField(
+        'backers.Backer',
+        related_name='promotionsPost',
+        verbose_name=_('Backer'),
         blank=True)
 
     status = xwf_models.StateField(

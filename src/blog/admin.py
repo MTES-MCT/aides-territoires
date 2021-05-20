@@ -1,11 +1,15 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+from admin_auto_filters.filters import AutocompleteFilter
 
 from blog.models import BlogPost, BlogPostCategory, PromotionPost
+from categories.fields import CategoryMultipleChoiceField
+from categories.models import Category
 
 
 class BlogPostForm(forms.ModelForm):
@@ -75,15 +79,31 @@ class BlogPostCategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
 
+
+class PromotionPostForm(forms.ModelForm):
+
+    categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        required=False,
+        widget=FilteredSelectMultiple(_('Categories'), True))
+
+    class Meta:
+        model = PromotionPost
+        fields = '__all__'
+
+
 class PromotionPostAdmin(admin.ModelAdmin):
+    form = PromotionPostForm
     list_display = ['title']
     fields = [
         'title', 'slug', 'short_text', 'button_link',
-         'button_title', 'querystring', 'date_created'
+         'button_title', 'backers', 'programs', 'perimeter',
+         'categories', 'status', 'date_created'
         ]
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
     ordering = ['title']
+    autocomplete_fields = ['backers', 'programs', 'perimeter']
 
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogPostCategory, BlogPostCategoryAdmin)
