@@ -116,31 +116,35 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
     def get_promotions(self):
 
+        promotions = PromotionPost.objects.filter(status='published')
+
         searched_backers = self.form.cleaned_data.get('backers', None)
-        if not searched_backers:
-            searched_backers = [None]
+        if searched_backers:
+            promotions = promotions.filter(Q(backers__in=searched_backers) | Q(backers__isnull=True))
+        else : 
+            promotions = promotions.filter(backers__isnull=True)
 
         searched_programs = self.form.cleaned_data.get('programs', None)
-        if not searched_programs:
-            searched_programs = [None]
+        if searched_programs:
+            promotions = promotions.filter(Q(programs__in=searched_programs) | Q(programs__isnull=True))
+        else : 
+            promotions = promotions.filter(programs__isnull=True)
 
         searched_categories = self.form.cleaned_data.get('categories', None)
-        if not searched_categories:
-            searched_categories = [None]
+        if searched_categories:
+            promotions = promotions.filter(Q(categories__in=searched_categories) | Q(categories__isnull=True))
+        else : 
+            promotions = promotions.filter(categories__isnull=True)
 
         searched_perimeter = self.form.cleaned_data.get('perimeter', None)
-        searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
-        if not searched_perimeter:
-            searched_perimeter = [None]
+        if searched_perimeter:
+            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
+            promotions = promotions.filter(Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True))
+        else : 
+            promotions = promotions.filter(perimeter__isnull=True)
 
-        promotions = PromotionPost.objects \
-            .filter(status='published') \
-            .filter(backers=searched_backers) \
-            .filter(programs=searched_programs) \
-            .filter(categories=searched_categories) \
-            .filter(perimeter__in=searched_perimeter) \
-            .distinct()
-        
+        promotions = promotions.distinct()
+
         return promotions
 
     def store_current_search(self):
