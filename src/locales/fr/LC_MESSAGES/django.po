@@ -2776,3 +2776,12 @@ msgstr "Lien du bouton"
 
 msgid "Button title"
 msgstr "Titre du bouton"
+
+msgid "Promotion post presentation"
+msgstr "Présentation de la communication promotionnelle"
+
+msgid "Promotion post filter for display"
+msgstr "Filtres conditionnant l'affichage de la communication promotionnelle"
+
+msgid "Promotion post admin"
+msgstr "Administration de la communication promotionnelle"

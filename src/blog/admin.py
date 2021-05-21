@@ -94,16 +94,46 @@ class PromotionPostForm(forms.ModelForm):
 
 class PromotionPostAdmin(admin.ModelAdmin):
     form = PromotionPostForm
-    list_display = ['title']
-    fields = [
-        'title', 'slug', 'short_text', 'button_link',
-         'button_title', 'backers', 'programs', 'perimeter',
-         'categories', 'status', 'date_created'
-        ]
+    list_display = ['title', 'status', 'date_created']
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
     ordering = ['title']
     autocomplete_fields = ['backers', 'programs', 'perimeter']
+    search_fields = ['id', 'title']
+    list_filter = ['status', 'date_created',]
+
+    fieldsets = [
+        (_('Promotion post presentation'), {
+            'fields': (
+                'title',
+                'slug',
+                'short_text',
+                'button_title',
+                'button_link',
+            )
+        }),
+
+        (_('Promotion post filter for display'), {
+            'fields': (
+                'backers',
+                'programs',
+                'perimeter',
+                'categories',
+            )
+        }),
+
+        (_('Promotion post admin'), {
+            'fields': (
+                'status',
+            )
+        }),
+
+        (_('Misc data'), {
+            'fields': (
+                'date_created',
+            )
+        }),
+    ]
 
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogPostCategory, BlogPostCategoryAdmin)
