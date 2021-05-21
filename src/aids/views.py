@@ -90,24 +90,25 @@ class SearchView(SearchMixin, FormMixin, ListView):
         results = filter_form.filter_queryset(qs)
 
         '''
-        If the querystring contains projects filter : 
-            - we join to the classical queryset a queryset to add aids results
-            matching the searched project and not necessarly existing in the first queyset.
+        If the querystring contains projects filter:
 
-            - then we order results to display first the aids with matching the searched projects
+        - we join to the classical queryset a queryset to add aids results
+        matching the searched project and not existing in the first queryset.
+
+        - we order results to display first aids matching the searched project
         '''
-        
+
         if self.request.GET.get('projects'):
             ordered_results = filter_form.order_queryset(results).distinct()
-            ordered_results = ordered_results | self.get_aids_associated_to_project()
-            
-            searched_project = int(self.request.GET.get('projects').split('-')[0])
-            is_associate_to_the_project_list = qs.filter(projects=searched_project)
+            ordered_results = ordered_results | self.get_aids_associated_to_project()  # noqa
+
+            searched_project = int(self.request.GET.get('projects').split('-')[0])  # noqa
+            is_associate_to_the_project = qs.filter(projects=searched_project)
 
             ordered_results = ordered_results \
                 .annotate(num_projects=Count(
                     Case(
-                        When(id__in=is_associate_to_the_project_list, then=1),
+                        When(id__in=is_associate_to_the_project, then=1),
                         output_field=IntegerField()
                     )
                 )).order_by('-num_projects').distinct()
@@ -127,7 +128,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         Get the aids that matched searched project and perimeter filter
         """
         if self.request.GET.get('projects'):
-            searched_project = int(self.request.GET.get('projects').split('-')[0])
+            searched_project = int(self.request.GET.get('projects').split('-')[0])  # noqa
             aids_associated_to_the_project = Aid.objects \
                 .published() \
                 .open() \
@@ -140,7 +141,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
                 aids_associated_to_the_project = aids_associated_to_the_project \
                     .filter(perimeter__in=searched_perimeter)  # noqa
 
-            aids_associated_to_the_project = aids_associated_to_the_project.distinct()
+            aids_associated_to_the_project = aids_associated_to_the_project.distinct()  # noqa
 
             return aids_associated_to_the_project
         else:
@@ -190,7 +191,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             order_value, order_labels[default_order])
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
-        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()
+        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()  # noqa
 
         return context
 
