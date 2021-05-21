@@ -2761,3 +2761,6 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
+
+msgid "Aids associated to projects"
+msgstr "Aides associées à des projets"

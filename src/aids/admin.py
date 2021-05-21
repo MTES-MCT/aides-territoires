@@ -84,7 +84,7 @@ class EligibilityTestFilter(admin.SimpleListFilter):
 class ProjectFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with projects."""
 
-    title = _('Projects associated')
+    title = _('Aids associated to projects')
     parameter_name = 'has_projects'
 
     def lookups(self, request, model_admin):

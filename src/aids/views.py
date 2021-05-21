@@ -30,6 +30,7 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from geofr.utils import get_all_related_perimeter_ids
 from projects.models import Project
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
@@ -87,16 +88,29 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
+
+        '''
+        If the querystring contains projects filter : 
+            - we join to the classical queryset a queryset to add aids results
+            matching the searched project and not necessarly existing in the first queyset.
+
+            - then we order results to display first the aids with matching the searched projects
+        '''
+        
         if self.request.GET.get('projects'):
-            project_id = int(self.request.GET.get('projects').split('-')[0])
-            is_associate_to_the_project_list = qs.filter(projects=project_id)
-            ordered_results = filter_form.order_queryset(results) \
+            ordered_results = filter_form.order_queryset(results).distinct()
+            ordered_results = ordered_results | self.get_aids_associated_to_project()
+            
+            searched_project = int(self.request.GET.get('projects').split('-')[0])
+            is_associate_to_the_project_list = qs.filter(projects=searched_project)
+
+            ordered_results = ordered_results \
                 .annotate(num_projects=Count(
                     Case(
                         When(id__in=is_associate_to_the_project_list, then=1),
                         output_field=IntegerField()
                     )
-                )).order_by('-num_projects')
+                )).order_by('-num_projects').distinct()
         else:
             ordered_results = filter_form.order_queryset(results).distinct()
 
@@ -107,6 +121,30 @@ class SearchView(SearchMixin, FormMixin, ListView):
             source=host)
 
         return ordered_results
+
+    def get_aids_associated_to_project(self):
+        """
+        Get the aids that matched searched project and perimeter filter
+        """
+        if self.request.GET.get('projects'):
+            searched_project = int(self.request.GET.get('projects').split('-')[0])
+            aids_associated_to_the_project = Aid.objects \
+                .published() \
+                .open() \
+                .filter(projects=searched_project) \
+                .distinct()
+
+            searched_perimeter = self.form.cleaned_data.get('perimeter', None)
+            if searched_perimeter:
+                searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(perimeter__in=searched_perimeter)  # noqa
+
+            aids_associated_to_the_project = aids_associated_to_the_project.distinct()
+
+            return aids_associated_to_the_project
+        else:
+            return
 
     def get_programs(self):
         """Get the aid programs that matched the search perimeter.
@@ -152,6 +190,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             order_value, order_labels[default_order])
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
+        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()
 
         return context
 
