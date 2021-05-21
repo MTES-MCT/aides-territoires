@@ -180,15 +180,18 @@ class SearchPage(models.Model):
     def get_absolute_url(self):
         return reverse('search_page', args=[self.slug])
 
-    def get_base_queryset(self, all_aids=False):
-        """Return the list of aids based on the initial search querysting."""
-
-        from aids.forms import AidSearchForm
-
+    def get_base_querystring_data(self):
         # Sometime, the admin person enters a prefix "?" character
         # and we don't want it here.
         querystring = self.search_querystring.strip('?')
         data = QueryDict(querystring)
+        return data
+
+    def get_base_queryset(self, all_aids=False):
+        """Return the list of aids based on the initial search querysting."""
+
+        from aids.forms import AidSearchForm
+        data = self.get_base_querystring_data()
         form = AidSearchForm(data)
         if all_aids:
             qs = form.filter_queryset(

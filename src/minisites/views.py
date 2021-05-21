@@ -127,6 +127,21 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         pages = Page.objects.filter(minisite=self.search_page)
         return super().get_context_data(pages=pages, **kwargs)
 
+    def combine_with_form_search(self, qs):
+        """When the search form is used on a minisite,
+        we want to combine the base querystring with the form data.
+        """
+        data = self.search_page.get_base_querystring_data()
+        minisite_perimeter = data.get('perimeter')
+        search_perimeter = self.form.data.get('perimeter')
+        if minisite_perimeter and not search_perimeter:
+            # If the base querystring defines a perimeter, then
+            # we will force that perimeter to be used.
+            self.form.data['perimeter'] = minisite_perimeter
+            self.form.full_clean()
+        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
+        return qs
+
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 
@@ -145,7 +160,7 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
 
 
         # Combine from filtering with the base queryset
-        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
+        qs = self.combine_with_form_search(qs)
 
         data = self.form.cleaned_data
 
