@@ -19,7 +19,7 @@ from django.core.mail import send_mail
 
 from braces.views import MessageMixin
 
-from accounts.mixins import ContributorRequiredMixin
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
@@ -424,7 +424,8 @@ class AidDetailView(DetailView):
         return response
 
 
-class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
+class AidDraftListView(ContributorAndProfileCompleteRequiredMixin,
+                       AidEditMixin, ListView):
     """Display the list of aids published by the user."""
 
     template_name = 'aids/draft_list.html'
@@ -498,7 +499,7 @@ class AidDraftListView(ContributorRequiredMixin, AidEditMixin, ListView):
         return context
 
 
-class AidCreateView(ContributorRequiredMixin, CreateView):
+class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     """Allows publishers to submit their own aids."""
 
     template_name = 'aids/create.html'
@@ -537,8 +538,8 @@ class AidCreateView(ContributorRequiredMixin, CreateView):
         return edit_url
 
 
-class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
-                  UpdateView):
+class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
+                  AidEditMixin, UpdateView):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
@@ -620,7 +621,8 @@ class AidEditView(ContributorRequiredMixin, MessageMixin, AidEditMixin,
         return '{}'.format(edit_url)
 
 
-class AidDeleteView(ContributorRequiredMixin, AidEditMixin, DeleteView):
+class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin,
+                    DeleteView):
     """Soft deletes an existing aid."""
 
     def delete(self, request, *args, **kwargs):

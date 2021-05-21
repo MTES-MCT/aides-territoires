@@ -1901,14 +1901,14 @@ msgstr "Voir moins de détails"
 msgid "Your profile"
 msgstr "Votre profil"
 
+msgid "Contributor space"
+msgstr "Espace contributeur"
+
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
 msgid "Become a contributor"
 msgstr "Devenir contributeur"
-
-msgid "Are you a contributor?"
-msgstr "Vous êtes contributeur ?"
 
 msgid "My portfolio"
 msgstr "Mon portefeuille d'aides"

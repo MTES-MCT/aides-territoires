@@ -44,30 +44,69 @@ class UserAdmin(BaseUserAdmin):
     """Admin module for users."""
 
     list_display = [
-        'email', 'first_name', 'last_name', 'organization', 'nb_aids',
+        'email', 'first_name', 'last_name', 'organization',
+        'is_contributor', 'nb_aids',
         'is_certified', 'in_mailing_list', 'date_joined', 'last_login'
     ]
     list_editable = ['first_name', 'last_name']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
-    list_filter = ['is_superuser', 'is_certified', 'ml_consent']
+    list_filter = ['is_superuser', 'is_contributor', 'is_certified',
+                   'ml_consent']
+
+    readonly_fields = ['nb_aids', 'last_login', 'date_joined']
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'is_certified')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
-        (_('Professional info'), {'fields': (
-            'organization', 'role', 'contact_phone')}),
-        (_('Permissions'), {'fields': ('is_superuser',)}),
-        (_('Misc.'), {'fields': (
-            'ml_consent', 'last_login', 'date_joined',)}),
+        (None, {
+            'fields': (
+                'email',
+                'password',
+                'is_certified'
+            )
+        }),
+        (_('Personal info'), {
+            'fields': (
+                'first_name',
+                'last_name',
+            )
+        }),
+        (_('Professional info'), {
+            'fields': (
+                'organization',
+                'role',
+                'contact_phone'
+            )
+        }),
+        (_('Contributor space'), {
+            'fields': (
+                'is_contributor',
+                'nb_aids',
+            )
+        }),
+        (_('Permissions'), {
+            'fields': (
+                'is_superuser',
+            )
+        }),
+        (_('Misc.'), {
+            'fields': (
+                'ml_consent',
+                'last_login',
+                'date_joined',
+            )
+        }),
     )
-    readonly_fields = ('last_login', 'date_joined')
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'first_name', 'last_name', 'password1', 'password2',
-                'is_certified'
+                'email',
+                'first_name',
+                'last_name',
+                'password1',
+                'password2',
+                'is_contributor',
+                'is_certified',
             )}
          ),
     )

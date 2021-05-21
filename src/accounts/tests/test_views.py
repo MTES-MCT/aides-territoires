@@ -8,6 +8,7 @@ from django.test import override_settings
 from django.urls import reverse
 
 from accounts.models import User
+from accounts.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -299,3 +300,20 @@ def test_profile_form_leaves_password_untouched(client, contributor):
     # "pass" is UserFactory's default password
     assert authenticate(
         username=contributor.email, password='pass') is not None
+
+
+def test_logged_in_contributor_has_menu(client, contributor):
+    client.force_login(contributor)
+    home = reverse('home')
+    res = client.get(home)
+    assert 'Votre profil' in res.content.decode()
+    assert 'Espace contributeur' in res.content.decode()
+
+
+def test_non_contributor_can_log_in_but_no_menu(client):
+    user_api = UserFactory(is_contributor=False)
+    client.force_login(user_api)
+    home = reverse('home')
+    res = client.get(home)
+    assert 'Votre profil' not in res.content.decode()
+    assert 'Espace contributeur' not in res.content.decode()
