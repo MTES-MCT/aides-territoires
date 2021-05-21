@@ -30,7 +30,6 @@ from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
-from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
 from search.utils import clean_search_form
@@ -120,27 +119,31 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         searched_backers = self.form.cleaned_data.get('backers', None)
         if searched_backers:
-            promotions = promotions.filter(Q(backers__in=searched_backers) | Q(backers__isnull=True))
-        else : 
+            promotions = promotions \
+                .filter(Q(backers__in=searched_backers) | Q(backers__isnull=True))  # noqa
+        else:
             promotions = promotions.filter(backers__isnull=True)
 
         searched_programs = self.form.cleaned_data.get('programs', None)
         if searched_programs:
-            promotions = promotions.filter(Q(programs__in=searched_programs) | Q(programs__isnull=True))
-        else : 
+            promotions = promotions \
+                .filter(Q(programs__in=searched_programs) | Q(programs__isnull=True))  # noqa
+        else:
             promotions = promotions.filter(programs__isnull=True)
 
         searched_categories = self.form.cleaned_data.get('categories', None)
         if searched_categories:
-            promotions = promotions.filter(Q(categories__in=searched_categories) | Q(categories__isnull=True))
-        else : 
+            promotions = promotions \
+                .filter(Q(categories__in=searched_categories) | Q(categories__isnull=True))  # noqa
+        else:
             promotions = promotions.filter(categories__isnull=True)
 
         searched_perimeter = self.form.cleaned_data.get('perimeter', None)
         if searched_perimeter:
-            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
-            promotions = promotions.filter(Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True))
-        else : 
+            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
+            promotions = promotions \
+                .filter(Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True))  # noqa
+        else:
             promotions = promotions.filter(perimeter__isnull=True)
 
         promotions = promotions.distinct()

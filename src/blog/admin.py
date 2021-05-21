@@ -5,11 +5,9 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
-from admin_auto_filters.filters import AutocompleteFilter
 
 from blog.models import BlogPost, BlogPostCategory, PromotionPost
 from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category
 
 
 class BlogPostForm(forms.ModelForm):
@@ -100,7 +98,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
     ordering = ['title']
     autocomplete_fields = ['backers', 'programs', 'perimeter']
     search_fields = ['id', 'title']
-    list_filter = ['status', 'date_created',]
+    list_filter = ['status', 'date_created']
 
     fieldsets = [
         (_('Promotion post presentation'), {
@@ -134,6 +132,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
             )
         }),
     ]
+
 
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogPostCategory, BlogPostCategoryAdmin)

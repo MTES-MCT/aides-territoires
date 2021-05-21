@@ -213,7 +213,7 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     button_link = models.URLField(
         _('Button link'),
         blank=False)
-    button_title =  models.CharField(
+    button_title = models.CharField(
         _('Button title'),
         max_length=120,
         db_index=True)
@@ -261,4 +261,3 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
-
