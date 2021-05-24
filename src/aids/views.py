@@ -32,7 +32,7 @@ from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from geofr.utils import get_all_related_perimeter_ids
 from projects.models import Project
-from search.utils import clean_search_form
+from search.utils import clean_search_form, extract_id_from_string
 from stats.models import AidViewEvent
 from stats.utils import (log_aidviewevent, log_aidsearchevent)
 
@@ -102,7 +102,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             ordered_results = filter_form.order_queryset(results).distinct()
             ordered_results = ordered_results | self.get_aids_associated_to_project()  # noqa
 
-            searched_project = int(self.request.GET.get('projects').split('-')[0])  # noqa
+            searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
             is_associate_to_the_project = qs.filter(projects=searched_project)
 
             ordered_results = ordered_results \
@@ -128,7 +128,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         Get the aids that matched searched project and perimeter filter
         """
         if self.request.GET.get('projects'):
-            searched_project = int(self.request.GET.get('projects').split('-')[0])  # noqa
+            searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
             aids_associated_to_the_project = Aid.objects \
                 .published() \
                 .open() \
