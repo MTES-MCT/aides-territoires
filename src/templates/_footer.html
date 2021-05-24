@@ -23,7 +23,7 @@
                 <p>{% blocktrans trimmed %}
                 Publish your aids now !
                 {% endblocktrans %}</p>
-                {% if user.is_authenticated and user.is_contributor %}
+                {% if user.is_authenticated and user.is_contributor_or_staff %}
                     <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>
                 {% else %}
                     <a class="ml-btn" href="{% url 'login' %}">{{ _('Login') }}</a>

@@ -89,7 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_contributor = models.BooleanField(
         _('Is contributor'),
         help_text=_('Can access a dashboard to create aids'),
-        default=False)
+        default=True)
     is_certified = models.BooleanField(
         _('Is certified'),
         help_text=_('Display a badge next to this user\'s aids'),
@@ -112,8 +112,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_staff(self):
-        """Only the admin user can access the admin site."""
+        """Only the admin users can access the admin site."""
         return self.is_superuser
+
+    @property
+    def is_contributor_or_staff(self):
+        """Only the contributors or the admin users can access
+        certain pages of the app."""
+        return self.is_contributor or self.is_superuser
 
     @property
     def profile_complete(self):

@@ -310,6 +310,15 @@ def test_logged_in_contributor_has_menu(client, contributor):
     assert 'Espace contributeur' in res.content.decode()
 
 
+def test_logged_in_staff_has_menu(client):
+    user_staff = UserFactory(is_superuser=True, is_contributor=False)
+    client.force_login(user_staff)
+    home = reverse('home')
+    res = client.get(home)
+    assert 'Votre profil' in res.content.decode()
+    assert 'Espace contributeur' in res.content.decode()
+
+
 def test_non_contributor_can_log_in_but_no_menu(client):
     user_api = UserFactory(is_contributor=False)
     client.force_login(user_api)

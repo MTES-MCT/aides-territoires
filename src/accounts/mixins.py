@@ -12,7 +12,7 @@ class ContributorRequiredMixin(UserPassesTestMixin):
 
     def test_func(self):
         user = self.request.user
-        return user.is_authenticated and user.is_contributor
+        return user.is_authenticated and user.is_contributor_or_staff
 
     def get_register_url(self):
         user = self.request.user
@@ -47,14 +47,14 @@ class ContributorAndProfileCompleteRequiredMixin(UserPassesTestMixin):
 
     def test_func(self):
         user = self.request.user
-        return user.is_authenticated and user.is_contributor and user.profile_complete  # noqa
+        return user.is_authenticated and user.is_contributor_or_staff and user.profile_complete  # noqa
 
     def get_register_url(self):
         user = self.request.user
         if not user.is_authenticated:
             url = 'register'
         else:
-            if user.is_contributor:
+            if user.is_contributor_or_staff:
                 url = 'contributor_profile'
             else:
                 url = 'home'
@@ -65,7 +65,7 @@ class ContributorAndProfileCompleteRequiredMixin(UserPassesTestMixin):
         if not user.is_authenticated:
             login_url = settings.LOGIN_URL
         else:
-            if user.is_contributor:
+            if user.is_contributor_or_staff:
                 login_url = 'contributor_profile'
             else:
                 login_url = 'home'
