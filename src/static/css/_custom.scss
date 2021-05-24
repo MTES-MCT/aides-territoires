@@ -1944,9 +1944,14 @@ div#search-steps {
     @extend .py-4;
     border-radius: 10px;
 
+    p {
+        padding: 0 1rem;
+    }
+
     @include media-breakpoint-up(md) {
         p {
             margin-bottom: 0 !important;
+            padding: 0;
         }
 
         .btn {
