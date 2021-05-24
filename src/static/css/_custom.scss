@@ -1936,6 +1936,9 @@ div#search-steps {
     }
 
     form#theme {
+
+        @extend .col-md-11;
+
         label {
             text-transform: uppercase;
 
