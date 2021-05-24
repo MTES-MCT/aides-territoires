@@ -23,7 +23,6 @@ $(document).ready(function () {
                   params.page = params.page || 1;
 
                   if (data.results.length === 0) {
-                      console.log('lala')
                     $("#other_project_box").removeClass("d-none");
                   } 
                   return {
