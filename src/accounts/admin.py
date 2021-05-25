@@ -101,7 +101,9 @@ class UserAdmin(BaseUserAdmin):
                    SearchPageAdministratorFilter, ApiTokenFilter,
                    'is_certified', 'ml_consent']
 
-    readonly_fields = ['nb_aids', 'api_token', 'last_login', 'date_joined']
+    readonly_fields = ['nb_aids',
+                       'administrator_of_search_pages_list', 'api_token',
+                       'last_login', 'date_joined']
 
     fieldsets = (
         (None, {
@@ -128,6 +130,11 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'is_contributor',
                 'nb_aids',
+            )
+        }),
+        (_('PP Administrator space'), {
+            'fields': (
+                'administrator_of_search_pages_list',
             )
         }),
         (_('Permissions'), {
@@ -170,8 +177,27 @@ class UserAdmin(BaseUserAdmin):
     nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
+<<<<<<< HEAD
     def in_mailing_list(self, user):
         return user.ml_consent
+=======
+    def administrator_of_search_pages_list(self, user):
+        search_pages = user.administrator_of_search_pages.all()
+        if not search_pages:
+            return 'Aucune'
+        else:
+            html = ''
+            for search_page in search_pages:
+                html += format_html(
+                    '<a href="{obj_url}">{obj_name}</a></br>',
+                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),  # noqa
+                    obj_name=search_page)
+            return format_html(html)
+    administrator_of_search_pages_list.short_description = _('Search Page')
+
+    def in_mailing_list(self, obj):
+        return obj.ml_consent
+>>>>>>> b1b64178... Add user search page administored in admin
     in_mailing_list.short_description = mark_safe(
         _('<abbr title="Newsletter subscriber">NL</abbr>'))
     in_mailing_list.boolean = True

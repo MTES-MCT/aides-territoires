@@ -1919,6 +1919,9 @@ msgstr "Mon portefeuille d'aides"
 msgid "Publish a new aid"
 msgstr "Publier une aide"
 
+msgid "PP Administrator space"
+msgstr "Espace administrateur"
+
 msgid "Search results pages"
 msgstr "Pages de résultats"
 
