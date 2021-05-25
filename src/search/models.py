@@ -32,6 +32,15 @@ def meta_upload_to(instance, filename):
     return filename
 
 
+class SearchPageQuerySet(models.QuerySet):
+    """Custom queryset with additional filtering methods for search pages."""
+
+    def has_administrators(self):
+        """Only return search pages with at least one administrator."""
+
+        return self.filter(administrators__isnull=False)
+
+
 class SearchPage(models.Model):
     """A single search result page with additional data.
 
@@ -39,6 +48,8 @@ class SearchPage(models.Model):
     configurable titles, descriptions, etc. and built for navigation and
     seo purpose.
     """
+
+    objects = SearchPageQuerySet.as_manager()
 
     title = models.CharField(
         _('Title'),

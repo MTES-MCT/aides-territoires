@@ -8,11 +8,33 @@ from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+class AdministratorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target search pages with administrators."""
+
+    title = _('Administrators')
+    parameter_name = 'has_administrators'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_administrators()
+        elif value == 'No':
+            return queryset.filter(administrators__isnull=True)
+        return queryset
+
+
 class SearchPageAdmin(admin.ModelAdmin):
     form = SearchPageAdminForm
     list_display = ['slug', 'title', 'meta_description', 'date_created']
     filter_vertical = ['available_categories']
     search_fields = ['title']
+    list_filter = [AdministratorFilter]
 
     prepopulated_fields = {'slug': ('title',)}
     autocomplete_fields = ['administrators',
