@@ -8,6 +8,7 @@ from search.utils import (
     get_querystring_backers, get_querystring_programs)
 from stats.models import (AidViewEvent, AidSearchEvent, Event,
                           AidMatchProjectEvent)
+from aids.models import Aid
 
 
 @app.task
@@ -40,12 +41,14 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
     source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
-    # sometimes we query our API for internal (e.g. admin) purposes
-    # we don't want to log these searches
+    # There are some cases where we don't want to log the search event:
+    # - when there are unknown targeted_audiences (e.g. 'test', since May 2021)
+    # - when we query our API for internal (e.g. admin) purposes
+    targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
+    is_wrong_search = targeted_audiences and len(targeted_audiences) and targeted_audiences[0] not in Aid.AUDIENCES  # noqa
     is_internal_search = get_querystring_value_list_from_key(querystring_cleaned, 'internal')  # noqa
 
-    if not is_internal_search:  # noqa
-        targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
+    if not any([is_wrong_search, is_internal_search]):
         perimeter = get_querystring_perimeter(querystring)
         text = get_querystring_value_from_key(querystring, 'text')
 

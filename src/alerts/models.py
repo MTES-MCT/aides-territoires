@@ -97,5 +97,5 @@ class Alert(models.Model):
             .prefetch_related('financers') \
             .filter(date_published__gte=self.latest_alert_date) \
             .order_by('date_published')
-        qs = search_form.filter_queryset(base_qs)
+        qs = search_form.filter_queryset(base_qs).distinct()
         return qs

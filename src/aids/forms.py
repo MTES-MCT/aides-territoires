@@ -128,19 +128,6 @@ class BaseAidForm(forms.ModelForm):
             if field in self.fields:
                 self.fields[field].help_text = help_text
 
-    def clean(self):
-        """Custom validation routine."""
-
-        data = self.cleaned_data
-
-        if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
-                self.add_error('financers', msg)
-
-        return data
-
     def save(self, commit=True):
         """Saves the instance.
 
@@ -299,20 +286,45 @@ class AidEditForm(BaseAidForm):
         }
 
     def __init__(self, *args, **kwargs):
+
+        # The form validation rule will change depending on the
+        # new aid status.
+        self.requested_status = kwargs.pop('requested_status', None)
+
         super().__init__(*args, **kwargs)
+
+        if self.requested_status is None:
+            self.requested_status = self.instance.status
+
         if 'subvention_rate' in self.fields:
             range_widgets = self.fields['subvention_rate'].widget.widgets
             range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
             range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+
         if 'mobilization_steps' in self.fields:
             self.fields['mobilization_steps'].required = True
+
         if 'categories' in self.fields:
             self.fields['categories'].required = True
+
+    def full_clean(self):
+        if self.requested_status == 'draft':
+            for field_name in self.fields.keys():
+                if field_name == 'name':
+                    continue
+                self.fields[field_name].required = False
+
+        return super().full_clean()
 
     def clean(self):
         """Validation routine (frontend form only)."""
 
         data = super().clean()
+
+        # If the aid is saved as draft, don't perform any data validation
+        if self.requested_status == 'draft':
+            return data
+
         if 'recurrence' in data and data['recurrence']:
             recurrence = data['recurrence']
             submission_deadline = data.get('submission_deadline', None)
@@ -322,6 +334,12 @@ class AidEditForm(BaseAidForm):
                 self.add_error(
                     'submission_deadline',
                     ValidationError(msg, code='missing_submission_deadline'))
+
+        if 'financers' in self.fields:
+            if not any((data.get('financers'),
+                        data.get('financer_suggestion'))):
+                msg = _('Please provide a financer, or suggest a new one.')
+                self.add_error('financers', msg)
 
         return data
 
@@ -360,7 +378,7 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
-    published_after = forms.DateField(
+    published_after = forms.DateTimeField(
         label=_('Published after…'),
         required=False,
         widget=forms.TextInput(
@@ -612,12 +630,16 @@ class BaseAidSearchForm(forms.Form):
 
         return query
 
-    def get_order_fields(self, qs):
+    def get_order_fields(self, qs, has_highlighted_aids=False):
         """On which fields must this queryset be sorted?."""
 
         # Default results order
-        # We show the narrower perimet first, then aids with a deadline
+        # show the narrower perimeter first, then aids with a deadline
         order_fields = ['perimeter__scale', 'submission_deadline']
+
+        # If the search comes from a PP
+        if has_highlighted_aids:
+            order_fields = ['-is_highlighted_aid'] + order_fields
 
         # If the user submitted a text query, we order by query rank first
         text = self.cleaned_data.get('text', None)
@@ -633,9 +655,9 @@ class BaseAidSearchForm(forms.Form):
 
         return order_fields
 
-    def order_queryset(self, qs):
+    def order_queryset(self, qs, has_highlighted_aids=False):
         """Set the order value on the queryset."""
-        qs = qs.order_by(*self.get_order_fields(qs))
+        qs = qs.order_by(*self.get_order_fields(qs, has_highlighted_aids=has_highlighted_aids))  # noqa
         return qs
 
     def perimeter_filter(self, qs, search_perimeter):

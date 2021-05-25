@@ -35,6 +35,29 @@ class AidViewEvent(models.Model):
         verbose_name_plural = _('Aid View Events')
 
 
+class AidContactClickEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Événement aide voir les contacts'
+        verbose_name_plural = 'Événements aide voir les contacts'
+
+
 class AidSearchEvent(models.Model):
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),

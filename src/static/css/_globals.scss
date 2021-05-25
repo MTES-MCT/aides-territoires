@@ -832,6 +832,21 @@ ol.breadcrumb {
 
     li {
         @extend .breadcrumb-item;
+        align-items: center;
+
+        a {
+            font-weight: bold;
+        }
+    }
+
+    li + li {
+        @include icon(before, $fa-var-chevron-right);
+    }
+
+    li + li::before {
+        padding-right: 0.5rem;
+        color: $font-color;
+        font-size: 1rem;
     }
 }
 

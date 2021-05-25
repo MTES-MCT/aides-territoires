@@ -428,12 +428,16 @@ section#program-list {
         &>div {
             @extend .card-body;
 
+            #coming-soon {
+                color: $contrast-color;
+                font-weight: 900;
+            }
+
             span.deadline {
                 float: right;
                 display: block;
                 @extend .ml-2;
                 @extend .mb-2;
-
             }
 
             span.deadline-delta {
@@ -531,6 +535,18 @@ section#program-list {
                     content: " | ";
                 }
             }
+
+            .eligibility-badge {
+                position: absolute;
+                text-align: center;
+                left: 0;
+                right: 0;
+                bottom: 1.25rem; // .card-body padding
+
+                span > a {
+                    @extend .text-reset;
+                }
+            }
         }
     }
 
@@ -565,8 +581,8 @@ section#program-list {
 }
 
 section#post-list {
-    #blog-content, 
-    #no_result, 
+    #blog-content,
+    #no_result,
     #post {
         @extend .mb-5;
         @extend .px-5;
@@ -596,7 +612,7 @@ section#post-list {
                 padding: 0;
                 border: 2px solid #DB1C83;
                 border-radius: 4px;
-                margin: 0.5rem 0 0 0 !important; 
+                margin: 0.5rem 0 0 0 !important;
 
                 @include media-breakpoint-up(md) {
                     margin: 0.5rem 0 0 0;
@@ -609,7 +625,7 @@ section#post-list {
         }
 
         #search-posts {
-    
+
             button.filter-btn {
                 @extend .btn;
                 @extend .btn-primary;
@@ -655,7 +671,7 @@ section#post-list {
             max-height: 200px;
         }
     }
-    
+
     #post > div {
 
         @extend .mt-2;
@@ -665,7 +681,7 @@ section#post-list {
             margin-bottom: 1rem !important;
 
             &::after {
-                margin: 0.5rem 0 0 0 !important; 
+                margin: 0.5rem 0 0 0 !important;
 
                 @include media-breakpoint-up(md) {
                     margin: 0.5rem 0 0 0;
@@ -681,7 +697,7 @@ section#post-list {
                 display: flex;
                 justify-content: flex-end;
                 @extend .pt-0;
-        
+
                 .cta-btn {
                     @extend .btn;
                     @extend .btn-primary;
@@ -756,7 +772,8 @@ div.warning {
             padding: 1rem;
         }
 
-        span.help {
+        span.help,
+        p.help {
             @extend .text-muted;
         }
 
@@ -824,7 +841,7 @@ section#aid-edit {
             & a.active {
                 color: $contrast-color !important;
             }
-    
+
             .list-group-item  {
                 background-color: inherit;
                 border: none;
@@ -873,7 +890,7 @@ section#aid-edit {
 
         @include media-breakpoint-up(md) {
             background: rgb(255,255,255);
-            background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(249,248,246,1) 34%);    
+            background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(249,248,246,1) 34%);
         }
 
         div.inline-error {
@@ -913,7 +930,7 @@ section#aid-edit {
             input[type="checkbox" i]:checked {
                 filter: invert(36%) sepia(96%) saturate(6090%) hue-rotate(313deg) brightness(88%) contrast(95%);
             }
-    
+
             .part-form {
                 @extend .col-md-8;
                 @extend .order-1;
@@ -941,13 +958,13 @@ section#aid-edit {
                     padding-left: 2rem;
                 }
             }
-    
+
             .help-form {
                 @extend .col-md-4;
                 padding-right: 2rem;
                 @extend .order-2;
                 @extend .order-md-1;
-    
+
                 .field-help {
                     margin: 0 !important;
                 }
@@ -994,7 +1011,7 @@ section#aid-edit {
         p.warning, div.form-actions {
             @extend .mx-4;
         }
-        
+
         div.inline-error {
             margin-top: .5rem;
         }
@@ -1110,6 +1127,17 @@ article#aid {
         }
     }
 
+    a#collapse-categories-btn {
+        display: inline-block;
+        color: $dark-green !important;
+        font-weight: 900;
+        @extend .mt-1;
+
+        &[aria-expanded="true"] {
+            display: none;
+        }
+    }
+
     div.deadline-data {
         float: right;
         @extend .ml-3;
@@ -1146,7 +1174,7 @@ article#aid {
 
     .aid-content {
         @extend .row;
-        @extend .mt-5;
+        @extend .mt-4;
 
         overflow-wrap: break-word;
         word-wrap: break-word;
@@ -1251,7 +1279,7 @@ article#aid {
 
         & > div.aid-entreprise {
             @include icon(before, $fa-var-building, 1.5rem);
-            
+
             &::before {
                 margin-top: 0.5rem;
             }
@@ -1276,21 +1304,27 @@ article#aid {
             h3 {
                 margin-bottom: 1rem;
             }
-    
+
             div {
                 @extend .pb-3;
             }
-    
+
             @include media-breakpoint-up(md) {
                 div {
                     padding: 0;
                 }
             }
-    
+
             a {
                 margin-bottom: 0 !important;
             }
         }
+    }
+
+    #share-btn {
+        @extend .btn;
+        @extend .btn-primary;
+        @include icon(before, $fa-var-share);
     }
 
     .aid-details {
@@ -1306,14 +1340,16 @@ article#aid {
             @extend .mt-4;
         }
 
-        div#going-further {
-            @extend .mt-4;
+        div.fake-collapse {
+            max-height: 100px;
+            overflow-y: hidden;
+            opacity: 0.1;
         }
 
         a#fit_project_btn[href^="http"]::after {
             display: none;
         }
-        
+
         a#fit_project_btn {
             position: fixed;
             top: 50%;
@@ -1341,7 +1377,7 @@ article#aid {
                 color: $dark-green;
             }
         }
-          
+
         @keyframes climb {
             0% {
                 transform:  translate(0px,200px)  rotate(270deg) ;
@@ -1355,7 +1391,8 @@ article#aid {
             @extend .btn;
             @extend .btn-primary;
             display: block;
-            margin: 3rem auto 0 auto;
+            // margin: 3rem auto 0 auto;
+            @include icon(before, $fa-var-arrow-down);
         }
 
         div#localAidsLinks {
@@ -1980,7 +2017,7 @@ div#search-steps {
     .field-help {
         font-size: $font-size-small;
     }
-    
+
     label {
         display: block !important;
     }
@@ -2031,11 +2068,11 @@ div#search-steps {
     @extend .row;
 
     & div:first-of-type {
-        @extend .col-md-10;
+        @extend .col-md-8;
     }
 
     & div:last-of-type {
-        @extend .col-md-2;
+        @extend .col-md-4;
     }
 
     img {
@@ -2046,8 +2083,8 @@ div#search-steps {
     }
 }
 
-#backer-content, 
-#program-content, 
+#backer-content,
+#program-content,
 #post-content {
 
     @extend .px-5;

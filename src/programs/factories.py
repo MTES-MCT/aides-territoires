@@ -1,5 +1,6 @@
 import factory
 from factory.django import DjangoModelFactory
+
 from django.utils.text import slugify
 
 from programs.models import Program

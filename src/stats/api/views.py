@@ -1,9 +1,28 @@
 from rest_framework import viewsets, mixins
 
 from core.utils import get_site_from_host
-from stats.models import AidMatchProjectEvent, AidEligibilityTestEvent
-from stats.api.serializers import (AidMatchProjectEventSerializer,
+from search.utils import clean_search_querystring
+from stats.models import (AidContactClickEvent,
+                          AidMatchProjectEvent, AidEligibilityTestEvent)
+from stats.api.serializers import (AidContactClickEventSerializer,
+                                   AidMatchProjectEventSerializer,
                                    AidEligibilityTestEventSerializer)
+
+
+class AidContactClickEventViewSet(mixins.CreateModelMixin,
+                                  viewsets.GenericViewSet):
+    queryset = AidContactClickEvent.objects.all()
+    serializer_class = AidContactClickEventSerializer
+
+    def perform_create(self, serializer):
+        # clean host
+        host = self.request.get_host()
+        source_cleaned = get_site_from_host(host)
+        # clean querystring
+        querystring = serializer.validated_data.get('querystring')
+        querystring_cleaned = clean_search_querystring(querystring)
+        # save
+        serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
 class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
@@ -12,9 +31,14 @@ class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
     serializer_class = AidMatchProjectEventSerializer
 
     def perform_create(self, serializer):
+        # clean host
         host = self.request.get_host()
         source_cleaned = get_site_from_host(host)
-        serializer.save(source=source_cleaned)
+        # clean querystring
+        querystring = serializer.validated_data.get('querystring')
+        querystring_cleaned = clean_search_querystring(querystring)
+        # save
+        serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
 class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
@@ -23,6 +47,11 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
     serializer_class = AidEligibilityTestEventSerializer
 
     def perform_create(self, serializer):
+        # clean host
         host = self.request.get_host()
         source_cleaned = get_site_from_host(host)
-        serializer.save(source=source_cleaned)
+        # clean querystring
+        querystring = serializer.validated_data.get('querystring')
+        querystring_cleaned = clean_search_querystring(querystring)
+        # save
+        serializer.save(source=source_cleaned, querystring=querystring_cleaned)

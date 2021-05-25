@@ -112,6 +112,9 @@ Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utili
 Il faut aussi installer l'extension pg_trgm : 
 
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U postgres
+    psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS unaccent;' -U postgres
+    psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS btree_gin;' -U postgres
+
 
 En suivant l'utilisateur `aides` peut lancer les tests : 
 

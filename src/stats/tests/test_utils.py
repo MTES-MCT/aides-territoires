@@ -48,6 +48,57 @@ def test_log_aid_search_event(perimeters):
     assert event.source == 'francemobilites'
 
 
+def test_log_aid_search_event_with_wrong_targeted_audiences(perimeters):
+    # wrong targeted_audiences
+    request_get_urlencoded = "targeted_audiences=coucou"
+
+    event_count_before = AidSearchEvent.objects.count()
+
+    log_aidsearchevent(querystring=request_get_urlencoded)
+
+    event_count_after = AidSearchEvent.objects.count()
+
+    assert event_count_after == event_count_before
+
+    # wrong targeted_audiences (real example)
+    request_get_urlencoded = (
+        "integration=test&text=test&perimeter=test"
+        "&targeted_audiences=test&targeted_audiences=test"
+        "&targeted_audiences=test&targeted_audiences=test"
+        "&apply_before=test&call_for_projects_only=test"
+        "&order_by=test+ORDER+BY+5040%23")
+
+    event_count_before = AidSearchEvent.objects.count()
+
+    log_aidsearchevent(querystring=request_get_urlencoded)
+
+    event_count_after = AidSearchEvent.objects.count()
+
+    assert event_count_after == event_count_before
+
+    # accepted targeted_audiences
+    request_get_urlencoded = "targeted_audiences="
+
+    event_count_before = AidSearchEvent.objects.count()
+
+    log_aidsearchevent(querystring=request_get_urlencoded)
+
+    event_count_after = AidSearchEvent.objects.count()
+
+    assert event_count_after == event_count_before + 1
+
+    # accepted targeted_audiences
+    request_get_urlencoded = ""
+
+    event_count_before = AidSearchEvent.objects.count()
+
+    log_aidsearchevent(querystring=request_get_urlencoded)
+
+    event_count_after = AidSearchEvent.objects.count()
+
+    assert event_count_after == event_count_before + 1
+
+
 def test_log_aid_search_event_with_internal(perimeters):
     theme_1 = ThemeFactory(name='Nature environnement risques')
     theme_2 = ThemeFactory(name='Developpement economique')

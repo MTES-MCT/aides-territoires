@@ -129,7 +129,7 @@ class AidQuerySet(models.QuerySet):
     def generic_aids(self):
         """Returns the list of generic aids"""
 
-        return self.filter(local_aids__isnull=False)
+        return self.filter(is_generic=True)
 
     def local_aids(self):
         """Returns the list of local aids"""
@@ -139,7 +139,7 @@ class AidQuerySet(models.QuerySet):
     def standard_aids(self):
         """Returns the list of aids that are nither local nor generic"""
 
-        return self.filter(generic_aid__isnull=True, local_aids__isnull=True)
+        return self.filter(generic_aid__isnull=True, is_generic=False)
 
 
 class BaseExistingAidsManager(models.Manager):
@@ -365,12 +365,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             max_length=32,
             choices=TYPES),
         help_text=_('Specify the aid type or types.'))
+    is_generic = models.BooleanField(_('Is generic aid'), default=False)
     generic_aid = models.ForeignKey(
         'aids.Aid',
         verbose_name=_('Generic aid'),
         on_delete=models.CASCADE,
         null=True, blank=True,
         related_name='local_aids',
+        limit_choices_to={'is_generic': True},
         help_text=_("Generic aid associated to a local aid"))
     local_characteristics = models.TextField(
         _('Local characteristics'),
@@ -700,6 +702,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         deadline_delta = self.submission_deadline - today
         return deadline_delta.days
 
+    def is_coming_soon(self):
+        if not self.start_date:
+            return False
+
+        today = timezone.now().date()
+        return self.start_date > today
+
     def has_expired(self):
         if not self.submission_deadline:
             return False
@@ -720,9 +729,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     def is_local(self):
         return self.generic_aid is not None
-
-    def is_generic(self):
-        return self.local_aids.exists()
 
     def is_corporate_aid(self):
         return (

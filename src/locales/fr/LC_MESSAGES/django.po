@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-29 15:08+0200\n"
+"POT-Creation-Date: 2021-05-04 11:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,6 +201,18 @@ msgstr "Porteurs d'aides"
 msgid "Perimeter"
 msgstr "Périmètre"
 
+msgid "Financer"
+msgstr "Porteur d’aide"
+
+msgid "Financers"
+msgstr "Porteurs d’aides"
+
+msgid "Instructor"
+msgstr "Instructeurs"
+
+msgid "Instructors"
+msgstr "Instructeurs"
+
 msgid "Aid presentation"
 msgstr "Présentation de l'aide"
 
@@ -222,6 +234,9 @@ msgstr "Éligibilité"
 msgid "Aid admin"
 msgstr "Administration de l'aide"
 
+msgid "Only for generic aids"
+msgstr "Uniquement pour les aides génériques"
+
 msgid "Only for local aids"
 msgstr "Uniquement pour les aides locales"
 
@@ -236,12 +251,6 @@ msgstr "Du même auteur"
 
 msgid "Nb of (non-draft) aids by the same author"
 msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
-
-msgid "Financers"
-msgstr "Porteurs d’aides"
-
-msgid "Instructors"
-msgstr "Instructeurs"
 
 msgid "Live"
 msgstr "Live"
@@ -684,6 +693,9 @@ msgctxt "Aid (nf)"
 msgid "Deleted"
 msgstr "Supprimée"
 
+msgid "Order"
+msgstr "Trier par"
+
 msgid "Technical engineering"
 msgstr "Ingénierie technique"
 
@@ -790,6 +802,9 @@ msgstr "Types d'aide"
 
 msgid "Specify the aid type or types."
 msgstr "Précisez le ou les types de l'aide."
+
+msgid "Is generic aid"
+msgstr "Est une aide générique ?"
 
 msgid "Generic aid"
 msgstr "Aide générique"
@@ -1114,6 +1129,13 @@ msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le nom du porteur d'aides."
 
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the program's name."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le nom du programme."
+
 msgid "Meta description"
 msgstr "Description (balise meta)"
 
@@ -1154,7 +1176,6 @@ msgstr "Articles de blog"
 msgid "Blog Posts"
 msgstr "Articles de blog"
 
-#| msgid "Full description of the backer"
 msgid "Description of the category"
 msgstr "Description complète du porteur d'aides"
 
@@ -1530,6 +1551,12 @@ msgstr "Nom du projet"
 msgid "Full description of the project"
 msgstr "Description complète du projet"
 
+msgid "Key words"
+msgstr "Mots-clés"
+
+msgid "key words associated to the project"
+msgstr "mots-clés associés au projet"
+
 msgid "Is a suggested project?"
 msgstr "Est-ce un projet suggéré ?"
 
@@ -1550,9 +1577,6 @@ msgstr "Personnalisation du style"
 
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
-
-msgid "Exclude aids from results"
-msgstr "Exclure des aides des résultats"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1618,6 +1642,9 @@ msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Highlighted aids"
+msgstr "Aides à mettre en avant"
 
 msgid "Excluded aids"
 msgstr "Aides à exclure"
@@ -1855,9 +1882,6 @@ msgstr ""
 
 msgid "No results were found."
 msgstr "Aucun résultat trouvé."
-
-msgid "See contacts and full description"
-msgstr "Voir les contacts et le descriptif complet"
 
 msgid "Add a new instructor if different from financer"
 msgstr "Ajouter un instructeur s\\'il est différent du porteur"
@@ -2459,82 +2483,6 @@ msgstr "Modifiée le"
 msgid "Is live"
 msgstr "Visibilité sur le site"
 
-msgid "Edit an aid"
-msgstr "Modifiez une aide"
-
-msgid ""
-"This aid is <strong>currently not displayed on the site</strong>. You can "
-"send it to publication by requesting a review by an administrator."
-msgstr ""
-"Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. "
-"Vous pouvez l'envoyer pour publication en demandant une revue par un "
-"administrateur."
-
-msgid "Send to publication"
-msgstr "Demander la publication"
-
-msgid "You will be able to keep editing your aid."
-msgstr "Vous pourrez continuer à modifier votre aide."
-
-msgid ""
-"Pending approval by an administrator, this aid <strong>will be published "
-"anytime soon</strong>."
-msgstr ""
-"Sous réserve de validation par un administrateur, <strong>cette aide sera "
-"publiée sous peu</strong>."
-
-msgid "Cancel review"
-msgstr "Annuler la revue"
-
-msgid "You will be able to submit your aid for review later on."
-msgstr "Vous pourrez à nouveau demander une revue pour publication plus tard."
-
-msgid "You are editing a published aid. Please proceed with caution."
-msgstr ""
-"Vous éditez actuellement une aide publiée. Merci de procéder avec prudence."
-
-msgid "Unpublish right now"
-msgstr "Dépublier immédiatement"
-
-msgid "You will need to request a new review to re-publish your aid."
-msgstr ""
-"Vous devrez demander une revue par un administrateur pour re-publier votre "
-"aide."
-
-msgid "Preview"
-msgstr "Prévisualisation"
-
-msgid "Check how your aid will appear to our users."
-msgstr "Vérifiez le rendu de votre aide pour notre public."
-
-msgid "Preview the aid"
-msgstr "Prévisualiser cette aide"
-
-msgid "Delete the aid"
-msgstr "Suppression de l'aide"
-
-msgid ""
-"By clicking the button below, you will delete this aid. This action cannot "
-"be undone."
-msgstr ""
-"En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre "
-"aide. Il n'y a pas d'annulation possible."
-
-msgid "I understand"
-msgstr "Je comprends"
-
-msgid "Delete this aid"
-msgstr "Supprimer cette aide"
-
-msgid "Save changes"
-msgstr "Enregistrer vos modifications"
-
-msgid "Copy this aid"
-msgstr "Dupliquer cette aide"
-
-msgid "Back to your portfolio"
-msgstr "Retour à votre portefeuille d'aides"
-
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
@@ -2764,9 +2712,6 @@ msgstr "Revenir en arrière"
 msgid "Search – Perimeter"
 msgstr "Recherche – Périmètre"
 
-msgid "Search – Project"
-msgstr "Recherche – Projet"
-
 msgid "Search – Theme"
 msgstr "Recherche – Thématique"
 
@@ -2819,9 +2764,3 @@ msgstr "Uploader l'image"
 
 msgid "Upload images"
 msgstr "Uploader les images"
-
-msgid "key words associated to the project"
-msgstr "mots-clés associés au projet"
-
-msgid "Key words"
-msgstr "Mots-clés"

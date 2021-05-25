@@ -1,5 +1,7 @@
+import re
 from functools import reduce
 from operator import and_
+
 from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
@@ -11,6 +13,8 @@ from django.utils.safestring import mark_safe
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
 from admin_auto_filters.filters import AutocompleteFilter
+from fieldsets_with_inlines import FieldsetsInlineMixin
+from adminsortable2.admin import SortableInlineAdminMixin
 
 from aids.utils import generate_clone_title
 from aids.admin_views import AmendmentMerge
@@ -19,6 +23,7 @@ from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
+from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
@@ -146,25 +151,29 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
             return queryset.filter(perimeter__in=perimeter_qs)
 
 
-class FinancersInline(admin.TabularInline):
+class FinancersInline(SortableInlineAdminMixin, admin.TabularInline):
     """Configure the formset to the financers m2m field."""
 
     model = AidFinancer
+    extra = 1
     verbose_name = _('Financer')
     verbose_name_plural = _('Financers')
     autocomplete_fields = ['backer']
 
 
-class InstructorsInline(admin.TabularInline):
+class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
     """Configure the formset to the instructors m2m field."""
 
     model = AidInstructor
+    extra = 1
     verbose_name = _('Instructor')
     verbose_name_plural = _('Instructors')
     autocomplete_fields = ['backer']
 
 
-class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
+class BaseAidAdmin(FieldsetsInlineMixin,
+                   ImportMixin, ExportActionMixin,
+                   admin.ModelAdmin):
     """Admin module for aids."""
 
     class Media:
@@ -196,11 +205,8 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'perimeter', 'date_updated',
-        'date_published', 'is_imported', 'submission_deadline', 'status',
-    ]
+        'date_published', 'is_imported', 'submission_deadline', 'status']
     list_display_links = ['name']
-    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
-                           'programs']
     search_fields = ['id', 'name']
     list_filter = [
         'status', GenericAidListFilter, 'recurrence',
@@ -211,6 +217,8 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         PerimeterAutocompleteFilter,
         'programs', 'categories']
 
+    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
+                           'programs']
     filter_vertical = [
         'categories',
     ]  # Overriden in the widget definition
@@ -219,8 +227,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
         'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
-    inlines = [FinancersInline, InstructorsInline]
-    fieldsets = [
+    fieldsets_with_inlines = [
         (_('Aid presentation'), {
             'fields': (
                 'name',
@@ -235,6 +242,9 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'sibling_aids',
             )
         }),
+
+        FinancersInline,
+        InstructorsInline,
 
         (_('Aid perimeter'), {
             'fields': (
@@ -287,6 +297,12 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
             )
         }),
 
+        (_('Only for generic aids'), {
+            'fields': (
+                'is_generic',
+            )
+        }),
+
         (_('Only for local aids'), {
             'fields': (
                 'generic_aid',
@@ -305,6 +321,7 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
                 'import_last_access',
             )
         }),
+
         (_('Misc data'), {
             'fields': (
                 'date_created',
@@ -313,6 +330,33 @@ class BaseAidAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
             )
         }),
     ]
+
+    def get_search_results(self, request, queryset, search_term):
+        """
+        Here we can override the result of 'aids' autocomplete_fields
+        used in other admins.
+        Usage:
+        - autocomplete_fields is used on 'highlighted_aids' in the SearchPage
+        admin. But we want to restrict the queryset to only the SearchPage aids
+        """
+
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)  # noqa
+
+        # e.g. '<host>/admin/search/searchpage/35/change/'
+        meta_http_referer = request.META.get('HTTP_REFERER', '')
+        # e.g. 'app_label=search&model_name=searchpage&field_name=highlighted_aids'  # noqa
+        meta_query_string = request.META.get('QUERY_STRING', '')
+
+        # custom SearchPage.highlighted_aids autocomplete filter
+        if meta_query_string and all(x in meta_query_string for x in ['searchpage', 'highlighted_aids']):  # noqa
+            try:
+                search_page_id_str = re.search('searchpage/(.*?)/change', meta_http_referer).group(1)  # noqa
+                queryset = SearchPage.objects.get(pk=int(search_page_id_str)) \
+                                             .get_base_queryset(all_aids=True)
+            except AttributeError:  # regex error
+                pass
+
+        return queryset, use_distinct
 
     def sibling_aids(self, aid):
         """Number of other (non draft) aids created by the same author."""

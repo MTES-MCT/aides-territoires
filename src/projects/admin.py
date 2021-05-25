@@ -5,13 +5,11 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
-from import_export import fields, resources
-from import_export.widgets import ManyToManyWidget
 
 from core.forms import RichTextField
 from projects.models import Project
+from projects.resources import ProjectResource
 from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category
 
 
 class ProjectForm(forms.ModelForm):
@@ -25,20 +23,6 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-
-
-class ProjectResource(resources.ModelResource):
-
-    categories = fields.Field(
-        column_name='categories',
-        attribute='categories',
-        widget=ManyToManyWidget(Category, field='name')
-    )
-
-    class Meta:
-        model = Project
-        fields = ('name', 'description', 'categories', 'date_created')
-        export_order = ('name', 'description', 'categories', 'date_created')
 
 
 class ProjectAdmin(ImportExportActionModelAdmin):
