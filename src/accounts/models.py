@@ -9,6 +9,11 @@ from django.contrib.postgres.fields import ArrayField
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
 
+    def is_administrator_of_search_pages(self):
+        """Only return users who are search page administrators."""
+
+        return self.filter(administrator_of_search_pages__isnull=False)
+
     def with_api_token(self):
         """Only return users with an API Token."""
 
@@ -47,6 +52,11 @@ class UserManager(BaseUserManager):
         extra_fields['is_superuser'] = True
         return self._create_user(email, first_name, last_name, password,
                                  **extra_fields)
+
+    def is_administrator_of_search_pages(self):
+        """Only return users who are search page administrators."""
+
+        return self.get_queryset().is_administrator_of_search_pages()
 
     def with_api_token(self):
         """Only return users with an API Token."""

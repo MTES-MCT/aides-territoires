@@ -29,10 +29,32 @@ class AuthorFilter(InputFilter):
             return qs
 
 
+class SearchPageAdministratorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target users who are
+    search page administrators."""
+
+    title = 'Administrateur de PP ?'
+    parameter_name = 'is_administrator_of_search_pages'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.is_administrator_of_search_pages()
+        elif value == 'No':
+            return queryset.filter(administrator_of_search_pages__isnull=True)
+        return queryset
+
+
 class ApiTokenFilter(admin.SimpleListFilter):
     """Custom admin filter to target users with API Tokens."""
 
-    title = 'Token API'
+    title = 'Token API ?'
     parameter_name = 'has_api_token'
 
     def lookups(self, request, model_admin):
@@ -75,8 +97,9 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
 
-    list_filter = ['is_superuser', 'is_contributor', 'is_certified',
-                   ApiTokenFilter, 'ml_consent']
+    list_filter = ['is_superuser', 'is_contributor',
+                   SearchPageAdministratorFilter, ApiTokenFilter,
+                   'is_certified', 'ml_consent']
 
     readonly_fields = ['nb_aids', 'api_token', 'last_login', 'date_joined']
 
