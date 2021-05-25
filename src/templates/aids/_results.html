@@ -7,14 +7,6 @@
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
         {% if forloop.counter0 == 5 %}
-        <div id="save-alert-block">
-            <h5>🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</h5>
-            <div>
-                <a href="#" id="save-alert-results-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-                    {{ _('Create an alert') }}
-                </a>
-            </div>
-        </div>
         {% if promotions %}
         <div id="carouselControls" class="carousel slide promotions-slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -43,6 +35,15 @@
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div id="save-alert-block">
+            <h5>🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</h5>
+            <div>
+                <a href="#" id="save-alert-results-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+                    {{ _('Create an alert') }}
+                </a>
             </div>
         </div>
         {% endif %}

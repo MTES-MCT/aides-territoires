@@ -1744,8 +1744,8 @@ div#promotion-block {
         display: flex;
         justify-content: center;
 
-        @include media-breakpoint-up(md) {
-            justify-content: flex-end;
+        a[href^="http"]::after {
+            display: none;
         }
     }
 }
