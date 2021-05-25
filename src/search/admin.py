@@ -15,7 +15,8 @@ class SearchPageAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
     prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['highlighted_aids', 'excluded_aids']
+    autocomplete_fields = ['administrators',
+                           'highlighted_aids', 'excluded_aids']
     readonly_fields = [
         'all_aids_count', 'live_aids_count',
         'date_created', 'date_updated']
@@ -31,6 +32,11 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'more_content',
                 'date_created',
                 'date_updated',
+            )
+        }),
+        (_('Administrators'), {
+            'fields': (
+                'administrators',
             )
         }),
         (_('SEO'), {

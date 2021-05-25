@@ -113,6 +113,9 @@ msgstr "Contributeur ?"
 msgid "Can access a dashboard to create aids"
 msgstr "Peut accéder à un espace pour créer et modifier ses aides."
 
+msgid "Administrators"
+msgid "Administrateurs"
+
 msgid "Is certified"
 msgstr "Certifié ?"
 

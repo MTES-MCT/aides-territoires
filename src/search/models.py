@@ -66,6 +66,12 @@ class SearchPage(models.Model):
         _('Querystring'),
         help_text=_('The search paramaters url'))
 
+    administrators = models.ManyToManyField(
+        'accounts.User',
+        verbose_name=_('Administrators'),
+        related_name='administrator_of_search_pages',
+        blank=True)
+
     highlighted_aids = models.ManyToManyField(
         'aids.Aid',
         verbose_name=_('Highlighted aids'),
