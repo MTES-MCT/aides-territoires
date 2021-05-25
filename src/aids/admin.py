@@ -215,7 +215,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         EligibilityTestFilter,
         LiveAidListFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
-        'programs', 'categories']
+        'programs', 'categories', 'categories__theme',]
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
