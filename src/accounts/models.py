@@ -152,3 +152,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def profile_complete(self):
         """Contributors need to specify more personal data."""
         return self.organization and self.role and self.contact_phone
+
+    @property
+    def is_administrator_of_search_pages(self):
+        return self.administrator_of_search_pages.exists()
