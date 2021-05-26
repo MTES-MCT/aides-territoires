@@ -1,3 +1,5 @@
+from crawlerdetect import CrawlerDetect
+
 from core.celery import app
 from core.utils import get_site_from_host
 from search.utils import (
@@ -11,14 +13,29 @@ from stats.models import (AidViewEvent, AidSearchEvent, Event,
 from aids.models import Aid
 
 
+crawler_detect = CrawlerDetect()
+
+
 @app.task
-def log_aidviewevent(aid_id, querystring='', source=''):
+def log_aidmatchprojectevent(aid_id, project_id=''):
+    AidMatchProjectEvent.objects.create(
+        aid_id=aid_id,
+        project_id=project_id)
+
+
+@app.task
+def log_aidviewevent(aid_id, querystring='', source='', request_ua=''):
     source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
-    targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
+    # There are some cases where we don't want to log the view event:
+    # - a crawler
+    is_crawler = crawler_detect.isCrawler(request_ua)
 
-    AidViewEvent.objects.create(
+    if not any([is_crawler]):
+        targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
+
+        AidViewEvent.objects.create(
             aid_id=aid_id,
             targeted_audiences=targeted_audiences,
             querystring=querystring_cleaned,
@@ -26,14 +43,7 @@ def log_aidviewevent(aid_id, querystring='', source=''):
 
 
 @app.task
-def log_aidmatchprojectevent(aid_id, project_id=''):
-    AidMatchProjectEvent.objects.create(
-            aid_id=aid_id,
-            project_id=project_id)
-
-
-@app.task
-def log_aidsearchevent(querystring='', source='', results_count=0):
+def log_aidsearchevent(querystring='', results_count=0, source='', request_ua=''):  # noqa
     """
     Method to cleanup/populate the AidSearchEvents
     Run asynchronously to avoid slowing down requests.
@@ -42,13 +52,15 @@ def log_aidsearchevent(querystring='', source='', results_count=0):
     querystring_cleaned = clean_search_querystring(querystring)
 
     # There are some cases where we don't want to log the search event:
+    # - a crawler
     # - when there are unknown targeted_audiences (e.g. 'test', since May 2021)
     # - when we query our API for internal (e.g. admin) purposes
+    is_crawler = crawler_detect.isCrawler(request_ua)
     targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
     is_wrong_search = targeted_audiences and len(targeted_audiences) and targeted_audiences[0] not in Aid.AUDIENCES  # noqa
     is_internal_search = get_querystring_value_list_from_key(querystring_cleaned, 'internal')  # noqa
 
-    if not any([is_wrong_search, is_internal_search]):
+    if not any([is_crawler, is_wrong_search, is_internal_search]):
         perimeter = get_querystring_perimeter(querystring)
         text = get_querystring_value_from_key(querystring, 'text')
 

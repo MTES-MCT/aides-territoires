@@ -93,17 +93,23 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         return super().retrieve(request, slug)
 
     def finalize_response(self, request, response, *args, **kwargs):
+        request_ua = request.META.get('HTTP_USER_AGENT', '')
+
         # Fetching only 1 aid --> AidViewEvent
         if self.detail:
             if response.data.get('id'):
                 log_aidviewevent.delay(
                     aid_id=response.data.get('id'),
-                    querystring=self.request.GET.urlencode(),
-                    source='api')
+                    querystring=request.GET.urlencode(),
+                    source='api',
+                    request_ua=request_ua)
         # Fetching all aids (with or without filters) --> AidSearchEvent
+
         else:
             log_aidsearchevent.delay(
-                querystring=self.request.GET.urlencode(),
+                querystring=request.GET.urlencode(),
                 results_count=response.data.get('count', 0),
-                source='api')
+                source='api',
+                request_ua=request_ua)
+
         return super().finalize_response(request, response, *args, **kwargs)
