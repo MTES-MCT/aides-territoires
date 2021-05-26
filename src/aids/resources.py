@@ -102,10 +102,7 @@ class AidResource(resources.ModelResource):
             if key in row:
                 del row[key]
         # add/set keys
-        if 'projects' in row:
-            if not row.get('author'):
-                row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
-        else:
+        if not 'projects' in row:
             row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
             row['is_imported'] = True
         if 'subvention_rate' in row:
