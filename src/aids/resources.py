@@ -10,13 +10,14 @@ from categories.models import Category
 from backers.models import Backer
 from geofr.models import Perimeter
 from programs.models import Program
+from projects.models import Project
 
 
 AIDS_BOOLEAN_FIELDS = ['is_call_for_project', 'in_france_relance',
                        'is_imported']  # is_amendment
 
 AIDS_EXPORT_EXCLUDE_FIELDS = [
-    'id', 'short_title',
+    'short_title',
     'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'contact_email', 'contact_phone', 'contact_detail',
     'import_uniqueid', 'import_share_licence', 'import_last_access',
@@ -65,10 +66,15 @@ class AidResource(resources.ModelResource):
         attribute='programs',
         widget=ManyToManyWidget(Program, field='name')
     )
+    projects = fields.Field(
+        column_name='projects',
+        attribute='projects',
+        widget=ManyToManyWidget(Project, field='name')
+    )
 
     class Meta:
         model = Aid
-        import_id_fields = ('slug',)
+        import_id_fields = ('id',)
         exclude = AIDS_EXPORT_EXCLUDE_FIELDS
         # adding custom widgets breaks the usual order
         export_order = [field.name for field in Aid._meta.fields if field.name not in AIDS_EXPORT_EXCLUDE_FIELDS]  # noqa
@@ -96,8 +102,9 @@ class AidResource(resources.ModelResource):
             if key in row:
                 del row[key]
         # add/set keys
-        row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
-        row['is_imported'] = True
+        if 'projects' not in row:
+            row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
+            row['is_imported'] = True
         if 'subvention_rate' in row:
             if row['subvention_rate']:
                 row['subvention_rate'] = row['subvention_rate'] \
