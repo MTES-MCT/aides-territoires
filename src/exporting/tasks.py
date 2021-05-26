@@ -13,7 +13,7 @@ def export_aids(aids_id_list, author_id, file_format):
     queryset = Aid.objects.filter(id__in=aids_id_list)
     exported_data = AidResource().export(queryset)
     if file_format == 'csv':
-        content_file = ContentFile(exported_data.csv)
+        content_file = ContentFile(exported_data.csv.encode())
     if file_format == 'xlsx':
         content_file = ContentFile(exported_data.xlsx)
     file_name = 'export-aides-'
