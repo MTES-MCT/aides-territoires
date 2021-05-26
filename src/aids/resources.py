@@ -4,6 +4,8 @@ from django.db.models.fields import TextField, CharField, URLField
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
+
 from aids.models import Aid
 from accounts.models import User
 from categories.models import Category
@@ -159,6 +161,11 @@ class AidResource(resources.ModelResource):
             if field_model.choices:
                 value = getattr(obj, f'get_{field.column_name}_display')()
                 return field.widget.render(value, obj)
+            # For Text and Char fields, we remove illegal characters
+            elif isinstance(field_model, (TextField, CharField)):
+                export_value = field.export(obj)
+                export_value = ILLEGAL_CHARACTERS_RE.sub('', export_value)
+                return export_value
             # ChoiceArrayField fields: need to translate a list
             elif hasattr(field_model, 'base_field') and field_model.base_field.choices:  # noqa
                 value_raw = field.get_value(obj)
@@ -180,5 +187,4 @@ class AidResource(resources.ModelResource):
                 lower = field.get_value(obj).lower or ''
                 upper = field.get_value(obj).upper or ''
                 return f'[{lower}, {upper})'
-
         return field.export(obj)
