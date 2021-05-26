@@ -21,10 +21,10 @@ api_patterns = [
     path('', include(router.urls)),
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
+    path('stats/', include('stats.api.urls')),
 ]
 
 urlpatterns = [
-
     # We give two names to the same view, because with minisites, the search
     # form is also the home page.
     path('', SiteHome.as_view(),  name='home'),
