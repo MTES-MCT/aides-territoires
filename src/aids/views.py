@@ -116,10 +116,12 @@ class SearchView(SearchMixin, FormMixin, ListView):
             ordered_results = filter_form.order_queryset(results).distinct()
 
         host = self.request.get_host()
+        request_ua = self.request.META.get('HTTP_USER_AGENT', '')
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=ordered_results.count(),
-            source=host)
+            source=host,
+            request_ua=request_ua)
 
         return ordered_results
 
@@ -371,12 +373,14 @@ class AidDetailView(DetailView):
         response = super().get(request, *args, **kwargs)
 
         if self.object.is_published():
-            host = request.get_host()
             current_search = response.context_data.get('current_search', '')
+            host = request.get_host()
+            request_ua = request.META.get('HTTP_USER_AGENT', '')
             log_aidviewevent.delay(
                 aid_id=self.object.id,
                 querystring=current_search,
-                source=host)
+                source=host,
+                request_ua=request_ua)
 
         return response
 

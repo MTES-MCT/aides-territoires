@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 beautifulsoup4 = "*"
 celery = "*"
+crawlerdetect = "*"
 django = "<4"
 django-activity-stream = "*"
 django-admin-autocomplete-filter = "*"
@@ -40,7 +41,7 @@ boto3 = "*"
 whitenoise = "*"
 
 [dev-packages]
-ansible = "*"
+ansible = "<4"
 django-debug-toolbar = "*"
 django-extensions = "*"
 factory-boy = "*"

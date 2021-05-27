@@ -175,10 +175,12 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         qs = self.form.order_queryset(qs, has_highlighted_aids=True).distinct()
 
         host = self.request.get_host()
+        request_ua = self.request.META.get('HTTP_USER_AGENT', '')
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=qs.count(),
-            source=host)
+            source=host,
+            request_ua=request_ua)
 
         return qs
 
