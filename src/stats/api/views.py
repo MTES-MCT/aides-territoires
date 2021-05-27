@@ -2,10 +2,12 @@ from rest_framework import viewsets, mixins
 
 from core.utils import get_site_from_host
 from stats.models import (AidContactClickEvent,
-                          AidMatchProjectEvent, AidEligibilityTestEvent)
+                          AidMatchProjectEvent, AidEligibilityTestEvent,
+                          PromotionClickEvent)
 from stats.api.serializers import (AidContactClickEventSerializer,
                                    AidMatchProjectEventSerializer,
-                                   AidEligibilityTestEventSerializer)
+                                   AidEligibilityTestEventSerializer,
+                                   PromotionClickEventSerializer)
 
 
 class AidContactClickEventViewSet(mixins.CreateModelMixin,
@@ -34,6 +36,17 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
                                      viewsets.GenericViewSet):
     queryset = AidEligibilityTestEvent.objects.all()
     serializer_class = AidEligibilityTestEventSerializer
+
+    def perform_create(self, serializer):
+        host = self.request.get_host()
+        source_cleaned = get_site_from_host(host)
+        serializer.save(source=source_cleaned)
+
+
+class PromotionClickEventViewSet(mixins.CreateModelMixin,
+                                  viewsets.GenericViewSet):
+    queryset = PromotionClickEvent.objects.all()
+    serializer_class = PromotionClickEventSerializer
 
     def perform_create(self, serializer):
         host = self.request.get_host()
