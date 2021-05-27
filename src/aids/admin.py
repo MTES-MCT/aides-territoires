@@ -10,8 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from import_export.admin import ImportMixin, ExportActionMixin
-from import_export.formats import base_formats
+from import_export.admin import ImportMixin
 from admin_auto_filters.filters import AutocompleteFilter
 from fieldsets_with_inlines import FieldsetsInlineMixin
 from adminsortable2.admin import SortableInlineAdminMixin
@@ -23,8 +22,8 @@ from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
+from exporting.admin import AidExportMixin
 from search.models import SearchPage
-from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -193,7 +192,8 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class BaseAidAdmin(FieldsetsInlineMixin,
-                   ImportMixin, ExportActionMixin,
+                   AidExportMixin,
+                   ImportMixin,
                    admin.ModelAdmin):
     """Admin module for aids."""
 
@@ -220,10 +220,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
-    actions = [
-        'export_csv', 'export_xlsx', 'export_admin_action',
-        'make_mark_as_CFP']
-    formats = [base_formats.CSV, base_formats.XLSX]
+    actions = ['make_mark_as_CFP'] + AidExportMixin.actions
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'perimeter', 'date_updated',
@@ -439,27 +436,6 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             f'Exported data will be available '
             f'<a href="{url}">here: {url}</a>')
         self.message_user(request, mark_safe(msg))
-
-    def export_csv(self, request, queryset):
-        aids_id_list = list(queryset.values_list('id', flat=True))
-        export_aids_as_csv.delay(aids_id_list, request.user.id)
-        self.show_export_message(request)
-    export_csv.short_description = _(
-        'Export selected Aids as CSV in background task')
-
-    def export_xlsx(self, request, queryset):
-        aids_id_list = list(queryset.values_list('id', flat=True))
-        export_aids_as_xlsx.delay(aids_id_list, request.user.id)
-        self.show_export_message(request)
-    export_xlsx.short_description = _(
-        'Export selected Aids as XLSX as background task')
-
-    def export_admin_action(self, request, queryset):
-        # We do a noop override of this method, just because
-        # we want to customize it's short description
-        return super().export_admin_action(request, queryset)
-    export_admin_action.short_description = _(
-        'Export and download selected Aids')
 
 
 class AidAdmin(BaseAidAdmin):
