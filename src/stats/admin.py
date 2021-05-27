@@ -4,7 +4,7 @@ from core.admin import pretty_print_readonly_jsonfield
 from stats.models import (AidSearchEvent,
                           AidViewEvent, AidContactClickEvent,
                           AidMatchProjectEvent, AidEligibilityTestEvent,
-                          Event)
+                          Event, PromotionClickEvent)
 
 
 class AidViewEventAdmin(admin.ModelAdmin):
@@ -94,6 +94,24 @@ class AidMatchProjectEventAdmin(admin.ModelAdmin):
         return False
 
 
+class PromotionClickEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = [
+        'id', 'promotion', 'querystring',
+         'source', 'date_created']
+    list_filter = ['source']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 class EventAdmin(admin.ModelAdmin):
     """The model is set to (almost) readonly"""
 
@@ -113,4 +131,5 @@ admin.site.register(AidContactClickEvent, AidContactClickEventAdmin)
 admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
 admin.site.register(AidMatchProjectEvent, AidMatchProjectEventAdmin)
+admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
 admin.site.register(Event, EventAdmin)
