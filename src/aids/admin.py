@@ -399,7 +399,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return super().get_form(request, obj, **kwargs)
 
     def author_name(self, aid):
-        return aid.author.full_name
+        if aid.author is not None:
+            return aid.author.full_name
     author_name.short_description = _('Author')
 
     def all_financers(self, aid):
