@@ -76,8 +76,6 @@ cache_config = {
 CACHES.update(cache_config)
 
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='memory://')
-CELERY_TASK_ALWAYS_EAGER = env('CELERY_TASK_ALWAYS_EAGER', default=True)
-CELERY_TASK_EAGER_PROPAGATES = env('CELERY_TASK_EAGER_PROPAGATES', default=True)
 
 env_allowed_hosts = []
 try:
