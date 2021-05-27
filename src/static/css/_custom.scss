@@ -2286,3 +2286,7 @@ ul.aid-categories {
         }
     }
 }
+
+.hide-me[aria-expanded="true"] {
+    display: none;
+}

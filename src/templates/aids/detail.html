@@ -399,6 +399,8 @@
             </div>
             {% endif %}
 
+            {% include 'aids/_generic_to_local.html' %}
+
             <h2>{{ _('Going further') }}</h2>
             <button type="button" id="going-further-reveal-button" class="cta-btn d-inline-block">
                 Poursuivre la démarche pour obtenir l'aide
@@ -423,15 +425,6 @@
                 </p>
                 {% endif %}
             </div>
-
-            <div>
-                <form name="generic_to_local" action="{% url 'aid_generic_to_local_view' aid.slug %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="cta-btn d-inline-block">Créer une variante locale de cette aide</button>
-                </form>
-            </div>
-
-        </div>
 
     </section>
 
