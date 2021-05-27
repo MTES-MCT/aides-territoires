@@ -166,6 +166,18 @@ class AidAdminForm(BaseAidForm):
         label=_('Categories'),
         required=False,
         widget=FilteredSelectMultiple(_('Categories'), True))
+    projects = AutocompleteModelMultipleChoiceField(
+        label=_('Projects that may fit the aid'),
+        queryset=Project.objects
+        .filter(status='published')
+        .distinct(),
+        required=False,
+        help_text=_('''
+            This field is <span>a beta functionnality</span> to associate
+             the aid with projects example.
+            This will allow users in future to research aid by projects.
+            You can had several projects.
+        '''))
 
     class Meta:
         widgets = {
@@ -419,10 +431,9 @@ class BaseAidSearchForm(forms.Form):
         label=_('Backers'),
         queryset=Backer.objects.all(),
         required=False)
-    projects = forms.ModelMultipleChoiceField(
+    projects = AutocompleteModelMultipleChoiceField(
         label=_('Projects'),
         queryset=Project.objects.all(),
-        to_field_name='slug',
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label=_('Aid programs'),
@@ -570,6 +581,8 @@ class BaseAidSearchForm(forms.Form):
         if backers:
             qs = qs.filter(
                 Q(financers__in=backers) | Q(instructors__in=backers))
+
+        projects = self.cleaned_data.get('projects', None) # noqa
 
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:

@@ -84,6 +84,27 @@ class EligibilityTestFilter(admin.SimpleListFilter):
         return queryset
 
 
+class ProjectFilter(admin.SimpleListFilter):
+    """Custom admin filter to target aids with projects."""
+
+    title = _('Aids associated to projects')
+    parameter_name = 'has_projects'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_projects()
+        elif value == 'No':
+            return queryset.filter(projects__isnull=True)  # noqa
+        return queryset
+
+
 class GenericAidListFilter(admin.SimpleListFilter):
     """Custom admin filter for generic, local and standard aids."""
 
@@ -188,6 +209,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             '/static/js/shared_config.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
+            '/static/js/project_autocomplete_admin.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',
@@ -214,7 +236,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'is_call_for_project', 'in_france_relance',
         EligibilityTestFilter,
         LiveAidListFilter, AuthorFilter, BackersFilter,
-        PerimeterAutocompleteFilter,
+        PerimeterAutocompleteFilter, ProjectFilter,
         'programs', 'categories__theme', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
@@ -272,6 +294,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'mobilization_steps',
                 'destinations',
                 'description',
+                'projects',
                 'project_examples',
                 'eligibility',
             )
@@ -376,7 +399,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return super().get_form(request, obj, **kwargs)
 
     def author_name(self, aid):
-        return aid.author.full_name
+        if aid.author is not None:
+            return aid.author.full_name
     author_name.short_description = _('Author')
 
     def all_financers(self, aid):
@@ -393,6 +417,11 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return aid.is_live()
     live_status.boolean = True
     live_status.short_description = _('Live')
+
+    def has_projects(self, aid):
+        return aid.has_projects()
+    has_projects.boolean = True
+    has_projects.short_description = _('Has projects associated')
 
     def has_eligibility_test(self, aid):
         return aid.has_eligibility_test()
