@@ -9,8 +9,7 @@ from aids.resources import AidResource
 from exporting.models import DataExport
 
 
-def export_aids(aids_id_list, author_id, file_format):
-    queryset = Aid.objects.filter(id__in=aids_id_list)
+def export_aids(queryset, author_id, file_format):
     exported_data = AidResource().export(queryset)
     if file_format == 'csv':
         file_content = ContentFile(exported_data.csv.encode())
@@ -30,9 +29,35 @@ def export_aids(aids_id_list, author_id, file_format):
 
 @app.task
 def export_aids_as_csv(aids_id_list, author_id):
-    export_aids(aids_id_list, author_id, file_format='csv')
+    queryset = Aid.objects.filter(id__in=aids_id_list)
+    export_aids(queryset, author_id, file_format='csv')
 
 
 @app.task
 def export_aids_as_xlsx(aids_id_list, author_id):
-    export_aids(aids_id_list, author_id, file_format='xlsx')
+    queryset = Aid.objects.filter(id__in=aids_id_list)
+    export_aids(queryset, author_id, file_format='xlsx')
+
+
+@app.task
+def export_published_aids_as_csv(author_id):
+    queryset = Aid.objects.published()
+    export_aids(queryset, author_id, file_format='csv')
+
+
+@app.task
+def export_published_aids_as_xlsx(author_id):
+    queryset = Aid.objects.published()
+    export_aids(queryset, author_id, file_format='xlsx')
+
+
+@app.task
+def export_live_aids_as_csv(author_id):
+    queryset = Aid.objects.live()
+    export_aids(queryset, author_id, file_format='csv')
+
+
+@app.task
+def export_live_aids_as_xlsx(author_id):
+    queryset = Aid.objects.live()
+    export_aids(queryset, author_id, file_format='xlsx')
