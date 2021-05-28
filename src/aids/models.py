@@ -121,6 +121,9 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def has_projects(self):
+        return self.filter(projects__isnull=False)
+
     def has_eligibility_test(self):
         """Only return aids with an eligibility test."""
 
@@ -323,6 +326,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     project_examples = models.TextField(
         _('Project examples'),
         default='',
+        blank=True)
+    projects = models.ManyToManyField(
+        'projects.Project',
+        verbose_name=_('Projects'),
+        related_name='aids',
         blank=True)
     eligibility = models.TextField(
         _('Eligibility'),
@@ -719,6 +727,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_live(self):
         """True if the aid must be displayed on the site."""
         return self.is_published() and not self.has_expired()
+
+    def has_projects(self):
+        return self.projects is not None
 
     def get_live_status_display(self):
         status = _('Displayed') if self.is_live() else _('Not displayed')

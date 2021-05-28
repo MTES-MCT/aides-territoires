@@ -1,12 +1,8 @@
-$(document).ready(function () {
+django.jQuery(document).ready(function () {
 
-    $('select#id_projects').select2({
-        placeholder: catalog.project_placeholder,
+    django.jQuery('select#id_projects').select2({
         language: 'fr',
         minimumInputLength: 3,
-        language: {
-            inputTooShort: function() { return catalog.autocomplete_placeholder; },
-        },
         ajax: {
             url: '/api/projects/',
             dataType: 'json',
@@ -22,9 +18,6 @@ $(document).ready(function () {
               processResults: function (data, params) {
                   params.page = params.page || 1;
 
-                  if (data.results.length === 0) {
-                    $("#other_project_box").removeClass("d-none");
-                  } 
                   return {
                       results: data.results,
                       pagination: {
@@ -33,7 +26,6 @@ $(document).ready(function () {
                   };
               }
         },
-        theme: 'bootstrap4',
-        width: '',
+        width: '80%',
     });
 });

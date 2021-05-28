@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Count, Prefetch
+from django.db.models import Q, Count, Prefetch, Case, When, IntegerField
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -32,7 +32,8 @@ from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
-from search.utils import clean_search_form
+from projects.models import Project
+from search.utils import clean_search_form, extract_id_from_string
 from stats.models import AidViewEvent
 from stats.utils import (log_aidviewevent, log_aidsearchevent)
 
@@ -73,6 +74,10 @@ class SearchView(SearchMixin, FormMixin, ListView):
         instructors_qs = Backer.objects \
             .order_by('aidinstructor__order', 'name')
 
+        projects_qs = Project.objects \
+            .filter(status='published') \
+            .distinct()
+
         qs = Aid.objects \
             .published() \
             .open() \
@@ -80,18 +85,70 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
             .prefetch_related(Prefetch('instructors',
                                        queryset=instructors_qs)) \
+            .prefetch_related(Prefetch('projects', queryset=projects_qs)) \
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
-        ordered_results = filter_form.order_queryset(results).distinct()
+
+        '''
+        If the querystring contains projects filter:
+
+        - we join to the classical queryset a queryset to add aids results
+        matching the searched project and not existing in the first queryset.
+
+        - we order results to display first aids matching the searched project
+        '''
+
+        if self.request.GET.get('projects'):
+            ordered_results = filter_form.order_queryset(results).distinct()
+            ordered_results = ordered_results | self.get_aids_associated_to_project()  # noqa
+
+            searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
+            is_associate_to_the_project = qs.filter(projects=searched_project)
+
+            ordered_results = ordered_results \
+                .annotate(num_projects=Count(
+                    Case(
+                        When(id__in=is_associate_to_the_project, then=1),
+                        output_field=IntegerField()
+                    )
+                )).order_by('-num_projects').distinct()
+        else:
+            ordered_results = filter_form.order_queryset(results).distinct()
 
         host = self.request.get_host()
+        request_ua = self.request.META.get('HTTP_USER_AGENT', '')
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=ordered_results.count(),
-            source=host)
+            source=host,
+            request_ua=request_ua)
 
         return ordered_results
+
+    def get_aids_associated_to_project(self):
+        """
+        Get the aids that matched searched project and perimeter filter
+        """
+        if self.request.GET.get('projects'):
+            searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
+            aids_associated_to_the_project = Aid.objects \
+                .published() \
+                .open() \
+                .filter(projects=searched_project) \
+                .distinct()
+
+            searched_perimeter = self.form.cleaned_data.get('perimeter', None)
+            if searched_perimeter:
+                searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(perimeter__in=searched_perimeter)  # noqa
+
+            aids_associated_to_the_project = aids_associated_to_the_project.distinct()  # noqa
+
+            return aids_associated_to_the_project
+        else:
+            return
 
     def get_programs(self):
         """Get the aid programs that matched the search perimeter.
@@ -175,6 +232,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
         context['promotions'] = self.get_promotions()
+        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()  # noqa
 
         return context
 
@@ -354,12 +412,14 @@ class AidDetailView(DetailView):
         response = super().get(request, *args, **kwargs)
 
         if self.object.is_published():
-            host = request.get_host()
             current_search = response.context_data.get('current_search', '')
+            host = request.get_host()
+            request_ua = request.META.get('HTTP_USER_AGENT', '')
             log_aidviewevent.delay(
                 aid_id=self.object.id,
                 querystring=current_search,
-                source=host)
+                source=host,
+                request_ua=request_ua)
 
         return response
 

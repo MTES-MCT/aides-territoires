@@ -6,6 +6,8 @@ from accounts.models import User
 from aids.factories import AidFactory
 from categories.factories import CategoryFactory
 from minisites.factories import MinisiteFactory
+from pages.factories import PageFactory
+
 
 pytestmark = [
     pytest.mark.django_db,
@@ -209,3 +211,28 @@ def test_alert_creation(client, settings, mailoutbox):
     assert alert.date_validated is None
 
     assert len(mailoutbox) == 1
+
+
+def test_minisite_page_access(client, settings):
+    site = MinisiteFactory()
+    page_host = '{}.aides-territoires'.format(site.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    page = PageFactory()
+    url = reverse('page_detail_view', args=[page.url])
+
+    # Page is not linked to any minisite
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 404
+
+    # Page is linked to another minisite
+    page.minisite = MinisiteFactory()
+    page.save()
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 404
+
+    # Page is linked to the correct minisite
+    page.minisite = site
+    page.save()
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 200

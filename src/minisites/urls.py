@@ -7,7 +7,7 @@ from django.views.generic import View
 
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
                              SiteBackers, SiteStats, SiteProgram,
-                             SiteLegalMentions, Error)
+                             SiteLegalMentions, Error, PageList, PageDetail)
 
 
 # This set of url patterns is completely independant from all other urls.
@@ -21,10 +21,10 @@ api_patterns = [
     path('', include(router.urls)),
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
+    path('stats/', include('stats.api.urls')),
 ]
 
 urlpatterns = [
-
     # We give two names to the same view, because with minisites, the search
     # form is also the home page.
     path('', SiteHome.as_view(),  name='home'),
@@ -60,9 +60,14 @@ urlpatterns = [
     # Api related routes
     path('api/', include(api_patterns)),
 
+    path('pages/', PageList.as_view(), name='page_list_view'),
+
     # The aid detail view
     path('<slug:slug>/', include([
         path('', SiteAid.as_view(), name='aid_detail_view')])),
+
+    # Static pages
+    path('pages<path:url>', PageDetail.as_view(), name='page_detail_view')
 ]
 
 handler400 = Error.as_view(template_name='minisites/400.html', status_code=400)

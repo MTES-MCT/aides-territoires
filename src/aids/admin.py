@@ -1,5 +1,7 @@
+import re
 from functools import reduce
 from operator import and_
+
 from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
@@ -21,6 +23,7 @@ from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from core.admin import InputFilter
 from accounts.admin import AuthorFilter
+from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
@@ -78,6 +81,27 @@ class EligibilityTestFilter(admin.SimpleListFilter):
             return queryset.has_eligibility_test()
         elif value == 'No':
             return queryset.filter(eligibility_test__isnull=True)  # noqa
+        return queryset
+
+
+class ProjectFilter(admin.SimpleListFilter):
+    """Custom admin filter to target aids with projects."""
+
+    title = _('Aids associated to projects')
+    parameter_name = 'has_projects'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_projects()
+        elif value == 'No':
+            return queryset.filter(projects__isnull=True)  # noqa
         return queryset
 
 
@@ -185,6 +209,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             '/static/js/shared_config.js',
             '/static/js/plugins/softmaxlength.js',
             '/static/js/aids/enable_softmaxlength.js',
+            '/static/js/project_autocomplete_admin.js',
             '/static/trumbowyg/dist/trumbowyg.js',
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',
@@ -211,8 +236,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'is_call_for_project', 'in_france_relance',
         EligibilityTestFilter,
         LiveAidListFilter, AuthorFilter, BackersFilter,
-        PerimeterAutocompleteFilter,
-        'programs', 'categories']
+        PerimeterAutocompleteFilter, ProjectFilter,
+        'programs', 'categories__theme', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
                            'programs']
@@ -269,6 +294,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'mobilization_steps',
                 'destinations',
                 'description',
+                'projects',
                 'project_examples',
                 'eligibility',
             )
@@ -318,6 +344,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'import_last_access',
             )
         }),
+
         (_('Misc data'), {
             'fields': (
                 'date_created',
@@ -326,6 +353,33 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             )
         }),
     ]
+
+    def get_search_results(self, request, queryset, search_term):
+        """
+        Here we can override the result of 'aids' autocomplete_fields
+        used in other admins.
+        Usage:
+        - autocomplete_fields is used on 'highlighted_aids' in the SearchPage
+        admin. But we want to restrict the queryset to only the SearchPage aids
+        """
+
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)  # noqa
+
+        # e.g. '<host>/admin/search/searchpage/35/change/'
+        meta_http_referer = request.META.get('HTTP_REFERER', '')
+        # e.g. 'app_label=search&model_name=searchpage&field_name=highlighted_aids'  # noqa
+        meta_query_string = request.META.get('QUERY_STRING', '')
+
+        # custom SearchPage.highlighted_aids autocomplete filter
+        if meta_query_string and all(x in meta_query_string for x in ['searchpage', 'highlighted_aids']):  # noqa
+            try:
+                search_page_id_str = re.search('searchpage/(.*?)/change', meta_http_referer).group(1)  # noqa
+                queryset = SearchPage.objects.get(pk=int(search_page_id_str)) \
+                                             .get_base_queryset(all_aids=True)
+            except AttributeError:  # regex error
+                pass
+
+        return queryset, use_distinct
 
     def sibling_aids(self, aid):
         """Number of other (non draft) aids created by the same author."""
@@ -345,7 +399,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return super().get_form(request, obj, **kwargs)
 
     def author_name(self, aid):
-        return aid.author.full_name
+        if aid.author is not None:
+            return aid.author.full_name
     author_name.short_description = _('Author')
 
     def all_financers(self, aid):
@@ -362,6 +417,11 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return aid.is_live()
     live_status.boolean = True
     live_status.short_description = _('Live')
+
+    def has_projects(self, aid):
+        return aid.has_projects()
+    has_projects.boolean = True
+    has_projects.short_description = _('Has projects associated')
 
     def has_eligibility_test(self, aid):
         return aid.has_eligibility_test()

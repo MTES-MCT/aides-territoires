@@ -3,14 +3,14 @@ from factory.django import DjangoModelFactory
 
 from django.utils.text import slugify
 
-from programs.models import Program
+from projects.models import Project
 
 
-class ProgramFactory(DjangoModelFactory):
-    """Factory for programs."""
+class ProjectFactory(DjangoModelFactory):
+    """Factory for projects."""
 
     class Meta:
-        model = Program
+        model = Project
 
     name = factory.Faker('name')
     slug = factory.LazyAttribute(lambda o: slugify(o.name))

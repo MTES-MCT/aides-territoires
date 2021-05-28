@@ -44,6 +44,11 @@ class PageAdmin(FlatPageAdmin):
         (_('SEO'), {'fields': (
             'meta_title', 'meta_description')})
     )
+    list_display = ['url', 'title']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).at_pages()
+        return qs
 
 
 admin.site.unregister(FlatPage)

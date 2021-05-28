@@ -1,7 +1,7 @@
 from os.path import splitext
 
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Case, When, IntegerField
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
@@ -65,6 +65,12 @@ class SearchPage(models.Model):
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
+
+    highlighted_aids = models.ManyToManyField(
+        'aids.Aid',
+        verbose_name=_('Highlighted aids'),
+        related_name='highlighted_in_search_pages',
+        blank=True)
     excluded_aids = models.ManyToManyField(
         'aids.Aid',
         verbose_name=_('Excluded aids'),
@@ -174,15 +180,18 @@ class SearchPage(models.Model):
     def get_absolute_url(self):
         return reverse('search_page', args=[self.slug])
 
-    def get_base_queryset(self, all_aids=False):
-        """Return the list of aids based on the initial search querysting."""
-
-        from aids.forms import AidSearchForm
-
+    def get_base_querystring_data(self):
         # Sometime, the admin person enters a prefix "?" character
         # and we don't want it here.
         querystring = self.search_querystring.strip('?')
         data = QueryDict(querystring)
+        return data
+
+    def get_base_queryset(self, all_aids=False):
+        """Return the list of aids based on the initial search querysting."""
+
+        from aids.forms import AidSearchForm
+        data = self.get_base_querystring_data()
         form = AidSearchForm(data)
         if all_aids:
             qs = form.filter_queryset(
@@ -192,8 +201,22 @@ class SearchPage(models.Model):
             qs = form.filter_queryset(
                 apply_generic_aid_filter=False).distinct()
 
+        # Annotate aids contained in the highlighted_aids field
+        # This field will be helpful to order the queryset
+        # source: https://stackoverflow.com/a/44048355
+        highlighted_aids_id_list = self.highlighted_aids.values_list('id', flat=True)  # noqa
+        qs = qs.annotate(is_highlighted_aid=Count(
+            Case(
+                When(id__in=highlighted_aids_id_list, then=1),
+                output_field=IntegerField()
+            )
+        ))
+        # Simpler approach, but error-prone (aid could be highlighted in another SearchPage)  # noqa
+        # qs = qs.annotate(is_highlighted_aid=Count('highlighted_in_search_pages'))  # noqa
+
         # Also exlude aids contained in the excluded_aids field
-        qs = qs.exclude(id__in=self.excluded_aids.values_list('id', flat=True))
+        excluded_aids_id_list = self.excluded_aids.values_list('id', flat=True)
+        qs = qs.exclude(id__in=excluded_aids_id_list)
 
         return qs
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-04 11:08+0200\n"
+"POT-Creation-Date: 2021-05-10 17:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1129,13 +1129,6 @@ msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le nom du porteur d'aides."
 
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the program's name."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le nom du programme."
-
 msgid "Meta description"
 msgstr "Description (balise meta)"
 
@@ -1525,6 +1518,13 @@ msgstr "Logo"
 msgid "Will only appear in search results. 300 chars. max."
 msgstr "300 caractères max. Résultats de recherche uniquement."
 
+msgid ""
+"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
+"and we will reuse the program's name."
+msgstr ""
+"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+"60 caractères. Laissez vide pour réutiliser le nom du programme."
+
 msgid "Name of your project"
 msgstr "Nom de votre projet"
 
@@ -1577,9 +1577,6 @@ msgstr "Personnalisation du style"
 
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
-
-msgid "Exclude aids from results"
-msgstr "Exclure des aides des résultats"
 
 msgid "A collectivity"
 msgstr "Une collectivité"
@@ -1645,6 +1642,9 @@ msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
 
 msgid "The search paramaters url"
 msgstr "Les paramètres de recherche en format url"
+
+msgid "Highlighted aids"
+msgstr "Aides à mettre en avant"
 
 msgid "Excluded aids"
 msgstr "Aides à exclure"
@@ -2685,9 +2685,6 @@ msgstr ""
 msgid "Reset filters"
 msgstr "Réinitialiser"
 
-msgid "All aid programs"
-msgstr "Tous les programmes d'aides"
-
 msgid "Search – Audience"
 msgstr "Recherche – Audience"
 
@@ -2785,3 +2782,6 @@ msgstr "Filtres conditionnant l'affichage de la communication promotionnelle"
 
 msgid "Promotion post admin"
 msgstr "Administration de la communication promotionnelle"
+
+msgid "Aids associated to projects"
+msgstr "Aides associées à des projets"

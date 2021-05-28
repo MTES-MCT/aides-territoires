@@ -68,6 +68,10 @@ class Project(xwf_models.WorkflowEnabled, models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def id_slug(self):
+        return '{}-{}'.format(self.id, self.slug)
+
     def set_slug(self):
         """Set the object's slug if it is missing."""
         if not self.slug:

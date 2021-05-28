@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect, Http404
+from django.views.generic import TemplateView, DetailView
 from django.contrib.sites.models import Site
 from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
 from django.utils import timezone
+from django.views.generic.base import RedirectView
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
@@ -16,6 +17,7 @@ from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
+from pages.models import Page
 from stats.utils import log_aidsearchevent
 from core.utils import get_site_from_host
 
@@ -120,6 +122,26 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         kwargs['data'] = data
         return kwargs
 
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
+
+    def combine_with_form_search(self, qs):
+        """When the search form is used on a minisite,
+        we want to combine the base querystring with the form data.
+        """
+        data = self.search_page.get_base_querystring_data()
+        minisite_perimeter = data.get('perimeter')
+        search_perimeter = self.form.data.get('perimeter')
+        if minisite_perimeter and not search_perimeter:
+            # If the base querystring defines a perimeter, then
+            # we will force that perimeter to be used.
+            self.form.data['perimeter'] = minisite_perimeter
+            self.form.full_clean()
+        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
+        return qs
+
     def get_queryset(self):
         """Filter the queryset on the categories and audiences filters."""
 
@@ -138,7 +160,7 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
 
 
         # Combine from filtering with the base queryset
-        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
+        qs = self.combine_with_form_search(qs)
 
         data = self.form.cleaned_data
 
@@ -150,13 +172,15 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
-        qs = self.form.order_queryset(qs).distinct()
+        qs = self.form.order_queryset(qs, has_highlighted_aids=True).distinct()
 
         host = self.request.get_host()
+        request_ua = self.request.META.get('HTTP_USER_AGENT', '')
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=qs.count(),
-            source=host)
+            source=host,
+            request_ua=request_ua)
 
         return qs
 
@@ -296,3 +320,31 @@ class Error(MinisiteMixin, TemplateView):
     def render_to_response(self, context, **response_kwargs):
         response_kwargs['status'] = self.status_code
         return super().render_to_response(context, **response_kwargs)
+
+
+class PageList(MinisiteMixin, RedirectView):
+    pattern_name = 'home'
+
+
+class PageDetail(MinisiteMixin, DetailView):
+    template_name = 'minisites/page_detail.html'
+    context_object_name = 'page'
+
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+        return super().get_context_data(pages=pages, **kwargs)
+
+    def get_object(self):
+        url = self.kwargs.get('url')
+        if not url.startswith('/'):
+            url = '/' + url
+
+        try:
+            page = Page.objects \
+                .filter(minisite=self.search_page) \
+                .get(url=url)
+        except Page.DoesNotExist:
+            raise Http404('No page found')
+
+        return page
