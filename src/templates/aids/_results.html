@@ -11,7 +11,7 @@
         <div id="carouselControls" class="carousel slide promotions-slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 {% for promotion in promotions %}
-                {% if forloop.counter0 < 1 %}
+                {% if forloop.first %}
                 <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                 {% else %}
                 <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
