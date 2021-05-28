@@ -99,7 +99,7 @@ class PromotionClickEventAdmin(admin.ModelAdmin):
 
     list_display = [
         'id', 'promotion', 'querystring',
-         'source', 'date_created']
+        'source', 'date_created']
     list_filter = ['source']
 
     def has_add_permission(self, request):

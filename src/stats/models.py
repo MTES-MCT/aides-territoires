@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
-from blog.models import PromotionPost
 
 
 class AidViewEvent(models.Model):
