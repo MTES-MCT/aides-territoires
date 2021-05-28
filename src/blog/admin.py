@@ -1,11 +1,13 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
-from blog.models import BlogPost, BlogPostCategory
+from blog.models import BlogPost, BlogPostCategory, PromotionPost
+from categories.fields import CategoryMultipleChoiceField
 
 
 class BlogPostForm(forms.ModelForm):
@@ -76,5 +78,62 @@ class BlogPostCategoryAdmin(admin.ModelAdmin):
     ordering = ['name']
 
 
+class PromotionPostForm(forms.ModelForm):
+
+    categories = CategoryMultipleChoiceField(
+        label=_('Categories'),
+        required=False,
+        widget=FilteredSelectMultiple(_('Categories'), True))
+
+    class Meta:
+        model = PromotionPost
+        fields = '__all__'
+
+
+class PromotionPostAdmin(admin.ModelAdmin):
+    form = PromotionPostForm
+    list_display = ['title', 'status', 'date_created']
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['title']
+    ordering = ['title']
+    autocomplete_fields = ['backers', 'programs', 'perimeter']
+    search_fields = ['id', 'title']
+    list_filter = ['status', 'date_created']
+
+    fieldsets = [
+        (_('Promotion post presentation'), {
+            'fields': (
+                'title',
+                'slug',
+                'short_text',
+                'button_title',
+                'button_link',
+            )
+        }),
+
+        (_('Promotion post filter for display'), {
+            'fields': (
+                'backers',
+                'programs',
+                'perimeter',
+                'categories',
+            )
+        }),
+
+        (_('Promotion post admin'), {
+            'fields': (
+                'status',
+            )
+        }),
+
+        (_('Misc data'), {
+            'fields': (
+                'date_created',
+            )
+        }),
+    ]
+
+
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogPostCategory, BlogPostCategoryAdmin)
+admin.site.register(PromotionPost, PromotionPostAdmin)

@@ -174,3 +174,90 @@ class BlogPostCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog_post_list_view', kwargs={'category': self.slug})
+
+
+class PromotionPostWorkflow(xwf_models.Workflow):
+    """Defines statuses for Promotion posts."""
+
+    log_model = ''
+
+    states = Choices(
+        ('draft', 'Brouillon'),
+        ('reviewable', 'En revue'),
+        ('published', 'Publié'),
+        ('deleted', 'Supprimé'),
+    )
+    initial_state = 'draft'
+    transitions = (
+        ('submit', 'draft', 'reviewable'),
+        ('publish', 'reviewable', 'published'),
+        ('unpublish', ('reviewable', 'published'), 'draft'),
+    )
+
+
+class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
+
+    title = models.CharField(
+        _('Title'),
+        max_length=256,
+        db_index=True)
+    slug = models.SlugField(
+        _('Slug'),
+        help_text=_('Let it empty so it will be autopopulated.'),
+        blank=True)
+    short_text = models.TextField(
+        _('Short text'),
+        help_text=_('A short, concise introduction'),
+        max_length=256,
+        null=True, blank=True)
+    button_link = models.URLField(
+        _('Button link'),
+        blank=False)
+    button_title = models.CharField(
+        _('Button title'),
+        max_length=120,
+        db_index=True)
+    perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name=_('Perimeter'),
+        on_delete=models.PROTECT,
+        null=True, blank=True)
+    categories = models.ManyToManyField(
+        'categories.Category',
+        verbose_name=_('Categories'),
+        related_name='promotionsPost',
+        blank=True)
+    programs = models.ManyToManyField(
+        'programs.Program',
+        related_name='promotionsPost',
+        verbose_name=_('Programs'),
+        blank=True)
+    backers = models.ManyToManyField(
+        'backers.Backer',
+        related_name='promotionsPost',
+        verbose_name=_('Backer'),
+        blank=True)
+
+    status = xwf_models.StateField(
+        PromotionPostWorkflow,
+        verbose_name=_('Status'))
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = _('Promotion post')
+        verbose_name_plural = _('Promotion posts')
+
+    def __str__(self):
+        return self.title
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.title)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
