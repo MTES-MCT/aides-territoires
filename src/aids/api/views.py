@@ -32,7 +32,16 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
 
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
-    """List all active aids that we know about."""
+    """List all active aids that we know about.
+
+    Parameters
+
+    - 'prevent_generic_filter': This is used as a flag, for instance :
+    '?prevent_generic_filter=yes'. Note that the value here does not
+    matter, since we only check whether the parameter is present or not.
+    Preventing generic aids filtering means that generic and local variants
+    will all be listed. So there will be duplicate aids in results.
+    """
 
     lookup_field = 'slug'
 
@@ -64,7 +73,9 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
         qs = self.get_base_queryset()
         filter_form = AidSearchForm(data=self.request.GET)
-        results = filter_form.filter_queryset(qs)
+        apply_filter = 'prevent_generic_filter' not in self.request.GET
+        results = filter_form.filter_queryset(
+            qs, apply_generic_aid_filter=apply_filter)
         ordered_results = filter_form.order_queryset(results).distinct()
         return ordered_results
 
