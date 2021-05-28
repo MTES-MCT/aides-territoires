@@ -6,7 +6,7 @@
         promotionLink.click(function() {
             // Send an event to our stats DB
             var statsData = JSON.stringify({
-                promotion: promotionLink.attr('id'),
+                promotion: this.id,
                 querystring: CURRENT_SEARCH
             });
             $.ajax({
