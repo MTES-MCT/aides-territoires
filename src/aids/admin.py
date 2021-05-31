@@ -21,7 +21,7 @@ from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
-from core.admin import InputFilter
+from core.admin import InputFilter, pretty_print_readonly_jsonfield
 from accounts.admin import AuthorFilter
 from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
@@ -247,8 +247,10 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     readonly_fields = [
         'sibling_aids',
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
+        'get_pprint_import_raw_object',
         'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
+
     fieldsets_with_inlines = [
         (_('Aid presentation'), {
             'fields': (
@@ -342,6 +344,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'import_data_url',
                 'import_share_licence',
                 'import_last_access',
+                'get_pprint_import_raw_object',
             )
         }),
 
@@ -427,6 +430,12 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return aid.has_eligibility_test()
     has_eligibility_test.boolean = True
     has_eligibility_test.short_description = _('Eligibility test')
+
+    def get_pprint_import_raw_object(self, obj=None):
+        if obj:
+            return pretty_print_readonly_jsonfield(obj.import_raw_object)
+        return ''
+    get_pprint_import_raw_object.short_description = 'Donnée brute importée'
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
