@@ -4,11 +4,12 @@ from core.utils import get_site_from_host
 from search.utils import clean_search_querystring
 from stats.models import (AidContactClickEvent,
                           AidMatchProjectEvent, AidEligibilityTestEvent,
-                          PromotionClickEvent)
+                          PromotionDisplayEvent, PromotionClickEvent)
 from stats.api.serializers import (AidContactClickEventSerializer,
                                    AidMatchProjectEventSerializer,
                                    AidEligibilityTestEventSerializer,
-                                   PromotionClickEventSerializer)
+                                   PromotionClickEventSerializer,
+                                   PromotionDisplayEventSerializer,)
 
 
 class AidContactClickEventViewSet(mixins.CreateModelMixin,
@@ -57,6 +58,17 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
         querystring_cleaned = clean_search_querystring(querystring)
         # save
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
+
+
+class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
+                                 viewsets.GenericViewSet):
+    queryset = PromotionDisplayEvent.objects.all()
+    serializer_class = PromotionDisplayEventSerializer
+
+    def perform_create(self, serializer):
+        host = self.request.get_host()
+        source_cleaned = get_site_from_host(host)
+        serializer.save(source=source_cleaned)
 
 
 class PromotionClickEventViewSet(mixins.CreateModelMixin,
