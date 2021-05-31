@@ -1,6 +1,26 @@
 (function (exports) {
     "use strict";
 
+    exports.SavePromotionDisplayEvent = function(promotionLink) {
+
+        promotionLink.each(function() {
+            // Send an event to our stats DB
+            var statsData = JSON.stringify({
+                promotion: this.id,
+                querystring: CURRENT_SEARCH
+            });
+            $.ajax({
+                type: 'POST',
+                url: `/api/stats/promotion-display-events/`,
+                contentType: 'application/json',
+                headers: { 'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value },
+                dataType: 'json',
+                data: statsData
+            })
+
+        });
+    };
+
     exports.SavePromotionClickEvent = function(promotionLink) {
 
         promotionLink.click(function() {
@@ -56,5 +76,6 @@ $(document).ready(function () {
 
     // Track clicks on #promotion-block-link button
     var promotionLink = $('#promotion-block-link>a');
+    SavePromotionDisplayEvent(promotionLink);
     SavePromotionClickEvent(promotionLink);
 });
