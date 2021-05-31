@@ -1941,11 +1941,14 @@ div#search-steps {
 
         label {
             text-transform: uppercase;
+            font-weight: 700;
 
             & > span {
                 display: block;
                 text-transform: initial;
                 font-size: $font-size-small;
+                font-weight: normal;
+                margin-bottom: 1rem;
             }   
         }
     }
