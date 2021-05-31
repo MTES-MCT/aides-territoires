@@ -81,6 +81,7 @@ class BaseImportCommand(BaseCommand):
                                 origin_url=aid.origin_url,
                                 start_date=aid.start_date,
                                 submission_deadline=aid.submission_deadline,
+                                import_raw_object=aid.import_raw_object,
                                 date_updated=timezone.now(),
                                 import_last_access=timezone.now())
                         updated_counter += 1
@@ -123,6 +124,7 @@ class BaseImportCommand(BaseCommand):
             'author_id',
             'import_data_source', 'is_imported', 'import_uniqueid',
             'import_data_url', 'import_share_licence', 'import_last_access',
+            'import_raw_object',
             'date_published'
         ]
         fields = form_fields + more_fields
