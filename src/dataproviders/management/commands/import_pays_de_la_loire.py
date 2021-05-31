@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify
+from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
@@ -54,6 +54,11 @@ with open(TYPES_MAPPING_CSV_PATH) as csv_file:
                     audience = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
                     TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
 
+CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_categories_mapping.csv'
+SOURCE_COLUMN_NAME = 'Sous-thématique Pays de la Loire'
+AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2']
+CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+
 CALL_FOR_PROJECT_LIST = [
     'Appel à projets',
     'Appel à manifestations d\'intérêt'
@@ -66,7 +71,8 @@ RECURRENCE_DICT = {
 
 
 class Command(BaseImportCommand):
-    """Import data from the Pays de la Loire Open Data plateform.
+    """
+    Import data from the Pays de la Loire Open Data plateform.
     ~300 aids as of November 2020
     """
 
@@ -114,6 +120,9 @@ class Command(BaseImportCommand):
 
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
+
+    def extract_import_raw_object(self, line):
+        return line
 
     def extract_name(self, line):
         title = line['aide_nom'][:180]
@@ -207,6 +216,20 @@ class Command(BaseImportCommand):
     #     montant_max = line.get('montant_interv_max', '-')
     #     subvention_comment = 'montantintervmini / montant_interv_max' + ' : ' + str(montant_min) + ' / ' + str(montant_max)
     #     return subvention_comment
+
+    def extract_categories(self, line):
+        """
+        Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
+        Split the string, loop on the values and match to our Categories
+        """
+        categories = line.get('ss_thematique_libelle', '').split(';')
+        aid_categories = []
+        for category in categories:
+            if category in CATEGORIES_DICT:
+                aid_categories.extend(CATEGORIES_DICT.get(category, []))
+            else:
+                self.stdout.write(self.style.ERROR(f"\"{line.get('thematique_libelle', '')}\";{category}"))
+        return aid_categories
 
     def extract_contact(self, line):
         direction = line.get('direction', '')
