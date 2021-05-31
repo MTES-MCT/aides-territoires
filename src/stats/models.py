@@ -228,6 +228,30 @@ class AidMatchProjectEvent(models.Model):
         verbose_name_plural = _('Aid Match Project Events')
 
 
+class PromotionDisplayEvent(models.Model):
+    promotion = models.ForeignKey(
+        'blog.PromotionPost',
+        verbose_name=_('Promotion Post'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = _('Événement affichage promotion')
+        verbose_name_plural = _('Événements affichage promotion')
+
+
 class PromotionClickEvent(models.Model):
     promotion = models.ForeignKey(
         'blog.PromotionPost',
