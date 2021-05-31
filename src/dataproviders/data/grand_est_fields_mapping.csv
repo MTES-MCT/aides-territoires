@@ -1,0 +1,24 @@
+source,destination,processing,comments
+ID,import_uniqueid,auto,
+url,origin_url,auto,
+post_title,name,custom,
+post_type,,,"toujours ""ge_guide"" ?"
+post_type_name,,,toujours vide
+post_status,,,"toujours ""publish"""
+post_date,,,
+post_date_gmt,,,
+post_modified,,,
+post_content,description,custom,format HTML
+gui_beneficiaire,targeted_audiences,mapping,liste d'objets
+gui_tax_competence,,,
+gui_competence,,,
+gui_image,,,
+gui_competence_card,,,
+gui_souscompetence_card,,,
+gui_introduction,description,custom,format HTML
+gui_texte_gris,contact,auto,
+gui_documents,,,liste d'objets
+gui_projet,,,toujours vide
+gui_dematerialise,,,
+gui_dematerialise_url,application_url,auto,
+gui_dematerialise_txt,,,
