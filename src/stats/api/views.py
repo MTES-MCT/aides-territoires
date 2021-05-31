@@ -61,7 +61,7 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
 
 
 class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
-                                 viewsets.GenericViewSet):
+                                   viewsets.GenericViewSet):
     queryset = PromotionDisplayEvent.objects.all()
     serializer_class = PromotionDisplayEventSerializer
 
