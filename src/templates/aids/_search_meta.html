@@ -8,6 +8,15 @@
         {% endif %}
     {% endif %}
 
+    {% block search-meta-projects %}
+    {% if current_search_dict.projects %}
+        <p title="Projet">
+            <span class="fas fa-lightbulb fa-fw"></span>
+            {{ current_search_dict.projects|join:', ' }}
+        </p>
+    {% endif %}
+    {% endblock %}
+
     {% if display == "all" %}
         {% block search-meta-targeted-audiences %}
         {% if current_search_dict.targeted_audiences %}
@@ -24,15 +33,6 @@
         <p title="{{ _('Perimeter') }}">
             <span class="fas fa-map-pin fa-fw"></span>
             {{ current_search_dict.perimeter }}
-        </p>
-    {% endif %}
-    {% endblock %}
-
-    {% block search-meta-projects %}
-    {% if current_search_dict.projects %}
-        <p title="Projet">
-            <span class="fas fa-lightbulb fa-fw"></span>
-            {{ current_search_dict.projects|join:', ' }}
         </p>
     {% endif %}
     {% endblock %}
