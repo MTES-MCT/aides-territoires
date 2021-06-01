@@ -25,8 +25,7 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
-from aids.models import Aid, AidWorkflow
-from aids.utils import generate_clone_title
+from aids.models import Aid
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category

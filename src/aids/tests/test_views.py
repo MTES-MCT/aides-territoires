@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from aids.factories import AidFactory
+from aids.models import Aid
 
 pytestmark = pytest.mark.django_db
 
