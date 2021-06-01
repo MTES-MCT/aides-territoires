@@ -20,7 +20,7 @@
 {% block content %}
 <div class="article narrow">
 
-    {% if user.is_contributor %}
+    {% if user.profile_complete %}
         <h1>{{ _("Update your contributor profile") }}</h1>
     {% else %}
         <h1>{{ _("Become a contributor") }}<br/>

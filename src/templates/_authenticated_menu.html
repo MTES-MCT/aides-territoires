@@ -1,4 +1,5 @@
 <ul class="navbar-menu">
+
     {% if user.is_superuser %}
     <li class="stat">
         <a href="{% url 'admin:aids_aid_changelist' %}?is_imported__exact=0&status__exact=draft">
@@ -24,7 +25,7 @@
             </span>
         </a>
     </li>
-    {% elif user.is_contibutor %}
+    {% elif user.is_contributor_or_staff %}
     <li class="stat">
         <a href="{% url 'aid_draft_list_view' %}?order=status">
             {{ _('Draft aids') }}
@@ -40,11 +41,7 @@
             {{ user.full_name }}
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-            {% include '_menu_actions.html' %}
-            <hr />
-            <a href="{% url 'logout' %}">
-                {{ _('Log out') }}
-            </a>
+            {% include '_authenticated_menu_dropdown_actions.html' %}
         </div>
     </li>
 </ul>

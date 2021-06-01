@@ -107,6 +107,12 @@ msgstr "Rôle"
 msgid "Contact phone number"
 msgstr "Numéro de téléphone"
 
+msgid "Is contributor"
+msgstr "Contributeur ?"
+
+msgid "Can access a dashboard to create aids"
+msgstr "Peut accéder à un espace pour créer et modifier ses aides."
+
 msgid "Is certified"
 msgstr "Certifié ?"
 
@@ -1895,14 +1901,14 @@ msgstr "Voir moins de détails"
 msgid "Your profile"
 msgstr "Votre profil"
 
+msgid "Contributor space"
+msgstr "Espace contributeur"
+
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
 msgid "Become a contributor"
 msgstr "Devenir contributeur"
-
-msgid "Are you a contributor?"
-msgstr "Vous êtes contributeur ?"
 
 msgid "My portfolio"
 msgstr "Mon portefeuille d'aides"
