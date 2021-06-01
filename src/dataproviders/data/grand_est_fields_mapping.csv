@@ -11,7 +11,7 @@ post_modified,,,
 post_content,description,custom,format HTML
 gui_beneficiaire,targeted_audiences,mapping,liste d'objets
 gui_tax_competence,,,
-gui_competence,,,
+gui_competence,categories,mapping,liste d'objets
 gui_image,,,
 gui_competence_card,,,
 gui_souscompetence_card,,,

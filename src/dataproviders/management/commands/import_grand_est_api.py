@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify
+from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
@@ -17,8 +17,6 @@ from aids.models import Aid
 DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=3)
-
-OPENDATA_URL = ''
 
 AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_audiences_mapping.csv'
@@ -36,6 +34,11 @@ with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
                         AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
                     except:
                         print(row[column])
+
+CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_categories_mapping.csv'
+SOURCE_COLUMN_NAME = 'Thématiques Grand Est'
+AT_COLUMN_NAMES = ['Sous-thématiques AT 1', 'Sous-thématiques AT 2', 'Sous-thématiques AT 3', 'Sous-thématiques AT 4', 'Sous-thématiques AT 5', 'Sous-thématiques AT 6', 'Sous-thématiques AT 7', 'Sous-thématiques AT 8']
+CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
 
 class Command(BaseImportCommand):
@@ -86,6 +89,9 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_import_raw_object(self, line):
+        return line
+
     def extract_financers(self, line):
         return [DATA_SOURCE.backer]
 
@@ -104,16 +110,30 @@ class Command(BaseImportCommand):
     def extract_targeted_audiences(self, line):
         """
         Source format: list of dicts
-        Split the string, loop on the values and match to our AUDIENCES
+        Get the objects, loop on the values and match to our AUDIENCES
         """
         audiences = line.get('aid_benef', [])
         aid_audiences = []
         for audience in audiences:
             if audience['name'] in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
+                aid_audiences.extend(AUDIENCES_DICT.get(audience['name'], []))
             else:
                 self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
         return aid_audiences
+
+    def extract_categories(self, line):
+        """
+        Source format: list of dicts
+        Get the objects, loop on the values and match to our Categories
+        """
+        categories = line.get('gui_competence', [])
+        aid_categories = []
+        for category in categories:
+            if category['post_title'] in CATEGORIES_DICT:
+                aid_categories.extend(CATEGORIES_DICT.get(category['post_title'], []))
+            else:
+                self.stdout.write(self.style.ERROR(f'{category}'))
+        return aid_categories
 
     def extract_origin_url(self, line):
         return line['url']
@@ -123,3 +143,9 @@ class Command(BaseImportCommand):
 
     def extract_application_url(self, line):
         return line['gui_dematerialise_url']
+
+    # def extract_aid_types(self, line):
+    #     return [AID.TYPES.]
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op]
