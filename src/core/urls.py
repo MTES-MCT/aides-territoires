@@ -21,16 +21,16 @@ router = routers.DefaultRouter()
 
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title=_('Aides-Territoires API'),
-      default_version=f'v{settings.CURRENT_API_VERSION}',
-      description=_('API Aide'),
-      terms_of_service=reverse_lazy('legal_mentions'),
-      contact=openapi.Contact(email='tech@aides-territoires.beta.gouv.fr'),
-      license=openapi.License(name="« Licence Ouverte v2.0 » d'Etalab"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title=_('Aides-Territoires API'),
+        default_version=f'v{settings.CURRENT_API_VERSION}',
+        description=_('API Aide'),
+        terms_of_service=reverse_lazy('legal_mentions'),
+        contact=openapi.Contact(email='tech@aides-territoires.beta.gouv.fr'),
+        license=openapi.License(name="« Licence Ouverte v2.0 » d'Etalab"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 api_patterns = [

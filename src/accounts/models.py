@@ -6,8 +6,20 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
 
 
+class UserQueryset(models.QuerySet):
+    """Custom queryset with additional filtering methods for users."""
+
+    def with_api_token(self):
+        """Only return users with an API Token."""
+
+        return self.filter(auth_token__isnull=False)
+
+
 class UserManager(BaseUserManager):
     """Custom manager for our custom User model."""
+
+    def get_queryset(self):
+        return UserQueryset(self.model, using=self._db)
 
     def _create_user(self, email, first_name, last_name, password,
                      **extra_fields):
@@ -35,6 +47,11 @@ class UserManager(BaseUserManager):
         extra_fields['is_superuser'] = True
         return self._create_user(email, first_name, last_name, password,
                                  **extra_fields)
+
+    def with_api_token(self):
+        """Only return users with an API Token."""
+
+        return self.get_queryset().with_api_token()
 
 
 class User(AbstractBaseUser, PermissionsMixin):

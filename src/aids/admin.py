@@ -80,7 +80,7 @@ class EligibilityTestFilter(admin.SimpleListFilter):
         if value == 'Yes':
             return queryset.has_eligibility_test()
         elif value == 'No':
-            return queryset.filter(eligibility_test__isnull=True)  # noqa
+            return queryset.filter(eligibility_test__isnull=True)
         return queryset
 
 
