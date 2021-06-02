@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from stats.models import (AidContactClickEvent,
-                          AidMatchProjectEvent, AidEligibilityTestEvent)
+                          AidMatchProjectEvent, AidEligibilityTestEvent,
+                          PromotionDisplayEvent, PromotionClickEvent)
 
 
 class AidContactClickEventSerializer(serializers.ModelSerializer):
@@ -25,4 +26,20 @@ class AidEligibilityTestEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AidEligibilityTestEvent
+        fields = '__all__'
+
+
+class PromotionDisplayEventSerializer(serializers.ModelSerializer):
+    querystring = serializers.CharField(allow_blank=True)  # required=False
+
+    class Meta:
+        model = PromotionDisplayEvent
+        fields = '__all__'
+
+
+class PromotionClickEventSerializer(serializers.ModelSerializer):
+    querystring = serializers.CharField(allow_blank=True)  # required=False
+
+    class Meta:
+        model = PromotionClickEvent
         fields = '__all__'
