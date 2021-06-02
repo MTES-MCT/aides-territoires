@@ -10,7 +10,6 @@ class Theme(models.Model):
         _('Slug'))
     short_description = models.TextField(
         _('Short description'),
-        max_length=160,
         blank=True)
 
     class Meta:

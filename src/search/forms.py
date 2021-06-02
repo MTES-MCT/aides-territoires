@@ -5,6 +5,7 @@ from django import forms
 from django.db.models import Count
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
 from django.core.exceptions import ValidationError
 
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
@@ -79,8 +80,13 @@ class ThemeChoiceField(forms.ModelMultipleChoiceField):
     iterator = ThemeChoiceIterator
 
     def label_from_instance(self, obj):
-        return '{} ({})'.format(
-            obj['categories__theme__name'], obj['nb_aids'])
+        return format_html(
+                    '{theme_name} ({nb_aids})'
+                    '<span>{theme_short_description}</span>',
+                    theme_name=obj['categories__theme__name'],
+                    nb_aids=obj['nb_aids'],
+                    theme_short_description=obj['categories__theme__short_description'], # noqa
+                )
 
 
 class ThemeWidget(forms.widgets.ChoiceWidget):
@@ -115,7 +121,9 @@ class ThemeSearchForm(forms.Form):
         filter_form = AidSearchForm(self.initial)
         themes_with_aid_count = filter_form.filter_queryset() \
             .exclude(categories__isnull=True) \
-            .values('categories__theme__slug', 'categories__theme__name') \
+            .values('categories__theme__slug',
+                    'categories__theme__name',
+                    'categories__theme__short_description') \
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name')
         self.fields['themes'].queryset = themes_with_aid_count
