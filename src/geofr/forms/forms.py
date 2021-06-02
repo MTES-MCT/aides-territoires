@@ -95,12 +95,15 @@ class PerimeterCombineForm(forms.Form):
     add_perimeters = forms.ModelMultipleChoiceField(
         label=_('Perimeters to add'),
         queryset=Perimeter.objects.all(),
-        widget=AutocompleteSelectMultiple(Perimeter._meta, admin.AdminSite()),
+        widget=AutocompleteSelectMultiple(
+            Perimeter._meta.get_field('contained_in'), admin.AdminSite()),
         help_text=_('Select a list of perimeters to combines'))
     rm_perimeters = forms.ModelMultipleChoiceField(
         label=_('Perimeters to substract'),
         required=False,
         queryset=Perimeter.objects.all(),
-        widget=AutocompleteSelectMultiple(Perimeter._meta, admin.AdminSite()),
-        help_text=_('Those perimeters will be substracted from the '
-                    'combined perimeters'))
+        widget=AutocompleteSelectMultiple(
+            Perimeter._meta.get_field('contained_in'), admin.AdminSite()),
+        help_text=_(
+            'Those perimeters will be substracted from the '
+            'combined perimeters'))
