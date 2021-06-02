@@ -29,10 +29,32 @@ class AuthorFilter(InputFilter):
             return qs
 
 
+class SearchPageAdministratorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target users who are
+    search page administrators."""
+
+    title = 'Administrateur de PP ?'
+    parameter_name = 'is_administrator_of_search_pages'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.is_administrator_of_search_pages()
+        elif value == 'No':
+            return queryset.filter(administrator_of_search_pages__isnull=True)
+        return queryset
+
+
 class ApiTokenFilter(admin.SimpleListFilter):
     """Custom admin filter to target users with API Tokens."""
 
-    title = 'Token API'
+    title = 'Token API ?'
     parameter_name = 'has_api_token'
 
     def lookups(self, request, model_admin):
@@ -75,10 +97,13 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
 
-    list_filter = ['is_superuser', 'is_contributor', 'is_certified',
-                   ApiTokenFilter, 'ml_consent']
+    list_filter = ['is_superuser', 'is_contributor',
+                   SearchPageAdministratorFilter, ApiTokenFilter,
+                   'is_certified', 'ml_consent']
 
-    readonly_fields = ['nb_aids', 'api_token', 'last_login', 'date_joined']
+    readonly_fields = ['nb_aids',
+                       'administrator_of_search_pages_list', 'api_token',
+                       'last_login', 'date_joined']
 
     fieldsets = (
         (None, {
@@ -105,6 +130,11 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'is_contributor',
                 'nb_aids',
+            )
+        }),
+        (_('PP Administrator space'), {
+            'fields': (
+                'administrator_of_search_pages_list',
             )
         }),
         (_('Permissions'), {
@@ -146,6 +176,20 @@ class UserAdmin(BaseUserAdmin):
         return user.aid_count
     nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
+
+    def administrator_of_search_pages_list(self, user):
+        search_pages = user.administrator_of_search_pages.all()
+        if not search_pages:
+            return 'Aucune'
+        else:
+            html = ''
+            for search_page in search_pages:
+                html += format_html(
+                    '<a href="{obj_url}">{obj_name}</a></br>',
+                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),  # noqa
+                    obj_name=search_page)
+            return format_html(html)
+    administrator_of_search_pages_list.short_description = _('Search page')
 
     def in_mailing_list(self, user):
         return user.ml_consent
