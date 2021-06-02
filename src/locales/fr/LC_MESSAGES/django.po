@@ -274,13 +274,13 @@ msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
 
 msgid "Export selected Aids as CSV in background task"
-msgstr "Exporter les Aides selectionnées en CSV en tâche de fond"
+msgstr "Exporter les Aides sélectionnées en CSV en tâche de fond"
 
 msgid "Export selected Aids as XLSX as background task"
-msgstr "Exporter les Aides selectionnées en XLSX en tâche de fond"
+msgstr "Exporter les Aides sélectionnées en XLSX en tâche de fond"
 
 msgid "Export and download selected Aids"
-msgstr "Exporter et télécharger les Aides selectionnées"
+msgstr "Exporter et télécharger les Aides sélectionnées"
 
 msgid "Deleted aid"
 msgstr "Aide supprimée"

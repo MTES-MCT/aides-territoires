@@ -8,7 +8,6 @@ from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-from django.utils.safestring import mark_safe
 
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
@@ -25,6 +24,7 @@ from core.admin import InputFilter, pretty_print_readonly_jsonfield
 from accounts.admin import AuthorFilter
 from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
+from exporting.utils import get_admin_export_message
 from geofr.utils import get_all_related_perimeter_ids
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -443,11 +443,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     make_mark_as_CFP.short_description = _('Set as CFP')
 
     def show_export_message(self, request):
-        url = reverse('admin:exporting_dataexport_changelist')
-        msg = _(
-            f'Exported data will be available '
-            f'<a href="{url}">here: {url}</a>')
-        self.message_user(request, mark_safe(msg))
+        self.message_user(request, get_admin_export_message())
 
     def export_csv(self, request, queryset):
         aids_id_list = list(queryset.values_list('id', flat=True))
