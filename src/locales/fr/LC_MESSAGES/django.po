@@ -710,9 +710,6 @@ msgstr ""
 msgid "You confirmed the alert creation."
 msgstr "Vous venez de confirmer la création de l'alerte."
 
-msgid "The alert was deleted."
-msgstr "Votre alerte vient d'être supprimée."
-
 msgid "Number of backers"
 msgstr "Nombre de porteurs"
 

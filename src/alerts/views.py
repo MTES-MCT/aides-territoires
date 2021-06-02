@@ -1,8 +1,11 @@
+from django.conf import settings
 from django.views.generic import CreateView, DetailView, DeleteView
 from django.core.exceptions import ValidationError
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
+
 from braces.views import MessageMixin
 
 from alerts.tasks import send_alert_confirmation_email
@@ -58,9 +61,7 @@ class AlertValidate(MessageMixin, DetailView):
         msg = _('You confirmed the alert creation.')
         self.messages.success(msg)
 
-        redirect_url = '{}?{}'.format(
-            reverse('search_view'),
-            alert.querystring)
+        redirect_url = '{}?{}'.format(reverse('search_view'), alert.querystring)
         return HttpResponseRedirect(redirect_url)
 
 
@@ -86,12 +87,14 @@ class AlertDelete(MessageMixin, DeleteView):
             raise Http404()
 
     def get_success_url(self):
-        url = '{}?{}'.format(
-            reverse('search_view'),
-            self.object.querystring)
+        url = '{}?{}'.format(reverse('search_view'), self.object.querystring)
         return url
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
-        self.messages.success(_('The alert was deleted.'))
+        msg = format_html(
+            "Votre alerte vient d'être supprimée.<br />"
+            "Pour nous aider à mieux comprendre votre choix, pourriez-vous nous expliquer la raison de votre désabonnement "  # noqa
+            f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?')  # noqa
+        self.messages.success(msg)
         return res
