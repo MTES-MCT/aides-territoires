@@ -851,6 +851,7 @@ table#change-history tbody th {
 
 #branding {
     float: left;
+    text-align: left;
 }
 
 #branding h1 {
