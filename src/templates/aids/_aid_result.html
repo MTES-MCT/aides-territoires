@@ -1,6 +1,16 @@
 {% load i18n aids %}
 
 <article class="aid">
+    {% if aid.projects.all  %}
+    {% for project in aid.projects.all %}
+        {% if project.id == project_choice %}
+        <div class="projects">
+            Cette aide correspond à votre projet !
+        </div>
+        {% endif %}
+        {% endfor %}  
+    {% endif %}
+
     <div>
         {% if aid.has_approaching_deadline %}
             <span class="deadline deadline-delta">J-{{ aid.days_before_deadline }}</span>

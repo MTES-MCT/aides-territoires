@@ -429,6 +429,17 @@ section#program-list {
         border-radius: 2rem 0 1rem 1rem;
         margin-bottom: $card-columns-gap !important;
 
+        .projects {
+            padding: 1rem;
+            background-color: #59BBAB;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 2rem 0 0 0;
+            max-height: 4rem;
+            min-height: 4rem;
+        }
+
         &>div {
             @extend .card-body;
 

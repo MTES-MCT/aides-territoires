@@ -233,6 +233,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context['alert_form'] = AlertForm(label_suffix='')
         context['promotions'] = self.get_promotions()
         context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()  # noqa
+        context['project_choice'] = extract_id_from_string(self.request.GET.get('projects'))  # noqa
 
         return context
 
