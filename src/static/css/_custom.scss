@@ -1405,6 +1405,10 @@ article#aid {
             background-color: #d9f0ec;
             padding: 1rem;
         }
+
+        .hide-me[aria-expanded="true"] {
+            display: none;
+        }
     }
 
     div.aid-actions {
@@ -2285,8 +2289,4 @@ ul.aid-categories {
             filter: grayscale(20%);
         }
     }
-}
-
-.hide-me[aria-expanded="true"] {
-    display: none;
 }
