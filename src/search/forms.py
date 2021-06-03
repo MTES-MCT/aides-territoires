@@ -109,6 +109,9 @@ class ThemeSearchForm(forms.Form):
         queryset=Theme.objects.order_by('name'),
         to_field_name='slug',
         widget=ThemeWidget)
+    projects = AutocompleteModelChoiceField(
+        queryset=Project.objects.all(),
+        required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -130,7 +133,9 @@ class ThemeSearchForm(forms.Form):
             .annotate(nb_aids=Count('id', distinct=True)) \
             .order_by('categories__theme__name')
         self.fields['themes'].queryset = themes_with_aid_count
-
+        self.fields['projects'].queryset = Project.objects \
+            .filter(status='published') \
+            .distinct()
 
 class CategoryIterator(forms.models.ModelChoiceIterator):
     """Custom iterator for the category list.
