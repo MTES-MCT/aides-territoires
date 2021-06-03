@@ -30,6 +30,7 @@ class Bookmark(models.Model):
     owner = models.ForeignKey(
         'accounts.User',
         verbose_name=_('Owner'),
+        related_name='bookmarks',
         on_delete=models.CASCADE)
     querystring = models.TextField(
         _('Querystring'))
