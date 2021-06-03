@@ -6,6 +6,10 @@
         {% if project.id == project_choice %}
         <div class="projects">
             Cette aide correspond à votre projet !
+            <p>
+                <span class="fas fa-lightbulb fa-fw"></span>
+                {{ project }}
+            </p>
         </div>
         {% endif %}
         {% endfor %}  
