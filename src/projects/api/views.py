@@ -31,6 +31,15 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
         if is_published == 'true':
             qs = qs.filter(status="published")
 
+        categories = self.request.query_params.get('categories', '')
+        categories_term = categories.split()
+        categories_filters = []
+        for category_term in categories_term:
+            categories_filters.append(Q(categories__slug=category_term))
+        if categories_filters:
+            qs = qs.filter(reduce(operator.and_, categories_filters))
+
+
         qs = qs.order_by('name')
 
         return qs
