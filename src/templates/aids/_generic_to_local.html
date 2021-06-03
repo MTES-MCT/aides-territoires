@@ -24,7 +24,7 @@
         <span class="fas fa-user"></span>
         {% url 'login' as login_url %}
         Vous disposez déjà d'un compte ?
-        <a href="{{ login_url }}">Rendez-vous sur la page de connexion.</a>
+        <a href="{{ login_url }}?next={% url 'aid_detail_view' aid.slug %}">Rendez-vous sur la page de connexion.</a>
     </p>
     <p class="warning">
         <span class="fas fa-user"></span>
