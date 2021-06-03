@@ -30,12 +30,12 @@
 #header #user-tools {
     /* Old Django: 1.2em, flat theme: 40px; */
     padding-right: 1.2em;
-    color: #000;
+    color: #3a3188;
 }
 
 
 #header #user-tools a {
-    color: #000;
+    color: #3a3188;
 }
 
 #bookmark-form {
@@ -52,4 +52,9 @@ div.breadcrumbs {
 
 div.breadcrumbs a {
     display: inline;
+}
+
+.dashboard-module h2 {
+    background: #3a3188;
+    color: #fff;
 }
