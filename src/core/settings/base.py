@@ -17,6 +17,10 @@ ALLOWED_HOSTS = []
 
 
 DJANGO_APPS = [
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.forms',  # This is needed because of the custom form renderer
     'django.contrib.admin',
     'django.contrib.auth',
@@ -178,11 +182,12 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [DJANGO_ROOT.child('templates')],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'debug': False,
             'context_processors': [
                 'django.template.context_processors.i18n',
+                'django.core.context_processors.request',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -190,6 +195,9 @@ TEMPLATES = [
                 'core.context_processors.contact_data',
                 'core.context_processors.admin_stats',
                 'core.context_processors.contributor_stats',
+            ],
+            'loaders': [
+                'admin_tools.template_loaders.Loader',
             ],
             'libraries': {
                 'form_utils': 'core.templatetags.form_utils',
