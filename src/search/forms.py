@@ -22,6 +22,7 @@ AUDIENCES = [
         ('epci', _('Intercommunality / Country')),
         ('department', _('Department')),
         ('region', _('Region')),
+        ('special', _('Special status')),
     )),
     (_('An other beneficiary'), (
         ('public_org', _('Public organization')),
