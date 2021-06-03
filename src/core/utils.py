@@ -69,7 +69,8 @@ class RedirectAidDetailView(RedirectView):
     translations.
     """
     permanent = False
+    redirect_url = '/aides/{slug}/'
 
     def get_redirect_url(self, *args, **kwargs):
         slug = kwargs.get('slug')
-        return f'/aides/{slug}/'
+        return self.redirect_url.format(slug=slug)
