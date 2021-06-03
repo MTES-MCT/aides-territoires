@@ -182,12 +182,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [DJANGO_ROOT.child('templates')],
-        'APP_DIRS': False,
         'OPTIONS': {
             'debug': False,
             'context_processors': [
                 'django.template.context_processors.i18n',
-                'django.core.context_processors.request',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -197,6 +195,8 @@ TEMPLATES = [
                 'core.context_processors.contributor_stats',
             ],
             'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
                 'admin_tools.template_loaders.Loader',
             ],
             'libraries': {
