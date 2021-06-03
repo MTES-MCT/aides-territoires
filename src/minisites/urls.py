@@ -8,6 +8,7 @@ from django.views.generic import View
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
                              SiteBackers, SiteStats, SiteProgram,
                              SiteLegalMentions, Error, PageList, PageDetail)
+from minisites.utils import RedirectAidDetailView
 
 
 # This set of url patterns is completely independant from all other urls.
@@ -64,7 +65,9 @@ urlpatterns = [
 
     # The aid detail view
     path('<slug:slug>/', include([
-        path('', SiteAid.as_view(), name='aid_detail_view')])),
+        path('', SiteAid.as_view(), name='aid_detail_view')
+    ])),
+    path('aides/<slug:slug>/', RedirectAidDetailView.as_view()),
 
     # Static pages
     path('pages<path:url>', PageDetail.as_view(), name='page_detail_view')
