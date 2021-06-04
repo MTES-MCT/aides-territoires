@@ -386,21 +386,25 @@
             {% endif %}
 
             {% if aid.is_generic %}
-            <h2 id="aides-locales">
-                {{ _('Local variants') }}
-            </h2>
-            <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
-            <div id="localAidsLinks">
-                <ul>
-                    {% for local_aid in aid.get_sorted_local_aids %}
-                        <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% include 'aids/_generic_to_local.html' %}
+            {% with local_aids=aid.get_sorted_local_aids %}
+                <h2 id="aides-locales">
+                    {{ _('Local variants') }}
+                </h2>
+                <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+                {% if local_aids %}
+                    <div id="localAidsLinks">
+                        <ul>
+                            {% for local_aid in local_aids %}
+                                <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
 
+                {% include 'aids/_generic_to_local.html' %}
+
+            {% endwith %}
             {% endif %}
-
             <h2>{{ _('Going further') }}</h2>
             <button type="button" id="going-further-reveal-button" class="cta-btn d-inline-block">
                 Poursuivre la démarche pour obtenir l'aide
