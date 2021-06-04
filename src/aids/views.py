@@ -13,7 +13,6 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   DeleteView, FormView, RedirectView)
 from django.views.generic.edit import FormMixin
-from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils.functional import cached_property
