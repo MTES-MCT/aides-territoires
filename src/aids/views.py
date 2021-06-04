@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Count, Prefetch, Case, When, IntegerField
+from django.contrib.postgres.search import SearchQuery, SearchRank
+from django.db.models import Q, F, Count, Prefetch, Case, When, IntegerField
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -143,6 +144,32 @@ class SearchView(SearchMixin, FormMixin, ListView):
                 searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
                 aids_associated_to_the_project = aids_associated_to_the_project \
                     .filter(perimeter__in=searched_perimeter)  # noqa
+
+            searched_audience = self.form.cleaned_data.get('targeted_audiences', None)
+            if searched_audience:
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(targeted_audiences__overlap=searched_audience)  # noqa
+
+            searched_programs = self.form.cleaned_data.get('programs', None)
+            if searched_programs:
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(programs__in=searched_programs)  # noqa
+
+            searched_text = self.form.cleaned_data.get('text', None)
+            if searched_text:
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(search_vector=searched_text) \
+                .annotate(rank=SearchRank(F('search_vector'), searched_text))
+
+            searched_backers = self.form.cleaned_data.get('backers', None)
+            if searched_backers:
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(Q(financers__in=searched_backers) | Q(instructors__in=searched_backers))  # noqa
+
+            searched_aid_type = self.form.cleaned_data.get('aid_type', None)
+            if searched_aid_type:
+                aids_associated_to_the_project = aids_associated_to_the_project \
+                    .filter(aid_types__overlap=searched_aid_type)  # noqa
 
             aids_associated_to_the_project = aids_associated_to_the_project.distinct()  # noqa
 
