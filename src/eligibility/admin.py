@@ -43,7 +43,7 @@ class EligibilityTestAdmin(admin.ModelAdmin):
                     'date_created']
     search_fields = ['name']
     list_filter = [AuthorFilter]
-    actions = ['export_csv']
+    actions = ['export_csv', 'export_csv_background']
 
     form = EligibilityTestForm
     inlines = [EligibilityQuestionInline]
@@ -101,9 +101,14 @@ class EligibilityTestAdmin(admin.ModelAdmin):
 
     def export_csv(self, request, queryset):
         eligibility_tests_id_list = list(queryset.values_list('id', flat=True))
+        return export_eligibility_tests_stats_as_csv(eligibility_tests_id_list, request.user.id, background=False)  # noqa
+    export_csv.short_description = 'Exporter le premier Test sélectionné en CSV'  # noqa
+
+    def export_csv_background(self, request, queryset):
+        eligibility_tests_id_list = list(queryset.values_list('id', flat=True))
         export_eligibility_tests_stats_as_csv.delay(eligibility_tests_id_list, request.user.id)  # noqa
         self.show_export_message(request)
-    export_csv.short_description = 'Exporter le premier Test sélectionné en CSV en tâche de fond'  # noqa
+    export_csv_background.short_description = 'Exporter le premier Test sélectionné en CSV en tâche de fond'  # noqa
 
     class Media:
         css = {

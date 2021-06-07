@@ -4,6 +4,7 @@ from io import StringIO
 from django.core import files
 from django.core.files.base import ContentFile
 from django.utils import timezone, dateformat
+from django.http import HttpResponse
 
 from core.celery import app
 
@@ -12,7 +13,8 @@ from stats.models import AidEligibilityTestEvent
 from exporting.models import DataExport
 
 
-def export_eligibility_tests_stats(eligibility_tests_id_list, author_id):
+@app.task
+def export_eligibility_tests_stats_as_csv(eligibility_tests_id_list, author_id, background=True):  # noqa
     """
     Method to write to csv and export all of the stats of an
     Eligibility Test.
@@ -26,7 +28,8 @@ def export_eligibility_tests_stats(eligibility_tests_id_list, author_id):
         .filter(eligibility_test=eligibility_test)
 
     csv_buffer = StringIO()
-    csv_writer = csv.writer(csv_buffer, delimiter=',')
+    response = HttpResponse(content_type='text/csv')
+    csv_writer = csv.writer(csv_buffer if background else response, delimiter=',')  # noqa
 
     # write header
     header = ['eligibility_test_name', 'aid_name']
@@ -49,20 +52,19 @@ def export_eligibility_tests_stats(eligibility_tests_id_list, author_id):
         eligibility_test_event_row_meta = [getattr(eligibility_test_event, key) for key in header_meta]  # noqa
         csv_writer.writerow(eligibility_test_event_row + eligibility_test_event_row_questions + eligibility_test_event_row_meta)  # noqa
 
-    file_content = ContentFile(csv_buffer.getvalue().encode('utf-8'))
-
     file_name = 'export-test-eligibilite-{eligibility_test_id}-stats-{timestamp}.csv'.format(  # noqa
         eligibility_test_id=eligibility_test.id,
         timestamp=dateformat.format(timezone.now(), 'Y-m-d_H-i-s'))
-    file_object = files.File(file_content, name=file_name)
-    DataExport.objects.create(
-        author_id=author_id,
-        exported_file=file_object,
-    )
-    file_object.close()
-    file_content.close()
 
-
-@app.task
-def export_eligibility_tests_stats_as_csv(eligibility_tests_id_list, author_id):  # noqa
-    export_eligibility_tests_stats(eligibility_tests_id_list, author_id)
+    if background:
+        file_content = ContentFile(csv_buffer.getvalue().encode('utf-8'))
+        file_object = files.File(file_content, name=file_name)
+        DataExport.objects.create(
+            author_id=author_id,
+            exported_file=file_object,
+        )
+        file_object.close()
+        file_content.close()
+    else:
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(file_name)  # noqa
+        return response
