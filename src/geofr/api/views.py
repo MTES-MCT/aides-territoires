@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import Q
 
 from geofr.models import Perimeter, remove_accents
 from geofr.api.serializers import PerimeterSerializer
@@ -22,7 +23,7 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
                 .annotate(similarity=TrigramSimilarity('unaccented_name', q)) \
-                .filter(unaccented_name__trigram_similar=remove_accents(q)) \
+                .filter(Q(unaccented_name__trigram_similar=remove_accents(q)) | Q(zipcodes__icontains=accented_q)) \
                 .order_by('-similarity', '-scale', 'name')
 
         is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')  # noqa
