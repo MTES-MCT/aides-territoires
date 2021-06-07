@@ -588,6 +588,8 @@ class BaseAidSearchForm(forms.Form):
                 Q(financers__in=backers) | Q(instructors__in=backers))
 
         projects = self.cleaned_data.get('projects', None) # noqa
+        if projects:
+            qs = qs.filter(projects__in=projects)
 
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:

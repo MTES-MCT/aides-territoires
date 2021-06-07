@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q, Count, Prefetch, Case, When, IntegerField
+from django.contrib.postgres.search import SearchRank
+from django.db.models import Q, F, Count, Prefetch, Case, When, IntegerField
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -101,7 +102,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         if self.request.GET.get('projects'):
             ordered_results = filter_form.order_queryset(results).distinct()
-            ordered_results = ordered_results | self.get_aids_associated_to_project()  # noqa
+            ordered_results = ordered_results | self.get_aids_associated_to_project_categories()  # noqa
 
             searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
             is_associate_to_the_project = qs.filter(projects=searched_project)
@@ -126,27 +127,77 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         return ordered_results
 
-    def get_aids_associated_to_project(self):
+    def get_aids_associated_to_project_categories(self):
         """
         Get the aids that matched searched project and perimeter filter
         """
         if self.request.GET.get('projects'):
             searched_project = extract_id_from_string(self.request.GET.get('projects'))  # noqa
-            aids_associated_to_the_project = Aid.objects \
+
+            financers_qs = Backer.objects \
+                .order_by('aidfinancer__order', 'name')
+
+            instructors_qs = Backer.objects \
+                .order_by('aidinstructor__order', 'name')
+
+            projects_qs = Project.objects \
+                .filter(status='published') \
+                .distinct()
+
+            aids = Aid.objects \
                 .published() \
                 .open() \
-                .filter(projects=searched_project) \
+                .select_related('perimeter', 'author') \
+                .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
+                .prefetch_related(Prefetch('instructors',
+                                       queryset=instructors_qs)) \
+                .prefetch_related(Prefetch('projects', queryset=projects_qs)) \
                 .distinct()
+
+            project_categories = Project.objects \
+                .filter(status='published') \
+                .filter(id=searched_project) \
+                .values_list('categories') \
+                .distinct()
+
+            aids_associated_to_the_project_categories = aids \
+                .filter(categories__in=project_categories)
 
             searched_perimeter = self.form.cleaned_data.get('perimeter', None)
             if searched_perimeter:
                 searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
-                aids_associated_to_the_project = aids_associated_to_the_project \
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
                     .filter(perimeter__in=searched_perimeter)  # noqa
 
-            aids_associated_to_the_project = aids_associated_to_the_project.distinct()  # noqa
+            searched_audience = self.form.cleaned_data.get('targeted_audiences', None)  # noqa
+            if searched_audience:
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
+                    .filter(targeted_audiences__overlap=searched_audience)  # noqa
 
-            return aids_associated_to_the_project
+            searched_programs = self.form.cleaned_data.get('programs', None)
+            if searched_programs:
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
+                    .filter(programs__in=searched_programs)  # noqa
+
+            searched_text = self.form.cleaned_data.get('text', None)
+            if searched_text:
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
+                    .filter(search_vector=searched_text) \
+                    .annotate(rank=SearchRank(F('search_vector'), searched_text))  # noqa
+
+            searched_backers = self.form.cleaned_data.get('backers', None)
+            if searched_backers:
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
+                    .filter(Q(financers__in=searched_backers) | Q(instructors__in=searched_backers))  # noqa
+
+            searched_aid_type = self.form.cleaned_data.get('aid_type', None)
+            if searched_aid_type:
+                aids_associated_to_the_project_categories = aids_associated_to_the_project_categories \
+                    .filter(aid_types__overlap=searched_aid_type)  # noqa
+
+            aids_associated_to_the_project_categories = aids_associated_to_the_project_categories.distinct()  # noqa
+
+            return aids_associated_to_the_project_categories
         else:
             return
 
@@ -232,7 +283,9 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
         context['promotions'] = self.get_promotions()
-        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project()  # noqa
+        context['aids_associated_to_the_project'] = self.get_aids_associated_to_project_categories()  # noqa
+        if self.request.GET.get('projects'):
+            context['project_choice'] = extract_id_from_string(self.request.GET.get('projects'))  # noqa
 
         return context
 
