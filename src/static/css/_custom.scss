@@ -1824,6 +1824,26 @@ div#search-steps {
             @extend .col-md-11;
             font-weight: 900;
             color: $font-color !important;
+            border-radius: 0 1rem 1rem 1rem;
+        }
+    }
+
+    #project-research {
+        border: solid 1px #fff;
+        border-radius: 0 1rem 1rem 1rem;
+        padding: 2rem;
+        margin-right: 6rem;
+    
+        .info, .warning {
+            border-radius: 0 1rem 1rem 1rem;
+        }
+
+        .info {
+            color: $font-color;
+        }
+
+        form {
+            margin-bottom: 0;
         }
     }
 

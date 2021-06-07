@@ -21,56 +21,40 @@
 <div id='themes-step'>
     <h1>Dans quelles thématiques ou pour quel projet recherchez-vous ?</h1>
     <div class="info">
-        <p>Pour filtrer vos résultats de recherche, nous vous proposons d'indiquer le projet pour lequel vous recherchez une aide ou de sélectionner une ou plusieurs thématiques. Vous pourrez ensuite sélectionner des sous-thématiques.</p>
+        <p>Pour filtrer vos résultats de recherche, nous vous proposons de sélectionner une ou plusieurs thématiques. Vous pourrez ensuite sélectionner des sous-thématiques.</p>
         <p>Une fois les résultats filtrés, vous pourrez ajouter des critères de filtre ou tester le moteur de recherche textuel.</p>
         <p>Vous pouvez également passer ces étapes et accéder directement à la page de résultats et au moteur de recherche textuel.</p>
     </div>
-    <div class="warning">
-        <p><strong>La recherche par projet est une beta fonctionnalité, ouverte pour les projets identifiés dans la thématique urbanisme, logement et aménagement.</strong></p>
-        <p><strong> Si vous ne trouvez pas le projet souhaité, nous vous invitons à suivre le parcours de recherche par thématique. Vous pourrez également nous indiquer votre projet et nous aider à améliorer cette entrée</strong></p>
-    </div>
 </div>
 
-<div>
+<div id="project-research">
+    <h2>Testez la recherche par projet !</h2>
+
+    <div class="info">
+        <p><strong>De manière alternative, pour filtrer vos résultats de recherche, nous vous proposons d'indiquer le projet pour lequel vous recherchez une aide</strong></p>
+        <p><strong> Si vous ne trouvez pas le projet souhaité, nous vous invitons à suivre le parcours de recherche par thématique. Vous pourrez également nous indiquer votre projet et nous aider à améliorer cette entrée</strong></p>
+    </div>
+
+    <div class="warning">
+        <p><strong>La recherche par projet est une beta fonctionnalité, ouverte pour les projets identifiés dans la thématique urbanisme, logement et aménagement.</strong></p>
+    </div>
     
     <form id="projects" action="{% url 'search_view' %}" method="GET">
-    
+        
+        {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
+        {% include '_field_snippet.html' with field=form.perimeter.as_hidden %}
         {% include '_field_snippet.html' with field=form.projects %}
     
         <button name="action" value="search" type="submit">
             Envoyer
         </button>         
-    </form>
-    
-    <div id="other_project_box" class="d-none">
-        <p>Aucun de ces projets ne correspond à votre recherche ? </p>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#suggested_project_box">Suggérer un projet</button>
-    </div>
-    
-    <div id="suggested_project_box" class="collapse">
-        <h3>Contribuez à améliorer Aides-territoires !</h3>
-        <div class="info">
-            <p>Indiquez le projet pour lequel vous recherchez une aide.</p>
-            <p>Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés.</p>
-        </div>
-        <form id="suggested_project" method="post" action="{% url 'project_suggest_view' %}?{{ querystring }}">
-            <div class="content">
-                {% csrf_token %}
-                {% include '_field_snippet.html' with field=project_form.name %}
-                {% include '_field_snippet.html' with field=project_form.description %}
-                <div class="warning">
-                    <p>Ces informations n’auront aucune influence sur les résultats de votre recherche et resteront confidentielles</p>
-                </div>
-                <button name="action" value="search" type="submit">
-                    Partager mon projet
-                </button>
-            </div>
-        </form>
-    </div>   
+    </form>   
 </div>
 
 <form id="theme" action="{% url 'search_step_category' %}" method="GET">
 
+    {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
+    {% include '_field_snippet.html' with field=form.perimeter.as_hidden %}
     {% include '_field_snippet.html' with field=form.themes %}
 
     <button name="action" value="search" type="submit">
@@ -87,6 +71,12 @@
         </a>
     </div>
 </form>
+{% endblock %}
+
+{% block extra_css %}
+{% compress css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endcompress %}
 {% endblock %}
 
 {% block extra_js %}

@@ -12,37 +12,14 @@
     <div class="modal-dialog modal-lg">
         <section>
             <header>
-                <h1>Quel est votre projet&nbsp;?</h1>
+                <h1>Contribuez à améliorer Aides-territoires !</h1>
                 <a href="{% url 'search_view' %}?{{ querystring }}" class="close" aria-label="Fermer">
                     <span aria-hidden="true">&times;</span>
                 </a>
             </header>
 
             <div class="content">            
-                {% if project_choices and categories_length %}
-                <div class="info">
-                    <p><strong>Indiquez le projet pour lequel vous recherchez une aide.</strong></p>
-                </div>
-
-                <form id="projects" action="{% url 'search_view' %}" method="GET">
-                
-                    {% include '_form_snippet.html' %}
-                
-                    <button name="action" value="search" type="submit">
-                        Envoyer
-                    </button>         
-                </form>
-
-                <div id="other_project_box" class="d-none">
-                    <p>Aucun de ces projets ne correspond à votre recherche ? </p>
-                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#suggested_project_box">Suggérer un projet</button>
-                </div>
-                
-                <div id="suggested_project_box" class="collapse">
-                {% else %}
                 <div id="suggested_project_box">
-                {% endif %}
-                    <h3>Contribuez à améliorer Aides-territoires !</h3>
                     <div class="info">
                         <p>Indiquez le projet pour lequel vous recherchez une aide.</p>
                         <p>Cela nous permettra d'améliorer dans le futur la pertinence des résultats qui vous seront proposés.</p>

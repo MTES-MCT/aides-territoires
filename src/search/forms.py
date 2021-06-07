@@ -218,40 +218,6 @@ class CategorySearchForm(forms.Form):
         self.fields['categories'].queryset = categories_with_aid_count
 
 
-class ProjectSearchForm(forms.Form):
-    targeted_audiences = forms.MultipleChoiceField(
-        choices=AUDIENCES,
-        widget=forms.widgets.MultipleHiddenInput)
-    perimeter = forms.CharField(
-        widget=forms.widgets.HiddenInput)
-    themes = ThemeChoiceField(
-        queryset=Theme.objects.order_by('name'),
-        to_field_name='slug',
-        widget=forms.widgets.MultipleHiddenInput)
-    categories = CategoryChoiceField(
-        queryset=Category.objects.all(),
-        to_field_name='slug',
-        widget=forms.widgets.MultipleHiddenInput)
-    projects = AutocompleteModelChoiceField(
-        queryset=Project.objects.all(),
-        required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        categories = self.initial.get('categories', [])
-
-        category_id = Category.objects \
-            .filter(slug__in=categories) \
-            .values('id') \
-            .distinct()
-
-        self.fields['projects'].queryset = Project.objects \
-            .filter(status='published') \
-            .filter(categories__in=category_id) \
-            .distinct()
-
-
 class SearchPageAdminForm(forms.ModelForm):
     content = RichTextField(
         label=_('Page content'),
