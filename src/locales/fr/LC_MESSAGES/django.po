@@ -2785,3 +2785,6 @@ msgstr "Administration de la communication promotionnelle"
 
 msgid "Aids associated to projects"
 msgstr "Aides associées à des projets"
+
+msgid "Your territory"
+msgstr "Votre territoire"
