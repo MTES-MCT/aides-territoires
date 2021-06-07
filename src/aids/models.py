@@ -121,6 +121,9 @@ class AidQuerySet(models.QuerySet):
         """
         return self.published().open()
 
+    def has_author(self):
+        return self.filter(author__isnull=False)
+
     def has_projects(self):
         return self.filter(projects__isnull=False)
 

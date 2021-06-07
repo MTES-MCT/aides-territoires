@@ -29,12 +29,12 @@ class AuthorFilter(InputFilter):
             return qs
 
 
-class SearchPageAdministratorFilter(admin.SimpleListFilter):
+class SearchPageContributorFilter(admin.SimpleListFilter):
     """Custom admin filter to target users who are
-    search page administrators."""
+    search page authors/contributors."""
 
     title = 'Administrateur de PP ?'
-    parameter_name = 'is_administrator_of_search_pages'
+    parameter_name = 'is_author_or_contributor_of_search_pages'
 
     def lookups(self, request, model_admin):
         return (
@@ -45,9 +45,9 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value == 'Yes':
-            return queryset.is_administrator_of_search_pages()
+            return queryset.is_author_or_contributor_of_search_pages()
         elif value == 'No':
-            return queryset.filter(administrator_of_search_pages__isnull=True)
+            return queryset.filter(search_pages__isnull=True).filter(contributor_of_search_pages__isnull=True)  # noqa
         return queryset
 
 
@@ -98,11 +98,12 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['last_name', 'email']
 
     list_filter = ['is_superuser', 'is_contributor',
-                   SearchPageAdministratorFilter, ApiTokenFilter,
+                   SearchPageContributorFilter, ApiTokenFilter,
                    'is_certified', 'ml_consent']
 
     readonly_fields = ['nb_aids',
-                       'administrator_of_search_pages_list', 'api_token',
+                       'author_of_search_pages_list', 'contributor_of_search_pages_list',  # noqa
+                       'api_token',
                        'last_login', 'date_joined']
 
     fieldsets = (
@@ -132,9 +133,10 @@ class UserAdmin(BaseUserAdmin):
                 'nb_aids',
             )
         }),
-        (_('PP Administrator space'), {
+        ('Espace administrateur (PP)', {
             'fields': (
-                'administrator_of_search_pages_list',
+                'author_of_search_pages_list',
+                'contributor_of_search_pages_list',
             )
         }),
         (_('Permissions'), {
@@ -177,8 +179,8 @@ class UserAdmin(BaseUserAdmin):
     nb_aids.short_description = "Nombre d'aides"
     nb_aids.admin_order_field = 'aid_count'
 
-    def administrator_of_search_pages_list(self, user):
-        search_pages = user.administrator_of_search_pages.all()
+    def author_of_search_pages_list(self, user):
+        search_pages = user.search_pages.all()
         if not search_pages:
             return 'Aucune'
         else:
@@ -189,7 +191,21 @@ class UserAdmin(BaseUserAdmin):
                     obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),  # noqa
                     obj_name=search_page)
             return format_html(html)
-    administrator_of_search_pages_list.short_description = _('Search page')
+    author_of_search_pages_list.short_description = 'Recherche personnalisée (auteur)'  # noqa
+
+    def contributor_of_search_pages_list(self, user):
+        search_pages = user.contributor_of_search_pages.all()
+        if not search_pages:
+            return 'Aucune'
+        else:
+            html = ''
+            for search_page in search_pages:
+                html += format_html(
+                    '<a href="{obj_url}">{obj_name}</a></br>',
+                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),  # noqa
+                    obj_name=search_page)
+            return format_html(html)
+    contributor_of_search_pages_list.short_description = 'Recherche personnalisée (contributeur)'  # noqa
 
     def in_mailing_list(self, user):
         return user.ml_consent

@@ -35,10 +35,15 @@ def meta_upload_to(instance, filename):
 class SearchPageQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for search pages."""
 
-    def has_administrators(self):
-        """Only return search pages with at least one administrator."""
+    def has_author(self):
+        """Only return search pages with an author."""
 
-        return self.filter(administrators__isnull=False)
+        return self.filter(author__isnull=False)
+
+    def has_contributors(self):
+        """Only return search pages with at least one contributor."""
+
+        return self.filter(contributors__isnull=False)
 
 
 class SearchPage(models.Model):
@@ -77,10 +82,16 @@ class SearchPage(models.Model):
         _('Querystring'),
         help_text=_('The search paramaters url'))
 
-    administrators = models.ManyToManyField(
+    author = models.ForeignKey(
         'accounts.User',
-        verbose_name=_('Administrators'),
-        related_name='administrator_of_search_pages',
+        on_delete=models.PROTECT,
+        verbose_name=_('Author'),
+        related_name='search_pages',
+        null=True)
+    contributors = models.ManyToManyField(
+        'accounts.User',
+        verbose_name=_('Contributors'),
+        related_name='contributor_of_search_pages',
         blank=True)
 
     highlighted_aids = models.ManyToManyField(

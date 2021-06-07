@@ -330,10 +330,19 @@ def test_non_contributor_can_log_in_but_no_menu(client):
     assert 'Espace contributeur' not in res.content.decode()
 
 
-def test_search_page_administrator_has_specific_menu(client):
+def test_search_page_author_has_specific_menu(client):
+    user_admin_pp = UserFactory(is_contributor=False)
+    SearchPageFactory(title='Test PP', author=user_admin_pp)
+    client.force_login(user_admin_pp)
+    home = reverse('home')
+    res = client.get(home)
+    assert 'Test PP' in res.content.decode()
+
+
+def test_search_page_contributor_has_specific_menu(client):
     user_admin_pp = UserFactory(is_contributor=False)
     pp = SearchPageFactory(title='Test PP')
-    pp.administrators.add(user_admin_pp)
+    pp.contributors.add(user_admin_pp)
     client.force_login(user_admin_pp)
     home = reverse('home')
     res = client.get(home)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
                                         BaseUserManager)
 from django.utils import timezone
@@ -9,10 +10,18 @@ from django.contrib.postgres.fields import ArrayField
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
 
-    def is_administrator_of_search_pages(self):
-        """Only return users who are search page administrators."""
+    def is_author_of_search_pages(self):
+        """Only return users who are search page authors."""
 
-        return self.filter(administrator_of_search_pages__isnull=False)
+        return self.filter(search_pages__isnull=False)
+
+    def is_contributor_of_search_pages(self):
+        """Only return users who are search page contributors."""
+
+        return self.filter(contributor_of_search_pages__isnull=False)
+
+    def is_author_or_contributor_of_search_pages(self):
+        return self.filter(Q(search_pages__isnull=False) | Q(contributor_of_search_pages__isnull=False))  # noqa
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -53,10 +62,14 @@ class UserManager(BaseUserManager):
         return self._create_user(email, first_name, last_name, password,
                                  **extra_fields)
 
-    def is_administrator_of_search_pages(self):
-        """Only return users who are search page administrators."""
+    def is_author_of_search_pages(self):
+        return self.get_queryset().is_author_of_search_pages()
 
-        return self.get_queryset().is_administrator_of_search_pages()
+    def is_contributor_of_search_pages(self):
+        return self.get_queryset().is_contributor_of_search_pages()
+
+    def is_author_or_contributor_of_search_pages(self):
+        return self.get_queryset().is_author_or_contributor_of_search_pages()
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -154,5 +167,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.organization and self.role and self.contact_phone
 
     @property
-    def is_administrator_of_search_pages(self):
-        return self.administrator_of_search_pages.exists()
+    def is_author_of_search_pages(self):
+        return self.search_pages.exists()
+
+    @property
+    def is_contributor_of_search_pages(self):
+        return self.contributor_of_search_pages.exists()
+
+    @property
+    def is_author_or_contributor_of_search_pages(self):
+        return self.is_author_of_search_pages or self.is_contributor_of_search_pages  # noqa

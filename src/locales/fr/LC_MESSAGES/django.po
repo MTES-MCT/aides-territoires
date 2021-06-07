@@ -113,8 +113,8 @@ msgstr "Contributeur ?"
 msgid "Can access a dashboard to create aids"
 msgstr "Peut accéder à un espace pour créer et modifier ses aides."
 
-msgid "Administrators"
-msgstr "Administrateurs"
+msgid "Contributors"
+msgstr "Contributeurs"
 
 msgid "Is certified"
 msgstr "Certifié ?"
@@ -1912,9 +1912,6 @@ msgstr "Mon portefeuille d'aides"
 
 msgid "Publish a new aid"
 msgstr "Publier une aide"
-
-msgid "PP Administrator space"
-msgstr "Espace administrateur"
 
 msgid "Search results pages"
 msgstr "Pages de résultats"

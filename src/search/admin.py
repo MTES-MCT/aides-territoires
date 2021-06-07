@@ -8,11 +8,11 @@ from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class AdministratorFilter(admin.SimpleListFilter):
-    """Custom admin filter to target search pages with administrators."""
+class HasAuthorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target search pages with authors."""
 
-    title = _('Administrators')
-    parameter_name = 'has_administrators'
+    title = _('Authors')
+    parameter_name = 'has_authors'
 
     def lookups(self, request, model_admin):
         return (
@@ -23,9 +23,30 @@ class AdministratorFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value == 'Yes':
-            return queryset.has_administrators()
+            return queryset.has_authors()
         elif value == 'No':
-            return queryset.filter(administrators__isnull=True)
+            return queryset.filter(author__isnull=True)
+        return queryset
+
+
+class HasContributorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target search pages with contributors."""
+
+    title = _('Contributors')
+    parameter_name = 'has_contributors'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_contributors()
+        elif value == 'No':
+            return queryset.filter(contributors__isnull=True)
         return queryset
 
 
@@ -34,10 +55,10 @@ class SearchPageAdmin(admin.ModelAdmin):
     list_display = ['slug', 'title', 'meta_description', 'date_created']
     filter_vertical = ['available_categories']
     search_fields = ['title']
-    list_filter = [AdministratorFilter]
+    list_filter = [HasAuthorFilter, HasContributorFilter]
 
     prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['administrators',
+    autocomplete_fields = ['author', 'contributors',
                            'highlighted_aids', 'excluded_aids']
     readonly_fields = [
         'all_aids_count', 'live_aids_count',
@@ -56,9 +77,10 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'date_updated',
             )
         }),
-        (_('Administrators'), {
+        ('Administration', {
             'fields': (
-                'administrators',
+                'author',
+                'contributors',
             )
         }),
         (_('SEO'), {
