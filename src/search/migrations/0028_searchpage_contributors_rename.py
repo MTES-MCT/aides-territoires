@@ -8,24 +8,10 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('pages', '0003_alter_page_minisite'),
-        ('search', '0027_auto_20210607_1527'),
+        ('search', '0027_searchpage_author'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='MinisitePage',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Page',
-                'verbose_name_plural': 'Pages',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
-            },
-            bases=('pages.page',),
-        ),
         migrations.AlterField(
             model_name='searchpage',
             name='contributors',
