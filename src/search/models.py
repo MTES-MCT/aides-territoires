@@ -1,7 +1,7 @@
 from os.path import splitext
 
 from django.db import models
-from django.db.models import Count, Case, When, IntegerField
+from django.db.models import Count, Case, When, Q, IntegerField
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
@@ -44,6 +44,9 @@ class SearchPageQuerySet(models.QuerySet):
         """Only return search pages with at least one contributor."""
 
         return self.filter(contributors__isnull=False)
+
+    def administrable_by_user(self, user):
+        return self.filter(Q(author=user) | Q(contributors__in=[user])).distinct()  # noqa
 
 
 class SearchPage(models.Model):

@@ -130,6 +130,30 @@ class SearchPageAdmin(admin.ModelAdmin):
         }),
     ]
 
+    def get_queryset(self, request):
+        qs = super(admin.ModelAdmin, self).get_queryset(request)
+
+        if request.user.is_superuser:
+            return qs
+
+        return qs.administrable_by_user(user=request.user)
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = self.readonly_fields
+
+        print(obj)
+        print(request.user)
+        print(request.user.is_superuser)
+        print(readonly_fields)
+        if obj and not request.user.is_superuser:
+            self.prepopulated_fields = {}  # issue with 'slug' field instead
+            readonly_fields += ['slug', 'querystring']
+            if obj.author != request.user:
+                readonly_fields += ['author']
+
+        print(readonly_fields)
+        return readonly_fields
+
     def all_aids_count(self, search_page):
         return search_page.get_base_queryset(all_aids=True).count()
     all_aids_count.short_description = "Nombre d'aides total (querystring)"

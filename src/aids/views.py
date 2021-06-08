@@ -415,6 +415,7 @@ class AidDetailView(DetailView):
             current_search = response.context_data.get('current_search', '')
             host = request.get_host()
             request_ua = request.META.get('HTTP_USER_AGENT', '')
+            print(current_search, host, request_ua)
             log_aidviewevent.delay(
                 aid_id=self.object.id,
                 querystring=current_search,

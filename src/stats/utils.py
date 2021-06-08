@@ -31,8 +31,10 @@ def log_aidviewevent(aid_id, querystring='', source='', request_ua=''):
     # There are some cases where we don't want to log the view event:
     # - a crawler
     is_crawler = crawler_detect.isCrawler(request_ua)
+    print(is_crawler, any([is_crawler]))
 
     if not any([is_crawler]):
+        print('coucou')
         targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
 
         AidViewEvent.objects.create(

@@ -172,7 +172,11 @@ class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.annotate(aid_count=Count('aids'))
-        return qs
+
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(email=request.user.email)  # TODO: filter on user's colleagues instead  # noqa
 
     def nb_aids(self, user):
         return user.aid_count

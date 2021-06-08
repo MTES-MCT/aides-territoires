@@ -153,7 +153,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         """Only the admin users can access the admin site."""
-        return self.is_superuser
+        return self.is_superuser or self.is_author_or_contributor_of_search_pages  # noqa
 
     @property
     def is_contributor_or_staff(self):
