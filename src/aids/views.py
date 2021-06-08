@@ -539,7 +539,7 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
 
 
 class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
-                  AidEditMixin, UpdateView):
+                  AidEditMixin, UpdateView, AidCopyMixin):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
