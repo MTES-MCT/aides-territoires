@@ -88,6 +88,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'show_perimeter_field',
                 'show_mobilization_step_field',
                 'show_aid_type_field',
+                'show_backers_field',
             )
         }),
         ('Aides concernées', {

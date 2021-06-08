@@ -173,6 +173,9 @@ class SearchPage(models.Model):
     show_perimeter_field = models.BooleanField(
         _('Show perimeter field?'),
         default=True)
+    show_backers_field = models.BooleanField(
+        'Montrer le champ « porteur »?',
+        default=False)
     show_mobilization_step_field = models.BooleanField(
         _('Show mobilization step filter?'),
         default=False)

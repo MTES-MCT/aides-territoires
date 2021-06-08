@@ -6,7 +6,6 @@
     {{ form.themes.as_hidden }}
     {{ form.aid_types.as_hidden }}
     {{ form.call_for_projects_only.as_hidden }}
-    {{ form.backers.as_hidden }}
     {{ form.text.as_hidden }}
 
     {% comment %}
@@ -14,6 +13,10 @@
     {% endcomment %}
     {% if not search_page.show_perimeter_field %}
         {{ form.perimeter.as_hidden }}
+    {% endif %}
+
+    {% if not search_page.show_backers_field %}
+        {{ form.backers.as_hidden }}
     {% endif %}
 
     {% if not search_page.show_audience_field %}
@@ -53,6 +56,12 @@
             <div class="col col-md-4">
                 {% include '_field_snippet.html' with field=form.perimeter %}
             </div>
+        {% endif %}
+
+        {% if search_page.show_backers_field %}
+        <div class="col col-md-4">
+            {% include '_field_snippet.html' with field=form.backers %}
+        </div>
         {% endif %}
 
         {% if search_page.show_audience_field %}
