@@ -12,7 +12,7 @@ class UserQueryset(models.QuerySet):
     def is_administrator_of_search_pages(self):
         """Only return users who are search page administrators."""
 
-        return self.filter(administrator_of_search_pages__isnull=False)
+        return self.filter(search_pages__isnull=False)
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -152,7 +152,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def profile_complete(self):
         """Contributors need to specify more personal data."""
         return self.organization and self.role and self.contact_phone
-
-    @property
-    def is_administrator_of_search_pages(self):
-        return self.administrator_of_search_pages.exists()

@@ -47,7 +47,7 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
         if value == 'Yes':
             return queryset.is_administrator_of_search_pages()
         elif value == 'No':
-            return queryset.filter(administrator_of_search_pages__isnull=True)
+            return queryset.filter(search_pages__isnull=True)
         return queryset
 
 
@@ -178,7 +178,7 @@ class UserAdmin(BaseUserAdmin):
     nb_aids.admin_order_field = 'aid_count'
 
     def administrator_of_search_pages_list(self, user):
-        search_pages = user.administrator_of_search_pages.all()
+        search_pages = user.search_pages.all()
         if not search_pages:
             return 'Aucune'
         else:
