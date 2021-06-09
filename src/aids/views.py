@@ -653,6 +653,7 @@ class GenericToLocalAidView(ContributorAndProfileCompleteRequiredMixin,
         new_aid.name = existing_aid.name
         new_aid.is_generic = False
         new_aid.generic_aid = existing_aid
+        new_aid.clone_m2m(source_aid=existing_aid)
         new_aid.save()
 
         self.new_aid = new_aid
