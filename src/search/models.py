@@ -152,7 +152,7 @@ class SearchPage(models.Model):
 
     # Search form customization fields
     show_categories_field = models.BooleanField(
-        _('Show categories field?'),
+        'Montrer le champ « thématiques » ?',
         default=True)
     available_categories = models.ManyToManyField(
         'categories.Category',
@@ -161,7 +161,7 @@ class SearchPage(models.Model):
         blank=True)
 
     show_audience_field = models.BooleanField(
-        _('Show audience field?'),
+        'Montrer le champ « structure » ?',
         default=True)
     available_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
@@ -171,13 +171,16 @@ class SearchPage(models.Model):
             choices=AUDIENCES_GROUPED))
 
     show_perimeter_field = models.BooleanField(
-        _('Show perimeter field?'),
+        'Montrer le champ « territoire » ?',
         default=True)
+    show_backers_field = models.BooleanField(
+        'Montrer le champ « porteur » ?',
+        default=False)
     show_mobilization_step_field = models.BooleanField(
-        _('Show mobilization step filter?'),
+        'Montrer le champ « avancement du projet » ?',
         default=False)
     show_aid_type_field = models.BooleanField(
-        _('Show aid type filter?'),
+        "Montrer le champ « nature de l'aide » ?",
         default=False)
 
     date_created = models.DateTimeField(
