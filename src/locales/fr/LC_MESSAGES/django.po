@@ -1697,21 +1697,6 @@ msgstr "Lien associé au logo"
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 
-msgid "Show categories field?"
-msgstr "Montrer le champ « thématiques » ?"
-
-msgid "Show audience field?"
-msgstr "Montrer le champ « structure » ?"
-
-msgid "Show perimeter field?"
-msgstr "Montrer le champ « territoire » ?"
-
-msgid "Show mobilization step filter?"
-msgstr "Montrer le champ « avancement du projet » ?"
-
-msgid "Show aid type filter?"
-msgstr "Montrer le champ « nature de l'aide » ?"
-
 msgid "Search page"
 msgstr "Recherche personnalisée"
 

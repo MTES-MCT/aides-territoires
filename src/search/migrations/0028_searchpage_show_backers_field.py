@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='searchpage',
             name='show_backers_field',
-            field=models.BooleanField(default=False, verbose_name='Montrer le champ « porteur »?'),
+            field=models.BooleanField(default=False, verbose_name='Montrer le champ « porteur » ?'),
         ),
     ]
