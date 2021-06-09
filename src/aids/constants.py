@@ -6,6 +6,7 @@ COLLECTIVITIES_AUDIENCES = (
     ('epci', _('Audience EPCI')),
     ('department', _('Departments')),
     ('region', _('Regions')),
+    ('special', _('Special status for outre-mer')),
 )
 
 OTHER_AUDIENCES = (
