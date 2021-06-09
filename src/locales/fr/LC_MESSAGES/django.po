@@ -327,6 +327,12 @@ msgstr "Particuliers"
 msgid "Farmers"
 msgstr "Agriculteurs"
 
+msgid "Special status for outre-mer"
+msgstr "Collectivités d’outre-mer à statuts particuliers"
+
+msgid "Special status"
+msgstr "Statut particulier"
+
 msgid "Private sector"
 msgstr "Entreprises privées"
 

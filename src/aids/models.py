@@ -250,6 +250,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('epci', _('Audience EPCI')),
         ('department', _('Departments')),
         ('region', _('Regions')),
+        ('special', _('Special status for outre-mer')),
         ('association', _('Associations')),
         ('private_sector', _('Private sector')),
         ('public_cies', _('Local public companies')),
