@@ -52,11 +52,20 @@ def get_site_from_host(host):
     return host
 
 
+def is_subdomain(subdomain):
+    """
+    Check if string is subdomain
+    """
+    if subdomain and subdomain != 'aides-territoires':
+        return True
+    return False
+
+
 def build_host_with_subdomain(host, subdomain):
     """
     Build domain with subdomain
     """
-    if subdomain and subdomain != 'aides-territoires':
+    if is_subdomain(subdomain):
         return f'{subdomain}.{host}'
     return host
 

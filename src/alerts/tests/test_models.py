@@ -79,3 +79,15 @@ def test_get_new_aids_with_unpublished_aids(yesterday):
         status='draft')
     aids = alert.get_new_aids()
     assert len(aids) == 0
+
+
+def test_get_absolute_url():
+    alert = AlertFactory(querystring='text=test')
+    alert_absolute_url = alert.get_absolute_url()
+    assert alert_absolute_url.startswith('/aides/')
+
+
+def test_get_absolute_url_in_minisite():
+    alert = AlertFactory(querystring='text=test')
+    alert_absolute_url = alert.get_absolute_url(in_minisite=True)
+    assert not alert_absolute_url.startswith('/aides/')

@@ -16,7 +16,7 @@ au format HTML. Il est possible que les liens ne s'affichent pas correctement.
 Attention, il semble qu'il y ait encore d'autres aides disponibles !
 Rendez-vous sur Aides-territoires pour les découvrir.
 
-https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}
+{{ alert_url|safe }}
 {% endif %}
 
 N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
@@ -24,7 +24,7 @@ Vous pouvez également transférer cet email à vos partenaires afin qu'ils pren
 
 Cette alerte ne correspond plus à vos besoins ? Vous pouvez la supprimer en cliquant sur le lien suivant :
 
-https://{{ domain }}{{ delete_url|safe }}
+{{ alert_delete_url|safe }}
 
 À très vite !
 L'équipe d'Aides-territoires.
