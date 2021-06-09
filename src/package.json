@@ -18,7 +18,7 @@
     "jquery-resizable-dom": "^0.35.0",
     "postcss-cli": "^8.3.1",
     "select2": "^4.0.13",
-    "select2-bootstrap4-theme": "thibault/select2-bootstrap4-theme#master",
+    "select2-bootstrap4-theme": "git+https://github.com/thibault/select2-bootstrap4-theme.git",
     "trumbowyg": "^2.21.0"
   },
   "devDependencies": {
