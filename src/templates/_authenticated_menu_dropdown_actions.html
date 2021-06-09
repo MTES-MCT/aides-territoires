@@ -23,10 +23,10 @@
     <hr />
 {% endif %}
 
-{% if user.is_administrator_of_search_pages %}
+{% if user.search_pages.count %}
     <h6 id="contributor-menu">Espace administrateur</h6>
 
-    {% for search_page in user.administrator_of_search_pages.all %}
+    {% for search_page in user.search_pages.all %}
         <a href="https://{{ search_page.slug }}.aides-territoires.beta.gouv.fr/stats/" target="_blank" rel="noopener">{{ search_page.title }}</a>
     {% endfor %}
 

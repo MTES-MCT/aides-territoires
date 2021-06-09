@@ -11,8 +11,8 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 class AdministratorFilter(admin.SimpleListFilter):
     """Custom admin filter to target search pages with administrators."""
 
-    title = _('Administrators')
-    parameter_name = 'has_administrators'
+    title = 'Administrateur ?'
+    parameter_name = 'has_administrator'
 
     def lookups(self, request, model_admin):
         return (
@@ -25,7 +25,7 @@ class AdministratorFilter(admin.SimpleListFilter):
         if value == 'Yes':
             return queryset.has_administrators()
         elif value == 'No':
-            return queryset.filter(administrators__isnull=True)
+            return queryset.filter(administrator__isnull=True)
         return queryset
 
 
@@ -37,7 +37,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     list_filter = [AdministratorFilter]
 
     prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['administrators',
+    autocomplete_fields = ['administrator',
                            'highlighted_aids', 'excluded_aids']
     readonly_fields = [
         'all_aids_count', 'live_aids_count',
@@ -56,9 +56,9 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'date_updated',
             )
         }),
-        (_('Administrators'), {
+        ('Administration', {
             'fields': (
-                'administrators',
+                'administrator',
             )
         }),
         (_('SEO'), {

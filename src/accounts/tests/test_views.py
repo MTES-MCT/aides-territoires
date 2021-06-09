@@ -332,8 +332,7 @@ def test_non_contributor_can_log_in_but_no_menu(client):
 
 def test_search_page_administrator_has_specific_menu(client):
     user_admin_pp = UserFactory(is_contributor=False)
-    pp = SearchPageFactory(title='Test PP')
-    pp.administrators.add(user_admin_pp)
+    SearchPageFactory(title='Test PP', administrator=user_admin_pp)
     client.force_login(user_admin_pp)
     home = reverse('home')
     res = client.get(home)

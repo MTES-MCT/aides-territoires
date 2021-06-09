@@ -36,9 +36,9 @@ class SearchPageQuerySet(models.QuerySet):
     """Custom queryset with additional filtering methods for search pages."""
 
     def has_administrators(self):
-        """Only return search pages with at least one administrator."""
+        """Only return search pages with an administrator."""
 
-        return self.filter(administrators__isnull=False)
+        return self.filter(administrator__isnull=False)
 
 
 class SearchPage(models.Model):
@@ -77,11 +77,12 @@ class SearchPage(models.Model):
         _('Querystring'),
         help_text=_('The search paramaters url'))
 
-    administrators = models.ManyToManyField(
+    administrator = models.ForeignKey(
         'accounts.User',
-        verbose_name=_('Administrators'),
-        related_name='administrator_of_search_pages',
-        blank=True)
+        on_delete=models.PROTECT,
+        verbose_name='Administrateur',
+        related_name='search_pages',
+        null=True, blank=True)
 
     highlighted_aids = models.ManyToManyField(
         'aids.Aid',
