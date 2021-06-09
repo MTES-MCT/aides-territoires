@@ -657,7 +657,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return reverse('admin:aids_aid_change', args=[self.id])
 
     def get_sorted_local_aids(self):
-        return self.local_aids.order_by('perimeter__name')
+        return self.local_aids.live() \
+            .select_related('perimeter') \
+            .order_by('perimeter__name')
 
     def is_draft(self):
         return self.status == AidWorkflow.states.draft
@@ -746,3 +748,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return (
             self.targeted_audiences and
             'private_sector' in self.targeted_audiences)
+
+    def clone_m2m(self, source_aid):
+        """
+        Clones the many-to-many fields for the the given source aid.
+        """
+        m2m_fields = self._meta.many_to_many
+        for field in m2m_fields:
+            for item in field.value_from_object(source_aid):
+                getattr(self, field.attname).add(item)
+        self.save()

@@ -1,0 +1,42 @@
+{% load compress %}
+
+{% if user.is_authenticated %}
+<div class="mt-2">
+    <form name="generic_to_local" action="{% url 'aid_generic_to_local_view' aid.slug %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            <i class="fas fa-solid fa-copy mr-1"></i>
+            Créer une variante locale de cette aide
+        </button>
+    </form>
+</div>
+{% else %}
+<div class="mt-2">
+<button type="button" id="create-local-reveal-button" class="btn btn-primary hide-me"
+        data-toggle="collapse" data-target="#collapse-create-local" aria-expanded="false"
+        aria-controls="collapse-create-local">
+    <i class="fas fa-solid fa-copy mr-1"></i>
+    Créer une déclinaison locale de cette aide
+</button>
+<div class="collapse" id="collapse-create-local">
+    <h5>💡 Vous souhaitez créer une déclinaison locale de cette aide ? </h5>
+    <p class="warning">
+        <span class="fas fa-user"></span>
+        {% url 'login' as login_url %}
+        Vous disposez déjà d'un compte ?
+        <a href="{{ login_url }}?next={% url 'aid_detail_view' aid.slug %}">Rendez-vous sur la page de connexion.</a>
+    </p>
+    <p class="warning">
+        <span class="fas fa-user"></span>
+        {% url 'register' as register_url %}
+        Vous n'avez pas encore de compte ?
+        <a href="{{ register_url }}">Inscrivez-vous puis revnez sur cette page.</a>
+    </p>
+    <p class="warning">
+        <span class="fas fa-bug"></span>
+        Si vous avez des questions,
+        <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>
+    </p>
+</div>
+</div>
+{% endif %}

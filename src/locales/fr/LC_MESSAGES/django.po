@@ -944,6 +944,9 @@ msgstr "<slug:slug>/statut/"
 msgid "<slug:slug>/delete/"
 msgstr "<slug:slug>/supprimer/"
 
+msgid "duplicate/<slug:slug>/"
+msgstr "dupliquer/<slug:slug>/"
+
 #, python-format
 msgid ""
 "Your aid was sucessfully created. You can keep editing it or <a href="

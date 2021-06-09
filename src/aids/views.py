@@ -9,8 +9,9 @@ from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  DeleteView, FormView)
+                                  DeleteView, FormView, RedirectView)
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
@@ -23,9 +24,8 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
-from aids.models import Aid, AidWorkflow
-from aids.utils import generate_clone_title
-from aids.mixins import AidEditMixin
+from aids.models import Aid
+from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
@@ -539,7 +539,7 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
 
 
 class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
-                  AidEditMixin, UpdateView):
+                  AidEditMixin, UpdateView, AidCopyMixin):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
@@ -580,15 +580,7 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
 
         if action == 'save_as_new':
             obj = form.save(commit=False)
-            obj.id = None
-            obj.slug = None
-            obj.date_created = timezone.now()
-            obj.date_published = None
-            obj.status = AidWorkflow.states.draft
-            obj.is_imported = False
-            obj.import_uniqueid = None
-            obj.name = generate_clone_title(obj.name)
-            obj.save()
+            obj = self.copy_aid(obj)
             form.save_m2m()
             msg = _('The new aid was sucessfully created. '
                     'You can keep editing it. And find the duplicated '
@@ -636,3 +628,38 @@ class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin,
         success_url = reverse('aid_draft_list_view')
         redirect = HttpResponseRedirect(success_url)
         return redirect
+
+
+class GenericToLocalAidView(ContributorAndProfileCompleteRequiredMixin,
+                            MessageMixin, AidCopyMixin, SingleObjectMixin,
+                            RedirectView):
+    """Copy a generic aid into a local aid."""
+
+    http_method_names = ['post']
+
+    def get_queryset(self):
+        qs = Aid.objects.filter(is_generic=True)
+        self.queryset = qs
+        return super().get_queryset()
+
+    def post(self, request, *args, **kwargs):
+        existing_aid = self.get_object()
+        new_aid = self.copy_aid(existing_aid)
+
+        # At this point, the new aid is created and we want to
+        # add specific data for local aid.
+        existing_aid = self.get_object()
+        new_aid.author = self.request.user
+        new_aid.name = existing_aid.name
+        new_aid.is_generic = False
+        new_aid.generic_aid = existing_aid
+        new_aid.clone_m2m(source_aid=existing_aid)
+        new_aid.save()
+
+        self.new_aid = new_aid
+        msg = "Cette aide à été dupliquée"
+        self.messages.success(msg)
+        return super().post(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('aid_edit_view', args=[self.new_aid.slug])
