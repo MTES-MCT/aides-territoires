@@ -1,0 +1,60 @@
+/** 
+ * theming styles
+ * 
+ */
+
+ #content {
+    padding: 0;
+    margin: 15px;
+}
+
+#header {
+    background: #fff;
+
+    /* Reset the indents of django-flat-theme
+      (need to restore 40px on branding+user-tools instead) */
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#header #branding h1 {
+    margin: 0.5rem;
+    padding: 5px 10px;
+    text-indent: -9999px;
+    background: transparent url(/static/img/logo_AT_courbes.svg) 10px 5px no-repeat;
+    background-size: contain;
+    height: 6rem;
+    width: 12rem;
+}
+
+#header #user-tools {
+    /* Old Django: 1.2em, flat theme: 40px; */
+    padding-right: 1.2em;
+    color: #3a3188;
+}
+
+
+#header #user-tools a {
+    color: #3a3188;
+}
+
+#bookmark-form {
+    clear: both;
+}
+
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+}
+
+div.breadcrumbs a {
+    display: inline;
+}
+
+.dashboard-module h2 {
+    background: #3a3188;
+    color: #fff;
+}
