@@ -23,7 +23,8 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
                 .annotate(similarity=TrigramSimilarity('unaccented_name', q)) \
-                .filter(Q(unaccented_name__trigram_similar=remove_accents(q)) | Q(zipcodes__icontains=accented_q)) \
+                .filter(Q(unaccented_name__trigram_similar=remove_accents(q))
+                        | Q(zipcodes__icontains=accented_q)) \
                 .order_by('-similarity', '-scale', 'name')
 
         is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')  # noqa
