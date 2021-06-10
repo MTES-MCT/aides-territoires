@@ -82,6 +82,7 @@ urlpatterns = [
     path(_('search/'), include('search.urls')),
     path(_('upload/'), include('upload.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('admin_tools/', include('admin_tools.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),
