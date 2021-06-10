@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n aids compress %}
 {% load i18n aids%}
+{% load humanize %}
 {% load settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
@@ -186,7 +187,7 @@
                 <div class="subvention-rate">
                     <h3>Montant de l'avance récupérable</h3>
                     <ul>
-                        <li>{{ aid.recoverable_advance_amount }} €</li>
+                        <li>{{ aid.recoverable_advance_amount|intcomma }} €</li>
                     </ul>
                 </div>
                 {% endif %}
@@ -195,7 +196,7 @@
                 <div class="subvention-rate">
                     <h3>Montant du prêt</h3>
                     <ul>
-                        <li> {{ aid.loan_amount }} €</li>
+                        <li> {{ aid.loan_amount|intcomma }} €</li>
                     </ul>
                 </div>
                 {% endif %}
