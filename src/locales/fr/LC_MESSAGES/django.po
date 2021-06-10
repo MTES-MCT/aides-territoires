@@ -1284,12 +1284,6 @@ msgstr "Thématique"
 msgid "Category"
 msgstr "Sous-thématique"
 
-msgid "Aides-Territoires API"
-msgstr ""
-
-msgid "API Aide"
-msgstr ""
-
 msgid "accounts/"
 msgstr "comptes/"
 
