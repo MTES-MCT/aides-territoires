@@ -1,7 +1,7 @@
 from os.path import splitext
 
 from django.db import models
-from django.db.models import Count, Case, When, IntegerField
+from django.db.models import Count, Case, When, Q, IntegerField
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
@@ -39,6 +39,11 @@ class SearchPageQuerySet(models.QuerySet):
         """Only return search pages with an administrator."""
 
         return self.filter(administrator__isnull=False)
+
+    def administrable_by_user(self, user):
+        """Only return search pages which the user is the administrator."""
+
+        return self.filter(administrator=user)
 
 
 class SearchPage(models.Model):

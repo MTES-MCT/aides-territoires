@@ -170,6 +170,7 @@ class UserAdmin(BaseUserAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         qs = qs.annotate(aid_count=Count('aids'))
+        # TODO: if not superuser, only return user's colleagues
         return qs
 
     def nb_aids(self, user):

@@ -24,7 +24,9 @@
 {% endif %}
 
 {% if user.search_pages.count %}
-    <h6 id="contributor-menu">Espace administrateur</h6>
+    <h6 id="contributor-menu">
+        <a href="{% url 'admin:search_searchpage_changelist' %}" target="_blank" rel="noopener">Espace administrateur</a>
+    </h6>
 
     {% for search_page in user.search_pages.all %}
         <a href="https://{{ search_page.slug }}.aides-territoires.beta.gouv.fr/stats/" target="_blank" rel="noopener">{{ search_page.title }}</a>

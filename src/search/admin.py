@@ -8,6 +8,10 @@ from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+SEARCH_PAGE_AUTHOR_ADDITIONAL_READONLY_FIELDS = ['slug', 'querystring']
+# SEARCH_PAGE_CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS = ['author']
+
+
 class AdministratorFilter(admin.SimpleListFilter):
     """Custom admin filter to target search pages with administrators."""
 
@@ -108,6 +112,26 @@ class SearchPageAdmin(admin.ModelAdmin):
             )
         }),
     ]
+
+    def get_queryset(self, request):
+        qs = super(admin.ModelAdmin, self).get_queryset(request)
+
+        if request.user.is_superuser:
+            return qs
+
+        return qs.administrable_by_user(user=request.user)
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = self.readonly_fields
+
+        # we want to limit the fields accessible for non-superusers
+        if obj and not request.user.is_superuser:
+            self.prepopulated_fields = {}  # issue with 'slug' field
+            readonly_fields += SEARCH_PAGE_AUTHOR_ADDITIONAL_READONLY_FIELDS
+            # if obj.author != request.user:
+            #     readonly_fields += SEARCH_PAGE_CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS
+
+        return readonly_fields
 
     def all_aids_count(self, search_page):
         return search_page.get_base_queryset(all_aids=True).count()
