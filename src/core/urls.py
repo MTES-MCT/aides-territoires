@@ -5,26 +5,33 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from rest_framework import routers, permissions
-
-from aids.sitemaps import AidSitemap
 from core.utils import RedirectAidDetailView
+from aids.sitemaps import AidSitemap
 from data.sitemaps import DataSitemap
 from home.sitemaps import HomeSitemap
 from pages.sitemaps import PageSitemap
 from search.sitemaps import SearchSitemap
 
+
 router = routers.DefaultRouter()
 
 
+# Admin
+admin.site.site_header = "Administration d'Aides-territoires"  # default: "Django Administration"  # noqa
+admin.site.index_title = 'Accueil'                             # default: "Site administration"  # noqa
+admin.site.site_title = "Administration d'Aides-territoires"   # default: "Django site admin"  # noqa
+
+
+# API
 schema_view = get_schema_view(
     openapi.Info(
-        title=_('Aides-Territoires API'),
+        title='Aides-territoires API',
         default_version=f'v{settings.CURRENT_API_VERSION}',
-        description=_('API Aide'),
+        # description='',
         terms_of_service=reverse_lazy('legal_mentions'),
         contact=openapi.Contact(email='tech@aides-territoires.beta.gouv.fr'),
         license=openapi.License(name="« Licence Ouverte v2.0 » d'Etalab"),
