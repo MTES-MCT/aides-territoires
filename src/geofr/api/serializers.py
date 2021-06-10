@@ -9,6 +9,8 @@ class PerimeterSerializer(serializers.ModelSerializer):
     scale = serializers.CharField(source='get_scale_display')
     text = serializers.CharField(source='__str__')
 
+    zipcodes = serializers.ListField(child=serializers.CharField())
+
     class Meta:
         model = Perimeter
-        fields = ('id', 'name', 'scale', 'text')
+        fields = ('id', 'name', 'scale', 'zipcodes', 'text')
