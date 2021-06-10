@@ -706,10 +706,10 @@ msgid "Order"
 msgstr "Trier par"
 
 msgid "Technical engineering"
-msgstr "Ingénierie technique"
+msgstr "Aides en ingénierie"
 
 msgid "Financial engineering"
-msgstr "Ingénierie financière"
+msgstr "Aides financières"
 
 msgid "Legal engineering"
 msgstr "Ingénierie juridique / administrative"
