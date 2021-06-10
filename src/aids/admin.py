@@ -163,7 +163,6 @@ class PerimeterFilter(InputFilter):
 class PerimeterAutocompleteFilter(AutocompleteFilter):
     field_name = 'perimeter'
     title = _('Perimeter')
-    use_pk_exact = False
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -231,12 +230,11 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     list_display_links = ['name']
     search_fields = ['id', 'name']
     list_filter = [
-        'status', GenericAidListFilter, 'recurrence',
+        'status', LiveAidListFilter, GenericAidListFilter, 'recurrence',
         'is_imported', 'import_data_source',
         'is_call_for_project', 'in_france_relance',
-        EligibilityTestFilter,
-        LiveAidListFilter, AuthorFilter, BackersFilter,
-        PerimeterAutocompleteFilter, ProjectFilter,
+        EligibilityTestFilter, ProjectFilter, AuthorFilter, BackersFilter,
+        PerimeterAutocompleteFilter,
         'programs', 'categories__theme', 'categories']
 
     autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
