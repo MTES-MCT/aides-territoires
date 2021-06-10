@@ -9,6 +9,8 @@ from adminsortable2.admin import SortableInlineAdminMixin
 
 from core.forms import RichTextField
 from eligibility.models import EligibilityTest, EligibilityQuestion
+from eligibility.tasks import export_eligibility_tests_stats_as_csv
+from exporting.utils import get_admin_export_message
 from accounts.admin import AuthorFilter
 
 
@@ -37,9 +39,12 @@ class EligibilityQuestionInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class EligibilityTestAdmin(admin.ModelAdmin):
-    list_display = ['name', 'author', 'nb_aids', 'nb_results', 'date_created']
+    list_display = ['id', 'name', 'author', 'nb_aids', 'nb_results',
+                    'date_created']
     search_fields = ['name']
     list_filter = [AuthorFilter]
+    actions = ['export_csv', 'export_csv_background']
+
     form = EligibilityTestForm
     inlines = [EligibilityQuestionInline]
     readonly_fields = ['author', 'date_created', 'date_updated',
@@ -90,6 +95,20 @@ class EligibilityTestAdmin(admin.ModelAdmin):
         related_aid_html += format_html('</tbody></table>')
         return related_aid_html
     display_related_aids.short_description = _('Related aids')
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        eligibility_tests_id_list = list(queryset.values_list('id', flat=True))
+        return export_eligibility_tests_stats_as_csv(eligibility_tests_id_list, request.user.id, background=False)  # noqa
+    export_csv.short_description = 'Exporter le premier Test sélectionné en CSV'  # noqa
+
+    def export_csv_background(self, request, queryset):
+        eligibility_tests_id_list = list(queryset.values_list('id', flat=True))
+        export_eligibility_tests_stats_as_csv.delay(eligibility_tests_id_list, request.user.id)  # noqa
+        self.show_export_message(request)
+    export_csv_background.short_description = 'Exporter le premier Test sélectionné en CSV en tâche de fond'  # noqa
 
     class Media:
         css = {
