@@ -10,7 +10,7 @@ test:
 	pipenv run py.test -v -n 10
 
 checkstyle:
-	pipenv run flake8 --config=flake8.ini
+	pipenv run flake8 --config=.flake8
 
 makemessages:
 	pipenv run python manage.py makemessages --all --no-location --no-obsolete
