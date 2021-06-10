@@ -316,6 +316,9 @@ class AidEditForm(BaseAidForm):
         if 'mobilization_steps' in self.fields:
             self.fields['mobilization_steps'].required = True
 
+        if 'aid_types' in self.fields:
+            self.fields['aid_types'].required = True
+
         if 'categories' in self.fields:
             self.fields['categories'].required = True
 
