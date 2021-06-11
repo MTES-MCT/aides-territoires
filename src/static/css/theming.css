@@ -58,3 +58,7 @@ div.breadcrumbs a {
     background: #3a3188;
     color: #fff;
 }
+
+#module_5, #module_6 {
+    display: none !important;
+}
