@@ -18,8 +18,35 @@ class PageForm(FlatpageForm):
 
 
 class PageAdmin(FlatPageAdmin):
+    list_display = ['url', 'title']
 
-    HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
+    form = PageForm
+    HELP = "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
+
+    fieldsets = (
+        (None, {
+            'description': '<div class="help">{}</div>'.format(HELP),
+            'fields': (
+                'url',
+                'title',
+                'content'
+            ),
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description'
+            )
+        }),
+    )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).at_pages()
+
+        if request.user.is_superuser:
+            return qs
+
+        return qs.none()
 
     list_display = ['url', 'title', 'date_created', 'date_updated']
 

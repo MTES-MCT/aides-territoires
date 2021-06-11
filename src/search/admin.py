@@ -8,8 +8,10 @@ from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-SEARCH_PAGE_AUTHOR_ADDITIONAL_READONLY_FIELDS = ['slug', 'querystring']
-# SEARCH_PAGE_CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS = ['author']
+NON_SUPERUSER_HIDDEN_FIELDSETS = ['SEO']
+NON_SUPERUSER_HIDDEN_FIELDS = ['meta_title', 'meta_description', 'meta_image']
+AUTHOR_ADDITIONAL_READONLY_FIELDS = ['slug', 'search_querystring']
+# CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS = ['author']
 
 
 class AdministratorFilter(admin.SimpleListFilter):
@@ -34,12 +36,12 @@ class AdministratorFilter(admin.SimpleListFilter):
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    form = SearchPageAdminForm
     list_display = ['slug', 'title', 'meta_description', 'date_created']
     filter_vertical = ['available_categories']
     search_fields = ['title']
     list_filter = [AdministratorFilter]
 
+    form = SearchPageAdminForm
     prepopulated_fields = {'slug': ('title',)}
     autocomplete_fields = ['administrator',
                            'highlighted_aids', 'excluded_aids']
@@ -56,8 +58,6 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'search_querystring',
                 'content',
                 'more_content',
-                'date_created',
-                'date_updated',
             )
         }),
         ('Administration', {
@@ -72,7 +72,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'meta_image',
             )
         }),
-        (_('Style customization'), {
+        ('Personnalisation du style', {
             'fields': (
                 'logo',
                 'logo_link',
@@ -83,7 +83,8 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'color_5',
             )
         }),
-        (_('Form customization'), {
+        ('Personnalisation du formulaire', {
+            'description': 'Maximum de 3 cases à cocher',
             'fields': (
                 'show_categories_field',
                 'available_categories',
@@ -111,25 +112,49 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'excluded_aids',
             )
         }),
+        ('Données diverses', {
+            'fields': (
+                'date_created',
+                'date_updated',
+            )
+        })
     ]
 
     def get_queryset(self, request):
-        qs = super(admin.ModelAdmin, self).get_queryset(request)
+        qs = super(SearchPageAdmin, self).get_queryset(request)
 
         if request.user.is_superuser:
             return qs
 
         return qs.administrable_by_user(user=request.user)
 
+    def get_list_filter(self, request):
+        list_filter = self.list_filter
+
+        if request.user.is_superuser:
+            return list_filter
+
+        return []
+
+    def get_fieldsets(self, request, obj=None):
+        fieldset = super(SearchPageAdmin, self).get_fieldsets(request, obj)
+
+        if request.user.is_superuser:
+            return fieldset
+
+        return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
+
     def get_readonly_fields(self, request, obj=None):
-        readonly_fields = self.readonly_fields
+        readonly_fields = super(SearchPageAdmin, self).get_readonly_fields(request, obj)
 
         # we want to limit the fields accessible for non-superusers
         if obj and not request.user.is_superuser:
             self.prepopulated_fields = {}  # issue with 'slug' field
-            readonly_fields += SEARCH_PAGE_AUTHOR_ADDITIONAL_READONLY_FIELDS
+            readonly_fields += AUTHOR_ADDITIONAL_READONLY_FIELDS
             # if obj.author != request.user:
-            #     readonly_fields += SEARCH_PAGE_CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS
+            #     readonly_fields +=  CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS
+
+        print(readonly_fields)
 
         return readonly_fields
 
@@ -174,8 +199,11 @@ class MinisitePage(Page):
 
 
 class MinisitePageAdmin(PageAdmin):
+    list_display = ['url', 'title', 'minisite']
+    list_filter = ['minisite']
 
-    HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
+    autocomplete_fields = ['minisite']
+    HELP = "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
 
     list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
 
@@ -189,7 +217,7 @@ class MinisitePageAdmin(PageAdmin):
                 'minisite',
                 'title',
                 'content'
-            ),
+            )
         }),
         (_('SEO'), {
             'fields': (
@@ -209,7 +237,27 @@ class MinisitePageAdmin(PageAdmin):
         qs = Page.objects \
             .minisite_pages() \
             .select_related('minisite')
-        return qs
+
+        if request.user.is_superuser:
+            return qs
+
+        return qs.administrable_by_user(request.user)
+
+    def get_list_filter(self, request):
+        list_filter = self.list_filter
+
+        if request.user.is_superuser:
+            return list_filter
+
+        return []
+
+    def get_fieldsets(self, request, obj=None):
+        fieldset = super(MinisitePageAdmin, self).get_fieldsets(request, obj)
+
+        if request.user.is_superuser:
+            return fieldset
+
+        return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
 
 
 admin.site.register(SearchPage, SearchPageAdmin)

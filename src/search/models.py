@@ -1,7 +1,7 @@
 from os.path import splitext
 
 from django.db import models
-from django.db.models import Count, Case, When, Q, IntegerField
+from django.db.models import Count, Case, When, IntegerField
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone

@@ -15,6 +15,9 @@ class PageQueryset(models.QuerySet):
 
         return self.filter(minisite__isnull=False)
 
+    def administrable_by_user(self, user):
+        return self.filter(minisite__in=user.search_pages.all())
+
 
 class Page(FlatPage):
     """A static page that can be created/customized in admin."""
