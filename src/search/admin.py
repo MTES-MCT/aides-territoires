@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db.models import Count
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from search.models import SearchPage
@@ -36,7 +39,7 @@ class AdministratorFilter(admin.SimpleListFilter):
 
 
 class SearchPageAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'title', 'meta_description', 'date_created']
+    list_display = ['slug', 'title', 'meta_description', 'nb_pages', 'date_created']
     filter_vertical = ['available_categories']
     search_fields = ['title']
     list_filter = [AdministratorFilter]
@@ -46,6 +49,7 @@ class SearchPageAdmin(admin.ModelAdmin):
     autocomplete_fields = ['administrator',
                            'highlighted_aids', 'excluded_aids']
     readonly_fields = [
+        'pages_list',
         'all_aids_count', 'live_aids_count',
         'date_created', 'date_updated']
 
@@ -58,6 +62,7 @@ class SearchPageAdmin(admin.ModelAdmin):
                 'search_querystring',
                 'content',
                 'more_content',
+                'pages_list',
             )
         }),
         ('Administration', {
@@ -122,6 +127,7 @@ class SearchPageAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(SearchPageAdmin, self).get_queryset(request)
+        qs = qs.annotate(page_count=Count('pages'))
 
         if request.user.is_superuser:
             return qs
@@ -154,9 +160,29 @@ class SearchPageAdmin(admin.ModelAdmin):
             # if obj.author != request.user:
             #     readonly_fields +=  CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS
 
-        print(readonly_fields)
-
         return readonly_fields
+
+    def nb_pages(self, search_page):
+        return search_page.page_count
+    nb_pages.short_description = 'Nombre de pages'
+    nb_pages.admin_order_field = 'page_count'
+
+    def pages_list(self, search_page):
+        pages = search_page.pages.all()
+        html = ''
+        if not pages:
+            html += '<p>Aucune</p>'
+        else:
+            for page in pages:
+                html += format_html(
+                    '<a href="{obj_url}">{obj_name}</a></br>',
+                    obj_url=reverse('admin:search_minisitepage_change', args=[page.id]),
+                    obj_name=page)
+        html += format_html(
+            '<a href="{obj_url}">Ajouter</a>',
+            obj_url=reverse('admin:search_minisitepage_add'))
+        return format_html(html)
+    pages_list.short_description = 'Pages'
 
     def all_aids_count(self, search_page):
         return search_page.get_base_queryset(all_aids=True).count()
@@ -164,8 +190,8 @@ class SearchPageAdmin(admin.ModelAdmin):
 
     def live_aids_count(self, search_page):
         live_aids_count = search_page.get_base_queryset().count()
-        live_aids_local_count = search_page.get_base_queryset().local_aids().count()  # noqa
-        return f'{live_aids_count} (dont aides locales : {live_aids_local_count})'  # noqa
+        live_aids_local_count = search_page.get_base_queryset().local_aids().count()
+        return f'{live_aids_count} (dont aides locales : {live_aids_local_count})'
     live_aids_count.short_description = "Nombre d'aides actuellement visibles"
 
     class Media:
@@ -203,7 +229,6 @@ class MinisitePageAdmin(PageAdmin):
     list_filter = ['minisite']
 
     autocomplete_fields = ['minisite']
-    HELP = "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
 
     list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
 
@@ -211,7 +236,6 @@ class MinisitePageAdmin(PageAdmin):
     readonly_fields = ['date_created', 'date_updated']
     fieldsets = (
         (None, {
-            'description': '<div class="help">{}</div>'.format(HELP),
             'fields': (
                 'url',
                 'minisite',

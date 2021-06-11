@@ -41,6 +41,7 @@ class Page(FlatPage):
     minisite = models.ForeignKey(
         'search.SearchPage',
         verbose_name=_('Minisite'),
+        related_name='pages',
         help_text=_('Optional, link this page to a minisite.'),
         on_delete=models.PROTECT,
         null=True, blank=True)
