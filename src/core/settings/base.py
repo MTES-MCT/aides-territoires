@@ -206,7 +206,9 @@ TEMPLATES = [
 
 
 ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
-
+ADMIN_TOOLS_MENU = 'core.admin_menu.CustomMenu'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
