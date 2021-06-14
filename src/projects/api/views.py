@@ -36,7 +36,7 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
         categories_filters = []
         for category_term in categories_term:
             categories_filters.append(Q(categories__name=category_term))
-        if categories_filters:
+        if categories:
             qs = qs.filter(reduce(operator.and_, categories_filters))
 
 
