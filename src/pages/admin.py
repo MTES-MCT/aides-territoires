@@ -21,6 +21,37 @@ class PageAdmin(FlatPageAdmin):
 
     HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
 
+    list_display = ['url', 'title', 'date_created', 'date_updated']
+
+    form = PageForm
+    readonly_fields = ['date_created', 'date_updated']
+    fieldsets = (
+        (None, {
+            'description': '<div class="help">{}</div>'.format(HELP),
+            'fields': (
+                'url',
+                'title',
+                'content'
+            )
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description'
+            )
+        }),
+        ('Données diverses', {
+            'fields': (
+                'date_created',
+                'date_updated'
+            )
+        })
+    )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).at_pages()
+        return qs
+
     class Media:
         css = {
             'all': (
@@ -35,20 +66,6 @@ class PageAdmin(FlatPageAdmin):
             '/static/trumbowyg/dist/langs/fr.js',
             '/static/js/enable_rich_text_editor.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
-
-    form = PageForm
-    fieldsets = (
-        (None, {
-            'fields': ('url', 'title', 'content'),
-            'description': '<div class="help">{}</div>'.format(HELP)}),
-        (_('SEO'), {'fields': (
-            'meta_title', 'meta_description')})
-    )
-    list_display = ['url', 'title']
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request).at_pages()
-        return qs
 
 
 admin.site.unregister(FlatPage)
