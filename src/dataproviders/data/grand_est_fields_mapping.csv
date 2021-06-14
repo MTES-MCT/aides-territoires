@@ -1,24 +1,38 @@
-source,destination,processing,comments
-ID,import_uniqueid,auto,
-url,origin_url,auto,
-post_title,name,custom,
-post_type,,,"toujours ""ge_guide"" ?"
-post_type_name,,,toujours vide
-post_status,,,"toujours ""publish"""
-post_date,,,
-post_date_gmt,,,
-post_modified,,,
-post_content,description,custom,format HTML
-gui_beneficiaire,targeted_audiences,mapping,liste d'objets
-gui_tax_competence,,,
-gui_competence,categories,mapping,liste d'objets
-gui_image,,,
-gui_competence_card,,,
-gui_souscompetence_card,,,
-gui_introduction,description,custom,format HTML
-gui_texte_gris,contact,auto,
-gui_documents,,,liste d'objets
-gui_projet,,,toujours vide
-gui_dematerialise,,,
-gui_dematerialise_url,application_url,auto,
-gui_dematerialise_txt,,,
+destination_field,source_field,source_format,processing,comments
+import_uniqueid,ID,nombre,auto,
+name,post_title,texte,custom,dépasse souvent les 180 caractères
+short_title,,,,
+author,,,,
+financers,,,,
+instructors,,,,
+description,post_content,texte (HTML),auto,
+project_examples,,,,
+eligibility,,,,"contenu dans 'post_content', laisser vide"
+perimeter,,,,
+mobilization_steps,,,,
+origin_url,url,texte,auto,
+application_url,gui_dematerialise_url,texte,auto,
+targeted_audiences,gui_beneficiaire,liste d'objets,mapping,toujours vide ?
+aid_types,,,,
+destinations,,,,mettre 'op' par défaut
+start_date,post_date,texte (datetime),custom,seulement pour les AAP
+predeposit_date,,,,
+submission_deadline,pro_fin,texte (date),custom,seulement pour les AAP
+subvention_rate,,,,
+subvention_comment,,,,
+contact,gui_texte_gris,texte (HTML),auto,
+contact_email,pro_contact_mail,,,toujours vide ?
+contact_phone,pro_contact_telephone,,,toujours vide ?
+contact_detail,,,,
+recurrence,,,custom,"mettre 'ongoing' pour les aides, 'oneoff' pour les AAP"
+is_call_for_project,post_type,texte,mapping,true si égale à 'ge_projet' ('ge_guide' sinon)
+in_france_relance,,,,
+categories,gui_souscompetence_card,liste d'objets,mapping,toujours vide ?
+_extra_fields,gui_competence,liste d'objets,,themes
+_extra_fields,gui_image / pro_image,texte,,image
+_extra_fields,post_type_name,texte,,toujours vide ?
+_extra_fields,gui_documents,liste d'objets,,
+_extra_fields,gui_introduction,texte (HTML),,à intégrer dans description ?
+_extra_fields,gui_projet,liste,,toujours vide ?
+_extra_fields,gui_dematerialise,texte (boolean),,
+_extra_fields,gui_dematerialise_txt,texte,,

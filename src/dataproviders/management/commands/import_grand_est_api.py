@@ -3,6 +3,7 @@ import os
 import csv
 import json
 import requests
+from datetime import datetime
 
 from django.conf import settings
 from django.utils import timezone
@@ -102,9 +103,9 @@ class Command(BaseImportCommand):
         return line['post_title'][:180]
 
     def extract_description(self, line):
-        desc_1 = content_prettify(line.get('gui_introduction', ''))
-        desc_2 = content_prettify(line.get('post_content', ''))
-        description = desc_1 + desc_2
+        # desc_1 = content_prettify(line.get('gui_introduction', ''))
+        description = content_prettify(line.get('post_content', ''))
+        # description = desc_1 + desc_2
         return description
 
     def extract_targeted_audiences(self, line):
@@ -112,7 +113,7 @@ class Command(BaseImportCommand):
         Source format: list of dicts
         Get the objects, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get('aid_benef', [])
+        audiences = line.get('gui_beneficiaire', [])
         aid_audiences = []
         for audience in audiences:
             if audience['name'] in AUDIENCES_DICT:
@@ -129,10 +130,11 @@ class Command(BaseImportCommand):
         categories = line.get('gui_competence', [])
         aid_categories = []
         for category in categories:
-            if category['post_title'] in CATEGORIES_DICT:
-                aid_categories.extend(CATEGORIES_DICT.get(category['post_title'], []))
+            category_name = category['post_title']
+            if category_name in CATEGORIES_DICT:
+                aid_categories.extend(CATEGORIES_DICT.get(category_name, []))
             else:
-                self.stdout.write(self.style.ERROR(f'{category}'))
+                self.stdout.write(self.style.ERROR(f'{category_name}'))
         return aid_categories
 
     def extract_origin_url(self, line):
@@ -144,8 +146,26 @@ class Command(BaseImportCommand):
     def extract_application_url(self, line):
         return line['gui_dematerialise_url']
 
-    # def extract_aid_types(self, line):
-    #     return [AID.TYPES.]
-
     def extract_mobilization_steps(self, line):
         return [Aid.STEPS.op]
+
+    def extract_is_call_for_project(self, line):
+        return line.get('post_type') == 'ge_projet'
+
+    def extract_recurrence(self, line):
+        is_call_for_project = line.get('post_type') == 'ge_projet'
+        if is_call_for_project:
+            return Aid.RECURRENCE.oneoff
+        return Aid.RECURRENCE.ongoing
+
+    def extract_start_date(self, line):
+        is_call_for_project = line.get('post_type') == 'ge_projet'
+        if is_call_for_project:
+            start_date = datetime.strptime(line.get('post_date'), '%Y-%m-%d %H:%M:%S')
+            return start_date
+
+    def extract_submission_deadline(self, line):
+        is_call_for_project = line.get('post_type') == 'ge_projet'
+        if is_call_for_project:
+            start_date = datetime.strptime(line.get('pro_fin'), '%Y-%m-%d')
+            return start_date
