@@ -43,11 +43,11 @@
         <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
         <thead>
             <tr>
-                <th class="aid-name-column" title="{{ _('Order by') }} {{ _('Aid title') }}">{% sortable_header _('Aid title') 'name' %}</th>
-                <th title="{{ _('Order by') }} {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
-                <th title="{{ _('Order by') }} {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
-                <th title="{{ _('Order by') }} {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                <th title="{{ _('Order by') }} {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
+                <th class="aid-name-column" title="Trier par {{ _('Aid title') }}">{% sortable_header _('Aid title') 'name' %}</th>
+                <th title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
+                <th title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
+                <th title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
+                <th title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
                 <th>{{ _('Is live') }}</th>
                 <th>Vues</th>
             </tr>
@@ -68,7 +68,7 @@
                 <td>{{ aid.date_updated|date:'d/m/y' }}</td>
                 <td class="nowrap-cell">
                     {% if aid.is_ongoing %}
-                        <span class="fas fa-parking" title="{{ _('Ongoing') }}"></span>
+                        <span class="fas fa-parking" title="Permanente"></span>
                     {% elif aid.has_approaching_deadline %}
                         <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
                     {% elif aid.has_expired %}

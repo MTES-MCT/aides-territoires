@@ -15,8 +15,8 @@ class Alert(models.Model):
     """A single alert saved by a user."""
 
     FREQUENCIES = Choices(
-        ('daily', _('Daily')),
-        ('weekly', _('Weekly'))
+        ('daily', 'Quotidiennement'),
+        ('weekly', 'Hebdomadairement')
     )
 
     token = models.UUIDField(

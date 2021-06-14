@@ -23,8 +23,8 @@ class Bookmark(models.Model):
     """
 
     FREQUENCIES = Choices(
-        ('daily', _('Daily')),
-        ('weekly', _('Weekly'))
+        ('daily', 'Quotidiennement'),
+        ('weekly', 'Hebdomadairement')
     )
 
     owner = models.ForeignKey(
