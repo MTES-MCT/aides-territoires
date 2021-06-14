@@ -4,9 +4,12 @@ $(document).ready(function () {
 
     $('select#id_categories').change(function(){
         $( "select#id_categories option:selected" ).each(function() {
-            CATEGORIES = $(this).text().split("> ").pop()
-            console.log(CATEGORIES)
-          });
+            CATEGORIES.push($(this).text().split("> ").pop())
+            CATEGORIES = CATEGORIES.filter((value, index) => CATEGORIES.indexOf(value) === index);
+        });
+        $( "select#id_categories option:not(:selected)" ).each(function() {
+            CATEGORIES = CATEGORIES.filter(item => item !== $(this).text().split("> ").pop())
+        });
     })
 
     $('select#id_projects').select2({
@@ -24,7 +27,7 @@ $(document).ready(function () {
                 var query = {
                   q: params.term,
                   is_published: true,
-                  categories: CATEGORIES,
+                  categories: params.categories || CATEGORIES,
                   page: params.page || 1
                 }
                 return query;
