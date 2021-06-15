@@ -54,11 +54,24 @@ div.breadcrumbs a {
     display: inline;
 }
 
-.dashboard-module h2 {
-    background: #3a3188;
-    color: #fff;
+.dashboard-module h2,
+div.breadcrumbs, 
+.module h2,
+.module caption,
+.inline-group h2,
+.button, input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background: #3a3188 !important;
+    color: #fff !important;
 }
 
 #module_5, #module_6 {
     display: none !important;
+}
+
+div.module > table > tbody a:link,
+div.module > table > tbody a:visited {
+    color: #3a3188 !important;
 }
