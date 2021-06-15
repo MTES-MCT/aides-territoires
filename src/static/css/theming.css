@@ -92,4 +92,9 @@ div.module > table > tbody a:visited {
 
 .field-backer .related-widget-wrapper > .select2 {
     width: 90% !important;
-} 
+}
+
+#nav-sidebar,
+#toggle-nav-sidebar {
+    display: none !important;
+}
