@@ -49,19 +49,26 @@ class CustomIndexDashboard(Dashboard):
             'Statistiques',
             models=('stats.*',),
         ))
-        self.children.append(modules.ModelList(
-            "Data et API",
-            models=('rest_framework.authtoken.*', 'dataproviders.*'),
-        ))
-        self.children.append(modules.ModelList(
-            "Taches périodiques",
-            models=('django_celery_beat.*',),
-        ))
-        self.children.append(modules.ModelList(
-            "Config Système",
-            models=('django.contrib.sites.*',),
-        ))
         self.children.append(modules.RecentActions(_('Recent Actions'), 5))
+        self.children.append(modules.Group(
+            title="Configuration Système",
+            display="tabs",
+            children=[
+                modules.ModelList(
+                    "Data et API",
+                    models=('rest_framework.authtoken.*', 'dataproviders.*'),
+                ),
+                modules.ModelList(
+                    "Config du site",
+                    models=('django.contrib.sites.*',),
+                ),
+                modules.ModelList(
+                    "Tâches périodiques",
+                    models=('django_celery_beat.*',),
+                ),
+
+            ]
+        ))
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):
