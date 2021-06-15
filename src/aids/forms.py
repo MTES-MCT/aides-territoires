@@ -58,7 +58,7 @@ class BaseAidForm(forms.ModelForm):
             attrs={'placeholder': _('Call for project "Innovation continue"')}
         ))
     description = RichTextField(
-        label=_('Full description of the aid and its objectives'),
+        label="Description complète de l'aide et de ses objectifs",
         widget=forms.Textarea(attrs={'placeholder': _(
             'If you have a description, do not hesitate to copy it here.\n'
             'Try to complete the description with the maximum of'
@@ -84,12 +84,12 @@ class BaseAidForm(forms.ModelForm):
             'First name / last name, email, phone, comments…'
         )}))
     local_characteristics = RichTextField(
-        label=_('Local characteristics'),
+        label='Spécificités locales',
         required=False,
-        help_text=_('Characteristics that applies to local aids.'),
+        help_text='Décrivez les spécificités de cette aide locale.',
         )
     is_call_for_project = forms.BooleanField(
-        label=_('Call for project / Call for expressions of interest'),
+        label="Appel à projet / Manifestation d'intérêt",
         required=False)
 
     def __init__(self, *args, **kwargs):
@@ -144,7 +144,7 @@ class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
     perimeter_suggestion = forms.CharField(
-        label=_('Perimeter suggestion'),
+        label='Périmètre suggéré',
         max_length=256,
         required=False,
         help_text=_('The user suggested the following description for a new '
@@ -157,7 +157,7 @@ class AidAdminForm(BaseAidForm):
         help_text=_('This backer was suggested. Add it to the global list '
                     'then add it to this aid with the field above.'))
     instructor_suggestion = forms.CharField(
-        label=_('Instructor suggestion'),
+        label='Instructeurs suggérés',
         max_length=256,
         required=False,
         help_text=_('This instructor was suggested. Add it to the global list '
@@ -424,18 +424,18 @@ class BaseAidSearchForm(forms.Form):
         choices=Aid.DESTINATIONS,
         widget=forms.CheckboxSelectMultiple)
     recurrence = forms.ChoiceField(
-        label=_('Recurrence'),
+        label='Récurrence',
         required=False,
         choices=Aid.RECURRENCE)
     call_for_projects_only = forms.BooleanField(
         label=_('Call for projects only'),
         required=False)
     backers = AutocompleteModelMultipleChoiceField(
-        label=_('Backers'),
+        label="Porteurs d'aides",
         queryset=Backer.objects.all(),
         required=False)
     projects = AutocompleteModelMultipleChoiceField(
-        label=_('Projects'),
+        label='Projets',
         queryset=Project.objects.all(),
         required=False)
     programs = forms.ModelMultipleChoiceField(
@@ -444,7 +444,7 @@ class BaseAidSearchForm(forms.Form):
         to_field_name='slug',
         required=False)
     in_france_relance = forms.BooleanField(
-        label=_('France Relance?'),
+        label='Aides France Relance :',
         required=False)
     themes = forms.ModelMultipleChoiceField(
         label=_('Themes'),
@@ -775,8 +775,8 @@ class DraftListAidFilterForm(forms.Form):
 
     AID_DISPLAY_STATUS_CHOICES = [
         ('', ''),
-        ('hidden', _('Not displayed')),
-        ('live', _('Displayed')),
+        ('hidden', 'Non affichée'),
+        ('live', 'Affichée'),
     ]
 
     state = forms.ChoiceField(

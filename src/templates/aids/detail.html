@@ -111,7 +111,7 @@
 
                 {% if financers %}
                 <div class="financers">
-                    <h3>{{ _('Financers') }}</h3>
+                    <h3>Porteurs d'aides</h3>
                     <ul>
                         {% for financer in financers %}
                         <li>
@@ -127,7 +127,7 @@
 
                 {% if instructors %}
                 <div class="instructors">
-                    <h3>{{ _('Instructors') }}</h3>
+                    <h3>Instructeurs</h3>
                     <ul>
                         {% for instructor in instructors %}
                         <li>
@@ -165,7 +165,7 @@
 
                 {% if aid.subvention_rate or aid.subvention_comment %}
                 <div class="subvention-rate">
-                    <h3>{{ _('Subvention rate') }}</h3>
+                    <h3>Taux de subvention</h3>
                     {% if aid.subvention_rate %}
                     <ul>
                         {% if aid.subvention_rate.lower %}
@@ -186,7 +186,7 @@
             <div class="card">
                 {% if aid.recurrence %}
                 <div class="recurrence">
-                    <h3>{{ _('Recurrence') }}</h3>
+                    <h3>Récurrence</h3>
                     <p>{{ aid.get_recurrence_display }}</p>
                 </div>
                 {% endif %}
@@ -194,21 +194,21 @@
                 {% if aid.has_calendar %}
                 {% if aid.start_date and not aid.is_ongoing %}
                 <div class="calendar-start">
-                    <h3>{{ _('Start date') }}</h2>
+                    <h3>Date d'ouverture</h2>
                         <p>{{ aid.start_date|date }}</p>
                 </div>
                 {% endif %}
 
                 {% if aid.predeposit_date and not aid.is_ongoing %}
                 <div class="calendar-predeposit">
-                    <h3>{{ _('Predeposit date') }}</h3>
+                    <h3>Date de pré-dépôt</h3>
                     <p>{{ aid.predeposit_date|date }}</p>
                 </div>
                 {% endif %}
 
                 {% if aid.submission_deadline and not aid.is_ongoing %}
                 <div class="calendar-deadline">
-                    <h3 class="submission_deadline">{{ _('Submission deadline') }}</h3>
+                    <h3 class="submission_deadline">Date de clôture</h3>
                     <p>{{ aid.submission_deadline|date }}</p>
                 </div>
                 {% endif %}
@@ -346,7 +346,7 @@
             {% endif %}
 
             {% if aid.targeted_audiences %}
-            <h3>{{ _('Targeted audiences') }}</h3>
+            <h3>Bénéficiaires de l'aide</h3>
             <p>{% choices_display aid 'targeted_audiences' %}</p>
             {% endif %}
 
@@ -367,7 +367,7 @@
             {% endif %}
 
             {% if aid.project_examples %}
-            <h3>{{ _('Project examples') }}</h3>
+            <h3>Exemples de projets réalisables</h3>
             {{ aid.project_examples|safe }}
             {% endif %}
 
@@ -411,7 +411,7 @@
             </button>
             <div id="going-further" class="fake-collapse" aria-expanded="false">
                 {% if aid.contact %}
-                <h3>{{ _('Contact') }}</h3>
+                <h3>Contact</h3>
                 {{ aid.contact|safe }}
                 {% endif %}
 

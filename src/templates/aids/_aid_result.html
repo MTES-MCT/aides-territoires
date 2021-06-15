@@ -18,7 +18,7 @@
         </h1>
 
         {% if aid.financers.all %}
-            <h2 class="financers">{{ _('Financers') }}</h2>
+            <h2 class="financers">Porteurs d'aides</h2>
             <ul class="financers">
             {% for financer in aid.financers.all %}
                 <li>
@@ -48,7 +48,7 @@
         {% endif %}
 
         {% if aid.subvention_rate %}
-            <h2 class="subvention-rate">{{ _('Subvention rate') }}</h3>
+            <h2 class="subvention-rate">Taux de subvention</h3>
             <ul>
                 {% if aid.subvention_rate.lower %}
                     <li><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
@@ -60,7 +60,7 @@
         {% endif %}
 
         {% if aid.recurrence %}
-            <h2 class="recurrence">{{ _('Recurrence') }}</h2>
+            <h2 class="recurrence">Récurrence</h2>
             <p>{{ aid.get_recurrence_display }}</p>
         {% endif %}
 

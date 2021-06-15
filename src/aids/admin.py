@@ -66,7 +66,7 @@ class LiveAidListFilter(admin.SimpleListFilter):
 class EligibilityTestFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with eligibility tests."""
 
-    title = _('Eligibility test')
+    title = "Test d'éligibilité"
     parameter_name = 'has_eligibility_test'
 
     def lookups(self, request, model_admin):
@@ -176,8 +176,8 @@ class FinancersInline(SortableInlineAdminMixin, admin.TabularInline):
 
     model = AidFinancer
     extra = 1
-    verbose_name = _('Financer')
-    verbose_name_plural = _('Financers')
+    verbose_name = "Porteur d'aide"
+    verbose_name_plural = "Porteurs d'aides"
     autocomplete_fields = ['backer']
 
 
@@ -186,8 +186,8 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
 
     model = AidInstructor
     extra = 1
-    verbose_name = _('Instructor')
-    verbose_name_plural = _('Instructors')
+    verbose_name = 'Instructeur'
+    verbose_name_plural = 'Instructeurs'
     autocomplete_fields = ['backer']
 
 
@@ -308,7 +308,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             )
         }),
 
-        (_('Eligibility'), {
+        ('Éligibilité', {
             'fields': (
                 'eligibility_test',
             )
@@ -407,12 +407,12 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     def all_financers(self, aid):
         financers = [backer.name for backer in aid.financers.all()]
         return ', '.join(financers)
-    all_financers.short_description = _('Financers')
+    all_financers.short_description = "Porteurs d'aides"
 
     def all_instructors(self, aid):
         instructors = [backer.name for backer in aid.instructors.all()]
         return ', '.join(instructors)
-    all_instructors.short_description = _('Instructors')
+    all_instructors.short_description = 'Instructeurs'
 
     def live_status(self, aid):
         return aid.is_live()
@@ -427,7 +427,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     def has_eligibility_test(self, aid):
         return aid.has_eligibility_test()
     has_eligibility_test.boolean = True
-    has_eligibility_test.short_description = _('Eligibility test')
+    has_eligibility_test.short_description = "Test d'éligibilité"
 
     def get_pprint_import_raw_object(self, obj=None):
         if obj:

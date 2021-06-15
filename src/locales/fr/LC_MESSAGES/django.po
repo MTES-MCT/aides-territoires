@@ -210,15 +210,6 @@ msgstr "Porteurs d'aides"
 msgid "Perimeter"
 msgstr "Périmètre"
 
-msgid "Financer"
-msgstr "Porteur d’aide"
-
-msgid "Financers"
-msgstr "Porteurs d’aides"
-
-msgid "Instructor"
-msgstr "Instructeurs"
-
 msgid "Instructors"
 msgstr "Instructeurs"
 
@@ -312,9 +303,6 @@ msgstr "Titre du programme"
 msgid "Call for project \"Innovation continue\""
 msgstr "Ex : Appel à projet innovation continue"
 
-msgid "Full description of the aid and its objectives"
-msgstr "Description complète de l'aide et de ses objectifs"
-
 msgid ""
 "If you have a description, do not hesitate to copy it here.\n"
 "Try to complete the description with the maximum of information.\n"
@@ -353,15 +341,6 @@ msgstr "N'hésitez pas à ajouter plusieurs contacts"
 msgid "First name / last name, email, phone, comments…"
 msgstr "Nom, prénom, e-mail, téléphone, commentaires…"
 
-msgid "Local characteristics"
-msgstr "Spécificités locales"
-
-msgid "Characteristics that applies to local aids."
-msgstr "Décrivez les spécificités de cette aide locale."
-
-msgid "Call for project / Call for expressions of interest"
-msgstr "Appel à projet / Manifestation d'intérêt"
-
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
@@ -398,9 +377,6 @@ msgstr ""
 msgid "Please provide a financer, or suggest a new one."
 msgstr "Merci d'indiquer un porteur d'aide."
 
-msgid "Perimeter suggestion"
-msgstr "Périmètre suggéré"
-
 msgid "The user suggested the following description for a new perimeter"
 msgstr "Le contributeur suggère ce nouveau périmètre"
 
@@ -413,9 +389,6 @@ msgid ""
 msgstr ""
 "Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que "
 "porteur d'aides via le champ approprié."
-
-msgid "Instructor suggestion"
-msgstr "Instructeurs suggérés"
 
 msgid ""
 "This instructor was suggested. Add it to the global list then add it to this "
@@ -565,9 +538,6 @@ msgstr "Avancement du projet"
 msgid "Concerned actions"
 msgstr "Actions concernées"
 
-msgid "Recurrence"
-msgstr "Récurrence"
-
 msgid "Call for projects only"
 msgstr "Appels à projets / Appels à manifestation d’intérêt uniquement"
 
@@ -576,9 +546,6 @@ msgstr "Projets"
 
 msgid "Aid programs"
 msgstr "Programmes d'aides"
-
-msgid "France Relance?"
-msgstr "Aides France Relance :"
 
 msgid "Themes"
 msgstr "Thématiques"
@@ -622,97 +589,11 @@ msgstr "Laisser vide pour autoremplir."
 msgid "Name"
 msgstr "Nom"
 
-msgid "Use an infinitive form to make the aid's purpose clear"
-msgstr ""
-"Le titre doit commencer par un verbe à l’infinitif pour que l'objectif de "
-"l'aide soit explicite vis-à-vis de ses bénéficiaires"
-
 msgid "Short title"
 msgstr "Titre court"
 
-msgid "A shorter, more concise title"
-msgstr "Un titre plus concis, pour affichage spécifique"
-
-msgid "Who is submitting the aid?"
-msgstr "Qui renseigne cette aide ?"
-
-msgid "Financer suggestion"
-msgstr "Porteurs d'aides suggérés"
-
-msgid "Project examples"
-msgstr "Exemples de projets réalisables"
-
-msgid "What is the aid broadcasting perimeter?"
-msgstr "Sur quel périmètre l'aide est-elle diffusée ?"
-
-msgid "Mobilization step"
-msgstr "État d'avancement du projet pour bénéficier du dispositif"
-
-msgid "Origin URL"
-msgstr "URL d'origine"
-
-msgid "Application url"
-msgstr "Lien vers une démarche en ligne"
-
 msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
-
-msgid "Aid types"
-msgstr "Types d'aide"
-
-msgid "Specify the aid type or types."
-msgstr "Précisez le ou les types de l'aide."
-
-msgid "Is generic aid"
-msgstr "Est une aide générique ?"
-
-msgid "Generic aid"
-msgstr "Aide générique"
-
-msgid "Generic aid associated to a local aid"
-msgstr "Aide générique associée à une aide locale"
-
-msgid "Destinations"
-msgstr "Types de dépenses / actions couvertes"
-
-msgid "Start date"
-msgstr "Date d'ouverture"
-
-msgid "When is the application opening?"
-msgstr "À quelle date l'aide est-elle ouverte aux candidatures ?"
-
-msgid "Predeposit date"
-msgstr "Date de pré-dépôt"
-
-msgid "When is the pre-deposit date, if applicable?"
-msgstr "Quelle est la date de pré-dépôt des dossiers, si applicable ?"
-
-msgid "Submission deadline"
-msgstr "Date de clôture"
-
-msgid "When is the submission deadline?"
-msgstr "Quelle est la date de clôture de dépôt des dossiers ?"
-
-msgid "Subvention rate, min. and max. (in round %)"
-msgstr "Taux de subvention, min. et max. (en %, nombre entier)"
-
-msgid "If fixed rate, only fill the max. rate."
-msgstr "Si le taux est fixe, remplissez uniquement le taux max."
-
-msgid "Subvention rate, optional comment"
-msgstr "Taux de subvention, commentaire optionnel"
-
-msgid "Contact"
-msgstr "Contact"
-
-msgid "Contact email"
-msgstr "Adresse e-mail de contact"
-
-msgid "Contact detail"
-msgstr "Contact (détail)"
-
-msgid "Is this a one-off aid, is it recurring or ongoing?"
-msgstr "L'aide est-elle ponctuelle, permanente, récurrente ?"
 
 msgid "Programs"
 msgstr "Programmes"
@@ -729,50 +610,17 @@ msgstr "Date de mise à jour"
 msgid "First publication date"
 msgstr "Première date de publication"
 
-msgid "Is this aid a part of the France Relance program?"
-msgstr "Cette aide est-elle éligible au programme France Relance ?"
-
-msgid "Is imported?"
-msgstr "Importé ?"
-
 msgid "Data Source"
 msgstr "Source de données"
 
-msgid "Unique identifier for imported data"
-msgstr "Identifiant d'import unique"
-
 msgid "Origin url of the imported data"
-msgstr "Url d'origine de la donnée importée"
-
-msgid "Under which license was this aid shared?"
-msgstr "Sous quelle licence cette aide a-t-elle été partagée ?"
+msgstr "URL d'origine de la donnée importée"
 
 msgid "Date of the latest access"
 msgstr "Date du dernier accès"
 
-msgid "Search vector"
-msgstr "Search vector"
-
 msgid "Tags"
 msgstr "Mots clés"
-
-msgid "Is amendment"
-msgstr "Est un amendement"
-
-msgid "Amended aid"
-msgstr "Aide amendée"
-
-msgid "Amendment author"
-msgstr "Auteur de l'amendement"
-
-msgid "Amendment author email"
-msgstr "E-mail de l'auteur de l'amendement"
-
-msgid "Amendment author organization"
-msgstr "Structure de l'auteur de l'amendement"
-
-msgid "Amendment comment"
-msgstr "Commentaire"
 
 msgid "Aid"
 msgstr "Aide"
@@ -2052,9 +1900,6 @@ msgstr "Cette aide est directement publiée par la structure qui la porte."
 
 msgid "Corporate"
 msgstr "Privé"
-
-msgid "Subvention rate"
-msgstr "Taux de subvention"
 
 msgid "Min:"
 msgstr "Min :"
