@@ -62,7 +62,8 @@ div.breadcrumbs,
 .button, input[type=submit],
 input[type=button],
 .submit-row input,
-a.button {
+a.button, 
+.select2-results__option--highlighted[aria-selected] {
     background: #3a3188 !important;
     color: #fff !important;
 }
@@ -75,3 +76,20 @@ div.module > table > tbody a:link,
 div.module > table > tbody a:visited {
     color: #3a3188 !important;
 }
+
+.field-backer {
+    width: 100%;
+}
+
+.related-widget-wrapper {
+    width: 100%;
+}
+
+#select2-id_aidinstructor_set-0-backer-container {
+    width: 100%;
+    text-overflow: inherit;
+}
+
+.related-widget-wrapper > .select2 {
+    width: 90% !important;
+} 
