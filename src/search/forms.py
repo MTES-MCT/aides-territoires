@@ -270,7 +270,7 @@ class SearchPageAdminForm(forms.ModelForm):
         search_fields = [
             'show_perimeter_field', 'show_audience_field',
             'show_categories_field', 'show_mobilization_step_field',
-            'show_aid_type_field',
+            'show_aid_type_field', 'show_backers_field',
         ]
         nb_filters = 0
         for field in search_fields:
