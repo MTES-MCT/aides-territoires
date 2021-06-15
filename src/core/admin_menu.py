@@ -7,7 +7,8 @@ To activate your custom menu add the following to your settings.py::
 """
 
 try:
-    # we use django.urls import as version detection as it will fail on django 1.11 and thus we are safe to use
+    # we use django.urls import as version detection as it will fail
+    # on django 1.11 and thus we are safe to use
     # gettext_lazy instead of ugettext_lazy instead
     from django.urls import reverse
     from django.utils.translation import gettext_lazy as _

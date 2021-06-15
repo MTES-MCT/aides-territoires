@@ -1,13 +1,11 @@
 try:
-    # we use django.urls import as version detection as it will fail on django 1.11 and thus we are safe to use
+    # we use django.urls import as version detection as it will fail
+    # on django 1.11 and thus we are safe to use
     # gettext_lazy instead of ugettext_lazy instead
-    from django.urls import reverse
     from django.utils.translation import gettext_lazy as _
 except ImportError:
-    from django.core.urlresolvers import reverse
     from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
-from admin_tools.utils import get_admin_site_name
 
 
 class CustomIndexDashboard(Dashboard):
@@ -17,7 +15,6 @@ class CustomIndexDashboard(Dashboard):
     columns = 3
 
     def init_with_context(self, context):
-        site_name = get_admin_site_name(context)
         self.children.append(modules.ModelList(
             'Groupes et utilisateurs',
             models=('django.contrib.auth.*', 'accounts.*'),
