@@ -8,7 +8,7 @@
 <p>Bonjour,</p>
 
 <p>Nous avons détecté au moins une nouvelle aide sur votre recherche
-<strong>{{ alert.title }}</strong>.</p>
+<strong>{{ alert_title }}</strong>.</p>
 
 <ul>
 {% for aid in new_aids %}
@@ -25,7 +25,7 @@
 {% if nb_aids > 3 %}
     <p>
         Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
-        <a href="https://{{ domain_with_subdomain }}{{ alert.get_absolute_url|safe }}">
+        <a href="{{ alert_url|safe }}">
             Rendez-vous sur Aides-territoires pour les découvrir.
         </a>
     </p>
@@ -39,7 +39,7 @@ prennent connaissance de ces aides.
 
 <p>
     Cette alerte ne correspond plus à vos besoins ? <br />
-    <a href="https://{{ domain }}{{ delete_url|safe }}">
+    <a href="{{ alert_delete_url|safe }}">
         Vous pouvez la supprimer.
     </a>
 </p>

@@ -1,4 +1,5 @@
-from core.utils import get_site_from_host, build_host_with_subdomain
+from core.utils import (get_site_from_host,
+                        is_subdomain, build_host_with_subdomain)
 
 
 def test_get_site_from_host():
@@ -16,6 +17,18 @@ def test_get_site_from_host():
     ]
     for host in host_testset:
         assert get_site_from_host(host[0]) == host[1]
+
+
+def test_is_subdomain():
+    subdomain_testset = [
+        ('', False),
+        ('aides-territoires', False),
+        ('francemobilites', True),
+        ('staging', True),
+        ('test', True),
+    ]
+    for subdomain in subdomain_testset:
+        assert is_subdomain(subdomain[0]) == subdomain[1]
 
 
 def test_build_host_with_subdomain():

@@ -74,14 +74,17 @@ class Alert(models.Model):
         self.validated = True
         self.date_validated = timezone.now()
 
-    def get_absolute_url(self):
+    def get_absolute_url(self, in_minisite=False):
         # When accessing the alert URL, we want to keep only
         # things that were published after the last alert was sent.
         querydict = QueryDict(self.querystring).copy()
         published_after = self.latest_alert_date.strftime('%Y-%m-%d')
         querydict['published_after'] = published_after
         querydict['action'] = 'alert'
-        return '{}?{}'.format(reverse('search_view'), querydict.urlencode())
+        absolute_url = '{}?{}'.format(reverse('search_view'), querydict.urlencode())  # noqa
+        if in_minisite:
+            return absolute_url.replace('/aides/', '/')
+        return absolute_url
 
     def get_new_aids(self):
         """Get the list of aids that match the stored search params."""

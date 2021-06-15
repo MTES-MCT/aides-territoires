@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 
-from core.utils import build_host_with_subdomain
+from core.utils import is_subdomain, build_host_with_subdomain
 from alerts.models import Alert
 from stats.utils import log_event
 from emails.utils import send_email
@@ -78,16 +78,23 @@ class Command(BaseCommand):
     def send_alert(self, alert, new_aids):
         """Send an email alert with a summary of the newly published aids."""
 
-        delete_url = reverse('alert_delete_view', args=[alert.token])
         site = Site.objects.get_current()
+        domain = site.domain
+        domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)  # noqa
+        in_minisite = is_subdomain(alert.source)
+
+        # alert_url is different if on a minisite or not
+        alert_url = alert.get_absolute_url(in_minisite=in_minisite)
+        # delete_url always redirects to the main site
+        delete_url = reverse('alert_delete_view', args=[alert.token])
+
         email_context = {
-            'domain': site.domain,
-            'domain_with_subdomain': build_host_with_subdomain(
-                site.domain, alert.source),
-            'alert': alert,
+            'domain_with_subdomain': domain_with_subdomain,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
-            'delete_url': delete_url,
+            'alert_title': alert.title,
+            'alert_url': f'https://{domain_with_subdomain}{alert_url}',
+            'alert_delete_url': f'https://{domain}{delete_url}',
         }
 
         text_body = render_to_string(
@@ -112,7 +119,7 @@ class Command(BaseCommand):
                 recipient_list=email_to,
                 from_email=email_from,
                 html_body=html_body,
-                tags=['alerte', settings.ENV_NAME],
+                tags=['alerte', alert.source, settings.ENV_NAME],
                 fail_silently=False)
         except Exception as e:
             capture_exception(e)
