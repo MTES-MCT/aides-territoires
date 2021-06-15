@@ -3,10 +3,12 @@
  * 
  */
 
- #content {
+#content {
     padding: 0;
     margin: 15px;
 }
+
+/* Header */
 
 #header {
     background: #fff;
@@ -38,9 +40,7 @@
     color: #3a3188;
 }
 
-#bookmark-form {
-    clear: both;
-}
+/* breacrumbs */
 
 div.breadcrumbs {
     display: block;
@@ -54,11 +54,62 @@ div.breadcrumbs a {
     display: inline;
 }
 
-.dashboard-module h2 {
-    background: #3a3188;
-    color: #fff;
+/* Fix admin background-color & font-color */
+
+.dashboard-module h2,
+div.breadcrumbs, 
+.module h2,
+.module caption,
+.inline-group h2,
+.button, input[type=submit],
+input[type=button],
+.submit-row input,
+a.button, 
+.select2-results__option--highlighted[aria-selected] {
+    background: #3a3188 !important;
+    color: #fff !important;
 }
 
-#module_5, #module_6 {
+div.module > table > tbody a:link,
+div.module > table > tbody a:visited {
+    color: #3a3188 !important;
+}
+
+/* Increase backer-fields-width in aids app  */
+
+.field-backer {
+    width: 100%;
+}
+
+.field-backer .related-widget-wrapper {
+    width: 100%;
+}
+
+#select2-id_aidinstructor_set-0-backer-container {
+    width: 100%;
+    text-overflow: inherit;
+}
+
+.field-backer .related-widget-wrapper > .select2 {
+    width: 90% !important;
+}
+
+/* hide left-sidebar */
+
+#nav-sidebar,
+#toggle-nav-sidebar {
     display: none !important;
 }
+
+.main.shifted > #nav-sidebar + .content {
+    max-width: 100%;
+}
+
+/* Responsive dashboard */
+
+@media (max-width: 768px) {
+    .dashboard-column {
+        width: 100% !important;
+    }
+}
+    
