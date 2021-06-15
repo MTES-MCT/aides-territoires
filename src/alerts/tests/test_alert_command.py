@@ -54,7 +54,6 @@ def test_command_output_format(mailoutbox):
     call_command('send_alerts')
 
     content = mailoutbox[0].body
-    print(content)
     assert 'Gloubiboukmark' in content
     assert 'Schtroumpf 1' in content
     assert 'Schtroumpf 2' in content

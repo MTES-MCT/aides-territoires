@@ -23,6 +23,7 @@ def test_valid_search_page_form():
         'show_categories_field': True,
         'show_mobilization_step_field': False,
         'show_aid_type_field': False,
+        'show_backers_field': False,
     })
 
     assert form.is_valid()
@@ -42,6 +43,7 @@ def test_search_form_field_customizations():
         'show_categories_field': False,
         'show_mobilization_step_field': False,
         'show_aid_type_field': False,
+        'show_backers_field': False,
     })
 
     assert form.is_valid()
@@ -61,6 +63,7 @@ def test_search_form_not_enough_filters():
         'show_categories_field': False,
         'show_mobilization_step_field': False,
         'show_aid_type_field': False,
+        'show_backers_field': False,
     })
 
     assert not form.is_valid()
@@ -81,6 +84,7 @@ def test_search_form_too_many_filters():
         'show_categories_field': True,
         'show_mobilization_step_field': True,
         'show_aid_type_field': True,
+        'show_backers_field': True,
     })
 
     assert not form.is_valid()
