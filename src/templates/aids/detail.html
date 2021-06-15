@@ -1,8 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n aids compress %}
-{% load i18n aids%}
-{% load humanize %}
-{% load settings %}
+{% load i18n aids compress humanize settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
@@ -196,7 +193,7 @@
                 <div class="subvention-rate">
                     <h3>Montant du prêt</h3>
                     <ul>
-                        <li> {{ aid.loan_amount|intcomma }} €</li>
+                        <li>{{ aid.loan_amount|intcomma }} €</li>
                     </ul>
                 </div>
                 {% endif %}
@@ -205,7 +202,7 @@
                 <div class="subvention-rate">
                     <h3>Commentaire sur l'aide financière</h3>
                     <ul>
-                        <li> {{ aid.other_financial_aid_comment }}</li>
+                        <li>{{ aid.other_financial_aid_comment }}</li>
                     </ul>
                 </div>
                 {% endif %}

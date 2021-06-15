@@ -110,6 +110,8 @@ class AidSerializer12(BaseAidSerializer):
 
 class AidSerializer13(BaseAidSerializer):
 
+    ''' Add 'loan_amount' and 'recoverable_advance_amount' fields. '''
+
     categories = CategoryRelatedField(
         many=True,
         label=_('Theme and category, separated by « | ».'),
