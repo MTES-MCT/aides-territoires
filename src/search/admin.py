@@ -75,7 +75,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
                 'administrator',
             )
         }),
-        (_('SEO'), {
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description',
@@ -231,7 +231,7 @@ class MinisitePageAdmin(PageAdmin):
                 'content'
             )
         }),
-        (_('SEO'), {
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description'

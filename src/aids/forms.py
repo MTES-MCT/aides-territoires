@@ -188,7 +188,8 @@ class AidAdminForm(BaseAidForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['start_date'].required = False
+        if 'start_date' in self.fields:
+            self.fields['start_date'].required = False
 
 
 class AidEditForm(BaseAidForm):

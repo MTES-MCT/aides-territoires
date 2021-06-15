@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.forms import FlatpageForm
 from django.contrib.flatpages.models import FlatPage
-from django.utils.translation import gettext_lazy as _
 
 from core.forms import RichTextField
 from pages.models import Page
@@ -10,7 +9,7 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class PageForm(FlatpageForm):
-    content = RichTextField(label=_('Content'))
+    content = RichTextField(label='Contenu')
 
     class Meta:
         model = Page
@@ -18,9 +17,10 @@ class PageForm(FlatpageForm):
 
 
 class PageAdmin(FlatPageAdmin):
-    list_display = ['url', 'title']
+    list_display = ['url', 'title', 'date_created', 'date_updated']
 
     form = PageForm
+    readonly_fields = ['date_created', 'date_updated']
     HELP = "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
 
     fieldsets = (
@@ -32,7 +32,7 @@ class PageAdmin(FlatPageAdmin):
                 'content'
             ),
         }),
-        (_('SEO'), {
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description'
@@ -47,37 +47,6 @@ class PageAdmin(FlatPageAdmin):
             return qs
 
         return qs.none()
-
-    list_display = ['url', 'title', 'date_created', 'date_updated']
-
-    form = PageForm
-    readonly_fields = ['date_created', 'date_updated']
-    fieldsets = (
-        (None, {
-            'description': '<div class="help">{}</div>'.format(HELP),
-            'fields': (
-                'url',
-                'title',
-                'content'
-            )
-        }),
-        (_('SEO'), {
-            'fields': (
-                'meta_title',
-                'meta_description'
-            )
-        }),
-        ('Données diverses', {
-            'fields': (
-                'date_created',
-                'date_updated'
-            )
-        })
-    )
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request).at_pages()
-        return qs
 
     class Media:
         css = {

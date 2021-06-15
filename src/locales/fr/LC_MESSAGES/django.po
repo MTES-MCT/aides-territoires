@@ -1121,9 +1121,6 @@ msgstr "partenaires/<int:pk>/"
 msgid "backers/<int:pk>-<str>/"
 msgstr "partenaires/<int:pk>-<str>/"
 
-msgid "Content"
-msgstr "Contenu"
-
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
 "and we will reuse the page title."
