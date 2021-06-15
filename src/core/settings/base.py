@@ -17,6 +17,10 @@ ALLOWED_HOSTS = []
 
 
 DJANGO_APPS = [
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.forms',  # This is needed because of the custom form renderer
     'django.contrib.admin',
     'django.contrib.auth',
@@ -176,7 +180,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [DJANGO_ROOT.child('templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
             'debug': False,
             'context_processors': [
@@ -189,12 +192,23 @@ TEMPLATES = [
                 'core.context_processors.admin_stats',
                 'core.context_processors.contributor_stats',
             ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'admin_tools.template_loaders.Loader',
+            ],
             'libraries': {
                 'form_utils': 'core.templatetags.form_utils',
             }
         },
     },
 ]
+
+
+ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
+ADMIN_TOOLS_MENU = 'core.admin_menu.CustomMenu'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
