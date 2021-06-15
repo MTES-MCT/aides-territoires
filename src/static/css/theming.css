@@ -81,7 +81,7 @@ div.module > table > tbody a:visited {
     width: 100%;
 }
 
-.related-widget-wrapper {
+.field-backer .related-widget-wrapper {
     width: 100%;
 }
 
@@ -90,6 +90,6 @@ div.module > table > tbody a:visited {
     text-overflow: inherit;
 }
 
-.related-widget-wrapper > .select2 {
+.field-backer .related-widget-wrapper > .select2 {
     width: 90% !important;
 } 
