@@ -1,7 +1,7 @@
 {% load settings %}
 Bonjour,
 
-Nous avons détecté au moins une nouvelle recherche sur votre alert « {{ alert.title }} ».
+Nous avons détecté au moins une nouvelle recherche sur votre alert « {{ alert_title }} ».
 
 Attention : il semble que votre messagerie ne prenne pas en compte les e-mails
 au format HTML. Il est possible que les liens ne s'affichent pas correctement.

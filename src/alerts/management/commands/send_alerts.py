@@ -90,9 +90,9 @@ class Command(BaseCommand):
 
         email_context = {
             'domain_with_subdomain': domain_with_subdomain,
-            # 'alert': alert,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
+            'alert_title': alert.title,
             'alert_url': f'https://{domain_with_subdomain}{alert_url}',
             'alert_delete_url': f'https://{domain}{delete_url}',
         }
