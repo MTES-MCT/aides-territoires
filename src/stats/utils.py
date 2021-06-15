@@ -43,7 +43,7 @@ def log_aidviewevent(aid_id, querystring='', source='', request_ua=''):
 
 
 @app.task
-def log_aidsearchevent(querystring='', results_count=0, source='', request_ua=''):  # noqa
+def log_aidsearchevent(querystring='', results_count=0, source='', request_ua=''):
     """
     Method to cleanup/populate the AidSearchEvents
     Run asynchronously to avoid slowing down requests.
@@ -55,12 +55,15 @@ def log_aidsearchevent(querystring='', results_count=0, source='', request_ua=''
     # - a crawler
     # - when there are unknown targeted_audiences (e.g. 'test', since May 2021)
     # - when we query our API for internal (e.g. admin) purposes
+    # - page is greater than 1 (the user has scrolled to see more results)
     is_crawler = crawler_detect.isCrawler(request_ua)
     targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
     is_wrong_search = targeted_audiences and len(targeted_audiences) and targeted_audiences[0] not in Aid.AUDIENCES  # noqa
-    is_internal_search = get_querystring_value_list_from_key(querystring_cleaned, 'internal')  # noqa
+    is_internal_search = get_querystring_value_list_from_key(querystring_cleaned, 'internal')
+    next_page = get_querystring_value_from_key(querystring_cleaned, 'page')
+    is_next_page_search = next_page and int(next_page) > 1
 
-    if not any([is_crawler, is_wrong_search, is_internal_search]):
+    if not any([is_crawler, is_wrong_search, is_internal_search, is_next_page_search]):
         perimeter = get_querystring_perimeter(querystring)
         text = get_querystring_value_from_key(querystring, 'text')
 

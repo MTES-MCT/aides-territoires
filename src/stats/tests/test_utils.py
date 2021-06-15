@@ -145,7 +145,27 @@ def test_log_aid_search_event_with_internal(perimeters):
 
     event_count_after = AidSearchEvent.objects.count()
 
-    assert event_count_before == event_count_after
+    assert event_count_after == event_count_before
+
+
+def test_log_aid_search_event_with_pages(perimeters):
+    request_get_urlencoded = 'page='
+    event_count_before = AidSearchEvent.objects.count()
+    log_aidsearchevent(querystring=request_get_urlencoded)
+    event_count_after = AidSearchEvent.objects.count()
+    assert event_count_after == event_count_before + 1
+
+    request_get_urlencoded = 'page=1'
+    event_count_before = AidSearchEvent.objects.count()
+    log_aidsearchevent(querystring=request_get_urlencoded)
+    event_count_after = AidSearchEvent.objects.count()
+    assert event_count_after == event_count_before + 1
+
+    request_get_urlencoded = 'page=2'
+    event_count_before = AidSearchEvent.objects.count()
+    log_aidsearchevent(querystring=request_get_urlencoded)
+    event_count_after = AidSearchEvent.objects.count()
+    assert event_count_after == event_count_before
 
 
 def test_log_aid_search_event_empty(perimeters):
