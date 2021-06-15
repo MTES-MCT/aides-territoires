@@ -27,7 +27,7 @@ class CustomIndexDashboard(Dashboard):
             'Aides - gestion avancées',
             models=(
                 'geofr.*', 'backers.*', 'projects.*', 'programs.*',
-                'categories.*', 'exporting.*',),
+                'categories.*',),
         ))
         self.children.append(modules.ModelList(
             'Alertes',
@@ -56,7 +56,9 @@ class CustomIndexDashboard(Dashboard):
             children=[
                 modules.ModelList(
                     "Data et API",
-                    models=('rest_framework.authtoken.*', 'dataproviders.*'),
+                    models=(
+                        'exporting.*', 'dataproviders.*',
+                        'rest_framework.authtoken.*',),
                 ),
                 modules.ModelList(
                     "Config du site",
