@@ -17,42 +17,54 @@ class CustomIndexDashboard(Dashboard):
     def init_with_context(self, context):
         self.children.append(modules.ModelList(
             'Groupes et utilisateurs',
+            deletable=False, draggable=False,
             models=('django.contrib.auth.*', 'accounts.*'),
         ))
         self.children.append(modules.ModelList(
             'Aides',
+            deletable=False, draggable=False,
             models=('aids.*',),
         ))
         self.children.append(modules.ModelList(
             'Aides - gestion avancées',
+            deletable=False, draggable=False,
             models=(
                 'geofr.*', 'backers.*', 'projects.*', 'programs.*',
                 'categories.*',),
         ))
         self.children.append(modules.ModelList(
             'Alertes',
+            deletable=False, draggable=False,
             models=('alerts.*',),
         ))
         self.children.append(modules.ModelList(
             'Contenu éditorial',
+            deletable=False, draggable=False,
             models=('blog.*', 'pages.*'),
         ))
         self.children.append(modules.ModelList(
             "Test d'eligibilité",
+            deletable=False, draggable=False,
             models=('eligibility.*',),
         ))
         self.children.append(modules.ModelList(
             "Pages Personnalisées",
+            deletable=False, draggable=False,
             models=('search.*',),
         ))
         self.children.append(modules.ModelList(
             'Statistiques',
+            deletable=False, draggable=False,
             models=('stats.*',),
         ))
-        self.children.append(modules.RecentActions(_('Recent Actions'), 5))
+        self.children.append(modules.RecentActions(
+            _('Recent Actions'), 5,
+            deletable=False, draggable=False,
+        ))
         self.children.append(modules.Group(
             title="Configuration Système",
             display="tabs",
+            deletable=False, draggable=False,
             children=[
                 modules.ModelList(
                     "Data et API",
