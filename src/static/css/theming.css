@@ -98,3 +98,14 @@ div.module > table > tbody a:visited {
 #toggle-nav-sidebar {
     display: none !important;
 }
+
+.main.shifted > #nav-sidebar + .content {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .dashboard-column {
+        width: 100% !important;
+    }
+}
+    
