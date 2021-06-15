@@ -1,13 +1,18 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.flatpages.models import FlatPage
 
 
 class PageQueryset(models.QuerySet):
     def at_pages(self):
+        """Pages belonging to Aides-territoires main site."""
+
         return self.filter(minisite__isnull=True)
 
     def minisite_pages(self):
+        """Pages belonging to minisites."""
+
         return self.filter(minisite__isnull=False)
 
 
@@ -36,3 +41,10 @@ class Page(FlatPage):
         help_text=_('Optional, link this page to a minisite.'),
         on_delete=models.PROTECT,
         null=True, blank=True)
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+    date_updated = models.DateTimeField(
+        _('Date updated'),
+        auto_now=True)

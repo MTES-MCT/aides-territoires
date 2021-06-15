@@ -153,15 +153,33 @@ class MinisitePageAdmin(PageAdmin):
 
     HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
 
+    list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
+
+    autocomplete_fields = ['minisite']
+    readonly_fields = ['date_created', 'date_updated']
     fieldsets = (
         (None, {
-            'fields': ('url', 'minisite', 'title', 'content'),
-            'description': '<div class="help">{}</div>'.format(HELP)}),
-        (_('SEO'), {'fields': (
-            'meta_title', 'meta_description')})
+            'description': '<div class="help">{}</div>'.format(HELP),
+            'fields': (
+                'url',
+                'minisite',
+                'title',
+                'content'
+            ),
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title',
+                'meta_description'
+            )
+        }),
+        ('Données diverses', {
+            'fields': (
+                'date_created',
+                'date_updated'
+            )
+        })
     )
-    autocomplete_fields = ['minisite']
-    list_display = ['url', 'title', 'minisite']
 
     def get_queryset(self, request):
         qs = Page.objects \
