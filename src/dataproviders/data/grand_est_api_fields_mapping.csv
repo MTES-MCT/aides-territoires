@@ -27,8 +27,9 @@ contact_detail,,,,
 recurrence,,,custom,"mettre 'ongoing' pour les aides, 'oneoff' pour les AAP"
 is_call_for_project,post_type,texte,mapping,true si égale à 'ge_projet' ('ge_guide' sinon)
 in_france_relance,,,,
-categories,gui_souscompetence_card,liste d'objets,mapping,toujours vide ?
+categories,gui_tax_competence,liste d'objets,mapping,toujours vide ?
 _extra_fields,gui_competence,liste d'objets,,themes
+_extra_fields,gui_tax_competence,liste d'objets,,anciennes categories
 _extra_fields,gui_image / pro_image,texte,,image
 _extra_fields,post_type_name,texte,,toujours vide ?
 _extra_fields,gui_documents,liste d'objets,,

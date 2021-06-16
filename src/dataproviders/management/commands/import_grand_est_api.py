@@ -20,7 +20,7 @@ DATA_SOURCE = DataSource.objects \
     .get(pk=3)
 
 AUDIENCES_DICT = {}
-AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_audiences_mapping.csv'
+AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_api_audiences_mapping.csv'
 SOURCE_COLUMN_NAME = 'Bénéficiaires Grand Est'
 AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4']
 with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
@@ -36,8 +36,8 @@ with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
                     except:
                         print(row[column])
 
-CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_categories_mapping.csv'
-SOURCE_COLUMN_NAME = 'Thématiques Grand Est'
+CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_api_categories_mapping.csv'
+SOURCE_COLUMN_NAME = 'Sous-thématiques Grand Est'  # 'Thématiques Grand Est'
 AT_COLUMN_NAMES = ['Sous-thématiques AT 1', 'Sous-thématiques AT 2', 'Sous-thématiques AT 3', 'Sous-thématiques AT 4', 'Sous-thématiques AT 5', 'Sous-thématiques AT 6', 'Sous-thématiques AT 7', 'Sous-thématiques AT 8']
 CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
@@ -116,10 +116,12 @@ class Command(BaseImportCommand):
         audiences = line.get('gui_beneficiaire', [])
         aid_audiences = []
         for audience in audiences:
-            if audience['name'] in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience['name'], []))
+            audience_name = audience['name']
+            if audience_name in AUDIENCES_DICT:
+                aid_audiences.extend(AUDIENCES_DICT.get(audience_name, []))
             else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+                self.stdout.write(self.style.ERROR(f'Audience {audience_name} not mapped'))
+                # self.stdout.write(self.style.ERROR(f'{audience_name}'))
         return aid_audiences
 
     def extract_categories(self, line):
@@ -127,14 +129,15 @@ class Command(BaseImportCommand):
         Source format: list of dicts
         Get the objects, loop on the values and match to our Categories
         """
-        categories = line.get('gui_competence', [])
+        categories = line.get('gui_tax_competence', [])
         aid_categories = []
         for category in categories:
-            category_name = category['post_title']
+            category_name = category['name']
             if category_name in CATEGORIES_DICT:
                 aid_categories.extend(CATEGORIES_DICT.get(category_name, []))
             else:
-                self.stdout.write(self.style.ERROR(f'{category_name}'))
+                self.stdout.write(self.style.ERROR(f'Category {category_name} not mapped'))
+                # self.stdout.write(self.style.ERROR(f'{category_name}'))
         return aid_categories
 
     def extract_origin_url(self, line):
