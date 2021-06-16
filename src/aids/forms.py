@@ -23,21 +23,21 @@ from aids.constants import AUDIENCES_GROUPED
 
 
 FINANCIAL_AIDS = (
-    ('grant', _('Grant')),
-    ('loan', _('Loan')),
-    ('recoverable_advance', _('Recoverable advance')),
-    ('other', _('Other')),
+    ('grant', 'Subvention'),
+    ('loan', 'Prêt'),
+    ('recoverable_advance', 'Avance récupérable'),
+    ('other', 'Autre'),
 )
 
 TECHNICAL_AIDS = (
-    ('technical', _('Technical')),
-    ('financial', _('Financial')),
-    ('legal', _('Legal')),
+    ('technical', 'Technique'),
+    ('financial', 'Financière'),
+    ('legal', 'Juridique / administrative'),
 )
 
 AID_TYPES = (
-    (_('Financial aids'), FINANCIAL_AIDS),
-    (_('Technical and methodological aids'), TECHNICAL_AIDS),
+    ('Aides financières', FINANCIAL_AIDS),
+    ('Aides en ingénierie', TECHNICAL_AIDS),
 )
 
 IS_CALL_FOR_PROJECT = (
@@ -404,12 +404,12 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         widget=forms.CheckboxSelectMultiple)
     financial_aids = forms.MultipleChoiceField(
-        label=_('Financial aids'),
+        label='Aides financières',
         required=False,
         choices=FINANCIAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
     technical_aids = forms.MultipleChoiceField(
-        label=_('Engineering aids'),
+        label='Aides en ingénierie',
         required=False,
         choices=TECHNICAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
@@ -479,7 +479,7 @@ class BaseAidSearchForm(forms.Form):
 
     # This field is used to sort results
     order_by = forms.ChoiceField(
-        label=_('Order by'),
+        label='Trier par',
         required=False,
         choices=ORDER_BY)
 

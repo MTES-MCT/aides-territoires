@@ -38,16 +38,16 @@ class Perimeter(models.Model):
     """
 
     TYPES = Choices(
-        (1, 'commune', _('Commune')),
-        (5, 'epci', _('EPCI')),
-        (8, 'basin', _('Drainage basin')),
-        (10, 'department', _('Department')),
-        (15, 'region', _('Region')),
-        (16, 'overseas', _('Overseas')),
-        (17, 'mainland', _('Mainland')),
-        (18, 'adhoc', _('Ad-hoc')),
-        (20, 'country', _('Country')),
-        (25, 'continent', _('Continent')),
+        (1, 'commune', 'Commune'),
+        (5, 'epci', 'EPCI'),
+        (8, 'basin', 'Bassin hydrographique'),
+        (10, 'department', 'Département'),
+        (15, 'region', 'Région'),
+        (16, 'overseas', 'Outre-mer'),
+        (17, 'mainland', 'Métropole'),
+        (18, 'adhoc', 'Ad-hoc'),
+        (20, 'country', 'Pays'),
+        (25, 'continent', 'Continent'),
     )
 
     scale = models.PositiveIntegerField(
@@ -78,16 +78,16 @@ class Perimeter(models.Model):
         max_length=2,
         default='EU')
     country = models.CharField(
-        _('Country'),
+        'Pays',
         max_length=3,
         default='FRA')  # ISO_3166-3 codes
     regions = ArrayField(  # Array of region codes (INSEE COG)
-        verbose_name=_('Regions'),
+        verbose_name='Régions',
         base_field=models.CharField(max_length=2),
         default=list,
         blank=True)
     departments = ArrayField(  # Array of depts codes (INSEE COG)
-        verbose_name=_('Departments'),
+        verbose_name='Départements',
         base_field=models.CharField(max_length=3),
         default=list,
         blank=True)

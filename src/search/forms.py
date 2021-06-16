@@ -17,18 +17,18 @@ from aids.forms import AidSearchForm
 
 
 AUDIENCES = [
-    (_('A collectivity'), (
-        ('commune', _('Commune')),
-        ('epci', _('Intercommunality / Country')),
-        ('department', _('Department')),
-        ('region', _('Region')),
-        ('special', _('Special status')),
+    ('Une collectivité', (
+        ('commune', 'Commune'),
+        ('epci', 'Intercommunalité / Pays'),
+        ('department', 'Département'),
+        ('region', 'Région'),
+        ('special', 'Statut particulier'),
     )),
-    (_('An other beneficiary'), (
-        ('public_org', _('Public organization')),
-        ('association', _('Association')),
-        ('private_sector', _('Private company')),
-        ('farmer', _('Farmer')),
+    ('Un autre bénéficiaire', (
+        ('public_org', 'Établissement public'),
+        ('association', 'Association'),
+        ('private_sector', 'Entreprise privée'),
+        ('farmer', 'Agriculteur'),
     ))
 ]
 

@@ -1,25 +1,22 @@
-from django.utils.translation import gettext_lazy as _
-
-
 COLLECTIVITIES_AUDIENCES = (
-    ('commune', _('Communes')),
-    ('epci', _('Audience EPCI')),
-    ('department', _('Departments')),
-    ('region', _('Regions')),
-    ('special', _('Special status for outre-mer')),
+    ('commune', 'Communes'),
+    ('epci', 'EPCI à fiscalité propre'),
+    ('department', 'Départements'),
+    ('region', 'Régions'),
+    ('special', "Collectivités d'outre-mer à statuts particuliers"),
 )
 
 OTHER_AUDIENCES = (
-    ('association', _('Associations')),
-    ('private_person', _('Individuals')),
-    ('farmer', _('Farmers')),
-    ('private_sector', _('Private sector')),
-    ('public_cies', _('Local public companies')),
-    ('public_org', _('Public organizations / State services')),
-    ('researcher', _('Research')),
+    ('association', 'Associations'),
+    ('private_person', 'Particuliers'),
+    ('farmer', 'Agriculteurs'),
+    ('private_sector', 'Entreprises privées'),
+    ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
+    ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
+    ('researcher', 'Recherche'),
 )
 
 AUDIENCES_GROUPED = (
-    (_('Collectivities'), COLLECTIVITIES_AUDIENCES),
-    (_('Other audiences'), OTHER_AUDIENCES)
+    ('Collectivités', COLLECTIVITIES_AUDIENCES),
+    ('Autres bénéficiaires', OTHER_AUDIENCES)
 )

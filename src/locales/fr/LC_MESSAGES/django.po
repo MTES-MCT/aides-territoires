@@ -306,78 +306,6 @@ msgstr "Thème et catégorie, séparés par « | »."
 msgid "E.g: \"Nature / environnement|Qualité de l'air\""
 msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
 
-msgid "Communes"
-msgstr "Communes"
-
-msgid "Audience EPCI"
-msgstr "EPCI à fiscalité propre"
-
-msgid "Departments"
-msgstr "Départements"
-
-msgid "Regions"
-msgstr "Régions"
-
-msgid "Associations"
-msgstr "Associations"
-
-msgid "Individuals"
-msgstr "Particuliers"
-
-msgid "Farmers"
-msgstr "Agriculteurs"
-
-msgid "Special status for outre-mer"
-msgstr "Collectivités d’outre-mer à statuts particuliers"
-
-msgid "Special status"
-msgstr "Statut particulier"
-
-msgid "Private sector"
-msgstr "Entreprises privées"
-
-msgid "Local public companies"
-msgstr "Entreprises publiques locales (Sem, Spl, SemOp)"
-
-msgid "Public organizations / State services"
-msgstr "Établissements publics (écoles, bibliothèques…) / Services de l'État"
-
-msgid "Research"
-msgstr "Recherche"
-
-msgid "Collectivities"
-msgstr "Collectivités"
-
-msgid "Other audiences"
-msgstr "Autres bénéficiaires"
-
-msgid "Grant"
-msgstr "Subvention"
-
-msgid "Loan"
-msgstr "Prêt"
-
-msgid "Recoverable advance"
-msgstr "Avance récupérable"
-
-msgid "Other"
-msgstr "Autre"
-
-msgid "Technical"
-msgstr "Technique"
-
-msgid "Financial"
-msgstr "Financière"
-
-msgid "Legal"
-msgstr "Juridique / administrative"
-
-msgid "Financial aids"
-msgstr "Aides financières"
-
-msgid "Technical and methodological aids"
-msgstr "Aides en ingénierie"
-
 msgid "Program title"
 msgstr "Titre du programme"
 
@@ -658,9 +586,6 @@ msgstr "Thématiques"
 msgid "Origin url"
 msgstr "URL d'origine"
 
-msgid "Order by"
-msgstr "Trier par"
-
 msgid "This zipcode seems invalid"
 msgstr "Ce code postal semble invalide."
 
@@ -687,80 +612,6 @@ msgstr "Échéance"
 
 msgid "Display status"
 msgstr "Affichage"
-
-msgid "Draft"
-msgstr "Brouillon"
-
-msgid "Under review"
-msgstr "En revue"
-
-msgctxt "Aid (nf)"
-msgid "Published"
-msgstr "Publiée"
-
-msgctxt "Aid (nf)"
-msgid "Deleted"
-msgstr "Supprimée"
-
-msgid "Order"
-msgstr "Trier par"
-
-msgid "Technical engineering"
-msgstr "Aides en ingénierie"
-
-msgid "Financial engineering"
-msgstr "Aides financières"
-
-msgid "Legal engineering"
-msgstr "Ingénierie juridique / administrative"
-
-msgid "Europe"
-msgstr "Europe"
-
-msgid "France"
-msgstr "France"
-
-msgid "Region"
-msgstr "Région"
-
-msgid "Department"
-msgstr "Département"
-
-msgid "Commune"
-msgstr "Commune"
-
-msgid "Mainland"
-msgstr "Métropole"
-
-msgid "Overseas"
-msgstr "Outre-mer"
-
-msgid "Preoperational"
-msgstr "Réflexion / conception"
-
-msgid "Operational"
-msgstr "Mise en œuvre / réalisation"
-
-msgid "Postoperation"
-msgstr "Usage / valorisation"
-
-msgid "Public organization"
-msgstr "Établissement public"
-
-msgid "Supply"
-msgstr "Dépenses de fonctionnement"
-
-msgid "Investment"
-msgstr "Dépenses d'investissement"
-
-msgid "One off"
-msgstr "Ponctuelle"
-
-msgid "Ongoing"
-msgstr "Permanente"
-
-msgid "Recurring"
-msgstr "Récurrente"
 
 msgid "Slug"
 msgstr "Fragment d'URL"
@@ -1020,12 +871,6 @@ msgstr ""
 "\n"
 "Vous avez atteint le nombre maximum d'alertes qu'il est possible de créer "
 "pour une seule adresse e-mail."
-
-msgid "Daily"
-msgstr "Quotidiennement"
-
-msgid "Weekly"
-msgstr "Hebdomadairement"
 
 msgid "Secret token"
 msgstr "Clé secrète"
@@ -1317,12 +1162,6 @@ msgstr "data/"
 msgid "upload/"
 msgstr "upload/"
 
-msgid "Unknown"
-msgstr "Inconnu"
-
-msgid "Open licence 2.0"
-msgstr "Licence ouverte 2.0"
-
 msgid "Full description of the data source"
 msgstr "Description complète de la source de données"
 
@@ -1407,21 +1246,6 @@ msgstr "Périmètres à soustraire"
 
 msgid "Those perimeters will be substracted from the combined perimeters"
 msgstr "Ces périmètres seront enlevés du périmètre combiné."
-
-msgid "EPCI"
-msgstr "EPCI"
-
-msgid "Drainage basin"
-msgstr "Bassin hydrographique"
-
-msgid "Country"
-msgstr "Pays"
-
-msgid "Continent"
-msgstr "Continent"
-
-msgid "Ad-hoc"
-msgstr "Ad-hoc"
 
 msgid "Scale"
 msgstr "Échelle"
@@ -1547,10 +1371,6 @@ msgstr ""
 "Quel est son objectif, son état d’avancement ou tout autre information "
 "permettant de le qualifier"
 
-msgctxt "Project (nf)"
-msgid "Published"
-msgstr "Publiée"
-
 msgid "Project name"
 msgstr "Nom du projet"
 
@@ -1583,24 +1403,6 @@ msgstr "Personnalisation du style"
 
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
-
-msgid "A collectivity"
-msgstr "Une collectivité"
-
-msgid "Intercommunality / Country"
-msgstr "Intercommunalité / Pays"
-
-msgid "An other beneficiary"
-msgstr "Un autre bénéficiaire"
-
-msgid "Association"
-msgstr "Association"
-
-msgid "Private company"
-msgstr "Entreprise privée"
-
-msgid "Farmer"
-msgstr "Agriculteur"
 
 msgid "Your are seeking aids for…"
 msgstr "La structure pour laquelle vous recherchez des aides est…"

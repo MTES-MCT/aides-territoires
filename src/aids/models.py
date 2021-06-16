@@ -7,7 +7,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _, pgettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.urls import reverse
 from django.conf import settings
@@ -27,10 +27,10 @@ class AidWorkflow(xwf_models.Workflow):
     log_model = ''
 
     states = Choices(
-        ('draft', _('Draft')),
-        ('reviewable', _('Under review')),
-        ('published', pgettext_lazy('Aid (nf)', 'Published')),
-        ('deleted', pgettext_lazy('Aid (nf)', 'Deleted')),
+        ('draft', 'Brouillon'),
+        ('reviewable', 'En revue'),
+        ('published', 'Publiée'),
+        ('deleted', 'Supprimée'),
     )
     initial_state = 'draft'
     transitions = (
@@ -130,17 +130,17 @@ class AidQuerySet(models.QuerySet):
         return self.filter(eligibility_test__isnull=False)
 
     def generic_aids(self):
-        """Returns the list of generic aids"""
+        """Returns the list of generic aids."""
 
         return self.filter(is_generic=True)
 
     def local_aids(self):
-        """Returns the list of local aids"""
+        """Returns the list of local aids."""
 
         return self.filter(generic_aid__isnull=False)
 
     def standard_aids(self):
-        """Returns the list of aids that are nither local nor generic"""
+        """Returns the list of aids that are neither local nor generic."""
 
         return self.filter(generic_aid__isnull=True, is_generic=False)
 
@@ -183,10 +183,14 @@ class AmendmentManager(models.Manager):
 class AidFinancer(models.Model):
     """The Aid -> Financers relationship `through` model."""
 
-    aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
-    backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+    aid = models.ForeignKey(
+        'aids.Aid',
+        on_delete=models.CASCADE)
+    backer = models.ForeignKey(
+        'backers.Backer',
+        on_delete=models.CASCADE)
     order = models.PositiveIntegerField(
-        _('Order'),
+        'Trier par',
         blank=False,
         default=1)
 
@@ -198,10 +202,14 @@ class AidFinancer(models.Model):
 class AidInstructor(models.Model):
     """The Aid -> Instructors relationship `through` model."""
 
-    aid = models.ForeignKey('aids.Aid', on_delete=models.CASCADE)
-    backer = models.ForeignKey('backers.Backer', on_delete=models.CASCADE)
+    aid = models.ForeignKey(
+        'aids.Aid',
+        on_delete=models.CASCADE)
+    backer = models.ForeignKey(
+        'backers.Backer',
+        on_delete=models.CASCADE)
     order = models.PositiveIntegerField(
-        _('Order'),
+        'Trier par',
         blank=False,
         default=1)
 
@@ -214,61 +222,59 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
     TYPES = Choices(
-        ('grant', _('Grant')),
-        ('loan', _('Loan')),
-        ('recoverable_advance', _('Recoverable advance')),
-        ('technical', _('Technical engineering')),
-        ('financial', _('Financial engineering')),
-        ('legal', _('Legal engineering')),
-        ('other', _('Other')),
+        ('grant', 'Subvention'),
+        ('loan', 'Prêt'),
+        ('recoverable_advance', 'Avance récupérable'),
+        ('technical', 'Aides en ingénierie'),
+        ('financial', 'Aides financières'),
+        ('legal', 'Ingénierie juridique / administrative'),
+        ('other', 'Autre'),
     )
 
-    FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance',
-                      'other')
-
+    FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance', 'other')
     TECHNICAL_AIDS = ('technical', 'financial', 'legal')
 
     PERIMETERS = Choices(
-        ('europe', _('Europe')),
-        ('france', _('France')),
-        ('region', _('Region')),
-        ('department', _('Department')),
-        ('commune', _('Commune')),
-        ('mainland', _('Mainland')),
-        ('overseas', _('Overseas')),
-        ('other', _('Other')),
+        ('europe', 'Europe'),
+        ('france', 'France'),
+        ('region', 'Région'),
+        ('department', 'Département'),
+        ('commune', 'Commune'),
+        ('mainland', 'Métropole'),
+        ('overseas', 'Outre-mer'),
+        ('other', 'Autre'),
     )
 
     STEPS = Choices(
-        ('preop', _('Preoperational')),
-        ('op', _('Operational')),
-        ('postop', _('Postoperation')),
+        ('preop', 'Réflexion / conception'),
+        ('op', 'Mise en œuvre / réalisation'),
+        ('postop', 'Usage / valorisation'),
     )
 
     AUDIENCES = Choices(
-        ('commune', _('Communes')),
-        ('epci', _('Audience EPCI')),
-        ('department', _('Departments')),
-        ('region', _('Regions')),
-        ('special', _('Special status for outre-mer')),
-        ('association', _('Associations')),
-        ('private_sector', _('Private sector')),
-        ('public_cies', _('Local public companies')),
-        ('public_org', _('Public organization')),
-        ('researcher', _('Research')),
-        ('private_person', _('Individuals')),
-        ('farmer', _('Farmers')),
+        ('commune', 'Communes'),
+        ('epci', 'EPCI à fiscalité propre'),
+        ('department', 'Départements'),
+        ('region', 'Régions'),
+        ('special', "Collectivités d'outre-mer à statuts particuliers"),
+        ('association', 'Associations'),
+        ('private_sector', 'Entreprises privées'),
+        ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
+        ('public_org', 'Établissement public'),
+        ('researcher', 'Recherche'),
+        ('private_person', 'Particuliers'),
+        ('farmer', 'Agriculteurs'),
     )
 
     DESTINATIONS = Choices(
-        ('supply', _('Supply')),
-        ('investment', _('Investment')),
+        ('supply', 'Dépenses de fonctionnement'),
+        ('investment', "Dépenses d'investissement"),
     )
 
     RECURRENCE = Choices(
-        ('oneoff', _('One off')),
-        ('ongoing', _('Ongoing')),
-        ('recurring', _('Recurring')),
+        ('oneoff', 'Ponctuelle'),
+        ('ongoing', 'Permanente'),
+        ('recurring', 'Récurrente'),
     )
 
     objects = ExistingAidsManager()
