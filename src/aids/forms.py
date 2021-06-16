@@ -91,6 +91,10 @@ class BaseAidForm(forms.ModelForm):
         label="Appel à projet / Manifestation d'intérêt",
         required=False)
 
+    class Meta:
+        model = Aid
+        fields = '__all__'
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -136,6 +140,18 @@ class BaseAidForm(forms.ModelForm):
         instructors = self.cleaned_data.get('instructors', None)
         self.instance.set_search_vector(financers, instructors)
         return super().save(commit=commit)
+
+    def clean(self, *args, **kwargs):
+
+        data = super().clean()
+
+        print(data)
+        if ('author' in data) and ('contributors' in data):
+            if data['author'] in data['contributors']:
+                msg = "Un utilisateur ne peut pas être à la fois auteur et contributeur."
+                raise ValidationError({'contributors': msg})
+
+        return data
 
 
 class AidAdminForm(BaseAidForm):

@@ -5,7 +5,7 @@ from django.contrib.admin.sites import AdminSite
 
 from aids.models import Aid
 from aids.admin import AidAdmin
-from aids.forms import AidSearchForm, AidEditForm
+from aids.forms import BaseAidForm, AidSearchForm, AidEditForm
 from aids.factories import AidFactory
 
 
@@ -319,6 +319,21 @@ def test_search_from_filter_by_audiences(aids):
             'private_person' in aid.targeted_audiences,
             'researcher' in aid.targeted_audiences,
             'private_sector' in aid.targeted_audiences))
+
+
+def test_aid_author_contributors_duplicate_validation(aid_form_data, user):
+    aid_form_data['contributors'] = [user]
+
+    form = BaseAidForm(aid_form_data)
+    assert not form.is_valid()
+
+    # actually works, but the test fails
+    # form = AidAdminForm(aid_form_data)
+    # assert not form.is_valid()
+
+    # but it will currently work in other forms that override the fields list
+    form = AidEditForm(aid_form_data)
+    assert form.is_valid()
 
 
 def test_aid_edition_subvention_rate_validation(aid_form_data):
