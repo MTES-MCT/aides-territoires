@@ -108,5 +108,28 @@ class AidSerializer12(BaseAidSerializer):
                   'date_updated')
 
 
-class AidSerializerLatest(AidSerializer12):
+class AidSerializer13(BaseAidSerializer):
+
+    ''' Add 'loan_amount' and 'recoverable_advance_amount' fields. '''
+
+    categories = CategoryRelatedField(
+        many=True,
+        label=_('Theme and category, separated by « | ».'),
+        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+
+    class Meta(BaseAidSerializer.Meta):
+        fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
+                  'instructors', 'programs', 'description', 'eligibility',
+                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
+                  'categories',
+                  'application_url', 'targeted_audiences', 'aid_types',
+                  'destinations', 'start_date', 'predeposit_date',
+                  'submission_deadline', 'subvention_rate_lower_bound',
+                  'subvention_rate_upper_bound', 'loan_amount',
+                  'recoverable_advance_amount', 'contact', 'recurrence',
+                  'programs', 'project_examples', 'date_created',
+                  'date_updated')
+
+
+class AidSerializerLatest(AidSerializer13):
     pass

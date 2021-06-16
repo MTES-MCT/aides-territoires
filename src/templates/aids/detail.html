@@ -1,7 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n aids compress %}
-{% load i18n aids%}
-{% load settings %}
+{% load i18n aids compress humanize settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock %}
 
@@ -179,6 +177,33 @@
                     {% if aid.subvention_comment %}
                     {{ aid.subvention_comment }}
                     {% endif %}
+                </div>
+                {% endif %}
+
+                {% if aid.recoverable_advance_amount %}
+                <div class="subvention-rate">
+                    <h3>Montant de l'avance récupérable</h3>
+                    <ul>
+                        <li>{{ aid.recoverable_advance_amount|intcomma }} €</li>
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if aid.loan_amount %}
+                <div class="subvention-rate">
+                    <h3>Montant du prêt</h3>
+                    <ul>
+                        <li>{{ aid.loan_amount|intcomma }} €</li>
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if aid.other_financial_aid_comment %}
+                <div class="subvention-rate">
+                    <h3>Commentaire sur l'aide financière</h3>
+                    <ul>
+                        <li>{{ aid.other_financial_aid_comment }}</li>
+                    </ul>
                 </div>
                 {% endif %}
             </div>
