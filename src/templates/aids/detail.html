@@ -362,7 +362,7 @@
             {% endif %}
 
             {% if aid.destinations %}
-            <h3>{{ _('Types of expenses covered') }}</h3>
+            <h3>Types de dépenses / actions couvertes</h3>
             <p>{% choices_display aid 'destinations' %}</p>
             {% endif %}
 
@@ -416,14 +416,14 @@
                 {% endif %}
 
                 {% if aid.origin_url %}
-                <h3>{{ _('Link to full description') }}</h3>
+                <h3>Lien vers le descriptif complet</h3>
                 <p>
                     <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
                 </p>
                 {% endif %}
 
                 {% if aid.application_url %}
-                <h3>{{ _('Link to an online application form') }}</h3>
+                <h3>Lien vers la démarche en ligne</h3>
                 <p>
                     <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
                 </p>

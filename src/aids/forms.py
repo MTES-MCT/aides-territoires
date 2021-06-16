@@ -51,11 +51,11 @@ class BaseAidForm(forms.ModelForm):
     """Base for all aid edition forms (front, admin)."""
 
     short_title = forms.CharField(
-        label=_('Program title'),
+        label='Titre du programme',
         required=False,
         max_length=64,
         widget=forms.TextInput(
-            attrs={'placeholder': _('Call for project "Innovation continue"')}
+            attrs={'placeholder': 'Ex : Appel à projet innovation continue'}
         ))
     description = RichTextField(
         label="Description complète de l'aide et de ses objectifs",
@@ -66,23 +66,22 @@ class BaseAidForm(forms.ModelForm):
             'If you are contacted regularly to ask for the same information,'
             ' try to give some answers in this space.')}))
     project_examples = RichTextField(
-        label=_('Examples of projects that benefited from this aid'),
+        label="Exemples d'applications ou de projets réalisés grâce à cette aide",
         required=False,
-        help_text=_(
-            'Give concrete examples of projets that benefited or might '
-            'benefit from this aid.'),
-        widget=forms.Textarea(attrs={'placeholder': _(
-            'Library, skatepark, etc.')}))
+        help_text="Afin d'aider les territoires à mieux comprendre votre aide, donnez ici quelques exemples concrets de projets réalisables ou réalisés.",  # noqa
+        widget=forms.Textarea(
+            attrs={'placeholder': "Médiathèque, skatepark, accompagner des enfants en classe de neige, financer une usine de traitement des déchets, etc."}  # noqa
+        ))
     eligibility = RichTextField(
         label=_('Other eligibility criterias?'),
         required=False)
     contact = RichTextField(
-        label=_('Contact to apply'),
+        label='Contact pour candidater',
         required=True,
-        help_text=_('Feel free to add several contacts'),
-        widget=forms.Textarea(attrs={'placeholder': _(
-            'First name / last name, email, phone, comments…'
-        )}))
+        help_text="N'hésitez pas à ajouter plusieurs contacts",
+        widget=forms.Textarea(
+            attrs={'placeholder': 'Nom, prénom, e-mail, téléphone, commentaires…'}
+        ))
     local_characteristics = RichTextField(
         label='Spécificités locales',
         required=False,
@@ -105,15 +104,14 @@ class BaseAidForm(forms.ModelForm):
             self.fields['recurrence'].required = True
 
         custom_labels = {
-            'name': _('Aid title'),
-            'financers': _('Aid backer(s)'),
-            'instructors': _('Aid instructor(s)'),
-            'new_backer': _('…or add a new financer'),
-            'destinations': _('Types of expenses covered'),
-            'origin_url': _('Link to a full description'),
-            'application_url': _('Link to an online application form'),
-            'is_call_for_project': _('Check this if this aid is a call for'
-                                     ' project')
+            'name': "Nom de l'aide",
+            'financers': "Porteur de l'aide",
+            'instructors': "Instructeur de l'aide",
+            'new_backer': "…ou ajoutez un nouveau porteur d'aide",
+            'destinations': "Types de dépenses / actions couvertes",
+            'origin_url': "Lien vers le descriptif complet",
+            'application_url': "Lien vers la démarche en ligne",
+            'is_call_for_project': "Cochez cette case s'il s'agit d'un appel à projets (AAP) ou d'un appel à manifestation d'intérêt (AMI)"  # noqa
         }
         for field, label in custom_labels.items():
             if field in self.fields:
@@ -151,7 +149,7 @@ class AidAdminForm(BaseAidForm):
                     'perimeter'))
 
     financer_suggestion = forms.CharField(
-        label=_('Backer suggestion'),
+        label="Porteurs suggérés",
         max_length=256,
         required=False,
         help_text=_('This backer was suggested. Add it to the global list '
@@ -196,7 +194,7 @@ class AidAdminForm(BaseAidForm):
 class AidEditForm(BaseAidForm):
 
     programs = forms.ModelMultipleChoiceField(
-        label=_('Aid program'),
+        label="Programme d'aides",
         queryset=Program.objects.all(),
         required=False)
     financers = AutocompleteModelMultipleChoiceField(
@@ -439,7 +437,7 @@ class BaseAidSearchForm(forms.Form):
         queryset=Project.objects.all(),
         required=False)
     programs = forms.ModelMultipleChoiceField(
-        label=_('Aid programs'),
+        label="Programmes d'aides",
         queryset=Program.objects.all(),
         to_field_name='slug',
         required=False)

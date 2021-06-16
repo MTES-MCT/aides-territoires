@@ -297,12 +297,6 @@ msgstr "Thème et catégorie, séparés par « | »."
 msgid "E.g: \"Nature / environnement|Qualité de l'air\""
 msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
 
-msgid "Program title"
-msgstr "Titre du programme"
-
-msgid "Call for project \"Innovation continue\""
-msgstr "Ex : Appel à projet innovation continue"
-
 msgid ""
 "If you have a description, do not hesitate to copy it here.\n"
 "Try to complete the description with the maximum of information.\n"
@@ -314,58 +308,11 @@ msgstr ""
 "Si l'on vous contacte régulièrement pour vous demander les mêmes "
 "informations, essayez de donner des éléments de réponses dans cet espace."
 
-msgid "Examples of projects that benefited from this aid"
-msgstr "Exemples d'applications ou de projets réalisés grâce à cette aide"
-
-msgid ""
-"Give concrete examples of projets that benefited or might benefit from this "
-"aid."
-msgstr ""
-"Afin d'aider les territoires à mieux comprendre votre aide, donnez ici "
-"quelques exemples concrets de projets réalisables ou réalisés."
-
-msgid "Library, skatepark, etc."
-msgstr ""
-"Médiathèque, skatepark, accompagner des enfants en classe de neige, financer "
-"une usine de traitement des déchets, etc."
-
 msgid "Other eligibility criterias?"
 msgstr "Conditions d'éligibilité"
 
-msgid "Contact to apply"
-msgstr "Contact pour candidater"
-
-msgid "Feel free to add several contacts"
-msgstr "N'hésitez pas à ajouter plusieurs contacts"
-
-msgid "First name / last name, email, phone, comments…"
-msgstr "Nom, prénom, e-mail, téléphone, commentaires…"
-
 msgid "Aid title"
 msgstr "Nom de l'aide"
-
-msgid "Aid backer(s)"
-msgstr "Porteur de l'aide"
-
-msgid "Aid instructor(s)"
-msgstr "Instructeur de l'aide"
-
-msgid "…or add a new financer"
-msgstr "…ou ajoutez un nouveau porteur d'aide"
-
-msgid "Types of expenses covered"
-msgstr "Types de dépenses / actions couvertes"
-
-msgid "Link to a full description"
-msgstr "Lien vers le descriptif complet"
-
-msgid "Link to an online application form"
-msgstr "Lien vers la démarche en ligne"
-
-msgid "Check this if this aid is a call for project"
-msgstr ""
-"Cochez cette case s'il s'agit d'un appel à projets (AAP) ou d'un appel à "
-"manifestation d'intérêt (AMI)"
 
 msgid ""
 "If the aid backer is not in the previous list, use this field to add a new "
@@ -379,9 +326,6 @@ msgstr "Merci d'indiquer un porteur d'aide."
 
 msgid "The user suggested the following description for a new perimeter"
 msgstr "Le contributeur suggère ce nouveau périmètre"
-
-msgid "Backer suggestion"
-msgstr "Porteurs suggérés"
 
 msgid ""
 "This backer was suggested. Add it to the global list then add it to this aid "
@@ -1252,9 +1196,6 @@ msgstr "Personnalisation du style"
 msgid "Form customization"
 msgstr "Personnalisation du formulaire"
 
-msgid "Your are seeking aids for…"
-msgstr "La structure pour laquelle vous recherchez des aides est…"
-
 msgid "Page content"
 msgstr "Contenu de la page"
 
@@ -2099,9 +2040,6 @@ msgstr ""
 
 msgid "Going further"
 msgstr "Aller plus loin"
-
-msgid "Link to full description"
-msgstr "Lien vers un descriptif complet"
 
 msgid "Total number of hits"
 msgstr "Nombre de vues total des aides depuis la première publication"

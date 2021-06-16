@@ -42,7 +42,7 @@ class AudienceWidget(forms.widgets.ChoiceWidget):
 
 class AudienceSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(
-        label=_('Your are seeking aids for…'),
+        label='La structure pour laquelle vous recherchez des aides est…',
         required=False,
         choices=AUDIENCES,
         widget=AudienceWidget)

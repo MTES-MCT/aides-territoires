@@ -7,7 +7,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.urls import reverse
 from django.conf import settings
