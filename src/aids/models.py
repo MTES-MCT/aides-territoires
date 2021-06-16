@@ -7,7 +7,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.urls import reverse
 from django.conf import settings
@@ -283,277 +282,282 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     amendments = AmendmentManager()
 
     slug = models.SlugField(
-        _('Slug'),
-        help_text=_('Let it empty so it will be autopopulated.'),
+        "Fragment d'URL",
+        help_text='Laisser vide pour autoremplir.',
         blank=True)
     name = models.CharField(
-        _('Name'),
+        'Nom',
         max_length=180,
-        help_text=_('Use an infinitive form to make the aid\'s purpose clear'),
+        help_text="Le titre doit commencer par un verbe à l’infinitif pour que l'objectif de l'aide soit explicite vis-à-vis de ses bénéficiaires.",  # noqa
         null=False, blank=False)
     short_title = models.CharField(
-        _('Short title'),
+        'Titre court',
         max_length=64,
-        help_text=_('A shorter, more concise title'),
+        help_text='Un titre plus concis, pour affichage spécifique.',
         blank=True)
     author = models.ForeignKey(
         'accounts.User',
+        verbose_name='Auteur',
         on_delete=models.PROTECT,
-        verbose_name=_('Author'),
         related_name='aids',
-        help_text=_('Who is submitting the aid?'),
+        help_text='Qui renseigne cette aide ?',
         null=True)
     categories = models.ManyToManyField(
         'categories.Category',
-        verbose_name=_('Categories'),
+        verbose_name='Sous-thématiques',
         related_name='aids',
         blank=True)
     financers = models.ManyToManyField(
         'backers.Backer',
+        verbose_name="Porteurs d'aides",
         through=AidFinancer,
-        related_name='financed_aids',
-        verbose_name=_('Financers'))
+        related_name='financed_aids')
     financer_suggestion = models.CharField(
-        _('Financer suggestion'),
+        "Porteurs d'aides suggérés",
         max_length=256,
         blank=True)
     instructors = models.ManyToManyField(
         'backers.Backer',
+        verbose_name='Instructeurs',
         through=AidInstructor,
-        blank=True,
         related_name='instructed_aids',
-        verbose_name=_('Instructors'))
+        blank=True)
     instructor_suggestion = models.CharField(
-        _('Instructor suggestion'),
+        'Instructeurs suggérés',
         max_length=256,
         blank=True)
     description = models.TextField(
-        _('Full description of the aid and its objectives'),
+        "Description complète de l'aide et de ses objectifs",
         blank=False)
     project_examples = models.TextField(
-        _('Project examples'),
+        'Exemples de projets réalisables',
         default='',
         blank=True)
     projects = models.ManyToManyField(
         'projects.Project',
-        verbose_name=_('Projects'),
+        verbose_name='Projets',
         related_name='aids',
         blank=True)
     eligibility = models.TextField(
-        _('Eligibility'),
+        'Éligibilité',
         blank=True)
     perimeter = models.ForeignKey(
         'geofr.Perimeter',
-        verbose_name=_('Perimeter'),
+        verbose_name='Périmètre',
         on_delete=models.PROTECT,
-        null=True, blank=True,
-        help_text=_('What is the aid broadcasting perimeter?'))
+        help_text="Sur quel périmètre l'aide est-elle diffusée ?",
+        null=True, blank=True)
     perimeter_suggestion = models.CharField(
-        _('Perimeter suggestion'),
+        'Périmètre suggéré',
         max_length=256,
         null=True, blank=True)
     mobilization_steps = ChoiceArrayField(
-        verbose_name=_('Mobilization step'),
+        verbose_name="État d'avancement du projet pour bénéficier du dispositif",
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=STEPS,
             default=STEPS.preop))
     origin_url = models.URLField(
-        _('Origin URL'),
+        "URL d'origine",
         max_length=500,
         blank=True)
     application_url = models.URLField(
-        _('Application url'),
+        "Lien vers une démarche en ligne",
         max_length=500,
         blank=True)
     targeted_audiences = ChoiceArrayField(
-        verbose_name=_('Targeted audiences'),
+        verbose_name="Bénéficiaires de l'aide",
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=AUDIENCES))
     aid_types = ChoiceArrayField(
-        verbose_name=_('Aid types'),
+        verbose_name="Types d'aide",
         null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=TYPES),
-        help_text=_('Specify the aid type or types.'))
-    is_generic = models.BooleanField(_('Is generic aid'), default=False)
+        help_text="Précisez le ou les types de l'aide.")
+    is_generic = models.BooleanField(
+        'Aide générique ?',
+        help_text='Cette aide est-elle générique ?',
+        default=False)
     generic_aid = models.ForeignKey(
         'aids.Aid',
-        verbose_name=_('Generic aid'),
+        verbose_name='Aide générique',
         on_delete=models.CASCADE,
-        null=True, blank=True,
         related_name='local_aids',
         limit_choices_to={'is_generic': True},
-        help_text=_("Generic aid associated to a local aid"))
+        help_text='Aide générique associée à une aide locale.',
+        null=True, blank=True)
     local_characteristics = models.TextField(
-        _('Local characteristics'),
+        'Spécificités locales',
         blank=True)
     destinations = ChoiceArrayField(
-        verbose_name=_('Destinations'),
-        null=True,
-        blank=True,
+        verbose_name='Types de dépenses / actions couvertes',
+        null=True, blank=True,
         base_field=models.CharField(
             max_length=32,
             choices=DESTINATIONS))
     start_date = models.DateField(
-        _('Start date'),
-        null=True, blank=True,
-        help_text=_('When is the application opening?'))
+        "Date d'ouverture",
+        help_text="À quelle date l'aide est-elle ouverte aux candidatures ?",
+        null=True, blank=True)
     predeposit_date = models.DateField(
-        _('Predeposit date'),
-        null=True, blank=True,
-        help_text=_('When is the pre-deposit date, if applicable?'))
+        'Date de pré-dépôt',
+        help_text="Quelle est la date de pré-dépôt des dossiers, si applicable ?",
+        null=True, blank=True)
     submission_deadline = models.DateField(
-        _('Submission deadline'),
-        null=True, blank=True,
-        help_text=_('When is the submission deadline?'))
+        'Date de clôture',
+        help_text="Quelle est la date de clôture de dépôt des dossiers ?",
+        null=True, blank=True)
     subvention_rate = PercentRangeField(
-        _('Subvention rate, min. and max. (in round %)'),
-        null=True, blank=True,
-        help_text=_('If fixed rate, only fill the max. rate.'))
+        "Taux de subvention, min. et max. (en %, nombre entier)",
+        help_text="Si le taux est fixe, remplissez uniquement le taux max.",
+        null=True, blank=True)
     subvention_comment = models.CharField(
-        _('Subvention rate, optional comment'),
+        "Taux de subvention (commentaire optionnel)",
         max_length=100,
         blank=True)
     contact = models.TextField(
-        _('Contact'),
+        'Contact',
         blank=True)
     contact_email = models.EmailField(
-        _('Contact email'),
+        'Adresse e-mail de contact',
         blank=True)
     contact_phone = models.CharField(
-        _('Contact phone number'),
+        'Numéro de téléphone',
         max_length=35,
         blank=True)
     contact_detail = models.CharField(
-        _('Contact detail'),
+        'Contact (détail)',
         max_length=256,
         blank=True)
     recurrence = models.CharField(
-        _('Recurrence'),
-        help_text=_('Is this a one-off aid, is it recurring or ongoing?'),
+        'Récurrence',
+        help_text="L'aide est-elle ponctuelle, permanente, ou récurrente ?",
         max_length=16,
         choices=RECURRENCE,
         blank=True)
     is_call_for_project = models.BooleanField(
-        _('Call for project / Call for expressions of interest'),
+        "Appel à projet / Manifestation d'intérêt",
         null=True)
     programs = models.ManyToManyField(
         'programs.Program',
+        verbose_name='Programmes',
         related_name='aids',
-        verbose_name=_('Programs'),
         blank=True)
     status = xwf_models.StateField(
         AidWorkflow,
-        verbose_name=_('Status'))
+        verbose_name='Statut')
 
     # Eligibility
     eligibility_test = models.ForeignKey(
         'eligibility.EligibilityTest',
+        verbose_name="Test d'éligibilité",
         on_delete=models.PROTECT,
-        verbose_name=_('Eligibility test'),
         related_name='aids',
         null=True, blank=True)
 
     # Dates
     date_created = models.DateTimeField(
-        _('Date created'),
+        'Date de création',
         default=timezone.now)
     date_updated = models.DateTimeField(
-        _('Date updated'),
+        'Date de mise à jour',
         auto_now=True)
     date_published = models.DateTimeField(
-        _('First publication date'),
+        'Première date de publication',
         null=True, blank=True)
 
     # Specific to France Relance features
     in_france_relance = models.BooleanField(
-        _('France Relance?'),
-        default=False,
-        help_text=_('Is this aid a part of the France Relance program?'))
+        'France Relance ?',
+        help_text='Cette aide est-elle éligible au programme France Relance ?',
+        default=False)
 
     # Third-party data import related fields
     is_imported = models.BooleanField(
-        _('Is imported?'),
+        'Importé ?',
         default=False)
     import_data_source = models.ForeignKey(
         'dataproviders.DataSource',
-        verbose_name=_('Data Source'),
-        related_name='aids',
+        verbose_name='Source de données',
         on_delete=models.PROTECT,
+        related_name='aids',
         null=True)
     # Even if this field is a CharField, we make it nullable with `null=True`
     # because null values are not taken into account by postgresql when
     # enforcing the `unique` constraint, which is very handy for us.
     import_uniqueid = models.CharField(
-        _('Unique identifier for imported data'),
+        "Identifiant d'import unique",
         max_length=200,
         unique=True,
         null=True, blank=True)
     import_data_url = models.URLField(
-        _('Origin url of the imported data'),
+        "URL d'origine de la donnée importée",
         null=True, blank=True)
     import_share_licence = models.CharField(
-        _('Under which license was this aid shared?'),
+        "Sous quelle licence cette aide a-t-elle été partagée ?",
         max_length=50,
         choices=IMPORT_LICENCES,
         blank=True)
     import_last_access = models.DateField(
-        _('Date of the latest access'),
+        'Date du dernier accès',
         null=True, blank=True)
-    import_raw_object = models.JSONField(null=True)
+    import_raw_object = models.JSONField(
+        'Donnée JSON brute',
+        editable=False,
+        null=True)
 
     # This field is used to index searchable text content
     search_vector = SearchVectorField(
-        _('Search vector'),
+        'Search vector',
         null=True)
 
     # This is where we store tags
     tags = ArrayField(
         models.CharField(max_length=50, blank=True),
-        verbose_name=_('Tags'),
+        verbose_name='Mots clés',
         default=list,
         size=30,
         blank=True)
     _tags_m2m = models.ManyToManyField(
         'tags.Tag',
-        related_name='aids',
-        verbose_name=_('Tags'))
+        verbose_name='Mots clés',
+        related_name='aids')
 
     # Those fields handle the "aid amendment" feature
     # Users, including anonymous, can suggest amendments to existing aids.
     # We store a suggested edit as a clone of the original aid, with the
     # following field as True.
     is_amendment = models.BooleanField(
-        _('Is amendment'),
+        'Est un amendement',
         default=False)
     amended_aid = models.ForeignKey(
         'aids.Aid',
-        verbose_name=_('Amended aid'),
+        verbose_name='Aide amendée',
         on_delete=models.CASCADE,
         null=True)
     amendment_author_name = models.CharField(
-        _('Amendment author'),
+        "Auteur de l'amendement",
         max_length=256,
         blank=True)
     amendment_author_email = models.EmailField(
-        _('Amendment author email'),
+        "E-mail de l'auteur de l'amendement",
         null=True, blank=True)
     amendment_author_org = models.CharField(
-        _('Amendment author organization'),
+        "Structure de l'auteur de l'amendement",
         max_length=255,
         blank=True)
     amendment_comment = models.TextField(
-        _('Amendment comment'),
+        'Commentaire',
         blank=True)
 
     class Meta:
-        verbose_name = _('Aid')
-        verbose_name_plural = _('Aids')
+        verbose_name = 'Aide'
+        verbose_name_plural = 'Aides'
         indexes = [
             GinIndex(fields=['search_vector']),
         ]
@@ -742,7 +746,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return self.projects is not None
 
     def get_live_status_display(self):
-        status = _('Displayed') if self.is_live() else _('Not displayed')
+        status = 'Affichée' if self.is_live() else 'Non affichée'
         return status
 
     def has_eligibility_test(self):
@@ -754,7 +758,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_corporate_aid(self):
         return (
             self.targeted_audiences and
-            'private_sector' in self.targeted_audiences)
+            self.AUDIENCES.private_sector in self.targeted_audiences)
 
     def clone_m2m(self, source_aid):
         """
