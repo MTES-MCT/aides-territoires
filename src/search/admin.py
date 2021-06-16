@@ -7,7 +7,7 @@ from fieldsets_with_inlines import FieldsetsInlineMixin
 from search.models import SearchPage
 from search.forms import SearchPageAdminForm
 from pages.models import Page
-from pages.admin import PageAdmin
+from pages.admin import PageForm, PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
@@ -40,6 +40,7 @@ class AdministratorFilter(admin.SimpleListFilter):
 
 class MinisitePageInline(admin.TabularInline):
     model = Page
+    form = PageForm  # to display 'content' as RichTextField
     fields = ['url', 'title', 'content']
     extra = 1
 
