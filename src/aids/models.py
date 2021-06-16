@@ -295,6 +295,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         max_length=64,
         help_text='Un titre plus concis, pour affichage spécifique.',
         blank=True)
+
     author = models.ForeignKey(
         'accounts.User',
         verbose_name='Auteur',
@@ -302,6 +303,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         related_name='aids',
         help_text='Qui renseigne cette aide ?',
         null=True)
+    contributors = models.ManyToManyField(
+        'accounts.User',
+        verbose_name='Contributeurs',
+        related_name='contributor_of_aids',
+        help_text='Qui peux modifier cette aide ?',
+        blank=True)
+
     categories = models.ManyToManyField(
         'categories.Category',
         verbose_name='Sous-thématiques',

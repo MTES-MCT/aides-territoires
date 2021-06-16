@@ -246,12 +246,6 @@ msgstr "Données liées à l'import"
 msgid "Misc data"
 msgstr "Données diverses"
 
-msgid "From the same author"
-msgstr "Du même auteur"
-
-msgid "Nb of (non-draft) aids by the same author"
-msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
-
 msgid "Live"
 msgstr "Live"
 

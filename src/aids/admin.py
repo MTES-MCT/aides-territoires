@@ -191,31 +191,9 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
     autocomplete_fields = ['backer']
 
 
-class BaseAidAdmin(FieldsetsInlineMixin,
-                   ImportMixin, ExportActionMixin,
-                   admin.ModelAdmin):
+class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
 
-    class Media:
-        css = {
-            'all': (
-                '/static/css/admin.css',
-                '/static/trumbowyg/dist/ui/trumbowyg.css',
-            )
-        }
-        js = [
-            'admin/js/jquery.init.js',
-            '/static/js/shared_config.js',
-            '/static/js/plugins/softmaxlength.js',
-            '/static/js/aids/enable_softmaxlength.js',
-            '/static/js/project_autocomplete_admin.js',
-            '/static/trumbowyg/dist/trumbowyg.js',
-            '/static/trumbowyg/dist/langs/fr.js',
-            '/static/js/enable_rich_text_editor.js',
-            '/static/js/aids/duplicate_buster.js',
-        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
-
-    form = AidAdminForm
     resource_class = AidResource
     ordering = ['-id']
     save_as = True
@@ -237,8 +215,10 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         PerimeterAutocompleteFilter,
         'programs', 'categories__theme', 'categories']
 
-    autocomplete_fields = ['author', 'financers', 'instructors', 'perimeter',
-                           'programs']
+    form = AidAdminForm
+    autocomplete_fields = ['author', 'contributors',
+                           'financers', 'instructors', 'perimeter', 'programs']
+    raw_id_fields = ['generic_aid']
     filter_vertical = [
         'categories',
     ]  # Overriden in the widget definition
@@ -247,7 +227,6 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
         'get_pprint_import_raw_object',
         'date_created', 'date_updated', 'date_published']
-    raw_id_fields = ['generic_aid']
 
     fieldsets_with_inlines = [
         (_('Aid presentation'), {
@@ -260,8 +239,14 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'targeted_audiences',
                 'financer_suggestion',
                 'instructor_suggestion',
+            )
+        }),
+
+        ('Administration', {
+            'fields': (
                 'author',
                 'sibling_aids',
+                'contributors'
             )
         }),
 
@@ -393,8 +378,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             .filter(author=aid.author) \
             .filter(status__in=('reviewable', 'published')) \
             .count()
-    sibling_aids.short_description = _('From the same author')
-    sibling_aids.help_text = _('Nb of (non-draft) aids by the same author')
+    sibling_aids.short_description = 'Du même auteur'
+    sibling_aids.help_text = "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
 
     def get_form(self, request, obj=None, **kwargs):
         """Set readonly fields help texts."""
@@ -466,6 +451,25 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         return super().export_admin_action(request, queryset)
     export_admin_action.short_description = _(
         'Export and download selected Aids')
+
+    class Media:
+        css = {
+            'all': (
+                '/static/css/admin.css',
+                '/static/trumbowyg/dist/ui/trumbowyg.css',
+            )
+        }
+        js = [
+            'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
+            '/static/js/plugins/softmaxlength.js',
+            '/static/js/aids/enable_softmaxlength.js',
+            '/static/js/project_autocomplete_admin.js',
+            '/static/trumbowyg/dist/trumbowyg.js',
+            '/static/trumbowyg/dist/langs/fr.js',
+            '/static/js/enable_rich_text_editor.js',
+            '/static/js/aids/duplicate_buster.js',
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class AidAdmin(BaseAidAdmin):
