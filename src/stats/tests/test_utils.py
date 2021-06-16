@@ -149,19 +149,29 @@ def test_log_aid_search_event_with_internal(perimeters):
 
 
 def test_log_aid_search_event_with_pages(perimeters):
+    # empty 'page' should work
     request_get_urlencoded = 'page='
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
     assert event_count_after == event_count_before + 1
 
+    # 'page=1' should work
     request_get_urlencoded = 'page=1'
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
     assert event_count_after == event_count_before + 1
 
+    # 'page=2' should not work
     request_get_urlencoded = 'page=2'
+    event_count_before = AidSearchEvent.objects.count()
+    log_aidsearchevent(querystring=request_get_urlencoded)
+    event_count_after = AidSearchEvent.objects.count()
+    assert event_count_after == event_count_before
+
+    # strange 'page=' should not work
+    request_get_urlencoded = 'page=coucou'
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
