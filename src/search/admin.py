@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
-from search.models import SearchPage
+from search.models import SearchPage, SearchPageLite
 from search.forms import SearchPageAdminForm
 from pages.models import Page
 from pages.admin import PageForm, PageAdmin
@@ -13,8 +13,6 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 NON_SUPERUSER_HIDDEN_FIELDSETS = ['SEO']
 NON_SUPERUSER_HIDDEN_FIELDS = ['meta_title', 'meta_description', 'meta_image']
-AUTHOR_ADDITIONAL_READONLY_FIELDS = ['slug', 'search_querystring']
-# CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS = ['author']
 
 
 class AdministratorFilter(admin.SimpleListFilter):
@@ -156,17 +154,6 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
 
         return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
 
-    def get_readonly_fields(self, request, obj=None):
-        readonly_fields = super(SearchPageAdmin, self).get_readonly_fields(request, obj)
-
-        # we want to limit the fields accessible for non-superusers
-        if obj and not request.user.is_superuser:
-            self.prepopulated_fields = {}  # issue with 'slug' field
-            readonly_fields += AUTHOR_ADDITIONAL_READONLY_FIELDS
-            # if obj.author != request.user:
-            #     readonly_fields +=  CONTRIBUTOR_ADDITIONAL_READONLY_FIELDS
-
-        return readonly_fields
 
     def nb_pages(self, search_page):
         return search_page.page_count
@@ -203,6 +190,11 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
             '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
+
+
+class SearchPageLiteAdmin(SearchPageAdmin):
+    prepopulated_fields = {}
+    readonly_fields = SearchPageAdmin.readonly_fields + ['slug', 'search_querystring']
 
 
 # Dummy class so the model can be registered twice
@@ -275,3 +267,4 @@ class MinisitePageAdmin(PageAdmin):
 
 admin.site.register(SearchPage, SearchPageAdmin)
 admin.site.register(MinisitePage, MinisitePageAdmin)
+admin.site.register(SearchPageLite, SearchPageLiteAdmin)

@@ -251,3 +251,13 @@ class SearchPage(models.Model):
                                   .values('status') \
                                   .annotate(count=Count('id', distinct=True))
         return {s['status']: s['count'] for s in list(all_aids_per_status)}
+
+
+class SearchPageLite(SearchPage):
+    """This proxy model is used for restricted/lite access,
+    for instance when we want to give access to site users that
+    are not super admin"""
+    class Meta:
+        proxy = True
+        verbose_name = "page personnalisée"
+        verbose_name_plural = "pages personnalisées"
