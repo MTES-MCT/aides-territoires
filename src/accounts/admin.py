@@ -99,7 +99,7 @@ class UserAdmin(BaseUserAdmin):
 
     list_filter = ['is_superuser', 'is_contributor',
                    SearchPageAdministratorFilter, ApiTokenFilter,
-                   'is_certified', 'ml_consent']
+                   'is_certified', 'ml_consent', 'groups']
 
     readonly_fields = ['nb_aids',
                        'administrator_of_search_pages_list', 'api_token',
@@ -110,7 +110,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'email',
                 'password',
-                'is_certified'
+                'is_certified',
+                'groups',
             )
         }),
         (_('Personal info'), {
