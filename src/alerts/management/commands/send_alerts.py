@@ -19,6 +19,9 @@ from alerts.models import Alert
 from stats.utils import log_event
 from emails.utils import send_email
 
+from aids.forms import AidSearchForm
+from django.http import QueryDict
+from search.utils import clean_search_form
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -82,6 +85,12 @@ class Command(BaseCommand):
         domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)
         in_minisite = is_subdomain(alert.source)
 
+        querydict = QueryDict(alert.querystring)
+        search_form = AidSearchForm(querydict)
+        if search_form.is_valid():
+            current_search_dict = clean_search_form(
+                search_form.cleaned_data, remove_extra_fields=True)
+
         # alert_url is different if on a minisite or not
         alert_url = alert.get_absolute_url(in_minisite=in_minisite)
         # delete_url always redirects to the main site
@@ -89,6 +98,7 @@ class Command(BaseCommand):
 
         email_context = {
             'domain_with_subdomain': domain_with_subdomain,
+            'current_search_dict': current_search_dict,
             'nb_aids': len(new_aids),
             'new_aids': new_aids[:3],
             'alert_title': alert.title,
