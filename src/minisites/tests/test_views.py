@@ -175,6 +175,40 @@ def test_audiences_filter_overriding(client, settings):
     assert '<option value="region">' not in content
 
 
+def test_minisite_can_view_aid(client, settings):
+    """Test we can view an Aid that belongs to the minisite."""
+
+    aid = AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+
+    page = MinisiteFactory(
+        title='Gloubiboulga page',
+        search_querystring='text=fromage')
+    page_url = reverse('aid_detail_view', args=[aid.slug])
+    page_host = '{}.aides-territoires'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    assert 'fromage' in res.content.decode()
+
+
+def test_minisite_cannot_view_wrong_aid(client, settings):
+    """Test we cannot view an Aid that doesn't belong to the minisite."""
+
+    aid = AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+
+    page = MinisiteFactory(
+        title='Gloubiboulga page',
+        search_querystring='text=fromage')
+    page_url = reverse('aid_detail_view', args=[aid.slug])
+    page_host = '{}.aides-territoires'.format(page.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 404
+
+
 def test_alert_creation(client, settings, mailoutbox):
     """Anonymous can create alerts. They receive a validation email."""
 

@@ -196,6 +196,14 @@ class SiteAid(MinisiteMixin, AidDetailView):
 
     template_name = 'minisites/aid_detail.html'
 
+    def get_queryset(self):
+        """
+        Check that the aid actually belongs to the minisite queryset.
+        Returns a 404 if not.
+        """
+
+        return self.search_page.get_base_queryset()
+
 
 class SiteAlert(MinisiteMixin, AlertCreate):
     pass

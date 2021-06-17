@@ -411,6 +411,8 @@ class AidDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
+        print(self.__dict__)
+
         if self.object.is_published():
             current_search = response.context_data.get('current_search', '')
             host = request.get_host()
