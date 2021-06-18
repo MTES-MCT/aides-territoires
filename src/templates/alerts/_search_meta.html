@@ -77,7 +77,7 @@
         {{ current_search_dict.text }}
     </li>
 {% endif %}
-
+</ul>
 {% if current_search_dict.categories %}
 {% regroup current_search_dict.categories by theme as theme_list %}
 <ul class="aid-categories" title="{{ _('Categories') }}">
@@ -107,5 +107,3 @@
     {% endfor %}
 </ul>
 {% endif %}
-
-</ul>
