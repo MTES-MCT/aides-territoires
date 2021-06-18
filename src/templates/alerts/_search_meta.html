@@ -80,34 +80,32 @@
 
 {% if current_search_dict.categories %}
 {% regroup current_search_dict.categories by theme as theme_list %}
-<li>
-    <ul class="aid-categories" title="{{ _('Categories') }}">
-        {% for theme in theme_list %}
-            <li class="theme">
-                {% if forloop.first %}
-                    <span class="fas fa-tags fa-fw"></span>
-                {% endif %}
-                {{ theme.grouper }}
-                <ul>
-                    {% for category in theme.list %}
-                        <li class="category">{{ category }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
-    {% elif current_search_dict.themes %}
-    <ul class="aid-categories" title="{{ _('Themes') }}">
-        {% for theme in current_search_dict.themes %}
-            <li class="theme">
-                {% if forloop.first %}
-                    <span class="fas fa-tags fa-fw"></span>
-                {% endif %}
-                {{ theme }}
-            </li>
-        {% endfor %}
-    </ul>
-</li>
+<ul class="aid-categories" title="{{ _('Categories') }}">
+    {% for theme in theme_list %}
+        <li class="theme">
+            {% if forloop.first %}
+                <span class="fas fa-tags fa-fw"></span>
+            {% endif %}
+            {{ theme.grouper }}
+            <ul>
+                {% for category in theme.list %}
+                    <li class="category">{{ category }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+{% elif current_search_dict.themes %}
+<ul class="aid-categories" title="{{ _('Themes') }}">
+    {% for theme in current_search_dict.themes %}
+        <li class="theme">
+            {% if forloop.first %}
+                <span class="fas fa-tags fa-fw"></span>
+            {% endif %}
+            {{ theme }}
+        </li>
+    {% endfor %}
+</ul>
 {% endif %}
 
 </ul>
