@@ -1,5 +1,5 @@
 {% extends 'emails/_base.html' %}
-{% load settings %}
+{% load settings i18n %}
 
 {% block email_title %}{{ nb_aids }} résultats pour votre alerte{% endblock %}
 
@@ -9,8 +9,6 @@
 
 <p>Nous avons détecté au moins une nouvelle aide sur votre recherche
 <strong>{{ alert_title }}</strong></p>
-
-{% include 'alerts/_search_meta.html' %}
 
 <ul>
 {% for aid in new_aids %}
@@ -32,6 +30,8 @@
         </a>
     </p>
 {% endif %}
+
+{% include 'alerts/_search_meta.html' %}
 
 <p>
 <strong>N'hésitez pas à créer d'autres alertes pour être toujours bien informé.</strong><br>
