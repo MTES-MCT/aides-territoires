@@ -70,12 +70,14 @@
 {% if current_search_dict.categories %}
 {% regroup current_search_dict.categories by theme as theme_list %}
 {% for theme in theme_list %}
-{{ theme.grouper }}
-<ul>
-    {% for category in theme.list %}
-    <li>{{ category }}</li>
-    {% endfor %}
-</ul>
+<li>
+    {{ theme.grouper }}
+    <ul>
+        {% for category in theme.list %}
+        <li>{{ category }}</li>
+        {% endfor %}
+    </ul>
+</li>
 {% endfor %}
 {% elif current_search_dict.themes %}
 {% for theme in current_search_dict.themes %}
