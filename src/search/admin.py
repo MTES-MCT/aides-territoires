@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
+from core.admin import AdminLiteMixin
 from search.models import SearchPage, SearchPageLite
 from search.forms import SearchPageAdminForm
 from pages.models import Page
@@ -154,7 +155,6 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
 
         return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
 
-
     def nb_pages(self, search_page):
         return search_page.page_count
     nb_pages.short_description = 'Nombre de pages'
@@ -192,7 +192,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class SearchPageLiteAdmin(SearchPageAdmin):
+class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
     prepopulated_fields = {}
     readonly_fields = SearchPageAdmin.readonly_fields + ['slug', 'search_querystring']
 
