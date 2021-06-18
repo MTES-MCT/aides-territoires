@@ -7,103 +7,83 @@
 {% endif %}
 
 <ul>
-
 {% if current_search_dict.projects %}
-    <li title="Projet">
-        <span class="fas fa-lightbulb fa-fw"></span>
+    <li>
         {{ current_search_dict.projects|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.targeted_audiences %}
-    <li title="Bénéficiaires de l'aide">
-        <span class="fas fa-building fa-fw"></span>
+    <li>
         {% form_choices_display current_search_dict 'targeted_audiences' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.perimeter %}
-    <li title="{{ _('Perimeter') }}">
-        <span class="fas fa-map-pin fa-fw"></span>
+    <li>
         {{ current_search_dict.perimeter }}
     </li>
 {% endif %}
 
 {% if current_search_dict.programs %}
-    <li title="Programmes d'aides">
-        <span class="fas fa-scroll fa-fw"></span>
+    <li>
         {{ current_search_dict.programs|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.backers %}
-    <li title="{{ _('Aid backers') }}">
-        <span class="fas fa-handshake fa-fw"></span>
+    <li>
         {{ current_search_dict.backers|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.aid_type %}
-    <li title="{{ _('Aid type') }}">
-        <span class="fas fa-cog fa-fw"></span>
+    <li>
         {% form_choices_display current_search_dict 'aid_type' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.mobilization_step %}
-    <li title="{{ _('Project progress') }}">
-        <span class="fas fa-hourglass fa-fw"></span>
+    <li>
         {% form_choices_display current_search_dict 'mobilization_step' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.destinations %}
-    <li title="{{ _('Concerned actions') }}">
-        <span class="fas fa-wallet fa-fw"></span>
+    <li>
         {% form_choices_display current_search_dict 'destinations' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.call_for_projects_only %}
-    <li title="{{ _('Call for projects only') }}">
-        <span class="fas fa-thumbtack fa-fw"></span>
+    <li>
         {{ _('Call for projects only') }}
     </li>
 {% endif %}
 
 {% if current_search_dict.text %}
-    <li title="{{ _('Keyword') }}">
-        <span class="fas fa-quote-left fa-fw"></span>
+    <li>
         {{ current_search_dict.text }}
     </li>
 {% endif %}
-</ul>
+
 {% if current_search_dict.categories %}
 {% regroup current_search_dict.categories by theme as theme_list %}
-<ul class="aid-categories" title="{{ _('Categories') }}">
-    {% for theme in theme_list %}
-        <li class="theme">
-            {% if forloop.first %}
-                <span class="fas fa-tags fa-fw"></span>
-            {% endif %}
-            {{ theme.grouper }}
-            <ul>
-                {% for category in theme.list %}
-                    <li class="category">{{ category }}</li>
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-</ul>
+{% for theme in theme_list %}
+<li>
+    {{ theme.grouper }}
+    <ul>
+        {% for category in theme.list %}
+            <li>{{ category }}</li>
+        {% endfor %}
+    </ul>
+</li>
+{% endfor %}
 {% elif current_search_dict.themes %}
-<ul class="aid-categories" title="{{ _('Themes') }}">
-    {% for theme in current_search_dict.themes %}
-        <li class="theme">
-            {% if forloop.first %}
-                <span class="fas fa-tags fa-fw"></span>
-            {% endif %}
-            {{ theme }}
-        </li>
-    {% endfor %}
-</ul>
+{% for theme in current_search_dict.themes %}
+<li>
+    {{ theme }}
+</li>
+{% endfor %}
 {% endif %}
+</ul>
