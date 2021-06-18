@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
-from core.admin import AdminLiteMixin
+from admin_lite.mixins import AdminLiteMixin
 from search.models import SearchPage, SearchPageLite
 from search.forms import SearchPageAdminForm
 from pages.models import Page

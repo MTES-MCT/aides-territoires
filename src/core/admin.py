@@ -1,10 +1,8 @@
 import json
 
 from django.contrib import admin
-from django.shortcuts import redirect
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-
 
 
 class InputFilter(admin.SimpleListFilter):
@@ -40,13 +38,3 @@ def pretty_print_readonly_jsonfield(jsonfield_data):
         result = mark_safe(f'<pre>{escape(result)}</pre>')
 
     return result
-
-
-class AdminLiteMixin:
-    change_form_template = 'admin/admin_lite/change_form.html'
-
-    def response_change(self, request, obj):
-        url = '/'
-        if hasattr(self.model, 'get_absolute_url'):
-            url = obj.get_absolute_url()
-        return redirect(url)
