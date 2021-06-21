@@ -175,10 +175,7 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         # if order_by filter exists in the base querystring we want to use it,
         # combine with hightlighted_aids order
         order = self.search_page.get_base_querystring_data().get('order_by')
-        if order:
-            qs = self.form.order_queryset(qs, has_highlighted_aids=True, pre_order=order).distinct()
-        else:
-            qs = self.form.order_queryset(qs, has_highlighted_aids=True).distinct()
+        qs = self.form.order_queryset(qs, has_highlighted_aids=True, pre_order=order).distinct()
 
         host = self.request.get_host()
         request_ua = self.request.META.get('HTTP_USER_AGENT', '')
