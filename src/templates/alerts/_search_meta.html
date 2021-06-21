@@ -3,55 +3,55 @@
 {% if current_search_dict %}
     <p><strong>Pour rappel, cette alerte a été configurée avec les filtres suivants&nbsp;:</strong></p>
 {% else %}
-    <p>Vous n'avez pas séléctionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</p>
+    <p>Vous n'avez pas sélectionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</p>
 {% endif %}
 
 <ul>
 {% if current_search_dict.projects %}
     <li>
-        {{ current_search_dict.projects|join:', ' }}
+        Projet&nbsp;: {{ current_search_dict.projects|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.targeted_audiences %}
     <li>
-        {% form_choices_display current_search_dict 'targeted_audiences' %}
+        Bénéficiaire&nbsp;: {% form_choices_display current_search_dict 'targeted_audiences' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.perimeter %}
     <li>
-        {{ current_search_dict.perimeter }}
+        Votre territoire&nbsp;: {{ current_search_dict.perimeter }}
     </li>
 {% endif %}
 
 {% if current_search_dict.programs %}
     <li>
-        {{ current_search_dict.programs|join:', ' }}
+        Programmes d'aides&nbsp;: {{ current_search_dict.programs|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.backers %}
     <li>
-        {{ current_search_dict.backers|join:', ' }}
+        Porteurs d'aides&nbsp;: {{ current_search_dict.backers|join:', ' }}
     </li>
 {% endif %}
 
 {% if current_search_dict.aid_type %}
     <li>
-        {% form_choices_display current_search_dict 'aid_type' %}
+        Nature de l'aide&nbsp;: {% form_choices_display current_search_dict 'aid_type' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.mobilization_step %}
     <li>
-        {% form_choices_display current_search_dict 'mobilization_step' %}
+        Avancement du projet&nbsp;: {% form_choices_display current_search_dict 'mobilization_step' %}
     </li>
 {% endif %}
 
 {% if current_search_dict.destinations %}
     <li>
-        {% form_choices_display current_search_dict 'destinations' %}
+        Types de dépenses / actions couvertes&nbsp;: {% form_choices_display current_search_dict 'destinations' %}
     </li>
 {% endif %}
 
@@ -63,26 +63,26 @@
 
 {% if current_search_dict.text %}
     <li>
-        {{ current_search_dict.text }}
+        Mots clés&nbsp;: {{ current_search_dict.text }}
     </li>
 {% endif %}
 
 {% if current_search_dict.categories %}
 {% regroup current_search_dict.categories by theme as theme_list %}
+<li>Sous-thématiques&nbsp;:
 {% for theme in theme_list %}
-<li>
-    {{ theme.grouper }}
-    <ul>
-        {% for category in theme.list %}
-        <li>{{ category }}</li>
-        {% endfor %}
-    </ul>
+<ul>{{ theme.grouper }}
+{% for category in theme.list %}
+<li>{{ category }}
 </li>
 {% endfor %}
+</ul>
+{% endfor %}
+</li>
 {% elif current_search_dict.themes %}
 {% for theme in current_search_dict.themes %}
 <li>
-    {{ theme }}
+Thématiques&nbsp;: {{ theme }}
 </li>
 {% endfor %}
 {% endif %}
