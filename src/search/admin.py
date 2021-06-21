@@ -37,8 +37,16 @@ class AdministratorFilter(admin.SimpleListFilter):
         return queryset
 
 
+# Dummy class so the model can be registered twice
+class MinisitePage(Page):
+    class Meta:
+        proxy = True
+        verbose_name = "onglet de la page"
+        verbose_name_plural = "onglets de la page"
+
+
 class MinisitePageInline(admin.TabularInline):
-    model = Page
+    model = MinisitePage
     form = PageForm  # to display 'content' as RichTextField
     fields = ['url', 'title', 'content']
     extra = 1
@@ -197,14 +205,6 @@ class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
     readonly_fields = SearchPageAdmin.readonly_fields + ['slug', 'search_querystring']
 
 
-# Dummy class so the model can be registered twice
-class MinisitePage(Page):
-    class Meta:
-        proxy = True
-        verbose_name = _('Page')
-        verbose_name_plural = _('Pages')
-
-
 class MinisitePageAdmin(PageAdmin):
     list_display = ['url', 'title', 'minisite']
     list_filter = ['minisite']
@@ -239,7 +239,7 @@ class MinisitePageAdmin(PageAdmin):
     )
 
     def get_queryset(self, request):
-        qs = Page.objects \
+        qs = MinisitePageAdmin.objects \
             .minisite_pages() \
             .select_related('minisite')
 
