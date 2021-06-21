@@ -19,7 +19,71 @@ Rendez-vous sur Aides-territoires pour les découvrir.
 {{ alert_url|safe }}
 {% endif %}
 
-N'hésitez pas à créer d’autres alertes pour être toujours bien informé.
+{% if current_search_dict %}
+Pour rappel, cette alerte a été configurée avec les filtres suivants:
+{% else %}
+Vous n'avez pas sélectionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.
+{% endif %}
+
+{% if current_search_dict.projects %}
+  - Projet : {{ current_search_dict.projects|join:', ' }}
+{% endif %}
+
+{% if current_search_dict.targeted_audiences %}
+  - Bénéficiaire : {% form_choices_display current_search_dict 'targeted_audiences' %}
+{% endif %}
+
+{% if current_search_dict.perimeter %}
+  - Votre territoire : {{ current_search_dict.perimeter }}
+{% endif %}
+
+{% if current_search_dict.programs %}
+  - Programmes d'aides : {{ current_search_dict.programs|join:', ' }}
+{% endif %}
+
+{% if current_search_dict.backers %}
+  - Porteurs d'aides : {{ current_search_dict.backers|join:', ' }}
+{% endif %}
+
+{% if current_search_dict.aid_type %}
+  - Nature de l'aide : {% form_choices_display current_search_dict 'aid_type' %}
+{% endif %}
+
+{% if current_search_dict.mobilization_step %}
+  - Avancement du projet : {% form_choices_display current_search_dict 'mobilization_step' %}
+{% endif %}
+
+{% if current_search_dict.destinations %}
+  - Types de dépenses / actions couvertes : {% form_choices_display current_search_dict 'destinations' %}
+{% endif %}
+
+{% if current_search_dict.call_for_projects_only %}
+  - {{ _('Call for projects only') }}
+{% endif %}
+
+{% if current_search_dict.text %}
+  - Mots clés : {{ current_search_dict.text }}
+{% endif %}
+
+{% if current_search_dict.categories %}
+{% regroup current_search_dict.categories by theme as theme_list %}
+Sous-thématiques :
+{% for theme in theme_list %}
+- {{ theme.grouper }}
+{% for category in theme.list %}
+  - {{ category }}
+{% endfor %}
+{% endfor %}
+{% elif current_search_dict.themes %}
+{% for theme in current_search_dict.themes %}
+Thématiques : {{ theme }}
+{% endfor %}
+{% endif %}
+
+N'hésitez pas à créer d’autres alertes pour être toujours bien informé en suivant ce lien :
+
+https://{{ domain_with_subdomain }}{% url 'advanced_search_view' %}">
+
 Vous pouvez également transférer cet email à vos partenaires afin qu'ils prennent connaissance de ces aides.
 
 🌟 Aidez-nous à améliorer vos alertes !
