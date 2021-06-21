@@ -36,10 +36,9 @@ class Command(BaseCommand):
             if new_aids:
                 alerted_alerts.append(alert.token)
                 self.send_alert(alert, new_aids)
-                logger.info(
-                    'Sending alert alert email to {}: {} alerts'.format(
-                        alert.email,
-                        len(new_aids)))
+                logger.info('Sending alert alert email to {}: {} alerts'.format(
+                    alert.email,
+                    len(new_aids)))
 
         updated = Alert.objects \
             .filter(token__in=alerted_alerts) \
@@ -80,7 +79,7 @@ class Command(BaseCommand):
 
         site = Site.objects.get_current()
         domain = site.domain
-        domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)  # noqa
+        domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)
         in_minisite = is_subdomain(alert.source)
 
         # alert_url is different if on a minisite or not
@@ -94,21 +93,19 @@ class Command(BaseCommand):
             'new_aids': new_aids[:3],
             'alert_title': alert.title,
             'alert_url': f'https://{domain_with_subdomain}{alert_url}',
+            'alert_email_feedback_form_url': settings.ALERT_EMAIL_FEEDBACK_FORM_URL,
             'alert_delete_url': f'https://{domain}{delete_url}',
         }
 
-        text_body = render_to_string(
-            'alerts/alert_body.txt', email_context)
-        html_body = render_to_string(
-            'alerts/alert_body.html', email_context)
+        text_body = render_to_string('alerts/alert_body.txt', email_context)
+        html_body = render_to_string('alerts/alert_body.html', email_context)
 
         email_subject_prefix = settings.EMAIL_SUBJECT_PREFIX
         if alert.title == settings.ADDNA_ALERT_TITLE:
             email_subject_prefix = settings.ADDNA_ALERT_EMAIL_SUBJECT_PREFIX
-        email_subject = '{}{:%d/%m/%Y} — De nouvelles aides correspondent à ' \
-                        'vos recherches'.format(
-                            email_subject_prefix,
-                            timezone.now())
+        email_subject = '{}{:%d/%m/%Y} — De nouvelles aides correspondent à vos recherches'.format(
+            email_subject_prefix,
+            timezone.now())
 
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [alert.email]
