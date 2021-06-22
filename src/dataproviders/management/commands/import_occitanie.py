@@ -86,11 +86,6 @@ class Command(CrawlerImportCommand):
     def extract_financers(self, line):
         return [self.occitanie_financer]
 
-    def extract_tags(self, line):
-        thematique = line['thematique']
-        tags = thematique.split(', ') if thematique else None
-        return tags
-
     def extract_is_call_for_project(self, line):
         type = line['type']
         if type:

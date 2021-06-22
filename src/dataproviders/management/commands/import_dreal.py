@@ -111,10 +111,6 @@ class Command(BaseImportCommand):
         origin_url = line['URL']
         return origin_url
 
-    def extract_tags(self, line):
-        tags = [line['sousThematique']]
-        return tags
-
     def extract_perimeter(self, line):
         """Converts the "perimetres" column value into a Perimeter object.
 

@@ -52,7 +52,6 @@ api_patterns = [
     path('projects/', include('projects.api.urls')),
     path('eligibility/', include('eligibility.api.urls')),
     path('stats/', include('stats.api.urls')),
-    # path('tags/', include('tags.api.urls')),
 ]
 
 sitemaps = {
@@ -77,7 +76,6 @@ urlpatterns = [
     path(_('integration/'), include('integration.urls')),
     path(_('stats/'), include('stats.urls')),
     path(_('alerts/'), include('alerts.urls')),
-    path(_('tags/'), include('tags.urls')),
     path(_('data/'), include('data.urls')),
     path(_('search/'), include('search.urls')),
     path(_('upload/'), include('upload.urls')),

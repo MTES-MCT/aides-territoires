@@ -16,7 +16,6 @@ from django_xworkflows import models as xwf_models
 
 from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
-from tags.models import Tag
 from dataproviders.constants import IMPORT_LICENCES
 
 
@@ -526,18 +525,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'Search vector',
         null=True)
 
-    # This is where we store tags
-    tags = ArrayField(
-        models.CharField(max_length=50, blank=True),
-        verbose_name='Mots clés',
-        default=list,
-        size=30,
-        blank=True)
-    _tags_m2m = models.ManyToManyField(
-        'tags.Tag',
-        verbose_name='Mots clés',
-        related_name='aids')
-
     # Those fields handle the "aid amendment" feature
     # Users, including anonymous, can suggest amendments to existing aids.
     # We store a suggested edit as a clone of the original aid, with the
@@ -618,10 +605,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             SearchVector(
                 Value(self.description, output_field=models.CharField()),
                 weight='B',
-                config='french') + \
-            SearchVector(
-                Value(' '.join(self.tags), output_field=models.CharField()),
-                weight='A',
                 config='french')
 
         if financers:
@@ -641,23 +624,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 config='french')
 
         self.search_vector = search_vector
-
-    def populate_tags(self):
-        """Populates the `_tags_m2m` field.
-
-        cache `_tags_m2m` field with values from the `tags` field.
-
-        Tag that do not exist will be created.
-        """
-        all_tag_names = self.tags
-        existing_tag_objects = Tag.objects.filter(name__in=all_tag_names)
-        existing_tag_names = [tag.name for tag in existing_tag_objects]
-        missing_tag_names = list(set(all_tag_names) - set(existing_tag_names))
-        new_tags = [Tag(name=tag) for tag in missing_tag_names]
-        new_tag_objects = Tag.objects.bulk_create(new_tags)
-
-        all_tag_objects = list(existing_tag_objects) + list(new_tag_objects)
-        self._tags_m2m.set(all_tag_objects, clear=True)
 
     def save(self, *args, **kwargs):
         self.set_slug()

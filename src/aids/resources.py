@@ -23,7 +23,7 @@ AIDS_EXPORT_EXCLUDE_FIELDS = [
     'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'contact_email', 'contact_phone', 'contact_detail',
     'import_uniqueid', 'import_share_licence', 'import_last_access',
-    'search_vector', 'tags', '_tags_m2m',
+    'search_vector',
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
     'local_characteristics']
 AIDS_IMPORT_EXCLUDE_FIELDS = [

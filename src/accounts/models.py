@@ -91,12 +91,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     similar_aids_alert = models.BooleanField(
         _('Wants to receive alerts when similar aids are published'),
         default=False)
-    watched_tags = ArrayField(
-        models.CharField(max_length=50, blank=True),
-        verbose_name=_('Watched tags'),
-        default=list,
-        size=16,
-        blank=True)
 
     ##
     # Contributors related data

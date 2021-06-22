@@ -59,7 +59,7 @@ class AidSerializer10(BaseAidSerializer):
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
-                  'instructors', 'description', 'eligibility', 'tags',
+                  'instructors', 'description', 'eligibility',
                   'perimeter', 'mobilization_steps', 'origin_url',
                   'application_url', 'targeted_audiences', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
@@ -73,7 +73,7 @@ class AidSerializer11(BaseAidSerializer):
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
                   'instructors', 'programs', 'description', 'eligibility',
-                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
+                  'perimeter', 'mobilization_steps', 'origin_url',
                   'application_url', 'targeted_audiences', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
                   'submission_deadline', 'subvention_rate_lower_bound',
@@ -98,7 +98,7 @@ class AidSerializer12(BaseAidSerializer):
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
                   'instructors', 'programs', 'description', 'eligibility',
-                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
+                  'perimeter', 'mobilization_steps', 'origin_url',
                   'categories',
                   'application_url', 'targeted_audiences', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
@@ -109,8 +109,10 @@ class AidSerializer12(BaseAidSerializer):
 
 
 class AidSerializer13(BaseAidSerializer):
-
-    ''' Add 'loan_amount' and 'recoverable_advance_amount' fields. '''
+    """
+    Add 'loan_amount' and 'recoverable_advance_amount' fields.
+    Also removed 'tags' field.
+    """
 
     categories = CategoryRelatedField(
         many=True,
@@ -120,7 +122,7 @@ class AidSerializer13(BaseAidSerializer):
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
                   'instructors', 'programs', 'description', 'eligibility',
-                  'tags', 'perimeter', 'mobilization_steps', 'origin_url',
+                  'perimeter', 'mobilization_steps', 'origin_url',
                   'categories',
                   'application_url', 'targeted_audiences', 'aid_types',
                   'destinations', 'start_date', 'predeposit_date',
