@@ -40,10 +40,12 @@ class SearchPageQuerySet(models.QuerySet):
 
         return self.filter(administrator__isnull=False)
 
-    def administrable_by_user(self, user):
+    def for_user(self, user):
         """Only return search pages which the user is the administrator."""
-
-        return self.filter(administrator=user)
+        qs = self.all()
+        if not user.is_superuser:
+            qs = qs.filter(administrator=user)
+        return qs
 
 
 class SearchPage(models.Model):

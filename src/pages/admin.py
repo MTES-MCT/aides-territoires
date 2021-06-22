@@ -41,12 +41,8 @@ class PageAdmin(FlatPageAdmin):
     )
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request).at_pages()
-
-        if request.user.is_superuser:
-            return qs
-
-        return qs.none()
+        qs = super().get_queryset(request).at_pages(for_user=request.user)
+        return qs
 
     class Media:
         css = {

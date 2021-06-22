@@ -152,13 +152,9 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     fieldsets_with_inlines = SUPERUSER_FIELDSETS_SEARCH_PAGE
 
     def get_queryset(self, request):
-        qs = super(SearchPageAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request).for_user(request.user)
         qs = qs.annotate(page_count=Count('pages'))
-
-        if request.user.is_superuser:
-            return qs
-
-        return qs.administrable_by_user(user=request.user)
+        return qs
 
     def get_list_filter(self, request):
         list_filter = self.list_filter
@@ -244,14 +240,10 @@ class MinisitePageAdmin(PageAdmin):
     )
 
     def get_queryset(self, request):
-        qs = MinisitePageAdmin.objects \
-            .minisite_pages() \
+        qs = MinisitePage.objects \
+            .minisite_pages(for_user=request.user) \
             .select_related('minisite')
-
-        if request.user.is_superuser:
-            return qs
-
-        return qs.administrable_by_user(request.user)
+        return qs
 
     def get_list_filter(self, request):
         list_filter = self.list_filter
