@@ -1,4 +1,4 @@
-{% load settings %}
+{% load settings i18n aids %}
 Bonjour,
 
 Nous avons détecté au moins une nouvelle recherche sur votre alert « {{ alert_title }} ».
