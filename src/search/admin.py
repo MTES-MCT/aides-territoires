@@ -12,33 +12,11 @@ from pages.admin import PageForm, PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-NON_SUPERUSER_HIDDEN_FIELDSETS = ['SEO']
-NON_SUPERUSER_HIDDEN_FIELDS = ['meta_title', 'meta_description', 'meta_image']
-
-
-class AdministratorFilter(admin.SimpleListFilter):
-    """Custom admin filter to target search pages with administrators."""
-
-    title = 'Administrateur ?'
-    parameter_name = 'has_administrator'
-
-    def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
-
-    def queryset(self, request, queryset):
-        value = self.value()
-        if value == 'Yes':
-            return queryset.has_administrators()
-        elif value == 'No':
-            return queryset.filter(administrator__isnull=True)
-        return queryset
-
-
-# Dummy class so the model can be registered twice
 class MinisitePage(Page):
+    """
+    Proxy class to make Page model available for minisites.
+    A minisite's page can be seen as a tab for the minisite.
+    """
     class Meta:
         proxy = True
         verbose_name = "onglet de la page"
@@ -52,42 +30,27 @@ class MinisitePageInline(admin.TabularInline):
     extra = 1
 
 
-class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
-    list_display = ['slug', 'title', 'meta_description', 'nb_pages', 'date_created']
-    filter_vertical = ['available_categories']
-    search_fields = ['title']
-    list_filter = [AdministratorFilter]
+class MinisitePageLiteInline(MinisitePageInline):
+    """
+    A lite version that's suitable for non superuser.
+    """
+    pass
 
-    form = SearchPageAdminForm
-    prepopulated_fields = {'slug': ('title',)}
-    autocomplete_fields = ['administrator',
-                           'highlighted_aids', 'excluded_aids']
-    readonly_fields = [
-        'all_aids_count', 'live_aids_count',
-        'date_created', 'date_updated']
 
-    fieldsets_with_inlines = [
+BASE_FIELDSETS_SEARCH_PAGE = [
         ('', {
             'fields': (
                 'title',
-                'short_title',
-                'slug',
-                'search_querystring',
                 'content',
                 'more_content',
             )
         }),
-        MinisitePageInline,
-        ('Administration', {
+        ('À propos de cette page', {
             'fields': (
-                'administrator',
-            )
-        }),
-        ('SEO', {
-            'fields': (
-                'meta_title',
-                'meta_description',
-                'meta_image',
+                'date_created',
+                'date_updated',
+                'all_aids_count',
+                'live_aids_count'
             )
         }),
         ('Personnalisation du style', {
@@ -114,12 +77,6 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
                 'show_backers_field',
             )
         }),
-        ('Aides concernées', {
-            'fields': (
-                'all_aids_count',
-                'live_aids_count'
-            )
-        }),
         ('Mettre en avant des aides', {
             'fields': (
                 'highlighted_aids',
@@ -130,13 +87,69 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
                 'excluded_aids',
             )
         }),
-        ('Données diverses', {
-            'fields': (
-                'date_created',
-                'date_updated',
-            )
-        })
     ]
+
+# For the lite admin, we want the lite version of MinistePage
+LITE_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
+LITE_FIELDSETS_SEARCH_PAGE.append(MinisitePageLiteInline)
+
+# For superusers, we want to add more admin sections.
+SUPERUSER_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
+SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(1, ('Configuration', {
+    'fields': (
+        'administrator',
+        'short_title',
+        'slug',
+        'search_querystring',
+    )})
+)
+SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(3, ('SEO', {
+    'fields': (
+        'meta_title',
+        'meta_description',
+        'meta_image',
+    )
+})
+)
+SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisitePageInline)
+
+
+class AdministratorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target search pages with administrators."""
+
+    title = 'Administrateur ?'
+    parameter_name = 'has_administrator'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('Yes', _('Yes')),
+            ('No', _('No')),
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.has_administrators()
+        elif value == 'No':
+            return queryset.filter(administrator__isnull=True)
+        return queryset
+
+
+class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
+    list_display = ['slug', 'title', 'meta_description', 'nb_pages', 'date_created']
+    filter_vertical = ['available_categories']
+    search_fields = ['title']
+    list_filter = [AdministratorFilter]
+
+    form = SearchPageAdminForm
+    prepopulated_fields = {'slug': ('title',)}
+    autocomplete_fields = ['administrator',
+                           'highlighted_aids', 'excluded_aids']
+    readonly_fields = [
+        'all_aids_count', 'live_aids_count',
+        'date_created', 'date_updated']
+
+    fieldsets_with_inlines = SUPERUSER_FIELDSETS_SEARCH_PAGE
 
     def get_queryset(self, request):
         qs = super(SearchPageAdmin, self).get_queryset(request)
@@ -154,14 +167,6 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
             return list_filter
 
         return []
-
-    def get_fieldsets(self, request, obj=None):
-        fieldset = super(SearchPageAdmin, self).get_fieldsets(request, obj)
-
-        if request.user.is_superuser:
-            return fieldset
-
-        return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
 
     def nb_pages(self, search_page):
         return search_page.page_count
@@ -202,7 +207,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
 
 class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
     prepopulated_fields = {}
-    readonly_fields = SearchPageAdmin.readonly_fields + ['slug', 'search_querystring']
+    fieldsets_with_inlines = LITE_FIELDSETS_SEARCH_PAGE
 
 
 class MinisitePageAdmin(PageAdmin):
@@ -255,14 +260,6 @@ class MinisitePageAdmin(PageAdmin):
             return list_filter
 
         return []
-
-    def get_fieldsets(self, request, obj=None):
-        fieldset = super(MinisitePageAdmin, self).get_fieldsets(request, obj)
-
-        if request.user.is_superuser:
-            return fieldset
-
-        return [(key, value) for (key, value) in fieldset if key not in NON_SUPERUSER_HIDDEN_FIELDSETS]  # noqa
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
