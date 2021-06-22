@@ -56,7 +56,6 @@ LOCAL_APPS = [
     'home',
     'geofr',
     'backers',
-    'tags',
     'aids',
     'dataproviders',
     'analytics',

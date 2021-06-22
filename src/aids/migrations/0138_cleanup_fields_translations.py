@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         ('dataproviders', '0002_cleanup_choices_translations'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('geofr', '0034_cleanup_choices_translations'),
-        ('tags', '0005_auto_20190410_0935'),
+        # ('tags', '0005_auto_20190410_0935'),
         ('programs', '0009_auto_20210506_1832'),
         ('projects', '0005_auto_20210430_1323'),
         ('aids', '0137_cleanup_choices_translations'),
@@ -29,11 +29,11 @@ class Migration(migrations.Migration):
             name='aid',
             options={'verbose_name': 'Aide', 'verbose_name_plural': 'Aides'},
         ),
-        migrations.AlterField(
-            model_name='aid',
-            name='_tags_m2m',
-            field=models.ManyToManyField(related_name='aids', to='tags.Tag', verbose_name='Mots clés'),
-        ),
+        # migrations.AlterField(
+        #     model_name='aid',
+        #     name='_tags_m2m',
+        #     field=models.ManyToManyField(related_name='aids', to='tags.Tag', verbose_name='Mots clés'),
+        # ),
         migrations.AlterField(
             model_name='aid',
             name='aid_types',
@@ -299,11 +299,11 @@ class Migration(migrations.Migration):
             name='subvention_rate',
             field=core.fields.PercentRangeField(blank=True, help_text='Si le taux est fixe, remplissez uniquement le taux max.', null=True, verbose_name='Taux de subvention, min. et max. (en %, nombre entier)'),
         ),
-        migrations.AlterField(
-            model_name='aid',
-            name='tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=50), blank=True, default=list, size=30, verbose_name='Mots clés'),
-        ),
+        # migrations.AlterField(
+        #     model_name='aid',
+        #     name='tags',
+        #     field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=50), blank=True, default=list, size=30, verbose_name='Mots clés'),
+        # ),
         migrations.AlterField(
             model_name='aid',
             name='targeted_audiences',

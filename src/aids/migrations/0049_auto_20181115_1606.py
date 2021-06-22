@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='aid',
             name='_tags_m2m',
-            field=models.ManyToManyField(related_name='aids', to='tags.Tag', verbose_name='Tags'),
+            # field=models.ManyToManyField(related_name='aids', to='tags.Tag', verbose_name='Tags'),
+            field=models.CharField(blank=True, max_length=256, verbose_name='Tags'),
         ),
     ]

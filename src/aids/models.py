@@ -3,7 +3,6 @@ from datetime import timedelta
 
 from django.db import models
 from django.db.models import Q, Value
-from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from django.utils import timezone

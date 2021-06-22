@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '0003_remove_tag_slug'),
+        # ('tags', '0003_remove_tag_slug'),
         ('aids', '0047_auto_20181107_1537'),
     ]
 
@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aid',
             name='_tags_m2m',
-            field=models.ManyToManyField(to='tags.Tag', verbose_name='Tags'),
+            # field=models.ManyToManyField(to='tags.Tag', verbose_name='Tags'),
+            field=models.CharField(blank=True, max_length=256, verbose_name='Tags'),
         ),
     ]

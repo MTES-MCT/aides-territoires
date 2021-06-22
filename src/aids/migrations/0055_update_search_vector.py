@@ -26,10 +26,6 @@ def update_search_vector(apps, schema_editor):
                 weight='B',
                 config='french') + \
             SearchVector(
-                Value(' '.join(aid.tags)),
-                weight='A',
-                config='french') + \
-            SearchVector(
                 Value(' '.join(backer.name for backer in backers)),
                 weight='D',
                 config='french')
