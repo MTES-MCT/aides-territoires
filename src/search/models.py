@@ -281,6 +281,7 @@ class MinisiteTabLite(Page):
     """
     Proxy class to make a lite admin for ministe Tab.
     """
+
     class Meta:
         proxy = True
         verbose_name = "onglet"

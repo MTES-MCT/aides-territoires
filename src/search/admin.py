@@ -2,18 +2,19 @@ from django.contrib import admin
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
+
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from admin_lite.mixins import AdminLiteMixin
 from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
-from search.forms import SearchPageAdminForm
-from pages.admin import PageForm, PageAdmin
+from search.forms import SearchPageAdminForm, MinisiteTabForm, MinisiteTabFormLite
+from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class MinisiteTabInline(admin.TabularInline):
     model = MinisiteTab
-    form = PageForm  # to display 'content' as RichTextField
+    form = MinisiteTabForm  # to display 'content' as RichTextField
     fields = ['url', 'title', 'content']
     extra = 1
 
@@ -23,6 +24,8 @@ class MinisiteTabLiteInline(MinisiteTabInline):
     A lite version that's suitable for non superuser.
     """
     model = MinisiteTabLite
+    form = MinisiteTabFormLite
+    fields = ['title', 'content']
 
 
 BASE_FIELDSETS_MINISITE_TAB = [
