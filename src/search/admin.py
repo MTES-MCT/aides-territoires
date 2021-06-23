@@ -23,6 +23,16 @@ class MinisitePage(Page):
         verbose_name_plural = "onglets de la page"
 
 
+class MinisitePageLite(Page):
+    """
+    Proxy class to make a lite admin for ministe Page.
+    """
+    class Meta:
+        proxy = True
+        verbose_name = "onglet de la page"
+        verbose_name_plural = "onglets de la page"
+
+
 class MinisitePageInline(admin.TabularInline):
     model = MinisitePage
     form = PageForm  # to display 'content' as RichTextField
@@ -34,8 +44,37 @@ class MinisitePageLiteInline(MinisitePageInline):
     """
     A lite version that's suitable for non superuser.
     """
-    pass
+    model = MinisitePageLite
 
+
+BASE_FIELDSETS_MINISITE_TAB = [
+    (None, {
+        'fields': (
+            'url',
+            'minisite',
+            'title',
+            'content'
+        )
+    }),
+    ('À propos de cet onglet', {
+        'fields': (
+            'date_created',
+            'date_updated'
+        )
+    }),
+]
+
+LITE_FIELDSETS_MINISITE_TAB = BASE_FIELDSETS_MINISITE_TAB.copy()
+
+SUPERUSER_FIELDSETS_MINISITE_TAB = BASE_FIELDSETS_MINISITE_TAB.copy()
+SUPERUSER_FIELDSETS_MINISITE_TAB.extend([
+    ('SEO', {
+        'fields': (
+            'meta_title',
+            'meta_description'
+        )
+    }),
+])
 
 BASE_FIELDSETS_SEARCH_PAGE = [
         ('', {
@@ -110,7 +149,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
             'show_aid_type_field',
             'show_backers_field',
         )
-    })
+    }),
 ])
 SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisitePageInline)
 
@@ -200,37 +239,11 @@ class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
 
 
 class MinisitePageAdmin(PageAdmin):
-    list_display = ['url', 'title', 'minisite']
-    list_filter = ['minisite']
-
-    autocomplete_fields = ['minisite']
-
     list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
-
+    list_filter = ['minisite']
     autocomplete_fields = ['minisite']
     readonly_fields = ['date_created', 'date_updated']
-    fieldsets = (
-        (None, {
-            'fields': (
-                'url',
-                'minisite',
-                'title',
-                'content'
-            )
-        }),
-        ('SEO', {
-            'fields': (
-                'meta_title',
-                'meta_description'
-            )
-        }),
-        ('Données diverses', {
-            'fields': (
-                'date_created',
-                'date_updated'
-            )
-        })
-    )
+    fieldsets = SUPERUSER_FIELDSETS_MINISITE_TAB
 
     def get_queryset(self, request):
         qs = MinisitePage.objects \
@@ -238,13 +251,11 @@ class MinisitePageAdmin(PageAdmin):
             .select_related('minisite')
         return qs
 
-    def get_list_filter(self, request):
-        list_filter = self.list_filter
 
-        if request.user.is_superuser:
-            return list_filter
-
-        return []
+class MinisitePageLiteAdmin(AdminLiteMixin, MinisitePageAdmin):
+    list_display = ['url', 'title', 'date_created', 'date_updated']
+    list_filter = []
+    fieldsets = LITE_FIELDSETS_MINISITE_TAB
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
