@@ -355,6 +355,13 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         }),
     ]
 
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if not request.user.is_superuser:
+            # Non-superuser are not allow to run actions.
+            actions = []
+        return actions
+
     def get_search_results(self, request, queryset, search_term):
         """
         Here we can override the result of 'aids' autocomplete_fields
