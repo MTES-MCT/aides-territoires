@@ -5,32 +5,10 @@ from django.utils.translation import gettext_lazy as _
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from admin_lite.mixins import AdminLiteMixin
-from search.models import SearchPage, SearchPageLite
+from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
 from search.forms import SearchPageAdminForm
-from pages.models import Page
 from pages.admin import PageForm, PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
-
-
-class MinisiteTab(Page):
-    """
-    Proxy class to make Page model available for minisites
-    as a Tab.
-    """
-    class Meta:
-        proxy = True
-        verbose_name = "onglet (toutes les PP)"
-        verbose_name_plural = "onglets (toutes les PP)"
-
-
-class MinisiteTabLite(Page):
-    """
-    Proxy class to make a lite admin for ministe Tab.
-    """
-    class Meta:
-        proxy = True
-        verbose_name = "onglet"
-        verbose_name_plural = "onglets"
 
 
 class MinisiteTabInline(admin.TabularInline):
