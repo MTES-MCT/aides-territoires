@@ -293,7 +293,8 @@ EXPORT_CONTACTS_ENABLED = False
 # Alerts
 UNVALIDATED_ALERTS_QUOTA = 10
 MAX_ALERTS_QUOTA = 100
-ALERT_DELETE_FEEDBACK_FORM_URL = ''
+ALERT_EMAIL_FEEDBACK_FORM_URL = ''  # form in the alert email
+ALERT_DELETE_FEEDBACK_FORM_URL = ''  # form after the alert deletion
 
 # Minisites detection:
 # This is a mapping between a DNS host and a minisite slug.
