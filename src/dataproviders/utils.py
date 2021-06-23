@@ -1,7 +1,12 @@
+import csv
 from html import unescape
 from unicodedata import normalize
-from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup as bs
+
+from categories.models import Theme, Category
+
 
 REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
@@ -12,10 +17,7 @@ ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style',
                  'target', 'rel']  # for links opening in a new tab
 
 
-def content_prettify(raw_text,
-                     more_allowed_tags=[],
-                     more_allowed_attrs=[],
-                     base_url=None):
+def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base_url=None):
     """Clean imported data.
 
     We import data from many data sources, and it's not always directly
@@ -30,7 +32,6 @@ def content_prettify(raw_text,
      * removes all html tag attributes
      * replaces relative urls with absolute ones
      * autoindent existing html
-
     """
     allowed_tags = ALLOWED_TAGS + more_allowed_tags
     allowed_attrs = ALLOWED_ATTRS + more_allowed_attrs
@@ -77,5 +78,45 @@ def content_prettify(raw_text,
             # their content.
             else:
                 tag.unwrap()
+
     prettified = soup.prettify()
+
     return prettified
+
+
+def mapping_categories(categories_mapping_csv_path, source_column_name, at_column_names):
+    """
+    Method to extract categories mapping from a specified csv file
+    """
+    categories_dict = {}
+
+    with open(categories_mapping_csv_path) as csv_file:
+        csvreader = csv.DictReader(csv_file, delimiter=",")
+        for index, row in enumerate(csvreader):
+            if row[at_column_names[0]]:
+                categories_dict[row[source_column_name]] = []
+                for column in at_column_names:
+                    if row[column]:
+                        category_list = get_category_list_from_name(row[column])
+                        categories_dict[row[source_column_name]].extend(category_list)
+
+    return categories_dict
+
+
+def get_category_list_from_name(category_name):
+    category_list = []
+
+    try:
+        category = Category.objects.get(name=category_name)
+        category_list.append(category)
+    except Category.DoesNotExist:
+        # Maybe it's a Theme !
+        # If it is, we'll need to add all of it's categories
+        try:
+            theme = Theme.objects.get(name=category_name)
+            for category in theme.categories.all():
+                category_list.append(category)
+        except Theme.DoesNotExist:
+            print(category_name)
+
+    return category_list
