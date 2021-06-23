@@ -272,6 +272,17 @@ class SearchPageAdminForm(forms.ModelForm):
             'show_categories_field', 'show_mobilization_step_field',
             'show_aid_type_field', 'show_backers_field',
         ]
+
+        # If there is no form customization fields, then we don't
+        # need to run the fields validation. That's tipically the case
+        # for lite admin page available to contributors that don't have
+        # access to form customization.
+        all_form_fields = self.fields.keys()
+        has_form_customization_fields = any(
+            field in all_form_fields for field in search_fields)
+        if not has_form_customization_fields:
+            return data
+
         nb_filters = 0
         for field in search_fields:
             if field in data and data[field]:
