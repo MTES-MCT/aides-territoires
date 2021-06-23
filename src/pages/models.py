@@ -15,8 +15,8 @@ class PageQueryset(models.QuerySet):
             qs = qs.none()
         return qs
 
-    def minisite_pages(self, for_user=None):
-        """Pages belonging to minisites."""
+    def minisite_tabs(self, for_user=None):
+        """Pages that act as tabs for minisites."""
 
         qs = self.filter(minisite__isnull=False)
         if for_user and not for_user.is_superuser:

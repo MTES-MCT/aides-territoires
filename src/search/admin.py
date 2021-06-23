@@ -12,39 +12,39 @@ from pages.admin import PageForm, PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class MinisitePage(Page):
+class MinisiteTab(Page):
     """
-    Proxy class to make Page model available for minisites.
-    A minisite's page can be seen as a tab for the minisite.
-    """
-    class Meta:
-        proxy = True
-        verbose_name = "onglet de la page"
-        verbose_name_plural = "onglets de la page"
-
-
-class MinisitePageLite(Page):
-    """
-    Proxy class to make a lite admin for ministe Page.
+    Proxy class to make Page model available for minisites
+    as a Tab.
     """
     class Meta:
         proxy = True
-        verbose_name = "onglet de la page"
-        verbose_name_plural = "onglets de la page"
+        verbose_name = "onglet (toutes les PP)"
+        verbose_name_plural = "onglets (toutes les PP)"
 
 
-class MinisitePageInline(admin.TabularInline):
-    model = MinisitePage
+class MinisiteTabLite(Page):
+    """
+    Proxy class to make a lite admin for ministe Tab.
+    """
+    class Meta:
+        proxy = True
+        verbose_name = "onglet"
+        verbose_name_plural = "onglets"
+
+
+class MinisiteTabInline(admin.TabularInline):
+    model = MinisiteTab
     form = PageForm  # to display 'content' as RichTextField
     fields = ['url', 'title', 'content']
     extra = 1
 
 
-class MinisitePageLiteInline(MinisitePageInline):
+class MinisiteTabLiteInline(MinisiteTabInline):
     """
     A lite version that's suitable for non superuser.
     """
-    model = MinisitePageLite
+    model = MinisiteTabLite
 
 
 BASE_FIELDSETS_MINISITE_TAB = [
@@ -106,7 +106,7 @@ BASE_FIELDSETS_SEARCH_PAGE = [
 
 # For the lite admin, we want the lite version of MinistePage
 LITE_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
-LITE_FIELDSETS_SEARCH_PAGE.append(MinisitePageLiteInline)
+LITE_FIELDSETS_SEARCH_PAGE.append(MinisiteTabLiteInline)
 
 # For superusers, we want to add more admin sections.
 SUPERUSER_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
@@ -151,7 +151,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
         )
     }),
 ])
-SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisitePageInline)
+SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisiteTabInline)
 
 
 class AdministratorFilter(admin.SimpleListFilter):
@@ -238,7 +238,7 @@ class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
     fieldsets_with_inlines = LITE_FIELDSETS_SEARCH_PAGE
 
 
-class MinisitePageAdmin(PageAdmin):
+class MinisiteTabAdmin(PageAdmin):
     list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
     list_filter = ['minisite']
     autocomplete_fields = ['minisite']
@@ -246,18 +246,18 @@ class MinisitePageAdmin(PageAdmin):
     fieldsets = SUPERUSER_FIELDSETS_MINISITE_TAB
 
     def get_queryset(self, request):
-        qs = MinisitePage.objects \
-            .minisite_pages(for_user=request.user) \
+        qs = MinisiteTab.objects \
+            .minisite_tabs(for_user=request.user) \
             .select_related('minisite')
         return qs
 
 
-class MinisitePageLiteAdmin(AdminLiteMixin, MinisitePageAdmin):
+class MinisiteTabLiteAdmin(AdminLiteMixin, MinisiteTabAdmin):
     list_display = ['url', 'title', 'date_created', 'date_updated']
     list_filter = []
     fieldsets = LITE_FIELDSETS_MINISITE_TAB
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
-admin.site.register(MinisitePage, MinisitePageAdmin)
+admin.site.register(MinisiteTab, MinisiteTabAdmin)
 admin.site.register(SearchPageLite, SearchPageLiteAdmin)
