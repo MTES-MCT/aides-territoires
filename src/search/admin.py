@@ -53,30 +53,6 @@ BASE_FIELDSETS_SEARCH_PAGE = [
                 'live_aids_count'
             )
         }),
-        ('Personnalisation du style', {
-            'fields': (
-                'logo',
-                'logo_link',
-                'color_1',
-                'color_2',
-                'color_3',
-                'color_4',
-                'color_5',
-            )
-        }),
-        ('Personnalisation du formulaire', {
-            'description': 'Maximum de 3 cases à cocher',
-            'fields': (
-                'show_categories_field',
-                'available_categories',
-                'show_audience_field',
-                'available_audiences',
-                'show_perimeter_field',
-                'show_mobilization_step_field',
-                'show_aid_type_field',
-                'show_backers_field',
-            )
-        }),
         ('Mettre en avant des aides', {
             'fields': (
                 'highlighted_aids',
@@ -103,14 +79,39 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(1, ('Configuration', {
         'search_querystring',
     )})
 )
-SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(3, ('SEO', {
-    'fields': (
-        'meta_title',
-        'meta_description',
-        'meta_image',
-    )
-})
-)
+SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
+    ('SEO', {
+        'fields': (
+            'meta_title',
+            'meta_description',
+            'meta_image',
+        )
+    }),
+    ('Personnalisation du style', {
+        'fields': (
+            'logo',
+            'logo_link',
+            'color_1',
+            'color_2',
+            'color_3',
+            'color_4',
+            'color_5',
+        )
+    }),
+    ('Personnalisation du formulaire', {
+        'description': 'Maximum de 3 cases à cocher',
+        'fields': (
+            'show_categories_field',
+            'available_categories',
+            'show_audience_field',
+            'available_audiences',
+            'show_perimeter_field',
+            'show_mobilization_step_field',
+            'show_aid_type_field',
+            'show_backers_field',
+        )
+    })
+])
 SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisitePageInline)
 
 
@@ -155,14 +156,6 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
         qs = super().get_queryset(request).for_user(request.user)
         qs = qs.annotate(page_count=Count('pages'))
         return qs
-
-    def get_list_filter(self, request):
-        list_filter = self.list_filter
-
-        if request.user.is_superuser:
-            return list_filter
-
-        return []
 
     def nb_pages(self, search_page):
         return search_page.page_count
