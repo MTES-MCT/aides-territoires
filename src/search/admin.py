@@ -62,7 +62,6 @@ SUPERUSER_FIELDSETS_MINISITE_TAB.extend([
 BASE_FIELDSETS_SEARCH_PAGE = [
         ('', {
             'fields': (
-                'title',
                 'content',
                 'more_content',
             )
@@ -87,7 +86,7 @@ BASE_FIELDSETS_SEARCH_PAGE = [
         }),
     ]
 
-# For the lite admin, we want the lite version of MinistePage
+# For the lite admin, we want the lite version of MinisitePage
 LITE_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
 LITE_FIELDSETS_SEARCH_PAGE.append(MinisiteTabLiteInline)
 
@@ -95,6 +94,7 @@ LITE_FIELDSETS_SEARCH_PAGE.append(MinisiteTabLiteInline)
 SUPERUSER_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
 SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(1, ('Configuration', {
     'fields': (
+        'title',
         'administrator',
         'short_title',
         'slug',
