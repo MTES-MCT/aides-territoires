@@ -50,7 +50,12 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             "Pages Personnalisées",
             deletable=False, draggable=False,
-            models=('search.*',),
+            models=('search.models.SearchPage', 'search.models.MinisiteTab'),
+        ))
+        self.children.append(modules.ModelList(
+            "Espace Contributeur",
+            deletable=False, draggable=False,
+            models=('search.models.SearchPageLite', 'search.models.MinisiteTabLite'),
         ))
         self.children.append(modules.ModelList(
             'Statistiques',
