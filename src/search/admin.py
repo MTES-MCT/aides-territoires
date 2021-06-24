@@ -30,35 +30,6 @@ class MinisiteTabLiteInline(MinisiteTabInline):
     fields = ['title', 'content']
 
 
-BASE_FIELDSETS_MINISITE_TAB = [
-    (None, {
-        'fields': (
-            'url',
-            'minisite',
-            'title',
-            'content'
-        )
-    }),
-    ('À propos de cet onglet', {
-        'fields': (
-            'date_created',
-            'date_updated'
-        )
-    }),
-]
-
-LITE_FIELDSETS_MINISITE_TAB = BASE_FIELDSETS_MINISITE_TAB.copy()
-
-SUPERUSER_FIELDSETS_MINISITE_TAB = BASE_FIELDSETS_MINISITE_TAB.copy()
-SUPERUSER_FIELDSETS_MINISITE_TAB.extend([
-    ('SEO', {
-        'fields': (
-            'meta_title',
-            'meta_description'
-        )
-    }),
-])
-
 BASE_FIELDSETS_SEARCH_PAGE = [
         ('', {
             'fields': (
@@ -226,19 +197,34 @@ class MinisiteTabAdmin(PageAdmin):
     list_filter = ['minisite']
     autocomplete_fields = ['minisite']
     readonly_fields = ['date_created', 'date_updated']
-    fieldsets = SUPERUSER_FIELDSETS_MINISITE_TAB
+    fieldsets = [
+        (None, {
+            'fields': (
+                'url',
+                'minisite',
+                'title',
+                'content'
+            ),
+        }),
+        ('À propos de cet onglet', {
+            'fields': (
+                'date_created',
+                'date_updated'
+            )
+        }),
+        ('SEO', {
+            'fields': (
+                'meta_title',
+                'meta_description'
+            )
+        }),
+    ]
 
     def get_queryset(self, request):
         qs = MinisiteTab.objects \
             .minisite_tabs(for_user=request.user) \
             .select_related('minisite')
         return qs
-
-
-class MinisiteTabLiteAdmin(AdminLiteMixin, MinisiteTabAdmin):
-    list_display = ['url', 'title', 'date_created', 'date_updated']
-    list_filter = []
-    fieldsets = LITE_FIELDSETS_MINISITE_TAB
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
