@@ -346,13 +346,23 @@
                 </div> 
             </div>
 
+            {% if current_search_dict.projects and not messages %}
+            <div class="card">
+                <div class="rate-aid">
+                    <div>
+                        <h3><strong>Évaluez cette aide</strong></h3>
+                        <p>Que pensez-vous de cette aide pour réaliser votre projet&nbsp;?</p>
+                    </div>
+                    <a href="#" id="fit_project_btn" class="js" data-toggle="modal" data-target="#match-project-modal">
+                        Contribuez à améliorer la pertinence des résultats&nbsp;!
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
         </div>
 
         <div class="aid-details">
-
-            {% if current_search_dict.projects and not messages %}
-            <a href="#" id="fit_project_btn" class="js" data-toggle="modal" data-target="#match-project-modal">Évaluez cette aide</a>
-            {% endif %}
 
             <h2>{{ _('Global presentation') }}</h2>
 

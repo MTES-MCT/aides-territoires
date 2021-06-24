@@ -1297,13 +1297,9 @@ article#aid {
             }
         }
 
-        & > div.suggest-modification {
-            @include icon(before, $fa-var-pen, 1.5rem);
+        & > div.suggest-modification,
+        & > div.rate-aid  {
             hyphens: none;
-
-            &::before {
-                margin-top: 0.2rem;
-            }
 
             h3 {
                 margin-bottom: 1rem;
@@ -1322,6 +1318,18 @@ article#aid {
             a {
                 margin-bottom: 0 !important;
             }
+        }
+
+        & > div.suggest-modification {
+            @include icon(before, $fa-var-pen, 1.5rem);
+
+            &::before {
+                margin-top: 0.2rem;
+            }
+        }
+        
+        & > div.rate-aid {
+            @include icon(before, $fa-var-star, 1.5rem);
         }
     }
 
@@ -1348,38 +1356,6 @@ article#aid {
             max-height: 100px;
             overflow-y: hidden;
             opacity: 0.1;
-        }
-
-        a#fit_project_btn[href^="http"]::after {
-            display: none;
-        }
-
-        a#fit_project_btn {
-            position: fixed;
-            top: 50%;
-            right: 0;
-            z-index: 999;
-            transform: rotate(270deg);
-            transform-origin: right bottom;
-            display: inline-block;
-            text-align: center;
-            padding: 0.375rem 0.7rem;
-            border: 2px solid $contrast-color;
-            border-radius: 1rem 1rem 0 0;
-            color: #fff !important;
-            background-color: $contrast-color;
-            font-weight: bold;
-            font-size: 1rem;
-            line-height: 1.5;
-            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            text-decoration: none;
-            animation: climb linear 1s;
-
-            @include icon(before, $fa-var-check);
-
-            &::before {
-                color: $dark-green;
-            }
         }
 
         @keyframes climb {
