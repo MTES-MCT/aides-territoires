@@ -17,6 +17,7 @@ class MinisiteTabInline(admin.TabularInline):
     form = MinisiteTabForm  # to display 'content' as RichTextField
     fields = ['url', 'title', 'content']
     extra = 1
+    max_num = 6
 
 
 class MinisiteTabLiteInline(MinisiteTabInline):
@@ -25,6 +26,7 @@ class MinisiteTabLiteInline(MinisiteTabInline):
     """
     model = MinisiteTabLite
     form = MinisiteTabFormLite
+    view_on_site = False
     fields = ['title', 'content']
 
 
