@@ -51,10 +51,10 @@ class PerimeterAdmin(admin.ModelAdmin):
         return initial
 
     def has_add_permission(self, request):
-        return True
+        return request.user.is_superuser
 
     def has_delete_permission(self, request, obj=None):
-        if obj:
+        if obj and request.user.is_superuser:
             return obj.manually_created
         return False
 
