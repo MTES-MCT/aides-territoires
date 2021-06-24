@@ -82,7 +82,7 @@ class SearchPage(models.Model):
         blank=True,
         help_text=_('Hidden content, revealed with a `See more` button'))
     tab_title = models.CharField(
-        'Titre de l\'onglet principal',
+        "Titre de l'onglet principal",
         blank=True, default='Accueil',
         max_length=180)
     search_querystring = models.TextField(
