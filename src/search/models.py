@@ -7,9 +7,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from core.fields import ChoiceArrayField
-from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED
+from aids.models import Aid
+from core.fields import ChoiceArrayField
+from pages.models import Page
 
 
 def logo_upload_to(instance, filename):
@@ -39,6 +40,13 @@ class SearchPageQuerySet(models.QuerySet):
         """Only return search pages with an administrator."""
 
         return self.filter(administrator__isnull=False)
+
+    def for_user(self, user):
+        """Only return search pages which the user is the administrator."""
+        qs = self.all()
+        if not user.is_superuser:
+            qs = qs.filter(administrator=user)
+        return qs
 
 
 class SearchPage(models.Model):
@@ -246,3 +254,35 @@ class SearchPage(models.Model):
                                   .values('status') \
                                   .annotate(count=Count('id', distinct=True))
         return {s['status']: s['count'] for s in list(all_aids_per_status)}
+
+
+class SearchPageLite(SearchPage):
+    """This proxy model is used for restricted/lite access,
+    for instance when we want to give access to site users that
+    are not super admin"""
+    class Meta:
+        proxy = True
+        verbose_name = "page personnalisée"
+        verbose_name_plural = "pages personnalisées"
+
+
+class MinisiteTab(Page):
+    """
+    Proxy class to make Page model available for minisites
+    as a Tab.
+    """
+    class Meta:
+        proxy = True
+        verbose_name = "onglet (toutes les PP)"
+        verbose_name_plural = "onglets (toutes les PP)"
+
+
+class MinisiteTabLite(Page):
+    """
+    Proxy class to make a lite admin for ministe Tab.
+    """
+
+    class Meta:
+        proxy = True
+        verbose_name = "onglet"
+        verbose_name_plural = "onglets"

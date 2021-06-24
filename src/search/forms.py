@@ -2,18 +2,20 @@ from itertools import groupby
 from operator import itemgetter
 
 from django import forms
-from django.db.models import Count
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.utils.translation import gettext_lazy as _
-from django.utils.html import format_html
 from django.core.exceptions import ValidationError
+from django.db.models import Count
+from django.utils.html import format_html
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
-from core.forms.fields import RichTextField, AutocompleteModelChoiceField
-from categories.models import Theme, Category
-from projects.models import Project
-from categories.fields import CategoryMultipleChoiceField
-from geofr.models import Perimeter
 from aids.forms import AidSearchForm
+from categories.fields import CategoryMultipleChoiceField
+from categories.models import Theme, Category
+from core.forms.fields import RichTextField, AutocompleteModelChoiceField
+from geofr.models import Perimeter
+from pages.admin import PageForm
+from projects.models import Project
 
 
 AUDIENCES = [
@@ -272,6 +274,17 @@ class SearchPageAdminForm(forms.ModelForm):
             'show_categories_field', 'show_mobilization_step_field',
             'show_aid_type_field', 'show_backers_field',
         ]
+
+        # If there is no form customization fields, then we don't
+        # need to run the fields validation. That's tipically the case
+        # for lite admin page available to contributors that don't have
+        # access to form customization.
+        all_form_fields = self.fields.keys()
+        has_form_customization_fields = any(
+            field in all_form_fields for field in search_fields)
+        if not has_form_customization_fields:
+            return data
+
         nb_filters = 0
         for field in search_fields:
             if field in data and data[field]:
@@ -288,3 +301,28 @@ class SearchPageAdminForm(forms.ModelForm):
                 code='too_many_filters')
 
         return data
+
+
+class MinisiteTabForm(PageForm):
+    pass
+
+
+class MinisiteTabFormLite(MinisiteTabForm):
+    url = forms.CharField(required=False)
+
+    def build_url_from_title(self, title):
+        slug = slugify(title)[:50]
+        url = f'/{slug}/'
+        return url
+
+    def clean_url(self):
+        url = self.cleaned_data['url']
+        if not url:
+            title = self.cleaned_data.get('title')
+            url = self.build_url_from_title(title)
+        return url
+
+    def save(self, commit=True):
+        if not self.instance.id:
+            self.instance.url = self.cleaned_data['url']
+        return super().save(commit=commit)

@@ -140,7 +140,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         """Only the admin users can access the admin site."""
-        return self.is_superuser
+        return self.is_superuser or self.is_administrator_of_search_pages
 
     @property
     def is_contributor_or_staff(self):
@@ -152,3 +152,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def profile_complete(self):
         """Contributors need to specify more personal data."""
         return self.organization and self.role and self.contact_phone
+
+    @property
+    def is_administrator_of_search_pages(self):
+        """Only the minisite administrators can access
+        certain pages of the app."""
+        return self.search_pages.exists()

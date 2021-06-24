@@ -1118,12 +1118,6 @@ msgstr "partenaires/<int:pk>/"
 msgid "backers/<int:pk>-<str>/"
 msgstr "partenaires/<int:pk>-<str>/"
 
-msgid "Content"
-msgstr "Contenu"
-
-msgid "WARNING! DON'T CHANGE url of pages in the main menu."
-msgstr "ATTENTION ! NE PAS CHANGER l'url des pages du menu principal."
-
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
 "and we will reuse the page title."
@@ -1186,12 +1180,6 @@ msgstr "suggestion/"
 
 msgid "Thank you for contributing!"
 msgstr "Merci de votre contribution&nbsp;!"
-
-msgid "Style customization"
-msgstr "Personnalisation du style"
-
-msgid "Form customization"
-msgstr "Personnalisation du formulaire"
 
 msgid "Page content"
 msgstr "Contenu de la page"

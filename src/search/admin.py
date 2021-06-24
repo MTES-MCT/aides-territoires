@@ -1,11 +1,111 @@
 from django.contrib import admin
+from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
-from search.models import SearchPage
-from search.forms import SearchPageAdminForm
-from pages.models import Page
+
+from fieldsets_with_inlines import FieldsetsInlineMixin
+
+from admin_lite.mixins import AdminLiteMixin
+from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
+from search.forms import SearchPageAdminForm, MinisiteTabForm, MinisiteTabFormLite
 from pages.admin import PageAdmin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+
+
+class MinisiteTabInline(admin.TabularInline):
+    model = MinisiteTab
+    form = MinisiteTabForm  # to display 'content' as RichTextField
+    fields = ['url', 'title', 'content']
+    extra = 1
+    max_num = 6
+
+
+class MinisiteTabLiteInline(MinisiteTabInline):
+    """
+    A lite version that's suitable for non superuser.
+    """
+    model = MinisiteTabLite
+    form = MinisiteTabFormLite
+    view_on_site = False
+    fields = ['title', 'content']
+
+
+BASE_FIELDSETS_SEARCH_PAGE = [
+        ('', {
+            'fields': (
+                'content',
+                'more_content',
+            )
+        }),
+        ('À propos de cette page', {
+            'fields': (
+                'date_created',
+                'date_updated',
+                'all_aids_count',
+                'live_aids_count'
+            )
+        }),
+        ('Mettre en avant des aides', {
+            'fields': (
+                'highlighted_aids',
+            )
+        }),
+        ('Exclure des aides des résultats', {
+            'fields': (
+                'excluded_aids',
+            )
+        }),
+    ]
+
+# For the lite admin, we want the lite version of MinisitePage
+LITE_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
+LITE_FIELDSETS_SEARCH_PAGE.append(MinisiteTabLiteInline)
+
+# For superusers, we want to add more admin sections.
+SUPERUSER_FIELDSETS_SEARCH_PAGE = BASE_FIELDSETS_SEARCH_PAGE.copy()
+SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(1, ('Configuration', {
+    'fields': (
+        'title',
+        'administrator',
+        'short_title',
+        'slug',
+        'search_querystring',
+    )})
+)
+SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
+    ('SEO', {
+        'fields': (
+            'meta_title',
+            'meta_description',
+            'meta_image',
+        )
+    }),
+    ('Personnalisation du style', {
+        'fields': (
+            'logo',
+            'logo_link',
+            'color_1',
+            'color_2',
+            'color_3',
+            'color_4',
+            'color_5',
+        )
+    }),
+    ('Personnalisation du formulaire', {
+        'description': 'Maximum de 3 cases à cocher',
+        'fields': (
+            'show_categories_field',
+            'available_categories',
+            'show_audience_field',
+            'available_audiences',
+            'show_perimeter_field',
+            'show_mobilization_step_field',
+            'show_aid_type_field',
+            'show_backers_field',
+        )
+    }),
+])
+SUPERUSER_FIELDSETS_SEARCH_PAGE.append(MinisiteTabInline)
 
 
 class AdministratorFilter(admin.SimpleListFilter):
@@ -29,13 +129,13 @@ class AdministratorFilter(admin.SimpleListFilter):
         return queryset
 
 
-class SearchPageAdmin(admin.ModelAdmin):
-    form = SearchPageAdminForm
-    list_display = ['slug', 'title', 'meta_description', 'date_created']
+class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
+    list_display = ['slug', 'title', 'meta_description', 'nb_pages', 'date_created']
     filter_vertical = ['available_categories']
     search_fields = ['title']
     list_filter = [AdministratorFilter]
 
+    form = SearchPageAdminForm
     prepopulated_fields = {'slug': ('title',)}
     autocomplete_fields = ['administrator',
                            'highlighted_aids', 'excluded_aids']
@@ -43,71 +143,17 @@ class SearchPageAdmin(admin.ModelAdmin):
         'all_aids_count', 'live_aids_count',
         'date_created', 'date_updated']
 
-    fieldsets = [
-        ('', {
-            'fields': (
-                'title',
-                'short_title',
-                'slug',
-                'search_querystring',
-                'content',
-                'more_content',
-                'date_created',
-                'date_updated',
-            )
-        }),
-        ('Administration', {
-            'fields': (
-                'administrator',
-            )
-        }),
-        (_('SEO'), {
-            'fields': (
-                'meta_title',
-                'meta_description',
-                'meta_image',
-            )
-        }),
-        (_('Style customization'), {
-            'fields': (
-                'logo',
-                'logo_link',
-                'color_1',
-                'color_2',
-                'color_3',
-                'color_4',
-                'color_5',
-            )
-        }),
-        (_('Form customization'), {
-            'fields': (
-                'show_categories_field',
-                'available_categories',
-                'show_audience_field',
-                'available_audiences',
-                'show_perimeter_field',
-                'show_mobilization_step_field',
-                'show_aid_type_field',
-                'show_backers_field',
-            )
-        }),
-        ('Aides concernées', {
-            'fields': (
-                'all_aids_count',
-                'live_aids_count'
-            )
-        }),
-        ('Mettre en avant des aides', {
-            'fields': (
-                'highlighted_aids',
-            )
-        }),
-        ('Exclure des aides des résultats', {
-            'fields': (
-                'excluded_aids',
-            )
-        }),
-    ]
+    fieldsets_with_inlines = SUPERUSER_FIELDSETS_SEARCH_PAGE
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request).for_user(request.user)
+        qs = qs.annotate(page_count=Count('pages'))
+        return qs
+
+    def nb_pages(self, search_page):
+        return search_page.page_count
+    nb_pages.short_description = 'Nombre de pages'
+    nb_pages.admin_order_field = 'page_count'
 
     def all_aids_count(self, search_page):
         return search_page.get_base_queryset(all_aids=True).count()
@@ -115,8 +161,8 @@ class SearchPageAdmin(admin.ModelAdmin):
 
     def live_aids_count(self, search_page):
         live_aids_count = search_page.get_base_queryset().count()
-        live_aids_local_count = search_page.get_base_queryset().local_aids().count()  # noqa
-        return f'{live_aids_count} (dont aides locales : {live_aids_local_count})'  # noqa
+        live_aids_local_count = search_page.get_base_queryset().local_aids().count()
+        return f'{live_aids_count} (dont aides locales : {live_aids_local_count})'
     live_aids_count.short_description = "Nombre d'aides actuellement visibles"
 
     class Media:
@@ -141,25 +187,18 @@ class SearchPageAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-# Dummy class so the model can be registered twice
-class MinisitePage(Page):
-    class Meta:
-        proxy = True
-        verbose_name = _('Page')
-        verbose_name_plural = _('Pages')
+class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
+    prepopulated_fields = {}
+    fieldsets_with_inlines = LITE_FIELDSETS_SEARCH_PAGE
 
 
-class MinisitePageAdmin(PageAdmin):
-
-    HELP = _("WARNING! DON'T CHANGE url of pages in the main menu.")
-
+class MinisiteTabAdmin(PageAdmin):
     list_display = ['url', 'title', 'minisite', 'date_created', 'date_updated']
-
+    list_filter = ['minisite']
     autocomplete_fields = ['minisite']
     readonly_fields = ['date_created', 'date_updated']
-    fieldsets = (
+    fieldsets = [
         (None, {
-            'description': '<div class="help">{}</div>'.format(HELP),
             'fields': (
                 'url',
                 'minisite',
@@ -167,26 +206,27 @@ class MinisitePageAdmin(PageAdmin):
                 'content'
             ),
         }),
-        (_('SEO'), {
+        ('À propos de cet onglet', {
+            'fields': (
+                'date_created',
+                'date_updated'
+            )
+        }),
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description'
             )
         }),
-        ('Données diverses', {
-            'fields': (
-                'date_created',
-                'date_updated'
-            )
-        })
-    )
+    ]
 
     def get_queryset(self, request):
-        qs = Page.objects \
-            .minisite_pages() \
+        qs = MinisiteTab.objects \
+            .minisite_tabs(for_user=request.user) \
             .select_related('minisite')
         return qs
 
 
 admin.site.register(SearchPage, SearchPageAdmin)
-admin.site.register(MinisitePage, MinisitePageAdmin)
+admin.site.register(MinisiteTab, MinisiteTabAdmin)
+admin.site.register(SearchPageLite, SearchPageLiteAdmin)

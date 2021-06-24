@@ -5,15 +5,25 @@ from django.contrib.flatpages.models import FlatPage
 
 
 class PageQueryset(models.QuerySet):
-    def at_pages(self):
+    def at_pages(self, for_user=None):
         """Pages belonging to Aides-territoires main site."""
 
-        return self.filter(minisite__isnull=True)
+        qs = self.filter(minisite__isnull=True)
+        if for_user and not for_user.is_superuser:
+            # When listing pages for a given user, no pages
+            # should be listed for a non-superuser
+            qs = qs.none()
+        return qs
 
-    def minisite_pages(self):
-        """Pages belonging to minisites."""
+    def minisite_tabs(self, for_user=None):
+        """Pages that act as tabs for minisites."""
 
-        return self.filter(minisite__isnull=False)
+        qs = self.filter(minisite__isnull=False)
+        if for_user and not for_user.is_superuser:
+            # When listing pages for a given user, only pages
+            # belonging the that user should be listed.
+            qs = qs.filter(minisite__in=for_user.search_pages.all())
+        return qs
 
 
 class Page(FlatPage):
@@ -38,6 +48,7 @@ class Page(FlatPage):
     minisite = models.ForeignKey(
         'search.SearchPage',
         verbose_name=_('Minisite'),
+        related_name='pages',
         help_text=_('Optional, link this page to a minisite.'),
         on_delete=models.PROTECT,
         null=True, blank=True)
