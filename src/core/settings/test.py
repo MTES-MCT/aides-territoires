@@ -28,3 +28,5 @@ GOAL_FIRST_LOGIN_ID = 2
 
 # Speedup user creation
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+
+ENABLE_MINISITES_REDIRECTION = False
