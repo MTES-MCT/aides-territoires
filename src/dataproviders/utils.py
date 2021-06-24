@@ -10,7 +10,7 @@ ALLOWED_TAGS = [
 ]
 ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style',
                  'allow', 'frameborder', 'allowfullscreen',  # to display iframe
-                 'target', 'rel',]  # for links opening in a new tab
+                 'target', 'rel']  # for links opening in a new tab
 
 
 def content_prettify(raw_text,
