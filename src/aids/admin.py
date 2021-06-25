@@ -8,6 +8,7 @@ from django.contrib.admin.views.main import ChangeList
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.http import HttpResponseForbidden
 
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
@@ -391,6 +392,24 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 pass
 
         return queryset, use_distinct
+
+    def change_view(self, request, object_id, extra_context=None):
+        """
+        We prevent non-superuser to acces this page. Permission is given to list
+        aids in contributor admin pages, but we don't give them direct access to
+        aid admin pages.
+        """
+        if not request.user.is_superuser:
+            return HttpResponseForbidden()
+        return super().change_view(request, object_id, extra_context=extra_context)
+
+    def changelist_view(self, request, extra_context=None):
+        """
+        We prevent non-superuser to acces this page.
+        """
+        if not request.user.is_superuser:
+            return HttpResponseForbidden()
+        return super().changelist_view(request, extra_context=extra_context)
 
     def sibling_aids(self, aid):
         """Number of other (non draft) aids created by the same author."""
