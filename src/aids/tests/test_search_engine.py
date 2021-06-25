@@ -255,7 +255,7 @@ def test_search_mainland_aids(client, perimeters, aids):
 def test_full_text_search(client, perimeters):
     """Full text search return valid results."""
 
-    AidFactory(perimeter=perimeters['europe'], name='Mon Aide à Tester')
+    AidFactory(perimeter=perimeters['europe'], name="Mon Aide à Tester sur l'écologie")
     url = reverse('search_view')
 
     # Words are correctly stemmed and lexemed
@@ -268,6 +268,10 @@ def test_full_text_search(client, perimeters):
 
     # Verbs are too
     res = client.get(url, data={'text': 'test'})
+    assert res.context['paginator'].count == 1
+
+    # Accents are not taken into account
+    res = client.get(url, data={'text': 'écologie'})
     assert res.context['paginator'].count == 1
 
     # Irrelevant results are not returned
