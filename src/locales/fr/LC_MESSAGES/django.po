@@ -95,9 +95,6 @@ msgstr "A donné son consentement pour recevoir l'actualité"
 msgid "Wants to receive alerts when similar aids are published"
 msgstr "Veut recevoir des alertes en cas de publication d'aides similaires"
 
-msgid "Watched tags"
-msgstr "Mots-clés à surveiller"
-
 msgid "Organization"
 msgstr "Organisme"
 

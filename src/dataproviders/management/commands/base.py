@@ -67,7 +67,6 @@ class BaseImportCommand(BaseCommand):
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
                         aid.programs.set(programs)
-                        aid.populate_tags()
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
                             'New aid: {}'.format(aid.name)))
@@ -175,9 +174,6 @@ class BaseImportCommand(BaseCommand):
 
     def extract_import_last_access(self, line):
         return timezone.now()
-
-    def extract_tags(self, line):
-        return []
 
     def extract_name(self, line):
         raise NotImplementedError

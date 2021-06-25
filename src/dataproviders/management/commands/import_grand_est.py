@@ -66,8 +66,8 @@ class Command(CrawlerImportCommand):
     def extract_is_call_for_project(self, line):
         return line['is_call_for_project']
 
-    def extract_tags(self, line):
-        return line['category'].split(' - ') if line['category'] else []
+    # def extract_tags(self, line):
+    #     return line['category'].split(' - ') if line['category'] else []
 
     def extract_submission_deadline(self, line):
         return line['submission_deadline'] or None

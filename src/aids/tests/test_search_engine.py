@@ -294,18 +294,6 @@ def test_full_text_results_ordering(client, perimeters):
     assert res.context['aids'][1].name == 'Pomme'
 
 
-def test_full_text_uses_tags(client, perimeters):
-    """Users can search in tags."""
-
-    AidFactory(
-        perimeter=perimeters['europe'],
-        tags=['tartiflette', 'camembert roti', 'gratin dauphinois'])
-    url = reverse('search_view')
-
-    res = client.get(url, data={'text': 'gratin'})
-    assert res.context['paginator'].count == 1
-
-
 def test_full_text_advanced_syntax(client, perimeters):
     AidFactory(
         perimeter=perimeters['europe'],
