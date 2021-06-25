@@ -230,6 +230,9 @@ class ProjectSearchForm(forms.Form):
     projects = AutocompleteModelChoiceField(
         queryset=Project.objects.all(),
         required=False)
+    text = forms.CharField(
+        widget=forms.widgets.HiddenInput,
+        required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

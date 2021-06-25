@@ -5,7 +5,12 @@ $(document).ready(function () {
         language: 'fr',
         minimumInputLength: 3,
         language: {
-            inputTooShort: function() { return catalog.autocomplete_placeholder; },
+            inputTooShort: function() {
+                $('.select2-search__field').on('input', function() {
+                    $('input#id_text').val($('.select2-search__field').val());
+                }) 
+                return catalog.autocomplete_placeholder; 
+            },
         },
         ajax: {
             url: '/api/projects/',
