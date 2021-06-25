@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -112,8 +113,9 @@ class MinisiteMixin:
         """
         if not self.search_page:
             return None
-        host = self.request.get_host()
-        if host == canonical_url:
+        host_from_request = self.request.get_host()
+        host_from_canonical_url = urlparse(canonical_url).netloc
+        if host_from_request == host_from_canonical_url:
             return None
         return canonical_url
 
