@@ -34,8 +34,7 @@ BASE_FIELDSETS_SEARCH_PAGE = [
         ('', {
             'fields': (
                 'content',
-                'more_content',
-                'tab_title'
+                'more_content'
             )
         }),
         ('À propos de cette page', {
@@ -71,6 +70,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(1, ('Configuration', {
         'short_title',
         'slug',
         'search_querystring',
+        'tab_title'
     )})
 )
 SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
