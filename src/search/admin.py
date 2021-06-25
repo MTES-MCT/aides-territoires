@@ -35,6 +35,7 @@ BASE_FIELDSETS_SEARCH_PAGE = [
             'fields': (
                 'content',
                 'more_content',
+                'tab_title'
             )
         }),
         ('À propos de cette page', {

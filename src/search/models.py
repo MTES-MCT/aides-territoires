@@ -81,6 +81,10 @@ class SearchPage(models.Model):
         _('Additional page content'),
         blank=True,
         help_text=_('Hidden content, revealed with a `See more` button'))
+    tab_title = models.CharField(
+        "Titre de l'onglet principal",
+        blank=True, default='Accueil',
+        max_length=180)
     search_querystring = models.TextField(
         _('Querystring'),
         help_text=_('The search paramaters url'))
