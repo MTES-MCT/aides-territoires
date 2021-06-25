@@ -47,15 +47,26 @@ class CustomIndexDashboard(Dashboard):
             deletable=False, draggable=False,
             models=('eligibility.*',),
         ))
-        self.children.append(modules.ModelList(
-            "Pages Personnalisées",
+        self.children.append(modules.Group(
+            title="Pages Personnalisées",
+            display="tabs",
             deletable=False, draggable=False,
-            models=('search.models.SearchPage', 'search.models.MinisiteTab'),
-        ))
-        self.children.append(modules.ModelList(
-            "Espace Contributeur",
-            deletable=False, draggable=False,
-            models=('search.models.SearchPageLite', 'search.models.MinisiteTabLite'),
+            children=[
+                modules.ModelList(
+                    "Configuration",
+                    models=(
+                        'search.models.SearchPage',
+                        'search.models.MinisiteTab',
+                    )
+                ),
+                modules.ModelList(
+                    "Espace Contributeur",
+                    models=(
+                        'search.models.SearchPageLite',
+                        'search.models.MinisiteTabLite',
+                    )
+                ),
+            ]
         ))
         self.children.append(modules.ModelList(
             'Statistiques',
