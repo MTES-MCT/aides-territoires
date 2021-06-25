@@ -306,6 +306,17 @@ MAP_DNS_TO_MINISITES = [
     ('aides.francemobilites.fr', 'francemobilites'),
 ]
 
+# Minisite redirection:
+# Sometime, we want to redirect the minisites URL.
+# If redirection is enabled, we first check if an external DNS such as
+# `aides.francemobilites.fr` is defined. If so, that DNS will be used.
+# Otherwise, the redireciton will target the subdmain  URL, for instance
+# `https://renovation-energetique.aides-territoires.beta.gouv.fr/`
+ENABLE_MINISITES_REDIRECTION = True
+REDIRECT_MINISITES_TO_EXTERNAL_URL = [
+    ('francemobilites', 'https://aides.francemobilites.fr'),
+]
+
 # ADDNA
 ADDNA_ALERT_TITLE = 'Développement Durable - Nouvelle-Aquitaine - ADDNA'
 ADDNA_ALERT_QUERYSTRING = 'perimeter=70971-nouvelle-aquitaine'

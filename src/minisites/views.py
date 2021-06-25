@@ -1,12 +1,15 @@
 from datetime import datetime, timedelta
 
-from django.http import HttpResponseRedirect, Http404
-from django.views.generic import TemplateView, DetailView
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.db.models import Count, Func, F, Value, CharField, Prefetch
 from django.db.models.functions import TruncWeek
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import redirect
 from django.utils import timezone
+from django.views.generic import TemplateView, DetailView
 from django.views.generic.base import RedirectView
+
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
@@ -52,11 +55,17 @@ class MinisiteMixin:
             # Those errors are mainly caused by very old links with invalid
             # urls existing in the wild,
             # e.g https://www.aides-territoires.beta.gouv.fr
-            return HttpResponseRedirect(self.get_redirection_url())
+            return HttpResponseRedirect(self.get_ghost_redirection_url())
+
+        # We want to apply the URL redirection, only when the minisite is
+        # accessed via urls like `/recherhe/<slug>/`.
+        if self.has_slug_in_url_path and settings.ENABLE_MINISITES_REDIRECTION:
+            url = self.get_canonical_url(subdomain=self.search_page.slug)
+            return redirect(url)
 
         return super().get(request, *args, **kwargs)
 
-    def get_redirection_url(self):
+    def get_ghost_redirection_url(self):
         """What url to redirect to in case of missing SearchPage object.
 
         For now, just redirect to the main site's homepage.
@@ -70,13 +79,17 @@ class MinisiteMixin:
 
         HEADER = 'X-Minisite-Name'
 
+        has_slug_in_url_path = False
         if 'search_slug' in self.kwargs:
             page_slug = self.kwargs.get('search_slug')
+            has_slug_in_url_path = True
         elif HEADER in self.request.headers:
             page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
             page_slug = get_site_from_host(host)
+
+        self.has_slug_in_url_path = has_slug_in_url_path
 
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
@@ -85,17 +98,22 @@ class MinisiteMixin:
             obj = None
         return obj
 
-    def get_context_data(self, **kwargs):
-
-        # Canonical url definition
-        # E.g we want to mark `aides.francemobilites.fr` as a duplicate of
-        # `francemobilites.aides-territoires.beta.gouv.fr`.
+    def get_canonical_url(slef, subdomain):
+        """
+        Canonical url can be formed with an external DNS for instance:
+        `aides.francemobilites.fr`.
+        It can also be based on the subdomain, for instance:
+        `https://renovation-energetique.aides-territoires.beta.gouv.fr/`.
+        """
+        for minisite_slug, external_url in settings.REDIRECT_MINISITES_TO_EXTERNAL_URL:
+            if minisite_slug == subdomain:
+                return external_url
         main_site_domain = Site.objects.get_current().domain
-        page_subdomain = self.search_page.slug
-        canonical_url = 'https://{page_subdomain}.{main_site_domain}'.format(
-            page_subdomain=page_subdomain,
-            main_site_domain=main_site_domain)
+        canonical_url = f'https://{subdomain}.{main_site_domain}'
+        return canonical_url
 
+    def get_context_data(self, **kwargs):
+        canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
         context = super().get_context_data(**kwargs)
         context['search_page'] = self.search_page
         context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
