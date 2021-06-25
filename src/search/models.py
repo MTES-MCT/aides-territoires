@@ -200,8 +200,8 @@ class SearchPage(models.Model):
         auto_now=True)
 
     class Meta:
-        verbose_name = _('Search page')
-        verbose_name_plural = _('Search pages')
+        verbose_name = "page personnalisée"
+        verbose_name_plural = "pages personnalisées"
 
     def __str__(self):
         return self.title
@@ -273,8 +273,8 @@ class MinisiteTab(Page):
     """
     class Meta:
         proxy = True
-        verbose_name = "onglet (toutes les PP)"
-        verbose_name_plural = "onglets (toutes les PP)"
+        verbose_name = "onglet"
+        verbose_name_plural = "onglets"
 
 
 class MinisiteTabLite(Page):
