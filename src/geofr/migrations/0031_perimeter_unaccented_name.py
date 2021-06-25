@@ -6,7 +6,7 @@ from django.db.migrations.operations.special import RunPython
 from django.contrib.postgres.lookups import Unaccent
 
 
-from geofr.models import remove_accents
+from core.utils import remove_accents
 
 
 def unaccent_names(apps, schema_editor):

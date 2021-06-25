@@ -62,7 +62,7 @@ class BaseImportCommand(BaseCommand):
             for aid, financers, instructors, categories, programs in aids_and_related_objects:  # noqa
                 try:
                     with transaction.atomic():
-                        aid.set_search_vector(financers, instructors)
+                        aid.set_search_vector_unaccented(financers, instructors)
                         aid.save()
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)

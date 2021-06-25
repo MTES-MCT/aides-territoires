@@ -1,5 +1,3 @@
-import unicodedata
-
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -9,14 +7,7 @@ from django.contrib.postgres.indexes import GinIndex
 
 from model_utils import Choices
 
-
-def remove_accents(input_str):
-    """Remove accents from a string.
-
-    Shamelessly stolen from SO.
-    """
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+from core.utils import remove_accents
 
 
 class Perimeter(models.Model):
