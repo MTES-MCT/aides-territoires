@@ -83,6 +83,7 @@ div.form-row input[type=url]
 
 .trumbowyg-box {
     max-width: 800px;
+    margin-left: 170px !important;
 }
 
 form .aligned .trumbowyg-box ul {
