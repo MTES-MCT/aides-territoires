@@ -939,9 +939,6 @@ msgstr "stats/"
 msgid "alerts/"
 msgstr "alertes/"
 
-msgid "tags/"
-msgstr "mots-clés/"
-
 msgid "data/"
 msgstr "data/"
 
@@ -2287,20 +2284,6 @@ msgstr "Aides vues sur les 7 derniers jours"
 
 msgid "Organizations that are financing or instructing aids"
 msgstr "Organisations qui financent ou instruisent des aides"
-
-msgid "All tags"
-msgstr "Tous les mots clés"
-
-msgid "All known tags"
-msgstr "Tous les mots clés"
-
-msgid ""
-"A tag is a label associated with one or several aids. Using tags is a great "
-"way to browse the site for aids relevant to your specific interests."
-msgstr ""
-"Un mot clé est une étiquette associée à une ou plusieurs aides. Utiliser les "
-"mots clés est un bon moyen de trouver des aides pertinentes par rapport à "
-"vos centres d'intérêts spécifiques."
 
 msgid "upload"
 msgstr "upload"
