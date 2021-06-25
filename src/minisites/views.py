@@ -57,39 +57,22 @@ class MinisiteMixin:
             # e.g https://www.aides-territoires.beta.gouv.fr
             return HttpResponseRedirect(self.get_ghost_redirection_url())
 
-        # We want to apply the URL redirection, only when the minisite is
-        # accessed via urls like `/recherhe/<slug>/`.
-        if self.has_slug_in_url_path and settings.ENABLE_MINISITES_REDIRECTION:
-            url = self.get_canonical_url(subdomain=self.search_page.slug)
-            return redirect(url)
+        if settings.ENABLE_MINISITES_REDIRECTION:
+            canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
+            redirect_url = self.get_redirection_url(canonical_url)
+            if redirect_url:
+                return redirect(redirect_url)
 
         return super().get(request, *args, **kwargs)
-
-    def get_ghost_redirection_url(self):
-        """What url to redirect to in case of missing SearchPage object.
-
-        For now, just redirect to the main site's homepage.
-        """
-        site = Site.objects.get_current()
-        url = 'https://{domain}'.format(domain=site.domain)
-        return url
 
     def get_search_page(self):
         """Get the custom page from url."""
 
-        HEADER = 'X-Minisite-Name'
-
-        has_slug_in_url_path = False
         if 'search_slug' in self.kwargs:
             page_slug = self.kwargs.get('search_slug')
-            has_slug_in_url_path = True
-        elif HEADER in self.request.headers:
-            page_slug = self.request.headers[HEADER]
         else:
             host = self.request.get_host()
             page_slug = get_site_from_host(host)
-
-        self.has_slug_in_url_path = has_slug_in_url_path
 
         qs = SearchPage.objects.filter(slug=page_slug)
         try:
@@ -98,7 +81,16 @@ class MinisiteMixin:
             obj = None
         return obj
 
-    def get_canonical_url(slef, subdomain):
+    def get_context_data(self, **kwargs):
+        canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
+        context = super().get_context_data(**kwargs)
+        context['search_page'] = self.search_page
+        context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
+        context['canonical_url'] = canonical_url
+
+        return context
+
+    def get_canonical_url(self, subdomain):
         """
         Canonical url can be formed with an external DNS for instance:
         `aides.francemobilites.fr`.
@@ -112,14 +104,27 @@ class MinisiteMixin:
         canonical_url = f'https://{subdomain}.{main_site_domain}'
         return canonical_url
 
-    def get_context_data(self, **kwargs):
-        canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
-        context = super().get_context_data(**kwargs)
-        context['search_page'] = self.search_page
-        context['site_url'] = self.request.build_absolute_uri('').rstrip('/')
-        context['canonical_url'] = canonical_url
+    def get_redirection_url(self, canonical_url):
+        """
+        Return the target redirection URL.
+        When the site host is the same as the canonical URL, we consider that
+        we are already using the target URL - no need to redirect anymore.
+        """
+        if not self.search_page:
+            return None
+        host = self.request.get_host()
+        if host == canonical_url:
+            return None
+        return canonical_url
 
-        return context
+    def get_ghost_redirection_url(self):
+        """What url to redirect to in case of missing SearchPage object.
+
+        For now, just redirect to the main site's homepage.
+        """
+        site = Site.objects.get_current()
+        url = 'https://{domain}'.format(domain=site.domain)
+        return url
 
 
 class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
