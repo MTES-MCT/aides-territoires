@@ -3,40 +3,17 @@
 {% if aids %}
     <div class="aids">
     {% for aid in aids %}
+        {% if paginator.count < 6 and forloop.counter0 == 0 %}
+        {% if promotions %}
+            {% include 'aids/_promotions.html' %}
+        {% endif %}
+        {% endif %}
         <div class="col">
             {% include 'aids/_aid_result.html' with aid=aid %}
         </div>
         {% if forloop.counter0 == 5 %}
         {% if promotions %}
-        <div id="carouselControls" class="carousel slide promotions-slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                {% for promotion in promotions %}
-                {% if forloop.first %}
-                <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-                {% else %}
-                <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-                {% endif %}
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner">
-                {% for promotion in promotions %}
-                {% if forloop.first %}
-                <div class="carousel-item active">
-                {% else %}
-                <div class="carousel-item">
-                {% endif %}
-                    <div id="promotion-block" class="d-block w-100">
-                        <h5>{{ promotion.short_text }}</h5>
-                        <div id="promotion-block-link">
-                            <a id="{{ promotion.id }}" href="{{ promotion.button_link }}">
-                                {{ promotion.button_title }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        {% include 'aids/_promotions.html' %}
         {% else %}
         <div id="save-alert-block">
             <h5>🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</h5>
