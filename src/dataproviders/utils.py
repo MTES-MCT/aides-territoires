@@ -67,7 +67,7 @@ def content_prettify(raw_text,
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)
-                elif tag.string and not tag.string.strip():
+                elif tag.string and not tag.string.strip() and tag.name not in ['iframe']:
                     tag.decompose()
 
                 # Replace relative urls with absolute ones
