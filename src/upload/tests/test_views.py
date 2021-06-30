@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from upload.models import UploadImage
+from search.factories import SearchPageFactory
 
 
 pytestmark = pytest.mark.django_db
@@ -48,6 +49,15 @@ def test_annonymous_cannot_upload_an_image(client):
     upload_image(client)
     count_after = UploadImage.objects.count()
     assert count_after == count_before
+
+
+def test_search_page_admin_can_upload_an_image(client, user):
+    SearchPageFactory(title='Test PP', administrator=user)
+    client.force_login(user)
+    count_before = UploadImage.objects.count()
+    upload_image(client)
+    count_after = UploadImage.objects.count()
+    assert count_after == count_before + 1
 
 
 def test_upload_with_empty_data_fail_gracefully(client, superuser):

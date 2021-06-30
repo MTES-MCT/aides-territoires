@@ -23,3 +23,10 @@ class UploadImageView(PermissionRequiredMixin, View):
             'file': uploaded.image.url,
         }
         return JsonResponse(response_data)
+
+    def has_permission(self):
+        has_perms = super().has_permission()
+        # Let's grant permission to search page admins
+        if getattr(self.request.user, 'is_administrator_of_search_pages', False):
+            has_perms = True
+        return has_perms
