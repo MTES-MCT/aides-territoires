@@ -19,17 +19,33 @@
 
 {% block content %}
 <div id='themes-step'>
-    <h1>Dans quelles thématiques recherchez-vous ?</h1>
+    <h1>Trouver des aides</h1>
     <div class="info">
-        <p>Pour filtrer vos résultats de recherche, nous vous proposons de sélectionner une ou plusieurs thématiques. Vous pourrez ensuite sélectionner des sous-thématiques.</p>
-        <p>Une fois les résultats filtrés, vous pourrez ajouter des critères de filtre ou tester le moteur de recherche textuel.</p>
-        <p>Vous pouvez également passer ces étapes et accéder directement à la page de résultats et au moteur de recherche textuel.</p>
+        <p>Vous pouvez trouver des aides en utilisant le moteur de recherche ou en naviguant dans les thématiques.</p>
     </div>
 </div>
 
+<div id="text-research">
+    <h2>Renseignez votre projet :</h2>
+    <form id="text-research-form" action="{% url 'search_view' %}" method="GET">
+
+        {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
+        {% include '_field_snippet.html' with field=form.perimeter.as_hidden %}
+        {% include '_field_snippet.html' with field=form.text %}
+
+        <button name="action" value="search" type="submit">
+            Envoyer
+        </button>         
+    </form>   
+</div>
+
+<h2>Ou naviguez dans les thématiques :</h2>
+
 <form id="theme" action="{% url 'search_step_category' %}" method="GET">
 
-    {% include '_form_snippet.html' %}
+    {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
+    {% include '_field_snippet.html' with field=form.perimeter.as_hidden %}
+    {% include '_field_snippet.html' with field=form.themes %}
 
     <button name="action" value="search" type="submit">
         Envoyer
@@ -47,8 +63,16 @@
 </form>
 {% endblock %}
 
+{% block extra_css %}
+{% compress css %}
+<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
+{% endcompress %}
+{% endblock %}
+
 {% block extra_js %}
 {% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/search/track_theme_step_events.js"></script>
 {% endcompress %}
 {% endblock %}
