@@ -56,7 +56,6 @@ LOCAL_APPS = [
     'home',
     'geofr',
     'backers',
-    'tags',
     'aids',
     'dataproviders',
     'analytics',
@@ -76,6 +75,9 @@ LOCAL_APPS = [
     'blog',
     'eligibility',
     'admin_lite',
+
+    # deprecated apps
+    'tags',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -99,10 +99,6 @@ class Command(BaseImportCommand):
         origin_url = line['linkoffer']
         return origin_url
 
-    def extract_tags(self, line):
-        tags = []
-        return tags
-
     def extract_perimeter(self, line):
         """Converts the "perimetres" column value into a Perimeter object.
 

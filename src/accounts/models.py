@@ -3,7 +3,6 @@ from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
                                         BaseUserManager)
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.postgres.fields import ArrayField
 
 
 class UserQueryset(models.QuerySet):
@@ -91,12 +90,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     similar_aids_alert = models.BooleanField(
         _('Wants to receive alerts when similar aids are published'),
         default=False)
-    watched_tags = ArrayField(
-        models.CharField(max_length=50, blank=True),
-        verbose_name=_('Watched tags'),
-        default=list,
-        size=16,
-        blank=True)
 
     ##
     # Contributors related data
