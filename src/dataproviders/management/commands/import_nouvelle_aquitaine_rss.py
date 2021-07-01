@@ -102,6 +102,9 @@ class Command(CrawlerImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_author_id(self, line):
+        return DATA_SOURCE.aid_author_id or ADMIN_ID
+
     def extract_name(self, line):
         title = line['title'][:180]
         return title

@@ -1,67 +1,75 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from dataproviders.constants import IMPORT_LICENCES
 
 
 class DataSource(models.Model):
     name = models.CharField(
-        _('Name'),
+        'Nom',
         max_length=256)
     description = models.TextField(
-        _('Full description of the data source'),
+        'Description complète de la source de données',
         blank=True)
     import_details = models.TextField(
-        _('Additional details about this import'),
+        "Détails additionels concernant l'import",
         blank=True)
 
     backer = models.ForeignKey(
         'backers.Backer',
-        verbose_name=_('Backer'),
+        verbose_name="Porteur d'aides",
         on_delete=models.PROTECT,
         null=True, blank=True)
     perimeter = models.ForeignKey(
         'geofr.Perimeter',
-        verbose_name=_('Perimeter'),
+        verbose_name='Périmètre',
         on_delete=models.PROTECT,
         null=True, blank=True)
 
     import_api_url = models.URLField(
-        _('API url of the imported data'),
+        "URL de l'API",
+        help_text="L'URL utilisée par le script d'import",
         null=True, blank=True)
     import_data_url = models.URLField(
-        _('Origin url of the imported data'),
+        "URL d'origine de la donnée importée",
         null=True, blank=True)
     import_licence = models.CharField(
-        _('Under which license was this source imported?'),
+        "Sous quelle licence cette source a-t-elle été importée ?",
         max_length=50,
         choices=IMPORT_LICENCES,
         blank=True)
 
     contact_team = models.ForeignKey(
         'accounts.User',
+        verbose_name='Contact (team AT)',
         on_delete=models.PROTECT,
+        related_name='import_contact_team',
         limit_choices_to={'is_superuser': True},
-        verbose_name=_('Contact AT team'),
         null=True)
     contact_backer = models.TextField(
-        _('Contact backer'),
+        'Contact(s) coté porteur',
         blank=True)
+    aid_author = models.ForeignKey(
+        'accounts.User',
+        verbose_name="L'auteur par défaut des aides importées",
+        on_delete=models.PROTECT,
+        related_name='import_aid_author',
+        help_text='Mettre Admin AT par défaut',
+        null=True)
 
     date_created = models.DateTimeField(
-        _('Date created'),
+        'Date de création',
         default=timezone.now)
     date_updated = models.DateTimeField(
-        _('Date updated'),
+        'Date de mise à jour',
         auto_now=True)
     date_last_access = models.DateField(
-        _('Date of the latest access'),
+        'Date du dernier accès',
         null=True, blank=True)
 
     class Meta:
-        verbose_name = _('Data Source')
-        verbose_name_plural = _('Data Sources')
+        verbose_name = 'Source de données'
+        verbose_name_plural = 'Sources de données'
 
     def __str__(self):
         return self.name

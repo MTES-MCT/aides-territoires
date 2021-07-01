@@ -5,10 +5,10 @@ from dataproviders.models import DataSource
 
 
 class DataSourceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'contact_team', 'nb_aids',
-                    'date_last_access']
+    list_display = ['id', 'name', 'contact_team', 'aid_author', 'nb_aids', 'date_last_access']
     list_filter = ['contact_team']
-    autocomplete_fields = ['backer', 'perimeter', 'contact_team']
+
+    autocomplete_fields = ['backer', 'perimeter', 'contact_team', 'aid_author']
     readonly_fields = ['date_created', 'date_updated', 'date_last_access']
 
     def get_queryset(self, request):
