@@ -1,15 +1,18 @@
 $(document).ready(function() {
 
-    divWords = $("#aid").html().split(' ');    
-    aidPage = ''
-    for (i = 0; i < divWords.length; i++) 
-    {   
-       if (divWords[i] == KEY_WORDS) {
-          aidPage += ' ' + '<mark>' + divWords[i] + '</mark>';
-       } else {
-           aidPage += ' ' + divWords[i];           
-       }
-     }    
-     $("#aid").html(aidPage);
+    KEY_WORDS = KEY_WORDS.replace(/(\s+)/,"(<[^>]+>)*$1(<[^>]+>)*");    
+    textarea = $('#aid');    
+    newTextArea = '';
+    
+    if (KEY_WORDS) {    
 
+        newTextArea = textarea.html().replace(/(<mark>|<\/mark>)/igm, "");    
+        textarea.html(newTextArea);     
+            
+        query = new RegExp("("+KEY_WORDS+")", "gim");    
+        newtext= textarea.html().replace(query, "<mark>$1</mark>");    
+        newtext= newtext.replace(/(<mark>[^<>]*)((<[^>]+>)+)([^<>]*<\/mark>)/,"</mark><mark>");    
+
+        textarea.html(newtext);     
+    }  
 });
