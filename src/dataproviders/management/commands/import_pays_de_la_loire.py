@@ -110,6 +110,9 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_author_id(self, line):
+        return DATA_SOURCE.aid_author_id or ADMIN_ID
+
     def extract_name(self, line):
         title = line['aide_nom'][:180]
         # title = line['aid_objet_court'][:180]
