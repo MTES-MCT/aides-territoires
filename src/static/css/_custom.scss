@@ -1117,6 +1117,12 @@ section#stats {
 
 article#aid {
 
+    mark {
+        background-color: #ffff05;
+        color: inherit;
+        padding: 0.1em;
+    }
+
     ul.categories {
         list-style-type: none;
         padding: 0;

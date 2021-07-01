@@ -489,6 +489,7 @@
     PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';
     AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
     CURRENT_SEARCH = '{{ current_search | safe }}';
+    KEY_WORDS = '{{ current_search_dict.text }}';
 </script>
 {% compress js %}
 <script src="/static/js/aids/track_aid_events.js"></script>
@@ -499,5 +500,6 @@
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/responsive_iframe.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>
+<script src="/static/js/aids/mark_key_words.js"></script>
 {% endcompress %}
 {% endblock %}
