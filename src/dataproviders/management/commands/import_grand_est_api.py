@@ -15,6 +15,8 @@ from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
 
+ADMIN_ID = 1
+
 DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=3)
