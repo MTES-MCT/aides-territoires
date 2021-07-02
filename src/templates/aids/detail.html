@@ -349,7 +349,7 @@
         </div>
 
         <div class="aid-details">
-
+            <div id="highlight-area">
             {% if current_search_dict.projects and not messages %}
             <a href="#" id="fit_project_btn" class="js" data-toggle="modal" data-target="#match-project-modal">Évaluez cette aide</a>
             {% endif %}
@@ -430,6 +430,7 @@
 
             {% endwith %}
             {% endif %}
+            </div>
             <h2>{{ _('Going further') }}</h2>
             <button type="button" id="going-further-reveal-button" class="cta-btn d-inline-block">
                 Poursuivre la démarche pour obtenir l'aide

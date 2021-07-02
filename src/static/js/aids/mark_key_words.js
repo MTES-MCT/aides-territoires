@@ -19,7 +19,7 @@ $(document).ready(function() {
     PLURAL_KEY_WORDS = PLURAL_KEY_WORDS.replace(/(\s+)/,"(<[^>]+>)*$1(<[^>]+>)*");
 
     KEY_WORDS = KEY_WORDS.replace(/(\s+)/,"(<[^>]+>)*$1(<[^>]+>)*");    
-    textarea = $('#aid');    
+    textarea = $('#highlight-area');    
     newTextArea = '';
 
     if (KEY_WORDS) {    
