@@ -1,3 +1,5 @@
+import unicodedata
+
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
@@ -22,6 +24,15 @@ def reupload_files(model, fieldname):
                 item.save()
 
     return do_reupload_files
+
+
+def remove_accents(input_str):
+    """Remove accents from a string.
+
+    Shamelessly stolen from SO.
+    """
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def get_base_url():

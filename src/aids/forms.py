@@ -11,6 +11,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank
 from core.forms import (
     AutocompleteModelChoiceField, AutocompleteModelMultipleChoiceField,
     MultipleChoiceFilterWidget, RichTextField)
+from core.utils import remove_accents
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
@@ -134,7 +135,7 @@ class BaseAidForm(forms.ModelForm):
         """
         financers = self.cleaned_data.get('financers', None)
         instructors = self.cleaned_data.get('instructors', None)
-        self.instance.set_search_vector(financers, instructors)
+        self.instance.set_search_vector_unaccented(financers, instructors)
         return super().save(commit=commit)
 
 
@@ -557,10 +558,11 @@ class BaseAidSearchForm(forms.Form):
 
         text = self.cleaned_data.get('text', None)
         if text:
-            query = self.parse_query(text)
+            text_unaccented = remove_accents(text)
+            query = self.parse_query(text_unaccented)
             qs = qs \
-                .filter(search_vector=query) \
-                .annotate(rank=SearchRank(F('search_vector'), query))
+                .filter(search_vector_unaccented=query) \
+                .annotate(rank=SearchRank(F('search_vector_unaccented'), query))
 
         targeted_audiences = self.cleaned_data.get('targeted_audiences', None)
         if targeted_audiences:

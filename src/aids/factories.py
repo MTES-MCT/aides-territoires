@@ -55,6 +55,6 @@ class AidFactory(DjangoModelFactory):
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
         obj = super()._create(model_class, *args, **kwargs)
-        obj.set_search_vector(financers=[])
+        obj.set_search_vector_unaccented(financers=[])
         obj.save()
         return obj
