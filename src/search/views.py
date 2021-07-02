@@ -4,8 +4,6 @@ from projects.forms import ProjectSuggestForm
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)
-from categories.models import Category
-from projects.models import Project
 
 
 class SearchMixin:

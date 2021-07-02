@@ -15,7 +15,6 @@ from categories.models import Theme, Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from pages.admin import PageForm
-from projects.models import Project
 
 
 AUDIENCES = [
@@ -114,7 +113,6 @@ class ThemeSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': _('Aid title, keyword, etc.')}))
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
