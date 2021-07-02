@@ -415,11 +415,13 @@ class AidDetailView(DetailView):
             current_search = response.context_data.get('current_search', '')
             host = request.get_host()
             request_ua = request.META.get('HTTP_USER_AGENT', '')
+            request_referer = request.META.get('HTTP_REFERER', '')
             log_aidviewevent.delay(
                 aid_id=self.object.id,
                 querystring=current_search,
                 source=host,
-                request_ua=request_ua)
+                request_ua=request_ua,
+                request_referer=request_referer)
 
         return response
 

@@ -15,8 +15,9 @@ pytestmark = pytest.mark.django_db
 
 
 def test_log_aid_view_event(client):
-    # user_ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0"  # noqa
+    # user_ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0"
     aid = AidFactory()
+
     assert AidViewEvent.objects.count() == 0
 
     aid_url = reverse('aid_detail_view', args=[aid.slug])
@@ -27,13 +28,28 @@ def test_log_aid_view_event(client):
 
 
 def test_crawler_should_not_log_aid_view_event_stat(client):
-    bot_ua = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"  # noqa
+    bot_ua = "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
     aid = AidFactory()
+
     assert AidViewEvent.objects.count() == 0
 
     aid_url = reverse('aid_detail_view', args=[aid.slug])
 
     client.get(aid_url, HTTP_USER_AGENT=bot_ua)
+
+    assert AidViewEvent.objects.count() == 0
+
+
+def test_scraper_should_not_log_aid_view_event_stat(client):
+    scraper_referer = "https://aides-territoires.beta.gouv.fr/sitemap.xml"
+    aid = AidFactory()
+
+    assert AidViewEvent.objects.count() == 0
+
+    aid_url = reverse('aid_detail_view', args=[aid.slug])
+
+    # client.get(aid_url, headers={'referer': scraper_referer})
+    client.get(aid_url, HTTP_REFERER=scraper_referer)
 
     assert AidViewEvent.objects.count() == 0
 

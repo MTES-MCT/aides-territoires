@@ -24,15 +24,16 @@ def log_aidmatchprojectevent(aid_id, project_id=''):
 
 
 @app.task
-def log_aidviewevent(aid_id, querystring='', source='', request_ua=''):
+def log_aidviewevent(aid_id, querystring='', source='', request_ua='', request_referer=''):
     source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
 
     # There are some cases where we don't want to log the view event:
     # - a crawler
     is_crawler = crawler_detect.isCrawler(request_ua)
+    is_scraper = 'sitemap.xml' in request_referer
 
-    if not any([is_crawler]):
+    if not any([is_crawler, is_scraper]):
         targeted_audiences = get_querystring_value_list_from_key(querystring, 'targeted_audiences') or None  # noqa
 
         AidViewEvent.objects.create(
