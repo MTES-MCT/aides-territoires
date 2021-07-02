@@ -520,9 +520,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         null=True)
 
     # This field is used to index searchable text content
-    search_vector = SearchVectorField(
-        'Search vector',
-        null=True)
     search_vector_unaccented = SearchVectorField(
         'Search vector unaccented',
         null=True)
@@ -558,7 +555,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name = 'Aide'
         verbose_name_plural = 'Aides'
         indexes = [
-            GinIndex(fields=['search_vector']),
+            GinIndex(fields=['search_vector_unaccented']),
         ]
 
     def __init__(self, *args, **kwargs):
@@ -585,48 +582,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if self.is_published() and self.date_published is None:
             self.date_published = timezone.now()
 
-    def set_search_vector(self, financers=None, instructors=None):
-        """Update the full text cache field."""
-
-        # Note: we use `SearchVector(Value(self.field))` instead of
-        # `SearchVector('field')` because the latter only works for updates,
-        # not when inserting new records.
-        #
-        # Note 2: we have to pass the financers parameter instead of using
-        # `self.financers.all()` because that last expression would not work
-        # during an object creation.
-        search_vector = \
-            SearchVector(
-                Value(self.name, output_field=models.CharField()),
-                weight='A',
-                config='french') + \
-            SearchVector(
-                Value(self.eligibility, output_field=models.CharField()),
-                weight='D',
-                config='french') + \
-            SearchVector(
-                Value(self.description, output_field=models.CharField()),
-                weight='B',
-                config='french')
-
-        if financers:
-            search_vector += SearchVector(
-                Value(
-                    ' '.join(str(backer) for backer in financers),
-                    output_field=models.CharField()),
-                weight='D',
-                config='french')
-
-        if instructors:
-            search_vector += SearchVector(
-                Value(
-                    ' '.join(str(backer) for backer in instructors),
-                    output_field=models.CharField()),
-                weight='D',
-                config='french')
-
-        self.search_vector = search_vector
-
     def set_search_vector_unaccented(self, financers=None, instructors=None):
         """Update the full text unaccented cache field."""
 
@@ -643,12 +598,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 weight='A',
                 config='french_unaccent') + \
             SearchVector(
-                Value(self.eligibility, output_field=models.CharField()),
-                weight='D',
-                config='french_unaccent') + \
-            SearchVector(
                 Value(self.description, output_field=models.CharField()),
                 weight='B',
+                config='french_unaccent') + \
+            SearchVector(
+                Value(self.eligibility, output_field=models.CharField()),
+                weight='D',
                 config='french_unaccent')
 
         if financers:
