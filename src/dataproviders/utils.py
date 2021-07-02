@@ -11,9 +11,10 @@ from categories.models import Theme, Category
 REMOVABLE_TAGS = ['script', 'style']
 ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'br', 'a'
+    'br', 'a', 'iframe',
 ]
 ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style',
+                 'allow', 'frameborder', 'allowfullscreen',  # to display iframe
                  'target', 'rel']  # for links opening in a new tab
 
 
@@ -63,11 +64,11 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
-                if not tag.contents and tag.name not in ['br', 'img']:
+                if not tag.contents and tag.name not in ['br', 'img', 'iframe']:
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)
-                elif tag.string and not tag.string.strip():
+                elif tag.string and not tag.string.strip() and tag.name not in ['iframe']:
                     tag.decompose()
 
                 # Replace relative urls with absolute ones
