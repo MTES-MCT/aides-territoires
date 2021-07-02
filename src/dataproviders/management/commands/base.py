@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from aids.models import Aid
 from aids.forms import AidEditForm
+from stats.utils import log_event
 
 
 # Call for projects will often contain those words
@@ -95,11 +96,16 @@ class BaseImportCommand(BaseCommand):
                     self.stdout.write(self.style.ERROR(
                         'Cannot import aid {}: {}'.format(aid.name, e)))
 
-        self.stdout.write(self.style.SUCCESS(
-            '{} aids in input, {} aids created, {} aids updated'.format(
-                len(aids_and_related_objects), created_counter, updated_counter
-            )
-        ))
+        success_message = '{} aides total, {} aides crées, {} aids maj'.format(
+            len(aids_and_related_objects), created_counter, updated_counter)
+        self.stdout.write(self.style.SUCCESS(success_message))
+
+        # log the results (works only for DataSource imports)
+        try:
+            data_source_name = aids_and_related_objects[0][0].import_data_source.name
+            log_event('aid', 'import', meta=success_message, source=data_source_name, value=len(aids_and_related_objects))  # noqa
+        except:  # noqa
+            pass
 
     def fetch_data(self):
         """Download and / or parse the data file.

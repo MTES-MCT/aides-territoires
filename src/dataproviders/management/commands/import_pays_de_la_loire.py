@@ -17,6 +17,8 @@ from backers.models import Backer
 from aids.models import Aid
 
 
+ADMIN_ID = 1
+
 DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=2)
