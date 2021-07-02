@@ -104,6 +104,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
     def finalize_response(self, request, response, *args, **kwargs):
         request_ua = request.META.get('HTTP_USER_AGENT', '')
+        request_referer = request.META.get('HTTP_REFERER', '')
 
         # Fetching only 1 aid --> AidViewEvent
         if self.detail:
@@ -112,7 +113,8 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
                     aid_id=response.data.get('id'),
                     querystring=request.GET.urlencode(),
                     source='api',
-                    request_ua=request_ua)
+                    request_ua=request_ua,
+                    request_referer=request_referer)
         # Fetching all aids (with or without filters) --> AidSearchEvent
 
         else:
