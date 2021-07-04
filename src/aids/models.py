@@ -627,6 +627,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_publication_date()
+        if self.is_published() and self.is_local():
+            self.extend_generic_aid_date()
         is_new = not self.id  # There's no ID => newly created aid
         is_being_published = self.is_published() and self.status_has_changed()
         if not is_new and is_being_published and not self.is_imported:
@@ -744,3 +746,29 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             for item in field.value_from_object(source_aid):
                 getattr(self, field.attname).add(item)
         self.save()
+
+    def extend_generic_aid_date(self):
+        """
+        For a local aid, check is it's submission date should be used
+        to extend the related generic aid's date.
+        Return True if the change occured.
+        """
+        if not self.is_local():
+            return False
+        if not self.generic_aid.submission_deadline:
+            return False
+        extended = False
+        # We will look at dates from the other local aids
+        all_other_local_aids = self.generic_aid.local_aids \
+            .filter(submission_deadline__isnull=False) \
+            .exclude(pk=self.pk)
+        all_dates = all_other_local_aids.values_list('submission_deadline', flat=True)
+        all_dates = list(all_dates)
+        all_dates.append(self.generic_aid.submission_deadline)
+        if self.submission_deadline > max(all_dates):
+            # If this local aid has the farthest submission date,
+            # we use extend the generic aid's date
+            self.generic_aid.submission_deadline = self.submission_deadline
+            self.generic_aid.save()
+            extended = False
+        return extended
