@@ -29,7 +29,8 @@ def log_aidviewevent(aid_id, querystring='', source='', request_ua='', request_r
     querystring_cleaned = clean_search_querystring(querystring)
 
     # There are some cases where we don't want to log the view event:
-    # - a crawler
+    # - a crawler (bot)
+    # - a scraper (user script that parses & pulls data from our website)
     is_crawler = crawler_detect.isCrawler(request_ua)
     is_scraper = 'sitemap.xml' in request_referer
 
