@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load compress %}
 
-{% block extratitle %}Recherche – Thématique{% endblock %}
+{% block extratitle %}Recherche – Projet / Thématique{% endblock %}
 
 {% block sectionid %}search-steps{% endblock %}
 
@@ -11,7 +11,7 @@
 <p class="steps">
     {% include 'search/_breadcrumb.html' with label='La structure' %}
     {% include 'search/_breadcrumb.html' with label='Le territoire' %}
-    {% include 'search/_breadcrumb.html' with label='Les thématiques' %}
+    {% include 'search/_breadcrumb.html' with label='Le projet / les thématiques' %}
     {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' counter=4 %}
 </p>
 </div>
@@ -19,7 +19,7 @@
 
 {% block content %}
 <div id='themes-step'>
-    <h1>Trouver des aides</h1>
+    <h1>Le projet / les thématiques</h1>
     <div class="info">
         <p>Vous pouvez trouver des aides en utilisant le moteur de recherche ou en naviguant dans les thématiques.</p>
     </div>
