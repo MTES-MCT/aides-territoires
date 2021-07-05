@@ -28,24 +28,24 @@
     </div>
     <div class="container">
         <div id="all-logos">
-            <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique">
+            <a href="https://www.ecologique-solidaire.gouv.fr/" target="_blank" rel="noopener" title="Ministère de la Transition écologique">
                 <img class="logo ministry-logo" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
             </a>
 
-            <a href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales">
+            <a href="https://www.cohesion-territoires.gouv.fr/" target="_blank" rel="noopener" title="Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales">
                 <img class="logo ministry-logo" src="/static/img/logo_mct.svg" alt="Logo du Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales" />
             </a>
 
-            <a href="https://aides-territoires.beta.gouv.fr" title="Aides-territoires">
+            <a href="https://aides-territoires.beta.gouv.fr" target="_blank" rel="noopener" title="Aides-territoires">
                 <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
             </a>
 
-            <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
+            <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" target="_blank" rel="noopener" title="La Fabrique Numérique">
                 <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
             </a>
     
             {% if search_page.logo %}
-                <a class="partner-link" href="{{ search_page.logo_link }}">
+                <a class="partner-link" href="{{ search_page.logo_link }}" target="_blank" rel="noopener">
                     <img class="logo" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
                 </a>
             {% endif %}
