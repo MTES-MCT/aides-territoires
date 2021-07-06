@@ -36,6 +36,12 @@
     </li>
     {% endif %}
 
+    <li>
+        <a href="{% url 'blog_post_list_view' %}">
+            Blog
+        </a>
+    </li>
+
     <li class="user-menu">
         <a href="#" data-toggle="dropdown">
             {{ user.full_name }}
