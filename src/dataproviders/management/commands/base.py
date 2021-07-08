@@ -103,7 +103,7 @@ class BaseImportCommand(BaseCommand):
         # log the results (works only for DataSource imports)
         try:
             data_source_name = aids_and_related_objects[0][0].import_data_source.name
-            log_event('aid', 'import', meta=success_message, source=data_source_name, value=len(aids_and_related_objects))  # noqa
+            log_event('aid', 'import_api', meta=success_message, source=data_source_name, value=len(aids_and_related_objects))  # noqa
         except:  # noqa
             pass
 
