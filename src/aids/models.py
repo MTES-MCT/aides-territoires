@@ -257,7 +257,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('association', 'Associations'),
         ('private_sector', 'Entreprises privées'),
         ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
-        ('public_org', 'Établissement public'),
+        ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
         ('researcher', 'Recherche'),
         ('private_person', 'Particuliers'),
         ('farmer', 'Agriculteurs'),
