@@ -39,7 +39,12 @@
     </div>
     {% endif %}
 
+    {% if aid.headline_name %}
+    <h1> {{ aid.headline_name|safe }} </h1>
+    {% else %}
     <h1> {{ aid.name }} </h1>
+    {% endif %}
+
     {% if aid.categories %}
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories">
@@ -357,7 +362,13 @@
 
             <h3>{{ _('Description') }}</h3>
             {% if aid.description %}
+
+            {% if aid.headline_description %}
+            {{ aid.headline_description|safe }}
+            {% else %}
             {{ aid.description|safe }}
+            {% endif %}
+
             {% else %}
             <p> {{ _('No detailed description was submitted.') }} </p>
             {% endif %}
@@ -392,7 +403,11 @@
 
             {% if aid.project_examples %}
             <h3>Exemples de projets réalisables</h3>
+            {% if aid.headline_project_examples %}
+            {{ aid.headline_project_examples|safe }}
+            {% else %}
             {{ aid.project_examples|safe }}
+            {% endif %}
             {% endif %}
 
             {% if aid.eligibility %}

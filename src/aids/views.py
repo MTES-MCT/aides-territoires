@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchHeadline
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
@@ -17,6 +18,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils.functional import cached_property
 from django.core.mail import send_mail
+from core.utils import remove_accents
 
 from braces.views import MessageMixin
 
@@ -35,6 +37,7 @@ from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import (log_aidviewevent, log_aidsearchevent)
+from aids.forms import BaseAidSearchForm
 
 
 class AidPaginator(Paginator):
@@ -296,6 +299,19 @@ class AidDetailView(DetailView):
                                        queryset=instructors_qs)) \
             .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
+
+        current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
+        current_search_form = AidSearchForm(data=QueryDict(current_search))
+
+        if current_search_form.is_valid():
+            if 'text' in clean_search_form(current_search_form.cleaned_data, remove_extra_fields=True):
+                text = clean_search_form(current_search_form.cleaned_data, remove_extra_fields=True)['text']
+                text_unaccented = remove_accents(text)
+                query = BaseAidSearchForm.parse_query(self, text)
+                base_qs = base_qs \
+                    .annotate(headline_name=SearchHeadline('name', query, start_sel='<mark>', stop_sel='</mark>')) \
+                    .annotate(headline_description=SearchHeadline('description', query, start_sel='<mark>', stop_sel='</mark>')) \
+                    .annotate(headline_project_examples=SearchHeadline('project_examples', query, start_sel='<mark>', stop_sel='</mark>'))
 
         user = self.request.user
         if user.is_authenticated and user.is_superuser:
