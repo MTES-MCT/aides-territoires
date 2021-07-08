@@ -1895,6 +1895,36 @@ div#search-steps {
         }
     }
 
+    #text-research-form {
+        margin-bottom: 0;
+
+        button {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        #form-group-text {
+            margin-bottom: 0.7rem;
+        }
+    }
+
+    #text-research {
+        margin-bottom: 3rem;
+
+        #text-research-help {
+            font-size: $font-size-small;
+
+            p {
+                margin-bottom: .4rem;
+            }
+
+            span {
+                font-size: $font-size-medium;
+            }
+        }
+    
+    }
+
     form#theme {
 
         @extend .col-md-11;

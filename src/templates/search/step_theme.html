@@ -31,12 +31,18 @@
 
         {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
         {% include '_field_snippet.html' with field=form.perimeter.as_hidden %}
-        {% include '_field_snippet.html' with field=form.text %}
-
+        {% include '_field_snippet.html' with field=form.text %}       
         <button name="action" value="search" type="submit">
             Envoyer
         </button>         
     </form>   
+    <div id="text-research-help">
+        <p><strong><span>&#128161;</span> Pour rechercher une expression entière mettez un + entre chaque terme de la recherche</strong></p>
+        <ul>
+            <li>"rénovation cantine" renverra tous les résultats contenant les termes "rénovation" et/ou "cantine"</li>
+            <li>"rénovation+cantine" renverra les aides contenant les 2 termes rénovation et cantine</li>
+        </ul>
+    </div>
 </div>
 
 <h2>Ou naviguez dans les thématiques :</h2>
