@@ -112,3 +112,44 @@ div.module > table > tbody a:visited {
         width: 100% !important;
     }
 }
+
+/* improve trumbowyg editor preview */
+
+.trumbowyg-editor > h1::after {
+    content: "";
+    color: transparent;
+    background-color: #DB1C83;
+    display: block;
+    width: 6rem;
+    height: 0px;
+    max-height: 1px;
+    padding: 0;
+    border: 2px solid #DB1C83;
+    border-radius: 4px;
+    margin: 0.5rem auto 0 auto;
+    margin-left: 0;
+}
+
+.trumbowyg-editor > h2 {
+    font-size: 20px;
+    color: var(--body-fg) !important;
+    background-color: #fff !important;
+}
+
+.trumbowyg-editor > h3 {
+    font-size: 17px;
+    color: var(--body-fg) !important;
+}
+
+.trumbowyg-editor > h4 {
+    font-size: 14px;
+    color: var(--body-fg) !important;
+}
+
+.trumbowyg-editor ul > li {
+    list-style: square !important;
+}
+
+.trumbowyg-editor ul {
+    padding-left: 2rem !important;
+}
