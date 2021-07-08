@@ -26,11 +26,7 @@
 
 <h2>Affinez ces résultats en sélectionnant des sous-thématiques</h2>
 
-{% if suggest_project %}
-<form id="categories" action="{% url 'search_step_project' %}" method="GET">
-{% else %}
 <form id="categories" action="{% url 'search_view' %}" method="GET">
-{% endif %}
 
     {% include '_form_snippet.html' %}
 
@@ -42,15 +38,9 @@
         <a class="previous-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
             Revenir en arrière
         </a>
-        {% ifequal request.GET.themes 'urbanisme-logement-amenagement' %}
-            <a class="next-btn" href="{% url 'search_step_project' %}?{{ querystring }}">
-                Passer cette étape
-            </a>
-        {% else %}
-            <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-                Passer cette étape
-            </a>
-        {% endifequal %}
+        <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
+            Passer cette étape
+        </a>
     </div>
 
 </form>
