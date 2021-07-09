@@ -13,6 +13,7 @@ from backers.models import Backer
 from geofr.models import Perimeter
 from programs.models import Program
 from projects.models import Project
+from stats.utils import log_event
 
 
 AIDS_BOOLEAN_FIELDS = ['is_call_for_project', 'in_france_relance',
@@ -146,6 +147,13 @@ class AidResource(resources.ModelResource):
                     else:
                         data[field.column_name] = None
             field.save(obj, data, is_m2m)
+
+    def after_import(self, dataset, result, using_transactions, dry_run, **kwargs):
+        if not dry_run:
+            file_name = kwargs.get('file_name', 'nom du fichier inconnu')
+            success_message = '{} aides total, {} aides crées, {} aids maj'.format(
+                result.total_rows, result.totals['new'], result.totals['update'])
+            log_event('aid', 'import_xlsx_csv', meta=success_message, source=file_name, value=result.total_rows)  # noqa
 
     def get_export_headers(self):
         """override get_export_headers() to translate field names."""
