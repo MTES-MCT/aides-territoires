@@ -650,7 +650,7 @@ class BaseAidSearchForm(forms.Form):
 
         return query
 
-    def get_order_fields(self, qs, has_highlighted_aids=False):
+    def get_order_fields(self, qs, has_highlighted_aids=False, pre_order=None):
         """On which fields must this queryset be sorted?."""
 
         # Default results order
@@ -658,7 +658,12 @@ class BaseAidSearchForm(forms.Form):
         order_fields = ['perimeter__scale', 'submission_deadline']
 
         # If the search comes from a PP
-        if has_highlighted_aids:
+        if pre_order and has_highlighted_aids:
+            if pre_order == 'publication_date':
+                order_fields = ['-is_highlighted_aid'] + ['-date_published'] + order_fields
+            elif pre_order == 'submission_deadline':
+                order_fields = ['-is_highlighted_aid'] + ['submission_deadline'] + order_fields
+        elif has_highlighted_aids:
             order_fields = ['-is_highlighted_aid'] + order_fields
 
         # If the user submitted a text query, we order by query rank first
@@ -675,9 +680,9 @@ class BaseAidSearchForm(forms.Form):
 
         return order_fields
 
-    def order_queryset(self, qs, has_highlighted_aids=False):
+    def order_queryset(self, qs, has_highlighted_aids=False, pre_order=None):
         """Set the order value on the queryset."""
-        qs = qs.order_by(*self.get_order_fields(qs, has_highlighted_aids=has_highlighted_aids))  # noqa
+        qs = qs.order_by(*self.get_order_fields(qs, has_highlighted_aids=has_highlighted_aids, pre_order=pre_order,))  # noqa
         return qs
 
     def perimeter_filter(self, qs, search_perimeter):

@@ -197,7 +197,10 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if targeted_audiences:
             qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
-        qs = self.form.order_queryset(qs, has_highlighted_aids=True).distinct()
+        # if order_by filter exists in the base querystring we want to use it,
+        # combine with hightlighted_aids order
+        order = self.search_page.get_base_querystring_data().get('order_by')
+        qs = self.form.order_queryset(qs, has_highlighted_aids=True, pre_order=order).distinct()
 
         host = self.request.get_host()
         request_ua = self.request.META.get('HTTP_USER_AGENT', '')
