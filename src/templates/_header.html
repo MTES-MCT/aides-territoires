@@ -27,10 +27,10 @@
                     <div class="fr-header__tools-links">
                         <ul class="fr-links-group">
                             <li>
-                                <a class="fr-link fr-fi-lock-line" href="#">Se connecter</a>
+                                <a class="fr-link fr-fi-lock-line" href="{% url 'aid_draft_list_view' %}">Se connecter</a>
                             </li>
                             <li>
-                                <a class="fr-link fr-fi-account-line" href="#">S’enregistrer</a>
+                                <a class="fr-link fr-fi-account-line" href="{% url 'aid_draft_list_view' %}">S’enregistrer</a>
                             </li>
                         </ul>
                     </div>
@@ -62,7 +62,7 @@
                         <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="{% url 'aid_draft_list_view' %}" target="_self">Blog</a>
+                        <a class="fr-nav__link" href="{% url 'blog_post_list_view' %}" target="_self">Blog</a>
                     </li>
                 </ul>
             </nav>
