@@ -1,24 +1,23 @@
 {% load i18n aids %}
 
-<article class="aid">
-    <div>
-        {% if aid.has_approaching_deadline %}
-            <span class="deadline deadline-delta">J-{{ aid.days_before_deadline }}</span>
-        {% else %}
-            <span class="deadline no-deadline"></span>
-        {% endif %}
+<article class="fr-card fr-enlarge-link">
+    <div class="fr-card__body">
 
-        <h1>
-            <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-            {% if aid.author.is_certified %}
-                <span class="fas fa-award" title="{{ _('This aid was published by a certified account.') }}"></span>
+        <h2 class="fr-card__title fr-mb-1w">
+            {% if aid.has_approaching_deadline %}
+                <span class="deadline deadline-delta">J-{{ aid.days_before_deadline }}</span>
+            {% else %}
+                <span class="deadline no-deadline"></span>
             {% endif %}
+            <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
             {{ aid.name }}
             </a>
-        </h1>
+        </h2>
 
+        <div class="fr-card__desc">
+        
         {% if aid.financers.all %}
-            <h2 class="financers">Porteurs d'aides</h2>
+            <p class="fr-mb-1w fr-mt-3w fr-uppercase"><strong class="financers">Porteurs d'aides</strong></p>
             <ul class="financers">
             {% for financer in aid.financers.all %}
                 <li>
@@ -32,7 +31,7 @@
         {% endif %}
 
         {% if aid.is_financial or aid.is_technical %}
-            <h2 class="aid-type">{{ _('Aid type') }}</h2>
+            <p class="fr-mb-1w fr-mt-3w fr-uppercase"><strong class="aid-type">{{ _('Aid type') }}</strong></p>
             <ul id="aid-type-list">
                 {% if aid.is_financial %}
                 <li>
@@ -48,7 +47,7 @@
         {% endif %}
 
         {% if aid.subvention_rate %}
-            <h2 class="subvention-rate">Taux de subvention</h3>
+            <p class="fr-mb-1w fr-mt-3w fr-uppercase"><strong class="subvention-rate">Taux de subvention</strong></p>
             <ul>
                 {% if aid.subvention_rate.lower %}
                     <li><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
@@ -60,12 +59,14 @@
         {% endif %}
 
         {% if aid.recurrence %}
-            <h2 class="recurrence">Récurrence</h2>
-            <p>{{ aid.get_recurrence_display }}</p>
+            <p class="fr-mb-1w fr-mt-3w fr-uppercase"><strong class="recurrence">Récurrence</strong></p>
+            <ul>
+                <li>{{ aid.get_recurrence_display }}</li>
+            </ul>
         {% endif %}
 
         {% if aid.has_calendar %}
-            <h2 class="deadline">{{ _('Calendar') }}</h2>
+            <p class="fr-mb-1w fr-mt-3w fr-uppercase"><strong class="deadline">{{ _('Calendar') }}</strong></p>
             <ul>
             {% if aid.is_coming_soon %}
             <li id="coming-soon">Ouverture prochaine de l'aide&nbsp;!</li>
@@ -88,7 +89,7 @@
                 </span>
             </div>
         {% endif %}
-
+        </div>
     </div>
 
 </article>

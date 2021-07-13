@@ -1,31 +1,27 @@
 {% load i18n %}
 
 {% if aids %}
-    <div class="aids">
-    {% for aid in aids %}
-        {% if paginator.count < 6 and forloop.counter0 == 0 %}
+    <div class="fr-container">
         {% if promotions %}
             {% include 'aids/_promotions.html' %}
         {% endif %}
-        {% endif %}
-        <div class="col">
-            {% include 'aids/_aid_result.html' with aid=aid %}
-        </div>
-        {% if forloop.counter0 == 5 %}
-        {% if promotions %}
-        {% include 'aids/_promotions.html' %}
-        {% else %}
-        <div id="save-alert-block">
-            <h5>🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</h5>
-            <div>
-                <a href="#" id="save-alert-results-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-                    {{ _('Create an alert') }}
-                </a>
+        <div class="fr-grid-row">
+        {% for aid in aids %}
+            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                {% include 'aids/_aid_result.html' with aid=aid %}
             </div>
+            {% if forloop.counter0 == 5 %}
+            <div id="save-alert-block">
+                <h5>🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</h5>
+                <div>
+                    <a href="#" id="save-alert-results-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
+                        {{ _('Create an alert') }}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
         </div>
-        {% endif %}
-        {% endif %}
-    {% endfor %}
     </div>
 {% else %}
     <div class="empty-result">

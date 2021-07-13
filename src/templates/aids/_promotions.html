@@ -1,29 +1,12 @@
-<div id="carouselControls" class="carousel slide promotions-slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        {% for promotion in promotions %}
-        {% if forloop.first %}
-        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-        {% else %}
-        <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-        {% endif %}
-        {% endfor %}
-    </ol>
-    <div class="carousel-inner">
-        {% for promotion in promotions %}
-        {% if forloop.first %}
-        <div class="carousel-item active">
-        {% else %}
-        <div class="carousel-item">
-        {% endif %}
-            <div id="promotion-block" class="d-block w-100">
-                <h5>{{ promotion.short_text }}</h5>
-                <div id="promotion-block-link">
-                    <a id="{{ promotion.id }}" href="{{ promotion.button_link }}">
-                        {{ promotion.button_title }}
-                    </a>
-                </div>
+<div class="fr-grid-row fr-container fr-grid-row--center fr-background-alt-pink">
+    {% for promotion in promotions %}
+    <div class="fr-col fr-p-3w">
+            <h5>{{ promotion.short_text }}</h5>
+            <div id="promotion-block-link">
+                <a id="{{ promotion.id }}" href="{{ promotion.button_link }}">
+                    {{ promotion.button_title }}
+                </a>
             </div>
-        </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
