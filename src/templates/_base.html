@@ -1,6 +1,6 @@
 {% load compress analytics i18n settings %}
 <!doctype html>
-<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}">
+<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}" data-fr-theme="default">
     <head>
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock %}{% endblock %}</title>
 
@@ -17,9 +17,8 @@
         <link rel="icon" href="/static/favicons/favicon.png" type="image/png">
         <link rel="icon" sizes="32x32" href="/static/favicons/favicon-32x32.png" type="image/png">
 
-
         {% compress css %}
-            <link rel="stylesheet" href="/static/css/fonts.scss" type="text/x-scss" charset="utf-8">
+            <link rel="stylesheet" href="/static/@gouvfr/dsfr/dist/css/dsfr.min.css">
             <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
         {% endcompress %}
         {% block extra_css %}{% endblock %}
@@ -65,7 +64,8 @@
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
-        <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="/static/@gouvfr/dsfr/dist/js/dsfr.module.min.js"></script>
+        <script type="text/javascript" nomodule src="/static/@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js"></script>
         {% include '_js_i18n.html' %}
         <script>
             // Piwik variables

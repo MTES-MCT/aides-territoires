@@ -1,25 +1,74 @@
 {% load settings %}
 
-<nav id="main-navbar">
-    <div class="container-lg">
-        <a class="homelink" href="{% url 'home' %}">
-            <img class="marianne d-none d-xs-inline-block d-sm-none" src="/static/img/marianne.svg" alt="Logo Marianne" /><img class="at d-sm-none" src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
-            <img class="marianne d-none d-sm-inline-block" src="/static/img/logo_RP.svg" alt="Logo Marianne" /><img class="at d-none d-sm-inline-block" src="/static/img/logo_AT_courbes.svg" alt="Aides-territoires" />
-        </a>
 
-        {% block user_menu %}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="{{ _('Toggle main menu') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            {% if user.is_authenticated %}
-                {% include '_authenticated_menu.html' %}
-            {% else %}
-                {% include '_anonymous_menu.html' %}
-            {% endif %}
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                République
+                                <br>Française
+                            </p>
+                        </div>
+                        <div class="fr-header__operator">
+                            <img src="/static/img/logo_AT_courbes.svg" class="fr-responsive-img" style="max-width:9.0625rem;" alt="Aides-territoires" />
+                        </div>
+                        <div class="fr-header__navbar">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-870" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-4">
+                                Menu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                        <ul class="fr-links-group">
+                            <li>
+                                <a class="fr-link fr-fi-lock-line" href="#">Se connecter</a>
+                            </li>
+                            <li>
+                                <a class="fr-link fr-fi-account-line" href="#">S’enregistrer</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fr-header__search fr-modal" id="modal-866">
+                        <div class="fr-container fr-container-lg--fluid">
+                            <button class="fr-link--close fr-link" aria-controls="modal-866">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endblock %}
     </div>
-</nav>
+    <div class="fr-header__menu fr-modal" id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
+        <div class="fr-container">
+            <button class="fr-link--close fr-link" aria-controls="modal-870">Fermer</button>
+            <div class="fr-header__menu-links"></div>
+            <nav class="fr-nav" id="navigation-869" role="navigation" aria-label="Menu principal">
+                <ul class="fr-nav__list">
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="{% url 'home' %}" target="_self">Accueil</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="/plateforme-aides-territoires/" target="_self">La démarche</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="/porteurs-aides/" target="_self">Porteurs d'aides</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="{% url 'aid_draft_list_view' %}" target="_self">Blog</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
 {% staging_warning %}
