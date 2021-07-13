@@ -36,25 +36,19 @@
 
 <footer class="fr-footer" role="contentinfo" id="footer">
     <div class="fr-container">
-        <div class="fr-footer__body">
-            <div class="fr-footer__brand fr-enlarge-link">
+        <div class="fr-footer__body fr-footer__body--operator">
+            <div class="fr-footer__brand">
                 <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique">
                     <img class="logo ministry-logo" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
                 </a>
-                <a href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
-                    <img class="logo ministry-logo" src="/static/img/logo_mct.svg" alt="Logo du Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales" />
+                <a class="fr-footer__brand-link fr-ml-3w" href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
+                    <img class="fr-footer__logo" src="/static/img/logo_mct.svg" alt="logo du Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
                 </a>
             </div>
-
             <div class="fr-footer__content">
-                <p class="fr-footer__content-desc">
-                    <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique" class="fr-footer-content__link">
-                        La Fabrique Numérique
-                    </a>        
-                </p>
                 <div class="fr-grid-row fr-grid-row--center">
                     <p>Suivez nos actualités sur&nbsp: </p>
-                    <ul class="fr-grid-row fr-grid-row--center">
+                    <ul class="fr-grid-row fr-grid-row--center">        
                         <li>
                             <a href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter" target="_blank" rel="noopener">
                                 <img src="/static/img/logo_twitter.svg" alt="twitter d'aides territoires" class="fr-icon-xs">
@@ -63,7 +57,22 @@
                         <li>
                             <a href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener">
                                 <img src="/static/img/logo_linkedin.svg" alt="linkedin d'aides territoires" class="fr-icon-xs">
-                            </a>    
+                            </a>
+                        </li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
+
+        <div class="fr-footer__partners">
+            <h4 class="fr-footer__partners-title">Nos partenaires</h4>
+            <div class="fr-footer__partners-logos">
+                <div class="fr-footer__partners-sub">
+                    <ul>
+                        <li>
+                            <a class="fr-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel"">
+                                <img class="fr-footer__logo" src="/static/img/logo-fabriquenumerique.svg" alt="Logo : {{ selected_backer.name }}">
+                            </a>
                         </li>
                     </ul>
                 </div>
