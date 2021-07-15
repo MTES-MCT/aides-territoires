@@ -77,13 +77,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(
         _('Last name'),
         max_length=256)
-    date_joined = models.DateTimeField(
-        _('Date joined'),
-        default=timezone.now)
 
-    ##
     # Account settings fields
-    ##
     ml_consent = models.BooleanField(
         _('Gave consent to receive communications'),
         default=False)
@@ -91,9 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Wants to receive alerts when similar aids are published'),
         default=False)
 
-    ##
     # Contributors related data
-    ##
     organization = models.CharField(
         _('Organization'),
         max_length=128,
@@ -106,14 +99,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('Contact phone number'),
         max_length=35,
         blank=True)
-    is_contributor = models.BooleanField(
-        _('Is contributor'),
-        help_text=_('Can access a dashboard to create aids'),
-        default=True)
     is_certified = models.BooleanField(
         _('Is certified'),
         help_text=_('Display a badge next to this user\'s aids'),
         default=False)
+
+    # Roles
+    is_contributor = models.BooleanField(
+        _('Is contributor'),
+        help_text=_('Can access a dashboard to create aids'),
+        default=True)
+
+    date_created = models.DateTimeField(
+        'Date de création',
+        default=timezone.now)
+    date_updated = models.DateTimeField(
+        'Date de mise à jour',
+        auto_now=True)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

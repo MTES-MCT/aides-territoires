@@ -40,7 +40,7 @@ class Command(BaseCommand):
             'PRENOM': user.first_name,
             'NOM': user.last_name,
             'NOMBRE_AIDES_ACTIVES': existing_aids.count(),
-            'DATE_CREATION_COMPTE': user.date_joined.isoformat(),
+            'DATE_CREATION_COMPTE': user.date_created.isoformat(),
             'NOMBRE_AIDES_BROUILLONS': draft_aids.count(),
             'NOMBRE_AIDES_AFICHEES': live_aids.count(),
             'NOMBRE_AIDES_EXPIREES': expired_aids.count(),

@@ -86,9 +86,6 @@ msgstr "Laissez vide pour conserver votre mot de passe actuel"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-msgid "Date joined"
-msgstr "Date de création du compte"
-
 msgid "Gave consent to receive communications"
 msgstr "A donné son consentement pour recevoir l'actualité"
 
