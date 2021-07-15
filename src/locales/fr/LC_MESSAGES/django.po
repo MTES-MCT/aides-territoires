@@ -20,24 +20,6 @@ msgstr ""
 msgid "Author"
 msgstr "Auteur"
 
-msgid "First name"
-msgstr "Prénom"
-
-msgid "Last name"
-msgstr "Nom"
-
-msgid "Personal info"
-msgstr "Informations personnelles"
-
-msgid "Professional info"
-msgstr "Informations professionnelles"
-
-msgid "Permissions"
-msgstr "Permissions"
-
-msgid "Misc."
-msgstr "Divers"
-
 msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
 msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
 
@@ -83,44 +65,8 @@ msgstr "Choisissez un nouveau mot de passe"
 msgid "Leave empty to keep your existing password"
 msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
-msgid "Email address"
-msgstr "Adresse e-mail"
-
-msgid "Gave consent to receive communications"
-msgstr "A donné son consentement pour recevoir l'actualité"
-
-msgid "Wants to receive alerts when similar aids are published"
-msgstr "Veut recevoir des alertes en cas de publication d'aides similaires"
-
-msgid "Organization"
-msgstr "Organisme"
-
-msgid "Role"
-msgstr "Rôle"
-
-msgid "Contact phone number"
-msgstr "Numéro de téléphone"
-
-msgid "Is contributor"
-msgstr "Contributeur ?"
-
-msgid "Can access a dashboard to create aids"
-msgstr "Peut accéder à un espace pour créer et modifier ses aides."
-
 msgid "Administrators"
 msgstr "Administrateurs"
-
-msgid "Is certified"
-msgstr "Certifié ?"
-
-msgid "Display a badge next to this user's aids"
-msgstr "Afficher un badge à côté des aides publiées par ce compte."
-
-msgid "User"
-msgstr "Utilisateur"
-
-msgid "Users"
-msgstr "Utilisateurs"
 
 msgid "register/"
 msgstr "inscription/"
@@ -1234,12 +1180,6 @@ msgstr "Lien associé au logo"
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 
-msgid "Search page"
-msgstr "Recherche personnalisée"
-
-msgid "Search pages"
-msgstr "Recherches personnalisées"
-
 msgid "form/"
 msgstr "formulaire/"
 
@@ -1423,9 +1363,6 @@ msgstr "Voir moins de détails"
 msgid "Your profile"
 msgstr "Votre profil"
 
-msgid "Contributor space"
-msgstr "Espace contributeur"
-
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
@@ -1437,9 +1374,6 @@ msgstr "Mon portefeuille d'aides"
 
 msgid "Publish a new aid"
 msgstr "Publier une aide"
-
-msgid "PP Administrator space"
-msgstr "Espace administrateur"
 
 msgid "Search results pages"
 msgstr "Pages de résultats"
@@ -1604,12 +1538,6 @@ msgid ""
 msgstr ""
 "Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous sur "
 "la page de connexion.</a>"
-
-msgid "Personal data"
-msgstr "Informations personnelles"
-
-msgid "Professional data"
-msgstr "Informations professionnelles"
 
 #, python-format
 msgid ""
