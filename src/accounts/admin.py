@@ -91,19 +91,20 @@ class UserAdmin(BaseUserAdmin):
     list_display = [
         'email', 'first_name', 'last_name', 'organization',
         'is_contributor', 'nb_aids',
-        'is_certified', 'in_mailing_list', 'date_joined', 'last_login'
-    ]
+        'is_certified', 'in_mailing_list', 'date_created', 'last_login']
     list_editable = ['first_name', 'last_name']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
 
-    list_filter = ['is_superuser', 'is_contributor',
-                   SearchPageAdministratorFilter, ApiTokenFilter,
-                   'is_certified', 'ml_consent', 'groups']
+    list_filter = [
+        'is_superuser', 'is_contributor',
+        SearchPageAdministratorFilter, ApiTokenFilter,
+        'is_certified', 'ml_consent', 'groups']
 
-    readonly_fields = ['nb_aids',
-                       'administrator_of_search_pages_list', 'api_token',
-                       'last_login', 'date_joined']
+    readonly_fields = [
+        'nb_aids',
+        'administrator_of_search_pages_list', 'api_token',
+        'last_login', 'date_created', 'date_updated']
 
     fieldsets = (
         (None, {
@@ -148,7 +149,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'ml_consent',
                 'last_login',
-                'date_joined',
+                'date_created',
+                'date_updated',
             )
         }),
     )
