@@ -10,7 +10,8 @@ class AidViewEvent(models.Model):
     aid = models.ForeignKey(
         'aids.Aid',
         verbose_name=_('Aid'),
-        on_delete=models.PROTECT)
+        on_delete=models.SET_NULL,
+        null=True, blank=True)
 
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
@@ -39,7 +40,8 @@ class AidContactClickEvent(models.Model):
     aid = models.ForeignKey(
         'aids.Aid',
         verbose_name=_('Aid'),
-        on_delete=models.PROTECT)
+        on_delete=models.SET_NULL,
+        null=True, blank=True)
 
     querystring = models.TextField(
         _('Querystring'),
@@ -127,7 +129,8 @@ class AidEligibilityTestEvent(models.Model):
     aid = models.ForeignKey(
         'aids.Aid',
         verbose_name=_('Aid'),
-        on_delete=models.PROTECT)
+        on_delete=models.SET_NULL,
+        null=True, blank=True)
     eligibility_test = models.ForeignKey(
         'eligibility.EligibilityTest',
         verbose_name=_('Eligibility test'),
