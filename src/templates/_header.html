@@ -53,16 +53,45 @@
                         <a class="fr-nav__link" href="{% url 'home' %}" target="_self">Accueil</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="/plateforme-aides-territoires/" target="_self">La démarche</a>
+                        <a class="fr-nav__link" href="/pages-personnalisees/" target="_self">Guichets</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="/porteurs-aides/" target="_self">Porteurs d'aides</a>
+                        <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-actualites" aria-current="true">Actualités</button>
+                        <div class="fr-collapse fr-menu" id="menu-actualites">
+                            <ul class="fr-menu__list">
+                                <li>
+                                    <a class="fr-nav__link" href="{% url 'blog_post_list_view' %}" target="_self">Le blog</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/europe/" target="_self">Les programmes européens 2021-2022</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/webinaires/" target="_self">Les webinaires</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
-                    </li>
-                    <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="{% url 'blog_post_list_view' %}" target="_self">Blog</a>
+                        <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-en-savoir-plus" aria-current="true">En savoir plus</button>
+                        <div class="fr-collapse fr-menu" id="menu-en-savoir-plus">
+                            <ul class="fr-menu__list">
+                                <li>
+                                    <a class="fr-nav__link" href="/plateforme-aides-territoires/" target="_self">La démarche</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/porteurs-aides/" target="_self">Porteurs d'aides</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/data/" target="_self">Données et API</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/contact/" target="_self">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </nav>
