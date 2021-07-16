@@ -1,8 +1,10 @@
-<article class="program">
-    <div>
-        <h1><a href="{% url 'program_detail' program.slug %}">
+<article class="program fr-card fr-enlarge-link">
+    <div class="fr-card__body">
+        <h1 class="fr-card__title fr-my-3w"><a href="{% url 'program_detail' program.slug %}">
             {{ program.name }}
         </a></h1>
+        <div class="fr-card__desc">
             <p>{{ program.short_description }}</p>
+        </div>
     </div>
 </article>
