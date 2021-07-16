@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
 
@@ -10,26 +9,25 @@ class RegisterForm(UserCreationForm):
     """Form used to create new user accounts."""
 
     email = forms.EmailField(
-        label=_('Your email address'),
+        label='Votre adresse e-mail',
         required=True,
-        help_text=_('We will send a confirmation link to '
-                    'this address before creating the account.'))
+        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.")  # noqa
     first_name = forms.CharField(
-        label=_('Your first name'),
+        label='Votre prénom',
         required=True)
     last_name = forms.CharField(
-        label=_('Your last name'),
+        label='Votre nom',
         required=True)
     organization = forms.CharField(
-        label=_('Your organization'),
+        label='Votre structure professionnelle',
         max_length=128,
         required=True)
     role = forms.CharField(
-        label=_('Your position'),
+        label='Votre fonction',
         max_length=128,
         required=True)
     contact_phone = forms.CharField(
-        label=_('Your phone number'),
+        label='Votre numéro de téléphone',
         max_length=35,
         required=True)
 
@@ -37,14 +35,13 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = [
             'first_name', 'last_name', 'email', 'password1', 'password2',
-            'organization', 'role', 'contact_phone'
-        ]
+            'organization', 'role', 'contact_phone']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs.update({'autofocus': True})
         self.fields['email'].widget.attrs.update({
-            'placeholder': _('Please double-check this value.')})
+            'placeholder': "Merci de bien vérifier l'adresse saisie."})
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -53,17 +50,15 @@ class RegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     error_messages = {
-        'invalid_login': _(
-            'Please enter a correct email address and password.'
-        ),
-        'inactive': _('This account is inactive.'),
+        'invalid_login': 'Saisissez une adresse e-mail et un mot de passe valides.',
+        'inactive': "Ce compte n'est actuellement pas actif.",
     }
 
     username = forms.EmailField(
-        label=_('Your email address'),
+        label='Votre adresse e-mail',
         required=True)
     password = forms.CharField(
-        label=_('Your password'),
+        label='Votre mot de passe',
         required=True,
         strip=False,
         widget=forms.PasswordInput)
@@ -79,7 +74,7 @@ class PasswordResetForm(forms.Form):
     """Password reset request form."""
 
     username = forms.EmailField(
-        label=_('Your email address'),
+        label='Votre adresse e-mail',
         required=True)
 
 
@@ -87,41 +82,38 @@ class ContributorProfileForm(forms.ModelForm):
     """Edit contributor profile related user data."""
 
     organization = forms.CharField(
-        label=_('Your organization'),
+        label='Votre structure professionnelle',
         max_length=128,
         required=True)
     role = forms.CharField(
-        label=_('Your position'),
+        label='Votre fonction',
         max_length=128,
         required=True)
     contact_phone = forms.CharField(
-        label=_('Your phone number'),
+        label='Votre numéro de téléphone',
         max_length=35,
         required=True)
     new_password = forms.CharField(
-        label=_('Choose a new password'),
+        label='Choisissez un nouveau mot de passe',
         required=False,
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
         widget=forms.PasswordInput(attrs={
-            'placeholder': _('Leave empty to keep your existing password')
-        }))
+            'placeholder': 'Laissez vide pour conserver votre mot de passe actuel'}))
 
     class Meta:
         model = User
         fields = [
             'first_name', 'last_name', 'organization', 'role', 'contact_phone',
-            'new_password',
-        ]
+            'new_password']
         labels = {
-            'first_name': _('Your first name'),
-            'last_name': _('Your last name'),
+            'first_name': 'Votre prénom',
+            'last_name': 'Votre nom',
         }
 
     def _post_clean(self):
         super()._post_clean()
-        # Validate the password after self.instance is updated with form data
-        # by super().
+        # Validate the password after self.instance is updated with form data by super().
         password = self.cleaned_data.get('new_password')
         if password:
             try:

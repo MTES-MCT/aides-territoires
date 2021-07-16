@@ -1,19 +1,16 @@
 from django.conf import settings
-from django.views.generic import (FormView, TemplateView, CreateView,
-                                  UpdateView)
+from django.views.generic import FormView, TemplateView, CreateView, UpdateView
 from django.urls import reverse, reverse_lazy
-from django.utils.http import urlsafe_base64_decode
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
-from django.utils.translation import gettext_lazy as _
+from django.utils.http import urlsafe_base64_decode
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import ContributorRequiredMixin
-from accounts.forms import (RegisterForm, PasswordResetForm,
-                            ContributorProfileForm)
+from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
 from analytics.utils import track_goal
@@ -98,13 +95,11 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
                 login(self.request, user)
 
                 if is_first_login:
-                    msg = _('You are now logged in. Welcome! Please take a '
-                            'few seconds to update your profile.')
-                    track_goal(
-                        self.request.session, settings.GOAL_FIRST_LOGIN_ID)
+                    msg = 'Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques secondes pour mettre à jour votre profil ?'  # noqa
+                    track_goal(self.request.session, settings.GOAL_FIRST_LOGIN_ID)
                     send_welcome_email.delay(user.email)
                 else:
-                    msg = _('You are now logged in. Welcome back!')
+                    msg = 'Vous êtes maintenant connecté. Bienvenue !'
 
                 self.messages.success(msg)
                 redirect_url = reverse(settings.LOGIN_REDIRECT_URL)
@@ -113,13 +108,12 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin,
-                             UpdateView):
+class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update contributor profile data."""
 
     form_class = ContributorProfileForm
     template_name = 'accounts/contributor_profile.html'
-    success_message = _('Your contributor profile was updated successfully.')
+    success_message = 'Votre profil a été mis à jour.'
 
     def get_success_url(self):
         current_url = reverse('contributor_profile')
@@ -131,7 +125,6 @@ class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin,
 
     def form_valid(self, form):
         """Make sure the user is not disconnected after password change."""
-
         res = super().form_valid(form)
         update_session_auth_hash(self.request, self.object)
         return res
