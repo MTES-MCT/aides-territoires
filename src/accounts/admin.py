@@ -95,6 +95,7 @@ class UserAdmin(BaseUserAdmin):
         SearchPageAdministratorFilter, ApiTokenFilter,
         'is_certified', 'ml_consent', 'groups']
 
+    autocomplete_fields = ['backer']
     readonly_fields = [
         'nb_aids',
         'administrator_of_search_pages_list', 'api_token',
@@ -125,6 +126,7 @@ class UserAdmin(BaseUserAdmin):
         ('Espace contributeur', {
             'fields': (
                 'is_contributor',
+                'backer',
                 'nb_aids',
             )
         }),
@@ -159,6 +161,7 @@ class UserAdmin(BaseUserAdmin):
                 'password1',
                 'password2',
                 'is_contributor',
+                'backer',
                 'is_certified',
             )}
          ),

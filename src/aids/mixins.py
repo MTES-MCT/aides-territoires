@@ -4,15 +4,36 @@ from aids.models import Aid, AidWorkflow
 from aids.utils import generate_clone_title
 
 
-class AidEditMixin:
+def aid_author_queryset(user):
+    return Aid.objects \
+        .filter(author=user) \
+        .select_related('perimeter') \
+        .order_by('name')
+
+
+def aid_author_or_colleague_queryset(user):
+    return Aid.objects \
+        .filter(author__backer=user.backer) \
+        .select_related('perimeter') \
+        .order_by('name')
+
+
+class AidAuthorMixin:
     """Common code to aid editing views."""
 
     def get_queryset(self):
-        qs = Aid.objects \
-            .filter(author=self.request.user) \
-            .select_related('perimeter') \
-            .order_by('name')
-        self.queryset = qs
+        self.queryset = aid_author_queryset(self.request.user)
+        return super().get_queryset()
+
+
+class AidAuthorOrColleagueMixin:
+    """Common code to aid editing views."""
+
+    def get_queryset(self):
+        if not self.request.user.backer:
+            self.queryset = aid_author_queryset(self.request.user)
+        else:
+            self.queryset = aid_author_or_colleague_queryset(self.request.user)
         return super().get_queryset()
 
 

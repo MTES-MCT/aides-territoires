@@ -25,7 +25,7 @@ from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
                         AdvancedAidFilterForm, DraftListAidFilterForm)
 from aids.models import Aid
-from aids.mixins import AidEditMixin, AidCopyMixin
+from aids.mixins import AidAuthorMixin, AidAuthorOrColleagueMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
@@ -370,14 +370,15 @@ class AidDetailView(DetailView):
         return response
 
 
-class AidDraftListView(ContributorAndProfileCompleteRequiredMixin,
-                       AidEditMixin, ListView):
+class AidDraftListView(ContributorAndProfileCompleteRequiredMixin, AidAuthorOrColleagueMixin,
+                       ListView):
     """Display the list of aids published by the user."""
 
     template_name = 'aids/draft_list.html'
     context_object_name = 'aids'
     paginate_by = 50
     sortable_columns = [
+        'author',
         'name',
         'perimeter__name',
         'date_created',
@@ -485,7 +486,7 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
 
 
 class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
-                  AidEditMixin, UpdateView, AidCopyMixin):
+                  AidAuthorMixin, UpdateView, AidCopyMixin):
     """Edit an existing aid."""
 
     template_name = 'aids/edit.html'
@@ -559,8 +560,7 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
         return '{}'.format(edit_url)
 
 
-class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin,
-                    DeleteView):
+class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidAuthorMixin, DeleteView):
     """Soft deletes an existing aid."""
 
     def delete(self, request, *args, **kwargs):

@@ -70,7 +70,6 @@ class BackerAdmin(ImportExportActionModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
-    form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ['name', 'slug', 'group',
                     'is_corporate', 'is_spotlighted', 'logo_status',
@@ -80,10 +79,13 @@ class BackerAdmin(ImportExportActionModelAdmin):
     list_editable = ['is_corporate', 'is_spotlighted']
     search_fields = ['name']
     ordering = ['name']
+
+    form = BackerForm
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['date_created', 'display_related_aids',
+    readonly_fields = ['display_contributors', 'display_related_aids',
                        'display_related_themes', 'display_related_programs',
-                       'nb_financed_aids', 'nb_instructed_aids']
+                       'nb_financed_aids', 'nb_instructed_aids',
+                       'date_created']
 
     fieldsets = [
         ('', {
@@ -95,9 +97,9 @@ class BackerAdmin(ImportExportActionModelAdmin):
                 'external_link',
                 'is_corporate',
                 'is_spotlighted',
-                'date_created',
                 'nb_financed_aids',
                 'nb_instructed_aids',
+                'display_contributors',
                 'display_related_aids',
                 'display_related_themes',
                 'display_related_programs'
@@ -112,6 +114,11 @@ class BackerAdmin(ImportExportActionModelAdmin):
         (_('Backer Group'), {
             'fields': (
                 'group',
+            )
+        }),
+        ('Données diverses', {
+            'fields': (
+                'date_created',
             )
         })
     ]
@@ -137,6 +144,29 @@ class BackerAdmin(ImportExportActionModelAdmin):
         return backer.has_logo()
     logo_status.boolean = True
     logo_status.short_description = _('Logo image')
+
+    def display_contributors(self, obj):
+        contributors_html = format_html("<table> \
+            <thead><tr> \
+            <th>Auteur</th> \
+            <th>Nombre d'aides</th> \
+            </tr></thead> \
+            <tbody>")
+        for user in obj.contributors.all():
+            url = reverse("admin:accounts_user_change", args=(user.pk,))
+            user_aids_count = user.aids.count()
+            contributors_html += format_html(
+                '<tr> \
+                    <td><a href="{url}">{user}</a></td> \
+                    <td>{user_aids_count}</td> \
+                </tr>',
+                url=url,
+                user=user,
+                user_aids_count=user_aids_count
+            )
+        contributors_html += format_html('</tbody></table>')
+        return contributors_html
+    display_contributors.short_description = 'Contributeurs'
 
     def display_related_aids(self, obj):
         related_aid_html = format_html('<table> \

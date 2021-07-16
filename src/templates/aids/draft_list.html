@@ -43,6 +43,9 @@
         <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
         <thead>
             <tr>
+                {% if user.backer %}
+                    <th class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header 'Auteur' 'author' %}</th>
+                {% endif %}
                 <th class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
                 <th title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
                 <th title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
@@ -55,10 +58,15 @@
         <tbody>
             {% for aid in aids %}
             <tr>
+                {% if user.backer %}
+                    <td>{{ aid.author.full_name }}</td>
+                {% endif %}
                 <td>
-                    <a href="{% url 'aid_edit_view' aid.slug %}">
-                        {{ aid.name }}
-                    </a>
+                    {% if aid.author == user %}
+                        <a href="{% url 'aid_edit_view' aid.slug %}">{{ aid.name }}</a>
+                    {% else %}
+                        <span>{{ aid.name }}</span>
+                    {% endif %}
                     {% if aid.is_live %}
                         <span class="fas fa-check-circle" title="Affichée"></span>
                     {% endif %}

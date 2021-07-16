@@ -77,6 +77,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False)
 
     # Contributors related data
+    backer = models.ForeignKey(
+        'backers.Backer',
+        verbose_name="Porteur d'aides",
+        on_delete=models.SET_NULL,
+        related_name='contributors',
+        help_text="Rattacher un contributeur à un porteur d'aides lui permettra de voir les aides de ses collègues.",  # noqa
+        null=True, blank=True)
     organization = models.CharField(
         'Organisme',
         max_length=128,
