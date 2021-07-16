@@ -20,50 +20,8 @@ msgstr ""
 msgid "Author"
 msgstr "Auteur"
 
-msgid "<abbr title=\"Newsletter subscriber\">NL</abbr>"
-msgstr "<abbr title=\"Dans la newsletter\">NL</abbr>"
-
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
-
-msgid ""
-"We will send a confirmation link to this address before creating the account."
-msgstr ""
-"Nous enverrons un e-mail de confirmation à cette adresse avant de valider le "
-"compte."
-
-msgid "Your first name"
-msgstr "Votre prénom"
-
-msgid "Your last name"
-msgstr "Votre nom"
-
-msgid "Your organization"
-msgstr "Votre structure professionnelle"
-
-msgid "Your position"
-msgstr "Votre fonction"
-
-msgid "Your phone number"
-msgstr "Votre numéro de téléphone"
-
-msgid "Please double-check this value."
-msgstr "Merci de bien vérifier l'adresse saisie."
-
-msgid "Please enter a correct email address and password."
-msgstr "Saisissez une adresse e-mail et un mot de passe valides."
-
-msgid "This account is inactive."
-msgstr "Ce compte n'est actuellement pas actif."
-
-msgid "Your password"
-msgstr "Votre mot de passe"
-
-msgid "Choose a new password"
-msgstr "Choisissez un nouveau mot de passe"
-
-msgid "Leave empty to keep your existing password"
-msgstr "Laissez vide pour conserver votre mot de passe actuel"
 
 msgid "Administrators"
 msgstr "Administrateurs"
@@ -91,19 +49,6 @@ msgstr "profil-contributeur/"
 
 msgid "logout/"
 msgstr "deconnexion/"
-
-msgid ""
-"You are now logged in. Welcome! Please take a few seconds to update your "
-"profile."
-msgstr ""
-"Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques "
-"secondes pour mettre à jour votre profil ?"
-
-msgid "You are now logged in. Welcome back!"
-msgstr "Vous êtes maintenant connecté. Bienvenue !"
-
-msgid "Your contributor profile was updated successfully."
-msgstr "Votre profil a été mise à jour."
 
 msgid "State"
 msgstr "État"
