@@ -64,8 +64,6 @@
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
-        <script src="/static/@gouvfr/dsfr/dist/js/dsfr.module.min.js"></script>
-        <script type="text/javascript" nomodule src="/static/@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js"></script>
         {% include '_js_i18n.html' %}
         <script>
             // Piwik variables
@@ -80,6 +78,8 @@
             var hotjar_siteid = {% hotjar_siteid %};
         </script>
         {% endcompress %}
+        <script type="module" src="/static/@gouvfr/dsfr/dist/js/dsfr.module.min.js"></script>
+        <script type="text/javascript" nomodule src="/static/@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js"></script>
         <script src="/static/js/shared_config.js"></script>
         {% block extra_js %}{% endblock %}
 
