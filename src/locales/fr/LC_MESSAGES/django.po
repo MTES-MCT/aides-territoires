@@ -548,9 +548,6 @@ msgstr "Date de création"
 msgid "Date updated"
 msgstr "Date de mise à jour"
 
-msgid "First publication date"
-msgstr "Première date de publication"
-
 msgid "Tags"
 msgstr "Mots clés"
 
@@ -772,45 +769,12 @@ msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
 msgid "Backer"
 msgstr "Porteur d'aides"
 
-msgid "Text"
-msgstr ""
-
-msgid "General content"
-msgstr "Contenu général"
-
-msgid "Short text"
-msgstr "Texte d'introduction"
-
-msgid "A short, concise introduction"
-msgstr "Introduction concise (Inférieure à 256 caractères)"
-
-msgid "Full text of the post"
-msgstr "Description de l'article"
-
-msgid "Post category"
-msgstr "Catégorie des articles"
-
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
 "and we will reuse the post's title."
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
-
-msgid "Blog Post"
-msgstr "Articles de blog"
-
-msgid "Blog Posts"
-msgstr "Articles de blog"
-
-msgid "Description of the category"
-msgstr "Description complète du porteur d'aides"
-
-msgid "Blog Post Category"
-msgstr "Catégories des articles de blog"
-
-msgid "Blog Post Categories"
-msgstr "Catégories des articles de blog"
 
 msgid "How often to you want to receive alerts?"
 msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
@@ -2275,21 +2239,6 @@ msgstr "Communication promotionnelle"
 
 msgid "Promotion posts"
 msgstr "Communications promotionnelles"
-
-msgid "Button link"
-msgstr "Lien du bouton"
-
-msgid "Button title"
-msgstr "Titre du bouton"
-
-msgid "Promotion post presentation"
-msgstr "Présentation de la communication promotionnelle"
-
-msgid "Promotion post filter for display"
-msgstr "Filtres conditionnant l'affichage de la communication promotionnelle"
-
-msgid "Promotion post admin"
-msgstr "Administration de la communication promotionnelle"
 
 msgid "Aids associated to projects"
 msgstr "Aides associées à des projets"

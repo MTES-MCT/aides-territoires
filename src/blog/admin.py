@@ -1,17 +1,15 @@
 from django import forms
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from core.forms import RichTextField
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
-
 from blog.models import BlogPost, BlogPostCategory, PromotionPost
 from categories.fields import CategoryMultipleChoiceField
 
 
 class BlogPostForm(forms.ModelForm):
-    text = RichTextField(label=_('Text'), required=False)
+    text = RichTextField(label='Contenu', required=False)
 
     class Meta:
         model = BlogPost
@@ -20,30 +18,41 @@ class BlogPostForm(forms.ModelForm):
 
 class BlogPostAdmin(admin.ModelAdmin):
 
-    form = BlogPostForm
-    list_display = ['title', 'category', 'date_created', 'status']
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ['title', 'category', 'status', 'date_created']
     search_fields = ['title']
     list_filter = ['status', 'category']
 
+    form = BlogPostForm
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ['date_created', 'date_updated', 'date_published']
+
     fieldsets = [
-        (_('General content'), {
+        ('', {
             'fields': (
                 'title',
                 'slug',
                 'short_text',
-                'logo',
                 'text',
+                'logo',
                 'category',
-                'status',
-                'date_created',
-                'date_published',
             )
         }),
-        (_('SEO'), {
+        ('Administration', {
+            'fields': (
+                'status',
+            )
+        }),
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description',
+            )
+        }),
+        ('Données diverses', {
+            'fields': (
+                'date_created',
+                'date_updated',
+                'date_published',
             )
         }),
     ]
@@ -71,19 +80,21 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 
 class BlogPostCategoryAdmin(admin.ModelAdmin):
+
     list_display = ['name']
     fields = ['name', 'slug', 'description', 'date_created']
-    prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
     ordering = ['name']
+
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class PromotionPostForm(forms.ModelForm):
 
     categories = CategoryMultipleChoiceField(
-        label=_('Categories'),
+        label='Sous-thématiques',
         required=False,
-        widget=FilteredSelectMultiple(_('Categories'), True))
+        widget=FilteredSelectMultiple('Sous-thématiques', True))
 
     class Meta:
         model = PromotionPost
@@ -91,17 +102,20 @@ class PromotionPostForm(forms.ModelForm):
 
 
 class PromotionPostAdmin(admin.ModelAdmin):
-    form = PromotionPostForm
+
     list_display = ['title', 'status', 'date_created']
-    prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title']
     ordering = ['title']
-    autocomplete_fields = ['backers', 'programs', 'perimeter']
     search_fields = ['id', 'title']
     list_filter = ['status', 'date_created']
 
+    form = PromotionPostForm
+    prepopulated_fields = {'slug': ('title',)}
+    autocomplete_fields = ['backers', 'programs', 'perimeter']
+    readonly_fields = ['date_created', 'date_updated']
+
     fieldsets = [
-        (_('Promotion post presentation'), {
+        ('Présentation', {
             'fields': (
                 'title',
                 'slug',
@@ -111,7 +125,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
             )
         }),
 
-        (_('Promotion post filter for display'), {
+        ("Filtres conditionnant l'affichage", {
             'fields': (
                 'backers',
                 'programs',
@@ -120,15 +134,16 @@ class PromotionPostAdmin(admin.ModelAdmin):
             )
         }),
 
-        (_('Promotion post admin'), {
+        ('Administration', {
             'fields': (
                 'status',
             )
         }),
 
-        (_('Misc data'), {
+        ('Données diverses', {
             'fields': (
                 'date_created',
+                'date_updated',
             )
         }),
     ]
