@@ -5,17 +5,17 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from core.admin import InputFilter
+from core.constants import YES_NO_CHOICES
 from aids.models import Aid
 from accounts.models import User
 
 
 class AuthorFilter(InputFilter):
     parameter_name = 'author'
-    title = _('Author')
+    title = 'Auteur'
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -37,10 +37,7 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
     parameter_name = 'is_administrator_of_search_pages'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -58,10 +55,7 @@ class ApiTokenFilter(admin.SimpleListFilter):
     parameter_name = 'has_api_token'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -76,11 +70,11 @@ class UserAdminForm(forms.ModelForm):
     """Custom form for inline user edition."""
 
     first_name = forms.CharField(
-        label=_('First name'),
+        label='Prénom',
         required=False,
         max_length=256)
     last_name = forms.CharField(
-        label=_('Last name'),
+        label='Nom',
         required=False,
         max_length=256)
 
@@ -91,19 +85,20 @@ class UserAdmin(BaseUserAdmin):
     list_display = [
         'email', 'first_name', 'last_name', 'organization',
         'is_contributor', 'nb_aids',
-        'is_certified', 'in_mailing_list', 'date_joined', 'last_login'
-    ]
+        'is_certified', 'in_mailing_list', 'date_created', 'last_login']
     list_editable = ['first_name', 'last_name']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['last_name', 'email']
 
-    list_filter = ['is_superuser', 'is_contributor',
-                   SearchPageAdministratorFilter, ApiTokenFilter,
-                   'is_certified', 'ml_consent', 'groups']
+    list_filter = [
+        'is_superuser', 'is_contributor',
+        SearchPageAdministratorFilter, ApiTokenFilter,
+        'is_certified', 'ml_consent', 'groups']
 
-    readonly_fields = ['nb_aids',
-                       'administrator_of_search_pages_list', 'api_token',
-                       'last_login', 'date_joined']
+    readonly_fields = [
+        'nb_aids',
+        'administrator_of_search_pages_list', 'api_token',
+        'last_login', 'date_created', 'date_updated']
 
     fieldsets = (
         (None, {
@@ -114,41 +109,42 @@ class UserAdmin(BaseUserAdmin):
                 'groups',
             )
         }),
-        (_('Personal info'), {
+        ('Informations personnelles', {
             'fields': (
                 'first_name',
                 'last_name',
             )
         }),
-        (_('Professional info'), {
+        ('Informations professionnelles', {
             'fields': (
                 'organization',
                 'role',
                 'contact_phone'
             )
         }),
-        (_('Contributor space'), {
+        ('Espace contributeur', {
             'fields': (
                 'is_contributor',
                 'nb_aids',
             )
         }),
-        (_('PP Administrator space'), {
+        ('Espace administrateur', {
             'fields': (
                 'administrator_of_search_pages_list',
             )
         }),
-        (_('Permissions'), {
+        ('Permissions', {
             'fields': (
                 'is_superuser',
                 'api_token'
             )
         }),
-        (_('Misc.'), {
+        ('Données diverses', {
             'fields': (
                 'ml_consent',
                 'last_login',
-                'date_joined',
+                'date_created',
+                'date_updated',
             )
         }),
     )
@@ -188,15 +184,15 @@ class UserAdmin(BaseUserAdmin):
             for search_page in search_pages:
                 html += format_html(
                     '<a href="{obj_url}">{obj_name}</a></br>',
-                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),  # noqa
+                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),
                     obj_name=search_page)
             return format_html(html)
-    administrator_of_search_pages_list.short_description = _('Search page')
+    administrator_of_search_pages_list.short_description = 'Recherche personnalisée'
 
     def in_mailing_list(self, user):
         return user.ml_consent
     in_mailing_list.short_description = mark_safe(
-        _('<abbr title="Newsletter subscriber">NL</abbr>'))
+        '<abbr title=\"Dans la newsletter\">NL</abbr>')
     in_mailing_list.boolean = True
 
     def api_token(self, user):
