@@ -82,9 +82,10 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Configure the pipenv cache
+      id: cache-pipenv
       uses: actions/cache@v2
       with:
-        path: ~/.cache/pipenv
+        path: ~/.local/share/virtualenvs
         key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pipenv-
@@ -97,15 +98,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-piptools-
 
-    - name: Cache the entire virtualenv
-      id: cache-venv
-      uses: actions/cache@v2
-      with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-venv-${{ hashFiles('**/Pipfile.lock') }}
-
     - name: Install python dependencies
-      if: steps.cache-venv.outputs.cache-hit != 'true'
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
       working-directory: ./src
       run: |
         pipenv sync --dev

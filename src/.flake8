@@ -1,3 +1,3 @@
 [flake8]
-exclude = migrations,settings
+exclude = migrations,settings,.venv
 max-line-length = 100
