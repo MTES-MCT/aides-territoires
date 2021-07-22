@@ -28,7 +28,7 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
-        context['nb_backers'] =  Backer.objects.has_financed_aids().count()
+        context['nb_backers'] = Backer.objects.has_financed_aids().count()
         context['subset_selected_backers'] = subset_selected_backers
 
         return context

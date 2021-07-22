@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.views.generic import TemplateView
 from django.utils import timezone
-from django.db.models import Sum, Q
+from django.db.models import Sum
 
 from aids.models import Aid
 from backers.models import Backer
