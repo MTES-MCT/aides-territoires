@@ -2074,21 +2074,6 @@ msgstr "Votre projet"
 msgid "Public stats"
 msgstr "Statistiques publiques"
 
-msgid "Sent alerts"
-msgstr "Alertes envoyées"
-
-msgid "Emails sent with new alerts notification"
-msgstr "E-mails d'alertes « nouvelles aides »"
-
-msgid "Viewed aids"
-msgstr "Aides vues"
-
-msgid "Aids viewed within the last 7 days"
-msgstr "Aides vues sur les 7 derniers jours"
-
-msgid "Organizations that are financing or instructing aids"
-msgstr "Organisations qui financent ou instruisent des aides"
-
 msgid "upload"
 msgstr "upload"
 

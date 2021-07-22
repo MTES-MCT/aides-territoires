@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n humanize %}
 
-{% block extratitle %}{{ _('Public stats') }}{% endblock %}
+{% block extratitle %}Statistiques publiques{% endblock %}
 
 {% block content %}
 <section id="stats">
@@ -18,11 +18,8 @@
 
     <div class="stat">
         <div class="stat-title">
-            <h6>{{ _('Sent alerts') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Emails sent with new alerts notification
-            {% endblocktrans %}
-            </small>
+            <h6>Alertes envoyées</h6>
+            <small>E-mails d'alertes « nouvelles aides »</small>
         </div>
         <div class="stat-body number-stat">
             <span>{{ nb_sent_alerts|intcomma }}</span>
@@ -31,10 +28,8 @@
 
     <div class="stat">
         <div class="stat-title">
-            <h6>{{ _('Viewed aids') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Aids viewed within the last 7 days
-            {% endblocktrans %}</small>
+            <h6>Aides vues</h6>
+            <small>Aides vues sur les 7 derniers jours</small>
         </div>
         <div class="stat-body number-stat">
             <span>{{ nb_viewed_aids|intcomma }}</span>
@@ -43,10 +38,8 @@
 
     <div class="stat">
         <div class="stat-title">
-            <h6>{{ _('Aid backers') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Organizations that are financing or instructing aids
-            {% endblocktrans %}</small>
+            <h6>Porteurs d'aides</h6>
+            <small>Organisations diffusant au moins une aide financière ou en ingénierie</small>
         </div>
         <div class="stat-body number-stat">
             <span>{{ nb_backers|intcomma }}</span>
