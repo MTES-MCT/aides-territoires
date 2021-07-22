@@ -21,19 +21,14 @@ class HomeView(TemplateView):
     template_name = 'home/home.html'
 
     def get_context_data(self, **kwargs):
-
         aids_qs = Aid.objects.live()
-        nb_backers = Backer.objects \
-            .filter(financed_aids__in=aids_qs) \
-            .distinct() \
-            .count()
         selected_backers = Backer.objects.can_be_displayed_in_carousel()
         # We only display the first 15
         subset_selected_backers = selected_backers.order_by("?")[0:15]
         context = super().get_context_data(**kwargs)
         context['nb_aids'] = aids_qs.values('id').count()
         context['nb_categories'] = Category.objects.all().count()
-        context['nb_backers'] = nb_backers
+        context['nb_backers'] =  Backer.objects.has_financed_aids().count()
         context['subset_selected_backers'] = subset_selected_backers
 
         return context

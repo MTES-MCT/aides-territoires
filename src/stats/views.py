@@ -28,12 +28,7 @@ class StatsView(TemplateView):
             .aggregate(nb_sent_alerts=Sum('value'))
         context['nb_sent_alerts'] = alerts_qs['nb_sent_alerts']
 
-        financers = aids_qs.values_list('financers', flat=True)
-        instructors = aids_qs.values_list('instructors', flat=True)
-        nb_backers = Backer.objects \
-            .filter(Q(id__in=financers) | Q(id__in=instructors)) \
-            .values('id') \
-            .count()
-        context['nb_backers'] = nb_backers
+        active_backers = Backer.objects.has_financed_aids()
+        context['nb_backers'] = active_backers.count()
 
         return context
