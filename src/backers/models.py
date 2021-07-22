@@ -128,6 +128,12 @@ class Backer(models.Model):
         null=True, blank=True,
         help_text=_('The url for the backer\'s website'))
 
+    perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name='Périmètre',
+        on_delete=models.PROTECT,
+        null=True, blank=True)
+
     is_corporate = models.BooleanField(
         _('Is a corporate backer?'),
         default=False)
