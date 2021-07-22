@@ -11,6 +11,11 @@ class UserQueryset(models.QuerySet):
 
         return self.filter(search_pages__isnull=False)
 
+    def is_animator(self):
+        """Only return users who are search page animators."""
+
+        return self.filter(animator_perimeter__isnull=False)
+
     def with_api_token(self):
         """Only return users with an API Token."""
 
@@ -49,6 +54,11 @@ class UserManager(BaseUserManager):
         """Only return users who are search page administrators."""
 
         return self.get_queryset().is_administrator_of_search_pages()
+
+    def is_animator(self):
+        """Only return users who are animators."""
+
+        return self.get_queryset().is_animator()
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -99,6 +109,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         'Contributeur ?',
         help_text='Peut accéder à un espace pour créer et modifier ses aides.',
         default=True)
+    # is_administrator_of_search_pages
+    # has_api_token
+    animator_perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name="Périmètre d'animation",
+        on_delete=models.PROTECT,
+        related_name='animators',
+        help_text="Sur quel périmètre l'animateur local est-il responsable ?",
+        null=True, blank=True)
 
     date_created = models.DateTimeField(
         'Date de création',
