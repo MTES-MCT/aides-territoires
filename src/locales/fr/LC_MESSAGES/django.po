@@ -193,38 +193,8 @@ msgstr ""
 "Si l'on vous contacte régulièrement pour vous demander les mêmes "
 "informations, essayez de donner des éléments de réponses dans cet espace."
 
-msgid "Other eligibility criterias?"
-msgstr "Conditions d'éligibilité"
-
 msgid "Aid title"
 msgstr "Nom de l'aide"
-
-msgid ""
-"If the aid backer is not in the previous list, use this field to add a new "
-"one."
-msgstr ""
-"Si le porteur de l'aide n'est pas déjà présent dans la liste précédente, "
-"vous pouvez utiliser ce champ pour nous le communiquer."
-
-msgid "Please provide a financer, or suggest a new one."
-msgstr "Merci d'indiquer un porteur d'aide."
-
-msgid "The user suggested the following description for a new perimeter"
-msgstr "Le contributeur suggère ce nouveau périmètre"
-
-msgid ""
-"This backer was suggested. Add it to the global list then add it to this aid "
-"with the field above."
-msgstr ""
-"Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que "
-"porteur d'aides via le champ approprié."
-
-msgid ""
-"This instructor was suggested. Add it to the global list then add it to this "
-"aid with the field above."
-msgstr ""
-"Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en "
-"tant qu'instructeur via le champ approprié."
 
 msgid "Categories"
 msgstr "Sous-thématiques"
@@ -232,143 +202,8 @@ msgstr "Sous-thématiques"
 msgid "Aid program"
 msgstr "Programme d'aides"
 
-msgid "Type a few characters and select a value among the list"
-msgstr ""
-"Saisissez quelques caractères et sélectionnez une valeur parmi les "
-"suggestions."
-
-msgid "Suggest a new backer"
-msgstr "Suggérer un nouveau porteur"
-
-msgid "Suggest a backer if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un porteur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-
-msgid "Suggest a new instructor"
-msgstr "Suggérer un nouvel instructeur"
-
-msgid ""
-"Suggest an instructor if you don't find the correct choice in the main list."
-msgstr ""
-"Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste "
-"principale."
-
-msgid "Targeted area"
-msgstr "Zone géographique couverte par l'aide"
-
-msgid ""
-"\n"
-"            The geographical zone where the aid is available.<br />\n"
-"            Example of valid zones:\n"
-"            <ul>\n"
-"            <li>France</li>\n"
-"            <li>Bretagne (Région)</li>\n"
-"            <li>Métropole du Grand Paris (EPCI)</li>\n"
-"            <li>Outre-mer</li>\n"
-"            <li>Wallis et Futuna</li>\n"
-"            <li>Massif Central</li>\n"
-"            </ul>\n"
-"        "
-msgstr ""
-"\n"
-"            La zone géographique sur laquelle l'aide est disponible.<br />\n"
-"            Exemples de zones valides :\n"
-"            <ul>\n"
-"            <li>France</li>\n"
-"            <li>Bretagne (Région)</li>\n"
-"            <li>Métropole du Grand Paris (EPCI)</li>\n"
-"            <li>Outre-mer</li>\n"
-"            <li>Wallis et Futuna</li>\n"
-"            <li>Massif Central</li>\n"
-"            </ul>\n"
-"        "
-
-msgid "Can't find a valid targeted area?"
-msgstr "Vous ne trouvez pas de zone géographique appropriée ?"
-
-msgid ""
-"\n"
-"            If you can't find a corresponding targeted area amongst the\n"
-"            existing perimeter list, just choose \"France\" and briefly "
-"describe\n"
-"            here your aid actual target area.\n"
-"        "
-msgstr ""
-"\n"
-"Si vous ne trouvez pas de zone géographique suffisamment précise dans la "
-"liste existante, spécifiez « France » et décrivez brièvement ici le "
-"périmètre souhaité."
-
-msgid "Aid categories"
-msgstr "Thématiques de l'aide"
-
-msgid "Choose one or several categories that match your aid."
-msgstr ""
-"Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à "
-"en choisir plusieurs."
-
-msgid "yyyy-mm-dd"
-msgstr "jj/mm/aaaa"
-
-msgid "Min. subvention rate"
-msgstr "Taux de subvention min."
-
-msgid "Max. subvention rate"
-msgstr "Taux de subvention max."
-
-msgid "Unless the aid is ongoing, you must indicate the submission deadline."
-msgstr ""
-"Sauf pour les aides permanentes, veuillez indiquer la date limite de "
-"soumission."
-
-msgid "Funding"
-msgstr "Financière"
-
-msgid "Non-funding"
-msgstr "Non-financière"
-
-msgid "Financial aid"
-msgstr "Aide financière"
-
-msgid "Engineering aid"
-msgstr "Aide en ingénierie"
-
-msgid "Sort: relevance"
-msgstr "Tri : pertinence"
-
-msgid "Sort: publication date"
-msgstr "Tri : date de publication"
-
-msgid "Sort: submission deadline"
-msgstr "Tri : date de clôture"
-
 msgid "Text search"
 msgstr "Recherche textuelle"
-
-msgid "Aid title, keyword, etc."
-msgstr "Titre, sujet, mot-clé, etc."
-
-msgid "Apply before…"
-msgstr "Candidater avant…"
-
-msgid "Published after…"
-msgstr "Publiée après…"
-
-msgid "Aid type"
-msgstr "Nature de l'aide"
-
-msgid "Engineering aids"
-msgstr "Aides en ingénierie"
-
-msgid "Project progress"
-msgstr "Avancement du projet"
-
-msgid "Concerned actions"
-msgstr "Actions concernées"
-
-msgid "Call for projects only"
-msgstr "Appels à projets / Appels à manifestation d’intérêt uniquement"
 
 msgid "Projects"
 msgstr "Projets"
@@ -1004,21 +839,6 @@ msgid "Full description of the page. Will be displayed above results."
 msgstr ""
 "Description complète de la page. Sera affichée au dessus des résultats."
 
-msgid "More content"
-msgstr "Contenu additionnel"
-
-msgid "Hidden content, only revealed on a `See more` click."
-msgstr "Contenu caché, révélé au clic sur le bouton « Voir plus »."
-
-msgid "You need to select at least one search form filter."
-msgstr ""
-"Vous devez sélectionner au moins un filtre pour le formulaire de recherche."
-
-msgid "You need to select less than four search form filters."
-msgstr ""
-"Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de "
-"recherche."
-
 msgid "The main displayed title."
 msgstr "Le titre principal."
 
@@ -1202,9 +1022,6 @@ msgstr "Afficher / masquer le menu"
 
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, intercommunalité, département…"
-
-msgid "Type a few characters to see some suggestions."
-msgstr "Saisissez quelques caractères pour des suggestions."
 
 msgid "Select program(s)"
 msgstr "Sélectionnez un programme"
@@ -1810,9 +1627,6 @@ msgstr "Critères d'éligibilité"
 msgid "The aid can be mobilized during…"
 msgstr "Dispositif applicable pour un projet"
 
-msgid "Other eligibility criterias"
-msgstr "Autres critères d'éligibilité"
-
 msgid "Local variants"
 msgstr "Déclinaisons locales"
 
@@ -2068,9 +1882,6 @@ msgstr ""
 msgid "Your project"
 msgstr "Votre projet"
 
-msgid "Public stats"
-msgstr "Statistiques publiques"
-
 msgid "upload"
 msgstr "upload"
 
@@ -2089,5 +1900,3 @@ msgstr "Communications promotionnelles"
 msgid "Aids associated to projects"
 msgstr "Aides associées à des projets"
 
-msgid "Your territory"
-msgstr "Votre territoire"

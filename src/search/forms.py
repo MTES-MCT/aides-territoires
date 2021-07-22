@@ -53,7 +53,7 @@ class PerimeterSearchForm(forms.Form):
     targeted_audiences = forms.MultipleChoiceField(
         widget=forms.widgets.MultipleHiddenInput)
     perimeter = AutocompleteModelChoiceField(
-        label=_('Your territory'),
+        label='Votre territoire',
         queryset=Perimeter.objects.all(),
         required=False)
 
@@ -67,10 +67,7 @@ class ThemeChoiceIterator(forms.models.ModelChoiceIterator):
     a bit peculiar. See below.
     """
     def choice(self, obj):
-        return (
-            obj['categories__theme__slug'],
-            self.field.label_from_instance(obj),
-        )
+        return (obj['categories__theme__slug'], self.field.label_from_instance(obj))
 
 
 class ThemeChoiceField(forms.ModelMultipleChoiceField):
@@ -109,10 +106,10 @@ class ThemeSearchForm(forms.Form):
         to_field_name='slug',
         widget=ThemeWidget)
     text = forms.CharField(
-        label=_('Text search'),
+        label='Recherche textuelle',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': _('Aid title, keyword, etc.')}))
+            attrs={'placeholder': 'Titre, sujet, mot-clé, etc.'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -152,10 +149,7 @@ class CategoryIterator(forms.models.ModelChoiceIterator):
             yield (group, [self.choice(obj) for obj in objs])
 
     def choice(self, obj):
-        return (
-            obj['categories__slug'],
-            self.field.label_from_instance(obj),
-        )
+        return (obj['categories__slug'], self.field.label_from_instance(obj))
 
 
 class CategoryChoiceField(forms.ModelMultipleChoiceField):
@@ -219,16 +213,15 @@ class CategorySearchForm(forms.Form):
 
 class SearchPageAdminForm(forms.ModelForm):
     content = RichTextField(
-        label=_('Page content'),
-        help_text=_('Full description of the page. '
-                    'Will be displayed above results.'))
+        label='Contenu de la page',
+        help_text='Description complète de la page. Sera affichée au dessus des résultats.')
     more_content = RichTextField(
-        label=_('More content'),
-        help_text=_('Hidden content, only revealed on a `See more` click.'))
+        label='Contenu additionnel',
+        help_text='Contenu caché, révélé au clic sur le bouton « Voir plus ».')
     available_categories = CategoryMultipleChoiceField(
-        label=_('Categories'),
+        label='Sous-thématiques',
         required=False,
-        widget=FilteredSelectMultiple(_('Categories'), True))
+        widget=FilteredSelectMultiple('Sous-thématiques', True))
 
     def clean(self):
         """Validate search page customization consistency.
@@ -262,12 +255,12 @@ class SearchPageAdminForm(forms.ModelForm):
 
         if nb_filters == 0:
             raise ValidationError(
-                _('You need to select at least one search form filter.'),
+                'Vous devez sélectionner au moins un filtre pour le formulaire de recherche.',
                 code='not_enough_filters')
 
         if nb_filters > 3:
             raise ValidationError(
-                _('You need to select less than four search form filters.'),
+                'Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de recherche.',
                 code='too_many_filters')
 
         return data

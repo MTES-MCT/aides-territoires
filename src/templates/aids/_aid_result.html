@@ -32,17 +32,13 @@
         {% endif %}
 
         {% if aid.is_financial or aid.is_technical %}
-            <h2 class="aid-type">{{ _('Aid type') }}</h2>
+            <h2 class="aid-type">Nature de l'aide</h2>
             <ul id="aid-type-list">
                 {% if aid.is_financial %}
-                <li>
-                    {{ _('Financial aid') }}
-                </li>   
+                    <li>Aide financière</li>   
                 {% endif %}
                 {% if aid.is_technical %}
-                <li>
-                    {{ _('Engineering aid') }}
-                </li>
+                    <li>Aide en ingénierie</li>
                 {% endif %}
             </ul>
         {% endif %}
