@@ -462,7 +462,7 @@ class BaseAidSearchForm(forms.Form):
         to_field_name='slug',
         required=False)
     targeted_audiences = forms.MultipleChoiceField(
-        label=_('You are seeking aids for…'),
+        label='La structure pour laquelle vous recherchez des aides est…',
         required=False,
         choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)
@@ -767,7 +767,7 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
     """An "advanced" aid list filter form with more criterias."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label=_('You are seeking aids for…'),
+        label='La structure pour laquelle vous recherchez des aides est…',
         required=False,
         choices=Aid.AUDIENCES,
         widget=forms.CheckboxSelectMultiple)
