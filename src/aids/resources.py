@@ -126,6 +126,9 @@ class AidResource(resources.ModelResource):
             # avoid None for fields text fields (happens from xlsx)
             if type(field_model) in [TextField, CharField, URLField]:
                 data[field.column_name] = data.get(field.column_name, '') or ''
+            # keep linebreaks in TextField columns
+            if type(field_model) == TextField:
+                data[field.column_name] = data[field.column_name].replace('\n', '<br />\n')
             # avoid empty string for fields with base_field
             if hasattr(field_model, 'base_field') and not data[field.column_name]:  # noqa
                 data[field.column_name] = None
