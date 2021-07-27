@@ -90,7 +90,10 @@ class CustomIndexDashboard(Dashboard):
                 ),
                 modules.ModelList(
                     "Config du site",
-                    models=('django.contrib.sites.*',),
+                    models=(
+                        'django.contrib.sites.*',
+                        'django_otp.plugins.otp_totp.*',
+                    ),
                 ),
                 modules.ModelList(
                     "Tâches périodiques",
