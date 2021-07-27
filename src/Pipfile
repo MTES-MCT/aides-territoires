@@ -40,6 +40,8 @@ django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
 django-admin-tools = "*"
+django-otp = "*"
+qrcode = "*"
 
 [dev-packages]
 ansible = "<4"
