@@ -216,6 +216,8 @@ ADMIN_TOOLS_MENU = 'core.admin_menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
 
+ADMIN_OTP_ENABLED = False
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',

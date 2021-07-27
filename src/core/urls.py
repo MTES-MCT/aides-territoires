@@ -27,7 +27,8 @@ admin.site.index_title = 'Accueil'                             # default: "Site 
 admin.site.site_title = "Administration d'Aides-territoires"   # default: "Django site admin"  # noqa
 
 # Add One Time Password two-factor authentication for the admin site
-admin.site.__class__ = OTPAdminSite
+if settings.ADMIN_OTP_ENABLED:
+    admin.site.__class__ = OTPAdminSite
 
 
 # API
