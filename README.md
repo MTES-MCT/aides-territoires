@@ -208,8 +208,13 @@ Il faudra alors manuellement lancer la compression en cas de besoin.
 
 ## Utilisation de Redis
 
-Nous utilisons Redis en production :- Comme backend de cache pour Django- Comme broker pour Celery
-En locale et pour les Review Apps, il nous généralement pas besoin d'utiliser Redis.
+Nous utilisons Redis en production :
+
+- Comme backend de cache pour Django
+- Comme broker pour Celery
+
+En locale et pour les Review Apps, il n'y a généralement pas besoin
+d'utiliser Redis.
 
 
 ## Traduction : À propos des fichiers `.po` et `.mo`
@@ -234,7 +239,6 @@ fichier `.mo` que l'on obtient avec :
 
 En production, ce fichier est généré automatiquement lors du
 déploiement. Il n'est donc pas inclus dans le code github.
-
 
 ## Linter de code / Code Style
 
@@ -282,6 +286,23 @@ Cette "Whitelist" est définie dans les `settings`.Pour connaître le fonctionne
 
 Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour le stockage de tous les fichiers medias.
 
+
+### Double authentification
+
+Pour mettre en place la double authentification, il faut mettre ceci dans le
+fichier `.env` ou dans les variable d'environnement Scalingo :
+
+    ADMIN_OTP_ENABLE=True
+
+Ceci va activer une double authentification pour l'accès au site d'admin :
+mot de passe et jeton d'authentification.
+Le jeton d'authentification peut-être obtenu via une application mobile comme
+Google Authenticator ou Authy.
+
+Lors de la première utilisation et avant d'activer la double authentification,
+il faudra faire en sorte qu'un premier utilisateur admin puisse se connecter.
+Pour cela, il faudra penser à créer un `Device` pour cet utilisateur initial,
+avec le QR code associé qu'il faudra scanner avec l'application mobile.
 
 ### Mise en production
 
