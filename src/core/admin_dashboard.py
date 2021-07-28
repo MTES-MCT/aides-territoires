@@ -40,7 +40,7 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             'Contenu éditorial',
             deletable=False, draggable=False,
-            models=('blog.*', 'pages.*'),
+            models=('blog.*', 'pages.*', 'upload.*'),
         ))
         self.children.append(modules.ModelList(
             "Test d'eligibilité",
