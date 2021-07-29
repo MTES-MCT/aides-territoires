@@ -49,6 +49,7 @@ api_patterns = [
     # Those are internal api routes (for autocomplete widgets mostly)
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
+    path('programs/', include('programs.api.urls')),
     path('projects/', include('projects.api.urls')),
     path('eligibility/', include('eligibility.api.urls')),
     path('stats/', include('stats.api.urls')),
