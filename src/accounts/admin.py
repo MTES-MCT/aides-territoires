@@ -42,7 +42,7 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value == 'Yes':
-            return queryset.is_administrator_of_search_pages()
+            return queryset.search_page_admins()
         elif value == 'No':
             return queryset.filter(search_pages__isnull=True)
         return queryset
@@ -60,7 +60,7 @@ class AnimatorFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value == 'Yes':
-            return queryset.is_animator()
+            return queryset.animators()
         elif value == 'No':
             return queryset.filter(animator_perimeter__isnull=True)
         return queryset
