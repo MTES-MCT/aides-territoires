@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
-from admin_lite.mixins import AdminLiteMixin
+from admin_lite.mixins import AdminLiteMixin, WithChangePermission, WithFullPermission
 from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
 from search.forms import SearchPageAdminForm, MinisiteTabForm, MinisiteTabFormLite
 from pages.admin import PageAdmin
@@ -20,7 +20,7 @@ class MinisiteTabInline(admin.TabularInline):
     max_num = 6
 
 
-class MinisiteTabLiteInline(MinisiteTabInline):
+class MinisiteTabLiteInline(WithFullPermission, MinisiteTabInline):
     """
     A lite version that's suitable for non superuser.
     """
@@ -188,7 +188,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
+class SearchPageLiteAdmin(WithChangePermission, AdminLiteMixin, SearchPageAdmin):
     prepopulated_fields = {}
     fieldsets_with_inlines = LITE_FIELDSETS_SEARCH_PAGE
 
