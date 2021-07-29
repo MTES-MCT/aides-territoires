@@ -16,17 +16,18 @@ from admin_auto_filters.filters import AutocompleteFilter
 from fieldsets_with_inlines import FieldsetsInlineMixin
 from adminsortable2.admin import SortableInlineAdminMixin
 
-from aids.utils import generate_clone_title
+from accounts.admin import AuthorFilter
+from admin_lite.mixins import WithViewPermission
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
+from aids.utils import generate_clone_title
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
-from accounts.admin import AuthorFilter
-from search.models import SearchPage
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from exporting.utils import get_admin_export_message
 from geofr.utils import get_all_related_perimeter_ids
+from search.models import SearchPage
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
@@ -494,7 +495,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'Export and download selected Aids')
 
 
-class AidAdmin(BaseAidAdmin):
+class AidAdmin(WithViewPermission, BaseAidAdmin):
     def get_queryset(self, request):
         qs = Aid.objects \
             .all() \
