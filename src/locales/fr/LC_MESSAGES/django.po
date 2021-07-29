@@ -2083,12 +2083,6 @@ msgstr "Image"
 msgid "Uploaded at"
 msgstr "Uploadé à"
 
-msgid "Upload image"
-msgstr "Uploader l'image"
-
-msgid "Upload images"
-msgstr "Uploader les images"
-
 msgid "Promotion post"
 msgstr "Communication promotionnelle"
 
