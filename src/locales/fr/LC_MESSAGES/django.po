@@ -1927,9 +1927,6 @@ msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""
 "Sélectionnez une liste dans le menu pour consulter les aides associées."
 
-msgid "Data export and API"
-msgstr "API et réutilisation des données"
-
 msgid ""
 "Leave your email to be informed in priority about new aids for your "
 "territory."
