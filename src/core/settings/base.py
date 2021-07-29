@@ -317,7 +317,7 @@ MAP_DNS_TO_MINISITES = [
 ENABLE_MINISITES_REDIRECTION = True
 REDIRECT_MINISITES_TO_EXTERNAL_URL = [
     ('francemobilites', 'https://aides.francemobilites.fr'),
-    ('france-relance-cvl', 'https://aides-territoires-cvl.aides-territoires.beta.gouv.fr/'),
+    ('france-relance-cvl', 'https://aides-territoires-cvl.aides-territoires.beta.gouv.fr'),
 ]
 
 # ADDNA
