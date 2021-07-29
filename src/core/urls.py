@@ -84,10 +84,9 @@ urlpatterns = [
 
     # Api related routes
     path('api/', include(api_patterns)),
-    path(
-        'swagger/',
-        schema_view.with_ui('swagger', cache_timeout=0),
-        name='schema-swagger-ui'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
     # Static pages are at the url root.
     # Leave this at the bottom to prevent an admin to accidently
     # override an existing url.
