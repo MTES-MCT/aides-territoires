@@ -99,7 +99,7 @@ jobs:
           ${{ runner.os }}-piptools-
 
     - name: Install python dependencies
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'  # this step should be skipped
       working-directory: ./src
       run: |
         pipenv sync --dev
