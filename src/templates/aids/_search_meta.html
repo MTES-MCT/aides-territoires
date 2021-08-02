@@ -58,7 +58,7 @@
 
         {% block search-meta-aid-type %}
         {% if current_search_dict.aid_type %}
-            <p title="{{ _('Aid type') }}">
+            <p title="Nature de l'aide">
                 <span class="fas fa-cog fa-fw"></span>
                 {% form_choices_display current_search_dict 'aid_type' %}
             </p>
@@ -67,7 +67,7 @@
 
         {% block search-meta-mobilization-step %}
         {% if current_search_dict.mobilization_step %}
-            <p title="{{ _('Project progress') }}">
+            <p title="Avancement du projet">
                 <span class="fas fa-hourglass fa-fw"></span>
                 {% form_choices_display current_search_dict 'mobilization_step' %}
             </p>
@@ -76,7 +76,7 @@
 
         {% block search-meta-destinations %}
         {% if current_search_dict.destinations %}
-            <p title="{{ _('Concerned actions') }}">
+            <p title="Actions concernées">
                 <span class="fas fa-wallet fa-fw"></span>
                 {% form_choices_display current_search_dict 'destinations' %}
             </p>
@@ -85,9 +85,9 @@
 
         {% block search-meta-call-for-project %}
         {% if current_search_dict.call_for_projects_only %}
-            <p title="{{ _('Call for projects only') }}">
+            <p title="Appels à projets / Appels à manifestation d'intérêt uniquement">
                 <span class="fas fa-thumbtack fa-fw"></span>
-                {{ _('Call for projects only') }}
+                Appels à projets / Appels à manifestation d'intérêt uniquement
             </p>
         {% endif %}
         {% endblock %}

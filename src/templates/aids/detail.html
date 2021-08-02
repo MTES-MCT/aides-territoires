@@ -157,7 +157,7 @@
                 {% endif %}
 
                 <div class="aid-type">
-                    <h3>{{ _('Aid type') }}</h3>
+                    <h3>Nature de l'aide</h3>
                     <p>{% choices_display aid 'aid_types' %}</p>
                 </div>
 
@@ -248,7 +248,7 @@
                         This aid was imported from another data stream.
                         {% endblocktrans %}</p>
                     <dl>
-                        <dt>{{ _('Origin url') }}</dt>
+                        <dt>URL d'origine</dt>
                         <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
                         <dt>{{ _('Import share license') }}</dt>
                         <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>
@@ -396,7 +396,7 @@
             {% endif %}
 
             {% if aid.eligibility %}
-            <h3>{{ _('Other eligibility criterias') }}</h3>
+            <h3>Autres critères d'éligibilité</h3>
             {{ aid.eligibility|safe }}
             {% endif %}
             {% endif %}

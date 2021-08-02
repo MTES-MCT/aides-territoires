@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.db.models import Count
-from django.utils.translation import gettext_lazy as _
-
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
+from core.constants import YES_NO_CHOICES
 from admin_lite.mixins import AdminLiteMixin, WithChangePermission, WithFullPermission
 from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
 from search.forms import SearchPageAdminForm, MinisiteTabForm, MinisiteTabFormLite
@@ -116,10 +115,7 @@ class AdministratorFilter(admin.SimpleListFilter):
     parameter_name = 'has_administrator'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()

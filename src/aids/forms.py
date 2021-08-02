@@ -3,7 +3,6 @@ import operator
 
 from django import forms
 from django.db.models import Q, F
-from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
@@ -15,7 +14,6 @@ from core.utils import remove_accents
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
-from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
@@ -43,8 +41,8 @@ AID_TYPES = (
 
 IS_CALL_FOR_PROJECT = (
     (None, '----'),
-    (True, _('Yes')),
-    (False, _('No'))
+    (True, 'Oui'),
+    (False, 'Non')
 )
 
 
@@ -60,12 +58,13 @@ class BaseAidForm(forms.ModelForm):
         ))
     description = RichTextField(
         label="Description complète de l'aide et de ses objectifs",
-        widget=forms.Textarea(attrs={'placeholder': _(
-            'If you have a description, do not hesitate to copy it here.\n'
-            'Try to complete the description with the maximum of'
-            ' information.\n'
-            'If you are contacted regularly to ask for the same information,'
-            ' try to give some answers in this space.')}))
+        widget=forms.Textarea(
+            attrs={'placeholder': """
+                Si vous avez un descriptif, n'hésitez pas à le copier ici.
+                Essayez de compléter le descriptif avec le maximum d'informations.
+                Si l'on vous contacte régulièrement pour vous demander les mêmes "
+                informations, essayez de donner des éléments de réponses dans cet espace."
+                """}))
     project_examples = RichTextField(
         label="Exemples d'applications ou de projets réalisés grâce à cette aide",
         required=False,
@@ -74,7 +73,7 @@ class BaseAidForm(forms.ModelForm):
             attrs={'placeholder': "Médiathèque, skatepark, accompagner des enfants en classe de neige, financer une usine de traitement des déchets, etc."}  # noqa
         ))
     eligibility = RichTextField(
-        label=_('Other eligibility criterias?'),
+        label="Conditions d'éligibilité",
         required=False)
     contact = RichTextField(
         label='Contact pour candidater',
@@ -119,9 +118,7 @@ class BaseAidForm(forms.ModelForm):
                 self.fields[field].label = label
 
         custom_help_text = {
-            'new_backer':
-                _('If the aid backer is not in the previous list, use this '
-                  'field to add a new one.'),
+            'new_backer': "Si le porteur de l'aide n'est pas déjà présent dans la liste précédente, vous pouvez utiliser ce champ pour nous le communiquer.",  # noqa
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -146,37 +143,22 @@ class AidAdminForm(BaseAidForm):
         label='Périmètre suggéré',
         max_length=256,
         required=False,
-        help_text=_('The user suggested the following description for a new '
-                    'perimeter'))
+        help_text='Le contributeur suggère ce nouveau périmètre')
 
     financer_suggestion = forms.CharField(
         label="Porteurs suggérés",
         max_length=256,
         required=False,
-        help_text=_('This backer was suggested. Add it to the global list '
-                    'then add it to this aid with the field above.'))
+        help_text="Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que porteur d'aides via le champ approprié.")  # noqa
     instructor_suggestion = forms.CharField(
         label='Instructeurs suggérés',
         max_length=256,
         required=False,
-        help_text=_('This instructor was suggested. Add it to the global list '
-                    'then add it to this aid with the field above.'))
+        help_text="Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en tant qu'instructeur via le champ approprié.")  # noqa
     categories = CategoryMultipleChoiceField(
-        label=_('Categories'),
+        label='Sous-thématiques',
         required=False,
-        widget=FilteredSelectMultiple(_('Categories'), True))
-    projects = AutocompleteModelMultipleChoiceField(
-        label=_('Projects that may fit the aid'),
-        queryset=Project.objects
-        .filter(status='published')
-        .distinct(),
-        required=False,
-        help_text=_('''
-            This field is <span>a beta functionnality</span> to associate
-             the aid with projects example.
-            This will allow users in future to research aid by projects.
-            You can had several projects.
-        '''))
+        widget=FilteredSelectMultiple('Sous-thématiques', True))
 
     class Meta:
         widgets = {
@@ -200,34 +182,32 @@ class AidEditForm(BaseAidForm):
         queryset=Program.objects.all(),
         required=False)
     financers = AutocompleteModelMultipleChoiceField(
-        label=_('Backers'),
+        label="Porteurs d'aides",
         queryset=Backer.objects.all(),
         required=False,
-        help_text=_('Type a few characters and select a value among the list'))
+        help_text='Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.')  # noqa
     financer_suggestion = forms.CharField(
-        label=_('Suggest a new backer'),
+        label='Suggérer un nouveau porteur',
         max_length=256,
         required=False,
-        help_text=_('Suggest a backer if you don\'t find '
-                    'the correct choice in the main list.'))
+        help_text='Suggérez un porteur si vous ne trouvez pas votre choix dans la liste principale.')  # noqa
     instructors = AutocompleteModelMultipleChoiceField(
-        label=_('Backers'),
+        label="Porteurs d'aides",
         queryset=Backer.objects.all(),
         required=False,
-        help_text=_('Type a few characters and select a value among the list'))
+        help_text='Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.')  # noqa
     instructor_suggestion = forms.CharField(
-        label=_('Suggest a new instructor'),
+        label='Suggérer un nouvel instructeur',
         max_length=256,
         required=False,
-        help_text=_('Suggest an instructor if you don\'t find '
-                    'the correct choice in the main list.'))
+        help_text='Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste principale.')  # noqa
 
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
-        label=_('Targeted area'),
-        help_text=_('''
-            The geographical zone where the aid is available.<br />
-            Example of valid zones:
+        label="Zone géographique couverte par l'aide",
+        help_text='''
+            La zone géographique sur laquelle l'aide est disponible.<br />
+            Exemples de zones valides :
             <ul>
             <li>France</li>
             <li>Bretagne (Région)</li>
@@ -236,20 +216,20 @@ class AidEditForm(BaseAidForm):
             <li>Wallis et Futuna</li>
             <li>Massif Central</li>
             </ul>
-        '''))
+        ''')
     perimeter_suggestion = forms.CharField(
-        label=_('Can\'t find a valid targeted area?'),
+        label='Vous ne trouvez pas de zone géographique appropriée ?',
         max_length=256,
         required=False,
-        help_text=_('''
-            If you can't find a corresponding targeted area amongst the
-            existing perimeter list, just choose "France" and briefly describe
-            here your aid actual target area.
-        '''))
+        help_text='''
+            Si vous ne trouvez pas de zone géographique suffisamment précise dans la
+            liste existante, spécifiez « France » et décrivez brièvement ici le
+            périmètre souhaité.
+        ''')
     categories = CategoryMultipleChoiceField(
-        label=_('Aid categories'),
-        help_text=_('Choose one or several categories that match your aid.'),
-        required=False)
+        label="Thématiques de l'aide",
+        required=False,
+        help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.")  # noqa
 
     class Meta:
         model = Aid
@@ -293,11 +273,11 @@ class AidEditForm(BaseAidForm):
             'targeted_audiences': MultipleChoiceFilterWidget,
             'aid_types': MultipleChoiceFilterWidget,
             'start_date': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+                attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'}),
             'predeposit_date': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')}),
+                attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'}),
             'submission_deadline': forms.TextInput(
-                attrs={'type': 'date', 'placeholder': _('yyyy-mm-dd')})
+                attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -313,8 +293,8 @@ class AidEditForm(BaseAidForm):
 
         if 'subvention_rate' in self.fields:
             range_widgets = self.fields['subvention_rate'].widget.widgets
-            range_widgets[0].attrs['placeholder'] = _('Min. subvention rate')
-            range_widgets[1].attrs['placeholder'] = _('Max. subvention rate')
+            range_widgets[0].attrs['placeholder'] = 'Taux de subvention min.'
+            range_widgets[1].attrs['placeholder'] = 'Taux de subvention max.'
 
         if 'mobilization_steps' in self.fields:
             self.fields['mobilization_steps'].required = True
@@ -348,15 +328,14 @@ class AidEditForm(BaseAidForm):
             submission_deadline = data.get('submission_deadline', None)
 
             if recurrence != 'ongoing' and not submission_deadline:
-                msg = _('Unless the aid is ongoing, you must indicate the submission deadline.')  # noqa
+                msg = 'Sauf pour les aides permanentes, veuillez indiquer la date limite de soumission.'  # noqa
                 self.add_error(
                     'submission_deadline',
                     ValidationError(msg, code='missing_submission_deadline'))
 
         if 'financers' in self.fields:
-            if not any((data.get('financers'),
-                        data.get('financer_suggestion'))):
-                msg = _('Please provide a financer, or suggest a new one.')
+            if not any((data.get('financers'), data.get('financer_suggestion'))):
+                msg = "Merci d'indiquer un porteur d'aide."
                 self.add_error('financers', msg)
 
         return data
@@ -367,19 +346,19 @@ class BaseAidSearchForm(forms.Form):
 
     AID_CATEGORY_CHOICES = (
         ('', ''),
-        ('funding', _('Funding')),
-        ('non-funding', _('Non-funding')),
+        ('funding', 'Financière'),
+        ('non-funding', 'Non-financière'),
     )
 
     AID_TYPE_CHOICES = (
-        ('financial', _('Financial aid')),
-        ('technical', _('Engineering aid')),
+        ('financial', 'Aide financière'),
+        ('technical', 'Aide en ingénierie'),
     )
 
     ORDER_BY = (
-        ('relevance', _('Sort: relevance')),
-        ('publication_date', _('Sort: publication date')),
-        ('submission_deadline', _('Sort: submission deadline')),
+        ('relevance', 'Tri : pertinence'),
+        ('publication_date', 'Tri : date de publication'),
+        ('submission_deadline', 'Tri : date de clôture'),
     )
 
     CATEGORIES_QS = Category.objects \
@@ -387,22 +366,22 @@ class BaseAidSearchForm(forms.Form):
         .order_by('theme__name', 'name')
 
     text = forms.CharField(
-        label=_('Text search'),
+        label='Recherche textuelle',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': _('Aid title, keyword, etc.')}))
+            attrs={'placeholder': 'Titre, sujet, mot-clé, etc.'}))
     apply_before = forms.DateField(
-        label=_('Apply before…'),
+        label='Candidater avant…',
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
     published_after = forms.DateTimeField(
-        label=_('Published after…'),
+        label='Publiée après…',
         required=False,
         widget=forms.TextInput(
             attrs={'type': 'date'}))
     aid_type = forms.MultipleChoiceField(
-        label=_('Aid type'),
+        label="Nature de l'aide",
         choices=AID_TYPE_CHOICES,
         required=False,
         widget=forms.CheckboxSelectMultiple)
@@ -417,12 +396,12 @@ class BaseAidSearchForm(forms.Form):
         choices=TECHNICAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
     mobilization_step = forms.MultipleChoiceField(
-        label=_('Project progress'),
+        label='Avancement du projet',
         required=False,
         choices=Aid.STEPS,
         widget=forms.CheckboxSelectMultiple)
     destinations = forms.MultipleChoiceField(
-        label=_('Concerned actions'),
+        label='Actions concernées',
         required=False,
         choices=Aid.DESTINATIONS,
         widget=forms.CheckboxSelectMultiple)
@@ -431,15 +410,11 @@ class BaseAidSearchForm(forms.Form):
         required=False,
         choices=Aid.RECURRENCE)
     call_for_projects_only = forms.BooleanField(
-        label=_('Call for projects only'),
+        label="Appels à projets / Appels à manifestation d'intérêt uniquement",
         required=False)
     backers = AutocompleteModelMultipleChoiceField(
         label="Porteurs d'aides",
         queryset=Backer.objects.all(),
-        required=False)
-    projects = AutocompleteModelMultipleChoiceField(
-        label='Projets',
-        queryset=Project.objects.all(),
         required=False)
     programs = forms.ModelMultipleChoiceField(
         label="Programmes d'aides",
@@ -450,14 +425,14 @@ class BaseAidSearchForm(forms.Form):
         label='Aides France Relance :',
         required=False)
     themes = forms.ModelMultipleChoiceField(
-        label=_('Themes'),
+        label='Thématiques',
         queryset=Theme.objects.all(),
         to_field_name='slug',
         required=False,
         widget=forms.MultipleHiddenInput)
     categories = CategoryMultipleChoiceField(
         group_by_theme=True,
-        label=_('Themes'),  # Not a mistake
+        label='Thématiques',  # Not a mistake
         queryset=CATEGORIES_QS,
         to_field_name='slug',
         required=False)
@@ -468,10 +443,10 @@ class BaseAidSearchForm(forms.Form):
         widget=forms.CheckboxSelectMultiple)
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
-        label=_('Your territory'),
+        label='Votre territoire',
         required=False)
     origin_url = forms.URLField(
-        label=_('Origin url'),
+        label="URL d'origine",
         required=False)
 
     # This field is not related to the search, but is submitted
@@ -489,7 +464,7 @@ class BaseAidSearchForm(forms.Form):
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
         if zipcode and re.match(r'\d{5}', zipcode) is None:
-            msg = _('This zipcode seems invalid')
+            msg = 'Ce code postal semble invalide.'
             raise forms.ValidationError(msg)
 
         return zipcode
@@ -588,8 +563,6 @@ class BaseAidSearchForm(forms.Form):
         if backers:
             qs = qs.filter(
                 Q(financers__in=backers) | Q(instructors__in=backers))
-
-        projects = self.cleaned_data.get('projects', None) # noqa
 
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:
@@ -758,7 +731,7 @@ class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label=_('The structure'),
+        label='La structure',
         required=False,
         choices=Aid.AUDIENCES)
 
@@ -777,9 +750,9 @@ class DraftListAidFilterForm(forms.Form):
     """"""
     AID_STATE_CHOICES = [
         ('', ''),
-        ('open', _('Open')),
-        ('deadline', _('Deadline approaching')),
-        ('expired', _('Expired')),
+        ('open', 'Ouverte'),
+        ('deadline', 'Expire bientôt'),
+        ('expired', 'Expirée'),
     ]
 
     AID_DISPLAY_STATUS_CHOICES = [
@@ -789,11 +762,11 @@ class DraftListAidFilterForm(forms.Form):
     ]
 
     state = forms.ChoiceField(
-        label=_('Deadline'),
+        label='Échéance',
         required=False,
         choices=AID_STATE_CHOICES)
 
     display_status = forms.ChoiceField(
-        label=_('Display status'),
+        label='Affichage',
         required=False,
         choices=AID_DISPLAY_STATUS_CHOICES)
