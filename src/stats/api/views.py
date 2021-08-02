@@ -12,8 +12,8 @@ from stats.api.serializers import (AidContactClickEventSerializer,
                                    PromotionDisplayEventSerializer,)
 
 
-class AidContactClickEventViewSet(mixins.CreateModelMixin,
-                                  viewsets.GenericViewSet):
+class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    swagger_schema = None
     queryset = AidContactClickEvent.objects.all()
     serializer_class = AidContactClickEventSerializer
 
@@ -28,8 +28,8 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
-                                  viewsets.GenericViewSet):
+class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    swagger_schema = None
     queryset = AidMatchProjectEvent.objects.all()
     serializer_class = AidMatchProjectEventSerializer
 
@@ -44,8 +44,8 @@ class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
-                                     viewsets.GenericViewSet):
+class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    swagger_schema = None
     queryset = AidEligibilityTestEvent.objects.all()
     serializer_class = AidEligibilityTestEventSerializer
 
@@ -60,8 +60,8 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
-                                   viewsets.GenericViewSet):
+class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    swagger_schema = None
     queryset = PromotionDisplayEvent.objects.all()
     serializer_class = PromotionDisplayEventSerializer
 
@@ -71,8 +71,8 @@ class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned)
 
 
-class PromotionClickEventViewSet(mixins.CreateModelMixin,
-                                 viewsets.GenericViewSet):
+class PromotionClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    swagger_schema = None
     queryset = PromotionClickEvent.objects.all()
     serializer_class = PromotionClickEventSerializer
 
