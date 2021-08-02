@@ -24,6 +24,7 @@ from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
 from aids.resources import AidResource
 from aids.utils import generate_clone_title
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
+from core.constants import YES_NO_CHOICES
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from exporting.utils import get_admin_export_message
 from geofr.utils import get_all_related_perimeter_ids
@@ -34,18 +35,18 @@ from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 class LiveAidListFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with various statuses."""
 
-    title = _('State')
+    title = 'État'
     parameter_name = 'state'
 
     def lookups(self, request, model_admin):
         return (
             # aid.state
-            ('open', _('Open aids')),
-            ('deadline', _('Deadline approaching aids')),
-            ('expired', _('Expired aids')),
+            ('open', 'Aides ouvertes'),
+            ('deadline', 'Expirent bientôt'),
+            ('expired', 'Aides expirées'),
             # aid.display_status
-            ('hidden', _('Currently not displayed')),
-            ('live', _('Currently displayed')),
+            ('hidden', 'Actuellement non affichées'),
+            ('live', 'Actuellement affichées'),
         )
 
     def queryset(self, request, queryset):
@@ -72,10 +73,7 @@ class EligibilityTestFilter(admin.SimpleListFilter):
     parameter_name = 'has_eligibility_test'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -86,38 +84,17 @@ class EligibilityTestFilter(admin.SimpleListFilter):
         return queryset
 
 
-class ProjectFilter(admin.SimpleListFilter):
-    """Custom admin filter to target aids with projects."""
-
-    title = _('Aids associated to projects')
-    parameter_name = 'has_projects'
-
-    def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
-
-    def queryset(self, request, queryset):
-        value = self.value()
-        if value == 'Yes':
-            return queryset.has_projects()
-        elif value == 'No':
-            return queryset.filter(projects__isnull=True)  # noqa
-        return queryset
-
-
 class GenericAidListFilter(admin.SimpleListFilter):
     """Custom admin filter for generic, local and standard aids."""
 
-    title = _('Generic / Local')
+    title = 'Générique / Locale'
     parameter_name = 'typology'
 
     def lookups(self, request, model_admin):
         return (
-            ('generic', _('Generic aids')),
-            ('local', _('Local aids')),
-            ('standard', _('Standard aids')),
+            ('generic', 'Aides génériques'),
+            ('local', 'Local aids'),
+            ('standard', 'Standard aids'),
         )
 
     def queryset(self, request, queryset):
@@ -133,7 +110,7 @@ class GenericAidListFilter(admin.SimpleListFilter):
 
 class BackersFilter(InputFilter):
     parameter_name = 'backers'
-    title = _('Backers')
+    title = "Porteurs d'aides"
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -154,7 +131,7 @@ class BackersFilter(InputFilter):
 
 class PerimeterFilter(InputFilter):
     parameter_name = 'perimeter'
-    title = _('Perimeter')
+    title = 'Périmètre'
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -164,7 +141,7 @@ class PerimeterFilter(InputFilter):
 
 class PerimeterAutocompleteFilter(AutocompleteFilter):
     field_name = 'perimeter'
-    title = _('Perimeter')
+    title = 'Périmètre'
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -193,29 +170,8 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
     autocomplete_fields = ['backer']
 
 
-class BaseAidAdmin(FieldsetsInlineMixin,
-                   ImportMixin, ExportActionMixin,
-                   admin.ModelAdmin):
+class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.ModelAdmin):
     """Admin module for aids."""
-
-    class Media:
-        css = {
-            'all': (
-                '/static/css/admin.css',
-                '/static/trumbowyg/dist/ui/trumbowyg.css',
-            )
-        }
-        js = [
-            'admin/js/jquery.init.js',
-            '/static/js/shared_config.js',
-            '/static/js/plugins/softmaxlength.js',
-            '/static/js/aids/enable_softmaxlength.js',
-            '/static/js/project_autocomplete_admin.js',
-            '/static/trumbowyg/dist/trumbowyg.js',
-            '/static/trumbowyg/dist/langs/fr.js',
-            '/static/js/enable_rich_text_editor.js',
-            '/static/js/aids/duplicate_buster.js',
-        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
     form = AidAdminForm
     resource_class = AidResource
@@ -235,7 +191,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         'status', LiveAidListFilter, GenericAidListFilter, 'recurrence',
         'is_imported', 'import_data_source',
         'is_call_for_project', 'in_france_relance',
-        EligibilityTestFilter, ProjectFilter, AuthorFilter, BackersFilter,
+        EligibilityTestFilter, AuthorFilter, BackersFilter,
         PerimeterAutocompleteFilter,
         'programs', 'categories__theme', 'categories']
 
@@ -252,7 +208,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     raw_id_fields = ['generic_aid']
 
     fieldsets_with_inlines = [
-        (_('Aid presentation'), {
+        ("Présentation de l'aide", {
             'fields': (
                 'name',
                 'slug',
@@ -270,14 +226,14 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         FinancersInline,
         InstructorsInline,
 
-        (_('Aid perimeter'), {
+        ("Périmètre de l'aide", {
             'fields': (
                 'perimeter',
                 'perimeter_suggestion',
             )
         }),
 
-        (_('Aid calendar'), {
+        ("Calendrier de l'aide", {
             'fields': (
                 'recurrence',
                 'start_date',
@@ -286,7 +242,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             )
         }),
 
-        (_('Aid description'), {
+        ("Description de l'aide", {
             'fields': (
                 'is_call_for_project',
                 'programs',
@@ -299,13 +255,12 @@ class BaseAidAdmin(FieldsetsInlineMixin,
                 'mobilization_steps',
                 'destinations',
                 'description',
-                'projects',
                 'project_examples',
                 'eligibility',
             )
         }),
 
-        (_('Contact and actions'), {
+        ('Contact et démarches', {
             'fields': (
                 'origin_url',
                 'application_url',
@@ -319,19 +274,19 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             )
         }),
 
-        (_('Aid admin'), {
+        ("Administration de l'aide", {
             'fields': (
                 'status',
             )
         }),
 
-        (_('Only for generic aids'), {
+        ('Uniquement pour les aides génériques', {
             'fields': (
                 'is_generic',
             )
         }),
 
-        (_('Only for local aids'), {
+        ('Uniquement pour les aides locales', {
             'fields': (
                 'generic_aid',
                 'local_characteristics',
@@ -339,7 +294,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         }),
 
 
-        (_('Import related data'), {
+        ("Données liées à l'import", {
             'fields': (
                 'is_imported',
                 'import_data_source',
@@ -351,7 +306,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             )
         }),
 
-        (_('Misc data'), {
+        ('Données diverses', {
             'fields': (
                 'date_created',
                 'date_updated',
@@ -376,11 +331,11 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         admin. But we want to restrict the queryset to only the SearchPage aids
         """
 
-        queryset, use_distinct = super().get_search_results(request, queryset, search_term)  # noqa
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
 
         # e.g. '<host>/admin/search/searchpage/35/change/'
         meta_http_referer = request.META.get('HTTP_REFERER', '')
-        # e.g. 'app_label=search&model_name=searchpage&field_name=highlighted_aids'  # noqa
+        # e.g. 'app_label=search&model_name=searchpage&field_name=highlighted_aids'
         meta_query_string = request.META.get('QUERY_STRING', '')
 
         # custom SearchPage.highlighted_aids autocomplete filter
@@ -420,8 +375,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
             .filter(author=aid.author) \
             .filter(status__in=('reviewable', 'published')) \
             .count()
-    sibling_aids.short_description = _('From the same author')
-    sibling_aids.help_text = _('Nb of (non-draft) aids by the same author')
+    sibling_aids.short_description = 'Du même auteur'
+    sibling_aids.help_text = "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
 
     def get_form(self, request, obj=None, **kwargs):
         """Set readonly fields help texts."""
@@ -432,7 +387,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     def author_name(self, aid):
         if aid.author is not None:
             return aid.author.full_name
-    author_name.short_description = _('Author')
+    author_name.short_description = 'Auteur'
 
     def all_financers(self, aid):
         financers = [backer.name for backer in aid.financers.all()]
@@ -447,12 +402,7 @@ class BaseAidAdmin(FieldsetsInlineMixin,
     def live_status(self, aid):
         return aid.is_live()
     live_status.boolean = True
-    live_status.short_description = _('Live')
-
-    def has_projects(self, aid):
-        return aid.has_projects()
-    has_projects.boolean = True
-    has_projects.short_description = _('Has projects associated')
+    live_status.short_description = 'Live'
 
     def has_eligibility_test(self, aid):
         return aid.has_eligibility_test()
@@ -467,8 +417,8 @@ class BaseAidAdmin(FieldsetsInlineMixin,
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
-        self.message_user(request, _('The selected aids were set as CFP'))
-    make_mark_as_CFP.short_description = _('Set as CFP')
+        self.message_user(request, "Les aides sélectionnées ont été marquées en tant qu'AAP")
+    make_mark_as_CFP.short_description = "Marquer en tant qu'AAP"
 
     def show_export_message(self, request):
         self.message_user(request, get_admin_export_message())
@@ -477,22 +427,37 @@ class BaseAidAdmin(FieldsetsInlineMixin,
         aids_id_list = list(queryset.values_list('id', flat=True))
         export_aids_as_csv.delay(aids_id_list, request.user.id)
         self.show_export_message(request)
-    export_csv.short_description = _(
-        'Export selected Aids as CSV in background task')
+    export_csv.short_description = 'Exporter les Aides sélectionnées en CSV en tâche de fond'
 
     def export_xlsx(self, request, queryset):
         aids_id_list = list(queryset.values_list('id', flat=True))
         export_aids_as_xlsx.delay(aids_id_list, request.user.id)
         self.show_export_message(request)
-    export_xlsx.short_description = _(
-        'Export selected Aids as XLSX as background task')
+    export_xlsx.short_description = 'Exporter les Aides sélectionnées en XLSX en tâche de fond'
 
     def export_admin_action(self, request, queryset):
         # We do a noop override of this method, just because
         # we want to customize it's short description
         return super().export_admin_action(request, queryset)
-    export_admin_action.short_description = _(
-        'Export and download selected Aids')
+    export_admin_action.short_description = 'Exporter et télécharger les Aides sélectionnées'
+
+    class Media:
+        css = {
+            'all': (
+                '/static/css/admin.css',
+                '/static/trumbowyg/dist/ui/trumbowyg.css',
+            )
+        }
+        js = [
+            'admin/js/jquery.init.js',
+            '/static/js/shared_config.js',
+            '/static/js/plugins/softmaxlength.js',
+            '/static/js/aids/enable_softmaxlength.js',
+            '/static/trumbowyg/dist/trumbowyg.js',
+            '/static/trumbowyg/dist/langs/fr.js',
+            '/static/js/enable_rich_text_editor.js',
+            '/static/js/aids/duplicate_buster.js',
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class AidAdmin(WithViewPermission, BaseAidAdmin):
@@ -521,8 +486,8 @@ class AidAdmin(WithViewPermission, BaseAidAdmin):
 class DeletedAid(Aid):
     class Meta:
         proxy = True
-        verbose_name = _('Deleted aid')
-        verbose_name_plural = _('Deleted aids')
+        verbose_name = 'Aide supprimée'
+        verbose_name_plural = 'Aides supprimées'
 
 
 class DeletedAidAdmin(BaseAidAdmin):
@@ -538,8 +503,8 @@ class Amendment(Aid):
     """We need this so we can register the same model twice."""
     class Meta:
         proxy = True
-        verbose_name = _('Amendment')
-        verbose_name_plural = _('Amendments')
+        verbose_name = 'Amendement'
+        verbose_name_plural = 'Amendements'
 
 
 class AmendmentChangeList(ChangeList):

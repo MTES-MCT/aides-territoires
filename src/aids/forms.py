@@ -3,7 +3,6 @@ import operator
 
 from django import forms
 from django.db.models import Q, F
-from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
@@ -15,7 +14,6 @@ from core.utils import remove_accents
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
-from projects.models import Project
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
@@ -43,8 +41,8 @@ AID_TYPES = (
 
 IS_CALL_FOR_PROJECT = (
     (None, '----'),
-    (True, _('Yes')),
-    (False, _('No'))
+    (True, 'Oui'),
+    (False, 'Non')
 )
 
 
@@ -61,12 +59,12 @@ class BaseAidForm(forms.ModelForm):
     description = RichTextField(
         label="Description complète de l'aide et de ses objectifs",
         widget=forms.Textarea(
-            attrs={'placeholder': _(
-            'If you have a description, do not hesitate to copy it here.\n'
-            'Try to complete the description with the maximum of'
-            ' information.\n'
-            'If you are contacted regularly to ask for the same information,'
-            ' try to give some answers in this space.')}))
+            attrs={'placeholder': """
+                Si vous avez un descriptif, n'hésitez pas à le copier ici.
+                Essayez de compléter le descriptif avec le maximum d'informations.
+                Si l'on vous contacte régulièrement pour vous demander les mêmes "
+                informations, essayez de donner des éléments de réponses dans cet espace."
+                """}))
     project_examples = RichTextField(
         label="Exemples d'applications ou de projets réalisés grâce à cette aide",
         required=False,
@@ -161,18 +159,6 @@ class AidAdminForm(BaseAidForm):
         label='Sous-thématiques',
         required=False,
         widget=FilteredSelectMultiple('Sous-thématiques', True))
-    projects = AutocompleteModelMultipleChoiceField(
-        label=_('Projects that may fit the aid'),
-        queryset=Project.objects
-        .filter(status='published')
-        .distinct(),
-        required=False,
-        help_text=_('''
-            This field is <span>a beta functionnality</span> to associate
-             the aid with projects example.
-            This will allow users in future to research aid by projects.
-            You can had several projects.
-        '''))
 
     class Meta:
         widgets = {
@@ -430,10 +416,6 @@ class BaseAidSearchForm(forms.Form):
         label="Porteurs d'aides",
         queryset=Backer.objects.all(),
         required=False)
-    projects = AutocompleteModelMultipleChoiceField(
-        label='Projets',
-        queryset=Project.objects.all(),
-        required=False)
     programs = forms.ModelMultipleChoiceField(
         label="Programmes d'aides",
         queryset=Program.objects.all(),
@@ -464,7 +446,7 @@ class BaseAidSearchForm(forms.Form):
         label='Votre territoire',
         required=False)
     origin_url = forms.URLField(
-        label=_('Origin url'),
+        label="URL d'origine",
         required=False)
 
     # This field is not related to the search, but is submitted
@@ -482,7 +464,7 @@ class BaseAidSearchForm(forms.Form):
     def clean_zipcode(self):
         zipcode = self.cleaned_data['zipcode']
         if zipcode and re.match(r'\d{5}', zipcode) is None:
-            msg = _('This zipcode seems invalid')
+            msg = 'Ce code postal semble invalide.'
             raise forms.ValidationError(msg)
 
         return zipcode
@@ -581,8 +563,6 @@ class BaseAidSearchForm(forms.Form):
         if backers:
             qs = qs.filter(
                 Q(financers__in=backers) | Q(instructors__in=backers))
-
-        projects = self.cleaned_data.get('projects', None) # noqa
 
         origin_url = self.cleaned_data.get('origin_url', None)
         if origin_url:
@@ -751,7 +731,7 @@ class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label=_('The structure'),
+        label='La structure',
         required=False,
         choices=Aid.AUDIENCES)
 
@@ -770,9 +750,9 @@ class DraftListAidFilterForm(forms.Form):
     """"""
     AID_STATE_CHOICES = [
         ('', ''),
-        ('open', _('Open')),
-        ('deadline', _('Deadline approaching')),
-        ('expired', _('Expired')),
+        ('open', 'Ouverte'),
+        ('deadline', 'Expire bientôt'),
+        ('expired', 'Expirée'),
     ]
 
     AID_DISPLAY_STATUS_CHOICES = [
@@ -782,11 +762,11 @@ class DraftListAidFilterForm(forms.Form):
     ]
 
     state = forms.ChoiceField(
-        label=_('Deadline'),
+        label='Échéance',
         required=False,
         choices=AID_STATE_CHOICES)
 
     display_status = forms.ChoiceField(
-        label=_('Display status'),
+        label='Affichage',
         required=False,
         choices=AID_DISPLAY_STATUS_CHOICES)

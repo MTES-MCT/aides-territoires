@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 
 from aids.forms import AidSearchForm
 from categories.fields import CategoryMultipleChoiceField
@@ -80,12 +79,12 @@ class ThemeChoiceField(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
         return format_html(
-                    '{theme_name} ({nb_aids})'
-                    '<span>{theme_short_description}</span>',
-                    theme_name=obj['categories__theme__name'],
-                    nb_aids=obj['nb_aids'],
-                    theme_short_description=obj['categories__theme__short_description'], # noqa
-                )
+            '{theme_name} ({nb_aids})'
+            '<span>{theme_short_description}</span>',
+            theme_name=obj['categories__theme__name'],
+            nb_aids=obj['nb_aids'],
+            theme_short_description=obj['categories__theme__short_description']
+        )
 
 
 class ThemeWidget(forms.widgets.ChoiceWidget):
@@ -260,7 +259,7 @@ class SearchPageAdminForm(forms.ModelForm):
 
         if nb_filters > 3:
             raise ValidationError(
-                'Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de recherche.',
+                'Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de recherche.',  # noqa
                 code='too_many_filters')
 
         return data

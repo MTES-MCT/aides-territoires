@@ -248,7 +248,7 @@
                         This aid was imported from another data stream.
                         {% endblocktrans %}</p>
                     <dl>
-                        <dt>{{ _('Origin url') }}</dt>
+                        <dt>URL d'origine</dt>
                         <dd>{{ aid.import_data_url|default_if_none:_('NA') }}</dd>
                         <dt>{{ _('Import share license') }}</dt>
                         <dd>{{ aid.get_import_share_licence_display|default:_('NA') }}</dd>

@@ -47,7 +47,7 @@
                 <th title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
                 <th title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
                 <th title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                <th title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
+                <th title="Trier par Échéance">{% sortable_header 'Échéance' 'submission_deadline' %}</th>
                 <th>{{ _('Is live') }}</th>
                 <th>Vues</th>
             </tr>
@@ -70,9 +70,9 @@
                     {% if aid.is_ongoing %}
                         <span class="fas fa-parking" title="Permanente"></span>
                     {% elif aid.has_approaching_deadline %}
-                        <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                        <span class="fas fa-clock" title="Expire bientôt"></span>
                     {% elif aid.has_expired %}
-                        <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                        <span class="fas fa-exclamation-circle" title="Expirée"></span>
                     {% endif %}
                     <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                 </td>

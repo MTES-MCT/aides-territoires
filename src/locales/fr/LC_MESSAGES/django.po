@@ -50,24 +50,6 @@ msgstr "profil-contributeur/"
 msgid "logout/"
 msgstr "deconnexion/"
 
-msgid "State"
-msgstr "État"
-
-msgid "Open aids"
-msgstr "Aides ouvertes"
-
-msgid "Deadline approaching aids"
-msgstr "Expirent bientôt"
-
-msgid "Expired aids"
-msgstr "Aides expirées"
-
-msgid "Currently not displayed"
-msgstr "Actuellement non affichées"
-
-msgid "Currently displayed"
-msgstr "Actuellement affichées"
-
 msgid "Eligibility test"
 msgstr "Test d'éligibilité"
 
@@ -76,18 +58,6 @@ msgstr "Oui"
 
 msgid "No"
 msgstr "Non"
-
-msgid "Generic / Local"
-msgstr "Générique / Locale"
-
-msgid "Generic aids"
-msgstr "Aides génériques"
-
-msgid "Local aids"
-msgstr "Aides locales"
-
-msgid "Standard aids"
-msgstr "Aides standards"
 
 msgid "Backers"
 msgstr "Porteurs d'aides"
@@ -98,47 +68,8 @@ msgstr "Périmètre"
 msgid "Instructors"
 msgstr "Instructeurs"
 
-msgid "Aid presentation"
-msgstr "Présentation de l'aide"
-
-msgid "Aid perimeter"
-msgstr "Périmètre de l'aide"
-
-msgid "Aid calendar"
-msgstr "Calendrier de l'aide"
-
-msgid "Aid description"
-msgstr "Description de l'aide"
-
-msgid "Contact and actions"
-msgstr "Contact et démarches"
-
 msgid "Eligibility"
 msgstr "Éligibilité"
-
-msgid "Aid admin"
-msgstr "Administration de l'aide"
-
-msgid "Only for generic aids"
-msgstr "Uniquement pour les aides génériques"
-
-msgid "Only for local aids"
-msgstr "Uniquement pour les aides locales"
-
-msgid "Import related data"
-msgstr "Données liées à l'import"
-
-msgid "Misc data"
-msgstr "Données diverses"
-
-msgid "From the same author"
-msgstr "Du même auteur"
-
-msgid "Nb of (non-draft) aids by the same author"
-msgstr "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "The selected aids were set as CFP"
 msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
@@ -161,9 +92,6 @@ msgstr "Exporter et télécharger les Aides sélectionnées"
 msgid "Deleted aid"
 msgstr "Aide supprimée"
 
-msgid "Deleted aids"
-msgstr "Aides supprimées"
-
 msgid "Amendment"
 msgstr "Amendement"
 
@@ -181,17 +109,6 @@ msgstr "Thème et catégorie, séparés par « | »."
 
 msgid "E.g: \"Nature / environnement|Qualité de l'air\""
 msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
-
-msgid ""
-"If you have a description, do not hesitate to copy it here.\n"
-"Try to complete the description with the maximum of information.\n"
-"If you are contacted regularly to ask for the same information, try to give "
-"some answers in this space."
-msgstr ""
-"Si vous avez un descriptif, n'hésitez pas à le copier ici.\n"
-"Essayez de compléter le descriptif avec le maximum d'informations.\n"
-"Si l'on vous contacte régulièrement pour vous demander les mêmes "
-"informations, essayez de donner des éléments de réponses dans cet espace."
 
 msgid "Aid title"
 msgstr "Nom de l'aide"
@@ -214,35 +131,11 @@ msgstr "Programmes d'aides"
 msgid "Themes"
 msgstr "Thématiques"
 
-msgid "Origin url"
-msgstr "URL d'origine"
-
-msgid "This zipcode seems invalid"
-msgstr "Ce code postal semble invalide."
-
-msgid "The structure"
-msgstr "La structure"
-
-msgid "Open"
-msgstr "Ouverte"
-
-msgid "Deadline approaching"
-msgstr "Expire bientôt"
-
-msgid "Expired"
-msgstr "Expirée"
-
 msgid "Not displayed"
 msgstr "Non affichée"
 
 msgid "Displayed"
 msgstr "Affichée"
-
-msgid "Deadline"
-msgstr "Échéance"
-
-msgid "Display status"
-msgstr "Affichage"
 
 msgid "Slug"
 msgstr "Fragment d'URL"
@@ -1896,7 +1789,3 @@ msgstr "Communication promotionnelle"
 
 msgid "Promotion posts"
 msgstr "Communications promotionnelles"
-
-msgid "Aids associated to projects"
-msgstr "Aides associées à des projets"
-
