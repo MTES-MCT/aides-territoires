@@ -228,7 +228,7 @@ REST_FRAMEWORK = {
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = '1.2'
+CURRENT_API_VERSION = '1.3'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
