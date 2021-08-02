@@ -31,7 +31,7 @@
                 <a href="{% url 'search_step_audience' %}" class="fr-btn">Trouver des aides</a>
             </div>
             <div class="fr-col-7 fr-col-offset-lg-4" id="what-image">
-                <img src="/static/img/home_aides.svg" alt="" id="home-main-image" />
+                <img src="/static/img/home_aides.svg" alt="" id="home-main-image" class="fr-responsive-img" />
             </div>
         </div>
     </div>
@@ -114,4 +114,51 @@
     </div>
 </section>
 {% endif%}
+
+<div class="fr-container fr-pb-5w">
+    <h2>Suivez l'actualité</h2>
+    <div class="fr-grid-row">
+        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+            <div class="fr-card fr-enlarge-link">
+                <div class="fr-card__body">
+                    <h3 class="fr-card__title">
+                        <a href="/pages-personnalisees/" class="fr-card__link" _target="_blank" rel="noopener" title="">Les pages de nos partenaires</a>
+                    </h3>
+                    <p class="fr-card__desc fr-text">Découvrez tous les guichets dédiés à un périmètre géographique, une thématique, un programme.</p>
+                </div>
+                <div class="fr-card__img">
+                    <img src="https://poc.staging.aides-territoires.incubateur.net/assets/img/500x280/img10.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+            <div class="fr-card fr-enlarge-link">
+                <div class="fr-card__body">
+                    <h3 class="fr-card__title">
+                        <a href="/europe/" class="fr-card__link" _target="_blank" rel="noopener" title="">Europe</a>
+                    </h3>
+                    <p class="fr-card__desc fr-text">Tout savoir sur la programmation 2021-2027</p>
+                </div>
+                <div class="fr-card__img">
+                    <img src="https://poc.staging.aides-territoires.incubateur.net/assets/img/500x280/europe.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+            <div class="fr-card fr-enlarge-link">
+                <div class="fr-card__body">
+                    <h3 class="fr-card__title">
+                        <a href="/webinaires/" class="fr-card__link" _target="_blank" rel="noopener" title="">Webinaire Plan de Relance</a>
+                    </h3>
+                    <p class="fr-card__desc fr-text">Retrouvez tous nos replays</p>
+                </div>
+                <div class="fr-card__img">
+                    <img src="https://poc.staging.aides-territoires.incubateur.net/assets/img/500x280/plan-de-relance.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
