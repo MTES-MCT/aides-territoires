@@ -1,7 +1,9 @@
 import operator
 from functools import reduce
-from rest_framework import viewsets
+
 from django.db.models import Q
+
+from rest_framework import viewsets, mixins
 
 from backers.models import Backer
 from backers.api.serializers import BackerSerializer
@@ -10,7 +12,7 @@ from backers.api.serializers import BackerSerializer
 MIN_SEARCH_LENGTH = 3
 
 
-class BackerViewSet(viewsets.ReadOnlyModelViewSet):
+class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = BackerSerializer
 
     def get_queryset(self):
