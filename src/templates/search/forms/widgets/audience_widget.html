@@ -1,11 +1,11 @@
 {% with id=widget.attrs.id %}
 {% for group, options, index in widget.optgroups %}
-    <div>
-        <h2>{{ group }}</h2>
+    <div class="fr-grid-row fr-grid-row--gutters fr-my-5w">
+        <h2 class="fr-mr-4w fr-h4">{{ group }}</h2>
 
         <div class="buttons">
         {% for option in options %}
-            <button type="submit" name="{{ option.name }}" value="{{ option.value }}">
+            <button class="fr-btn" type="submit" name="{{ option.name }}" value="{{ option.value }}">
                 {{ option.label }}
             </button>
         {% endfor %}
