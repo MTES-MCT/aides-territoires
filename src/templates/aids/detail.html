@@ -408,31 +408,31 @@
             {% endwith %}
             {% endif %}
             <h2>{{ _('Going further') }}</h2>
-            
-            <button type="button" id="going-further-reveal-button" class="fr-btn fr-mb-3w cta-btn d-inline-block">
-                Poursuivre la démarche pour obtenir l'aide
-            </button>
-            <div id="going-further" class="fake-collapse" aria-expanded="false">
-                {% if aid.contact %}
-                <h3>Contact</h3>
-                {{ aid.contact|safe }}
-                {% endif %}
-
-                {% if aid.origin_url %}
-                <h3>Lien vers le descriptif complet</h3>
-                <p>
-                    <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-                </p>
-                {% endif %}
-
-                {% if aid.application_url %}
-                <h3>Lien vers la démarche en ligne</h3>
-                <p>
-                    <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-                </p>
-                {% endif %}
-            </div>
-
+            <section class="fr-accordion">
+                <h3 class="fr-accordion__title">
+                    <button id="going-further-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="going-further">Poursuivre la démarche pour obtenir l'aide</button>
+                </h3>
+                <div id="going-further" class="fr-collapse">
+                    {% if aid.contact %}
+                    <h3>Contact</h3>
+                    {{ aid.contact|safe }}
+                    {% endif %}
+    
+                    {% if aid.origin_url %}
+                    <h3>Lien vers le descriptif complet</h3>
+                    <p>
+                        <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                    </p>
+                    {% endif %}
+    
+                    {% if aid.application_url %}
+                    <h3>Lien vers la démarche en ligne</h3>
+                    <p>
+                        <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                    </p>
+                    {% endif %}
+                </div>
+            </section>
     </section>
 
 </article>
