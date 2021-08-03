@@ -14,18 +14,31 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}" title="Revenir à l'accueil">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'search_step_audience' %}?{{ current_search }}" title="Lancer une nouvelle recherche">{{ _('Search') }}</a></li>
-        <li><a href="{% url 'search_view' %}?{{ current_search }}" title="Revenir aux résultats">{{ _('Results') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Aid detail') }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'search_step_audience' %}?{{ current_search }}">Recherche</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Détail de l'aide</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<article id="aid">
+<article id="aid" class="fr-container fr-mb-5w">
 
     {% if aid.submission_deadline and not aid.is_ongoing %}
     <div class="deadline-data">
@@ -42,26 +55,19 @@
     <h1> {{ aid.name }} </h1>
     {% if aid.categories %}
     {% regroup aid.categories.all by theme as theme_list %}
-    <ul class="aid-categories">
+    <ul class="aid-categories fr-list__none">
         {% for theme in theme_list %}
-        {% if forloop.counter <= 4 %}
         <li class="theme">
-        {% else %}
-        <li class="theme collapse hidden-categories">
-        {% endif %}
-            <strong>
+            <strong class="fr-uppercase">
                 {{ theme.grouper }}
             </strong>
-            <ul>
+            <ul class="fr-list__none fr-display__inline fr-p-0">
                 {% for category in theme.list %}
-                <li class="category">{{ category }}</li>
+                <li class="category fr-display__inline">{{ category }}</li>
                 {% endfor %}
             </ul>
         </li>
         {% endfor %}
-        {% if theme_list|length > 4 %}
-        <a href=".hidden-categories" data-toggle="collapse" id="collapse-categories-btn">Afficher toutes les thématiques</a>
-        {% endif %}
     </ul>
     {% endif %}
 
@@ -77,13 +83,13 @@
     </div>
     {% endif %}
 
-    <section class="aid-content">
-        <div class="sidebar">
+    <section class="aid-content fr-grid-row fr-mt-5w">
+        <div class="sidebar fr-col-xs-12 fr-col-md-3 fr-p-3w fr-background-alt">
 
             {% if aid.is_local or aid.is_generic %}
                 {% if aid.is_local %}
                 <div class="card">
-                    <div class="local-generic">
+                    <div class="local-generic fr-mb-4w">
                         <h3>{{ _('Local aid') }}</h3>
                         <p>
                             {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
@@ -94,7 +100,7 @@
 
                 {% if aid.is_generic %}
                 <div class="card">
-                    <div class="local-generic">
+                    <div class="local-generic fr-mb-4w">
                         <h3>{{ _('National measure') }}</h3>
                         <p>
                             {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
@@ -108,11 +114,11 @@
             <div class="card">
 
                 {% if financers %}
-                <div class="financers">
+                <div class="financers fr-mb-4w">
                     <h3>Porteurs d'aides</h3>
-                    <ul>
+                    <ul class="fr-pl-0">
                         {% for financer in financers %}
-                        <li>
+                        <li class="fr-list__none">
                             {{ financer }}
                             {% if financer.is_corporate %}
                             ({{ _('Corporate') }})
@@ -124,16 +130,15 @@
                 {% endif %}
 
                 {% if instructors %}
-                <div class="instructors">
+                <div class="instructors fr-mb-4w">
                     <h3>Instructeurs</h3>
-                    <ul>
+                    <ul class="fr-pl-0">
                         {% for instructor in instructors %}
-                        <li>
+                        <li class="fr-list__none">
                             {{ instructor }}
                             {% if instructor.is_corporate %}
                             ({{ _('Corporate') }})
                             {% endif %}
-
                         </li>
                         {% endfor %}
                     </ul>
@@ -144,7 +149,7 @@
 
             <div class="card">
                 {% if aid.is_call_for_project %}
-                <div class="call-for-project">
+                <div class="call-for-project fr-mb-4w">
                     <h3>
                         <acronym title="{{ _('Call for project') }}">
                             AAP
@@ -162,47 +167,49 @@
                 </div>
 
                 {% if aid.subvention_rate or aid.subvention_comment %}
-                <div class="subvention-rate">
+                <div class="subvention-rate fr-mb-4w">
                     <h3>Taux de subvention</h3>
                     {% if aid.subvention_rate %}
-                    <ul>
+                    <ul class="fr-pl-0">
                         {% if aid.subvention_rate.lower %}
-                        <li><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
+                        <li class="fr-list__none"><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
                         {% endif %}
                         {% if aid.subvention_rate.upper %}
-                        <li><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
+                        <li class="fr-list__none"><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
                         {% endif %}
                     </ul>
                     {% endif %}
                     {% if aid.subvention_comment %}
-                    {{ aid.subvention_comment }}
+                    <p>
+                        {{ aid.subvention_comment }}
+                    </p>
                     {% endif %}
                 </div>
                 {% endif %}
 
                 {% if aid.recoverable_advance_amount %}
-                <div class="subvention-rate">
+                <div class="subvention-rate fr-mb-4w">
                     <h3>Montant de l'avance récupérable</h3>
-                    <ul>
-                        <li>{{ aid.recoverable_advance_amount|intcomma }} €</li>
+                    <ul class="fr-pl-0">
+                        <li class="fr-list__none">{{ aid.recoverable_advance_amount|intcomma }} €</li>
                     </ul>
                 </div>
                 {% endif %}
 
                 {% if aid.loan_amount %}
-                <div class="subvention-rate">
+                <div class="subvention-rate fr-mb-4w">
                     <h3>Montant du prêt</h3>
-                    <ul>
-                        <li>{{ aid.loan_amount|intcomma }} €</li>
+                    <ul class="fr-pl-0">
+                        <li class="fr-list__none">{{ aid.loan_amount|intcomma }} €</li>
                     </ul>
                 </div>
                 {% endif %}
 
                 {% if aid.other_financial_aid_comment %}
-                <div class="subvention-rate">
+                <div class="subvention-rate fr-mb-4w">
                     <h3>Commentaire sur l'aide financière</h3>
-                    <ul>
-                        <li>{{ aid.other_financial_aid_comment }}</li>
+                    <ul class="fr-pl-0">
+                        <li class="fr-list__none">{{ aid.other_financial_aid_comment }}</li>
                     </ul>
                 </div>
                 {% endif %}
@@ -210,7 +217,7 @@
 
             <div class="card">
                 {% if aid.recurrence %}
-                <div class="recurrence">
+                <div class="recurrence fr-mb-4w">
                     <h3>Récurrence</h3>
                     <p>{{ aid.get_recurrence_display }}</p>
                 </div>
@@ -218,21 +225,21 @@
 
                 {% if aid.has_calendar %}
                 {% if aid.start_date and not aid.is_ongoing %}
-                <div class="calendar-start">
+                <div class="calendar-start fr-mb-4w">
                     <h3>Date d'ouverture</h2>
                         <p>{{ aid.start_date|date }}</p>
                 </div>
                 {% endif %}
 
                 {% if aid.predeposit_date and not aid.is_ongoing %}
-                <div class="calendar-predeposit">
+                <div class="calendar-predeposit fr-mb-4w">
                     <h3>Date de pré-dépôt</h3>
                     <p>{{ aid.predeposit_date|date }}</p>
                 </div>
                 {% endif %}
 
                 {% if aid.submission_deadline and not aid.is_ongoing %}
-                <div class="calendar-deadline">
+                <div class="calendar-deadline fr-mb-4w">
                     <h3 class="submission_deadline">Date de clôture</h3>
                     <p>{{ aid.submission_deadline|date }}</p>
                 </div>
@@ -242,7 +249,7 @@
 
             {% if aid.is_imported %}
             <div class="card">
-                <div class="data-origin">
+                <div class="data-origin fr-mb-4w">
                     <h3>{{ _('Data origin') }}</h3>
                     <p>{% blocktrans trimmed %}
                         This aid was imported from another data stream.
@@ -260,63 +267,32 @@
             {% endif %}
 
             {% if financers_with_logo %}
-            <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {% for financer in financers_with_logo %}
-                    {% if forloop.counter0 < 1 %}
-                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-                    {% else %}
-                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-                    {% endif %}
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for financer in financers_with_logo %}
-                    {% if forloop.first %}
-                    <div class="carousel-item active">
-                    {% else %}
-                    <div class="carousel-item">
-                    {% endif %}
-                        <a class="d-block w-100"
-                            href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                            <img src="{{ financer.logo.url }}" alt="{{ financer.name }}">
-                        </a>
-                    </div>
-                    {% endfor %}
+            <div>
+                {% for financer in financers_with_logo %}
+                <div class="fr-content-media__img">
+                    <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                        <img src="{{ financer.logo.url }}" class="fr-responsive-img fr-height--auto" alt="{{ financer.name }}" />
+                    </a>
                 </div>
+                {% endfor %}
             </div>
             {% endif %}
 
             {% if programs %}
-            <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {% for program in programs %}
-                    {% if forloop.counter0 < 1 %}
-                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
-                    {% else %}
-                    <li data-target="#carouselControls" data-slide-to="{{ forloop.counter0 }}"></li>
-                    {% endif %}
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for program in programs %}
-                    {% if forloop.counter0 < 1 %}
-                    <div class="carousel-item active">
-                    {% else %}
-                    <div class="carousel-item">
-                    {% endif %}
-                        <a class="d-block w-100" href="{% url 'program_detail' program.slug %}">
-                            <img src="{{ program.logo.url }}" alt="{{ program.name }}">
-                        </a>
-                    </div>
-                    {% endfor %}
+            <div>
+                {% for program in programs %}
+                <div class="fr-content-media__img">
+                    <a href="{% url 'program_detail' program.slug %}">
+                        <img src="{{ program.logo.url }}" class="fr-responsive-img fr-height--auto" alt="{{ program.name }}">
+                    </a>
                 </div>
+                {% endfor %}
             </div>
             {% endif %}
 
             {% if aid.is_corporate_aid %}
             <div class="card" id="aid-entreprise">
-                <div class="aid-entreprise">
+                <div class="aid-entreprise fr-mb-4w">
                     <p><strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong></p>
                     <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
                 </div>
@@ -324,21 +300,21 @@
             {% endif %}
 
             <div class="card">
-                <div class="share">
+                <div class="share fr-mb-4w">
                     <div>
                         <h3><strong>Partager cette aide</strong></h3>
                     </div>
-                    <a href="#" class="js" data-toggle="modal" data-target="#share-modal">
+                    <button class="fr-btn"  data-fr-opened="false" aria-controls="share-modal">
                         Sauvegarder ou envoyer à mon réseau
-                    </a>
+                    </button>
                 </div>
             </div>
 
             <div class="card">
-                <div class="suggest-modification">
+                <div class="suggest-modification fr-mb-4w">
                     <div>
                         <h3><strong>Améliorer cette aide</strong></h3>
-                        <p>Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
+                        <p class="fr-mb-1w">Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
                     </div>
                     <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
                         Envoyez-nous un e-mail
@@ -348,9 +324,11 @@
 
         </div>
 
-        <div class="aid-details">
+        <div class="aid-details fr-col-xs-12 fr-col-md-9 fr-p-3w">
             {% if current_search_dict.projects and not messages %}
-            <a href="#" id="fit_project_btn" class="js" data-toggle="modal" data-target="#match-project-modal">Évaluez cette aide</a>
+            <button class="fr-btn"  data-fr-opened="false" aria-controls="match-project-modal">
+                Évaluez cette aide
+            </button>
             {% endif %}
 
             <h2>{{ _('Global presentation') }}</h2>
@@ -403,9 +381,9 @@
 
             {% if aid.has_eligibility_test %}
             <div>
-                <a href="#" id="aid-eligibility-test-block-btn" class="btn btn-primary js" data-toggle="modal" data-target="#aid-eligibility-test-modal">
+                <button class="fr-btn"  data-fr-opened="false" aria-controls="aid-eligibility-test-modal">
                     Tester mon éligibilité !
-                </a>
+                </button>
             </div>
             {% endif %}
 
@@ -430,7 +408,8 @@
             {% endwith %}
             {% endif %}
             <h2>{{ _('Going further') }}</h2>
-            <button type="button" id="going-further-reveal-button" class="cta-btn d-inline-block">
+            
+            <button type="button" id="going-further-reveal-button" class="fr-btn fr-mb-3w cta-btn d-inline-block">
                 Poursuivre la démarche pour obtenir l'aide
             </button>
             <div id="going-further" class="fake-collapse" aria-expanded="false">
@@ -458,12 +437,12 @@
 
 </article>
 
-<div id="save-alert-block">
+<div id="save-alert-block" class="fr-container fr-grid-row fr-mb-5w fr-grid-row--center">
     <h5>🔔 Ne manquez plus aucun dispositif et recevez les dernières aides en rapport avec votre recherche !</h5>
     <div>
-        <a href="#" id="save-alert-detail-block-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-            {{ _('Create an alert') }}
-        </a>
+        <button class="fr-btn js" id="save-alert-detail-block-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+            Créer une alerte
+        </button>
     </div>
 </div>
 {% endblock %}

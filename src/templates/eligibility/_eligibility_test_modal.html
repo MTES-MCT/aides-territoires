@@ -1,36 +1,40 @@
 {% load i18n %}
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="aid-eligibility-test-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="aid-eligibility-test-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Test d'éligibilité</h1>
 
-<div id="aid-eligibility-test-modal" class="anonymous-modal modal">
-    <div class="modal-dialog modal-lg">
-        <section>
-            <header>
-                <h1>Test d'éligibilité</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </header>
-            <div class="content">
-                <div id="eligibility-test-introduction"></div>
+                        <div class="content">
+                            <div id="eligibility-test-introduction"></div>
 
-                <hr />
+                            <hr />
 
-                <form id="eligibility-test-form" action=""></form>
-                
-                <div id="eligibility-test-results">
-                    <hr />
-                    <p id="eligibility-test-result-message"></p>
-                    <div id="eligibility-test-conclusion"></div>
-                    <br />
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Fermer">
-                        <span aria-hidden="true">&times;</span>&nbsp;Fermer
-                    </button>
+                            <form id="eligibility-test-form" action=""></form>
+                            
+                            <div id="eligibility-test-results">
+                                <hr />
+                                <p id="eligibility-test-result-message"></p>
+                                <div id="eligibility-test-conclusion"></div>
+                                <br />
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Fermer">
+                                    <span aria-hidden="true">&times;</span>&nbsp;Fermer
+                                </button>
+                            </div>
+                            
+                            <span id="spinner">
+                                <span class="spinner-border spinner-border-sm mr-3" role="status" aria-hidden="true"></span>
+                                <span>Chargement en cours</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                
-                <span id="spinner">
-                    <span class="spinner-border spinner-border-sm mr-3" role="status" aria-hidden="true"></span>
-                    <span>Chargement en cours</span>
-                </span>
             </div>
-        </section>
+        </div>
     </div>
-</div>
+</dialog>
