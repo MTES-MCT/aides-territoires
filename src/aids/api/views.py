@@ -8,6 +8,7 @@ from rest_framework.exceptions import NotFound
 from aids.models import Aid
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
+from aids.api.pagination import AidsPagination
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
@@ -43,6 +44,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     lookup_field = 'slug'
+    pagination_class = AidsPagination
 
     def get_base_queryset(self):
         """Get the base queryset of aid list.
