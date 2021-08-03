@@ -221,17 +221,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     TYPES = Choices(*TYPES_ALL)
 
-    PERIMETERS = Choices(
-        ('europe', 'Europe'),
-        ('france', 'France'),
-        ('region', 'Région'),
-        ('department', 'Département'),
-        ('commune', 'Commune'),
-        ('mainland', 'Métropole'),
-        ('overseas', 'Outre-mer'),
-        ('other', 'Autre'),
-    )
-
     STEPS = Choices(
         ('preop', 'Réflexion / conception'),
         ('op', 'Mise en œuvre / réalisation'),

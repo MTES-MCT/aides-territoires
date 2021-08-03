@@ -3,11 +3,9 @@
 from django.db import migrations
 
 from geofr.models import Perimeter as _Perimeter
-from aids.models import Aid as _Aid
 
 
 SCALES = _Perimeter.TYPES
-PERIMETERS = _Aid.PERIMETERS
 
 
 def set_perimeters(apps, schema_editor):
@@ -27,21 +25,21 @@ def set_perimeters(apps, schema_editor):
 
     for aid in aids:
 
-        if aid.application_perimeter == PERIMETERS.europe:
+        if aid.application_perimeter == 'europe':
             aid.perimeter = europe
-        elif aid.application_perimeter == PERIMETERS.france:
+        elif aid.application_perimeter == 'france':
             aid.perimeter = france
-        elif aid.application_perimeter == PERIMETERS.region:
+        elif aid.application_perimeter == 'region':
             region = Perimeter.objects.get(
                 scale=SCALES.region,
                 code=aid.application_region)
             aid.perimeter = region
-        elif aid.application_perimeter == PERIMETERS.department:
+        elif aid.application_perimeter == 'department':
             department = Perimeter.objects.get(
                 scale=SCALES.department,
                 code=aid.application_department)
             aid.perimeter = department
-        elif aid.application_perimeter == PERIMETERS.overseas:
+        elif aid.application_perimeter == 'overseas':
             aid.perimeter = france
 
         aid.save()

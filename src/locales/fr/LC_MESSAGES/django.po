@@ -71,32 +71,8 @@ msgstr "Instructeurs"
 msgid "Eligibility"
 msgstr "Éligibilité"
 
-msgid "The selected aids were set as CFP"
-msgstr "Les aides sélectionnées ont été marquées en tant qu'AAP"
-
-msgid "Set as CFP"
-msgstr "Marquer en tant qu'AAP"
-
 msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
-
-msgid "Export selected Aids as CSV in background task"
-msgstr "Exporter les Aides sélectionnées en CSV en tâche de fond"
-
-msgid "Export selected Aids as XLSX as background task"
-msgstr "Exporter les Aides sélectionnées en XLSX en tâche de fond"
-
-msgid "Export and download selected Aids"
-msgstr "Exporter et télécharger les Aides sélectionnées"
-
-msgid "Deleted aid"
-msgstr "Aide supprimée"
-
-msgid "Amendment"
-msgstr "Amendement"
-
-msgid "Amendments"
-msgstr "Amendements"
 
 msgid "<path:object_id>/merge/"
 msgstr "<path:object_id>/merge/"
