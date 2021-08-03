@@ -1,9 +1,9 @@
 {% with id=widget.attrs.id %}
 {% for group, options, index in widget.optgroups %}
 {% for option in options %}
-    <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
-        <label class="custom-control-label" for="{{ option.attrs.id }}">
+    <div class="custom-control custom-switch fr-toggle">
+        <input type="checkbox" class="custom-control-input fr-toggle__input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
+        <label class="custom-control-label fr-uppercase fr-toggle__label" for="{{ option.attrs.id }}">
             {{ option.label }}
         </label>
     </div>

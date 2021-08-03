@@ -100,12 +100,31 @@ div#search-steps form div.fr-input-group > label {
     white-space: nowrap !important;
 }
 
-div#search-steps form#perimeter div#form-group-perimeter {
+div#search-steps form#perimeter div#form-group-perimeter,
+div#search-steps form#text-research-form div#form-group-text {
     width: 30rem;
     max-width: 100%;
     display: inline-block;
     margin-right: .5rem;
     margin-bottom: 0;
+}
+
+div#search-steps form#theme label > span {
+    display: block;
+    text-transform: initial;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-bottom: 1rem;
+}
+
+div#search-steps form#text-research-form div#form-group-text input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;    
+}
+
+div#search-steps form#theme .fr-toggle__label {
+    display: block;
 }
 
 form select {
