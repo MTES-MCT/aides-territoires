@@ -29,6 +29,11 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
     timeout = settings.AID_DETAIL_API_CACHE_TIMEOUT
     cache_detail_page = method_decorator(cache_page(timeout))
 
+cache_all_aids_page = noop_decorator
+if settings.ENABLE_ALL_AIDS_API_CACHE:
+    timeout = settings.ALL_AIDS_API_CACHE_TIMEOUT
+    cache_all_aids_page = method_decorator(cache_page(timeout))
+
 
 class AidViewSet(viewsets.ReadOnlyModelViewSet):
     """List all active aids that we know about.
@@ -102,6 +107,13 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     def retrieve(self, request, slug):
         return super().retrieve(request, slug)
 
+    def get_aids_count(self, response):
+        if 'count' in response.data:
+            count = response.data.get('count', 0)
+        else:
+            count = self.get_queryset().count()
+        return count
+
     def finalize_response(self, request, response, *args, **kwargs):
         request_ua = request.META.get('HTTP_USER_AGENT', '')
         request_referer = request.META.get('HTTP_REFERER', '')
@@ -115,13 +127,21 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
                     source='api',
                     request_ua=request_ua,
                     request_referer=request_referer)
-        # Fetching all aids (with or without filters) --> AidSearchEvent
 
+        # Fetching all aids (with or without filters) --> AidSearchEvent
         else:
             log_aidsearchevent.delay(
                 querystring=request.GET.urlencode(),
-                results_count=response.data.get('count', 0),
+                results_count=self.get_aids_count(response),
                 source='api',
                 request_ua=request_ua)
 
         return super().finalize_response(request, response, *args, **kwargs)
+
+
+class AllAidViewSet(AidViewSet):
+    pagination_class = None
+
+    @cache_all_aids_page
+    def list(self, request):
+        return super().list(request)
