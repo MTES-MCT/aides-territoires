@@ -77,9 +77,6 @@ msgstr "Les données exportées seront disponibles "
 msgid "<path:object_id>/merge/"
 msgstr "<path:object_id>/merge/"
 
-msgid "The aid was successfully updated."
-msgstr "L'aide a bien été mise à jour."
-
 msgid "Theme and category, separated by « | »."
 msgstr "Thème et catégorie, séparés par « | »."
 
@@ -172,38 +169,6 @@ msgstr "<slug:slug>/supprimer/"
 
 msgid "duplicate/<slug:slug>/"
 msgstr "dupliquer/<slug:slug>/"
-
-#, python-format
-msgid ""
-"Your aid was sucessfully created. You can keep editing it or <a href="
-"\"%(url)s\" target=\"_blank\">preview it</a>."
-msgstr ""
-"Votre aide a été créée. Vous pouvez poursuivre l'édition ou <a href=\"%(url)s"
-"\" target=\"_blank\">la prévisualiser</a>."
-
-#, python-format
-msgid ""
-"The new aid was sucessfully created. You can keep editing it. And find the "
-"duplicated aid in <a href=\"%(url)s\">your portfolio</a>."
-msgstr ""
-"La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. Et retrouvez "
-"l'aide dupliquée sur <a href=\"%(url)s\">votre portefeuille d'aides</a>."
-
-msgid "The aid was sucessfully updated. You can keep editing it."
-msgstr "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
-
-msgid ""
-"Your aid will be reviewed by an admin soon. It will be published and visible "
-"for users once an admin has approved it."
-msgstr ""
-"Votre aide est actuellement en revue. Elle sera publiée et visible par les "
-"utilisateurs du site une fois que l'administrateur l’aura validé."
-
-msgid "We updated your aid status."
-msgstr "Le changement de statut de votre aide a bien été pris en compte."
-
-msgid "Your aid was deleted."
-msgstr "Votre aide a été supprimée."
 
 msgid "We will send an email to confirm your address"
 msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
