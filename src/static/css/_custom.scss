@@ -44,6 +44,10 @@
     display: inline;
 }
 
+.fr-link-blank__none:after {
+        display: none;
+}
+
 // Aid detail style
 
 ul.aid-categories ul::before {

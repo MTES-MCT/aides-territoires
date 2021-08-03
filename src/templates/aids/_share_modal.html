@@ -9,38 +9,34 @@
                     </div>
                     <div class="fr-modal__content">
                         <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Partager cette aide</h1>
-                        <div class="share-target">
-                            <div class="col">
-                                <a class="email" title="Partager par Email" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}">
-                                    <img src="/static/img/logo_mail.svg" alt="Logo Mail">
+                        <div class="share-target fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                            <div class="fr-col-2">
+                                <a title="Partager par Email" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" class="fr-box-shadow__none">
+                                    <img src="/static/img/logo_mail.svg" alt="Logo Mail" class="fr-responsive-img">
                                 </a>
-                                <p>Email</p>
                             </div>
-                            <div class="fb-share-button col" data-href="{{ request.build_absolute_uri }}" data-size="small">
-                                <a target="_blank" rel="noopener" title="Partager sur Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
-                                    <img src="/static/img/logo_facebook.svg" alt="Logo Facebook">
+                            <div class="fb-share-button fr-col-2" data-href="{{ request.build_absolute_uri }}" data-size="small">
+                                <a target="_blank" rel="noopener" title="Partager sur Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore fr-box-shadow__none fr-link-blank__none">
+                                    <img src="/static/img/logo_facebook.svg" alt="Logo Facebook" class="fr-responsive-img">
                                 </a>
-                                <p>Facebook</p>
                             </div>
-                            <div class="col">
-                                <a target="_blank" rel="noopener" title="Partager sur Linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}">
-                                    <img src="/static/img/logo_linkedin.svg" alt="Logo Linkedin">
+                            <div class="fr-col-2">
+                                <a target="_blank" rel="noopener" title="Partager sur Linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" class="fr-box-shadow__none fr-link-blank__none">
+                                    <img src="/static/img/logo_linkedin.svg" alt="Logo Linkedin" class="fr-responsive-img">
                                 </a>
-                                <p>Linkedin</p>
                             </div>
-                            <div class="col">
-                                <a target="_blank" rel="noopener" title="Partager sur Twitter" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;">
-                                    <img src="/static/img/logo_twitter.svg" alt="Logo Twitter">
+                            <div class="fr-col-2">
+                                <a target="_blank" rel="noopener" title="Partager sur Twitter" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;" class="fr-box-shadow__none fr-link-blank__none">
+                                    <img src="/static/img/logo_twitter.svg" alt="Logo Twitter" class="fr-responsive-img">
                                 </a>
-                                <p>Twitter</p>
                             </div>
                         </div>
                               
-                        <form id="copy-to-clipboard-form">
-                            <div class="form-group">
-                                <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" />
+                        <form id="copy-to-clipboard-form" class="fr-grid-row fr-grid-row--center">
+                            <div class="form-group fr-my-2w fr-col-12">
+                                <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" class="fr-col-12" />
                             </div>
-                            <button type="button" id="clipboard-btn">
+                            <button type="button" id="clipboard-btn" class="fr-btn">
                                 {{ _('Copy the current url to clipboard') }}
                             </button>
                         </form>
