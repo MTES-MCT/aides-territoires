@@ -3,6 +3,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 
 from aids.models import Aid
@@ -125,3 +127,13 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
                 request_ua=request_ua)
 
         return super().finalize_response(request, response, *args, **kwargs)
+
+
+class AidAudiences(viewsets.ViewSet):
+    """
+    List all the audiences.
+    """
+
+    def list(self, request):
+        aid_audiences = [{ 'key': key, 'value': value} for (key, value) in Aid.AUDIENCES]
+        return Response(aid_audiences)
