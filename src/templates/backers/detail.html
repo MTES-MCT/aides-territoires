@@ -42,7 +42,7 @@
 
         {% if aids %}
         <div>
-            <h2>{{ _('Related themes') }}</h2>
+            <h2>Thématiques associées</h2>
             {% regroup categories by theme as theme_list %}
             <ul class="backer-categories">
                 {% for theme in theme_list %}
@@ -62,7 +62,7 @@
         
         {% if programs %}
         <div>
-            <h2>{{ _('Related programs') }}</h2>
+            <h2>Programmes associés</h2>
             <div id="program-logo">
             {% for program in programs %}
                 <a href="{% url 'program_detail' program.slug %}">

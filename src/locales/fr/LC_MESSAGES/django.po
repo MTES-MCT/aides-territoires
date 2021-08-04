@@ -311,9 +311,6 @@ msgstr ""
 msgid "You confirmed the alert creation."
 msgstr "Vous venez de confirmer la création de l'alerte."
 
-msgid "Number of backers"
-msgstr "Nombre de porteurs"
-
 msgid "Logo image"
 msgstr "Logo du porteur"
 
@@ -325,21 +322,6 @@ msgstr "SEO"
 
 msgid "Backer Group"
 msgstr "Groupe de porteurs"
-
-msgid "Financed aids"
-msgstr "Aides financées"
-
-msgid "Instructed aids"
-msgstr "Aides instruites"
-
-msgid "Related aids"
-msgstr "Aides associées"
-
-msgid "Related themes"
-msgstr "Thématiques associées"
-
-msgid "Related programs"
-msgstr "Programmes associés"
 
 msgid "Backer Groups"
 msgstr "Groupes de porteurs"
