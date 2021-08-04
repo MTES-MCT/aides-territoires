@@ -146,3 +146,12 @@ class AidAudiences(viewsets.ViewSet):
         }
         return Response(data)
 
+
+class AidTypes(viewsets.ViewSet):
+    """
+    List all the aid types.
+    """
+
+    def list(self, request):
+        aid_types = [{ 'key': key, 'value': value} for (key, value) in Aid.TYPES]
+        return Response(aid_types)
