@@ -118,6 +118,21 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
         return redirect(file_url)
 
+    def get_aids_count(self, response):
+        """
+        The number of aids can be found in the response data : that's the case
+        when the API uses pagination.
+        Sometime, we cannot get this count from the response data : that's the
+        case when the user is requesting a dump of all aids. In that case, we
+        just use the current aids count from the DB, even though that count
+        could be outdated, because the results are not fetched in real-time.
+        """
+        if hasattr(response, 'data') and 'count' in response.data:
+            count = response.data.get('count', 0)
+        else:
+            count = self.get_queryset().count()
+        return count
+
     def finalize_response(self, request, response, *args, **kwargs):
         request_ua = request.META.get('HTTP_USER_AGENT', '')
         request_referer = request.META.get('HTTP_REFERER', '')
@@ -131,12 +146,12 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
                     source='api',
                     request_ua=request_ua,
                     request_referer=request_referer)
-        # Fetching all aids (with or without filters) --> AidSearchEvent
 
+        # Fetching all aids (with or without filters) --> AidSearchEvent
         else:
             log_aidsearchevent.delay(
                 querystring=request.GET.urlencode(),
-                results_count=response.data.get('count', 0),
+                results_count=self.get_aids_count(response),
                 source='api',
                 request_ua=request_ua)
 
