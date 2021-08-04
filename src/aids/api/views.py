@@ -1,10 +1,13 @@
 from django.conf import settings
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
@@ -104,6 +107,20 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     @cache_detail_page
     def retrieve(self, request, slug):
         return super().retrieve(request, slug)
+
+    @action(detail=False)
+    def all(self, request):
+        """
+        Provides a json dump of all aids. The data is not "real-time" data,
+        it is updated on a regular basis. If your applications require
+        real-time data, then this endpoint is not suited.
+        """
+        storage = S3Boto3Storage(
+            bucket_name=settings.AWS_STORAGE_BUCKET_NAME,
+            endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+        )
+        file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
+        return redirect(file_url)
 
     def finalize_response(self, request, response, *args, **kwargs):
         request_ua = request.META.get('HTTP_USER_AGENT', '')

@@ -21,6 +21,5 @@ class Command(BaseCommand):
             bucket_name=settings.AWS_STORAGE_BUCKET_NAME,
             endpoint_url=settings.AWS_S3_ENDPOINT_URL,
         )
-        import ipdb ; ipdb.set_trace()
         file_obj = ContentFile(json_data)
         storage.save(settings.ALL_AIDS_DUMP_FILE_PATH, file_obj)
