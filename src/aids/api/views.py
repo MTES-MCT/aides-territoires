@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.files.storage import default_storage as storage
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -7,7 +8,6 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
-from storages.backends.s3boto3 import S3Boto3Storage
 
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
@@ -115,10 +115,6 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         it is updated on a regular basis. If your applications require
         real-time data, then this endpoint is not suited.
         """
-        storage = S3Boto3Storage(
-            bucket_name=settings.AWS_STORAGE_BUCKET_NAME,
-            endpoint_url=settings.AWS_S3_ENDPOINT_URL,
-        )
         file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
         return redirect(file_url)
 
