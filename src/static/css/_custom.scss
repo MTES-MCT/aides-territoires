@@ -144,6 +144,13 @@ form select {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+// search result 
+
+.hidden-btn {
+  position: absolute;
+  left: -9999px;
+}
+
 // Bootstrap select2
 
 .select2-container {

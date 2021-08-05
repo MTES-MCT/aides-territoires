@@ -19,7 +19,7 @@
     {% endblock %}
 
     {% block other_actions %}
-    <div class="other-actions">
+    <div class="other-actions fr-mb-5w">
 
         {% comment %}
             This hidden button is here to make it the "default" submit button.
@@ -29,51 +29,50 @@
         <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
         {% block other-actions %}
-            <a id="new-search-btn" href="{% url 'search_step_audience' %}">
+            <a id="new-search-btn" class="fr-btn" href="{% url 'search_step_audience' %}">
                 {{ _('New search') }}
             </a>
 
-            <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+            <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                 {{ _('More filters') }}
             </button>
-
-            <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-                {{ _('Create an alert') }}
-            </a>
+            <button class="fr-btn js" id="save-alert-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+                Créer une alerte
+            </button>
         {% endblock %}
     </div>
     {% endblock %}
 
-    <div class="form-container">
+    <div class="form-container fr-mb-5w fr-background-alt-pink fr-p-3w">
         <div class="form-body">
 
             {% block form-body %}
-            <div class="row">
-                <div class="col col-md-3">
+            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                <div class="fr-col fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.aid_type %}
                 </div>
 
-                <div class="col col-md-3">
+                <div class="fr-col fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.programs %}
                 </div>
 
-                <div class="col col-md-3">
+                <div class="fr-col fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.backers %}
                 </div>
 
-                <div class="col col-md-3">
+                <div class="fr-col fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.text %}
                 </div>
             </div>
             {% endblock %}
 
             {% block form-actions %}
-            <div class="row actions-row">
-                <div class="col-md-3">
+            <div class="fr-grid-row actions-row">
+                <div class="fr-col-md-3">
                     {{ form.order_by }}
                 </div>
-                <div class="col-md-3 offset-md-6">
-                    <button name="action" value="search-filter" class="search-btn" type="submit">
+                <div class="fr-col-md-3 fr-col-offset-md-6">
+                    <button name="action" value="search-filter" class="search-btn fr-btn" type="submit">
                         {{ _('Filter results') }}
                     </button>
                 </div>
