@@ -3,12 +3,11 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from rest_framework import viewsets
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 
 from aids.models import Aid
-from aids.constants import AUDIENCES_GROUPED
+from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
@@ -150,8 +149,11 @@ class AidAudiences(viewsets.ViewSet):
 class AidTypes(viewsets.ViewSet):
     """
     List all the aid types.
+    Exemple : { "key": "grant", "value": "Subvention", "type": "Aides financières" }
     """
 
     def list(self, request):
-        aid_types = [{ 'key': key, 'value': value} for (key, value) in Aid.TYPES]
+        aid_types = list()
+        for (type_type, type_group) in TYPES_GROUPED:
+            aid_types += [{'key': key, 'value': value, 'type': type_type} for (key, value) in type_group]  # noqa
         return Response(aid_types)

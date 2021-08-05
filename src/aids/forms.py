@@ -18,26 +18,10 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from aids.models import Aid
-from aids.constants import AUDIENCES_GROUPED
+from aids.constants import (
+    AUDIENCES_GROUPED,
+    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST, TYPES_GROUPED)
 
-
-FINANCIAL_AIDS = (
-    ('grant', 'Subvention'),
-    ('loan', 'Prêt'),
-    ('recoverable_advance', 'Avance récupérable'),
-    ('other', 'Autre'),
-)
-
-TECHNICAL_AIDS = (
-    ('technical', 'Technique'),
-    ('financial', 'Financière'),
-    ('legal', 'Juridique / administrative'),
-)
-
-AID_TYPES = (
-    ('Aides financières', FINANCIAL_AIDS),
-    ('Aides en ingénierie', TECHNICAL_AIDS),
-)
 
 IS_CALL_FOR_PROJECT = (
     (None, '----'),
@@ -95,7 +79,7 @@ class BaseAidForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if 'aid_types' in self.fields:
-            self.fields['aid_types'].choices = AID_TYPES
+            self.fields['aid_types'].choices = TYPES_GROUPED
 
         if 'targeted_audiences' in self.fields:
             self.fields['targeted_audiences'].choices = AUDIENCES_GROUPED
@@ -499,9 +483,9 @@ class BaseAidSearchForm(forms.Form):
 
         aid_type = self.cleaned_data.get('aid_type', [])
         if 'financial' in aid_type:
-            aid_types += Aid.FINANCIAL_AIDS
+            aid_types += FINANCIAL_AIDS_LIST
         if 'technical' in aid_type:
-            aid_types += Aid.TECHNICAL_AIDS
+            aid_types += TECHNICAL_AIDS_LIST
 
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
