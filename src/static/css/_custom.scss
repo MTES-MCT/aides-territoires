@@ -462,6 +462,9 @@ fieldset {
   margin-top: 0.5rem;
 }
 
+#contact-form .fr-input-group > textarea {
+  height: auto;
+}
 
 // Alert modal
 
@@ -475,12 +478,6 @@ fieldset {
 #alert-search-modal .fr-input-group > select {
   width: 100%;
   margin-top: 0.5rem;
-}
-
-// Form general rules
-
-form .fr-input-group.required > label::after {
-  content: "*";
 }
 
 // search result 
