@@ -140,4 +140,8 @@ class AidAudiences(viewsets.ViewSet):
         aid_audiences = list()
         for (audience_type, audience_group) in AUDIENCES_GROUPED:
             aid_audiences += [{'key': key, 'value': value, 'type': audience_type} for (key, value) in audience_group]  # noqa
-        return Response(aid_audiences)
+        data = {
+            'count': len(aid_audiences),
+            'results': aid_audiences
+        }
+        return Response(data)
