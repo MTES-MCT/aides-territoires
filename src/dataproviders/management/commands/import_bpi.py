@@ -141,4 +141,4 @@ class Command(BaseImportCommand):
         return [t for t in aid_types if t]
 
     def extract_recurrence(self, line):
-        return Aid.RECURRENCE.ongoing
+        return Aid.RECURRENCES.ongoing

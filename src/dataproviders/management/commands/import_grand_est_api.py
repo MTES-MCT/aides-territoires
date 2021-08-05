@@ -163,8 +163,8 @@ class Command(BaseImportCommand):
     def extract_recurrence(self, line):
         is_call_for_project = line.get('post_type') == 'ge_projet'
         if is_call_for_project:
-            return Aid.RECURRENCE.oneoff
-        return Aid.RECURRENCE.ongoing
+            return Aid.RECURRENCES.oneoff
+        return Aid.RECURRENCES.ongoing
 
     def extract_start_date(self, line):
         is_call_for_project = line.get('post_type') == 'ge_projet'

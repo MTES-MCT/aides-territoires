@@ -138,7 +138,7 @@ class Command(BaseImportCommand):
         return [self.backer_loire_bretagne]
 
     def extract_recurrence(self, line):
-        return Aid.RECURRENCE.oneoff
+        return Aid.RECURRENCES.oneoff
 
     def extract_aid_types(self, line):
         return [Aid.TYPES.grant]

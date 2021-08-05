@@ -179,3 +179,14 @@ class AidSteps(viewsets.ViewSet):
             'results': aid_steps
         }
         return Response(data)
+
+
+class AidRecurrences(viewsets.ViewSet):
+    """
+    List all the aid recurrences.
+    Example : { "key": "oneoff", "value": "Ponctuelle" }
+    """
+
+    def list(self, request):
+        aid_recurrences = [{'key': key, 'value': value} for (key, value) in Aid.RECURRENCES]
+        return Response(aid_recurrences)
