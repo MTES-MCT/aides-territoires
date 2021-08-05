@@ -127,7 +127,8 @@ div#search-steps form#theme .fr-toggle__label {
     display: block;
 }
 
-form select {
+form select,
+#id_text {
     display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
