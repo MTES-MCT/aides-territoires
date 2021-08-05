@@ -156,4 +156,8 @@ class AidTypes(viewsets.ViewSet):
         aid_types = list()
         for (type_type, type_group) in TYPES_GROUPED:
             aid_types += [{'key': key, 'value': value, 'type': type_type} for (key, value) in type_group]  # noqa
-        return Response(aid_types)
+        data = {
+            'count': len(aid_types),
+            'results': aid_types
+        }
+        return Response(data)
