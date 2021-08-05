@@ -204,4 +204,8 @@ class AidDestinations(viewsets.ViewSet):
 
     def list(self, request):
         aid_destinations = [{'key': key, 'value': value} for (key, value) in Aid.DESTINATIONS]
-        return Response(aid_destinations)
+        data = {
+            'count': len(aid_destinations),
+            'results': aid_destinations
+        }
+        return Response(data)
