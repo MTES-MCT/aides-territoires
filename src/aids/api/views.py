@@ -174,4 +174,8 @@ class AidSteps(viewsets.ViewSet):
 
     def list(self, request):
         aid_steps = [{'key': key, 'value': value} for (key, value) in Aid.STEPS]
-        return Response(aid_steps)
+        data = {
+            'count': len(aid_steps),
+            'results': aid_steps
+        }
+        return Response(data)
