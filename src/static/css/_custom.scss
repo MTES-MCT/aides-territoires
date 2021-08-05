@@ -161,6 +161,12 @@ form select,
   margin-top: 0.5rem;
 }
 
+// Form general rules
+
+form .fr-input-group.required > label::after {
+  content: "*";
+}
+
 // search result 
 
 .hidden-btn {
