@@ -14,8 +14,8 @@
                         <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
                             <section>
                                 <div class="content">
-                                    <div class="info">
-                                        <h5>{{ _('Selected filters') }}</h5>
+                                    <div class="info fr-mb-5w">
+                                        <p class="fr-h6">Les filtres sélectionnés</p>
                                         {% include 'aids/_search_meta.html' with display="all" %}
                                     </div>
 
@@ -36,7 +36,7 @@
                                 </div>
 
                                 <footer>
-                                    <button class="btn-block" type="submit">
+                                    <button class="btn-block fr-btn" type="submit">
                                         {{ _('Create an alert') }}
                                     </button>
                                 </footer>
