@@ -13,6 +13,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from aids.constants import AUDIENCES_ALL
 from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from dataproviders.constants import IMPORT_LICENCES
@@ -248,20 +249,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('postop', 'Usage / valorisation'),
     )
 
-    AUDIENCES = Choices(
-        ('commune', 'Communes'),
-        ('epci', 'EPCI à fiscalité propre'),
-        ('department', 'Départements'),
-        ('region', 'Régions'),
-        ('special', "Collectivités d'outre-mer à statuts particuliers"),
-        ('association', 'Associations'),
-        ('private_sector', 'Entreprises privées'),
-        ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
-        ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
-        ('researcher', 'Recherche'),
-        ('private_person', 'Particuliers'),
-        ('farmer', 'Agriculteurs'),
-    )
+    AUDIENCES = Choices(*AUDIENCES_ALL)
 
     DESTINATIONS = Choices(
         ('supply', 'Dépenses de fonctionnement'),

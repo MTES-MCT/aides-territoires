@@ -16,6 +16,8 @@ OTHER_AUDIENCES = (
     ('researcher', 'Recherche'),
 )
 
+AUDIENCES_ALL = COLLECTIVITIES_AUDIENCES + OTHER_AUDIENCES
+
 AUDIENCES_GROUPED = (
     ('Collectivités', COLLECTIVITIES_AUDIENCES),
     ('Autres bénéficiaires', OTHER_AUDIENCES)

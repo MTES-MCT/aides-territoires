@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 
 from aids.models import Aid
+from aids.constants import AUDIENCES_GROUPED
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
 from aids.forms import AidSearchForm
@@ -132,8 +133,11 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 class AidAudiences(viewsets.ViewSet):
     """
     List all the audiences.
+    Exemple : { "key": "commune", "value": "Communes", "type": "Collectivités" }
     """
 
     def list(self, request):
-        aid_audiences = [{ 'key': key, 'value': value} for (key, value) in Aid.AUDIENCES]
+        aid_audiences = list()
+        for (audience_type, audience_group) in AUDIENCES_GROUPED:
+            aid_audiences += [{'key': key, 'value': value, 'type': audience_type} for (key, value) in audience_group]  # noqa
         return Response(aid_audiences)
