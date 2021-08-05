@@ -13,9 +13,18 @@
                 <li>
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
+                {% if selected_category %}
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'blog_post_list_view' %}">Blog</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ selected_category.name }}</a>
+                </li>
+                {% else %}
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Blog</a>
                 </li>
+                {% endif %}
             </ol>
         </div>
     </nav>
