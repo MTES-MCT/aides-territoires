@@ -458,7 +458,18 @@ div#search-steps form#audience .fr-btn {
   margin-bottom: 1rem;
 }
 
+<<<<<<< HEAD
 // Contact form
+=======
+// search result 
+
+.hidden-btn {
+  position: absolute;
+  left: -9999px;
+}
+
+// Bootstrap select2
+>>>>>>> redesign result page search-form
 
 fieldset {
   border: none;
