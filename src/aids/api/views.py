@@ -189,4 +189,8 @@ class AidRecurrences(viewsets.ViewSet):
 
     def list(self, request):
         aid_recurrences = [{'key': key, 'value': value} for (key, value) in Aid.RECURRENCES]
-        return Response(aid_recurrences)
+        data = {
+            'count': len(aid_recurrences),
+            'results': aid_recurrences
+        }
+        return Response(data)
