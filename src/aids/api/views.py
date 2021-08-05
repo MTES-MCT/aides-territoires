@@ -3,13 +3,22 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from rest_framework import viewsets
+<<<<<<< HEAD
+=======
+from rest_framework.views import APIView
+>>>>>>> a289e07f... API : ajout d'un endpoint pour lister tous les bénéficiaires (#756)
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 
 from aids.models import Aid
+<<<<<<< HEAD
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
+=======
+from aids.constants import AUDIENCES_GROUPED
+>>>>>>> a289e07f... API : ajout d'un endpoint pour lister tous les bénéficiaires (#756)
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
+from aids.api.pagination import AidsPagination
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
@@ -45,6 +54,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     lookup_field = 'slug'
+    pagination_class = AidsPagination
 
     def get_base_queryset(self):
         """Get the base queryset of aid list.
