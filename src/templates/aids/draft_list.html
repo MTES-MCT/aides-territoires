@@ -46,53 +46,55 @@
         </div>
     </form>
 
-    <table class="data-table fr-table">
-        <caption class="sr-only">
-            La liste de vos aides publiées
-            <br>
-            <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
-        </caption>
-        <thead>
-            <tr>
-                <th class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
-                <th title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
-                <th title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
-                <th title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                <th title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
-                <th>{{ _('Is live') }}</th>
-                <th>Vues</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for aid in aids %}
-            <tr>
-                <td>
-                    <a href="{% url 'aid_edit_view' aid.slug %}">
-                        {{ aid.name }}
-                    </a>
-                    {% if aid.is_live %}
-                        <span class="fas fa-check-circle" title="Affichée"></span>
-                    {% endif %}
-                </td>
-                <td>{{ aid.perimeter }}</td>
-                <td>{{ aid.date_created|date:'d/m/y' }}</td>
-                <td>{{ aid.date_updated|date:'d/m/y' }}</td>
-                <td class="nowrap-cell">
-                    {% if aid.is_ongoing %}
-                        <span class="fas fa-parking" title="Permanente"></span>
-                    {% elif aid.has_approaching_deadline %}
-                        <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
-                    {% elif aid.has_expired %}
-                        <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
-                    {% endif %}
-                    <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
-                </td>
-                <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
-                <td>{% get hits_per_aid aid.id 0 %}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="fr-table">
+        <table class="data-table">
+            <caption class="sr-only">
+                La liste de vos aides publiées
+                <br>
+                <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
+                    <th scope="col" title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
+                    <th scope="col" title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
+                    <th scope="col" title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
+                    <th scope="col" title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
+                    <th scope="col">{{ _('Is live') }}</th>
+                    <th scope="col">Vues</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aid in aids %}
+                <tr>
+                    <td>
+                        <a href="{% url 'aid_edit_view' aid.slug %}">
+                            {{ aid.name }}
+                        </a>
+                        {% if aid.is_live %}
+                            <span class="fas fa-check-circle" title="Affichée"></span>
+                        {% endif %}
+                    </td>
+                    <td>{{ aid.perimeter }}</td>
+                    <td>{{ aid.date_created|date:'d/m/y' }}</td>
+                    <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+                    <td class="nowrap-cell">
+                        {% if aid.is_ongoing %}
+                            <span class="fas fa-parking" title="Permanente"></span>
+                        {% elif aid.has_approaching_deadline %}
+                            <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                        {% elif aid.has_expired %}
+                            <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                        {% endif %}
+                        <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
+                    </td>
+                    <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
+                    <td>{% get hits_per_aid aid.id 0 %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     {% include '_pagination.html' %}
 
