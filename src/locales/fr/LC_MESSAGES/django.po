@@ -74,15 +74,6 @@ msgstr "Éligibilité"
 msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
 
-msgid "<path:object_id>/merge/"
-msgstr "<path:object_id>/merge/"
-
-msgid "Theme and category, separated by « | »."
-msgstr "Thème et catégorie, séparés par « | »."
-
-msgid "E.g: \"Nature / environnement|Qualité de l'air\""
-msgstr "E.g : \"Nature / environnement|Qualité de l'air\""
-
 msgid "Aid title"
 msgstr "Nom de l'aide"
 
@@ -145,30 +136,6 @@ msgstr "Aide"
 
 msgid "Aids"
 msgstr "Aides"
-
-msgid "search/"
-msgstr "recherche/"
-
-msgid "results/"
-msgstr "resultats/"
-
-msgid "results/receive/"
-msgstr "resultats/recevoir/"
-
-msgid "publish/"
-msgstr "publier/"
-
-msgid "published/"
-msgstr "publications/"
-
-msgid "<slug:slug>/status/"
-msgstr "<slug:slug>/statut/"
-
-msgid "<slug:slug>/delete/"
-msgstr "<slug:slug>/supprimer/"
-
-msgid "duplicate/<slug:slug>/"
-msgstr "dupliquer/<slug:slug>/"
 
 msgid "We will send an email to confirm your address"
 msgstr "Nous enverrons un e-mail pour confirmer votre adresse"

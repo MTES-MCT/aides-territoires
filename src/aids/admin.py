@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.urls import path
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import HttpResponseForbidden
 
@@ -528,8 +527,7 @@ class AmendmentAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            path(_('<path:object_id>/merge/'), self.admin_site.admin_view(
-                AmendmentMerge.as_view()), name='aids_amendment_merge'),
+            path('<path:object_id>/merge/', self.admin_site.admin_view(AmendmentMerge.as_view()), name='aids_amendment_merge'),  # noqa
         ]
         return my_urls + urls
 
