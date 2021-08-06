@@ -75,6 +75,7 @@ form select,
 #alert-search-modal .fr-input-group > input,
 #register-form .fr-input-group > input,
 #login-form .fr-input-group > input,
+#profile-form .fr-input-group > input,
 #contact-form .fr-input-group > input,
 #contact-form .fr-input-group > textarea {
     display: block;
@@ -93,6 +94,7 @@ form select,
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+#profile-form .fr-input-group > .field-help,
 #register-form .fr-input-group > .field-help {
   display: block;
   font-size: 0.9rem;
