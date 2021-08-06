@@ -194,3 +194,18 @@ class AidRecurrences(viewsets.ViewSet):
             'results': aid_recurrences
         }
         return Response(data)
+
+
+class AidDestinations(viewsets.ViewSet):
+    """
+    List all the aid destinations.
+    Example : { "key": "supply", "value": "Dépenses de fonctionnement" }
+    """
+
+    def list(self, request):
+        aid_destinations = [{'key': key, 'value': value} for (key, value) in Aid.DESTINATIONS]
+        data = {
+            'count': len(aid_destinations),
+            'results': aid_destinations
+        }
+        return Response(data)
