@@ -61,6 +61,7 @@ form .fr-input-group > ul > li {
 form select,
 #id_text,
 #alert-search-modal .fr-input-group > input,
+#register-form .fr-input-group > input,
 #contact-form .fr-input-group > input,
 #contact-form .fr-input-group > textarea {
     display: block;
@@ -77,6 +78,12 @@ form select,
     border-radius: 0.25rem;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#register-form .fr-input-group > .field-help {
+  display: block;
+  font-size: 0.9rem;
+  color: grey;
 }
 
 // Aid detail style
@@ -105,6 +112,21 @@ ul.aid-categories ul li + li::before {
   @media screen and (max-width: 1000px) {
     display: none;
 }
+}
+
+// Header style
+
+#profil::before {
+  font-size: 1.5rem;
+}
+
+// register page style
+
+legend {
+  font-size: 1.5rem!important;
+  line-height: 2rem!important;
+  margin: 1rem 0;
+  font-weight: bold;
 }
 
 // Home style 

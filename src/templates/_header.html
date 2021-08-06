@@ -4,6 +4,7 @@
 <header role="banner" class="fr-header">
     <div class="fr-header__body">
         <div class="fr-container">
+
             <div class="fr-header__body-row">
                 <div class="fr-header__brand fr-enlarge-link">
                     <div class="fr-header__brand-top">
@@ -23,26 +24,37 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="fr-header__tools">
                     <div class="fr-header__tools-links">
+                        {% if user.is_authenticated %}                    
                         <ul class="fr-links-group">
-                            <li>
-                                <a class="fr-link fr-fi-lock-line" href="{% url 'aid_draft_list_view' %}">Se connecter</a>
+                            <li class="fr-link fr-fi-account-line" id="profil">
+                                {{ user.full_name }}
                             </li>
                             <li>
-                                <a class="fr-link fr-fi-account-line" href="{% url 'aid_draft_list_view' %}">S’enregistrer</a>
+                                <a class="fr-link" href="{% url 'logout' %}">
+                                    {{ _('Log out') }}
+                                </a>
                             </li>
                         </ul>
-                    </div>
-                    <div class="fr-header__search fr-modal" id="modal-866">
-                        <div class="fr-container fr-container-lg--fluid">
-                            <button class="fr-link--close fr-link" aria-controls="modal-866">Fermer</button>
-                        </div>
+                    {% else %}
+                        <ul class="fr-links-group">
+                            <li>
+                                <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>
+                            </li>
+                            <li>
+                                <a class="fr-link fr-fi-account-line" href="{% url 'register' %}">S’enregistrer</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
     <div class="fr-header__menu fr-modal" id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
         <div class="fr-container">
             <button class="fr-link--close fr-link" aria-controls="modal-870">Fermer</button>
