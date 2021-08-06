@@ -245,7 +245,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('investment', "Dépenses d'investissement"),
     )
 
-    RECURRENCE = Choices(
+    RECURRENCES = Choices(
         ('oneoff', 'Ponctuelle'),
         ('ongoing', 'Permanente'),
         ('recurring', 'Récurrente'),
@@ -423,7 +423,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'Récurrence',
         help_text="L'aide est-elle ponctuelle, permanente, ou récurrente ?",
         max_length=16,
-        choices=RECURRENCE,
+        choices=RECURRENCES,
         blank=True)
     is_call_for_project = models.BooleanField(
         "Appel à projet / Manifestation d'intérêt",
@@ -647,7 +647,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         return bool(set(aid_types) & set(TECHNICAL_AIDS_LIST))
 
     def is_ongoing(self):
-        return self.recurrence == self.RECURRENCE.ongoing
+        return self.recurrence == self.RECURRENCES.ongoing
 
     def has_calendar(self):
         """Does the aid has valid calendar data?."""

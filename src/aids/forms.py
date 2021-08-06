@@ -392,7 +392,7 @@ class BaseAidSearchForm(forms.Form):
     recurrence = forms.ChoiceField(
         label='Récurrence',
         required=False,
-        choices=Aid.RECURRENCE)
+        choices=Aid.RECURRENCES)
     call_for_projects_only = forms.BooleanField(
         label="Appels à projets / Appels à manifestation d'intérêt uniquement",
         required=False)
