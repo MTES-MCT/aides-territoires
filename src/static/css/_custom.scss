@@ -212,6 +212,17 @@ fieldset {
   }
 }
 
+#aid-list .deadline.fr-tag {
+  display: block;
+  float: right;
+  background-color: #DB1C83;
+  color: #fff;
+}
+
+#aid-list .fr-card__link {
+  display: block;
+}
+
 // Bootstrap select2
 
 .select2-container {

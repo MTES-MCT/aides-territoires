@@ -3,16 +3,14 @@
 <article class="fr-card fr-enlarge-link">
     <div class="fr-card__body">
 
-        <h2 class="fr-card__title fr-mb-1w">
+        <div class="fr-card__title fr-mb-1w">
             {% if aid.has_approaching_deadline %}
-                <span class="deadline deadline-delta">J-{{ aid.days_before_deadline }}</span>
-            {% else %}
-                <span class="deadline no-deadline"></span>
+                <span class="deadline deadline-delta fr-tag">J-{{ aid.days_before_deadline }}</span>
             {% endif %}
             <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
             {{ aid.name }}
             </a>
-        </h2>
+        </div>
 
         <div class="fr-card__desc">
         
