@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'slug', 'name')
+        fields = ('id', 'name', 'slug')
 
 
 class ThemeSerializer(serializers.ModelSerializer):
@@ -16,4 +16,4 @@ class ThemeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Theme
-        fields = ('id', 'slug', 'name', 'categories')
+        fields = ('id', 'name', 'slug', 'categories')
