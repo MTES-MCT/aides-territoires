@@ -19,8 +19,7 @@ class BackerDetailView(DetailView):
 
         aids = Aid.objects.live() \
             .filter(financers=self.object.id) \
-            .prefetch_related(Prefetch('categories',
-                              queryset=categories_list)) \
+            .prefetch_related(Prefetch('categories', queryset=categories_list)) \
             .order_by('categories__theme', 'categories__name') \
 
         categories = Category.objects \
