@@ -77,8 +77,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         qs = self.get_base_queryset()
         filter_form = AidSearchForm(data=self.request.GET)
         apply_filter = 'prevent_generic_filter' not in self.request.GET
-        results = filter_form.filter_queryset(
-            qs, apply_generic_aid_filter=apply_filter)
+        results = filter_form.filter_queryset(qs, apply_generic_aid_filter=apply_filter)
         ordered_results = filter_form.order_queryset(results).distinct()
         return ordered_results
 

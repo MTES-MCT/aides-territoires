@@ -4,7 +4,6 @@ from eligibility.models import EligibilityTest
 from eligibility.api.serializers import EligibilityTestSerializer
 
 
-class EligibilityTestViewSet(mixins.RetrieveModelMixin,
-                             viewsets.GenericViewSet):
-    queryset = EligibilityTest.objects.all()
+class EligibilityTestViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = EligibilityTestSerializer
+    queryset = EligibilityTest.objects.all()

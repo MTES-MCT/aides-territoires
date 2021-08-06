@@ -5,6 +5,8 @@ from programs.models import Program
 
 class ProgramSerializer(serializers.ModelSerializer):
 
+    perimeter = serializers.StringRelatedField()
+
     class Meta:
         model = Program
-        fields = ('id', 'slug', 'name')
+        fields = ('id', 'name', 'slug', 'perimeter')
