@@ -43,7 +43,7 @@
     {% if aid.submission_deadline and not aid.is_ongoing %}
     <div class="deadline-data">
         {% if aid.has_approaching_deadline %}
-        <span>J-{{ aid.days_before_deadline }}</span>
+        <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
         {% endif %}
         <p>
             <strong>{{ _('Deadline') }}</strong><br />
