@@ -6,4 +6,4 @@ from programs.api.serializers import ProgramSerializer
 
 class ProgramViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = ProgramSerializer
-    queryset = Program.objects.all()
+    queryset = Program.objects.all().order_by('id')
