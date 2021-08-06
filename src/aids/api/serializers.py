@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _
 
 from aids.models import Aid
 
@@ -97,8 +96,8 @@ class AidSerializer12(BaseAidSerializer):
 
     categories = CategoryRelatedField(
         many=True,
-        label=_('Theme and category, separated by « | ».'),
-        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+        label='Thème et catégorie, séparés par « | ».',
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"')
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
@@ -120,8 +119,8 @@ class AidSerializer13(BaseAidSerializer):
 
     categories = CategoryRelatedField(
         many=True,
-        label=_('Theme and category, separated by « | ».'),
-        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+        label='Thème et catégorie, séparés par « | ».',
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"')
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',

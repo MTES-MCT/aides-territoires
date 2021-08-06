@@ -1,9 +1,7 @@
-from django.utils.translation import gettext_lazy as _
 from django.db.models.fields import TextField, CharField, URLField
 
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
-
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 
 from aids.models import Aid
@@ -143,9 +141,9 @@ class AidResource(resources.ModelResource):
                     data[field.column_name] = ','.join(data[field.column_name])
                 # BooleanField fields
                 if field.column_name in AIDS_BOOLEAN_FIELDS:
-                    if data[field.column_name] == _('Yes'):
+                    if data[field.column_name] == 'Oui':
                         data[field.column_name] = True
-                    elif data[field.column_name] == _('No'):
+                    elif data[field.column_name] == 'Non':
                         data[field.column_name] = False
                     else:
                         data[field.column_name] = None
@@ -195,7 +193,7 @@ class AidResource(resources.ModelResource):
             elif field_model.get_internal_type() == 'BooleanField':
                 value_raw = field.get_value(obj)
                 if value_raw is not None:
-                    return _('Yes') if value_raw else _('No')
+                    return 'Oui' if value_raw else 'Non'
 
         # subvention_rate
         if field.column_name == 'subvention_rate':

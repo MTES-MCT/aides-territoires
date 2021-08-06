@@ -1,21 +1,20 @@
 from datetime import timedelta
 
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   DeleteView, FormView, RedirectView)
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
-from django.utils.functional import cached_property
 from django.core.mail import send_mail
 
 from braces.views import MessageMixin
@@ -34,7 +33,7 @@ from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
-from stats.utils import (log_aidviewevent, log_aidsearchevent)
+from stats.utils import log_aidviewevent, log_aidsearchevent
 
 
 class AidPaginator(Paginator):
@@ -78,8 +77,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
             .open() \
             .select_related('perimeter', 'author') \
             .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
-            .prefetch_related(Prefetch('instructors',
-                                       queryset=instructors_qs)) \
+            .prefetch_related(Prefetch('instructors', queryset=instructors_qs))
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
@@ -109,10 +107,8 @@ class SearchView(SearchMixin, FormMixin, ListView):
             return []
 
         q_exact_match = Q(perimeter=searched_perimeter)
-        q_container_match = Q(
-            perimeter__in=searched_perimeter.contained_in.all())
-        programs = Program.objects \
-            .filter(q_exact_match | q_container_match)
+        q_container_match = Q(perimeter__in=searched_perimeter.contained_in.all())
+        programs = Program.objects.filter(q_exact_match | q_container_match)
         return programs
 
     def get_promotions(self):
@@ -122,29 +118,29 @@ class SearchView(SearchMixin, FormMixin, ListView):
         searched_backers = self.form.cleaned_data.get('backers', None)
         if searched_backers:
             promotions = promotions \
-                .filter(Q(backers__in=searched_backers) | Q(backers__isnull=True))  # noqa
+                .filter(Q(backers__in=searched_backers) | Q(backers__isnull=True))
         else:
             promotions = promotions.filter(backers__isnull=True)
 
         searched_programs = self.form.cleaned_data.get('programs', None)
         if searched_programs:
             promotions = promotions \
-                .filter(Q(programs__in=searched_programs) | Q(programs__isnull=True))  # noqa
+                .filter(Q(programs__in=searched_programs) | Q(programs__isnull=True))
         else:
             promotions = promotions.filter(programs__isnull=True)
 
         searched_categories = self.form.cleaned_data.get('categories', None)
         if searched_categories:
             promotions = promotions \
-                .filter(Q(categories__in=searched_categories) | Q(categories__isnull=True))  # noqa
+                .filter(Q(categories__in=searched_categories) | Q(categories__isnull=True))
         else:
             promotions = promotions.filter(categories__isnull=True)
 
         searched_perimeter = self.form.cleaned_data.get('perimeter', None)
         if searched_perimeter:
-            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)  # noqa
+            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
             promotions = promotions \
-                .filter(Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True))  # noqa
+                .filter(Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True))
         else:
             promotions = promotions.filter(perimeter__isnull=True)
 
@@ -159,21 +155,19 @@ class SearchView(SearchMixin, FormMixin, ListView):
         other pages' breadcrumbs.
         """
         current_search_query = self.request.GET.urlencode()
-        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query  # noqa
+        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['current_search'] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, '')
+        context['current_search'] = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
         context['current_search_dict'] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True)
 
         default_order = 'relevance'
         order_value = self.request.GET.get('order_by', default_order)
         order_labels = dict(AidSearchForm.ORDER_BY)
-        order_label = order_labels.get(
-            order_value, order_labels[default_order])
+        order_label = order_labels.get(order_value, order_labels[default_order])
         context['order_label'] = order_label
         context['alert_form'] = AlertForm(label_suffix='')
         context['promotions'] = self.get_promotions()
@@ -189,8 +183,7 @@ class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_search'] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, '')
+        context['current_search'] = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
         return context
 
 
@@ -292,8 +285,7 @@ class AidDetailView(DetailView):
         base_qs = Aid.objects \
             .select_related('perimeter', 'author') \
             .prefetch_related(Prefetch('financers', queryset=financers_qs)) \
-            .prefetch_related(Prefetch('instructors',
-                                       queryset=instructors_qs)) \
+            .prefetch_related(Prefetch('instructors', queryset=instructors_qs)) \
             .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
@@ -312,8 +304,7 @@ class AidDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        current_search = self.request.session.get(
-             settings.SEARCH_COOKIE_NAME, '')
+        current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
         context['current_search'] = current_search
         # Here we reconstruct the AidSearchForm from the current_search
         # querystring. This is needed to display some of the search filters.
@@ -472,9 +463,9 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         aid.save()
         form.save_m2m()
 
-        msg = _('Your aid was sucessfully created. You can keep editing it or '
-                '<a href="%(url)s" target="_blank">preview it</a>.') % {
-                    'url': aid.get_absolute_url()}
+        msg = "Votre aide a été créée. Vous pouvez poursuivre l'édition ou "
+        '<a href="{url}s" target="_blank">la prévisualiser</a>.'.format(
+            url=aid.get_absolute_url())
 
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
@@ -528,10 +519,10 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
             obj = form.save(commit=False)
             obj = self.copy_aid(obj)
             form.save_m2m()
-            msg = _('The new aid was sucessfully created. '
-                    'You can keep editing it. And find the duplicated '
-                    'aid in <a href="%(url)s">your portfolio</a>.') % {
-                        'url': reverse('aid_draft_list_view')}
+            msg = "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. "
+            "Et retrouvez l'aide dupliquée sur "
+            '<a href="{url}">votre portefeuille d\'aides</a>.'.format(
+                url=reverse('aid_draft_list_view'))
             response = HttpResponseRedirect(self.get_success_url())
         else:
 
@@ -541,15 +532,12 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
                 aid = self.object
                 if aid.is_draft():
                     aid.submit()
-                    msg = _('Your aid will be reviewed by an admin soon. '
-                            'It will be published and visible for users '
-                            'once an admin has approved it.')
+                    msg = "Votre aide est actuellement en revue. Elle sera publiée et visible par les utilisateurs du site une fois que l'administrateur l’aura validé."  # noqa
                 else:
                     aid.unpublish()
-                    msg = _('We updated your aid status.')
+                    msg = 'Le changement de statut de votre aide a bien été pris en compte.'
             else:
-                msg = _('The aid was sucessfully updated. You can keep '
-                        'editing it.')
+                msg = "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
 
         self.messages.success(msg)
         return response
@@ -568,7 +556,7 @@ class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin,
         confirmed = self.request.POST.get('confirm', False)
         if confirmed:
             self.object.soft_delete()
-            msg = _('Your aid was deleted.')
+            msg = 'Votre aide a été supprimée.'
             messages.success(self.request, msg)
 
         success_url = reverse('aid_draft_list_view')
