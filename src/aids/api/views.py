@@ -164,3 +164,18 @@ class AidTypes(viewsets.ViewSet):
             'results': aid_types
         }
         return Response(data)
+
+
+class AidSteps(viewsets.ViewSet):
+    """
+    List all the aid steps.
+    Example : { "key": "preop", "value": "Réflexion / conception" }
+    """
+
+    def list(self, request):
+        aid_steps = [{'key': key, 'value': value} for (key, value) in Aid.STEPS]
+        data = {
+            'count': len(aid_steps),
+            'results': aid_steps
+        }
+        return Response(data)
