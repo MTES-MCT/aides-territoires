@@ -48,6 +48,18 @@
     display: none;
 }
 
+// error general rules
+
+.error.global-errors {
+  color: #E13825;
+  padding: 1rem;
+  border: solid 2px;
+}
+
+.error.field-error {
+  color: #E13825;
+}
+
 // Form general rules
 
 form .fr-input-group.required > label::after {
@@ -62,6 +74,7 @@ form select,
 #id_text,
 #alert-search-modal .fr-input-group > input,
 #register-form .fr-input-group > input,
+#login-form .fr-input-group > input,
 #contact-form .fr-input-group > input,
 #contact-form .fr-input-group > textarea {
     display: block;
