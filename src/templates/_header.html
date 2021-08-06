@@ -105,6 +105,9 @@
                             </ul>
                         </div>
                     </li>
+                    {% if user.is_authenticated %}                    
+                        {% include '_authenticated_menu_dropdown_actions.html' %}
+                    {% endif %}
                 </ul>
             </nav>
         </div>
