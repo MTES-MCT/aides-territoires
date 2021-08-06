@@ -100,6 +100,21 @@ legend {
 }
 }
 
+// Header style
+
+#profil::before {
+  font-size: 1.5rem;
+}
+
+// register page style
+
+legend {
+  font-size: 1.5rem!important;
+  line-height: 2rem!important;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
 // Home style 
 
 div #what-image {
