@@ -54,6 +54,10 @@ form .fr-input-group.required > label::after {
   content: "*";
 }
 
+form .fr-input-group > ul > li {
+  list-style: none;
+}
+
 form select,
 #id_text,
 #alert-search-modal .fr-input-group > input,
