@@ -267,33 +267,29 @@
             {% endif %}
 
             {% if financers_with_logo %}
-            <div>
+            <div class="card fr-mb-4w">
                 {% for financer in financers_with_logo %}
-                <div class="fr-content-media__img">
-                    <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                        <img src="{{ financer.logo.url }}" class="fr-responsive-img fr-height--auto" alt="{{ financer.name }}" />
-                    </a>
-                </div>
+                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                    <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
+                </a>
                 {% endfor %}
             </div>
             {% endif %}
 
             {% if programs %}
-            <div>
+            <div class="card fr-mb-4w">
                 {% for program in programs %}
-                <div class="fr-content-media__img">
-                    <a href="{% url 'program_detail' program.slug %}">
-                        <img src="{{ program.logo.url }}" class="fr-responsive-img fr-height--auto" alt="{{ program.name }}">
-                    </a>
-                </div>
+                <a href="{% url 'program_detail' program.slug %}">
+                    <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
+                </a>
                 {% endfor %}
             </div>
             {% endif %}
 
             {% if aid.is_corporate_aid %}
-            <div class="card" id="aid-entreprise">
-                <div class="aid-entreprise fr-mb-4w">
-                    <p><strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong></p>
+            <div class="card fr-mb-4w" id="aid-entreprise">
+                <div class="aid-entreprise">
+                    <h3><strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong></h3>
                     <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
                 </div>
             </div>
