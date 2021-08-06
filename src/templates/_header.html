@@ -8,6 +8,7 @@
 <header role="banner" class="fr-header">
     <div class="fr-header__body">
         <div class="fr-container">
+
             <div class="fr-header__body-row">
                 <div class="fr-header__brand fr-enlarge-link">
                     <div class="fr-header__brand-top">
@@ -45,9 +46,15 @@
                         </ul>
                     {% else %}
                         <ul class="fr-links-group">
+                            <li class="fr-link fr-fi-account-line" id="profil">
+                                {{ user.full_name }}
+                            </li>
                             <li>
                                 <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>
                             </li>
+                        </ul>
+                    {% else %}
+                        <ul class="fr-links-group">
                             <li>
                                 <a class="fr-link fr-fi-account-line" href="{% url 'register' %}">S’inscrire</a>
                             </li>
