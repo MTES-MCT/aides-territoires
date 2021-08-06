@@ -2,20 +2,16 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q, Count, Prefetch
-from django.http import HttpResponse, HttpResponseRedirect, QueryDict
-from django.template.loader import render_to_string
+from django.http import HttpResponseRedirect, QueryDict
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   DeleteView, FormView, RedirectView)
 from django.views.generic.edit import FormMixin
-from django.urls import reverse
 from django.core.paginator import Paginator
-from django.core.mail import send_mail
 
 from braces.views import MessageMixin
 
@@ -185,76 +181,6 @@ class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['current_search'] = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
         return context
-
-
-class ResultsView(SearchView):
-    """Only display search results.
-
-    This view is designed to be called via ajax, and only renders html
-    fragment of search engine results.
-    """
-    template_name = 'aids/_results.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['search_actions'] = True
-        return super().get_context_data(**kwargs)
-
-
-class ResultsReceiveView(LoginRequiredMixin, SearchView):
-    """Send the search results by email."""
-
-    http_method_names = ['post']
-    EMAIL_SUBJECT = 'Vos résultats de recherche'
-
-    def get_form_data(self):
-        querydict = self.request.POST.copy()
-        for key in ('csrfmiddlewaretoken', 'integration'):
-            try:
-                querydict.pop(key)
-            except KeyError:
-                pass
-        return querydict
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['data'] = self.get_form_data()
-        return kwargs
-
-    def post(self, request, *args, **kwargs):
-        """Send those search results by email to the user.
-
-        We do it synchronously, but this view is meant to be called from an
-        ajax query, so it should not be a problem.
-        """
-        self.form = self.get_form()
-        self.form.full_clean()
-        results = self.get_queryset()
-        nb_results = results.count()
-        first_results = results[:10]
-        site = get_current_site(self.request)
-        querystring = self.get_form_data().urlencode()
-        scheme = 'https'
-        search_url = reverse('search_view')
-        full_url = '{scheme}://{domain}{search_url}?{querystring}'.format(
-            scheme=scheme,
-            domain=site.domain,
-            search_url=search_url,
-            querystring=querystring)
-        results_body = render_to_string('emails/search_results.txt', {
-            'user_name': self.request.user.full_name,
-            'aids': first_results,
-            'nb_results': nb_results,
-            'full_url': full_url,
-            'scheme': scheme,
-            'domain': site.domain,
-        })
-        send_mail(
-            self.EMAIL_SUBJECT,
-            results_body,
-            settings.DEFAULT_FROM_EMAIL,
-            [self.request.user.email],
-            fail_silently=False)
-        return HttpResponse('')
 
 
 class AidDetailView(DetailView):
