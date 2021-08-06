@@ -4,43 +4,54 @@
 {% block extratitle %}{{ _('My portfolio') }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My portfolio') }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ _('My portfolio') }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<article id="draft-list">
+<article id="draft-list" class="fr-container">
 
-    <a class="main-action action-add" href="{% url 'aid_create_view' %}">
-        {{ _('Publish a new aid') }}
-    </a>
-
-    <h1>{{ _('My portfolio') }}</h1>
-
-    <div class="info">
-        {{ _('Total number of hits') }} : <span class="counter">{{ hits_total }}</span><br />
-        {{ _('Number of hits in the last 30 days') }} : <span class="counter">{{ hits_last_30_days }}</span>
+    <div class="fr-grid-row fr-grid-row--middle">    
+        <h1 class="fr-col-12 fr-col-md-10">Mon portefeuille d'aides</h1>
+        <a class="main-action action-add fr-btn fr-col-12 fr-col-md-2" href="{% url 'aid_create_view' %}">
+            <span class="fr-fi-add-line" aria-hidden="true"></span>
+            Publier une aide
+        </a>
     </div>
 
-    <form id="filter-form" action="" method="get" autocomplete='off'>
-        <div class="form-container">
+    <div class="info">
+        {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
+        {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
+    </div>
+
+    <form id="filter-form" action="" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
+        <div class="form-container fr-p-3w">
             {{ filter_form }}
-            <button class="filter-btn" type="submit">
-                {{ _('Filter results') }}
+            <button class="filter-btn fr-btn fr-mt-3w" type="submit">
+                Filtrer les résultats
             </button>
         </div>
     </form>
 
-    <div class="table-help">
-        {{ _('Click on the column name to order') }}
-    </div>
-
-    <table class="data-table">
-        <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
+    <table class="data-table fr-table">
+        <caption class="sr-only">
+            La liste de vos aides publiées
+            <br>
+            <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
+        </caption>
         <thead>
             <tr>
                 <th class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
