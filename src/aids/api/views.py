@@ -4,15 +4,15 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
-from rest_framework import viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
 
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api.serializers import (
-    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
+    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest,
+    AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa
 from aids.api.pagination import AidsPagination
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
@@ -36,8 +36,10 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
     cache_detail_page = method_decorator(cache_page(timeout))
 
 
-class AidViewSet(viewsets.ReadOnlyModelViewSet):
-    """List all active aids that we know about.
+# class AidViewSet(viewsets.ReadOnlyModelViewSet):
+class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list: Lister toutes les aides actuellement publiées.
 
     Parameters
 
@@ -46,6 +48,8 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
     matter, since we only check whether the parameter is present or not.
     Preventing generic aids filtering means that generic and local variants
     will all be listed. So there will be duplicate aids in results.
+
+    retrieve: Afficher l'aide donnée.
     """
 
     lookup_field = 'slug'
@@ -65,8 +69,7 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
             .order_by('perimeter__scale', 'submission_deadline')
 
         if self.request.user.is_superuser and 'drafts' in self.request.GET:
-            # Superusers can search among unfiltered aids
-            # (including aid drafts)
+            # Superusers can search among unfiltered aids (including aid drafts)
             pass
         else:
             # Normal users can only see aids that are actually published
@@ -158,80 +161,65 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         return super().finalize_response(request, response, *args, **kwargs)
 
 
-class AidAudiences(viewsets.ViewSet):
+class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the audiences.
-    Exemple : { "key": "commune", "value": "Communes", "type": "Collectivités" }
+    list: Lister tous les choix de bénéficiaires.
     """
 
-    def list(self, request):
+    serializer_class = AidAudienceSerializer
+
+    def get_queryset(self):
         aid_audiences = list()
         for (audience_type, audience_group) in AUDIENCES_GROUPED:
             aid_audiences += [{'key': key, 'value': value, 'type': audience_type} for (key, value) in audience_group]  # noqa
-        data = {
-            'count': len(aid_audiences),
-            'results': aid_audiences
-        }
-        return Response(data)
+        return aid_audiences
 
 
-class AidTypes(viewsets.ViewSet):
+class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid types.
-    Exemple : { "key": "grant", "value": "Subvention", "type": "Aides financières" }
+    Lister tous les choix de types d'aides.
     """
 
-    def list(self, request):
+    serializer_class = AidTypeSerializer
+
+    def get_queryset(self):
         aid_types = list()
         for (type_type, type_group) in TYPES_GROUPED:
             aid_types += [{'key': key, 'value': value, 'type': type_type} for (key, value) in type_group]  # noqa
-        data = {
-            'count': len(aid_types),
-            'results': aid_types
-        }
-        return Response(data)
+        return aid_types
 
 
-class AidSteps(viewsets.ViewSet):
+class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid steps.
-    Example : { "key": "preop", "value": "Réflexion / conception" }
+    Lister tous les choix d'états d'avancement.
     """
 
-    def list(self, request):
+    serializer_class = AidStepSerializer
+
+    def get_queryset(self):
         aid_steps = [{'key': key, 'value': value} for (key, value) in Aid.STEPS]
-        data = {
-            'count': len(aid_steps),
-            'results': aid_steps
-        }
-        return Response(data)
+        return aid_steps
 
 
-class AidRecurrences(viewsets.ViewSet):
+class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid recurrences.
-    Example : { "key": "oneoff", "value": "Ponctuelle" }
+    Lister tous les choix de récurrences.
     """
 
-    def list(self, request):
+    serializer_class = AidRecurrenceSerializer
+
+    def get_queryset(self):
         aid_recurrences = [{'key': key, 'value': value} for (key, value) in Aid.RECURRENCES]
-        data = {
-            'count': len(aid_recurrences),
-            'results': aid_recurrences
-        }
-        return Response(data)
+        return aid_recurrences
 
 
-class AidDestinations(viewsets.ViewSet):
+class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid destinations.
-    Example : { "key": "supply", "value": "Dépenses de fonctionnement" }
+    Lister tous les choix de types de dépenses.
     """
 
-    def list(self, request):
+    serializer_class = AidDestinationSerializer
+
+    def get_queryset(self):
         aid_destinations = [{'key': key, 'value': value} for (key, value) in Aid.DESTINATIONS]
-        data = {
-            'count': len(aid_destinations),
-            'results': aid_destinations
-        }
-        return Response(data)
+        return aid_destinations

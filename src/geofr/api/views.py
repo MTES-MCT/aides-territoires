@@ -1,12 +1,11 @@
 from django.db.models import Q
 from django.contrib.postgres.search import TrigramSimilarity
 
-from rest_framework import viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets, mixins
 
 from core.utils import remove_accents
 from geofr.models import Perimeter
-from geofr.api.serializers import PerimeterSerializer
+from geofr.api.serializers import PerimeterSerializer, PerimeterScaleSerializer
 
 
 MIN_SEARCH_LENGTH = 1
@@ -42,9 +41,11 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
         return qs
 
 
-class PerimeterScales(viewsets.ViewSet):
+class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Lister tous les choix d'échelles.
+
+    Ils sont ordonnés du plus petit au plus grand.
     """
 
     def list(self, request):

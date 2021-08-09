@@ -14,3 +14,8 @@ class PerimeterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Perimeter
         fields = ('id', 'name', 'scale', 'zipcodes', 'text')
+
+
+class PerimeterScaleSerializer(serializers.Serializer):
+    key = serializers.CharField()
+    value = serializers.CharField()
