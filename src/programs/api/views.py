@@ -5,5 +5,11 @@ from programs.api.serializers import ProgramSerializer
 
 
 class ProgramViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Lister tous les programmes.
+
+    .
+    """
+
     serializer_class = ProgramSerializer
     queryset = Program.objects.all().order_by('id')

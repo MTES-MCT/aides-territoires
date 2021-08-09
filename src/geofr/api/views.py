@@ -19,7 +19,7 @@ q_param = openapi.Parameter(
     Rechercher par nom.
     Il est possible d'avoir des résultats pertinents avec seulement le début du nom, \
     ou un nom légerement erroné.
-    
+
     Exemples : 'lyon', 'par', 'grenble'
     """,
     type=openapi.TYPE_STRING)
@@ -28,14 +28,18 @@ scale_param = openapi.Parameter(
     openapi.IN_QUERY,
     description="""
     Filtrer par l'échelle.
-    
+
     Exemple : 'department'
     """,
     type=openapi.TYPE_STRING)
 # is_visible_to_users_param = openapi.Parameter(
 #     'is_visible_to_users',
 #     openapi.IN_QUERY,
-#     description="Afficher les périmètres cachés. Exemple : 'true'",
+#     description="""
+#     Renvoyer les périmètres cachés.
+
+#     Exemple : 'true'
+#     """,
 #     type=openapi.TYPE_BOOLEAN)
 
 
@@ -45,6 +49,7 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     Si vous cherchez une API Adresse : https://api.gouv.fr/les-api/base-adresse-nationale
     """
+
     serializer_class = PerimeterSerializer
 
     def get_queryset(self):

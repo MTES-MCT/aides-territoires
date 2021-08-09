@@ -7,6 +7,12 @@ from categories.api.serializers import ThemeSerializer
 
 
 class ThemeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Lister toutes les thématiques (avec leur liste de sous-thématiques).
+
+    .
+    """
+
     serializer_class = ThemeSerializer
     queryset = Theme.objects.all() \
         .prefetch_related(Prefetch('categories', queryset=Category.objects.all().order_by('id'))) \

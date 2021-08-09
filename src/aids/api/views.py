@@ -164,6 +164,8 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     list: Lister tous les choix de bénéficiaires.
+
+    .
     """
 
     serializer_class = AidAudienceSerializer
@@ -178,6 +180,8 @@ class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Lister tous les choix de types d'aides.
+
+    .
     """
 
     serializer_class = AidTypeSerializer
@@ -192,6 +196,8 @@ class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Lister tous les choix d'états d'avancement.
+
+    .
     """
 
     serializer_class = AidStepSerializer
@@ -204,6 +210,8 @@ class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Lister tous les choix de récurrences.
+
+    .
     """
 
     serializer_class = AidRecurrenceSerializer
@@ -216,6 +224,8 @@ class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Lister tous les choix de types de dépenses.
+
+    .
     """
 
     serializer_class = AidDestinationSerializer
