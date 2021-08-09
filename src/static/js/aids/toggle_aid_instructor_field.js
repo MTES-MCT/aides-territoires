@@ -11,7 +11,7 @@
         var hasValues = div.find('select').val().length > 0;
 
         if (!(hasValues || hasErrors)) {
-            var revealBtn = $('<button class="btn btn-primary mb-3" />');
+            var revealBtn = $('<button class="btn btn-primary mb-3 fr-btn" />');
             revealBtn.html('<span class="fas fa-plus"></span> ' + catalog.add_instructor_label);
             revealBtn.insertBefore(div);
 

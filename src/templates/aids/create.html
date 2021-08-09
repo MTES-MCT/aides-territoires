@@ -8,13 +8,13 @@
 {% endblock %}
 
 {% block before-section %}
-<div class="warning">
-    <p>{% blocktrans trimmed %}
+<div class="warning fr-background-alt-pink fr-p-3w fr-mb-5w">
+    <p class="fr-mb-2w">{% blocktrans trimmed %}
         <span class="fas fa-exclamation-circle"></span>
         Before being published, your aid <strong>must be reviewed by an
         administrator</strong>.
     {% endblocktrans %}</p>
-    <p>{% blocktrans trimmed %}
+    <p class="fr-mb-0">{% blocktrans trimmed %}
         You can create your aid and <strong>ask for publication</strong>
         right away, or <strong>save it as a draft</strong>.
     {% endblocktrans %}</p>
@@ -46,16 +46,16 @@
 {% endblock %}
 
 {% block form_actions %}
-<p class="warning">{% blocktrans trimmed %}
-<span class="fas fa-exclamation-circle"></span>
-Your aid <strong>will not be published</strong> until it is reviewed by an administrator.
+<p class="warning fr-background-alt-pink fr-p-3w">{% blocktrans trimmed %}
+<span class="fr-fi-error-warning-fill" aria-hidden="true"></span>
+Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
 {% endblocktrans %}</p>
 
-<div class="form-actions">
-    <div class="submit-buttons">
-        <button name="_status" value="reviewable" type="submit">{{ _('Save and request publication') }}</button>
-        <button name="_status" value="draft" type="submit" class="secondary">{{ _('Save as a draft') }}</button>
+<div class="form-actions fr-grid-row">
+    <div class="submit-buttons fr-col-12 fr-col-md-10">
+        <button name="_status" value="reviewable" type="submit" class="fr-btn">{{ _('Save and request publication') }}</button>
+        <button name="_status" value="draft" type="submit" class="fr-btn">{{ _('Save as a draft') }}</button>
     </div>
-    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
+    <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-col-12 fr-col-md-2">{{ _('Cancel') }}</a>
 </div>
 {% endblock %}

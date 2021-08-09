@@ -1,16 +1,17 @@
 {% load i18n %}
-<div id="aid-preview-modal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <section>
-            <header>
-                <h1>{{ _('Preview your aid') }}</h1>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span title="Fermer" aria-hidden="true">&times;</span>
-                </button>
-            </header>
-
-            <div class="content">
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="aid-preview-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="aid-preview-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Prévisualiser votre aide</h1>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
     </div>
-</div>
+</dialog>
