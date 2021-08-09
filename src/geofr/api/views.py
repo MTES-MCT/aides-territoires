@@ -30,6 +30,10 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
                         | Q(zipcodes__icontains=accented_q)) \
                 .order_by('-similarity', '-scale', 'name')
 
+        scale = self.request.query_params.get('scale', '')
+        if len(scale):
+            qs = qs.filter(scale=scale)
+
         is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')
         if is_visible_to_users == 'true':
             qs = qs.filter(is_visible_to_users=True)
