@@ -16,10 +16,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         europe = Perimeter.objects.get(
-            scale=Perimeter.TYPES.continent,
+            scale=Perimeter.SCALES.continent,
             code='EU')
 
         perimeter_links = []
@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
         # Create mainland perimeter
         mainland, _ = Perimeter.objects.update_or_create(
-            scale=Perimeter.TYPES.adhoc,
+            scale=Perimeter.SCALES.adhoc,
             code='FRA-MET',
             defaults={
                 'name': 'France métropolitaine',
@@ -52,7 +52,7 @@ class Command(BaseCommand):
 
         # Create overseas perimeter
         overseas, _ = Perimeter.objects.update_or_create(
-            scale=Perimeter.TYPES.adhoc,
+            scale=Perimeter.SCALES.adhoc,
             code='FRA-OM',
             defaults={
                 'name': 'Outre-mer',
@@ -81,7 +81,7 @@ class Command(BaseCommand):
         coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
         for entry in coms:
             com, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.adhoc,
+                scale=Perimeter.SCALES.adhoc,
                 code=entry['collectiviteOutremer']['code'],
                 defaults={
                     'name': entry['collectiviteOutremer']['nom'],

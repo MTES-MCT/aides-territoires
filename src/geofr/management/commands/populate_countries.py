@@ -12,11 +12,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         france, _ = Perimeter.objects.update_or_create(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA',
             name='France')
         europe, _ = Perimeter.objects.update_or_create(
-            scale=Perimeter.TYPES.continent,
+            scale=Perimeter.SCALES.continent,
             code='EU',
             name='Europe')
 

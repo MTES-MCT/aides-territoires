@@ -50,7 +50,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
 
         self.france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         self.bpi = Backer.objects.get(slug='bpi-france')
 

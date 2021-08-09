@@ -109,13 +109,13 @@ def extract_perimeters_from_file(perimeter_list_file):
 def query_cities_from_list(city_codes_list):
     return Perimeter.objects \
         .filter(code__in=city_codes_list) \
-        .filter(scale=Perimeter.TYPES.commune)
+        .filter(scale=Perimeter.SCALES.commune)
 
 
 def query_epcis_from_list(epci_names_list):
     return Perimeter.objects \
         .filter(name__in=epci_names_list) \
-        .filter(scale=Perimeter.TYPES.epci)
+        .filter(scale=Perimeter.SCALES.epci)
 
 
 def attach_epci_perimeters(adhoc, epci_names):
@@ -139,6 +139,8 @@ def attach_perimeters(adhoc, city_codes):
     "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
     "Occitanie".contained_in…
     """
+    SCALES_LIST = [key for (key, value) in Perimeter.SCALES]
+
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
     PerimeterContainedIn.objects \
@@ -159,7 +161,7 @@ def attach_perimeters(adhoc, city_codes):
         # Perimeters that contain the cities must contain the adhoc perimeter
         # except for France and Europe.
         for container in perimeter.contained_in.all():
-            if container != adhoc and container.scale <= Perimeter.TYPES.adhoc:
+            if container != adhoc and SCALES_LIST.index(container.scale) <= SCALES_LIST.index(Perimeter.SCALES.adhoc):  # noqa
                 containing.append(PerimeterContainedIn(
                     from_perimeter_id=container.id,
                     to_perimeter_id=adhoc.id))
@@ -176,12 +178,12 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     `rm_perimeters`.
     """
     in_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.TYPES.commune) \
+        .filter(scale=Perimeter.SCALES.commune) \
         .filter(contained_in__in=add_perimeters) \
         .values_list('code', flat=True)
 
     out_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.TYPES.commune) \
+        .filter(scale=Perimeter.SCALES.commune) \
         .filter(contained_in__in=rm_perimeters) \
         .values_list('code', flat=True)
 

@@ -38,7 +38,7 @@ def test_attach_perimeters(perimeters):
 
     adhoc = PerimeterFactory(
         name='Communes littorales',
-        scale=Perimeter.TYPES.adhoc)
+        scale=Perimeter.SCALES.adhoc)
     attach_perimeters(
         adhoc,
         ['34333', '97209'])  # Vic-la-gardiole, Fort-de-France
@@ -62,7 +62,7 @@ def test_attach_perimeters_cleans_old_data(perimeters):
 
     adhoc = PerimeterFactory(
         name='Communes littorales',
-        scale=Perimeter.TYPES.adhoc)
+        scale=Perimeter.SCALES.adhoc)
     perimeters['rodez'].contained_in.add(adhoc)
     attach_perimeters(
         adhoc,
@@ -76,18 +76,18 @@ def test_attach_epci_perimeters(perimeters):
 
     epci_1 = PerimeterFactory(
         name='EPCI 1',
-        scale=Perimeter.TYPES.epci)
+        scale=Perimeter.SCALES.epci)
     perimeters['vic'].contained_in.add(epci_1)
     perimeters['herault'].contained_in.add(epci_1)
 
     epci_2 = PerimeterFactory(
         name='EPCI 2',
-        scale=Perimeter.TYPES.epci)
+        scale=Perimeter.SCALES.epci)
     perimeters['rodez'].contained_in.add(epci_2)
 
     adhoc = PerimeterFactory(
         name='Syndicat mixte',
-        scale=Perimeter.TYPES.adhoc)
+        scale=Perimeter.SCALES.adhoc)
 
     attach_epci_perimeters(
         adhoc,

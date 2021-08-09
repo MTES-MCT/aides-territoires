@@ -694,8 +694,9 @@ class BaseAidSearchForm(forms.Form):
             search_wider = True
         for aid_id, perimeter_scale, generic_aid_id in local_aids_list:
             if search_perimeter:
-                search_smaller = search_perimeter.scale <= perimeter_scale
-                search_wider = search_perimeter.scale > perimeter_scale
+                SCALES_LIST = [key for (key, value) in Perimeter.SCALES]
+                search_smaller = SCALES_LIST.index(search_perimeter.scale) <= SCALES_LIST.index(perimeter_scale)  # noqa
+                search_wider = SCALES_LIST.index(search_perimeter.scale) > SCALES_LIST.index(perimeter_scale)  # noqa
             # If the search perimeter is smaller or matches exactly the local
             # perimeter, then it's relevant to keep the local and exclude
             # the generic aid.Excluding the generic aid takes precedence

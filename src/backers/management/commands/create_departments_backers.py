@@ -14,7 +14,7 @@ class Command(BaseCommand):
             return
 
         departments = Perimeter.objects.filter(
-            scale=Perimeter.TYPES.department)
+            scale=Perimeter.SCALES.department)
         backers = []
         for department in departments:
             backers.append(Backer(
