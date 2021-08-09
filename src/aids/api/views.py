@@ -171,7 +171,7 @@ class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         aid_audiences = list()
         for (audience_type, audience_group) in AUDIENCES_GROUPED:
-            aid_audiences += [{'key': key, 'value': value, 'type': audience_type} for (key, value) in audience_group]  # noqa
+            aid_audiences += [{'id': id, 'name': name, 'type': audience_type} for (id, name) in audience_group]  # noqa
         return aid_audiences
 
 
@@ -185,7 +185,7 @@ class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         aid_types = list()
         for (type_type, type_group) in TYPES_GROUPED:
-            aid_types += [{'key': key, 'value': value, 'type': type_type} for (key, value) in type_group]  # noqa
+            aid_types += [{'id': id, 'name': name, 'type': type_type} for (id, name) in type_group]  # noqa
         return aid_types
 
 
@@ -197,7 +197,7 @@ class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = AidStepSerializer
 
     def get_queryset(self):
-        aid_steps = [{'key': key, 'value': value} for (key, value) in Aid.STEPS]
+        aid_steps = [{'id': id, 'name': name} for (id, name) in Aid.STEPS]
         return aid_steps
 
 
@@ -209,7 +209,7 @@ class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = AidRecurrenceSerializer
 
     def get_queryset(self):
-        aid_recurrences = [{'key': key, 'value': value} for (key, value) in Aid.RECURRENCES]
+        aid_recurrences = [{'id': id, 'name': name} for (id, name) in Aid.RECURRENCES]
         return aid_recurrences
 
 
@@ -221,5 +221,5 @@ class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = AidDestinationSerializer
 
     def get_queryset(self):
-        aid_destinations = [{'key': key, 'value': value} for (key, value) in Aid.DESTINATIONS]
+        aid_destinations = [{'id': id, 'name': name} for (id, name) in Aid.DESTINATIONS]
         return aid_destinations

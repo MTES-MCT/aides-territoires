@@ -17,5 +17,5 @@ class PerimeterSerializer(serializers.ModelSerializer):
 
 
 class PerimeterScaleSerializer(serializers.Serializer):
-    key = serializers.CharField()
-    value = serializers.CharField()
+    id = serializers.CharField()
+    name = serializers.CharField()

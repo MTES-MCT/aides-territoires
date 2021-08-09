@@ -11,7 +11,12 @@ from geofr.api.serializers import PerimeterSerializer, PerimeterScaleSerializer
 MIN_SEARCH_LENGTH = 1
 
 
-class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
+class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Lister tous les périmètres.
+
+    Si vous cherchez une API Adresse : https://api.gouv.fr/les-api/base-adresse-nationale
+    """
     serializer_class = PerimeterSerializer
 
     def get_queryset(self):
@@ -48,10 +53,8 @@ class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Ils sont ordonnés du plus petit au plus grand.
     """
 
-    def list(self, request):
+    serializer_class = PerimeterScaleSerializer
+
+    def get_queryset(self):
         perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]  # noqa
-        data = {
-            'count': len(perimeter_scales),
-            'results': perimeter_scales
-        }
-        return Response(data)
+        return perimeter_scales
