@@ -45,7 +45,7 @@ scale_param = openapi.Parameter(
 
 class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les périmètres.
+    list: Lister tous les périmètres
 
     Si vous cherchez une API Adresse : https://api.gouv.fr/les-api/base-adresse-nationale
     """
@@ -87,7 +87,7 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les choix d'échelles.
+    list: Lister tous les choix d'échelles
 
     Ils sont ordonnés du plus petit au plus grand.
     """

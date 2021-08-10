@@ -7,6 +7,7 @@ from django.views.decorators.cache import cache_page
 from rest_framework.decorators import action
 from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
+from drf_yasg.utils import swagger_auto_schema
 
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
@@ -39,7 +40,7 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
 # class AidViewSet(viewsets.ReadOnlyModelViewSet):
 class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
-    list: Lister toutes les aides actuellement publiées.
+    list: Lister toutes les aides actuellement publiées
 
     Parameters
 
@@ -49,7 +50,9 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
     Preventing generic aids filtering means that generic and local variants
     will all be listed. So there will be duplicate aids in results.
 
-    retrieve: Afficher l'aide donnée.
+    retrieve: Afficher l'aide donnée
+
+    .
     """
 
     lookup_field = 'slug'
@@ -64,8 +67,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         qs = Aid.objects \
             .select_related('perimeter') \
-            .prefetch_related(
-                'financers', 'instructors', 'programs', 'categories__theme') \
+            .prefetch_related('financers', 'instructors', 'programs', 'categories__theme') \
             .order_by('perimeter__scale', 'submission_deadline')
 
         if self.request.user.is_superuser and 'drafts' in self.request.GET:
@@ -103,13 +105,15 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         return serializer_class
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
     @cache_list_page
-    def list(self, request):
-        return super().list(request)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
     @cache_detail_page
-    def retrieve(self, request, slug):
-        return super().retrieve(request, slug)
+    def retrieve(self, request, slug=None, *args, **kwargs):
+        return super().retrieve(request, slug, args, kwargs)
 
     @action(detail=False)
     def all(self, request):
@@ -163,7 +167,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
 class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    list: Lister tous les choix de bénéficiaires.
+    list: Lister tous les choix de bénéficiaires
 
     .
     """
@@ -176,10 +180,14 @@ class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             aid_audiences += [{'id': id, 'name': name, 'type': audience_type} for (id, name) in audience_group]  # noqa
         return aid_audiences
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
 
 class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les choix de types d'aides.
+    list: Lister tous les choix de types d'aides
 
     .
     """
@@ -192,10 +200,14 @@ class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             aid_types += [{'id': id, 'name': name, 'type': type_type} for (id, name) in type_group]  # noqa
         return aid_types
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
 
 class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les choix d'états d'avancement.
+    list: Lister tous les choix d'états d'avancement
 
     .
     """
@@ -206,10 +218,14 @@ class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         aid_steps = [{'id': id, 'name': name} for (id, name) in Aid.STEPS]
         return aid_steps
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
 
 class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les choix de récurrences.
+    list: Lister tous les choix de récurrences
 
     .
     """
@@ -220,10 +236,14 @@ class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         aid_recurrences = [{'id': id, 'name': name} for (id, name) in Aid.RECURRENCES]
         return aid_recurrences
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
 
 class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les choix de types de dépenses.
+    list: Lister tous les choix de types de dépenses
 
     .
     """
@@ -233,3 +253,7 @@ class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         aid_destinations = [{'id': id, 'name': name} for (id, name) in Aid.DESTINATIONS]
         return aid_destinations
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)

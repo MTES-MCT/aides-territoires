@@ -7,7 +7,7 @@ from programs.api.serializers import ProgramSerializer
 
 class ProgramViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les programmes.
+    list: Lister tous les programmes d'aides
 
     .
     """

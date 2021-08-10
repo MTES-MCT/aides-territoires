@@ -9,7 +9,7 @@ from categories.api.serializers import ThemeSerializer
 
 class ThemeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister toutes les thématiques (avec leur liste de sous-thématiques).
+    list: Lister toutes les thématiques (avec leur liste de sous-thématiques)
 
     .
     """

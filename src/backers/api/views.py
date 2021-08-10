@@ -20,7 +20,7 @@ q_param = openapi.Parameter(
     Rechercher par nom.
     Il est possible d'avoir des résultats pertinents avec seulement le début du nom.
 
-    Exemples : 'ademe', 'conseil régional'
+    Exemples : 'ademe', 'conseil régional', 'agenc'
     """,
     type=openapi.TYPE_STRING)
 has_financed_aids_param = openapi.Parameter(
@@ -45,7 +45,7 @@ has_published_financed_aids_param = openapi.Parameter(
 
 class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Lister tous les porteurs d'aides.
+    list: Lister tous les porteurs d'aides
 
     .
     """
