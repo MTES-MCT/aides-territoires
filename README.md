@@ -304,6 +304,8 @@ il faudra faire en sorte qu'un premier utilisateur admin puisse se connecter.
 Pour cela, il faudra penser à créer un `Device` pour cet utilisateur initial,
 avec le QR code associé qu'il faudra scanner avec l'application mobile.
 
+Pour plus de détail : https://django-otp-official.readthedocs.io/en/stable/overview.html
+
 ### Mise en production
 
 Le site est actuellement hébergé sur Scalingo. Cf. la documentation
