@@ -217,6 +217,8 @@ ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
 
 ADMIN_OTP_ENABLED = False
+OTP_TOTP_ISSUER = "Aides-territoires"
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
