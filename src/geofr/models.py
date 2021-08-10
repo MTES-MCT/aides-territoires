@@ -11,13 +11,13 @@ from core.utils import remove_accents
 
 
 class Perimeter(models.Model):
-    """Represents a single application perimeter for an Aid.
+    """
+    Represents a single application perimeter for an Aid.
 
     Each perimeter represents a location (e.g a region, a department, a
     commune…) and contains data about where it is located.
 
-    E.g: the commune of Montpellier is located in Hérault, Occitanie, France,
-    Europe.
+    E.g: the commune of Montpellier is located in Hérault, Occitanie, France, Europe.
 
     Since nothing is simple when administration is involved, some perimeters
     e.g epcis can be spread over several departments / regions.
@@ -25,10 +25,9 @@ class Perimeter(models.Model):
     Drainage basins are another edge case, since they are independant from any
     existing legal borders.
     https://fr.wikipedia.org/wiki/Bassin_hydrographique
-
     """
 
-    SCALES = Choices(
+    SCALES_TUPLE = (
         (1, 'commune', 'Commune'),
         (5, 'epci', 'EPCI'),
         (8, 'basin', 'Bassin hydrographique'),
@@ -40,6 +39,7 @@ class Perimeter(models.Model):
         (20, 'country', 'Pays'),
         (25, 'continent', 'Continent'),
     )
+    SCALES = Choices(*SCALES_TUPLE)
 
     scale = models.PositiveIntegerField(
         _('Scale'),

@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.contrib.postgres.search import TrigramSimilarity
 
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from core.utils import remove_accents
 from geofr.models import Perimeter
@@ -39,3 +40,17 @@ class PerimeterViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(is_visible_to_users=True)
 
         return qs
+
+
+class PerimeterScales(viewsets.ViewSet):
+    """
+    Lister tous les choix d'échelles.
+    """
+
+    def list(self, request):
+        perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]
+        data = {
+            'count': len(perimeter_scales),
+            'results': perimeter_scales
+        }
+        return Response(data)
