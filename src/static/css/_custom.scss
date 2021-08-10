@@ -1,129 +1,3 @@
-.fr-centered {
-    text-align: center;
-}
-
-.fr-uppercase {
-    text-transform: uppercase;
-}
-
-.fr-width-100 {
-    max-width: 100%;
-}
-
-.fr-height--auto {
-    height: auto !important;
-}
-
-.fr-icon-xs {
-    width: 40px;
-    height: 25px;
-}
-
-.fr-nav__btn[aria-expanded=true] {
-  position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    margin-top: 0;
-    background-color: #000091;
-  }
-}
-
-.fr-background-main {
-  background-color: #fff;
-}
-
-.fr-background-alt {
-    background-color: #F6F8FC;
-}
-
-.fr-background-alt-pink {
-    background-color: #ffc29e3d;
-}
-
-.fr-footer-content__link {
-    font-weight: 700;
-    font-size: medium;
-}
-
-.fr-box-shadow__none {
-    box-shadow: none;
-}
-
-.fr-list__none {
-    list-style: none;
-}
-
-.fr-display__inline {
-    display: inline;
-}
-
-.fr-link-blank__none:after {
-    display: none;
-}
-
-// error general rules
-
-.error.global-errors {
-  color: #E13825;
-  padding: 1rem;
-  border: solid 2px;
-}
-
-.error.field-error {
-  color: #E13825;
-}
-
-// Form general rules
-
-form .fr-input-group.required > label::after {
-  content: "*";
-}
-
-form .fr-input-group > ul > li {
-  list-style: none;
-}
-
-form select,
-#id_text,
-#alert-search-modal .fr-input-group > input,
-#register-form .fr-input-group > input,
-#login-form .fr-input-group > input,
-#profile-form .fr-input-group > input,
-#contact-form .fr-input-group > input,
-#contact-form .fr-input-group > textarea,
-#aid-edit-form .part-form > input:not([type='checkbox']),
-#aid-edit-form .form-group textarea {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-#profile-form .fr-input-group > .field-help,
-#register-form .fr-input-group > .field-help {
-  display: block;
-  font-size: 0.9rem;
-  color: grey;
-}
-
 // Aid detail style
 
 ul.aid-categories ul::before {
@@ -188,16 +62,111 @@ div #what-image {
 
 // Aid create or edit
 
-fieldset {
-  margin: 2rem 0;
+section#aid-edit {
+  position: relative;
+  margin: 0 !important;
+  padding: 0 !important;
+  
+  div.form-sidebar {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background-color: #d9f0ec;
+
+      @media screen and (max-width: 1000px) {
+        display: none;
+      }
+  }
+
+  & #nav-form {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 1rem;
+      cursor: pointer;
+
+      & a {
+          font-weight: bold;
+      }
+
+      & a.active {
+          color: #DB1C83 !important;
+      }
+
+      .list-group-item  {
+          background-color: inherit;
+          border: none;
+          text-align: center;
+
+          span.counter {
+              display: inline-block;
+              width: 1.5rem;
+              height: 1.5rem;
+              text-align: center;
+              vertical-align: baseline;
+              border: 2px solid #009688;
+              background-color: #009688;
+              color: #fff;
+              border-radius: 50%;
+              font-size: 0.85rem;
+              line-height: 1.5;
+              margin-right: 0.2rem;
+          }
+      }
+  }
+
+  .separator::before {
+      color: #fff !important;
+      font-size: 2.8rem;
+  }
+
+  .list-group-item.active {
+      background-color: inherit;
+
+      span.counter {
+          background-color: #fff !important;
+          color: #DB1C83 !important;
+          border: 2px solid #DB1C83 !important;
+      }
+  }
+
+  .trumbowyg-box {
+    z-index:  2;
+    background-color: #fff;
+  }
+
+  .trumbowyg-fullscreen {
+      z-index: 9999 !important;
+  }
 }
+
 
 #base-edit .actions {
   border: solid 1px #000;
 }
 
+section#aid-edit form.main-form > fieldset .fr-btn {
+  margin-left: 36%;
+
+  @media screen and (max-width: 1000px) {
+    margin-left: 0;
+  }
+}
+
 section#aid-edit form.main-form > fieldset {
   position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 2rem 0;
+
+  fieldset {
+    margin: 0;
+  
+    label {
+      font-weight: normal !important;
+    }
+  }
 }
 
 section#aid-edit form.main-form > fieldset > div,
@@ -208,6 +177,10 @@ section#aid-edit form.main-form > fieldset > div#recoverable-advance-fields > di
 section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields > div,
 section#aid-edit form.main-form > fieldset > div#loan-fields > div {
   display: flex;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 
 section#aid-edit form.main-form > fieldset > legend {
@@ -240,6 +213,10 @@ section#aid-edit form.main-form > fieldset > div#loan-fields {
 
 section#aid-edit form.main-form {
   background: linear-gradient(90deg, white 34%, #f9f8f6 34%);
+
+  @media screen and (max-width: 1000px) {
+    background: none;
+  }
 }
 
 section#aid-edit form.main-form > fieldset .help-form,
@@ -251,6 +228,15 @@ section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields > di
 section#aid-edit form.main-form > fieldset > div#loan-fields > div > .help-form {
   flex: 0 0 33.3333333333%;
   max-width: 33.3333333333%;
+
+  @media screen and (max-width: 1000px) {
+        width: 100%;
+        order: 2;
+        padding-right: 0;
+        padding-left: 0;
+        flex: none;
+        max-width: 100%;
+  }
 
   span.field-help {
     color: #6c757d !important;
@@ -269,13 +255,76 @@ section#aid-edit form.main-form > fieldset > div#loan-fields > div > .part-form 
   padding-left: 2rem;
   margin-bottom: 2rem;
 
+  @media screen and (max-width: 1000px) {
+      width: 100%;
+      order: 1;
+      padding-right: 0;
+      padding-left: 0;
+      flex: none;
+      max-width: 100%;
+  }
+
   label {
     font-weight: bold;
   }
 }
 
+form div.multiple-input fieldset legend {
+  font-size: 1em !important;
+  font-style: italic;
+  margin-bottom: 0;
+
+  &::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    content: "→ ";
+    vertical-align: baseline;
+    font-size: 1em;
+    margin-right: .5rem;
+  }
+}
+
 
 // Search steps
+
+div#search-steps p.steps {
+  text-align: center;
+  line-height: 3;
+  
+  span.step {
+    white-space: nowrap;
+
+    &:not(:last-of-type)::after {
+      content: "";
+      display: inline-block;
+      width: 2rem;
+      height: .4rem;
+      border-top: 1px solid #2b2465;
+      padding: 0 .25rem;
+      vertical-align: baseline;
+    }
+  }
+
+  span.counter {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    text-align: center;
+    vertical-align: baseline;
+    border: 1px solid #2b2465;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  span.counter.active {
+    background-color: #2b2465;
+    color: #fff;
+  }
+}
 
 div#search-steps form div.fr-input-group > label {
     display: none;

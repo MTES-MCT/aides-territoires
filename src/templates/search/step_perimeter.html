@@ -7,10 +7,12 @@
 
 {% block breadcrumbs %}
 <div class="search-progress fr-grid-row fr-grid-row--center fr-grid-row--gutters fr-my-5w">
-    {% include 'search/_breadcrumb.html' with label='La structure' %}
-    {% include 'search/_breadcrumb.html' with label='Le territoire' %}
-    {% include 'search/_breadcrumb.html' with label='Le projet / les thématiques' counter=3 %}
-    {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' counter=4 %}
+    <p class="steps fr-mb-0">
+        {% include 'search/_breadcrumb.html' with label='La structure' %}
+        {% include 'search/_breadcrumb.html' with label='Le territoire' %}
+        {% include 'search/_breadcrumb.html' with label='Le projet / les thématiques' counter=3 %}
+        {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' counter=4 %}
+    </p>
 </div>
 {% endblock %}
 
