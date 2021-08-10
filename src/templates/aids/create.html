@@ -23,22 +23,22 @@
 
 {% block form_sidebar %}
 <ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
+    <a href="#aid-presentation" class="fr-box-shadow__none list-group-item list-group-item-action active" aria-current="true">
         <span class="counter">1</span>
         Présentation
     </a>
-    <span class="separator"></span>
-    <a href="#aid-description" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-description" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">2</span>
         Description
     </a>
-    <span class="separator"></span>
-    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-eligibility" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">3</span>
         Critères d'éligibilité
     </a>
-    <span class="separator"></span>
-    <a href="#aid-contact" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-contact" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">4</span>
         Contact et démarches
     </a>
@@ -46,16 +46,20 @@
 {% endblock %}
 
 {% block form_actions %}
-<p class="warning fr-background-alt-pink fr-p-3w">{% blocktrans trimmed %}
-<span class="fr-fi-error-warning-fill" aria-hidden="true"></span>
-Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
-{% endblocktrans %}</p>
+<div class="fr-background-main fr-pt-2w">
+    <p class="warning fr-background-alt-pink fr-p-3w">
+        <span class="fr-fi-error-warning-fill" aria-hidden="true"></span>
+        Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
+    </p>        
 
-<div class="form-actions fr-grid-row">
-    <div class="submit-buttons fr-col-12 fr-col-md-10">
-        <button name="_status" value="reviewable" type="submit" class="fr-btn">{{ _('Save and request publication') }}</button>
-        <button name="_status" value="draft" type="submit" class="fr-btn">{{ _('Save as a draft') }}</button>
+    <div class="form-actions fr-grid-row">
+        <div class="submit-buttons fr-col-12 fr-col-md-10">
+            <button name="_status" value="reviewable" type="submit" class="fr-btn fr-mb-2w">Enregistrer et demander la publication</button>
+            <button name="_status" value="draft" type="submit" class="fr-btn fr-mb-2w">Enregistrer en brouillon</button>
+        </div>
+        <div class="fr-col-md-2 fr-grid-row fr-grid-row--right">
+            <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-mb-2w">Annuler</a>
+        </div>
     </div>
-    <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-col-12 fr-col-md-2">{{ _('Cancel') }}</a>
 </div>
 {% endblock %}
