@@ -18,10 +18,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         europe = Perimeter.objects.get(
-            scale=Perimeter.TYPES.continent,
+            scale=Perimeter.SCALES.continent,
             code='EU')
 
         PerimeterContainedIn = Perimeter.contained_in.through
@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
             # Create or update the region perimeters
             region, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.region,
+                scale=Perimeter.SCALES.region,
                 code=entry['code'],
                 defaults={
                     'name': entry['nom'],

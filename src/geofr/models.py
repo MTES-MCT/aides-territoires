@@ -28,7 +28,7 @@ class Perimeter(models.Model):
 
     """
 
-    TYPES = Choices(
+    SCALES = Choices(
         (1, 'commune', 'Commune'),
         (5, 'epci', 'EPCI'),
         (8, 'basin', 'Bassin hydrographique'),
@@ -43,7 +43,7 @@ class Perimeter(models.Model):
 
     scale = models.PositiveIntegerField(
         _('Scale'),
-        choices=TYPES)
+        choices=SCALES)
     name = models.CharField(
         _('Name'),
         max_length=128)
@@ -137,10 +137,10 @@ class Perimeter(models.Model):
         if not self.scale:
             return ''
 
-        if self.scale == self.TYPES.commune and self.zipcodes:
+        if self.scale == self.SCALES.commune and self.zipcodes:
             _str = '{} ({} – {})'.format(
                 self.name, self.get_scale_display(), ', '.join(self.zipcodes))
-        elif self.scale <= self.TYPES.region:
+        elif self.scale <= self.SCALES.region:
             _str = '{} ({})'.format(self.name, self.get_scale_display())
         else:
             _str = self.name

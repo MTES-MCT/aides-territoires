@@ -14,8 +14,8 @@ def api_url():
 
 
 def test_api(client, api_url):
-    PerimeterFactory(name='EPCI 1', scale=Perimeter.TYPES.epci)
-    PerimeterFactory(name='Communes littorales', scale=Perimeter.TYPES.adhoc)
+    PerimeterFactory(name='EPCI 1', scale=Perimeter.SCALES.epci)
+    PerimeterFactory(name='Communes littorales', scale=Perimeter.SCALES.adhoc)
 
     res = client.get(api_url)
     assert res.status_code == 200
@@ -24,8 +24,8 @@ def test_api(client, api_url):
 
 
 # def test_api_with_q_filter(client, api_url):
-#     PerimeterFactory(name='EPCI 1', scale=Perimeter.TYPES.epci)
-#     PerimeterFactory(name='Communes littorales', scale=Perimeter.TYPES.adhoc)
+#     PerimeterFactory(name='EPCI 1', scale=Perimeter.SCALES.epci)
+#     PerimeterFactory(name='Communes littorales', scale=Perimeter.SCALES.adhoc)
 
 #     res = client.get(f'{api_url}?q=epci')
 #     assert res.status_code == 200
@@ -34,8 +34,8 @@ def test_api(client, api_url):
 
 
 def test_api_with_is_visible_to_users_filters(client, api_url):
-    PerimeterFactory(name='EPCI 1', scale=Perimeter.TYPES.epci)
-    PerimeterFactory(name='Communes littorales', scale=Perimeter.TYPES.adhoc,
+    PerimeterFactory(name='EPCI 1', scale=Perimeter.SCALES.epci)
+    PerimeterFactory(name='Communes littorales', scale=Perimeter.SCALES.adhoc,
                      is_visible_to_users=False)
 
     # Only return Perimeters with is_visible_to_users=True

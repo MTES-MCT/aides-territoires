@@ -32,7 +32,7 @@ class Command(BaseCommand):
             return
 
         regions = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
+            .filter(scale=Perimeter.SCALES.region) \
             .exclude(code__in=OVERSEAS_REGIONS)
 
         backers = []

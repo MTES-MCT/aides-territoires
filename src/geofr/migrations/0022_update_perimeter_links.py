@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 
 
-TYPES = Choices(
+SCALES = Choices(
     (1, 'commune', _('Commune')),
     (5, 'epci', _('EPCI')),
     (8, 'basin', _('Drainage basin')),
@@ -29,15 +29,15 @@ def update_links(apps, schema_editor):
     """
     Perimeter = apps.get_model('geofr', 'Perimeter')
     perimeters = Perimeter.objects \
-        .exclude(scale__in=(TYPES.country, TYPES.continent)) \
+        .exclude(scale__in=(SCALES.country, SCALES.continent)) \
         .order_by('scale')
 
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
 
     try:
-        france = Perimeter.objects.get(scale=TYPES.country)
-        europe = Perimeter.objects.get(scale=TYPES.continent)
+        france = Perimeter.objects.get(scale=SCALES.country)
+        europe = Perimeter.objects.get(scale=SCALES.continent)
     except:
         # Don't raise exception to not prevent the creation of the
         # test database
@@ -53,10 +53,10 @@ def update_links(apps, schema_editor):
 
         containing_perimeters = Perimeter.objects \
             .filter(
-                (Q(scale=TYPES.epci) & Q(code=perimeter.epci)) |
-                (Q(scale=TYPES.department) & Q(code__in=perimeter.departments)) |
-                (Q(scale=TYPES.region) & Q(code__in=perimeter.regions)) |
-                (Q(scale=TYPES.basin) & Q(code=perimeter.basin)))
+                (Q(scale=SCALES.epci) & Q(code=perimeter.epci)) |
+                (Q(scale=SCALES.department) & Q(code__in=perimeter.departments)) |
+                (Q(scale=SCALES.region) & Q(code__in=perimeter.regions)) |
+                (Q(scale=SCALES.basin) & Q(code=perimeter.basin)))
 
         for containing in containing_perimeters:
             containments.append(PerimeterContainedIn(

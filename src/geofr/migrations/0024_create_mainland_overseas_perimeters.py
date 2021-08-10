@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 
 
-TYPES = Choices(
+SCALES = Choices(
     (1, 'commune', _('Commune')),
     (5, 'epci', _('EPCI')),
     (8, 'basin', _('Drainage basin')),
@@ -30,8 +30,8 @@ def create_mainland_overseas_perimeters(apps, schema_editor):
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
 
-    mainland = Perimeter.objects.get(scale=TYPES.mainland)
-    mainland.scale = TYPES.adhoc
+    mainland = Perimeter.objects.get(scale=SCALES.mainland)
+    mainland.scale = SCALES.adhoc
     mainland.name = 'France métropolitaine'
     mainland.save()
 
@@ -43,8 +43,8 @@ def create_mainland_overseas_perimeters(apps, schema_editor):
             from_perimeter_id=perimeter_id,
             to_perimeter_id=mainland.id))
 
-    overseas = Perimeter.objects.get(scale=TYPES.overseas)
-    overseas.scale = TYPES.adhoc
+    overseas = Perimeter.objects.get(scale=SCALES.overseas)
+    overseas.scale = SCALES.adhoc
     overseas.name = 'Outre-mer'
     overseas.save()
 

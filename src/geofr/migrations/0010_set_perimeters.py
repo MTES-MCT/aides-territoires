@@ -5,7 +5,7 @@ from django.db import migrations
 from geofr.models import Perimeter as _Perimeter
 
 
-SCALES = _Perimeter.TYPES
+SCALES = _Perimeter.SCALES
 
 
 def set_perimeters(apps, schema_editor):
