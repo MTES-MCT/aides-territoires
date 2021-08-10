@@ -292,7 +292,7 @@ Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour
 Pour mettre en place la double authentification, il faut mettre ceci dans le
 fichier `.env` ou dans les variable d'environnement Scalingo :
 
-    ADMIN_OTP_ENABLE=True
+    ADMIN_OTP_ENABLED=True
 
 Ceci va activer une double authentification pour l'accès au site d'admin :
 mot de passe et jeton d'authentification.
