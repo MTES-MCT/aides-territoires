@@ -5,11 +5,12 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from rest_framework import routers, permissions
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import routers, permissions
 
 from core.utils import RedirectAidDetailView
+from core.otp import OTPAdminSite
 from aids.sitemaps import AidSitemap
 from data.sitemaps import DataSitemap
 from home.sitemaps import HomeSitemap
@@ -24,6 +25,10 @@ router = routers.DefaultRouter()
 admin.site.site_header = "Administration d'Aides-territoires"  # default: "Django Administration"  # noqa
 admin.site.index_title = 'Accueil'                             # default: "Site administration"  # noqa
 admin.site.site_title = "Administration d'Aides-territoires"   # default: "Django site admin"  # noqa
+
+# Add One Time Password two-factor authentication for the admin site
+if settings.ADMIN_OTP_ENABLED:
+    admin.site.__class__ = OTPAdminSite
 
 
 # API

@@ -48,6 +48,8 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'adminsortable2',
     'fieldsets_with_inlines',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
 ]
 
 LOCAL_APPS = [
@@ -91,6 +93,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
@@ -212,6 +215,8 @@ ADMIN_TOOLS_THEMING_CSS = 'css/theming.css'
 ADMIN_TOOLS_MENU = 'core.admin_menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
+
+ADMIN_OTP_ENABLED = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
