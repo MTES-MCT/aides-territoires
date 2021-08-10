@@ -9,13 +9,13 @@ from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
 from drf_yasg.utils import swagger_auto_schema
 
+from core.api.pagination import ApiPagination
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api import doc as api_doc
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest,
     AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa
-from aids.api.pagination import AidsPagination
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
@@ -50,7 +50,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
     """
 
     lookup_field = 'slug'
-    pagination_class = AidsPagination
+    pagination_class = ApiPagination
 
     def get_base_queryset(self):
         """Get the base queryset of aid list.

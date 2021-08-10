@@ -6,6 +6,7 @@ from django.db.models import Q
 from rest_framework import viewsets, mixins
 from drf_yasg.utils import swagger_auto_schema
 
+from core.api.pagination import ApiPagination
 from backers.models import Backer
 from backers.api import doc as api_doc
 from backers.api.serializers import BackerSerializer
@@ -22,6 +23,7 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
 
     serializer_class = BackerSerializer
+    pagination_class = ApiPagination
 
     def get_queryset(self):
         """Filter data according to search query."""
