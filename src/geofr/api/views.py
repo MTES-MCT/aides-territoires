@@ -78,7 +78,9 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         return qs
 
-    @swagger_auto_schema(manual_parameters=[q_param, scale_param])
+    @swagger_auto_schema(
+        tags=[Perimeter._meta.verbose_name_plural],
+        manual_parameters=[q_param, scale_param])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
@@ -95,3 +97,7 @@ class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]  # noqa
         return perimeter_scales
+
+    @swagger_auto_schema(tags=[Perimeter._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)

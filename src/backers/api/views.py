@@ -78,6 +78,8 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         return qs
 
-    @swagger_auto_schema(manual_parameters=[q_param, has_financed_aids_param, has_published_financed_aids_param])  # noqa
+    @swagger_auto_schema(
+        tags=[Backer._meta.verbose_name_plural],
+        manual_parameters=[q_param, has_financed_aids_param, has_published_financed_aids_param])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
