@@ -48,7 +48,7 @@ class PerimeterScales(viewsets.ViewSet):
     """
 
     def list(self, request):
-        perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]
+        perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]  # noqa
         data = {
             'count': len(perimeter_scales),
             'results': perimeter_scales
