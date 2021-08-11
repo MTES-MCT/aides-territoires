@@ -17,6 +17,14 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv_file', nargs=1, type=str)
 
+    def get_clean_insee_code(self, raw_code):
+        code = raw_code
+        code = ''.join(c for c in code if c.isprintable())
+        code = code.replace(' ', '')
+        # Right justify padding to add 0 padding: Insee code is always at least 5 chars
+        code = f'{code:0>5}'
+        return code
+
     def handle(self, *args, **options):
 
         data = {}
@@ -36,6 +44,7 @@ class Command(BaseCommand):
                         'name': perimeter_name,
                         'communes': []
                     }
+                insee_code = self.get_clean_insee_code(insee_code)
                 try:
                     perimeter_to_attach = Perimeter.objects.get(code=insee_code)
                 except Perimeter.DoesNotExist:
@@ -69,18 +78,7 @@ class Command(BaseCommand):
                 nb_created += 1
             else:
                 nb_updated += 1
-
             codes = data[perimeter_id]['communes']
-
-            # codes_in_db = Perimeter.objects.filter(
-            #     code__in=codes).values_list('code', flat=True)
-            # missing_codes = set(codes).difference(codes_in_db)
-            # for missing_code in missing_codes:
-            #     self.stdout.write(self.style.WARNING(
-            #         f"Pour le périmetre '{perimeter} - {perimeter_id}', "
-            #         f"cette commune n'existe pas dans la base de données : "
-            #         f"'{missing_code}'"))
-
             # Link the perimeter with the related communes
             attach_perimeters(perimeter, codes)
 
