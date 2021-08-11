@@ -57,9 +57,9 @@ class Command(BaseCommand):
                 # could be a commune, but also an other type of perimeter,
                 # for instance a EPCI, in that case, we need to lookup for
                 # the commes that this perimeter contains.
-                if perimeter_to_attach.scale != Perimeter.TYPES.commune:
+                if perimeter_to_attach.scale != Perimeter.SCALES.commune:
                     communes = perimeter_to_attach.contains \
-                        .filter(scale=Perimeter.TYPES.commune) \
+                        .filter(scale=Perimeter.SCALES.commune) \
                         .values_list('code', flat=True)
                 else:
                     communes = [perimeter_to_attach.code]
@@ -69,7 +69,7 @@ class Command(BaseCommand):
             perimeter_name = data[perimeter_id]['name']
             # Create the perimeter or update if it's code exists
             perimeter, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.adhoc,
+                scale=Perimeter.SCALES.adhoc,
                 code=perimeter_code,
                 defaults={
                     'name': perimeter_name,
