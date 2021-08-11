@@ -75,7 +75,7 @@ class Command(BaseCommand):
 
         for code, basin_name in DRAINAGE_BASINS.items():
             basin, created = Perimeter.objects.get_or_create(
-                scale=Perimeter.TYPES.basin,
+                scale=Perimeter.SCALES.basin,
                 code=code,
                 name=basin_name,
                 is_overseas=code in OVERSEAS_BASINS)
@@ -95,7 +95,7 @@ class Command(BaseCommand):
                 basin_to_commune[basin_code].append(commune_code)
 
         basins = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.basin)
+            .filter(scale=Perimeter.SCALES.basin)
 
         for basin in basins:
             basin_code = basin.code

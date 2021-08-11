@@ -51,7 +51,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
 
         self.perimeter_loire_bretagne = Perimeter.objects.get(
-            scale=Perimeter.TYPES.basin,
+            scale=Perimeter.SCALES.basin,
             code=LOIRE_BRETAGNE_PERIMETER_CODE)
         self.backer_loire_bretagne = Backer.objects.get(
             id=LOIRE_BRETAGNE_FINANCER_ID)

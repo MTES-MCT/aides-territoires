@@ -17,23 +17,23 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         europe = Perimeter.objects.get(
-            scale=Perimeter.TYPES.continent,
+            scale=Perimeter.SCALES.continent,
             code='EU')
         mainland = Perimeter.objects.get(
-            scale=Perimeter.TYPES.adhoc,
+            scale=Perimeter.SCALES.adhoc,
             code='FRA-MET')
         overseas = Perimeter.objects.get(
-            scale=Perimeter.TYPES.adhoc,
+            scale=Perimeter.SCALES.adhoc,
             code='FRA-OM')
         regions_qs = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
+            .filter(scale=Perimeter.SCALES.region) \
             .values_list('code', 'id')
         regions = dict(regions_qs)
         departments_qs = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.department) \
+            .filter(scale=Perimeter.SCALES.department) \
             .values_list('code', 'id')
         departments = dict(departments_qs)
 
@@ -60,7 +60,7 @@ class Command(BaseCommand):
             is_overseas = members[0].is_overseas
 
             epci, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.epci,
+                scale=Perimeter.SCALES.epci,
                 code=epci_code,
                 defaults={
                     'name': epci_name,

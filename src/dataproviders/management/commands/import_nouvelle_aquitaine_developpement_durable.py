@@ -22,7 +22,7 @@ PERIMETERS_DICT = {
     'International': None,
     'Europe': Perimeter.objects.get(code='EU'),
     'National': Perimeter.objects.get(code='FRA'),
-    'Nouvelle - Aquitaine': Perimeter.objects.get(code='75', scale=Perimeter.TYPES.region),
+    'Nouvelle - Aquitaine': Perimeter.objects.get(code='75', scale=Perimeter.SCALES.region),
     'Creuse (23)': Perimeter.objects.get(code='23'),
     'Corrèze (19)': Perimeter.objects.get(code='19'),
     'Corrèze (19800)': Perimeter.objects.get(code='19'),
@@ -31,8 +31,8 @@ PERIMETERS_DICT = {
     'Landes (40)': Perimeter.objects.get(code='40'),
     'Pyrénées-Atlantiques (64)': Perimeter.objects.get(code='64'),
     'Charente-Maritime (17)': Perimeter.objects.get(code='17'),
-    'Loire-Bretagne': Perimeter.objects.get(code='04', scale=Perimeter.TYPES.basin),
-    'Adour Garonne': Perimeter.objects.get(code='05', scale=Perimeter.TYPES.basin),
+    'Loire-Bretagne': Perimeter.objects.get(code='04', scale=Perimeter.SCALES.basin),
+    'Adour Garonne': Perimeter.objects.get(code='05', scale=Perimeter.SCALES.basin),
     'Communauté d’Agglomération de La Rochelle': Perimeter.objects.get(code='241700434')
 }
 
