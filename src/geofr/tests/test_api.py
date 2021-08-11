@@ -1,8 +1,10 @@
 import json
 import pytest
+
 from django.urls import reverse
 
-from geofr.factories import Perimeter, PerimeterFactory
+from geofr.models import Perimeter
+from geofr.factories import PerimeterFactory
 
 
 pytestmark = pytest.mark.django_db

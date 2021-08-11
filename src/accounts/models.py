@@ -6,6 +6,11 @@ from django.utils import timezone
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
 
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.filter(is_contributor=True)
+
     def search_page_admins(self):
         """Only return users who are search page administrators."""
 
@@ -49,6 +54,11 @@ class UserManager(BaseUserManager):
 
         extra_fields['is_superuser'] = True
         return self._create_user(email, first_name, last_name, password, **extra_fields)
+
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.get_queryset().contributors()
 
     def search_page_admins(self):
         """Only return users who are search page administrators."""

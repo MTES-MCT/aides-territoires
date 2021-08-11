@@ -1,9 +1,10 @@
 import pytest
 
+from geofr.models import Perimeter
 from geofr.utils import (department_from_zipcode, is_overseas,
                          get_all_related_perimeter_ids,
                          attach_perimeters, attach_epci_perimeters)
-from geofr.factories import Perimeter, PerimeterFactory
+from geofr.factories import PerimeterFactory
 
 
 pytestmark = pytest.mark.django_db
