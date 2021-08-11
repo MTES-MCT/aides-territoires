@@ -36,11 +36,11 @@ class Command(BaseCommand):
             reader = csv.reader(csv_file, delimiter=',')
             next(reader, None)  # Skip header
             for row in reader:
-                perimeter_id = row[0]
+                perimeter_code = row[0]
                 perimeter_name = row[1]
                 insee_code = row[2]
-                if perimeter_id not in data:
-                    data[perimeter_id] = {
+                if perimeter_code not in data:
+                    data[perimeter_code] = {
                         'name': perimeter_name,
                         'communes': []
                     }
@@ -49,7 +49,7 @@ class Command(BaseCommand):
                     perimeter_to_attach = Perimeter.objects.get(code=insee_code)
                 except Perimeter.DoesNotExist:
                     self.stdout.write(self.style.WARNING(
-                        f"Pour le périmetre '{perimeter_name} - {perimeter_id}', "
+                        f"Pour le périmetre '{perimeter_name} - {perimeter_code}', "
                         f"le code insee n'existe pas dans la base de données : "
                         f"'{insee_code}'"))
                     continue
@@ -63,10 +63,9 @@ class Command(BaseCommand):
                         .values_list('code', flat=True)
                 else:
                     communes = [perimeter_to_attach.code]
-                data[perimeter_id]['communes'].extend(communes)
-        for perimeter_id in data.keys():
-            perimeter_code = perimeter_id
-            perimeter_name = data[perimeter_id]['name']
+                data[perimeter_code]['communes'].extend(communes)
+        for perimeter_code in data.keys():
+            perimeter_name = data[perimeter_code]['name']
             # Create the perimeter or update if it's code exists
             perimeter, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.SCALES.adhoc,
@@ -78,7 +77,7 @@ class Command(BaseCommand):
                 nb_created += 1
             else:
                 nb_updated += 1
-            codes = data[perimeter_id]['communes']
+            codes = data[perimeter_code]['communes']
             # Link the perimeter with the related communes
             attach_perimeters(perimeter, codes)
 
