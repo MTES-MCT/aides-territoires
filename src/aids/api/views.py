@@ -9,6 +9,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
 from drf_yasg.utils import swagger_auto_schema
 
+from aids.api import doc as api_doc
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api.serializers import (
@@ -37,18 +38,11 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
     cache_detail_page = method_decorator(cache_page(timeout))
 
 
-# class AidViewSet(viewsets.ReadOnlyModelViewSet):
 class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     list: Lister toutes les aides actuellement publiées
 
-    Parameters
-
-    - 'prevent_generic_filter': This is used as a flag, for instance :
-    '?prevent_generic_filter=yes'. Note that the value here does not
-    matter, since we only check whether the parameter is present or not.
-    Preventing generic aids filtering means that generic and local variants
-    will all be listed. So there will be duplicate aids in results.
+    .
 
     retrieve: Afficher l'aide donnée
 
@@ -105,7 +99,9 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         return serializer_class
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @swagger_auto_schema(
+        tags=[Aid._meta.verbose_name_plural],
+        manual_parameters=[api_doc.prevent_generic_filter_param])
     @cache_list_page
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
