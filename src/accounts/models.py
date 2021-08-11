@@ -6,10 +6,20 @@ from django.utils import timezone
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
 
-    def is_administrator_of_search_pages(self):
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.filter(is_contributor=True)
+
+    def search_page_admins(self):
         """Only return users who are search page administrators."""
 
         return self.filter(search_pages__isnull=False)
+
+    def animators(self):
+        """Only return users who are animators."""
+
+        return self.filter(animator_perimeter__isnull=False)
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -45,10 +55,20 @@ class UserManager(BaseUserManager):
         extra_fields['is_superuser'] = True
         return self._create_user(email, first_name, last_name, password, **extra_fields)
 
-    def is_administrator_of_search_pages(self):
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.get_queryset().contributors()
+
+    def search_page_admins(self):
         """Only return users who are search page administrators."""
 
-        return self.get_queryset().is_administrator_of_search_pages()
+        return self.get_queryset().search_page_admins()
+
+    def animators(self):
+        """Only return users who are animators."""
+
+        return self.get_queryset().animators()
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -99,6 +119,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         'Contributeur ?',
         help_text='Peut accéder à un espace pour créer et modifier ses aides.',
         default=True)
+    animator_perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name="Périmètre d'animation",
+        on_delete=models.PROTECT,
+        related_name='animators',
+        help_text="Sur quel périmètre l'animateur local est-il responsable ?",
+        null=True, blank=True)
 
     date_created = models.DateTimeField(
         'Date de création',

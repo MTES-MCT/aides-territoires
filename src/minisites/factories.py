@@ -1,4 +1,5 @@
 import factory
+
 from search.factories import SearchPageFactory
 
 

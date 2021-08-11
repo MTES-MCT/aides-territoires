@@ -8,8 +8,8 @@ from django.db import connection
 
 from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
-from geofr.factories import PerimeterFactory
 from geofr.models import Perimeter
+from geofr.factories import PerimeterFactory
 from categories.factories import CategoryFactory
 
 

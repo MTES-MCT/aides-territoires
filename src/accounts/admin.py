@@ -42,9 +42,27 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value == 'Yes':
-            return queryset.is_administrator_of_search_pages()
+            return queryset.search_page_admins()
         elif value == 'No':
             return queryset.filter(search_pages__isnull=True)
+        return queryset
+
+
+class AnimatorFilter(admin.SimpleListFilter):
+    """Custom admin filter to target users who are animators."""
+
+    title = 'Animateur ?'
+    parameter_name = 'is_animator'
+
+    def lookups(self, request, model_admin):
+        return YES_NO_CHOICES
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value == 'Yes':
+            return queryset.animators()
+        elif value == 'No':
+            return queryset.filter(animator_perimeter__isnull=True)
         return queryset
 
 
@@ -92,9 +110,10 @@ class UserAdmin(BaseUserAdmin):
 
     list_filter = [
         'is_superuser', 'is_contributor',
-        SearchPageAdministratorFilter, ApiTokenFilter,
+        SearchPageAdministratorFilter, AnimatorFilter, ApiTokenFilter,
         'is_certified', 'ml_consent', 'groups']
 
+    autocomplete_fields = ['animator_perimeter']
     readonly_fields = [
         'nb_aids',
         'administrator_of_search_pages_list', 'api_token',
@@ -106,7 +125,6 @@ class UserAdmin(BaseUserAdmin):
                 'email',
                 'password',
                 'is_certified',
-                'groups',
             )
         }),
         ('Informations personnelles', {
@@ -131,6 +149,12 @@ class UserAdmin(BaseUserAdmin):
         ('Espace administrateur', {
             'fields': (
                 'administrator_of_search_pages_list',
+                'groups',
+            )
+        }),
+        ('Espace animateur', {
+            'fields': (
+                'animator_perimeter',
             )
         }),
         ('Permissions', {
