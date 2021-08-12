@@ -74,7 +74,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
         return ordered_results
 
     def get_serializer_class(self):
-        version = self.request.version
+        version = getattr(self.request, 'version', None)
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest

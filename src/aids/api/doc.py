@@ -256,7 +256,7 @@ prevent_generic_filter = OpenApiParameter(
     description="Ce paramètre permet d'empêcher le filtrage par défaut \
     des aides génériques et locales. Quand ce paramètre est présent, \
     le résultat de l'API va lister toutes les variantes génériques et locales d'une aide. \
-    Il faut donc s'attendre à ce qu'il y ait des aides en doublons."
+    Il faut donc s'attendre à ce qu'il y ait des aides en doublon."
     "<br /><br />"
     "Note : la valeur du paramètre, ici 'yes', n'a pas d'importance, \
     puisque la simple présence de ce paramètre suffit.",

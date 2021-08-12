@@ -23,7 +23,7 @@ class BaseAidSerializer(serializers.ModelSerializer):
     Instead, do this:
      - create a new Serializer
      - make sure `AidSerializerLatest` inherits from the new serializer
-     - bump the default api version in settings
+     - bump the default API version in the settings
      - update `aids.api.views.AidViewSet.get_serializer_class`
      - update the /data/ documentation page
 
