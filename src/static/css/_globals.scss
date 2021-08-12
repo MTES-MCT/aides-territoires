@@ -27,6 +27,14 @@ h2, h3, h4, h5, h6 {
     height: 25px;
 }
 
+.fr-color--blue {
+  color: #000091;
+}
+
+.fr-icon-align--sub {
+  vertical-align: sub;
+}
+
 .fr-nav__btn[aria-expanded=true] {
   position: relative;
 
