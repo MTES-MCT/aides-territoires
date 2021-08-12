@@ -1,25 +1,9 @@
 from drf_yasg import openapi
 
 
-# We keep a list of all parameters here, to make it easier to included them
-# in the doc
+# We keep a list of all parameters here,
+# to make it easier to included them in the doc
 aids_api_parameters = []
-
-prevent_generic_filter = openapi.Parameter(
-    'prevent_generic_filter',
-    openapi.IN_QUERY,
-    description="""
-    Ce paramètre permet d'empêcher le filtrage des aides génériques et locales.
-    Quand ce paramètre est présent, le résultat de l'API va lister toutes les
-    variantes génériques et locales d'une aide - il faut donc s'attendre à ce
-    qu'il y ait des aides en doublons.
-
-    Exemple : 'prevent_generic_filter=yes'
-    À noter que la valeur du paramètre, ici 'yes', n'a pas d'importance,
-    puisque la simple présence de ce paramètre suffit.
-    """,
-    type=openapi.TYPE_STRING)
-aids_api_parameters.append(prevent_generic_filter)
 
 text = openapi.Parameter(
     'text',
@@ -27,20 +11,36 @@ text = openapi.Parameter(
     description="""
     Recherche textuelle.
 
-    Exemple :
-    - Chercher "velo" : 'text=velo'
-    - Chercher "piste" ou "velo" : 'text=piste+velo'
-    - Chercher "piste" et "velo" : 'text=piste%2Bvelo'
+    Exemples :
+    - Chercher "velo" : text=velo
+    - Chercher "piste" ou "velo" : text=piste+velo
+    - Chercher "piste" et "velo" : text=piste%2Bvelo
 
     """,
     type=openapi.TYPE_STRING)
 aids_api_parameters.append(text)
 
+targeted_audiences = openapi.Parameter(
+    'targeted_audiences',
+    openapi.IN_QUERY,
+    description="""
+    La structure pour laquelle vous recherchez des aides.
+
+    Voir `/aids/audiences/` pour la liste complète.
+
+    Exemple :
+    - : targeted_audiences=commune
+    - : targeted_audiences=department
+
+    """,
+    type=openapi.TYPE_STRING)
+aids_api_parameters.append(targeted_audiences)
+
 apply_before = openapi.Parameter(
     'apply_before',
     openapi.IN_QUERY,
     description="""
-    Candidater avant...
+    Candidater avant…
 
     Exemple : apply_before=2021-09-01
 
@@ -52,7 +52,7 @@ published_after = openapi.Parameter(
     'published_after',
     openapi.IN_QUERY,
     description="""
-    Publiée après...
+    Publiée après…
 
     Exemple : published_after=2020-11-01
 
@@ -66,7 +66,9 @@ aid_type = openapi.Parameter(
     description="""
     Nature de l'aide.
 
-    Exemple :
+    Voir `/aids/types/` pour la liste complète.
+
+    Exemples :
     - Pour les aides financières : aid_type=financial
     - Pour les aides en ingénieurie aid_type=technical
 
@@ -80,7 +82,7 @@ technical_aids = openapi.Parameter(
     description="""
     Type d'aides en ingénierie.
 
-    Exemple :
+    Exemples :
     - Pour les aides en ingénierie de type techniques : technical_aids=technical
     - Pour les aides en ingénierie de type financières : technical_aids=financial
     - Pour les aides en ingénierie de type juridiques et administratives : technical_aids=legal
@@ -95,7 +97,9 @@ mobilization_step = openapi.Parameter(
     description="""
     Avancement du projet.
 
-    Exemple :
+    Voir `/aids/steps/` pour la liste complète.
+
+    Exemples :
     - Pour les aides aux projets en phase "réflexion / conception" : mobilization_step=preop
     - Pour les aides aux projets en phase "Mise en œuvre / réalisation" : mobilization_step=op
     - Pour les aides aux projets en phase "Usage / valorisation" : technical_aids=postop
@@ -110,7 +114,9 @@ destinations = openapi.Parameter(
     description="""
     Actions concernées.
 
-    Exemple :
+    Voir `/aids/destinations/` pour la liste complète.
+
+    Exemples :
     - Pour les aides qui visent les dépenses de fonctionnement: destinations=supply
     - Pour les aides qui visent les dépenses d'investissement : destinations=investment
 
@@ -124,7 +130,9 @@ recurrence = openapi.Parameter(
     description="""
     Récurrence.
 
-    Exemple :
+    Voir `/aids/recurrences/` pour la liste complète.
+
+    Exemples :
     - Ponctuelle : recurrence=oneoff
     - Permanente : recurrence=ongoing
     - Récurrente : recurrence=recurring
@@ -145,13 +153,35 @@ call_for_projects_only = openapi.Parameter(
     type=openapi.TYPE_BOOLEAN)
 aids_api_parameters.append(call_for_projects_only)
 
+perimeter = openapi.Parameter(
+    'perimeter',
+    openapi.IN_QUERY,
+    description="""
+    Le territoire.
+
+    Voir `/perimeters/` pour la liste complète.
+
+    Exemple : perimeter=70973-auvergne-rhone-alpes
+
+    Note : passer seulement l'id du périmètre suffit (perimeter=70973).
+
+    """,
+    type=openapi.TYPE_STRING)
+aids_api_parameters.append(perimeter)
+
 backers = openapi.Parameter(
     'backers',
     openapi.IN_QUERY,
     description="""
     Porteurs d'aides.
 
-    Exemple : backers=22-ademe
+    Voir `/backers/` pour la liste complète.
+
+    Exemples :
+    - 1 seul porteur : backers=22-ademe
+    - plusieurs porteurs (recherche OU) : backers=22-ademe&backers=58-cerema
+
+    Note : passer seulement l'id du (ou des) porteur(s) d'aides suffit (backers=22).
 
     """,
     type=openapi.TYPE_STRING)
@@ -163,24 +193,18 @@ programs = openapi.Parameter(
     description="""
     Programmes d'aides.
 
-    Exemple : programs=petites-villes-de-demain
+    Voir `/programs/` pour la liste complète.
+
+    Exemple :
+    - 1 seul programme : programs=petites-villes-de-demain
+    - plusieurs programmes (recherche OU) :
+    programs=petites-villes-de-demain&programs=france-relance
+
+    Note : il faut passer le slug du programme.
 
     """,
     type=openapi.TYPE_STRING)
 aids_api_parameters.append(programs)
-
-in_france_relance = openapi.Parameter(
-    'in_france_relance',
-    openapi.IN_QUERY,
-    description="""
-    Aides France Relance concernant le MTFP.
-    Pour les aides du plan de Relance, utiliser le paramètre `programms`.
-
-    Exemple : in_france_relance=true
-
-    """,
-    type=openapi.TYPE_BOOLEAN)
-aids_api_parameters.append(in_france_relance)
 
 themes = openapi.Parameter(
     'themes',
@@ -188,7 +212,13 @@ themes = openapi.Parameter(
     description="""
     Thématiques.
 
-    Exemple : themes=eau
+    Voir `/themes/` pour la liste complète.
+
+    Exemples :
+    - 1 seule thématique : themes=eau
+    - plusieurs thématiques : themes=eau&themes=nature-environnement-risques
+
+    Note : il faut passer le slug de la thématique.
 
     """,
     type=openapi.TYPE_STRING)
@@ -200,37 +230,17 @@ categories = openapi.Parameter(
     description="""
     Sous-thématiques.
 
-    Exemple : categories=eau-potable
+    Voir `/themes/` pour la liste complète.
+
+    Exemples :
+    - 1 seule sous-thématique : categories=eau-potable
+    - plusieurs sous-thématiques : categories=eau-potable&categories=eau-de-pluie
+
+    Note : il faut passer le slug de la sous-thématique.
 
     """,
     type=openapi.TYPE_STRING)
 aids_api_parameters.append(categories)
-
-targeted_audiences = openapi.Parameter(
-    'targeted_audiences',
-    openapi.IN_QUERY,
-    description="""
-    La structure pour laquelle vous recherchez des aides.
-
-    Exemple :
-    - : targeted_audiences=commune
-    - : targeted_audiences=department
-
-    """,
-    type=openapi.TYPE_STRING)
-aids_api_parameters.append(targeted_audiences)
-
-perimeter = openapi.Parameter(
-    'perimeter',
-    openapi.IN_QUERY,
-    description="""
-    Le territoire.
-
-    Exemple : perimeter=70973-auvergne-rhone-alpe
-
-    """,
-    type=openapi.TYPE_STRING)
-aids_api_parameters.append(perimeter)
 
 origin_url = openapi.Parameter(
     'origin_url',
@@ -238,15 +248,53 @@ origin_url = openapi.Parameter(
     description="""
     URL d'origine.
 
+    Exemple : origin_url=http://www.cress-aura.org/actus/mon-ess-lecole-quest-ce-que-cest
+
     """,
     type=openapi.TYPE_STRING)
 aids_api_parameters.append(origin_url)
+
+in_france_relance = openapi.Parameter(
+    'in_france_relance',
+    openapi.IN_QUERY,
+    description="""
+    Aides France Relance concernant le MTFP.
+    Pour les aides du Plan de relance, utiliser le paramètre `programms`.
+
+    Exemple : in_france_relance=true
+
+    """,
+    type=openapi.TYPE_BOOLEAN)
+aids_api_parameters.append(in_france_relance)
+
+prevent_generic_filter = openapi.Parameter(
+    'prevent_generic_filter',
+    openapi.IN_QUERY,
+    description="""
+    Ce paramètre permet d'empêcher le filtrage par défaut des aides génériques et locales.
+    Quand ce paramètre est présent, le résultat de l'API va lister toutes les
+    variantes génériques et locales d'une aide - il faut donc s'attendre à ce
+    qu'il y ait des aides en doublons.
+
+    Exemple : prevent_generic_filter=yes
+
+    Note : la valeur du paramètre, ici 'yes', n'a pas d'importance,
+    puisque la simple présence de ce paramètre suffit.
+
+    """,
+    type=openapi.TYPE_STRING)
+aids_api_parameters.append(prevent_generic_filter)
 
 order_by = openapi.Parameter(
     'order_by',
     openapi.IN_QUERY,
     description="""
     Trier par.
+
+    Valeurs possibles : relevance (par défaut), publication_date, submission_deadline
+
+    Note : relevance correspond aux aides avec le plus petit périmètre,
+    puis aux aides qui expirent bientôt.
 
     """,
     type=openapi.TYPE_STRING)

@@ -100,8 +100,8 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
         return serializer_class
 
     @swagger_auto_schema(
-        tags=[Aid._meta.verbose_name_plural],
-        manual_parameters=api_doc.aids_api_parameters)
+        manual_parameters=api_doc.aids_api_parameters,
+        tags=[Aid._meta.verbose_name_plural])
     @cache_list_page
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
@@ -111,12 +111,15 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
     def retrieve(self, request, slug=None, *args, **kwargs):
         return super().retrieve(request, slug, args, kwargs)
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
     @action(detail=False)
     def all(self, request):
         """
-        Provides a json dump of all aids. The data is not "real-time" data,
-        it is updated on a regular basis. If your applications require
-        real-time data, then this endpoint is not suited.
+        Toutes les aides au format JSON
+
+        La donnée retournée n'est pas temps-réel, le résultat est mis à jour à interval régulier.
+        Si votre application requiert de la donnée temps-réel, alors cette ressource n'est pas
+        adaptéée. Tournez-vous vers `/aids/`.
         """
         file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
         return redirect(file_url)
