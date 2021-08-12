@@ -89,22 +89,32 @@
             {% if aid.is_local or aid.is_generic %}
                 {% if aid.is_local %}
                 <div class="card">
-                    <div class="local-generic fr-mb-4w">
-                        <h3 class="fr-h6">{{ _('Local aid') }}</h3>
-                        <p>
-                            {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
-                        </p>
+                    <div class="local-generic fr-mb-4w fr-grid-row">
+                        <div class="fr-col-2">
+                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                        </div>
+                        <div class="fr-col-10">
+                            <h3 class="fr-h6">{{ _('Local aid') }}</h3>
+                            <p>
+                                {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 {% endif %}
 
                 {% if aid.is_generic %}
                 <div class="card">
-                    <div class="local-generic fr-mb-4w">
-                        <h3 class="fr-h6">{{ _('National measure') }}</h3>
-                        <p>
-                            {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
-                        </p>
+                    <div class="local-generic fr-mb-4w fr-grid-row">
+                        <div class="fr-col-2">
+                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                        </div>
+                        <div class="fr-col-10">
+                            <h3 class="fr-h6">{{ _('National measure') }}</h3>
+                            <p>
+                                {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                            </p>    
+                        </div>
                     </div>
                 </div>
                 {% endif %}
@@ -137,18 +147,23 @@
                 {% endif %}
 
                 {% if instructors %}
-                <div class="instructors fr-mb-4w">
-                    <h3 class="fr-h6">Instructeurs</h3>
-                    <ul class="fr-pl-0">
-                        {% for instructor in instructors %}
-                        <li class="fr-list__none">
-                            {{ instructor }}
-                            {% if instructor.is_corporate %}
-                            ({{ _('Corporate') }})
-                            {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="instructors fr-mb-4w fr-grid-row">
+                    <div class="fr-col-2">
+                        <i class="ri-search-line ri-xl fr-mr-1w"></i>
+                    </div>
+                    <div class="fr-col-10">
+                        <h3 class="fr-h6">Instructeurs</h3>
+                        <ul class="fr-pl-0">
+                            {% for instructor in instructors %}
+                            <li class="fr-list__none">
+                                {{ instructor }}
+                                {% if instructor.is_corporate %}
+                                ({{ _('Corporate') }})
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
                 {% endif %}
             </div>
@@ -156,15 +171,20 @@
 
             <div class="card">
                 {% if aid.is_call_for_project %}
-                <div class="call-for-project fr-mb-4w">
-                    <h3 class="fr-h6">
-                        <acronym title="{{ _('Call for project') }}">
-                            AAP
-                        </acronym> /
-                        <acronym title="{{ _('Call for expression of interest') }}">
-                            AMI
-                        </acronym>
-                    </h3>
+                <div class="call-for-project fr-mb-4w fr-grid-row">
+                    <div class="fr-col-2">
+                        <i class="ri-pushpin-2-fill ri-xl fr-mr-1w"></i>
+                    </div>
+                    <div class="fr-col-10">
+                        <h3 class="fr-h6">
+                            <acronym title="{{ _('Call for project') }}">
+                                AAP
+                            </acronym> /
+                            <acronym title="{{ _('Call for expression of interest') }}">
+                                AMI
+                            </acronym>
+                        </h3>    
+                    </div>
                 </div>
                 {% endif %}
 
