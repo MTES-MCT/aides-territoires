@@ -101,7 +101,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
     @swagger_auto_schema(
         tags=[Aid._meta.verbose_name_plural],
-        manual_parameters=[api_doc.prevent_generic_filter_param])
+        manual_parameters=api_doc.aids_api_parameters)
     @cache_list_page
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
