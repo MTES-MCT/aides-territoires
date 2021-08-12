@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load i18n %}
+{% load compress %}
 
 
 {% block extratitle %}Blog{% endblock %}
@@ -45,7 +46,7 @@
         <p>Retrouvez dans cette rubrique nos actualités ainsi que des ressources complémentaires pour vous aider à réaliser vos projets</p>
         {% if not selected_category %}
         <div id="search-posts">
-            <select class="fr-select" id="select" name="select" onChange="window.location.href=this.value">
+            <select class="fr-select" id="select" name="select">
                 <option value="" selected disabled hidden>Filtrer les articles par catégorie</option>
                 {% for category in categories %}
                 <option value="{{ category.get_absolute_url }}">{{ category.name }}</option>
@@ -87,4 +88,10 @@
 
 {% include '_pagination.html' %}
 
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/blog/filter_article_by_categories.js"></script>
+{% endcompress %}
 {% endblock %}
