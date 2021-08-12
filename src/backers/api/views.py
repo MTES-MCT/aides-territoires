@@ -4,43 +4,14 @@ from functools import reduce
 from django.db.models import Q
 
 from rest_framework import viewsets, mixins
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from backers.models import Backer
+from backers.api import doc as api_doc
 from backers.api.serializers import BackerSerializer
 
 
 MIN_SEARCH_LENGTH = 3
-
-q_param = openapi.Parameter(
-    'q',
-    openapi.IN_QUERY,
-    description="""
-    Rechercher par nom.
-    Il est possible d'avoir des résultats pertinents avec seulement le début du nom.
-
-    Exemples : 'ademe', 'conseil régional', 'agenc'
-    """,
-    type=openapi.TYPE_STRING)
-has_financed_aids_param = openapi.Parameter(
-    'has_financed_aids',
-    openapi.IN_QUERY,
-    description="""
-    Renvoyer seulement les porteurs d'aides avec des aides.
-
-    Exemple : 'true'
-    """,
-    type=openapi.TYPE_BOOLEAN)
-has_published_financed_aids_param = openapi.Parameter(
-    'has_published_financed_aids',
-    openapi.IN_QUERY,
-    description="""
-    Renvoyer seulement les porteurs d'aides avec des aides publiées.
-
-    Exemple : 'true'
-    """,
-    type=openapi.TYPE_BOOLEAN)
 
 
 class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -79,7 +50,7 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return qs
 
     @swagger_auto_schema(
-        tags=[Backer._meta.verbose_name_plural],
-        manual_parameters=[q_param, has_financed_aids_param, has_published_financed_aids_param])
+        manual_parameters=api_doc.backers_api_parameters,
+        tags=[Backer._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)

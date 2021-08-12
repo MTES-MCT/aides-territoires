@@ -9,9 +9,9 @@ from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
 from drf_yasg.utils import swagger_auto_schema
 
-from aids.api import doc as api_doc
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
+from aids.api import doc as api_doc
 from aids.api.serializers import (
     AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest,
     AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa

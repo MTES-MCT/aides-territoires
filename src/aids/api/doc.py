@@ -197,7 +197,7 @@ programs = openapi.Parameter(
 
     Exemple :
     - 1 seul programme : programs=petites-villes-de-demain
-    - plusieurs programmes (recherche OU) :
+    - plusieurs programmes (recherche OU) : \
     programs=petites-villes-de-demain&programs=france-relance
 
     Note : il faut passer le slug du programme.
@@ -272,13 +272,13 @@ prevent_generic_filter = openapi.Parameter(
     openapi.IN_QUERY,
     description="""
     Ce paramètre permet d'empêcher le filtrage par défaut des aides génériques et locales.
-    Quand ce paramètre est présent, le résultat de l'API va lister toutes les
-    variantes génériques et locales d'une aide - il faut donc s'attendre à ce
+    Quand ce paramètre est présent, le résultat de l'API va lister toutes les \
+    variantes génériques et locales d'une aide - il faut donc s'attendre à ce \
     qu'il y ait des aides en doublons.
 
     Exemple : prevent_generic_filter=yes
 
-    Note : la valeur du paramètre, ici 'yes', n'a pas d'importance,
+    Note : la valeur du paramètre, ici 'yes', n'a pas d'importance, \
     puisque la simple présence de ce paramètre suffit.
 
     """,
@@ -293,7 +293,7 @@ order_by = openapi.Parameter(
 
     Valeurs possibles : relevance (par défaut), publication_date, submission_deadline
 
-    Note : relevance correspond aux aides avec le plus petit périmètre,
+    Note : relevance correspond aux aides avec le plus petit périmètre, \
     puis aux aides qui expirent bientôt.
 
     """,
