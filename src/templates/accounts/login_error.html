@@ -6,14 +6,14 @@
 {% block sectionid %}login-form{% endblock %}
 
 {% block content %}
-<div class="article narrow">
+<div class="article narrow fr-container fr-my-5w">
     <h1>{{ _("Something went wrong") }}</h1>
     <p>{% blocktrans trimmed %}
         Sorry, it looks like something went wrong. We could not log you in.
     {% endblocktrans %}</p>
 
     {% url 'login' as login_url %}
-    <p>{% blocktrans trimmed %}
+    <p class="fr-mt-5w fr-background-alt-pink fr-p-3w">{% blocktrans trimmed %}
         You will <a href="{{ login_url }}">have to try again.</a>
     {% endblocktrans %}</p>
 </div>

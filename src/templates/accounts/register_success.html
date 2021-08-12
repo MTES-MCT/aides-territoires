@@ -8,7 +8,7 @@
 {% block extratitle %}{{ _('You registered successfully') }}{% endblock %}
 
 {% block content %}
-<div class="article narrow">
+<div class="article narrow fr-container fr-my-5w">
     <h1>{{ _("Thank you for registering an account") }}</h1>
 
     <p>{% blocktrans trimmed %}
@@ -27,7 +27,7 @@
         </ul>
     {% endblocktrans %}</p>
 
-    <p class="warning">
+    <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
         <span class="fas fa-bug"></span>
         {% blocktrans trimmed %}
         If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
