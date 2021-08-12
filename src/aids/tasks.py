@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core import management
 from django.core.mail import mail_admins
 from django.template.loader import render_to_string
 
@@ -52,3 +53,9 @@ def send_publication_email(aid_id):
         data=data,
         tags=['publication', settings.ENV_NAME],
         fail_silently=True)
+
+
+@app.task
+def dump_all_aids_as_json():
+    """Dumps all aids as json file."""
+    management.call_command('dump_all_aids_as_json', verbosity=1)

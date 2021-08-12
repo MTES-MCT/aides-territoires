@@ -237,6 +237,9 @@ REST_FRAMEWORK = {
 # Bump minor if the modification is retro-compatible, major othewise
 CURRENT_API_VERSION = '1.3'
 
+# The file path that's user for storing the json dump on S3
+ALL_AIDS_DUMP_FILE_PATH = 'aids/all-aids.json'
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
 
