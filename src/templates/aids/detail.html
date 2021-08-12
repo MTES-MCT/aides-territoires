@@ -72,13 +72,13 @@
     {% endif %}
 
     {% if not aid.is_published %}
-    <div class="danger">
+    <div class="danger fr-background-alt-pink fr-p-3w">
         <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
-    <div class="danger">
+    <div class="danger fr-background-alt-pink fr-p-3w">
         <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
     </div>
     {% endif %}
@@ -430,7 +430,7 @@
 
         </div>
 
-        <div class="aid-details fr-col-xs-12 fr-col-md-9 fr-p-3w">
+        <div class="aid-details fr-col-xs-12 fr-col-md-9 fr-pb-3w fr-px-3w">
             {% if current_search_dict.projects and not messages %}
             <button class="fr-btn"  data-fr-opened="false" aria-controls="match-project-modal">
                 Évaluez cette aide

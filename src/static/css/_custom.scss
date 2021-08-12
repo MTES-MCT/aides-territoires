@@ -29,7 +29,20 @@ ul.aid-categories ul li + li::before {
 
   @media screen and (max-width: 1000px) {
     display: none;
+  }
 }
+
+article#aid .aid-details h2 {
+  background-color: #d9f0ec;
+  padding: .5rem 1rem;
+}
+
+article#aid .aid-details h2:first-of-type {
+  margin-top: 0rem;
+}
+
+article#aid .aid-details h3 {
+  margin-top: 1rem;
 }
 
 // Header style
