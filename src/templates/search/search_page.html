@@ -15,16 +15,21 @@
 {% endblock %}
 
 {% block content %}
-<article>
+<article class="fr-container fr-my-5w fr-background-main fr-py-5w">
 {% block before_title %}{% endblock %}
 <h1>{{ search_page.title }}</h1>
 
 {{ search_page.content|safe }}
 
 {% if search_page.more_content %}
-<div id="more-content">
+<section class="fr-accordion">
+    <h3 class="fr-accordion__title">
+        <button id="more-content-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="more-content">Voir plus de détails</button>
+    </h3>
+    <div id="more-content" class="fr-collapse">
     {{ search_page.more_content|safe }}
-</div>
+    </div>
+</section>
 {% endif %}
 </article>
 {% block sticky-btn %}{% endblock %}
@@ -40,7 +45,6 @@ so displaying them is not very helpful.
 {% block extra_js %}
 {{ block.super }}
 {% compress js %}
-<script src="/static/js/search/create_reveal_content_button.js"></script>
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/responsive_iframe.js"></script>
 {% endcompress %}
