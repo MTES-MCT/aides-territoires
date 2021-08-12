@@ -5,6 +5,7 @@ from rest_framework import viewsets, mixins
 from drf_yasg.utils import swagger_auto_schema
 
 from core.utils import remove_accents
+from core.api.pagination import ApiPagination
 from geofr.models import Perimeter
 from geofr.api import doc as api_doc
 from geofr.api.serializers import PerimeterSerializer, PerimeterScaleSerializer
@@ -21,6 +22,7 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
 
     serializer_class = PerimeterSerializer
+    pagination_class = ApiPagination
 
     def get_queryset(self):
         """Filter data according to search query."""
