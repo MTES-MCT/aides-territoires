@@ -1,5 +1,11 @@
 // Aid detail style
 
+.aid-content i {
+  vertical-align: bottom;
+  color: #000091;
+  font-weight: normal;
+}
+
 ul.aid-categories ul::before {
   content: "> "
 }
