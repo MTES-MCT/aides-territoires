@@ -42,6 +42,7 @@ zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
 django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
+xmltodict = "*"
 
 [dev-packages]
 ansible = "<4"

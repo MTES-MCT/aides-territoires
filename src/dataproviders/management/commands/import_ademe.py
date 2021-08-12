@@ -1,19 +1,22 @@
 import os
+import requests
+import xmltodict
 from datetime import datetime
 from xml.etree import ElementTree
-import requests
 
+from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'https://appelsaprojets-bo.ademe.fr/App_services/DMA/xml_appels_projets.ashx?tlp=1'  # noqa
-BACKER_ID = 22  # The ID of Ademe in the financers database
 ADMIN_ID = 1
+
+DATA_SOURCE = DataSource.objects \
+    .prefetch_related('perimeter', 'backer') \
+    .get(pk=5)
 
 # Convert Ademe's `cible` value to our value
 AUDIENCES_DICT = {
@@ -64,7 +67,7 @@ class Command(BaseImportCommand):
             xml_tree = ElementTree.parse(data_file)
             xml_root = xml_tree.getroot()
         else:
-            req = requests.get(FEED_URI)
+            req = requests.get(DATA_SOURCE.import_api_url)
             xml_root = ElementTree.fromstring(req.text)
 
         for xml_elt in xml_root:
@@ -76,7 +79,6 @@ class Command(BaseImportCommand):
         regions_qs = Perimeter.objects \
             .filter(scale=Perimeter.SCALES.region)
         self.regions = list(regions_qs)
-        self.ademe = Backer.objects.get(id=BACKER_ID)
         super().handle(*args, **options)
 
     def line_should_be_processed(self, line):
@@ -84,8 +86,8 @@ class Command(BaseImportCommand):
         closed = line.find('appel_cloture').text
         return closed != '1'
 
-    def extract_author_id(self, line):
-        return ADMIN_ID
+    def extract_import_data_source(self, line):
+        return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
         data_id = line.attrib['id']
@@ -93,14 +95,24 @@ class Command(BaseImportCommand):
         return unique_id
 
     def extract_import_data_url(self, line):
-        return ADEME_URL
+        return DATA_SOURCE.import_data_url
 
     def extract_import_share_licence(self, line):
         return IMPORT_LICENCES.unknown
 
+    def extract_import_raw_object(self, line):
+        line_string = ElementTree.tostring(line, encoding='unicode')
+        return xmltodict.parse(line_string)
+
+    def extract_author_id(self, line):
+        return ADMIN_ID
+
+    def extract_financers(self, line):
+        return [DATA_SOURCE.backer]
+
     def extract_name(self, line):
         title = line.find('.//titre').text
-        return title
+        return title[:180]
 
     def extract_description(self, line):
         description = content_prettify(line.find('presentation').text)
@@ -180,6 +192,3 @@ class Command(BaseImportCommand):
                 perimeter = self.france
 
         return perimeter
-
-    def extract_financers(self, line):
-        return [self.ademe]
