@@ -1,3 +1,4 @@
+# flake8: noqa
 import os
 import requests
 import xmltodict
@@ -6,10 +7,9 @@ from xml.etree import ElementTree
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify
+from dataproviders.utils import content_prettify, mapping_audiences
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
-from aids.models import Aid
 
 
 ADMIN_ID = 1
@@ -18,31 +18,10 @@ DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=5)
 
-# Convert Ademe's `cible` value to our value
-AUDIENCES_DICT = {
-    'Entreprises et Monde Agricole': [Aid.AUDIENCES.private_sector],
-    'Recherche et Innovation': [Aid.AUDIENCES.researcher],
-    'Collectivités et Secteur public': [
-        Aid.AUDIENCES.commune,
-        Aid.AUDIENCES.department,
-        Aid.AUDIENCES.region,
-        Aid.AUDIENCES.epci,
-    ],
-    'Particuliers et Eco-citoyens': [Aid.AUDIENCES.private_person],
-    'Association': [Aid.AUDIENCES.association],
-    'Tout Public': [
-        Aid.AUDIENCES.commune,
-        Aid.AUDIENCES.department,
-        Aid.AUDIENCES.region,
-        Aid.AUDIENCES.epci,
-        Aid.AUDIENCES.public_cies,
-        Aid.AUDIENCES.association,
-        Aid.AUDIENCES.private_person,
-        Aid.AUDIENCES.researcher,
-        Aid.AUDIENCES.private_sector,
-    ]
-}
-
+AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/ademe_audiences_mapping.csv'
+SOURCE_COLUMN_NAME = 'Bénéficiaires ADEME'
+AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5', 'Bénéficiaires AT 6', 'Bénéficiaires AT 7', 'Bénéficiaires AT 8', 'Bénéficiaires AT 9']
+AUDIENCES_DICT = mapping_audiences(AUDIENCES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
 ELIGIBILITY_TXT = '''
 Il est vivement conseillé de contacter l'ADEME en amont du dépôt du dossier
@@ -143,10 +122,12 @@ class Command(BaseImportCommand):
     def extract_targeted_audiences(self, line):
         targets = []
         target_elts = line.findall('.//cibles/cible')
+        print(target_elts)
         for element in target_elts:
             ademe_target = element.text
             our_targets = AUDIENCES_DICT[ademe_target]
             targets += our_targets
+        print(list(set(targets)))
         return list(set(targets))
 
     def extract_perimeter(self, line):
