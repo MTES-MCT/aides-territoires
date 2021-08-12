@@ -45,9 +45,10 @@
         {{ _('Reset filters') }}
     </a>
 
-    <a href="#" id="save-alert-btn" class="js fr-btn" data-toggle="modal" data-target="#alert-search-modal">
-        {{ _('Create an alert') }}
-    </a>
+    <button class="fr-btn" id="save-alert-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+        Créer une alerte
+    </button>
+
 {% endblock %}
 
 {% block form-body %}
