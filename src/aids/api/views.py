@@ -4,15 +4,17 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
-from rest_framework import viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
+from drf_yasg.utils import swagger_auto_schema
 
 from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
+from aids.api import doc as api_doc
 from aids.api.serializers import (
-    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest)
+    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest,
+    AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa
 from aids.api.pagination import AidsPagination
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
@@ -36,16 +38,15 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
     cache_detail_page = method_decorator(cache_page(timeout))
 
 
-class AidViewSet(viewsets.ReadOnlyModelViewSet):
-    """List all active aids that we know about.
+class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list: Lister toutes les aides actuellement publiées
 
-    Parameters
+    .
 
-    - 'prevent_generic_filter': This is used as a flag, for instance :
-    '?prevent_generic_filter=yes'. Note that the value here does not
-    matter, since we only check whether the parameter is present or not.
-    Preventing generic aids filtering means that generic and local variants
-    will all be listed. So there will be duplicate aids in results.
+    retrieve: Afficher l'aide donnée
+
+    .
     """
 
     lookup_field = 'slug'
@@ -60,13 +61,11 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
         qs = Aid.objects \
             .select_related('perimeter') \
-            .prefetch_related(
-                'financers', 'instructors', 'programs', 'categories__theme') \
+            .prefetch_related('financers', 'instructors', 'programs', 'categories__theme') \
             .order_by('perimeter__scale', 'submission_deadline')
 
         if self.request.user.is_superuser and 'drafts' in self.request.GET:
-            # Superusers can search among unfiltered aids
-            # (including aid drafts)
+            # Superusers can search among unfiltered aids (including aid drafts)
             pass
         else:
             # Normal users can only see aids that are actually published
@@ -100,20 +99,27 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
 
         return serializer_class
 
+    @swagger_auto_schema(
+        manual_parameters=api_doc.aids_api_parameters,
+        tags=[Aid._meta.verbose_name_plural])
     @cache_list_page
-    def list(self, request):
-        return super().list(request)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
     @cache_detail_page
-    def retrieve(self, request, slug):
-        return super().retrieve(request, slug)
+    def retrieve(self, request, slug=None, *args, **kwargs):
+        return super().retrieve(request, slug, args, kwargs)
 
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
     @action(detail=False)
     def all(self, request):
         """
-        Provides a json dump of all aids. The data is not "real-time" data,
-        it is updated on a regular basis. If your applications require
-        real-time data, then this endpoint is not suited.
+        Toutes les aides au format JSON
+
+        La donnée retournée n'est pas temps-réel, le résultat est mis à jour à interval régulier.
+        Si votre application requiert de la donnée temps-réel, alors cette ressource n'est pas
+        adaptéée. Tournez-vous vers `/aids/`.
         """
         file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
         return redirect(file_url)
@@ -158,80 +164,95 @@ class AidViewSet(viewsets.ReadOnlyModelViewSet):
         return super().finalize_response(request, response, *args, **kwargs)
 
 
-class AidAudiences(viewsets.ViewSet):
+class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the audiences.
-    Exemple : { "key": "commune", "value": "Communes", "type": "Collectivités" }
+    list: Lister tous les choix de bénéficiaires
+
+    .
     """
 
-    def list(self, request):
+    serializer_class = AidAudienceSerializer
+
+    def get_queryset(self):
         aid_audiences = list()
         for (audience_type, audience_group) in AUDIENCES_GROUPED:
-            aid_audiences += [{'key': key, 'value': value, 'type': audience_type} for (key, value) in audience_group]  # noqa
-        data = {
-            'count': len(aid_audiences),
-            'results': aid_audiences
-        }
-        return Response(data)
+            aid_audiences += [{'id': id, 'name': name, 'type': audience_type} for (id, name) in audience_group]  # noqa
+        return aid_audiences
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
 
 
-class AidTypes(viewsets.ViewSet):
+class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid types.
-    Exemple : { "key": "grant", "value": "Subvention", "type": "Aides financières" }
+    list: Lister tous les choix de types d'aides
+
+    .
     """
 
-    def list(self, request):
+    serializer_class = AidTypeSerializer
+
+    def get_queryset(self):
         aid_types = list()
         for (type_type, type_group) in TYPES_GROUPED:
-            aid_types += [{'key': key, 'value': value, 'type': type_type} for (key, value) in type_group]  # noqa
-        data = {
-            'count': len(aid_types),
-            'results': aid_types
-        }
-        return Response(data)
+            aid_types += [{'id': id, 'name': name, 'type': type_type} for (id, name) in type_group]  # noqa
+        return aid_types
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
 
 
-class AidSteps(viewsets.ViewSet):
+class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid steps.
-    Example : { "key": "preop", "value": "Réflexion / conception" }
-    """
+    list: Lister tous les choix d'états d'avancement
 
-    def list(self, request):
-        aid_steps = [{'key': key, 'value': value} for (key, value) in Aid.STEPS]
-        data = {
-            'count': len(aid_steps),
-            'results': aid_steps
-        }
-        return Response(data)
-
-
-class AidRecurrences(viewsets.ViewSet):
-    """
-    List all the aid recurrences.
-    Example : { "key": "oneoff", "value": "Ponctuelle" }
+    .
     """
 
-    def list(self, request):
-        aid_recurrences = [{'key': key, 'value': value} for (key, value) in Aid.RECURRENCES]
-        data = {
-            'count': len(aid_recurrences),
-            'results': aid_recurrences
-        }
-        return Response(data)
+    serializer_class = AidStepSerializer
+
+    def get_queryset(self):
+        aid_steps = [{'id': id, 'name': name} for (id, name) in Aid.STEPS]
+        return aid_steps
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
 
 
-class AidDestinations(viewsets.ViewSet):
+class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all the aid destinations.
-    Example : { "key": "supply", "value": "Dépenses de fonctionnement" }
+    list: Lister tous les choix de récurrences
+
+    .
     """
 
-    def list(self, request):
-        aid_destinations = [{'key': key, 'value': value} for (key, value) in Aid.DESTINATIONS]
-        data = {
-            'count': len(aid_destinations),
-            'results': aid_destinations
-        }
-        return Response(data)
+    serializer_class = AidRecurrenceSerializer
+
+    def get_queryset(self):
+        aid_recurrences = [{'id': id, 'name': name} for (id, name) in Aid.RECURRENCES]
+        return aid_recurrences
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
+
+class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list: Lister tous les choix de types de dépenses
+
+    .
+    """
+
+    serializer_class = AidDestinationSerializer
+
+    def get_queryset(self):
+        aid_destinations = [{'id': id, 'name': name} for (id, name) in Aid.DESTINATIONS]
+        return aid_destinations
+
+    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)

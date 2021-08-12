@@ -9,13 +9,13 @@ from stats.api.serializers import (AidContactClickEventSerializer,
                                    AidMatchProjectEventSerializer,
                                    AidEligibilityTestEventSerializer,
                                    PromotionClickEventSerializer,
-                                   PromotionDisplayEventSerializer,)
+                                   PromotionDisplayEventSerializer)
 
 
 class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     swagger_schema = None
-    queryset = AidContactClickEvent.objects.all()
     serializer_class = AidContactClickEventSerializer
+    queryset = AidContactClickEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -30,8 +30,8 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewS
 
 class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     swagger_schema = None
-    queryset = AidMatchProjectEvent.objects.all()
     serializer_class = AidMatchProjectEventSerializer
+    queryset = AidMatchProjectEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -46,8 +46,8 @@ class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewS
 
 class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     swagger_schema = None
-    queryset = AidEligibilityTestEvent.objects.all()
     serializer_class = AidEligibilityTestEventSerializer
+    queryset = AidEligibilityTestEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -62,8 +62,8 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericVi
 
 class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     swagger_schema = None
-    queryset = PromotionDisplayEvent.objects.all()
     serializer_class = PromotionDisplayEventSerializer
+    queryset = PromotionDisplayEvent.objects.all()
 
     def perform_create(self, serializer):
         host = self.request.get_host()
@@ -73,8 +73,8 @@ class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericView
 
 class PromotionClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     swagger_schema = None
-    queryset = PromotionClickEvent.objects.all()
     serializer_class = PromotionClickEventSerializer
+    queryset = PromotionClickEvent.objects.all()
 
     def perform_create(self, serializer):
         host = self.request.get_host()

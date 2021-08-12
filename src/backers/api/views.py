@@ -4,8 +4,10 @@ from functools import reduce
 from django.db.models import Q
 
 from rest_framework import viewsets, mixins
+from drf_yasg.utils import swagger_auto_schema
 
 from backers.models import Backer
+from backers.api import doc as api_doc
 from backers.api.serializers import BackerSerializer
 
 
@@ -13,6 +15,12 @@ MIN_SEARCH_LENGTH = 3
 
 
 class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list: Lister tous les porteurs d'aides
+
+    .
+    """
+
     serializer_class = BackerSerializer
 
     def get_queryset(self):
@@ -29,7 +37,7 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
-        has_financed_aids = self.request.query_params.get('has_financed_aids', 'false')  # noqa
+        has_financed_aids = self.request.query_params.get('has_financed_aids', 'false')
         if has_financed_aids == 'true':
             qs = qs.has_financed_aids()
 
@@ -40,3 +48,9 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         qs = qs.order_by('name')
 
         return qs
+
+    @swagger_auto_schema(
+        manual_parameters=api_doc.backers_api_parameters,
+        tags=[Backer._meta.verbose_name_plural])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)

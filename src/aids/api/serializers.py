@@ -137,3 +137,30 @@ class AidSerializer13(BaseAidSerializer):
 
 class AidSerializerLatest(AidSerializer13):
     pass
+
+
+class AidAudienceSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+    type = serializers.CharField()
+
+
+class AidTypeSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+    type = serializers.CharField()
+
+
+class AidStepSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+
+
+class AidRecurrenceSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+
+
+class AidDestinationSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
