@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.contrib.postgres.search import TrigramSimilarity
 
 from rest_framework import viewsets, mixins
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.utils import extend_schema
 
 from core.utils import remove_accents
 from core.api.pagination import ApiPagination
@@ -15,12 +15,6 @@ MIN_SEARCH_LENGTH = 1
 
 
 class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les périmètres
-
-    Si vous cherchez une API Adresse : https://api.gouv.fr/les-api/base-adresse-nationale
-    """
-
     serializer_class = PerimeterSerializer
     pagination_class = ApiPagination
 
@@ -50,26 +44,26 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         return qs
 
-    @swagger_auto_schema(
-        manual_parameters=api_doc.perimeters_api_parameters,
+    @extend_schema(
+        summary="Lister tous les périmètres",
+        description="Si vous cherchez une API Adresse : \
+        https://api.gouv.fr/les-api/base-adresse-nationale",
+        parameters=api_doc.perimeters_api_parameters,
         tags=[Perimeter._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
 
 class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix d'échelles
-
-    Ils sont ordonnés du plus petit au plus grand.
-    """
-
     serializer_class = PerimeterScaleSerializer
 
     def get_queryset(self):
         perimeter_scales = [{'id': id, 'name': name, 'weight': weight} for (weight, id, name) in Perimeter.SCALES_TUPLE]  # noqa
         return perimeter_scales
 
-    @swagger_auto_schema(tags=[Perimeter._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix d'échelles",
+        description="Ils sont ordonnés du plus petit au plus grand.",
+        tags=[Perimeter._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)

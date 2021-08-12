@@ -4,7 +4,7 @@ from functools import reduce
 from django.db.models import Q
 
 from rest_framework import viewsets, mixins
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.utils import extend_schema
 
 from core.api.pagination import ApiPagination
 from backers.models import Backer
@@ -16,12 +16,6 @@ MIN_SEARCH_LENGTH = 3
 
 
 class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les porteurs d'aides
-
-    .
-    """
-
     serializer_class = BackerSerializer
     pagination_class = ApiPagination
 
@@ -51,8 +45,9 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         return qs
 
-    @swagger_auto_schema(
-        manual_parameters=api_doc.backers_api_parameters,
+    @extend_schema(
+        summary="Lister tous les porteurs d'aides",
+        parameters=api_doc.backers_api_parameters,
         tags=[Backer._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)

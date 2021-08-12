@@ -2,12 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path, include, reverse_lazy
+from django.urls import path, include
 from django.utils.translation import gettext_lazy as _
 
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
-from rest_framework import routers, permissions
+from rest_framework import routers
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from core.utils import RedirectAidDetailView
 from core.otp import OTPAdminSite
@@ -31,33 +30,26 @@ if settings.ADMIN_OTP_ENABLED:
     admin.site.__class__ = OTPAdminSite
 
 
-# API
-schema_view = get_schema_view(
-    openapi.Info(
-        title='Aides-territoires API',
-        default_version=f'v{settings.CURRENT_API_VERSION}',
-        # description='',
-        terms_of_service=reverse_lazy('legal_mentions'),
-        contact=openapi.Contact(email='tech@aides-territoires.beta.gouv.fr'),
-        license=openapi.License(name="« Licence Ouverte v2.0 » d'Etalab"),
-    ),
-    public=True,
-    permission_classes=[permissions.AllowAny],
-)
-
 api_patterns = [
     path('', include(router.urls)),
 
     # This is the public aid list export api
     path('aids/', include('aids.api.urls')),
 
-    # Those are internal api routes (for autocomplete widgets mostly)
+    # Other public endpoints (also used for autocomplete widgets)
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
     path('programs/', include('programs.api.urls')),
     path('themes/', include('categories.api.urls')),
+
+    # Internal api routes
     path('eligibility/', include('eligibility.api.urls')),
     path('stats/', include('stats.api.urls')),
+
+    # Documentation
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 sitemaps = {
@@ -90,8 +82,6 @@ urlpatterns = [
 
     # Api related routes
     path('api/', include(api_patterns)),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     # Static pages are at the url root.
     # Leave this at the bottom to prevent an admin to accidently

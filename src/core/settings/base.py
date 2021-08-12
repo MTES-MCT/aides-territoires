@@ -39,11 +39,11 @@ THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'django_xworkflows',
     'corsheaders',
     'import_export',
     'admin_auto_filters',
-    'drf_yasg',
     'anymail',
     'django_celery_beat',
     'adminsortable2',
@@ -232,6 +232,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 50,
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
@@ -239,6 +240,22 @@ CURRENT_API_VERSION = '1.3'
 
 # The file path that's user for storing the json dump on S3
 ALL_AIDS_DUMP_FILE_PATH = 'aids/all-aids.json'
+
+# Swagger / Redoc settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Aides-territoires API',
+    'VERSION': CURRENT_API_VERSION,
+    'TOS': 'https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/',
+    # 'CONTACT': {},
+    'LICENSE': {
+        'name': "« Licence Ouverte v2.0 » d'Etalab"
+    },
+    'EXTERNAL_DOCS': {
+        'url': 'https://aides-territoires.beta.gouv.fr/data/'
+    },
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SORT_OPERATION_PARAMETERS': False
+}
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
