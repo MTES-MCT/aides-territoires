@@ -35,7 +35,7 @@
             <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                 {{ _('More filters') }}
             </button>
-            <button class="fr-btn js" id="save-alert-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+            <button type="button" class="fr-btn js" id="save-alert-btn" data-fr-opened="false" aria-controls="alert-search-modal">
                 Créer une alerte
             </button>
         {% endblock %}
