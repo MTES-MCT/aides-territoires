@@ -1,9 +1,6 @@
 # Aides-territoires
 
-[![Build Status](https://travis-ci.com/MTES-MCT/aides-territoires.svg?branch=master)](https://travis-ci.com/MTES-MCT/aides-territoires)
-
-**Identifiez en quelques clics toutes les aides disponibles sur votre territoire
-pour vos projets d'aménagement durable.**
+**Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'aménagement durable.**
 
 Dépôt de code de la startup d'état **Aides-territoires** incubée à la Fabrique Numérique du MTES-MCT.
 
@@ -75,18 +72,41 @@ La liste des « gros morceaux » ou fonctionnalités principales à connaître
   - création de « minisites » ;
   - scripts de mise à jour des périmètres
 
-## Architecture et organisation du projet
+## Aspects techniques
 
-Le projet est structuré comme un projet Django classique, découpé en applications.
+### Architecture
 
-L'utilité de chaque application est décrite dans son fichier `__init__.py`.
+Le produit est développé en Django (Python).
+Il est structuré comme un projet Django classique, découpé en applications.
 
 Certaines données de projet sont accessible depuis une API. L'API est en lecture seule.
 
-Retrouvez plus d'informations sur les pages suivantes :
+L'interface utilise des templates HTML, avec Bootstrap et un peu de Javascript.
 
-  - en savoir plus sur le code et comment contribuer ? [CONTRIBUTING.md](./ONBOARDING.md)
-  - installer l'environment en local ? [ONBOARDING.md](./ONBOARDING.md)
+### Le code
+
+Pour en savoir plus sur le code et comment contribuer : [CONTRIBUTING.md](./ONBOARDING.md)
+
+Les étapes pour installer l'environment en local : [ONBOARDING.md](./ONBOARDING.md)
+
+### Infrastructure
+
+L'application est hébergée chez [Scalingo](https://scalingo.com/fr).
+Les fichiers statiques (images, documents) sont chez [Scaleway](https://www.scaleway.com/fr/).
+
+### Outillage
+
+- [Github](https://github.com/) pour l'hébergement du code et l'intégration continue
+- [Sentry](https://sentry.io) pour le reporting des erreurs
+- [SendInBlue](https://fr.sendinblue.com/) pour l'envoi d'emails
+- [AlwaysData](https://www.alwaysdata.com/fr/) pour la gestion des DNS
+- [Metabase](https://www.metabase.com/) pour l'analyse et la visualisation des données
+- [Matomo](https://fr.matomo.org/) pour l'analyse du traffic web
+- [Updown](https://updown.io/) pour la page de statuts et les alertes
+
+### Monitoring
+
+[Statut du service](https://updown.io/tqz4?locale=fr)
 
 ## Une question ?
 
