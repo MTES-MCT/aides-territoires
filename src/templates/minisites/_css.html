@@ -79,6 +79,11 @@ div.search-meta {
     color: #fff;
 }
 
+div.search-meta .fr-tag {
+    color: #000;
+}
+
+
 #alert-form div.search-meta {
     color: #000;
 }
@@ -156,7 +161,8 @@ section#search-engine div.form-container {
 }
 
 section#search-engine div.other-actions button:hover,
-section#search-engine div.other-actions a:hover {
+section#search-engine div.other-actions a:hover,
+section#search-engine div.other-actions a {
     color: white;
 }
 
@@ -270,9 +276,6 @@ article#aid .card > div::before {
     color: {{ search_page.color_3 }};
 }
 
-.dark-background #search.main-content > article {
-    border-radius: 0 1.5rem 1.5rem 1.5rem;
-}
 
 .dark-background .main-content > article a,
 section#aid-list article.aid div h1 a,
@@ -287,6 +290,10 @@ ol.breadcrumb li.active {
 
 .dark-background .main-content > article a.nav-link {
     text-decoration: none;
+}
+
+section#aid-list nav {
+    color: #fff !important;
 }
 
 {% if search_page.color_4 %}

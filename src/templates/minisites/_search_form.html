@@ -37,54 +37,58 @@
 {% endblock %}
 
 {% block other-actions %}
-    <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link fr-btn" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-        {{ _('More filters') }}
-    </button>
-
-    <a href="{% url 'home' %}">
-        {{ _('Reset filters') }}
-    </a>
-
-    <button type="button" class="fr-btn" id="save-alert-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
-        Créer une alerte
-    </button>
-
+    <div class="fr-grid-row ">
+        <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
+            <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link fr-btn" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+                {{ _('More filters') }}
+            </button>
+    
+            <a href="{% url 'home' %}" class="fr-ml-2w">
+                {{ _('Reset filters') }}
+            </a>    
+        </div>
+        <div class="fr-col-offset-md-6 fr-col-md-2 fr-grid-row fr-grid-row--right fr-mt-1w">
+            <button type="button" class="fr-btn" id="save-alert-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+                Créer une alerte
+            </button>    
+        </div>
+    </div>
 {% endblock %}
 
 {% block form-body %}
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-mb-2w" id="search-form">
         {% if search_page.show_perimeter_field %}
-            <div class="fr-col fr-col-md-4">
+            <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.perimeter %}
             </div>
         {% endif %}
 
         {% if search_page.show_backers_field %}
-        <div class="fr-col fr-col-md-4">
+        <div class="fr-col-12 fr-col-md-4">
             {% include '_field_snippet.html' with field=form.backers %}
         </div>
         {% endif %}
 
         {% if search_page.show_audience_field %}
-            <div class="fr-col fr-col-md-4">
+            <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.targeted_audiences %}
             </div>
         {% endif %}
 
         {% if search_page.show_mobilization_step_field %}
-            <div class="fr-col fr-col-md-4">
+            <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.mobilization_step %}
             </div>
         {% endif %}
 
         {% if search_page.show_categories_field %}
-            <div class="fr-col fr-col-md-4">
+            <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.categories %}
             </div>
         {% endif %}
 
         {% if search_page.show_aid_type_field %}
-            <div class="fr-col fr-col-md-4">
+            <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.aid_type %}
             </div>
         {% endif %}

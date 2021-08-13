@@ -19,7 +19,7 @@
     {% endblock %}
 
     {% block other_actions %}
-    <div class="other-actions fr-mb-5w">
+    <div class="other-actions fr-mb-2w">
 
         {% comment %}
             This hidden button is here to make it the "default" submit button.
@@ -47,19 +47,19 @@
 
             {% block form-body %}
             <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                <div class="fr-col fr-col-md-3">
+                <div class="fr-col-12 fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.aid_type %}
                 </div>
 
-                <div class="fr-col fr-col-md-3">
+                <div class="fr-col-12 fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.programs %}
                 </div>
 
-                <div class="fr-col fr-col-md-3">
+                <div class="fr-col-12 fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.backers %}
                 </div>
 
-                <div class="fr-col fr-col-md-3">
+                <div class="fr-col-12 fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.text %}
                 </div>
             </div>
@@ -67,10 +67,10 @@
 
             {% block form-actions %}
             <div class="fr-grid-row actions-row">
-                <div class="fr-col-md-3">
+                <div class="fr-col-12 fr-col-md-3 fr-mt-2w">
                     {{ form.order_by }}
                 </div>
-                <div class="fr-col-md-3 fr-col-offset-md-6">
+                <div class="fr-col-md-3 fr-col-offset-md-6 fr-grid-row fr-grid-row--right fr-mt-2w">
                     <button name="action" value="search-filter" class="search-btn fr-btn" type="submit">
                         <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
                         Filtrer les résultats
