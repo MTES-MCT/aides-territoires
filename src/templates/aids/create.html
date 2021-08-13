@@ -4,20 +4,15 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Publish a new aid') }}</h1>
+    <h1>Publier une aide</h1>
 {% endblock %}
 
 {% block before-section %}
-<div class="warning fr-background-alt-pink fr-p-3w fr-mb-5w">
-    <p class="fr-mb-2w">{% blocktrans trimmed %}
-        <span class="fas fa-exclamation-circle"></span>
-        Before being published, your aid <strong>must be reviewed by an
-        administrator</strong>.
-    {% endblocktrans %}</p>
-    <p class="fr-mb-0">{% blocktrans trimmed %}
-        You can create your aid and <strong>ask for publication</strong>
-        right away, or <strong>save it as a draft</strong>.
-    {% endblocktrans %}</p>
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
+    <p class="fr-mb-0">Votre aide devra être <strong>revue par un administrateur</strong> avant publication.</p>
+</div>
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+    <p class="fr-mb-0">Vous pouvez créer votre aide et <strong>demander la publication immédiatement,</strong> ou <strong>l'enregistrer en tant que brouillon.</strong></p>
 </div>
 {% endblock %}
 
@@ -47,10 +42,11 @@
 
 {% block form_actions %}
 <div class="fr-background-main fr-pt-2w">
-    <p class="warning fr-background-alt-pink fr-p-3w">
-        <span class="fr-fi-error-warning-fill" aria-hidden="true"></span>
-        Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
-    </p>        
+    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+        <p>
+            Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
+        </p>            
+    </div>
 
     <div class="form-actions fr-grid-row">
         <div class="submit-buttons fr-col-12 fr-col-md-10">

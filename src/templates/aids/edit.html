@@ -20,7 +20,7 @@
     {% endif %}
     <div class="actions fr-container fr-grid-row fr-grid-row--center fr-mb-5w fr-grid-row--gutters">
         <div class="sidebar-actions fr-col-12 fr-col-md-4">
-            <h3>{{ aid.get_status_display }}</h3>
+            <p class="fr-h3 fr-mt-1w">{{ aid.get_status_display }}</p>
             <div>
                 {% if aid.is_draft %}
                     <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="sidebar-actions fr-col-12 fr-col-md-4">
-            <h3>Prévisualisation</h3>
+            <p class="fr-h3 fr-mt-1w">Prévisualisation</p>
             <div>
                 <p>Vérifiez le rendu de votre aide pour notre public.</p>
                 <a class="fr-btn" href="{{ aid.get_absolute_url }}" target="_blank">Prévisualiser cette aide</a>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="sidebar-actions action-danger fr-col-12 fr-col-md-4">
-            <h3>Suppression de l'aide</h3>
+            <p class="fr-h3 fr-mt-1w">Suppression de l'aide</p>
             <div>
                 <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
                 <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
