@@ -10,206 +10,226 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">Stats</li>
-    </ol>
-</nav>
+<div class="fr-container fr-background-main fr-py-1w">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Stats</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<section id="stats">
+<section id="stats" class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Aides disponibles</h6>
-            <small>Aides publiées et toujours ouvertes aux candidatures</small>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Aides disponibles</p>
+                    <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ nb_live_aids|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ nb_live_aids|intcomma }}</span>
-        </div>
-    </div>
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Date de lancement de le page</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Date de lancement de le page</p>
+                    <p class="fr-mb-0 fr-xs"></p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ search_page.date_created|date:'d/m/Y' }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ search_page.date_created|date:'d/m/Y' }}</span>
-        </div>
-    </div>
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Nombre de recherches pendant les 30 derniers jours</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Nombre de recherches pendant les 30 derniers jours</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ search_count_last_30_days|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ search_count_last_30_days|intcomma }}</span>
-        </div>
-    </div>
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Nombre de recherches pendant les 7 derniers jours</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Nombre de recherches pendant les 7 derniers jours</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ search_count_last_7_days|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ search_count_last_7_days|intcomma }}</span>
-        </div>
-    </div>
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Nombre d'aides vues pendant les 30 derniers jours</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues pendant les 30 derniers jours</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ aid_view_count_last_30_days|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ aid_view_count_last_30_days|intcomma }}</span>
-        </div>
-    </div>
 
-    <div class="stat half-width">
-        <div class="stat-title">
-            <h6>Nombre d'aides vues pendant les 7 derniers jours</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues pendant les 7 derniers jours</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ aid_view_count_last_7_days|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ aid_view_count_last_7_days|intcomma }}</span>
-        </div>
-    </div>
 
-    <div class="stat full-width">
-        <div class="stat-title">
-            <h6>Nombre d'aides vues par semaine</h6>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues par semaine</p>
+                </h4>
+                <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
+            </div>
         </div>
-        <div style="min-height: 400px">
-            <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
-        </div>
-    </div>
 
-    <div class="stat full-width">
-        <div class="stat-title">
-            <h6>Aides les plus vues (top 10)</h6>
-            <small>Depuis le lancement de le page</small>
-        </div>
-        <div class="stat-body">
-            {% if top_10_aid_viewed %}
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th class="order-column">Ordre</th>
-                            <th>Nom de l'aide</th>
-                            <th class="value-column">Vues</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for aid in top_10_aid_viewed %}
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Aides les plus vues (top 10)</p>
+                    <p class="fr-mb-0 fr-xs">Depuis le lancement de le page</p>
+                </h4>
+                {% if top_10_aid_viewed %}
+                <div class="fr-table">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ aid.aid__name }}</td>
-                                <td>{{ aid.view_count }}</td>
+                                <th class="order-column">Ordre</th>
+                                <th>Nom de l'aide</th>
+                                <th class="value-column">Vues</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <span>Pas de données</span>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for aid in top_10_aid_viewed %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ aid.aid__name }}</td>
+                                    <td>{{ aid.view_count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <span>Pas de données</span>
+                {% endif %}
+            </div>
         </div>
-    </div>
 
-    {% if search_page.show_audience_field %}
-    <div class="stat full-width">
-        <div class="stat-title">
-            <h6>Bénéficiaires les plus recherchés (top 10)</h6>
-            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
-        </div>
-        <div class="stat-body">
-            {% if top_10_audiences_searched %}
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th class="order-column">Ordre</th>
-                            <th>Bénéficiaire</th>
-                            <th class="value-column">Recherches</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for audience in top_10_audiences_searched %}
+        {% if search_page.show_audience_field %}
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Bénéficiaires les plus recherchés (top 10)</p>
+                    <p>Parmi les {{ search_count_total }} recherches effectuées</p>
+                </h4>
+                {% if top_10_audiences_searched %}
+                <div class="fr-table">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ audience.audience }}</td>
-                                <td>{{ audience.search_count }}</td>
+                                <th class="order-column">Ordre</th>
+                                <th>Bénéficiaire</th>
+                                <th class="value-column">Recherches</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <span>Pas de données</span>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for audience in top_10_audiences_searched %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ audience.audience }}</td>
+                                    <td>{{ audience.search_count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <span>Pas de données</span>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    {% endif %}
+        {% endif %}
 
-    {% if search_page.show_categories_field %}
-    <div class="stat full-width">
-        <div class="stat-title">
-            <h6>Sous-thématiques les plus recherchées (top 10)</h6>
-            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
-        </div>
-        <div class="stat-body">
-            {% if top_10_categories_searched %}
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th class="order-column">Ordre</th>
-                            <th>Sous-thématique</th>
-                            <th class="value-column">Recherches</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for category in top_10_categories_searched %}
+        {% if search_page.show_categories_field %}
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Sous-thématiques les plus recherchées (top 10)</p>
+                    <p class="fr-mb-0 fr-xs">Parmi les {{ search_count_total }} recherches effectuées</p>
+                </h4>
+                {% if top_10_categories_searched %}
+                <div class="fr-table">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ category.categories__name }}</td>
-                                <td>{{ category.search_count }}</td>
+                                <th class="order-column">Ordre</th>
+                                <th>Sous-thématique</th>
+                                <th class="value-column">Recherches</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <span>Pas de données</span>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for category in top_10_categories_searched %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ category.categories__name }}</td>
+                                    <td>{{ category.search_count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <span>Pas de données</span>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    {% endif %}
+        {% endif %}
 
-    <div class="stat full-width">
-        <div class="stat-title">
-            <h6>Mots clés les plus recherchés (top 10)</h6>
-            <small>Parmi les {{ search_count_total }} recherches effectuées</small>
-        </div>
-        <div class="stat-body">
-            {% if top_10_keywords_searched %}
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th class="order-column">Ordre</th>
-                            <th>Mot clé</th>
-                            <th class="value-column">Recherches</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for keyword in top_10_keywords_searched %}
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Mots clés les plus recherchés (top 10)</p>
+                    <p class="fr-mb-0 fr-xs">Parmi les {{ search_count_total }} recherches effectuées</p>
+                </h4>
+                {% if top_10_keywords_searched %}
+                <div class="fr-table">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ keyword.text }}</td>
-                                <td>{{ keyword.search_count }}</td>
+                                <th class="order-column">Ordre</th>
+                                <th>Mot clé</th>
+                                <th class="value-column">Recherches</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <span>Pas de données</span>
-            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for keyword in top_10_keywords_searched %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ keyword.text }}</td>
+                                    <td>{{ keyword.search_count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <span>Pas de données</span>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>
