@@ -1,4 +1,6 @@
-# Montage de l'environnement de travail
+# Onboarding tech
+
+## Montage de l'environnement de travail
 
 Afin d'avoir un environnement de travail le plus proche possible de la production,
 il est recommandé d'utiliser une machine virtuelle LXC qui contiendra l'intégralité
@@ -8,14 +10,16 @@ Ladite machine pourra être créée automatiquement grâce a un script, et provi
 grâce à la même recette Ansible que celle utilisée pour le déploiement en
 production.
 
-## Prérequis
+Note : un setup alternatif (sans machine virtuelle) est documenté [ici](https://github.com/MTES-MCT/aides-territoires/wiki/Installation-de-l'environment-en-local).
+
+### Prérequis
 
  * un OS unix à jour ;
  * une [installation de LXD fonctionnelle](https://linuxcontainers.org/lxd/getting-started-cli/).
  * git ;
  * ansible (2.7.7 minimum) ;
 
-## Création de la machine de dev locale
+### Création de la machine de dev locale
 
  Créer un répertoire de travail et cloner le projet git :
 
@@ -38,7 +42,7 @@ Exécuter le script d'installation :
 
 Si tout s'est bien passé vous devez avoir une machine virtuelle presque fonctionnelle.
 
-## Configuration de la machine hôte
+### Configuration de la machine hôte
 
 Il reste quelques manipulations à effectuer qui sont expliquées à la fin du script.
 
@@ -53,7 +57,6 @@ Modification du fichier `~/.ssh/config`.
         Port 22
         Hostname aides-territoires.local
         ForwardAgent yes
-
 
 Création du fichier `.env.local` dans le répertoire *aides-territoires/src/*
 
@@ -70,7 +73,7 @@ https://aides-territoires.local/
 En vous connectant à cette adresse, vous accéderez à Nginx en frontal, dans une
 configuration très similaire à ce qui existe en recette et production.
 
-## Serveur de développement
+### Serveur de développement
 
 Afin de bénéficier des fonctionnalités proposées par le serveur de développement de django, il faut effectuer quelques opérations manuelles, à répéter à chaque
 démarrage de la VM :
@@ -88,7 +91,7 @@ http://aides-territoires.local:8000/
 
 Il sera nécessaire de mettre à jour la base de données à partir d'un dump récent.
 
-## Serveur de développement pour les minisites (pages personnalisées)
+### Serveur de développement pour les minisites (pages personnalisées)
 
 Dans le fichier .env.local il est nécessaire d'ajouter comme ALLOWED_HOSTS :
 
@@ -102,7 +105,7 @@ La version dev du minisite sera alors accessible à cette adresse :
 
 http://francemobilites.aides-territoires.local:8000/
 
-## Lancement des tests
+### Lancement des tests
 
 Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utilisateur `postgres` donne l'autorisation à l'utilisateur `aides` de créer une base de données :
 
@@ -116,13 +119,8 @@ Il faut aussi installer l'extension pg_trgm :
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS btree_gin;' -U postgres
     psql -d aides -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;' -U postgres
 
-
 En suivant l'utilisateur `aides` peut lancer les tests :
 
     su - aides
     cd aides/src
     make test
-
-## Montage alternatif
-
-https://github.com/MTES-MCT/aides-territoires/wiki/MacOS-:-installation-de-l'environment-en-local
