@@ -4,54 +4,55 @@
 {% block extratitle %}{{ _('Public stats') }}{% endblock %}
 
 {% block content %}
-<section id="stats">
+<section id="stats" class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
 
-    <div class="stat">
-        <div class="stat-title">
-            <h6>Aides disponibles</h6>
-            <small>Aides publiées et toujours ouvertes aux candidatures</small>
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">Aides disponibles</p>
+                    <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ nb_live_aids|intcomma }}</p>
+            </div>
         </div>
-        <div class="stat-body number-stat">
-            <span>{{ nb_live_aids|intcomma }}</span>
+
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">{{ _('Sent alerts') }}</p>
+                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
+                        Emails sent with new alerts notification
+                    {% endblocktrans %}</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ nb_sent_alerts|intcomma }}</p>
+            </div>
         </div>
+
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">{{ _('Viewed aids') }}</p>
+                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
+                        Aids viewed within the last 7 days
+                    {% endblocktrans %}</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ nb_viewed_aids|intcomma }}</p>
+            </div>
+        </div>
+
+        <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
+            <div class="fr-card__body">
+                <h4 class="fr-card__title">
+                    <p class="fr-mb-0 fr-h6">{{ _('Aid backers') }}</p>
+                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
+                        Organizations that are financing or instructing aids
+                    {% endblocktrans %}</p>
+                </h4>
+                <p class="fr-card__desc fr-h1">{{ nb_backers|intcomma }}</p>
+            </div>
+        </div>
+        
     </div>
-
-    <div class="stat">
-        <div class="stat-title">
-            <h6>{{ _('Sent alerts') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Emails sent with new alerts notification
-            {% endblocktrans %}
-            </small>
-        </div>
-        <div class="stat-body number-stat">
-            <span>{{ nb_sent_alerts|intcomma }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <div class="stat-title">
-            <h6>{{ _('Viewed aids') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Aids viewed within the last 7 days
-            {% endblocktrans %}</small>
-        </div>
-        <div class="stat-body number-stat">
-            <span>{{ nb_viewed_aids|intcomma }}</span>
-        </div>
-    </div>
-
-    <div class="stat">
-        <div class="stat-title">
-            <h6>{{ _('Aid backers') }}</h6>
-            <small>{% blocktrans trimmed %}
-                Organizations that are financing or instructing aids
-            {% endblocktrans %}</small>
-        </div>
-        <div class="stat-body number-stat">
-            <span>{{ nb_backers|intcomma }}</span>
-        </div>
-    </div>
-
 </section>
 {% endblock %}
