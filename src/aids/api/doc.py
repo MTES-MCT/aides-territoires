@@ -18,9 +18,10 @@ text = OpenApiParameter(
     location=OpenApiParameter.QUERY,
     description="Recherche textuelle.",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('velo', value='velo'),
         OpenApiExample('piste OU velo', value='piste+velo'),
-        OpenApiExample('piste ET velo', value='piste%2Bvelo')
+        OpenApiExample('piste ET velo', value='piste velo')
     ])
 aids_api_parameters.append(text)
 
@@ -32,10 +33,8 @@ targeted_audiences = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/audiences/` pour la liste complète.",
     enum=[id for (id, key) in AUDIENCES_ALL],
-    examples=[
-        OpenApiExample('Commune', value='commune'),
-        OpenApiExample('Départment', value='department')
-    ])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in AUDIENCES_ALL])
 aids_api_parameters.append(targeted_audiences)
 
 apply_before = OpenApiParameter(
@@ -44,6 +43,7 @@ apply_before = OpenApiParameter(
     location=OpenApiParameter.QUERY,
     description="Candidater avant…",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('2021-09-01', value='2021-09-01')
     ])
 aids_api_parameters.append(apply_before)
@@ -54,6 +54,7 @@ published_after = OpenApiParameter(
     location=OpenApiParameter.QUERY,
     description="Publiée après…",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('2020-11-01', value='2020-11-01')
     ])
 aids_api_parameters.append(published_after)
@@ -65,6 +66,7 @@ aid_type = OpenApiParameter(
     description="Nature de l'aide.",
     enum=[id for (id, name) in AID_TYPE_CHOICES],
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('Aides financières', value='financial'),
         OpenApiExample('Aides en ingénierie', value='technical')
     ])
@@ -78,7 +80,8 @@ financial_aids = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/types/` pour la liste complète.",
     enum=[id for (id, name) in FINANCIAL_AIDS + OTHER_AIDS],
-    examples=[OpenApiExample(name, value=id) for (id, name) in FINANCIAL_AIDS + OTHER_AIDS])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in FINANCIAL_AIDS + OTHER_AIDS])
 aids_api_parameters.append(financial_aids)
 
 technical_aids = OpenApiParameter(
@@ -89,7 +92,8 @@ technical_aids = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/types/` pour la liste complète.",
     enum=[id for (id, name) in TECHNICAL_AIDS],
-    examples=[OpenApiExample(name, value=id) for (id, name) in TECHNICAL_AIDS])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in TECHNICAL_AIDS])
 aids_api_parameters.append(technical_aids)
 
 mobilization_step = OpenApiParameter(
@@ -100,7 +104,8 @@ mobilization_step = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/steps/` pour la liste complète.",
     enum=[id for (id, name) in Aid.STEPS],
-    examples=[OpenApiExample(name, value=id) for (id, name) in Aid.STEPS])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in Aid.STEPS])
 aids_api_parameters.append(mobilization_step)
 
 destinations = OpenApiParameter(
@@ -111,7 +116,8 @@ destinations = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/destinations/` pour la liste complète.",
     enum=[id for (id, name) in Aid.DESTINATIONS],
-    examples=[OpenApiExample(name, value=id) for (id, name) in Aid.DESTINATIONS])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in Aid.DESTINATIONS])
 aids_api_parameters.append(destinations)
 
 recurrence = OpenApiParameter(
@@ -122,7 +128,8 @@ recurrence = OpenApiParameter(
     "<br /><br />"
     "Voir aussi `/api/aids/recurrences/` pour la liste complète.",
     enum=[id for (id, name) in Aid.RECURRENCES],
-    examples=[OpenApiExample(name, value=id) for (id, name) in Aid.RECURRENCES])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in Aid.RECURRENCES])
 aids_api_parameters.append(recurrence)
 
 call_for_projects_only = OpenApiParameter(
@@ -131,6 +138,7 @@ call_for_projects_only = OpenApiParameter(
     location=OpenApiParameter.QUERY,
     description="Appels à projets / Appels à manifestation d'intérêt uniquement.",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('true', value=True),
     ])
 aids_api_parameters.append(call_for_projects_only)
@@ -145,6 +153,7 @@ perimeter = OpenApiParameter(
     "<br /><br />"
     "Note : passer seulement l'id du périmètre suffit (perimeter=70973).",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('70973-auvergne-rhone-alpes', value='70973-auvergne-rhone-alpes'),
         OpenApiExample('95861-clermont-ferrand', value='95861-clermont-ferrand'),
         OpenApiExample('109957-pays-cevennes', value='109957-pays-cevennes')
@@ -165,6 +174,7 @@ backers = OpenApiParameter(
     "<br />"
     "- passer seulement l'id du (ou des) porteur(s) d'aides suffit (backers=22)",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('22-ademe', value='22-ademe'),
         OpenApiExample('113-banque-des-territoires', value='113-banque-des-territoires')
     ])
@@ -184,6 +194,7 @@ programs = OpenApiParameter(
     "<br />"
     "- il faut passer le slug du (ou des) programme(s)",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('Petites villes de demain', value='petites-villes-de-demain'),
         OpenApiExample('France Relance', value='france-relance')
     ])
@@ -203,6 +214,7 @@ themes = OpenApiParameter(
     "<br />"
     "- il faut passer le slug de la (ou des) thématique(s)",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('Énergies / Déchets', value='energies-dechets'),
         OpenApiExample('Nature / environnement', value='nature-environnement-risques')
     ])
@@ -222,6 +234,7 @@ categories = OpenApiParameter(
     "<br />"
     "- il faut passer le slug de la (ou des) sous-thématique(s)",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('Attractivité économique', value='attractivite'),
         OpenApiExample('Transition énergétique', value='transition-energetique')
     ])
@@ -233,6 +246,7 @@ origin_url = OpenApiParameter(
     location=OpenApiParameter.QUERY,
     description="URL d'origine.",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('URL', value='http://www.cress-aura.org/actus/mon-ess-lecole-quest-ce-que-cest'),  # noqa
     ])
 aids_api_parameters.append(origin_url)
@@ -245,6 +259,7 @@ in_france_relance = OpenApiParameter(
     "<br /><br />"
     "Pour les aides du Plan de relance, utiliser le paramètre `programs`.",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('true', value=True),
     ])
 aids_api_parameters.append(in_france_relance)
@@ -261,6 +276,7 @@ prevent_generic_filter = OpenApiParameter(
     "Note : la valeur du paramètre, ici 'yes', n'a pas d'importance, \
     puisque la simple présence de ce paramètre suffit.",
     examples=[
+        OpenApiExample('', value=''),
         OpenApiExample('true', value=True),
     ])
 aids_api_parameters.append(prevent_generic_filter)
@@ -274,5 +290,6 @@ order_by = OpenApiParameter(
     "Note : relevance correspond aux aides avec le plus petit périmètre, \
     puis aux aides qui expirent bientôt.",
     enum=[id for (id, name) in AidSearchForm.ORDER_BY],
-    examples=[OpenApiExample(name, value=id) for (id, name) in AidSearchForm.ORDER_BY])
+    examples=[OpenApiExample('', value='')] +
+    [OpenApiExample(name, value=id) for (id, name) in AidSearchForm.ORDER_BY])
 aids_api_parameters.append(order_by)
