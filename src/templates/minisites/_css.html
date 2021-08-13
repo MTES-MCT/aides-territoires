@@ -58,7 +58,7 @@ a.fr-pagination__link[aria-current][href]:hover {
     --color-active: rgb(41 41 255 / 0%);
 }
 
-.fr-btn {
+.fr-btn:not(.fr-btn--menu) {
     background-color: {{ search_page.color_3 }} !important;
     color: #fff;
 }
@@ -67,6 +67,11 @@ a.fr-pagination__link[aria-current][href]:hover {
 .fr-btn:active {
     background-color: {% darken search_page.color_3 15 %} !important;
     color: #fff !important;
+}
+
+article#backer {
+    background-color: #fff;
+    padding-top: 2rem;
 }
 
 .article {
