@@ -54,3 +54,8 @@ TYPES_GROUPED = (
     ('Aides financières', FINANCIAL_AIDS + OTHER_AIDS),
     ('Aides en ingénierie', TECHNICAL_AIDS),
 )
+
+AID_TYPE_CHOICES = (
+    ('financial', 'Aide financière'),
+    ('technical', 'Aide en ingénierie'),
+)

@@ -1,11 +1,11 @@
 from rest_framework import viewsets, mixins
+from drf_spectacular.utils import extend_schema
 
 from eligibility.models import EligibilityTest
 from eligibility.api.serializers import EligibilityTestSerializer
 
 
-# mixins.ListModelMixin
+@extend_schema(exclude=True)
 class EligibilityTestViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = EligibilityTestSerializer
     queryset = EligibilityTest.objects.all()

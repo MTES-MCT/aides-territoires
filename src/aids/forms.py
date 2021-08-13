@@ -20,7 +20,8 @@ from programs.models import Program
 from aids.models import Aid
 from aids.constants import (
     AUDIENCES_GROUPED,
-    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST, TYPES_GROUPED)
+    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST,
+    TYPES_GROUPED, AID_TYPE_CHOICES)
 
 
 IS_CALL_FOR_PROJECT = (
@@ -332,11 +333,6 @@ class BaseAidSearchForm(forms.Form):
         ('', ''),
         ('funding', 'Financière'),
         ('non-funding', 'Non-financière'),
-    )
-
-    AID_TYPE_CHOICES = (
-        ('financial', 'Aide financière'),
-        ('technical', 'Aide en ingénierie'),
     )
 
     ORDER_BY = (

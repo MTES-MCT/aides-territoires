@@ -7,7 +7,7 @@ from django.views.decorators.cache import cache_page
 from rest_framework.decorators import action
 from rest_framework import viewsets, mixins
 from rest_framework.exceptions import NotFound
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.utils import extend_schema
 
 from core.api.pagination import ApiPagination
 from aids.models import Aid
@@ -39,16 +39,6 @@ if settings.ENABLE_AID_DETAIL_API_CACHE:
 
 
 class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister toutes les aides actuellement publiées
-
-    .
-
-    retrieve: Afficher l'aide donnée
-
-    .
-    """
-
     lookup_field = 'slug'
     pagination_class = ApiPagination
 
@@ -84,7 +74,7 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
         return ordered_results
 
     def get_serializer_class(self):
-        version = self.request.version
+        version = getattr(self.request, 'version', None)
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest
@@ -99,28 +89,31 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         return serializer_class
 
-    @swagger_auto_schema(
-        manual_parameters=api_doc.aids_api_parameters,
+    @extend_schema(
+        summary="Lister toutes les aides actuellement publiées",
+        parameters=api_doc.aids_api_parameters,
         tags=[Aid._meta.verbose_name_plural])
     @cache_list_page
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Afficher l'aide donnée",
+        tags=[Aid._meta.verbose_name_plural])
     @cache_detail_page
     def retrieve(self, request, slug=None, *args, **kwargs):
         return super().retrieve(request, slug, args, kwargs)
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Toutes les aides au format JSON",
+        description="La donnée retournée n'est pas temps-réel, \
+        le résultat est mis à jour à interval régulier."
+        "<br /><br />"
+        "Si votre application requiert de la donnée temps-réel, alors cette ressource n'est pas \
+        adaptée. Tournez-vous vers `/api/aids/`.",
+        tags=[Aid._meta.verbose_name_plural])
     @action(detail=False)
     def all(self, request):
-        """
-        Toutes les aides au format JSON
-
-        La donnée retournée n'est pas temps-réel, le résultat est mis à jour à interval régulier.
-        Si votre application requiert de la donnée temps-réel, alors cette ressource n'est pas
-        adaptéée. Tournez-vous vers `/aids/`.
-        """
         file_url = storage.url(settings.ALL_AIDS_DUMP_FILE_PATH)
         return redirect(file_url)
 
@@ -165,12 +158,6 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
 
 class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix de bénéficiaires
-
-    .
-    """
-
     serializer_class = AidAudienceSerializer
 
     def get_queryset(self):
@@ -179,18 +166,14 @@ class AidAudiencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             aid_audiences += [{'id': id, 'name': name, 'type': audience_type} for (id, name) in audience_group]  # noqa
         return aid_audiences
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix de bénéficiaires",
+        tags=[Aid._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
 
 class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix de types d'aides
-
-    .
-    """
-
     serializer_class = AidTypeSerializer
 
     def get_queryset(self):
@@ -199,60 +182,50 @@ class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             aid_types += [{'id': id, 'name': name, 'type': type_type} for (id, name) in type_group]  # noqa
         return aid_types
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix de types d'aides",
+        tags=[Aid._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
 
 class AidStepsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix d'états d'avancement
-
-    .
-    """
-
     serializer_class = AidStepSerializer
 
     def get_queryset(self):
         aid_steps = [{'id': id, 'name': name} for (id, name) in Aid.STEPS]
         return aid_steps
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix d'états d'avancement",
+        tags=[Aid._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
 
 class AidRecurrencesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix de récurrences
-
-    .
-    """
-
     serializer_class = AidRecurrenceSerializer
 
     def get_queryset(self):
         aid_recurrences = [{'id': id, 'name': name} for (id, name) in Aid.RECURRENCES]
         return aid_recurrences
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix de récurrences",
+        tags=[Aid._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
 
 class AidDestinationsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """
-    list: Lister tous les choix de types de dépenses
-
-    .
-    """
-
     serializer_class = AidDestinationSerializer
 
     def get_queryset(self):
         aid_destinations = [{'id': id, 'name': name} for (id, name) in Aid.DESTINATIONS]
         return aid_destinations
 
-    @swagger_auto_schema(tags=[Aid._meta.verbose_name_plural])
+    @extend_schema(
+        summary="Lister tous les choix de types de dépenses",
+        tags=[Aid._meta.verbose_name_plural])
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)

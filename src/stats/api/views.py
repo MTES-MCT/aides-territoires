@@ -1,4 +1,5 @@
 from rest_framework import viewsets, mixins
+from drf_spectacular.utils import extend_schema
 
 from core.utils import get_site_from_host
 from search.utils import clean_search_querystring
@@ -12,8 +13,8 @@ from stats.api.serializers import (AidContactClickEventSerializer,
                                    PromotionDisplayEventSerializer)
 
 
+@extend_schema(exclude=True)
 class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = AidContactClickEventSerializer
     queryset = AidContactClickEvent.objects.all()
 
@@ -28,8 +29,8 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewS
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
+@extend_schema(exclude=True)
 class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = AidMatchProjectEventSerializer
     queryset = AidMatchProjectEvent.objects.all()
 
@@ -44,8 +45,8 @@ class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewS
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
+@extend_schema(exclude=True)
 class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = AidEligibilityTestEventSerializer
     queryset = AidEligibilityTestEvent.objects.all()
 
@@ -60,8 +61,8 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericVi
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
+@extend_schema(exclude=True)
 class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = PromotionDisplayEventSerializer
     queryset = PromotionDisplayEvent.objects.all()
 
@@ -71,8 +72,8 @@ class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericView
         serializer.save(source=source_cleaned)
 
 
+@extend_schema(exclude=True)
 class PromotionClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    swagger_schema = None
     serializer_class = PromotionClickEventSerializer
     queryset = PromotionClickEvent.objects.all()
 

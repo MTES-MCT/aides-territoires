@@ -10,6 +10,7 @@ class ContactForm(forms.Form):
         ('contact_add', "Je veux en savoir plus sur l'ajout de mes aides sur la plateforme"),
         ('contact_com', 'Je souhaite communiquer sur Aides-territoires'),
         ('contact_question', "J'ai une question par rapport à une aide ou mon projet"),
+        ('contact_api', 'API'),
         ('contact_other', 'Autres')
     )
 
