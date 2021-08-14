@@ -14,8 +14,8 @@ Pour plus d'infos en tant qu'utilisateur·ice du produit ou de l'API, vous pouve
 
 Aides-territoires s'adresse principalement à trois types d'utilisateurs (personas) :
 
- - les **chercheurs d'aides** ;
- - les **porteurs d'aides** ;
+ - les **chercheurs d'aides**
+ - les **porteurs d'aides**
  - les **admins**.
 
 ### Chercheurs d'aides
@@ -26,9 +26,9 @@ trouver des aides pour leurs projets.
 
 Les chercheurs d'aides peuvent accéder aux fonctionnalités suivantes :
 
-  - utiliser le moteur de recherche pour trouver des aides pertinentes ;
+  - utiliser le moteur de recherche pour trouver des aides pertinentes
   - créer des alertes pour recevoir par email de nouveaux résultats
-    correspondant à une recherche donnée ;
+    correspondant à une recherche donnée
   - suggérer des modifications sur une fiche d'aide.
 
 Les chercheurs d'aides sont des utilisateurs anonymes et n'ont pas besoin de
@@ -44,33 +44,33 @@ identifiés comme tels.
 
 Les porteurs d'aides ont accès aux fonctionnalités suivantes :
 
-  - accès à une interface de contribution (édition / publication d'aides) ;
+  - une interface de contribution (édition / publication d'aides)
 
  ### Admins
 
 Les admins sont les membres d'Aides-territoires qui ont accès à l'interface
 d'admin Django, et peuvent administrer les différentes données.
 
-  - éditer les aides ;
-  - saisir de nouvelles aides ;
-  - publier ou dépublier les aides ;
-  - accepter les suggestions de modifications sur les aides ;
-  - créer des « minisites », des pages de recherche personnalisées ;
+  - éditer les aides
+  - saisir de nouvelles aides
+  - publier ou dépublier les aides
+  - accepter les suggestions de modifications sur les aides
+  - créer des « minisites », des pages de recherche personnalisées
   - administrer les différentes données (catégories, etc.)
 
 ## Fonctionnalités principales
 
 La liste des « gros morceaux » ou fonctionnalités principales à connaître :
 
-  - création, édition, publication d'aides ;
-  - recherche d'aides en 4 étapes ;
-  - présentation du résultat des aides et filtre rapide ;
-  - moteur de recherche avancé « plus de critères » ;
-  - critère « périmètre » dans la recherche ;
-  - possibilité d'amender une aide ;
-  - interface de comparaison entre l'aide et ses amendements ;
-  - création de « minisites » ;
-  - scripts de mise à jour des périmètres
+  - création, édition, publication d'aides
+  - recherche d'aides en 3 ou 4 étapes (avec filtres par type de bénéficiaire, périmètre, mots clés ou thématique)
+  - présentation du résultat des aides et filtre rapide
+  - moteur de recherche avancé « plus de critères »
+  - création de « minisites »
+  - création d'alertes à partir d'une recherche
+  - test d'éligibilité sur certaines aides
+  - import d'aides par Excel, CSV ou API
+  - une API pour récupérer les données d'Aides-territoires
 
 ## Aspects techniques
 
@@ -78,6 +78,9 @@ La liste des « gros morceaux » ou fonctionnalités principales à connaître
 
 Le produit est développé en Django (Python).
 Il est structuré comme un projet Django classique, découpé en applications.
+
+La base de données utilisée est PostgreSQL.
+Redis nous sert aussi à accélérer les requêtes (caching), il sert aussi de broker pour les tâches de fond (Celery).
 
 Certaines données de projet sont accessible depuis une API. L'API est en lecture seule.
 
@@ -92,6 +95,7 @@ Les étapes pour installer l'environment en local : [ONBOARDING.md](./ONBOARDING
 ### Infrastructure
 
 L'application est hébergée chez [Scalingo](https://scalingo.com/fr).
+
 Les fichiers statiques (images, documents) sont chez [Scaleway](https://www.scaleway.com/fr/).
 
 ### Outillage
