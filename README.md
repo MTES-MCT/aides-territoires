@@ -1,314 +1,119 @@
 # Aides-territoires
 
-[![Build Status](https://travis-ci.com/MTES-MCT/aides-territoires.svg?branch=master)](https://travis-ci.com/MTES-MCT/aides-territoires)
+**Identifiez en quelques clics toutes les aides disponibles sur votre territoire pour vos projets d'aménagement durable.**
 
-Dépôt du projet
-[Aides-territoires.beta.gouv.fr](https://aides-territoires.beta.gouv.fr/).
+Dépôt de code de la startup d'état **Aides-territoires** incubée à la Fabrique Numérique du MTES-MCT.
 
-Identifiez en quelques clics toutes les aides disponibles sur votre territoire
-pour vos projets d'aménagement durable.
+Ce `README` s'adresse plutôt aux intervenant·es techniques sur le projet.
+Pour plus d'infos en tant qu'utilisateur·ice du produit ou de l'API, vous pouvez consulter les liens suivants :
 
-Ce document s'adresse aux intervenant·es techniques sur le projet
-Aides-territoires. Pour plus d'infos en tant qu'utilisateur·ice, se reporter
-[directement au site](https://aides-territoires.beta.gouv.fr/).
+- [Site web](https://aides-territoires.beta.gouv.fr/)
+- [Documentation technique de l'API](https://aides-territoires.beta.gouv.fr/data/)
 
-## Présentation du code
+## Les rôles utilisateurs
 
-Vous pouvez accéder à une grossière [documentation des briques générales qui
-constituent le code d'Aides-territoires](LECODE.md).
+Aides-territoires s'adresse principalement à trois types d'utilisateurs (personas) :
 
-## Intégration de l'équipe « *onboarding* »
+ - les **chercheurs d'aides**
+ - les **porteurs d'aides**
+ - les **admins**.
 
-- Pour se parler sur Slack : https://aides-territoires.slack.com/
-- Pour s'organiser sur Trello : https://trello.com/b/5ldc900w/aides-territoires-planification
+### Chercheurs d'aides
 
-Demandez votre inscription à la liste de diffusion tech pour recevoir les
-e-mails destinés à l'équipe (alertes Sentry, erreurs Django, etc.).
+Les chercheurs d'aides sont les principaux « clients » du service offert par
+Aides-territoires. Il s'agit des personnes qui utilisent le site pour
+trouver des aides pour leurs projets.
 
-## Démarrage
+Les chercheurs d'aides peuvent accéder aux fonctionnalités suivantes :
 
-Les développeur·euses qui intègrent le projet et doivent
-monter un environnement de développement local pourront [consulter la documentation
-spécifique](./ONBOARDING.md).
+  - utiliser le moteur de recherche pour trouver des aides pertinentes
+  - créer des alertes pour recevoir par email de nouveaux résultats
+    correspondant à une recherche donnée
+  - suggérer des modifications sur une fiche d'aide.
 
-```
-git clone https://github.com/MTES-MCT/aides-territoires
-cd aides-territoires
-```
+Les chercheurs d'aides sont des utilisateurs anonymes et n'ont pas besoin de
+créer de compte.
 
-## Tests
+### Porteurs d'aides
 
-Pour faire tourner les tests:
+Les porteurs d'aides sont les personnes ou organisations qui publient des
+aides sur Aides-territoires.
 
-```
-cd src && make test
-```
+Les porteurs d'aides doivent créer un compte et remplir leur profil pour être
+identifiés comme tels.
 
-À noter : certains tests utilisent [Selenium](https://selenium-python.readthedocs.io/index.html)
-qui dépend de [geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/).
+Les porteurs d'aides ont accès aux fonctionnalités suivantes :
 
-Pour les faire tourner, il conviendra donc d'en télécharger
-[la dernière version](https://github.com/mozilla/geckodriver/releases) pour
-l'intégrer dans son `$PATH`.
+  - une interface de contribution (édition / publication d'aides)
 
-GeckoDriver s'attend à trouver firefox installé.
+ ### Admins
 
-    # Firefox on debian
-    apt-get update
-    apt-get purge firefox-esr
+Les admins sont les membres d'Aides-territoires qui ont accès à l'interface
+d'admin Django, et peuvent administrer les différentes données.
 
-## Définition du fini
+  - éditer les aides
+  - saisir de nouvelles aides
+  - publier ou dépublier les aides
+  - accepter les suggestions de modifications sur les aides
+  - créer des « minisites », des pages de recherche personnalisées
+  - administrer les différentes données (catégories, etc.)
 
-Avant chaque mise en production, les intervenant·es sont prié·es de [passer
-cette liste en revue](./DOD.md).
+## Fonctionnalités principales
 
+La liste des « gros morceaux » ou fonctionnalités principales à connaître :
 
-## Gestion des dépendances avec Pipenv
+  - création, édition, publication d'aides
+  - recherche d'aides en 3 ou 4 étapes (avec filtres par type de bénéficiaire, périmètre, mots clés ou thématique)
+  - présentation du résultat des aides et filtre rapide
+  - moteur de recherche avancé « plus de critères »
+  - création de « minisites »
+  - création d'alertes à partir d'une recherche
+  - test d'éligibilité sur certaines aides
+  - import d'aides par Excel, CSV ou API
+  - une API pour récupérer les données d'Aides-territoires
 
-Le projet utilise [Pipenv pour gérer les dépendances de paquets
-Python](https://pipenv.readthedocs.io/en/latest/) et produire des *builds*
-déterministes.
+## Aspects techniques
 
-Pour installer les dépendances du projet :
+### Architecture
 
-    pipenv install --dev
+Le produit est développé en Django (Python).
+Il est structuré comme un projet Django classique, découpé en applications.
 
-Pour installer un nouveau paquet et l'ajouter aux dépendances :
+La base de données utilisée est PostgreSQL.
+Redis nous sert aussi à accélérer les requêtes (caching), il sert aussi de broker pour les tâches de fond (Celery).
 
-    pipenv install <paquet>
+Certaines données de projet sont accessible depuis une API. L'API est en lecture seule.
 
-Pour un paquet ne servant que pour le développement, e.g *debug-toolbar* :
+L'interface utilise des templates HTML, avec Bootstrap et un peu de Javascript.
 
-    pipenv install --dev <paquet>
+### Le code
 
+Pour en savoir plus sur le code et comment contribuer : [CONTRIBUTING.md](./ONBOARDING.md)
 
-## Configuration locale, production
+Les étapes pour installer l'environment en local : [ONBOARDING.md](./ONBOARDING.md)
 
-Le projet utilise [django-environ](http://django-environ.readthedocs.io/) pour
-gérer les settings des différents environnements ne pouvant être embarquées
-dans le dépôt git.
+### Infrastructure
 
-Typiquement :
+L'application est hébergée chez [Scalingo](https://scalingo.com/fr).
 
- * configuration locale spécifique à chaque intervenant·e sur le projet, e.g
-   paramètres de connexion à la base de données ;
- * configuration de production.
+Les fichiers statiques (images, documents) sont chez [Scaleway](https://www.scaleway.com/fr/).
 
-Pour surcharger la configuration locale de développement, il est possible de
-créer un fichier `.env.local` à la racine du projet Django. Cf. [le fichier
-.env.example](./src/.env.example) pour l'exemple. Ce fichier est facultatif car
-des paramètres par défaut sont définis.
+### Outillage
 
-En revanche, pour un déploiement en production, la définition d'un fichier
-`.env.production` est *obligatoire*.
-
-
-## CSS, Sass et compression
-
-### Maintenir le code HTML propre
+- [Github](https://github.com/) pour l'hébergement du code et l'intégration continue
+- [Sentry](https://sentry.io) pour le reporting des erreurs
+- [SendInBlue](https://fr.sendinblue.com/) pour l'envoi d'emails
+- [AlwaysData](https://www.alwaysdata.com/fr/) pour la gestion des DNS
+- [Metabase](https://www.metabase.com/) pour l'analyse et la visualisation des données
+- [Matomo](https://fr.matomo.org/) pour l'analyse du traffic web
+- [Updown](https://updown.io/) pour la page de statuts et les alertes
 
-Le projet utilise [Bootstrap](http://getbootstrap.com/) pour faciliter le
-développement et proposer un rendu homogène. Toutefois, c'est la version Sass
-du framework css qui est utiliséee, afin d'éviter de pourrir le code HTML de
-classes non-sémantiques.
+### Monitoring
 
-Les intervenant·es sur le code sont donc *prié·es de ne pas utiliser de classes
-spécifiques à Bootstrap dans le HTML*, mais d'utiliser des classes et ids
-sémantiques.
+[Statut du service](https://updown.io/tqz4?locale=fr)
 
-Incorrect : 
+## Une question ?
 
-```html
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="…">Aides-territoires</a>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="…">Lien</a></li>
-        </ul>
-        <span class="text-right navbar-text">Beta</span>
-    </div>
-</nav>
-```
+Un formulaire de contact est disponible [ici](https://aides-territoires.beta.gouv.fr/contact/).
 
-Correct :
-
-```html
-<nav id="main-navbar">
-    <div class="container">
-        <a class="homelink" href="…">Aides-territoires</a>
-        <ul class="homenav">
-            <li><a href="…">Lien</a></li>
-        </ul>
-        <span>Beta</span>
-    </div>
-</nav>
-```
-
-```css
-nav#main-navbar {
-    @extend .navbar;
-    @extend .navbar-dark;
-    @extend .bg-dark;
-
-    .homelink {
-        @extend .navbar-brand;
-    }
-
-    ul.homenav {
-        @extend .navbar-nav;
-        @extend .mr-auto;
-
-        li {
-            @extend .nav-item;
-
-            a {
-                @extend .nav-link;
-            }
-        }
-    }
-
-    span {
-        @extend .text-right;
-        @extend .navbar-text;
-    }
-}
-```
-
-### Utilisation de django-compressor
-
-Le projet utilise
-[django-compressor](https://django-compressor.readthedocs.io/), une application
-qui permet de gérer la `pipeline` de compression des fichiers statiques.
-
-[Django-compressor propose plusieurs modes de
-déploiement](https://django-compressor.readthedocs.io/en/latest/scenarios/) :
-
- 1) la compilation / compression se fait manuellement une fois pour toute ;
- 2) la compilation / compression se fait automatiquement à chaque requête.
-
-Le premier mode de fonctionnement est adapté à un déploiement en production. Le
-second dans un environnement de développement.
-
-Il faut noter que le second mode peut significativement dégrader les
-performances et ralentir le travail. Pour améliorer les performances, deux
-possibilités :
-
- * Installer [la version native de Sass](http://sass-lang.com/install) et pas
-   la version en pure js ;
- * Désactiver en local la compression par requête dans le fichier `.env.local`.
-
-```
-COMPRESS_OFFLINE=False
-```
-
-Il faudra alors manuellement lancer la compression en cas de besoin.
-
-    python manage.py compress
-
-
-## Utilisation de Redis
-
-Nous utilisons Redis en production :
-
-- Comme backend de cache pour Django
-- Comme broker pour Celery
-
-En locale et pour les Review Apps, il n'y a généralement pas besoin
-d'utiliser Redis.
-
-
-## Traduction : À propos des fichiers `.po` et `.mo`
-
-Ce project utilise le système de tranduction de Django :
-Le texte dans le code est en anglais et la traduction qui
-s'affiche sur le site en Français, se trouve dans le fichier
-`.po` du dossier `locales`.
-
-https://docs.djangoproject.com/en/dev/topics/i18n/translation/
-
-Pour générer la traduction dans le fichier `.po` :
-
-    make makemessages
-
-
-Django utilise une version compilée du fichier `.po`, c'est le
-fichier `.mo` que l'on obtient avec :
-
-    python manage.py compilemessages
-
-
-En production, ce fichier est généré automatiquement lors du
-déploiement. Il n'est donc pas inclus dans le code github.
-
-## Linter de code / Code Style
-
-Nous utilisons `pep8` et `flake8`.
-
-Pour vérifier son code, on peut intégrer le linter adapté à
-son IDE et aussi faire ceci :
-
-    make checkstyle
-
-
-## Déploiement
-
-
-### Variables d'environnement
-
-Afin de rendre disponible les variables d'environnement dans les playbooks
-ansible, nous utilisons le fichier `.env.ansible`.
-
-
-    # Pour créer le fichier env:
-    cp .env.ansible.example .env.ansible
-
-Ce fichier est chargé grâce au script `ansible-playbook-dotenv.sh` qui est
-lui-même appelé dans le script `deploy.py`.
-
-
-### Slack webhook
-
-Ansible lance une notification après le déploiement. Pour cela,
-il faut installer ceci:
-
-    ansible-galaxy collection install community.general
-
-
-### Envoi d'email
-
-Les emails transactionnels sont envoyés via SendingBlue.
-Pour les environnements de Staging, il un mécanisme qui permet de
-n'envoyer les emails qu'à une liste restreinte d'adresses.
-Cette "Whitelist" est définie dans les `settings`.Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
-
-
-### Fichiers media
-
-Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour le stockage de tous les fichiers medias.
-
-
-### Double authentification
-
-Pour mettre en place la double authentification, il faut mettre ceci dans le
-fichier `.env` ou dans les variable d'environnement Scalingo :
-
-    ADMIN_OTP_ENABLED=True
-
-Ceci va activer une double authentification pour l'accès au site d'admin :
-mot de passe et jeton d'authentification.
-Le jeton d'authentification peut-être obtenu via une application mobile comme
-Google Authenticator ou Authy.
-
-Lors de la première utilisation et avant d'activer la double authentification,
-il faudra faire en sorte qu'un premier utilisateur admin puisse se connecter.
-Pour cela, il faudra penser à créer un `Device` pour cet utilisateur initial,
-avec le QR code associé qu'il faudra scanner avec l'application mobile.
-
-Pour plus de détail : https://django-otp-official.readthedocs.io/en/stable/overview.html
-
-### Mise en production
-
-Le site est actuellement hébergé sur Scalingo. Cf. la documentation
-d'infogérance.
-
-Note : demander l'accès au moment de l'*onboarding*.
+Si le sujet est purement technique, vous pouvez aussi créer une _Issue_.
