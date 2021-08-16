@@ -3,7 +3,7 @@
     <div class="fr-header__body">
         <div class="fr-container">
             <div class="fr-header__body-row">
-                <div class="fr-header__brand fr-enlarge-link">
+                <div class="fr-header__brand">
                     <div class="fr-header__brand-top">
                         <div class="fr-header__logo">
                             <p class="fr-logo">
@@ -14,7 +14,7 @@
                         <div class="fr-header__operator fr-grid-row fr-grid-row--middle">
                                 {% if search_page.logo %}
                                 <a class="partner-link" target="_blank" rel="noopener" href="{{ search_page.logo_link }}">
-                                    <img class="fr-responsive-img" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
+                                    <img class="fr-responsive-img fr-mr-5w" src="{{ search_page.logo.url }}" alt="Logo : {{ search_page.title }}"/>
                                 </a>
                                 {% endif %}
                                 <a href="https://aides-territoires.beta.gouv.fr" title="Aides-territoires">

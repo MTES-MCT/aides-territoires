@@ -13,8 +13,16 @@ body {
 /* Override dsfr */
 
 .fr-header__operator .fr-responsive-img {
-    width: 7rem;
+    max-width: 16rem;
+    max-height: 5rem;
 }
+
+@media screen and (max-width: 600px) {
+    .fr-header__operator .partner-link .fr-responsive-img {
+        margin-bottom: 1rem;
+    }
+}
+
 
 #more-content-reveal-button {
     background-color: {{ search_page.color_3 }} !important;
@@ -353,6 +361,8 @@ body > footer #all-logos a::after {
 body > footer #all-logos a img {
     height: 120px;
     width: auto;
+    max-height: 6rem;
+    max-width: 16rem;
 }
 
 body > footer #top-footer,
@@ -436,7 +446,6 @@ body > footer nav ul li {
 body > footer nav ul li#accessibility {
     flex-basis: 1 !important;
     color: #000;
-    padding: 0.5rem 1rem;
 }
 
 body > footer nav ul li:last-child a {
