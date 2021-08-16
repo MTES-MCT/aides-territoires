@@ -2,7 +2,7 @@
 
 .aid-content i {
   vertical-align: bottom;
-  color: #000091;
+  color: var(--bf500);
   font-weight: normal;
 }
 
@@ -22,8 +22,8 @@ ul.aid-categories ul li + li::before {
   float: right;
 
   .fr-tag {
-    background-color: #000091;
-    color: #fff;
+    background-color: var(--bf500);
+    color: var(--w);
     font-size: 2rem;
   }
 
@@ -101,7 +101,7 @@ section#aid-edit {
       position: sticky;
       top: 0;
       z-index: 5;
-      background-color: #d9f0ec;
+      background-color: var(--bf100-g750);
 
       @media screen and (max-width: 1000px) {
         display: none;
@@ -120,7 +120,7 @@ section#aid-edit {
       }
 
       & a.active {
-          color: #DB1C83 !important;
+          color: var(--bf500) !important;
       }
 
       .list-group-item  {
@@ -134,9 +134,9 @@ section#aid-edit {
               height: 1.5rem;
               text-align: center;
               vertical-align: baseline;
-              border: 2px solid #009688;
-              background-color: #009688;
-              color: #fff;
+              border: 2px solid var(--bf500);
+              background-color: var(--bf500);
+              color: var(--w);
               border-radius: 50%;
               font-size: 0.85rem;
               line-height: 1.5;
@@ -146,7 +146,7 @@ section#aid-edit {
   }
 
   .separator::before {
-      color: #fff !important;
+      color: var(--bf500) !important;
       font-size: 2.8rem;
   }
 
@@ -154,15 +154,15 @@ section#aid-edit {
       background-color: inherit;
 
       span.counter {
-          background-color: #fff !important;
-          color: #DB1C83 !important;
-          border: 2px solid #DB1C83 !important;
+          background-color: var(--w) !important;
+          color: var(--bf500) !important;
+          border: 2px solid var(--bf500) !important;
       }
   }
 
   .trumbowyg-box {
     z-index:  2;
-    background-color: #fff;
+    background-color: var(--w);
   }
 
   .trumbowyg-fullscreen {
@@ -213,7 +213,7 @@ section#aid-edit form.main-form > fieldset > div#loan-fields > div {
 }
 
 section#aid-edit form.main-form > fieldset > legend {
-  color: #DB1C83;
+  color: var(--bf500);
 }
 
 section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
@@ -224,7 +224,7 @@ section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
   bottom: -50px;
   width: 70%;
   text-align: center;
-  border-bottom: 2px solid #009688;
+  border-bottom: 2px solid var(--bf500);
 }
 
 section#aid-edit form.main-form > fieldset + fieldset {
@@ -241,7 +241,7 @@ section#aid-edit form.main-form > fieldset > div#loan-fields {
 }
 
 section#aid-edit form.main-form {
-  background: linear-gradient(90deg, white 34%, #f9f8f6 34%);
+  background: linear-gradient(90deg, var(--w) 34%, var(--bf100-g750) 34%);
 
   @media screen and (max-width: 1000px) {
     background: none;
@@ -331,7 +331,7 @@ div#search-steps p.steps {
       display: inline-block;
       width: 2rem;
       height: .4rem;
-      border-top: 1px solid #2b2465;
+      border-top: 1px solid var(--bf500);
       padding: 0 .25rem;
       vertical-align: baseline;
     }
@@ -343,14 +343,14 @@ div#search-steps p.steps {
     height: 1.3rem;
     text-align: center;
     vertical-align: baseline;
-    border: 1px solid #2b2465;
+    border: 1px solid var(--bf500);
     border-radius: 50%;
     font-size: 0.85rem;
     line-height: 1.5;
   }
 
   span.counter.active {
-    background-color: #2b2465;
+    background-color: var(--bf500);
     color: #fff;
   }
 }
@@ -379,6 +379,10 @@ div#search-steps form#text-research-form div#form-group-text {
     display: inline-block;
     margin-right: .5rem;
     margin-bottom: 0;
+
+    @media screen and (max-width: 1000px) {
+      width: 17rem;
+    }
 }
 
 div#search-steps form#theme label > span {
@@ -456,7 +460,7 @@ fieldset {
 #aid-list .deadline.fr-tag {
   display: block;
   float: right;
-  background-color: #000091;
+  background-color: var(--bf500);
   color: #fff;
 }
 
