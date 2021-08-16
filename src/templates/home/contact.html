@@ -22,46 +22,50 @@
 {% endblock %}
 
 {% block content %}
-<div class="article narrow fr-container fr-mb-5w fr-pb-5w fr-grid-row fr-grid-row--center">
-    <form id="contact-form" class="fr-col fr-col-md-10" action="{% url 'contact' %}" method="post">
-        <section>
-            <header>
-                <h1>Nous contacter</h1>
-            </header>
+<div class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <form id="contact-form" action="{% url 'contact' %}" method="post">
+                <section>
+                    <header>
+                        <h1>Nous contacter</h1>
+                    </header>
 
-            <div class="content fr-mb-5w">
-                {% csrf_token %}
-                <fieldset>
-                    {% include '_field_snippet.html' with field=form.first_name %}
-                    {% include '_field_snippet.html' with field=form.last_name %}
-                    {% include '_field_snippet.html' with field=form.email %}
-                    {% include '_field_snippet.html' with field=form.phone %}
-                    {% include '_field_snippet.html' with field=form.organization_and_role %}
-                </fieldset>
+                    <div class="content fr-mb-5w">
+                        {% csrf_token %}
+                        <fieldset>
+                            {% include '_field_snippet.html' with field=form.first_name %}
+                            {% include '_field_snippet.html' with field=form.last_name %}
+                            {% include '_field_snippet.html' with field=form.email %}
+                            {% include '_field_snippet.html' with field=form.phone %}
+                            {% include '_field_snippet.html' with field=form.organization_and_role %}
+                        </fieldset>
 
-                <fieldset>
-                    {% include '_field_snippet.html' with field=form.subject %}
-                </fieldset>
+                        <fieldset>
+                            {% include '_field_snippet.html' with field=form.subject %}
+                        </fieldset>
 
-                <fieldset>
-                    {% include '_field_snippet.html' with field=form.message %}
-                </fieldset>
-            </div>
+                        <fieldset>
+                            {% include '_field_snippet.html' with field=form.message %}
+                        </fieldset>
+                    </div>
 
-            <p class="info fr-background-alt-pink fr-p-2w">
-                <span class="fas fa-check"></span>
-                {% url 'legal_mentions' as legal_mentions_url %}
-                {% blocktrans trimmed %}
-                By using this feature, you acknowledge that your data will
-                be processed <a href="{{ legal_mentions_url }}" target="_blank">
-                    according to our privacy policy</a>.
-                {% endblocktrans %}
-            </p>
+                    <p class="info fr-background-alt-pink fr-p-2w">
+                        <span class="fas fa-check"></span>
+                        {% url 'legal_mentions' as legal_mentions_url %}
+                        {% blocktrans trimmed %}
+                        By using this feature, you acknowledge that your data will
+                        be processed <a href="{{ legal_mentions_url }}" target="_blank">
+                            according to our privacy policy</a>.
+                        {% endblocktrans %}
+                    </p>
 
-            <footer>
-                <button type="submit" class="fr-btn">Envoyer</button>
-            </footer>
-        </section>
-    </form>
+                    <footer>
+                        <button type="submit" class="fr-btn">Envoyer</button>
+                    </footer>
+                </section>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

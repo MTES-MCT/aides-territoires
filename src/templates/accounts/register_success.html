@@ -8,30 +8,34 @@
 {% block extratitle %}{{ _('You registered successfully') }}{% endblock %}
 
 {% block content %}
-<div class="article narrow fr-container fr-my-5w">
-    <h1>{{ _("Thank you for registering an account") }}</h1>
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <h1>{{ _("Thank you for registering an account") }}</h1>
 
-    <p>{% blocktrans trimmed %}
-        <strong>One more step is required before your account is
-        active</strong> : check your mailbox and click on the confirmation link.
-     {% endblocktrans %}</p>
+            <p>{% blocktrans trimmed %}
+                <strong>One more step is required before your account is
+                active</strong> : check your mailbox and click on the confirmation link.
+            {% endblocktrans %}</p>
 
-    {% url 'register' as register_url %}
-    <p>{% blocktrans trimmed %}
-        Don't see the email? Try the following:<ul>
-            <li>make sure there was not any typo in the email address you
-                provided;</li>
-            <li>check your spam folder;</li>
-            <li>wait for a few minutes <a href="{{ register_url }}">and
-                try again</a>;</li>
-        </ul>
-    {% endblocktrans %}</p>
+            {% url 'register' as register_url %}
+            <p>{% blocktrans trimmed %}
+                Don't see the email? Try the following:<ul>
+                    <li>make sure there was not any typo in the email address you
+                        provided;</li>
+                    <li>check your spam folder;</li>
+                    <li>wait for a few minutes <a href="{{ register_url }}">and
+                        try again</a>;</li>
+                </ul>
+            {% endblocktrans %}</p>
 
-    <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
-        <span class="fas fa-bug"></span>
-        {% blocktrans trimmed %}
-        If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
-        please contact us</a>.
-    {% endblocktrans %}</p>
+            <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
+                <span class="fas fa-bug"></span>
+                {% blocktrans trimmed %}
+                If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
+                please contact us</a>.
+            {% endblocktrans %}</p>
+        </div>
+    </div>
 </div>
 {% endblock %}
