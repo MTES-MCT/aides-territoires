@@ -34,56 +34,59 @@
 
 {% block content %}
 <section id="post-list" class="fr-container fr-mb-5w">
-
-    <div id="blog-content">
-        {% if selected_category %}
-            <h1>
-                {{ selected_category.name }}
-            </h1>
-            <p>{{ selected_category.description }}</p>
-        {% else %}
-        <h1>Blog</h1>
-        <p>Retrouvez dans cette rubrique nos actualités ainsi que des ressources complémentaires pour vous aider à réaliser vos projets</p>
-        {% if not selected_category %}
-        <div id="search-posts">
-            <select class="fr-select" id="select" name="select">
-                <option value="" selected disabled hidden>Filtrer les articles par catégorie</option>
-                {% for category in categories %}
-                <option value="{{ category.get_absolute_url }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        {% endif %}
-        {% endif %}
-    </div>
-
-    {% if posts %}
-    <div class="posts">
-        {% for post in posts %}
-        <div class="fr-card fr-card--horizontal fr-enlarge-link fr-my-5w">
-            <div class="fr-card__body">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <div id="blog-content">
+                {% if selected_category %}
+                    <h1>
+                        {{ selected_category.name }}
+                    </h1>
+                    <p>{{ selected_category.description }}</p>
+                {% else %}
+                <h1>Blog</h1>
+                <p>Retrouvez dans cette rubrique nos actualités ainsi que des ressources complémentaires pour vous aider à réaliser vos projets</p>
+                {% if not selected_category %}
+                <div id="search-posts">
+                    <select class="fr-select" id="select" name="select">
+                        <option value="" selected disabled hidden>Filtrer les articles par catégorie</option>
+                        {% for category in categories %}
+                        <option value="{{ category.get_absolute_url }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
         
-               <h4 class="fr-card__title">
-                   <a href="{{ post.get_absolute_url }}" class="fr-card__link">{{ post.title }}</a>
-               </h4>
-               <p class="fr-card__desc">{{ post.short_text }}</p>
-               <p class="fr-card__detail">{{ post.category.name }}</p>
+            {% if posts %}
+            <div class="posts">
+                {% for post in posts %}
+                <div class="fr-card fr-card--horizontal fr-enlarge-link fr-my-5w">
+                    <div class="fr-card__body">
+                
+                       <h4 class="fr-card__title">
+                           <a href="{{ post.get_absolute_url }}" class="fr-card__link">{{ post.title }}</a>
+                       </h4>
+                       <p class="fr-card__desc">{{ post.short_text }}</p>
+                       <p class="fr-card__detail">{{ post.category.name }}</p>
+                    </div>
+                    {% if post.logo %}
+                    <div class="fr-card__img">
+                       <img src="{{ post.logo.url }}" class="fr-responsive-img" alt="">
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
             </div>
-            {% if post.logo %}
-            <div class="fr-card__img">
-               <img src="{{ post.logo.url }}" class="fr-responsive-img" alt="">
+            {% else %}
+            <div class="posts">
+                <div id="no_result" class="fr-background-alt-pink fr-p-2w">
+                    <p class="fr-mb-0">Aucun article n'est disponible dans cette catégorie.</p>
+                </div>
             </div>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="posts">
-        <div id="no_result" class="fr-background-alt-pink fr-p-2w">
-            <p class="fr-mb-0">Aucun article n'est disponible dans cette catégorie.</p>
+            {% endif %}        
         </div>
     </div>
-    {% endif %}
 </section>
 
 {% include '_pagination.html' %}

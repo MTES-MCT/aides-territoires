@@ -27,35 +27,37 @@
 
 {% block content %}
 <article id="post" class="fr-container fr-mb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <section id="post-content" class="fr-pb-5w">
 
-    <section id="post-content" class="fr-pb-5w">
-
-        <div id="post-title" class="fr-grid-row fr-grid-row--top fr-mb-4w">
-            <h1 class="fr-col-12 fr-col-md-10">{{ post.title }}</h1>
-            <div class="post_categorie fr-tag">{{ post.category.name }}</div>
-        </div> 
-
-        {% if post.text %}
-        <div>
-            {{ post.text|safe }}
+                <div id="post-title" class="fr-grid-row fr-grid-row--top fr-mb-4w">
+                    <h1 class="fr-col-12 fr-col-md-10">{{ post.title }}</h1>
+                    <div class="post_categorie fr-tag">{{ post.category.name }}</div>
+                </div> 
+        
+                {% if post.text %}
+                <div>
+                    {{ post.text|safe }}
+                </div>
+                {% endif %}
+        
+                {% if related_articles %}
+                <div id="related-articles" class="fr-background-alt-pink fr-p-3w">
+                    <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
+                    <ul>
+                    {% for related_article in related_articles %}
+                    <li>
+                        <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+        
+            </section>
         </div>
-        {% endif %}
-
-        {% if related_articles %}
-        <div id="related-articles" class="fr-background-alt-pink fr-p-3w">
-            <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
-            <ul>
-            {% for related_article in related_articles %}
-            <li>
-                <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
-            </li>
-            {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-    </section>
-
+    </div>
 </article>
 {% endblock %}
 

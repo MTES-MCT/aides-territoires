@@ -7,30 +7,34 @@
 
 {% block content %}
 <div class="fr-container">
-    <h1>
-        {% with paginator.count as nb_aids %}
-        <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
-        {% endwith %}
-    </h1>
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-12">
+            <h1>
+                {% with paginator.count as nb_aids %}
+                <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
+                {% endwith %}
+            </h1>
 
-    {% if request.GET.published_after %}
-        <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
-    {% endif %}
+            {% if request.GET.published_after %}
+                <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
+            {% endif %}
 
-    {% block search-meta %}
-        {% include 'aids/_search_meta.html' %}
-        <br />
-    {% endblock %}
+            {% block search-meta %}
+                {% include 'aids/_search_meta.html' %}
+                <br />
+            {% endblock %}
 
-    <section id="search-engine">
-        {% block search-engine %}
-        {% include 'aids/_search_form.html' %}
-        {% endblock %}
-    </section>
+            <section id="search-engine">
+                {% block search-engine %}
+                {% include 'aids/_search_form.html' %}
+                {% endblock %}
+            </section>
 
-    <section id="aid-list">
-        {% include 'aids/_results.html' with search_actions="yes" %}
-    </section>
+            <section id="aid-list">
+                {% include 'aids/_results.html' with search_actions="yes" %}
+            </section>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

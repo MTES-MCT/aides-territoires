@@ -22,77 +22,81 @@
 
 {% block content %}
 <article class="fr-container fr-mb-5w fr-pb-5w">
-<h1>{{ _('Data export and API') }}</h1>
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <h1>{{ _('Data export and API') }}</h1>
 
-<h2>Introduction</h2>
-
-<p>Cette page est consacrée à la réutilisation, par des organismes partenaires,
-des données présentes sur l'API Aides-territoires.</p>
-
-<p><i>Si vous cherchez plutôt à intégrer vos données, afin qu'elle soient publiées
-sur le site d'Aides-territoires, vous pouvez consulter la page : 
-<a href="https://github.com/MTES-MCT/aides-territoires/wiki/Comment-publier-vos-donn%C3%A9es-pour-une-reprise-sur-Aides-territoires">
-    Comment publier vos données pour une reprise sur Aides territoires.
-</a>
-</i></p>
-
-<h2>Avertissement</h2>
-
-<p>Vous <a href="{% url 'legal_mentions' %}">
-utilisez cette API en accord avec nos conditions d'utilisation</a>.</p>
-
-<h2>Licence</h2>
-
-<p>Les données présentes sur le site Aides-territoires sont placées sous
-« Licence Ouverte v2.0 » d'Etalab.</p>
-
-<p>Une description de la licence peut être <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">
-trouvée sur le site d'Etalab</a>, tandis que le <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md">
-texte de la licence elle-même est disponible sur Github</a>.</p>
-
-<p>Voici un résumé non exhaustif et sans validité juridique du contenu de la licence :</p>
-
-<p>Le « réutilisateur » est libre de réutiliser les données :</p>
-<ul>
-    <li>de les communiquer, les reproduire, les copier ;</li>
-    <li>de les adapter, les modifier, les extraire et les transformer, notamment pour créer des « Informations dérivées » ;</li>
-    <li>de les diffuser, les redistribuer, les publier et les transmettre, de les
-    exploiter à titre commercial, par exemple en les combinant avec d'autres informations, ou en les incluant dans votre propre produit ou application.</li>
-</ul>
-
-<p><strong>Sous réserve</strong> de mentionner la paternité de l'information
-en incluant un lien vers le site d'Aides-territoires et en indiquant la date de
-la dernière mise à jour de l'information réutilisée.</p>
-
-<h2>API</h2>
-
-<ul>
-    <li>
-        <a href="{% url 'aids-list' %}?version={{ api_version }}">API REST : La liste de toutes les aides actives présentes
-        sur le site est accessible à cette adresse.</a>
-    </li>
-    <li>
-        <a href="{% url 'schema-swagger-ui' %}?version={{ api_version }}">Documentation de l'API.</a>
-    </li>
-</ul>
-
-<h2>Versionnement</h2>
-
-<p>Le site Aides-territoires étant en construction active, il est possible que
-des changements soient apportés au fonctionnement de l'API.</p>
-
-<p>Pour éviter qu'une modification du format des données ne casse votre application,
-nous vous recommandons de spécifier le paramètre <code>version</code>.</p>
-
-<p>
-<pre>https://aides-territoires.beta.gouv.fr{% url 'aids-list' %}?version={{ api_version }}</pre>
-</p>
-
-<p>La version actuelle de l'API est : « {{ api_version }} ».</p>
-
-<h2>Signaler un problème</h2>
-
-<p>Pour poser une question ou signaler un problème, vous pouvez nous contacter
-via le lien se trouvant dans le pied de page.</p>
+            <h2>Introduction</h2>
+            
+            <p>Cette page est consacrée à la réutilisation, par des organismes partenaires,
+            des données présentes sur l'API Aides-territoires.</p>
+            
+            <p><i>Si vous cherchez plutôt à intégrer vos données, afin qu'elle soient publiées
+            sur le site d'Aides-territoires, vous pouvez consulter la page : 
+            <a href="https://github.com/MTES-MCT/aides-territoires/wiki/Comment-publier-vos-donn%C3%A9es-pour-une-reprise-sur-Aides-territoires">
+                Comment publier vos données pour une reprise sur Aides territoires.
+            </a>
+            </i></p>
+            
+            <h2>Avertissement</h2>
+            
+            <p>Vous <a href="{% url 'legal_mentions' %}">
+            utilisez cette API en accord avec nos conditions d'utilisation</a>.</p>
+            
+            <h2>Licence</h2>
+            
+            <p>Les données présentes sur le site Aides-territoires sont placées sous
+            « Licence Ouverte v2.0 » d'Etalab.</p>
+            
+            <p>Une description de la licence peut être <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">
+            trouvée sur le site d'Etalab</a>, tandis que le <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md">
+            texte de la licence elle-même est disponible sur Github</a>.</p>
+            
+            <p>Voici un résumé non exhaustif et sans validité juridique du contenu de la licence :</p>
+            
+            <p>Le « réutilisateur » est libre de réutiliser les données :</p>
+            <ul>
+                <li>de les communiquer, les reproduire, les copier ;</li>
+                <li>de les adapter, les modifier, les extraire et les transformer, notamment pour créer des « Informations dérivées » ;</li>
+                <li>de les diffuser, les redistribuer, les publier et les transmettre, de les
+                exploiter à titre commercial, par exemple en les combinant avec d'autres informations, ou en les incluant dans votre propre produit ou application.</li>
+            </ul>
+            
+            <p><strong>Sous réserve</strong> de mentionner la paternité de l'information
+            en incluant un lien vers le site d'Aides-territoires et en indiquant la date de
+            la dernière mise à jour de l'information réutilisée.</p>
+            
+            <h2>API</h2>
+            
+            <ul>
+                <li>
+                    <a href="{% url 'aids-list' %}?version={{ api_version }}">API REST : La liste de toutes les aides actives présentes
+                    sur le site est accessible à cette adresse.</a>
+                </li>
+                <li>
+                    <a href="{% url 'schema-swagger-ui' %}?version={{ api_version }}">Documentation de l'API.</a>
+                </li>
+            </ul>
+            
+            <h2>Versionnement</h2>
+            
+            <p>Le site Aides-territoires étant en construction active, il est possible que
+            des changements soient apportés au fonctionnement de l'API.</p>
+            
+            <p>Pour éviter qu'une modification du format des données ne casse votre application,
+            nous vous recommandons de spécifier le paramètre <code>version</code>.</p>
+            
+            <p>
+            <pre>https://aides-territoires.beta.gouv.fr{% url 'aids-list' %}?version={{ api_version }}</pre>
+            </p>
+            
+            <p>La version actuelle de l'API est : « {{ api_version }} ».</p>
+            
+            <h2>Signaler un problème</h2>
+            
+            <p>Pour poser une question ou signaler un problème, vous pouvez nous contacter
+            via le lien se trouvant dans le pied de page.</p>            
+        </div>
+    </div>
 <article>
 {% endblock %}

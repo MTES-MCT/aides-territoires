@@ -31,28 +31,32 @@
 
 {% block content %}
 <div class="article fr-container">
-    <h1>Plus de critères</h1>
-    <form id="advanced-search-form" method="get" action="{% url 'search_view' %}">
-        {% for field in form.hidden_fields %}
-            {{ field }}
-        {% endfor %}
-
-        {% include '_field_snippet.html' with field=form.text %}
-        {% include '_field_snippet.html' with field=form.perimeter %}
-        {% include '_field_snippet.html' with field=form.targeted_audiences %}
-        {% include '_field_snippet.html' with field=form.categories %}
-        {% include '_field_snippet.html' with field=form.aid_type %}
-        {% include '_field_snippet.html' with field=form.apply_before %}
-        {% include '_field_snippet.html' with field=form.destinations %}
-        {% include '_field_snippet.html' with field=form.mobilization_step %}
-        {% include '_field_snippet.html' with field=form.backers %}
-        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
-        {% include '_field_snippet.html' with field=form.programs %}
-        {% include '_field_snippet.html' with field=form.order_by %}
-        <button name="action" value="search-filter-advanced" type="submit" class="fr-btn fr-mb-5w">
-            Trouver des aides
-        </button>
-    </form>
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <h1>Plus de critères</h1>
+            <form id="advanced-search-form" method="get" action="{% url 'search_view' %}">
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+        
+                {% include '_field_snippet.html' with field=form.text %}
+                {% include '_field_snippet.html' with field=form.perimeter %}
+                {% include '_field_snippet.html' with field=form.targeted_audiences %}
+                {% include '_field_snippet.html' with field=form.categories %}
+                {% include '_field_snippet.html' with field=form.aid_type %}
+                {% include '_field_snippet.html' with field=form.apply_before %}
+                {% include '_field_snippet.html' with field=form.destinations %}
+                {% include '_field_snippet.html' with field=form.mobilization_step %}
+                {% include '_field_snippet.html' with field=form.backers %}
+                {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
+                {% include '_field_snippet.html' with field=form.programs %}
+                {% include '_field_snippet.html' with field=form.order_by %}
+                <button name="action" value="search-filter-advanced" type="submit" class="fr-btn fr-mb-5w">
+                    Trouver des aides
+                </button>
+            </form>        
+        </div>
+    </div>
 </div>
 {% endblock %}
 

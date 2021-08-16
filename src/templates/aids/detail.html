@@ -39,508 +39,510 @@
 
 {% block content %}
 <article id="aid" class="fr-container fr-mb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            {% if aid.submission_deadline and not aid.is_ongoing %}
+            <div class="deadline-data">
+                {% if aid.has_approaching_deadline %}
+                <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
+                {% endif %}
+                <p>
+                    <strong>{{ _('Deadline') }}</strong><br />
+                    {{ aid.submission_deadline|date }}
+                </p>
+            </div>
+            {% endif %}
 
-    {% if aid.submission_deadline and not aid.is_ongoing %}
-    <div class="deadline-data">
-        {% if aid.has_approaching_deadline %}
-        <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
-        {% endif %}
-        <p>
-            <strong>{{ _('Deadline') }}</strong><br />
-            {{ aid.submission_deadline|date }}
-        </p>
-    </div>
-    {% endif %}
-
-    <h1> {{ aid.name }} </h1>
-    {% if aid.categories %}
-    {% regroup aid.categories.all by theme as theme_list %}
-    <ul class="aid-categories fr-list__none">
-        {% for theme in theme_list %}
-        <li class="theme">
-            <strong class="fr-uppercase">
-                {{ theme.grouper }}
-            </strong>
-            <ul class="fr-list__none fr-display__inline fr-p-0">
-                {% for category in theme.list %}
-                <li class="category fr-display__inline">{{ category }}</li>
+            <h1> {{ aid.name }} </h1>
+            {% if aid.categories %}
+            {% regroup aid.categories.all by theme as theme_list %}
+            <ul class="aid-categories fr-list__none">
+                {% for theme in theme_list %}
+                <li class="theme">
+                    <strong class="fr-uppercase">
+                        {{ theme.grouper }}
+                    </strong>
+                    <ul class="fr-list__none fr-display__inline fr-p-0">
+                        {% for category in theme.list %}
+                        <li class="category fr-display__inline">{{ category }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
                 {% endfor %}
             </ul>
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    {% if not aid.is_published %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
-    </div>
-    {% endif %}
-
-    {% if aid.has_expired %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
-    </div>
-    {% endif %}
-
-    <section class="aid-content fr-grid-row fr-mt-5w">
-        <div class="sidebar fr-col-xs-12 fr-col-md-3 fr-p-3w fr-background-alt">
-
-            {% if aid.is_local or aid.is_generic %}
-                {% if aid.is_local %}
-                <div class="card">
-                    <div class="local-generic fr-mb-4w fr-grid-row">
-                        <div class="fr-col-2">
-                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
-                        </div>
-                        <div class="fr-col-10">
-                            <h3 class="fr-h6">{{ _('Local aid') }}</h3>
-                            <p>
-                                {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if aid.is_generic %}
-                <div class="card">
-                    <div class="local-generic fr-mb-4w fr-grid-row">
-                        <div class="fr-col-2">
-                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
-                        </div>
-                        <div class="fr-col-10">
-                            <h3 class="fr-h6">{{ _('National measure') }}</h3>
-                            <p>
-                                {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
-                            </p>    
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
             {% endif %}
 
-            {% if financers or instructors %}
-            <div class="card">
-
-                {% if financers %}
-                <div class="financers fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-hand-coin-line ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Porteurs d'aides
-                        </h3>
-                        <ul class="fr-pl-0">
-                            {% for financer in financers %}
-                            <li class="fr-list__none">
-                                {{ financer }}
-                                {% if financer.is_corporate %}
-                                ({{ _('Corporate') }})
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>    
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if instructors %}
-                <div class="instructors fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-search-line ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">Instructeurs</h3>
-                        <ul class="fr-pl-0">
-                            {% for instructor in instructors %}
-                            <li class="fr-list__none">
-                                {{ instructor }}
-                                {% if instructor.is_corporate %}
-                                ({{ _('Corporate') }})
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                {% endif %}
+            {% if not aid.is_published %}
+            <div class="danger fr-background-alt-pink fr-p-3w">
+                <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
             </div>
             {% endif %}
 
-            <div class="card">
-                {% if aid.is_call_for_project %}
-                <div class="call-for-project fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-pushpin-2-fill ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            <acronym title="{{ _('Call for project') }}">
-                                AAP
-                            </acronym> /
-                            <acronym title="{{ _('Call for expression of interest') }}">
-                                AMI
-                            </acronym>
-                        </h3>    
-                    </div>
-                </div>
-                {% endif %}
+            {% if aid.has_expired %}
+            <div class="danger fr-background-alt-pink fr-p-3w">
+                <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
+            </div>
+            {% endif %}
 
-                <div class="aid-type fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-money-euro-circle-line ri-xl"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            <strong>{{ _('Aid type') }}</strong>
-                        </h3>
-                        <p>{% choices_display aid 'aid_types' %}</p>
-                    </div>
-                </div>
+            <section class="aid-content fr-grid-row fr-mt-5w">
+                <div class="sidebar fr-col-xs-12 fr-col-md-4 fr-p-3w fr-background-alt">
 
-                {% if aid.subvention_rate or aid.subvention_comment %}
-                <div class="subvention-rate fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Taux de subvention
-                        </h3>
-                        {% if aid.subvention_rate %}
-                        <ul class="fr-pl-0">
-                            {% if aid.subvention_rate.lower %}
-                            <li class="fr-list__none"><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
-                            {% endif %}
-                            {% if aid.subvention_rate.upper %}
-                            <li class="fr-list__none"><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
-                            {% endif %}
-                        </ul>
+                    {% if aid.is_local or aid.is_generic %}
+                        {% if aid.is_local %}
+                        <div class="card">
+                            <div class="local-generic fr-mb-4w fr-grid-row">
+                                <div class="fr-col-2">
+                                    <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                                </div>
+                                <div class="fr-col-10">
+                                    <h3 class="fr-h6">{{ _('Local aid') }}</h3>
+                                    <p>
+                                        {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         {% endif %}
-                        {% if aid.subvention_comment %}
-                        <p>
-                            {{ aid.subvention_comment }}
-                        </p>
+
+                        {% if aid.is_generic %}
+                        <div class="card">
+                            <div class="local-generic fr-mb-4w fr-grid-row">
+                                <div class="fr-col-2">
+                                    <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                                </div>
+                                <div class="fr-col-10">
+                                    <h3 class="fr-h6">{{ _('National measure') }}</h3>
+                                    <p>
+                                        {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                                    </p>    
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if financers or instructors %}
+                    <div class="card">
+
+                        {% if financers %}
+                        <div class="financers fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-hand-coin-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Porteurs d'aides
+                                </h3>
+                                <ul class="fr-pl-0">
+                                    {% for financer in financers %}
+                                    <li class="fr-list__none">
+                                        {{ financer }}
+                                        {% if financer.is_corporate %}
+                                        ({{ _('Corporate') }})
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>    
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if instructors %}
+                        <div class="instructors fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-search-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">Instructeurs</h3>
+                                <ul class="fr-pl-0">
+                                    {% for instructor in instructors %}
+                                    <li class="fr-list__none">
+                                        {{ instructor }}
+                                        {% if instructor.is_corporate %}
+                                        ({{ _('Corporate') }})
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
                         {% endif %}
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
 
-                {% if aid.recoverable_advance_amount %}
-                <div class="subvention-rate fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Montant de l'avance récupérable
-                        </h3>
-                        <ul class="fr-pl-0">
-                            <li class="fr-list__none">{{ aid.recoverable_advance_amount|intcomma }} €</li>
-                        </ul>
-                    </div>
-                </div>
-                {% endif %}
+                    <div class="card">
+                        {% if aid.is_call_for_project %}
+                        <div class="call-for-project fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-pushpin-2-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    <acronym title="{{ _('Call for project') }}">
+                                        AAP
+                                    </acronym> /
+                                    <acronym title="{{ _('Call for expression of interest') }}">
+                                        AMI
+                                    </acronym>
+                                </h3>    
+                            </div>
+                        </div>
+                        {% endif %}
 
-                {% if aid.loan_amount %}
-                <div class="subvention-rate fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Montant du prêt
-                        </h3>
-                        <ul class="fr-pl-0">
-                            <li class="fr-list__none">{{ aid.loan_amount|intcomma }} €</li>
-                        </ul>    
-                    </div>
-                </div>
-                {% endif %}
+                        <div class="aid-type fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-money-euro-circle-line ri-xl"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    <strong>{{ _('Aid type') }}</strong>
+                                </h3>
+                                <p>{% choices_display aid 'aid_types' %}</p>
+                            </div>
+                        </div>
 
-                {% if aid.other_financial_aid_comment %}
-                <div class="subvention-rate fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Commentaire sur l'aide financière
-                        </h3>
-                        <ul class="fr-pl-0">
-                            <li class="fr-list__none">{{ aid.other_financial_aid_comment }}</li>
-                        </ul>    
-                    </div>
-                </div>
-                {% endif %}
-            </div>
+                        {% if aid.subvention_rate or aid.subvention_comment %}
+                        <div class="subvention-rate fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-percent-line ri-xl"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Taux de subvention
+                                </h3>
+                                {% if aid.subvention_rate %}
+                                <ul class="fr-pl-0">
+                                    {% if aid.subvention_rate.lower %}
+                                    <li class="fr-list__none"><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
+                                    {% endif %}
+                                    {% if aid.subvention_rate.upper %}
+                                    <li class="fr-list__none"><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
+                                    {% endif %}
+                                </ul>
+                                {% endif %}
+                                {% if aid.subvention_comment %}
+                                <p>
+                                    {{ aid.subvention_comment }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
 
-            <div class="card">
-                {% if aid.recurrence %}
-                <div class="recurrence fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-calendar-2-fill ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Récurrence
-                        </h3>
-                        <p>{{ aid.get_recurrence_display }}</p>    
-                    </div>
-                </div>
-                {% endif %}
+                        {% if aid.recoverable_advance_amount %}
+                        <div class="subvention-rate fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Montant de l'avance récupérable
+                                </h3>
+                                <ul class="fr-pl-0">
+                                    <li class="fr-list__none">{{ aid.recoverable_advance_amount|intcomma }} €</li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
 
-                {% if aid.has_calendar %}
-                {% if aid.start_date and not aid.is_ongoing %}
-                <div class="calendar-start fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-calendar-check-fill ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Date d'ouverture
-                        </h3>
-                        <p>{{ aid.start_date|date }}</p>    
-                    </div>
-                </div>
-                {% endif %}
+                        {% if aid.loan_amount %}
+                        <div class="subvention-rate fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Montant du prêt
+                                </h3>
+                                <ul class="fr-pl-0">
+                                    <li class="fr-list__none">{{ aid.loan_amount|intcomma }} €</li>
+                                </ul>    
+                            </div>
+                        </div>
+                        {% endif %}
 
-                {% if aid.predeposit_date and not aid.is_ongoing %}
-                <div class="calendar-predeposit fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-calendar-todo-line ri-xl fr-mr-1w"></i>
+                        {% if aid.other_financial_aid_comment %}
+                        <div class="subvention-rate fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Commentaire sur l'aide financière
+                                </h3>
+                                <ul class="fr-pl-0">
+                                    <li class="fr-list__none">{{ aid.other_financial_aid_comment }}</li>
+                                </ul>    
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Date de pré-dépôt
-                        </h3>
-                        <p>{{ aid.predeposit_date|date }}</p>    
-                    </div>
-                </div>
-                {% endif %}
 
-                {% if aid.submission_deadline and not aid.is_ongoing %}
-                <div class="calendar-deadline fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-calendar-fill ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <h3 class="submission_deadline fr-h6">
-                            Date de clôture
-                        </h3>
-                        <p>{{ aid.submission_deadline|date }}</p>    
-                    </div>
-                </div>
-                {% endif %}
-                {% endif %}
-            </div>
+                    <div class="card">
+                        {% if aid.recurrence %}
+                        <div class="recurrence fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-calendar-2-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Récurrence
+                                </h3>
+                                <p>{{ aid.get_recurrence_display }}</p>    
+                            </div>
+                        </div>
+                        {% endif %}
 
-            {% if aid.is_imported %}
-            <div class="card">
-                <div class="data-origin fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-database-2-line ri-xl"></i>
+                        {% if aid.has_calendar %}
+                        {% if aid.start_date and not aid.is_ongoing %}
+                        <div class="calendar-start fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-calendar-check-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Date d'ouverture
+                                </h3>
+                                <p>{{ aid.start_date|date }}</p>    
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if aid.predeposit_date and not aid.is_ongoing %}
+                        <div class="calendar-predeposit fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-calendar-todo-line ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Date de pré-dépôt
+                                </h3>
+                                <p>{{ aid.predeposit_date|date }}</p>    
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if aid.submission_deadline and not aid.is_ongoing %}
+                        <div class="calendar-deadline fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-calendar-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="submission_deadline fr-h6">
+                                    Date de clôture
+                                </h3>
+                                <p>{{ aid.submission_deadline|date }}</p>    
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
                     </div>
-                    <div class="fr-col-10">
-                        <h3 class="fr-h6">
-                            Origine de la donnée
-                        </h3>
-                        <p>Cette aide provient d'une source de données tierce</p>
-                        <div>
-                            <p><strong>URL d'origine : </strong>{{ aid.import_data_url|default_if_none:_('NA') }}</p>
-                            <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
-                            <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}<p>
-                        </div>    
+
+                    {% if aid.is_imported %}
+                    <div class="card">
+                        <div class="data-origin fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-database-2-line ri-xl"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <h3 class="fr-h6">
+                                    Origine de la donnée
+                                </h3>
+                                <p>Cette aide provient d'une source de données tierce</p>
+                                <div>
+                                    <p><strong>URL d'origine : </strong>{{ aid.import_data_url|default_if_none:_('NA') }}</p>
+                                    <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
+                                    <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}<p>
+                                </div>    
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% endif %}
+                    {% endif %}
 
-            {% if financers_with_logo %}
-            <div class="card fr-mb-4w">
-                {% for financer in financers_with_logo %}
-                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
-                    <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
-                </a>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            {% if programs %}
-            <div class="card fr-mb-4w">
-                {% for program in programs %}
-                <a href="{% url 'program_detail' program.slug %}">
-                    <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
-                </a>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            {% if aid.is_corporate_aid %}
-            <div class="card fr-mb-4w fr-grid-row" id="aid-entreprise">
-                <div class="fr-col-2">
-                    <i class="ri-building-4-fill ri-xl fr-mr-1w"></i>
-                </div>
-                <div class="aid-entreprise fr-col-10">
-                    <h3 class="fr-h6">
-                        <strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong>
-                    </h3>
-                    <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="card">
-                <div class="share fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-share-forward-fill ri-xl fr-mr-1w"></i>
+                    {% if financers_with_logo %}
+                    <div class="card fr-mb-4w">
+                        {% for financer in financers_with_logo %}
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                            <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
+                        </a>
+                        {% endfor %}
                     </div>
-                    <div class="fr-col-10">
-                        <div>
+                    {% endif %}
+
+                    {% if programs %}
+                    <div class="card fr-mb-4w">
+                        {% for program in programs %}
+                        <a href="{% url 'program_detail' program.slug %}">
+                            <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if aid.is_corporate_aid %}
+                    <div class="card fr-mb-4w fr-grid-row" id="aid-entreprise">
+                        <div class="fr-col-2">
+                            <i class="ri-building-4-fill ri-xl fr-mr-1w"></i>
+                        </div>
+                        <div class="aid-entreprise fr-col-10">
                             <h3 class="fr-h6">
-                                <strong>Partager cette aide</strong></h3>
+                                <strong>Vous recherchez des aides pour les entreprises&nbsp;?</strong>
+                            </h3>
+                            <p>Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
                         </div>
-                        <button class="fr-btn"  data-fr-opened="false" aria-controls="share-modal">
-                            Sauvegarder ou envoyer à mon réseau
+                    </div>
+                    {% endif %}
+
+                    <div class="card">
+                        <div class="share fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-share-forward-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <div>
+                                    <h3 class="fr-h6">
+                                        <strong>Partager cette aide</strong></h3>
+                                </div>
+                                <button class="fr-btn"  data-fr-opened="false" aria-controls="share-modal">
+                                    Sauvegarder ou envoyer à mon réseau
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="suggest-modification fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-pencil-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <div>
+                                    <h3 class="fr-h6">
+                                        <strong>Améliorer cette aide</strong>
+                                    </h3>
+                                    <p class="fr-mb-1w">Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
+                                </div>
+                                <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
+                                    Envoyez-nous un e-mail
+                                </a>   
+                            </div>
+                        </div> 
+                    </div>
+
+                </div>
+
+                <div class="aid-details fr-col-xs-12 fr-col-md-8 fr-pb-3w fr-px-3w">
+                    {% if current_search_dict.projects and not messages %}
+                    <button class="fr-btn"  data-fr-opened="false" aria-controls="match-project-modal">
+                        Évaluez cette aide
+                    </button>
+                    {% endif %}
+
+                    <h2>{{ _('Global presentation') }}</h2>
+
+                    <h3>{{ _('Description') }}</h3>
+                    {% if aid.description %}
+                    {{ aid.description|safe }}
+                    {% else %}
+                    <p> {{ _('No detailed description was submitted.') }} </p>
+                    {% endif %}
+
+                    {% if aid.is_local and aid.local_characteristics %}
+                    <h4>Spécificités locales</h4>
+
+                    {{ aid.local_characteristics|safe }}
+
+                    {% endif %}
+
+                    {% if aid.targeted_audiences %}
+                    <h3>Bénéficiaires de l'aide</h3>
+                    <p>{% choices_display aid 'targeted_audiences' %}</p>
+                    {% endif %}
+
+                    <h3>{{ _('Aid targeted area') }}</h3>
+                    <p>{{ aid.perimeter }}</p>
+
+                    {% if eligibility_criteria or aid.has_eligibility_test %}
+                    <h2>{{ _('Eligibility criteria') }}</h2>
+
+                    {% if aid.mobilization_steps %}
+                    <h3>{{ _('The aid can be mobilized during…') }}</h3>
+                    <p>{% choices_display aid 'mobilization_steps' %}</p>
+                    {% endif %}
+
+                    {% if aid.destinations %}
+                    <h3>Types de dépenses / actions couvertes</h3>
+                    <p>{% choices_display aid 'destinations' %}</p>
+                    {% endif %}
+
+                    {% if aid.project_examples %}
+                    <h3>Exemples de projets réalisables</h3>
+                    {{ aid.project_examples|safe }}
+                    {% endif %}
+
+                    {% if aid.eligibility %}
+                    <h3>{{ _('Other eligibility criterias') }}</h3>
+                    {{ aid.eligibility|safe }}
+                    {% endif %}
+                    {% endif %}
+
+                    {% if aid.has_eligibility_test %}
+                    <div>
+                        <button class="fr-btn fr-mb-5w fr-mt-2w"  data-fr-opened="false" aria-controls="aid-eligibility-test-modal">
+                            Tester mon éligibilité !
                         </button>
                     </div>
-                </div>
-            </div>
+                    {% endif %}
 
-            <div class="card">
-                <div class="suggest-modification fr-mb-4w fr-grid-row">
-                    <div class="fr-col-2">
-                        <i class="ri-pencil-fill ri-xl fr-mr-1w"></i>
-                    </div>
-                    <div class="fr-col-10">
-                        <div>
-                            <h3 class="fr-h6">
-                                <strong>Améliorer cette aide</strong>
-                            </h3>
-                            <p class="fr-mb-1w">Vous souhaitez apporter des précisions à cette fiche aide&nbsp;?</p>
+                    {% if aid.is_generic %}
+                    {% with local_aids=aid.get_sorted_local_aids %}
+                        <h2 id="aides-locales">
+                            {{ _('Local variants') }}
+                        </h2>
+                        <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+                        {% if local_aids %}
+                            <div id="localAidsLinks">
+                                <ul>
+                                    {% for local_aid in local_aids %}
+                                        <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {% include 'aids/_generic_to_local.html' %}
+
+                    {% endwith %}
+                    {% endif %}
+                    <h2>{{ _('Going further') }}</h2>
+                    <section class="fr-accordion">
+                        <h3 class="fr-accordion__title">
+                            <button id="going-further-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="going-further">Poursuivre la démarche pour obtenir l'aide</button>
+                        </h3>
+                        <div id="going-further" class="fr-collapse">
+                            {% if aid.contact %}
+                            <h3>Contact</h3>
+                            {{ aid.contact|safe }}
+                            {% endif %}
+            
+                            {% if aid.origin_url %}
+                            <h3>Lien vers le descriptif complet</h3>
+                            <p>
+                                <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
+                            </p>
+                            {% endif %}
+            
+                            {% if aid.application_url %}
+                            <h3>Lien vers la démarche en ligne</h3>
+                            <p>
+                                <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
+                            </p>
+                            {% endif %}
                         </div>
-                        <a href="mailto:aides-territoires@beta.gouv.fr?subject=Amendement%20d%20'une%20aide&body={{ request.build_absolute_uri }}">
-                            Envoyez-nous un e-mail
-                        </a>   
-                    </div>
-                </div> 
-            </div>
-
-        </div>
-
-        <div class="aid-details fr-col-xs-12 fr-col-md-9 fr-pb-3w fr-px-3w">
-            {% if current_search_dict.projects and not messages %}
-            <button class="fr-btn"  data-fr-opened="false" aria-controls="match-project-modal">
-                Évaluez cette aide
-            </button>
-            {% endif %}
-
-            <h2>{{ _('Global presentation') }}</h2>
-
-            <h3>{{ _('Description') }}</h3>
-            {% if aid.description %}
-            {{ aid.description|safe }}
-            {% else %}
-            <p> {{ _('No detailed description was submitted.') }} </p>
-            {% endif %}
-
-            {% if aid.is_local and aid.local_characteristics %}
-            <h4>Spécificités locales</h4>
-
-            {{ aid.local_characteristics|safe }}
-
-            {% endif %}
-
-            {% if aid.targeted_audiences %}
-            <h3>Bénéficiaires de l'aide</h3>
-            <p>{% choices_display aid 'targeted_audiences' %}</p>
-            {% endif %}
-
-            <h3>{{ _('Aid targeted area') }}</h3>
-            <p>{{ aid.perimeter }}</p>
-
-            {% if eligibility_criteria or aid.has_eligibility_test %}
-            <h2>{{ _('Eligibility criteria') }}</h2>
-
-            {% if aid.mobilization_steps %}
-            <h3>{{ _('The aid can be mobilized during…') }}</h3>
-            <p>{% choices_display aid 'mobilization_steps' %}</p>
-            {% endif %}
-
-            {% if aid.destinations %}
-            <h3>Types de dépenses / actions couvertes</h3>
-            <p>{% choices_display aid 'destinations' %}</p>
-            {% endif %}
-
-            {% if aid.project_examples %}
-            <h3>Exemples de projets réalisables</h3>
-            {{ aid.project_examples|safe }}
-            {% endif %}
-
-            {% if aid.eligibility %}
-            <h3>{{ _('Other eligibility criterias') }}</h3>
-            {{ aid.eligibility|safe }}
-            {% endif %}
-            {% endif %}
-
-            {% if aid.has_eligibility_test %}
-            <div>
-                <button class="fr-btn fr-mb-5w fr-mt-2w"  data-fr-opened="false" aria-controls="aid-eligibility-test-modal">
-                    Tester mon éligibilité !
-                </button>
-            </div>
-            {% endif %}
-
-            {% if aid.is_generic %}
-            {% with local_aids=aid.get_sorted_local_aids %}
-                <h2 id="aides-locales">
-                    {{ _('Local variants') }}
-                </h2>
-                <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
-                {% if local_aids %}
-                    <div id="localAidsLinks">
-                        <ul>
-                            {% for local_aid in local_aids %}
-                                <li><a href="{% url 'aid_detail_view' local_aid.slug %}">{{ local_aid.perimeter }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                {% include 'aids/_generic_to_local.html' %}
-
-            {% endwith %}
-            {% endif %}
-            <h2>{{ _('Going further') }}</h2>
-            <section class="fr-accordion">
-                <h3 class="fr-accordion__title">
-                    <button id="going-further-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="going-further">Poursuivre la démarche pour obtenir l'aide</button>
-                </h3>
-                <div id="going-further" class="fr-collapse">
-                    {% if aid.contact %}
-                    <h3>Contact</h3>
-                    {{ aid.contact|safe }}
-                    {% endif %}
-    
-                    {% if aid.origin_url %}
-                    <h3>Lien vers le descriptif complet</h3>
-                    <p>
-                        <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-                    </p>
-                    {% endif %}
-    
-                    {% if aid.application_url %}
-                    <h3>Lien vers la démarche en ligne</h3>
-                    <p>
-                        <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-                    </p>
-                    {% endif %}
-                </div>
+                    </section>
             </section>
-    </section>
-
+        </div>
+    </div>
 </article>
 
 <div id="save-alert-block" class="fr-container fr-grid-row fr-mb-5w fr-grid-row--center fr-p-3w fr-background-alt-pink">
@@ -555,7 +557,6 @@
 
 {% block modals %}
     {% include 'aids/_share_modal.html' %}
-    {% include 'aids/_match_project_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
     {% include 'eligibility/_eligibility_test_modal.html' %}
 {% endblock %}

@@ -18,18 +18,22 @@
 
 {% block content %}
 <div class="fr-container">
-    <h1>Vous recherchez des aides pour…</h1>
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <h1 class="fr-mb-5w">Vous recherchez des aides pour…</h1>
 
-    <form id="audience" action="{% url 'search_step_perimeter' %}" method="GET">
-    
-        {% include '_form_snippet.html' %}
-    
-        <div class="navigation-links fr-mb-8w">
-            <a class="next-btn" href="{% url 'search_step_perimeter' %}?action=search">
-                Passer cette étape
-            </a>
+            <form id="audience" class="fr-container" action="{% url 'search_step_perimeter' %}" method="GET">
+            
+                {% include '_form_snippet.html' %}
+            
+                <div class="navigation-links fr-mb-8w">
+                    <a class="next-btn" href="{% url 'search_step_perimeter' %}?action=search">
+                        Passer cette étape
+                    </a>
+                </div>
+            </form>        
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
 

@@ -18,26 +18,30 @@
 
 {% block content %}
 <div class="fr-container fr-mb-12w">
-    <h1 class="fr-mb-5w">Le territoire</h1>
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <h1 class="fr-mb-5w">Le territoire</h1>
 
-    <form id="perimeter" action="{% url 'search_step_theme' %}" method="GET" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+            <form id="perimeter" action="{% url 'search_step_theme' %}" method="GET" class="fr-grid-row fr-grid-row--middle">
 
-            {% include '_form_snippet.html' %}
+                {% include '_form_snippet.html' %}
 
-            <button class="fr-btn" name="action" value="search" type="submit">
-                Envoyer
-            </button>
+                <button class="fr-btn" name="action" value="search" type="submit">
+                    Envoyer
+                </button>
 
-        <div class="navigation-links fr-grid-row">
-            <a class="previous-btn fr-mx-2w" href="{% url 'search_step_audience' %}?{{ querystring }}">
-                Revenir en arrière
-            </a>
+                <div class="navigation-links fr-grid-row">
+                    <a class="previous-btn fr-mx-2w" href="{% url 'search_step_audience' %}?{{ querystring }}">
+                        Revenir en arrière
+                    </a>
 
-            <a class="next-btn fr-mx-2w" href="{% url 'search_step_theme' %}?{{ querystring }}">
-                Passer cette étape
-            </a>
+                    <a class="next-btn fr-mx-2w" href="{% url 'search_step_theme' %}?{{ querystring }}">
+                        Passer cette étape
+                    </a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
 

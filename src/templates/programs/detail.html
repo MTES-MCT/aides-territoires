@@ -27,28 +27,31 @@
 
 {% block content %}
 <article id="program" class="fr-container fr-mb-5w fr-pb-5w">
-    <div id="program-content">
-        <h1>{{ program.name }}</h1>
-        {% if program.description %}
-            <div>
-                <h2>Présentation générale</h2>
-                <div>
-                    {{ program.description | safe }}
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <div id="program-content">
+                <h1>{{ program.name }}</h1>
+                {% if program.description %}
+                    <div>
+                        <h2>Présentation générale</h2>
+                        <div>
+                            {{ program.description | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        
+            <section id="aid-list">
+                <div class="fr-grid-row">
+                    {% for aid in aids %}
+                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                        {% include 'aids/_aid_result.html' with aid=aid %}
+                    </div>
+                    {% endfor %}
                 </div>
-            </div>
-        {% endif %}
-    </div>
-
-    <section id="aid-list">
-        <div class="fr-grid-row">
-            {% for aid in aids %}
-            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                {% include 'aids/_aid_result.html' with aid=aid %}
-            </div>
-            {% endfor %}
+            </section>        
         </div>
-    </section>
-    
+    </div>    
 </article>
 
 {% endblock %}
