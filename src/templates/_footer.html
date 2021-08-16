@@ -1,37 +1,67 @@
 {% load settings i18n %}
 {% load i18n mailing_list %}
 
-<div class="fr-container-fluid fr-background-alt fr-pb-5w">
+<div class="fr-follow">
     <div class="fr-container">
-        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+        <div class="fr-grid-row">
             <div class="fr-col-12 fr-col-md-10">
-                <h2>Recevez la newsletter</h2>
-                <p class="fr-mb-0">Restez informé des nouveautés de la plateforme</p>
-            </div>
-            <div class="fr-col-12 fr-col-md-2">
-                <a class="fr-btn" href="{% mailing_list_url %}">Inscrivez-vous</a>
+                <div class="fr-follow__newsletter">
+                    <div>
+                        <h5 class="fr-h5 fr-follow__title">{{ _("Aid backers") }}</h5>
+                        <p class="fr-text--sm fr-follow__desc">Diffusez vos aides dès maintenant !</p>
+                    </div>
+                    <div>
+                        {% if user.is_authenticated and user.is_contributor_or_staff %}
+                        <a class="fr-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>
+                        {% else %}
+                            <ul class="fr-btns-group fr-btns-group--inline">
+                                <li>
+                                    <a class="fr-btn" href="{% url 'login' %}">{{ _('Login') }}</a>
+                                </li>
+                                <li>
+                                    <a class="fr-btn" href="{% url 'register' %}">{{ _('Register') }}</a>    
+                                </li>
+                            </ul>
+                    {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mt-4w">
-            <div class="fr-col-12 fr-col-md-10">
-                <h2>{{ _("Aid backers") }}</h2>
-                <p class="fr-mb-0">Diffusez vos aides dès maintenant !</p>
+<div class="fr-follow">
+    <div class="fr-container">
+        <div class="fr-grid-row">
+            <div class="fr-col-12 fr-col-md-8">
+                <div class="fr-follow__newsletter">
+                    <div>
+                        <h5 class="fr-h5 fr-follow__title">Abonnez-vous à notre lettre d’information</h5>
+                        <p class="fr-text--sm fr-follow__desc">Restez informé des nouveautés de la plateforme</p>
+                    </div>
+                    <div>
+                        <a class="fr-btn" href="{% mailing_list_url %}" title="S‘abonner à notre lettre d’information">Inscrivez-vous</a>
+                    </div>
+                </div>
             </div>
-            {% if user.is_authenticated and user.is_contributor_or_staff %}
-            <a class="fr-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>
-        {% else %}
-            <div class="fr-col-12 fr-col-md-2">
-                <ul class="fr-btns-group fr-btns-group--inline">
-                    <li>
-                        <a class="fr-btn" href="{% url 'login' %}">{{ _('Login') }}</a>
-                    </li>
-                    <li>
-                        <a class="fr-btn" href="{% url 'register' %}">{{ _('Register') }}</a>    
-                    </li>
-                </ul>
+            <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-follow__social">
+                    <p class="fr-h5 fr-mb-3v fr-mb-3v">Suivez-nous
+                        <br> sur les réseaux sociaux</p>
+                    <ul class="fr-links-group fr-links-group--lg">
+                        <li>
+                            <a class="fr-link--twitter fr-link" href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">
+                            twitter
+                            </a>
+                        </li>
+                        <li>
+                            <a class="fr-link--linkedin fr-link" href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">
+                            Linkedin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        {% endif %}
         </div>
     </div>
 </div>
@@ -49,19 +79,6 @@
             </div>
             <div class="fr-footer__content">
                 <div class="fr-grid-row fr-grid-row--center">
-                    <p>Suivez nos actualités sur&nbsp: </p>
-                    <ul class="fr-grid-row fr-grid-row--center">        
-                        <li>
-                            <a href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter" target="_blank" rel="noopener">
-                                <img src="/static/img/logo_twitter.svg" alt="twitter d'aides territoires" class="fr-icon-xs">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener">
-                                <img src="/static/img/logo_linkedin.svg" alt="linkedin d'aides territoires" class="fr-icon-xs">
-                            </a>
-                        </li>
-                    </ul> 
                 </div>
             </div>
         </div>
@@ -89,6 +106,9 @@
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Mentions légales</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="https://github.com/MTES-MCT/aides-territoires">Code source</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Accessibilité : non conforme</a></li>
+                <li class="fr-footer__bottom-item">
+                    <button class="fr-footer__bottom-link fr-fi-theme-fill fr-link--icon-left" aria-controls="fr-theme-modal" data-fr-opened="false">Paramètres d'affichage</button>
+                </li>
             </ul>
         </div>
     </div>

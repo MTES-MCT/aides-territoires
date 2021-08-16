@@ -63,6 +63,8 @@
         </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
 
         {% block modals %}{% endblock %}
+        
+        {% include 'theme/_theme_modal.html' %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
