@@ -39,9 +39,14 @@
             {% include '_field_snippet_aid_form.html' with field=form.programs %}
             {% include '_field_snippet_aid_form.html' with field=form.financers %}
             {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
-            <div id="instructor-fields">
-                {% include '_field_snippet_aid_form.html' with field=form.instructors %}
-                {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
+            <div id="instructor-fields-accordion" class="fr-accordion fr-mb-5w">
+                <h3 class="fr-accordion__title fr-grid-row">
+                    <button type="button" class="fr-accordion__btn fr-col-md-8 fr-col-offset-md-4" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
+                </h3>
+                <div id="instructor-fields" class="fr-collapse">
+                    {% include '_field_snippet_aid_form.html' with field=form.instructors %}
+                    {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
+                </div>    
             </div>
             {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
             {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
@@ -132,7 +137,6 @@
 <script src="/static/js/aids/toggle_short_title_field.js"></script>
 <script src="/static/js/aids/toggle_financial_aids_related_fields.js"></script>
 <script src="/static/js/aids/toggle_calendar_related_fields.js"></script>
-<script src="/static/js/aids/toggle_aid_instructor_field.js"></script>
 <script src="/static/js/aids/enable_softmaxlength.js"></script>
 <script src="/static/js/enable_rich_text_editor_simple.js"></script>
 <script src="/static/js/aids/duplicate_buster.js"></script>

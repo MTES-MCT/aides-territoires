@@ -232,8 +232,11 @@ section#aid-edit form.main-form {
   max-height: none;
 }
 
+section#aid-edit form.main-form > fieldset > div#instructor-fields-accordion {
+  display: block;
+}
+
 section#aid-edit form.main-form > fieldset > div#calendar-fields,
-section#aid-edit form.main-form > fieldset > div#instructor-fields,
 section#aid-edit form.main-form > fieldset > div#subvention-fields,
 section#aid-edit form.main-form > fieldset > div#recoverable-advance-fields,
 section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields,
@@ -243,7 +246,7 @@ section#aid-edit form.main-form > fieldset > div#loan-fields {
 
 section#aid-edit form.main-form > fieldset > div,
 section#aid-edit form.main-form > fieldset > div#calendar-fields > div,
-section#aid-edit form.main-form > fieldset > div#instructor-fields > div,
+section#aid-edit form.main-form > fieldset div#instructor-fields > div,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div,
 section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div,
 section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div,
@@ -252,12 +255,13 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div {
 
   @media screen and (max-width: 1000px) {
     background: none;
+    flex-direction: column;
   }
 }
 
 section#aid-edit form.main-form > fieldset .help-form,
 section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset > div#instructor-fields > div > .help-form,
+section#aid-edit form.main-form > fieldset div#instructor-fields > div > .help-form,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .help-form,
 section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div > .help-form,
 section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .help-form,
@@ -281,7 +285,7 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .hel
 
 section#aid-edit form.main-form > fieldset .part-form,
 section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset > div#instructor-fields > div > .part-form,
+section#aid-edit form.main-form > fieldset div#instructor-fields > div > .part-form,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .part-form,
 section#aid-edit form.main-form > fieldset div#recoverable-fields-collapse > div > .part-form,
 section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .part-form,
