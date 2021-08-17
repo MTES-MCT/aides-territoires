@@ -9,7 +9,8 @@
     {% block search-meta-targeted-audiences %}
     {% if current_search_dict.targeted_audiences %}
     <div class="fr-tags-group">
-        <p title="Bénéficiaires de l'aide" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Bénéficiaires de l'aide" class="fr-tag">
+            <i class="ri-home-8-line ri-xl fr-mr-1w"></i>
             {% form_choices_display current_search_dict 'targeted_audiences' %}
         </p>
     </div>

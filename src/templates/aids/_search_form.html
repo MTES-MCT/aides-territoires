@@ -19,7 +19,7 @@
     {% endblock %}
 
     {% block other_actions %}
-    <div class="other-actions fr-mb-2w">
+    <div class="other-actions fr-mb-2w fr-grid-row fr-grid-row--middle">
 
         {% comment %}
             This hidden button is here to make it the "default" submit button.
@@ -29,15 +29,19 @@
         <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
 
         {% block other-actions %}
+        <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
             <a id="new-search-btn" class="fr-btn" href="{% url 'search_step_audience' %}">
                 {{ _('New search') }}
             </a>
             <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-                {{ _('More filters') }}
+                Plus de critères
             </button>
+        </div>
+        <div class="fr-col-offset-md-5 fr-col-md-3 fr-grid-row fr-grid-row--right fr-mt-1w">
             <button type="button" class="fr-btn js" id="save-alert-btn" data-fr-opened="false" aria-controls="alert-search-modal">
-                Créer une alerte
-            </button>
+                <i class="ri-notification-2-line ri-lg fr-mr-1w"></i>Créer une alerte
+            </button>    
+        </div>
         {% endblock %}
     </div>
     {% endblock %}
