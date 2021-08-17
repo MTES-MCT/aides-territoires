@@ -432,11 +432,6 @@
                 </div>
 
                 <div class="aid-details fr-col-xs-12 fr-col-md-8 fr-pb-3w fr-px-3w">
-                    {% if current_search_dict.projects and not messages %}
-                    <button class="fr-btn"  data-fr-opened="false" aria-controls="match-project-modal">
-                        Évaluez cette aide
-                    </button>
-                    {% endif %}
 
                     <h2>{{ _('Global presentation') }}</h2>
 
@@ -571,7 +566,6 @@
 <script>
     AID_ID = parseInt('{{ aid.id }}');
     AID_SLUG = '{{ aid.slug }}';
-    PROJECT_ID = '{% for project in current_search_dict.projects %}{{ project.id }}{% endfor %}';
     AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
     CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>

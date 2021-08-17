@@ -18,7 +18,7 @@ $(document).ready(function () {
     }
 
     // Track clicks on alert button in the aid results (alert block)
-    var resultsBlockAlertButton = $('a#save-alert-results-block-btn');
+    var resultsBlockAlertButton = $('button#save-alert-results-block-btn');
     if (resultsBlockAlertButton) {
         trackResultsAlertButtonClick(resultsBlockAlertButton, 'Alerte bouton click (résultats > encart)');
     }
