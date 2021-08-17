@@ -138,6 +138,10 @@ legend {
     left: 0;    
   }
 
+  #stats-optout {
+    background-color: #fff;
+  }
+
 // Home style 
 
 div #what-image {
@@ -244,7 +248,6 @@ section#aid-edit {
       z-index: 9999 !important;
   }
 }
-
 
 #base-edit .actions {
   border: solid 1px #000;
