@@ -70,6 +70,10 @@ legend {
     left: 0;    
   }
 
+  #stats-optout {
+    background-color: #fff;
+  }
+
 // Home style 
 
 div #what-image {
@@ -170,7 +174,6 @@ section#aid-edit {
   }
 }
 
-
 #base-edit .actions {
   border: solid 1px #000;
 }
@@ -198,20 +201,6 @@ section#aid-edit form.main-form > fieldset {
   }
 }
 
-section#aid-edit form.main-form > fieldset > div,
-section#aid-edit form.main-form > fieldset > div#calendar-fields > div,
-section#aid-edit form.main-form > fieldset > div#instructor-fields > div,
-section#aid-edit form.main-form > fieldset > div#subvention-fields > div,
-section#aid-edit form.main-form > fieldset > div#recoverable-advance-fields > div,
-section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields > div,
-section#aid-edit form.main-form > fieldset > div#loan-fields > div {
-  display: flex;
-
-  @media screen and (max-width: 1000px) {
-    flex-direction: column;
-  }
-}
-
 section#aid-edit form.main-form > fieldset > legend {
   color: var(--bf500);
 }
@@ -231,6 +220,18 @@ section#aid-edit form.main-form > fieldset + fieldset {
   margin-top: 8rem !important;
 }
 
+section#aid-edit form.main-form {
+  background: linear-gradient(90deg, var(--w) 34%, var(--bf100-g750) 34%);
+
+  @media screen and (max-width: 1000px) {
+    background: none;
+  }
+}
+
+.fr-collapse.fr-collapse--expanded {
+  max-height: none;
+}
+
 section#aid-edit form.main-form > fieldset > div#calendar-fields,
 section#aid-edit form.main-form > fieldset > div#instructor-fields,
 section#aid-edit form.main-form > fieldset > div#subvention-fields,
@@ -240,8 +241,14 @@ section#aid-edit form.main-form > fieldset > div#loan-fields {
   display: inline;
 }
 
-section#aid-edit form.main-form {
-  background: linear-gradient(90deg, var(--w) 34%, var(--bf100-g750) 34%);
+section#aid-edit form.main-form > fieldset > div,
+section#aid-edit form.main-form > fieldset > div#calendar-fields > div,
+section#aid-edit form.main-form > fieldset > div#instructor-fields > div,
+section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div,
+section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div,
+section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div,
+section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div {
+  display: flex;
 
   @media screen and (max-width: 1000px) {
     background: none;
@@ -251,10 +258,10 @@ section#aid-edit form.main-form {
 section#aid-edit form.main-form > fieldset .help-form,
 section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .help-form,
 section#aid-edit form.main-form > fieldset > div#instructor-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset > div#subvention-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset > div#recoverable-advance-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset > div#loan-fields > div > .help-form {
+section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .help-form,
+section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div > .help-form,
+section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .help-form,
+section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .help-form {
   flex: 0 0 33.3333333333%;
   max-width: 33.3333333333%;
 
@@ -275,13 +282,14 @@ section#aid-edit form.main-form > fieldset > div#loan-fields > div > .help-form 
 section#aid-edit form.main-form > fieldset .part-form,
 section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .part-form,
 section#aid-edit form.main-form > fieldset > div#instructor-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset > div#subvention-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset > div#recoverable-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset > div#loan-fields > div > .part-form {
+section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .part-form,
+section#aid-edit form.main-form > fieldset div#recoverable-fields-collapse > div > .part-form,
+section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .part-form,
+section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .part-form {
   flex: 0 0 66.6666666667%;
   max-width: 66.6666666667%;
   padding-left: 2rem;
+  padding-right: 2rem;
   margin-bottom: 2rem;
 
   @media screen and (max-width: 1000px) {

@@ -46,17 +46,25 @@
             {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
             {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
             <div id="subvention-fields">
+                <div id="subvention-fields-collapse" class="fr-collapse">
                 {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
-                {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}
+                {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}    
+                </div>
             </div>
             <div id="loan-fields">
+                <div id="loan-fields-collapse" class="fr-collapse">
                 {% include '_field_snippet_aid_form.html' with field=form.loan_amount %}
+                </div>
             </div>
             <div id="recoverable-advance-fields">
+                <div id="recoverable-advance-fields-collapse" class="fr-collapse">
                 {% include '_field_snippet_aid_form.html' with field=form.recoverable_advance_amount %}
+                </div>
             </div>
             <div id="other-financial-aid-fields">
+                <div id="other-financial-aid-fields-collapse" class="fr-collapse">
                 {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
+                </div>
             </div>
             {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
     </fieldset>
