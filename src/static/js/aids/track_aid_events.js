@@ -8,7 +8,6 @@
     exports.enableCTA = function(dataDiv, revealBtn, aid_slug) {
 
         revealBtn.click(function() {
-            dataDiv.removeClass('fake-collapse', { duration: 500 });
 
             // Send an event to our stats DB
             var statsData = JSON.stringify({
@@ -28,7 +27,6 @@
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Voir contacts', aid_slug]);
             }
-            revealBtn.remove();
         });
     };
 
