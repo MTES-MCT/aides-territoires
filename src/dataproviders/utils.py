@@ -106,8 +106,8 @@ def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_
                         try:
                             audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])  # noqa
                             audiences_dict[row[source_column_name]].append(audience)
-                        except:
-                            print(row[column])
+                        except:  # noqa
+                            print('mapping_audiences error :', row[column])
 
     return audiences_dict
 
@@ -150,6 +150,6 @@ def get_category_list_from_name(category_name):
             for category in theme.categories.all():
                 category_list.append(category)
         except Theme.DoesNotExist:
-            print(category_name)
+            print('mapping_categories error :', category_name)
 
     return category_list

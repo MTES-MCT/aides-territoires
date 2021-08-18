@@ -1,19 +1,19 @@
 destination_field,source_field,source_format,processing,comments
 import_uniqueid,reference,texte,auto,transformer en nombre ?
-name,titre,texte,,il y a aussi le champ 'libelle'
+name,title,texte,,il y a aussi le champ 'libelle'
 short_title,,,,
 author,,,,
 financers,,,,
 instructors,,,,
-description,"entete, objectif, modalite, demarches, notes",texte,,
+description,"entete, objectif, modalite, demarches, notes",texte (HTML),,
 project_examples,,,,
 eligibility,,,,
 perimeter,,,,
 mobilization_steps,,,,
 origin_url,,,,pas fourni ?
-application_url,teleservices,liste d'objets,,
-targeted_audiences,publicsBeneficiaire,liste d'objets,,mapping à faire lorsqu'on aura toutes les données
-aid_types,type,texte,,toujours 'fiche aide' ?
+application_url,teleservices,liste d'objets,,on n'a pas d'url complète
+targeted_audiences,publicsBeneficiaire,liste d'objets,mapping,
+aid_types,kind,texte,,toujours 'fiche=aide' ou 'aides' ?
 destinations,,,,
 start_date,dateOuvertureCampagne,texte (datetime),,
 predeposit_date,,,,
@@ -24,16 +24,17 @@ contact,contact,texte,,
 contact_email,,,,
 contact_phone,,,,
 contact_detail,,,,
-recurrence,,,,si 'dateDebutFuturCampagne' présent ?
+recurrence,,,,"Ponctuelle par défaut, Récurrente si 'dateDebutFuturCampagne' présent ?"
 is_call_for_project,,,,
 in_france_relance,,,,
-categories,"tags, competences",liste d'objets,,mapping à faire lorsqu'on aura toutes les données
+categories,competences,liste d'objets,mapping,il y a aussi le champ 'tags'
 _extra_fields,publicsBeneficiairePrecision,,,
 _extra_fields,documentsPublics,,,
-_extra_fields,competences,,,
+_extra_fields,tags,,,
+_extra_fields,libelle,,,
 _extra_fields,engagementsAssocies,,,
 _extra_fields,groupeFonctionnel,,,
-_extra_fields,groupeGestion,,,
 _extra_fields,informationNonPubliee,,,
 _extra_fields,datePublicationSouhaitee,,,
 _extra_fields,dateDebutFuturCampagne,,,
+_extra_fields,deliberationCadre,,,
