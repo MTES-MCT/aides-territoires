@@ -16,7 +16,9 @@
             </h1>
 
             {% if request.GET.published_after %}
-                <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                <p>Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
+            </div>
             {% endif %}
 
             {% block search-meta %}

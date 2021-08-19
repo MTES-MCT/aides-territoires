@@ -24,8 +24,10 @@
         </div>
     </div>
 {% else %}
-    <div class="empty-result">
-        <p class="warning">{{ _('We could not find any results.') }}</p>
+    <div class="empty-result fr-mb-5w">
+        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+            <p>Nous n'avons pu trouver aucun résultat.</p>
+        </div>
     </div>
 {% endif %}
 

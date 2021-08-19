@@ -48,9 +48,11 @@
 
                 {% block messages %}
                 {% if messages %}
-                    <div class="messages">
+                    <div class="messages fr-container fr-my-5w">
                         {% for message in messages %}
-                            <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
+                            <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
+                                <p>{{ message|safe }}</p>
+                            </div>
                         {% endfor %}
                     </div>
                 {% endif %}
