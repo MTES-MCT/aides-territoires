@@ -52,7 +52,7 @@
     {% block search-meta-aid-type %}
     {% if current_search_dict.aid_type %}
     <div class="fr-tags-group">
-        <p title="{{ _('Aid type') }}" class="fr-tag">
+        <p title="Nature de l'aide" class="fr-tag">
             <i class="ri-money-euro-circle-line ri-xl fr-mr-1w"></i>
             {% form_choices_display current_search_dict 'aid_type' %}
         </p>
@@ -63,7 +63,7 @@
     {% block search-meta-mobilization-step %}
     {% if current_search_dict.mobilization_step %}
     <div class="fr-tags-group">
-        <p title="{{ _('Project progress') }}" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Avancement du projet" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
             {% form_choices_display current_search_dict 'mobilization_step' %}
         </p>
     </div>
@@ -73,7 +73,7 @@
     {% block search-meta-destinations %}
     {% if current_search_dict.destinations %}
     <div class="fr-tags-group">
-        <p title="{{ _('Concerned actions') }}" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Actions concernées" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
             {% form_choices_display current_search_dict 'destinations' %}
         </p>
     </div>
@@ -83,8 +83,8 @@
     {% block search-meta-call-for-project %}
     {% if current_search_dict.call_for_projects_only %}
     <div class="fr-tags-group">
-        <p title="{{ _('Call for projects only') }}" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
-            {{ _('Call for projects only') }}
+        <p title="Appels à projets / Appels à manifestation d'intérêt uniquement" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+            Appels à projets / Appels à manifestation d'intérêt uniquement
         </p>
     </div>
     {% endif %}

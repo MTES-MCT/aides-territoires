@@ -40,7 +40,7 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             'Contenu éditorial',
             deletable=False, draggable=False,
-            models=('blog.*', 'pages.*'),
+            models=('blog.*', 'pages.*', 'upload.*'),
         ))
         self.children.append(modules.ModelList(
             "Test d'eligibilité",
@@ -90,7 +90,10 @@ class CustomIndexDashboard(Dashboard):
                 ),
                 modules.ModelList(
                     "Config du site",
-                    models=('django.contrib.sites.*',),
+                    models=(
+                        'django.contrib.sites.*',
+                        'django_otp.plugins.otp_totp.*',
+                    ),
                 ),
                 modules.ModelList(
                     "Tâches périodiques",

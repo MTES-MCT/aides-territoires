@@ -1,4 +1,5 @@
 from rest_framework import viewsets, mixins
+from drf_spectacular.utils import extend_schema
 
 from core.utils import get_site_from_host
 from search.utils import clean_search_querystring
@@ -9,13 +10,13 @@ from stats.api.serializers import (AidContactClickEventSerializer,
                                    AidMatchProjectEventSerializer,
                                    AidEligibilityTestEventSerializer,
                                    PromotionClickEventSerializer,
-                                   PromotionDisplayEventSerializer,)
+                                   PromotionDisplayEventSerializer)
 
 
-class AidContactClickEventViewSet(mixins.CreateModelMixin,
-                                  viewsets.GenericViewSet):
-    queryset = AidContactClickEvent.objects.all()
+@extend_schema(exclude=True)
+class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = AidContactClickEventSerializer
+    queryset = AidContactClickEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -28,10 +29,10 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
-                                  viewsets.GenericViewSet):
-    queryset = AidMatchProjectEvent.objects.all()
+@extend_schema(exclude=True)
+class AidMatchProjectEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = AidMatchProjectEventSerializer
+    queryset = AidMatchProjectEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -44,10 +45,10 @@ class AidMatchProjectEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
-                                     viewsets.GenericViewSet):
-    queryset = AidEligibilityTestEvent.objects.all()
+@extend_schema(exclude=True)
+class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = AidEligibilityTestEventSerializer
+    queryset = AidEligibilityTestEvent.objects.all()
 
     def perform_create(self, serializer):
         # clean host
@@ -60,10 +61,10 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
 
 
-class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
-                                   viewsets.GenericViewSet):
-    queryset = PromotionDisplayEvent.objects.all()
+@extend_schema(exclude=True)
+class PromotionDisplayEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = PromotionDisplayEventSerializer
+    queryset = PromotionDisplayEvent.objects.all()
 
     def perform_create(self, serializer):
         host = self.request.get_host()
@@ -71,10 +72,10 @@ class PromotionDisplayEventViewSet(mixins.CreateModelMixin,
         serializer.save(source=source_cleaned)
 
 
-class PromotionClickEventViewSet(mixins.CreateModelMixin,
-                                 viewsets.GenericViewSet):
-    queryset = PromotionClickEvent.objects.all()
+@extend_schema(exclude=True)
+class PromotionClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = PromotionClickEventSerializer
+    queryset = PromotionClickEvent.objects.all()
 
     def perform_create(self, serializer):
         host = self.request.get_host()

@@ -33,7 +33,7 @@
 
     {% block fields %}
     <fieldset>
-            <legend><span id="aid-presentation"></span>1 - {{ _('Aid presentation') }}</legend>
+            <legend><span id="aid-presentation"></span>1 - Présentation de l'aide</legend>
             {% include '_field_snippet_aid_form.html' with field=form.name %}
             {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
             {% include '_field_snippet_aid_form.html' with field=form.programs %}
@@ -75,7 +75,7 @@
     </fieldset>
 
     <fieldset>
-        <legend><span id="aid-description"></span>2 - {{ _('Aid description') }}</legend>
+        <legend><span id="aid-description"></span>2 - Description de l'aide</legend>
         {% include '_field_snippet_aid_form.html' with field=form.description %}
         {% if aid.is_local %}
             {% include '_field_snippet_aid_form.html' with field=form.local_characteristics %}
@@ -100,7 +100,7 @@
     </fieldset>
 
     <fieldset>
-        <legend><span id="aid-contact"></span>4 - {{ _('Contact and actions') }}</legend>
+        <legend><span id="aid-contact"></span>4 - Contact et démarches</legend>
         {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
         {% include '_field_snippet_aid_form.html' with field=form.application_url %}
         {% include '_field_snippet_aid_form.html' with field=form.contact %}    

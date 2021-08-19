@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.urls import reverse
 from django.db.models import Count
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
 
 from adminsortable2.admin import SortableInlineAdminMixin
 
@@ -94,7 +93,7 @@ class EligibilityTestAdmin(admin.ModelAdmin):
             )
         related_aid_html += format_html('</tbody></table>')
         return related_aid_html
-    display_related_aids.short_description = _('Related aids')
+    display_related_aids.short_description = 'Aides associées'
 
     def show_export_message(self, request):
         self.message_user(request, get_admin_export_message())

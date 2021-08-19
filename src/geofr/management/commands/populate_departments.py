@@ -18,13 +18,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         europe = Perimeter.objects.get(
-            scale=Perimeter.TYPES.continent,
+            scale=Perimeter.SCALES.continent,
             code='EU')
         regions_qs = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
+            .filter(scale=Perimeter.SCALES.region) \
             .values_list('code', 'id')
         regions = dict(regions_qs)
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
         for entry in data:
             department, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.department,
+                scale=Perimeter.SCALES.department,
                 code=entry['code'],
                 defaults={
                     'name': entry['nom'],

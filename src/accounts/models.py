@@ -1,17 +1,25 @@
 from django.db import models
-from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
-                                        BaseUserManager)
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
 
-    def is_administrator_of_search_pages(self):
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.filter(is_contributor=True)
+
+    def search_page_admins(self):
         """Only return users who are search page administrators."""
 
         return self.filter(search_pages__isnull=False)
+
+    def animators(self):
+        """Only return users who are animators."""
+
+        return self.filter(animator_perimeter__isnull=False)
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -25,8 +33,7 @@ class UserManager(BaseUserManager):
     def get_queryset(self):
         return UserQueryset(self.model, using=self._db)
 
-    def _create_user(self, email, first_name, last_name, password,
-                     **extra_fields):
+    def _create_user(self, email, first_name, last_name, password, **extra_fields):
         """Create and save the user object."""
 
         email = self.normalize_email(email)
@@ -36,26 +43,32 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, first_name, last_name, password=None,
-                    **extra_fields):
+    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         """Creates a simple user."""
 
         extra_fields['is_superuser'] = False
-        return self._create_user(email, first_name, last_name, password,
-                                 **extra_fields)
+        return self._create_user(email, first_name, last_name, password, **extra_fields)
 
-    def create_superuser(self, email, first_name, last_name, password,
-                         **extra_fields):
+    def create_superuser(self, email, first_name, last_name, password, **extra_fields):
         """Creates a superuser."""
 
         extra_fields['is_superuser'] = True
-        return self._create_user(email, first_name, last_name, password,
-                                 **extra_fields)
+        return self._create_user(email, first_name, last_name, password, **extra_fields)
 
-    def is_administrator_of_search_pages(self):
+    def contributors(self):
+        """Only return users who are contributors."""
+
+        return self.get_queryset().contributors()
+
+    def search_page_admins(self):
         """Only return users who are search page administrators."""
 
-        return self.get_queryset().is_administrator_of_search_pages()
+        return self.get_queryset().search_page_admins()
+
+    def animators(self):
+        """Only return users who are animators."""
+
+        return self.get_queryset().animators()
 
     def with_api_token(self):
         """Only return users with an API Token."""
@@ -69,59 +82,65 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     email = models.EmailField(
-        _('Email address'),
+        "Adresse e-mail",
         unique=True)
     first_name = models.CharField(
-        _('First name'),
+        'Prénom',
         max_length=256)
     last_name = models.CharField(
-        _('Last name'),
+        'Nom',
         max_length=256)
-    date_joined = models.DateTimeField(
-        _('Date joined'),
-        default=timezone.now)
 
-    ##
     # Account settings fields
-    ##
     ml_consent = models.BooleanField(
-        _('Gave consent to receive communications'),
-        default=False)
-    similar_aids_alert = models.BooleanField(
-        _('Wants to receive alerts when similar aids are published'),
+        "A donné son consentement pour recevoir l'actualité",
         default=False)
 
-    ##
     # Contributors related data
-    ##
     organization = models.CharField(
-        _('Organization'),
+        'Organisme',
         max_length=128,
         blank=True)
     role = models.CharField(
-        _('Role'),
+        'Rôle',
         max_length=128,
         blank=True)
     contact_phone = models.CharField(
-        _('Contact phone number'),
+        'Numéro de téléphone',
         max_length=35,
         blank=True)
-    is_contributor = models.BooleanField(
-        _('Is contributor'),
-        help_text=_('Can access a dashboard to create aids'),
-        default=True)
     is_certified = models.BooleanField(
-        _('Is certified'),
-        help_text=_('Display a badge next to this user\'s aids'),
+        'Certifié ?',
+        help_text='Afficher un badge à côté des aides publiées par ce compte.',
         default=False)
+
+    # Roles
+    is_contributor = models.BooleanField(
+        'Contributeur ?',
+        help_text='Peut accéder à un espace pour créer et modifier ses aides.',
+        default=True)
+    animator_perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name="Périmètre d'animation",
+        on_delete=models.PROTECT,
+        related_name='animators',
+        help_text="Sur quel périmètre l'animateur local est-il responsable ?",
+        null=True, blank=True)
+
+    date_created = models.DateTimeField(
+        'Date de création',
+        default=timezone.now)
+    date_updated = models.DateTimeField(
+        'Date de mise à jour',
+        auto_now=True)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
+        verbose_name = 'Utilisateur'
+        verbose_name_plural = 'Utilisateurs'
 
     def __str__(self):
         return '{} ({})'.format(self.full_name, self.email)

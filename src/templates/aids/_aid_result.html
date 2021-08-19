@@ -34,17 +34,17 @@
         {% if aid.is_financial or aid.is_technical %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
                 <i class="ri-settings-5-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
-                <strong class="aid-type">{{ _('Aid type') }}</strong>
+                <strong class="aid-type">Nature de l'aide</strong>
             </p>
             <ul id="aid-type-list" class="fr-p-0">
                 {% if aid.is_financial %}
                 <li class="fr-list__none">
-                    {{ _('Financial aid') }}
+                    Aide financière
                 </li>   
                 {% endif %}
                 {% if aid.is_technical %}
                 <li class="fr-list__none">
-                    {{ _('Engineering aid') }}
+                    Aide en ingénierie
                 </li>
                 {% endif %}
             </ul>

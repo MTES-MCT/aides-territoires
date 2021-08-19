@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _
 
 from aids.models import Aid
 
@@ -24,7 +23,7 @@ class BaseAidSerializer(serializers.ModelSerializer):
     Instead, do this:
      - create a new Serializer
      - make sure `AidSerializerLatest` inherits from the new serializer
-     - bump the default api version in settings
+     - bump the default API version in the settings
      - update `aids.api.views.AidViewSet.get_serializer_class`
      - update the /data/ documentation page
 
@@ -97,8 +96,8 @@ class AidSerializer12(BaseAidSerializer):
 
     categories = CategoryRelatedField(
         many=True,
-        label=_('Theme and category, separated by « | ».'),
-        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+        label='Thème et catégorie, séparés par « | ».',
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"')
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
@@ -120,8 +119,8 @@ class AidSerializer13(BaseAidSerializer):
 
     categories = CategoryRelatedField(
         many=True,
-        label=_('Theme and category, separated by « | ».'),
-        help_text=_('E.g: "Nature / environnement|Qualité de l\'air"'))
+        label='Thème et catégorie, séparés par « | ».',
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"')
 
     class Meta(BaseAidSerializer.Meta):
         fields = ('id', 'slug', 'url', 'name', 'short_title', 'financers',
@@ -138,3 +137,30 @@ class AidSerializer13(BaseAidSerializer):
 
 class AidSerializerLatest(AidSerializer13):
     pass
+
+
+class AidAudienceSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+    type = serializers.CharField()
+
+
+class AidTypeSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+    type = serializers.CharField()
+
+
+class AidStepSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+
+
+class AidRecurrenceSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()
+
+
+class AidDestinationSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    name = serializers.CharField()

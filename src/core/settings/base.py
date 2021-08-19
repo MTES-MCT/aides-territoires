@@ -39,15 +39,17 @@ THIRD_PARTY_APPS = [
     'compressor',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'django_xworkflows',
     'corsheaders',
     'import_export',
     'admin_auto_filters',
-    'drf_yasg',
     'anymail',
     'django_celery_beat',
     'adminsortable2',
     'fieldsets_with_inlines',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
 ]
 
 LOCAL_APPS = [
@@ -91,6 +93,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
@@ -213,6 +216,10 @@ ADMIN_TOOLS_MENU = 'core.admin_menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'core.admin_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'core.admin_dashboard.CustomAppIndexDashboard'
 
+ADMIN_OTP_ENABLED = False
+OTP_TOTP_ISSUER = "Aides-territoires"
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -225,10 +232,33 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 50,
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = '1.2'
+CURRENT_API_VERSION = '1.3'
+
+# The file path that's user for storing the json dump on S3
+ALL_AIDS_DUMP_FILE_PATH = 'aids/all-aids.json'
+
+# Swagger / Redoc settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Aides-territoires API',
+    'VERSION': CURRENT_API_VERSION,
+    'TOS': 'https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/',
+    'CONTACT': {
+        'name': "Une question ? Vous pouvez nous contacter en cliquand ici (puis sélectionnez 'API' comme Sujet)",
+        'url': 'https://aides-territoires.beta.gouv.fr/contact/'
+    },
+    'LICENSE': {
+        'name': "« Licence Ouverte v2.0 » d'Etalab"
+    },
+    'EXTERNAL_DOCS': {
+        'url': 'https://aides-territoires.beta.gouv.fr/data/'
+    },
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SORT_OPERATION_PARAMETERS': False
+}
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -317,6 +347,7 @@ MAP_DNS_TO_MINISITES = [
 ENABLE_MINISITES_REDIRECTION = True
 REDIRECT_MINISITES_TO_EXTERNAL_URL = [
     ('francemobilites', 'https://aides.francemobilites.fr'),
+    ('france-relance-cvl', 'https://centre-val-de-loire.aides-territoires.beta.gouv.fr'),
 ]
 
 # ADDNA

@@ -13,6 +13,7 @@ from django.conf import settings
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from aids.constants import AUDIENCES_ALL, TYPES_ALL, FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
 from aids.tasks import send_publication_email
 from core.fields import ChoiceArrayField, PercentRangeField
 from dataproviders.constants import IMPORT_LICENCES
@@ -218,29 +219,7 @@ class AidInstructor(models.Model):
 class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
-    TYPES = Choices(
-        ('grant', 'Subvention'),
-        ('loan', 'Prêt'),
-        ('recoverable_advance', 'Avance récupérable'),
-        ('technical', 'Aides en ingénierie'),
-        ('financial', 'Aides financières'),
-        ('legal', 'Ingénierie juridique / administrative'),
-        ('other', 'Autre'),
-    )
-
-    FINANCIAL_AIDS = ('grant', 'loan', 'recoverable_advance', 'other')
-    TECHNICAL_AIDS = ('technical', 'financial', 'legal')
-
-    PERIMETERS = Choices(
-        ('europe', 'Europe'),
-        ('france', 'France'),
-        ('region', 'Région'),
-        ('department', 'Département'),
-        ('commune', 'Commune'),
-        ('mainland', 'Métropole'),
-        ('overseas', 'Outre-mer'),
-        ('other', 'Autre'),
-    )
+    TYPES = Choices(*TYPES_ALL)
 
     STEPS = Choices(
         ('preop', 'Réflexion / conception'),
@@ -248,27 +227,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ('postop', 'Usage / valorisation'),
     )
 
-    AUDIENCES = Choices(
-        ('commune', 'Communes'),
-        ('epci', 'EPCI à fiscalité propre'),
-        ('department', 'Départements'),
-        ('region', 'Régions'),
-        ('special', "Collectivités d'outre-mer à statuts particuliers"),
-        ('association', 'Associations'),
-        ('private_sector', 'Entreprises privées'),
-        ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
-        ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
-        ('researcher', 'Recherche'),
-        ('private_person', 'Particuliers'),
-        ('farmer', 'Agriculteurs'),
-    )
+    AUDIENCES = Choices(*AUDIENCES_ALL)
 
     DESTINATIONS = Choices(
         ('supply', 'Dépenses de fonctionnement'),
         ('investment', "Dépenses d'investissement"),
     )
 
-    RECURRENCE = Choices(
+    RECURRENCES = Choices(
         ('oneoff', 'Ponctuelle'),
         ('ongoing', 'Permanente'),
         ('recurring', 'Récurrente'),
@@ -446,7 +412,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'Récurrence',
         help_text="L'aide est-elle ponctuelle, permanente, ou récurrente ?",
         max_length=16,
-        choices=RECURRENCE,
+        choices=RECURRENCES,
         blank=True)
     is_call_for_project = models.BooleanField(
         "Appel à projet / Manifestation d'intérêt",
@@ -662,15 +628,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     def is_financial(self):
         """Does this aid have financial parts?"""
         aid_types = self.aid_types or []
-        return bool(set(aid_types) & set(self.FINANCIAL_AIDS))
+        return bool(set(aid_types) & set(FINANCIAL_AIDS_LIST))
 
     def is_technical(self):
         """Does this aid have technical parts?"""
         aid_types = self.aid_types or []
-        return bool(set(aid_types) & set(self.TECHNICAL_AIDS))
+        return bool(set(aid_types) & set(TECHNICAL_AIDS_LIST))
 
     def is_ongoing(self):
-        return self.recurrence == self.RECURRENCE.ongoing
+        return self.recurrence == self.RECURRENCES.ongoing
 
     def has_calendar(self):
         """Does the aid has valid calendar data?."""

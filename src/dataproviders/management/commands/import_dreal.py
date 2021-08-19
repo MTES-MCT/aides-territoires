@@ -64,7 +64,7 @@ class Command(BaseImportCommand):
         self.perimeters_cache = {}
         self.financers_cache = {}
         self.nouvelle_aquitaine = Perimeter.objects.get(
-            scale=Perimeter.TYPES.region,
+            scale=Perimeter.SCALES.region,
             code=NOUVELLE_AQUITAINE_PERIMETER_CODE)
         self.beneficiaires = []
 

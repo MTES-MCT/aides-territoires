@@ -6,12 +6,12 @@ from django.contrib import admin
 from django.urls import reverse
 from django.db.models import Count, Q
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
 
 from core.forms import RichTextField
+from core.constants import YES_NO_CHOICES
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 from backers.models import BackerGroup, Backer
 from backers.resources import BackerResource
@@ -33,21 +33,18 @@ class BackerGroupAdmin(admin.ModelAdmin):
 
     def nb_backers(self, backer_group):
         return backer_group.backer_count
-    nb_backers.short_description = _('Number of backers')
+    nb_backers.short_description = 'Nombre de porteurs'
     nb_backers.admin_order_field = 'backer_count'
 
 
 class LogoFilter(admin.SimpleListFilter):
     """Custom admin filter to target backers with logos."""
 
-    title = _('Logo image')
+    title = 'Logo du porteur'
     parameter_name = 'logo_status'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -59,7 +56,7 @@ class LogoFilter(admin.SimpleListFilter):
 
 
 class BackerForm(forms.ModelForm):
-    description = RichTextField(label=_('Description'), required=False)
+    description = RichTextField(label='Description', required=False)
 
     class Meta:
         model = Backer
@@ -70,20 +67,24 @@ class BackerAdmin(ImportExportActionModelAdmin):
     """Admin module for aid backers."""
 
     resource_class = BackerResource
-    form = BackerForm
     formats = [base_formats.CSV, base_formats.XLSX]
-    list_display = ['name', 'slug', 'group',
-                    'is_corporate', 'is_spotlighted', 'logo_status',
-                    'nb_financed_aids', 'nb_instructed_aids',
-                    'date_created']
+    list_display = [
+        'name', 'slug', 'group',
+        'is_corporate', 'is_spotlighted', 'logo_status', 'perimeter',
+        'nb_financed_aids', 'nb_instructed_aids',
+        'date_created']
     list_filter = ['is_corporate', 'is_spotlighted', LogoFilter, 'group']
     list_editable = ['is_corporate', 'is_spotlighted']
     search_fields = ['name']
     ordering = ['name']
+
+    form = BackerForm
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['date_created', 'display_related_aids',
-                       'display_related_themes', 'display_related_programs',
-                       'nb_financed_aids', 'nb_instructed_aids']
+    autocomplete_fields = ['perimeter']
+    readonly_fields = [
+        'nb_financed_aids', 'nb_instructed_aids', 'display_related_aids',
+        'display_related_themes', 'display_related_programs',
+        'date_created']
 
     fieldsets = [
         ('', {
@@ -93,27 +94,32 @@ class BackerAdmin(ImportExportActionModelAdmin):
                 'description',
                 'logo',
                 'external_link',
+                'perimeter',
                 'is_corporate',
                 'is_spotlighted',
-                'date_created',
-                'nb_financed_aids',
-                'nb_instructed_aids',
-                'display_related_aids',
-                'display_related_themes',
-                'display_related_programs'
             )
         }),
-        (_('SEO'), {
+        ('SEO', {
             'fields': (
                 'meta_title',
                 'meta_description',
             )
         }),
-        (_('Backer Group'), {
+        ('Groupe de porteurs', {
             'fields': (
                 'group',
             )
-        })
+        }),
+        ('Données diverses', {
+            'fields': (
+                'nb_financed_aids',
+                'nb_instructed_aids',
+                'display_related_aids',
+                'display_related_themes',
+                'display_related_programs',
+                'date_created',
+            )
+        }),
     ]
 
     def get_queryset(self, request):
@@ -125,18 +131,18 @@ class BackerAdmin(ImportExportActionModelAdmin):
 
     def nb_financed_aids(self, obj):
         return obj.nb_financed_aids
-    nb_financed_aids.short_description = _('Financed aids')
+    nb_financed_aids.short_description = 'Aides financées'
     nb_financed_aids.admin_order_field = 'nb_financed_aids'
 
     def nb_instructed_aids(self, obj):
         return obj.nb_instructed_aids
-    nb_instructed_aids.short_description = _('Instructed aids')
+    nb_instructed_aids.short_description = 'Aides instruites'
     nb_instructed_aids.admin_order_field = 'nb_instructed_aids'
 
     def logo_status(self, backer):
         return backer.has_logo()
     logo_status.boolean = True
-    logo_status.short_description = _('Logo image')
+    logo_status.short_description = 'Logo du porteur'
 
     def display_related_aids(self, obj):
         related_aid_html = format_html('<table> \
@@ -159,7 +165,7 @@ class BackerAdmin(ImportExportActionModelAdmin):
             )
         related_aid_html += format_html('</tbody></table>')
         return related_aid_html
-    display_related_aids.short_description = _('Related aids')
+    display_related_aids.short_description = 'Aides associées'
 
     def display_related_themes(self, obj):
         """Display the related themes."""
@@ -185,7 +191,7 @@ class BackerAdmin(ImportExportActionModelAdmin):
             related_themes_html += format_html('<li>')
         related_themes_html += format_html('</ul>')
         return related_themes_html
-    display_related_themes.short_description = _('Related themes')
+    display_related_themes.short_description = 'Thématiques associées'
 
     def display_related_programs(self, obj):
         """Display the related programs."""
@@ -202,7 +208,7 @@ class BackerAdmin(ImportExportActionModelAdmin):
             )
         related_programs_html += format_html('</ul>')
         return related_programs_html
-    display_related_programs.short_description = _('Related programs')
+    display_related_programs.short_description = 'Programmes associés'
 
     class Media:
         css = {

@@ -34,7 +34,7 @@ class Command(CrawlerImportCommand):
 
     def populate_cache(self, *args, **options):
         self.perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.basin) \
+            .filter(scale=Perimeter.SCALES.basin) \
             .filter(code=BASIN_RHONE_MED_CODE) \
             .get()
 

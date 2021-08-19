@@ -195,7 +195,7 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    <strong>{{ _('Aid type') }}</strong>
+                                    <strong>Nature de l'aide</strong>
                                 </h3>
                                 <p>{% choices_display aid 'aid_types' %}</p>
                             </div>
@@ -476,7 +476,7 @@
                     {% endif %}
 
                     {% if aid.eligibility %}
-                    <h3>{{ _('Other eligibility criterias') }}</h3>
+                    <h3>Autres critères d'éligibilité</h3>
                     {{ aid.eligibility|safe }}
                     {% endif %}
                     {% endif %}

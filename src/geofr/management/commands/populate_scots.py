@@ -50,7 +50,7 @@ class Command(BaseCommand):
 
             # Create the scot perimeter
             scot, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.TYPES.adhoc,
+                scale=Perimeter.SCALES.adhoc,
                 code=scot_code,
                 defaults={
                     'name': scot_name,

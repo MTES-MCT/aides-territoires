@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.db.models import Count
-from django.utils.translation import gettext_lazy as _
-
 
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
-from admin_lite.mixins import AdminLiteMixin
+from core.constants import YES_NO_CHOICES
+from admin_lite.mixins import AdminLiteMixin, WithChangePermission, WithFullPermission
 from search.models import SearchPage, SearchPageLite, MinisiteTab, MinisiteTabLite
 from search.forms import SearchPageAdminForm, MinisiteTabForm, MinisiteTabFormLite
 from pages.admin import PageAdmin
@@ -20,7 +19,7 @@ class MinisiteTabInline(admin.TabularInline):
     max_num = 6
 
 
-class MinisiteTabLiteInline(MinisiteTabInline):
+class MinisiteTabLiteInline(WithFullPermission, MinisiteTabInline):
     """
     A lite version that's suitable for non superuser.
     """
@@ -116,10 +115,7 @@ class AdministratorFilter(admin.SimpleListFilter):
     parameter_name = 'has_administrator'
 
     def lookups(self, request, model_admin):
-        return (
-            ('Yes', _('Yes')),
-            ('No', _('No')),
-        )
+        return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -188,7 +184,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class SearchPageLiteAdmin(AdminLiteMixin, SearchPageAdmin):
+class SearchPageLiteAdmin(WithChangePermission, AdminLiteMixin, SearchPageAdmin):
     prepopulated_fields = {}
     fieldsets_with_inlines = LITE_FIELDSETS_SEARCH_PAGE
 

@@ -30,17 +30,24 @@ class Program(models.Model):
         max_length=256)
     slug = models.SlugField(
         _('Slug'))
-    logo = models.FileField(
-        _('Logo'),
-        null=True, blank=True,
-        upload_to=logo_upload_to,
-        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
     short_description = models.CharField(
         _('Short description'),
         help_text=_('Will only appear in search results. 300 chars. max.'),
         max_length=300)
     description = models.TextField(
         _('Description'))
+
+    logo = models.FileField(
+        _('Logo'),
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+
+    perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name='Périmètre',
+        on_delete=models.PROTECT,
+        null=True, blank=True)
 
     # SEO
     meta_title = models.CharField(

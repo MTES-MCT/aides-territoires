@@ -16,8 +16,8 @@ class UploadImage(models.Model):
         auto_now_add=True)
 
     class Meta:
-        verbose_name = _('Upload image')
-        verbose_name_plural = _('Upload images')
+        verbose_name = "image"
+        verbose_name_plural = "images"
 
     def __str__(self):
         return self.image.name

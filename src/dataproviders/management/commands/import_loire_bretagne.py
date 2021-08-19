@@ -51,7 +51,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
 
         self.perimeter_loire_bretagne = Perimeter.objects.get(
-            scale=Perimeter.TYPES.basin,
+            scale=Perimeter.SCALES.basin,
             code=LOIRE_BRETAGNE_PERIMETER_CODE)
         self.backer_loire_bretagne = Backer.objects.get(
             id=LOIRE_BRETAGNE_FINANCER_ID)
@@ -138,7 +138,7 @@ class Command(BaseImportCommand):
         return [self.backer_loire_bretagne]
 
     def extract_recurrence(self, line):
-        return Aid.RECURRENCE.oneoff
+        return Aid.RECURRENCES.oneoff
 
     def extract_aid_types(self, line):
         return [Aid.TYPES.grant]

@@ -1,9 +1,7 @@
-from django.utils.translation import gettext_lazy as _
 from django.db.models.fields import TextField, CharField, URLField
 
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
-
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 
 from aids.models import Aid
@@ -126,6 +124,9 @@ class AidResource(resources.ModelResource):
             # avoid None for fields text fields (happens from xlsx)
             if type(field_model) in [TextField, CharField, URLField]:
                 data[field.column_name] = data.get(field.column_name, '') or ''
+            # keep linebreaks in TextField columns
+            if type(field_model) == TextField:
+                data[field.column_name] = data[field.column_name].replace('\n', '<br />\n')
             # avoid empty string for fields with base_field
             if hasattr(field_model, 'base_field') and not data[field.column_name]:  # noqa
                 data[field.column_name] = None
@@ -140,9 +141,9 @@ class AidResource(resources.ModelResource):
                     data[field.column_name] = ','.join(data[field.column_name])
                 # BooleanField fields
                 if field.column_name in AIDS_BOOLEAN_FIELDS:
-                    if data[field.column_name] == _('Yes'):
+                    if data[field.column_name] == 'Oui':
                         data[field.column_name] = True
-                    elif data[field.column_name] == _('No'):
+                    elif data[field.column_name] == 'Non':
                         data[field.column_name] = False
                     else:
                         data[field.column_name] = None
@@ -192,7 +193,7 @@ class AidResource(resources.ModelResource):
             elif field_model.get_internal_type() == 'BooleanField':
                 value_raw = field.get_value(obj)
                 if value_raw is not None:
-                    return _('Yes') if value_raw else _('No')
+                    return 'Oui' if value_raw else 'Non'
 
         # subvention_rate
         if field.column_name == 'subvention_rate':

@@ -16,13 +16,13 @@ class PerimeterAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
 
     form = PerimeterAdminForm
-    list_display = ('scale', 'name', 'manually_created', 'is_visible_to_users',
-                    'code', 'is_overseas',
-                    'regions', 'departments', 'epci', 'zipcodes', 'basin')
-    list_filter = ('scale', 'is_overseas', 'manually_created',
-                   'is_visible_to_users')
+    list_display = [
+        'scale', 'name', 'manually_created', 'is_visible_to_users',
+        'code', 'is_overseas',
+        'regions', 'departments', 'epci', 'zipcodes', 'basin']
+    list_filter = ['scale', 'is_overseas', 'manually_created', 'is_visible_to_users']
     search_fields = ['id', 'name', 'code']
-    ordering = ('-scale', 'name')
+    ordering = ['-date_created']
     # readonly_fields ? managed below
 
     class Media:
@@ -37,7 +37,7 @@ class PerimeterAdmin(admin.ModelAdmin):
         - Allow code edition for new or manually_created perimeters
         """
         readonly_fields = [f.name for f in Perimeter._meta.fields]
-        if not obj or (obj.scale == Perimeter.TYPES.adhoc):
+        if not obj or (obj.scale == Perimeter.SCALES.adhoc):
             readonly_fields.remove('name')
             readonly_fields.remove('is_visible_to_users')
         if not obj or obj.manually_created:
@@ -65,7 +65,7 @@ class PerimeterAdmin(admin.ModelAdmin):
         from the geo api or other official data sources.
         """
         obj.manually_created = True
-        obj.scale = Perimeter.TYPES.adhoc
+        obj.scale = Perimeter.SCALES.adhoc
         super().save_model(request, obj, form, change)
 
     def save_related(self, request, form, formsets, change):
@@ -73,7 +73,7 @@ class PerimeterAdmin(admin.ModelAdmin):
 
         if not change:
             perimeters = Perimeter.objects.filter(scale__in=(
-                Perimeter.TYPES.continent, Perimeter.TYPES.country
+                Perimeter.SCALES.continent, Perimeter.SCALES.country
             ))
             obj = form.instance
             obj.contained_in.add(*perimeters)

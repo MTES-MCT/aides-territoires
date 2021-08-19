@@ -24,7 +24,7 @@ class Command(CrawlerImportCommand):
 
     def populate_cache(self, *args, **options):
         self.occitanie_perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region) \
+            .filter(scale=Perimeter.SCALES.region) \
             .filter(code=OCCITANIE_PERIMETER_CODE) \
             .get()
         self.occitanie_financer = Backer.objects.get(

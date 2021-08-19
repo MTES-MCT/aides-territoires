@@ -44,7 +44,7 @@
                 {% include '_form_header.html' with form=form %}
 
                 <fieldset>
-                    <legend>{{ _('Personal data') }}</legend>
+                    <legend>Informations personnelles</legend>
                     {% include '_field_snippet.html' with field=form.first_name %}
                     {% include '_field_snippet.html' with field=form.last_name %}
                     {% include '_field_snippet.html' with field=form.email %}
@@ -53,7 +53,7 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend>{{ _('Professional data') }}</legend>
+                    <legend>Informations professionnelles</legend>
                     {% include '_field_snippet.html' with field=form.organization %}
                     {% include '_field_snippet.html' with field=form.role %}
                     {% include '_field_snippet.html' with field=form.contact_phone %}

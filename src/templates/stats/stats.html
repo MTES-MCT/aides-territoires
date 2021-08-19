@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n humanize %}
 
-{% block extratitle %}{{ _('Public stats') }}{% endblock %}
+{% block extratitle %}Statistiques publiques{% endblock %}
 
 {% block content %}
 <section id="stats" class="fr-container">
@@ -20,9 +20,9 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">{{ _('Sent alerts') }}</p>
+                    <p class="fr-mb-0 fr-h6">Alertes envoyées</p>
                     <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        Emails sent with new alerts notification
+                        E-mails d'alertes « nouvelles aides »
                     {% endblocktrans %}</p>
                 </h4>
                 <p class="fr-card__desc fr-h1">{{ nb_sent_alerts|intcomma }}</p>
@@ -32,9 +32,9 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">{{ _('Viewed aids') }}</p>
+                    <p class="fr-mb-0 fr-h6">Aides vues</p>
                     <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        Aids viewed within the last 7 days
+                        Aides vues sur les 7 derniers jours
                     {% endblocktrans %}</p>
                 </h4>
                 <p class="fr-card__desc fr-h1">{{ nb_viewed_aids|intcomma }}</p>
@@ -44,15 +44,15 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">{{ _('Aid backers') }}</p>
+                    <p class="fr-mb-0 fr-h6">Porteurs d'aides</p>
                     <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        Organizations that are financing or instructing aids
+                        Organisations diffusant au moins une aide financière ou en ingénierie
                     {% endblocktrans %}</p>
                 </h4>
                 <p class="fr-card__desc fr-h1">{{ nb_backers|intcomma }}</p>
             </div>
         </div>
-        
+
     </div>
 </section>
 {% endblock %}

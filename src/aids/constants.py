@@ -1,3 +1,5 @@
+# Aid Audiences
+
 COLLECTIVITIES_AUDIENCES = (
     ('commune', 'Communes'),
     ('epci', 'EPCI à fiscalité propre'),
@@ -16,7 +18,44 @@ OTHER_AUDIENCES = (
     ('researcher', 'Recherche'),
 )
 
+AUDIENCES_ALL = COLLECTIVITIES_AUDIENCES + OTHER_AUDIENCES
+
 AUDIENCES_GROUPED = (
     ('Collectivités', COLLECTIVITIES_AUDIENCES),
     ('Autres bénéficiaires', OTHER_AUDIENCES)
+)
+
+
+# Aid Types
+
+FINANCIAL_AIDS = (
+    ('grant', 'Subvention'),
+    ('loan', 'Prêt'),
+    ('recoverable_advance', 'Avance récupérable'),
+)
+
+OTHER_AIDS = (
+    ('other', 'Autre'),
+)
+
+FINANCIAL_AIDS_LIST = ('grant', 'loan', 'recoverable_advance', 'other')
+
+TECHNICAL_AIDS = (
+    ('technical', 'Technique'),
+    ('financial', 'Financière'),
+    ('legal', 'Juridique / administrative'),
+)
+
+TECHNICAL_AIDS_LIST = ('technical', 'financial', 'legal')
+
+TYPES_ALL = FINANCIAL_AIDS + TECHNICAL_AIDS + OTHER_AIDS
+
+TYPES_GROUPED = (
+    ('Aides financières', FINANCIAL_AIDS + OTHER_AIDS),
+    ('Aides en ingénierie', TECHNICAL_AIDS),
+)
+
+AID_TYPE_CHOICES = (
+    ('financial', 'Aide financière'),
+    ('technical', 'Aide en ingénierie'),
 )

@@ -74,7 +74,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
         self.france = Perimeter.objects.get(code='FRA')
         regions_qs = Perimeter.objects \
-            .filter(scale=Perimeter.TYPES.region)
+            .filter(scale=Perimeter.SCALES.region)
         self.regions = list(regions_qs)
         self.ademe = Backer.objects.get(id=BACKER_ID)
         super().handle(*args, **options)

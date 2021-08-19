@@ -50,7 +50,7 @@ class Command(BaseImportCommand):
     def handle(self, *args, **options):
 
         self.france = Perimeter.objects.get(
-            scale=Perimeter.TYPES.country,
+            scale=Perimeter.SCALES.country,
             code='FRA')
         self.bpi = Backer.objects.get(slug='bpi-france')
 
@@ -141,4 +141,4 @@ class Command(BaseImportCommand):
         return [t for t in aid_types if t]
 
     def extract_recurrence(self, line):
-        return Aid.RECURRENCE.ongoing
+        return Aid.RECURRENCES.ongoing

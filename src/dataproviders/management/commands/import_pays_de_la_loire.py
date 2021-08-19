@@ -60,8 +60,8 @@ CALL_FOR_PROJECT_LIST = [
 ]
 
 RECURRENCE_DICT = {
-    'Temporaire': Aid.RECURRENCE.oneoff,
-    'Permanent': Aid.RECURRENCE.ongoing,
+    'Temporaire': Aid.RECURRENCES.oneoff,
+    'Permanent': Aid.RECURRENCES.ongoing,
 }
 
 

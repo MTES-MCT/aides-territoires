@@ -3,7 +3,6 @@ from django.http import Http404
 from django.forms import modelform_factory
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 
 from aids.templatetags.amendments import extract_value
 from aids.forms import AidEditForm
@@ -17,7 +16,7 @@ class AmendmentMerge(SuccessMessageMixin, UpdateView):
     pk_url_kwarg = 'object_id'
     context_object_name = 'aid'
     success_url = reverse_lazy('admin:aids_amendment_changelist')
-    success_message = _('The aid was successfully updated.')
+    success_message = "L'aide a bien été mise à jour."
 
     def get_queryset(self):
         qs = Aid.amendments.all() \

@@ -8,8 +8,8 @@ from django.db import connection
 
 from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
-from geofr.factories import PerimeterFactory
 from geofr.models import Perimeter
+from geofr.factories import PerimeterFactory
 from categories.factories import CategoryFactory
 
 
@@ -98,52 +98,52 @@ def category():
 def perimeters():
 
     europe = PerimeterFactory(
-        scale=Perimeter.TYPES.continent,
+        scale=Perimeter.SCALES.continent,
         name='Europe',
         code='EU')
     france = PerimeterFactory(
-        scale=Perimeter.TYPES.country,
+        scale=Perimeter.SCALES.country,
         contained_in=[europe],
         name='France',
         code='FRA')
     metropole = PerimeterFactory(
-        scale=Perimeter.TYPES.adhoc,
+        scale=Perimeter.SCALES.adhoc,
         contained_in=[europe, france],
         name='Métropole',
         code='FRA-MET')
     outre_mer = PerimeterFactory(
-        scale=Perimeter.TYPES.adhoc,
+        scale=Perimeter.SCALES.adhoc,
         contained_in=[europe, france],
         name='Outre-mer',
         code='FRA-OM')
     rhonemed = PerimeterFactory(
-        scale=Perimeter.TYPES.basin,
+        scale=Perimeter.SCALES.basin,
         contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Rhône-Méditerannée',
         country='FRA',
         code='FR000006')
     adour_garonne = PerimeterFactory(
-        scale=Perimeter.TYPES.basin,
+        scale=Perimeter.SCALES.basin,
         contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Adour-Garonne',
         code='FR000005')
     occitanie = PerimeterFactory(
-        scale=Perimeter.TYPES.region,
+        scale=Perimeter.SCALES.region,
         contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Occitanie',
         code='76')
     herault = PerimeterFactory(
-        scale=Perimeter.TYPES.department,
+        scale=Perimeter.SCALES.department,
         contained_in=[europe, france, occitanie, metropole],
         is_overseas=False,
         name='Hérault',
         code='34',
         regions=['76'])
     montpellier = PerimeterFactory(
-        scale=Perimeter.TYPES.commune,
+        scale=Perimeter.SCALES.commune,
         contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
         is_overseas=False,
         name='Montpellier',
@@ -152,7 +152,7 @@ def perimeters():
         departments=['34'],
         basin='FR000006')
     vic = PerimeterFactory(
-        scale=Perimeter.TYPES.commune,
+        scale=Perimeter.SCALES.commune,
         contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
         is_overseas=False,
         name='Vic-la-Gardiole',
@@ -161,14 +161,14 @@ def perimeters():
         departments=['34'],
         basin='FR000006')
     aveyron = PerimeterFactory(
-        scale=Perimeter.TYPES.department,
+        scale=Perimeter.SCALES.department,
         contained_in=[europe, france, occitanie, metropole],
         is_overseas=False,
         name='Aveyron',
         code='12',
         regions=['76'])
     rodez = PerimeterFactory(
-        scale=Perimeter.TYPES.commune,
+        scale=Perimeter.SCALES.commune,
         contained_in=[europe, france, occitanie, aveyron, adour_garonne,
                       metropole],
         is_overseas=False,
@@ -178,20 +178,20 @@ def perimeters():
         departments=['12'],
         basin='FR000005')
     normandie = PerimeterFactory(
-        scale=Perimeter.TYPES.region,
+        scale=Perimeter.SCALES.region,
         contained_in=[europe, france, metropole],
         is_overseas=False,
         name='Normandie',
         code='28')
     eure = PerimeterFactory(
-        scale=Perimeter.TYPES.department,
+        scale=Perimeter.SCALES.department,
         contained_in=[europe, france, normandie, metropole],
         is_overseas=False,
         name='Eure',
         code='28',
         regions=['28'])
     st_cyr = PerimeterFactory(
-        scale=Perimeter.TYPES.commune,
+        scale=Perimeter.SCALES.commune,
         contained_in=[europe, france, normandie, eure, metropole],
         is_overseas=False,
         name='Saint-Cyr-la-Campagne',
@@ -199,7 +199,7 @@ def perimeters():
         regions=['28'],
         departments=['27'])
     fort_de_france = PerimeterFactory(
-        scale=Perimeter.TYPES.commune,
+        scale=Perimeter.SCALES.commune,
         contained_in=[europe, france, outre_mer],
         is_overseas=True,
         name='Fort-de-France',
