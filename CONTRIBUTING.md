@@ -76,72 +76,10 @@ En staging et en production, les variables d'environments sont spécifiées dire
 
 ### Maintenir le code HTML propre
 
-Le projet utilise [Bootstrap](http://getbootstrap.com/) pour faciliter le
-développement et proposer un rendu homogène. Toutefois, c'est la version Sass
-du framework css qui est utiliséee, afin d'éviter de pourrir le code HTML de
-classes non-sémantiques.
+Le projet utilise [Le Système de Design de l'Etat](https://gouvfr.atlassian.net/wiki/spaces/DB/overview) pour faciliter le développement, proposer un rendu homogène. 
 
-Les intervenant·es sur le code sont donc *prié·es de ne pas utiliser de classes
-spécifiques à Bootstrap dans le HTML*, mais d'utiliser des classes et ids
-sémantiques.
-
-Incorrect : 
-
-```html
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="…">Aides-territoires</a>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="…">Lien</a></li>
-        </ul>
-        <span class="text-right navbar-text">Beta</span>
-    </div>
-</nav>
-```
-
-Correct :
-
-```html
-<nav id="main-navbar">
-    <div class="container">
-        <a class="homelink" href="…">Aides-territoires</a>
-        <ul class="homenav">
-            <li><a href="…">Lien</a></li>
-        </ul>
-        <span>Beta</span>
-    </div>
-</nav>
-```
-
-```css
-nav#main-navbar {
-    @extend .navbar;
-    @extend .navbar-dark;
-    @extend .bg-dark;
-
-    .homelink {
-        @extend .navbar-brand;
-    }
-
-    ul.homenav {
-        @extend .navbar-nav;
-        @extend .mr-auto;
-
-        li {
-            @extend .nav-item;
-
-            a {
-                @extend .nav-link;
-            }
-        }
-    }
-
-    span {
-        @extend .text-right;
-        @extend .navbar-text;
-    }
-}
-```
+Les intervenant·es sur le code sont donc *prié·es d'utiliser autant que possible les classes
+spécifiques au Système de Design de l'Etat dans le HTML.
 
 ### Utilisation de django-compressor
 
