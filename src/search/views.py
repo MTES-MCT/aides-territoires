@@ -1,6 +1,5 @@
 from django.views.generic import FormView
 
-from projects.forms import ProjectSuggestForm
 from aids.forms import AidSearchForm
 from search.forms import (AudienceSearchForm, PerimeterSearchForm,
                           ThemeSearchForm, CategorySearchForm)

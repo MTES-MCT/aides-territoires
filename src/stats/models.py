@@ -193,41 +193,6 @@ class Event(models.Model):
         ]
 
 
-class AidMatchProjectEvent(models.Model):
-    aid = models.ForeignKey(
-        'aids.Aid',
-        verbose_name=_('Aid'),
-        on_delete=models.PROTECT)
-
-    project = models.ForeignKey(
-        'projects.Project',
-        verbose_name=_('Project'),
-        on_delete=models.PROTECT)
-
-    is_matching = models.BooleanField(
-        _('Is the project match the aid?'),
-        default=False,
-        help_text=_(
-            'If the project match the aid'))
-
-    querystring = models.TextField(
-        _('Querystring'),
-        default='')
-
-    source = models.CharField(
-        'Source',
-        max_length=256,
-        blank=True, default='')
-
-    date_created = models.DateTimeField(
-        _('Date created'),
-        default=timezone.now)
-
-    class Meta:
-        verbose_name = _('Aid Match Project Event')
-        verbose_name_plural = _('Aid Match Project Events')
-
-
 class PromotionDisplayEvent(models.Model):
     promotion = models.ForeignKey(
         'blog.PromotionPost',
