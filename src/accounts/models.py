@@ -11,6 +11,11 @@ class UserQueryset(models.QuerySet):
 
         return self.filter(is_contributor=True)
 
+    def beneficiaries(self):
+        """Only return users who are beneficiaries."""
+
+        return self.filter(is_beneficiary=True)
+
     def search_page_admins(self):
         """Only return users who are search page administrators."""
 
@@ -60,6 +65,11 @@ class UserManager(BaseUserManager):
 
         return self.get_queryset().contributors()
 
+    def beneficiaries(self):
+        """Only return users who are beneficiaries."""
+
+        return self.get_queryset().beneficiaries()
+
     def search_page_admins(self):
         """Only return users who are search page administrators."""
 
@@ -97,15 +107,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False)
 
     # Contributors related data
-    organization = models.CharField(
+    contributor_organization = models.CharField(
         'Organisme',
         max_length=128,
         blank=True)
-    role = models.CharField(
+    contributor_role = models.CharField(
         'Rôle',
         max_length=128,
         blank=True)
-    contact_phone = models.CharField(
+    contributor_contact_phone = models.CharField(
         'Numéro de téléphone',
         max_length=35,
         blank=True)
@@ -114,10 +124,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Afficher un badge à côté des aides publiées par ce compte.',
         default=False)
 
+    # Beneficiaries related data
+    beneficiary_organization = models.ForeignKey(
+        'organizations.Organization',
+        verbose_name="Structure du bénéficiaire",
+        on_delete=models.PROTECT,
+        help_text="A quelle structure appartient le bénéficiaire ?",
+        null=True, blank=True)
+
     # Roles
     is_contributor = models.BooleanField(
         'Contributeur ?',
         help_text='Peut accéder à un espace pour créer et modifier ses aides.',
+        default=True)
+    is_beneficiary = models.BooleanField(
+        'Bénéficiaire ?',
+        help_text='Peut accéder à un espace pour créer et modifier ses projets.',
         default=True)
     animator_perimeter = models.ForeignKey(
         'geofr.Perimeter',
@@ -163,7 +185,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def profile_complete(self):
         """Contributors need to specify more personal data."""
-        return self.organization and self.role and self.contact_phone
+        return self.contributor_organization and self.contributor_role and self.contributor_contact_phone
 
     @property
     def is_administrator_of_search_pages(self):
