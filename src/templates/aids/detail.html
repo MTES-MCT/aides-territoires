@@ -39,8 +39,6 @@
 
 {% block content %}
 <article id="aid" class="fr-container fr-mb-5w">
-    <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-md-10">
             {% if aid.submission_deadline and not aid.is_ongoing %}
             <div class="deadline-data">
                 {% if aid.has_approaching_deadline %}
@@ -85,18 +83,18 @@
             {% endif %}
 
             <section class="aid-content fr-grid-row fr-mt-5w">
-                <div class="sidebar fr-col-xs-12 fr-col-md-4 fr-p-3w fr-background-alt">
+                <div class="sidebar fr-col-12 fr-col-md-4 fr-p-3w fr-background-alt">
 
                     {% if aid.is_local or aid.is_generic %}
                         {% if aid.is_local %}
-                        <div class="card">
+                        <div>
                             <div class="local-generic fr-mb-4w fr-grid-row">
                                 <div class="fr-col-2">
                                     <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
                                 </div>
                                 <div class="fr-col-10">
                                     <h3 class="fr-h6">{{ _('Local aid') }}</h3>
-                                    <p>
+                                    <p class="fr-mb-0">
                                         {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
                                     </p>
                                 </div>
@@ -105,14 +103,14 @@
                         {% endif %}
 
                         {% if aid.is_generic %}
-                        <div class="card">
+                        <div>
                             <div class="local-generic fr-mb-4w fr-grid-row">
                                 <div class="fr-col-2">
                                     <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
                                 </div>
                                 <div class="fr-col-10">
                                     <h3 class="fr-h6">{{ _('National measure') }}</h3>
-                                    <p>
+                                    <p class="fr-mb-0">
                                         {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
                                     </p>    
                                 </div>
@@ -122,7 +120,7 @@
                     {% endif %}
 
                     {% if financers or instructors %}
-                    <div class="card">
+                    <div>
 
                         {% if financers %}
                         <div class="financers fr-mb-4w fr-grid-row">
@@ -170,7 +168,7 @@
                     </div>
                     {% endif %}
 
-                    <div class="card">
+                    <div>
                         {% if aid.is_call_for_project %}
                         <div class="call-for-project fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
@@ -197,7 +195,7 @@
                                 <h3 class="fr-h6">
                                     <strong>Nature de l'aide</strong>
                                 </h3>
-                                <p>{% choices_display aid 'aid_types' %}</p>
+                                <p class="fr-mb-0">{% choices_display aid 'aid_types' %}</p>
                             </div>
                         </div>
 
@@ -221,7 +219,7 @@
                                 </ul>
                                 {% endif %}
                                 {% if aid.subvention_comment %}
-                                <p>
+                                <p class="fr-mb-0">
                                     {{ aid.subvention_comment }}
                                 </p>
                                 {% endif %}
@@ -278,7 +276,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="card">
+                    <div>
                         {% if aid.recurrence %}
                         <div class="recurrence fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
@@ -288,7 +286,7 @@
                                 <h3 class="fr-h6">
                                     Récurrence
                                 </h3>
-                                <p>{{ aid.get_recurrence_display }}</p>    
+                                <p class="fr-mb-0">{{ aid.get_recurrence_display }}</p>    
                             </div>
                         </div>
                         {% endif %}
@@ -303,7 +301,7 @@
                                 <h3 class="fr-h6">
                                     Date d'ouverture
                                 </h3>
-                                <p>{{ aid.start_date|date }}</p>    
+                                <p class="fr-mb-0">{{ aid.start_date|date }}</p>    
                             </div>
                         </div>
                         {% endif %}
@@ -317,7 +315,7 @@
                                 <h3 class="fr-h6">
                                     Date de pré-dépôt
                                 </h3>
-                                <p>{{ aid.predeposit_date|date }}</p>    
+                                <p class="fr-mb-0">{{ aid.predeposit_date|date }}</p>    
                             </div>
                         </div>
                         {% endif %}
@@ -331,7 +329,7 @@
                                 <h3 class="submission_deadline fr-h6">
                                     Date de clôture
                                 </h3>
-                                <p>{{ aid.submission_deadline|date }}</p>    
+                                <p class="fr-mb-0">{{ aid.submission_deadline|date }}</p>    
                             </div>
                         </div>
                         {% endif %}
@@ -339,7 +337,7 @@
                     </div>
 
                     {% if aid.is_imported %}
-                    <div class="card">
+                    <div>
                         <div class="data-origin fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
                                 <i class="ri-database-2-line ri-xl"></i>
@@ -360,9 +358,9 @@
                     {% endif %}
 
                     {% if financers_with_logo %}
-                    <div class="card fr-mb-4w">
+                    <div class="fr-grid-row fr-mb-4w">
                         {% for financer in financers_with_logo %}
-                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}">
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
                             <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
                         </a>
                         {% endfor %}
@@ -370,9 +368,9 @@
                     {% endif %}
 
                     {% if programs %}
-                    <div class="card fr-mb-4w">
+                    <div class="fr-grid-row fr-mb-4w">
                         {% for program in programs %}
-                        <a href="{% url 'program_detail' program.slug %}">
+                        <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
                             <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
                         </a>
                         {% endfor %}
@@ -380,7 +378,7 @@
                     {% endif %}
 
                     {% if aid.is_corporate_aid %}
-                    <div class="card fr-mb-4w fr-grid-row" id="aid-entreprise">
+                    <div class="fr-mb-4w fr-grid-row" id="aid-entreprise">
                         <div class="fr-col-2">
                             <i class="ri-building-4-fill ri-xl fr-mr-1w"></i>
                         </div>
@@ -393,7 +391,7 @@
                     </div>
                     {% endif %}
 
-                    <div class="card">
+                    <div>
                         <div class="share fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
                                 <i class="ri-share-forward-fill ri-xl fr-mr-1w"></i>
@@ -410,7 +408,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div>
                         <div class="suggest-modification fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
                                 <i class="ri-pencil-fill ri-xl fr-mr-1w"></i>
@@ -431,7 +429,7 @@
 
                 </div>
 
-                <div class="aid-details fr-col-xs-12 fr-col-md-8 fr-pb-3w fr-px-3w">
+                <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
 
                     <h2>{{ _('Global presentation') }}</h2>
 
@@ -491,9 +489,9 @@
 
                     {% if aid.is_generic %}
                     {% with local_aids=aid.get_sorted_local_aids %}
-                        <h2 id="aides-locales">
+                        <h3 id="aides-locales">
                             {{ _('Local variants') }}
-                        </h2>
+                        </h3>
                         <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
                         {% if local_aids %}
                             <div id="localAidsLinks">
@@ -536,8 +534,6 @@
                         </div>
                     </section>
             </section>
-        </div>
-    </div>
 </article>
 
 <div id="save-alert-block" class="fr-container fr-grid-row fr-mb-5w fr-grid-row--center fr-p-3w fr-background-alt-pink">
