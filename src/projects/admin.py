@@ -9,16 +9,10 @@ from import_export.formats import base_formats
 from core.forms import RichTextField
 from projects.models import Project
 from projects.resources import ProjectResource
-from categories.fields import CategoryMultipleChoiceField
 
 
 class ProjectForm(forms.ModelForm):
     description = RichTextField(label=_('Description'), required=False)
-
-    categories = CategoryMultipleChoiceField(
-        label=_('Categories'),
-        required=False,
-        widget=FilteredSelectMultiple(_('Categories'), True))
 
     class Meta:
         model = Project
@@ -30,17 +24,15 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ['name', 'status', 'date_created']
+    list_display = ['name', 'date_created']
     prepopulated_fields = {'slug': ('name',)}
     fields = [
-        'name', 'slug', 'description', 'categories',
-        'key_words', 'is_suggested', 'date_created',
-        'status'
+        'name', 'slug', 'description',
+        'key_words', 'aids_associated', 'due_date', 'date_created',
     ]
     search_fields = ['name']
-    list_filter = ['is_suggested', 'categories__theme', 'categories', 'status']
     readonly_fields = ['date_created']
-    filter_vertical = ['categories']
+    autocomplete_fields = ['aids_associated']
 
     class Media:
         css = {

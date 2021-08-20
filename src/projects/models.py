@@ -4,28 +4,9 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from model_utils import Choices
-from django_xworkflows import models as xwf_models
 
 
-class ProjectWorkflow(xwf_models.Workflow):
-    """Defines statuses for Projects."""
-
-    log_model = ''
-
-    states = Choices(
-        ('draft', 'Brouillon'),
-        ('reviewable', 'En revue'),
-        ('published', 'Publié'),
-    )
-    initial_state = 'reviewable'
-    transitions = (
-        ('submit', 'draft', 'reviewable'),
-        ('publish', 'reviewable', 'published'),
-        ('unpublish', ('reviewable', 'published'), 'draft'),
-    )
-
-
-class Project(xwf_models.WorkflowEnabled, models.Model):
+class Project(models.Model):
 
     name = models.CharField(
         _('Project name'),
@@ -38,25 +19,19 @@ class Project(xwf_models.WorkflowEnabled, models.Model):
     description = models.TextField(
         _('Full description of the project'),
         default='', blank=True)
-    categories = models.ManyToManyField(
-        'categories.Category',
-        verbose_name=_('Categories'),
-        related_name='projects',
-        blank=True)
     key_words = models.TextField(
         _('Key words'),
         help_text=_('key words associated to the project'),
         default='', blank=True)
+    aids_associated = models.ManyToManyField(
+        'aids.Aid',
+        verbose_name='Aids',
+        blank=True)
 
-    is_suggested = models.BooleanField(
-        _('Is a suggested project?'),
-        default=False,
-        help_text=_(
-            'If the project is suggested by a user'))
+    due_date = models.DateTimeField(
+        "Date d'échéance",
+        null=True, blank=True)
 
-    status = xwf_models.StateField(
-        ProjectWorkflow,
-        verbose_name=_('Status'))
     date_created = models.DateTimeField(
         _('Date created'),
         default=timezone.now)
@@ -80,12 +55,3 @@ class Project(xwf_models.WorkflowEnabled, models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
-
-    def is_draft(self):
-        return self.status == ProjectWorkflow.states.draft
-
-    def is_under_review(self):
-        return self.status == ProjectWorkflow.states.reviewable
-
-    def is_published(self):
-        return self.status == ProjectWorkflow.states.published
