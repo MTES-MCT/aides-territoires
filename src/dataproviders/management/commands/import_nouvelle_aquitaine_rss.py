@@ -8,6 +8,7 @@ from datetime import datetime
 from django.utils import timezone
 
 from dataproviders.models import DataSource
+from dataproviders.utils import build_audiences_mapping_dict, build_categories_mapping_dict, extract_mapping_values_from_list
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
@@ -23,33 +24,17 @@ DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=1)
 
-AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_audiences_mapping.csv'
-SOURCE_COLUMN_NAME = 'Bénéficiaires Nouvelle-Aquitaine'
-AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4']
-with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
-    csvreader = csv.DictReader(csv_file, delimiter=",")
-    for index, row in enumerate(csvreader):
-        if row[AT_COLUMN_NAMES[0]]:
-            AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]] = []
-            for column in AT_COLUMN_NAMES:
-                if row[column]:
-                    audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])
-                    AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
+AUDIENCES_DICT = build_audiences_mapping_dict(
+    AUDIENCES_MAPPING_CSV_PATH,
+    source_column_name='Bénéficiaires Nouvelle-Aquitaine',
+    at_column_names=['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4'])
 
-CATEGORIES_DICT = {}
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_categories_mapping.csv'
-SOURCE_COLUMN_NAME = 'Thématique Nouvelle-Aquitaine'
-AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3']
-with open(CATEGORIES_MAPPING_CSV_PATH) as csv_file:
-    csvreader = csv.DictReader(csv_file, delimiter=",")
-    for index, row in enumerate(csvreader):
-        if row[AT_COLUMN_NAMES[0]]:
-            CATEGORIES_DICT[row[SOURCE_COLUMN_NAME]] = []
-            for column in AT_COLUMN_NAMES:
-                if row[column]:
-                    category = Category.objects.get(name=row[column])
-                    CATEGORIES_DICT[row[SOURCE_COLUMN_NAME]].append(category)
+CATEGORIES_DICT = build_categories_mapping_dict(
+    CATEGORIES_MAPPING_CSV_PATH,
+    source_column_name='Thématique Nouvelle-Aquitaine',
+    at_column_names=['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3'])
 
 ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
 
@@ -161,33 +146,25 @@ class Command(CrawlerImportCommand):
             return submission_deadline
         return None
 
-    def extract_categories(self, line):
-        """
-        Exemple of string to process: "Performance et compétitivité;Agroalimentaire"
-        Split the string, loop on the values and match to our Categories
-        """
-        categories = line.get('domaines_secondaires', '').split(';')
-        aid_categories = []
-        for category in categories:
-            if category in CATEGORIES_DICT:
-                aid_categories.extend(CATEGORIES_DICT.get(category, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Category {category} not mapped'))
-        return aid_categories
-
     def extract_targeted_audiences(self, line):
         """
         Exemple of string to process: "Association;Collectivité territoriale;Entreprise;Établissement public"
-        Split the string, loop on the values and match to our Audiences
         """
-        audiences = line.get('publics_concernes', '').split(';')
-        aid_audiences = []
-        for audience in audiences:
-            if audience in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+        source_audiences_list = line.get('publics_concernes', '').split(';')
+        aid_audiences = extract_mapping_values_from_list(
+            AUDIENCES_DICT,
+            list_of_elems=source_audiences_list)
         return aid_audiences
+
+    def extract_categories(self, line):
+        """
+        Exemple of string to process: "Performance et compétitivité;Agroalimentaire"
+        """
+        source_categories_list = line.get('domaines_secondaires', '').split(';')
+        aid_categories = extract_mapping_values_from_list(
+            CATEGORIES_DICT,
+            list_of_elems=source_categories_list)
+        return aid_categories
 
     def extract_project_examples(self, line):
         """Use the project_examples textfield to store metadata"""

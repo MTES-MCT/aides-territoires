@@ -89,10 +89,7 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
     return prettified
 
 
-def build_audiences_mapping_dict(
-    audiences_mapping_csv_path,
-    source_column_name='Bénéficiaires',
-    at_column_names=['Bénéficiaires AT']):
+def build_audiences_mapping_dict(audiences_mapping_csv_path, source_column_name='Bénéficiaires', at_column_names=['Bénéficiaires AT']):  # noqa
     """
     Method to extract audiences mapping from a specified csv file
     source audience --> 1 or multiple AT audiences
@@ -115,10 +112,7 @@ def build_audiences_mapping_dict(
     return audiences_dict
 
 
-def build_categories_mapping_dict(
-    categories_mapping_csv_path,
-    source_column_name='Sous-thématiques',
-    at_column_names=['Sous-thématiques AT']):
+def build_categories_mapping_dict(categories_mapping_csv_path, source_column_name='Sous-thématiques', at_column_names=['Sous-thématiques AT']):  # noqa
     """
     Method to extract categories mapping from a specified csv file
     source category --> 1 or multiple AT categories (or theme !)
@@ -161,14 +155,14 @@ def get_category_list_from_name(category_name):
     return category_list
 
 
-def extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts, dict_key='value_name'):
+def extract_mapping_values_from_list(mapping_dict, list_of_elems, dict_key=None):
     """
-    Source format: list of dicts
+    Source format: list of dicts OR list of strings
     Get the objects, loop on the values and match to the specified mapping dict
     """
     mapping_values = []
-    for elem in list_of_dicts:
-        elem_name = elem.get(dict_key)
+    for elem in list_of_elems:
+        elem_name = elem.get(dict_key) if dict_key else elem
         if elem_name in mapping_dict:
             mapping_values.extend(mapping_dict.get(elem_name, []))
         else:

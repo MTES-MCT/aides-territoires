@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify
+from dataproviders.utils import content_prettify, build_audiences_mapping_dict, extract_mapping_values_from_list
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
@@ -26,19 +26,11 @@ DATA_SOURCE = DataSource.objects \
 OPENDATA_URL = 'https://data.paysdelaloire.fr/explore/dataset/234400034_referentiel-aides-paysdelaloirefr/information/'
 FEED_ROWS = 1000
 
-AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_audiences_mapping.csv'
-SOURCE_COLUMN_NAME = 'Bénéficiaires Pays de la Loire'
-AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5']
-with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
-    csvreader = csv.DictReader(csv_file, delimiter=",")
-    for index, row in enumerate(csvreader):
-        if row[AT_COLUMN_NAMES[0]]:
-            AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]] = []
-            for column in AT_COLUMN_NAMES:
-                if row[column]:
-                    audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])
-                    AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
+AUDIENCES_DICT = build_audiences_mapping_dict(
+    AUDIENCES_MAPPING_CSV_PATH,
+    source_column_name='Bénéficiaires Pays de la Loire',
+    at_column_names=['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5'])
 
 TYPES_DICT = {}
 TYPES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_types_mapping.csv'
@@ -154,15 +146,11 @@ class Command(BaseImportCommand):
     def extract_targeted_audiences(self, line):
         """
         Exemple of string to process: "Associations;Collectivités - Institutions - GIP;Entreprises"
-        Split the string, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get('aid_benef', '').split(';')
-        aid_audiences = []
-        for audience in audiences:
-            if audience in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+        source_audiences_list = line.get('aid_benef', '').split(';')
+        aid_audiences = extract_mapping_values_from_list(
+            AUDIENCES_DICT,
+            list_of_elems=source_audiences_list)
         return aid_audiences
 
     def extract_aid_types(self, line):

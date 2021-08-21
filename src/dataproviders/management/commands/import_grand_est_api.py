@@ -10,7 +10,9 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, build_categories_mapping_dict
+from dataproviders.utils import (
+    content_prettify, extract_mapping_values_from_list,
+    build_audiences_mapping_dict, build_categories_mapping_dict)
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
@@ -21,27 +23,17 @@ DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=3)
 
-AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_api_audiences_mapping.csv'
-SOURCE_COLUMN_NAME = 'Bénéficiaires Grand Est'
-AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4']
-with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
-    csvreader = csv.DictReader(csv_file, delimiter=",")
-    for index, row in enumerate(csvreader):
-        if row[AT_COLUMN_NAMES[0]]:
-            AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]] = []
-            for column in AT_COLUMN_NAMES:
-                if row[column]:
-                    try:
-                        audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])
-                        AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
-                    except:
-                        print(row[column])
+AUDIENCES_DICT = build_audiences_mapping_dict(
+    AUDIENCES_MAPPING_CSV_PATH,
+    source_column_name='Bénéficiaires Grand Est',
+    at_column_names=['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4'])
 
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_api_categories_mapping.csv'
-SOURCE_COLUMN_NAME = 'Sous-thématiques Grand Est'  # 'Thématiques Grand Est'
-AT_COLUMN_NAMES = ['Sous-thématiques AT 1', 'Sous-thématiques AT 2', 'Sous-thématiques AT 3', 'Sous-thématiques AT 4', 'Sous-thématiques AT 5', 'Sous-thématiques AT 6', 'Sous-thématiques AT 7', 'Sous-thématiques AT 8']
-CATEGORIES_DICT = build_categories_mapping_dict(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+CATEGORIES_DICT = build_categories_mapping_dict(
+    CATEGORIES_MAPPING_CSV_PATH,
+    source_column_name='Sous-thématiques Grand Est',  # 'Thématiques Grand Est'
+    at_column_names=['Sous-thématiques AT 1', 'Sous-thématiques AT 2', 'Sous-thématiques AT 3', 'Sous-thématiques AT 4', 'Sous-thématiques AT 5', 'Sous-thématiques AT 6', 'Sous-thématiques AT 7', 'Sous-thématiques AT 8'])
 
 
 class Command(BaseImportCommand):
@@ -114,35 +106,19 @@ class Command(BaseImportCommand):
         return description
 
     def extract_targeted_audiences(self, line):
-        """
-        Source format: list of dicts
-        Get the objects, loop on the values and match to our AUDIENCES
-        """
-        audiences = line.get('gui_beneficiaire', [])
-        aid_audiences = []
-        for audience in audiences:
-            audience_name = audience['name']
-            if audience_name in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience_name, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience_name} not mapped'))
-                # self.stdout.write(self.style.ERROR(f'{audience_name}'))
+        source_audiences_list = line.get('gui_beneficiaire', [])
+        aid_audiences = extract_mapping_values_from_list(
+            AUDIENCES_DICT,
+            list_of_elems=source_audiences_list,
+            dict_key='name')
         return aid_audiences
 
     def extract_categories(self, line):
-        """
-        Source format: list of dicts
-        Get the objects, loop on the values and match to our Categories
-        """
-        categories = line.get('gui_tax_competence', [])
-        aid_categories = []
-        for category in categories:
-            category_name = category['name']
-            if category_name in CATEGORIES_DICT:
-                aid_categories.extend(CATEGORIES_DICT.get(category_name, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Category {category_name} not mapped'))
-                # self.stdout.write(self.style.ERROR(f'{category_name}'))
+        source_categories_list = line.get('gui_tax_competence', [])
+        aid_categories = extract_mapping_values_from_list(
+            CATEGORIES_DICT,
+            list_of_elems=source_categories_list,
+            dict_key='name')
         return aid_categories
 
     def extract_origin_url(self, line):

@@ -9,7 +9,7 @@ from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import (
     build_audiences_mapping_dict, build_categories_mapping_dict,
-    content_prettify, extract_mapping_values_from_list_of_dicts)
+    content_prettify, extract_mapping_values_from_list)
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
@@ -111,17 +111,17 @@ class Command(BaseImportCommand):
 
     def extract_targeted_audiences(self, line):
         source_audiences_list = line.get('publicsBeneficiaire', [])
-        aid_audiences = extract_mapping_values_from_list_of_dicts(
+        aid_audiences = extract_mapping_values_from_list(
             AUDIENCES_DICT,
-            list_of_dicts=source_audiences_list,
+            list_of_elems=source_audiences_list,
             dict_key='title')
         return aid_audiences
 
     def extract_categories(self, line):
         source_categories_list = line.get('competences', [])
-        aid_categories = extract_mapping_values_from_list_of_dicts(
+        aid_categories = extract_mapping_values_from_list(
             CATEGORIES_DICT,
-            list_of_dicts=source_categories_list,
+            list_of_elems=source_categories_list,
             dict_key='title')
         return aid_categories
 

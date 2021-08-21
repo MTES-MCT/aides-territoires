@@ -1,6 +1,8 @@
 import pytest
 
-from dataproviders.utils import content_prettify, get_category_list_from_name, extract_mapping_values_from_list_of_dicts
+from dataproviders.utils import (
+    content_prettify,
+    get_category_list_from_name, extract_mapping_values_from_list)
 from aids.models import Aid
 from categories.factories import ThemeFactory, CategoryFactory
 
@@ -54,27 +56,52 @@ def test_extract_mapping_values_from_list_of_dicts(capfd):
         'Autres': [Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
     }
 
-    list_of_dicts_1 = [
+    list_of_elems_1 = [
         {'name': 'Asso'},
         {'name': 'Jeunes'}
     ]
     output = [Aid.AUDIENCES.association, Aid.AUDIENCES.private_person]
-    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_1, dict_key='name')  # noqa
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_1, dict_key='name')  # noqa
     assert output == result
 
-    list_of_dicts_2 = [
+    list_of_elems_2 = [
         {'name': 'Asso'},
         {'name': 'Autres'}
     ]
     output = [Aid.AUDIENCES.association, Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
-    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_2, dict_key='name')  # noqa
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_2, dict_key='name')  # noqa
     assert output == result
 
-    list_of_dicts_3 = [
+    list_of_elems_3 = [
         {'name': 'Autre'}
     ]
     output = []
-    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_3, dict_key='name')  # noqa
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_3, dict_key='name')  # noqa
+    out, err = capfd.readouterr()
+    assert output == result
+    assert len(out)
+
+
+def test_extract_mapping_values_from_list_of_strings(capfd):
+    mapping_dict = {
+        'Asso': [Aid.AUDIENCES.association],
+        'Jeunes': [Aid.AUDIENCES.private_person],
+        'Autres': [Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
+    }
+
+    list_of_elems_1 = ['Asso', 'Jeunes']
+    output = [Aid.AUDIENCES.association, Aid.AUDIENCES.private_person]
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_1)
+    assert output == result
+
+    list_of_elems_2 = ['Asso', 'Autres']
+    output = [Aid.AUDIENCES.association, Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_2)
+    assert output == result
+
+    list_of_elems_3 = ['Autre']
+    output = []
+    result = extract_mapping_values_from_list(mapping_dict, list_of_elems=list_of_elems_3)
     out, err = capfd.readouterr()
     assert output == result
     assert len(out)
