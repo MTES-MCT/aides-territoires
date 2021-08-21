@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_categories
+from dataproviders.utils import content_prettify, build_categories_mapping_dict
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
@@ -41,7 +41,7 @@ with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/grand_est_api_categories_mapping.csv'
 SOURCE_COLUMN_NAME = 'Sous-thématiques Grand Est'  # 'Thématiques Grand Est'
 AT_COLUMN_NAMES = ['Sous-thématiques AT 1', 'Sous-thématiques AT 2', 'Sous-thématiques AT 3', 'Sous-thématiques AT 4', 'Sous-thématiques AT 5', 'Sous-thématiques AT 6', 'Sous-thématiques AT 7', 'Sous-thématiques AT 8']
-CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+CATEGORIES_DICT = build_categories_mapping_dict(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
 
 class Command(BaseImportCommand):

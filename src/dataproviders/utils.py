@@ -89,7 +89,10 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
     return prettified
 
 
-def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_names):
+def build_audiences_mapping_dict(
+    audiences_mapping_csv_path,
+    source_column_name='Bénéficiaires',
+    at_column_names=['Bénéficiaires AT']):
     """
     Method to extract audiences mapping from a specified csv file
     source audience --> 1 or multiple AT audiences
@@ -107,12 +110,15 @@ def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_
                             audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])  # noqa
                             audiences_dict[row[source_column_name]].append(audience)
                         except:  # noqa
-                            print('mapping_audiences error :', row[column])
+                            print('build_audiences_mapping_dict error :', row[column])
 
     return audiences_dict
 
 
-def mapping_categories(categories_mapping_csv_path, source_column_name, at_column_names):
+def build_categories_mapping_dict(
+    categories_mapping_csv_path,
+    source_column_name='Sous-thématiques',
+    at_column_names=['Sous-thématiques AT']):
     """
     Method to extract categories mapping from a specified csv file
     source category --> 1 or multiple AT categories (or theme !)
@@ -150,6 +156,21 @@ def get_category_list_from_name(category_name):
             for category in theme.categories.all():
                 category_list.append(category)
         except Theme.DoesNotExist:
-            print('mapping_categories error :', category_name)
+            print('build_categories_mapping_dict error :', category_name)
 
     return category_list
+
+
+def extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts, dict_key='value_name'):
+    """
+    Source format: list of dicts
+    Get the objects, loop on the values and match to the specified mapping dict
+    """
+    mapping_values = []
+    for elem in list_of_dicts:
+        elem_name = elem.get(dict_key)
+        if elem_name in mapping_dict:
+            mapping_values.extend(mapping_dict.get(elem_name, []))
+        else:
+            print(f'{elem_name} not mapped')
+    return mapping_values

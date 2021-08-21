@@ -7,7 +7,9 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_audiences, mapping_categories
+from dataproviders.utils import (
+    build_audiences_mapping_dict, build_categories_mapping_dict,
+    content_prettify, extract_mapping_values_from_list_of_dicts)
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 
@@ -19,14 +21,16 @@ DATA_SOURCE = DataSource.objects \
     .get(pk=4)
 
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/ile_de_france_audiences_mapping.csv'
-AUDIENCES_MAPPING_SOURCE_COLUMN_NAME = 'Bénéficiaires IDF'  # 'Code Bénéficiaires IDF'
-AUDIENCES_MAPPING_AT_COLUMN_NAMES = ['Bénéficiaires AT 1']
-AUDIENCES_DICT = mapping_audiences(AUDIENCES_MAPPING_CSV_PATH, AUDIENCES_MAPPING_SOURCE_COLUMN_NAME, AUDIENCES_MAPPING_AT_COLUMN_NAMES)
+AUDIENCES_DICT = build_audiences_mapping_dict(
+    AUDIENCES_MAPPING_CSV_PATH,
+    source_column_name='Bénéficiaires IDF',  # 'Code Bénéficiaires IDF'
+    at_column_names=['Bénéficiaires AT 1'])
 
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/ile_de_france_categories_mapping.csv'
-CATEGORIES_MAPPING_SOURCE_COLUMN_NAME = 'Sous-thématiques IDF'  # 'Code Sous-thématiques IDF'
-CATEGORIES_MAPPING_AT_COLUMN_NAMES = ['Sous-thématiques AT 1', 'Sous-thématiques AT 2']
-CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, CATEGORIES_MAPPING_SOURCE_COLUMN_NAME, CATEGORIES_MAPPING_AT_COLUMN_NAMES)
+CATEGORIES_DICT = build_categories_mapping_dict(
+    CATEGORIES_MAPPING_CSV_PATH,
+    source_column_name='Sous-thématiques IDF',  # 'Code Sous-thématiques IDF'
+    at_column_names=['Sous-thématiques AT 1', 'Sous-thématiques AT 2'])
 
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%fZ'
 DATE_FORMAT_ALTERNATIVE = '%Y-%m-%dT%H:%M:%SZ'
@@ -106,33 +110,19 @@ class Command(BaseImportCommand):
         return description
 
     def extract_targeted_audiences(self, line):
-        """
-        Source format: list of dicts
-        Get the objects, loop on the values and match to our AUDIENCES
-        """
-        aid_audiences = []
-        for audience in line.get('publicsBeneficiaire', []):
-            audience_name = audience['title']
-            if audience_name in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience_name, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience_name} not mapped'))
-                # self.stdout.write(self.style.ERROR(f'{audience_name}'))
+        source_audiences_list = line.get('publicsBeneficiaire', [])
+        aid_audiences = extract_mapping_values_from_list_of_dicts(
+            AUDIENCES_DICT,
+            list_of_dicts=source_audiences_list,
+            dict_key='title')
         return aid_audiences
 
     def extract_categories(self, line):
-        """
-        Source format: list of dicts
-        Get the objects, loop on the values and match to our Categories
-        """
-        aid_categories = []
-        for category in line.get('competences', []):
-            category_name = category['title']
-            if category_name in CATEGORIES_DICT:
-                aid_categories.extend(CATEGORIES_DICT.get(category_name, []))
-            else:
-                self.stdout.write(self.style.ERROR(f'Category {category_name} not mapped'))
-                # self.stdout.write(self.style.ERROR(f'{category_name}'))
+        source_categories_list = line.get('competences', [])
+        aid_categories = extract_mapping_values_from_list_of_dicts(
+            CATEGORIES_DICT,
+            list_of_dicts=source_categories_list,
+            dict_key='title')
         return aid_categories
 
     # def extract_origin_url(self, line):

@@ -7,7 +7,7 @@ from xml.etree import ElementTree
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_audiences
+from dataproviders.utils import content_prettify, build_audiences_mapping_dict
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 
@@ -19,9 +19,10 @@ DATA_SOURCE = DataSource.objects \
     .get(pk=5)
 
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/ademe_audiences_mapping.csv'
-SOURCE_COLUMN_NAME = 'Bénéficiaires ADEME'
-AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5', 'Bénéficiaires AT 6', 'Bénéficiaires AT 7', 'Bénéficiaires AT 8', 'Bénéficiaires AT 9']
-AUDIENCES_DICT = mapping_audiences(AUDIENCES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+AUDIENCES_DICT = build_audiences_mapping_dict(
+    AUDIENCES_MAPPING_CSV_PATH,
+    source_column_name='Bénéficiaires ADEME',
+    at_column_names=['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4', 'Bénéficiaires AT 5', 'Bénéficiaires AT 6', 'Bénéficiaires AT 7', 'Bénéficiaires AT 8', 'Bénéficiaires AT 9'])
 
 ELIGIBILITY_TXT = '''
 Il est vivement conseillé de contacter l'ADEME en amont du dépôt du dossier

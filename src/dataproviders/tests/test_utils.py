@@ -1,6 +1,7 @@
 import pytest
 
-from dataproviders.utils import content_prettify, get_category_list_from_name
+from dataproviders.utils import content_prettify, get_category_list_from_name, extract_mapping_values_from_list_of_dicts
+from aids.models import Aid
 from categories.factories import ThemeFactory, CategoryFactory
 
 
@@ -44,3 +45,36 @@ def test_get_category_list_from_name():
 
     category_list = get_category_list_from_name('Theme 1')
     assert len(category_list) == 2
+
+
+def test_extract_mapping_values_from_list_of_dicts(capfd):
+    mapping_dict = {
+        'Asso': [Aid.AUDIENCES.association],
+        'Jeunes': [Aid.AUDIENCES.private_person],
+        'Autres': [Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
+    }
+
+    list_of_dicts_1 = [
+        {'name': 'Asso'},
+        {'name': 'Jeunes'}
+    ]
+    output = [Aid.AUDIENCES.association, Aid.AUDIENCES.private_person]
+    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_1, dict_key='name')  # noqa
+    assert output == result
+
+    list_of_dicts_2 = [
+        {'name': 'Asso'},
+        {'name': 'Autres'}
+    ]
+    output = [Aid.AUDIENCES.association, Aid.AUDIENCES.farmer, Aid.AUDIENCES.private_sector]
+    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_2, dict_key='name')  # noqa
+    assert output == result
+
+    list_of_dicts_3 = [
+        {'name': 'Autre'}
+    ]
+    output = []
+    result = extract_mapping_values_from_list_of_dicts(mapping_dict, list_of_dicts=list_of_dicts_3, dict_key='name')  # noqa
+    out, err = capfd.readouterr()
+    assert output == result
+    assert len(out)

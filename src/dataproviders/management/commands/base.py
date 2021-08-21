@@ -30,8 +30,7 @@ class BaseImportCommand(BaseCommand):
     """Base data import command.
 
     This base commands, meant to be inherited, provides a common structure
-    for all commands that import aid data from third-party providers (Ademe,
-    Dreal, etc.)
+    for all commands that import aid data from third-party providers (Ademe, Dreal, etc.)
     """
 
     def populate_cache(self, *args, **options):
@@ -161,12 +160,12 @@ class BaseImportCommand(BaseCommand):
         return ADMIN_ID
 
     def extract_import_data_source(self, line):
-        # raise NotImplementedError
-        return None
+        # will need to update old imports (create a DataSource entry) if they were to be re-run
+        raise NotImplementedError
 
     def extract_import_uniqueid(self, line):
-        """Must return an unique import reference.
-
+        """
+        Must return a unique import reference.
         This value is useful if we want to know if the current line
         was already processed and imported or not.
         """
