@@ -9,7 +9,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['name']
     autocomplete_fields = ['beneficiaries',
-                           'perimeter']
+                           'perimeter', 'projects']
 
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['date_created', 'date_updated']
@@ -20,9 +20,45 @@ class OrganizationAdmin(admin.ModelAdmin):
                 'name',
                 'slug',
                 'organization_type',
-                'perimeter',
                 'beneficiaries',
                 'projects',
+            )
+        }),
+        ('Informations sur la structure', {
+            'fields': (
+                'perimeter',
+                'address',
+                'city_name',
+                'zip_code',
+                'siren_code',
+                'siret_code',
+                'ape_code',
+            )
+        }),
+        ('Chiffres clés', {
+            'fields': (
+                'inhabitants_number',
+                'voters_number',
+                'corporates_number',
+                'associations_number',
+                'municipal_roads',
+                'departmental_roads',
+                'tram_roads',
+                'lamppost_number',
+                'library_number',
+                'medialibrary_number',
+                'theater_number',
+                'museum_number',
+                'kindergarten_number',
+                'primary_school_number',
+                'middle_school_number',
+                'high_school_number',
+                'university_number',
+                'gymnasium_number',
+                'sports_ground_number',
+                'swimming_pool_number',
+                'place_of_worship_number',
+                'cemetery_number',
             )
         }),
         ('Données diverses', {
