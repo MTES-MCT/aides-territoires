@@ -18,15 +18,15 @@ class RegisterForm(UserCreationForm):
     last_name = forms.CharField(
         label='Votre nom',
         required=True)
-    organization = forms.CharField(
+    contributor_organization = forms.CharField(
         label='Votre structure professionnelle',
         max_length=128,
         required=True)
-    role = forms.CharField(
+    contributor_role = forms.CharField(
         label='Votre fonction',
         max_length=128,
         required=True)
-    contact_phone = forms.CharField(
+    contributor_contact_phone = forms.CharField(
         label='Votre numéro de téléphone',
         max_length=35,
         required=True)
@@ -35,7 +35,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = [
             'first_name', 'last_name', 'email', 'password1', 'password2',
-            'organization', 'role', 'contact_phone']
+            'contributor_organization', 'contributor_role', 'contributor_contact_phone']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -81,15 +81,15 @@ class PasswordResetForm(forms.Form):
 class ContributorProfileForm(forms.ModelForm):
     """Edit contributor profile related user data."""
 
-    organization = forms.CharField(
+    contributor_organization = forms.CharField(
         label='Votre structure professionnelle',
         max_length=128,
         required=True)
-    role = forms.CharField(
+    contributor_role = forms.CharField(
         label='Votre fonction',
         max_length=128,
         required=True)
-    contact_phone = forms.CharField(
+    contributor_contact_phone = forms.CharField(
         label='Votre numéro de téléphone',
         max_length=35,
         required=True)
@@ -104,8 +104,8 @@ class ContributorProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'organization', 'role', 'contact_phone',
-            'new_password']
+            'first_name', 'last_name', 'contributor_organization', 'contributor_role',
+            'contributor_contact_phone', 'new_password']
         labels = {
             'first_name': 'Votre prénom',
             'last_name': 'Votre nom',

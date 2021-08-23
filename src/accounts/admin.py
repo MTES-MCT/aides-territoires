@@ -145,6 +145,8 @@ class UserAdmin(BaseUserAdmin):
             ('Espace bénéficiaire', {
         'fields': (
             'is_beneficiary',
+            'beneficiary_function',
+            'beneficiary_role',
             'beneficiary_organization',
         )
         }),
