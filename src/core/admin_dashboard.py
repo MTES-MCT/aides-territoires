@@ -21,6 +21,11 @@ class CustomIndexDashboard(Dashboard):
             models=('django.contrib.auth.*', 'accounts.*'),
         ))
         self.children.append(modules.ModelList(
+            'Structures',
+            deletable=False, draggable=False,
+            models=('organizations.*',),
+        ))
+        self.children.append(modules.ModelList(
             'Aides',
             deletable=False, draggable=False,
             models=('aids.*',),
