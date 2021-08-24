@@ -37,7 +37,6 @@
 {% endblock %}
 
 {% block other-actions %}
-    <div class="fr-grid-row ">
         <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
             <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link fr-btn" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                 {{ _('More filters') }}
@@ -52,7 +51,6 @@
                 Créer une alerte
             </button>    
         </div>
-    </div>
 {% endblock %}
 
 {% block form-body %}
