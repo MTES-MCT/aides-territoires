@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon compte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Bienvenue sur votre compte Aides-territoires {{ user.full_name }}&nbsp;!</h1>
+            <p>C'est ici que vous allez pouvoir gérer tout votre compte, que ce soit au niveau de vos projets, de vos aides, ou de votre entité.</p>
+            <p class="fr-mb-0">Voici d'ailleurs une liste de choses que vous pourriez faire :</p>
+            <ul class="fr-ml-5w">
+                <li><a href="#">créer mon premier projet</a></li>
+                <li>mettre à jour les <a href="#">chiffres-clés</a> ou les <a href="#">compétences</a> de la commune</li>
+                <li><a href="#">inviter des collaborateurs</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

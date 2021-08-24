@@ -128,3 +128,15 @@ class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin, Upda
         res = super().form_valid(form)
         update_session_auth_hash(self.request, self.object)
         return res
+
+
+class UserDashboardView(TemplateView):
+    """User Dashboard"""
+
+    template_name = 'accounts/user_dashboard.html'
+
+
+class UserApiTokenView(TemplateView):
+    """User can access to his API Token"""
+
+    template_name = 'accounts/user_api_token.html'
