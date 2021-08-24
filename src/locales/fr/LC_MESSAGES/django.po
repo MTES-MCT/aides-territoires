@@ -403,6 +403,9 @@ msgstr "alertes/"
 msgid "data/"
 msgstr "data/"
 
+msgid "search/"
+msgstr "recherche/"
+
 msgid "upload/"
 msgstr "upload/"
 
