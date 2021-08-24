@@ -25,7 +25,7 @@ class BaseAidSerializer(serializers.ModelSerializer):
      - make sure `AidSerializerLatest` inherits from the new serializer
      - bump the default API version in the settings
      - update `aids.api.views.AidViewSet.get_serializer_class`
-     - update the /data/ documentation page
+     - update the documentation : src/template/data/doc.html & src/core/api/doc.py
 
     """
 
@@ -77,6 +77,7 @@ class BaseAidSerializer(serializers.ModelSerializer):
         model = Aid
 
 
+# First version of the API
 class AidSerializer10(BaseAidSerializer):
 
     class Meta(BaseAidSerializer.Meta):
@@ -91,10 +92,8 @@ class AidSerializer10(BaseAidSerializer):
             'project_examples', 'date_created', 'date_updated')
 
 
+# Add 'programs'
 class AidSerializer11(BaseAidSerializer):
-    """
-    Add 'programs'.
-    """
 
     class Meta(BaseAidSerializer.Meta):
         fields = (
@@ -114,10 +113,8 @@ class CategoryRelatedField(serializers.StringRelatedField):
         return f'{value.theme}|{value}'
 
 
+# Add 'categories'.
 class AidSerializer12(BaseAidSerializer):
-    """
-    Add 'categories'.
-    """
 
     categories = CategoryRelatedField(
         many=True,
@@ -137,11 +134,9 @@ class AidSerializer12(BaseAidSerializer):
             'project_examples', 'date_created', 'date_updated')
 
 
+# Add 'loan_amount' and 'recoverable_advance_amount' fields.
+# Remove 'tags'.
 class AidSerializer13(BaseAidSerializer):
-    """
-    Add 'loan_amount' and 'recoverable_advance_amount' fields.
-    Remove 'tags'.
-    """
 
     categories = CategoryRelatedField(
         many=True,
@@ -162,7 +157,29 @@ class AidSerializer13(BaseAidSerializer):
             'project_examples', 'date_created', 'date_updated')
 
 
-class AidSerializerLatest(AidSerializer13):
+# Add 'is_call_for_projects'.
+class AidSerializer14(BaseAidSerializer):
+
+    categories = CategoryRelatedField(
+        many=True,
+        label='Thème et catégorie, séparés par « | ».',
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"')
+
+    class Meta(BaseAidSerializer.Meta):
+        fields = (
+            'id', 'slug', 'url', 'name', 'short_title', 'financers',
+            'instructors', 'programs', 'description', 'eligibility',
+            'perimeter', 'mobilization_steps', 'origin_url',
+            'categories', 'is_call_for_project',
+            'application_url', 'targeted_audiences', 'aid_types',
+            'destinations', 'start_date', 'predeposit_date',
+            'submission_deadline', 'subvention_rate_lower_bound',
+            'subvention_rate_upper_bound', 'loan_amount',
+            'recoverable_advance_amount', 'contact', 'recurrence',
+            'project_examples', 'date_created', 'date_updated')
+
+
+class AidSerializerLatest(AidSerializer14):
     pass
 
 
