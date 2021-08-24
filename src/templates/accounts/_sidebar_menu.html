@@ -1,0 +1,67 @@
+<nav class="fr-col-12 fr-col-md-3 fr-sidemenu" role="navigation" aria-label="Menu latéral">
+    <div class="fr-sidemenu__inner">
+        <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
+        <div class="fr-collapse" id="fr-sidemenu-wrapper">
+            <div class="fr-sidemenu__title">Mon compte</div>
+            <ul class="fr-sidemenu__list">
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Gérer mes projets</a>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-2">
+                        <ul class="fr-sidemenu__list">
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'aid_draft_list_view' %}" target="_self" rel="noopener">Mon portefeuille</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'aid_create_view' %}" target="_self" rel="noopener">Publier une aide</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Ma commune</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-3">
+                        <ul class="fr-sidemenu__list">
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Informations</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Chiffres clés</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Compétences</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Collaborateurs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Mes paramètres</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-4">
+                        <ul class="fr-sidemenu__list">
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Mes alertes</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" rel="noopener">Mon profil</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Se déconnecter</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

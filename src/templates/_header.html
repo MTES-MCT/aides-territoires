@@ -34,7 +34,7 @@
                     <div class="fr-header__tools-links">
                         {% if user.is_authenticated %}                    
                         <ul class="fr-links-group">
-                            <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'aid_draft_list_view' %}">
+                            <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                 {{ user.full_name }}
                             </a>
                             <li>
