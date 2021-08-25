@@ -10,7 +10,7 @@ from django.db.models.fields import (
     BooleanField, DateField, DateTimeField)
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
-from django.contrib.postgres.search import SearchVectorField
+# from django.contrib.postgres.search import SearchVectorField
 
 from django_xworkflows.models import StateField
 
@@ -38,25 +38,25 @@ SCHEMA_BASE = {
     "image": "",
     "licenses": [
         {
-        "title": "Licence Ouverte",
-        "name": "etalab-2.0",
-        "path": "https://www.etalab.gouv.fr/licence-ouverte-open-licence"
+            "title": "Licence Ouverte",
+            "name": "etalab-2.0",
+            "path": "https://www.etalab.gouv.fr/licence-ouverte-open-licence"
         }
     ],
     "resources": [
         {
-        "title": "Ressource valide",
-        "name": "exemple-valide",
-        "path": ""
+            "title": "Ressource valide",
+            "name": "exemple-valide",
+            "path": ""
         }
     ],
     "sources": [],
     "created": "2021-08-25",
     "lastModified": "2021-08-25",
     "version": "0.1.0",
-    "contact":settings.CONTACT_EMAIL,
-    "uri":"",
-    "example":"",
+    "contact": settings.CONTACT_EMAIL,
+    "uri": "",
+    "example": "",
     "contributors": [],
     "fields": []
 }
@@ -89,8 +89,10 @@ STRING_FORMAT_MAPPING = {
 BOOLEAN_TRUE_VALUES = ['Oui', 'Vrai', 'Yes', 'True']
 BOOLEAN_FALSE_VALUES = ['Non', 'Faux', 'No', 'False']
 
+DATE_FORMAT = ""
+
 EXCLUDED_FIELDS = [
-    'search_vector_unaccented', 'eligibility_test', 'instructor_suggestion', 'perimeter_suggestion',
+    'search_vector_unaccented', 'eligibility_test', 'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access', 'import_raw_object',  # noqa
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
 ]
@@ -126,11 +128,23 @@ class Command(BaseCommand):
                 field_dict['title'] = field_column_name if use_french else field_verbose_name
 
                 field_dict['description'] = field.help_text
-                # field['example'] = 
+                # field['example'] =
 
                 field_dict['type'] = TYPE_MAPPING.get(type(field))
+
                 if type(field) in STRING_FORMAT_MAPPING.keys():
                     field_dict['format'] = STRING_FORMAT_MAPPING.get(type(field))
+
+                if type(field) == DateField:
+                    # https://specs.frictionlessdata.io/table-schema/#date
+                    field_dict['format'] = 'any'
+
+                # TODO
+                # if type(field) == PercentRangeField:
+
+                if type(field) == BooleanField:
+                    field_dict['trueValues'] = BOOLEAN_TRUE_VALUES
+                    field_dict['falseValues'] = BOOLEAN_FALSE_VALUES
 
                 field_dict['constraints'] = dict()
                 field_dict['constraints']['required'] = False
@@ -141,23 +155,19 @@ class Command(BaseCommand):
                     """
                     field_choices_list = [id for (id, name) in field.choices]
                     field_choices_verbose_list = [name for (id, name) in field.choices]
-                    field_dict['constraints']['enum'] = field_choices_verbose_list if use_french else field_choices_list
+                    field_dict['constraints']['enum'] = field_choices_verbose_list if use_french else field_choices_list  # noqa
                 elif hasattr(field, 'base_field') and field.base_field.choices:
                     """
                     fields with 0, 1 or multiple possible values (ChoiceArrayField)
                     """
-                    field_choices_list = [id for (id, name) in iter(dict(field.base_field.flatchoices).items())]
-                    field_choices_verbose_list = [name for (id, name) in iter(dict(field.base_field.flatchoices).items())]
-                    field_choices_pattern_list = field_choices_verbose_list if use_french else field_choices_list
+                    field_choices_list = [id for (id, name) in iter(dict(field.base_field.flatchoices).items())]  # noqa
+                    field_choices_verbose_list = [name for (id, name) in iter(dict(field.base_field.flatchoices).items())]  # noqa
+                    field_choices_pattern_list = field_choices_verbose_list if use_french else field_choices_list  # noqa
                     field_choices_pattern_string = '|'.join(field_choices_pattern_list)
-                    field_dict['constraints']['pattern'] = f'(?:(?:^|,)({field_choices_pattern_string}))+$'
-
-                if type(field) == BooleanField:
-                    field_dict['trueValues'] = BOOLEAN_TRUE_VALUES
-                    field_dict['falseValues'] = BOOLEAN_FALSE_VALUES
+                    field_dict['constraints']['pattern'] = f'(?:(?:^|,)({field_choices_pattern_string}))+$'  # noqa
 
                 schema['fields'].append(field_dict)
 
-        schema_file_path = os.path.join(os.getcwd(), SCHEMA_PATH_FRENCH if use_french else SCHEMA_PATH)
+        schema_file_path = os.path.join(os.getcwd(), SCHEMA_PATH_FRENCH if use_french else SCHEMA_PATH)  # noqa
         with open(schema_file_path, 'w', encoding='utf-8') as f:
             json.dump(schema, f, ensure_ascii=False, indent=4)

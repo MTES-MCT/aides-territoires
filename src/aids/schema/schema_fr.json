@@ -81,15 +81,6 @@
             }
         },
         {
-            "name": "Porteurs d'aides suggérés",
-            "title": "financer_suggestion",
-            "description": "",
-            "type": "string",
-            "constraints": {
-                "required": false
-            }
-        },
-        {
             "name": "Description complète de l'aide et de ses objectifs",
             "title": "description",
             "description": "",
@@ -180,9 +171,6 @@
             "title": "is_generic",
             "description": "Cette aide est-elle générique ?",
             "type": "boolean",
-            "constraints": {
-                "required": false
-            },
             "trueValues": [
                 "Oui",
                 "Vrai",
@@ -194,7 +182,10 @@
                 "Faux",
                 "No",
                 "False"
-            ]
+            ],
+            "constraints": {
+                "required": false
+            }
         },
         {
             "name": "Aide générique",
@@ -229,6 +220,7 @@
             "title": "start_date",
             "description": "À quelle date l'aide est-elle ouverte aux candidatures ?",
             "type": "date",
+            "format": "any",
             "constraints": {
                 "required": false
             }
@@ -238,6 +230,7 @@
             "title": "predeposit_date",
             "description": "Quelle est la date de pré-dépôt des dossiers, si applicable ?",
             "type": "date",
+            "format": "any",
             "constraints": {
                 "required": false
             }
@@ -247,6 +240,7 @@
             "title": "submission_deadline",
             "description": "Quelle est la date de clôture de dépôt des dossiers ?",
             "type": "date",
+            "format": "any",
             "constraints": {
                 "required": false
             }
@@ -352,9 +346,6 @@
             "title": "is_call_for_project",
             "description": "",
             "type": "boolean",
-            "constraints": {
-                "required": false
-            },
             "trueValues": [
                 "Oui",
                 "Vrai",
@@ -366,7 +357,10 @@
                 "Faux",
                 "No",
                 "False"
-            ]
+            ],
+            "constraints": {
+                "required": false
+            }
         },
         {
             "name": "Statut",
@@ -415,9 +409,6 @@
             "title": "in_france_relance",
             "description": "Cette aide est-elle éligible au programme France Relance ?",
             "type": "boolean",
-            "constraints": {
-                "required": false
-            },
             "trueValues": [
                 "Oui",
                 "Vrai",
@@ -429,7 +420,10 @@
                 "Faux",
                 "No",
                 "False"
-            ]
+            ],
+            "constraints": {
+                "required": false
+            }
         },
         {
             "name": "Sous-thématiques",
