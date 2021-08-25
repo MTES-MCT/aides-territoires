@@ -1,0 +1,480 @@
+{
+    "$schema": "https://frictionlessdata.io/schemas/table-schema.json",
+    "name": "",
+    "title": "",
+    "description": "Spécification des aides de la plateforme Aides-territoires",
+    "keywords": [
+        "aide",
+        "appel à projet",
+        "subvention"
+    ],
+    "countryCode": "FR",
+    "homepage": "",
+    "path": "",
+    "image": "",
+    "licenses": [
+        {
+            "title": "Licence Ouverte",
+            "name": "etalab-2.0",
+            "path": "https://www.etalab.gouv.fr/licence-ouverte-open-licence"
+        }
+    ],
+    "resources": [
+        {
+            "title": "Ressource valide",
+            "name": "exemple-valide",
+            "path": ""
+        }
+    ],
+    "sources": [],
+    "created": "2021-08-25",
+    "lastModified": "2021-08-25",
+    "version": "0.1.0",
+    "contact": "aides-territoires@beta.gouv.fr",
+    "uri": "",
+    "example": "",
+    "contributors": [],
+    "fields": [
+        {
+            "name": "ID",
+            "title": "id",
+            "description": "",
+            "type": "integer",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Fragment d'URL",
+            "title": "slug",
+            "description": "Laisser vide pour autoremplir.",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Nom",
+            "title": "name",
+            "description": "Le titre doit commencer par un verbe à l’infinitif pour que l'objectif de l'aide soit explicite vis-à-vis de ses bénéficiaires.",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Titre court",
+            "title": "short_title",
+            "description": "Un titre plus concis, pour affichage spécifique.",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Auteur",
+            "title": "author",
+            "description": "Qui renseigne cette aide ?",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Porteurs d'aides suggérés",
+            "title": "financer_suggestion",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Description complète de l'aide et de ses objectifs",
+            "title": "description",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Exemples de projets réalisables",
+            "title": "project_examples",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Éligibilité",
+            "title": "eligibility",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Périmètre",
+            "title": "perimeter",
+            "description": "Sur quel périmètre l'aide est-elle diffusée ?",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "État d'avancement du projet pour bénéficier du dispositif",
+            "title": "mobilization_steps",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "pattern": "(?:(?:^|,)(Réflexion / conception|Mise en œuvre / réalisation|Usage / valorisation))+$"
+            }
+        },
+        {
+            "name": "URL d'origine",
+            "title": "origin_url",
+            "description": "",
+            "type": "string",
+            "format": "uri",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Lien vers une démarche en ligne",
+            "title": "application_url",
+            "description": "",
+            "type": "string",
+            "format": "uri",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Bénéficiaires de l'aide",
+            "title": "targeted_audiences",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "pattern": "(?:(?:^|,)(Communes|EPCI à fiscalité propre|Départements|Régions|Collectivités d'outre-mer à statuts particuliers|Associations|Particuliers|Agriculteurs|Entreprises privées|Entreprises publiques locales (Sem, Spl, SemOp)|Établissements publics (écoles, bibliothèques…) / Services de l'État|Recherche))+$"
+            }
+        },
+        {
+            "name": "Types d'aide",
+            "title": "aid_types",
+            "description": "Précisez le ou les types de l'aide.",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "pattern": "(?:(?:^|,)(Subvention|Prêt|Avance récupérable|Technique|Financière|Juridique / administrative|Autre))+$"
+            }
+        },
+        {
+            "name": "Aide générique ?",
+            "title": "is_generic",
+            "description": "Cette aide est-elle générique ?",
+            "type": "boolean",
+            "constraints": {
+                "required": false
+            },
+            "trueValues": [
+                "Oui",
+                "Vrai",
+                "Yes",
+                "True"
+            ],
+            "falseValues": [
+                "Non",
+                "Faux",
+                "No",
+                "False"
+            ]
+        },
+        {
+            "name": "Aide générique",
+            "title": "generic_aid",
+            "description": "Aide générique associée à une aide locale.",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Spécificités locales",
+            "title": "local_characteristics",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Types de dépenses / actions couvertes",
+            "title": "destinations",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "pattern": "(?:(?:^|,)(Dépenses de fonctionnement|Dépenses d'investissement))+$"
+            }
+        },
+        {
+            "name": "Date d'ouverture",
+            "title": "start_date",
+            "description": "À quelle date l'aide est-elle ouverte aux candidatures ?",
+            "type": "date",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Date de pré-dépôt",
+            "title": "predeposit_date",
+            "description": "Quelle est la date de pré-dépôt des dossiers, si applicable ?",
+            "type": "date",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Date de clôture",
+            "title": "submission_deadline",
+            "description": "Quelle est la date de clôture de dépôt des dossiers ?",
+            "type": "date",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Taux de subvention, min. et max. (en %, nombre entier)",
+            "title": "subvention_rate",
+            "description": "Si le taux est fixe, remplissez uniquement le taux max.",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Taux de subvention (commentaire optionnel)",
+            "title": "subvention_comment",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Montant de l'avance récupérable",
+            "title": "recoverable_advance_amount",
+            "description": "",
+            "type": "integer",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Montant du prêt",
+            "title": "loan_amount",
+            "description": "",
+            "type": "integer",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Autre aide financière (commentaire optionnel)",
+            "title": "other_financial_aid_comment",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Contact",
+            "title": "contact",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Adresse e-mail de contact",
+            "title": "contact_email",
+            "description": "",
+            "type": "string",
+            "format": "email",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Numéro de téléphone",
+            "title": "contact_phone",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Contact (détail)",
+            "title": "contact_detail",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Récurrence",
+            "title": "recurrence",
+            "description": "L'aide est-elle ponctuelle, permanente, ou récurrente ?",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "enum": [
+                    "Ponctuelle",
+                    "Permanente",
+                    "Récurrente"
+                ]
+            }
+        },
+        {
+            "name": "Appel à projet / Manifestation d'intérêt",
+            "title": "is_call_for_project",
+            "description": "",
+            "type": "boolean",
+            "constraints": {
+                "required": false
+            },
+            "trueValues": [
+                "Oui",
+                "Vrai",
+                "Yes",
+                "True"
+            ],
+            "falseValues": [
+                "Non",
+                "Faux",
+                "No",
+                "False"
+            ]
+        },
+        {
+            "name": "Statut",
+            "title": "status",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false,
+                "enum": [
+                    "Brouillon",
+                    "En revue",
+                    "Publiée",
+                    "Supprimée"
+                ]
+            }
+        },
+        {
+            "name": "Date de création",
+            "title": "date_created",
+            "description": "",
+            "type": "datetime",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Date de mise à jour",
+            "title": "date_updated",
+            "description": "",
+            "type": "datetime",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Première date de publication",
+            "title": "date_published",
+            "description": "",
+            "type": "datetime",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "France Relance ?",
+            "title": "in_france_relance",
+            "description": "Cette aide est-elle éligible au programme France Relance ?",
+            "type": "boolean",
+            "constraints": {
+                "required": false
+            },
+            "trueValues": [
+                "Oui",
+                "Vrai",
+                "Yes",
+                "True"
+            ],
+            "falseValues": [
+                "Non",
+                "Faux",
+                "No",
+                "False"
+            ]
+        },
+        {
+            "name": "Sous-thématiques",
+            "title": "categories",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Porteurs d'aides",
+            "title": "financers",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Instructeurs",
+            "title": "instructors",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Projets",
+            "title": "projects",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        },
+        {
+            "name": "Programmes",
+            "title": "programs",
+            "description": "",
+            "type": "string",
+            "constraints": {
+                "required": false
+            }
+        }
+    ]
+}

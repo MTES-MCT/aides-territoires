@@ -14,15 +14,15 @@ from projects.models import Project
 from stats.utils import log_event
 
 
-AIDS_BOOLEAN_FIELDS = ['is_call_for_project', 'in_france_relance',
-                       'is_imported']  # is_amendment
+AIDS_BOOLEAN_FIELDS = [
+    'is_call_for_project', 'in_france_relance', 'is_imported']  # is_amendment
 
 AIDS_EXPORT_EXCLUDE_FIELDS = [
     'short_title',
     'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
     'contact_email', 'contact_phone', 'contact_detail',
     'import_uniqueid', 'import_share_licence', 'import_last_access',
-    'search_vector',
+    'search_vector_unaccented',
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
     'local_characteristics']
 AIDS_IMPORT_EXCLUDE_FIELDS = [
