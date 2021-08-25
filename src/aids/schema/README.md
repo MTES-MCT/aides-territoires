@@ -66,3 +66,7 @@ pprint(report)
 ## Limites actuelles
 
 Les `ChoiceArrayField` qui contiennent des virgules renvoient une erreur. La solution serait d'améliorer leur `pattern` pour éviter de prendre en compte leur virgule... Une autre solution serait d'avoir des csv avec séparateur `;` ?
+
+Les valeurs des champs `ForeignKey` et `ManyToManyField` mappent ensuite à des listes de valeurs contenues dans d'autres tables. Le schéma n'est pas capable d'aller récupérer et stocker ces infos, donc aucune vérification n'est faite sur ces colonnes.
+
+Il faut mettre à jour le schéma manuellement, donc ne pas oublier de lancer la commande au grès des mises à jour du modèle `Aid`.
