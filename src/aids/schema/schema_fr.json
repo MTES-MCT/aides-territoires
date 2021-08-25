@@ -1,7 +1,7 @@
 {
     "$schema": "https://frictionlessdata.io/schemas/table-schema.json",
-    "name": "",
-    "title": "",
+    "name": "aides-territoire-aides",
+    "title": "Aides-territoire : aides",
     "description": "Spécification des aides de la plateforme Aides-territoires",
     "keywords": [
         "aide",
@@ -153,7 +153,7 @@
             "type": "string",
             "constraints": {
                 "required": false,
-                "pattern": "(?:(?:^|,)(Communes|EPCI à fiscalité propre|Départements|Régions|Collectivités d'outre-mer à statuts particuliers|Associations|Particuliers|Agriculteurs|Entreprises privées|Entreprises publiques locales (Sem, Spl, SemOp)|Établissements publics (écoles, bibliothèques…) / Services de l'État|Recherche))+$"
+                "pattern": "(?:(?:^|,)(Communes|EPCI à fiscalité propre|Départements|Régions|Collectivités d'outre-mer à statuts particuliers|Associations|Particuliers|Agriculteurs|Entreprises privées|Entreprises publiques locales (Sem, Spl, SemOp)|\"Établissements publics (écoles, bibliothèques…) / Services de l'État\"|Recherche))+$"
             }
         },
         {

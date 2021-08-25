@@ -24,8 +24,8 @@ SCHEMA_PATH_FRENCH = 'aids/schema/schema_fr.json'
 
 SCHEMA_BASE = {
     "$schema": "https://frictionlessdata.io/schemas/table-schema.json",
-    "name": "",
-    "title": "",
+    "name": "aides-territoire-aides",
+    "title": "Aides-territoire : aides",
     "description": "Spécification des aides de la plateforme Aides-territoires",
     "keywords": [
         "aide",
@@ -58,7 +58,8 @@ SCHEMA_BASE = {
     "uri": "",
     "example": "",
     "contributors": [],
-    "fields": []
+    "fields": [],  # rempli par le script
+    # "primaryKey": ""  # rempli par le script
 }
 
 TYPE_MAPPING = {
@@ -92,7 +93,7 @@ BOOLEAN_FALSE_VALUES = ['Non', 'Faux', 'No', 'False']
 DATE_FORMAT = ""
 
 EXCLUDED_FIELDS = [
-    'search_vector_unaccented', 'eligibility_test', 'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',
+    'search_vector_unaccented', 'eligibility_test', 'financer_suggestion', 'instructor_suggestion', 'perimeter_suggestion',  # noqa
     'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access', 'import_raw_object',  # noqa
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
 ]
@@ -131,6 +132,10 @@ class Command(BaseCommand):
                 # field['example'] =
 
                 field_dict['type'] = TYPE_MAPPING.get(type(field))
+
+                # # could be improved...
+                # if type(field) == AutoField:
+                #     schema['primaryKey'] = field_dict['name']
 
                 if type(field) in STRING_FORMAT_MAPPING.keys():
                     field_dict['format'] = STRING_FORMAT_MAPPING.get(type(field))
