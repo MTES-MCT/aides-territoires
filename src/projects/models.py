@@ -27,6 +27,11 @@ class Project(models.Model):
         'aids.Aid',
         verbose_name='Aids',
         blank=True)
+    beneficiary = models.ManyToManyField(
+        'accounts.User',
+        verbose_name='Utilisateurs',
+        related_name='projects',
+        blank=True)
 
     due_date = models.DateTimeField(
         "Date d'échéance",
