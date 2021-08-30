@@ -1,0 +1,100 @@
+{% extends '_base.html' %}
+{% load i18n compress %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Votre projet</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w">Votre projet « {{ project.name }} »</h1>
+            <div class="fr-table fr-table--bordered">
+                <table class="data-table">
+                    <caption class="sr-only">
+                        Liste des aides sélectionnées&nbsp;:
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Echéance</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% if project.aids_associated.all %}
+                            {% for aid in project.aids_associated.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                        {{ aid.name }} 
+                                    </a>
+                                </td>
+                                <td>
+                                {% if aid.has_calendar %}
+                                {% if aid.submission_deadline %}
+                                {{ aid.submission_deadline|date }}
+                                {% endif %}
+                                {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <center>Vous n'avez aucune aide sélectionnée pour l'instant</center>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="{% url 'project_list_view' %}" class="fr-btn">
+                <i class="ri-arrow-left-line fr-pr-1w"></i>
+                Retour aux projets
+            </a>
+
+            <button type="button" class="fr-btn" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
+                Supprimer ce projet
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'projects/_delete_project_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/aids/disable_delete_button.js"></script>
+{% endcompress %}
+{% endblock %}
