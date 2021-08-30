@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 
@@ -88,3 +88,37 @@ class ProjectListView(ListView):
 
         return context
 
+
+class ProjectDetailView(DetailView):
+    template_name = 'projects/project_detail.html'
+    context_object_name = 'project'
+
+    def get_queryset(self):
+        queryset = Project.objects \
+            .prefetch_related('aids_associated')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
+    """delete an existing project."""
+
+    def get_queryset(self):
+        queryset = Project.objects \
+            .prefetch_related('aids_associated')
+        return queryset
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        confirmed = self.request.POST.get('confirm', False)
+        if confirmed:
+            self.object.delete()
+            msg = 'Votre projet a été supprimé.'
+            messages.success(self.request, msg)
+
+        success_url = reverse('project_list_view')
+        redirect = HttpResponseRedirect(success_url)
+        return redirect

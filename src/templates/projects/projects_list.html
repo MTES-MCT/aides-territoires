@@ -55,7 +55,11 @@
                         {% for project in projects %}
                         <tbody>
                             <tr>
-                                <td>{{ project.name }}</td>
+                                <td>
+                                    <a href="{{ project.get_absolute_url }}" target="_blank" rel="noopener">
+                                        {{ project.name }}
+                                    </a>
+                                </td>
                                 <td>
                                 {% if project.aids_associated %}
                                     <ul>
