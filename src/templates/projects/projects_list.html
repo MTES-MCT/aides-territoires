@@ -1,0 +1,114 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon compte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Mes projets</h1>
+            <button class="fr-btn fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
+                Ajouter un projet
+            </button>
+            <div class="fr-table fr-table--bordered">
+                <table class="data-table">
+                    <caption class="sr-only">
+                        Liste de vos projets en cours
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Aides ajoutées</th>
+                            <th scope="col">Date création</th>
+                            <th scope="col">Date d'échéance</th>
+                            <th scope="col">Créé par</th>
+                        </tr>
+                    </thead>
+                    {% if projects %}
+                        {% for project in projects %}
+                        <tbody>
+                            <tr>
+                                <td>{{ project.name }}</td>
+                                <td>
+                                {% if project.aids_associated %}
+                                    <ul>
+                                    {% if project.aids_associated.all %}
+                                    {% for aid in project.aids_associated.all %}
+                                        <li>
+                                            <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                                {{ aid.name }} 
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
+                                    {% endif %}
+                                    </ul>
+                                {% endif %}
+                                </td>
+                                <td>{{ project.date_created|date:'d/m/y' }}</td>
+                                <td>{{ project.due_date|date:'d/m/y' }}</td>
+                                <td>
+                                {% if project.beneficiary %}
+                                {% for beneficiary in project.beneficiary.all %}
+                                    {{ beneficiary.first_name }} {{ beneficiary.last_name }}
+                                {% endfor %}
+                                {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <center>Vous n'avez aucun projet pour l'instant</center>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div role="alert" class="fr-alert fr-alert--info">
+                <p>Que pouvez-vous faire ici&nbsp;?</p>
+                <p>Cette page vous permet de gérer vos différents projets, et les aides associées.</p> 
+                <p>En consultant les aides, vous pourrez alors rajouter celles qui correspondent à un projet spécifique. Vous pourrez alors partager plus facilement avec votre équipe les aides que vous avez sélectionnées.</p>
+                <p>Et dès qu'une aide nouvellement publiée correspondra à votre projet, elle vous sera proposée dans la section "Aides suggérées".</p>
+            </div>
+    
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'projects/_create_project_modal.html' %}
+{% endblock %}

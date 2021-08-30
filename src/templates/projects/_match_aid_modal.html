@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="match-aid-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="match-aid-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un projet</h1>
+
+                        <form id="create_project" method="post" action="">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+                                    <select name="select_path" id="select_path">
+                                        <option disabled selected value> -- Sélectionner un projet -- </option>
+                                    {% for project in projects %}
+                                        <option value="{% url 'project_match_aid_view' project.slug %}">
+                                            {{ project.name }} 
+                                        </option>
+                                    {% endfor %}
+                                    </select>
+                                    {% include '_field_snippet.html' with field=project_match_aid_form.aids_associated %}
+                                <footer>
+                                    <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                        Ajouter cette aide
+                                    </button>
+                                </footer>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
