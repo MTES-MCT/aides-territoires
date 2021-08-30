@@ -26,9 +26,11 @@ from aids.forms import (AidEditForm, AidSearchForm,
 from aids.models import Aid
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
+from projects.forms import ProjectMatchAidForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from projects.models import Project
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
 from search.utils import clean_search_form
@@ -340,6 +342,9 @@ class AidDetailView(DetailView):
             self.object.eligibility))
 
         context['alert_form'] = AlertForm(label_suffix='')
+        if self.request.user.is_authenticated:
+            context['project_match_aid_form'] = ProjectMatchAidForm(label_suffix='')
+            context['projects'] = Project.objects.filter(beneficiary=self.request.user)
 
         return context
 

@@ -399,7 +399,8 @@
                             <div class="fr-col-10">
                                 <div>
                                     <h3 class="fr-h6">
-                                        <strong>Partager cette aide</strong></h3>
+                                        <strong>Partager cette aide</strong>
+                                    </h3>
                                 </div>
                                 <button class="fr-btn"  data-fr-opened="false" aria-controls="share-modal">
                                     Sauvegarder ou envoyer à mon réseau
@@ -407,6 +408,26 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if user.is_authenticated %}    
+                    <div>
+                        <div class="share fr-mb-4w fr-grid-row">
+                            <div class="fr-col-2">
+                                <i class="ri-add-circle-fill ri-xl fr-mr-1w"></i>
+                            </div>
+                            <div class="fr-col-10">
+                                <div>
+                                    <h3 class="fr-h6">
+                                        <strong>Ajouter cette aide à un projet</strong>
+                                    </h3>
+                                </div>
+                                <button class="fr-btn" id="match-aid-modal-btn"  data-fr-opened="false" aria-controls="match-aid-modal">
+                                    Ajouter cette aide
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
 
                     <div>
                         <div class="suggest-modification fr-mb-4w fr-grid-row">
@@ -555,6 +576,7 @@
     {% include 'aids/_share_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
     {% include 'eligibility/_eligibility_test_modal.html' %}
+    {% include 'projects/_match_aid_modal.html' %}
 {% endblock %}
 
 {% block extra_js %}
@@ -578,5 +600,6 @@
 <script src="/static/js/links_on_images.js"></script>
 <script src="/static/js/responsive_iframe.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>
+<script src="/static/js/aids/project_match_aid.js"></script>
 {% endcompress %}
 {% endblock %}
