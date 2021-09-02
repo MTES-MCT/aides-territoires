@@ -8,28 +8,22 @@
                         <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="share-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Partager cette aide</h1>
-                        <div class="share-target fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                            <div class="fr-col-2">
-                                <a title="Partager par Email" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" class="fr-box-shadow__none">
-                                    <img src="/static/img/logo_mail.svg" alt="Logo Mail" class="fr-responsive-img">
-                                </a>
-                            </div>
-                            <div class="fb-share-button fr-col-2" data-href="{{ request.build_absolute_uri }}" data-size="small">
-                                <a target="_blank" rel="noopener" title="Partager sur Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore fr-box-shadow__none fr-link-blank__none">
-                                    <img src="/static/img/logo_facebook.svg" alt="Logo Facebook" class="fr-responsive-img">
-                                </a>
-                            </div>
-                            <div class="fr-col-2">
-                                <a target="_blank" rel="noopener" title="Partager sur Linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" class="fr-box-shadow__none fr-link-blank__none">
-                                    <img src="/static/img/logo_linkedin.svg" alt="Logo Linkedin" class="fr-responsive-img">
-                                </a>
-                            </div>
-                            <div class="fr-col-2">
-                                <a target="_blank" rel="noopener" title="Partager sur Twitter" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;" class="fr-box-shadow__none fr-link-blank__none">
-                                    <img src="/static/img/logo_twitter.svg" alt="Logo Twitter" class="fr-responsive-img">
-                                </a>
-                            </div>
+                        <div class="fr-share">
+                            <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Partager cette aide</h1>
+                            <ul class="fr-share__group fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                                <li>
+                                    <a class="fr-share__link fr-share__link--facebook" title="Partager sur Facebook - ouvre une nouvelle fenêtre" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur Facebook','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=450'); event.preventDefault();">Partager sur Facebook</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--twitter" title="Partager sur Twitter - ouvre une nouvelle fenêtre" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur Twitter','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=420'); event.preventDefault();">Partager sur Twitter</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--linkedin" title="Partager sur LinkedIn - ouvre une nouvelle fenêtre" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur LinkedIn','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=550'); event.preventDefault();">Partager sur LinkedIn</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--mail" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" title="Partager par email" target="_blank">Partager par email</a>
+                                </li>
+                            </ul>
                         </div>
                               
                         <form id="copy-to-clipboard-form" class="fr-grid-row fr-grid-row--center">
