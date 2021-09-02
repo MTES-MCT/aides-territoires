@@ -10,7 +10,7 @@
     {% if current_search_dict.targeted_audiences %}
     <div class="fr-tags-group">
         <p title="Bénéficiaires de l'aide" class="fr-tag">
-            <i class="ri-home-8-line ri-xl fr-mr-1w"></i>
+            <i class="ri-home-8-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {% form_choices_display current_search_dict 'targeted_audiences' %}
         </p>
     </div>
@@ -21,7 +21,7 @@
     {% if current_search_dict.perimeter %}
     <div class="fr-tags-group">
         <p title="{{ _('Perimeter') }}" class="fr-tag">
-            <i class="ri-map-pin-fill ri-xl fr-mr-1w"></i>
+            <i class="ri-map-pin-fill ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {{ current_search_dict.perimeter }}
         </p>
     </div>
@@ -42,7 +42,7 @@
     {% if current_search_dict.backers %}
     <div class="fr-tags-group">
         <p title="{{ _('Aid backers') }}" class="fr-tag">
-            <i class="ri-hand-coin-line ri-xl fr-mr-1w"></i>
+            <i class="ri-hand-coin-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {{ current_search_dict.backers|join:', ' }}
         </p>
     </div>
@@ -53,7 +53,7 @@
     {% if current_search_dict.aid_type %}
     <div class="fr-tags-group">
         <p title="Nature de l'aide" class="fr-tag">
-            <i class="ri-money-euro-circle-line ri-xl fr-mr-1w"></i>
+            <i class="ri-money-euro-circle-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {% form_choices_display current_search_dict 'aid_type' %}
         </p>
     </div>
@@ -94,7 +94,7 @@
     {% if current_search_dict.text %}
     <div class="fr-tags-group">
         <p title="{{ _('Keyword') }}" class="fr-tag">
-            <i class="ri-double-quotes-r ri-xl fr-mr-1w"></i>
+            <i class="ri-double-quotes-r ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {{ current_search_dict.text }}
         </p>
     </div>
@@ -107,7 +107,7 @@
     <div class="fr-tags-group fr-uppercase">
         {% for theme in theme_list %}
             <p class="theme fr-tag">
-                <i class="ri-price-tag-3-line ri-xl fr-mr-1w"></i>
+                <i class="ri-price-tag-3-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
                 {{ theme.grouper }}
                 {% for category in theme.list %}
                     <span class="category">{{ category }}</span>
@@ -119,7 +119,7 @@
     <div class="fr-tags-group fr-uppercase">
         {% for theme in current_search_dict.themes %}
             <p class="theme fr-tag">
-                <i class="ri-price-tag-3-line ri-xl fr-mr-1w"></i>
+                <i class="ri-price-tag-3-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
                 {{ theme }}
             </p>
         {% endfor %}
