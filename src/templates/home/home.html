@@ -60,7 +60,7 @@
 </section>
 
 <section id="home-stats" class="dark-background">
-    <div class="fr-container-fluid fr-background-alt fr-pt-5w">
+    <div class="fr-container-fluid fr-background-alt">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-mb-5w fr-col-md-10" id="how">
@@ -87,32 +87,6 @@
         </div>
     </div>
 </section>
-
-{% if subset_selected_backers %}
-<section id="partner">
-    <div class="fr-container fr-py-5w">
-        <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
-            <div class="fr-mb-5w fr-col-md-10" id="how">
-                    <h2>Les porteurs d'aides</h2>
-                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
-                        {% for selected_backer in subset_selected_backers %}
-                        {% if forloop.counter < 7 %}
-                        <div class="fr-col-xs-12 fr-col-md-2 fr-p-3w">
-                            <a href="{{ selected_backer.get_absolute_url }}" class="fr-box-shadow__none">
-                            {% if selected_backer.logo %}
-                                <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " class="fr-width-100">
-                            {% endif %}
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-            </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif%}
 
 <div class="fr-container fr-pb-5w">
     <div class="fr-grid-row fr-grid-row--center">
@@ -164,6 +138,32 @@
         </div>
     </div>
 </div>
+
+{% if subset_selected_backers %}
+<section id="partner">
+    <div class="fr-container fr-pb-5w">
+        <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
+            <div class="fr-mb-5w fr-col-md-10" id="how">
+                    <h2>Les porteurs d'aides</h2>
+                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
+                        {% for selected_backer in subset_selected_backers %}
+                        {% if forloop.counter < 7 %}
+                        <div class="fr-col-xs-12 fr-col-md-2 fr-p-3w">
+                            <a href="{{ selected_backer.get_absolute_url }}" class="fr-box-shadow__none">
+                            {% if selected_backer.logo %}
+                                <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " class="fr-width-100">
+                            {% endif %}
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif%}
 
 <div class="fr-follow">
     <div class="fr-container">
