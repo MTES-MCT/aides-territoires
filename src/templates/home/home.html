@@ -164,4 +164,33 @@
         </div>
     </div>
 </div>
+
+<div class="fr-follow">
+    <div class="fr-container">
+        <div class="fr-grid-row">
+            <div class="fr-col-12 fr-col-md-10">
+                <div class="fr-follow__newsletter">
+                    <div>
+                        <h5 class="fr-h5 fr-follow__title">Porteur d'aides</h5>
+                        <p class="fr-text--sm fr-follow__desc">Diffusez vos aides dès maintenant !</p>
+                    </div>
+                    <div>
+                        {% if user.is_authenticated and user.is_contributor_or_staff %}
+                        <a class="fr-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>
+                        {% else %}
+                            <ul class="fr-btns-group fr-btns-group--inline">
+                                <li>
+                                    <a class="fr-btn" href="{% url 'login' %}">{{ _('Login') }}</a>
+                                </li>
+                                <li>
+                                    <a class="fr-btn" href="{% url 'register' %}">{{ _('Register') }}</a>    
+                                </li>
+                            </ul>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
