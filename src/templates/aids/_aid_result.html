@@ -17,7 +17,7 @@
         {% if aid.financers.all %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
                 <i class="ri-hand-coin-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
-                <strong class="financers">Porteurs d'aides</strong>
+                <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s'}} d'aides</strong>
             </p>
             <ul class="financers fr-p-0">
             {% for financer in aid.financers.all %}
