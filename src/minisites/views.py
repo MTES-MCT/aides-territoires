@@ -235,6 +235,9 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        if self.search_page.slug == "petitesvillesdedemain":
+            raise Http404('')
+
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
