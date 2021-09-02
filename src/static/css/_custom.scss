@@ -53,6 +53,10 @@ article#aid .aid-details h3 {
   max-height: 6rem;
 }
 
+.search-meta .fr-tag {
+  display: initial;
+}
+
 // Header style
 
 #profil::before {
@@ -467,12 +471,10 @@ fieldset {
 
 .search-meta .theme > span:first-of-type::before {
   content: "> ";
-  margin-left: .4rem;
 }
 
 .search-meta .theme > span + span::before {
   content: " + ";
-  margin-left: .4rem;
 }
 
 #search-engine ul#id_aid_type {
