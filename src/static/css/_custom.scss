@@ -45,6 +45,14 @@ article#aid .aid-details h3 {
   margin-top: 1rem;
 }
 
+#logos-financers img,
+#logos-programs img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 6rem;
+}
+
 // Header style
 
 #profil::before {
@@ -91,6 +99,13 @@ div #what-image {
     div #what-image {
         margin-top: 0;
     }
+}
+
+.home section#partner img {
+  width: auto;
+  height: auto;
+  max-width: 10rem;
+  max-height: 4rem;
 }
 
 // Aid create or edit

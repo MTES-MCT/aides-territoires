@@ -358,7 +358,7 @@
                     {% endif %}
 
                     {% if financers_with_logo %}
-                    <div class="fr-grid-row fr-mb-4w">
+                    <div class="fr-grid-row fr-mb-4w" id="logos-financers">
                         {% for financer in financers_with_logo %}
                         <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
                             <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
@@ -368,7 +368,7 @@
                     {% endif %}
 
                     {% if programs %}
-                    <div class="fr-grid-row fr-mb-4w">
+                    <div class="fr-grid-row fr-mb-4w" id="logos-programs">
                         {% for program in programs %}
                         <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
                             <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
