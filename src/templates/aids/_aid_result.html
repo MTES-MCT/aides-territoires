@@ -77,17 +77,17 @@
         {% if aid.has_calendar %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
                 <i class="ri-calendar-2-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
-                <strong class="deadline">{{ _('Calendar') }}</strong>
+                <strong class="deadline">Calendrier</strong>
             </p>
             <ul class="fr-p-0">
             {% if aid.is_coming_soon %}
             <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l'aide&nbsp;!</li>
             {% endif %}
             {% if aid.start_date %}
-                <li class="fr-list__none">{{ _('Opening:') }} {{ aid.start_date|date }}</li>
+                <li class="fr-list__none">Ouverture&nbsp;: {{ aid.start_date|date }}</li>
             {% endif %}
             {% if aid.submission_deadline %}
-                <li class="fr-list__none">{{ _('Deadline:') }} {{ aid.submission_deadline|date }}</li>
+                <li class="fr-list__none">Échéance&nbsp;: {{ aid.submission_deadline|date }}</li>
             {% endif %}
             </ul>
         {% endif %}
