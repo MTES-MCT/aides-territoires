@@ -236,7 +236,8 @@ class SiteStats(MinisiteMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         if self.search_page.slug == "petitesvillesdedemain":
-            raise Http404('')
+            context['no_data'] = "Les statistiques ne sont pas actuellement disponibles, merci de revenir ultérieurement."
+            return context
 
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()

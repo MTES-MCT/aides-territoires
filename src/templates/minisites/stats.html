@@ -19,6 +19,11 @@
 {% endblock %}
 
 {% block content %}
+{% if no_data %}
+<section id="stats">
+    <div>{{ no_data }}</div>
+</section>
+{% else %}
 <section id="stats">
 
     <div class="stat half-width">
@@ -213,6 +218,7 @@
         </div>
     </div>
 </section>
+{% endif %}
 {% endblock %}
 
 {% block extra_css %}
