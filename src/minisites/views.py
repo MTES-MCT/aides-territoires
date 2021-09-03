@@ -19,6 +19,7 @@ from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
+from categories.models import Category
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
@@ -307,10 +308,10 @@ class SiteStats(MinisiteMixin, TemplateView):
         # top 10 categories filters
         if self.search_page.show_categories_field:
             top_categories_searched = search_events \
-                .prefetch_related('categories') \
+                .prefetch_related(Prefetch('categories', queryset=Category.objects.all())) \
                 .exclude(categories=None) \
-                .values('categories__id', 'categories__name') \
-                .annotate(search_count=Count('categories__id')) \
+                .values('categories__name') \
+                .annotate(search_count=Count('categories')) \
                 .order_by('-search_count')
             context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
