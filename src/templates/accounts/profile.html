@@ -18,35 +18,37 @@
 
 
 {% block content %}
-<div class="article narrow">
+<div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <h1>{{ _('Update your profile') }}</h1>
 
-    <h1>{{ _('Update your profile') }}</h1>
+            {% if user.is_contributor_or_staff %}
+            {% url 'contributor_profile' as contributor_profile_url %}
+            <div class="info">
+            {% blocktrans trimmed %}
+                <p>
+                    <span class="fas fa-lightbulb"></span>
+                    You have a contributor account. <a href="{{ contributor_profile_url }}">
+                    To update your contributor profile, please proceed to the specific page.
+                    </a>
+                </p>
+            {% endblocktrans %}
+            </div>
+            {% endif %}
 
-    {% if user.is_contributor_or_staff %}
-    {% url 'contributor_profile' as contributor_profile_url %}
-    <div class="info">
-    {% blocktrans trimmed %}
-        <p>
-            <span class="fas fa-lightbulb"></span>
-            You have a contributor account. <a href="{{ contributor_profile_url }}">
-            To update your contributor profile, please proceed to the specific page.
-            </a>
-        </p>
-    {% endblocktrans %}
+            <form method="post" action="" novalidate>
+                {% csrf_token %}
+                {% include '_form_snippet.html' with form=form %}
+                <button type="submit">{{ _('Update your personal data') }}</button>
+            </form>
+        </div>
     </div>
-    {% endif %}
-
-    <form method="post" action="" novalidate>
-        {% csrf_token %}
-        {% include '_form_snippet.html' with form=form %}
-        <button type="submit">{{ _('Update your personal data') }}</button>
-    </form>
 </div>
 {% endblock %}
 
 {% block extra_css %}
 {% compress css %}
-<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
 {% endcompress %}
 {% endblock %}
 

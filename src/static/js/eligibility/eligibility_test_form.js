@@ -62,6 +62,7 @@
         })
         // add the submit button
         eligibilityTestForm.append(submitButton);
+        submitButton.addClass("fr-btn fr-my-5w");
         eligibilityTestForm.off('submit').on('submit', { eligibilityTestJson: eligibilityTestJson }, showEligibilityTestResults);
     }
     
@@ -145,5 +146,5 @@
 })(this, catalog);
 
 $(document).ready(function () {
-    $('div#aid-eligibility-test-modal').on('show.bs.modal', resetEligibilityTest);
+    $('#aid-eligibility-test-modal-btn').on('click', resetEligibilityTest);
 });

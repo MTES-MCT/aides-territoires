@@ -1,6 +1,6 @@
 {% load compress analytics i18n settings %}
 <!doctype html>
-<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}">
+<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}" data-fr-theme="default">
     <head>
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock %}{% endblock %}</title>
 
@@ -16,10 +16,11 @@
         <link rel="icon" href="/static/favicons/favicon.svg" type="image/svg">
         <link rel="icon" href="/static/favicons/favicon.png" type="image/png">
         <link rel="icon" sizes="32x32" href="/static/favicons/favicon-32x32.png" type="image/png">
-
+        
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
         {% compress css %}
-            <link rel="stylesheet" href="/static/css/fonts.scss" type="text/x-scss" charset="utf-8">
+            <link rel="stylesheet" href="/static/@gouvfr/dsfr/dist/css/dsfr.min.css" type="text/css" charset="utf-8">
             <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
         {% endcompress %}
         {% block extra_css %}{% endblock %}
@@ -39,7 +40,7 @@
             {% include '_header.html' %}
         {% endblock %}
 
-        <main role="main">
+        <main role="main" class="fr-container-fluid">
             {% block main %}
             <div id="{% block sectionid %}{% endblock %}" class="main-content">
 
@@ -47,9 +48,11 @@
 
                 {% block messages %}
                 {% if messages %}
-                    <div class="messages">
+                    <div class="messages fr-container fr-my-5w">
                         {% for message in messages %}
-                            <div class="{{ message.tags|default:'info' }}" role="alert">{{ message|safe }}</div>
+                            <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
+                                <p>{{ message|safe }}</p>
+                            </div>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -62,6 +65,8 @@
         </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
 
         {% block modals %}{% endblock %}
+        
+        {% include 'theme/_theme_modal.html' %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
@@ -80,6 +85,8 @@
             var hotjar_siteid = {% hotjar_siteid %};
         </script>
         {% endcompress %}
+        <script type="module" src="/static/@gouvfr/dsfr/dist/js/dsfr.module.min.js"></script>
+        <script type="text/javascript" nomodule src="/static/@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js"></script>
         <script src="/static/js/shared_config.js"></script>
         {% block extra_js %}{% endblock %}
 

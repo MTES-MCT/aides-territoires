@@ -1,59 +1,117 @@
 {% load settings i18n %}
 {% load i18n mailing_list %}
-<footer>
-    <div class="container">
-        <div class="columns">
-            <div class="logos logos-1">
+
+<div class="fr-follow">
+    <div class="fr-container">
+        <div class="fr-grid-row">
+            <div class="fr-col-12 fr-col-md-8">
+                <div class="fr-follow__newsletter">
+                    <div>
+                        <h5 class="fr-h5 fr-follow__title">Abonnez-vous à notre lettre d’information</h5>
+                        <p class="fr-text--sm fr-follow__desc">Restez informé des nouveautés de la plateforme</p>
+                    </div>
+                    <div>
+                        <a class="fr-btn" href="{% mailing_list_url %}" title="S‘abonner à notre lettre d’information">Abonnez-vous</a>
+                    </div>
+                </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-follow__social">
+                    <p class="fr-h5 fr-mb-3v fr-mb-3v">Suivez-nous
+                        <br> sur les réseaux sociaux</p>
+                    <ul class="fr-links-group fr-links-group--lg">
+                        <li>
+                            <a class="fr-link--twitter fr-link" href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">
+                            twitter
+                            </a>
+                        </li>
+                        <li>
+                            <a class="fr-link--linkedin fr-link" href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">
+                            Linkedin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="fr-footer" role="contentinfo" id="footer">
+    <div class="fr-container">
+        <div class="fr-footer__body fr-footer__body--operator">
+            <div class="fr-footer__brand">
                 <a href="https://www.ecologique-solidaire.gouv.fr/" title="Ministère de la Transition écologique">
-                    <img class="logo ministry-logo" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
+                    <img class="logo ministry-logo fr-responsive-img" src="/static/img/logo_mte.svg" alt="Logo du Ministère de la Transition écologique" />
                 </a>
-                <a href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
-                    <img class="logo ministry-logo" src="/static/img/logo_mct.svg" alt="Logo du Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales" />
+                <a class="fr-footer__brand-link fr-ml-3w" href="https://www.cohesion-territoires.gouv.fr/" title="Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
+                    <img class="fr-footer__logo fr-responsive-img" src="/static/img/logo_mct.svg" alt="logo du Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Territoriales">
                 </a>
             </div>
-
-            <div class="newsletter">
-                <div class="subscribe-newsletter">
-                    <h2>Recevez la newsletter</h2>
-                    <p>Restez informé des nouveautés de la plateforme</p>
-                    <a class="ml-btn" href="{% mailing_list_url %}">Inscrivez-vous</a>
-                </div>
-
-                <h2>{{ _("Aid backers") }}</h2>
-                <p>{% blocktrans trimmed %}
-                Publish your aids now !
-                {% endblocktrans %}</p>
-                {% if user.is_authenticated and user.is_contributor_or_staff %}
-                    <a class="ml-btn" href="{% url 'aid_draft_list_view' %}">{{ _('Publish an aid') }}</a>
-                {% else %}
-                    <a class="ml-btn" href="{% url 'login' %}">{{ _('Login') }}</a>
-                    <a class="ml-btn" href="{% url 'register' %}">{{ _('Register') }}</a>
-                {% endif %}
+            <div class="fr-footer__content">
+                <p class="fr-footer__content-desc">Aides-territoires est une startup d’Etat portée par la Direction Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le soutien de l’Agence Nationale de Cohésion des Territoires (ANCT)  et de la Direction Générale des Infrastructures de Transport et de la Mer (DGITM).</p>
+                <ul class="fr-footer__content-list">
+                    <li class="fr-footer__content-item">
+                        <a class="fr-footer__content-link" href="https://www.ecologie.gouv.fr/">ecologie.gouv.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a class="fr-footer__content-link" href="https://www.cohesion-territoires.gouv.fr">cohesion-territoires.gouv.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a class="fr-footer__content-link" href="https://gouvernement.fr">gouvernement.fr</a>
+                    </li>
+                    <li class="fr-footer__content-item">
+                        <a class="fr-footer__content-link" href="https://data.gouv.fr">data.gouv.fr</a>
+                    </li>
+                </ul>
             </div>
+        </div>
 
-            <div class="logos logos-2">
-                <a href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="La Fabrique Numérique">
-                    <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
-                </a>
-                <div id="social-network">
-                    <p>Suivez nos actualités sur&nbsp:</p>
-                    <a href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter" target="_blank" rel="noopener"><img src="/static/img/logo_twitter.svg" alt="logo twitter"></a>
-                    <a href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener"><img src="/static/img/logo_linkedin.svg" alt="logo linkedin"></a>    
+        <div class="fr-footer__partners">
+            <h4 class="fr-footer__partners-title">Nos partenaires</h4>
+            <div class="fr-footer__partners-logos">
+                <div class="fr-footer__partners-main">
+                            <a class="fr-footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr/">
+                                <img class="fr-footer__logo" src="/static/img/logo-anct.svg" alt="Logo : ANCT">
+                            </a>
+                            <a class="fr-footer__partners-link" href="https://www.francemobilites.fr/">
+                                <img class="fr-footer__logo" src="/static/img/logo-francemobilites.svg" alt="Logo : France Mobilité">
+                            </a>
                 </div>
-                <div id="accessibility">
-                    <p>Accessibilité&nbsp;: non conforme</p>
+                <div class="fr-footer__partners-sub">
+                    <ul>
+                        <li>
+                            <a class="fr-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel">
+                                <img class="fr-footer__logo" src="/static/img/logo-fabriquenumerique.svg" alt="Logo : La Fabrique Numérique">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="fr-footer__partners-link" href="https://beta.gouv.fr/">
+                                <img class="fr-footer__logo" src="/static/img/logo-betagouvfr.svg" alt="Logo : Beta.gouv">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <nav role="navigation">
-            <ul>
-                <li><a href="{% url 'aid_draft_list_view' %}">{{ _('Publish new aids') }}</a></li>
-                <li><a href="{% url 'data_doc' %}">{{ _('Data and api') }}</a></li>
-                <li><a class="contact" href="{% url 'contact' %}">Nous contacter</a></li>
-                <li><a href="{% url 'legal_mentions' %}">{{ _('Legal mentions') }}</a></li>
-                <li><a href="https://github.com/MTES-MCT/aides-territoires">{{ _('Source code') }}</a></li>
+        <div class="fr-footer__bottom">
+            <ul class="fr-footer__bottom-list">
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'aid_draft_list_view' %}">Publier des aides</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'data_doc' %}">Données et API</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'contact' %}">Nous contacter</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Mentions légales</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="https://github.com/MTES-MCT/aides-territoires">Code source</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Accessibilité : non conforme</a></li>
+                <li class="fr-footer__bottom-item">
+                    <button class="fr-footer__bottom-link fr-fi-theme-fill fr-link--icon-left" aria-controls="fr-theme-modal" data-fr-opened="false">Paramètres d'affichage</button>
+                </li>
             </ul>
-        </nav>
+        </div>
+
+        <div class="fr-footer__bottom-copy">
+            <p>Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+            </p>
+        </div>
     </div>
 </footer>

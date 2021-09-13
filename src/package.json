@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
+    "@gouvfr/dsfr": "^1.1.0",
     "autoprefixer": "^9.6.1",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.4",

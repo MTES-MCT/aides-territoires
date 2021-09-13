@@ -1,52 +1,42 @@
 {% load i18n %}
-<div id="share-modal" class="modal">
-    <div class="modal-dialog">
-        <section>
-            <header>
-                <h1>Partager cette aide</h1>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span title="Fermer" aria-hidden="true">&times;</span>
-                </button>
-            </header>
-
-            <div class="content">
-
-                <div class="share-target">
-                    <div class="col">
-                        <a class="email" title="Partager par Email" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}">
-                            <img src="/static/img/logo_mail.svg" alt="Logo Mail">
-                        </a>
-                        <p>Email</p>
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="share-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="share-modal">Fermer</button>
                     </div>
-                    <div class="fb-share-button col" data-href="{{ request.build_absolute_uri }}" data-size="small">
-                        <a target="_blank" rel="noopener" title="Partager sur Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
-                            <img src="/static/img/logo_facebook.svg" alt="Logo Facebook">
-                        </a>
-                        <p>Facebook</p>
-                    </div>
-                    <div class="col">
-                        <a target="_blank" rel="noopener" title="Partager sur Linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}">
-                            <img src="/static/img/logo_linkedin.svg" alt="Logo Linkedin">
-                        </a>
-                        <p>Linkedin</p>
-                    </div>
-                    <div class="col">
-                        <a target="_blank" rel="noopener" title="Partager sur Twitter" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;">
-                            <img src="/static/img/logo_twitter.svg" alt="Logo Twitter">
-                        </a>
-                        <p>Twitter</p>
+                    <div class="fr-modal__content">
+                        <div class="fr-share">
+                            <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Partager cette aide</h1>
+                            <ul class="fr-share__group fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                                <li>
+                                    <a class="fr-share__link fr-share__link--facebook" title="Partager sur Facebook - ouvre une nouvelle fenêtre" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode}}&amp;src=sdkpreparse" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur Facebook','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=450'); event.preventDefault();">Partager sur Facebook</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--twitter" title="Partager sur Twitter - ouvre une nouvelle fenêtre" href="https://twitter.com/intent/tweet?via=AidesTerr&text={{ aid.name }}&url={{ request.build_absolute_uri|urlencode}}" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur Twitter','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=420'); event.preventDefault();">Partager sur Twitter</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--linkedin" title="Partager sur LinkedIn - ouvre une nouvelle fenêtre" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur LinkedIn','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=550'); event.preventDefault();">Partager sur LinkedIn</a>
+                                </li>
+                                <li>
+                                    <a class="fr-share__link fr-share__link--mail" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" title="Partager par email" target="_blank">Partager par email</a>
+                                </li>
+                            </ul>
+                        </div>
+                              
+                        <form id="copy-to-clipboard-form" class="fr-grid-row fr-grid-row--center">
+                            <div class="form-group fr-my-2w fr-col-12">
+                                <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" class="fr-col-12" />
+                            </div>
+                            <button type="button" id="clipboard-btn" class="fr-btn">
+                                {{ _('Copy the current url to clipboard') }}
+                            </button>
+                        </form>
                     </div>
                 </div>
-                      
-                <form id="copy-to-clipboard-form">
-                    <div class="form-group">
-                        <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" />
-                    </div>
-                    <button type="button" id="clipboard-btn">
-                        {{ _('Copy the current url to clipboard') }}
-                    </button>
-                </form>
             </div>
-        </section>
+        </div>
     </div>
-</div>
+</dialog>

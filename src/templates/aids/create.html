@@ -4,41 +4,36 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block page_title %}
-    <h1>{{ _('Publish a new aid') }}</h1>
+    <h1>Publier une aide</h1>
 {% endblock %}
 
 {% block before-section %}
-<div class="warning">
-    <p>{% blocktrans trimmed %}
-        <span class="fas fa-exclamation-circle"></span>
-        Before being published, your aid <strong>must be reviewed by an
-        administrator</strong>.
-    {% endblocktrans %}</p>
-    <p>{% blocktrans trimmed %}
-        You can create your aid and <strong>ask for publication</strong>
-        right away, or <strong>save it as a draft</strong>.
-    {% endblocktrans %}</p>
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
+    <p class="fr-mb-0">Votre aide devra être <strong>revue par un administrateur</strong> avant publication.</p>
+</div>
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+    <p class="fr-mb-0">Vous pouvez créer votre aide et <strong>demander la publication immédiatement,</strong> ou <strong>l'enregistrer en tant que brouillon.</strong></p>
 </div>
 {% endblock %}
 
 {% block form_sidebar %}
 <ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="list-group-item list-group-item-action active" aria-current="true">
+    <a href="#aid-presentation" class="fr-box-shadow__none list-group-item list-group-item-action active" aria-current="true">
         <span class="counter">1</span>
         Présentation
     </a>
-    <span class="separator"></span>
-    <a href="#aid-description" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-description" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">2</span>
         Description
     </a>
-    <span class="separator"></span>
-    <a href="#aid-eligibility" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-eligibility" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">3</span>
         Critères d'éligibilité
     </a>
-    <span class="separator"></span>
-    <a href="#aid-contact" class="list-group-item list-group-item-action">
+    <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+    <a href="#aid-contact" class="fr-box-shadow__none list-group-item list-group-item-action">
         <span class="counter">4</span>
         Contact et démarches
     </a>
@@ -46,16 +41,21 @@
 {% endblock %}
 
 {% block form_actions %}
-<p class="warning">{% blocktrans trimmed %}
-<span class="fas fa-exclamation-circle"></span>
-Your aid <strong>will not be published</strong> until it is reviewed by an administrator.
-{% endblocktrans %}</p>
-
-<div class="form-actions">
-    <div class="submit-buttons">
-        <button name="_status" value="reviewable" type="submit">{{ _('Save and request publication') }}</button>
-        <button name="_status" value="draft" type="submit" class="secondary">{{ _('Save as a draft') }}</button>
+<div class="fr-background-main fr-pt-2w">
+    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+        <p>
+            Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été revue par un administrateur.
+        </p>            
     </div>
-    <a href="{% url 'aid_draft_list_view' %}">{{ _('Cancel') }}</a>
+
+    <div class="form-actions fr-grid-row">
+        <div class="submit-buttons fr-col-12 fr-col-md-10">
+            <button name="_status" value="reviewable" type="submit" class="fr-btn fr-mb-2w">Enregistrer et demander la publication</button>
+            <button name="_status" value="draft" type="submit" class="fr-btn fr-mb-2w">Enregistrer en brouillon</button>
+        </div>
+        <div class="fr-col-md-2 fr-grid-row fr-grid-row--right">
+            <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-mb-2w">Annuler</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

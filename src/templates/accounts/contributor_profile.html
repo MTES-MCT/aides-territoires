@@ -8,41 +8,53 @@
 {% block sectionid %}profile-form{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Update your contributor profile') }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mettre à jour votre profil contributeur</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 
 {% block content %}
-<div class="article narrow">
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            {% if user.profile_complete %}
+            <h1>{{ _("Update your contributor profile") }}</h1>
+            {% else %}
+            <h1>{{ _("Become a contributor") }}<br/>
+                <small>{{ _("Fill out the required data") }}</small>
+            </h1>
+            {% endif %}
 
-    {% if user.profile_complete %}
-        <h1>{{ _("Update your contributor profile") }}</h1>
-    {% else %}
-        <h1>{{ _("Become a contributor") }}<br/>
-            <small>{{ _("Fill out the required data") }}</small>
-        </h1>
-    {% endif %}
+            <div class="info fr-background-alt-pink fr-p-3w fr-mb-5w">
+                <p class="fr-mb-2w">
+                    <span class="fas fa-lightbulb"></span>
+                    {% blocktrans trimmed %}
+                    You have a contributor account. Fill in the form below to update
+                    your profile.
+                    {% endblocktrans %}
+                </p>
+                <p class="fr-mb-0">{{ _('We will use this data to help validate the aids your contribute.') }}</p>
+            </div>
 
-    <div class="info">
-        <p>
-            <span class="fas fa-lightbulb"></span>
-            {% blocktrans trimmed %}
-            You have a contributor account. Fill in the form below to update
-            your profile.
-            {% endblocktrans %}
-        </p>
-        <p>{{ _('We will use this data to help validate the aids your contribute.') }}</p>
+            <form method="post" action="" novalidate>
+                {% csrf_token %}
+                {% include '_form_snippet.html' with form=form %}
+                <button type="submit" class="fr-btn">{{ _('Update your personal data') }}</button>
+            </form>
+        </div>
     </div>
-
-    <form method="post" action="" novalidate>
-        {% csrf_token %}
-        {% include '_form_snippet.html' with form=form %}
-        <button type="submit">{{ _('Update your personal data') }}</button>
-    </form>
 </div>
 {% endblock %}

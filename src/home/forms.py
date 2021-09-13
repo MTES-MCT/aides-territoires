@@ -6,11 +6,11 @@ class ContactForm(forms.Form):
 
     SUBJECT_CHOICES = (
         (None, '----'),
-        ('contact_tech', "J'ai un problème technique sur le site"),
         ('contact_add', "Je veux en savoir plus sur l'ajout de mes aides sur la plateforme"),
         ('contact_com', 'Je souhaite communiquer sur Aides-territoires'),
         ('contact_question', "J'ai une question par rapport à une aide ou mon projet"),
-        ('contact_api', 'API'),
+        ('contact_api', 'Je souhaite utiliser les données d’Aides-territoires / API'),
+        ('contact_tech', "J'ai un problème technique sur le site"),
         ('contact_other', 'Autres')
     )
 
@@ -31,7 +31,7 @@ class ContactForm(forms.Form):
     organization_and_role = forms.CharField(
         label='Votre structure et fonction',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Mairie de Château-Thierry / Chargé de mission habitat'}),
+            attrs={'placeholder': 'Exemple: Mairie de Château-Thierry / Chargé de mission habitat'}),
         required=False)
 
     subject = forms.ChoiceField(

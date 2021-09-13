@@ -1,25 +1,123 @@
 {% load settings %}
 
-<nav id="main-navbar">
-    <div class="container-lg">
-        <a class="homelink" href="{% url 'home' %}">
-            <img class="marianne d-none d-xs-inline-block d-sm-none" src="/static/img/marianne.svg" alt="Logo Marianne" /><img class="at d-sm-none" src="/static/img/logo_AT_titre.svg" alt="Aides-territoires" />
-            <img class="marianne d-none d-sm-inline-block" src="/static/img/logo_RP.svg" alt="Logo Marianne" /><img class="at d-none d-sm-inline-block" src="/static/img/logo_AT_courbes.svg" alt="Aides-territoires" />
-        </a>
-
-        {% block user_menu %}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="{{ _('Toggle main menu') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            {% if user.is_authenticated %}
-                {% include '_authenticated_menu.html' %}
-            {% else %}
-                {% include '_anonymous_menu.html' %}
-            {% endif %}
-        </div>
-        {% endblock %}
+<div class="fr-background-alt fr-p-3w">
+    <div class="fr-container fr-centered">
+        <p class="fr-mb-0 fr-text--bold">Aides-territoires intégre désormais <a href="https://www.systeme-de-design.gouv.fr/">le Système de Design de l'État</a>&nbsp;! N'hésitez pas à nous <a href="{% url 'contact' %}">envoyer vos retours.</a></p>
     </div>
-</nav>
+</div>
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                République
+                                <br>Française
+                            </p>
+                        </div>
+                        <div class="fr-header__operator">
+                            <a href="{% url 'home' %}" title="Accueil Aides-territoires">
+                                <img src="/static/img/logo_AT_courbes.svg" class="fr-responsive-img" style="max-width:9.0625rem;" alt="Aides-territoires" />
+                            </a>
+                        </div>
+                        <div class="fr-header__navbar">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-870" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-4">
+                                Menu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                        {% if user.is_authenticated %}                    
+                        <ul class="fr-links-group">
+                            <li class="fr-link fr-fi-account-line" id="profil">
+                                {{ user.full_name }}
+                            </li>
+                            <li>
+                                <a class="fr-link" href="{% url 'logout' %}">
+                                    {{ _('Log out') }}
+                                </a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="fr-links-group">
+                            <li>
+                                <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>
+                            </li>
+                            <li>
+                                <a class="fr-link fr-fi-account-line" href="{% url 'register' %}">S’inscrire</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="fr-header__menu fr-modal" id="modal-870" aria-labelledby="fr-btn-menu-mobile-4">
+        <div class="fr-container">
+            <button class="fr-link--close fr-link" aria-controls="modal-870">Fermer</button>
+            <div class="fr-header__menu-links"></div>
+            <nav class="fr-nav" id="navigation-869" role="navigation" aria-label="Menu principal">
+                <ul class="fr-nav__list">
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="{% url 'home' %}" target="_self">Accueil</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="/mini-sites/" target="_self">Mini-sites</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-actualites">Actualités</button>
+                        <div class="fr-collapse fr-menu" id="menu-actualites">
+                            <ul class="fr-menu__list">
+                                <!-- <li>
+                                    <a class="fr-nav__link" href="{% url 'blog_post_list_view' %}" target="_self">Le blog</a>
+                                </li> -->
+                                <li>
+                                    <a class="fr-nav__link" href="/europe/" target="_self">Les programmes européens 2021-2027</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/webinaires/" target="_self">Les webinaires</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="fr-nav__item">
+                        <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-en-savoir-plus">En savoir plus</button>
+                        <div class="fr-collapse fr-menu" id="menu-en-savoir-plus">
+                            <ul class="fr-menu__list">
+                                <li>
+                                    <a class="fr-nav__link" href="/plateforme-aides-territoires/" target="_self">La démarche</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/porteurs-aides/" target="_self">Porteurs d'aides</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/data/" target="_self">Données et API</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="/contact/" target="_self">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% if user.is_authenticated %}                    
+                        {% include '_authenticated_menu_dropdown_actions.html' %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
 {% staging_warning %}

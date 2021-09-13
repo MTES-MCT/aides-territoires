@@ -10,6 +10,24 @@
     {% include 'minisites/_header.html' %}
 {% endblock %}
 
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ page.title }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
 {% block footer %}
     {% include 'minisites/_footer.html' %}
 {% endblock %}
@@ -35,21 +53,8 @@
 {% endblock %}
 
 {% block content %}
-{% if pages %}
-<ul class="nav nav-tabs pages-nav">
-    <li class="nav-item">
-        <a class="nav-link" href="/">{{ search_page.tab_title }}</a>
-    </li>
-    {% for p in pages %}
-    <li class="nav-item">
-        <a class="nav-link{% if p.url == page.url %} active{% endif %}" href="{% url 'page_detail_view' p.url %}">{{ p.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
 <article>
-
-<div id="page-content">
+<div id="page-content" class="fr-container fr-background-main fr-p-5w">
     <h1>{{ page.title }}</h1>
 
     {{ page.content|safe }}

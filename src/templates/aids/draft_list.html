@@ -4,84 +4,97 @@
 {% block extratitle %}{{ _('My portfolio') }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('My portfolio') }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ _('My portfolio') }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<article id="draft-list">
+<article id="draft-list" class="fr-container">
 
-    <a class="main-action action-add" href="{% url 'aid_create_view' %}">
-        {{ _('Publish a new aid') }}
-    </a>
-
-    <h1>{{ _('My portfolio') }}</h1>
-
-    <div class="info">
-        {{ _('Total number of hits') }} : <span class="counter">{{ hits_total }}</span><br />
-        {{ _('Number of hits in the last 30 days') }} : <span class="counter">{{ hits_last_30_days }}</span>
+    <div class="fr-grid-row fr-grid-row--middle">    
+        <h1 class="fr-col-12 fr-col-md-10">Mon portefeuille d'aides</h1>
+        <a class="main-action action-add fr-btn fr-col-12 fr-col-md-2" href="{% url 'aid_create_view' %}">
+            <span class="fr-fi-add-line" aria-hidden="true"></span>
+            Publier une aide
+        </a>
     </div>
 
-    <form id="filter-form" action="" method="get" autocomplete='off'>
-        <div class="form-container">
+    <div class="info">
+        {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
+        {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
+    </div>
+
+    <form id="filter-form" action="" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
+        <div class="form-container fr-p-3w">
             {{ filter_form }}
-            <button class="filter-btn" type="submit">
-                {{ _('Filter results') }}
+            <button class="filter-btn fr-btn fr-mt-3w" type="submit">
+                Filtrer les résultats
             </button>
         </div>
     </form>
 
-    <div class="table-help">
-        {{ _('Click on the column name to order') }}
+    <div class="fr-table">
+        <table class="data-table">
+            <caption class="sr-only">
+                La liste de vos aides publiées
+                <br>
+                <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
+                    <th scope="col" title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
+                    <th scope="col" title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
+                    <th scope="col" title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
+                    <th scope="col" title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
+                    <th scope="col">{{ _('Is live') }}</th>
+                    <th scope="col">Vues</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aid in aids %}
+                <tr>
+                    <td>
+                        <a href="{% url 'aid_edit_view' aid.slug %}">
+                            {{ aid.name }}
+                        </a>
+                        {% if aid.is_live %}
+                            <span class="fas fa-check-circle" title="Affichée"></span>
+                        {% endif %}
+                    </td>
+                    <td>{{ aid.perimeter }}</td>
+                    <td>{{ aid.date_created|date:'d/m/y' }}</td>
+                    <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+                    <td class="nowrap-cell">
+                        {% if aid.is_ongoing %}
+                            <span class="fas fa-parking" title="Permanente"></span>
+                        {% elif aid.has_approaching_deadline %}
+                            <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                        {% elif aid.has_expired %}
+                            <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                        {% endif %}
+                        <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
+                    </td>
+                    <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
+                    <td>{% get hits_per_aid aid.id 0 %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    <table class="data-table">
-        <caption class="sr-only">{{ _('Your list of published aids') }}</caption>
-        <thead>
-            <tr>
-                <th class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
-                <th title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
-                <th title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
-                <th title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                <th title="Trier par Échéance">{% sortable_header 'Échéance' 'submission_deadline' %}</th>
-                <th>{{ _('Is live') }}</th>
-                <th>Vues</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for aid in aids %}
-            <tr>
-                <td>
-                    <a href="{% url 'aid_edit_view' aid.slug %}">
-                        {{ aid.name }}
-                    </a>
-                    {% if aid.is_live %}
-                        <span class="fas fa-check-circle" title="Affichée"></span>
-                    {% endif %}
-                </td>
-                <td>{{ aid.perimeter }}</td>
-                <td>{{ aid.date_created|date:'d/m/y' }}</td>
-                <td>{{ aid.date_updated|date:'d/m/y' }}</td>
-                <td class="nowrap-cell">
-                    {% if aid.is_ongoing %}
-                        <span class="fas fa-parking" title="Permanente"></span>
-                    {% elif aid.has_approaching_deadline %}
-                        <span class="fas fa-clock" title="Expire bientôt"></span>
-                    {% elif aid.has_expired %}
-                        <span class="fas fa-exclamation-circle" title="Expirée"></span>
-                    {% endif %}
-                    <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
-                </td>
-                <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
-                <td>{% get hits_per_aid aid.id 0 %}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
     {% include '_pagination.html' %}
 

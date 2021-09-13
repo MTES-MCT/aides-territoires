@@ -5,76 +5,85 @@
 {% block meta_description %}{{ backer.meta_description }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ backer.name }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ backer.name }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<article id="backer">
+<article id="backer" class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <section id="backer-content" class="fr-col-md-10">
 
-    <section id="backer-content">
-
-        <div id="backer-title">
-            {% if backer.logo %}
-            <div>
-                <div>
+            <div id="backer-title">
+                {% if backer.logo %}
+                <div class="fr-grid-row fr-grid-row--middle">
+                    <div class="fr-col-12 fr-col-md-9">
+                        <h1>{{ backer.name }}</h1>
+                    </div>
+                    <div class="fr-col-12 fr-col-md-3">
+                        <img src="{{ backer.logo.url }}" class="fr-responsive-img" alt="logo du porteur {{ backer.name }}">
+                    </div>
+                </div>
+                {% else %}
                     <h1>{{ backer.name }}</h1>
-                </div>
+                {% endif %}
+            </div> 
+    
+            {% if backer.description %}
                 <div>
-                    <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
+                    <h2>Présentation générale</h2>
+                    {{ backer.description|safe }}
+                </div>
+            {% endif %}   
+    
+            {% if aids %}
+            <div>
+                <h2>Thématiques associées</h2>
+                {% regroup categories by theme as theme_list %}
+                <ul class="backer-categories">
+                    {% for theme in theme_list %}
+                        <li class="theme">
+                            <strong>
+                            {{ theme.grouper }}
+                            </strong>
+                            <ul>
+                            {% for category in theme.list %}
+                                <li class="category">{{ category.name }}</li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% if programs %}
+            <div>
+                <h2>Programmes associés</h2>
+                <div id="program-logo" class="fr-grid-row fr-grid-row--middle">
+                {% for program in programs %}
+                    <a href="{% url 'program_detail' program.slug %}" class="fr-col fr-col-md-3">
+                        <img src="{{ program.logo.url }}" alt="{{ program.name }}" class="fr-responsive-img">
+                    </a>
+                {% endfor %}
                 </div>
             </div>
-            {% else %}
-                <h1>{{ backer.name }}</h1>
             {% endif %}
-        </div> 
-
-        {% if backer.description %}
-            <div>
-                <h2>{{ _('Global presentation') }}</h2>
-                {{ backer.description|safe }}
-            </div>
-        {% endif %}   
-
-        {% if aids %}
-        <div>
-            <h2>Thématiques associées</h2>
-            {% regroup categories by theme as theme_list %}
-            <ul class="backer-categories">
-                {% for theme in theme_list %}
-                    <li class="theme">
-                        <strong>
-                        {{ theme.grouper }}
-                        </strong>
-                        <ul>
-                        {% for category in theme.list %}
-                            <li class="category">{{ category.name }}</li>
-                        {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        
-        {% if programs %}
-        <div>
-            <h2>Programmes associés</h2>
-            <div id="program-logo">
-            {% for program in programs %}
-                <a href="{% url 'program_detail' program.slug %}">
-                    <img src="{{ program.logo.url }}" alt="{{ program.name }}">
-                </a>
-            {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-            
-    </section>
-
+                
+        </section>    
+    </div>
 </article>
 {% endblock %}
 

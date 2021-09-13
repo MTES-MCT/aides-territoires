@@ -2,135 +2,128 @@
 
 <div class="search-meta">
 
-    {% if display == "all" %}
-        {% if not current_search_dict %}
-            <i>Vous n'avez pas séléctionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</i>
-        {% endif %}
+    {% if not current_search_dict %}
+    <i>Vous n'avez pas sélectionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</i>
     {% endif %}
 
-    {% block search-meta-projects %}
-    {% if current_search_dict.projects %}
-        <p title="Projet">
-            <span class="fas fa-lightbulb fa-fw"></span>
-            {{ current_search_dict.projects|join:', ' }}
+    {% block search-meta-targeted-audiences %}
+    {% if current_search_dict.targeted_audiences %}
+    <div class="fr-tags-group">
+        <p title="Bénéficiaires de l'aide" class="fr-tag">
+            <i class="ri-home-8-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {% form_choices_display current_search_dict 'targeted_audiences' %}
         </p>
+    </div>
     {% endif %}
     {% endblock %}
-
-    {% if display == "all" %}
-        {% block search-meta-targeted-audiences %}
-        {% if current_search_dict.targeted_audiences %}
-            <p title="Bénéficiaires de l'aide">
-                <span class="fas fa-building fa-fw"></span>
-                {% form_choices_display current_search_dict 'targeted_audiences' %}
-            </p>
-        {% endif %}
-        {% endblock %}
-    {% endif %}
 
     {% block search-meta-perimeter %}
     {% if current_search_dict.perimeter %}
-        <p title="{{ _('Perimeter') }}">
-            <span class="fas fa-map-pin fa-fw"></span>
+    <div class="fr-tags-group">
+        <p title="{{ _('Perimeter') }}" class="fr-tag">
+            <i class="ri-map-pin-fill ri-xl fr-mr-1w fr-icon-align--sub"></i>
             {{ current_search_dict.perimeter }}
         </p>
+    </div>
     {% endif %}
     {% endblock %}
 
-    {% if display == "all" %}
-        {% block search-meta-programs %}
-        {% if current_search_dict.programs %}
-            <p title="Programmes d'aides">
-                <span class="fas fa-scroll fa-fw"></span>
-                {{ current_search_dict.programs|join:', ' }}
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-backers %}
-        {% if current_search_dict.backers %}
-            <p title="{{ _('Aid backers') }}">
-                <span class="fas fa-handshake fa-fw"></span>
-                {{ current_search_dict.backers|join:', ' }}
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-aid-type %}
-        {% if current_search_dict.aid_type %}
-            <p title="Nature de l'aide">
-                <span class="fas fa-cog fa-fw"></span>
-                {% form_choices_display current_search_dict 'aid_type' %}
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-mobilization-step %}
-        {% if current_search_dict.mobilization_step %}
-            <p title="Avancement du projet">
-                <span class="fas fa-hourglass fa-fw"></span>
-                {% form_choices_display current_search_dict 'mobilization_step' %}
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-destinations %}
-        {% if current_search_dict.destinations %}
-            <p title="Actions concernées">
-                <span class="fas fa-wallet fa-fw"></span>
-                {% form_choices_display current_search_dict 'destinations' %}
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-call-for-project %}
-        {% if current_search_dict.call_for_projects_only %}
-            <p title="Appels à projets / Appels à manifestation d'intérêt uniquement">
-                <span class="fas fa-thumbtack fa-fw"></span>
-                Appels à projets / Appels à manifestation d'intérêt uniquement
-            </p>
-        {% endif %}
-        {% endblock %}
-
-        {% block search-meta-text %}
-        {% if current_search_dict.text %}
-            <p title="{{ _('Keyword') }}">
-                <span class="fas fa-quote-left fa-fw"></span>
-                {{ current_search_dict.text }}
-            </p>
-        {% endif %}
-        {% endblock %}
+    {% block search-meta-programs %}
+    {% if current_search_dict.programs %}
+    <div class="fr-tags-group">
+        <p title="Programmes d'aides" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+            {{ current_search_dict.programs|join:', ' }}
+        </p>
+    </div>
     {% endif %}
+    {% endblock %}
+
+    {% block search-meta-backers %}
+    {% if current_search_dict.backers %}
+    <div class="fr-tags-group">
+        <p title="{{ _('Aid backers') }}" class="fr-tag">
+            <i class="ri-hand-coin-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {{ current_search_dict.backers|join:', ' }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-aid-type %}
+    {% if current_search_dict.aid_type %}
+    <div class="fr-tags-group">
+        <p title="Nature de l'aide" class="fr-tag">
+            <i class="ri-money-euro-circle-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {% form_choices_display current_search_dict 'aid_type' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-mobilization-step %}
+    {% if current_search_dict.mobilization_step %}
+    <div class="fr-tags-group">
+        <p title="Avancement du projet" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+            {% form_choices_display current_search_dict 'mobilization_step' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-destinations %}
+    {% if current_search_dict.destinations %}
+    <div class="fr-tags-group">
+        <p title="Actions concernées" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+            {% form_choices_display current_search_dict 'destinations' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-call-for-project %}
+    {% if current_search_dict.call_for_projects_only %}
+    <div class="fr-tags-group">
+        <p title="Appels à projets / Appels à manifestation d'intérêt uniquement" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+            Appels à projets / Appels à manifestation d'intérêt uniquement
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-text %}
+    {% if current_search_dict.text %}
+    <div class="fr-tags-group">
+        <p title="{{ _('Keyword') }}" class="fr-tag">
+            <i class="ri-double-quotes-r ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {{ current_search_dict.text }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
 
     {% block search-meta-categories %}
     {% if current_search_dict.categories %}
     {% regroup current_search_dict.categories by theme as theme_list %}
-    <ul class="aid-categories" title="{{ _('Categories') }}">
+    <div class="fr-tags-group fr-uppercase">
         {% for theme in theme_list %}
-            <li class="theme">
-                {% if forloop.first %}
-                    <span class="fas fa-tags fa-fw"></span>
-                {% endif %}
+            <p class="theme fr-tag">
+                <i class="ri-price-tag-3-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
                 {{ theme.grouper }}
-                <ul>
-                    {% for category in theme.list %}
-                        <li class="category">{{ category }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
+                {% for category in theme.list %}
+                    <span class="category">{{ category }}</span>
+                {% endfor %}
+            </p>
         {% endfor %}
-    </ul>
+    </div>
     {% elif current_search_dict.themes %}
-    <ul class="aid-categories" title="{{ _('Themes') }}">
+    <div class="fr-tags-group fr-uppercase">
         {% for theme in current_search_dict.themes %}
-            <li class="theme">
-                {% if forloop.first %}
-                    <span class="fas fa-tags fa-fw"></span>
-                {% endif %}
+            <p class="theme fr-tag">
+                <i class="ri-price-tag-3-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
                 {{ theme }}
-            </li>
+            </p>
         {% endfor %}
-    </ul>
+    </div>
     {% endif %}
     {% endblock %}
 

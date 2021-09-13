@@ -1,44 +1,50 @@
 {% load i18n %}
 
-<div id="alert-search-modal" class="anonymous-modal modal">
-    <div class="modal-dialog modal-lg">
-        <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
-            <section>
-                <header>
-                    <h1>{{ _('Receive new aids before everyone!') }}</h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </header>
-
-                <div class="content">
-                    <div class="info">
-                        <h5>{{ _('Selected filters') }}</h5>
-                        {% include 'aids/_search_meta.html' with display="all" %}
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="alert-search-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifiés des nouvelles aides correspondant à votre recherche</h1>
 
-                    {% csrf_token %}
-                    {% include '_field_snippet.html' with field=alert_form.email %}
-                    {% include '_field_snippet.html' with field=alert_form.title %}
-                    {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
+                        <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
+                            <section>
+                                <div class="content">
+                                    <div class="info fr-mb-5w">
+                                        <p class="fr-h6">Les filtres sélectionnés</p>
+                                        {% include 'aids/_search_meta.html' with display="all" %}
+                                    </div>
 
-                    <p class="info">
-                        <span class="fas fa-check"></span>
-                        {% url 'legal_mentions' as legal_mentions_url %}
-                        {% blocktrans trimmed %}
-                        By using this feature, you acknowledge that your data will
-                        be processed <a href="{{ legal_mentions_url }}" target="_blank">
-                            according to our privacy policy</a>.
-                        {% endblocktrans %}
-                    </p>
+                                    {% csrf_token %}
+                                    {% include '_field_snippet.html' with field=alert_form.email %}
+                                    {% include '_field_snippet.html' with field=alert_form.title %}
+                                    {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
+
+                                    <p class="info fr-background-alt-pink fr-p-2w">
+                                        <span class="fas fa-check"></span>
+                                        {% url 'legal_mentions' as legal_mentions_url %}
+                                        {% blocktrans trimmed %}
+                                        By using this feature, you acknowledge that your data will
+                                        be processed <a href="{{ legal_mentions_url }}" target="_blank">
+                                            according to our privacy policy</a>.
+                                        {% endblocktrans %}
+                                    </p>
+                                </div>
+
+                                <footer>
+                                    <button class="btn-block fr-btn" type="submit">
+                                        {{ _('Create an alert') }}
+                                    </button>
+                                </footer>
+                            </section>
+                        </form>
+                    </div>
                 </div>
-
-                <footer>
-                    <button class="btn-block" type="submit">
-                        {{ _('Create an alert') }}
-                    </button>
-                </footer>
-            </section>
-        </form>
+            </div>
+        </div>
     </div>
-</div>
+</dialog>

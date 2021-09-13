@@ -1,10 +1,12 @@
 {% load i18n %}
 
 {% if form.errors %}
-<p class="error global-errors">{% blocktrans trimmed %}
-We <strong>could not process</strong> your form because it contains some errors.
-Please check your submission below and fix all errors before trying again.
-{% endblocktrans %}</p>
+<div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mt-2w fr-background-main">
+    <p class="error">{% blocktrans trimmed %}
+        We <strong>could not process</strong> your form because it contains some errors.
+        Please check your submission below and fix all errors before trying again.
+        {% endblocktrans %}</p>        
+</div>
 {% endif %}
 
 {% if form.non_field_errors %}

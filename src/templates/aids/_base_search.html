@@ -6,30 +6,38 @@
 {% block sectionid %}search{% endblock %}
 
 {% block content %}
-<h1>
-    {% with paginator.count as nb_aids %}
-    <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
-    {% endwith %}
-</h1>
+<div class="fr-container">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-12">
+            <h1>
+                {% with paginator.count as nb_aids %}
+                <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
+                {% endwith %}
+            </h1>
 
-{% if request.GET.published_after %}
-    <p class="warning">Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
-{% endif %}
+            {% if request.GET.published_after %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                <p>Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d'alerte.</p>
+            </div>
+            {% endif %}
 
-{% block search-meta %}
-    {% include 'aids/_search_meta.html' %}
-    <br />
-{% endblock %}
+            {% block search-meta %}
+                {% include 'aids/_search_meta.html' %}
+                <br />
+            {% endblock %}
 
-<section id="search-engine">
-    {% block search-engine %}
-    {% include 'aids/_search_form.html' %}
-    {% endblock %}
-</section>
+            <section id="search-engine">
+                {% block search-engine %}
+                {% include 'aids/_search_form.html' %}
+                {% endblock %}
+            </section>
 
-<section id="aid-list">
-    {% include 'aids/_results.html' with search_actions="yes" %}
-</section>
+            <section id="aid-list">
+                {% include 'aids/_results.html' with search_actions="yes" %}
+            </section>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block modals %}
@@ -38,7 +46,6 @@
 
 {% block extra_css %}
 {% compress css %}
-<link rel="stylesheet" href="/static/css/select2.scss" type="text/x-scss" charset="utf-8">
 {% endcompress %}
 {% endblock %}
 
@@ -48,7 +55,6 @@
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
 <script src="/static/js/aids/backers_autocomplete.js"></script>
 <script src="/static/js/aids/programs_autocomplete.js"></script>
-<script src="/static/js/aids/show_more.js"></script>
 <script src="/static/js/alerts/alert_form.js"></script>
 <script src="/static/js/aids/bookmark_results.js"></script>
 <script src="/static/js/alerts/track_alert_button_events.js"></script>

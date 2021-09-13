@@ -7,43 +7,48 @@
 {% block sectionid %}search-steps{% endblock %}
 
 {% block breadcrumbs %}
-<div class="search-progress">
-<p class="steps">
-    {% include 'search/_breadcrumb.html' with label='La structure' %}
-    {% include 'search/_breadcrumb.html' with label='Le territoire' %}
-    {% include 'search/_breadcrumb.html' with label='Les thématiques' %}
-    {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' %}
-</p>
+<div class="search-progress fr-grid-row fr-grid-row--center fr-grid-row--gutters fr-my-5w">
+    <p class="steps fr-mb-0">
+        {% include 'search/_breadcrumb.html' with label='La structure' %}
+        {% include 'search/_breadcrumb.html' with label='Le territoire' %}
+        {% include 'search/_breadcrumb.html' with label='Les thématiques' %}
+        {% include 'search/_breadcrumb.html' with label='Les sous-thématiques' %}    
+    </p>
 </div>
 {% endblock %}
 
 {% block content %}
-<h1>
-{% blocktrans trimmed %}
-<span class="counter">{{ total_aids }}</span> aids match your research
-{% endblocktrans %}
-</h1>
+<div class="fr-container fr-mb-12w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <h1>
+            {% blocktrans trimmed %}
+            <span class="counter">{{ total_aids }}</span> aids match your research
+            {% endblocktrans %}
+            </h1>
 
-<h2>Affinez ces résultats en sélectionnant des sous-thématiques</h2>
+            <p>Affinez ces résultats en sélectionnant des sous-thématiques</p>
 
-<form id="categories" action="{% url 'search_view' %}" method="GET">
+            <form id="categories" action="{% url 'search_view' %}" method="GET">
 
-    {% include '_form_snippet.html' %}
+                {% include '_form_snippet.html' %}
 
-    <button name="action" value="search" type="submit">
-        Envoyer
-    </button>
+                <button name="action" value="search" type="submit" class="fr-btn fr-mb-5w">
+                    Envoyer
+                </button>
 
-    <div class="navigation-links">
-        <a class="previous-btn" href="{% url 'search_step_theme' %}?{{ querystring }}">
-            Revenir en arrière
-        </a>
-        <a class="next-btn" href="{% url 'search_view' %}?{{ querystring }}">
-            Passer cette étape
-        </a>
+                <div class="navigation-links fr-grid-row">
+                    <a class="previous-btn fr-mx-2w" href="{% url 'search_step_theme' %}?{{ querystring }}">
+                        Revenir en arrière
+                    </a>
+                    <a class="next-btn fr-mx-2w" href="{% url 'search_view' %}?{{ querystring }}">
+                        Passer cette étape
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-
-</form>
+</div>
 {% endblock %}
 
 {% block extra_js %}

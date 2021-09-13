@@ -8,71 +8,76 @@
 {% block extratitle %}{{ _('Register') }}{% endblock %}
 
 {% block content %}
-<div class="article narrow">
-    <h1>{{ _("Create an account to broadcast your aids") }}</h1>
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
 
-    <div class="warning">
-        <p>{% blocktrans trimmed %}
-            <span class="fas fa-exclamation-circle"></span>
-            Only create an account <strong>if you are an aid backer</strong>
-            and want to broadcast your aids with us.
-        {% endblocktrans %}</p>
+            <h1 class="fr-mb-5w">Créer un compte pour diffuser vos aides</h1>
 
-        {% url 'search_step_audience' as search_url %}
-        <p>{% blocktrans trimmed %}
-            If you want to browse our aids catalog, <a href="{{ search_url }}">
-            use our search form</a>.
-        {% endblocktrans %}</p>
+            <div class="warning fr-background-alt-pink fr-p-3w fr-mb-3w">
+                <p class="fr-mb-2w">
+                    <span class="fr-fi-error-warning-line" aria-hidden="true"></span>
+                    Les contributeurs sont les acteurs qui référencent les aides et non ceux qui les reçoivent.
+                </p>
+                {% url 'search_step_audience' as search_url %}
+                <p class="fr-mb-0">
+                    <span class="fr-fi-search-line" aria-hidden="true"></span>
+                    Si vous souhaitez bénéficier des aides financières et en ingénierie des porteurs, 
+                    <a href="{{ search_url }}"> 
+                        utilisez notre recherche.
+                    </a>
+                </p>
+            </div>
 
+            <p class="warning fr-background-alt-pink fr-p-3w fr-mb-0">
+                <span class="fr-fi-lock-line" aria-hidden="true"></span>
+                {% url 'login' as login_url %}
+                {% blocktrans trimmed %}
+                Do you already have an account?
+                <a href="{{ login_url }}">Proceed to the login form.</a>
+            {% endblocktrans %}</p>
+
+            <form method="post" action="" novalidate class="fr-mt-5w">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% include '_form_header.html' with form=form %}
+
+                <fieldset>
+                    <legend>Informations personnelles</legend>
+                    {% include '_field_snippet.html' with field=form.first_name %}
+                    {% include '_field_snippet.html' with field=form.last_name %}
+                    {% include '_field_snippet.html' with field=form.email %}
+                    {% include '_field_snippet.html' with field=form.password1 %}
+                    {% include '_field_snippet.html' with field=form.password2 %}
+                </fieldset>
+
+                <fieldset>
+                    <legend>Informations professionnelles</legend>
+                    {% include '_field_snippet.html' with field=form.organization %}
+                    {% include '_field_snippet.html' with field=form.role %}
+                    {% include '_field_snippet.html' with field=form.contact_phone %}
+                </fieldset>
+
+                {% url 'legal_mentions' as legal_mentions_url %}
+                <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
+                    <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
+                    {% blocktrans trimmed %}
+                    By registering an account, you acknowledge that your data will be
+                    processed <a href="{{ legal_mentions_url }}" target="_blank">
+                    according to our privacy policy</a>.
+                {% endblocktrans %}
+                </p>
+                <button type="submit" class="fr-btn fr-mb-5w">Créer un nouveau compte</button>
+            </form>
+
+            <p class="warning fr-background-alt-pink fr-p-3w">
+                <span class="fas fa-bug"></span>
+                {% blocktrans trimmed %}
+                Do you have a problem to register?
+                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
+            {% endblocktrans %}</p>
+        </div>
     </div>
-
-    <p class="warning">
-        <span class="fas fa-user"></span>
-        {% url 'login' as login_url %}
-        {% blocktrans trimmed %}
-        Do you already have an account?
-        <a href="{{ login_url }}">Proceed to the login form.</a>
-    {% endblocktrans %}</p>
-
-    <form method="post" action="" novalidate>
-        {% csrf_token %}
-        {{ form.media }}
-
-        {% include '_form_header.html' with form=form %}
-
-        <fieldset>
-            <legend>Informations personnelles</legend>
-            {% include '_field_snippet.html' with field=form.first_name %}
-            {% include '_field_snippet.html' with field=form.last_name %}
-            {% include '_field_snippet.html' with field=form.email %}
-            {% include '_field_snippet.html' with field=form.password1 %}
-            {% include '_field_snippet.html' with field=form.password2 %}
-        </fieldset>
-
-        <fieldset>
-            <legend>Informations professionnelles</legend>
-            {% include '_field_snippet.html' with field=form.organization %}
-            {% include '_field_snippet.html' with field=form.role %}
-            {% include '_field_snippet.html' with field=form.contact_phone %}
-        </fieldset>
-
-        {% url 'legal_mentions' as legal_mentions_url %}
-        <p class="info">
-            <span class="fas fa-check"></span>
-            {% blocktrans trimmed %}
-            By registering an account, you acknowledge that your data will be
-            processed <a href="{{ legal_mentions_url }}" target="_blank">
-            according to our privacy policy</a>.
-        {% endblocktrans %}
-        </p>
-        <button type="submit">{{ _('Create an account') }}</button>
-    </form>
-
-    <p class="warning">
-        <span class="fas fa-bug"></span>
-        {% blocktrans trimmed %}
-        Do you have a problem to register?
-        <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
-    {% endblocktrans %}</p>
 </div>
 {% endblock %}

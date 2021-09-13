@@ -5,46 +5,59 @@
 {% block meta_description %}{{ post.meta_description|default:post.short_text }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li><a href="{% url 'blog_post_list_view' %}">{{ _('Blog') }}</a></li>
-        <li class="active" aria-current="page">{{ post.title }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'blog_post_list_view' %}">Blog</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ post.title }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
-<article id="post">
+<article id="post" class="fr-container fr-mb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-10">
+            <section id="post-content" class="fr-pb-5w">
 
-    <section id="post-content">
-
-        <div id="post-title">
-            <h1>{{ post.title }}</h1>
-            <p class="post_categorie">{{ post.category.name }}</p>
-        </div> 
-
-        {% if post.text %}
-        <div>
-            {{ post.text|safe }}
+                <div id="post-title" class="fr-grid-row fr-grid-row--top fr-mb-4w">
+                    <h1 class="fr-col-12 fr-col-md-10">{{ post.title }}</h1>
+                    <div class="post_categorie fr-tag">{{ post.category.name }}</div>
+                </div> 
+        
+                {% if post.text %}
+                <div>
+                    {{ post.text|safe }}
+                </div>
+                {% endif %}
+        
+                {% if related_articles %}
+                <div id="related-articles" class="fr-background-alt-pink fr-p-3w">
+                    <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
+                    <ul>
+                    {% for related_article in related_articles %}
+                    <li>
+                        <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+        
+            </section>
         </div>
-        {% endif %}
-
-        {% if related_articles %}
-        <div id="related-articles">
-            <p>Vous pourriez aussi être intéressé par&nbsp;:</p>
-            <ul>
-            {% for related_article in related_articles %}
-            <li>
-                <a href="{% url 'blog_post_detail_view' related_article.slug %}">{{ related_article.title }}</a>
-            </li>
-            {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-    </section>
-
+    </div>
 </article>
 {% endblock %}
 
