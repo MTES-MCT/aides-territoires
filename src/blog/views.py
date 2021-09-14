@@ -29,9 +29,27 @@ class BlogPostList(ListView):
 class BlogPostDetail(DetailView):
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-    queryset = BlogPost.objects \
-        .select_related('category') \
-        .filter(status='published')
+
+    def get_queryset(self):
+        """Get the queryset.
+
+        Since we want to enable post preview, we have special cases depending
+        on the current user:
+
+         - anonymous or normal users can only see published posts.
+         - superusers can see all posts.
+        """
+
+        base_qs = BlogPost.objects \
+            .select_related('category')
+
+        user = self.request.user
+        if user.is_authenticated and user.is_superuser:
+            qs = base_qs
+        else:
+            qs = base_qs.filter(status='published')
+
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
