@@ -431,9 +431,14 @@
 
                 <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
 
-                    <h2>{{ _('Global presentation') }}</h2>
+                    <h2>Présentation générale</h2>
 
-                    <h3>{{ _('Description') }}</h3>
+                    {% if aid.initial_name %}
+                    <h3>Nom initial de l'aide</h3>
+                    <p>« {{ aid.initial_name }} »</p>
+                    {% endif %}
+
+                    <h3>Description</h3>
                     {% if aid.description %}
                     {{ aid.description|safe }}
                     {% else %}

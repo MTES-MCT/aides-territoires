@@ -35,6 +35,7 @@
     <fieldset>
             <legend><span id="aid-presentation"></span>1 - Présentation de l'aide</legend>
             {% include '_field_snippet_aid_form.html' with field=form.name %}
+            {% include '_field_snippet_aid_form.html' with field=form.initial_name %}
             {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
             {% include '_field_snippet_aid_form.html' with field=form.programs %}
             {% include '_field_snippet_aid_form.html' with field=form.financers %}

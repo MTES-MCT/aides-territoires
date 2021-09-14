@@ -220,6 +220,7 @@ class AidEditForm(BaseAidForm):
         model = Aid
         fields = [
             'name',
+            'initial_name',
             'short_title',
             'description',
             'categories',
