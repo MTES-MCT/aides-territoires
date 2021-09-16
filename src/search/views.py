@@ -9,7 +9,6 @@ class SearchMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['querystring'] = self.request.GET.urlencode()
-        context['project_form'] = ProjectSuggestForm(label_suffix='')
         return context
 
 
@@ -70,12 +69,6 @@ class CategorySearch(SearchMixin, FormView):
         initial = self.get_initial()
         filter_form = AidSearchForm(initial)
         theme_aids = filter_form.filter_queryset()
-
-        context['suggest_project'] = any((
-            'mobilite-transports' in self.request.GET.getlist('themes', []),
-            'energies-dechets' in self.request.GET.getlist('themes', []),
-            'urbanisme-logement-amenagement'
-            in self.request.GET.getlist('themes', [])))
 
         context['total_aids'] = theme_aids \
             .values('id') \
