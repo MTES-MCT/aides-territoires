@@ -95,6 +95,7 @@ CSRF_COOKIE_SECURE = True
 
 # Emails & Sendinblue api and settings
 SIB_API_KEY = env('SIB_API_KEY')
+SIB_NEWSLETTER_LIST_IDS = env('SIB_NEWSLETTER_LIST_IDS')
 ANYMAIL = {
     'SENDINBLUE_API_KEY': SIB_API_KEY,
 }
