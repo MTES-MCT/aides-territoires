@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.views.generic import CreateView, DetailView, DeleteView
+from django.views.generic import CreateView, DetailView, DeleteView, ListView
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -98,3 +98,19 @@ class AlertDelete(MessageMixin, DeleteView):
             f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?')  # noqa
         self.messages.success(msg)
         return res
+
+
+class AlertListView(ListView):
+    """User Alerts Dashboard"""
+
+    template_name = 'accounts/user_alert_dashboard.html'
+    context_object_name = 'alerts'
+
+    def get_queryset(self):
+        queryset = Alert.objects \
+            .filter(email=self.request.user.email)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
