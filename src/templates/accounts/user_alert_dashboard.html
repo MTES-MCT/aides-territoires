@@ -33,7 +33,18 @@
         {% include 'accounts/_sidebar_menu.html' %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3">Mes alertes</h1>
+            <h1 class="fr-h3 fr-mb-5w">Gestion des alertes et souscriptions</h1>
+
+            <div class="fr-mb-5w">
+                <h2 class="fr-h4">Newsletter</h2>
+                {% if isUserSubscriber %}
+                <p>Vous êtes abonné à la newsletter.</p>
+                {% else %}
+                <button class="fr-btn fr-mb-5w">S'abonnez</button>
+                {% endif %}    
+            </div>
+            
+            <h2 class="fr-h4">Mes alertes</h2>
             <p>Retrouvez ici toutes les alertes auxquelles vous vous êtes abonnées.</p>
             <div class="fr-table fr-table--bordered">
                 <table class="data-table">

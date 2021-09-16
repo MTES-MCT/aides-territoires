@@ -1,3 +1,5 @@
+import requests
+import json
 from django.conf import settings
 from django.views.generic import CreateView, DetailView, DeleteView, ListView
 from django.core.exceptions import ValidationError
@@ -111,6 +113,34 @@ class AlertListView(ListView):
             .filter(email=self.request.user.email)
         return queryset
 
+    def isUserSubscriber(self):
+        '''
+        Here we want to check if user is already a newsletter's subscriber.
+        '''
+
+        url = "https://api.sendinblue.com/v3/contacts/" + self.request.user.email
+
+        headers = {
+            "Accept": "application/json",
+            "api-key": settings.SIB_API_KEY,
+        }
+
+        response = requests.request("GET", url, headers=headers)
+
+        if response:
+            r_text = json.loads(response.text)
+            r_listIds = r_text['listIds']
+            r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
+            # If user exists, and if double-opt-in is true and if user is associated to the newsletter list id
+            # Then, user is already a newsletter's subscriber
+            if r_double_opt_in == "1" and any((True for x in settings.SIB_NEWSLETTER_LIST_IDS if x in r_listIds)):
+                return True
+            else:
+                return False
+        else:
+            return False
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['isUserSubscriber'] = self.isUserSubscriber
         return context
