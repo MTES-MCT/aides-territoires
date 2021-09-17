@@ -254,10 +254,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         max_length=180,
         help_text="Le titre doit commencer par un verbe à l’infinitif pour que l'objectif de l'aide soit explicite vis-à-vis de ses bénéficiaires.",  # noqa
         null=False, blank=False)
-    initial_name = models.CharField(
+    name_initial = models.CharField(
         'Nom initial',
         max_length=180,
-        help_text="Quel était le nom initial de l'aide ?",  # noqa
+        help_text="Comment cette aide s’intitule-t-elle au sein de votre structure ? Exemple : AAP Mob’Biodiv",  # noqa
         null=True, blank=True)
     short_title = models.CharField(
         'Titre court',

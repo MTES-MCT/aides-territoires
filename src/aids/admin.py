@@ -212,7 +212,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
                 'name',
                 'slug',
                 'in_france_relance',
-                'initial_name',
+                'name_initial',
                 'short_title',
                 'categories',
                 'targeted_audiences',
