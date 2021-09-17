@@ -1,6 +1,8 @@
 # flake8: noqa
-
 from unipath import Path
+
+from core.api import doc as api_doc
+
 
 DEBUG = False
 
@@ -236,7 +238,7 @@ REST_FRAMEWORK = {
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = '1.3'
+CURRENT_API_VERSION = '1.4'
 
 # The file path that's user for storing the json dump on S3
 ALL_AIDS_DUMP_FILE_PATH = 'aids/all-aids.json'
@@ -245,6 +247,7 @@ ALL_AIDS_DUMP_FILE_PATH = 'aids/all-aids.json'
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Aides-territoires API',
     'VERSION': CURRENT_API_VERSION,
+    'DESCRIPTION': api_doc.description,
     'TOS': 'https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/',
     'CONTACT': {
         'name': "Une question ? Vous pouvez nous contacter en cliquand ici (puis sélectionnez 'API' comme Sujet)",
