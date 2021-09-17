@@ -31,7 +31,7 @@ class ContactForm(forms.Form):
     organization_and_role = forms.CharField(
         label='Votre structure et fonction',
         widget=forms.TextInput(
-            attrs={'placeholder': 'Exemple: Mairie de Château-Thierry / Chargé de mission habitat'}),
+            attrs={'placeholder': 'Exemple: Mairie de Château-Thierry / Chargé de mission habitat'}),  # noqa
         required=False)
 
     subject = forms.ChoiceField(
