@@ -1,3 +1,5 @@
+# flake8: noqa
+
 v14_changes = "" \
     "**Aides** : ajout du champ `is_call_for_project`<br />" \
     "Ajout de nouveaux points d'entrée : **Programmes**, **Thématiques** et **Périmètres**<br />" \
