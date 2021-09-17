@@ -40,8 +40,8 @@
                 {% if isUserSubscriber %}
                 <p>Vous êtes abonné à la newsletter.</p>
                 {% else %}
-                <button class="fr-btn fr-mb-5w">S'abonnez</button>
-                {% endif %}    
+                <a class="fr-btn fr-mb-5w" href="{% mailing_list_url %}" title="S‘abonner à notre lettre d’information">S'abonnez</a>
+                {% endif %}
             </div>
             
             <h2 class="fr-h4">Mes alertes</h2>
