@@ -35,15 +35,15 @@ FINANCIAL_AIDS = (
 )
 
 OTHER_AIDS = (
-    ('other', 'Autre'),
+    ('other', 'Autre aide financière'),
 )
 
 FINANCIAL_AIDS_LIST = ('grant', 'loan', 'recoverable_advance', 'other')
 
 TECHNICAL_AIDS = (
-    ('technical', 'Technique'),
-    ('financial', 'Financière'),
-    ('legal', 'Juridique / administrative'),
+    ('technical', 'Ingénierie technique'),
+    ('financial', 'Ingénierie financière'),
+    ('legal', 'Ingénierie Juridique / administrative'),
 )
 
 TECHNICAL_AIDS_LIST = ('technical', 'financial', 'legal')
