@@ -3,8 +3,6 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 
 from projects.forms import ProjectCreateForm, ProjectMatchAidForm
-from accounts.models import User
-from aids.models import Aid
 from projects.models import Project
 from django.contrib import messages
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
@@ -16,14 +14,13 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     template_name = 'projects/_create_project_modal.html'
     form_class = ProjectCreateForm
     context_object_name = 'project'
-    
+
     def form_valid(self, form):
 
         project = form.save(commit=False)
         project.save()
         form.save_m2m()
         project.beneficiary.add(self.request.user)
-
 
         msg = 'Votre nouveau projet a été créé&nbsp;!'
         messages.success(self.request, msg)

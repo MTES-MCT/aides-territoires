@@ -5,7 +5,7 @@ from organizations.models import Organization
 
 class OrganizationAdmin(admin.ModelAdmin):
 
-    list_display = ['name','date_created']
+    list_display = ['name', 'date_created']
     search_fields = ['name']
     list_filter = ['name']
     autocomplete_fields = ['beneficiaries',
@@ -89,5 +89,6 @@ class OrganizationAdmin(admin.ModelAdmin):
             '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
+
 
 admin.site.register(Organization, OrganizationAdmin)

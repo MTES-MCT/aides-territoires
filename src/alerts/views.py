@@ -131,11 +131,13 @@ class AlertListView(ListView):
             r_text = json.loads(response.text)
             r_listIds = r_text['listIds']
             r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
-            # If user exists, and if double-opt-in is true and if user is associated to the newsletter list id
+            # If user exists, and if double-opt-in is true,
+            # and if user is associated to the newsletter list id
             # Then, user is already a newsletter's subscriber
             SIB_NEWSLETTER_LIST_IDS = settings.SIB_NEWSLETTER_LIST_IDS.split(', ')
             SIB_NEWSLETTER_LIST_IDS = [int(i) for i in SIB_NEWSLETTER_LIST_IDS]
-            if r_double_opt_in == "1" and any((True for x in SIB_NEWSLETTER_LIST_IDS if x in r_listIds)):
+            IsInNewsletterList = any((True for x in SIB_NEWSLETTER_LIST_IDS if x in r_listIds))
+            if r_double_opt_in == "1" and IsInNewsletterList:
                 return True
             else:
                 return False

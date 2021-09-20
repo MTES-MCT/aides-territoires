@@ -10,7 +10,8 @@ class ProjectCreateForm(forms.ModelForm):
 
     name = forms.CharField(
         label='Nom de votre projet',
-        help_text='Choisissez un nom le + générique possible pour que nous puissions vous trouver des aides',
+        help_text="Choisissez un nom le + générique possible \
+            pour que nous puissions vous trouver des aides",
         required=True)
 
     beneficiary = forms.ModelMultipleChoiceField(

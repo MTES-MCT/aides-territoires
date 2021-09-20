@@ -1,6 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 
-from projects.views import ProjectCreateView, ProjectListView, ProjectMatchAidView, ProjectDetailView, ProjectDeleteView
+from projects.views import (ProjectCreateView, ProjectListView, ProjectMatchAidView,
+                            ProjectDetailView, ProjectDeleteView)
 
 
 urlpatterns = [
