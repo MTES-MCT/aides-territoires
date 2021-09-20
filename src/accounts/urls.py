@@ -28,7 +28,7 @@ urlpatterns = [
 
     path(_('contributor-profile/'), ContributorProfileView.as_view(),
          name='contributor_profile'),
-     
+
     path(_('user-dashboard/'), UserDashboardView.as_view(),
          name='user_dashboard'),
     path(_('api-token/'), UserApiTokenView.as_view(),

@@ -142,13 +142,13 @@ class UserAdmin(BaseUserAdmin):
                 'nb_aids',
             )
         }),
-            ('Espace bénéficiaire', {
-        'fields': (
-            'is_beneficiary',
-            'beneficiary_function',
-            'beneficiary_role',
-            'beneficiary_organization',
-        )
+        ('Espace bénéficiaire', {
+            'fields': (
+                'is_beneficiary',
+                'beneficiary_function',
+                'beneficiary_role',
+                'beneficiary_organization',
+            )
         }),
         ('Espace administrateur', {
             'fields': (

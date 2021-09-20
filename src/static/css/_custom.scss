@@ -89,12 +89,6 @@ legend {
 #aid .deadline-data {
   float: right;
 
-  .fr-tag {
-    background-color: #DB1C83;
-    color: #fff;
-    font-size: 2rem;
-  }
-
   @media screen and (max-width: 1000px) {
     display: none;
   }

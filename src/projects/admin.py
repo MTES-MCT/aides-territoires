@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats

@@ -4,8 +4,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-from model_utils import Choices
-
 
 class Project(models.Model):
 

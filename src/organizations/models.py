@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 from django.utils import timezone
-from django.conf import settings
 
 from core.fields import ChoiceArrayField
 from model_utils import Choices
