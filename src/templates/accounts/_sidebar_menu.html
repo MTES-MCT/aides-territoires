@@ -10,6 +10,7 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
                 </li>
+                {% if user.is_contributor %}
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-2">
@@ -23,6 +24,7 @@
                         </ul>
                     </div>
                 </li>
+               {% endif %} 
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Ma commune</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-3">
