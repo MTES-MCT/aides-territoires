@@ -22,17 +22,18 @@ from braces.views import MessageMixin
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
-                        AdvancedAidFilterForm, DraftListAidFilterForm)
+                        AdvancedAidFilterForm, DraftListAidFilterForm,
+                        AidMatchProjectForm)
 from aids.models import Aid
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
-from projects.forms import ProjectMatchAidForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from projects.models import Project
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
+from projects.models import Project
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
@@ -343,7 +344,7 @@ class AidDetailView(DetailView):
 
         context['alert_form'] = AlertForm(label_suffix='')
         if self.request.user.is_authenticated:
-            context['project_match_aid_form'] = ProjectMatchAidForm(label_suffix='')
+            context['aid_match_project_form'] = AidMatchProjectForm(label_suffix='')
             context['projects'] = Project.objects.filter(beneficiary=self.request.user)
 
         return context
@@ -602,3 +603,39 @@ class GenericToLocalAidView(ContributorAndProfileCompleteRequiredMixin,
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('aid_edit_view', args=[self.new_aid.slug])
+
+
+class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """Associate aid to existing projects."""
+
+    template_name = 'projects/_match_aid_modal.html'
+    form_class = AidMatchProjectForm
+    context_object_name = 'aid'
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        aid.save()
+
+        '''
+        Here we need to use some trick to add the new aid associated to the project
+        without deleting the previous aids already associated to the project
+        because form.save_m2m() is overwriting the M2M field
+        So, we save in a list the id of all the previous aid associated
+        Then, we save the new aid as M2M with form.save_M2M
+        And we looping on the list off previous aids to re-add them
+        '''
+        aid_projects = []
+        for project in self.object.projects.all():
+            aid_projects.append(project.id)
+        
+        form.save_m2m()
+
+        for project in aid_projects:
+            aid.projects.add(project)
+
+        msg = "L'aide a bien été associée."
+        messages.success(self.request, msg)
+        url = reverse('aid_detail_view', args=[aid.slug])
+        return HttpResponseRedirect(url)
