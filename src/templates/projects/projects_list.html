@@ -61,10 +61,9 @@
                                     </a>
                                 </td>
                                 <td>
-                                {% if project.aids_associated %}
                                     <ul>
-                                    {% if project.aids_associated.all %}
-                                    {% for aid in project.aids_associated.all %}
+                                    {% if project.aid_set.all %}
+                                    {% for aid in project.aid_set.all %}
                                         <li>
                                             <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
                                                 {{ aid.name }} 
@@ -73,7 +72,6 @@
                                     {% endfor %}
                                     {% else %}
                                     <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
-                                    {% endif %}
                                     </ul>
                                 {% endif %}
                                 </td>

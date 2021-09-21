@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from aids.models import Aid
 
 
 class Project(models.Model):
@@ -22,10 +23,6 @@ class Project(models.Model):
         _('Key words'),
         help_text=_('key words associated to the project'),
         default='', blank=True)
-    aids_associated = models.ManyToManyField(
-        'aids.Aid',
-        verbose_name='Aids',
-        blank=True)
     beneficiary = models.ManyToManyField(
         'accounts.User',
         verbose_name='Utilisateurs',

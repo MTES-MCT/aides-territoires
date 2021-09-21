@@ -305,7 +305,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     projects = models.ManyToManyField(
         'projects.Project',
         verbose_name='Projets',
-        related_name='aids',
         blank=True)
     eligibility = models.TextField(
         'Éligibilité',

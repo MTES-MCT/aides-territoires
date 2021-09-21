@@ -46,8 +46,8 @@
                         </tr>
                     </thead>
                         <tbody>
-                            {% if project.aids_associated.all %}
-                            {% for aid in project.aids_associated.all %}
+                            {% if project.aid_set.all %}
+                            {% for aid in project.aid_set.all %}
                             <tr>
                                 <td>
                                     <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">

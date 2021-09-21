@@ -17,6 +17,7 @@ from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
+from projects.models import Project
 from aids.models import Aid
 from aids.constants import (
     AUDIENCES_GROUPED,
@@ -751,3 +752,17 @@ class DraftListAidFilterForm(forms.Form):
         label='Affichage',
         required=False,
         choices=AID_DISPLAY_STATUS_CHOICES)
+
+
+class AidMatchProjectForm(forms.ModelForm):
+    """allow user to associate aid to existing projects."""
+
+    projects = forms.ModelMultipleChoiceField(
+        label="Projet à associer",
+        queryset=Project.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
+
+    class Meta:
+        model = Aid
+        fields = ['projects']

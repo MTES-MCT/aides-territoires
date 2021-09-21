@@ -3,7 +3,8 @@ from django.urls import path, include
 from aids.views import (SearchView, AdvancedSearchView, ResultsView,
                         ResultsReceiveView, AidDetailView, AidCreateView,
                         AidDraftListView, AidEditView,
-                        AidDeleteView, GenericToLocalAidView)
+                        AidDeleteView, GenericToLocalAidView,
+                        AidMatchProjectView)
 
 urlpatterns = [
      # Resultats & Plus de critères
@@ -21,4 +22,6 @@ urlpatterns = [
      # Aid détails
      path('<slug:slug>/', include([
           path('', AidDetailView.as_view(), name='aid_detail_view')])),
+     path('associer-des-projets/<slug:slug>/', AidMatchProjectView.as_view(),
+         name='aid_match_project_view'),
 ]

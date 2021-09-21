@@ -2,7 +2,6 @@ from django import forms
 
 from projects.models import Project
 from accounts.models import User
-from aids.models import Aid
 
 
 class ProjectCreateForm(forms.ModelForm):
@@ -29,16 +28,3 @@ class ProjectCreateForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'beneficiary', 'due_date']
-
-
-class ProjectMatchAidForm(forms.ModelForm):
-    """allow user to associate aid to an existing project."""
-
-    aids_associated = forms.ModelMultipleChoiceField(
-        label="Aide associée au projet",
-        queryset=Aid.objects.all(),
-        required=False)
-
-    class Meta:
-        model = Project
-        fields = ['aids_associated']
