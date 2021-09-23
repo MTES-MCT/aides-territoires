@@ -19,7 +19,7 @@ from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
 from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
-from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor
+from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor, AidProject
 from aids.resources import AidResource
 from aids.utils import generate_clone_title
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
@@ -547,6 +547,13 @@ class AmendmentAdmin(admin.ModelAdmin):
         return AmendmentChangeList
 
 
+class AidProjectAdmin(admin.ModelAdmin):
+    list_display = [
+        'aid', 'project', 'creator', 'date_created'
+    ]
+
+
 admin.site.register(Aid, AidAdmin)
 admin.site.register(DeletedAid, DeletedAidAdmin)
 admin.site.register(Amendment, AmendmentAdmin)
+admin.site.register(AidProject, AidProjectAdmin)

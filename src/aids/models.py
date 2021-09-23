@@ -304,6 +304,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     projects = models.ManyToManyField(
         'projects.Project',
+        through='AidProject',
         verbose_name='Projets',
         blank=True)
     eligibility = models.TextField(
@@ -714,3 +715,25 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             for item in field.value_from_object(source_aid):
                 getattr(self, field.attname).add(item)
         self.save()
+
+
+class AidProject(models.Model):
+
+    aid = models.ForeignKey(
+        'Aid',
+        on_delete=models.CASCADE,
+        verbose_name='Aide',
+        blank=True)
+    project = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.CASCADE,
+        verbose_name='Projet',
+        blank=True)
+    creator = models.ForeignKey(
+        'accounts.User',
+        on_delete=models.CASCADE,
+        verbose_name='Créateur',
+        blank=True)
+    date_created = models.DateTimeField(
+        'Date de création',
+        default=timezone.now)
