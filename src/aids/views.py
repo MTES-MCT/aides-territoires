@@ -616,24 +616,11 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
     def form_valid(self, form):
 
         aid = form.save(commit=False)
+        for project in self.request.POST.getlist('projects', []):
+            project=int(project)
+            aid.projects.add(project, through_defaults={'creator':self.request.user})
+
         aid.save()
-
-        '''
-        Here we need to use some trick to add the new aid associated to the project
-        without deleting the previous aids already associated to the project
-        because form.save_m2m() is overwriting the M2M field
-        So, we save in a list the id of all the previous aid associated
-        Then, we save the new aid as M2M with form.save_M2M
-        And we looping on the list off previous aids to re-add them
-        '''
-        aid_projects = []
-        for project in self.object.projects.all():
-            aid_projects.append(project.id)
-        
-        form.save_m2m()
-
-        for project in aid_projects:
-            aid.projects.add(project)
 
         msg = "L'aide a bien été associée."
         messages.success(self.request, msg)

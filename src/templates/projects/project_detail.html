@@ -43,6 +43,8 @@
                         <tr>
                             <th scope="col">Nom</th>
                             <th scope="col">Echéance</th>
+                            <th scope="col">Ajouté le</th>
+                            <th scope="col">Par</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -61,6 +63,24 @@
                                 {% endif %}
                                 {% endif %}
                                 </td>
+                                <td>
+                                    {% for aidproject in aid.aidproject_set.all %}
+                                    {% if aidproject.project == project %}
+                                        {{ aidproject.date_created|date:'d/m/y' }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for aidproject in project.aidproject_set.all %}
+                                    {% if aidproject.project == project %}
+                                    {% if aidproject.creator == user %}
+                                    Vous
+                                    {% else %}
+                                    {{ aidproject.creator }}
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    </td>
                             </tr>
                             {% endfor %}
                         {% else %}

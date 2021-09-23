@@ -34,6 +34,13 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Mes projets</h1>
+            <div role="alert" class="fr-alert fr-alert--info">
+                <p>Que pouvez-vous faire ici&nbsp;?</p>
+                <p>Cette page vous permet de gérer vos différents projets, et les aides associées.</p> 
+                <p>En consultant les aides, vous pourrez alors rajouter celles qui correspondent à un projet spécifique. Vous pourrez alors partager plus facilement avec votre équipe les aides que vous avez sélectionnées.</p>
+                <p>Et dès qu'une aide nouvellement publiée correspondra à votre projet, elle vous sera proposée dans la section "Aides suggérées".</p>
+            </div>
+
             <button class="fr-btn fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
                 Ajouter un projet
             </button>
@@ -45,7 +52,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Nom</th>
-                            <th scope="col">Aides ajoutées</th>
+                            <th scope="col">Nombre d'aides ajoutées</th>
                             <th scope="col">Date création</th>
                             <th scope="col">Date d'échéance</th>
                             <th scope="col">Créé par</th>
@@ -63,13 +70,7 @@
                                 <td>
                                     <ul>
                                     {% if project.aid_set.all %}
-                                    {% for aid in project.aid_set.all %}
-                                        <li>
-                                            <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
-                                                {{ aid.name }} 
-                                            </a>
-                                        </li>
-                                    {% endfor %}
+                                        {{ project.aid_set.all.count }}
                                     {% else %}
                                     <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
                                     </ul>
@@ -97,15 +98,7 @@
                         {% endif %}
                     </tbody>
                 </table>
-            </div>
-
-            <div role="alert" class="fr-alert fr-alert--info">
-                <p>Que pouvez-vous faire ici&nbsp;?</p>
-                <p>Cette page vous permet de gérer vos différents projets, et les aides associées.</p> 
-                <p>En consultant les aides, vous pourrez alors rajouter celles qui correspondent à un projet spécifique. Vous pourrez alors partager plus facilement avec votre équipe les aides que vous avez sélectionnées.</p>
-                <p>Et dès qu'une aide nouvellement publiée correspondra à votre projet, elle vous sera proposée dans la section "Aides suggérées".</p>
-            </div>
-    
+            </div>    
         </div>
     </div>
 </div>
