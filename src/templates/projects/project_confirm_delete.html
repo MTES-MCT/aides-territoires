@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}Suppression de projet{% endblock %}
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <h1 class="fr-mb-5w">Confirmer la suppression du projet</h1>
+            <p class="lead">Vous êtes sur le point de supprimer le projet « {{ project.name }} »</p>
+            <p>Êtes vous certain de vouloir continuer ?</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Confirm">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,9 @@
 from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
+
+from braces.views import MessageMixin
 
 from projects.forms import ProjectCreateForm
 from projects.models import Project
@@ -64,21 +67,19 @@ class ProjectDetailView(DetailView):
 
 
 class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
-    """delete an existing project."""
+    """Delete an existing project."""
 
     def get_queryset(self):
-        queryset = Project.objects \
-            .prefetch_related('aid_set')
-        return queryset
+        qs = Project.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        confirmed = self.request.POST.get('confirm', False)
-        if confirmed:
-            self.object.delete()
-            msg = 'Votre projet a été supprimé.'
-            messages.success(self.request, msg)
+    def get_success_url(self):
+        url = reverse('project_list_view')
+        return url
 
-        success_url = reverse('project_list_view')
-        redirect = HttpResponseRedirect(success_url)
-        return redirect
+    def delete(self, *args, **kwargs):
+        res = super().delete(*args, **kwargs)
+        msg = "Votre projet a été supprimé." # noqa
+        messages.success(self.request, msg)
+        return res

@@ -45,6 +45,7 @@
                             <th scope="col">Echéance</th>
                             <th scope="col">Ajouté le</th>
                             <th scope="col">Par</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -76,6 +77,13 @@
                                     Vous
                                     {% elif aidproject.project == project %}
                                     {{ aidproject.creator }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for aidproject in aid.aidproject_set.all %}
+                                    {% if aidproject.project == project %}
+                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="#" target="_blank" rel="noopener" title="supprimer cette aide">Supprimer</a>
                                     {% endif %}
                                     {% endfor %}
                                 </td>

@@ -56,6 +56,7 @@
                             <th scope="col">Date création</th>
                             <th scope="col">Date d'échéance</th>
                             <th scope="col">Créé par</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     {% if projects %}
@@ -84,6 +85,9 @@
                                     {{ beneficiary.first_name }} {{ beneficiary.last_name }}
                                 {% endfor %}
                                 {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.slug %}" target="_blank" rel="noopener" title="supprimer ce projet">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}
