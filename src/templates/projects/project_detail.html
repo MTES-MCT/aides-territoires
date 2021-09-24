@@ -71,16 +71,14 @@
                                     {% endfor %}
                                 </td>
                                 <td>
-                                    {% for aidproject in project.aidproject_set.all %}
-                                    {% if aidproject.project == project %}
-                                    {% if aidproject.creator == user %}
+                                    {% for aidproject in aid.aidproject_set.all %}
+                                    {% if aidproject.project == project and aidproject.creator == user %}
                                     Vous
-                                    {% else %}
+                                    {% elif aidproject.project == project %}
                                     {{ aidproject.creator }}
                                     {% endif %}
-                                    {% endif %}
                                     {% endfor %}
-                                    </td>
+                                </td>
                             </tr>
                             {% endfor %}
                         {% else %}
