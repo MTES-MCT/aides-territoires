@@ -44,7 +44,7 @@ boto3 = "*"
 whitenoise = "*"
 
 [dev-packages]
-ansible = "<4"
+ansible = "<5"
 django-debug-toolbar = "*"
 django-extensions = "*"
 factory-boy = "*"
