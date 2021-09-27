@@ -383,7 +383,7 @@ msgid "backers/"
 msgstr "partenaires/"
 
 msgid "blog/"
-msgstr "actualites/"
+msgstr "blog/"
 
 msgid "programs/"
 msgstr "programmes/"
@@ -1504,7 +1504,7 @@ msgid "Confirm alert creation"
 msgstr "Confirmez la création de l'alerte"
 
 msgid "Blog"
-msgstr "Actualités"
+msgstr "Blog"
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"
