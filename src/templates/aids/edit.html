@@ -30,7 +30,7 @@
                 {% elif aid.is_under_review %}
                     <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
                     <p class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</p>
-                    <button type="submit" name="_action" value="update_status" form="aid-edit-form">Annuler la revue</button>
+                    <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Annuler la revue</button>
                 {% elif aid.is_published %}
                     <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url}}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
                     <p class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</p>
