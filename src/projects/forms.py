@@ -1,5 +1,7 @@
 from django import forms
 
+from core.forms import (RichTextField)
+
 from projects.models import Project
 from accounts.models import User
 
@@ -28,3 +30,31 @@ class ProjectCreateForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'beneficiary', 'due_date']
+
+
+class ProjectUpdateForm(forms.ModelForm):
+
+    name = forms.CharField(
+        label='Nom du projet',
+        max_length=256,
+        required=True)
+    description = RichTextField(
+        label="Description du projet",
+        widget=forms.Textarea(
+            attrs={'placeholder': "Entrez ici la description de votre projet"}
+        ))
+    due_date = forms.DateField(
+        label="Date d'échéance du projet",
+        ),
+
+    class Meta:
+        model = Project
+        fields = [
+            'name',
+            'description',
+            'due_date',
+        ]
+        widgets = {
+            'due_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'}),
+        }

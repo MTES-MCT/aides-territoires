@@ -4,7 +4,7 @@ from aids.views import (SearchView, AdvancedSearchView, ResultsView,
                         ResultsReceiveView, AidDetailView, AidCreateView,
                         AidDraftListView, AidEditView,
                         AidDeleteView, GenericToLocalAidView,
-                        AidMatchProjectView)
+                        AidMatchProjectView, AidUnmatchProjectView)
 
 urlpatterns = [
      # Resultats & Plus de critères
@@ -24,4 +24,5 @@ urlpatterns = [
           path('', AidDetailView.as_view(), name='aid_detail_view')])),
      path('associer-des-projets/<slug:slug>/', AidMatchProjectView.as_view(),
          name='aid_match_project_view'),
+     path('déassocier-un-projet/<slug:slug>/', AidUnmatchProjectView.as_view(), name='aid_unmatch_project_view'),
 ]

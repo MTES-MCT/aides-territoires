@@ -33,7 +33,15 @@
         {% include 'accounts/_sidebar_menu.html' %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3 fr-mb-5w">Votre projet « {{ project.name }} »</h1>
+            <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
+            <span class="fr-hint-text fr-mb-5w">
+                Date d'échéance du projet : 
+                {% if project.due_date %}
+                {{ project.due_date|date:'d/m/y' }}
+                {% else %}
+                aucune
+                {% endif %}
+            </span>
             <div class="fr-table fr-table--bordered">
                 <table class="data-table">
                     <caption class="sr-only">
@@ -43,7 +51,7 @@
                         <tr>
                             <th scope="col">Nom</th>
                             <th scope="col">Echéance</th>
-                            <th scope="col">Ajouté le</th>
+                            <th scope="col">Ajouté&nbsp;le</th>
                             <th scope="col">Par</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -81,11 +89,17 @@
                                     {% endfor %}
                                 </td>
                                 <td>
-                                    {% for aidproject in aid.aidproject_set.all %}
-                                    {% if aidproject.project == project %}
-                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="#" target="_blank" rel="noopener" title="supprimer cette aide">Supprimer</a>
-                                    {% endif %}
-                                    {% endfor %}
+                                    <form id="unmatch_project" method="post" action="{% url 'aid_unmatch_project_view' aid.slug %}">
+                                        <section>
+                                            <div class="content">
+                                                {% csrf_token %}
+                                                <input name="project-slug" value="{{ project.slug }}" type="hidden">
+                                                <input name="projects" type="hidden" value="{{ project.id }}" id="{{ project.id }}">
+                                                <button class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" type="submit">
+                                                    supprimer cette aide
+                                                </button>
+                                        </section>
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -110,6 +124,11 @@
             <button type="button" class="fr-btn" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
                 Supprimer ce projet
             </button>
+
+            <a class="fr-btn fr-fi-edit-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_update_view' project.slug %}">
+                 Modifier les informations du projet
+            </a>
+
         </div>
     </div>
 </div>

@@ -38,7 +38,6 @@
                 <p>Que pouvez-vous faire ici&nbsp;?</p>
                 <p>Cette page vous permet de gérer vos différents projets, et les aides associées.</p> 
                 <p>En consultant les aides, vous pourrez alors rajouter celles qui correspondent à un projet spécifique. Vous pourrez alors partager plus facilement avec votre équipe les aides que vous avez sélectionnées.</p>
-                <p>Et dès qu'une aide nouvellement publiée correspondra à votre projet, elle vous sera proposée dans la section "Aides suggérées".</p>
             </div>
 
             <button class="fr-btn fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
@@ -64,7 +63,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="{{ project.get_absolute_url }}" target="_blank" rel="noopener">
+                                    <a href="{{ project.get_absolute_url }}">
                                         {{ project.name }}
                                     </a>
                                 </td>
@@ -87,7 +86,7 @@
                                 {% endif %}
                                 </td>
                                 <td>
-                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.slug %}" target="_blank" rel="noopener" title="supprimer ce projet">Supprimer</a>
+                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.slug %}" title="supprimer ce projet">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}
