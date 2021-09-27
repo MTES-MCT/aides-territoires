@@ -626,3 +626,25 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
         messages.success(self.request, msg)
         url = reverse('aid_detail_view', args=[aid.slug])
         return HttpResponseRedirect(url)
+
+
+class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """remove the association between an aid and a project."""
+
+    context_object_name = 'aid'
+    form_class = AidMatchProjectForm
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        for project in self.request.POST.getlist('projects', []):
+            project=int(project)
+            aid.projects.remove(project)
+
+        aid.save()
+
+        msg = "L'aide a bien été déassociée."
+        messages.success(self.request, msg)
+        url = reverse('project_detail_view', args=[self.request.POST.get('project-slug')])
+        return HttpResponseRedirect(url)

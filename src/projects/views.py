@@ -5,7 +5,7 @@ from django.contrib import messages
 
 from braces.views import MessageMixin
 
-from projects.forms import ProjectCreateForm
+from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from django.contrib import messages
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
@@ -63,6 +63,7 @@ class ProjectDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
+        context['project_update_form'] = ProjectUpdateForm(label_suffix='')
         return context
 
 
@@ -83,3 +84,35 @@ class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
         msg = "Votre projet a été supprimé." # noqa
         messages.success(self.request, msg)
         return res
+
+
+class ProjectUpdateView(ContributorAndProfileCompleteRequiredMixin, MessageMixin, UpdateView):
+    """Edit an existing project."""
+
+    template_name = 'projects/update_project.html'
+    context_object_name = 'project'
+    form_class = ProjectUpdateForm
+
+    def get_queryset(self):
+        qs = Project.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
+
+    def form_valid(self, form):
+
+        response = super().form_valid(form)
+
+        msg = "Le projet a bien été mis à jour."
+
+        self.messages.success(msg)
+        return response
+
+    def get_success_url(self):
+        url = reverse('project_detail_view', args=[self.object.slug])
+        return '{}'.format(url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = self.object
+        return context
+
