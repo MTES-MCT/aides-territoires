@@ -216,15 +216,26 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
                 'short_title',
                 'categories',
                 'targeted_audiences',
-                'financer_suggestion',
-                'instructor_suggestion',
                 'author',
                 'sibling_aids',
             )
         }),
 
         FinancersInline,
+
+        ("PORTEURS D'AIDES SUGGÉRÉS", {
+            'fields': (
+                'financer_suggestion',
+            )
+        }),
+
         InstructorsInline,
+
+        ("INSTRUCTEURS SUGGÉRÉS", {
+            'fields': (
+                'instructor_suggestion',
+            )
+        }),
 
         ("Périmètre de l'aide", {
             'fields': (
