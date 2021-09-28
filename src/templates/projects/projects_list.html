@@ -86,7 +86,7 @@
                                 {% endif %}
                                 </td>
                                 <td>
-                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.slug %}" title="supprimer ce projet">Supprimer</a>
+                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.pk %}" title="supprimer ce projet">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}

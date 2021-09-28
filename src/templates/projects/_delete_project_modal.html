@@ -12,7 +12,7 @@
                         <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer ce projet</h1>
 
                         <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre projet. Il n'y a pas d'annulation possible.</p>
-                        <form id="delete-form" action="{% url 'project_delete_view' project.slug %}" method="post">
+                        <form id="delete-form" action="{% url 'project_delete_view' project.pk %}" method="post">
                             <section>
                                 <div class="content">
                                     {% csrf_token %}

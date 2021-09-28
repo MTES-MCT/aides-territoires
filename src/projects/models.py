@@ -45,7 +45,10 @@ class Project(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('project_detail_view', args=[self.slug])
+        url_args = [self.id]
+        if self.slug:
+            url_args.append(self.slug)
+        return reverse('project_detail_view', args=url_args)
 
     @property
     def id_slug(self):

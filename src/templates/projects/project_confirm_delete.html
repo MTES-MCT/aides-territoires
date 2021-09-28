@@ -18,7 +18,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'project_list_view' %}">Gérer mes projets</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'project_detail_view' project.slug %}">Votre projet</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'project_detail_view' project.pk project.slug %}">Votre projet</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Supprimer le projet projet</a>
