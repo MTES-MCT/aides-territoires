@@ -239,7 +239,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
-        beginning_of_2021 = timezone.make_aware(datetime(2021, 1, 1))
+        beginning_of_2021 = timezone.make_aware(datetime(2021, 6, 1))
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
 
