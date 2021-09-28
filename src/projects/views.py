@@ -108,7 +108,7 @@ class ProjectUpdateView(ContributorAndProfileCompleteRequiredMixin, MessageMixin
         return response
 
     def get_success_url(self):
-        url = reverse('project_detail_view', args=[self.object.slug])
+        url = self.object.get_absolute_url()
         return '{}'.format(url)
 
     def get_context_data(self, **kwargs):
