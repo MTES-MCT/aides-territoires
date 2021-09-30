@@ -77,7 +77,7 @@ echo "Fin de création et configuration du container"
 echo ""
 
 
-echo "Il restes quelques tâches à effectuer manuellement :"
+echo "Il reste quelques tâches à effectuer manuellement :"
 
 echo "Ajouter la ligne suivante dans le fichier /etc/hosts :"
 echo -e "\t$ip aides-territoires.local francemobilites.aides-territoires.local"
