@@ -112,6 +112,12 @@ article#aid .aid-details h3 {
   position: absolute;
 }
 
+form#match_project {
+  .fr-checkbox-group input[type=checkbox]:disabled+label:before, .fr-checkbox-group input[type=checkbox][disabled]+label:before {
+    background-color: #9090b3!important;
+  }
+}
+
 // Header style
 
 #profil::before {
