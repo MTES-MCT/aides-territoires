@@ -28,7 +28,7 @@ Note : un setup alternatif (sans machine virtuelle) est documenté [ici](https:/
 
 Exécuter le script d'installation :
 
-    ./local_vm_creation.sh
+    ./deployment/local_vm_creation.sh
 
 …qui effectue les actions suivantes :
 
