@@ -21,14 +21,14 @@ Note : un setup alternatif (sans machine virtuelle) est documenté [ici](https:/
 
 ### Création de la machine de dev locale
 
- Créer un répertoire de travail et cloner le projet git :
+Créer un répertoire de travail et cloner le projet git :
 
     git clone https://github.com/MTES-MCT/aides-territoires
+
+Se déplacer dans le répertoire de déploiement et exécuter le script d'installation :
+
     cd aides-territoires/deployment
-
-Exécuter le script d'installation :
-
-    ./deployment/local_vm_creation.sh
+    ./local_vm_creation.sh
 
 …qui effectue les actions suivantes :
 
