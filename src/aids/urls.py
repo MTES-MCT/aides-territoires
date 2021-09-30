@@ -23,6 +23,7 @@ urlpatterns = [
      path('<slug:slug>/', include([
           path('', AidDetailView.as_view(), name='aid_detail_view')])),
      path('associer-des-projets/<slug:slug>/', AidMatchProjectView.as_view(),
-         name='aid_match_project_view'),
-     path('déassocier-un-projet/<slug:slug>/', AidUnmatchProjectView.as_view(), name='aid_unmatch_project_view'),
+          name='aid_match_project_view'),
+     path('déassocier-un-projet/<slug:slug>/', AidUnmatchProjectView.as_view(),
+          name='aid_unmatch_project_view'),
 ]
