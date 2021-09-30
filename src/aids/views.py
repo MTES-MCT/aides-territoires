@@ -33,7 +33,6 @@ from programs.models import Program
 from projects.models import Project
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
-from projects.models import Project
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
@@ -617,8 +616,8 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
 
         aid = form.save(commit=False)
         for project in self.request.POST.getlist('projects', []):
-            project=int(project)
-            aid.projects.add(project, through_defaults={'creator':self.request.user})
+            project = int(project)
+            aid.projects.add(project, through_defaults={'creator': self.request.user})
 
         aid.save()
 
@@ -639,7 +638,7 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
 
         aid = form.save(commit=False)
         for project in self.request.POST.getlist('projects', []):
-            project=int(project)
+            project = int(project)
             aid.projects.remove(project)
 
         aid.save()

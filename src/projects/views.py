@@ -7,7 +7,6 @@ from braces.views import MessageMixin
 
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
-from django.contrib import messages
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -115,4 +114,3 @@ class ProjectUpdateView(ContributorAndProfileCompleteRequiredMixin, MessageMixin
         context = super().get_context_data(**kwargs)
         context['project'] = self.object
         return context
-
