@@ -344,7 +344,7 @@ class AidDetailView(DetailView):
         context['alert_form'] = AlertForm(label_suffix='')
         if self.request.user.is_authenticated:
             context['aid_match_project_form'] = AidMatchProjectForm(label_suffix='')
-            context['projects'] = Project.objects.filter(beneficiary=self.request.user)
+            context['projects'] = Project.objects.filter(organizations=self.request.user.beneficiary_organization)
 
         return context
 
@@ -645,5 +645,5 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
 
         msg = "L'aide a bien été déassociée."
         messages.success(self.request, msg)
-        url = reverse('project_detail_view', args=[self.request.POST.get('project-slug')])
+        url = reverse('project_detail_view', args=[self.request.POST.get('project-pk'), self.request.POST.get('project-slug')])
         return HttpResponseRedirect(url)

@@ -8,6 +8,8 @@ from braces.views import MessageMixin
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+from accounts.models import User
+from organizations.models import Organization
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
@@ -22,7 +24,8 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         project = form.save(commit=False)
         project.save()
         form.save_m2m()
-        project.beneficiary.add(self.request.user)
+        project.author.add(self.request.user)
+        project.organizations.add(self.request.user.beneficiary_organization)
 
         msg = 'Votre nouveau projet a été créé&nbsp;!'
         messages.success(self.request, msg)
@@ -40,11 +43,12 @@ class ProjectListView(ListView):
 
     def get_queryset(self):
         queryset = Project.objects \
-            .filter(beneficiary=self.request.user)
+            .filter(organizations=self.request.user.beneficiary_organization)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
         context['project_create_form'] = ProjectCreateForm(label_suffix='')
 
         return context

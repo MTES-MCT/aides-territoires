@@ -80,9 +80,13 @@
                             <td>{{ project.date_created|date:'d/m/y' }}</td>
                             <td>{{ project.due_date|date:'d/m/y' }}</td>
                             <td>
-                            {% if project.beneficiary %}
-                            {% for beneficiary in project.beneficiary.all %}
-                                {{ beneficiary.first_name }} {{ beneficiary.last_name }}
+                            {% if project.author %}
+                            {% for author in project.author.all %}
+                            {% if project.author == user %}
+                            vous
+                            {% else %}
+                                {{ author.first_name }} {{ author.last_name }}
+                            {% endif %}
                             {% endfor %}
                             {% endif %}
                             </td>

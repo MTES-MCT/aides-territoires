@@ -113,7 +113,7 @@ class UserAdmin(BaseUserAdmin):
         SearchPageAdministratorFilter, AnimatorFilter, ApiTokenFilter,
         'is_certified', 'ml_consent', 'groups']
 
-    autocomplete_fields = ['animator_perimeter']
+    autocomplete_fields = ['animator_perimeter', 'beneficiary_organization']
     readonly_fields = [
         'nb_aids',
         'administrator_of_search_pages_list', 'api_token',

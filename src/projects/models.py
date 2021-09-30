@@ -22,10 +22,13 @@ class Project(models.Model):
         _('Key words'),
         help_text=_('key words associated to the project'),
         default='', blank=True)
-    beneficiary = models.ManyToManyField(
+    organizations = models.ManyToManyField(
+        'organizations.Organization',
+        verbose_name='Structures',
+        blank=True)
+    author = models.ManyToManyField(
         'accounts.User',
-        verbose_name='Utilisateurs',
-        related_name='projects',
+        verbose_name="Auteur",
         blank=True)
 
     due_date = models.DateTimeField(
