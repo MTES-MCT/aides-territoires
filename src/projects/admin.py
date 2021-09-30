@@ -27,11 +27,11 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description',
-        'key_words', 'beneficiary', 'due_date', 'date_created',
+        'key_words', 'author', 'organizations', 'due_date', 'date_created',
     ]
     search_fields = ['name']
     readonly_fields = ['date_created']
-    autocomplete_fields = ['beneficiary']
+    autocomplete_fields = ['organizations', 'author']
 
     class Media:
         css = {

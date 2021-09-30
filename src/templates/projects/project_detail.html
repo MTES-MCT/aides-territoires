@@ -93,6 +93,7 @@
                                         <section>
                                             <div class="content">
                                                 {% csrf_token %}
+                                                <input name="project-pk" value="{{ project.pk }}" type="hidden">
                                                 <input name="project-slug" value="{{ project.slug }}" type="hidden">
                                                 <input name="projects" type="hidden" value="{{ project.id }}" id="{{ project.id }}">
                                                 <button class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" type="submit">

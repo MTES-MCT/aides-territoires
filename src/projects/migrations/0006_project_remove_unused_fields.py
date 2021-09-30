@@ -24,14 +24,4 @@ class Migration(migrations.Migration):
             model_name='project',
             name='status',
         ),
-        migrations.AddField(
-            model_name='project',
-            name='beneficiary',
-            field=models.ManyToManyField(blank=True, related_name='projects', to=settings.AUTH_USER_MODEL, verbose_name='Utilisateurs'),
-        ),
-        migrations.AddField(
-            model_name='project',
-            name='due_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name="Date d'échéance"),
-        ),
     ]

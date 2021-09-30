@@ -3,7 +3,7 @@ from django import forms
 from core.forms import (RichTextField)
 
 from projects.models import Project
-from accounts.models import User
+from organizations.models import Organization
 
 
 class ProjectCreateForm(forms.ModelForm):
@@ -14,12 +14,15 @@ class ProjectCreateForm(forms.ModelForm):
         help_text="Choisissez un nom le + générique possible \
             pour que nous puissions vous trouver des aides",
         required=True)
-
-    beneficiary = forms.ModelMultipleChoiceField(
+    description = RichTextField(
+        label="Description du projet",
+        widget=forms.Textarea(
+            attrs={'placeholder': "Entrez ici la description de votre projet"}
+        ))
+    organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet",
-        queryset=User.objects.all(),
+        queryset=Organization.objects.all(),
         required=False)
-
     due_date = forms.DateTimeField(
         label="Date d'échéance",
         help_text='Si votre projet doit sortir avant une certaine date, indiquez-la ici',
@@ -29,7 +32,7 @@ class ProjectCreateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name', 'beneficiary', 'due_date']
+        fields = ['name', 'description', 'organizations', 'due_date']
 
 
 class ProjectUpdateForm(forms.ModelForm):

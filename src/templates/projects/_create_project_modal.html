@@ -16,6 +16,7 @@
                                 <div class="content">
                                     {% csrf_token %}
                                     {% include '_field_snippet.html' with field=project_create_form.name %}
+                                    {% include '_field_snippet.html' with field=project_create_form.description %}
                                     {% include '_field_snippet.html' with field=project_create_form.due_date %}
                                 </div>
 
