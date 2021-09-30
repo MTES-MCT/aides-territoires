@@ -1,4 +1,4 @@
-<nav class="fr-col-12 fr-col-md-3 fr-sidemenu" role="navigation" aria-label="Menu latéral">
+<nav id="account-sidebar-menu" class="fr-col-12 fr-col-md-3 fr-sidemenu" role="navigation" aria-label="Menu latéral">
     <div class="fr-sidemenu__inner">
         <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
         <div class="fr-collapse" id="fr-sidemenu-wrapper">
@@ -24,20 +24,34 @@
                         </ul>
                     </div>
                 </li>
+               {% endif %}
+               {% if user.search_pages.count %}
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Espace administrateur</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-3">
+                        <ul class="fr-sidemenu__list">
+                            {% for search_page in user.search_pages.all %}
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'admin:search_searchpagelite_change' search_page.id %}" target="_self" rel="noopener">{{ search_page.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
                {% endif %} 
                 <li class="fr-sidemenu__item">
-                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Ma commune</button>
-                    <div class="fr-collapse" id="fr-sidemenu-item-3">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Ma commune</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-4">
                         <ul class="fr-sidemenu__list">
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Informations</a>
                             </li>
-                            <li class="fr-sidemenu__item">
+                            <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Chiffres clés</a>
                             </li>
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Compétences</a>
-                            </li>
+                            </li> -->
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Collaborateurs</a>
                             </li>
@@ -45,15 +59,15 @@
                     </div>
                 </li>
                 <li class="fr-sidemenu__item">
-                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Mes paramètres</button>
-                    <div class="fr-collapse" id="fr-sidemenu-item-4">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-5">Mes paramètres</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-5">
                         <ul class="fr-sidemenu__list">
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Mes alertes</a>
                             </li>
-                            <li class="fr-sidemenu__item">
+                            <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
-                            </li>
+                            </li> -->
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" rel="noopener">Mon profil</a>
                             </li>
