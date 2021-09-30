@@ -43,9 +43,10 @@
             <button class="fr-btn fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
                 Ajouter un projet
             </button>
-            <div class="fr-table fr-table--bordered">
+
+            <div class="fr-table">
                 <table class="data-table">
-                    <caption class="sr-only">
+                    <caption>
                         Liste de vos projets en cours
                     </caption>
                     <thead>
@@ -59,49 +60,50 @@
                         </tr>
                     </thead>
                     {% if projects %}
+                    <tbody>
                         {% for project in projects %}
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="{{ project.get_absolute_url }}">
-                                        {{ project.name }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <ul>
-                                    {% if project.aid_set.all %}
-                                        {{ project.aid_set.all.count }}
-                                    {% else %}
-                                    <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
-                                    </ul>
-                                {% endif %}
-                                </td>
-                                <td>{{ project.date_created|date:'d/m/y' }}</td>
-                                <td>{{ project.due_date|date:'d/m/y' }}</td>
-                                <td>
-                                {% if project.beneficiary %}
-                                {% for beneficiary in project.beneficiary.all %}
-                                    {{ beneficiary.first_name }} {{ beneficiary.last_name }}
-                                {% endfor %}
-                                {% endif %}
-                                </td>
-                                <td>
-                                    <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.pk %}" title="supprimer ce projet">Supprimer</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ project.get_absolute_url }}">
+                                    {{ project.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <ul>
+                                {% if project.aid_set.all %}
+                                    {{ project.aid_set.all.count }}
+                                {% else %}
+                                <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
+                                </ul>
+                            {% endif %}
+                            </td>
+                            <td>{{ project.date_created|date:'d/m/y' }}</td>
+                            <td>{{ project.due_date|date:'d/m/y' }}</td>
+                            <td>
+                            {% if project.beneficiary %}
+                            {% for beneficiary in project.beneficiary.all %}
+                                {{ beneficiary.first_name }} {{ beneficiary.last_name }}
                             {% endfor %}
-                        {% else %}
-                        <tbody>
-                            <tr>
-                                <td colspan="5">
-                                    <center>Vous n'avez aucun projet pour l'instant</center>
-                                </td>
-                            </tr>
-                        </tbody>
-                        {% endif %}
+                            {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_delete_view' project.pk %}" title="supprimer ce projet">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <center>Vous n'avez aucun projet pour l'instant</center>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
                 </table>
-            </div>    
+            </div>
+
         </div>
     </div>
 </div>
