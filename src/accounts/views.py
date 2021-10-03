@@ -21,15 +21,16 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     template_name = 'accounts/register.html'
     form_class = RegisterForm
-    success_url = reverse_lazy('register_success')
 
     def form_valid(self, form):
         """Send a connection/confirmation link to the user."""
-        response = super().form_valid(form)
         user_email = form.cleaned_data['email']
-        send_connection_email.delay(user_email)
-        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        return response
+        user_first_name = form.cleaned_data['first_name']
+        user_last_name = form.cleaned_data['last_name']
+        self.request.session['USER_EMAIL'] = user_email
+        self.request.session['USER_NAME'] = user_first_name + ' ' + user_last_name
+        redirect_url = reverse('organization_create_view')
+        return HttpResponseRedirect(redirect_url)
 
     def form_invalid(self, form):
         """Handle invalid data provided.
@@ -43,8 +44,9 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
            len(form['email'].errors) == 1 and \
            form['email'].errors.as_data()[0].code == 'unique':
             user_email = form.data['email']
-            send_connection_email.delay(user_email)
-            return HttpResponseRedirect(self.success_url)
+            self.request.session['USER_EMAIL'] = user_email
+            redirect_url = reverse('organization_create_view')
+            return HttpResponseRedirect(redirect_url)
         else:
             return super().form_invalid(form)
 

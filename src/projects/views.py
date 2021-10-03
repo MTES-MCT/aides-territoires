@@ -8,8 +8,6 @@ from braces.views import MessageMixin
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
-from accounts.models import User
-from organizations.models import Organization
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
@@ -42,8 +40,8 @@ class ProjectListView(ListView):
     paginate_by = 18
 
     def get_queryset(self):
-        queryset = Project.objects \
-            .filter(organizations=self.request.user.beneficiary_organization)
+        for organization in self.request.user.organization_set.all():
+            queryset = Project.objects.filter(organization__id__exact=organization.id)
         return queryset
 
     def get_context_data(self, **kwargs):

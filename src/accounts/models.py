@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
-from core.fields import ChoiceArrayField
 from model_utils import Choices
 
 
@@ -92,8 +91,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Represents a single user account (one physical person)."""
 
     FUNCTION_TYPE = Choices(
-        ('Elected', 'Elu'),
-        ('territorial agent', 'Agent territorial'),
+        ('elected', 'Élu'),
+        ('agent', 'Agent territorial'),
         ('other', 'Autre'),
     )
 
@@ -139,12 +138,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         on_delete=models.PROTECT,
         help_text="A quelle structure appartient le bénéficiaire ?",
         null=True, blank=True)
-    beneficiary_function = ChoiceArrayField(
-        verbose_name="Fonction du bénéficiaire",
-        null=True, blank=True,
-        base_field=models.CharField(
-            max_length=32,
-            choices=FUNCTION_TYPE))
+    beneficiary_function = models.CharField(
+        "Fonction du bénéficiaire",
+        max_length=32,
+        choices=FUNCTION_TYPE,
+        null=True, blank=True,)
     beneficiary_role = models.CharField(
         'Rôle du bénéficiaire',
         max_length=128,

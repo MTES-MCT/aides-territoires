@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n form_utils compress %}
 
 {% block extraclasses %}light{% endblock %}
 
@@ -13,21 +13,6 @@
         <div class="fr-col-md-8">
 
             <h1 class="fr-mb-5w">Créer un compte pour diffuser vos aides</h1>
-
-            <div class="warning fr-background-alt-pink fr-p-3w fr-mb-3w">
-                <p class="fr-mb-2w">
-                    <span class="fr-fi-error-warning-line" aria-hidden="true"></span>
-                    Les contributeurs sont les acteurs qui référencent les aides et non ceux qui les reçoivent.
-                </p>
-                {% url 'search_step_audience' as search_url %}
-                <p class="fr-mb-0">
-                    <span class="fr-fi-search-line" aria-hidden="true"></span>
-                    Si vous souhaitez bénéficier des aides financières et en ingénierie des porteurs, 
-                    <a href="{{ search_url }}"> 
-                        utilisez notre recherche.
-                    </a>
-                </p>
-            </div>
 
             <p class="warning fr-background-alt-pink fr-p-3w fr-mb-0">
                 <span class="fr-fi-lock-line" aria-hidden="true"></span>
@@ -52,11 +37,23 @@
                     {% include '_field_snippet.html' with field=form.password2 %}
                 </fieldset>
 
-                <fieldset>
+                <fieldset class="fr-mt-5w">
                     <legend>Informations professionnelles</legend>
-                    {% include '_field_snippet.html' with field=form.organization %}
-                    {% include '_field_snippet.html' with field=form.role %}
-                    {% include '_field_snippet.html' with field=form.contact_phone %}
+                    {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                    {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                    <div class="fr-form-group">
+                        <fieldset class="fr-fieldset">
+                            <p>Vous allez utiliser le service pour&nbsp;:</p>
+                            <div class="fr-grid-row fr-grid--middle">
+                                <div class="fr-fieldset__content fr-pr-2w">
+                                    {% include '_checkbox_snippet.html' with field=form.is_contributor %}
+                                </div>
+                                <div class="fr-fieldset__content">
+                                {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                                </div>    
+                            </div>
+                        </fieldset>    
+                    </div>
                 </fieldset>
 
                 {% url 'legal_mentions' as legal_mentions_url %}
