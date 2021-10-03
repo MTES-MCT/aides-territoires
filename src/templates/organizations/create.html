@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% load i18n form_utils %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}register-form{% endblock %}
+
+{% block extratitle %}Inscription - étape 2/2{% endblock %}
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            <h1 class="fr-mb-5w">Bienvenue {{ request.session.USER_NAME }}&nbsp;!</h1>
+            <h2 class="fr-h3">Merci de renseigner les informations de votre commune pour finaliser votre inscription</h2>
+
+            <form method="post" action="" novalidate class="fr-mt-5w">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% include '_form_header.html' with form=form %}
+
+                <fieldset>
+                    <legend>Informations personnelles</legend>
+                    {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.zip_code %}
+                </fieldset>
+
+                {% url 'legal_mentions' as legal_mentions_url %}
+                <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
+                    <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
+                    {% blocktrans trimmed %}
+                    By registering an account, you acknowledge that your data will be
+                    processed <a href="{{ legal_mentions_url }}" target="_blank">
+                    according to our privacy policy</a>.
+                {% endblocktrans %}
+                </p>
+                <button type="submit" class="fr-btn fr-mb-5w">Finaliser mon inscription</button>
+            </form>
+
+            <p class="warning fr-background-alt-pink fr-p-3w">
+                <span class="fas fa-bug"></span>
+                {% blocktrans trimmed %}
+                Do you have a problem to register?
+                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
+            {% endblocktrans %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

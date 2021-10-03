@@ -8,34 +8,38 @@ from accounts.models import User
 class RegisterForm(UserCreationForm):
     """Form used to create new user accounts."""
 
-    email = forms.EmailField(
-        label='Votre adresse e-mail',
-        required=True,
-        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.")  # noqa
     first_name = forms.CharField(
         label='Votre prénom',
         required=True)
     last_name = forms.CharField(
         label='Votre nom',
         required=True)
-    contributor_organization = forms.CharField(
-        label='Votre structure professionnelle',
+    email = forms.EmailField(
+        label='Votre adresse e-mail',
+        required=True,
+        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.")  # noqa
+    beneficiary_role = forms.CharField(
+        label='Votre rôle',
         max_length=128,
-        required=True)
-    contributor_role = forms.CharField(
-        label='Votre fonction',
-        max_length=128,
-        required=True)
-    contributor_contact_phone = forms.CharField(
-        label='Votre numéro de téléphone',
-        max_length=35,
-        required=True)
+        required=False)
+    beneficiary_function = forms.ChoiceField(
+        label="Votre fonction",
+        required=False,
+        choices=User.FUNCTION_TYPE)
+    is_contributor = forms.BooleanField(
+        label='Trouver des aides',
+        required=False)
+    is_beneficiary = forms.BooleanField(
+        label='Publier des aides',
+        required=False)
 
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'email', 'password1', 'password2',
-            'contributor_organization', 'contributor_role', 'contributor_contact_phone']
+            'first_name', 'last_name', 'email', 'beneficiary_role', 'password1', 'password2',
+            'beneficiary_role', 'beneficiary_function', 'is_contributor',
+            'is_beneficiary'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

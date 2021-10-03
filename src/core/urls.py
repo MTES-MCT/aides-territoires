@@ -79,6 +79,7 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('admin_tools/', include('admin_tools.urls')),
     path(_('projects/'), include('projects.urls')),
+    path(_('organizations/'), include('organizations.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),
