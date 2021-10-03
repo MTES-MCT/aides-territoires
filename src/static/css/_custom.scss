@@ -305,11 +305,15 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .hel
 section#aid-edit #form-group-name .part-form label::after,
 section#aid-edit #form-group-financers .part-form label::after,
 section#aid-edit #form-group-aid_types .part-form > label::after,
+section#aid-edit #form-group-subvention_rate .part-form > label::after,
+section#aid-edit #form-group-loan_amount .part-form > label::after,
+section#aid-edit #form-group-recoverable_advance_amount .part-form > label::after,
 section#aid-edit #form-group-description .part-form > label::after,
 section#aid-edit #form-group-categories .part-form > label::after,
 section#aid-edit #form-group-recurrence .part-form > label::after,
 section#aid-edit #form-group-mobilization_steps .part-form > label::after,
-section#aid-edit #form-group-contact .part-form > label::after {
+section#aid-edit #form-group-contact .part-form > label::after,
+section#aid-edit #form-group-perimeter .part-form > label::after {
   content:'*';
   margin-left: 0.2rem;
 }
