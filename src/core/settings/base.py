@@ -364,7 +364,7 @@ SITE_ID = 1
 
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'aid_draft_list_view'
+LOGIN_REDIRECT_URL = 'user_dashboard'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
 

@@ -193,6 +193,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser or self.is_administrator_of_search_pages
 
     @property
+    def is_contributor_or_staff_or_beneficiary(self):
+        """Only the contributors or the admin users can access
+        certain pages of the app."""
+        return self.is_contributor or self.is_superuser or self.is_beneficiary
+
+    @property
     def is_contributor_or_staff(self):
         """Only the contributors or the admin users can access
         certain pages of the app."""
@@ -200,8 +206,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def profile_complete(self):
-        """Contributors need to specify more personal data."""
-        return self.contributor_organization and self.contributor_role and self.contributor_contact_phone  # noqa
+        """User need to specify more personal data."""
+        return self.beneficiary_organization
 
     @property
     def is_administrator_of_search_pages(self):

@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
-from accounts.mixins import ContributorRequiredMixin
+from accounts.mixins import ContributorRequiredMixin, ContributorAndProfileCompleteRequiredMixin
 from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
@@ -21,6 +21,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     template_name = 'accounts/register.html'
     form_class = RegisterForm
+    success_url = reverse_lazy('organization_create_view')
 
     def form_valid(self, form):
         """Send a connection/confirmation link to the user."""
@@ -29,8 +30,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         user_last_name = form.cleaned_data['last_name']
         self.request.session['USER_EMAIL'] = user_email
         self.request.session['USER_NAME'] = user_first_name + ' ' + user_last_name
-        redirect_url = reverse('organization_create_view')
-        return HttpResponseRedirect(redirect_url)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         """Handle invalid data provided.
@@ -38,14 +38,12 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         If the **only** error is that the provided email is already
         associated to an account, instead of displaying a "this user
         already exists" error, we do as if the registration proceeded
-        normally and we send a connction link.
+        normally and we send a connection link.
         """
         if len(form.errors) == 1 and \
            len(form['email'].errors) == 1 and \
            form['email'].errors.as_data()[0].code == 'unique':
-            user_email = form.data['email']
-            self.request.session['USER_EMAIL'] = user_email
-            redirect_url = reverse('organization_create_view')
+            redirect_url = reverse('register_success')
             return HttpResponseRedirect(redirect_url)
         else:
             return super().form_invalid(form)
@@ -118,7 +116,7 @@ class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin, Upda
     success_message = 'Votre profil a été mis à jour.'
 
     def get_success_url(self):
-        current_url = reverse('contributor_profile')
+        current_url = reverse('user_dashboard')
         next_url = self.request.GET.get('next', current_url)
         return next_url
 
@@ -132,13 +130,13 @@ class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin, Upda
         return res
 
 
-class UserDashboardView(TemplateView):
+class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView):
     """User Dashboard"""
 
     template_name = 'accounts/user_dashboard.html'
 
 
-class UserApiTokenView(TemplateView):
+class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView):
     """User can access to his API Token"""
 
     template_name = 'accounts/user_api_token.html'

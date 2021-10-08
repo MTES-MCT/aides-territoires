@@ -26,10 +26,10 @@ urlpatterns = [
     path(_('password-reset-sent/'), PasswordResetSentView.as_view(),
          name='password_reset_sent'),
 
-    path(_('contributor-profile/'), ContributorProfileView.as_view(),
+    path('monprofil/', ContributorProfileView.as_view(),
          name='contributor_profile'),
 
-    path(_('user-dashboard/'), UserDashboardView.as_view(),
+    path('moncompte/', UserDashboardView.as_view(),
          name='user_dashboard'),
     path(_('api-token/'), UserApiTokenView.as_view(),
          name='api_token'),

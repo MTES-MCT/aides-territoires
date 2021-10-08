@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load i18n %}
 
-{% block extratitle %}{{ _('Contributor profile') }}{% endblock %}
+{% block extratitle %}Mon profil{% endblock %}
 
 {% block extraclasses %}light{% endblock %}
 
@@ -17,7 +17,10 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Mettre à jour votre profil contributeur</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon profil</a>
                 </li>
             </ol>
         </div>
@@ -33,13 +36,7 @@
         {% include 'accounts/_sidebar_menu.html' %}
 
         <div class="fr-col-md-9">
-            {% if user.profile_complete %}
-            <h1>Mon profil</h1>
-            {% else %}
-            <h1>{{ _("Become a contributor") }}<br/>
-                <small>{{ _("Fill out the required data") }}</small>
-            </h1>
-            {% endif %}
+            <h1 class="fr-h3">Mon profil</h1>
 
             <div class="info fr-background-alt-pink fr-p-3w fr-mb-5w">
                 <p class="fr-mb-2w">
@@ -51,8 +48,27 @@
 
             <form method="post" action="" novalidate>
                 {% csrf_token %}
-                {% include '_form_snippet.html' with form=form %}
-                <button type="submit" class="fr-btn">Mettre à jour vos données</button>
+
+                {% include '_field_snippet.html' with field=form.first_name %}
+                {% include '_field_snippet.html' with field=form.last_name %}
+                {% include '_field_snippet.html' with field=form.email %}
+                {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                <div class="fr-form-group">
+                    <fieldset class="fr-fieldset">
+                        <p>Vous allez utiliser le service pour&nbsp;:</p>
+                        <div class="fr-grid-row fr-grid--middle">
+                            <div class="fr-fieldset__content fr-pr-2w">
+                                {% include '_checkbox_snippet.html' with field=form.is_contributor %}
+                            </div>
+                            <div class="fr-fieldset__content">
+                            {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                            </div>    
+                        </div>
+                    </fieldset>    
+                </div>
+                {% include '_field_snippet.html' with field=form.new_password %}
+                <button type="submit" class="fr-btn">Mettre à jour mes données</button>
             </form>
         </div>
     </div>

@@ -47,15 +47,15 @@ class ContributorAndProfileCompleteRequiredMixin(UserPassesTestMixin):
 
     def test_func(self):
         user = self.request.user
-        return user.is_authenticated and user.is_contributor_or_staff and user.profile_complete  # noqa
+        return user.is_authenticated and user.is_contributor_or_staff_or_beneficiary and user.profile_complete  # noqa
 
     def get_register_url(self):
         user = self.request.user
         if not user.is_authenticated:
             url = 'register'
         else:
-            if user.is_contributor_or_staff:
-                url = 'contributor_profile'
+            if user.is_contributor_or_staff_or_beneficiary:
+                url = 'organization_create_view'
             else:
                 url = 'home'
         return url
@@ -64,9 +64,11 @@ class ContributorAndProfileCompleteRequiredMixin(UserPassesTestMixin):
         user = self.request.user
         if not user.is_authenticated:
             login_url = settings.LOGIN_URL
+        elif not user.profile_complete:
+            login_url = 'organization_create_view'
         else:
-            if user.is_contributor_or_staff:
-                login_url = 'contributor_profile'
+            if user.is_contributor_or_staff_or_beneficiary:
+                login_url = 'organization_create_view'
             else:
                 login_url = 'home'
         return login_url
