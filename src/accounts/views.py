@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
-from accounts.mixins import ContributorRequiredMixin, ContributorAndProfileCompleteRequiredMixin
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
@@ -108,7 +108,8 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class ContributorProfileView(ContributorAndProfileCompleteRequiredMixin, SuccessMessageMixin, UpdateView):
+class ContributorProfileView(ContributorAndProfileCompleteRequiredMixin,
+                             SuccessMessageMixin, UpdateView):
     """Update contributor profile data."""
 
     form_class = ContributorProfileForm

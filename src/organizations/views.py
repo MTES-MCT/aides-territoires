@@ -4,8 +4,6 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from braces.views import AnonymousRequiredMixin
-
 from organizations.forms import OrganizationCreateForm
 from accounts.tasks import send_connection_email
 from accounts.models import User
