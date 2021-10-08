@@ -27,16 +27,16 @@ class RegisterForm(UserCreationForm):
         required=False,
         choices=User.FUNCTION_TYPE)
     is_contributor = forms.BooleanField(
-        label='Trouver des aides',
+        label='Publier des aides',
         required=False)
     is_beneficiary = forms.BooleanField(
-        label='Publier des aides',
+        label='Trouver des aides',
         required=False)
 
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'email', 'beneficiary_role', 'password1', 'password2',
+            'first_name', 'last_name', 'email', 'password1', 'password2',
             'beneficiary_role', 'beneficiary_function', 'is_contributor',
             'is_beneficiary'
         ]
@@ -85,18 +85,13 @@ class PasswordResetForm(forms.Form):
 class ContributorProfileForm(forms.ModelForm):
     """Edit contributor profile related user data."""
 
-    contributor_organization = forms.CharField(
-        label='Votre structure professionnelle',
-        max_length=128,
-        required=True)
-    contributor_role = forms.CharField(
-        label='Votre fonction',
-        max_length=128,
-        required=True)
-    contributor_contact_phone = forms.CharField(
-        label='Votre numéro de téléphone',
-        max_length=35,
-        required=True)
+    is_contributor = forms.BooleanField(
+        label='Publier des aides',
+        required=False)
+    is_beneficiary = forms.BooleanField(
+        label='Trouver des aides',
+        required=False)
+
     new_password = forms.CharField(
         label='Choisissez un nouveau mot de passe',
         required=False,
@@ -108,11 +103,14 @@ class ContributorProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'contributor_organization', 'contributor_role',
-            'contributor_contact_phone', 'new_password']
+            'first_name', 'last_name', 'email', 'is_contributor', 'is_beneficiary',
+            'beneficiary_function', 'beneficiary_role', 'new_password']
         labels = {
             'first_name': 'Votre prénom',
             'last_name': 'Votre nom',
+            'email': 'Votre adresse email',
+            'beneficiary_function': 'Vous êtes',
+            'beneficiary_role': 'Votre fonction',
         }
 
     def _post_clean(self):

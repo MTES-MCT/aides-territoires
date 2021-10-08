@@ -12,14 +12,20 @@ from accounts.models import User
 from analytics.utils import track_goal
 
 
-class OrganizationCreateView(AnonymousRequiredMixin, CreateView):
+class OrganizationCreateView(CreateView):
 
     template_name = 'organizations/create.html'
     form_class = OrganizationCreateForm
     context_object_name = 'organization'
 
     def form_valid(self, form):
-        user_email = self.request.session.get('USER_EMAIL', '')
+
+        if self.request.session.get('USER_EMAIL', ''):
+            user_email = self.request.session.get('USER_EMAIL', '')
+        elif self.request.user.email:
+            user_email = self.request.user.email
+        else:
+            return
 
         organization = form.save(commit=False)
         organization.save()
@@ -28,12 +34,19 @@ class OrganizationCreateView(AnonymousRequiredMixin, CreateView):
         for user in User.objects.filter(email=user_email):
             user_id = user.id
             organization.beneficiaries.add(user_id)
+            User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
 
-        send_connection_email.delay(user_email)
-        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        msg = "Vous êtes bien enregistré!"
-        messages.success(self.request, msg)
-        return HttpResponseRedirect(self.get_success_url())
+        if self.request.session.get('USER_EMAIL', ''):
+            send_connection_email.delay(user_email)
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+            msg = "Vous êtes bien enregistré!"
+            messages.success(self.request, msg)
+            return HttpResponseRedirect(self.get_success_url())
+        elif self.request.user.email:
+            msg = "Votre profil a bien été mis à jour!"
+            messages.success(self.request, msg)
+            success_url = reverse('user_dashboard')
+            return HttpResponseRedirect(success_url)
 
     def get_success_url(self):
         success_url = reverse('register_success')
