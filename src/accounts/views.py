@@ -108,7 +108,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class ContributorProfileView(ContributorRequiredMixin, SuccessMessageMixin, UpdateView):
+class ContributorProfileView(ContributorAndProfileCompleteRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update contributor profile data."""
 
     form_class = ContributorProfileForm
