@@ -463,8 +463,8 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         aid.save()
         form.save_m2m()
 
-        msg = """ Votre aide a été créée. Vous pouvez poursuivre l\'édition ou 
-        <a href="{url}" target="_blank">la prévisualiser</a>.""".format(
+        msg = """ Votre aide a été créée. Vous pouvez poursuivre l\'édition ou
+        <a href="{url}" target="_blank"> la prévisualiser</a>.""".format(
             url=aid.get_absolute_url())
 
         messages.success(self.request, msg)
