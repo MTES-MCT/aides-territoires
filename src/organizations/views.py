@@ -20,12 +20,14 @@ class OrganizationCreateView(CreateView):
 
         if self.request.session.get('USER_EMAIL', ''):
             user_email = self.request.session.get('USER_EMAIL', '')
+            user_organization_type = self.request.session['USER_ORGANIZATION_TYPE']
         elif self.request.user.email:
             user_email = self.request.user.email
         else:
             return
 
         organization = form.save(commit=False)
+        organization.organization_type = [user_organization_type]
         organization.save()
         form.save_m2m()
 

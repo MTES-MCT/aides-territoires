@@ -22,7 +22,7 @@
                 <a href="{{ login_url }}">Proceed to the login form.</a>
             {% endblocktrans %}</p>
 
-            <form method="post" action="" novalidate class="fr-mt-5w">
+            <form method="post" action="" novalidate class="fr-mt-5w" id="register-form">
                 {% csrf_token %}
                 {{ form.media }}
 
@@ -39,8 +39,27 @@
 
                 <fieldset class="fr-mt-5w">
                     <legend>Informations professionnelles</legend>
-                    {% include '_field_snippet.html' with field=form.beneficiary_role %}
-                    {% include '_field_snippet.html' with field=form.beneficiary_function %}
+
+                    <div class="fr-input-group">
+                        <label for="id_organization_type">Vous êtes un/une</label>
+                        <select id="id_organization_type" required="required" name="organization_type">
+                            <option value hidden>Selectionnez une option</option>
+                            <option value="farmer">Agriculteur</option>
+                            <option value="association">Association</option>
+                            <option value="commune">Commune</option>
+                            <option value="department">Département</option>
+                            <option value="epci">EPCI</option>
+                            <option value="public_org">Service de l'état</option>
+                            <option value="region">Région</option>
+                            <option value="private_sector">Entreprise privée</option>
+                        </select>
+                    </div>
+
+                    <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
+                        {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                        {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                    </div>
+
                     <div class="fr-form-group">
                         <fieldset class="fr-fieldset">
                             <p>Vous allez utiliser le service pour&nbsp;:</p>
@@ -73,4 +92,10 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/accounts/toggle_beneficiary_related_fields.js"></script>
+{% endcompress %}
 {% endblock %}
