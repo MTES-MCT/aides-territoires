@@ -306,14 +306,14 @@ class SiteStats(MinisiteMixin, TemplateView):
             context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
         # top 10 categories filters
-        if self.search_page.show_categories_field:
-            top_categories_searched = search_events \
-                .prefetch_related(Prefetch('categories', queryset=Category.objects.all())) \
-                .exclude(categories=None) \
-                .values('categories__name') \
-                .annotate(search_count=Count('categories')) \
-                .order_by('-search_count')
-            context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
+        # if self.search_page.show_categories_field:
+        #     top_categories_searched = search_events \
+        #         .prefetch_related(Prefetch('categories', queryset=Category.objects.all())) \
+        #         .exclude(categories=None) \
+        #         .values('categories__name') \
+        #         .annotate(search_count=Count('categories')) \
+        #         .order_by('-search_count')
+        #     context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
         # top 10 keywords searched
         top_keywords_searched = search_events \
