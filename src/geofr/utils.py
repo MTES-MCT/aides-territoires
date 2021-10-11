@@ -141,9 +141,9 @@ def attach_perimeters(adhoc, city_codes):
     """
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
-    PerimeterContainedIn.objects \
-        .filter(to_perimeter_id=adhoc.id) \
-        .delete()
+    # PerimeterContainedIn.objects \
+    #     .filter(to_perimeter_id=adhoc.id) \
+    #     .delete()
 
     # Fetch perimeters corresponding to the given city codes
     perimeters = query_cities_from_list(city_codes) \
