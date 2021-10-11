@@ -25,10 +25,12 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     def form_valid(self, form):
         """Send a connection/confirmation link to the user."""
+        user_organization_type = self.request.POST.get('organization_type', None)
         user_email = form.cleaned_data['email']
         user_first_name = form.cleaned_data['first_name']
         user_last_name = form.cleaned_data['last_name']
         self.request.session['USER_EMAIL'] = user_email
+        self.request.session['USER_ORGANIZATION_TYPE'] = user_organization_type
         self.request.session['USER_NAME'] = user_first_name + ' ' + user_last_name
         return super().form_valid(form)
 
