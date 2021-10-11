@@ -239,7 +239,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
-        beginning_of_2021 = timezone.make_aware(datetime(2021, 1, 1))
+        beginning_of_2021 = timezone.make_aware(datetime(2021, 6, 1))
         thirty_days_ago = timezone.now() - timedelta(days=30)
         seven_days_ago = timezone.now() - timedelta(days=7)
 
@@ -306,14 +306,14 @@ class SiteStats(MinisiteMixin, TemplateView):
             context['top_10_audiences_searched'] = list(top_audiences_searched)[:10]  # noqa
 
         # top 10 categories filters
-        if self.search_page.show_categories_field:
-            top_categories_searched = search_events \
-                .prefetch_related(Prefetch('categories', queryset=Category.objects.all())) \
-                .exclude(categories=None) \
-                .values('categories__name') \
-                .annotate(search_count=Count('categories')) \
-                .order_by('-search_count')
-            context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
+        # if self.search_page.show_categories_field:
+        #     top_categories_searched = search_events \
+        #         .prefetch_related(Prefetch('categories', queryset=Category.objects.all())) \
+        #         .exclude(categories=None) \
+        #         .values('categories__name') \
+        #         .annotate(search_count=Count('categories')) \
+        #         .order_by('-search_count')
+        #     context['top_10_categories_searched'] = list(top_categories_searched)[:10]  # noqa
 
         # top 10 keywords searched
         top_keywords_searched = search_events \
