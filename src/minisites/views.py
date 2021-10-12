@@ -19,7 +19,7 @@ from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
-from categories.models import Category
+# from categories.models import Category
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
