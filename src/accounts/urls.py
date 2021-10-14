@@ -6,7 +6,8 @@ from accounts.forms import LoginForm
 from accounts.views import (PasswordResetView, PasswordResetSentView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
                             ContributorProfileView, UserDashboardView,
-                            UserApiTokenView)
+                            UserApiTokenView, UnSubscribeNewsletter)
+
 
 urlpatterns = [
     path(_('register/'), RegisterView.as_view(), name='register'),
@@ -33,6 +34,8 @@ urlpatterns = [
          name='user_dashboard'),
     path(_('api-token/'), UserApiTokenView.as_view(),
          name='api_token'),
-
     path(_('logout/'), auth_views.LogoutView.as_view(), name='logout'),
+
+    path('desinscription-newsletter/', UnSubscribeNewsletter.as_view(),
+         name='unsubscribe_nawsletter'),
 ]

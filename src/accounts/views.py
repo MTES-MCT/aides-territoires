@@ -1,5 +1,7 @@
+import requests
+import json
 from django.conf import settings
-from django.views.generic import FormView, TemplateView, CreateView, UpdateView
+from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash
@@ -143,3 +145,37 @@ class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView)
     """User can access to his API Token"""
 
     template_name = 'accounts/user_api_token.html'
+
+
+class UnSubscribeNewsletter(View):
+
+    def get(self, request):
+        '''
+        Here we want to allow user to unsubscribe to the newsletter.
+        '''
+
+        request = "PUT"
+
+        SIB_NEWSLETTER_LIST_IDS = settings.SIB_NEWSLETTER_LIST_IDS.split(', ')
+        SIB_NEWSLETTER_LIST_IDS = [int(i) for i in SIB_NEWSLETTER_LIST_IDS]
+
+        user_email = self.request.user.email
+
+        url = "https://api.sendinblue.com/v3/contacts/" + user_email
+
+        payload = {"unlinkListIds": SIB_NEWSLETTER_LIST_IDS}
+
+        headers = {
+
+            "Accept": "application/json",
+
+            "Content-Type": "application/json",
+
+            "api-key": settings.SIB_API_KEY,
+
+        }
+
+        response = requests.request("PUT", url, json=payload, headers=headers)
+
+        redirect_url = reverse('alert_list_view')
+        return HttpResponseRedirect(redirect_url)
