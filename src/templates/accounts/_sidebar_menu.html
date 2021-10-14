@@ -27,7 +27,7 @@
                {% endif %}
                {% if user.search_pages.count %}
                 <li class="fr-sidemenu__item">
-                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Espace administrateur</button>
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Gérer mes portails</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-3">
                         <ul class="fr-sidemenu__list">
                             {% for search_page in user.search_pages.all %}
@@ -40,7 +40,7 @@
                 </li>
                {% endif %} 
                 <li class="fr-sidemenu__item">
-                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Ma commune</button>
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Ma structure</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-4">
                         <ul class="fr-sidemenu__list">
                             <li class="fr-sidemenu__item">
