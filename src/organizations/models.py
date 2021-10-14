@@ -25,7 +25,6 @@ class Organization(models.Model):
         base_field=models.CharField(
             max_length=32,
             choices=ORGANIZATION_TYPE))
-
     address = models.CharField(
         'Adresse postale',
         max_length=900,

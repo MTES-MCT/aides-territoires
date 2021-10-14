@@ -29,6 +29,10 @@
                     <legend>Informations professionnelles</legend>
                     {% include '_field_snippet.html' with field=form.name %}
                     {% include '_field_snippet.html' with field=form.zip_code %}
+
+                    {% if not request.session.USER_NAME %}
+                    {% include '_field_snippet.html' with field=form.organization_type required=required %}
+                    {% endif %}
                 </fieldset>
 
                 {% url 'legal_mentions' as legal_mentions_url %}
