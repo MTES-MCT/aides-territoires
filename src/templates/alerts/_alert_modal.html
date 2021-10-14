@@ -27,11 +27,7 @@
                                     <p class="info fr-background-alt-pink fr-p-2w">
                                         <span class="fas fa-check"></span>
                                         {% url 'legal_mentions' as legal_mentions_url %}
-                                        {% blocktrans trimmed %}
-                                        By using this feature, you acknowledge that your data will
-                                        be processed <a href="{{ legal_mentions_url }}" target="_blank">
-                                            according to our privacy policy</a>.
-                                        {% endblocktrans %}
+                                        En créant un compte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
                                     </p>
                                 </div>
 
