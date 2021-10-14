@@ -18,11 +18,13 @@ class OrganizationCreateView(CreateView):
 
     def form_valid(self, form):
 
-        if self.request.session.get('USER_EMAIL', ''):
-            user_email = self.request.session.get('USER_EMAIL', '')
-            user_organization_type = self.request.session['USER_ORGANIZATION_TYPE']
+        if self.request.session.get('USER_EMAIL'):
+            user_email = self.request.session.get('USER_EMAIL')
+            user_organization_type = self.request.session.get('USER_ORGANIZATION_TYPE')
+            import ipdb; ipdb.set_trace();
         elif self.request.user.email:
             user_email = self.request.user.email
+            user_organization_type = self.request.POST.get('organization_type')
         else:
             return
 
@@ -31,23 +33,22 @@ class OrganizationCreateView(CreateView):
         organization.save()
         form.save_m2m()
 
-        for user in User.objects.filter(email=user_email):
-            user_id = user.id
-            organization.beneficiaries.add(user_id)
-            User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
+        user_id = User.objects.filter(email=user_email).first().pk
+        organization.beneficiaries.add(user_id)
+        User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
 
-        if self.request.session.get('USER_EMAIL', ''):
+        if self.request.session.get('USER_EMAIL'):
             send_connection_email.delay(user_email)
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
             msg = "Vous êtes bien enregistré!"
             messages.success(self.request, msg)
-            return HttpResponseRedirect(self.get_success_url())
+            success_url = reverse('register_success')
+            self.request.session.pop('USER_EMAIL')
+            self.request.session.pop('USER_ORGANIZATION_TYPE')
+
         elif self.request.user.email:
             msg = "Votre profil a bien été mis à jour!"
             messages.success(self.request, msg)
             success_url = reverse('user_dashboard')
-            return HttpResponseRedirect(success_url)
-
-    def get_success_url(self):
-        success_url = reverse('register_success')
-        return success_url
+        
+        return HttpResponseRedirect(success_url)
