@@ -40,8 +40,10 @@ class ProjectListView(ListView):
     paginate_by = 18
 
     def get_queryset(self):
-        for organization in self.request.user.organization_set.all():
-            queryset = Project.objects.filter(organization__id__exact=organization.id)
+        if self.request.user.beneficiary_organization is not None:
+            queryset = Project.objects.filter(organizations=self.request.user.beneficiary_organization.pk)
+        else:
+            queryset = Project.objects.none()
         return queryset
 
     def get_context_data(self, **kwargs):
