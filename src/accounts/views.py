@@ -11,9 +11,9 @@ from django.contrib import messages
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
-from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin, UserLoggedRequiredMixin
 from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileForm,
-                            InviteCollaboratorForm)
+                            InviteCollaboratorForm, CompleteProfileForm)
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
 from organizations.models import Organization
@@ -239,3 +239,25 @@ class CollaboratorsList(ListView):
         context['form'] = InviteCollaboratorForm
 
         return context
+
+
+class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateView):
+    """Complete user profile data."""
+
+    form_class = CompleteProfileForm
+    template_name = 'accounts/complete_profile.html'
+    success_message = 'Votre profil a été mis à jour.'
+
+    def get_success_url(self):
+        current_url = reverse('user_dashboard')
+        next_url = self.request.GET.get('next', current_url)
+        return next_url
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        """Make sure the user is not disconnected after password change."""
+        res = super().form_valid(form)
+        update_session_auth_hash(self.request, self.object)
+        return res

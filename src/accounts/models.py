@@ -205,9 +205,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_contributor or self.is_superuser
 
     @property
-    def profile_complete(self):
+    def is_contributor_or_beneficiary(self):
+        """User has to choose if he is a contributor or/and
+        beneficiary"""
+        return self.is_contributor or self.is_beneficiary
+
+    @property
+    def bound_to_organization(self):
         """User need to specify more personal data."""
         return self.beneficiary_organization
+
+    @property
+    def profile_complete(self):
+        """User need to specify more personal data."""
+        return self.password and self.is_contributor_or_beneficiary
 
     @property
     def is_administrator_of_search_pages(self):

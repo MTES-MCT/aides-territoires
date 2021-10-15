@@ -7,7 +7,7 @@ from accounts.views import (PasswordResetView, PasswordResetSentView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
                             ContributorProfileView, UserDashboardView,
                             UserApiTokenView, UnSubscribeNewsletter,
-                            InviteCollaborator, CollaboratorsList)
+                            InviteCollaborator, CollaboratorsList, CompleteProfileView)
 
 
 urlpatterns = [
@@ -30,6 +30,8 @@ urlpatterns = [
 
     path('monprofil/', ContributorProfileView.as_view(),
          name='contributor_profile'),
+    path('completer-votre-profil/', CompleteProfileView.as_view(),
+         name='complete_profile'),
 
     path('moncompte/', UserDashboardView.as_view(),
          name='user_dashboard'),

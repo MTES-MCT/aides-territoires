@@ -32,7 +32,7 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         return HttpResponseRedirect(url)
 
 
-class ProjectListView(ListView):
+class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     """User Project Dashboard"""
 
     template_name = 'projects/projects_list.html'
@@ -55,7 +55,7 @@ class ProjectListView(ListView):
         return context
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
     template_name = 'projects/project_detail.html'
     context_object_name = 'project'
 
