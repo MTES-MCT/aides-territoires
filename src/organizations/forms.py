@@ -24,7 +24,6 @@ class OrganizationCreateForm(forms.ModelForm):
         choices=Organization.ORGANIZATION_TYPE,
         widget=OrganizationTypeWidget)
 
-
     class Meta:
         model = Organization
         fields = ['name', 'zip_code', 'organization_type']

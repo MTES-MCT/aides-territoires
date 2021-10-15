@@ -21,7 +21,6 @@ class OrganizationCreateView(CreateView):
         if self.request.session.get('USER_EMAIL'):
             user_email = self.request.session.get('USER_EMAIL')
             user_organization_type = self.request.session.get('USER_ORGANIZATION_TYPE')
-            import ipdb; ipdb.set_trace();
         elif self.request.user.email:
             user_email = self.request.user.email
             user_organization_type = self.request.POST.get('organization_type')
@@ -50,5 +49,5 @@ class OrganizationCreateView(CreateView):
             msg = "Votre profil a bien été mis à jour!"
             messages.success(self.request, msg)
             success_url = reverse('user_dashboard')
-        
+
         return HttpResponseRedirect(success_url)

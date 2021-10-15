@@ -41,7 +41,8 @@ class ProjectListView(ListView):
 
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
-            queryset = Project.objects.filter(organizations=self.request.user.beneficiary_organization.pk)
+            queryset = Project.objects \
+                .filter(organizations=self.request.user.beneficiary_organization.pk)
         else:
             queryset = Project.objects.none()
         return queryset

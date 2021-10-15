@@ -1,5 +1,4 @@
 import requests
-import json
 from django.conf import settings
 from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View, ListView
 from django.urls import reverse, reverse_lazy
@@ -13,7 +12,8 @@ from django.contrib import messages
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
-from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm, InviteCollaboratorForm
+from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileForm,
+                            InviteCollaboratorForm)
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
 from organizations.models import Organization
@@ -162,8 +162,6 @@ class UnSubscribeNewsletter(View):
         Here we want to allow user to unsubscribe to the newsletter.
         '''
 
-        request = "PUT"
-
         SIB_NEWSLETTER_LIST_IDS = settings.SIB_NEWSLETTER_LIST_IDS.split(', ')
         SIB_NEWSLETTER_LIST_IDS = [int(i) for i in SIB_NEWSLETTER_LIST_IDS]
 
@@ -183,7 +181,7 @@ class UnSubscribeNewsletter(View):
 
         }
 
-        response = requests.request("PUT", url, json=payload, headers=headers)
+        requests.request("PUT", url, json=payload, headers=headers)
 
         redirect_url = reverse('alert_list_view')
         return HttpResponseRedirect(redirect_url)
@@ -193,7 +191,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
 
     form_class = InviteCollaboratorForm
     template_name = 'accounts/register.html'
-    
+
     def form_valid(self, form):
 
         user = form.save(commit=False)
