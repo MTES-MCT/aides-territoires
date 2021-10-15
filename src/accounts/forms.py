@@ -148,7 +148,6 @@ class InviteCollaboratorForm(forms.ModelForm):
         label='Son adresse e-mail',
         required=True)
 
-
     class Meta:
         model = User
         fields = [
@@ -159,7 +158,6 @@ class InviteCollaboratorForm(forms.ModelForm):
         super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'fr-input'
-
 
     def clean_email(self):
         email = self.cleaned_data['email']

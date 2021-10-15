@@ -344,7 +344,8 @@ class AidDetailView(DetailView):
         context['alert_form'] = AlertForm(label_suffix='')
         if self.request.user.is_authenticated:
             context['aid_match_project_form'] = AidMatchProjectForm(label_suffix='')
-            context['projects'] = Project.objects.filter(organizations=self.request.user.beneficiary_organization.pk)
+            context['projects'] = Project.objects \
+                .filter(organizations=self.request.user.beneficiary_organization.pk)
 
         return context
 
