@@ -43,9 +43,11 @@
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-4">Ma structure</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-4">
                         <ul class="fr-sidemenu__list">
+                            {% if user.beneficiary_organization %}
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'organization_update_view' user.beneficiary_organization.pk %}" target="_self" rel="noopener">Informations</a>
                             </li>
+                            {% endif %}
                             <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Chiffres clés</a>
                             </li>
