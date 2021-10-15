@@ -1,13 +1,16 @@
 from django.conf import settings
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from organizations.forms import OrganizationCreateForm
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+
+from organizations.forms import OrganizationCreateForm, OrganizationUpdateForm
 from accounts.tasks import send_connection_email
 from accounts.models import User
 from analytics.utils import track_goal
+from organizations.models import Organization
 
 
 class OrganizationCreateView(CreateView):
@@ -51,3 +54,30 @@ class OrganizationCreateView(CreateView):
             success_url = reverse('user_dashboard')
 
         return HttpResponseRedirect(success_url)
+
+
+class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+
+    template_name = 'organizations/update.html'
+    form_class = OrganizationUpdateForm
+    context_object_name = 'organization'
+
+    def form_valid(self, form):
+
+        organization = form.save(commit=False)
+        organization.save()
+
+        msg = "Les informations de votre structure ont bien été mises à jour."
+        messages.success(self.request, msg)
+        success_url = reverse('organization_update_view', args=[self.object.pk])
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        qs = Organization.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organization'] = self.object
+        return context
