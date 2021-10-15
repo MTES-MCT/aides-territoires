@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 
 from braces.views import MessageMixin
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 from alerts.tasks import send_alert_confirmation_email
 from alerts.forms import AlertForm
@@ -102,7 +103,7 @@ class AlertDelete(MessageMixin, DeleteView):
         return res
 
 
-class AlertListView(ListView):
+class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     """User Alerts Dashboard"""
 
     template_name = 'accounts/user_alert_dashboard.html'

@@ -27,3 +27,43 @@ class OrganizationCreateForm(forms.ModelForm):
     class Meta:
         model = Organization
         fields = ['name', 'zip_code', 'organization_type']
+
+
+class OrganizationUpdateForm(forms.ModelForm):
+    """allow user to update organization's data."""
+
+    name = forms.CharField(
+        label='Nom de la structure',
+        required=True)
+    address = forms.CharField(
+        label='Adresse postale',
+        required=True)
+    city_name = forms.CharField(
+        label='Ville',
+        required=True)
+    zip_code = forms.CharField(
+        label='Code postal',
+        required=True)
+
+    siret_code = forms.CharField(
+        label='Code SIRET',
+        help_text='Constitué de 14 chiffres',
+        required=False)
+    siren_code = forms.CharField(
+        label='Code SIREN',
+        help_text='Constitué de 14 chiffres',
+        required=False)
+    ape_code = forms.CharField(
+        label='Code APE',
+        required=False)
+
+    class Meta:
+        model = Organization
+        fields = [
+            'name', 'address', 'city_name', 'zip_code',
+            'siren_code', 'siret_code', 'ape_code']
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationUpdateForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'fr-input'
