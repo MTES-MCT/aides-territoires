@@ -7,9 +7,11 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
                 </li>
+                {% if user.is_beneficiary %}
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
                 </li>
+                {% endif %}
                 {% if user.is_contributor %}
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
