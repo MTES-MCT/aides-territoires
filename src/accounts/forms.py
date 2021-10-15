@@ -162,3 +162,63 @@ class InviteCollaboratorForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         return email.lower()
+
+
+class CompleteProfileForm(forms.ModelForm):
+    """Edit user profile."""
+
+    is_contributor = forms.BooleanField(
+        label='Publier des aides',
+        required=False)
+    is_beneficiary = forms.BooleanField(
+        label='Trouver des aides',
+        required=False)
+
+    new_password = forms.CharField(
+        label='Choisissez un mot de passe',
+        required=True,
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+        widget=forms.PasswordInput())
+
+    new_password2 = forms.CharField(
+        label='Saisissez à nouveau votre mot de passe',
+        required=True,
+        strip=False,
+        widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = [
+            'is_contributor', 'is_beneficiary',
+            'beneficiary_function', 'beneficiary_role',
+            'new_password', 'new_password2'
+        ]
+        labels = {
+            'beneficiary_function': 'Vous êtes',
+            'beneficiary_role': 'Votre fonction',
+        }
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data by super().
+        password = self.cleaned_data.get('new_password')
+        password2 = self.cleaned_data.get('new_password2')
+        if password and password == password2:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except forms.ValidationError as error:
+                self.add_error('new_password', error)
+        elif password != password2:
+            self.add_error('new_password', 'Les mots de passe ne sont pas identiques')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        new_password = self.cleaned_data['new_password']
+        if new_password:
+            user.set_password(new_password)
+
+        if commit:
+            user.save()
+        return user
