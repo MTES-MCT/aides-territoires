@@ -76,3 +76,47 @@ def send_welcome_email(user_email):
         data=data,
         tags=['bienvenue', settings.ENV_NAME],
         fail_silently=True)
+
+
+@app.task
+def send_invitation_email(user_email, invitator_name, organization_name, body_template='emails/invite_login_token.txt'):
+    """Send a login email to the user invited.
+
+    The email contains a token that can be used once to login.
+
+    We use the default django token generator, that is usually used for
+    password resets.
+    """
+    try:
+        user = User.objects.get(email=user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    user_uid = urlsafe_base64_encode(force_bytes(user.pk))
+    login_token = default_token_generator.make_token(user)
+    login_url = reverse('token_login', args=[user_uid, login_token])
+    base_url = get_base_url()
+    full_login_url = '{base_url}{url}'.format(
+        base_url=base_url,
+        url=login_url)
+
+    login_email_body = render_to_string(body_template, {
+        'base_url': base_url,
+        'invitator_name': invitator_name,
+        'organization_name': organization_name,
+        'user_name': user.full_name,
+        'full_login_url': full_login_url})
+    send_email(
+        subject=LOGIN_SUBJECT,
+        body=login_email_body,
+        recipient_list=[user.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=['connexion', settings.ENV_NAME],
+        fail_silently=False)
+
+    if settings.ENV_NAME == 'staging':
+        send_invitation_email.full_login_url = full_login_url

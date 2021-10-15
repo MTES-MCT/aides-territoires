@@ -38,6 +38,9 @@
             <p class="fr-mb-0">Voici d'ailleurs une liste de choses que vous pourriez faire :</p>
             <ul class="fr-ml-5w">
                 <li><a href="{% url 'project_list_view' %}">gérer mes projets</a></li>
+                {% if user.is_contributor %}
+                <li><a href="{% url 'aid_draft_list_view' %}">diffuser mes aides</a></li>
+                {% endif %}
                 <li><a href="{% url 'collaborators' %}">inviter des collaborateurs</a></li>
             </ul>
         </div>

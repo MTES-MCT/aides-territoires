@@ -138,9 +138,3 @@
 {% block modals %}
     {% include 'projects/_delete_project_modal.html' %}
 {% endblock %}
-
-{% block extra_js %}
-{% compress js %}
-<script src="/static/js/aids/disable_delete_button.js"></script>
-{% endcompress %}
-{% endblock %}
