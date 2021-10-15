@@ -644,7 +644,7 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
 
         aid.save()
 
-        msg = "L'aide a bien été déassociée."
+        msg = "L'aide a bien été supprimée."
         messages.success(self.request, msg)
         project_pk = self.request.POST.get('project-pk')
         project_slug = self.request.POST.get('project-slug')

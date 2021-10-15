@@ -167,6 +167,12 @@ class InviteCollaboratorForm(forms.ModelForm):
 class CompleteProfileForm(forms.ModelForm):
     """Edit user profile."""
 
+    first_name = forms.CharField(
+        label='Votre prénom',
+        required=True)
+    last_name = forms.CharField(
+        label='Votre nom',
+        required=True)
     is_contributor = forms.BooleanField(
         label='Publier des aides',
         required=False)
@@ -190,6 +196,7 @@ class CompleteProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            'first_name', 'last_name',
             'is_contributor', 'is_beneficiary',
             'beneficiary_function', 'beneficiary_role',
             'new_password', 'new_password2'

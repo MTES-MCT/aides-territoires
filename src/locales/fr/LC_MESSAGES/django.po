@@ -1243,6 +1243,9 @@ msgstr "Ouverture :"
 msgid "Deadline:"
 msgstr "Échéance :"
 
+msgid "Deadline"
+msgstr "Échéance"
+
 msgid "Aid edition"
 msgstr "Édition de l'aide"
 

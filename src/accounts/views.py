@@ -14,7 +14,7 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin, UserLoggedRequiredMixin
 from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileForm,
                             InviteCollaboratorForm, CompleteProfileForm)
-from accounts.tasks import send_connection_email, send_welcome_email
+from accounts.tasks import send_connection_email, send_invitation_email, send_welcome_email
 from accounts.models import User
 from organizations.models import Organization
 from analytics.utils import track_goal
@@ -210,11 +210,17 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
 
         User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
 
-        send_connection_email.delay(user.email)
+        organization_name = self.request.user.beneficiary_organization.name
+        invitator_name = self.request.user.full_name
+        send_invitation_email.delay(user.email, invitator_name, organization_name)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        msg = "Votre invitation a bien été envoyée."
+        
+        if settings.ENV_NAME == 'staging':
+            msg = "Votre invitation a bien été envoyée. le lien est&nbsp;: " + send_invitation_email.full_login_url
+        else:
+            msg = "Votre invitation a bien été envoyée."
         messages.success(self.request, msg)
-        success_url = reverse('user_dashboard')
+        success_url = reverse('collaborators')
         return HttpResponseRedirect(success_url)
 
 
