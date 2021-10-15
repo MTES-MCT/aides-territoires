@@ -133,3 +133,34 @@ class ContributorProfileForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class InviteCollaboratorForm(forms.ModelForm):
+    """Form used to allow user to invite new collaborator."""
+
+    first_name = forms.CharField(
+        label='Son prénom',
+        required=True)
+    last_name = forms.CharField(
+        label='Son nom',
+        required=True)
+    email = forms.EmailField(
+        label='Son adresse e-mail',
+        required=True)
+
+
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'email'
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'fr-input'
+
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        return email.lower()

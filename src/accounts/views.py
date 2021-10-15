@@ -1,20 +1,22 @@
 import requests
 import json
 from django.conf import settings
-from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View
+from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View, ListView
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
+from django.contrib import messages
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
-from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm
+from accounts.forms import RegisterForm, PasswordResetForm, ContributorProfileForm, InviteCollaboratorForm
 from accounts.tasks import send_connection_email, send_welcome_email
 from accounts.models import User
+from organizations.models import Organization
 from analytics.utils import track_goal
 
 
@@ -140,6 +142,12 @@ class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView
 
     template_name = 'accounts/user_dashboard.html'
 
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context['form'] = InviteCollaboratorForm
+        return context
+
 
 class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView):
     """User can access to his API Token"""
@@ -179,3 +187,57 @@ class UnSubscribeNewsletter(View):
 
         redirect_url = reverse('alert_list_view')
         return HttpResponseRedirect(redirect_url)
+
+
+class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView):
+
+    form_class = InviteCollaboratorForm
+    template_name = 'accounts/register.html'
+    
+    def form_valid(self, form):
+
+        user = form.save(commit=False)
+        user.beneficiary_organization = self.request.user.beneficiary_organization
+        user.save()
+
+        user_id = user.pk
+
+        # add user created to organization
+        user_beneficiary_organization = self.request.user.beneficiary_organization.pk
+        organizations = Organization.objects.filter(pk=user_beneficiary_organization)
+        if organizations is not None:
+            for organization in organizations:
+                organization.beneficiaries.add(user_id)
+                organization.save()
+
+        User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
+
+        send_connection_email.delay(user.email)
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+        msg = "Votre invitation a bien été envoyée."
+        messages.success(self.request, msg)
+        success_url = reverse('user_dashboard')
+        return HttpResponseRedirect(success_url)
+
+
+class CollaboratorsList(ListView):
+    """List of all the collaborators of an user"""
+
+    template_name = 'accounts/collaborators.html'
+    context_object_name = 'users'
+    paginate_by = 18
+
+    def get_queryset(self):
+        if self.request.user.beneficiary_organization is not None:
+            queryset = User.objects \
+                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
+                .exclude(pk=self.request.user.pk)
+        else:
+            queryset = User.objects.none()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = InviteCollaboratorForm
+
+        return context

@@ -6,7 +6,8 @@ from accounts.forms import LoginForm
 from accounts.views import (PasswordResetView, PasswordResetSentView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
                             ContributorProfileView, UserDashboardView,
-                            UserApiTokenView, UnSubscribeNewsletter)
+                            UserApiTokenView, UnSubscribeNewsletter,
+                            InviteCollaborator, CollaboratorsList)
 
 
 urlpatterns = [
@@ -38,4 +39,8 @@ urlpatterns = [
 
     path('desinscription-newsletter/', UnSubscribeNewsletter.as_view(),
          name='unsubscribe_nawsletter'),
+    path('inviter-collaborateur/', InviteCollaborator.as_view(),
+         name='invite_collaborator'),
+    path('collaborateurs/', CollaboratorsList.as_view(),
+         name='collaborators'),
 ]

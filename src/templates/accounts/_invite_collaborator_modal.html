@@ -1,0 +1,33 @@
+{% load i18n %}
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="invite-collaborator-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="invite-collaborator-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <div class="fr-share">
+                            <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter une personne</h1>
+                            <p>Entrez les informations de la personne que vous souhaitez ajouter à votre structure pour que nous lui envoyons une invitation par mail.</p>
+                            <form id="invite_collaborator" method="post" action="{% url 'invite_collaborator' %}">
+                                <div class="content">
+                                    {% csrf_token %}
+                                    {% include '_field_snippet.html' with field=form.first_name %}
+                                    {% include '_field_snippet.html' with field=form.last_name %}
+                                    {% include '_field_snippet.html' with field=form.email %}
+                                    <footer>
+                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                            Inviter ce collaborateur
+                                        </button>
+                                    </footer>
+                                </div>
+                            </form>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

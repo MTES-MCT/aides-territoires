@@ -1,0 +1,97 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mes collaborateurs</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Mes collaborateurs</h1>
+            <button class="fr-btn fr-my-5w" data-fr-opened="false" aria-controls="invite-collaborator-modal">
+                Ajouter une personne
+            </button>
+
+            <div class="fr-table">
+                <table class="data-table">
+                    <caption>
+                        Liste des personnes inscrites ou en attente de validation
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Fonction</th>
+                            <th scope="col">invitée le</th>
+                        </tr>
+                    </thead>
+                    {% if users %}
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>
+                                {{ user.full_name }}
+                            </td>
+                            <td>
+                                {{ user.email }}
+                            </td>
+                            <td>
+                            {% if user.beneficiary_role %}
+                                {{ user.beneficiary_role }}
+                            {% else %}
+                                Ce collaborateur n'a pas encore renseigné sa fonction
+                            {% endif %}
+                            </td>
+                            <td>{{ user.date_created|date:'d/m/y' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <center>Vous n'avez aucun collaborateur pour le moment</center>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'accounts/_invite_collaborator_modal.html' %}
+{% endblock %}
