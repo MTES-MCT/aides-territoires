@@ -188,6 +188,10 @@ section#aid-edit {
     background-color: var(--w);
   }
 
+  .trumbowyg-dropdown {
+    z-index: 100;
+  }
+
   .trumbowyg-fullscreen {
       z-index: 9999 !important;
   }
