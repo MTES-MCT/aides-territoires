@@ -42,14 +42,14 @@ class OrganizationCreateView(CreateView):
         if self.request.session.get('USER_EMAIL'):
             send_connection_email.delay(user_email)
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-            msg = "Vous êtes bien enregistré!"
+            msg = "Vous êtes bien enregistré&nbsp;!"
             messages.success(self.request, msg)
             success_url = reverse('register_success')
             self.request.session.pop('USER_EMAIL')
             self.request.session.pop('USER_ORGANIZATION_TYPE')
 
         elif self.request.user.email:
-            msg = "Votre profil a bien été mis à jour!"
+            msg = "Votre profil a bien été mis à jour&nbsp;!"
             messages.success(self.request, msg)
             success_url = reverse('user_dashboard')
 
