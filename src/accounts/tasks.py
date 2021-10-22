@@ -118,5 +118,4 @@ def send_invitation_email(user_email, invitator_name, organization_name, body_te
         tags=['connexion', settings.ENV_NAME],
         fail_silently=False)
 
-    if settings.ENV_NAME == 'staging':
-        send_invitation_email.full_login_url = full_login_url
+    send_invitation_email.full_login_url = full_login_url
