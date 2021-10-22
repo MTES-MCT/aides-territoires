@@ -40,18 +40,13 @@
                 <fieldset class="fr-mt-5w">
                     <legend>Informations professionnelles</legend>
 
-                    <div class="fr-input-group">
+                    <div id="form-group-organization_type" class="fr-input-group required ">
                         <label for="id_organization_type">Vous êtes un/une</label>
-                        <select id="id_organization_type" required="required" name="organization_type">
-                            <option value hidden>Selectionnez une option</option>
-                            <option value="farmer">Agriculteur</option>
-                            <option value="association">Association</option>
-                            <option value="commune">Commune</option>
-                            <option value="department">Département</option>
-                            <option value="epci">EPCI</option>
-                            <option value="public_org">Service de l'état</option>
-                            <option value="region">Région</option>
-                            <option value="private_sector">Entreprise privée</option>
+                        <select name="organization_type" id="id_organization_type">
+                            <option value="" hidden>Sélectionnez une option</option>
+                            {% for option in organization_form.organization_type %}
+                            {{ option }}
+                            {% endfor %}
                         </select>
                     </div>
 
