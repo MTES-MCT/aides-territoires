@@ -1062,7 +1062,7 @@ msgstr ""
 "de confidentialité</a>."
 
 msgid "Create an account"
-msgstr "Créer un nouveau compte"
+msgstr "Créer un compte"
 
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
