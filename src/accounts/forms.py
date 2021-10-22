@@ -51,6 +51,18 @@ class RegisterForm(UserCreationForm):
         email = self.cleaned_data['email']
         return email.lower()
 
+    def clean(self):
+        """Validation routine (frontend form only)."""
+
+        data = super().clean()
+
+        if not any((data.get('is_contributor'), data.get('is_beneficiary'))):
+            msg = "Merci de cocher au moins une des options."
+            self.add_error('is_beneficiary', msg)
+            self.add_error('is_contributor', msg)
+
+        return data
+
 
 class LoginForm(AuthenticationForm):
     error_messages = {
@@ -112,6 +124,19 @@ class ContributorProfileForm(forms.ModelForm):
             'beneficiary_function': 'Vous êtes',
             'beneficiary_role': 'Votre fonction',
         }
+
+    def clean(self):
+        """Validation routine (frontend form only)."""
+
+        data = super().clean()
+
+        if not any((data.get('is_contributor'), data.get('is_beneficiary'))):
+            msg = "Merci de cocher au moins l'une des options."
+            self.add_error('is_beneficiary', msg)
+            self.add_error('is_contributor', msg)
+
+        return data
+
 
     def _post_clean(self):
         super()._post_clean()
