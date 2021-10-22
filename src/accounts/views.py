@@ -215,10 +215,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
         send_invitation_email.delay(user.email, invitator_name, organization_name)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
         
-        if settings.ENV_NAME == 'staging':
-            msg = "Votre invitation a bien été envoyée. le lien est&nbsp;: " + send_invitation_email.full_login_url
-        else:
-            msg = "Votre invitation a bien été envoyée."
+        msg = "Votre invitation a bien été envoyée. le lien est&nbsp;: " + send_invitation_email.full_login_url
         messages.success(self.request, msg)
         success_url = reverse('collaborators')
         return HttpResponseRedirect(success_url)
