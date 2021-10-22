@@ -65,11 +65,11 @@
                             <p>Vous allez utiliser le service pour&nbsp;:</p>
                             <div class="fr-grid-row fr-grid--middle">
                                 <div class="fr-fieldset__content fr-pr-2w">
+                                    {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                                </div>        
+                                <div class="fr-fieldset__content">
                                     {% include '_checkbox_snippet.html' with field=form.is_contributor %}
                                 </div>
-                                <div class="fr-fieldset__content">
-                                {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
-                                </div>    
                             </div>
                         </fieldset>    
                     </div>
