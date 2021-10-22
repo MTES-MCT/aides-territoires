@@ -37,7 +37,7 @@ class OrganizationCreateForm(forms.ModelForm):
         required=True)
     organization_type = forms.MultipleChoiceField(
         label='Vous êtes un/une',
-        required=True,
+        required=False,
         choices=ORGANIZATION_TYPE,
         widget=OrganizationTypeWidget)
 
