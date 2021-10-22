@@ -117,5 +117,3 @@ def send_invitation_email(user_email, invitator_name, organization_name, body_te
         from_email=settings.DEFAULT_FROM_EMAIL,
         tags=['connexion', settings.ENV_NAME],
         fail_silently=False)
-
-    send_invitation_email.full_login_url = full_login_url
