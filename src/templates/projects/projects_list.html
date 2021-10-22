@@ -82,8 +82,8 @@
                             <td>
                             {% if project.author %}
                             {% for author in project.author.all %}
-                            {% if project.author == user %}
-                            vous
+                            {% if author == user %}
+                            Vous
                             {% else %}
                                 {{ author.first_name }} {{ author.last_name }}
                             {% endif %}
