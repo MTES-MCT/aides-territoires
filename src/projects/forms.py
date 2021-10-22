@@ -11,11 +11,10 @@ class ProjectCreateForm(forms.ModelForm):
 
     name = forms.CharField(
         label='Nom de votre projet',
-        help_text="Choisissez un nom le + générique possible \
-            pour que nous puissions vous trouver des aides",
         required=True)
     description = RichTextField(
         label="Description du projet",
+        required=False,
         widget=forms.Textarea(
             attrs={'placeholder': "Entrez ici la description de votre projet"}
         ))
