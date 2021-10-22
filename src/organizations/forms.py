@@ -1,5 +1,7 @@
 from django import forms
 
+from model_utils import Choices
+
 from organizations.models import Organization
 
 
@@ -12,6 +14,21 @@ class OrganizationTypeWidget(forms.SelectMultiple):
 class OrganizationCreateForm(forms.ModelForm):
     """allow user to create organization."""
 
+    ORGANIZATION_TYPE = Choices(
+        ('farmer', 'Agriculteurs'),
+        ('association', 'Associations'),
+        ('special', "Collectivités d'outre-mer à statuts particuliers"),
+        ('commune', 'Communes'),
+        ('department', 'Départements'),
+        ('private_sector', 'Entreprises privées'),
+        ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
+        ('epci', 'EPCI à fiscalité propre'),
+        ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
+        ('private_person', 'Particuliers'),
+        ('region', 'Régions'),
+        ('researcher', 'Recherche'),
+    )
+
     name = forms.CharField(
         label='Nom de votre structure',
         required=True)
@@ -20,8 +37,8 @@ class OrganizationCreateForm(forms.ModelForm):
         required=True)
     organization_type = forms.MultipleChoiceField(
         label='Vous êtes un/une',
-        required=False,
-        choices=Organization.ORGANIZATION_TYPE,
+        required=True,
+        choices=ORGANIZATION_TYPE,
         widget=OrganizationTypeWidget)
 
     class Meta:

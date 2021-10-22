@@ -17,6 +17,7 @@ from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileF
 from accounts.tasks import send_connection_email, send_invitation_email, send_welcome_email
 from accounts.models import User
 from organizations.models import Organization
+from organizations.forms import OrganizationCreateForm
 from analytics.utils import track_goal
 
 
@@ -53,6 +54,12 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
             return HttpResponseRedirect(redirect_url)
         else:
             return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        context['organization_form'] = OrganizationCreateForm
+        return context
 
 
 class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
