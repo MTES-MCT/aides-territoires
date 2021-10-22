@@ -11,6 +11,8 @@
                     <div class="fr-modal__content">
                         <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un projet existant</h1>
 
+                        {% if not search_page %}
+                        {% if user.is_authenticated %}
                         <form id="match_project" method="post" action="{% url 'aid_match_project_view' aid.slug %}">
                             <section>
                                 <div class="content">
@@ -41,6 +43,10 @@
                                 </div>
                             </section>
                         </form>
+                        {% else %}
+                        <p><a href="{% url 'login' %}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'ajouter cette aide à vos projets&nbsp!</p>
+                        {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
