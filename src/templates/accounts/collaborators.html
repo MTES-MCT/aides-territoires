@@ -37,8 +37,8 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Mes collaborateurs</h1>
-            <button class="fr-btn fr-my-5w" data-fr-opened="false" aria-controls="invite-collaborator-modal">
-                Ajouter une personne
+            <button class="fr-btn fr-my-5w" data-fr-opened='{% if error_mail %}true{% endif %}' aria-controls="invite-collaborator-modal">
+               Ajouter une personne
             </button>
 
             <div class="fr-table">
