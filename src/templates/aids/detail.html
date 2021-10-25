@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block content %}
-<article id="aid" class="fr-container fr-mb-5w">
+<article id="aid" class="fr-container fr-mb-2w">
             {% if aid.submission_deadline and not aid.is_ongoing %}
             <div class="deadline-data">
                 {% if aid.has_approaching_deadline %}
@@ -392,44 +392,6 @@
                     {% endif %}
 
                     <div>
-                        <div class="share fr-mb-4w fr-grid-row">
-                            <div class="fr-col-2">
-                                <i class="ri-share-forward-fill ri-xl fr-mr-1w"></i>
-                            </div>
-                            <div class="fr-col-10">
-                                <div>
-                                    <h3 class="fr-h6">
-                                        <strong>Partager cette aide</strong>
-                                    </h3>
-                                </div>
-                                <button class="fr-btn"  data-fr-opened="false" aria-controls="share-modal">
-                                    Sauvegarder ou envoyer à mon réseau
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {% if not search_page %}
-                    <div>
-                        <div class="share fr-mb-4w fr-grid-row">
-                            <div class="fr-col-2">
-                                <i class="ri-add-circle-fill ri-xl fr-mr-1w"></i>
-                            </div>
-                            <div class="fr-col-10">
-                                <div>
-                                    <h3 class="fr-h6">
-                                        <strong>Ajouter cette aide à un projet</strong>
-                                    </h3>
-                                </div>
-                                <button class="fr-btn" id="match-aid-modal-btn"  data-fr-opened="false" aria-controls="match-aid-modal">
-                                    Ajouter cette aide
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <div>
                         <div class="suggest-modification fr-mb-4w fr-grid-row">
                             <div class="fr-col-2">
                                 <i class="ri-pencil-fill ri-xl fr-mr-1w"></i>
@@ -562,14 +524,83 @@
             </section>
 </article>
 
-<div id="save-alert-block" class="fr-container fr-grid-row fr-mb-5w fr-grid-row--center fr-p-3w fr-background-alt-pink">
-    <h5 class="fr-mt-2w">🔔 Ne manquez plus aucun dispositif et recevez les dernières aides en rapport avec votre recherche !</h5>
-    <div>
-        <button class="fr-btn js" id="save-alert-detail-block-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
-            Créer une alerte
-        </button>
+<div class="fr-container fr-pt-3w fr-px-6w fr-mb-5w">
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+
+        <div id="save-alert-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+            <div class="fr-card fr-card--no-arrow">
+                <div class="fr-card__body fr-background-alt-pink">
+                    <h3 class="fr-card__title">
+                        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
+                            <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
+                                <i class="ri-share-line ri-2x fr-text--normal"></i>
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-lg-10">
+                                Vous souhaitez diffuser cette aide&nbsp;?
+                            </div>
+                        </div>
+                    </h3>
+                    <p class="fr-card__desc fr-text--sm">L'outil très pratique pour partager facilement cette aide sur vos différents réseaux en 1 seul clic.</p>
+                    <div style="text-align:center">
+                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' data-fr-opened="false" aria-controls="share-modal">
+                            Envoyer à mes réseaux
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="save-alert-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+            <div class="fr-card fr-card--no-arrow">
+                <div class="fr-card__body fr-background-alt-pink">
+                    <h3 class="fr-card__title">
+                        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
+                            <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
+                                <i class="ri-notification-2-line ri-2x fr-text--normal"></i>
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-lg-10">
+                                Cette thématique vous intéresse&nbsp;?
+                            </div>
+                        </div>
+                    </h3>
+                    <p class="fr-card__desc fr-text--sm">Ne manquez plus aucun dispositif et recevez les dernières aides en rapport avec votre recherche !</p>
+                    <div style="text-align:center">
+                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' id="save-alert-detail-block-btn" data-fr-opened="false" aria-controls="alert-search-modal">
+                            Créer une alerte
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if not search_page %}
+        <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+            <div class="fr-card fr-card--no-arrow">
+                <div class="fr-card__body fr-background-alt-pink">
+                    <h3 class="fr-card__title">
+                        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
+                            <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
+                                <i class="ri-list-check ri-2x fr-text--normal"></i>
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-lg-10">
+                                Cette aide correspond à un de vos projets&nbsp;?
+                            </div>
+                        </div>
+                    </h3>
+                    <p class="fr-card__desc fr-text--sm">Ajoutez-la pour la retrouver dans votre compte utilisateur et la partager facilement avec votre équipe.</p>
+                    <div style="text-align:center">
+                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' id="match-aid-modal-btn"  data-fr-opened="false" aria-controls="match-aid-modal">
+                            Ajouter cette aide à un projet
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 </div>
+
 {% endblock %}
 
 {% block modals %}
