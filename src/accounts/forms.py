@@ -171,7 +171,8 @@ class InviteCollaboratorForm(forms.ModelForm):
         required=True)
     email = forms.EmailField(
         label='Son adresse e-mail',
-        required=True)
+        required=True,
+        error_messages={'unique': 'Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires.'})
 
     class Meta:
         model = User

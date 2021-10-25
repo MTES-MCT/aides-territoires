@@ -197,7 +197,7 @@ class UnSubscribeNewsletter(View):
 class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView):
 
     form_class = InviteCollaboratorForm
-    template_name = 'accounts/register.html'
+    template_name = 'accounts/collaborators.html'
 
     def form_valid(self, form):
 
@@ -226,6 +226,17 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
         messages.success(self.request, msg)
         success_url = reverse('collaborators')
         return HttpResponseRedirect(success_url)
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        error = "erreur"
+        if self.request.user.beneficiary_organization is not None:
+            users = User.objects \
+                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
+                .exclude(pk=self.request.user.pk)
+        else:
+            users = User.objects.none()
+        return self.render_to_response(self.get_context_data(form=form, error_mail=error, users=users))
 
 
 class CollaboratorsList(ListView):
