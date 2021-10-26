@@ -131,7 +131,10 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         if response:
             r_text = json.loads(response.text)
             r_listIds = r_text['listIds']
-            r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
+            if r_text['attributes']['DOUBLE_OPT-IN']:
+                r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
+            else:
+                r_double_opt_in = "0"
             # If user exists, and if double-opt-in is true,
             # and if user is associated to the newsletter list id
             # Then, user is already a newsletter's subscriber
