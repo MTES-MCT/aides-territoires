@@ -31,7 +31,7 @@ class Project(models.Model):
         verbose_name="Auteur",
         blank=True)
 
-    due_date = models.DateTimeField(
+    due_date = models.DateField(
         "Date d'échéance",
         null=True, blank=True)
 
