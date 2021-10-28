@@ -12,15 +12,14 @@
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
 
-            <h1 class="fr-mb-5w">Créer un compte pour diffuser vos aides</h1>
+            <h1 class="fr-mb-5w">Créer un compte</h1>
 
             <p class="warning fr-background-alt-pink fr-p-3w fr-mb-0">
                 <span class="fr-fi-lock-line" aria-hidden="true"></span>
                 {% url 'login' as login_url %}
-                {% blocktrans trimmed %}
-                Do you already have an account?
-                <a href="{{ login_url }}">Proceed to the login form.</a>
-            {% endblocktrans %}</p>
+                Vous disposez déjà d'un compte ?
+                <a href="{{ login_url }}">Rendez-vous sur la page de connexion.</a>
+            </p>
 
             <form method="post" action="" novalidate class="fr-mt-5w" id="register-form">
                 {% csrf_token %}
@@ -80,10 +79,9 @@
 
             <p class="warning fr-background-alt-pink fr-p-3w">
                 <span class="fas fa-bug"></span>
-                {% blocktrans trimmed %}
-                Do you have a problem to register?
-                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
-            {% endblocktrans %}</p>
+                Si vous n'arrivez pas à vous inscrire, 
+                <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>
+            </p>
         </div>
     </div>
 </div>
