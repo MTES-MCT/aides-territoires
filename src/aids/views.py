@@ -619,15 +619,27 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
         aid = form.save(commit=False)
         url = reverse('aid_detail_view', args=[aid.slug])
 
-        if self.request.POST.getlist('projects', []) != []:
+        if self.request.POST.getlist('projects'):
+            # associate the existing projects to the aid
             for project in self.request.POST.getlist('projects', []):
                 project = int(project)
                 aid.projects.add(project, through_defaults={'creator': self.request.user})
 
                 aid.save()
-
                 msg = "L'aide a bien été associée."
                 messages.success(self.request, msg)
+
+        if self.request.POST.get('new_project'):
+            # create the new project's object
+            project = Project.objects.create(name=self.request.POST.get('new_project'))
+            project.author.add(self.request.user)
+            project.organizations.add(self.request.user.beneficiary_organization)
+
+            # associate this new project's object to the aid
+            aid.projects.add(project.pk, through_defaults={'creator': self.request.user})
+            aid.save()
+            msg = "Votre nouveau projet a bien été créé."
+            messages.success(self.request, msg)
 
         url = reverse('aid_detail_view', args=[aid.slug])
         return HttpResponseRedirect(url)

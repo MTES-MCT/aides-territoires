@@ -31,15 +31,20 @@
                                             </li>
                                             {% endfor %}
                                         </ul>
+                                    {% else %}
+                                    <p>Vous n'avez pas encore créé de projet</p>
+                                    {% endif %}
+                                    </div>
+                                    <h2 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-h1 fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un nouveau projet</h2>
+                                    <div id="form-group-new-project" class="fr-checkbox-group fr-mb-3w">
+                                        <label for="id_new_project" class="fr-label">Nom du projet</label>
+                                        <input type="text" name="new_project" class="fr-input" id="id_new_project">
                                     </div>
                                     <footer>
                                         <button class="btn-block fr-btn fr-mt-2w" type="submit">
                                             Ajouter cette aide
                                         </button>
                                     </footer>
-                                    {% else %}
-                                    <p>Vous n'avez pas encore créé de projet</p>
-                                    {% endif %}
                                 </div>
                             </section>
                         </form>
