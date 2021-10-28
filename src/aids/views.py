@@ -617,14 +617,18 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
     def form_valid(self, form):
 
         aid = form.save(commit=False)
-        for project in self.request.POST.getlist('projects', []):
-            project = int(project)
-            aid.projects.add(project, through_defaults={'creator': self.request.user})
+        url = reverse('aid_detail_view', args=[aid.slug])
 
-        aid.save()
+        if self.request.POST.getlist('projects', []) != []:
+            for project in self.request.POST.getlist('projects', []):
+                project = int(project)
+                aid.projects.add(project, through_defaults={'creator': self.request.user})
 
-        msg = "L'aide a bien été associée."
-        messages.success(self.request, msg)
+                aid.save()
+
+                msg = "L'aide a bien été associée."
+                messages.success(self.request, msg)
+
         url = reverse('aid_detail_view', args=[aid.slug])
         return HttpResponseRedirect(url)
 
