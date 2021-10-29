@@ -456,6 +456,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text='Cette aide est-elle éligible au programme France Relance ?',
         default=False)
 
+    # Disable send_publication_email's task
+    author_notification = models.BooleanField(
+        "Envoyer un email à l'auteur de l'aide ?",
+        help_text="Un email doit-il être envoyé à l'auteur de cette aide \
+        au moment de sa publication ?",
+        default=True)
+
     # Third-party data import related fields
     is_imported = models.BooleanField(
         'Importé ?',
@@ -600,7 +607,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         self.set_publication_date()
         is_new = not self.id  # There's no ID => newly created aid
         is_being_published = self.is_published() and self.status_has_changed()
-        if not is_new and is_being_published and not self.is_imported:
+        if not is_new and is_being_published and self.author_notification and not self.is_imported:
             send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 

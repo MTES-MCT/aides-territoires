@@ -288,6 +288,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         ("Administration de l'aide", {
             'fields': (
                 'status',
+                'author_notification',
             )
         }),
 
