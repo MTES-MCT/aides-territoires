@@ -27,7 +27,7 @@
 
                 <div class="fr-header__tools">
                     <div class="fr-header__tools-links">
-                        {% if user.is_authenticated %}                    
+                    {% if user.is_authenticated %}                    
                         <ul class="fr-links-group">
                             <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                 {{ user.full_name }}
@@ -105,9 +105,6 @@
                             </ul>
                         </div>
                     </li>
-                    {% if user.is_authenticated %}                    
-                        {% include '_authenticated_menu_dropdown_actions.html' %}
-                    {% endif %}
                 </ul>
             </nav>
         </div>
