@@ -71,7 +71,13 @@
                                 </td>
                                 <td>{{ alert.get_alert_frequency_display }}</td>
                                 <td>{{ alert.date_created|date:'d/m/y' }}</td>
-                                <td>{{ alert.latest_alert_date|date:'d/m/y' }}</td>
+                                <td>
+                                    {% if alert.validated %}
+                                    {{ alert.latest_alert_date|date:'d/m/y' }}
+                                    {% else %}
+                                    En attente de confirmation
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a href="{% url 'alert_delete_view' alert.token %}" target="_blank" rel="noopener" title="supprimer cette alerte">
                                         Supprimer
