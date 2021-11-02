@@ -131,7 +131,7 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         if response:
             r_text = json.loads(response.text)
             r_listIds = r_text['listIds']
-            if r_text['attributes']['DOUBLE_OPT-IN']:
+            if 'DOUBLE_OPT-IN' in r_text['attributes']:
                 r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
             else:
                 r_double_opt_in = "0"
