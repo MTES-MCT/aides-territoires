@@ -34,25 +34,29 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
-            <span class="fr-hint-text fr-pl-2w fr-mb-2w">
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Date d'échéance du projet : 
                 {% if project.due_date %}
                 {{ project.due_date|date:'d/m/y' }}
                 {% else %}
                 aucune
                 {% endif %}
-            </span>
+            </p>
             {% if project.description %}
-            <section class="fr-accordion fr-mb-5w">
-                <h3 class="fr-accordion__title">
-                    <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description"><span class="fr-hint-text">Voir la description de ce projet</span></button>
-                </h3>
-                <div class="fr-collapse" id="project-description">
-                    {{ project.description|safe }}
-                </div>
-            </section>
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir la description de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-description">
+                        {{ project.description|safe }}
+                    </div>
+                </section>    
             {% else %}
-            <span class="fr-hint-text fr-mb-5w fr-pl-2w">Description du projet&nbsp;: aucune</span>
+            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet&nbsp;: aucune</p>
             {% endif %}
             <div class="fr-table fr-table--bordered">
                 <table class="data-table">
