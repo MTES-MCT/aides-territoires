@@ -34,8 +34,7 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Bienvenue sur votre compte Aides-territoires {{ user.full_name }}&nbsp;!</h1>
-            <p>C'est ici que vous allez pouvoir gérer tout votre compte, que ce soit au niveau de vos projets, de vos aides, ou de votre entité.</p>
-            <p class="fr-mb-0">Voici d'ailleurs une liste de choses que vous pourriez faire :</p>
+            <p>Depuis votre compte utilisateur, gérez vos projets, vos aides, ou les informations liées à votre structure.</p>
             <ul class="fr-ml-5w">
                 {% if user.is_beneficiary %}
                 <li><a href="{% url 'project_list_view' %}">gérer mes projets</a></li>
