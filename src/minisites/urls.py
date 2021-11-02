@@ -55,7 +55,7 @@ urlpatterns = [
     path(_('backers/<int:pk>-<str>/'), SiteBackers.as_view(),
          name='backer_detail_view'),
 
-    path(_('legal-mentions/'), SiteLegalMentions.as_view(),
+    path('mentions-légales/', SiteLegalMentions.as_view(),
          name='legal_mentions'),
 
     # Api related routes

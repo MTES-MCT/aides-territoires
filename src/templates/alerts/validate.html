@@ -5,8 +5,27 @@
 
 {% block extratitle %}{{ _('Alert validation') }}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Confirmez votre alerte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
 {% block content %}
-<div class="narrow-form">
+<div class="fr-container fr-mb-5w fr-pb-5w">
     <h1>{{ _('Confirm your alert creation') }}</h1>
 
     <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
@@ -22,7 +41,7 @@
 
     <form id="validation-form" method="POST" action="">
         {% csrf_token %}
-        <button type="submit">
+        <button type="submit" class="fr-btn">
             {{ _('Confirm alert creation') }}
         </button>
     </form>

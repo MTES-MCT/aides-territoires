@@ -515,15 +515,6 @@ msgstr ""
 msgid "This file is valid, but contains                 duplicates: {}"
 msgstr "Ce fichier est valide, mais comporte des doublons: {}"
 
-msgid "legal-mentions/"
-msgstr "mentions-légales/"
-
-msgid "confirm-registration-newsletter/"
-msgstr "inscription-newsletter-a-confirmer/"
-
-msgid "register-newsletter-success/"
-msgstr "inscription-newsletter-succes/"
-
 msgid "verb"
 msgstr "verbe"
 
