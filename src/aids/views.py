@@ -335,6 +335,9 @@ class AidDetailView(DetailView):
             .exclude(logo='') \
             .distinct()
 
+        context['idf_financer'] = financers \
+            .filter(pk=40)
+
         context['eligibility_criteria'] = any((
             self.object.mobilization_steps,
             self.object.destinations,

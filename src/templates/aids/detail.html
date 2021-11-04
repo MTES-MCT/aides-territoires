@@ -496,6 +496,11 @@
                     {% endwith %}
                     {% endif %}
                     <h2>{{ _('Going further') }}</h2>
+                    {% if idf_financer %}
+                    <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
+                    Nous vous invitons à vous assurer que les informations sont à jour sur le site de la Région Île-de-France.
+                    </div>
+                    {% endif %}
                     <section class="fr-accordion">
                         <h3 class="fr-accordion__title">
                             <button id="going-further-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="going-further">Poursuivre la démarche pour obtenir l'aide</button>
