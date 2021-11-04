@@ -90,7 +90,10 @@ class AlertDelete(MessageMixin, DeleteView):
             raise Http404()
 
     def get_success_url(self):
-        url = '{}?{}'.format(reverse('search_view'), self.object.querystring)
+        if self.request.user.is_authenticated:
+            url = reverse('alert_list_view')
+        else:
+            url = '{}?{}'.format(reverse('search_view'), self.object.querystring)
         return url
 
     def delete(self, *args, **kwargs):
