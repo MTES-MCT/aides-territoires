@@ -62,15 +62,15 @@ class OrganizationUpdateForm(forms.ModelForm):
         label='Code postal',
         required=True)
 
-    siret_code = forms.CharField(
+    siret_code = forms.IntegerField(
         label='Code SIRET',
         help_text='Constitué de 14 chiffres',
         required=False)
-    siren_code = forms.CharField(
+    siren_code = forms.IntegerField(
         label='Code SIREN',
         help_text='Constitué de 14 chiffres',
         required=False)
-    ape_code = forms.CharField(
+    ape_code = forms.IntegerField(
         label='Code APE',
         required=False)
 
