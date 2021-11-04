@@ -7,20 +7,50 @@
 
 {% block extratitle %}{{ _('Confirm your subscribtion') }}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Merci de confirmer votre inscription</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="article narrow">
-    <h1>{{ _('Please confirm your subscription') }}</h1>
+<div class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-9">
+            <h1>Merci de confirmer votre inscription</h1>
 
-    <p>{% blocktrans trimmed %}
-        <strong>Your mailing-list registration was taken into account. You still need to click
-            the confirmation link in the mail you are about to receive.</strong> 
-     {% endblocktrans %}</p>
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p>
+                    <strong>
+                        Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir.
+                    </strong> 
+                </p>
+            </div>
 
-    <p class="warning">
-        <span class="fas fa-bug"></span>
-        {% blocktrans trimmed %}
-        If you can't register, <a href="mailto:aides-territoires@beta.gouv.fr">
-        please contact us</a>.
-    {% endblocktrans %}</p>
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p>
+                    <strong>
+                        Si vous n'arrivez pas à vous inscrire, 
+                        <a href="mailto:aides-territoires@beta.gouv.fr">
+                            n'hésitez pas à nous contacter.
+                        </a>
+                    </strong> 
+                </p>
+            </div>
+
+        </div>
+    </div>
 </div>
 {% endblock %}
