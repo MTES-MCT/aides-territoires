@@ -7,6 +7,7 @@ from braces.views import MessageMixin
 
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
+from aids.models import AidProject
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -67,6 +68,8 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
+        context['aid_set'] = self.object.aid_set.all()
+        context['AidProject'] = AidProject.objects.filter(project=self.object.pk)
         context['project_update_form'] = ProjectUpdateForm(label_suffix='')
         return context
 

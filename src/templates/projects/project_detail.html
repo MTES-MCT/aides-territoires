@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n compress %}
+{% load i18n aids compress %}
 
 {% block extratitle %}Mon compte{% endblock %}
 
@@ -24,7 +24,6 @@
     </nav>
 </div>
 {% endblock %}
-
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -67,14 +66,15 @@
                         <tr>
                             <th scope="col">Nom</th>
                             <th scope="col">Echéance</th>
+                            <th scope="col">Type d'aide</th>
                             <th scope="col">Ajouté&nbsp;le</th>
                             <th scope="col">Par</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                         <tbody>
-                            {% if project.aid_set.all %}
-                            {% for aid in project.aid_set.all %}
+                            {% if aid_set %}
+                            {% for aid in aid_set %}
                             <tr>
                                 <td>
                                     <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
@@ -89,21 +89,22 @@
                                 {% endif %}
                                 </td>
                                 <td>
-                                    {% for aidproject in aid.aidproject_set.all %}
-                                    {% if aidproject.project == project %}
-                                        {{ aidproject.date_created|date:'d/m/y' }}
-                                    {% endif %}
-                                    {% endfor %}
+                                    {% choices_display aid 'aid_types' %}
+                                </td>
+                                {% for aidproject in AidProject %}
+                                {% if aidproject.aid == aid %}
+                                <td>
+                                    {{ aidproject.date_created|date:'d/m/y' }}
                                 </td>
                                 <td>
-                                    {% for aidproject in aid.aidproject_set.all %}
-                                    {% if aidproject.project == project and aidproject.creator == user %}
+                                    {% if aidproject.creator == user %}
                                     Vous
-                                    {% elif aidproject.project == project %}
+                                    {% else %}
                                     {{ aidproject.creator }}
                                     {% endif %}
-                                    {% endfor %}
                                 </td>
+                                {% endif %}
+                                {% endfor %}
                                 <td>
                                     <form id="unmatch_project" method="post" action="{% url 'aid_unmatch_project_view' aid.slug %}">
                                         <section>
