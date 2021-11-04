@@ -42,6 +42,7 @@ class ProjectUpdateForm(forms.ModelForm):
         required=True)
     description = RichTextField(
         label="Description du projet",
+        required=False,
         widget=forms.Textarea(
             attrs={'placeholder': "Entrez ici la description de votre projet"}
         ))
