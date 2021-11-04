@@ -35,7 +35,13 @@
                 <a class="main-action action-add fr-btn fr-col-12 fr-col-md-3 fr-grid-row--center" href="{% url 'aid_create_view' %}">Publier une aide</a>
             </div>
 
-            <div class="info">
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-2w">
+                <p>Que pouvez-vous faire ici&nbsp;? Cette page vous permet de gérer vos aides sur Aides-territoires.</p>
+                <p>Depuis votre portefeuille, vous pouvez modifier vos fiches d'aides, suivre leur état de publication sur la plateforme, ainsi que le nombre de vues associé.</p>
+                <p>Les aides arrivées à échéance sont automatiquement dépubliées de la plateforme, mais restent dans votre portefeuille d’aides en statut "brouillon" au cas où vous souhaiteriez les publier à nouveau.</p>
+            </div>
+        
+            <div class="info fr-mt-5w">
                 {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
                 {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
             </div>
