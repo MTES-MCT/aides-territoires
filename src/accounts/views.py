@@ -130,7 +130,7 @@ class ContributorProfileView(ContributorAndProfileCompleteRequiredMixin,
     success_message = 'Votre profil a été mis à jour.'
 
     def get_success_url(self):
-        current_url = reverse('user_dashboard')
+        current_url = reverse('contributor_profile')
         next_url = self.request.GET.get('next', current_url)
         return next_url
 
