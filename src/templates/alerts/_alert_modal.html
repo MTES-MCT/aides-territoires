@@ -20,7 +20,17 @@
                                     </div>
 
                                     {% csrf_token %}
+
+                                    {% if not search_page and user.is_authenticated %}
+                                    <div id="form-group-email" class="fr-input-group required">
+                                        <label for="id_email">Votre adresse e-mail</label>
+                                        <span class="field-help">Nous enverrons un e-mail pour confirmer votre adresse</span>
+                                        <input type="email" name="email" required="" value="{{ user.email }}" id="id_email">
+                                    </div>
+                                    {% else %}
                                     {% include '_field_snippet.html' with field=alert_form.email %}
+                                    {% endif %}
+
                                     {% include '_field_snippet.html' with field=alert_form.title %}
                                     {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
 

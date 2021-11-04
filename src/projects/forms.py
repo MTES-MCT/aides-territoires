@@ -1,37 +1,62 @@
 from django import forms
 
-from django.utils.translation import gettext_lazy as _
+from core.forms import (RichTextField)
 
 from projects.models import Project
-from categories.fields import CategoryMultipleChoiceField
-from categories.models import Category
+from organizations.models import Organization
 
 
-class ProjectSuggestForm(forms.ModelForm):
-    """form for project suggested by user."""
-
-    CATEGORIES_QS = Category.objects \
-        .select_related('theme') \
-        .order_by('theme__name', 'name')
-
-    categories = CategoryMultipleChoiceField(
-        group_by_theme=True,
-        label=_('Themes'),
-        queryset=CATEGORIES_QS,
-        to_field_name='slug',
-        required=False,)
+class ProjectCreateForm(forms.ModelForm):
+    """allow user to create project."""
 
     name = forms.CharField(
-        label=_('Name of your project'),
-        help_text=_('Build a media library, build a bicycle road, ...'))
-
-    description = forms.CharField(
-        label=_('Describe your project in a few words'),
-        widget=forms.Textarea,
+        label='Nom de votre projet',
+        required=True)
+    description = RichTextField(
+        label="Description du projet",
         required=False,
-        help_text=_('Its goal, its mobilization step or any informations'
-                    ' that can identify your project'))
+        widget=forms.Textarea(
+            attrs={'placeholder': "Entrez ici la description de votre projet"}
+        ))
+    organizations = forms.ModelMultipleChoiceField(
+        label="Créateur du projet",
+        queryset=Organization.objects.all(),
+        required=False)
+    due_date = forms.DateTimeField(
+        label="Date d'échéance",
+        help_text='Si votre projet doit sortir avant une certaine date, indiquez-la ici',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'}))
 
     class Meta:
         model = Project
-        fields = ['name', 'description', 'categories']
+        fields = ['name', 'description', 'organizations', 'due_date']
+
+
+class ProjectUpdateForm(forms.ModelForm):
+
+    name = forms.CharField(
+        label='Nom du projet',
+        max_length=256,
+        required=True)
+    description = RichTextField(
+        label="Description du projet",
+        widget=forms.Textarea(
+            attrs={'placeholder': "Entrez ici la description de votre projet"}
+        ))
+    due_date = forms.DateField(
+        label="Date d'échéance du projet",
+        ),
+
+    class Meta:
+        model = Project
+        fields = [
+            'name',
+            'description',
+            'due_date',
+        ]
+        widgets = {
+            'due_date': forms.TextInput(
+                attrs={'type': 'date', 'placeholder': 'jj/mm/aaaa'}),
+        }

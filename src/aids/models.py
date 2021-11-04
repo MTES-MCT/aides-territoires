@@ -304,8 +304,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True)
     projects = models.ManyToManyField(
         'projects.Project',
+        through='AidProject',
         verbose_name='Projets',
-        related_name='aids',
         blank=True)
     eligibility = models.TextField(
         'Éligibilité',
@@ -456,6 +456,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text='Cette aide est-elle éligible au programme France Relance ?',
         default=False)
 
+    # Disable send_publication_email's task
+    author_notification = models.BooleanField(
+        "Envoyer un email à l'auteur de l'aide ?",
+        help_text="Un email doit-il être envoyé à l'auteur de cette aide \
+        au moment de sa publication ?",
+        default=True)
+
     # Third-party data import related fields
     is_imported = models.BooleanField(
         'Importé ?',
@@ -600,7 +607,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         self.set_publication_date()
         is_new = not self.id  # There's no ID => newly created aid
         is_being_published = self.is_published() and self.status_has_changed()
-        if not is_new and is_being_published and not self.is_imported:
+        if not is_new and is_being_published and self.author_notification and not self.is_imported:
             send_publication_email.delay(aid_id=self.id)
         return super().save(*args, **kwargs)
 
@@ -715,3 +722,25 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             for item in field.value_from_object(source_aid):
                 getattr(self, field.attname).add(item)
         self.save()
+
+
+class AidProject(models.Model):
+
+    aid = models.ForeignKey(
+        'Aid',
+        on_delete=models.CASCADE,
+        verbose_name='Aide',
+        blank=True)
+    project = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.CASCADE,
+        verbose_name='Projet',
+        blank=True)
+    creator = models.ForeignKey(
+        'accounts.User',
+        on_delete=models.CASCADE,
+        verbose_name='Créateur',
+        blank=True)
+    date_created = models.DateTimeField(
+        'Date de création',
+        default=timezone.now)

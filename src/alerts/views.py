@@ -1,5 +1,7 @@
+import requests
+import json
 from django.conf import settings
-from django.views.generic import CreateView, DetailView, DeleteView
+from django.views.generic import CreateView, DetailView, DeleteView, ListView
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -7,6 +9,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 
 from braces.views import MessageMixin
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 from alerts.tasks import send_alert_confirmation_email
 from alerts.forms import AlertForm
@@ -98,3 +101,54 @@ class AlertDelete(MessageMixin, DeleteView):
             f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?')  # noqa
         self.messages.success(msg)
         return res
+
+
+class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """User Alerts Dashboard"""
+
+    template_name = 'accounts/user_alert_dashboard.html'
+    context_object_name = 'alerts'
+
+    def get_queryset(self):
+        queryset = Alert.objects \
+            .filter(email=self.request.user.email)
+        return queryset
+
+    def isUserSubscriber(self):
+        '''
+        Here we want to check if user is already a newsletter's subscriber.
+        '''
+
+        url = "https://api.sendinblue.com/v3/contacts/" + self.request.user.email
+
+        headers = {
+            "Accept": "application/json",
+            "api-key": settings.SIB_API_KEY,
+        }
+
+        response = requests.request("GET", url, headers=headers)
+
+        if response:
+            r_text = json.loads(response.text)
+            r_listIds = r_text['listIds']
+            if 'DOUBLE_OPT-IN' in r_text['attributes']:
+                r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
+            else:
+                r_double_opt_in = "0"
+            # If user exists, and if double-opt-in is true,
+            # and if user is associated to the newsletter list id
+            # Then, user is already a newsletter's subscriber
+            SIB_NEWSLETTER_LIST_IDS = settings.SIB_NEWSLETTER_LIST_IDS.split(', ')
+            SIB_NEWSLETTER_LIST_IDS = [int(i) for i in SIB_NEWSLETTER_LIST_IDS]
+            IsInNewsletterList = any((True for x in SIB_NEWSLETTER_LIST_IDS if x in r_listIds))
+            if r_double_opt_in == "1" and IsInNewsletterList:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['isUserSubscriber'] = self.isUserSubscriber
+        return context

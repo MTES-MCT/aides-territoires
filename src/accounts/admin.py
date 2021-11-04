@@ -101,7 +101,7 @@ class UserAdmin(BaseUserAdmin):
     """Admin module for users."""
 
     list_display = [
-        'email', 'first_name', 'last_name', 'organization',
+        'email', 'first_name', 'last_name', 'contributor_organization',
         'is_contributor', 'nb_aids',
         'is_certified', 'in_mailing_list', 'date_created', 'last_login']
     list_editable = ['first_name', 'last_name']
@@ -109,11 +109,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['last_name', 'email']
 
     list_filter = [
-        'is_superuser', 'is_contributor',
+        'is_superuser', 'is_contributor', 'is_beneficiary',
         SearchPageAdministratorFilter, AnimatorFilter, ApiTokenFilter,
         'is_certified', 'ml_consent', 'groups']
 
-    autocomplete_fields = ['animator_perimeter']
+    autocomplete_fields = ['animator_perimeter', 'beneficiary_organization']
     readonly_fields = [
         'nb_aids',
         'administrator_of_search_pages_list', 'api_token',
@@ -133,17 +133,21 @@ class UserAdmin(BaseUserAdmin):
                 'last_name',
             )
         }),
-        ('Informations professionnelles', {
-            'fields': (
-                'organization',
-                'role',
-                'contact_phone'
-            )
-        }),
         ('Espace contributeur', {
             'fields': (
                 'is_contributor',
+                'contributor_organization',
+                'contributor_role',
+                'contributor_contact_phone',
                 'nb_aids',
+            )
+        }),
+        ('Espace bénéficiaire', {
+            'fields': (
+                'is_beneficiary',
+                'beneficiary_function',
+                'beneficiary_role',
+                'beneficiary_organization',
             )
         }),
         ('Espace administrateur', {

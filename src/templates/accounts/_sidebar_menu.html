@@ -1,0 +1,87 @@
+<nav id="account-sidebar-menu" class="fr-col-12 fr-col-md-3 fr-sidemenu" role="navigation" aria-label="Menu latéral">
+    <div class="fr-sidemenu__inner">
+        <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
+        <div class="fr-collapse" id="fr-sidemenu-wrapper">
+            <div class="fr-sidemenu__title">Mon compte</div>
+            <ul class="fr-sidemenu__list">
+                <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif%}">
+                    <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
+                </li>
+                {% if user.is_beneficiary %}
+                <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif%}">
+                    <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
+                </li>
+                {% endif %}
+                {% if user.is_contributor %}
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" {% if publish_aid %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-2">
+                        <ul class="fr-sidemenu__list">
+                            <li class="fr-sidemenu__item {% if aid_draft_list %}fr-sidemenu__item--active{% endif%}">
+                                <a class="fr-sidemenu__link" href="{% url 'aid_draft_list_view' %}" target="_self" rel="noopener">Mon portefeuille</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'aid_create_view' %}" target="_self" rel="noopener">Publier une aide</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+               {% endif %}
+               {% if user.search_pages.count %}
+                <li class="fr-sidemenu__item ">
+                    <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Gérer mes portails</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-3">
+                        <ul class="fr-sidemenu__list">
+                            {% for search_page in user.search_pages.all %}
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'admin:search_searchpagelite_change' search_page.id %}" target="_self" rel="noopener">{{ search_page.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+               {% endif %} 
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn"  {% if structure %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-4">Ma structure</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-4">
+                        <ul class="fr-sidemenu__list">
+                            {% if user.beneficiary_organization %}
+                            <li class="fr-sidemenu__item {% if structure_info %}fr-sidemenu__item--active{% endif%}">
+                                <a class="fr-sidemenu__link" href="{% url 'organization_update_view' user.beneficiary_organization.pk %}" target="_self" rel="noopener">Informations</a>
+                            </li>
+                            {% endif %}
+                            <!-- <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Chiffres clés</a>
+                            </li>
+                            <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Compétences</a>
+                            </li> -->
+                            <li class="fr-sidemenu__item {% if structure_collab %}fr-sidemenu__item--active{% endif%}">
+                                <a class="fr-sidemenu__link" href="{% url 'collaborators' %}" target="_self" rel="noopener">Collaborateurs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <button class="fr-sidemenu__btn" {% if user_parameter %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-5">Mes paramètres</button>
+                    <div class="fr-collapse" id="fr-sidemenu-item-5">
+                        <ul class="fr-sidemenu__list">
+                            <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
+                                <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Mes alertes</a>
+                            </li>
+                            <!-- <li class="fr-sidemenu__item">
+                                <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
+                            </li> -->
+                            <li class="fr-sidemenu__item {% if contrib_profile %}fr-sidemenu__item--active{% endif%}">
+                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" rel="noopener">Mon profil</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

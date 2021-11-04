@@ -1,0 +1,162 @@
+{% extends '_base.html' %}
+{% load i18n compress %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Votre projet</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with project_admin=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date d'échéance du projet : 
+                {% if project.due_date %}
+                {{ project.due_date|date:'d/m/y' }}
+                {% else %}
+                aucune
+                {% endif %}
+            </p>
+            {% if project.description %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir la description de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-description">
+                        {{ project.description|safe }}
+                    </div>
+                </section>    
+            {% else %}
+            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet&nbsp;: aucune</p>
+            {% endif %}
+            <div class="fr-table fr-table--bordered">
+                <table class="data-table">
+                    <caption class="sr-only">
+                        Liste des aides sélectionnées&nbsp;:
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Echéance</th>
+                            <th scope="col">Ajouté&nbsp;le</th>
+                            <th scope="col">Par</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% if project.aid_set.all %}
+                            {% for aid in project.aid_set.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                        {{ aid.name }} 
+                                    </a>
+                                </td>
+                                <td>
+                                {% if aid.has_calendar %}
+                                {% if aid.submission_deadline %}
+                                {{ aid.submission_deadline|date }}
+                                {% endif %}
+                                {% endif %}
+                                </td>
+                                <td>
+                                    {% for aidproject in aid.aidproject_set.all %}
+                                    {% if aidproject.project == project %}
+                                        {{ aidproject.date_created|date:'d/m/y' }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for aidproject in aid.aidproject_set.all %}
+                                    {% if aidproject.project == project and aidproject.creator == user %}
+                                    Vous
+                                    {% elif aidproject.project == project %}
+                                    {{ aidproject.creator }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <form id="unmatch_project" method="post" action="{% url 'aid_unmatch_project_view' aid.slug %}">
+                                        <section>
+                                            <div class="content">
+                                                {% csrf_token %}
+                                                <input name="project-pk" value="{{ project.pk }}" type="hidden">
+                                                <input name="project-slug" value="{{ project.slug }}" type="hidden">
+                                                <input name="projects" type="hidden" value="{{ project.id }}" id="{{ project.id }}">
+                                                <button class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" type="submit">
+                                                    supprimer cette aide
+                                                </button>
+                                        </section>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <center>Vous n'avez aucune aide sélectionnée pour l'instant</center>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="{% url 'project_list_view' %}" class="fr-btn">
+                <i class="ri-arrow-left-line fr-pr-1w"></i>
+                Retour aux projets
+            </a>
+
+            <button type="button" class="fr-btn" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
+                Supprimer ce projet
+            </button>
+
+            <a class="fr-btn fr-fi-edit-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_update_view' project.pk %}">
+                Modifier les informations du projet
+            </a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'projects/_delete_project_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/aids/disable_delete_button.js"></script>
+{% endcompress %}
+{% endblock %}

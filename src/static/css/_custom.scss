@@ -86,6 +86,67 @@ legend {
     background-color: #fff;
   }
 
+#aid .deadline-data {
+  float: right;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+}
+
+article#aid .aid-details h2 {
+  background-color: var(--bf100-g750);
+  padding: .5rem 1rem;
+}
+
+article#aid .aid-details h2:first-of-type {
+  margin-top: 0rem;
+}
+
+article#aid .aid-details h3 {
+  margin-top: 1rem;
+}
+
+#match-aid-modal #form-group-aids_associated {
+  display: none;
+  position: absolute;
+}
+
+form#match_project {
+  .fr-checkbox-group input[type=checkbox]:disabled+label:before, .fr-checkbox-group input[type=checkbox][disabled]+label:before {
+    background-color: #9090b3!important;
+  }
+}
+
+// Header style
+
+#profil::before {
+  font-size: 1.5rem;
+}
+
+// register page style
+
+legend {
+  font-size: 1.5rem!important;
+  line-height: 2rem!important;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+// legal-mentions styles
+
+  #piwik-consent {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    height: 7rem;
+    left: 0;    
+  }
+
+  #stats-optout {
+    background-color: #fff;
+  }
+
 // Home style 
 
 div #what-image {
@@ -482,6 +543,24 @@ fieldset {
   margin-top: 0.5rem;
 }
 
+#contact-form .fr-input-group > textarea {
+  height: auto;
+}
+
+// Alert modal
+
+#alert-search-modal .fr-input-group > span.field-help {
+  display: block;
+  color: #6c757d !important;
+  margin-top: -0.2rem;
+}
+
+#alert-search-modal .fr-input-group > input,
+#alert-search-modal .fr-input-group > select {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
 // search result 
 
 .hidden-btn {
@@ -519,4 +598,55 @@ fieldset {
 
 #aid-list .fr-card__link {
   display: block;
+}
+
+// create-project modal
+
+form#create_project {
+
+  label {
+    display: block;
+  }
+
+  span.field-help {
+    display: block;
+    font-size: .75rem;
+    line-height: 1.25rem;
+    color: var(--g600);
+  }
+
+  input {
+    display: block;
+    box-shadow: inset 0 -2px 0 0 var(--g600);
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: .25rem .25rem 0 0;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: .5rem 1rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #495057 !important;
+    background: #f0f0f0;
+    min-height: 2.5rem;
+    max-height: 2.5rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+}
+
+// Account Dashboard
+
+#account-sidebar-menu .fr-sidemenu__link {
+  width: 100%;
+  padding: .75rem .5rem .75rem .5rem;
+}
+
+// Dashboard project-detail
+
+#project-description p {
+  font-size: 14px;
 }

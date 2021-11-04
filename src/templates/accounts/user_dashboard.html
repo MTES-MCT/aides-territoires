@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon compte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with dashboard=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Bienvenue sur votre compte Aides-territoires {{ user.full_name }}&nbsp;!</h1>
+            <p>Depuis votre compte utilisateur, gérez vos projets, vos aides, ou les informations liées à votre structure.</p>
+            <ul class="fr-ml-5w">
+                {% if user.is_beneficiary %}
+                <li><a href="{% url 'project_list_view' %}">gérer mes projets</a></li>
+                {% endif %}
+                {% if user.is_contributor %}
+                <li><a href="{% url 'aid_draft_list_view' %}">diffuser mes aides</a></li>
+                {% endif %}
+                {% if user.is_beneficiary %}
+                <li><a href="{% url 'collaborators' %}">inviter des collaborateurs</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

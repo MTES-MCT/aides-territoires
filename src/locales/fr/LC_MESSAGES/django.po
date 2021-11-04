@@ -515,15 +515,6 @@ msgstr ""
 msgid "This file is valid, but contains                 duplicates: {}"
 msgstr "Ce fichier est valide, mais comporte des doublons: {}"
 
-msgid "legal-mentions/"
-msgstr "mentions-légales/"
-
-msgid "confirm-registration-newsletter/"
-msgstr "inscription-newsletter-a-confirmer/"
-
-msgid "register-newsletter-success/"
-msgstr "inscription-newsletter-succes/"
-
 msgid "verb"
 msgstr "verbe"
 
@@ -1000,7 +991,7 @@ msgstr ""
 "<li>vérifiez que vous utilisez l'adresse exacte associée à votre compte ;</"
 "li>\n"
 "<li>vérifiez vos spams ;</li>\n"
-"<li>attendez quelques secondes <a href=\"%(login_url)s\">et réessayez</a> ;</"
+"<li>attendez quelques minutes <a href=\"%(login_url)s\">et réessayez</a> ;</"
 "li></ul>"
 
 msgid ""
@@ -1062,7 +1053,7 @@ msgstr ""
 "de confidentialité</a>."
 
 msgid "Create an account"
-msgstr "Créer un nouveau compte"
+msgstr "Créer un compte"
 
 msgid ""
 "Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
@@ -1095,7 +1086,7 @@ msgstr ""
 "Si vous ne recevez pas d'e-mail, essayez les solutions suivantes :<ul>\n"
 "<li>vérifiez l'exactitude de l'adresse e-mail saisie ;</li>\n"
 "<li>vérifiez vos spams ;</li>\n"
-"<li>attendez quelques secondes <a href=\"%(register_url)s\">et réessayez</"
+"<li>attendez quelques minutes <a href=\"%(register_url)s\">et réessayez</"
 "a> ;</li></ul>"
 
 msgid ""
@@ -1242,6 +1233,9 @@ msgstr "Ouverture :"
 
 msgid "Deadline:"
 msgstr "Échéance :"
+
+msgid "Deadline"
+msgstr "Échéance"
 
 msgid "Aid edition"
 msgstr "Édition de l'aide"

@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n form_utils compress %}
 
 {% block extraclasses %}light{% endblock %}
 
@@ -12,32 +12,16 @@
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
 
-            <h1 class="fr-mb-5w">Créer un compte pour diffuser vos aides</h1>
-
-            <div class="warning fr-background-alt-pink fr-p-3w fr-mb-3w">
-                <p class="fr-mb-2w">
-                    <span class="fr-fi-error-warning-line" aria-hidden="true"></span>
-                    Les contributeurs sont les acteurs qui référencent les aides et non ceux qui les reçoivent.
-                </p>
-                {% url 'search_step_audience' as search_url %}
-                <p class="fr-mb-0">
-                    <span class="fr-fi-search-line" aria-hidden="true"></span>
-                    Si vous souhaitez bénéficier des aides financières et en ingénierie des porteurs, 
-                    <a href="{{ search_url }}"> 
-                        utilisez notre recherche.
-                    </a>
-                </p>
-            </div>
+            <h1 class="fr-mb-5w">Créer votre compte</h1>
 
             <p class="warning fr-background-alt-pink fr-p-3w fr-mb-0">
                 <span class="fr-fi-lock-line" aria-hidden="true"></span>
                 {% url 'login' as login_url %}
-                {% blocktrans trimmed %}
-                Do you already have an account?
-                <a href="{{ login_url }}">Proceed to the login form.</a>
-            {% endblocktrans %}</p>
+                Vous disposez déjà d'un compte ?
+                <a href="{{ login_url }}">Rendez-vous sur la page de connexion.</a>
+            </p>
 
-            <form method="post" action="" novalidate class="fr-mt-5w">
+            <form method="post" action="" novalidate class="fr-mt-5w" id="register-form">
                 {% csrf_token %}
                 {{ form.media }}
 
@@ -52,28 +36,59 @@
                     {% include '_field_snippet.html' with field=form.password2 %}
                 </fieldset>
 
-                <fieldset>
+                <fieldset class="fr-mt-5w">
                     <legend>Informations professionnelles</legend>
-                    {% include '_field_snippet.html' with field=form.organization %}
-                    {% include '_field_snippet.html' with field=form.role %}
-                    {% include '_field_snippet.html' with field=form.contact_phone %}
+
+                    <div id="form-group-organization_type" class="fr-input-group required ">
+                        <label for="id_organization_type">Vous êtes un/une</label>
+                        <select name="organization_type" id="id_organization_type">
+                            <option value="" hidden>Sélectionnez une option</option>
+                            {% for option in organization_form.organization_type %}
+                            {{ option }}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
+                        {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                        {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                    </div>
+
+                    <div class="fr-form-group">
+                        <fieldset class="fr-fieldset">
+                            <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
+                            <div class="fr-grid-row fr-grid--middle">
+                                <div class="fr-fieldset__content fr-pr-2w">
+                                    {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                                </div>        
+                                <div class="fr-fieldset__content">
+                                    {% include '_checkbox_snippet.html' with field=form.is_contributor %}
+                                </div>
+                            </div>
+                        </fieldset>    
+                    </div>
                 </fieldset>
 
                 {% url 'legal_mentions' as legal_mentions_url %}
                 <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
                     <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
-                    En créant un compte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
+                    En créant un compte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
                 </p>
-                <button type="submit" class="fr-btn fr-mb-5w">Créer un nouveau compte</button>
+                <button type="submit" class="fr-btn fr-mb-5w">Créer un compte</button>
             </form>
 
             <p class="warning fr-background-alt-pink fr-p-3w">
                 <span class="fas fa-bug"></span>
-                {% blocktrans trimmed %}
-                Do you have a problem to register?
-                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
-            {% endblocktrans %}</p>
+                Si vous n'arrivez pas à vous inscrire, 
+                <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>
+            </p>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/accounts/toggle_beneficiary_related_fields.js"></script>
+{% endcompress %}
 {% endblock %}

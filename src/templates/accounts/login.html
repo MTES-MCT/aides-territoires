@@ -11,7 +11,7 @@
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
-            <h1>Connexion à votre compte contributeur</h1>
+            <h1>Connexion à votre compte</h1>
 
             <form method="post" action="" novalidate class="fr-mt-5w">
                 {% csrf_token %}
@@ -23,10 +23,9 @@
             {% url 'password_reset' as password_reset_url %}
             <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
                 <span class="fas fa-lightbulb"></span>
-                {% blocktrans trimmed %}
-                Have you forgotten your password? <a href="{{ password_reset_url }}">
-                Request a new one.</a>
-            {% endblocktrans %}</p>
+                Avez-vous oublié votre mot de passe&nbsp;?
+                <a href="{{ password_reset_url }}"> Vous pouvez en demander un nouveau.</a>
+            </p>
         </div>
     </div>
 </div>

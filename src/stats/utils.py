@@ -8,19 +8,11 @@ from search.utils import (
     get_querystring_perimeter,
     get_querystring_themes, get_querystring_categories,
     get_querystring_backers, get_querystring_programs)
-from stats.models import (AidViewEvent, AidSearchEvent, Event,
-                          AidMatchProjectEvent)
+from stats.models import (AidViewEvent, AidSearchEvent, Event)
 from aids.models import Aid
 
 
 crawler_detect = CrawlerDetect()
-
-
-@app.task
-def log_aidmatchprojectevent(aid_id, project_id=''):
-    AidMatchProjectEvent.objects.create(
-        aid_id=aid_id,
-        project_id=project_id)
 
 
 @app.task

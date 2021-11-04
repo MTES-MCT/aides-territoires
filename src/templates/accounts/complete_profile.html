@@ -1,0 +1,73 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon profil{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}profile-form{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Compléter mon profil</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+
+        <div class="fr-col-md-12">
+            <h1 class="fr-h3">Finaliser votre inscription</h1>
+
+            <div class="info fr-background-alt-pink fr-p-3w fr-mb-5w">
+                <p class="fr-mb-2w">
+                    <span class="fas fa-lightbulb"></span>
+                    Afin d'accéder à votre compte nous vous invitons à compléter les informations ci-dessous.
+                </p>
+            </div>
+
+            <form method="post" action="" novalidate>
+                {% csrf_token %}
+
+                {% include '_field_snippet.html' with field=form.first_name %}
+                {% include '_field_snippet.html' with field=form.last_name %}
+                {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                <div class="fr-form-group">
+                    <fieldset class="fr-fieldset">
+                        <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
+                        <div class="fr-grid-row fr-grid--middle">
+                            <div class="fr-fieldset__content fr-pr-2w">
+                                {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                            </div>    
+                            <div class="fr-fieldset__content">
+                                {% include '_checkbox_snippet.html' with field=form.is_contributor %}
+                            </div>
+                        </div>
+                    </fieldset>    
+                </div>
+                {% include '_field_snippet.html' with field=form.new_password %}
+                {% include '_field_snippet.html' with field=form.new_password2 %}
+                <button type="submit" class="fr-btn">Finaliser mon inscription</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

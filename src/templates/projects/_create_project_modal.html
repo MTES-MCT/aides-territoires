@@ -1,0 +1,39 @@
+{% load i18n compress %}
+
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="create-project-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="create-project-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter un projet</h1>
+
+                        <form id="create_project" method="post" action="{% url 'project_create_view' %}">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+                                    {% include '_field_snippet.html' with field=project_create_form.name %}
+                                    {% include '_field_snippet.html' with field=project_create_form.description %}
+                                    {% include '_field_snippet.html' with field=project_create_form.due_date %}
+                                </div>
+
+                                <footer>
+                                    <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+                                        <li>
+                                            <button class="btn-block fr-btn fr-mt-5w" type="submit">
+                                                Ajouter
+                                            </button>        
+                                        </li>
+                                    </ul>
+                                </footer>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

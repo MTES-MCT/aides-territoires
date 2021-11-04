@@ -1,37 +1,121 @@
-from django.views.generic import CreateView
-from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
+
 from braces.views import MessageMixin
 
-from projects.forms import ProjectSuggestForm
-from categories.models import Category
+from projects.forms import ProjectCreateForm, ProjectUpdateForm
+from projects.models import Project
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
-class ProjectSuggest(MessageMixin, CreateView):
-    """Allows users to suggest their own projects."""
+class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
+    """Allows users to create their own projects."""
 
-    template_name = 'search/step_project.html'
-    form_class = ProjectSuggestForm
+    template_name = 'projects/_create_project_modal.html'
+    form_class = ProjectCreateForm
     context_object_name = 'project'
 
     def form_valid(self, form):
 
-        querystring = self.request.GET.urlencode()
-        categories_list = self.request.GET.getlist('categories', '')
-        categories = Category.objects \
-            .filter(slug__in=categories_list) \
-            .values_list('id', flat=True)
-
         project = form.save(commit=False)
-        project.is_suggested = True
-
         project.save()
         form.save_m2m()
-        project.categories.add(*categories)
+        project.author.add(self.request.user)
+        project.organizations.add(self.request.user.beneficiary_organization)
 
-        msg = _('Thank you for contributing!')
-        self.messages.success(msg)
-        url = reverse('search_view')
-        url = '{}?{}'.format(url, querystring)
+        msg = 'Votre nouveau projet a été créé&nbsp;!'
+        messages.success(self.request, msg)
+        url = reverse('project_list_view')
+        url = '{}'.format(url)
         return HttpResponseRedirect(url)
+
+
+class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """User Project Dashboard"""
+
+    template_name = 'projects/projects_list.html'
+    context_object_name = 'projects'
+    paginate_by = 18
+
+    def get_queryset(self):
+        if self.request.user.beneficiary_organization is not None:
+            queryset = Project.objects \
+                .filter(organizations=self.request.user.beneficiary_organization.pk)
+        else:
+            queryset = Project.objects.none()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['project_create_form'] = ProjectCreateForm(label_suffix='')
+
+        return context
+
+
+class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
+    template_name = 'projects/project_detail.html'
+    context_object_name = 'project'
+
+    def get_queryset(self):
+        queryset = Project.objects \
+            .prefetch_related('aid_set')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['project_update_form'] = ProjectUpdateForm(label_suffix='')
+        return context
+
+
+class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
+    """Delete an existing project."""
+
+    def get_queryset(self):
+        qs = Project.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
+
+    def get_success_url(self):
+        url = reverse('project_list_view')
+        return url
+
+    def delete(self, *args, **kwargs):
+        res = super().delete(*args, **kwargs)
+        msg = "Votre projet a été supprimé." # noqa
+        messages.success(self.request, msg)
+        return res
+
+
+class ProjectUpdateView(ContributorAndProfileCompleteRequiredMixin, MessageMixin, UpdateView):
+    """Edit an existing project."""
+
+    template_name = 'projects/update_project.html'
+    context_object_name = 'project'
+    form_class = ProjectUpdateForm
+
+    def get_queryset(self):
+        qs = Project.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
+
+    def form_valid(self, form):
+
+        response = super().form_valid(form)
+
+        msg = "Le projet a bien été mis à jour."
+
+        self.messages.success(msg)
+        return response
+
+    def get_success_url(self):
+        url = self.object.get_absolute_url()
+        return '{}'.format(url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = self.object
+        return context

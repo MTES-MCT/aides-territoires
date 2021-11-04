@@ -22,13 +22,15 @@ from braces.views import MessageMixin
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from backers.models import Backer
 from aids.forms import (AidEditForm, AidSearchForm,
-                        AdvancedAidFilterForm, DraftListAidFilterForm)
+                        AdvancedAidFilterForm, DraftListAidFilterForm,
+                        AidMatchProjectForm)
 from aids.models import Aid
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
+from projects.models import Project
 from geofr.utils import get_all_related_perimeter_ids
 from blog.models import PromotionPost
 from search.utils import clean_search_form
@@ -333,6 +335,9 @@ class AidDetailView(DetailView):
             .exclude(logo='') \
             .distinct()
 
+        context['idf_financer'] = financers \
+            .filter(pk=40)
+
         context['eligibility_criteria'] = any((
             self.object.mobilization_steps,
             self.object.destinations,
@@ -340,6 +345,11 @@ class AidDetailView(DetailView):
             self.object.eligibility))
 
         context['alert_form'] = AlertForm(label_suffix='')
+        if self.request.user.is_authenticated:
+            context['aid_match_project_form'] = AidMatchProjectForm(label_suffix='')
+            if self.request.user.beneficiary_organization:
+                context['projects'] = Project.objects \
+                    .filter(organizations=self.request.user.beneficiary_organization.pk)
 
         return context
 
@@ -597,3 +607,66 @@ class GenericToLocalAidView(ContributorAndProfileCompleteRequiredMixin,
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('aid_edit_view', args=[self.new_aid.slug])
+
+
+class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """Associate aid to existing projects."""
+
+    template_name = 'projects/_match_aid_modal.html'
+    form_class = AidMatchProjectForm
+    context_object_name = 'aid'
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        url = reverse('aid_detail_view', args=[aid.slug])
+
+        if self.request.POST.getlist('projects'):
+            # associate the existing projects to the aid
+            for project in self.request.POST.getlist('projects', []):
+                project = int(project)
+                aid.projects.add(project, through_defaults={'creator': self.request.user})
+
+                aid.save()
+                msg = "L'aide a bien été associée."
+                messages.success(self.request, msg)
+
+        if self.request.POST.get('new_project'):
+            # create the new project's object
+            project = Project.objects.create(name=self.request.POST.get('new_project'))
+            project.author.add(self.request.user)
+            project.organizations.add(self.request.user.beneficiary_organization)
+
+            # associate this new project's object to the aid
+            aid.projects.add(project.pk, through_defaults={'creator': self.request.user})
+            aid.save()
+            msg = "Votre nouveau projet a bien été créé."
+            messages.success(self.request, msg)
+
+        url = reverse('aid_detail_view', args=[aid.slug])
+        return HttpResponseRedirect(url)
+
+
+class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """remove the association between an aid and a project."""
+
+    context_object_name = 'aid'
+    form_class = AidMatchProjectForm
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        for project in self.request.POST.getlist('projects', []):
+            project = int(project)
+            aid.projects.remove(project)
+
+        aid.save()
+
+        msg = "L'aide a bien été supprimée."
+        messages.success(self.request, msg)
+        project_pk = self.request.POST.get('project-pk')
+        project_slug = self.request.POST.get('project-slug')
+        url = reverse('project_detail_view', args=[project_pk, project_slug])
+        return HttpResponseRedirect(url)

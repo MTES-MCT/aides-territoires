@@ -79,6 +79,7 @@ LOCAL_APPS = [
     'blog',
     'eligibility',
     'admin_lite',
+    'organizations',
 
     # deprecated apps
     'tags',
@@ -318,6 +319,7 @@ SERVER_EMAIL = 'aides-territoires@beta.gouv.fr'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_WHITELIST = []
 SIB_API_KEY = ''
+SIB_NEWSLETTER_LIST_IDS = []
 SIB_EXPORT_CONTACTS_LIST_ID = 0
 SIB_WELCOME_EMAIL_ENABLED = False
 SIB_WELCOME_EMAIL_TEMPLATE_ID = 0
@@ -362,7 +364,7 @@ SITE_ID = 1
 
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'aid_draft_list_view'
+LOGIN_REDIRECT_URL = 'user_dashboard'
 
 SEARCH_COOKIE_NAME = 'currentsearch'
 

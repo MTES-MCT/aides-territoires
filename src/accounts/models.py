@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
+from model_utils import Choices
 
 
 class UserQueryset(models.QuerySet):
@@ -10,6 +11,11 @@ class UserQueryset(models.QuerySet):
         """Only return users who are contributors."""
 
         return self.filter(is_contributor=True)
+
+    def beneficiaries(self):
+        """Only return users who are beneficiaries."""
+
+        return self.filter(is_beneficiary=True)
 
     def search_page_admins(self):
         """Only return users who are search page administrators."""
@@ -60,6 +66,11 @@ class UserManager(BaseUserManager):
 
         return self.get_queryset().contributors()
 
+    def beneficiaries(self):
+        """Only return users who are beneficiaries."""
+
+        return self.get_queryset().beneficiaries()
+
     def search_page_admins(self):
         """Only return users who are search page administrators."""
 
@@ -79,6 +90,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """Represents a single user account (one physical person)."""
 
+    FUNCTION_TYPE = Choices(
+        ('elected', 'Élu'),
+        ('agent', 'Agent territorial'),
+        ('other', 'Autre'),
+    )
+
     objects = UserManager()
 
     email = models.EmailField(
@@ -97,15 +114,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False)
 
     # Contributors related data
-    organization = models.CharField(
+    contributor_organization = models.CharField(
         'Organisme',
         max_length=128,
         blank=True)
-    role = models.CharField(
+    contributor_role = models.CharField(
         'Rôle',
         max_length=128,
         blank=True)
-    contact_phone = models.CharField(
+    contributor_contact_phone = models.CharField(
         'Numéro de téléphone',
         max_length=35,
         blank=True)
@@ -114,10 +131,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Afficher un badge à côté des aides publiées par ce compte.',
         default=False)
 
+    # Beneficiaries related data
+    beneficiary_organization = models.ForeignKey(
+        'organizations.Organization',
+        verbose_name="Structure du bénéficiaire",
+        on_delete=models.PROTECT,
+        help_text="A quelle structure appartient le bénéficiaire ?",
+        null=True, blank=True)
+    beneficiary_function = models.CharField(
+        "Fonction du bénéficiaire",
+        max_length=32,
+        choices=FUNCTION_TYPE,
+        null=True, blank=True,)
+    beneficiary_role = models.CharField(
+        'Rôle du bénéficiaire',
+        max_length=128,
+        blank=True)
+
     # Roles
     is_contributor = models.BooleanField(
         'Contributeur ?',
         help_text='Peut accéder à un espace pour créer et modifier ses aides.',
+        default=True)
+    is_beneficiary = models.BooleanField(
+        'Bénéficiaire ?',
+        help_text='Peut accéder à un espace pour créer et modifier ses projets.',
         default=True)
     animator_perimeter = models.ForeignKey(
         'geofr.Perimeter',
@@ -155,15 +193,32 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser or self.is_administrator_of_search_pages
 
     @property
+    def is_contributor_or_staff_or_beneficiary(self):
+        """Only the contributors or the admin users can access
+        certain pages of the app."""
+        return self.is_contributor or self.is_superuser or self.is_beneficiary
+
+    @property
     def is_contributor_or_staff(self):
         """Only the contributors or the admin users can access
         certain pages of the app."""
         return self.is_contributor or self.is_superuser
 
     @property
+    def is_contributor_or_beneficiary(self):
+        """User has to choose if he is a contributor or/and
+        beneficiary"""
+        return self.is_contributor or self.is_beneficiary
+
+    @property
+    def bound_to_organization(self):
+        """User need to specify more personal data."""
+        return self.beneficiary_organization
+
+    @property
     def profile_complete(self):
-        """Contributors need to specify more personal data."""
-        return self.organization and self.role and self.contact_phone
+        """User need to specify more personal data."""
+        return self.password and self.is_contributor_or_beneficiary
 
     @property
     def is_administrator_of_search_pages(self):

@@ -10,15 +10,14 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
 
     path('contact/', ContactView.as_view(), name='contact'),
-    path(
-        _('legal-mentions/'),
+    path('mentions-légales/',
         TemplateView.as_view(template_name='home/legal_mentions.html'),
         name='legal_mentions'),
 
-    path(_('confirm-registration-newsletter/'),
+    path('inscription-newsletter-a-confirmer/',
          NewsletterConfirmView.as_view(),
          name='confirm-registration-newsletter'),
-    path(_('register-newsletter-success/'), NewsletterSuccessView.as_view(),
+    path('inscription-newsletter-succes/', NewsletterSuccessView.as_view(),
          name='register_newsletter_success'),
 
     path('alertes-addna-optin/', ADDNAOptin.as_view(), name='addna_optin'),

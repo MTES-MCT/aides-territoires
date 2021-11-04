@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load aids %}
+{% load aids i18n compress %}
 
 {% block extratitle %}{{ _('My portfolio') }}{% endblock %}
 
@@ -24,79 +24,83 @@
 {% block content %}
 <article id="draft-list" class="fr-container">
 
-    <div class="fr-grid-row fr-grid-row--middle">    
-        <h1 class="fr-col-12 fr-col-md-10">Mon portefeuille d'aides</h1>
-        <a class="main-action action-add fr-btn fr-col-12 fr-col-md-2" href="{% url 'aid_create_view' %}">
-            <span class="fr-fi-add-line" aria-hidden="true"></span>
-            Publier une aide
-        </a>
-    </div>
+    <div class="fr-grid-row">    
+        
+        {% include 'accounts/_sidebar_menu.html' with publish_aid=True aid_draft_list=True %}
 
-    <div class="info">
-        {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
-        {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
-    </div>
+        <div class="fr-col-12 fr-col-md-9">
 
-    <form id="filter-form" action="" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
-        <div class="form-container fr-p-3w">
-            {{ filter_form }}
-            <button class="filter-btn fr-btn fr-mt-3w" type="submit">
-                Filtrer les résultats
-            </button>
+            <div class="fr-grid-row fr-grid-row--middle">    
+                <h1 class="fr-col-12 fr-col-md-9">Mon portefeuille d'aides</h1>
+                <a class="main-action action-add fr-btn fr-col-12 fr-col-md-3 fr-grid-row--center" href="{% url 'aid_create_view' %}">Publier une aide</a>
+            </div>
+
+            <div class="info">
+                {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
+                {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
+            </div>
+
+            <form id="filter-form" action="" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
+                <div class="form-container fr-p-3w">
+                    {{ filter_form }}
+                    <button class="filter-btn fr-btn fr-mt-3w" type="submit">
+                        Filtrer les résultats
+                    </button>
+                </div>
+            </form>
+
+            <div class="fr-table">
+                <table class="data-table">
+                    <caption class="sr-only">
+                        La liste de vos aides publiées
+                        <br>
+                        <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
+                            <th scope="col" title="Trier par Périmètre">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
+                            <th scope="col" title="Trier par Créée le">{% sortable_header _('Created on') 'date_created' %}</th>
+                            <th scope="col" title="Trier par Modifiée le">{% sortable_header _('Last modified') 'date_updated' %}</th>
+                            <th scope="col" title="Trier par Echéance">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
+                            <th scope="col">{{ _('Is live') }}</th>
+                            <th scope="col">Vues</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aid in aids %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'aid_edit_view' aid.slug %}">
+                                    {{ aid.name }}
+                                </a>
+                                {% if aid.is_live %}
+                                    <span class="fas fa-check-circle" title="Affichée"></span>
+                                {% endif %}
+                            </td>
+                            <td>{{ aid.perimeter }}</td>
+                            <td>{{ aid.date_created|date:'d/m/y' }}</td>
+                            <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+                            <td class="nowrap-cell">
+                                {% if aid.is_ongoing %}
+                                    <span class="fas fa-parking" title="Permanente"></span>
+                                {% elif aid.has_approaching_deadline %}
+                                    <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                                {% elif aid.has_expired %}
+                                    <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                                {% endif %}
+                                <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
+                            </td>
+                            <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
+                            <td>{% get hits_per_aid aid.id 0 %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% include '_pagination.html' %}
         </div>
-    </form>
-
-    <div class="fr-table">
-        <table class="data-table">
-            <caption class="sr-only">
-                La liste de vos aides publiées
-                <br>
-                <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
-            </caption>
-            <thead>
-                <tr>
-                    <th scope="col" class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
-                    <th scope="col" title="Trier par {{ _('Perimeter') }}">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
-                    <th scope="col" title="Trier par {{ _('Created on') }}">{% sortable_header _('Created on') 'date_created' %}</th>
-                    <th scope="col" title="Trier par {{ _('Last modified') }}">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                    <th scope="col" title="Trier par {{ _('Deadline') }}">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
-                    <th scope="col">{{ _('Is live') }}</th>
-                    <th scope="col">Vues</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aid in aids %}
-                <tr>
-                    <td>
-                        <a href="{% url 'aid_edit_view' aid.slug %}">
-                            {{ aid.name }}
-                        </a>
-                        {% if aid.is_live %}
-                            <span class="fas fa-check-circle" title="Affichée"></span>
-                        {% endif %}
-                    </td>
-                    <td>{{ aid.perimeter }}</td>
-                    <td>{{ aid.date_created|date:'d/m/y' }}</td>
-                    <td>{{ aid.date_updated|date:'d/m/y' }}</td>
-                    <td class="nowrap-cell">
-                        {% if aid.is_ongoing %}
-                            <span class="fas fa-parking" title="Permanente"></span>
-                        {% elif aid.has_approaching_deadline %}
-                            <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
-                        {% elif aid.has_expired %}
-                            <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
-                        {% endif %}
-                        <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
-                    </td>
-                    <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
-                    <td>{% get hits_per_aid aid.id 0 %}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
-
-    {% include '_pagination.html' %}
-
 </article>
 {% endblock %}

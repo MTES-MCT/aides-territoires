@@ -7,12 +7,37 @@
 
 {% block extratitle %}{{ _('You have successfully subscribed') }}{% endblock %}
 
-{% block content %}
-<div class="article narrow">
-    <h1>{{ _("Thank you for subscribing to the newsletter") }}</h1>
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Vous êtes abonné</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
 
-    <p>{% blocktrans trimmed %}
-        <strong>Your subscription to the newsletter has been registered.</strong> 
-     {% endblocktrans %}</p>
+{% block content %}
+<div class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-9">
+            <h1>Merci pour votre abonnement à la newsletter</h1>
+            <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p>
+                    <strong>
+                        Votre abonnement à la newsletter a été enregistré.
+                    </strong> 
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

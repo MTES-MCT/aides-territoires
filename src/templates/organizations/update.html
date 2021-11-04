@@ -1,0 +1,62 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Ma structure{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Ma structure</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+
+        {% include 'accounts/_sidebar_menu.html' with structure=True structure_info=True %}
+
+        <div class="fr-col-md-9">
+            <h1 class="fr-h3">Informations sur ma structure</h1>
+
+            <form method="post" action="" novalidate>
+                {% csrf_token %}
+
+                <fieldset class="fr-my-5w">
+                    <legend>Coordonnées&nbsp;</legend>
+                    {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.address %}
+                    {% include '_field_snippet.html' with field=form.city_name %}
+                    {% include '_field_snippet.html' with field=form.zip_code %}
+                </fieldset>
+
+                <fieldset class="fr-my-5w">
+                    <legend>Données administratives:&nbsp;</legend>
+                    {% include '_field_snippet.html' with field=form.siren_code %}
+                    {% include '_field_snippet.html' with field=form.siret_code %}
+                    {% include '_field_snippet.html' with field=form.ape_code %}
+                </fieldset>
+
+                <button type="submit" class="fr-btn">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

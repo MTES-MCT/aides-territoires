@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% load i18n form_utils %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}register-form{% endblock %}
+
+{% block extratitle %}Inscription - étape 2/2{% endblock %}
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-8">
+            {% if request.session.USER_NAME %}
+            <h1 class="fr-mb-5w">Bienvenue {{ request.session.USER_NAME }}&nbsp;!</h1>
+            <h2 class="fr-h3">Merci de renseigner les informations de votre structure pour finaliser votre inscription</h2>
+            {% else %}
+            <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }}&nbsp;!</h1>
+            <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d'accéder à votre espace</h2>
+            {% endif %}
+
+            <form method="post" action="" novalidate class="fr-mt-5w">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% include '_form_header.html' with form=form %}
+
+                <fieldset class="fr-pl-0">
+                    <legend class="fr-pt-4w">Informations professionnelles</legend>
+                    {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.zip_code %}
+
+                    {% if not request.session.USER_NAME %}
+                    {% include '_field_snippet.html' with field=form.organization_type required=required %}
+                    {% endif %}
+                </fieldset>
+
+                <button type="submit" class="fr-btn fr-mb-5w fr-mt-1w">Finaliser mon inscription</button>
+            </form>
+
+            <p class="warning fr-background-alt-pink fr-p-3w">
+                <span class="fas fa-bug"></span>
+                {% blocktrans trimmed %}
+                Do you have a problem to register?
+                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
+            {% endblocktrans %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

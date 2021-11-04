@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block extratitle %}Suppression de projet{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'project_list_view' %}">Gérer mes projets</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'project_detail_view' project.pk project.slug %}">Votre projet</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Supprimer le projet projet</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w">Confirmer la suppression du projet</h1>
+            <p class="lead">Vous êtes sur le point de supprimer le projet «&nbsp;{{ project.name }}&nbsp;»</p>
+            <p>Êtes vous certain de vouloir continuer ?</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Supprimer le projet" class="fr-btn">
+                <a href="{% url 'project_list_view' %}" class="fr-btn">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -70,7 +70,6 @@ urlpatterns = [
     path(_('backers/'), include('backers.urls')),
     path(_('blog/'), include('blog.urls')),
     path(_('programs/'), include('programs.urls')),
-    path(_('projects/'), include('projects.urls')),
     path(_('integration/'), include('integration.urls')),
     path(_('stats/'), include('stats.urls')),
     path(_('alerts/'), include('alerts.urls')),
@@ -79,6 +78,8 @@ urlpatterns = [
     path(_('upload/'), include('upload.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('admin_tools/', include('admin_tools.urls')),
+    path(_('projects/'), include('projects.urls')),
+    path(_('organizations/'), include('organizations.urls')),
 
     # Api related routes
     path('api/', include(api_patterns)),

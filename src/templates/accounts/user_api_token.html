@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon compte{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon compte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Ma clé API</h1>
+            <p>La clé API, ou Token API, est une combinaison vous permettant d’associer votre login et votre mot de passe de façon sécurisée lors de vos intégrations.</p>
+            <p>Cet identifiant vous permet de connecter notre API à votre logiciel/service en ligne avec une sécurité maximale.</p>
+            <div role="alert" class="fr-alert fr-alert--info">
+                <p>
+                    <a href="{% url 'swagger-ui' %}?version={{ api_version }}" target="_blank" rel="noopener">Consulter la documentation de l'API</a>
+                </p>
+            </div>
+            {% if user.auth_token %}
+            <div role="alert" class="fr-alert fr-alert--success">
+                <p>Votre Token API :</p>
+                <p>{{ user.auth_token.key }}</p>
+            </div>
+            {% else %}
+            <div role="alert" class="fr-alert fr-alert--error">
+                <p>Vous n'avez pas encore de Token API.</p>
+                <p>Pour en obtenir un, c'est très simple (et gratuit !), il suffit juste de <a href="{% url 'contact' %}">nous contacter</a> en décrivant votre projet et en renseignant l'url de votre service.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
