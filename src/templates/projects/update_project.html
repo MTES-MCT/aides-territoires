@@ -40,33 +40,34 @@
             <h1 class="fr-mb-5w fr-h3">Modifier les informations du projet «&nbsp;{{ project.name }}&nbsp;»</h1>
 
             <form id="update_project" method="post" action="">
-                
+
                 {% block form_header %}{% endblock %}
                 {% csrf_token %}
                 {{ form.media }}
-            
+
                 {% include '_form_header.html' with form=form %}
-            
+
                 {% if form.non_field_errors %}
                 <div class="danger" role="alert">
                     {{ form.non_field_errors.0 }}
                 </div>
                 {% endif %}
-            
+
                 {% for field in form.hidden_fields %}
                     {{ field }}
                 {% endfor %}
-            
+
                 {% include '_field_snippet.html' with field=form.name %}
                 {% include '_field_snippet.html' with field=form.description %}
                 {% include '_field_snippet.html' with field=form.due_date %}
 
-                <button class="btn-block fr-btn fr-mt-2w" type="submit">
-                    Modifier
-                </button>
                 <a href="{% url 'project_detail_view' project.pk project.slug %}" class="btn-block fr-btn fr-mt-2w">
                     Annuler
                 </a>
+                <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                    Modifier
+                </button>
+
             </form>
         </div>
     </div>
