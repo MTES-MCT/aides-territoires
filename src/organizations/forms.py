@@ -70,7 +70,7 @@ class OrganizationUpdateForm(forms.ModelForm):
         label='Code SIREN',
         help_text='Constitué de 14 chiffres',
         required=False)
-    ape_code = forms.IntegerField(
+    ape_code = forms.CharField(
         label='Code APE',
         required=False)
 

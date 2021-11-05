@@ -43,8 +43,9 @@ class Organization(models.Model):
     siret_code = models.PositiveIntegerField(
         'Code SIRET',
         null=True, blank=True)
-    ape_code = models.PositiveIntegerField(
+    ape_code = models.CharField(
         'Code APE',
+        max_length=5,
         null=True, blank=True)
 
     inhabitants_number = models.PositiveIntegerField(

@@ -1,17 +1,29 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<article>
-<h1>La page demandée n'existe pas</h1>
+<div class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-9">
 
-<p>Vous avez saisi une adresse ou suivi un lien vers un contenu qui n'existe
-pas, ou plus.</p>
+            <h1>La page demandée n'existe pas</h1>
 
-<p>Le mieux que nous puissions faire est de vous <a href="{% url 'home' %}">
-renvoyer vers la page d'accueil.</a><p>
+            <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p>
+                    <strong>
+                        Vous avez saisi une adresse ou suivi un lien vers un contenu qui n'existe pas, ou plus.
+                    </strong> 
+                </p>
+                <p>Le mieux que nous puissions faire est de vous <a href="{% url 'home' %}">renvoyer vers la page d'accueil.</a><p>
+            </div>
 
-<p>Si vous pensez qu'il s'agit d'une erreur de notre part, vous pouvez aussi <a
-href="mailto:aides-territoires@beta.gouv.fr">
-nous contacter</a>.</p>
-</article>
+            <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p>Si vous pensez qu'il s'agit d'une erreur de notre part, vous pouvez aussi <a
+                    href="mailto:aides-territoires@beta.gouv.fr">
+                    nous contacter</a>.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}
