@@ -8,6 +8,7 @@ from braces.views import MessageMixin
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from aids.models import AidProject
+from geofr.models import Perimeter
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -43,7 +44,8 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
             queryset = Project.objects \
-                .filter(organizations=self.request.user.beneficiary_organization.pk)
+                .filter(organizations=self.request.user.beneficiary_organization.pk) \
+                .prefetch_related('aid_set')
         else:
             queryset = Project.objects.none()
         return queryset
@@ -52,6 +54,19 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         context['project_create_form'] = ProjectCreateForm(label_suffix='')
+        user_org = self.request.user.beneficiary_organization
+
+        # if user's organization is a commune and if organization's perimeter is defined
+        # we create a querystring with targeted_audience & perimeter
+        # to allow user to make a research skipping step 1 and 2
+        if user_org.organization_type[0] == 'commune' and user_org.zip_code:
+            org_zip_code = str(user_org.zip_code).split()
+            org_perimeter = Perimeter.objects.filter(zipcodes=org_zip_code).first()
+            # here we check if zipcode is related to an existing perimeter
+            if org_perimeter:
+                org_perimeter = org_perimeter.id_slug
+                context['user_querystring'] = 'targeted_audiences=commune' \
+                    f'&perimeter={org_perimeter}&action=search'
 
         return context
 
