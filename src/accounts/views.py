@@ -221,7 +221,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
         invitator_name = self.request.user.full_name
         send_invitation_email.delay(user.email, invitator_name, organization_name)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        
+
         msg = "Votre invitation a bien été envoyée."
         messages.success(self.request, msg)
         success_url = reverse('collaborators')
@@ -236,7 +236,8 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
                 .exclude(pk=self.request.user.pk)
         else:
             users = User.objects.none()
-        return self.render_to_response(self.get_context_data(form=form, error_mail=error, users=users))
+        return self.render_to_response(self.get_context_data(form=form, error_mail=error,
+                                                             users=users))
 
 
 class CollaboratorsList(ListView):
@@ -248,8 +249,9 @@ class CollaboratorsList(ListView):
 
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
+            user_beneficiary_organization = self.request.user.beneficiary_organization.pk
             queryset = User.objects \
-                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
+                .filter(beneficiary_organization=user_beneficiary_organization) \
                 .exclude(pk=self.request.user.pk)
         else:
             queryset = User.objects.none()

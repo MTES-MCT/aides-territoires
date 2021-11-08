@@ -636,7 +636,8 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_name = project_obj.name
                 project_slug = project_obj.slug
                 project_url = reverse('project_detail_view', args=[project, project_slug])
-                msg = f"L'aide a bien été associée au projet <a href='{project_url}'>{project_name}<a>"
+                msg = f"L'aide a bien été associée au projet" \
+                    f" <a href='{project_url}'>{project_name}<a>"
                 messages.success(self.request, msg)
 
         if self.request.POST.get('new_project'):
@@ -649,7 +650,8 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             aid.projects.add(project.pk, through_defaults={'creator': self.request.user})
             aid.save()
             project_url = reverse('project_detail_view', args=[project.pk, project.slug])
-            msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}<a> a bien été créé et l'aide a été associée."
+            msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}<a>" \
+                " a bien été créé et l'aide a été associée."
             messages.success(self.request, msg)
 
         url = reverse('aid_detail_view', args=[aid.slug])
