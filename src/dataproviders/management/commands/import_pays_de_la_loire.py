@@ -51,8 +51,8 @@ with open(TYPES_MAPPING_CSV_PATH) as csv_file:
             TYPES_DICT[row[SOURCE_COLUMN_NAME]] = []
             for column in AT_COLUMN_NAMES:
                 if row[column]:
-                    audience = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
-                    TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
+                    types = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
+                    TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(types)
 
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_categories_mapping.csv'
 SOURCE_COLUMN_NAME = 'Sous-thématique Pays de la Loire'
@@ -198,14 +198,14 @@ class Command(BaseImportCommand):
         return None
 
     def extract_start_date(self, line):
-        if line['temporalite'] == 'Temporaire':
+        if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_debut', None):
                 start_date = datetime.strptime(line['date_de_debut'], '%Y-%m-%d')
                 return start_date
         return None
 
     def extract_submission_deadline(self, line):
-        if line['temporalite'] == 'Temporaire':
+        if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_fin', None):
                 submission_deadline = datetime.strptime(line['date_de_fin'], '%Y-%m-%d').date()
                 return submission_deadline
