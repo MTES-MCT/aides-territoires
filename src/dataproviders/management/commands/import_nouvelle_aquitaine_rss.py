@@ -107,6 +107,9 @@ class Command(CrawlerImportCommand):
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
 
+    def extract_import_raw_object(self, line):
+        return line
+
     def extract_name(self, line):
         title = line['title'][:180]
         return title
