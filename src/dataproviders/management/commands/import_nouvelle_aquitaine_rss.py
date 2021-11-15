@@ -158,7 +158,7 @@ class Command(CrawlerImportCommand):
 
     def extract_submission_deadline(self, line):
         if line['date_de_fin_de_publication']:
-            locale.setlocale(locale.LC_TIME, 'en_US.UTF-8'')
+            locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
             submission_deadline_format = '%d %B %Y'
             submission_deadline = datetime.strptime(line['date_de_fin_de_publication'], submission_deadline_format)
             return submission_deadline
