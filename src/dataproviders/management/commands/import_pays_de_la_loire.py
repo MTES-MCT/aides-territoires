@@ -59,6 +59,10 @@ SOURCE_COLUMN_NAME = 'Sous-thématique Pays de la Loire'
 AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2']
 CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
+SOURCE_COLUMN_NAME = 'Thématique Pays de la Loire'
+AT_COLUMN_NAMES = ['Thématique AT 1']
+THEMATIQUES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+
 CALL_FOR_PROJECT_LIST = [
     'Appel à projets',
     'Appel à manifestations d\'intérêt'
@@ -223,12 +227,17 @@ class Command(BaseImportCommand):
         Split the string, loop on the values and match to our Categories
         """
         categories = line.get('ss_thematique_libelle', '').split(';')
+        thematiques = line.get('thematique_libelle', '').split(';')
+        title = line['aide_nom'][:180]
         aid_categories = []
-        for category in categories:
-            if category in CATEGORIES_DICT:
-                aid_categories.extend(CATEGORIES_DICT.get(category, []))
-            else:
-                self.stdout.write(self.style.ERROR(f"\"{line.get('thematique_libelle', '')}\";{category}"))
+        if categories != ['']:
+            for category in categories:
+                if category in CATEGORIES_DICT:
+                    aid_categories.extend(CATEGORIES_DICT.get(category, []))
+                else:
+                    self.stdout.write(self.style.ERROR(f"\"{line.get('thematique_libelle', '')}\";{category}"))
+        else:
+            print(f"{title} - {thematiques}")
         return aid_categories
 
     def extract_contact(self, line):
