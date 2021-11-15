@@ -27,7 +27,7 @@ AUDIENCES_DICT = {}
 AUDIENCES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_audiences_mapping.csv'
 SOURCE_COLUMN_NAME = 'Bénéficiaires Nouvelle-Aquitaine'
 AT_COLUMN_NAMES = ['Bénéficiaires AT 1', 'Bénéficiaires AT 2', 'Bénéficiaires AT 3', 'Bénéficiaires AT 4']
-with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
+with open(AUDIENCES_MAPPING_CSV_PATH, 'r+', encoding='utf-8') as csv_file:
     csvreader = csv.DictReader(csv_file, delimiter=",")
     for index, row in enumerate(csvreader):
         if row[AT_COLUMN_NAMES[0]]:
@@ -41,7 +41,7 @@ CATEGORIES_DICT = {}
 CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/nouvelle_aquitaine_rss_categories_mapping.csv'
 SOURCE_COLUMN_NAME = 'Thématique Nouvelle-Aquitaine'
 AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2', 'Sous-thématique AT 3']
-with open(CATEGORIES_MAPPING_CSV_PATH) as csv_file:
+with open(CATEGORIES_MAPPING_CSV_PATH, 'r+', encoding='utf-8') as csv_file:
     csvreader = csv.DictReader(csv_file, delimiter=",")
     for index, row in enumerate(csvreader):
         if row[AT_COLUMN_NAMES[0]]:
