@@ -109,10 +109,6 @@ class Command(BaseImportCommand):
     def line_should_be_processed(self, line):
         return True
 
-    def author_is_informed(self, line):
-        author_notification = False
-        return author_notification
-
     def extract_import_data_source(self, line):
         return DATA_SOURCE
 

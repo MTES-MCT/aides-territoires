@@ -135,7 +135,8 @@ class BaseImportCommand(BaseCommand):
         fields = form_fields + more_fields
 
         values = {
-            'is_imported': True
+            'is_imported': True,
+            'author_notification': False
         }
         for field in fields:
             extract_method_name = 'extract_{}'.format(field)
