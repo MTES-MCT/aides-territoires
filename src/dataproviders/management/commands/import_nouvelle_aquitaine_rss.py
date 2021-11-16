@@ -149,13 +149,6 @@ class Command(CrawlerImportCommand):
     def extract_is_call_for_project(self, line):
         return line['is_call_for_project']
 
-    def extract_date_published(self, line):
-        """Example: Thu, 19 Dec 19 13:49:51 +0100"""
-        locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
-        date_published_format = '%a, %d %b %y %H:%M:%S %z'
-        date_published = datetime.strptime(line['pub_date'], date_published_format)
-        return date_published
-
     def extract_submission_deadline(self, line):
         if line['date_de_fin_de_publication']:
             locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
