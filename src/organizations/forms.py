@@ -64,7 +64,7 @@ class OrganizationUpdateForm(forms.ModelForm):
 
     siret_code = forms.IntegerField(
         label='Code SIRET',
-        help_text='Constitué de 14 chiffres',
+        help_text='Constitué de 9 chiffres',
         required=False)
     siren_code = forms.IntegerField(
         label='Code SIREN',
