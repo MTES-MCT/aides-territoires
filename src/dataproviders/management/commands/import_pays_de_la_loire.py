@@ -109,6 +109,10 @@ class Command(BaseImportCommand):
     def line_should_be_processed(self, line):
         return True
 
+    def author_is_informed(self, line):
+        author_notification = False
+        return author_notification
+
     def extract_import_data_source(self, line):
         return DATA_SOURCE
 
@@ -156,14 +160,9 @@ class Command(BaseImportCommand):
     def extract_perimeter(self, line):
         return DATA_SOURCE.perimeter
 
-    # def extract_origin_url(self, line):
-    #     """
-    #     The origin url is not provided.
-    #     We construct it, but there may be some errors.
-    #     """
-    #     aid_name = line['aide_nom'].replace(' à ', ' ').replace(' À ', ' ')
-    #     aid_slug = slugify(aid_name)
-    #     return 'https://www.paysdelaloire.fr/les-aides/' + aid_slug
+    def extract_origin_url(self, line):
+        origin_url = line.get('source_info', '')
+        return origin_url
 
     def extract_application_url(self, line):
         application_url = line.get('source_lien', '')
@@ -209,14 +208,14 @@ class Command(BaseImportCommand):
     def extract_start_date(self, line):
         if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_debut', None):
-                start_date = datetime.strptime(line['date_de_debut'], '%Y-%m-%d')
+                start_date = datetime.strptime(line['date_de_debut'], '%d/%m/%Y')
                 return start_date
         return None
 
     def extract_submission_deadline(self, line):
         if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_fin', None):
-                submission_deadline = datetime.strptime(line['date_de_fin'], '%Y-%m-%d').date()
+                submission_deadline = datetime.strptime(line['date_de_fin'], '%d/%m/%Y').date()
                 return submission_deadline
         return None
 
