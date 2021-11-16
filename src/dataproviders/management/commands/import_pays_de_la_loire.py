@@ -133,6 +133,11 @@ class Command(BaseImportCommand):
         # title = line['aid_objet_court'][:180]
         return title
 
+    def extract_name_initial(self, line):
+        name_initial = line['aide_nom'][:180]
+        # title = line['aid_objet_court'][:180]
+        return name_initial
+
     def extract_description(self, line):
         # desc_1 & desc_2 already have <p></p> tags
         desc_1 = content_prettify(line.get('aid_objet', ''))

@@ -212,6 +212,8 @@ class BaseImportCommand(BaseCommand):
     def extract_in_france_relance(self, line):
         return False
 
+    def extract_name_initial(self, line):
+        return ''
 
 class CrawlerImportCommand(BaseImportCommand):
     """An import task that uses a crawler to fetch data."""
