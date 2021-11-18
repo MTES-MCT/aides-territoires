@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify
+from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
@@ -51,8 +51,17 @@ with open(TYPES_MAPPING_CSV_PATH) as csv_file:
             TYPES_DICT[row[SOURCE_COLUMN_NAME]] = []
             for column in AT_COLUMN_NAMES:
                 if row[column]:
-                    audience = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
-                    TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
+                    types = next(choice[0] for choice in Aid.TYPES if choice[1] == row[column])
+                    TYPES_DICT[row[SOURCE_COLUMN_NAME]].append(types)
+
+CATEGORIES_MAPPING_CSV_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../data/pays_de_la_loire_categories_mapping.csv'
+SOURCE_COLUMN_NAME = 'Sous-thématique Pays de la Loire'
+AT_COLUMN_NAMES = ['Sous-thématique AT 1', 'Sous-thématique AT 2']
+CATEGORIES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
+
+SOURCE_COLUMN_NAME = 'Thématique Pays de la Loire'
+AT_COLUMN_NAMES = ['Thématique AT 1']
+THEMATIQUES_DICT = mapping_categories(CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES)
 
 CALL_FOR_PROJECT_LIST = [
     'Appel à projets',
@@ -66,7 +75,8 @@ RECURRENCE_DICT = {
 
 
 class Command(BaseImportCommand):
-    """Import data from the Pays de la Loire Open Data plateform.
+    """
+    Import data from the Pays de la Loire Open Data plateform.
     ~300 aids as of November 2020
     """
 
@@ -115,10 +125,18 @@ class Command(BaseImportCommand):
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
 
+    def extract_import_raw_object(self, line):
+        return line
+
     def extract_name(self, line):
         title = line['aide_nom'][:180]
         # title = line['aid_objet_court'][:180]
         return title
+
+    def extract_name_initial(self, line):
+        name_initial = line['aide_nom'][:180]
+        # title = line['aid_objet_court'][:180]
+        return name_initial
 
     def extract_description(self, line):
         # desc_1 & desc_2 already have <p></p> tags
@@ -138,14 +156,9 @@ class Command(BaseImportCommand):
     def extract_perimeter(self, line):
         return DATA_SOURCE.perimeter
 
-    # def extract_origin_url(self, line):
-    #     """
-    #     The origin url is not provided.
-    #     We construct it, but there may be some errors.
-    #     """
-    #     aid_name = line['aide_nom'].replace(' à ', ' ').replace(' À ', ' ')
-    #     aid_slug = slugify(aid_name)
-    #     return 'https://www.paysdelaloire.fr/les-aides/' + aid_slug
+    def extract_origin_url(self, line):
+        origin_url = line.get('source_info', '')
+        return origin_url
 
     def extract_application_url(self, line):
         application_url = line.get('source_lien', '')
@@ -189,16 +202,16 @@ class Command(BaseImportCommand):
         return None
 
     def extract_start_date(self, line):
-        if line['temporalite'] == 'Temporaire':
+        if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_debut', None):
-                start_date = datetime.strptime(line['date_de_debut'], '%Y-%m-%d')
+                start_date = datetime.strptime(line['date_de_debut'], '%d/%m/%Y')
                 return start_date
         return None
 
     def extract_submission_deadline(self, line):
-        if line['temporalite'] == 'Temporaire':
+        if line.get('temporalite', None) == 'Temporaire':
             if line.get('date_de_fin', None):
-                submission_deadline = datetime.strptime(line['date_de_fin'], '%Y-%m-%d').date()
+                submission_deadline = datetime.strptime(line['date_de_fin'], '%d/%m/%Y').date()
                 return submission_deadline
         return None
 
@@ -207,6 +220,25 @@ class Command(BaseImportCommand):
     #     montant_max = line.get('montant_interv_max', '-')
     #     subvention_comment = 'montantintervmini / montant_interv_max' + ' : ' + str(montant_min) + ' / ' + str(montant_max)
     #     return subvention_comment
+
+    def extract_categories(self, line):
+        """
+        Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
+        Split the string, loop on the values and match to our Categories
+        """
+        categories = line.get('ss_thematique_libelle', '').split(';')
+        thematiques = line.get('thematique_libelle', '').split(';')
+        title = line['aide_nom'][:180]
+        aid_categories = []
+        if categories != ['']:
+            for category in categories:
+                if category in CATEGORIES_DICT:
+                    aid_categories.extend(CATEGORIES_DICT.get(category, []))
+                else:
+                    self.stdout.write(self.style.ERROR(f"\"{line.get('thematique_libelle', '')}\";{category}"))
+        else:
+            print(f"{title} - {thematiques}")
+        return aid_categories
 
     def extract_contact(self, line):
         direction = line.get('direction', '')

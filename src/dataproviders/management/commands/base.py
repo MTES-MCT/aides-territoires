@@ -135,7 +135,8 @@ class BaseImportCommand(BaseCommand):
         fields = form_fields + more_fields
 
         values = {
-            'is_imported': True
+            'is_imported': True,
+            'author_notification': False
         }
         for field in fields:
             extract_method_name = 'extract_{}'.format(field)
@@ -212,6 +213,8 @@ class BaseImportCommand(BaseCommand):
     def extract_in_france_relance(self, line):
         return False
 
+    def extract_name_initial(self, line):
+        return ''
 
 class CrawlerImportCommand(BaseImportCommand):
     """An import task that uses a crawler to fetch data."""
