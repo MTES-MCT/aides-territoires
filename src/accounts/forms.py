@@ -137,7 +137,6 @@ class ContributorProfileForm(forms.ModelForm):
 
         return data
 
-
     def _post_clean(self):
         super()._post_clean()
         # Validate the password after self.instance is updated with form data by super().
@@ -172,7 +171,7 @@ class InviteCollaboratorForm(forms.ModelForm):
     email = forms.EmailField(
         label='Son adresse e-mail',
         required=True,
-        error_messages={'unique': 'Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires.'})
+        error_messages={'unique': 'Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires.'})  # noqa
 
     class Meta:
         model = User

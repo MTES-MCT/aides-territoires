@@ -79,7 +79,8 @@ def send_welcome_email(user_email):
 
 
 @app.task
-def send_invitation_email(user_email, invitator_name, organization_name, body_template='emails/invite_login_token.txt'):
+def send_invitation_email(user_email, invitator_name, organization_name,
+                          body_template='emails/invite_login_token.txt'):
     """Send a login email to the user invited.
 
     The email contains a token that can be used once to login.

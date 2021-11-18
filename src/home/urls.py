@@ -1,6 +1,5 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from django.utils.translation import gettext_lazy as _
 
 from home.views import (HomeView, ContactView,
                         NewsletterConfirmView, NewsletterSuccessView,
@@ -11,8 +10,8 @@ urlpatterns = [
 
     path('contact/', ContactView.as_view(), name='contact'),
     path('mentions-légales/',
-        TemplateView.as_view(template_name='home/legal_mentions.html'),
-        name='legal_mentions'),
+         TemplateView.as_view(template_name='home/legal_mentions.html'),
+         name='legal_mentions'),
 
     path('inscription-newsletter-a-confirmer/',
          NewsletterConfirmView.as_view(),
