@@ -7,11 +7,6 @@
                 <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif%}">
                     <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
                 </li>
-                {% if user.is_beneficiary %}
-                <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif%}">
-                    <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
-                </li>
-                {% endif %}
                 {% if user.is_contributor %}
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" {% if publish_aid %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
@@ -26,6 +21,11 @@
                         </ul>
                     </div>
                 </li>
+               {% endif %}
+               {% if user.is_beneficiary %}
+               <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif%}">
+                   <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
+               </li>
                {% endif %}
                {% if user.search_pages.count %}
                 <li class="fr-sidemenu__item ">
