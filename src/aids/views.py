@@ -602,7 +602,7 @@ class GenericToLocalAidView(ContributorAndProfileCompleteRequiredMixin,
         new_aid.save()
 
         self.new_aid = new_aid
-        msg = "Cette aide à été dupliquée"
+        msg = "Cette aide a été dupliquée"
         self.messages.success(msg)
         return super().post(request, *args, **kwargs)
 
