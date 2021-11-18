@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load aids i18n compress %}
 
-{% block extratitle %}{{ _('My portfolio') }}{% endblock %}
+{% block extratitle %}Mon portefeuille d'aides{% endblock %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -13,7 +13,10 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">{{ _('My portfolio') }}</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon portefeuille d'aides</a>
                 </li>
             </ol>
         </div>
