@@ -40,7 +40,7 @@ class Organization(models.Model):
     siren_code = models.BigIntegerField(
         'Code SIREN',
         null=True, blank=True)
-    siret_code = models.PositiveIntegerField(
+    siret_code = models.BigIntegerField(
         'Code SIRET',
         null=True, blank=True)
     ape_code = models.CharField(
