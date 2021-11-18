@@ -5,7 +5,6 @@ from django.urls import reverse
 
 from stats.models import (AidContactClickEvent, AidEligibilityTestEvent)
 from aids.factories import AidFactory
-from projects.factories import ProjectFactory
 from eligibility.factories import (EligibilityTestFactory,
                                    EligibilityQuestionFactory)
 
