@@ -37,7 +37,7 @@ class Organization(models.Model):
         'Code postal',
         null=True, blank=True)
 
-    siren_code = models.PositiveIntegerField(
+    siren_code = models.BigIntegerField(
         'Code SIREN',
         null=True, blank=True)
     siret_code = models.PositiveIntegerField(
