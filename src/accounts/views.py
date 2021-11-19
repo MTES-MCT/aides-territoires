@@ -239,7 +239,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
         return self.render_to_response(self.get_context_data(form=form, error_mail=error, users=users))  # noqa
 
 
-class CollaboratorsList(ListView):
+class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     """List of all the collaborators of an user"""
 
     template_name = 'accounts/collaborators.html'
