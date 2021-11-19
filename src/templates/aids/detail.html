@@ -491,7 +491,9 @@
                             </div>
                         {% endif %}
 
+                        {% if user.is_contributor %}
                         {% include 'aids/_generic_to_local.html' %}
+                        {% endif %}
 
                     {% endwith %}
                     {% endif %}

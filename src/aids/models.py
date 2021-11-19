@@ -718,9 +718,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         Clones the many-to-many fields for the the given source aid.
         """
         m2m_fields = self._meta.many_to_many
+        projects_field = self._meta.get_field('projects')
+
         for field in m2m_fields:
-            for item in field.value_from_object(source_aid):
-                getattr(self, field.attname).add(item)
+            if field != projects_field:
+                for item in field.value_from_object(source_aid):
+                    getattr(self, field.attname).add(item)
         self.save()
 
 
