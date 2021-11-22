@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django.utils.html import format_html
+from django.urls import reverse
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
@@ -27,11 +29,37 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     fields = [
         'name', 'slug', 'description',
-        'key_words', 'author', 'organizations', 'due_date', 'date_created',
+        'key_words', 'author', 'organizations',
+        'nb_aids_associated', 'display_related_aids',
+        'due_date', 'date_created',
     ]
     search_fields = ['name']
-    readonly_fields = ['date_created']
+    readonly_fields = ['date_created', 'nb_aids_associated', 'display_related_aids']
     autocomplete_fields = ['organizations', 'author']
+
+
+    def display_related_aids(self, obj):
+        related_aid_html = format_html('<table> \
+            <thead><tr> \
+            <th>Aide</th> \
+            </tr></thead> \
+            <tbody>')
+        for aid in obj.aid_set.all():
+            url = reverse("admin:aids_aid_change", args=(aid.pk,))
+            related_aid_html += format_html(
+                '<tr><td><a href="{url}">{name} (ID : {id})</a></td> \
+                </tr>',
+                url=url,
+                name=aid.name,
+                id=aid.pk,
+            )
+        related_aid_html += format_html('</tbody></table>')
+        return related_aid_html
+    display_related_aids.short_description = 'Aides associées'
+
+    def nb_aids_associated(self, obj):
+        return obj.aid_set.count()
+    nb_aids_associated.short_description = "Nombre d'aides associées"
 
     class Media:
         css = {
