@@ -103,3 +103,22 @@
 
     </div>
 {% endblock %}
+
+{% block form-actions %}
+<div class="fr-grid-row actions-row">
+    <div class="fr-col-12 fr-col-md-3 fr-mt-2w">
+        <select name="order_by" id="id_order_by">
+            <option hidden>Trier par&nbsp;: </option>
+            {% for option in form.order_by%}
+            {{ option }}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="fr-col-md-3 fr-col-offset-md-6 fr-grid-row fr-grid-row--right fr-mt-2w">
+        <button name="action" value="search-filter" class="search-btn fr-btn" type="submit">
+            <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
+            Filtrer les résultats
+        </button>
+    </div>
+</div>
+{% endblock %}
