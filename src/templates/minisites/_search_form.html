@@ -6,11 +6,15 @@
     {{ form.themes.as_hidden }}
     {{ form.aid_types.as_hidden }}
     {{ form.call_for_projects_only.as_hidden }}
-    {{ form.text.as_hidden }}
 
     {% comment %}
         Those fields can be displayed or hidden in admin.
     {% endcomment %}
+
+    {% if not search_page.show_text_field %}
+        {{ form.text.as_hidden }}
+    {% endif %}
+
     {% if not search_page.show_perimeter_field %}
         {{ form.perimeter.as_hidden }}
     {% endif %}
@@ -89,6 +93,12 @@
             <div class="fr-col-12 fr-col-md-4">
                 {% include '_field_snippet.html' with field=form.aid_type %}
             </div>
+        {% endif %}
+
+        {% if search_page.show_text_field %}
+        <div class="fr-col-12 fr-col-md-4">
+            {% include '_field_snippet.html' with field=form.text %}
+        </div>
         {% endif %}
 
     </div>
