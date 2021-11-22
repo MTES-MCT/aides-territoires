@@ -1,13 +1,30 @@
 from django.contrib import admin
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 from organizations.models import Organization
+from aids.constants import AUDIENCES_ALL
+
+
+class OrganizationTypeListFilter(admin.SimpleListFilter):
+    """Custom admin filter to target organizations with various types."""
+
+    title = "Type d'organisation"
+    parameter_name = 'organization_type'
+
+    def lookups(self, request, model_admin):
+        return AUDIENCES_ALL
+
+    def queryset(self, request, queryset):
+        lookup_value = self.value()
+        if lookup_value:
+            queryset = queryset.filter(organization_type__contains=[lookup_value])
+        return queryset
 
 
 class OrganizationAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'date_created']
     search_fields = ['name']
-    list_filter = ['name']
+    list_filter = [OrganizationTypeListFilter]
     autocomplete_fields = ['beneficiaries',
                            'perimeter', 'projects']
 
