@@ -32,6 +32,18 @@
                     </header>
 
                     <div class="content fr-mb-5w">
+                        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
+                            <p>
+                                <strong>
+                                    Toute demande relative à un projet spécifique ne pourra être traitée car nous n'avons pas vocation à conseiller directement les porteurs de projets.
+                                </strong> 
+                            </p>
+                            <p>
+                                <strong>
+                                    Merci de contacter si besoin directement les porteurs d'aides, dont vous trouverez les contacts en bas de chaque fiche aide.
+                                </strong>
+                            </p>
+                        </div>            
                         {% csrf_token %}
                         <fieldset>
                             {% include '_field_snippet.html' with field=form.first_name %}
@@ -50,14 +62,10 @@
                         </fieldset>
                     </div>
 
-                    <p class="info fr-background-alt-pink fr-p-2w">
-                        <span class="fas fa-check"></span>
-                        {% url 'legal_mentions' as legal_mentions_url %}
-                        {% blocktrans trimmed %}
-                        By using this feature, you acknowledge that your data will
-                        be processed <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">
-                            according to our privacy policy</a>.
-                        {% endblocktrans %}
+                    {% url 'legal_mentions' as legal_mentions_url %}
+                    <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
+                        <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
+                        En utilsant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
                     </p>
 
                     <footer>
