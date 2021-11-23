@@ -16,6 +16,8 @@ from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileF
                             InviteCollaboratorForm, CompleteProfileForm)
 from accounts.tasks import send_connection_email, send_invitation_email, send_welcome_email
 from accounts.models import User
+from projects.models import Project
+from aids.models import Aid
 from organizations.models import Organization
 from organizations.forms import OrganizationCreateForm
 from analytics.utils import track_goal
@@ -152,7 +154,13 @@ class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
-        context['form'] = InviteCollaboratorForm
+        if self.request.user.beneficiary_organization is not None:
+            context['collaborators_number'] = User.objects \
+                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
+                .exclude(pk=self.request.user.pk).count()
+            context['projects_number'] = Project.objects \
+                .filter(organizations=self.request.user.beneficiary_organization.pk).count()
+        context['aids_number'] = Aid.objects.filter(author=self.request.user.pk).count()
         return context
 
 

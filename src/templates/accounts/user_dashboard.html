@@ -35,17 +35,44 @@
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Bienvenue sur votre compte Aides-territoires {{ user.full_name }}&nbsp;!</h1>
             <p>Depuis votre compte utilisateur, gérez vos projets, vos aides, ou les informations liées à votre structure.</p>
-            <ul class="fr-ml-5w">
-                {% if user.is_beneficiary %}
-                <li><a href="{% url 'project_list_view' %}">gérer mes projets</a></li>
-                {% endif %}
+            <div class="fr-ml-5w fr-grid-row fr-grid-row--gutters fr-mt-5w">
                 {% if user.is_contributor %}
-                <li><a href="{% url 'aid_draft_list_view' %}">diffuser mes aides</a></li>
+                <div class="fr-col-6 fr-col-md-4 fr-col-lg-4">
+                    <div class="fr-tile fr-enlarge-link">
+                        <div class="fr-tile__body">
+                            <h4 class="fr-tile__title">
+                                <a class="fr-tile__link" href="{% url 'aid_draft_list_view' %}">Diffuser mes aides</a>
+                            </h4>
+                            <p class="fr-tile__desc fr-h4 fr-pb-2w">{{ aids_number }}</p>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
                 {% if user.is_beneficiary %}
-                <li><a href="{% url 'collaborators' %}">inviter des collaborateurs</a></li>
+                <div class="fr-col-6 fr-col-md-4 fr-col-lg-4">
+                    <div class="fr-tile fr-enlarge-link">
+                        <div class="fr-tile__body">
+                            <h4 class="fr-tile__title">
+                                <a class="fr-tile__link" href="{% url 'project_list_view' %}">Gérer mes projets</a>
+                            </h4>
+                            <p class="fr-tile__desc fr-h4 fr-pb-2w">{{ projects_number }}</p>
+                        </div>
+                    </div>    
+                </div>
                 {% endif %}
-            </ul>
+                {% if user.is_beneficiary %}
+                <div class="fr-col-6 fr-col-md-4 fr-col-lg-4">
+                    <div class="fr-tile fr-enlarge-link">
+                        <div class="fr-tile__body">
+                            <h4 class="fr-tile__title">
+                                <a class="fr-tile__link" href="{% url 'collaborators' %}">Inviter des collaborateurs</a>
+                            </h4>
+                            <p class="fr-tile__desc fr-h4 fr-pb-2w">{{ collaborators_number }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
