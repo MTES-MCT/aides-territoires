@@ -197,6 +197,8 @@ class SubscribeNewsletter(View):
         response = requests.request("PUT", url, json=payload, headers=headers)
 
         redirect_url = reverse('alert_list_view')
+        msg = 'Vous êtes maintenant inscrit(e) à la newsletter Aides-territoires.'
+        messages.success(self.request, msg)
         return HttpResponseRedirect(redirect_url)
 
 
