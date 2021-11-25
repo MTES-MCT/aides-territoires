@@ -170,6 +170,34 @@ class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView)
     template_name = 'accounts/user_api_token.html'
 
 
+class SubscribeNewsletter(View):
+
+    def get(self, request):
+        '''
+        Here we want to allow user to unsubscribe to the newsletter.
+        '''
+        SIB_NEWSLETTER_ID = settings.SIB_NEWSLETTER_ID.split(', ')
+        SIB_NEWSLETTER_ID = [int(i) for i in SIB_NEWSLETTER_ID]
+
+        user_email = self.request.user.email
+
+        url = "https://api.sendinblue.com/v3/contacts/" + user_email
+
+        payload = {"listIds": SIB_NEWSLETTER_ID}
+
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "api-key": settings.SIB_API_KEY
+        }
+
+        response = requests.request("PUT", url, json=payload, headers=headers)
+
+        redirect_url = reverse('alert_list_view')
+        return HttpResponseRedirect(redirect_url)
+
+
+
 class UnSubscribeNewsletter(View):
 
     def get(self, request):
