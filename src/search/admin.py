@@ -102,6 +102,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.extend([
             'show_mobilization_step_field',
             'show_aid_type_field',
             'show_backers_field',
+            'show_text_field'
         )
     }),
 ])

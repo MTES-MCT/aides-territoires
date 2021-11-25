@@ -234,7 +234,7 @@ class SearchPageAdminForm(forms.ModelForm):
         search_fields = [
             'show_perimeter_field', 'show_audience_field',
             'show_categories_field', 'show_mobilization_step_field',
-            'show_aid_type_field', 'show_backers_field',
+            'show_aid_type_field', 'show_backers_field', 'show_text_field',
         ]
 
         # If there is no form customization fields, then we don't

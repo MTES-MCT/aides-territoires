@@ -6,11 +6,15 @@
     {{ form.themes.as_hidden }}
     {{ form.aid_types.as_hidden }}
     {{ form.call_for_projects_only.as_hidden }}
-    {{ form.text.as_hidden }}
 
     {% comment %}
         Those fields can be displayed or hidden in admin.
     {% endcomment %}
+
+    {% if not search_page.show_text_field %}
+        {{ form.text.as_hidden }}
+    {% endif %}
+
     {% if not search_page.show_perimeter_field %}
         {{ form.perimeter.as_hidden }}
     {% endif %}
@@ -91,5 +95,30 @@
             </div>
         {% endif %}
 
+        {% if search_page.show_text_field %}
+        <div class="fr-col-12 fr-col-md-4">
+            {% include '_field_snippet.html' with field=form.text %}
+        </div>
+        {% endif %}
+
     </div>
+{% endblock %}
+
+{% block form-actions %}
+<div class="fr-grid-row actions-row">
+    <div class="fr-col-12 fr-col-md-3 fr-mt-2w">
+        <select name="order_by" id="id_order_by">
+            <option hidden>Trier par&nbsp;: </option>
+            {% for option in form.order_by%}
+            {{ option }}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="fr-col-md-3 fr-col-offset-md-6 fr-grid-row fr-grid-row--right fr-mt-2w">
+        <button name="action" value="search-filter" class="search-btn fr-btn" type="submit">
+            <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
+            Filtrer les résultats
+        </button>
+    </div>
+</div>
 {% endblock %}

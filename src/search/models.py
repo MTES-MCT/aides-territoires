@@ -192,6 +192,9 @@ class SearchPage(models.Model):
     show_mobilization_step_field = models.BooleanField(
         'Montrer le champ « avancement du projet » ?',
         default=False)
+    show_text_field = models.BooleanField(
+        'Montrer le champ « recherche textuelle » ?',
+        default=False)
     show_aid_type_field = models.BooleanField(
         "Montrer le champ « nature de l'aide » ?",
         default=False)
