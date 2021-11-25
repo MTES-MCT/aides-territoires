@@ -183,7 +183,10 @@ class SubscribeNewsletter(View):
 
         url = "https://api.sendinblue.com/v3/contacts/" + user_email
 
-        payload = {"listIds": SIB_NEWSLETTER_ID}
+        payload = {
+            "listIds": SIB_NEWSLETTER_ID,
+            "attributes": {"DOUBLE-OPT-IN": "1"}
+        }
 
         headers = {
             "Accept": "application/json",
