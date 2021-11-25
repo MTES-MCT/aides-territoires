@@ -424,7 +424,8 @@ class AidDraftListView(ContributorAndProfileCompleteRequiredMixin,
         context = super().get_context_data(**kwargs)
         context['filter_form'] = DraftListAidFilterForm(self.request.GET)
         context['ordering'] = self.get_ordering()
-        aid_ids = context['aids'].values_list('id', flat=True)
+        aid_ids = Aid.objects \
+            .filter(author=self.request.user.id).values_list('id', flat=True)
 
         events = AidViewEvent.objects.filter(aid_id__in=aid_ids)
 
