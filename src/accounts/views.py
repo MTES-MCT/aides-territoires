@@ -197,7 +197,6 @@ class SubscribeNewsletter(View):
         return HttpResponseRedirect(redirect_url)
 
 
-
 class UnSubscribeNewsletter(View):
 
     def get(self, request):
