@@ -81,6 +81,14 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
                 </li>
+                {% if user.is_superuser %}
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="{% url 'admin:index' %}" target="_self" rel="noopener">
+                        <span class="fr-fi-lock-fill fr-mr-1w" aria-hidden="true"></span>
+                        Admin AT
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
