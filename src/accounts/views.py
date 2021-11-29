@@ -196,9 +196,14 @@ class SubscribeNewsletter(View):
 
         response = requests.request("PUT", url, json=payload, headers=headers)
 
+        if response and response.status_code == 204:
+            msg = 'Vous êtes maintenant inscrit(e) à la newsletter Aides-territoires.'
+            messages.success(self.request, msg)
+        else:
+            msg = "Une erreur s'est produite lors de votre inscription à la newsletter"
+            messages.error(self.request, msg)
+
         redirect_url = reverse('alert_list_view')
-        msg = 'Vous êtes maintenant inscrit(e) à la newsletter Aides-territoires.'
-        messages.success(self.request, msg)
         return HttpResponseRedirect(redirect_url)
 
 
