@@ -21,6 +21,14 @@
     <div class="actions fr-container fr-grid-row fr-grid-row--center fr-mb-5w fr-grid-row--gutters">
         <div class="sidebar-actions fr-col-12 fr-col-md-4">
             <p class="fr-h3 fr-mt-1w">{{ aid.get_status_display }}</p>
+
+            {% comment %}
+            This hidden button is here to make it the "default" submit button.
+            This way, we make sure pressing "enter" performs a "save modifications"
+            instead of going to the "unpublished" button.
+            {% endcomment %}
+            <button type="submit" value="save" name="_action" class="hidden-btn" form="aid-edit-form">Enregistrer vos modifications</button>
+            
             <div>
                 {% if aid.is_draft %}
                     <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
@@ -96,7 +104,7 @@
 {% block form_actions %}
 <div class="form-actions fr-grid-row fr-grid-row--gutters fr-my-5w fr-py-5w fr-background-main">
     <div class="submit-buttons fr-col-md-8">
-        <button type="submit" value="save" class="fr-btn fr-mb-2w">Enregistrer vos modifications</button>
+        <button type="submit" value="save" name="_action" class="fr-btn fr-mb-2w">Enregistrer vos modifications</button>
         <button class="fr-btn fr-mb-2w" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
     </div>
     <div class="fr-col-md-4 fr-grid-row fr-grid-row--right">
