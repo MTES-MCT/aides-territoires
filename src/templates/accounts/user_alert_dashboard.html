@@ -41,12 +41,21 @@
             <div class="fr-mb-5w">
                 <h2 class="fr-h4">Newsletter</h2>
                 {% if isUserSubscriber %}
-                <p>Vous êtes abonné à la newsletter.</p>
+                <p>Vous êtes abonné(e) à la newsletter.</p>
                 <a href="{% url 'unsubscribe_nawsletter' %}" class="fr-btn fr-mb-5w">
                     Se désabonner
                 </a>
                 {% else %}
-                <a class="fr-btn fr-mb-5w" href="{% mailing_list_url %}" title="S‘abonner à notre lettre d’information">S'abonner</a>
+                <div class="fr-grid-row fr-grid-row--middle">
+                    <div class="fr-col-12 fr-col-md-2 fr-col-lg-2">
+                        <a class="fr-btn fr-mb-1w" href="{% url 'subscribe_nawsletter' %}" title="S‘abonner à notre newsletter">
+                            S'abonner
+                        </a>    
+                    </div>
+                    <div class="fr-col-12 fr-col-md-6 fr-col-lg-6">
+                        <p id="fr-newsletter-hint-text" class="fr-hint-text">En vous abonnant, vous acceptez de recevoir nos actualités par courriel. Vous pouvez vous désinscrire à tout moment à l’aide des liens de désinscription ou en nous contactant.</p>
+                    </div>
+                </div>
                 {% endif %}
             </div>
             
