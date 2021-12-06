@@ -9,7 +9,7 @@
                         <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifiés des nouvelles aides correspondant à votre recherche</h1>
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche</h1>
 
                         <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
                             <section>
@@ -37,13 +37,13 @@
                                     <p class="info fr-background-alt-pink fr-p-2w">
                                         <span class="fas fa-check"></span>
                                         {% url 'legal_mentions' as legal_mentions_url %}
-                                        En créant un compte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
+                                        En créant une alerte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
                                     </p>
                                 </div>
 
                                 <footer>
                                     <button class="btn-block fr-btn" type="submit">
-                                        {{ _('Create an alert') }}
+                                       Créer une alerte
                                     </button>
                                 </footer>
                             </section>
