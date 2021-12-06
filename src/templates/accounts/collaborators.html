@@ -36,7 +36,15 @@
         {% include 'accounts/_sidebar_menu.html' with structure=True structure_collab=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3">Mes collaborateurs</h1>
+            <div class="fr-grid-row fr-grid-row--middle">
+                <h1 class="fr-h3 fr-col">Mes collaborateurs</h1>
+                <div class="fr-col">
+                    <button class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left" id="help-collaborators-modal-btn" data-fr-opened="false" aria-controls="help-collaborators-modal">
+                        Aide
+                    </button>
+                </div>
+            </div>
+
             <button class="fr-btn fr-my-5w" data-fr-opened='{% if error_mail %}true{% endif %}' aria-controls="invite-collaborator-modal">
                Ajouter un collaborateur
             </button>
@@ -94,4 +102,5 @@
 
 {% block modals %}
     {% include 'accounts/_invite_collaborator_modal.html' %}
+    {% include 'accounts/_help_collaborators_modal.html' %}
 {% endblock %}
