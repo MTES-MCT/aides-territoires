@@ -36,14 +36,12 @@
         {% include 'accounts/_sidebar_menu.html' with structure=True structure_collab=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <div class="fr-grid-row fr-grid-row--middle">
-                <h1 class="fr-h3 fr-col">Mes collaborateurs</h1>
-                <div class="fr-col">
-                    <button class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left" id="help-collaborators-modal-btn" data-fr-opened="false" aria-controls="help-collaborators-modal">
-                        Aide
+                <h1 class="fr-h3 fr-col">
+                    Mes collaborateurs
+                    <button class="fr-m-1w fr-tag _fr-tag--md fr-text--sd fr-fi-information-line _fr-tag--icon-left" id="help-collaborators-modal-btn" data-fr-opened="false" aria-controls="help-collaborators-modal">
+                        <span class="fr-ml-1w">Aide</span>
                     </button>
-                </div>
-            </div>
+                </h1>
 
             <button class="fr-btn fr-my-5w" data-fr-opened='{% if error_mail %}true{% endif %}' aria-controls="invite-collaborator-modal">
                Ajouter un collaborateur
