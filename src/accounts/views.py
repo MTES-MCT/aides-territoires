@@ -41,26 +41,9 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         self.request.session['USER_NAME'] = user_first_name + ' ' + user_last_name
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        """Handle invalid data provided.
-
-        If the **only** error is that the provided email is already
-        associated to an account, instead of displaying a "this user
-        already exists" error, we do as if the registration proceeded
-        normally and we send a connection link.
-        """
-        if len(form.errors) == 1 and \
-           len(form['email'].errors) == 1 and \
-           form['email'].errors.as_data()[0].code == 'unique':
-            redirect_url = reverse('register_success')
-            return HttpResponseRedirect(redirect_url)
-        else:
-            return super().form_invalid(form)
-
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
-        context['organization_form'] = OrganizationCreateForm
         return context
 
 

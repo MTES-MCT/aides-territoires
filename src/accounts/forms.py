@@ -2,11 +2,28 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
 
+from model_utils import Choices
+
 from accounts.models import User
 
 
 class RegisterForm(UserCreationForm):
     """Form used to create new user accounts."""
+
+    ORGANIZATION_TYPE = Choices(
+        ('farmer', 'Agriculteur'),
+        ('association', 'Association'),
+        ('special', "Collectivité d'outre-mer à statuts particuliers"),
+        ('commune', 'Commune'),
+        ('department', 'Département'),
+        ('private_sector', 'Entreprise privée'),
+        ('public_cies', "Entreprise publique locale (Sem, Spl, SemOp)"),
+        ('epci', 'EPCI à fiscalité propre'),
+        ('public_org', "Établissement public (école, bibliothèque…) / Service de l'État"),
+        ('private_person', 'Particulier'),
+        ('region', 'Région'),
+        ('researcher', 'Recherche'),
+    )
 
     first_name = forms.CharField(
         label='Votre prénom',
@@ -32,13 +49,17 @@ class RegisterForm(UserCreationForm):
     is_beneficiary = forms.BooleanField(
         label='Trouver des aides',
         required=False)
+    organization_type = forms.ChoiceField(
+        label="Vous êtes un/une",
+        required=True,
+        choices=ORGANIZATION_TYPE)
 
     class Meta:
         model = User
         fields = [
             'first_name', 'last_name', 'email', 'password1', 'password2',
             'beneficiary_role', 'beneficiary_function', 'is_contributor',
-            'is_beneficiary'
+            'is_beneficiary', 'organization_type'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -60,6 +81,10 @@ class RegisterForm(UserCreationForm):
             msg = "Merci de cocher au moins une des options."
             self.add_error('is_beneficiary', msg)
             self.add_error('is_contributor', msg)
+
+        if not data.get('organization_type'):
+            msg = "Merci de sélectionner une option."
+            self.add_error('organization_type', msg)
 
         return data
 
