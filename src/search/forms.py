@@ -108,7 +108,7 @@ class ThemeSearchForm(forms.Form):
         label='Recherche textuelle',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Titre, sujet, mot-clé, etc.'}))
+            attrs={'placeholder': 'Ex: rénovation énergétique, vélo, tiers lieu, etc.'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

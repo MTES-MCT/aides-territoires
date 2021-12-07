@@ -29,7 +29,7 @@
             </div>
 
             <div id="text-research" class="fr-mb-6w">
-                <h2 class="fr-h4 fr-mb-5w">Renseignez votre projet :</h2>
+                <h2 class="fr-h4 fr-mb-5w">Recherchez par mots-clés&nbsp;:</h2>
                 <form id="text-research-form" action="{% url 'search_view' %}" method="GET" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-1w fr-pl-1w">
 
                     {% include '_field_snippet.html' with field=form.targeted_audiences.as_hidden %}
@@ -38,14 +38,7 @@
                     <button name="action" value="search" type="submit" class="fr-btn">
                         Envoyer
                     </button>         
-                </form>   
-                <div id="text-research-help">
-                    <p class="fr-mb-0"><strong><span>&#128161;</span> Pour rechercher une expression entière mettez un + entre chaque terme de la recherche</strong></p>
-                    <ul class="fr-list__none">
-                        <li>"rénovation cantine" renverra tous les résultats contenant au moins l'un des deux termes : "rénovation" ou "cantine"</li>
-                        <li>"rénovation+cantine" renverra les aides contenant les 2 termes : "rénovation" et "cantine"</li>
-                    </ul>
-                </div>
+                </form>
             </div>
 
             <h2 class="fr-h4">Ou naviguez dans les thématiques :</h2>
