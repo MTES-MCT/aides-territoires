@@ -43,10 +43,17 @@
                         <label for="id_organization_type">Vous êtes un/une</label>
                         <select name="organization_type" id="id_organization_type">
                             <option value="" hidden>Sélectionnez une option</option>
-                            {% for option in organization_form.organization_type %}
+                            {% for option in form.organization_type %}
                             {{ option }}
                             {% endfor %}
                         </select>
+                        {% if form.organization_type.errors %}
+                        <p class="error field-error">
+                            ↑
+                            {{ form.organization_type.errors.0 }}
+                            ↑
+                        </p>
+                        {% endif %}
                     </div>
 
                     <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
