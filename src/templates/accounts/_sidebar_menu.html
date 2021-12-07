@@ -42,7 +42,10 @@
                         </ul>
                     </div>
                 </li>
-               {% endif %} 
+               {% endif %}
+                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
+                    <div class="container fr-px-2w"><hr _class="fr-hint-text"/></div>
+                </li> 
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn"  {% if structure %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-4">Ma structure</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-4">
@@ -80,6 +83,9 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
                 </li>
+                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
+                    <div class="container fr-px-2w"><hr class="fr-hint-text"/></div>
+                </li> 
                 {% if user.is_superuser %}
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'admin:index' %}" target="_self" rel="noopener">
