@@ -2,7 +2,6 @@
     <div class="fr-sidemenu__inner">
         <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
         <div class="fr-collapse" id="fr-sidemenu-wrapper">
-            <div class="fr-sidemenu__title">Mon compte</div>
             <ul class="fr-sidemenu__list">
                 <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif%}">
                     <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
@@ -62,13 +61,13 @@
                         </ul>
                     </div>
                 </li>
+                <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
+                    <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Mes alertes</a>
+                </li>
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" {% if user_parameter %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-5">Mes paramètres</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-5">
                         <ul class="fr-sidemenu__list">
-                            <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Mes alertes</a>
-                            </li>
                             <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
                             </li> -->
