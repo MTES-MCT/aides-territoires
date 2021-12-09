@@ -40,9 +40,9 @@ urlpatterns = [
     path(_('logout/'), auth_views.LogoutView.as_view(), name='logout'),
 
     path('desinscription-newsletter/', UnSubscribeNewsletter.as_view(),
-         name='unsubscribe_nawsletter'),
+         name='unsubscribe_newsletter'),
     path('inscription-newsletter/', SubscribeNewsletter.as_view(),
-         name='subscribe_nawsletter'),
+         name='subscribe_newsletter'),
 
     path('inviter-collaborateur/', InviteCollaborator.as_view(),
          name='invite_collaborator'),
