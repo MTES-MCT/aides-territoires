@@ -182,8 +182,8 @@ class SubscribeNewsletter(View):
 
         response = requests.request("POST", url, json=payload, headers=headers)
 
-        if response and response.status_code == 201:
-            msg = "Votre demande d'inscription à la newsletter a bien été prise en compte. Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir."
+        if response and any((response.status_code == 201, response.status_code == 204)):
+            msg = "Votre demande d'inscription à la newsletter a bien été prise en compte. <strong>Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir.</strong>"
             messages.success(self.request, msg)
         else:
             msg = "Une erreur s'est produite lors de votre inscription à la newsletter"
