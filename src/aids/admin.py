@@ -185,7 +185,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         'author_name', 'recurrence', 'perimeter', 'date_updated',
         'date_published', 'is_imported', 'submission_deadline', 'status']
     list_display_links = ['name']
-    search_fields = ['id', 'name']
+    search_fields = ['id', 'name', 'name_initial']
     list_filter = [
         'status', LiveAidListFilter, GenericAidListFilter, 'recurrence',
         'is_imported', 'import_data_source',
