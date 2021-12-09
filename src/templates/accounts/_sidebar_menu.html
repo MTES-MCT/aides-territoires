@@ -2,7 +2,6 @@
     <div class="fr-sidemenu__inner">
         <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
         <div class="fr-collapse" id="fr-sidemenu-wrapper">
-            <div class="fr-sidemenu__title">Mon compte</div>
             <ul class="fr-sidemenu__list">
                 <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif%}">
                     <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
@@ -27,6 +26,9 @@
                    <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
                </li>
                {% endif %}
+                <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
+                    <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Gérer mes alertes</a>
+                </li>
                {% if user.search_pages.count %}
                 <li class="fr-sidemenu__item ">
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">Gérer mes portails</button>
@@ -40,7 +42,10 @@
                         </ul>
                     </div>
                 </li>
-               {% endif %} 
+               {% endif %}
+                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
+                    <div class="container fr-px-2w"><hr _class="fr-hint-text"/></div>
+                </li> 
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn"  {% if structure %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-4">Ma structure</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-4">
@@ -66,9 +71,6 @@
                     <button class="fr-sidemenu__btn" {% if user_parameter %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-5">Mes paramètres</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-5">
                         <ul class="fr-sidemenu__list">
-                            <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Mes alertes</a>
-                            </li>
                             <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
                             </li> -->
@@ -81,6 +83,9 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
                 </li>
+                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
+                    <div class="container fr-px-2w"><hr class="fr-hint-text"/></div>
+                </li> 
                 {% if user.is_superuser %}
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'admin:index' %}" target="_self" rel="noopener">
