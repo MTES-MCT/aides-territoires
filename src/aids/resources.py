@@ -10,7 +10,6 @@ from categories.models import Category
 from backers.models import Backer
 from geofr.models import Perimeter
 from programs.models import Program
-from projects.models import Project
 from stats.utils import log_event
 
 
@@ -66,11 +65,6 @@ class AidResource(resources.ModelResource):
         column_name='programs',
         attribute='programs',
         widget=ManyToManyWidget(Program, field='name')
-    )
-    projects = fields.Field(
-        column_name='projects',
-        attribute='projects',
-        widget=ManyToManyWidget(Project, field='name')
     )
 
     class Meta:
