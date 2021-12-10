@@ -10,7 +10,6 @@ from categories.models import Category
 from backers.models import Backer
 from geofr.models import Perimeter
 from programs.models import Program
-from projects.models import Project
 from stats.utils import log_event
 
 
@@ -26,7 +25,7 @@ AIDS_EXPORT_EXCLUDE_FIELDS = [
     'is_amendment', 'amended_aid', 'amendment_author_name', 'amendment_author_email', 'amendment_author_org', 'amendment_comment',  # noqa
     'local_characteristics']
 AIDS_IMPORT_EXCLUDE_FIELDS = [
-    'slug', 'status', 'date_updated', 'date_published']
+    'slug', 'status', 'date_updated', 'date_published', 'author_notification', 'projects']
 AIDS_IMPORT_CLEAN_FIELDS = [
     'is_imported', 'author', 'subvention_rate']
 
@@ -67,11 +66,6 @@ class AidResource(resources.ModelResource):
         attribute='programs',
         widget=ManyToManyWidget(Program, field='name')
     )
-    projects = fields.Field(
-        column_name='projects',
-        attribute='projects',
-        widget=ManyToManyWidget(Project, field='name')
-    )
 
     class Meta:
         model = Aid
@@ -103,9 +97,8 @@ class AidResource(resources.ModelResource):
             if key in row:
                 del row[key]
         # add/set keys
-        if 'projects' not in row:
-            row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
-            row['is_imported'] = True
+        row['author'] = row.get('author', ADMIN_EMAIL) or ADMIN_EMAIL
+        row['is_imported'] = True
         if 'subvention_rate' in row:
             if row['subvention_rate']:
                 row['subvention_rate'] = row['subvention_rate'] \
