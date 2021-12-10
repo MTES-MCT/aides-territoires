@@ -160,6 +160,10 @@ div #what-image {
     }
 }
 
+div#how img {
+  max-height: 8rem;
+}
+
 @media screen and (max-width: 1000px) {
     div #what-image {
         margin-top: 0;
