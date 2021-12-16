@@ -28,30 +28,27 @@
 
                 <div class="fr-header__tools">
                     <div class="fr-header__tools-links">
-                    {% if user.is_authenticated %}                    
                         <ul class="fr-links-group">
+                            {% if user.is_authenticated %}                    
                             <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                 {{ user.full_name }}
                             </a>
-                            <li>
-                                <a class="fr-link" href="{% url 'logout' %}">
-                                    {{ _('Log out') }}
-                                </a>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <ul class="fr-links-group">
+                            {% else %}
                             <li>
                                 <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>
                             </li>
                             <li>
                                 <a class="fr-link fr-fi-account-line" href="{% url 'register' %}">S’inscrire</a>
                             </li>
+                            {% endif %}
+                            <li>
+                                <a class="fr-link fr-tag" href="{% url 'search_step_audience' %}">
+                                    Trouver des aides
+                                </a>
+                            </li>
                         </ul>
-                    {% endif %}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
