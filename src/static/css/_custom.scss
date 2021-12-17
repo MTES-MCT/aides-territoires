@@ -435,39 +435,16 @@ form div.multiple-input fieldset legend {
 
 // Search steps
 
-div#search-steps p.steps {
-  text-align: center;
-  line-height: 3;
+form#general_search_form {
   
-  span.step {
-    white-space: nowrap;
-
-    &:not(:last-of-type)::after {
-      content: "";
-      display: inline-block;
-      width: 2rem;
-      height: .4rem;
-      border-top: 1px solid var(--bf500);
-      padding: 0 .25rem;
-      vertical-align: baseline;
-    }
-  }
-
   span.counter {
     display: inline-block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 2.2rem;
+    height: 2.2rem;
     text-align: center;
     vertical-align: baseline;
-    border: 1px solid var(--bf500);
+    border: 1px solid var(--g700);
     border-radius: 50%;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  span.counter.active {
-    background-color: var(--bf500);
-    color: #fff;
   }
 }
 

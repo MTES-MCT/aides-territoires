@@ -1,13 +1,26 @@
 {% with id=widget.attrs.id %}
 {% for group, options, index in widget.optgroups %}
-<h3>{{ group }}</h3>
-{% for option in options %}
-    <div class="custom-control custom-switch fr-toggle">
-        <input type="checkbox" class="custom-control-input fr-toggle__input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
-        <label class="custom-control-label fr-toggle__label" for="{{ option.attrs.id }}">
-            {{ option.label }}
-        </lapel>
-    </div>
-{% endfor %}
+<li>
+    <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+            <button class="fr-accordion__btn" aria-expanded="false" type="button" aria-controls="accordion-{{ group }}">{{ group }}</button>
+        </h3>
+        <div class="fr-collapse fr-pl-5w" id="accordion-{{ group }}">
+            <center>
+                <button class="fr-m-1w fr-tag _fr-tag--md fr-text--sd _fr-fi-search-line _fr-tag--icon-left" type="button">
+                    Sélectionner toutes les sous-thématiques
+                </button>
+            </center>
+            {% for option in options %}
+            <div class="custom-control custom-switch fr-toggle">
+                <input type="checkbox" class="custom-control-input fr-toggle__input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}"/>
+                <label class="custom-control-label fr-toggle__label" for="{{ option.attrs.id }}">
+                    {{ option.label }}
+                </lapel>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</li>
 {% endfor %}
 {% endwith %}
