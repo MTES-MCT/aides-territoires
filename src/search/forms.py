@@ -9,7 +9,7 @@ from django.utils.html import format_html
 from django.utils.text import slugify
 
 from aids.forms import AidSearchForm
-from categories.fields import CategoryMultipleChoiceField
+from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterator
 from categories.models import Theme, Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
@@ -21,6 +21,17 @@ class AudienceWidget(forms.widgets.ChoiceWidget):
     """Custom widget for the audience search step."""
 
     allow_multiple_selected = False
+
+
+class CategoryIterator(CategoryChoiceIterator):
+
+    def theme_label(self, theme_name):
+        return theme_name
+
+
+class CategoryChoiceField(forms.ModelMultipleChoiceField):
+
+    iterator = CategoryIterator
 
 
 class CategoryWidget(forms.widgets.ChoiceWidget):
@@ -48,8 +59,7 @@ class GeneralSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Ex: rénovation énergétique, vélo, tiers lieu, etc.'}))
-    categories = CategoryMultipleChoiceField(
-        group_by_theme=True,
+    categories = CategoryChoiceField(
         label='Thématiques',  # Not a mistake
         queryset=CATEGORIES_QS,
         to_field_name='slug',
