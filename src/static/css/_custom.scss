@@ -446,6 +446,10 @@ form#general_search_form {
     border: 1px solid var(--g700);
     border-radius: 50%;
   }
+
+  #search-step-2:hover {
+    background-color: var(--bf100-g750);
+  }
 }
 
 div#search-steps form div.fr-input-group > label {
