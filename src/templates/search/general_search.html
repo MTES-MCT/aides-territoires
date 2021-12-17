@@ -40,7 +40,15 @@
                     <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
                         <div class="fr-select-group fr-col-12 fr-col-md-3 fr-pb-0 fr-mb-0">
                             <h3 class="fr-h6">votre structure&nbsp;:</h3>
-                            {% include '_field_snippet.html' with field=form.targeted_audiences %}
+                            <div id="form-group-targeted_audiences" class="fr-input-group">
+                                <label for="id_targeted_audiences">Vous êtes un/une</label>
+                                <select name="targeted_audiences" id="id_targeted_audiences">
+                                    <option value="" hidden>Faites votre choix</option>
+                                    {% for option in form.targeted_audiences %}
+                                    {{ option }}
+                                    {% endfor %}
+                                </select>
+                            </div>
 
                         </div>
                         <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pb-0 fr-mb-0">
