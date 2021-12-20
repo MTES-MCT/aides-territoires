@@ -59,22 +59,24 @@
 
         <h2 class="fr-h4 fr-mt-4w"><span class="counter">2</span> Puis affinez votre recherche</h2>
         <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
-            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w fr-mb-5w" id="search-step-2">
-                <h3 class="fr-h6">soit par mot-clé&nbsp;:
-                    <span class="fr-hint-text">
-                        recherchez parmi toutes les aides le mot-clé que vous souhaitez
-                    </span>
-                </h3>
-                <div class="fr-grid-row fr-grid-row--middle fr-mb-16w">
-                    <div class="fr-col-12 fr-col-md-8 fr-mr-1w">
-                        {% include '_field_snippet.html' with field=form.text %}
-                    </div>
-                    <button name="action" value="search" type="submit" class="fr-btn fr-my-1w">
-                        <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
-                        Rechercher
-                    </button>
+            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w fr-mb-5w column--space-between" id="search-step-2">
+                <div class="fr-container fr-p-0">
+                    <h3 class="fr-h6">soit par mot-clé&nbsp;:
+                        <span class="fr-hint-text">
+                            recherchez parmi toutes les aides le mot-clé que vous souhaitez
+                        </span>
+                    </h3>
+                    <div class="fr-grid-row fr-grid-row--middle">
+                        <div class="fr-col-12 fr-col-md-8 fr-mr-1w">
+                            {% include '_field_snippet.html' with field=form.text %}
+                        </div>
+                        <button name="action" value="search" type="submit" class="fr-btn fr-my-1w">
+                            <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
+                            Rechercher
+                        </button>
+                    </div>    
                 </div>
-                <img src="/static/img/home_aides.svg" alt="" id="home-main-image" class="fr-responsive-img" />
+                <img src="/static/img/home_aides.svg"alt="picto-aides-territoires" class="fr-responsive-img" />
             </div>
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w fr-mb-5w" id="search-step-2">
                 <h3 class="fr-h6">soit par thématiques&nbsp;:
@@ -104,8 +106,9 @@
 {% compress js %}
 <script src="/static/select2/dist/js/select2.js"></script>
 <script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/search/track_audience_step_events.js"></script>
 <script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="/static/js/search/check_all_btn.js"></script>
+<script src="/static/js/search/track_audience_step_events.js"></script>
 <script src="/static/js/search/track_perimeter_step_events.js"></script>
 <script src="/static/js/search/track_category_step_events.js"></script>
 {% endcompress %}

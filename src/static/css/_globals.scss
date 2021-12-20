@@ -101,6 +101,12 @@ h2, h3, h4, h5, h6 {
     display: none;
 }
 
+.column--space-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 // error general rules
 
 .error.global-errors {
