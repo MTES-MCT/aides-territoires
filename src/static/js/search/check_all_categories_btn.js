@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $(".CheckAll").click(function(){
+    $(".all-categories-btn").click(function(){
         var id_theme = $(this).data("theme");
         if ($(this).data("selected") == false) {
             $("input:checkbox[data-theme='" + id_theme + "']").prop('checked', true)
