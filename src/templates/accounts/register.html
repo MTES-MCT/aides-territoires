@@ -22,25 +22,29 @@
     <div class="fr-grid-row">
         <div class="fr-col-lg-6 fr-col-12">
             <div class="bg-pic">
-                <div class="bg-white max-450 left-row fr-pt-3w fr-mt-7w fr-mb-7w">
-                    <h2 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides Territoires&nbsp;! </h2>
-                    <div class="fr-pl-2w fr-pr-2w">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, quae&nbsp:</div>
-                    <div class="bg-purple blue-text fr-pr-2w fr-pl-2w fr-pt-3w fr-pb-3w">
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                        </ul>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </div>
-                    <div class="fr-pl-2w fr-pr-2w">
-                        <p class="fr-mt-3w">consectetur adipisicing elit.</p>
+                <div class="fr-container">
+                    <div class="fr-grid-row fr-grid-row--center">
+                        <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
+                            <h2 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides Territoires&nbsp;! </h2>
+                            <div class="fr-px-2w">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, quae&nbsp:</div>
+                            <div class="fr-px-2w fr-py-3w">
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                </ul>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            </div>
+                            <div class="fr-px-2w">
+                                <p class="fr-mt-3w">consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="fr-col-lg-6 fr-col-12 bg-white">
+        <div class="fr-col-lg-6 fr-col-12">
             <div class="fr-container">
                 <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-col-11">
@@ -50,103 +54,98 @@
                                 Déjà inscrit ? Se connecter
                             </a>
                         </div>
-                        <div class="margin-auto max-400">
-                            <div >
-                                <div>
-                                    <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">Rejoindre Aides Territoires</h2>
-                                    <span>
-                                        <form method="post" action="" novalidate id="register-form">
-                                            {% csrf_token %}
-                                            {{ form.media }}
-                            
-                                            {% include '_form_header.html' with form=form %}
-                            
-                                            <div class="fr-grid-row fr-grid-row--center">
-                                                <div class="fr-col-12 fr-mb-3w">
-                                                    <fieldset>
-                                                        <legend>Informations personnelles</legend>
-                                                        {% include '_field_snippet.html' with field=form.first_name %}
-                                                        {% include '_field_snippet.html' with field=form.last_name %}
-                                                        {% include '_field_snippet.html' with field=form.email %}
-                                                        {% include '_field_snippet.html' with field=form.password1 %}
-                                                        {% include '_field_snippet.html' with field=form.password2 %}
-                                                    </fieldset>                        
-                                                </div>
-                                                <div class="fr-col-12">
-                                                    <fieldset>
-                                                        <legend>Informations professionnelles</legend>
-                                    
-                                                        <div id="form-group-organization_type" class="fr-input-group required ">
-                                                            <label for="id_organization_type">Vous êtes un/une</label>
-                                                            <select name="organization_type" id="id_organization_type">
-                                                                <option value="" hidden>Sélectionnez une option</option>
-                                                                {% for option in form.organization_type %}
-                                                                {{ option }}
-                                                                {% endfor %}
-                                                            </select>
-                                                            {% if form.organization_type.errors %}
-                                                            <p class="error field-error">
-                                                                ↑
-                                                                {{ form.organization_type.errors.0 }}
-                                                                ↑
-                                                            </p>
-                                                            {% endif %}
-                                                        </div>
-                                    
-                                                        <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
-                                                            {% include '_field_snippet.html' with field=form.beneficiary_role %}
-                                                            {% include '_field_snippet.html' with field=form.beneficiary_function %}
-                                                        </div>
-                                    
-                                                        <div class="fr-form-group">
-                                                            <fieldset class="fr-fieldset">
-                                                                <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
-                                                                <div class="fr-grid-row fr-grid--middle">
-                                                                    <div class="fr-fieldset__content fr-pr-2w">
-                                                                        {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
-                                                                    </div>
-                                                                    <div class="fr-fieldset__content">
-                                                                        {% include '_checkbox_snippet.html' with field=form.is_contributor %}
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="fr-col-12">
-                                                    {% url 'legal_mentions' as legal_mentions_url %}
-                                                    <p class="info fr-background-alt fr-p-3w">
-                                                        <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
-                                                        En créant un compte, vous acceptez que vos données soient traitées en accord avec
-                                                        <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">
-                                                            notre politique de confidentialité
-                                                        </a>.
-                                                    </p>
-                                                </div>
-                                                <div class="fr-col-12 fr-mb-3w">
-                                                    <p class="info fr-background-alt fr-p-3w">
-                                                        <span class="fas fa-bug"></span>
-                                                        Si vous n'arrivez pas à vous inscrire,
-                                                        <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>       
-                                                    </p>                         
-                                                </div>
-                                                <div class="fr-col-12 text-center fr-mb-5w">
-                                                    <button type="submit" class="fr-btn full-width-btn">
-                                                        Je crée mon compte
-                                                    </button>
-                                                </div>
+                        <div>
+                            <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
+                                Rejoindre Aides Territoires
+                            </h2>
+                            <form method="post" action="" novalidate id="register-form">
+                                {% csrf_token %}
+                                {{ form.media }}
+                
+                                {% include '_form_header.html' with form=form %}
+                
+                                <div class="fr-grid-row fr-grid-row--center">
+                                    <div class="fr-col-12 fr-mb-3w">
+                                        <fieldset>
+                                            <legend>Informations personnelles</legend>
+                                            {% include '_field_snippet.html' with field=form.first_name %}
+                                            {% include '_field_snippet.html' with field=form.last_name %}
+                                            {% include '_field_snippet.html' with field=form.email %}
+                                            {% include '_field_snippet.html' with field=form.password1 %}
+                                            {% include '_field_snippet.html' with field=form.password2 %}
+                                        </fieldset>                        
+                                    </div>
+                                    <div class="fr-col-12">
+                                        <fieldset>
+                                            <legend>Informations professionnelles</legend>
+                        
+                                            <div id="form-group-organization_type" class="fr-input-group required ">
+                                                <label for="id_organization_type">Vous êtes un/une</label>
+                                                <select name="organization_type" id="id_organization_type">
+                                                    <option value="" hidden>Sélectionnez une option</option>
+                                                    {% for option in form.organization_type %}
+                                                    {{ option }}
+                                                    {% endfor %}
+                                                </select>
+                                                {% if form.organization_type.errors %}
+                                                <p class="error field-error">
+                                                    ↑
+                                                    {{ form.organization_type.errors.0 }}
+                                                    ↑
+                                                </p>
+                                                {% endif %}
                                             </div>
-                                        </div>
+                        
+                                            <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
+                                                {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                                                {% include '_field_snippet.html' with field=form.beneficiary_function %}
+                                            </div>
+                        
+                                            <div class="fr-form-group">
+                                                <fieldset class="fr-fieldset">
+                                                    <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
+                                                    <div class="fr-grid-row fr-grid--middle">
+                                                        <div class="fr-fieldset__content fr-pr-2w">
+                                                            {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                                                        </div>
+                                                        <div class="fr-fieldset__content">
+                                                            {% include '_checkbox_snippet.html' with field=form.is_contributor %}
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="fr-col-12">
+                                        {% url 'legal_mentions' as legal_mentions_url %}
+                                        <p class="info fr-background-alt fr-p-3w">
+                                            <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
+                                            En créant un compte, vous acceptez que vos données soient traitées en accord avec
+                                            <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">
+                                                notre politique de confidentialité
+                                            </a>.
+                                        </p>
+                                    </div>
+                                    <div class="fr-col-12 fr-mb-3w">
+                                        <p class="info fr-background-alt fr-p-3w">
+                                            <span class="fas fa-bug"></span>
+                                            Si vous n'arrivez pas à vous inscrire,
+                                            <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>       
+                                        </p>                         
+                                    </div>
+                                    <div class="fr-col-12 text-center fr-mb-5w">
+                                        <button type="submit" class="fr-btn">
+                                            Je crée mon compte
+                                        </button>
                                     </div>
                                 </div>
                             </form>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
 
