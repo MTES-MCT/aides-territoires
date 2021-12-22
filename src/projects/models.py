@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -10,6 +11,7 @@ class Project(models.Model):
     name = models.CharField(
         _('Project name'),
         max_length=256,
+        null=False, blank=False,
         db_index=True)
     slug = models.SlugField(
         _('Slug'),
@@ -57,9 +59,10 @@ class Project(models.Model):
         return '{}-{}'.format(self.id, self.slug)
 
     def set_slug(self):
-        """Set the object's slug if it is missing."""
-        if not self.slug:
-            self.slug = slugify(self.name)[:50]
+        """Set the object's slug"""
+        if not self.id:
+            full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
+            self.slug = slugify(full_title)[:50]
 
     def save(self, *args, **kwargs):
         self.set_slug()
