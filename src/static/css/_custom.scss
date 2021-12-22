@@ -72,6 +72,14 @@ legend {
   font-weight: bold;
 }
 
+.bg-pic {
+  background: linear-gradient(rgba(0,0,0,.527),rgba(0,0,0,.5)),url(../img/immeuble.png) no-repeat;
+  background-size: auto, auto;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
 // legal-mentions styles
 
   #piwik-consent {
