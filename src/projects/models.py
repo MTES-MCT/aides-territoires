@@ -59,10 +59,7 @@ class Project(models.Model):
         return '{}-{}'.format(self.id, self.slug)
 
     def set_slug(self):
-        """Set the object's slug.
-
-        Lots of aids have duplicate name, so we prefix the slug with random
-        characters."""
+        """Set the object's slug"""
         if not self.id:
             full_title = '{}-{}'.format(str(uuid4())[:4], self.name)
             self.slug = slugify(full_title)[:50]
