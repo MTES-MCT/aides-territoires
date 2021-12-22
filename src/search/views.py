@@ -1,6 +1,5 @@
 from django.views.generic import FormView
 
-from aids.forms import AidSearchForm
 from search.forms import GeneralSearchForm
 
 

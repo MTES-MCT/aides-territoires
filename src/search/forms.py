@@ -1,16 +1,10 @@
-from itertools import groupby
-from operator import itemgetter
-
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
-from django.db.models import Count
-from django.utils.html import format_html
 from django.utils.text import slugify
 
-from aids.forms import AidSearchForm
 from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterator
-from categories.models import Theme, Category
+from categories.models import Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from pages.admin import PageForm

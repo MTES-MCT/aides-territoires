@@ -1,5 +1,4 @@
-from django.urls import path, include
-from django.utils.translation import gettext_lazy as _
+from django.urls import path
 
 from search.views import GeneralSearch
 from minisites.views import SiteHome
