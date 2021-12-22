@@ -19,7 +19,6 @@ from accounts.models import User
 from projects.models import Project
 from aids.models import Aid
 from organizations.models import Organization
-from organizations.forms import OrganizationCreateForm
 from analytics.utils import track_goal
 
 
@@ -93,7 +92,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
                 login(self.request, user)
 
                 if is_first_login:
-                    msg = 'Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques secondes pour mettre à jour votre profil ?'  # noqa
+                    msg = 'Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques secondes pour mettre à jour votre profil ?' # noqa
                     track_goal(self.request.session, settings.GOAL_FIRST_LOGIN_ID)
                     send_welcome_email.delay(user.email)
                 else:

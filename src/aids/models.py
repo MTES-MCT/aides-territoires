@@ -576,7 +576,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 weight='A',
                 config='french_unaccent') + \
             SearchVector(
+                Value(self.name_initial, output_field=models.CharField()),
+                weight='A',
+                config='french_unaccent') + \
+            SearchVector(
                 Value(self.description, output_field=models.CharField()),
+                weight='B',
+                config='french_unaccent') + \
+            SearchVector(
+                Value(self.project_examples, output_field=models.CharField()),
                 weight='B',
                 config='french_unaccent') + \
             SearchVector(

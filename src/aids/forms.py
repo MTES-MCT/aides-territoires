@@ -580,7 +580,7 @@ class BaseAidSearchForm(forms.Form):
         Terms preceded with a "-" are filtered out.
         """
         all_terms = filter(None, raw_query.split(' '))
-        next_operator = operator.or_
+        next_operator = operator.and_
         invert = False
         query = None
 
@@ -600,7 +600,7 @@ class BaseAidSearchForm(forms.Form):
                 query = next_operator(query, SearchQuery(
                     term, config='french', invert=invert))
 
-            next_operator = operator.or_
+            next_operator = operator.and_
             invert = False
 
         return query
