@@ -25,9 +25,13 @@ class GeneralSearch(FormView):
         if self.request.user.is_authenticated:
             if self.request.user.beneficiary_organization is not None:
                 user_org = self.request.user.beneficiary_organization
-                if user_org.organization_type is not None and user_org.zip_code:
+                if user_org.organization_type is not None and user_org.zip_code and user_org.zip_code:
                     org_zip_code = str(user_org.zip_code).split()
-                    org_perimeter = Perimeter.objects.filter(zipcodes=org_zip_code).first()
+                    org_city_name = user_org.city_name
+                    org_perimeter = Perimeter.objects \
+                        .filter(zipcodes=org_zip_code) \
+                        .filter(name__iexact=org_city_name) \
+                        .first()
                     # here we check if zipcode is related to an existing perimeter
                     if org_perimeter:
                         PERIMETER = org_perimeter.id_slug
