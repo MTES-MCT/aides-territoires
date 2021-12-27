@@ -5,6 +5,16 @@
 
 {% block sectionid %}login-form{% endblock %}
 
+{% block extra_head %}
+<meta property="og:title" content="Aides-territoires | Connexion" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock %}
+
 {% block extratitle %}{{ _('Login') }}{% endblock %}
 
 {% block content %}
