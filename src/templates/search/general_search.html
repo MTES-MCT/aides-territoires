@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load compress i18n form_utils %}
+{% load i18n compress %}
 
 {% block extratitle %}Recherche – Trouver des aides{% endblock %}
 
@@ -31,12 +31,12 @@
         </div>
     </nav>
 </div>
-
 {% endblock %}
+
 {% block content %}
 <div class="fr-container">
     <h1 class="fr-mb-5w fr-h2">Trouver des aides</h1>
-    <form id="general_search_form" class="fr-px-0" action="{% url 'search_view' %}" method="GET">
+    <form id="general_search_form" method="GET" action="{% url 'search_view' %}" class="fr-px-0">        
         <h2 class="fr-h4 fr-mt-4w">
             <span class="counter">
                 1
@@ -60,7 +60,6 @@
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pb-0 fr-mb-0">
                 <h3 class="fr-h6">votre territoire&nbsp;:</h3>
                 {% include '_field_snippet.html' with field=form.perimeter %}
-
             </div>
             <div id="text-research-help" class="fr-mt-2w fr-ml-1w">
                 <p><span>💡</span> Si vous laissez ces champs vides, votre recherche portera sur l'ensemble du territoire, toutes structures confondues.</p>
