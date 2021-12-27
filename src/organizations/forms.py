@@ -34,18 +34,20 @@ class OrganizationCreateForm(forms.ModelForm):
     name = forms.CharField(
         label='Nom de votre structure',
         required=True)
-    zip_code = forms.CharField(
-        label='Son code postal',
-        required=True)
     organization_type = forms.MultipleChoiceField(
         label='Vous êtes un/une',
         required=False,
         choices=ORGANIZATION_TYPE,
         widget=OrganizationTypeWidget)
 
+    perimeter = AutocompleteModelChoiceField(
+        label='Votre territoire',
+        queryset=Perimeter.objects.all(),
+        required=True)
+
     class Meta:
         model = Organization
-        fields = ['name', 'zip_code', 'organization_type']
+        fields = ['name', 'organization_type', 'perimeter']
 
 
 class OrganizationUpdateForm(forms.ModelForm):
@@ -77,9 +79,10 @@ class OrganizationUpdateForm(forms.ModelForm):
         required=False)
 
     perimeter = AutocompleteModelChoiceField(
-        label='Votre périmètre de recherche',
+        label='Votre territoire',
         queryset=Perimeter.objects.all(),
-        required=False)
+        required=True,
+        help_text="Ce champ sera utilisé par défaut pour trouver des aides")
 
     class Meta:
         model = Organization

@@ -32,6 +32,8 @@ class OrganizationCreateView(CreateView):
 
         organization = form.save(commit=False)
         organization.organization_type = [user_organization_type]
+        organization.zip_code = organization.perimeter.zipcodes[0]
+        organization.city_name = organization.perimeter.name
         organization.save()
         form.save_m2m()
 
