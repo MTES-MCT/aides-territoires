@@ -1,7 +1,9 @@
 from django import forms
 
 from model_utils import Choices
+from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 
+from geofr.models import Perimeter
 from organizations.models import Organization
 
 
@@ -74,11 +76,16 @@ class OrganizationUpdateForm(forms.ModelForm):
         label='Code APE',
         required=False)
 
+    perimeter = AutocompleteModelChoiceField(
+        label='Votre périmètre de recherche',
+        queryset=Perimeter.objects.all(),
+        required=False)
+
     class Meta:
         model = Organization
         fields = [
             'name', 'address', 'city_name', 'zip_code',
-            'siren_code', 'siret_code', 'ape_code']
+            'siren_code', 'siret_code', 'ape_code', 'perimeter']
 
     def __init__(self, *args, **kwargs):
         super(OrganizationUpdateForm, self).__init__(*args, **kwargs)
