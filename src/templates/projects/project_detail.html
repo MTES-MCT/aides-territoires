@@ -38,9 +38,17 @@
         {% include 'accounts/_sidebar_menu.html' with project_admin=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
+            <div class="fr-grid-row fr-grid-row--gutters fr-col">
+              <div class="fr-col-12 fr-col-md-9 fr-col">
+                  <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
+              </div>
+              <div class="fr-col-12 fr-col-md-3">
+                <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-fi-arrow-left-line fr-tag--icon-left d-none d-md-block">Retour aux projets</a>
+              </div>
+            </div>
+
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d'échéance du projet : 
+                Date d'échéance du projet :
                 {% if project.due_date %}
                 {{ project.due_date|date:'d/m/y' }}
                 {% else %}
@@ -59,7 +67,7 @@
                     <div class="fr-collapse" id="project-description">
                         {{ project.description|safe }}
                     </div>
-                </section>    
+                </section>
             {% else %}
             <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet&nbsp;: aucune</p>
             {% endif %}
@@ -70,39 +78,39 @@
                     </caption>
                     <thead>
                         <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Echéance</th>
-                            <th scope="col">Type d'aide</th>
-                            <th scope="col">Ajouté&nbsp;le</th>
-                            <th scope="col">Par</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="fr-text">Nom</th>
+                            <th scope="col" class="fr-text">Echéance</th>
+                            <th scope="col" class="fr-text">Type d'aide</th>
+                            <th scope="col" class="fr-text">Ajouté&nbsp;le</th>
+                            <th scope="col" class="fr-text">Par</th>
+                            <th scope="col" class="fr-text">Action</th>
                         </tr>
                     </thead>
                         <tbody>
                             {% if aid_set %}
                             {% for aid in aid_set %}
                             <tr>
-                                <td>
+                                <td class="fr-text">
                                     <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
-                                        {{ aid.name }} 
+                                        {{ aid.name }}
                                     </a>
                                 </td>
-                                <td>
+                                <td class="fr-text">
                                 {% if aid.has_calendar %}
                                 {% if aid.submission_deadline %}
                                 {{ aid.submission_deadline|date }}
                                 {% endif %}
                                 {% endif %}
                                 </td>
-                                <td>
+                                <td class="fr-text">
                                     {% choices_display aid 'aid_types' %}
                                 </td>
                                 {% for aidproject in AidProject %}
                                 {% if aidproject.aid == aid %}
-                                <td>
+                                <td class="fr-text">
                                     {{ aidproject.date_created|date:'d/m/y' }}
                                 </td>
-                                <td>
+                                <td class="fr-text">
                                     {% if aidproject.creator == user %}
                                     Vous
                                     {% else %}
@@ -111,7 +119,7 @@
                                 </td>
                                 {% endif %}
                                 {% endfor %}
-                                <td>
+                                <td class="fr-text">
                                     <form id="unmatch_project" method="post" action="{% url 'aid_unmatch_project_view' aid.slug %}">
                                         <section>
                                             <div class="content">
@@ -130,8 +138,8 @@
                         {% else %}
                         <tbody>
                             <tr>
-                                <td colspan="5">
-                                    <center>Vous n'avez aucune aide sélectionnée pour l'instant</center>
+                                <td colspan="6" class="fr-text">
+                                    <center>Vous n'avez ajouté aucune aide à ce projet pour l'instant</center>
                                 </td>
                             </tr>
                         </tbody>
@@ -140,18 +148,23 @@
                 </table>
             </div>
 
-            <a href="{% url 'project_list_view' %}" class="fr-btn">
+            <!-- <a href="{% url 'project_list_view' %}" class="fr-btn">
                 <i class="ri-arrow-left-line fr-pr-1w"></i>
                 Retour aux projets
-            </a>
-
-            <button type="button" class="fr-btn" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
-                Supprimer ce projet
-            </button>
-
-            <a class="fr-btn fr-fi-edit-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_update_view' project.pk %}">
-                Modifier les informations du projet
-            </a>
+            </a> -->
+            <div class="fr-container">
+              <center>
+                <p>
+                  <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag _fr-text--lg fr-fi-search-line _fr-tag--icon-left" data-fr-opened="false" aria-controls="fr-modal-aide">&nbsp;Trouver des aides pour ce projet</a>
+                </p>
+                <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
+                  Supprimer ce projet
+                </button>
+                <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_update_view' project.pk %}">
+                  Modifier les informations du projet
+                </a>
+              </center>
+            </div>
 
         </div>
     </div>

@@ -1,0 +1,32 @@
+{% load i18n compress %}
+
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="help-project-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="help-project-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Que pouvez-vous faire ici&nbsp;?</h1>
+
+                            <section>
+                                <div class="content">
+                                  <p>Cette page vous permet de gérer vos différents projets et les aides associées.</p>
+                                  <p><a href="{% url 'general_search' %}">En consultant les aides</a>, vous pourrez ajouter celles qui correspondent à un projet spécifique et ainsi partager plus facilement les aides que vous avez sélectionnées avec votre équipe.</p>
+                                </div>
+                            </section>
+                    </div>
+                    <footer>
+                        <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+                            <li>
+                                <button class="fr-btn fr-mb-5w fr-mr-5w" title="Fermer la fenêtre modale" aria-controls="help-project-modal">Fermer</button>
+                            </li>
+                        </ul>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
