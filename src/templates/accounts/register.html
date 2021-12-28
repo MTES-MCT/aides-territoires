@@ -25,19 +25,18 @@
                 <div class="fr-container">
                     <div class="fr-grid-row fr-grid-row--center">
                         <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
-                            <h2 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides Territoires&nbsp;! </h2>
-                            <div class="fr-px-2w">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, quae&nbsp:</div>
-                            <div class="fr-px-2w fr-py-3w">
+                            <h1 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides-territoires&nbsp;! </h1>
+                            <div class="fr-px-2w fr-pt-2w"><b>En créant votre compte, vous pourrez&nbsp:</b></div>
+                            <div class="fr-pl-4w fr-py-1w">
                                 <ul>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                    <li>Lorem ipsum dolor sit amet</li>
-                                </ul>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                  <li>renseigner tous vos projets,</li>
+                                  <li>effectuer une recherche pertinente et sauvegarder les aides qui correspondent à vos projets pour les retrouver facilement,</li>
+                                  <li>inviter vos collaborateurs dans votre équipe pour mutualiser le travail de recherche d’aides de votre collectivité,</li>
+                                  <li>gérer vos alertes personnalisées pour rester informé des nouveaux dispositifs d’appui disponibles.</li>
+                                </ul>
                             </div>
                             <div class="fr-px-2w">
-                                <p class="fr-mt-3w">consectetur adipisicing elit.</p>
+                                <p class="fr-mt-1w">Alors, n'attendez plus, et <b>créez votre compte en 1 minute&nbsp;!</b></p>
                             </div>
                         </div>
                     </div>
@@ -56,14 +55,14 @@
                         </div>
                         <div>
                             <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
-                                Rejoindre Aides Territoires
+                                Créer votre compte
                             </h2>
                             <form method="post" action="" novalidate id="register-form">
                                 {% csrf_token %}
                                 {{ form.media }}
-                
+
                                 {% include '_form_header.html' with form=form %}
-                
+
                                 <div class="fr-grid-row fr-grid-row--center">
                                     <div class="fr-col-12 fr-mb-3w">
                                         <fieldset>
@@ -73,12 +72,12 @@
                                             {% include '_field_snippet.html' with field=form.email %}
                                             {% include '_field_snippet.html' with field=form.password1 %}
                                             {% include '_field_snippet.html' with field=form.password2 %}
-                                        </fieldset>                        
+                                        </fieldset>
                                     </div>
                                     <div class="fr-col-12">
                                         <fieldset>
                                             <legend>Informations professionnelles</legend>
-                        
+
                                             <div id="form-group-organization_type" class="fr-input-group required ">
                                                 <label for="id_organization_type">Vous êtes un/une</label>
                                                 <select name="organization_type" id="id_organization_type">
@@ -95,12 +94,12 @@
                                                 </p>
                                                 {% endif %}
                                             </div>
-                        
+
                                             <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
                                                 {% include '_field_snippet.html' with field=form.beneficiary_role %}
                                                 {% include '_field_snippet.html' with field=form.beneficiary_function %}
                                             </div>
-                        
+
                                             <div class="fr-form-group">
                                                 <fieldset class="fr-fieldset">
                                                     <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
@@ -130,8 +129,8 @@
                                         <p class="info fr-background-alt fr-p-3w">
                                             <span class="fas fa-bug"></span>
                                             Si vous n'arrivez pas à vous inscrire,
-                                            <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>       
-                                        </p>                         
+                                            <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>
+                                        </p>
                                     </div>
                                     <div class="fr-col-12 text-center fr-mb-5w">
                                         <button type="submit" class="fr-btn">
