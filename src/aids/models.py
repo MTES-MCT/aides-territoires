@@ -560,7 +560,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         if self.is_published() and self.date_published is None:
             self.date_published = timezone.now()
 
-    def set_search_vector_unaccented(self, financers=None, instructors=None):
+    def set_search_vector_unaccented(self, financers=None, instructors=None, categories=None):
         """Update the full text unaccented cache field."""
 
         # Note: we use `SearchVector(Value(self.field))` instead of
@@ -589,6 +589,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                 config='french_unaccent') + \
             SearchVector(
                 Value(self.eligibility, output_field=models.CharField()),
+                weight='D',
+                config='french_unaccent')
+
+        if categories:
+            search_vector_unaccented += SearchVector(
+                Value(
+                    ' '.join(str(category) for category in categories),
+                    output_field=models.CharField()),
                 weight='D',
                 config='french_unaccent')
 
