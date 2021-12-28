@@ -79,6 +79,12 @@ legend {
   overflow: hidden;
 }
 
+@media screen and (max-width: 800px) {
+  #help-register {
+    display: none;
+  }
+}
+
 // legal-mentions styles
 
   #piwik-consent {
@@ -459,6 +465,7 @@ div#search-steps p.steps {
       vertical-align: baseline;
     }
   }
+}
 
 form#general_search_form {  
   span.counter {
