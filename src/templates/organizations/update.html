@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n compress %}
 
 {% block extratitle %}Ma structure{% endblock %}
 
@@ -36,7 +36,7 @@
         <div class="fr-col-md-9">
             <h1 class="fr-h3">Informations sur ma structure</h1>
 
-            <form method="post" action="" novalidate>
+            <form id="update_organization" method="post" action="" novalidate>
                 {% csrf_token %}
 
                 <fieldset class="fr-my-5w">
@@ -45,6 +45,7 @@
                     {% include '_field_snippet.html' with field=form.address %}
                     {% include '_field_snippet.html' with field=form.city_name %}
                     {% include '_field_snippet.html' with field=form.zip_code %}
+                    {% include '_field_snippet.html' with field=form.perimeter %}
                 </fieldset>
 
                 <fieldset class="fr-my-5w">
@@ -59,4 +60,18 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+{% endcompress %}
 {% endblock %}

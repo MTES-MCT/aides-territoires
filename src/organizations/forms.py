@@ -1,7 +1,9 @@
 from django import forms
 
 from model_utils import Choices
+from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 
+from geofr.models import Perimeter
 from organizations.models import Organization
 
 
@@ -32,18 +34,20 @@ class OrganizationCreateForm(forms.ModelForm):
     name = forms.CharField(
         label='Nom de votre structure',
         required=True)
-    zip_code = forms.CharField(
-        label='Son code postal',
-        required=True)
     organization_type = forms.MultipleChoiceField(
         label='Vous êtes un/une',
         required=False,
         choices=ORGANIZATION_TYPE,
         widget=OrganizationTypeWidget)
 
+    perimeter = AutocompleteModelChoiceField(
+        label='Votre territoire',
+        queryset=Perimeter.objects.all(),
+        required=True)
+
     class Meta:
         model = Organization
-        fields = ['name', 'zip_code', 'organization_type']
+        fields = ['name', 'organization_type', 'perimeter']
 
 
 class OrganizationUpdateForm(forms.ModelForm):
@@ -74,11 +78,17 @@ class OrganizationUpdateForm(forms.ModelForm):
         label='Code APE',
         required=False)
 
+    perimeter = AutocompleteModelChoiceField(
+        label='Votre territoire',
+        queryset=Perimeter.objects.all(),
+        required=True,
+        help_text="Ce champ sera utilisé par défaut pour trouver des aides")
+
     class Meta:
         model = Organization
         fields = [
             'name', 'address', 'city_name', 'zip_code',
-            'siren_code', 'siret_code', 'ape_code']
+            'siren_code', 'siret_code', 'ape_code', 'perimeter']
 
     def __init__(self, *args, **kwargs):
         super(OrganizationUpdateForm, self).__init__(*args, **kwargs)

@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     $('select#id_perimeter').select2({
         placeholder: catalog.perimeter_placeholder,
+        allowClear: true,
         language: 'fr',
         minimumInputLength: 1,
         language: {

@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n form_utils %}
+{% load i18n form_utils compress %}
 
 {% block extraclasses %}light{% endblock %}
 
@@ -28,7 +28,7 @@
                 <fieldset class="fr-pl-0">
                     <legend class="fr-pt-4w">Informations professionnelles</legend>
                     {% include '_field_snippet.html' with field=form.name %}
-                    {% include '_field_snippet.html' with field=form.zip_code %}
+                    {% include '_field_snippet.html' with field=form.perimeter %}
 
                     {% if not request.session.USER_NAME %}
                     {% include '_field_snippet.html' with field=form.organization_type required=required %}
@@ -47,4 +47,17 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/select2/dist/js/select2.js"></script>
+<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+{% endcompress %}
 {% endblock %}
