@@ -73,7 +73,7 @@ legend {
 }
 
 .bg-pic {
-  background: url(../img/home_aides.svg) bottom center no-repeat,linear-gradient(0deg,  #ffffff 10%, #dfddff 80%,#efeeff 100% ) 0% 0%;
+  background: url(../img/home_aides.svg) bottom center no-repeat,linear-gradient(0deg,  var(--w) 10%, var(--bf200-bf300) 60%, var(--g400-t) 100% ) 0% 0%;
   background-size: 100%;
   height: 100%;
   overflow: hidden;
