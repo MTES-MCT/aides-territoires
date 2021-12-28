@@ -4,6 +4,15 @@
 {% block extratitle %}{{ page.meta_title|default:page.title }}{% endblock %}
 {% block meta_description %}{{ page.meta_description }}{% endblock %}
 
+{% block extra_head %}
+<meta property="og:title" content="Aides-territoires | {{ page.meta_title|default:page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{ page.meta_description }}" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock %}
+
 {% block breadcrumbs %}
 <div class="fr-container">
     <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">

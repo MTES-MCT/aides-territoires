@@ -4,6 +4,17 @@
 {% block extratitle %}{{ page.meta_title|default:page.title }}{% endblock %}
 {% block meta_description %}{{ page.meta_description }}{% endblock %}
 
+{% block extra_head %}
+<meta property="og:title" content="{{ page.meta_title|default:search_page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{ page.meta_description }}" />
+<meta property="og:site_name" content="{{ search_page.meta_title|default:search_page.title }}" />
+{% if search_page.meta_image %}
+<meta property="og:image" content="{{ search_page.meta_image.url }}" />
+{% endif %}
+<link rel="canonical" href="{{ canonical_url }}" />
+{% endblock %}
+
 {% block sectionid %}search{% endblock %}
 
 {% block header %}
