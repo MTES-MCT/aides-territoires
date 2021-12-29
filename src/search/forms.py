@@ -8,7 +8,26 @@ from categories.models import Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from pages.admin import PageForm
-from aids.constants import AUDIENCES_GROUPED
+
+
+AUDIENCES = [
+    ('Une collectivité', (
+        ('commune', 'Commune'),
+        ('epci', 'Intercommunalité / Pays'),
+        ('department', 'Département'),
+        ('region', 'Région'),
+        ('special', "Collectivité d'outre-mer à statuts particuliers"),
+    )),
+    ('Un autre bénéficiaire', (
+        ('public_org', 'Établissement public'),
+        ('public_cies', "Entreprise publique locale (Sem, Spl, SemOp)"),
+        ('association', 'Association'),
+        ('private_sector', 'Entreprise privée'),
+        ('private_person', 'Particulier'),
+        ('farmer', 'Agriculteur'),
+        ('researcher', 'Recherche'),
+    ))
+]
 
 
 class AudienceWidget(forms.widgets.ChoiceWidget):
@@ -63,7 +82,7 @@ class GeneralSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['targeted_audiences'].choices = AUDIENCES_GROUPED
+        self.fields['targeted_audiences'].choices = AUDIENCES
 
 
 class SearchPageAdminForm(forms.ModelForm):

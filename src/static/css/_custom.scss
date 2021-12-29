@@ -678,3 +678,23 @@ form#create_project {
 section#post-content img {
   max-width: 100%;
 }
+
+// Organization form
+
+#update_organization {
+
+  .select2-container--bootstrap4.select2-container .select2-selection {
+    color: var(--g800);
+    background-color: var(--g200);
+    box-shadow: inset 0 -2px 0 0 var(--g600);
+    border-radius: 0.25rem 0.25rem 0 0;
+    border: none;  
+  }
+
+  span.field-help {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    color: var(--g600);
+  }
+}
