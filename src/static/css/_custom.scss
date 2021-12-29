@@ -72,6 +72,19 @@ legend {
   font-weight: bold;
 }
 
+.bg-pic {
+  background: url(../img/home_aides.svg) bottom center no-repeat,linear-gradient(0deg,  var(--w) 10%, var(--bf200-bf300) 100%, var(--g400-t) 100% ) 0% 0%;
+  background-size: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  #help-register {
+    display: none;
+  }
+}
+
 // legal-mentions styles
 
   #piwik-consent {
@@ -79,7 +92,7 @@ legend {
     top: 0px;
     width: 100%;
     height: 7rem;
-    left: 0;    
+    left: 0;
   }
 
   #stats-optout {
@@ -140,14 +153,14 @@ legend {
     top: 0px;
     width: 100%;
     height: 7rem;
-    left: 0;    
+    left: 0;
   }
 
   #stats-optout {
     background-color: #fff;
   }
 
-// Home style 
+// Home style
 
 div #what-image {
     margin-top: -150px;
@@ -183,7 +196,7 @@ section#aid-edit {
   position: relative;
   margin: 0 !important;
   padding: 0 !important;
-  
+
   div.form-sidebar {
       display: block;
       position: sticky;
@@ -282,7 +295,7 @@ section#aid-edit form.main-form > fieldset {
 
   fieldset {
     margin: 0;
-  
+
     label {
       font-weight: normal !important;
     }
@@ -435,8 +448,26 @@ form div.multiple-input fieldset legend {
 
 // Search steps
 
+div#search-steps p.steps {
+  text-align: center;
+  line-height: 3;
+
+  span.step {
+    white-space: nowrap;
+
+    &:not(:last-of-type)::after {
+      content: "";
+      display: inline-block;
+      width: 2rem;
+      height: .4rem;
+      border-top: 1px solid var(--bf500);
+      padding: 0 .25rem;
+      vertical-align: baseline;
+    }
+  }
+}
+
 form#general_search_form {
-  
   span.counter {
     display: inline-block;
     width: 2.2rem;
@@ -499,7 +530,7 @@ div#search-steps form#theme label > span {
 div#search-steps form#text-research-form div#form-group-text input {
     display: block;
     width: 100%;
-    padding: 0.375rem 0.75rem;    
+    padding: 0.375rem 0.75rem;
 }
 
 div#search-steps form#theme .fr-toggle__label {
@@ -552,7 +583,7 @@ fieldset {
   margin-top: 0.5rem;
 }
 
-// search result 
+// search result
 
 .hidden-btn {
   position: absolute;
@@ -649,7 +680,6 @@ section#post-content img {
 }
 
 // Organization form
-
 
 #update_organization {
 
