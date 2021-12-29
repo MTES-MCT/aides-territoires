@@ -38,12 +38,12 @@
         {% include 'accounts/_sidebar_menu.html' with project_admin=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <div class="fr-grid-row fr-grid-row--gutters fr-col">
-              <div class="fr-col-12 fr-col-md-9 fr-col">
+            <div class="fr-grid-row">
+              <div class="fr-col-12 fr-col-md-9">
                   <h1 class="fr-h3">Votre projet «&nbsp;{{ project.name }}&nbsp;»</h1>
               </div>
               <div class="fr-col-12 fr-col-md-3">
-                <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-fi-arrow-left-line fr-tag--icon-left d-none d-md-block">Retour aux projets</a>
+                <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-fi-arrow-left-line fr-tag--icon-left">Retour aux projets</a>
               </div>
             </div>
 
@@ -155,12 +155,12 @@
             <div class="fr-container">
               <center>
                 <p>
-                  <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag _fr-text--lg fr-fi-search-line _fr-tag--icon-left" data-fr-opened="false" aria-controls="fr-modal-aide">&nbsp;Trouver des aides pour ce projet</a>
+                  <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag fr-fi-search-line">&nbsp;Trouver des aides pour ce projet</a>
                 </p>
                 <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
                   Supprimer ce projet
                 </button>
-                <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left _fr-btn--icon-left _fr-btn--sm _fr-text--xs" href="{% url 'project_update_view' project.pk %}">
+                <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left" href="{% url 'project_update_view' project.pk %}">
                   Modifier les informations du projet
                 </a>
               </center>
