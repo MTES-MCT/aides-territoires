@@ -256,6 +256,14 @@ class CompleteProfileForm(forms.ModelForm):
             'beneficiary_role': 'Votre fonction',
         }
 
+    def __init__(self, *args, **kwargs):
+        super(CompleteProfileForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            if field_name == "beneficiary_function":
+                field = self.fields.get('beneficiary_function')
+                field.choices[0] = ('', 'Selectionnez une option')
+                field.widget.choices = field.choices
+
     def _post_clean(self):
         super()._post_clean()
         # Validate the password after self.instance is updated with form data by super().
