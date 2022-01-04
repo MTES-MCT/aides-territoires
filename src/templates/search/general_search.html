@@ -50,6 +50,7 @@
                     <label for="id_targeted_audiences">Vous êtes un/une</label>
                     <select name="targeted_audiences" id="id_targeted_audiences">
                         <option value="" hidden>Faites votre choix</option>
+                        <option value="">---</option>
                         {% for option in form.targeted_audiences %}
                         {{ option }}
                         {% endfor %}
