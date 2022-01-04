@@ -99,7 +99,10 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
                     msg = 'Vous êtes maintenant connecté. Bienvenue !'
 
                 self.messages.success(msg)
-                redirect_url = reverse(settings.LOGIN_REDIRECT_URL)
+                if self.request.GET.get('next'):
+                    redirect_url = reverse(self.request.GET.get('next'))
+                else:
+                    redirect_url = reverse(settings.LOGIN_REDIRECT_URL)
                 return HttpResponseRedirect(redirect_url)
 
         return super().get(request, *args, **kwargs)

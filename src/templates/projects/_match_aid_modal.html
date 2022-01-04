@@ -49,7 +49,7 @@
                             </section>
                         </form>
                         {% else %}
-                        <p><a href="{% url 'login' %}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'ajouter cette aide à vos projets&nbsp!</p>
+                        <p><a href="{% url 'login' %}?next={{ aid.get_absolute_url }}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'ajouter cette aide à vos projets&nbsp!</p>
                         {% endif %}
                         {% endif %}
                     </div>
