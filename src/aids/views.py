@@ -315,6 +315,9 @@ class AidDetailView(DetailView):
             context['current_search_dict'] = clean_search_form(
                 current_search_form.cleaned_data, remove_extra_fields=True)
 
+        if self.request.GET.get('open-modal'):
+            context['open_modal'] = True
+
         context['programs'] = self.object.programs \
             .exclude(logo__isnull=True) \
             .exclude(logo='') \
