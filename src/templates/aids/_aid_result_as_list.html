@@ -20,10 +20,34 @@
                     {{ aid.name }}
                     </a>
                 </td>
-                <td>{% if aid.is_financial %}Oui{% else %}Non{% endif %}</td>
-                <td>{% if aid.is_financial %}Oui{% else %}Non{% endif %}</td>
-                <td>{% if aid.is_technical %}Oui{% else %}Non{% endif %}</td>
-                <td>{% if aid.has_calendar %}{% if aid.submission_deadline %}{{ aid.submission_deadline|date:'d/m/y' }}{% endif %}{% endif %}</td>
+                <td>
+                    {% if aid.subvention_rate or aid.subvention_comment %}
+                    Oui
+                    {% else %}
+                    Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if aid.loan_amount%}
+                    Oui
+                    {% else %}
+                    Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if aid.is_technical %}
+                    Oui
+                    {% else %}
+                    Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if aid.has_calendar %}
+                    {% if aid.submission_deadline %}
+                    {{ aid.submission_deadline|date:'d/m/y' }}
+                    {% endif %}
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
