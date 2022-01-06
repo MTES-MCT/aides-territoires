@@ -14,7 +14,7 @@
                         <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
                             <section>
                                 <div class="content">
-                                    <div class="info fr-mb-5w">
+                                    <div class="info fr-mb-3w">
                                         <p class="fr-h6">Les filtres sélectionnés</p>
                                         {% include 'aids/_search_meta.html' with display="all" %}
                                     </div>
@@ -22,11 +22,7 @@
                                     {% csrf_token %}
 
                                     {% if not search_page and user.is_authenticated %}
-                                    <div id="form-group-email" class="fr-input-group required">
-                                        <label for="id_email">Votre adresse e-mail</label>
-                                        <span class="field-help">Nous enverrons un e-mail pour confirmer votre adresse</span>
-                                        <input type="email" name="email" required="" value="{{ user.email }}" id="id_email">
-                                    </div>
+                                    <input type="email" name="email" hidden value="{{ user.email }}" id="id_email">
                                     {% else %}
                                     {% include '_field_snippet.html' with field=alert_form.email %}
                                     {% endif %}

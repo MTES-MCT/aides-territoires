@@ -23,9 +23,16 @@ class AlertCreate(MessageMixin, CreateView):
     form_class = AlertForm
 
     def form_valid(self, form):
-        alert = form.save()
-        send_alert_confirmation_email.delay(alert.email, alert.token)
-        message = _('We just sent you an email to validate your alert.')
+        alert = form.save(commit=False)
+        if self.request.user.is_authenticated:
+            alert.validated = True
+        alert.save()
+
+        if not self.request.user.is_authenticated:
+            send_alert_confirmation_email.delay(alert.email, alert.token)
+            message = 'Nous venons de vous envoyer un e-mail afin de valider votre alerte.'
+        else: 
+            message = 'Votre alerte a bien été créée&nbsp;!'
         self.messages.success(message)
         redirect_url = reverse('search_view')
         if alert.source == 'aides-territoires':
@@ -35,8 +42,8 @@ class AlertCreate(MessageMixin, CreateView):
     def form_invalid(self, form):
         querystring = form.cleaned_data.get('querystring', '')
         source = form.cleaned_data.get('source', 'aides-territoires')
-        msg = _('We could not create your alert because of those '
-                'errors: {}').format(form.errors.as_text())
+        msg = _('Nous n\'avons pas pu enregistrer votre alerte à cause de ces '
+                'erreurs : {}').format(form.errors.as_text())
         self.messages.error(msg)
         redirect_url = reverse('search_view')
         if source == 'aides-territoires':
