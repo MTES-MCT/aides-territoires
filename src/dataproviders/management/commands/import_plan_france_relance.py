@@ -112,7 +112,11 @@ class Command(BaseImportCommand):
     def extract_description(self, line):
         # desc_1 & desc_2 already have <p></p> tags
         desc_1 = content_prettify(line.get('field_chapo', ''))
-        desc_2 = content_prettify(line.get('field_paragraphes', ''))
+        if 'Qui peut en bénéficier ?' in line.get('field_paragraphes', ''):
+            desc_2 = str(line.get('field_paragraphes', '').partition('Qui peut en bénéficier ?')[0])
+            desc_2 = content_prettify(desc_2)
+        else:
+            desc_2 = content_prettify(line.get('field_paragraphes', ''))
         description = desc_1 + desc_2
         return description
 
@@ -142,7 +146,6 @@ class Command(BaseImportCommand):
                 aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
             else:
                 self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
-        print(aid_audiences)
         return aid_audiences
 
     def extract_categories(self, line):
@@ -164,3 +167,39 @@ class Command(BaseImportCommand):
         else:
             print(f"{title}")
         return aid_categories
+
+    def extract_contact(self, line):
+        if 'Liens utiles et contacts' in line.get('field_paragraphes', ''):
+            contact = str(line.get('field_paragraphes', '').partition('Liens utiles et contacts')[2])
+        elif 'Documents utiles' in line.get('field_paragraphes', ''):
+            contact = str(line.get('field_paragraphes', '').partition('Documents utiles')[2])
+        elif 'Liens utiles' in line.get('field_paragraphes', ''):
+            contact = str(line.get('field_paragraphes', '').partition('Liens utiles')[2])
+        else:
+            contact = ''
+
+        if 'Mise en ligne' in contact:
+            contact = str(contact.partition('Mise en ligne')[0])
+        elif 'Mis à jour' in contact:
+            contact = str(contact.partition('Mis à jour')[0])
+
+        contact_detail = content_prettify(contact)
+        return contact_detail
+
+    def extract_eligibility(self, line):
+        if 'Qui peut en bénéficier ?' in line.get('field_paragraphes', ''):
+            eligibility_part_1 = str(line.get('field_paragraphes', '').partition('Qui peut en bénéficier ?')[1])
+            eligibility_part_2 = str(line.get('field_paragraphes', '').partition('Qui peut en bénéficier ?')[2])
+            eligibility = eligibility_part_1 + eligibility_part_2 
+        else:
+            eligibility = ''
+
+        if 'Liens utiles et contacts' in eligibility:
+            eligibility = str(eligibility.partition('Liens utiles et contacts')[0])
+        elif 'Documents utiles' in eligibility:
+            eligibility = str(eligibility.partition('Documents utiles')[0])
+        elif 'Liens utiles' in eligibility:
+            eligibility = str(eligibility.partition('Liens utiles')[0])
+
+        eligibility = content_prettify(eligibility)
+        return eligibility
