@@ -136,16 +136,25 @@ class Command(BaseImportCommand):
 
     def extract_targeted_audiences(self, line):
         """
-        Exemple of string to process: "PDR-Administration"
+        Exemple of string to process: "PDR-Administration" + "Communes, Départements"
         Split the string, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get('field_categorie_taxo', '').split(', ')
+        audiences_1 = line.get('field_thematique', '').split(', ')
+        audiences_2 = line.get('field_categorie_taxo', '').split(', ')
+
         aid_audiences = []
-        for audience in audiences:
+        for audience in audiences_1:
             if audience in AUDIENCES_DICT:
                 aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
             else:
                 self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+
+        if aid_audiences == []:
+            for audience in audiences_2:
+                if audience in AUDIENCES_DICT:
+                    aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
+                else:
+                    self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
         return aid_audiences
 
     def extract_categories(self, line):
