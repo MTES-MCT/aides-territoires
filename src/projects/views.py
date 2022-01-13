@@ -4,10 +4,12 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 from braces.views import MessageMixin
+from django.core.paginator import Paginator
 
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from aids.models import AidProject
+from aids.views import AidPaginator
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -39,6 +41,7 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     template_name = 'projects/projects_list.html'
     context_object_name = 'projects'
     paginate_by = 18
+    paginator_class = AidPaginator
 
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
