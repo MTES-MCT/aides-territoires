@@ -24,23 +24,12 @@
             </li>
             {% if page_obj.has_next %}
             <li>
-                <a class="fr-pagination__link" href="{% url_to_page page_obj.next_page_number %}" title="Page suivante">
+                <a class="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label" href="{% url_to_page page_obj.next_page_number %}" title="Page suivante">
                     Page suivante
                 </a>
             </li>
             <li>
-                <a class="fr-pagination__link fr-displayed-lg" href="{% url_to_page paginator.num_pages %}" title="Dernière page">
-                    Dernière page
-                </a>
-            </li>
-            {% else %}
-            <li>
-                <a class="fr-pagination__link" href="#" title="Page suivante">
-                    Page suivante
-                </a>
-            </li>
-            <li>
-                <a class="fr-pagination__link fr-displayed-lg" href="{% url_to_page paginator.num_pages %}" title="Dernière page">
+                <a class="fr-pagination__link fr-pagination__link--last fr-displayed-lg" href="{% url_to_page paginator.num_pages %}" title="Dernière page">
                     Dernière page
                 </a>
             </li>
