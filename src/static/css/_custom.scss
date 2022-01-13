@@ -395,7 +395,8 @@ section#aid-edit #form-group-categories .part-form > label::after,
 section#aid-edit #form-group-recurrence .part-form > label::after,
 section#aid-edit #form-group-mobilization_steps .part-form > label::after,
 section#aid-edit #form-group-contact .part-form > label::after,
-section#aid-edit #form-group-perimeter .part-form > label::after {
+section#aid-edit #form-group-perimeter .part-form > label::after, 
+section#aid-edit #form-group-targeted_audiences .part-form > label::after {
   content:'*';
   margin-left: 0.2rem;
 }
