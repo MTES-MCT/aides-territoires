@@ -578,32 +578,41 @@ class BaseAidSearchForm(forms.Form):
 
         This is the second solution we are using.
 
-        By default, terms are optional.
-        Terms with a "+" in between are made mandatory.
-        Terms preceded with a "-" are filtered out.
+        By default, terms are made mandatory.
+        Terms with a " ou " in between are optional.
         """
-        all_terms = filter(None, raw_query.split(' '))
-        next_operator = operator.and_
+        all_terms = filter(None, raw_query.lower().split(' ou ')) 
+        all_terms = list(all_terms)
+        all_terms = [term.strip(' ') for term in all_terms]
+
+        next_operator = operator.or_
         invert = False
         query = None
 
         for term in all_terms:
-            if term == '+':
-                next_operator = operator.and_
-                continue
-
-            if term == '-':
-                next_operator = operator.and_
-                invert = True
-                continue
-
-            if query is None:
-                query = SearchQuery(term, config='french', invert=invert)
+            if len(term.split(' ')) > 1:
+                list_sub_term = term.split(' ')
+                sub_query = None
+                for sub_term in list_sub_term:
+                    next_operator = operator.and_
+                    if sub_query is None:
+                        sub_query = SearchQuery(sub_term, config='french', invert=invert)
+                    else:
+                        sub_query = next_operator(sub_query, SearchQuery(
+                            sub_term, config='french', invert=invert))
+                if query is None:
+                    query = sub_query
+                else:
+                    next_operator = operator.or_
+                    query = next_operator(query, sub_query)
             else:
-                query = next_operator(query, SearchQuery(
-                    term, config='french', invert=invert))
-
-            next_operator = operator.and_
+                if query is None:
+                    query = SearchQuery(term, config='french', invert=invert)
+                else:
+                    query = next_operator(query, SearchQuery(
+                        term, config='french', invert=invert))
+                
+            next_operator = operator.or_
             invert = False
 
         return query
