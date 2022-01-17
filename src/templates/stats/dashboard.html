@@ -10,9 +10,9 @@
     <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom">
         <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
         <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
-          <p class="fr-text--lg"><b><a href="#">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></b>, répartis en <b><a href="structures.php">00 structures</a></b>, ont créé <b><a href="projets.php">00 projets</a></b>
-            avec en tout <b>00 aides sélectionnées</b> sur un total de <b>00 aides disponibles</b> publiées par <b>00 porteurs</b>.
-            Sont également disponibles <b>00 portails</b>.
+          <p class="fr-text--lg"><b><a href="#">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></b>, répartis en <b><a href="#">{{ nb_organizations|intcomma }} structures</a></b>, ont créé <b><a href="#">{{ nb_projects|intcomma }} projets</a></b>
+            avec en tout <b>{{ nb_aids_matching_projects }} aides sélectionnées</b> sur un total de <b>{{ nb_aids_live|intcomma }} aides disponibles</b> publiées par <b>{{ nb_active_financers|intcomma }} porteurs</b>.
+            Sont également disponibles <b>{{ nb_searchPage|intcomma }} portails</b>.
           <br><span class="fr-hint-text">Pour rappel, le compte utilisateur a été lancé le 4 novembre 2021.</span>
           </p>
         </div>
@@ -282,7 +282,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>{{ nb_sent_alerts|intcomma }}</b></p>
+              <p class="fr-text--lg"><b>{{ nb_alerts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
