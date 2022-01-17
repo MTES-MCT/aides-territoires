@@ -1,11 +1,24 @@
 {% load i18n %}
 
-{% if aids %}
+    {% if aids %}
+    <ul class="fr-btns-group fr-btns-group--inline">
+        <li>
+            <button class="fr-btn fr-mr-0" title="Afficher les résultats en carte" id="btn-results-card">
+                <i class="ri-function-line"></i>
+            </button>
+        </li>
+        <li>
+            <button class="fr-btn fr-btn--secondary" title="Afficher les résultats en liste" id="btn-results-list">
+                <i class="ri-list-check"></i>
+            </button>
+        </li>
+    </ul>
     <div>
         {% if promotions %}
             {% include 'aids/_promotions.html' %}
         {% endif %}
-        <div class="fr-grid-row">
+        {% include 'aids/_aid_result_as_list.html' %}
+        <div class="fr-grid-row" id="aid_in_card">
         {% for aid in aids %}
             <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
                 {% include 'aids/_aid_result.html' with aid=aid %}
