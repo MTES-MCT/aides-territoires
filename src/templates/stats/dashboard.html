@@ -1,0 +1,417 @@
+{% extends '_base.html' %}
+{% load i18n humanize %}
+
+{% block extratitle %}Dashboard Interne{% endblock %}
+
+{% block content %}
+<section id="stats" class="fr-container">
+  <h4 class="fr-mt-0w">Statistiques globales :</h4>
+  <div class="fr-container">
+    <div class="fr-grid-row _fr-mb-2w fr-pt-0w _fr-p-0w _fr-grid-row--center _fr-grid-row--gutter _fr-pb-3w _fr-pt-2w fr-centered _fr-grid-row--bottom">
+        <div class="fr-col-12 fr-col-lg-12 _fr-p-2w">
+        <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
+          <!-- <p class="fr-alert__title"></p> -->
+          <p class="fr-text--lg"><b><a href="comptes-utilisateurs.php">{{ nb_accounts|intcomma }} comptes utilisateurs</a></b>, répartis en <b><a href="structures.php">00 structures</a></b>, ont créé <b><a href="projets.php">00 projets</a></b>
+            avec en tout <b>00 aides sélectionnées</b> sur un total de <b>00 aides disponibles</b> publiées par <b>00 porteurs</b>.
+            Sont également disponibles <b>00 portails</b>.
+          <br><span class="fr-hint-text">Pour rappel, le compte utilisateur a été lancé le 4 novembre 2021.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="_fr-mt-5w">Présence des collectivités sur AT :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Communes</a><br><span class="fr-hint-text">34968</span>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg">
+                <b>00%</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">EPCI</a><br><span class="fr-hint-text">1253</span>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg">
+                <b>00%</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Départements</a><br><span class="fr-hint-text">101</span>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg">
+                <b>00%</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Régions</a><br><span class="fr-hint-text">18</span>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg">
+                <b>00%</b>
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="fr-mt-5w fr-grid-row fr-grid-row--gutters fr-grid-row--middle _fr-mb-5w">
+    <h4 class="_fr-mt-0w">Statistiques sur une période :</h4>
+      <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
+      <form id="myform" action="index.php" method="GET">
+       <select class="fr-select" id="select" name="period" >
+         <option value="">Faites votre choix</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div class="fr-container fr-mb-5w">
+
+    <h5 class="fr-mt-2w">Consultation :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4 fr-col-md-2" _style="height:80%">
+          <div class="fr-tile fr-enlarge-link" >
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Nombre de visiteurs
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2" _style="height:80%">
+          <div class="fr-tile fr-enlarge-link" >
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Nombre de visiteurs uniques
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Taux de rebond</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Durée moyenne d'une visite
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00 s</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Nombre de pages vues
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                Nombre d’aides vues
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h5 class="fr-mt-5w">Acquisition :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Entrées directes</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00%</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Depuis les moteurs</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00%</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Depuis d'autres sites</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00%</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Depuis les newsletters</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00%</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Depuis les réseaux sociaux</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00%</b></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h5 class="fr-mt-5w">Engagement :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-tile fr-enlarge-link">
+          <div class="fr-tile__body">
+            <p class="fr-tile__title">
+              <a class="fr-tile__link" href="#">Nombre d’utilisateurs connectés/actifs</a>
+            </p>
+          </div>
+          <div class="fr-tile__img" role="presentation">
+            <p class="fr-text--lg"><b>0</b></p>
+          </div>
+        </div>
+      </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Nombre de recherche
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                  Nombre d'alertes créées
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>{{ nb_sent_alerts|intcomma }}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                Nombre de commentaires
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>-</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">
+                Nombre de clics (+ de détails)
+                </a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h5 class="fr-mt-5w">Côté Porteurs de projets :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouveaux projets</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre d’aides ajoutées dans des projets</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h5 class="fr-mt-5w">Côté Porteurs d'aides :</h5>
+    <div  class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="fr-col-4 fr-col-md-2">
+          <div class="fr-tile fr-enlarge-link">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title">
+                <a class="fr-tile__link" href="#">Nombre de nouvelles aides publiées</a>
+              </p>
+            </div>
+            <div class="fr-tile__img" role="presentation">
+              <p class="fr-text--lg"><b>00</b></p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+</section>
+{% endblock %}
