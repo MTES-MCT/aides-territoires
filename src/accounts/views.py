@@ -1,21 +1,25 @@
 import requests
+from datetime import timedelta
+
 from django.conf import settings
 from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View, ListView
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.contrib.auth import login, update_session_auth_hash
+from django.contrib.auth import login, update_session_auth_hash, views
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils import timezone
 from django.utils.http import urlsafe_base64_decode
 from django.contrib import messages
+from django.shortcuts import resolve_url
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin, UserLoggedRequiredMixin
-from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileForm,
+from accounts.forms import (RegisterForm, LoginForm, PasswordResetForm, ContributorProfileForm,
                             InviteCollaboratorForm, CompleteProfileForm)
 from accounts.tasks import send_connection_email, send_invitation_email, send_welcome_email
-from accounts.models import User
+from accounts.models import User, UserLastConnexion
 from projects.models import Project
 from aids.models import Aid
 from organizations.models import Organization
@@ -72,6 +76,17 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
     template_name = 'accounts/password_reset_sent.html'
 
 
+class LoginView(views.LoginView, TemplateView):
+
+    def get_success_url(self):
+        UserLastConnexion.objects.create(user=self.request.user)
+        return self.get_redirect_url() or self.get_default_redirect_url()
+
+    def get_default_redirect_url(self):
+        """Return the default redirect URL."""
+        return resolve_url(settings.LOGIN_REDIRECT_URL)
+
+
 class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
     """Check token and authenticates user."""
 
@@ -90,6 +105,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
             if default_token_generator.check_token(user, token):
                 is_first_login = user.last_login is None
                 login(self.request, user)
+                UserLastConnexion.objects.create(user=self.request.user)
 
                 if is_first_login:
                     msg = 'Vous êtes maintenant connecté. Bienvenue ! Pourriez-vous prendre quelques secondes pour mettre à jour votre profil ?' # noqa
