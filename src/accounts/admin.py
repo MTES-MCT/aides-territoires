@@ -10,7 +10,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from core.admin import InputFilter
 from core.constants import YES_NO_CHOICES
 from aids.models import Aid
-from accounts.models import User
+from accounts.models import User, UserLastConnexion
 
 
 class AuthorFilter(InputFilter):
@@ -253,4 +253,34 @@ class UserAdmin(BaseUserAdmin):
             request, object_id, form_url=form_url, extra_context=context)
 
 
+class UserLastConnexionAdmin(admin.ModelAdmin):
+    """Admin module for users last connexions."""
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs
+
+    list_display = ['user', 'last_connexion_with_seconds']
+    search_fields = ['user', 'last_connexion_with_seconds']
+    ordering = ['user', 'last_connexion']
+
+    list_filter = ['last_connexion']
+
+    readonly_fields = ['user', 'last_connexion_with_seconds']
+
+    fieldsets = (
+        (None, {
+            'fields': (
+                'user',
+                'last_connexion_with_seconds',
+            )
+        }),
+    )
+
+    def last_connexion_with_seconds(self, obj):
+        return obj.last_connexion.strftime("%d %b %Y %H:%M:%S")
+    last_connexion_with_seconds.short_description = 'Dernière connexion'
+    last_connexion_with_seconds.admin_order_field = 'Dernière connexion'
+
 admin.site.register(User, UserAdmin)
+admin.site.register(UserLastConnexion, UserLastConnexionAdmin)

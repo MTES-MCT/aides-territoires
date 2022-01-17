@@ -241,3 +241,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Only the minisite administrators can access
         certain pages of the app."""
         return self.search_pages.exists()
+
+
+class UserLastConnexion(models.Model):
+
+    user = models.ForeignKey(
+        'accounts.User',
+        verbose_name='Utilisateur',
+        on_delete=models.PROTECT,
+        null=True)
+    last_connexion = models.DateTimeField(
+        'Date de la dernière connexion',
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = "Dernière connexion de l'utilisateur"
+        verbose_name_plural = "Dernières connexions des utilisateurs"
