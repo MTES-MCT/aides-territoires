@@ -42,11 +42,8 @@ class DashboardView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         one_week_ago = timezone.now() - timedelta(days=7)
-        #print ("one_week_ago", str(one_week_ago))
 
-        accounts_qs = User.objects \
-            .exclude(beneficiary_organization_id=None)
-        context['nb_accounts'] = accounts_qs.count()
+        context['nb_beneficiary_accounts'] = User.objects.filter(is_beneficiary=True).count()
 
         aids_qs = Aid.objects.live()
         context['nb_live_aids'] = aids_qs.count()
