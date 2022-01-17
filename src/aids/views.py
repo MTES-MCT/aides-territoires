@@ -669,15 +669,13 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
     def form_valid(self, form):
 
         aid = form.save(commit=False)
-        for project in self.request.POST.getlist('projects', []):
-            project = int(project)
-            aid.projects.remove(project)
+        project_pk = int(self.request.POST.get('project-pk'))
+        aid.projects.remove(project_pk)
 
         aid.save()
 
         msg = "L'aide a bien été supprimée."
         messages.success(self.request, msg)
-        project_pk = self.request.POST.get('project-pk')
         project_slug = self.request.POST.get('project-slug')
         url = reverse('project_detail_view', args=[project_pk, project_slug])
         return HttpResponseRedirect(url)

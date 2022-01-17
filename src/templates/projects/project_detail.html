@@ -120,18 +120,9 @@
                                 {% endif %}
                                 {% endfor %}
                                 <td class="fr-text">
-                                    <form id="unmatch_project" method="post" action="{% url 'aid_unmatch_project_view' aid.slug %}">
-                                        <section>
-                                            <div class="content">
-                                                {% csrf_token %}
-                                                <input name="project-pk" value="{{ project.pk }}" type="hidden">
-                                                <input name="project-slug" value="{{ project.slug }}" type="hidden">
-                                                <input name="projects" type="hidden" value="{{ project.id }}" id="{{ project.id }}">
-                                                <button class="btn_delete fr-link  _fr-btn _fr-btn--secondary fr-fi-delete-line _fr-btn--icon-left _fr-btn--sm _fr-text--xs" type="submit">
-                                                    supprimer cette aide
-                                                </button>
-                                        </section>
-                                    </form>
+                                    <button class="btn_delete fr-link fr-fi-delete-line" id="delete-aid-modal-btn" data-fr-opened="false" aria-controls="delete-aid-modal-{{ aid.slug }}">
+                                        supprimer cette aide
+                                    </button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -173,6 +164,11 @@
 
 {% block modals %}
     {% include 'projects/_delete_project_modal.html' %}
+    {% if aid_set %}
+    {% for aid in aid_set %}    
+        {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
+    {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block extra_js %}
