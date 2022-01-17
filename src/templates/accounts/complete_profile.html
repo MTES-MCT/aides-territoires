@@ -33,12 +33,13 @@
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
 
-        <div class="fr-col-md-12">
+        {% include 'accounts/_sidebar_menu.html' with user_parameter=True contrib_profile=True %}
+
+        <div class="fr-col-md-9">
             <h1 class="fr-h3">Finaliser votre inscription</h1>
 
-            <div class="info fr-background-alt-pink fr-p-3w fr-mb-5w">
-                <p class="fr-mb-2w">
-                    <span class="fas fa-lightbulb"></span>
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p>
                     Afin d'accéder à votre compte nous vous invitons à compléter les informations ci-dessous.
                 </p>
             </div>
