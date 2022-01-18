@@ -1,5 +1,8 @@
+import requests
+import json
 from datetime import timedelta
 
+from django.conf import settings
 from django.views.generic import TemplateView
 from django.utils import timezone
 from django.db.models import Sum
@@ -42,11 +45,34 @@ class StatsView(TemplateView):
 class DashboardView(TemplateView):
     template_name = 'stats/dashboard.html'
 
+
+    def get_matomo_stats(self, method):
+        '''
+        Here we want to get the stats from Matomo.
+        '''
+
+        url = "https://stats.data.gouv.fr/"
+
+        params = {
+            'idSite': settings.MATOMO_SITE_ID,
+            'module': 'API',
+            'method': method,
+            'period': 'day',
+            'date': 'today',
+            'format': 'json',
+        }
+        res = requests.get(url, params=params)
+        data = res.json()
+        return data
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         one_week_ago = timezone.now() - timedelta(days=7)
         aids_live_qs = Aid.objects.live()
+        matomo_visits_summary = self.get_matomo_stats('VisitsSummary.get')
+        matomo_actions = self.get_matomo_stats('Actions.get')
+        matomo_referrers = self.get_matomo_stats('Referrers.get')
 
         # general stats: 
         context['nb_beneficiary_accounts'] = User.objects.filter(is_beneficiary=True).count()
@@ -65,6 +91,19 @@ class DashboardView(TemplateView):
 
         # stats 'Consultation':
         context['nb_viewed_aids'] = AidViewEvent.objects.count()
+        # Bon à savoir : la valeur "nb_uniq_visitors" n'est pas renvoyé quand on fait period=range
+        context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
+        context['nb_visits'] = matomo_visits_summary['nb_visits']
+        context['bounce_rate'] = matomo_visits_summary['bounce_rate']
+        context['avg_time_on_site'] = matomo_visits_summary['avg_time_on_site']
+        context['nb_pageviews'] = matomo_actions['nb_pageviews']
+
+        # stats 'Acquisition':
+        context['nb_direct_visitors'] = matomo_referrers['Referrers_visitorsFromDirectEntry']
+        context['nb_searchEngine_visitors'] = matomo_referrers['Referrers_visitorsFromSearchEngines']
+        context['nb_webSite_visitors'] = matomo_referrers['Referrers_visitorsFromWebsites']
+        context['nb_newsletter_visitors'] = matomo_referrers['Referrers_visitorsFromCampaigns']
+        context['nb_socialNetwork_visitors'] = matomo_referrers['Referrers_visitorsFromSocialNetworks']
 
         # stats 'Engagement':
         context['nb_search_events'] = AidSearchEvent.objects.count()
