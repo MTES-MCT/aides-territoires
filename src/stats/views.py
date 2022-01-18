@@ -48,6 +48,7 @@ class DashboardView(TemplateView):
         one_week_ago = timezone.now() - timedelta(days=7)
         aids_live_qs = Aid.objects.live()
 
+        # general stats: 
         context['nb_beneficiary_accounts'] = User.objects.filter(is_beneficiary=True).count()
         context['nb_organizations'] = Organization.objects.count()
         context['nb_projects'] = Project.objects.count()
@@ -55,8 +56,30 @@ class DashboardView(TemplateView):
         context['nb_aids_matching_projects'] = aids_live_qs.exclude(projects=None).distinct().count()
         context['nb_active_financers'] = Backer.objects.has_financed_aids().count()
         context['nb_searchPage'] = SearchPage.objects.count()
+
+        # stats 'Collectivités':
+        context['nb_communes'] = Organization.objects.filter(organization_type__contains=['commune']).count()
+        context['nb_epci'] = Organization.objects.filter(organization_type__contains=['epci']).count()
+        context['nb_departments'] = Organization.objects.filter(organization_type__contains=['department']).count()
+        context['nb_regions'] = Organization.objects.filter(organization_type__contains=['region']).count()
+
+        # stats 'Consultation':
         context['nb_viewed_aids'] = AidViewEvent.objects.count()
-        context['nb_alerts_created'] = Alert.objects.filter(validated=True).count()
+
+        # stats 'Engagement':
         context['nb_search_events'] = AidSearchEvent.objects.count()
+        context['nb_alerts_created'] = Alert.objects.filter(validated=True).count()
         context['nb_aid_contact_click_events'] = AidContactClickEvent.objects.count()
+        
+        # stats for beneficiaries:
+        context['nb_beneficiary_accounts_created'] = User.objects.filter(is_beneficiary=True).count()
+        context['nb_beneficiary_organizations'] = Organization.objects.filter(beneficiaries__is_beneficiary=True).count()
+        context['nb_projects_for_period'] = Project.objects.count()
+        context['nb_aids_matching_projects_for_period'] = aids_live_qs.exclude(projects=None).distinct().count()
+
+        # stats for contributors:
+        context['nb_contributor_accounts_created'] = User.objects.filter(is_contributor=True).count()
+        context['nb_contributor_organizations'] = Organization.objects.filter(beneficiaries__is_contributor=True).count()
+        context['nb_aids_live_for_period'] = Aid.objects.live().count()
+
         return context

@@ -28,9 +28,9 @@
                 <a class="fr-tile__link" href="#">Communes</a><br><span class="fr-hint-text">34968</span>
               </p>
             </div>
-            <div class="fr-title__img" role="presentation">
+            <div class="fr-tile__img" role="presentation">
               <p class="fr-text--lg">
-                <b>00%</b>
+                <b>{{ nb_communes|intcomma }}</b>
               </p>
             </div>
           </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="fr-tile__img" role="presentation">
               <p class="fr-text--lg">
-                <b>00%</b>
+                <b>{{ nb_epci|intcomma }}</b>
               </p>
             </div>
           </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="fr-tile__img" role="presentation">
               <p class="fr-text--lg">
-                <b>00%</b>
+                <b>{{ nb_departments|intcomma }}</b>
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="fr-tile__img" role="presentation">
               <p class="fr-text--lg">
-                <b>00%</b>
+                <b>{{ nb_regions|intcomma }}</b>
               </p>
             </div>
           </div>
@@ -173,7 +173,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_viewed_aids|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -326,7 +326,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_beneficiary_accounts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -338,7 +338,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_beneficiary_organizations|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -350,7 +350,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_projects_for_period|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -362,7 +362,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_aids_matching_projects_for_period|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -378,7 +378,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_contributor_accounts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -390,7 +390,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_contributor_organizations|intcomma }}</b></p>
             </div>
           </div>
         </div>
@@ -402,7 +402,7 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>00</b></p>
+              <p class="fr-text--lg"><b>{{ nb_aids_live_for_period|intcomma}}</b></p>
             </div>
           </div>
         </div>
