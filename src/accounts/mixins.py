@@ -35,6 +35,40 @@ class UserLoggedRequiredMixin(UserPassesTestMixin):
                                  self.get_redirect_field_name())
 
 
+class SuperUserRequiredMixin(UserPassesTestMixin):
+    """Enforce a page access.
+
+    If the user is not logged in and not superuser, redirect to home.
+    """
+
+    def test_func(self):
+        user = self.request.user
+        return user.is_authenticated and user.is_staff
+
+    def get_register_url(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            url = 'home'
+        elif not user.is_staff:
+            url = 'home'
+        else:
+            url = self.request.path
+        return url
+
+    def get_login_url(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            login_url = settings.LOGIN_URL
+        else:
+            login_url = 'home'
+        return login_url
+
+    def handle_no_permission(self):
+        return redirect_to_login(self.request.get_full_path(),
+                                 self.get_register_url(),
+                                 self.get_redirect_field_name())
+
+
 class ContributorRequiredMixin(UserPassesTestMixin):
     """Enforce a contributor account.
 

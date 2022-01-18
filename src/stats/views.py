@@ -16,6 +16,8 @@ from projects.models import Project
 from search.models import SearchPage
 from alerts.models import Alert
 
+from accounts.mixins import SuperUserRequiredMixin
+
 
 class StatsView(TemplateView):
     template_name = 'stats/stats.html'
@@ -42,9 +44,8 @@ class StatsView(TemplateView):
         return context
 
 
-class DashboardView(TemplateView):
+class DashboardView(SuperUserRequiredMixin, TemplateView):
     template_name = 'stats/dashboard.html'
-
 
     def get_matomo_stats(self, method):
         '''
