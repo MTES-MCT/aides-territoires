@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n humanize %}
+{% load i18n humanize compress %}
 
 {% block extratitle %}Dashboard Interne{% endblock %}
 
@@ -83,11 +83,24 @@
   <div class="fr-mt-5w fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-5w">
     <h4 class="fr-mt-0w">Statistiques sur une période :</h4>
       <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
-      <form id="myform" action="index.php" method="GET">
-       <select class="fr-select" id="select" name="period" >
-         <option value="">Faites votre choix</option>
-        </select>
-      </form>
+        <form method="get" action="{% url 'dashboard_view' %}" class="fr-grid-row fr-grid-row--bottom">
+
+          <div id="form-group-start_date" class="fr-input-group fr-mb-0">
+            <label for="id_start_date" class="fr-label" for="text-input-calendar">Date de début</label>
+            <div class="fr-input-wrap fr-fi-calendar-line">
+              <input type="date" name="start_date" placeholder="jj/mm/aaaa" required="" id="id_start_date" class="fr-input">            </div>
+          </div>
+
+          <div id="form-group-end_date" class="fr-input-group fr-mb-0">
+            <label for="id_end_date" class="fr-label" for="text-input-calendar">Date de fin</label>
+            <div class="fr-input-wrap fr-fi-calendar-line">
+              <input type="date" name="end_date" placeholder="jj/mm/aaaa" required="" id="id_end_date" class="fr-input">            </div>
+          </div>
+        
+          <div>
+            <button type="submit" class="fr-btn">Envoyer</button>
+          </div>
+        </form>
     </div>
   </div>
 
@@ -119,7 +132,13 @@
               </p>
             </div>
             <div class="fr-tile__img" role="presentation">
-              <p class="fr-text--lg"><b>{{ nb_uniq_visitors|intcomma }}</b></p>
+              <p class="fr-text--lg">
+                {% if nb_uniq_visitors %}
+                <b>{{ nb_uniq_visitors|intcomma }}</b>
+                {% else %}
+                <b>-</b>
+                {% endif %}
+              </p>
             </div>
           </div>
         </div>

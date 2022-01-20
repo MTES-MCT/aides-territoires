@@ -3,9 +3,10 @@ import json
 from datetime import timedelta
 
 from django.conf import settings
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.utils import timezone
 from django.db.models import Sum
+from django.views.generic.edit import FormMixin
 
 from aids.models import Aid
 from accounts.models import User
@@ -16,6 +17,7 @@ from projects.models import Project
 from search.models import SearchPage
 from alerts.models import Alert
 
+from stats.forms import StatSearchForm
 from accounts.mixins import SuperUserRequiredMixin
 
 
@@ -44,10 +46,30 @@ class StatsView(TemplateView):
         return context
 
 
-class DashboardView(SuperUserRequiredMixin, TemplateView):
+class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
     template_name = 'stats/dashboard.html'
+    form_class = StatSearchForm
 
-    def get_matomo_stats(self, method):
+    def get_period(self):
+        
+        period = timezone.now().strftime('%Y-%m-%d')
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data['start_date']
+                if form.cleaned_data['end_date']:
+                    end_date = form.cleaned_data['end_date']
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime('%Y-%m-%d')
+                end_date = end_date.strftime('%Y-%m-%d')
+                period = start_date.split() + end_date.split()
+
+        return period
+
+    def get_matomo_stats(self, method, start_date, end_date):
         '''
         Here we want to get the stats from Matomo.
         '''
@@ -58,8 +80,8 @@ class DashboardView(SuperUserRequiredMixin, TemplateView):
             'idSite': settings.MATOMO_SITE_ID,
             'module': 'API',
             'method': method,
-            'period': 'day',
-            'date': 'today',
+            'period': 'range',
+            'date': f'{start_date},{end_date}',
             'format': 'json',
         }
         res = requests.get(url, params=params)
@@ -69,11 +91,19 @@ class DashboardView(SuperUserRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        one_week_ago = timezone.now() - timedelta(days=7)
+        period = self.get_period()
+        if type(period) is not str:
+            start_date = period[0]
+            if period[1]:
+                end_date = period[1]
+        else:
+            start_date = period
+            end_date = start_date
+
         aids_live_qs = Aid.objects.live()
-        matomo_visits_summary = self.get_matomo_stats('VisitsSummary.get')
-        matomo_actions = self.get_matomo_stats('Actions.get')
-        matomo_referrers = self.get_matomo_stats('Referrers.get')
+        matomo_visits_summary = self.get_matomo_stats('VisitsSummary.get', start_date, end_date)
+        matomo_actions = self.get_matomo_stats('Actions.get', start_date, end_date)
+        matomo_referrers = self.get_matomo_stats('Referrers.get', start_date, end_date)
 
         # general stats: 
         context['nb_beneficiary_accounts'] = User.objects.filter(is_beneficiary=True).count()
@@ -92,8 +122,9 @@ class DashboardView(SuperUserRequiredMixin, TemplateView):
 
         # stats 'Consultation':
         context['nb_viewed_aids'] = AidViewEvent.objects.count()
-        # Bon à savoir : la valeur "nb_uniq_visitors" n'est pas renvoyé quand on fait period=range
-        context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
+        # la valeur "nb_uniq_visitors" n'est pas renvoyée quand period=range
+        if 'nb_uniq_visitors' in matomo_visits_summary:
+            context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
         context['nb_visits'] = matomo_visits_summary['nb_visits']
         context['bounce_rate'] = matomo_visits_summary['bounce_rate']
         context['avg_time_on_site'] = matomo_visits_summary['avg_time_on_site']
