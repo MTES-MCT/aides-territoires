@@ -1,7 +1,12 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.urls import reverse
+
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+
 from organizations.models import Organization
 from aids.constants import AUDIENCES_ALL
+from projects.models import Project
 
 
 class OrganizationTypeListFilter(admin.SimpleListFilter):
@@ -25,11 +30,9 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ['name', 'date_created']
     search_fields = ['name']
     list_filter = [OrganizationTypeListFilter]
-    autocomplete_fields = ['beneficiaries',
-                           'perimeter', 'projects']
-
+    autocomplete_fields = ['beneficiaries', 'perimeter']
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ['date_created', 'date_updated']
+    readonly_fields = ['date_created', 'date_updated', 'get_projects']
 
     fieldsets = [
         ('', {
@@ -38,7 +41,7 @@ class OrganizationAdmin(admin.ModelAdmin):
                 'slug',
                 'organization_type',
                 'beneficiaries',
-                'projects',
+                'get_projects',
             )
         }),
         ('Informations sur la structure', {
@@ -86,6 +89,23 @@ class OrganizationAdmin(admin.ModelAdmin):
         }),
     ]
 
+    def get_projects(self, obj):
+        projects = Project.objects.filter(organizations=obj)
+        projects_list = format_html('<table><tbody>')
+        for project in projects:
+            url = reverse("admin:projects_project_change", args=(project.pk,))
+            projects_list += format_html(
+                "<tr> \
+                    <td><a href='{url}'>{project}</a></td> \
+                <tr>",
+                url=url,
+                project=project.name,
+            )
+        projects_list += format_html('</tbody></table>')
+        return projects_list
+    get_projects.short_description = "Projets"
+
+
     class Media:
         css = {
             'all': (
@@ -106,6 +126,9 @@ class OrganizationAdmin(admin.ModelAdmin):
             '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
+
+
+
 
 
 admin.site.register(Organization, OrganizationAdmin)
