@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db.models import Sum
 from django.views.generic.edit import FormMixin
 
-from aids.models import Aid
+from aids.models import Aid, AidProject
 from accounts.models import User
 from backers.models import Backer
 from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
@@ -121,7 +121,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context['nb_regions'] = Organization.objects.filter(organization_type__contains=['region']).count()
 
         # stats 'Consultation':
-        context['nb_viewed_aids'] = AidViewEvent.objects.count()
+        context['nb_viewed_aids'] = AidViewEvent.objects.filter(date_created__range=[start_date, end_date]).count()
         # la valeur "nb_uniq_visitors" n'est pas renvoyée quand period=range
         if 'nb_uniq_visitors' in matomo_visits_summary:
             context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
@@ -138,19 +138,44 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context['nb_socialNetwork_visitors'] = matomo_referrers['Referrers_visitorsFromSocialNetworks']
 
         # stats 'Engagement':
-        context['nb_search_events'] = AidSearchEvent.objects.count()
-        context['nb_alerts_created'] = Alert.objects.filter(validated=True).count()
-        context['nb_aid_contact_click_events'] = AidContactClickEvent.objects.count()
+        context['nb_search_events'] = AidSearchEvent.objects \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_alerts_created'] = Alert.objects \
+            .filter(validated=True) \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_aid_contact_click_events'] = AidContactClickEvent.objects \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
         
         # stats for beneficiaries:
-        context['nb_beneficiary_accounts_created'] = User.objects.filter(is_beneficiary=True).count()
-        context['nb_beneficiary_organizations'] = Organization.objects.filter(beneficiaries__is_beneficiary=True).count()
-        context['nb_projects_for_period'] = Project.objects.count()
-        context['nb_aids_matching_projects_for_period'] = aids_live_qs.exclude(projects=None).distinct().count()
+        context['nb_beneficiary_accounts_created'] = User.objects \
+            .filter(is_beneficiary=True) \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_beneficiary_organizations'] = Organization.objects \
+            .filter(beneficiaries__is_beneficiary=True) \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_projects_for_period'] = Project.objects \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_aids_matching_projects_for_period'] = AidProject.objects \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
 
         # stats for contributors:
-        context['nb_contributor_accounts_created'] = User.objects.filter(is_contributor=True).count()
-        context['nb_contributor_organizations'] = Organization.objects.filter(beneficiaries__is_contributor=True).count()
-        context['nb_aids_live_for_period'] = Aid.objects.live().count()
+        context['nb_contributor_accounts_created'] = User.objects \
+            .filter(is_contributor=True) \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_contributor_organizations'] = Organization.objects \
+            .filter(beneficiaries__is_contributor=True) \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
+        context['nb_aids_live_for_period'] = aids_live_qs \
+            .filter(date_created__range=[start_date, end_date]) \
+            .count()
 
         return context
