@@ -1,7 +1,6 @@
 from django.views.generic import FormView
 
 from search.forms import GeneralSearchForm
-from geofr.models import Perimeter
 
 
 class SearchMixin:
@@ -27,7 +26,7 @@ class GeneralSearch(FormView):
                 TARGETED_AUDIENCES = None
                 PERIMETER = None
                 user_org = self.request.user.beneficiary_organization
-                if user_org.organization_type is not None: 
+                if user_org.organization_type is not None:
                     TARGETED_AUDIENCES = user_org.organization_type[0]
                 if user_org.perimeter is not None:
                     PERIMETER = user_org.perimeter.id_slug

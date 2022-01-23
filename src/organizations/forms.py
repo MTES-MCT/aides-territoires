@@ -1,7 +1,7 @@
 from django import forms
 
 from model_utils import Choices
-from core.forms.fields import RichTextField, AutocompleteModelChoiceField
+from core.forms.fields import AutocompleteModelChoiceField
 
 from geofr.models import Perimeter
 from organizations.models import Organization
