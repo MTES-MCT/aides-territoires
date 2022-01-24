@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n humanize compress %}
+{% load i18n humanize compress form_utils %}
 
 {% block extratitle %}Dashboard Interne{% endblock %}
 
@@ -104,6 +104,14 @@
           <div>
             <button type="submit" class="fr-btn">Envoyer</button>
           </div>
+          
+          {% if start_date_error %}
+          <span class="error field-error">
+            ↑
+            {{ start_date_error.0 }}
+            ↑
+          </span>
+          {% endif %}
         </form>
     </div>
   </div>

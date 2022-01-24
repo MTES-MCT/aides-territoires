@@ -91,7 +91,15 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                if form.errors:
+                    if form.errors['start_date']:
+                        context['start_date_error'] = form.errors['start_date']
+
         period = self.get_period()
+        print(period)
         if type(period) is not str:
             start_date = period[0]
             end_date = period[1]
