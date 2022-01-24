@@ -93,10 +93,9 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
 
         if self.request.GET:
             form = StatSearchForm(self.request.GET)
-            if form.is_valid():
-                if form.errors:
-                    if form.errors['start_date']:
-                        context['start_date_error'] = form.errors['start_date']
+            if form.errors:
+                if form.errors['start_date']:
+                    context['start_date_error'] = form.errors['start_date']
 
         period = self.get_period()
         print(period)
