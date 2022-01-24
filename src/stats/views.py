@@ -3,7 +3,7 @@ import datetime
 from datetime import timedelta
 
 from django.conf import settings
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.utils import timezone
 from django.db.models import Sum
 from django.views.generic.edit import FormMixin
@@ -19,6 +19,7 @@ from alerts.models import Alert
 
 from stats.forms import StatSearchForm
 from accounts.mixins import SuperUserRequiredMixin
+from aids.views import AidPaginator
 
 
 class StatsView(TemplateView):
@@ -98,7 +99,6 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
                     context['start_date_error'] = form.errors['start_date']
 
         period = self.get_period()
-        print(period)
         if type(period) is not str:
             start_date = period[0]
             end_date = period[1]
@@ -198,5 +198,79 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context['nb_aids_live_for_period'] = aids_live_qs \
             .filter(date_created__range=[start_date, end_date_range]) \
             .count()
+
+        return context
+
+
+class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
+    template_name = 'stats/users_stats.html'
+    form_class = StatSearchForm
+    context_object_name = 'users'
+    paginate_by = 50
+    paginator_class = AidPaginator
+
+    def get_period(self):
+
+        period = timezone.now().strftime('%Y-%m-%d')
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data['start_date']
+                if form.cleaned_data['end_date']:
+                    end_date = form.cleaned_data['end_date']
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime('%Y-%m-%d')
+                end_date = end_date.strftime('%Y-%m-%d')
+                period = start_date.split() + end_date.split()
+
+        return period
+
+    def get_queryset(self):
+        """Return the list of users to display."""
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.errors:
+                if form.errors['start_date']:
+                    context['start_date_error'] = form.errors['start_date']
+
+        period = self.get_period()
+        if type(period) is not str:
+            start_date = period[0]
+            end_date = period[1]
+            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+        else:
+            start_date = period
+            end_date = start_date
+            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+
+
+        users = User.objects \
+            .filter(date_created__range=[start_date, end_date_range]) \
+            .select_related('beneficiary_organization') \
+            .order_by('-date_created')
+
+        return users
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # general stats:
+        context['nb_beneficiaries_and_contributors'] = User.objects \
+            .filter(is_beneficiary=True) \
+            .filter(is_contributor=True) \
+            .count()
+        context['nb_beneficiaries_only'] = User.objects \
+            .filter(is_beneficiary=True) \
+            .exclude(is_contributor=True) \
+            .count()
+        context['nb_contributors_only'] = User.objects \
+            .filter(is_contributor=True) \
+            .exclude(is_beneficiary=True) \
+            .count()
+        context['nb_users'] = User.objects.all().count()
 
         return context
