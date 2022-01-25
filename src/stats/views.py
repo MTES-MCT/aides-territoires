@@ -393,3 +393,11 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             .order_by('-date_created')
 
         return organizations
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # general stats:
+        context['all_organizations'] = Organization.objects.values('organization_type').order_by('organization_type')
+
+        return context
