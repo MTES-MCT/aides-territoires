@@ -287,7 +287,7 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
     paginate_by = 50
     paginator_class = AidPaginator
 
-        def get_period(self):
+    def get_period(self):
 
         period = timezone.now().strftime('%Y-%m-%d')
 
@@ -331,6 +331,7 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         projects = Project.objects \
             .filter(date_created__range=[start_date_range, end_date_range]) \
             .prefetch_related('organizations') \
+            .prefetch_related('aid_set') \
             .order_by('-date_created')
 
         return projects
