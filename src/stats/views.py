@@ -102,11 +102,14 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         if type(period) is not str:
             start_date = period[0]
             end_date = period[1]
-            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
         else:
             start_date = period
             end_date = start_date
-            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+
+        start_date_range = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        start_date_range = timezone.make_aware(start_date_range)
+        end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+        end_date_range = timezone.make_aware(end_date_range)
 
         aids_live_qs = Aid.objects.live()
         matomo_visits_summary = self.get_matomo_stats('VisitsSummary.get', start_date, end_date)
@@ -141,7 +144,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
 
         # stats 'Consultation':
         context['nb_viewed_aids'] = AidViewEvent.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         # la valeur "nb_uniq_visitors" n'est pas renvoyée quand period=range
         if 'nb_uniq_visitors' in matomo_visits_summary:
@@ -160,43 +163,43 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
 
         # stats 'Engagement':
         context['nb_search_events'] = AidSearchEvent.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_alerts_created'] = Alert.objects \
             .filter(validated=True) \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_aid_contact_click_events'] = AidContactClickEvent.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
 
         # stats for beneficiaries:
         context['nb_beneficiary_accounts_created'] = User.objects \
             .filter(is_beneficiary=True) \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_beneficiary_organizations'] = Organization.objects \
             .filter(beneficiaries__is_beneficiary=True) \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_projects_for_period'] = Project.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_aids_matching_projects_for_period'] = AidProject.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
 
         # stats for contributors:
         context['nb_contributor_accounts_created'] = User.objects \
             .filter(is_contributor=True) \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_contributor_organizations'] = Organization.objects \
             .filter(beneficiaries__is_contributor=True) \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
         context['nb_aids_live_for_period'] = aids_live_qs \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .count()
 
         return context
@@ -241,15 +244,17 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         if type(period) is not str:
             start_date = period[0]
             end_date = period[1]
-            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
         else:
             start_date = period
             end_date = start_date
-            end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
 
+        start_date_range = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        start_date_range = timezone.make_aware(start_date_range)
+        end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+        end_date_range = timezone.make_aware(end_date_range)
 
         users = User.objects \
-            .filter(date_created__range=[start_date, end_date_range]) \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
             .select_related('beneficiary_organization') \
             .order_by('-date_created')
 
