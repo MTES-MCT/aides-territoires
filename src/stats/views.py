@@ -279,3 +279,58 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         context['nb_users'] = User.objects.all().count()
 
         return context
+
+class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
+    template_name = 'stats/projects_stats.html'
+    form_class = StatSearchForm
+    context_object_name = 'projects'
+    paginate_by = 50
+    paginator_class = AidPaginator
+
+        def get_period(self):
+
+        period = timezone.now().strftime('%Y-%m-%d')
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data['start_date']
+                if form.cleaned_data['end_date']:
+                    end_date = form.cleaned_data['end_date']
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime('%Y-%m-%d')
+                end_date = end_date.strftime('%Y-%m-%d')
+                period = start_date.split() + end_date.split()
+
+        return period
+
+    def get_queryset(self):
+        """Return the list of users to display."""
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.errors:
+                if form.errors['start_date']:
+                    context['start_date_error'] = form.errors['start_date']
+
+        period = self.get_period()
+        if type(period) is not str:
+            start_date = period[0]
+            end_date = period[1]
+        else:
+            start_date = period
+            end_date = start_date
+
+        start_date_range = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        start_date_range = timezone.make_aware(start_date_range)
+        end_date_range = datetime.datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+        end_date_range = timezone.make_aware(end_date_range)
+
+        projects = Project.objects \
+            .filter(date_created__range=[start_date_range, end_date_range]) \
+            .prefetch_related('organizations') \
+            .order_by('-date_created')
+
+        return projects
