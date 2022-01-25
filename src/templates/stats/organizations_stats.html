@@ -1,0 +1,128 @@
+{% extends '_base.html' %}
+{% load i18n humanize compress form_utils stats organizations aids %}
+
+{% block extratitle %}Statistiques Interne - Structures{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'dashboard_view' %}">Dashboard</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques Structures</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<section id="users-stats" class="fr-container">
+
+    <div class="fr-table fr-table--bordered fr-mt-5w">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Nombre d'inscrits</th>
+                    <th scope="col">%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% regroup all_organizations by organization_type.0 as orga_list %}
+                {% for organization_type in orga_list %}    
+                <tr>
+                    <th>{% Organization_type_choice_display organization_type.grouper %}</th>
+                    <td>{{ organization_type.list|length }}</td>
+                    <td>{% percent_display organization_type.list|length all_organizations.count %}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>TOTAL</th>
+                    <td>{{ all_organizations.count }}</td>
+                    <td>{% percent_display all_organizations.count all_organizations.count %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4 class="fr-mt-0w">Structures&nbsp;:</h4>
+
+    <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
+        <form method="get" action="{% url 'organizations_stats' %}" class="fr-grid-row fr-grid-row--start">
+          <div id="form-group-start_date" class="fr-input-group fr-mb-0">
+            <div class="fr-input-wrap fr-fi-calendar-line">
+                <label for="id_start_date" class="fr-label"></label>
+                <input type="date" name="start_date" placeholder="jj/mm/aaaa" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0">
+                <span class="fr-hint-text">Date de début</span>
+            </div>
+          </div>
+          <div id="form-group-end_date" class="fr-input-group fr-mb-0">
+            <div class="fr-input-wrap fr-fi-calendar-line">
+                <label for="id_end_date" class="fr-label"></label>
+                <input type="date" name="end_date" placeholder="jj/mm/aaaa" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0">
+                <span class="fr-hint-text">Date de fin</span>
+            </div>
+          </div>
+          <div>
+                <button type="submit" class="fr-btn">Envoyer</button>
+          </div>
+          {% if start_date_error %}
+          <span class="error field-error">
+            ↑
+            {{ start_date_error.0 }}
+            ↑
+          </span>
+          {% endif %}
+        </form>
+    </div>
+
+    <div class="fr-table fr-table--bordered fr-mt-5w">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Territoire</th>
+                    <th scope="col">Nombre de collaborateurs</th>
+                    <th scope="col">Date de création</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for organization in organizations %}
+                <tr>
+                    <td>{{ organization.name }}</td>
+                    <td>
+                        {% if organization.organization_type %}
+                        {% choices_display organization 'organization_type' %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if organization.perimeter %}
+                        {{ organization.perimeter }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if organization.beneficiaries %}
+                        {{ organization.beneficiaries.all.count }}
+                        {% endif %}
+                    </td>
+                    <td>{{ organization.date_created|date:'d/m/y' }}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include '_pagination.html' %}
+
+</section>
+{% endblock %}

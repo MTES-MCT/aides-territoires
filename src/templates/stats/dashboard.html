@@ -10,7 +10,7 @@
     <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom">
         <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
         <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
-          <p class="fr-text--lg"><b><a href="#">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></b>, répartis en <b><a href="#">{{ nb_organizations|intcomma }} structures</a></b>, ont créé <b><a href="#">{{ nb_projects|intcomma }} projets</a></b>
+          <p class="fr-text--lg"><b><a href="{% url 'users_stats' %}">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></b>, répartis en <b><a href="{% url 'organizations_stats' %}">{{ nb_organizations|intcomma }} structures</a></b>, ont créé <b><a href="{% url 'projects_stats' %}">{{ nb_projects|intcomma }} projets</a></b>
             avec en tout <b>{{ nb_aids_matching_projects }} aides sélectionnées</b> sur un total de <b>{{ nb_aids_live|intcomma }} aides disponibles</b> publiées par <b>{{ nb_active_financers|intcomma }} porteurs</b>.
             Sont également disponibles <b>{{ nb_searchPage|intcomma }} portails</b>.
           <br><span class="fr-hint-text">Pour rappel, le compte utilisateur a été lancé le 4 novembre 2021.</span>
@@ -21,56 +21,56 @@
 
     <h5 class="fr-mt-5w">Présence des collectivités sur AT :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Communes</a><br><span class="fr-hint-text">34968</span>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg">
                 <b>{{ nb_communes|intcomma }}</b>
               </p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">EPCI</a><br><span class="fr-hint-text">1253</span>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg">
                 <b>{{ nb_epci|intcomma }}</b>
               </p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Départements</a><br><span class="fr-hint-text">101</span>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg">
                 <b>{{ nb_departments|intcomma }}</b>
               </p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Régions</a><br><span class="fr-hint-text">18</span>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg">
                 <b>{{ nb_regions|intcomma }}</b>
               </p>
@@ -120,7 +120,7 @@
 
     <h5 class="fr-mt-2w">Consultation :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4 fr-col-md-2" _style="height:80%">
+        <div class="fr-col-12 fr-col-md-2" _style="height:80%">
           <div class="fr-tile fr-enlarge-link" >
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -129,12 +129,12 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_visits|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2" _style="height:80%">
+        <div class="fr-col-12 fr-col-md-2" _style="height:80%">
           <div class="fr-tile fr-enlarge-link" >
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -143,7 +143,7 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg">
                 {% if nb_uniq_visitors %}
                 <b>{{ nb_uniq_visitors|intcomma }}</b>
@@ -154,19 +154,19 @@
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Taux de rebond</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ bounce_rate }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -175,12 +175,12 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ avg_time_on_site }}s</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -189,12 +189,12 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_pageviews|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -203,7 +203,7 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_viewed_aids|intcomma }}</b></p>
             </div>
           </div>
@@ -212,62 +212,62 @@
 
     <h5 class="fr-mt-5w">Acquisition :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Entrées directes</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_direct_visitors|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Depuis les moteurs</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_searchEngine_visitors|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Depuis d'autres sites</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_webSite_visitors|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Depuis les newsletters</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_newsletter_visitors|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Depuis les réseaux sociaux</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_socialNetwork_visitors|intcomma }}</b></p>
             </div>
           </div>
@@ -276,19 +276,19 @@
 
     <h5 class="fr-mt-5w">Engagement :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-      <div class="fr-col-4 fr-col-md-2">
+      <div class="fr-col-12 fr-col-md-2">
         <div class="fr-tile fr-enlarge-link">
           <div class="fr-tile__body">
             <p class="fr-tile__title">
               <a class="fr-tile__link" href="#">Nombre d’utilisateurs connectés/actifs</a>
             </p>
           </div>
-          <div class="fr-tile__img" role="presentation">
+          <div class="fr-tile__img overflow--initial" role="presentation">
             <p class="fr-text--lg"><b>0</b></p>
           </div>
         </div>
       </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -297,13 +297,13 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_search_events|intcomma }}</b></p>
             </div>
           </div>
         </div>
 
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -312,12 +312,12 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_alerts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -326,12 +326,12 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>-</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
@@ -340,7 +340,7 @@
                 </a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_aid_contact_click_events|intcomma }}</b></p>
             </div>
           </div>
@@ -349,50 +349,50 @@
 
     <h5 class="fr-mt-5w">Côté Porteurs de projets :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_beneficiary_accounts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_beneficiary_organizations|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouveaux projets</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_projects_for_period|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre d’aides ajoutées dans des projets</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_aids_matching_projects_for_period|intcomma }}</b></p>
             </div>
           </div>
@@ -401,47 +401,43 @@
 
     <h5 class="fr-mt-5w">Côté Porteurs d'aides :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_contributor_accounts_created|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_contributor_organizations|intcomma }}</b></p>
             </div>
           </div>
         </div>
-        <div class="fr-col-4 fr-col-md-2">
+        <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
                 <a class="fr-tile__link" href="#">Nombre de nouvelles aides publiées</a>
               </p>
             </div>
-            <div class="fr-tile__img" role="presentation">
+            <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_aids_live_for_period|intcomma}}</b></p>
             </div>
           </div>
         </div>
     </div>
   </div>
-
-
-
-
 </section>
 {% endblock %}
