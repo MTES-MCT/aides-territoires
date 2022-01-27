@@ -346,7 +346,7 @@ section#aid-edit form.main-form > fieldset > div#loan-fields {
 }
 
 section#aid-edit form.main-form > fieldset > div,
-section#aid-edit form.main-form > fieldset > div#calendar-fields > div,
+section#aid-edit form.main-form > fieldset div#calendar-fields-collapse > div,
 section#aid-edit form.main-form > fieldset div#instructor-fields > div,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div,
 section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div,
@@ -361,7 +361,7 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div {
 }
 
 section#aid-edit form.main-form > fieldset .help-form,
-section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .help-form,
+section#aid-edit form.main-form > fieldset > div#calendar-fields-collapse > div > .help-form,
 section#aid-edit form.main-form > fieldset div#instructor-fields > div > .help-form,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .help-form,
 section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div > .help-form,
@@ -399,7 +399,7 @@ section#aid-edit #form-group-targeted_audiences .part-form > label::after {
 }
 
 section#aid-edit form.main-form > fieldset .part-form,
-section#aid-edit form.main-form > fieldset > div#calendar-fields > div > .part-form,
+section#aid-edit form.main-form > fieldset > div#calendar-fields-collapse > div > .part-form,
 section#aid-edit form.main-form > fieldset div#instructor-fields > div > .part-form,
 section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .part-form,
 section#aid-edit form.main-form > fieldset div#recoverable-fields-collapse > div > .part-form,

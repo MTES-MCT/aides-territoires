@@ -8,16 +8,15 @@
      * `recurrence` field value maks sense.
      */
     exports.toggleCalendarFields = function(form, div) {
-        div.addClass('collapse');
 
         var recurrence = form.find('select[name=recurrence]');
         var isOngoing = recurrence.val() == 'ongoing';
         var isEmpty = recurrence.val() == '';
         var hasErrors = div.find('p.error').length > 0;
         if ((isEmpty || isOngoing) && !hasErrors) {
-            div.collapse('hide');
+            div.removeClass('fr-collapse--expanded');
         } else {
-            div.collapse('show');
+            div.addClass('fr-collapse--expanded');
         }
     };
 
@@ -26,7 +25,7 @@
 $(document).ready(function () {
 
     var aidEditForm = $('form.main-form');
-    var calendarFieldsDiv = $('div#calendar-fields');
+    var calendarFieldsDiv = $('div#calendar-fields-collapse');
     toggleCalendarFields(aidEditForm, calendarFieldsDiv);
     aidEditForm.on('change', function() {
         toggleCalendarFields(aidEditForm, calendarFieldsDiv);
