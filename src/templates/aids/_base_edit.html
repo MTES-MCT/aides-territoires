@@ -85,10 +85,12 @@
         {% include '_field_snippet_aid_form.html' with field=form.categories %}
         {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
         <div id="calendar-fields">
-            {% include '_field_snippet_aid_form.html' with field=form.start_date %}
-            {% include '_field_snippet_aid_form.html' with field=form.predeposit_date %}
-            {% include '_field_snippet_aid_form.html' with field=form.submission_deadline %}
-        </div>  
+            <div id="calendar-fields-collapse" class="fr-collapse">
+                {% include '_field_snippet_aid_form.html' with field=form.start_date %}
+                {% include '_field_snippet_aid_form.html' with field=form.predeposit_date %}
+                {% include '_field_snippet_aid_form.html' with field=form.submission_deadline %}    
+            </div>  
+        </div>
     </fieldset>
 
     <fieldset>
