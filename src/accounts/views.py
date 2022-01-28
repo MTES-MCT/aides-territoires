@@ -77,6 +77,7 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
 
 
 class LoginView(views.LoginView, TemplateView):
+    next_page = None
 
     def get_success_url(self):
         UserLastConnexion.objects.create(user=self.request.user)
@@ -84,7 +85,7 @@ class LoginView(views.LoginView, TemplateView):
 
     def get_default_redirect_url(self):
         """Return the default redirect URL."""
-        return resolve_url(settings.LOGIN_REDIRECT_URL)
+        return resolve_url(self.next_page or settings.LOGIN_REDIRECT_URL)
 
 
 class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
