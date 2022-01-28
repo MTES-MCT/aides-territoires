@@ -1,6 +1,7 @@
 import requests
 import datetime
 from datetime import timedelta
+from time import strftime, gmtime
 
 from django.conf import settings
 from django.views.generic import TemplateView, ListView
@@ -151,7 +152,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
         context['nb_visits'] = matomo_visits_summary['nb_visits']
         context['bounce_rate'] = matomo_visits_summary['bounce_rate']
-        context['avg_time_on_site'] = matomo_visits_summary['avg_time_on_site']
+        context['avg_time_on_site'] = strftime("%Mm%Ss", gmtime(matomo_visits_summary['avg_time_on_site']))
         context['nb_pageviews'] = matomo_actions['nb_pageviews']
 
         # stats 'Acquisition':
