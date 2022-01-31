@@ -1,3 +1,5 @@
+from os.path import splitext
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
@@ -87,6 +89,15 @@ class UserManager(BaseUserManager):
         return self.get_queryset().with_api_token()
 
 
+def logo_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.pk
+    filename = 'accounts/{}_logo{}'.format(name, extension)
+    return filename
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """Represents a single user account (one physical person)."""
 
@@ -107,6 +118,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(
         'Nom',
         max_length=256)
+    image = models.FileField(
+        "Avatar de l'utilisateur",
+        null=True, blank=True,
+        upload_to=logo_upload_to,
+        help_text="Assurez vous que l'image n'est pas trop lourde.")
 
     # Account settings fields
     ml_consent = models.BooleanField(
