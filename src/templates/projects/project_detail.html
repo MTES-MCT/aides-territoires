@@ -114,7 +114,7 @@
                                     {% if aidproject.creator == user %}
                                     Vous
                                     {% else %}
-                                    {{ aidproject.creator }}
+                                    {{ aidproject.creator.full_name }}
                                     {% endif %}
                                 </td>
                                 {% endif %}
