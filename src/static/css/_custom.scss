@@ -677,6 +677,11 @@ section#post-content img {
   max-width: 100%;
 }
 
+#post-author-img {
+  border-radius: 50%;
+  max-width: 7rem !important;
+}
+
 // Organization form
 
 #update_organization {

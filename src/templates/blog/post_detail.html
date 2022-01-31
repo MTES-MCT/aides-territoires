@@ -41,6 +41,18 @@
                     {{ post.text|safe }}
                 </div>
                 {% endif %}
+
+                {% if post.author %}
+                <div class="fr-grid-row fr-grid-row--middle fr-mt-5w">
+                    <img id="post-author-img" src="{{ post.author.image.url }}" alt="{{ post.author.full_name }}" class="fr-col-12">      
+                    <div class="fr-mt-2w">
+                        <strong class="fr-ml-1w">Rédaction - {{ post.author.full_name }},</strong>
+                    </div>
+                    <div class="fr-mt-2w">
+                        <strong class="fr-ml-1w"> {{ post.date_published|date:'d F Y'}}</strong>
+                    </div>
+                </div>
+                {% endif %}
         
                 {% if related_articles %}
                 <div id="related-articles" class="fr-background-alt-pink fr-p-3w">
