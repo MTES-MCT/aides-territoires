@@ -21,6 +21,7 @@ class BlogPostAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'status', 'date_created']
     search_fields = ['title']
     list_filter = ['status', 'category']
+    autocomplete_fields = ['author']
 
     form = BlogPostForm
     prepopulated_fields = {'slug': ('title',)}
@@ -31,6 +32,7 @@ class BlogPostAdmin(admin.ModelAdmin):
             'fields': (
                 'title',
                 'slug',
+                'author',
                 'short_text',
                 'text',
                 'logo',
