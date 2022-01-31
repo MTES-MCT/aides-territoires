@@ -58,6 +58,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Fonction</th>
                             <th scope="col">invitée le</th>
+                            <th scope="col">inscrite</th>
                         </tr>
                     </thead>
                     {% if users %}
@@ -78,6 +79,13 @@
                             {% endif %}
                             </td>
                             <td>{{ user.date_created|date:'d/m/y' }}</td>
+                            <td>
+                                {% if user.last_login %}
+                                <i class="ri-check-line ri-xl"></i>
+                                {% else %}
+                                <i class="ri-loader-4-line ri-xl"></i> 
+                                {% endif%}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
