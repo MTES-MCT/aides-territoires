@@ -235,6 +235,8 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
     def form_valid(self, form):
 
         user = form.save(commit=False)
+        user.is_beneficiary = self.request.user.is_beneficiary
+        user.is_contributor = self.request.user.is_contributor
         user.beneficiary_organization = self.request.user.beneficiary_organization
         user.save()
 
