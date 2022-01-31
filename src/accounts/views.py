@@ -332,3 +332,24 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
         res = super().form_valid(form)
         update_session_auth_hash(self.request, self.object)
         return res
+
+
+class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """List of all the connexion-logs of an user"""
+
+    template_name = 'accounts/history_login.html'
+    context_object_name = 'connexions'
+    paginate_by = 18
+
+    def get_queryset(self):
+        if self.request.user.beneficiary_organization is not None:
+            queryset = UserLastConnexion.objects \
+                .filter(user=self.request.user.pk)
+        else:
+            queryset = User.objects.none()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
