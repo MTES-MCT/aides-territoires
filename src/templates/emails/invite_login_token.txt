@@ -2,7 +2,7 @@ Bonjour {{ user_name }},
 
 {{ invitator_name }} vous invite à rejoindre la structure {{ organization_name }} sur Aides-territoires, le portail d’Etat qui permet aux collectivités et à leurs partenaires locaux de trouver les aides financières et d’ingénierie pour donner vie aux ambitions de leur territoire.
 
-Pour ce faire, il vous suffit de cliquer sur le lien suivant :
+Pour ce faire, il vous suffit de cliquer sur le lien suivant (ou de copier/coller dans votre navigateur) :
 
 {{ full_login_url }}
 

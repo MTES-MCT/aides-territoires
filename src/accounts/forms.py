@@ -264,6 +264,19 @@ class CompleteProfileForm(forms.ModelForm):
                 field.choices[0] = ('', 'Selectionnez une option')
                 field.widget.choices = field.choices
 
+    def clean(self):
+        """Validation routine (frontend form only)."""
+
+        data = super().clean()
+
+        if not any((data.get('is_contributor'), data.get('is_beneficiary'))):
+            msg = "Merci de cocher au moins une des options."
+            self.add_error('is_beneficiary', msg)
+            self.add_error('is_contributor', msg)
+
+        return data
+
+
     def _post_clean(self):
         super()._post_clean()
         # Validate the password after self.instance is updated with form data by super().
