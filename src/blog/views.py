@@ -13,6 +13,8 @@ class BlogPostList(ListView):
         category_slug = self.kwargs.get('category')
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
+        if self.request.GET.get('author'):
+            queryset = queryset.filter(author=self.request.GET.get('author'))
         return queryset
 
     def get_context_data(self, **kwargs):
