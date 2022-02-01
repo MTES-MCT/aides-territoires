@@ -350,7 +350,8 @@ class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
             queryset = UserLastConnexion.objects \
-                .filter(user=self.request.user.pk)
+                .filter(user=self.request.user.pk) \
+                .order_by('-last_connexion')
         else:
             queryset = User.objects.none()
         return queryset
