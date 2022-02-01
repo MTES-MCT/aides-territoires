@@ -353,3 +353,21 @@ class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         return context
+
+
+class DeleteHistoryLoginView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Allow user to delete its connexion-logs"""
+
+    def get(self, request):
+
+        if self.request.user:
+            try:
+                UserLastConnexion.objects.filter(user=self.request.user.pk).delete()
+                msg = "Votre journal de connexion a bien été réinitialisé."
+            except:
+                msg = "Une errreur s'est produite lors de la suppression de votre journal de connexion"
+            messages.success(self.request, msg)
+            success_url = reverse('history_login')
+            return HttpResponseRedirect(success_url)
+        else:
+            pass

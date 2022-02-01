@@ -8,7 +8,7 @@ from accounts.views import (PasswordResetView, PasswordResetSentView, LoginView,
                             ContributorProfileView, UserDashboardView,
                             UserApiTokenView, UnSubscribeNewsletter, SubscribeNewsletter,
                             InviteCollaborator, CollaboratorsList, CompleteProfileView,
-                            HistoryLoginList)
+                            HistoryLoginList, DeleteHistoryLoginView)
 
 
 urlpatterns = [
@@ -48,6 +48,8 @@ urlpatterns = [
          name='invite_collaborator'),
     path('collaborateurs/', CollaboratorsList.as_view(),
          name='collaborators'),
-    path('historique-de-connexions/', HistoryLoginList.as_view(),
+    path('journal-de-connexion/', HistoryLoginList.as_view(),
          name='history_login'),
+    path('suppression-journal-de-connexion/', DeleteHistoryLoginView.as_view(),
+         name='delete_history_login'),
 ]

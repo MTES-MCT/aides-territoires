@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="delete-history-login-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="delete-history-login-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Réinitialiser mon journal</h1>
+                        <p>Ce journal permet de savoir quand vous vous êtes connecté.e à votre compte, et permet au service Aides-territoires de suivre l'impact qu'il a auprès de ses utilisateurs.</p>
+                        <p>Souhaitez-vous tout de même réinitialiser votre journal de connexion&nbsp;?</p>
+                        <footer>
+                            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                <li>
+                                    <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-history-login-modal">Annuler</button>
+                                </li>
+                                <li>
+                                    <a href="{% url 'delete_history_login' %}" class="fr-btn">
+                                        Oui
+                                    </a>
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
