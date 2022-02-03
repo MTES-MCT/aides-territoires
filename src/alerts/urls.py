@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.utils.translation import gettext_lazy as _
 
-from alerts.views import AlertCreate, AlertDelete, AlertValidate, AlertListView
+from alerts.views import AlertCreate, AlertDelete, AlertValidate, AlertListView, AlertDeleteFromAccountView
 
 urlpatterns = [
     path(_('create/'), AlertCreate.as_view(), name='alert_create_view'),
@@ -12,4 +12,5 @@ urlpatterns = [
              name='alert_delete_view'),
     ])),
     path('vos-alertes/', AlertListView.as_view(), name='alert_list_view'),
+    path('suppression-depuis-le-compte', AlertDeleteFromAccountView.as_view(), name='alert_delete_from_account_view')
 ]
