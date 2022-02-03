@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 
 from home.views import (HomeView, ContactView,
                         NewsletterConfirmView, NewsletterSuccessView,
-                        ADDNAOptin)
+                        ADDNAOptin, robots_txt)
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -20,4 +20,6 @@ urlpatterns = [
          name='register_newsletter_success'),
 
     path('alertes-addna-optin/', ADDNAOptin.as_view(), name='addna_optin'),
+
+    path("robots.txt/", robots_txt),
 ]

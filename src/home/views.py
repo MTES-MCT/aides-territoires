@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django.views.decorators.http import require_GET
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -75,3 +77,13 @@ class ADDNAOptin(TemplateView):
     """Display a welcome message to users from addna."""
 
     template_name = 'home/addna_optin.html'
+
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Disallow:",
+        "Sitemap: https://aides-territoires.beta.gouv.fr/sitemap.xml"
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
