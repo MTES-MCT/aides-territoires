@@ -46,7 +46,8 @@ class OrganizationUpdateForm(forms.ModelForm):
         label='Type de structure',
         required=False,
         choices=ORGANIZATION_TYPE,
-        widget=OrganizationTypeWidget)
+        widget=OrganizationTypeWidget,
+        help_text="Ce champ sera utilisé par défaut pour trouver des aides")
     address = forms.CharField(
         label='Adresse postale',
         required=True)
