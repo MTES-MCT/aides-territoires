@@ -81,9 +81,9 @@
                             <td>{{ user.date_created|date:'d/m/y' }}</td>
                             <td>
                                 {% if user.last_login %}
-                                En cours
-                                {% else %}
                                 Terminée
+                                {% else %}
+                                En cours
                                 {% endif%}
                             </td>
                         </tr>
