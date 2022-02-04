@@ -130,7 +130,7 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         Here we want to check if user is already a newsletter's subscriber.
         '''
 
-        url = "https://api.sendinblue.com/v3/contacts/" + 'philippe.perraud@haute-vienne.gouv.fr'
+        url = "https://api.sendinblue.com/v3/contacts/" + self.request.user.email
 
         headers = {
             "Accept": "application/json",
