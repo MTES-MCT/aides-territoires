@@ -130,7 +130,7 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         Here we want to check if user is already a newsletter's subscriber.
         '''
 
-        url = "https://api.sendinblue.com/v3/contacts/" + self.request.user.email
+        url = "https://api.sendinblue.com/v3/contacts/" + 'philippe.perraud@haute-vienne.gouv.fr'
 
         headers = {
             "Accept": "application/json",
@@ -145,7 +145,7 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             if 'DOUBLE_OPT-IN' in r_text['attributes']:
                 r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
             else:
-                r_double_opt_in = "0"
+                r_double_opt_in = "1"
             # If user exists, and if double-opt-in is true,
             # and if user is associated to the newsletter list id
             # Then, user is already a newsletter's subscriber
