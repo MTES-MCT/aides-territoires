@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.conf.urls.static import static
 from django.views.generic import View
+from django.views.generic.base import TemplateView
 
 from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
                              SiteBackers, SiteStats, SiteProgram,
@@ -30,6 +31,8 @@ urlpatterns = [
     # form is also the home page.
     path('', SiteHome.as_view(),  name='home'),
     path('', SiteHome.as_view(),  name='search_view'),
+
+    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 
     # This is the full search form
     path(_('search/'), SiteSearch.as_view(), name='advanced_search_view'),
