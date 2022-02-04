@@ -31,10 +31,13 @@
         <div class="fr-col-12 fr-col-md-10">
             <section id="post-content" class="fr-pb-5w">
 
-                <div id="post-title" class="fr-grid-row fr-grid-row--top fr-mb-4w">
-                    <h1 class="fr-col-12 fr-col-md-10">{{ post.title }}</h1>
+                <div id="post-title" class="fr-grid-row fr-grid-row--top">
+                    <h1 class="fr-h2 fr-col-12 fr-col-md-10 fr-mb-0">{{ post.title }}</h1>
                     <div class="post_categorie fr-tag">{{ post.category.name }}</div>
                 </div> 
+                <div class="fr-hint-text fr-mb-4w fr-mt-1w">
+                    <p class="fr-text--sm">Le {{ post.date_published|date:'d F Y'}}</p>
+                </div>
         
                 {% if post.text %}
                 <div>
@@ -48,16 +51,16 @@
                     <img id="post-author-img" src="{{ post.author.image.url }}" alt="{{ post.author.full_name }}" class="fr-col-12">
                     {% endif %}      
                     <div class="fr-mt-2w">
-                        <strong class="fr-ml-1w">Rédaction - 
-                        <a href="{% url 'blog_post_list_view' %}?author={{ post.author.pk }}" title="Voir les articles publiés par {{ post.author.full_name }}">
-                        {{ post.author.full_name }}{% if post.author.beneficiary_role %}, {{ post.author.beneficiary_role }}{% endif %}</a>,
-                        </strong>
+                        <p class="fr-ml-1w fr-mb-0"><strong>{{ post.author.full_name }}</strong></p>
+                        {% if post.author.beneficiary_role %}
+                        <p class="fr-ml-1w fr-mb-2w">{{ post.author.beneficiary_role }}</p>
+                        {% endif %}
+                        {% if post.author.is_superuser %}
+                        <p class="fr-ml-1w fr-mb-1w fr-text--sm"><a href="{% url 'contact' %}" title="nous contacter">Nous contacter</a></p>
+                        {% endif %}
                     </div>
                     <div>
 
-                    </div>
-                    <div class="fr-mt-2w">
-                        <strong class="fr-ml-1w"> le {{ post.date_published|date:'d F Y'}}</strong>
                     </div>
                 </div>
                 {% endif %}
