@@ -71,6 +71,12 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
         help_text='Évitez les fichiers trop lourds. Préférez les fichiers svg.',
         upload_to=logo_upload_to,
         null=True, blank=True)
+    author = models.ForeignKey(
+        'accounts.User',
+        verbose_name='Auteur',
+        on_delete=models.PROTECT,
+        related_name='blog_posts',
+        null=True)
 
     category = models.ForeignKey(
         'BlogPostCategory',
