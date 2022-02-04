@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n mailing_list %}
+{% load i18n compress mailing_list %}
 
 {% block extratitle %}Mon compte{% endblock %}
 
@@ -90,10 +90,10 @@
                                     En attente de confirmation
                                     {% endif %}
                                 </td>
-                                <td>
-                                    <a href="{% url 'alert_delete_view' alert.token %}" target="_blank" rel="noopener" title="supprimer cette alerte">
-                                        Supprimer
-                                    </a>
+                                <td class="fr-text">
+                                    <button class="btn_delete fr-link fr-fi-delete-line" id="delete-alert-modal-btn" title="supprimer cette alerte" data-fr-opened="false" aria-controls="delete-alert-modal-{{ alert.pk }}">
+                                        supprimer
+                                    </button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -112,4 +112,12 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block modals %}
+    {% if alerts %}
+    {% for alert in alerts %}    
+        {% include 'alerts/_delete_alert_modal.html' with alert=alert.pk %}
+    {% endfor %}
+    {% endif %}
 {% endblock %}

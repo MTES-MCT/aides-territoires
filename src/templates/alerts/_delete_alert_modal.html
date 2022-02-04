@@ -1,0 +1,42 @@
+{% load i18n %}
+
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="delete-alert-modal-{{ alert }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="delete-alert-modal-{{ alert }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer cette alerte</h1>
+
+                        <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement cette alerte.</p>
+                        <form action="{% url 'alert_delete_from_account_view' %}" method="post">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+                                    <div id="form_group_alert_pk">
+                                        <input name="token" id="id_token" value="{{ alert }}" type="hidden">
+                                    </div>
+                                </div>
+                                <footer>
+                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                        <li>
+                                            <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-alert-modal-{{ alert }}">Annuler</button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" class="fr-btn">
+                                                Supprimer cette alerte
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </footer>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
