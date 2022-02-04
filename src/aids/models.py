@@ -650,6 +650,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         aid_types = self.aid_types or []
         return bool(set(aid_types) & set(FINANCIAL_AIDS_LIST))
 
+    def is_grant(self):
+        """Does this aid is a grant?"""
+        aid_types = self.aid_types or []
+        return bool(set(aid_types) & set((('grant', 'Subvention'))))
+
+    def is_loan(self):
+        """Does this aid is a loan?"""
+        aid_types = self.aid_types or []
+        return bool(set(aid_types) & set((('loan', 'Prêt'))))
+
     def is_technical(self):
         """Does this aid have technical parts?"""
         aid_types = self.aid_types or []
