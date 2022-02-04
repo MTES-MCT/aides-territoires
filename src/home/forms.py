@@ -8,7 +8,7 @@ class ContactForm(forms.Form):
         (None, '----'),
         ('contact_add', "Je veux en savoir plus sur l'ajout de mes aides sur la plateforme"),
         ('contact_com', 'Je souhaite communiquer sur Aides-territoires'),
-        ('contact_question', "J'ai une question par rapport à une aide ou mon projet"),
+        ('contact_question', "J’ai une question sur mon compte utilisateur"),
         ('contact_blog', "J’ai une question concernant le blog"),
         ('contact_api', 'Je souhaite utiliser les données d’Aides-territoires / API'),
         ('contact_tech', "J'ai un problème technique sur le site"),

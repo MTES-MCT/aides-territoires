@@ -70,3 +70,9 @@ class AlertForm(forms.ModelForm):
             except SearchPage.DoesNotExist:
                 pass
         return super().save(commit=commit)
+
+
+class DeleteAlertForm(forms.Form):
+    token = forms.UUIDField(
+        widget=forms.HiddenInput(),
+        required=True)

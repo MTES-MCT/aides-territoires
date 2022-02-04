@@ -42,6 +42,7 @@
                 <fieldset class="fr-my-5w">
                     <legend>Coordonnées&nbsp;</legend>
                     {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.organization_type required=required %}
                     {% include '_field_snippet.html' with field=form.address %}
                     {% include '_field_snippet.html' with field=form.city_name %}
                     {% include '_field_snippet.html' with field=form.zip_code %}

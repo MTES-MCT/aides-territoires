@@ -33,14 +33,14 @@
                 {% endif %}
                 </td>
                 <td>
-                    {% if aid.subvention_rate or aid.subvention_comment %}
+                    {% if aid.is_grant %}
                     <p class="fr-centered fr-mb-0">
                         <i class="ri-check-line ri-xl"></i>
                     </p>
                     {% endif %}
                 </td>
                 <td>
-                    {% if aid.loan_amount%}
+                    {% if aid.is_loan %}
                     <p class="fr-centered fr-mb-0">
                         <i class="ri-check-line ri-xl"></i>
                     </p>

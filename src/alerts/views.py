@@ -1,7 +1,8 @@
 import requests
 import json
 from django.conf import settings
-from django.views.generic import CreateView, DetailView, DeleteView, ListView
+from django.contrib import messages
+from django.views.generic import CreateView, DetailView, DeleteView, ListView, View
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +13,7 @@ from braces.views import MessageMixin
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 from alerts.tasks import send_alert_confirmation_email
-from alerts.forms import AlertForm
+from alerts.forms import AlertForm, DeleteAlertForm
 from alerts.models import Alert
 
 
@@ -144,7 +145,7 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             if 'DOUBLE_OPT-IN' in r_text['attributes']:
                 r_double_opt_in = r_text['attributes']['DOUBLE_OPT-IN']
             else:
-                r_double_opt_in = "0"
+                r_double_opt_in = "1"
             # If user exists, and if double-opt-in is true,
             # and if user is associated to the newsletter list id
             # Then, user is already a newsletter's subscriber
@@ -162,3 +163,27 @@ class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['isUserSubscriber'] = self.isUserSubscriber
         return context
+
+
+class AlertDeleteFromAccountView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Allow user to delete an alert"""
+
+    form_class = DeleteAlertForm
+    template_name = 'accounts/user_alert_dashboard.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            alert_token = form.cleaned_data['token']
+            try:
+                alert = Alert.objects.get(pk=alert_token, email=self.request.user.email)
+                alert.delete()
+                msg = "Votre alerte a bien été supprimée."
+                messages.success(self.request, msg)
+            except:
+                msg = "Une errreur s'est produite lors de la suppression de votre alerte"
+                messages.error(self.request, msg)
+            success_url = reverse('alert_list_view')
+            return HttpResponseRedirect(success_url)
+        
+        return render(request, self.template_name, {'form': form})

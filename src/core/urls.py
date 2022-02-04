@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.utils.translation import gettext_lazy as _
+from django.views.generic.base import TemplateView
 
 from rest_framework import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
@@ -77,6 +78,7 @@ urlpatterns = [
     path(_('search/'), include('search.urls')),
     path(_('upload/'), include('upload.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path('admin_tools/', include('admin_tools.urls')),
     path(_('projects/'), include('projects.urls')),
     path(_('organizations/'), include('organizations.urls')),

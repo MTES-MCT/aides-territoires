@@ -5,6 +5,7 @@ from core.forms.fields import AutocompleteModelChoiceField
 
 from geofr.models import Perimeter
 from organizations.models import Organization
+from organizations.constants import ORGANIZATION_TYPE
 
 
 class OrganizationTypeWidget(forms.SelectMultiple):
@@ -15,21 +16,6 @@ class OrganizationTypeWidget(forms.SelectMultiple):
 
 class OrganizationCreateForm(forms.ModelForm):
     """allow user to create organization."""
-
-    ORGANIZATION_TYPE = Choices(
-        ('farmer', 'Agriculteurs'),
-        ('association', 'Associations'),
-        ('special', "Collectivités d'outre-mer à statuts particuliers"),
-        ('commune', 'Communes'),
-        ('department', 'Départements'),
-        ('private_sector', 'Entreprises privées'),
-        ('public_cies', "Entreprises publiques locales (Sem, Spl, SemOp)"),
-        ('epci', 'EPCI à fiscalité propre'),
-        ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"),
-        ('private_person', 'Particuliers'),
-        ('region', 'Régions'),
-        ('researcher', 'Recherche'),
-    )
 
     name = forms.CharField(
         label='Nom de votre structure',
@@ -56,6 +42,12 @@ class OrganizationUpdateForm(forms.ModelForm):
     name = forms.CharField(
         label='Nom de la structure',
         required=True)
+    organization_type = forms.MultipleChoiceField(
+        label='Type de structure',
+        required=False,
+        choices=ORGANIZATION_TYPE,
+        widget=OrganizationTypeWidget,
+        help_text="Ce champ sera utilisé par défaut pour trouver des aides")
     address = forms.CharField(
         label='Adresse postale',
         required=True)
