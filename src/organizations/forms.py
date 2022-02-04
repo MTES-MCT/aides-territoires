@@ -79,7 +79,7 @@ class OrganizationUpdateForm(forms.ModelForm):
     class Meta:
         model = Organization
         fields = [
-            'name', 'address', 'city_name', 'zip_code',
+            'name', 'organization_type', 'address', 'city_name', 'zip_code',
             'siren_code', 'siret_code', 'ape_code', 'perimeter']
 
     def __init__(self, *args, **kwargs):
