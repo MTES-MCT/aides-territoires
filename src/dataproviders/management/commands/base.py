@@ -52,10 +52,6 @@ class BaseImportCommand(BaseCommand):
         #   2) The aid is known from a previous import, in that case,
         #      we just update a few fields but we don't overwrite some
         #      manual modifications that could have been made from our side.
-        #
-        # For the moment, since the data is not huge (there are probably a few
-        # dozains aids per provider at best), I decided to focus on code
-        # readability and not to focus on optimizing the number of db queries.
         created_counter = 0
         updated_counter = 0
         with transaction.atomic():
