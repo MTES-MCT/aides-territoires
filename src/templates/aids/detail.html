@@ -11,6 +11,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% if BdT_financer %}
+<link rel="canonical" href="{{ aid.origin_url }}" />
+{% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}

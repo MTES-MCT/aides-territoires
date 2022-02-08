@@ -1,5 +1,20 @@
 {% extends 'aids/detail.html' %}
 
+{% block extra_head %}
+<meta property="og:title" content="{{ page.meta_title|default:search_page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{ page.meta_description }}" />
+<meta property="og:site_name" content="{{ search_page.meta_title|default:search_page.title }}" />
+{% if search_page.meta_image %}
+<meta property="og:image" content="{{ search_page.meta_image.url }}" />
+{% endif %}
+{% if BdT_financer %}
+<link rel="canonical" href="{{ aid.origin_url }}" />
+{% else %}
+<link rel="canonical" href="{{ canonical_url }}" />
+{% endif %}
+{% endblock %}
+
 {% block header %}
     {% include 'minisites/_header.html' %}
 {% endblock %}

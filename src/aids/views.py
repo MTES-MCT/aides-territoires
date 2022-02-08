@@ -341,6 +341,9 @@ class AidDetailView(DetailView):
         context['idf_financer'] = financers \
             .filter(pk=40)
 
+        if self.object.author.pk == 222:
+            context['BdT_financer'] = True
+
         context['eligibility_criteria'] = any((
             self.object.mobilization_steps,
             self.object.destinations,
