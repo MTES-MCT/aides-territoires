@@ -9,10 +9,8 @@ celery = "*"
 crawlerdetect = "*"
 django = "<4"
 django-activity-stream = "*"
-django-admin-autocomplete-filter = {editable = true, ref = "pre_release", git = "https://github.com/farhan0581/django-admin-autocomplete-filter.git"}
 django-admin-sortable2 = "*"
 django-admin-tools = "*"
-django-anymail = {extras = ["sendinblue"],version = "*"}
 django-braces = "*"
 django-celery-beat = "*"
 django-compressor = "*"
@@ -30,7 +28,7 @@ dj-database-url = "*"
 drf-spectacular = "*"
 gunicorn = "*"
 importlib-metadata = "*"
-"psycopg2-binary" = "*"
+psycopg2-binary = "*"
 qrcode = "*"
 redis = "*"
 requests = "*"
@@ -38,7 +36,7 @@ scrapy = "*"
 sentry-sdk = "*"
 unipath = "*"
 xlrd = "*"
-zipp = "<2"  # https://github.com/jaraco/zipp/issues/28
+zipp = "*"
 django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
@@ -48,7 +46,7 @@ ansible = "<4"
 django-debug-toolbar = "*"
 django-extensions = "*"
 factory-boy = "*"
-"flake8" = "*"
+flake8 = "*"
 ipython = "*"
 pytest = "*"
 pytest-django = "*"
@@ -61,3 +59,12 @@ pytest-xdist = "*"
 
 [requires]
 python_version = "3"
+
+[packages.django-admin-autocomplete-filter]
+editable = true
+ref = "pre_release"
+git = "https://github.com/farhan0581/django-admin-autocomplete-filter.git"
+
+[packages.django-anymail]
+extras = [ "sendinblue",]
+version = "*"
