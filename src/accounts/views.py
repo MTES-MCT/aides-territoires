@@ -168,12 +168,14 @@ class SubscribeNewsletter(View):
 
         url = "https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation"
 
+        redirection_url = "https://aides-territoires.beta.gouv.fr/inscription-newsletter-succes/"
+
         payload = {
             "attributes": {"DOUBLE_OPT_IN": "1"},
             "includeListIds": SIB_NEWSLETTER_ID,
             "email": user_email,
             "templateId": settings.SIB_NEWSLETTER_CONFIRM_TEMPLATE_ID,
-            "redirectionUrl": "https://aides-territoires.beta.gouv.fr/inscription-newsletter-succes/"
+            "redirectionUrl": redirection_url
         }
 
         headers = {
@@ -185,7 +187,9 @@ class SubscribeNewsletter(View):
         response = requests.request("POST", url, json=payload, headers=headers)
 
         if response and any((response.status_code == 201, response.status_code == 204)):
-            msg = "Votre demande d'inscription à la newsletter a bien été prise en compte. <strong>Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir.</strong>"
+            msg = "Votre demande d'inscription à la newsletter a bien été prise en compte."
+            "<strong>Afin de finaliser votre inscription il vous reste à cliquer sur le lien"
+            "de confirmation présent dans l'e-mail que vous allez recevoir.</strong>"
             messages.success(self.request, msg)
         else:
             msg = "Une erreur s'est produite lors de votre inscription à la newsletter"

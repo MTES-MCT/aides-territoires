@@ -1,6 +1,5 @@
 from django import forms
 
-from model_utils import Choices
 from core.forms.fields import AutocompleteModelChoiceField
 
 from geofr.models import Perimeter

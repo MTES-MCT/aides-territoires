@@ -1,6 +1,8 @@
 from django.urls import path
 
-from stats.views import StatsView, DashboardView, UsersStatsView, ProjectsStatsView, OrganizationsStatsView
+from stats.views import (StatsView, DashboardView,
+                         UsersStatsView, ProjectsStatsView,
+                         OrganizationsStatsView)
 
 urlpatterns = [
     path('', StatsView.as_view(), name='stats_view'),

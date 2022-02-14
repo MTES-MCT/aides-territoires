@@ -1,7 +1,6 @@
 """Account rendering helpers."""
 
 from django import template
-from django.utils.encoding import force_str
 
 
 register = template.Library()

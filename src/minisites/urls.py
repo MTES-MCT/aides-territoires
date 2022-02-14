@@ -32,7 +32,8 @@ urlpatterns = [
     path('', SiteHome.as_view(),  name='home'),
     path('', SiteHome.as_view(),  name='search_view'),
 
-    path('robots.txt/', TemplateView.as_view(template_name="minisites/robots.txt", content_type="text/plain")),
+    path('robots.txt', TemplateView.as_view(
+        template_name="minisites/robots.txt", content_type="text/plain")),
 
     # This is the full search form
     path(_('search/'), SiteSearch.as_view(), name='advanced_search_view'),

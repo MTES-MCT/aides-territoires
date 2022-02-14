@@ -152,7 +152,8 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             context['nb_uniq_visitors'] = matomo_visits_summary['nb_uniq_visitors']
         context['nb_visits'] = matomo_visits_summary['nb_visits']
         context['bounce_rate'] = matomo_visits_summary['bounce_rate']
-        context['avg_time_on_site'] = strftime("%Mm%Ss", gmtime(matomo_visits_summary['avg_time_on_site']))
+        context['avg_time_on_site'] = strftime(
+            "%Mm%Ss", gmtime(matomo_visits_summary['avg_time_on_site']))
         context['nb_pageviews'] = matomo_actions['nb_pageviews']
 
         # stats 'Acquisition':
@@ -239,7 +240,7 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             form = StatSearchForm(self.request.GET)
             if form.errors:
                 if form.errors['start_date']:
-                    context['start_date_error'] = form.errors['start_date']
+                    context['start_date_error'] = form.errors['start_date'] # noqa
 
         period = self.get_period()
         if type(period) is not str:
@@ -315,7 +316,7 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             form = StatSearchForm(self.request.GET)
             if form.errors:
                 if form.errors['start_date']:
-                    context['start_date_error'] = form.errors['start_date']
+                    context['start_date_error'] = form.errors['start_date'] # noqa
 
         period = self.get_period()
         if type(period) is not str:
@@ -372,7 +373,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             form = StatSearchForm(self.request.GET)
             if form.errors:
                 if form.errors['start_date']:
-                    context['start_date_error'] = form.errors['start_date']
+                    context['start_date_error'] = form.errors['start_date'] # noqa
 
         period = self.get_period()
         if type(period) is not str:
@@ -399,6 +400,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # general stats:
-        context['all_organizations'] = Organization.objects.values('organization_type').order_by('organization_type')
+        context['all_organizations'] = Organization.objects \
+            .values('organization_type').order_by('organization_type')
 
         return context
