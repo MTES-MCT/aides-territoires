@@ -9,8 +9,10 @@ celery = "*"
 crawlerdetect = "*"
 django = "<4"
 django-activity-stream = "*"
+django-admin-autocomplete-filter = {editable = true, ref = "pre_release", git = "https://github.com/farhan0581/django-admin-autocomplete-filter.git"}
 django-admin-sortable2 = "*"
 django-admin-tools = "*"
+django-anymail = {extras = ["sendinblue"],version = "*"}
 django-braces = "*"
 django-celery-beat = "*"
 django-compressor = "*"
@@ -59,12 +61,3 @@ pytest-xdist = "*"
 
 [requires]
 python_version = "3.10"
-
-[packages.django-admin-autocomplete-filter]
-editable = true
-ref = "pre_release"
-git = "https://github.com/farhan0581/django-admin-autocomplete-filter.git"
-
-[packages.django-anymail]
-extras = [ "sendinblue",]
-version = "*"
