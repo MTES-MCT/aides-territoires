@@ -114,6 +114,10 @@ class Command(CrawlerImportCommand):
         title = line['title'][:180]
         return title
 
+    def extract_name_initial(self, line):
+        name_initial = line['title'][:180]
+        return name_initial
+
     def extract_description(self, line):
         description = line['description']
         if line['objectifs']:
