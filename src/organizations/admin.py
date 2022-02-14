@@ -105,7 +105,6 @@ class OrganizationAdmin(admin.ModelAdmin):
         return projects_list
     get_projects.short_description = "Projets"
 
-
     class Media:
         css = {
             'all': (
@@ -126,9 +125,6 @@ class OrganizationAdmin(admin.ModelAdmin):
             '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
             '/static/js/enable_rich_text_editor.js',
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
-
-
-
 
 
 admin.site.register(Organization, OrganizationAdmin)

@@ -1,7 +1,6 @@
 import datetime
 from django import forms
 from django.utils import timezone
-from django.core.exceptions import ValidationError
 
 
 class StatSearchForm(forms.Form):
@@ -30,7 +29,7 @@ class StatSearchForm(forms.Form):
             except ValueError:
                 msg = "Le format de la date est incorrect."
                 self.add_error('start_date', msg)
-        
+
         if data.get('start_date'):
             if data.get('start_date') > timezone.now():
                 msg = "la date de début ne peut être dans le futur."

@@ -78,7 +78,8 @@ urlpatterns = [
     path(_('search/'), include('search.urls')),
     path(_('upload/'), include('upload.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
-    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path('robots.txt', TemplateView.as_view(
+        template_name="robots.txt", content_type="text/plain")),
     path('admin_tools/', include('admin_tools.urls')),
     path(_('projects/'), include('projects.urls')),
     path(_('organizations/'), include('organizations.urls')),

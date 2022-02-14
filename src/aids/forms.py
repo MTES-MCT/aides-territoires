@@ -581,7 +581,7 @@ class BaseAidSearchForm(forms.Form):
         By default, terms are made mandatory.
         Terms with a " ou " in between are optional.
         """
-        all_terms = filter(None, raw_query.lower().split(',')) 
+        all_terms = filter(None, raw_query.lower().split(','))
         all_terms = list(all_terms)
         all_terms = [term.strip(' ') for term in all_terms]
 
@@ -611,7 +611,7 @@ class BaseAidSearchForm(forms.Form):
                 else:
                     query = next_operator(query, SearchQuery(
                         term, config='french', invert=invert))
-                
+
             next_operator = operator.or_
             invert = False
 

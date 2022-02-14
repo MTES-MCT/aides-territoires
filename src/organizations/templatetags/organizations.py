@@ -3,8 +3,8 @@
 from django import template
 from organizations.models import Organization
 
-
 register = template.Library()
+
 
 @register.simple_tag
 def Organization_type_choice_display(choice):

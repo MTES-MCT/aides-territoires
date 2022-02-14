@@ -32,7 +32,7 @@ class AlertCreate(MessageMixin, CreateView):
         if not self.request.user.is_authenticated:
             send_alert_confirmation_email.delay(alert.email, alert.token)
             message = 'Nous venons de vous envoyer un e-mail afin de valider votre alerte.'
-        else: 
+        else:
             message = 'Votre alerte a bien été créée&nbsp;!'
         self.messages.success(message)
         redirect_url = reverse('search_view')
@@ -180,10 +180,10 @@ class AlertDeleteFromAccountView(ContributorAndProfileCompleteRequiredMixin, Vie
                 alert.delete()
                 msg = "Votre alerte a bien été supprimée."
                 messages.success(self.request, msg)
-            except:
+            except Exception:
                 msg = "Une errreur s'est produite lors de la suppression de votre alerte"
                 messages.error(self.request, msg)
             success_url = reverse('alert_list_view')
             return HttpResponseRedirect(success_url)
-        
-        return render(request, self.template_name, {'form': form})
+
+        return render(request, self.template_name, {'form': form}) # noqa

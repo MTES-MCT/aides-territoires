@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 from braces.views import MessageMixin
-from django.core.paginator import Paginator
 
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
