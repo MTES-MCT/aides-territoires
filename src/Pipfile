@@ -58,7 +58,7 @@ yapf = "*"
 pytest-xdist = "*"
 
 [requires]
-python_version = "3"
+python_version = "3.10"
 
 [packages.django-admin-autocomplete-filter]
 editable = true
