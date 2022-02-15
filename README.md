@@ -88,7 +88,7 @@ L'interface utilise des templates HTML, avec Bootstrap et un peu de Javascript.
 
 ### Le code
 
-Pour en savoir plus sur le code et comment contribuer : [CONTRIBUTING.md](./ONBOARDING.md)
+Pour en savoir plus sur le code et comment contribuer : [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 Les étapes pour installer l'environment en local : [ONBOARDING.md](./ONBOARDING.md)
 
