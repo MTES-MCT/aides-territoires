@@ -65,6 +65,7 @@
                         </div>
                     </fieldset>    
                 </div>
+                {% include '_field_snippet.html' with field=form.current_password %}
                 {% include '_field_snippet.html' with field=form.new_password %}
                 <button type="submit" class="fr-btn">Mettre à jour mes données</button>
             </form>

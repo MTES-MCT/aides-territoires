@@ -5,6 +5,7 @@ from django.contrib.auth import password_validation
 from model_utils import Choices
 
 from accounts.models import User
+from accounts.utils import check_current_password
 
 
 class RegisterForm(UserCreationForm):
@@ -137,11 +138,18 @@ class ContributorProfileForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Laissez vide pour conserver votre mot de passe actuel'}))
 
+    current_password = forms.CharField(
+        label='Entrez votre mot de passe actuel',
+        required=False,
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'À remplir en cas de changement de mot de passe'}))
+
     class Meta:
         model = User
         fields = [
             'first_name', 'last_name', 'email', 'is_contributor', 'is_beneficiary',
-            'beneficiary_function', 'beneficiary_role', 'new_password']
+            'beneficiary_function', 'beneficiary_role', 'new_password', 'current_password']
         labels = {
             'first_name': 'Votre prénom',
             'last_name': 'Votre nom',
@@ -172,11 +180,21 @@ class ContributorProfileForm(forms.ModelForm):
             except forms.ValidationError as error:
                 self.add_error('new_password', error)
 
+            # if new_password is set, we also need to check the current_password
+            current_password = self.cleaned_data.get("current_password")
+            try:
+                print(self.instance)
+                self.current_password_checked = check_current_password(
+                    current_password, self.instance.password)
+            except forms.ValidationError as error:
+                self.add_error('current_password', error)
+                self.current_password_checked = False
+
     def save(self, commit=True):
         user = super().save(commit=False)
 
         new_password = self.cleaned_data['new_password']
-        if new_password:
+        if new_password and self.current_password_checked:
             user.set_password(new_password)
 
         if commit:
@@ -275,7 +293,6 @@ class CompleteProfileForm(forms.ModelForm):
             self.add_error('is_contributor', msg)
 
         return data
-
 
     def _post_clean(self):
         super()._post_clean()
