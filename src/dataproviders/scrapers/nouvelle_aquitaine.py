@@ -61,6 +61,8 @@ class NouvelleAquitaineSpider(scrapy.Spider):
 
         contact = response.css('div.mod-contactAddress').get()
 
+        documents = response.css('div.mod-listDownload').get()
+
         current_url = response.request.url
 
         yield {
@@ -72,6 +74,7 @@ class NouvelleAquitaineSpider(scrapy.Spider):
             **aid_header,
             **aid_details,
             'contact': content_prettify(contact),
+            'documents': content_prettify(documents),
             'pub_date': response.meta['pub_date'],
             'current_url': current_url,
         }

@@ -148,7 +148,9 @@ class Command(CrawlerImportCommand):
         return [DATA_SOURCE.backer]
 
     def extract_contact(self, line):
-        return line['contact']
+        content += line['contact']
+        content +=line['documents']
+        return content
 
     def extract_is_call_for_project(self, line):
         return line['is_call_for_project']
