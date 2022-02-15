@@ -1,5 +1,4 @@
 import requests
-from datetime import timedelta
 
 from django.conf import settings
 from django.views.generic import FormView, TemplateView, CreateView, UpdateView, View, ListView
@@ -8,7 +7,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash, views
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
-from django.utils import timezone
 from django.utils.http import urlsafe_base64_decode
 from django.contrib import messages
 from django.shortcuts import resolve_url
@@ -16,7 +14,7 @@ from django.shortcuts import resolve_url
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin, UserLoggedRequiredMixin
-from accounts.forms import (RegisterForm, LoginForm, PasswordResetForm, ContributorProfileForm,
+from accounts.forms import (RegisterForm, PasswordResetForm, ContributorProfileForm,
                             InviteCollaboratorForm, CompleteProfileForm)
 from accounts.tasks import send_connection_email, send_invitation_email, send_welcome_email
 from accounts.models import User, UserLastConnexion
@@ -371,8 +369,9 @@ class DeleteHistoryLoginView(ContributorAndProfileCompleteRequiredMixin, View):
             try:
                 UserLastConnexion.objects.filter(user=self.request.user.pk).delete()
                 msg = "Votre journal de connexion a bien été réinitialisé."
-            except:
-                msg = "Une errreur s'est produite lors de la suppression de votre journal de connexion"
+            except Exception:
+                msg = "Une erreur s'est produite lors de la" \
+                    "suppression de votre journal de connexion"
             messages.success(self.request, msg)
             success_url = reverse('history_login')
             return HttpResponseRedirect(success_url)

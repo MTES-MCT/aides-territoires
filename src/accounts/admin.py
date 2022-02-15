@@ -282,5 +282,6 @@ class UserLastConnexionAdmin(admin.ModelAdmin):
     last_connexion_with_seconds.short_description = 'Dernière connexion'
     last_connexion_with_seconds.admin_order_field = 'Dernière connexion'
 
+
 admin.site.register(User, UserAdmin)
 admin.site.register(UserLastConnexion, UserLastConnexionAdmin)
