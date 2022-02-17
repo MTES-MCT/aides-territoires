@@ -1,5 +1,6 @@
 from django.db import migrations
 from django.contrib.postgres.search import SearchVector
+from django.db import models
 from django.db.models import Value
 
 
