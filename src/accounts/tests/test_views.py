@@ -10,6 +10,7 @@ from django.urls import reverse
 from accounts.models import User
 from accounts.factories import UserFactory
 from search.factories import SearchPageFactory
+from django.contrib.auth.hashers import check_password
 
 
 pytestmark = pytest.mark.django_db
@@ -32,7 +33,7 @@ def test_login_view_is_accessible_for_anonymous_users(client):
 
 def test_login_is_case_insensitive(client, user):
     user.email = 'test@test.com'
-    user.set_password('pass')
+    user.set_password('DefaultPassword!')
     user.save()
 
     login_url = reverse('login')
@@ -42,7 +43,7 @@ def test_login_is_case_insensitive(client, user):
 
     res = client.post(
         login_url,
-        {'username': 'TEST@TEST.com', 'password': 'pass'})
+        {'username': 'TEST@TEST.com', 'password': 'DefaultPassword!'})
     assert res.status_code == 302
     assert res.wsgi_request.user.is_authenticated
 
@@ -145,9 +146,9 @@ def test_register_form_expects_valid_data(client):
         'email': 'tar@tiflet.te',
         'password1': 'Gloubiboulga',
         'password2': 'Gloubiboulga',
-        'organization': '',
-        'role': '',
-        'contact_phone': '',
+        'contributor_organization': '',
+        'contributor_role': '',
+        'contributor_contact_phone': '',
     })
     assert res.status_code == 200
     assert 'Ce champ est obligatoire' in res.content.decode()
@@ -158,9 +159,9 @@ def test_register_form_expects_valid_data(client):
         'password1': 'Gloubiboulga',
         'password2': 'Gloubiboulga',
         'email': 'tartiflette',
-        'organization': 'Pif Magazine',
-        'role': 'Héro',
-        'contact_phone': '012345678',
+        'contributor_organization': 'Pif Magazine',
+        'contributor_role': 'Héro',
+        'contributor_contact_phone': '012345678',
 
     })
     assert res.status_code == 200
@@ -178,9 +179,9 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
             'email': user.email,
             'password1': 'Gloubiboulga',
             'password2': 'Gloubiboulga',
-            'organization': 'Test',
-            'role': 'Tester',
-            'contact_phone': '0123456779',
+            'contributor_organization': 'Test',
+            'contributor_role': 'Tester',
+            'contributor_contact_phone': '0123456779',
         })
     assert res.status_code == 302
     assert len(mailoutbox) == 1
@@ -200,9 +201,9 @@ def test_register_form(client, mailoutbox):
         'email': 'olga@test.com',
         'password1': 'Gloubiboulga',
         'password2': 'Gloubiboulga',
-        'organization': 'Test',
-        'role': 'Tester',
-        'contact_phone': '0123456779',
+        'contributor_organization': 'Test',
+        'contributor_role': 'Tester',
+        'contributor_contact_phone': '0123456779',
     })
 
     assert res.status_code == 302
@@ -230,9 +231,9 @@ def test_register_form_converts_email_to_lowercase(client):
         'email': 'OLGA@Test.Com',
         'password1': 'Gloubiboulga',
         'password2': 'Gloubiboulga',
-        'organization': 'Test',
-        'role': 'Tester',
-        'contact_phone': '0123456779'
+        'contributor_organization': 'Test',
+        'contributor_role': 'Tester',
+        'contributor_contact_phone': '0123456779'
     })
     assert res.status_code == 302
     assert users.count() == 1
@@ -252,15 +253,65 @@ def test_profile_form_updates_profile(client, contributor):
     data = {
         'first_name': 'Anna',
         'last_name': 'NanananaBatman',
-        'organization': 'Les Rapetou',
-        'role': contributor.role,
-        'contact_phone': contributor.contact_phone,
+        'contributor_organization': 'Les Rapetou',
+        'contributor_role': contributor.contributor_role,
+        'contributor_contact_phone': contributor.contributor_contact_phone,
     }
     client.post(profile_url, data)
 
     contributor.refresh_from_db()
     assert contributor.full_name == 'Anna NanananaBatman'
     assert contributor.organization == 'Les Rapetou'
+
+
+def test_profile_form_cant_update_password_without_entering_the_current_one(client, contributor):
+    """The profile form can't update the contributor's password."""
+
+    registered_password = contributor.password
+    new_password = 'New unpredictable passw0rd!'
+
+    client.force_login(contributor)
+    profile_url = reverse('contributor_profile')
+    data = {
+        'first_name': contributor.first_name,
+        'last_name': contributor.last_name,
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': contributor.beneficiary_role,
+        'new_password': new_password,
+        'current_password': ""
+    }
+
+    client.post(profile_url, data)
+    contributor.refresh_from_db()
+    assert contributor.password == registered_password
+
+
+def test_profile_form_cant_update_password_while_entering_a_wrong_current_one(client, contributor):
+    """The profile form can't update the contributor's password."""
+
+    registered_password = contributor.password
+    new_password = 'New unpredictable passw0rd!'
+
+    client.force_login(contributor)
+    profile_url = reverse('contributor_profile')
+    data = {
+        'first_name': contributor.first_name,
+        'last_name': contributor.last_name,
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': contributor.beneficiary_role,
+        'new_password': new_password,
+        'current_password': "WrongPassword!"
+    }
+
+    client.post(profile_url, data)
+    contributor.refresh_from_db()
+    assert contributor.password == registered_password
 
 
 def test_profile_form_can_update_password(client, contributor):
@@ -272,16 +323,20 @@ def test_profile_form_can_update_password(client, contributor):
     profile_url = reverse('contributor_profile')
     data = {
         'first_name': contributor.first_name,
-        'last_name': contributor.last_name,
-        'organization': contributor.organization,
-        'role': contributor.role,
-        'contact_phone': contributor.contact_phone,
+        'last_name': "Nouveau",
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': contributor.beneficiary_role,
         'new_password': new_password,
+        'current_password': "DefaultPassword"
     }
-    client.post(profile_url, data)
 
-    assert authenticate(
-        username=contributor.email, password=new_password) is not None
+    client.post(profile_url, data)
+    contributor.reset_from_db()
+
+    assert check_password(new_password, contributor.password)
 
 
 def test_profile_form_leaves_password_untouched(client, contributor):
@@ -292,16 +347,16 @@ def test_profile_form_leaves_password_untouched(client, contributor):
     data = {
         'first_name': contributor.first_name,
         'last_name': contributor.last_name,
-        'organization': contributor.organization,
-        'role': contributor.role,
-        'contact_phone': contributor.contact_phone,
+        'contributor_organization': contributor.contributor_organization,
+        'contributor_role': contributor.contributor_role,
+        'contributor_contact_phone': contributor.contributor_contact_phone,
         'new_password': '',
     }
     client.post(profile_url, data)
 
-    # "pass" is UserFactory's default password
+    # "DefaultPassword!" is UserFactory's default password
     assert authenticate(
-        username=contributor.email, password='pass') is not None
+        username=contributor.email, password='DefaultPassword!') is not None
 
 
 def test_logged_in_contributor_has_menu(client, contributor):

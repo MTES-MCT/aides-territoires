@@ -13,11 +13,14 @@ class UserFactory(DjangoModelFactory):
     first_name = factory.Faker('name')
     last_name = factory.Faker('name')
     email = factory.Faker('email')
-    password = factory.PostGenerationMethodCall('set_password', 'pass')
+    password = factory.PostGenerationMethodCall('set_password', 'DefaultPassword!')
     is_contributor = True
+    is_beneficiary = False
+    beneficiary_function = "other"
+    beneficiary_role = "Compte de test"
 
 
 class ContributorFactory(UserFactory):
-    organization = factory.Faker('company')
-    role = factory.Faker('job')
-    contact_phone = factory.Faker('phone_number')
+    contributor_organization = factory.Faker('company')
+    contributor_role = factory.Faker('job')
+    contributor_contact_phone = factory.Faker('phone_number')
