@@ -183,7 +183,6 @@ class ContributorProfileForm(forms.ModelForm):
             # if new_password is set, we also need to check the current_password
             current_password = self.cleaned_data.get("current_password")
             try:
-                print(self.instance)
                 self.current_password_checked = check_current_password(
                     current_password, self.instance.password)
             except forms.ValidationError as error:
