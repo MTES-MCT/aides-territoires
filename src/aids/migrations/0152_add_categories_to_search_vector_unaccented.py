@@ -3,7 +3,7 @@ from django.contrib.postgres.search import SearchVector
 from django.db.models import Value
 
 
-def update_search_vector_unaccentedr(apps, schema_editor):
+def update_search_vector_unaccented(apps, schema_editor):
     Aid = apps.get_model('aids.Aid')
     aids = Aid.objects.all()
     for aid in aids:
