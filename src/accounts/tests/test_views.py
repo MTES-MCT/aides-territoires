@@ -245,7 +245,7 @@ def test_register_form_converts_email_to_lowercase(client):
 def test_profile_form_updates_profile(client, contributor):
     """The profile forms updates the contributor's data."""
     contributor.first_name = 'Donald'
-    contributor.organization = 'La bande à Picsou'
+    contributor.beneficiary_role = 'Canard vivant'
     contributor.save()
 
     client.force_login(contributor)
@@ -253,19 +253,49 @@ def test_profile_form_updates_profile(client, contributor):
     data = {
         'first_name': 'Anna',
         'last_name': 'NanananaBatman',
-        'contributor_organization': 'Les Rapetou',
-        'contributor_role': contributor.contributor_role,
-        'contributor_contact_phone': contributor.contributor_contact_phone,
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': "Chauve-souris milliardaire",
+        'new_password': "",
+        'new_password2': "",
+        'current_password': ""
     }
-    client.post(profile_url, data)
+    client.post(profile_url, data, follow=True)
 
     contributor.refresh_from_db()
     assert contributor.full_name == 'Anna NanananaBatman'
-    assert contributor.organization == 'Les Rapetou'
+    assert contributor.beneficiary_role == 'Chauve-souris milliardaire'
+
+
+def test_profile_form_leaves_password_untouched(client, contributor):
+    """By default, the profile form does not update the password."""
+
+    client.force_login(contributor)
+    profile_url = reverse('contributor_profile')
+    data = {
+        'first_name': "Update name",
+        'last_name': contributor.last_name,
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': contributor.beneficiary_role,
+        'new_password': '',
+        'new_password2': '',
+    }
+    client.post(profile_url, data, follow=True)
+
+    contributor.refresh_from_db()
+
+    # "DefaultPassword!" is UserFactory's default password
+    assert authenticate(
+        username=contributor.email, password='DefaultPassword!') is not None
 
 
 def test_profile_form_cant_update_password_without_entering_the_current_one(client, contributor):
-    """The profile form can't update the contributor's password."""
+    """The profile form can't update the contributor's password if the current one isn't entered."""
 
     registered_password = contributor.password
     new_password = 'New unpredictable passw0rd!'
@@ -281,12 +311,14 @@ def test_profile_form_cant_update_password_without_entering_the_current_one(clie
         'beneficiary_function': contributor.beneficiary_function,
         'beneficiary_role': contributor.beneficiary_role,
         'new_password': new_password,
+        'new_password2': new_password,
         'current_password': ""
     }
 
-    client.post(profile_url, data)
+    res = client.post(profile_url, data, follow=True)
     contributor.refresh_from_db()
     assert contributor.password == registered_password
+    assert "Vous devez entrer votre mot de passe actuel pour pouvoir le changer." in res.content.decode()
 
 
 def test_profile_form_cant_update_password_while_entering_a_wrong_current_one(client, contributor):
@@ -306,12 +338,44 @@ def test_profile_form_cant_update_password_while_entering_a_wrong_current_one(cl
         'beneficiary_function': contributor.beneficiary_function,
         'beneficiary_role': contributor.beneficiary_role,
         'new_password': new_password,
+        'new_password2': new_password,
         'current_password': "WrongPassword!"
     }
 
-    client.post(profile_url, data)
+    res = client.post(profile_url, data, follow=True)
     contributor.refresh_from_db()
     assert contributor.password == registered_password
+    assert "Le mot de passe actuel entré est incorrect." in res.content.decode()
+
+
+def test_profile_form_cant_update_non_matching_passwords(client, contributor):
+    """
+    The profile form can update the contributor's password if the two
+    values in the new password are distinct
+    """
+
+    new_password = 'New unpredictable passw0rd!'
+
+    client.force_login(contributor)
+    profile_url = reverse('contributor_profile')
+    data = {
+        'first_name': contributor.first_name,
+        'last_name': "Nouveau",
+        'email': contributor.email,
+        'is_contributor': contributor.is_contributor,
+        'is_beneficiary': contributor.is_beneficiary,
+        'beneficiary_function': contributor.beneficiary_function,
+        'beneficiary_role': contributor.beneficiary_role,
+        'new_password': new_password,
+        'new_password2': "Oops I did it again",
+        'current_password': "DefaultPassword!"
+    }
+
+    res = client.post(profile_url, data, follow=True)
+    contributor.refresh_from_db()
+
+    assert check_password("DefaultPassword!", contributor.password)
+    assert "Les mots de passe ne sont pas identiques" in res.content.decode()
 
 
 def test_profile_form_can_update_password(client, contributor):
@@ -330,33 +394,16 @@ def test_profile_form_can_update_password(client, contributor):
         'beneficiary_function': contributor.beneficiary_function,
         'beneficiary_role': contributor.beneficiary_role,
         'new_password': new_password,
-        'current_password': "DefaultPassword"
+        'new_password2': new_password,
+        'current_password': "DefaultPassword!"
     }
 
-    client.post(profile_url, data)
-    contributor.reset_from_db()
+    client.post(profile_url, data, follow=True)
+    contributor.refresh_from_db()
 
     assert check_password(new_password, contributor.password)
-
-
-def test_profile_form_leaves_password_untouched(client, contributor):
-    """By default, the profile form does not update the password."""
-
-    client.force_login(contributor)
-    profile_url = reverse('contributor_profile')
-    data = {
-        'first_name': contributor.first_name,
-        'last_name': contributor.last_name,
-        'contributor_organization': contributor.contributor_organization,
-        'contributor_role': contributor.contributor_role,
-        'contributor_contact_phone': contributor.contributor_contact_phone,
-        'new_password': '',
-    }
-    client.post(profile_url, data)
-
-    # "DefaultPassword!" is UserFactory's default password
     assert authenticate(
-        username=contributor.email, password='DefaultPassword!') is not None
+        username=contributor.email, password=new_password) is not None
 
 
 def test_logged_in_contributor_has_menu(client, contributor):

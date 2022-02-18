@@ -138,6 +138,13 @@ class ContributorProfileForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Laissez vide pour conserver votre mot de passe actuel'}))
 
+    new_password2 = forms.CharField(
+        label='Saisissez à nouveau le nouveau mot de passe',
+        required=False,
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Laissez vide pour conserver votre mot de passe actuel'}))
+
     current_password = forms.CharField(
         label='Entrez votre mot de passe actuel',
         required=False,
@@ -149,7 +156,7 @@ class ContributorProfileForm(forms.ModelForm):
         model = User
         fields = [
             'first_name', 'last_name', 'email', 'is_contributor', 'is_beneficiary',
-            'beneficiary_function', 'beneficiary_role', 'new_password', 'current_password']
+            'beneficiary_function', 'beneficiary_role', 'new_password', 'new_password2', 'current_password']
         labels = {
             'first_name': 'Votre prénom',
             'last_name': 'Votre nom',
@@ -174,7 +181,9 @@ class ContributorProfileForm(forms.ModelForm):
         super()._post_clean()
         # Validate the password after self.instance is updated with form data by super().
         password = self.cleaned_data.get('new_password')
-        if password:
+        password2 = self.cleaned_data.get('new_password2')
+
+        if password and password == password2:
             try:
                 password_validation.validate_password(password, self.instance)
             except forms.ValidationError as error:
@@ -188,6 +197,8 @@ class ContributorProfileForm(forms.ModelForm):
             except forms.ValidationError as error:
                 self.add_error('current_password', error)
                 self.current_password_checked = False
+        elif password != password2:
+            self.add_error('new_password', 'Les mots de passe ne sont pas identiques')
 
     def save(self, commit=True):
         user = super().save(commit=False)

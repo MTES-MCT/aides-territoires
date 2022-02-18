@@ -1,6 +1,5 @@
 import factory
 from factory.django import DjangoModelFactory
-
 from accounts.models import User
 
 
@@ -10,12 +9,12 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
 
-    first_name = factory.Faker('name')
-    last_name = factory.Faker('name')
+    first_name = factory.Faker('first_name')
+    last_name = factory.Faker('last_name')
     email = factory.Faker('email')
     password = factory.PostGenerationMethodCall('set_password', 'DefaultPassword!')
     is_contributor = True
-    is_beneficiary = False
+    is_beneficiary = True
     beneficiary_function = "other"
     beneficiary_role = "Compte de test"
 
