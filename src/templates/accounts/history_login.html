@@ -1,0 +1,84 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block extratitle %}Mon journal de connexion{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}user-account{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon journal de connexion</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with user_parameter=True history_login=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-col">
+                Mon journal de connexion
+            </h1>
+ 
+            <div class="fr-table fr-mt-5w">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date de la connexion</th>
+                        </tr>
+                    </thead>
+                    {% if connexions %}
+                    <tbody>
+                        {% for connexion in connexions %}
+                        <tr>
+                            <td>
+                                {{ connexion.last_connexion|date:'l d F Y à H\hi' }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <center>Aucun historique de connexion</center>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+            {% include '_pagination.html' %}
+
+            <button class="fr-tag fr-my-5w" data-fr-opened='false' aria-controls="delete-history-login-modal">
+                <i class="ri-delete-bin-7-line ri-xl fr-mr-1w"></i>Réinitialiser mon journal
+            </button>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+    {% include 'accounts/_delete_history_login_modal.html' %}
+{% endblock %}

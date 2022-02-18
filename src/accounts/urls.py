@@ -3,19 +3,19 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import views as auth_views
 
 from accounts.forms import LoginForm
-from accounts.views import (PasswordResetView, PasswordResetSentView,
+from accounts.views import (PasswordResetView, PasswordResetSentView, LoginView,
                             TokenLoginView, RegisterView, RegisterSuccessView,
                             ContributorProfileView, UserDashboardView,
                             UserApiTokenView, UnSubscribeNewsletter, SubscribeNewsletter,
-                            InviteCollaborator, CollaboratorsList, CompleteProfileView)
+                            InviteCollaborator, CollaboratorsList, CompleteProfileView,
+                            HistoryLoginList, DeleteHistoryLoginView)
 
 
 urlpatterns = [
     path(_('register/'), RegisterView.as_view(), name='register'),
     path(_('register-success/'), RegisterSuccessView.as_view(),
          name='register_success'),
-
-    path(_('login/'), auth_views.LoginView.as_view(
+    path(_('login/'), LoginView.as_view(
         template_name='accounts/login.html',
         authentication_form=LoginForm,
         redirect_authenticated_user=True,
@@ -48,4 +48,8 @@ urlpatterns = [
          name='invite_collaborator'),
     path('collaborateurs/', CollaboratorsList.as_view(),
          name='collaborators'),
+    path('journal-de-connexion/', HistoryLoginList.as_view(),
+         name='history_login'),
+    path('suppression-journal-de-connexion/', DeleteHistoryLoginView.as_view(),
+         name='delete_history_login'),
 ]
