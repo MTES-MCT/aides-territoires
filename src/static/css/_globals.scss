@@ -76,6 +76,14 @@ h2, h3, h4, h5, h6 {
   overflow: initial;
 }
 
+.color-white {
+  color: var(--w) !important;
+}
+
+.background-blue {
+  background-color: var(--bf500) !important;
+}
+
 .fr-background-main {
   background-color: var(--w);
 }
