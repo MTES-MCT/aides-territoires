@@ -71,22 +71,77 @@ class BaseImportCommand(BaseCommand):
                 except IntegrityError as e:
                     self.stdout.write(self.style.ERROR(str(e)))
                     try:
-                        Aid.objects \
-                            .filter(import_uniqueid=aid.import_uniqueid) \
-                            .update(
-                                origin_url=aid.origin_url,
-                                start_date=aid.start_date,
-                                submission_deadline=aid.submission_deadline,
-                                import_raw_object=aid.import_raw_object,
-                                date_updated=timezone.now(),
-                                import_last_access=timezone.now())
-                        updated_counter += 1
-                        self.stdout.write(self.style.SUCCESS(
-                            'Updated aid: {}'.format(aid.name)))
+                        aid_object = Aid.objects \
+                            .filter(import_uniqueid=aid.import_uniqueid)
+                        if aid_object.values('import_raw_object', flat=True) != aid.import_raw_object:
+                            '''
+                            Si d'autres champ que : 
+                                - aid.submission_deadline,
+                                - aid.start_date
+                                - aid.name_initial 
+                            ont été modifiés.
+                            Alors on met simplement à jour le champ import_raw_object_temp
+                            On passe également le statut de l'aide en draft
+                            '''
+                            if any([
+                                aid_object.values('financers', flat=True) != aid.financers,
+                                aid_object.values('instructors', flat=True) != aid.instructors,
+                                aid_object.values('categories', flat=True) != aid.categories,
+                                aid_object.values('programs', flat=True) != aid.programs,
+                                aid_object.values('description', flat=True) != aid.description,
+                                aid_object.values('origin_url', flat=True) != aid.origin_url,
+                                aid_object.values('targeted_audiences', flat=True) != aid.targeted_audiences,
+                                aid_object.values('aid_types', flat=True) != aid.aid_types,
+                            ]):
+                                try:
+                                    aid_object \
+                                        .update(
+                                            start_date=aid.start_date,
+                                            submission_deadline=aid.submission_deadline,
+                                            name_initial=aid.name_initial,
+                                            import_raw_object_temp=aid.import_raw_object,
+                                            date_updated=timezone.now(),
+                                            import_last_access=timezone.now(),
+                                            status=draft)
+                                    updated_counter += 1
+                                    self.stdout.write(self.style.SUCCESS(
+                                        'Updated aid: {}'.format(aid.name)))
 
-                    except Exception as e:
-                        self.stdout.write(self.style.ERROR(
-                            'Cannot update aid {}: {}'.format(aid.name, e)))
+                                except Exception as e:
+                                    self.stdout.write(self.style.ERROR(
+                                        'Cannot update aid {}: {}'.format(aid.name, e)))
+
+                            '''
+                            Si les seuls champs qui ont changé sont : 
+                                - aid.submission_deadline,
+                                - aid.start_date
+                                - aid.name_initial 
+                            Alors on tente une mise à jour de ces champs.
+                            On met aussi à jour le champ import_raw_object_temp
+                            Le statut de l'aide doit rester 'published'. 
+                            '''
+                            elif any([
+                                aid_object.values('start_date', flat=True) != aid.start_date,
+                                aid_object.values('submission_deadline', flat=True) != aid.submission_deadline,
+                                aid_object.values('name_initial', flat=True) != aid.name_initial,
+                            ]):
+                                try: 
+                                    aid_object \
+                                        .update(
+                                            start_date=aid.start_date,
+                                            submission_deadline=aid.submission_deadline,
+                                            name_initial=aid.name_initial,
+                                            import_raw_object_temp=aid.import_raw_object,
+                                            date_updated=timezone.now(),
+                                            import_last_access=timezone.now(),
+                                            status=published)
+                                    updated_counter += 1
+                                    self.stdout.write(self.style.SUCCESS(
+                                        'Updated aid: {}'.format(aid.name)))
+
+                                except Exception as e:
+                                    self.stdout.write(self.style.ERROR(
+                                        'Cannot update aid {}: {}'.format(aid.name, e)))
 
                 except Exception as e:
                     self.stdout.write(self.style.ERROR(

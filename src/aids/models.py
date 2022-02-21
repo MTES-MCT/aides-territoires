@@ -496,6 +496,18 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         'Donnée JSON brute',
         editable=False,
         null=True)
+    import_raw_object_calendar = models.JSONField(
+        'Donnée JSON brute du calendrier',
+        editable=False,
+        null=True)
+    import_raw_object_temp = models.JSONField(
+        'Donnée JSON brute temporaire',
+        editable=False,
+        null=True)
+    import_raw_object_temp_calendar = models.JSONField(
+        'Donnée JSON brute temporaire du calendrier',
+        editable=False,
+        null=True)
 
     # This field is used to index searchable text content
     search_vector_unaccented = SearchVectorField(
