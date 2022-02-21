@@ -73,7 +73,8 @@ class BaseImportCommand(BaseCommand):
                     try:
                         aid_object = Aid.objects \
                             .filter(import_uniqueid=aid.import_uniqueid)
-                        if aid_object.values('import_raw_object', flat=True) != aid.import_raw_object:
+                        import ipdb; ipdb.set_trace();
+                        if aid_object.values_list('import_raw_object', flat=True) != aid.import_raw_object:
                             '''
                             Si d'autres champ que : 
                                 - aid.submission_deadline,
@@ -117,7 +118,7 @@ class BaseImportCommand(BaseCommand):
                             On met aussi à jour le champ import_raw_object_temp_calendar
                             Le statut de l'aide doit rester 'published'. 
                             '''
-                        elif aid_object.values('import_raw_object_calendar', flat=True) != aid.import_raw_object_calendar:
+                        elif aid_object.values_list('import_raw_object_calendar', flat=True) != aid.import_raw_object_calendar:
                             try: 
                                 aid_object \
                                     .update(
