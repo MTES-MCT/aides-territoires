@@ -437,13 +437,11 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         return ''
     get_pprint_import_raw_object_calendar.short_description = 'Donnée brute importée pour le calendrier'
 
-
     def get_pprint_import_raw_object_temp(self, obj=None):
         if obj:
             return pretty_print_readonly_jsonfield(obj.import_raw_object_temp)
         return ''
     get_pprint_import_raw_object_temp.short_description = 'Donnée brute importée temporaire'
-
 
     def get_pprint_import_raw_object_temp_calendar(self, obj=None):
         if obj:
