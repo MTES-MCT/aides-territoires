@@ -174,7 +174,7 @@ class BaseImportCommand(BaseCommand):
             'author_id',
             'import_data_source', 'is_imported', 'import_uniqueid',
             'import_data_url', 'import_share_licence', 'import_last_access',
-            'import_raw_object',
+            'import_raw_object', 'import_raw_object_calendar',
             'date_published'
         ]
         fields = form_fields + more_fields
