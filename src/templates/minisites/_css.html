@@ -75,6 +75,7 @@ a.fr-pagination__link[aria-current][href]:hover {
 }
 
 {% if search_page.color_3 %}
+#going-further-reveal-button,
 .fr-btn:hover,
 .fr-btn:active {
     background-color: {% darken search_page.color_3 15 %} !important;
@@ -360,8 +361,12 @@ body > footer #all-logos a {
     padding: .75rem;
 }
 
-body > footer #all-logos a::after {
+body > footer #all-logos a[target=_blank]::after {
     display: none;
+}
+
+body > footer #all-logos .fr-logo:hover {
+    color: #000 !important;
 }
 
 body > footer #all-logos a img {
