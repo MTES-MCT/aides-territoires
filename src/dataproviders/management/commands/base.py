@@ -136,9 +136,9 @@ class BaseImportCommand(BaseCommand):
                                 self.stdout.write(self.style.ERROR(
                                     'Cannot update aid {}: {}'.format(aid.name, e)))
 
-                except Exception as e:
-                    self.stdout.write(self.style.ERROR(
-                        'Cannot import aid {}: {}'.format(aid.name, e)))
+                    except Exception as e:
+                        self.stdout.write(self.style.ERROR(
+                            'Cannot import aid {}: {}'.format(aid.name, e)))
 
         success_message = '{} aides total, {} aides crées, {} aids maj'.format(
             len(aids_and_related_objects), created_counter, updated_counter)
