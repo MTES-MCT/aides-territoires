@@ -73,7 +73,6 @@ class BaseImportCommand(BaseCommand):
                     try:
                         aid_object = Aid.objects \
                             .filter(import_uniqueid=aid.import_uniqueid)
-                        import ipdb; ipdb.set_trace();
                         if aid_object.values_list('import_raw_object', flat=True) != aid.import_raw_object:
                             '''
                             Si d'autres champ que : 
@@ -91,6 +90,7 @@ class BaseImportCommand(BaseCommand):
                                 - name_initial
                             '''
                             try:
+                                import ipdb; ipdb.set_trace();
                                 aid_object \
                                     .update(
                                         start_date=aid.start_date,
@@ -100,7 +100,7 @@ class BaseImportCommand(BaseCommand):
                                         import_raw_object_temp_calendar=aid.import_raw_object_calendar,
                                         date_updated=timezone.now(),
                                         import_last_access=timezone.now(),
-                                        status=draft)
+                                        status='draft')
                                 updated_counter += 1
                                 self.stdout.write(self.style.SUCCESS(
                                     'Updated aid: {}'.format(aid.name)))
@@ -128,7 +128,7 @@ class BaseImportCommand(BaseCommand):
                                         import_raw_object_temp_calendar=aid.import_raw_object_calendar,
                                         date_updated=timezone.now(),
                                         import_last_access=timezone.now(),
-                                        status=published)
+                                        status='published')
                                 updated_counter += 1
                                 self.stdout.write(self.style.SUCCESS(
                                     'Updated aid: {}'.format(aid.name)))
