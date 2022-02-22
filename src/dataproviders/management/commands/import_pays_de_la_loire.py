@@ -96,7 +96,7 @@ class Command(BaseImportCommand):
                 yield line
         else:
             req = requests.get(DATA_SOURCE.import_api_url)
-            req.encoding = 'utf-8-sig'  # We need this to take care of the bom
+            req.encoding = 'utf-8-sig'  # We need this to take care of the bom (byte order mark)
             data = json.loads(req.text)
             self.stdout.write('Total number of aids: {}'.format(data['nhits']))
             if data['nhits'] > FEED_ROWS:
@@ -125,7 +125,25 @@ class Command(BaseImportCommand):
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        if line.get('temporalite', None) != None:
+            import_raw_object_calendar['temporalite'] = line['temporalite']
+        if line.get('date_de_debut', None) != None:
+            import_raw_object_calendar['date_de_debut'] = line['date_de_debut']
+        if line.get('date_de_fin', None) != None:
+            import_raw_object_calendar['date_de_fin'] = line['date_de_fin']
+
+        return import_raw_object_calendar
+
     def extract_import_raw_object(self, line):
+        if line.get('temporalite', None) != None:
+            line.pop('temporalite')
+        if line.get('date_de_debut', None) == 'Temporaire':
+            line.pop('date_de_debut')
+            line.pop('date_de_fin')
+        if line.get('date_de_fin', None) == 'Temporaire':
+            line.pop('date_de_fin')
         return line
 
     def extract_name(self, line):
@@ -202,18 +220,14 @@ class Command(BaseImportCommand):
         return None
 
     def extract_start_date(self, line):
-        if line.get('temporalite', None) == 'Temporaire':
-            if line.get('date_de_debut', None):
-                start_date = datetime.strptime(line['date_de_debut'], '%d/%m/%Y')
-                return start_date
-        return None
+        if line.get('date_de_debut', None):
+            start_date = datetime.strptime(line['date_de_debut'], '%d/%m/%Y')
+            return start_date
 
     def extract_submission_deadline(self, line):
-        if line.get('temporalite', None) == 'Temporaire':
-            if line.get('date_de_fin', None):
-                submission_deadline = datetime.strptime(line['date_de_fin'], '%d/%m/%Y').date()
-                return submission_deadline
-        return None
+        if line.get('date_de_fin', None):
+            submission_deadline = datetime.strptime(line['date_de_fin'], '%d/%m/%Y').date()
+            return submission_deadline
 
     # def extract_subvention_comment(self, line):
     #     montant_min = line.get('montantintervmini', '-')
