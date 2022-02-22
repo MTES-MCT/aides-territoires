@@ -2,7 +2,7 @@
 
 COLLECTIVITIES_AUDIENCES = (
     ('commune', 'Communes'),
-    ('epci', 'EPCI à fiscalité propre'),
+    ('epci', 'Intercommunalités / Pays'),
     ('department', 'Départements'),
     ('region', 'Régions'),
     ('special', "Collectivités d'outre-mer à statuts particuliers"),
