@@ -90,7 +90,6 @@ class BaseImportCommand(BaseCommand):
                                 - name_initial
                             '''
                             try:
-                                import ipdb; ipdb.set_trace();
                                 aid_object \
                                     .update(
                                         start_date=aid.start_date,
