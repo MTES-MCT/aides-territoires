@@ -26,7 +26,10 @@
                     <a class="fr-breadcrumb__link" href="{% url 'backer_map_view' %}">Cartographie</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept.name }}</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'backer_departement_view' current_dept.code %}">{{ current_dept.name }}</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Porteurs</a>
                 </li>
             </ol>
         </div>
@@ -36,9 +39,10 @@
 
 {% block content %}
 <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
+
     <div class="fr-table">
         <table>
-            <caption>Top 10 des {{ backers_list.count }} porteurs :</caption>
+            <caption>{{backers_list.count}} porteurs d'aides présents</caption>
             <thead>
                 <tr>
                     <th scope="col">Porteur</th>
@@ -48,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for backer in backers_list|slice:":10" %}
+                {% for backer in backers_list %}
                 <tr>
                     <td>
                         <a href="{% url 'backer_detail_view' backer.id backer.slug %}">
@@ -74,11 +78,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div>
-        <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" href="{% url 'backer_departement_backers_view' current_dept.code %}">
-            Voir la liste complète des {{ backers_list.count }} porteurs
-        </a>
     </div>
 
 </article>
