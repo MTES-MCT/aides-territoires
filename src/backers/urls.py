@@ -1,6 +1,6 @@
 from unicodedata import name
 from django.urls import path
-from backers.views import BackerDetailView, BackerMapView, BackerDepartementView
+from backers.views import BackerDetailView, BackerMapView, BackerDepartementView, BackerDepartementBackersView
 
 
 urlpatterns = [
@@ -15,5 +15,8 @@ urlpatterns = [
         name='backer_map_view'),
     path(
         'cartographie/<str:code>/', BackerDepartementView.as_view(),
-        name='backer_departement_view')
+        name='backer_departement_view'),
+    path(
+        'cartographie/<str:code>/porteurs/', BackerDepartementBackersView.as_view(),
+        name='backer_departement_backers_view')
 ]
