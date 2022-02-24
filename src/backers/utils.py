@@ -1,8 +1,8 @@
 from django.utils import timezone
 from django.db.models import Count
-from aids.models import Aid, AidWorkflow
+from aids.constants import FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
+from aids.models import AidWorkflow
 from geofr.utils import get_all_related_perimeter_ids
-from aids.utils import filter_generic_aids
 
 from django.db.models.query import QuerySet
 from django.db.models import Q
@@ -32,22 +32,13 @@ def get_backers_count_by_departement(dep_id: str, detailed: bool = False) -> Que
         .annotate(
             technical_aids=Count(
                 "financed_aids",
-                filter=(
-                    Q(financed_aids__aid_types=["technical"])
-                    | Q(financed_aids__aid_types=["financial"])
-                    | Q(financed_aids__aid_types=["legal"])
-                ),
+                filter=(Q(financed_aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
             )
         )
         .annotate(
             financial_aids=Count(
                 "financed_aids",
-                filter=(
-                    Q(financed_aids__aid_types=["grant"])
-                    | Q(financed_aids__aid_types=["loan"])
-                    | Q(financed_aids__aid_types=["recoverable_advance"])
-                    | Q(financed_aids__aid_types=["other"])
-                ),
+                filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
             )
         )
         .values("name", "id", "slug", "total_aids", "technical_aids", "financial_aids")

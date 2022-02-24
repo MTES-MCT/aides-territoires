@@ -26,7 +26,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'backer_map_view' %}">Cartographie</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept.name }}</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept }}</a>
                 </li>
             </ol>
         </div>
@@ -76,7 +76,9 @@
         </table>
     </div>
     <div>
-        <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" href="{% url 'backer_departement_backers_view' current_dept.code %}">
+        <a 
+            class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+            href="{% url 'backer_departement_backers_view' current_dept.id current_dept.name|slugify %}">
             Voir la liste complète des {{ backers_list.count }} porteurs
         </a>
     </div>

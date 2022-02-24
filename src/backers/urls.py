@@ -1,22 +1,25 @@
 from unicodedata import name
 from django.urls import path
-from backers.views import BackerDetailView, BackerMapView, BackerDepartementView, BackerDepartementBackersView
+from backers.views import (
+    BackerDetailView,
+    BackerMapView,
+    BackerDepartementView,
+    BackerDepartementBackersView,
+)
 
 
 urlpatterns = [
+    path("<int:pk>/", BackerDetailView.as_view(), name="backer_detail_view"),
+    path("<int:pk>-<str>/", BackerDetailView.as_view(), name="backer_detail_view"),
+    path("cartographie/", BackerMapView.as_view(), name="backer_map_view"),
     path(
-        '<int:pk>/', BackerDetailView.as_view(),
-        name='backer_detail_view'),
+        "cartographie/<int:pk>-<str:slug>/",
+        BackerDepartementView.as_view(),
+        name="backer_departement_view",
+    ),
     path(
-        '<int:pk>-<str>/', BackerDetailView.as_view(),
-        name='backer_detail_view'),
-    path(
-        'cartographie/', BackerMapView.as_view(),
-        name='backer_map_view'),
-    path(
-        'cartographie/<str:code>/', BackerDepartementView.as_view(),
-        name='backer_departement_view'),
-    path(
-        'cartographie/<str:code>/porteurs/', BackerDepartementBackersView.as_view(),
-        name='backer_departement_backers_view')
+        "cartographie/<int:pk>-<str:slug>/porteurs/",
+        BackerDepartementBackersView.as_view(),
+        name="backer_departement_backers_view",
+    ),
 ]

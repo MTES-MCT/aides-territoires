@@ -65,7 +65,7 @@ class BackerDepartementView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         departements = Perimeter.objects.filter(scale=10)
-        current_dept = Perimeter.objects.get(code=kwargs["code"], scale=10)
+        current_dept = Perimeter.objects.get(id=kwargs["pk"], scale=10)
 
         backers_list = get_backers_count_by_departement(current_dept.id)
 
@@ -84,7 +84,7 @@ class BackerDepartementBackersView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         departements = Perimeter.objects.filter(scale=10)
-        current_dept = Perimeter.objects.get(code=kwargs["code"], scale=10)
+        current_dept = Perimeter.objects.get(id=kwargs["pk"], scale=10)
 
         backers_list = get_backers_count_by_departement(current_dept.id)
 
