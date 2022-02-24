@@ -19,7 +19,7 @@ class RegisterForm(UserCreationForm):
         ('department', 'Département'),
         ('private_sector', 'Entreprise privée'),
         ('public_cies', "Entreprise publique locale (Sem, Spl, SemOp)"),
-        ('epci', 'EPCI à fiscalité propre'),
+        ('epci', 'Intercommunalité / Pays'),
         ('public_org', "Établissement public (école, bibliothèque…) / Service de l'État"),
         ('private_person', 'Particulier'),
         ('region', 'Région'),
