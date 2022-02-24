@@ -110,3 +110,33 @@ AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='')
 AWS_DEFAULT_ACL = 'public-read'
 AWS_QUERYSTRING_AUTH = False
+
+"""
+Adding a second template just for the django_debug_toolbar which requires:
+- "APP_DIRS": True
+- which is incompatible with "loaders", so it is removed here
+- (and "loader" itself is mandatory for django-admin-tools)
+"""
+TEMPLATES += [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        "NAME": "For django_debug_toolbar",
+        "APP_DIRS": True,
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': [
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'core.context_processors.integration',
+                'core.context_processors.contact_data',
+                'core.context_processors.admin_stats',
+                'core.context_processors.contributor_stats',
+            ],
+            'libraries': {
+                'form_utils': 'core.templatetags.form_utils',
+            }
+        },
+    }
+]

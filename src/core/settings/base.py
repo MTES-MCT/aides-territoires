@@ -188,6 +188,7 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'NAME': 'BASE',
         'DIRS': [DJANGO_ROOT.child('templates')],
         'OPTIONS': {
             'debug': False,
@@ -326,7 +327,7 @@ SIB_WELCOME_EMAIL_ENABLED = False
 SIB_WELCOME_EMAIL_TEMPLATE_ID = 0
 SIB_PUBLICATION_EMAIL_ENABLED = False
 SIB_PUBLICATION_EMAIL_TEMPLATE_ID = 0
-SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID=0
+SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID = 0
 SIB_NEWSLETTER_CONFIRM_TEMPLATE_ID = 0
 EXPORT_CONTACTS_ENABLED = False
 
