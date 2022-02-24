@@ -26,7 +26,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'backer_map_view' %}">Cartographie</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'backer_departement_view' current_dept.code %}">{{ current_dept.name }}</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'backer_departement_view' current_dept.id current_dept.name|slugify %}">{{ current_dept }}</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Porteurs</a>
