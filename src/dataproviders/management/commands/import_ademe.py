@@ -122,12 +122,10 @@ class Command(BaseImportCommand):
     def extract_targeted_audiences(self, line):
         targets = []
         target_elts = line.findall('.//cibles/cible')
-        print(target_elts)
         for element in target_elts:
             ademe_target = element.text
             our_targets = AUDIENCES_DICT[ademe_target]
             targets += our_targets
-        print(list(set(targets)))
         return list(set(targets))
 
     def extract_perimeter(self, line):
