@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup as bs
 
+from aids.models import Aid
 from categories.models import Theme, Category
 
 
@@ -13,13 +14,16 @@ ALLOWED_TAGS = [
     'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     'br', 'a', 'iframe',
 ]
-ALLOWED_ATTRS = ['href', 'src', 'alt', 'width', 'height', 'style',
-                 'allow', 'frameborder', 'allowfullscreen',  # to display iframe
-                 'target', 'rel']  # for links opening in a new tab
+ALLOWED_ATTRS = [
+    'href', 'src', 'alt', 'width', 'height', 'style',
+    'allow', 'frameborder', 'allowfullscreen',  # to display iframe
+    'target', 'rel',  # for links opening in a new tab
+]
 
 
 def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base_url=None):
-    """Clean imported data.
+    """
+    Clean imported data.
 
     We import data from many data sources, and it's not always directly
     usable to say the least. This method performs a list of several
@@ -85,9 +89,33 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
     return prettified
 
 
+def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_names):
+    """
+    Method to extract audiences mapping from a specified csv file
+    source audience --> 1 or multiple AT audiences
+    """
+    audiences_dict = {}
+
+    with open(audiences_mapping_csv_path) as csv_file:
+        csvreader = csv.DictReader(csv_file, delimiter=",")
+        for index, row in enumerate(csvreader):
+            if row[at_column_names[0]]:
+                audiences_dict[row[source_column_name]] = []
+                for column in at_column_names:
+                    if row[column]:
+                        try:
+                            audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])  # noqa
+                            audiences_dict[row[source_column_name]].append(audience)
+                        except:
+                            print(row[column])
+
+    return audiences_dict
+
+
 def mapping_categories(categories_mapping_csv_path, source_column_name, at_column_names):
     """
     Method to extract categories mapping from a specified csv file
+    source category --> 1 or multiple AT categories (or theme !)
     """
     categories_dict = {}
 
@@ -105,6 +133,10 @@ def mapping_categories(categories_mapping_csv_path, source_column_name, at_colum
 
 
 def get_category_list_from_name(category_name):
+    """
+    Get the corresponding Category object
+    (or list of categories if it is a Theme)
+    """
     category_list = []
 
     try:
@@ -112,7 +144,7 @@ def get_category_list_from_name(category_name):
         category_list.append(category)
     except Category.DoesNotExist:
         # Maybe it's a Theme !
-        # If it is, we'll need to add all of it's categories
+        # If it is, we'll need to add all of its categories
         try:
             theme = Theme.objects.get(name=category_name)
             for category in theme.categories.all():

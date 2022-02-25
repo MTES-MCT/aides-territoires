@@ -42,6 +42,7 @@ zipp = "*"
 django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
+xmltodict = "*"
 
 [dev-packages]
 ansible = "<4"
