@@ -93,6 +93,10 @@ class Command(BaseImportCommand):
         title = line.find('.//titre').text
         return title[:180]
 
+    def extract_name_initial(self, line):
+        name_initial = line.find('.//titre').text
+        return name_initial[:180]
+
     def extract_description(self, line):
         description = content_prettify(line.find('presentation').text)
         return description
