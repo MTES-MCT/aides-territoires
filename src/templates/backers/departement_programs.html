@@ -26,7 +26,10 @@
                     <a class="fr-breadcrumb__link" href="{% url 'backer_map_view' %}">Cartographie</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept }}</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'backer_departement_view' current_dept.id current_dept.name|slugify %}">{{ current_dept }}</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Porteurs</a>
                 </li>
             </ol>
         </div>
@@ -38,66 +41,17 @@
 <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
     <div class="fr-table at-table--fullwidth">
         <table>
-            <caption>Top 10 des {{ backers_list.count }} porteurs :</caption>
+            <caption>{{programs_list.count}} programmes présents</caption>
             <thead>
                 <tr>
-                    <th scope="col">Porteur</th>
+                    <th scope="col">Program</th>
                     <th scope="col">Nombre d’aides</th>
                     <th scope="col">Aides financières</th>
                     <th scope="col">Aides en ingénierie</th>
                 </tr>
             </thead>
             <tbody>
-                {% for backer in backers_list|slice:":10" %}
-                <tr>
-                    <td>
-                        <a href="{% url 'backer_detail_view' backer.id backer.slug %}">
-                            {{ backer.name }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}">
-                            {{ backer.total_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=financial">
-                            {{ backer.financial_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=technical">
-                            {{ backer.technical_aids }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <a 
-            class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
-            href="{% url 'backer_departement_backers_view' current_dept.id current_dept.name|slugify %}">
-            Voir la liste complète des {{ backers_list.count }} porteurs
-        </a>
-    </div>
-</article>
-
-<article id="programs-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
-    <div class="fr-table at-table--fullwidth">
-        <table>
-            <caption>Top 10 des {{ programs_list.count }} programmes :</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Programme</th>
-                    <th scope="col">Nombre d’aides</th>
-                    <th scope="col">Aides financières</th>
-                    <th scope="col">Aides en ingénierie</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for program in programs_list|slice:":10" %}
+                {% for program in programs_list %}
                 <tr>
                     <td>
                         <a href="{% url 'program_detail' program.slug %}">
@@ -123,13 +77,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div>
-        <a 
-            class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
-            href="{% url 'backer_departement_programs_view' current_dept.id current_dept.name|slugify %}">
-            Voir la liste complète des {{ programs_list.count }} programmes
-        </a>
     </div>
 
 </article>
