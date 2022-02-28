@@ -54,6 +54,7 @@ class BaseImportCommand(BaseCommand):
         #      manual modifications that could have been made from our side.
         created_counter = 0
         updated_counter = 0
+        automatic_updated_counter = 0
         with transaction.atomic():
             for aid, financers, instructors, categories, programs in aids_and_related_objects:  # noqa
                 try:
@@ -71,9 +72,12 @@ class BaseImportCommand(BaseCommand):
                 except IntegrityError as e:
                     self.stdout.write(self.style.ERROR(str(e)))
                     try:
-                        aid_object = Aid.objects \
-                            .filter(import_uniqueid=aid.import_uniqueid)
-                        if aid_object.values_list('import_raw_object', flat=True) != aid.import_raw_object:
+                        if Aid.objects \
+                            .values_list('import_raw_object_temp', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object \
+                        and Aid.objects \
+                                .values_list('import_raw_object', flat=True) \
+                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object:
                             '''
                             Si d'autres champ que : 
                                 - aid.submission_deadline,
@@ -90,7 +94,8 @@ class BaseImportCommand(BaseCommand):
                                 - name_initial
                             '''
                             try:
-                                aid_object \
+                                Aid.objects \
+                                    .filter(import_uniqueid=aid.import_uniqueid) \
                                     .update(
                                         start_date=aid.start_date,
                                         submission_deadline=aid.submission_deadline,
@@ -117,20 +122,23 @@ class BaseImportCommand(BaseCommand):
                             On met aussi à jour le champ import_raw_object_temp_calendar
                             Le statut de l'aide doit rester 'published'. 
                             '''
-                        elif aid_object.values_list('import_raw_object_calendar', flat=True) != aid.import_raw_object_calendar:
+                        elif Aid.objects \
+                                .values_list('import_raw_object_calendar', flat=True) \
+                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object_calendar:
                             try: 
-                                aid_object \
+                                Aid.objects \
+                                    .filter(import_uniqueid=aid.import_uniqueid) \
                                     .update(
                                         start_date=aid.start_date,
                                         submission_deadline=aid.submission_deadline,
                                         name_initial=aid.name_initial,
-                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,
+                                        import_raw_object_calendar=aid.import_raw_object_calendar,
                                         date_updated=timezone.now(),
                                         import_last_access=timezone.now(),
                                         status='published')
-                                updated_counter += 1
+                                automatic_updated_counter += 1
                                 self.stdout.write(self.style.SUCCESS(
-                                    'Updated aid: {}'.format(aid.name)))
+                                    'Automatic updated aid: {}'.format(aid.name)))
 
                             except Exception as e:
                                 self.stdout.write(self.style.ERROR(
@@ -140,8 +148,8 @@ class BaseImportCommand(BaseCommand):
                         self.stdout.write(self.style.ERROR(
                             'Cannot import aid {}: {}'.format(aid.name, e)))
 
-        success_message = '{} aides total, {} aides crées, {} aids maj'.format(
-            len(aids_and_related_objects), created_counter, updated_counter)
+        success_message = '{} aides total, {} aides crées, {} aides maj, {} aides maj auto'.format(
+            len(aids_and_related_objects), created_counter, updated_counter, automatic_updated_counter)
         self.stdout.write(self.style.SUCCESS(success_message))
 
         # log the results (works only for DataSource imports)
