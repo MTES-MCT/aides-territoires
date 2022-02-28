@@ -101,6 +101,10 @@ class Command(BaseImportCommand):
     def extract_import_raw_object(self, line):
         return line
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = None
+        return import_raw_object_calendar
+
     def extract_name(self, line):
         title = line['title'][:180]
         return title
