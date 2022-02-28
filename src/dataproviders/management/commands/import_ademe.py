@@ -81,7 +81,30 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object(self, line):
         line_string = ElementTree.tostring(line, encoding='unicode')
-        return xmltodict.parse(line_string)
+        line_dict = xmltodict.parse(line_string)
+        if line.find('.//appel_cloture').text:
+            line_dict['appel'].pop('appel_cloture')
+        if line.find('.//heure_cloture').text:
+            line_dict['appel'].pop('heure_cloture')
+        if line.find('.//date_ouverture').text:
+            line_dict['appel'].pop('date_ouverture')
+        if line.find('.//annee_publication').text:
+            line_dict['appel'].pop('annee_publication')
+        if line.find('.//date_publication').text:
+            line_dict['appel'].pop('date_publication')
+        if line.find('.//date_cloture').text:
+            line_dict['appel'].pop('date_cloture')
+        return line_dict
+
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        import_raw_object_calendar['appel_cloture'] = line.find('.//appel_cloture').text
+        import_raw_object_calendar['heure_cloture'] = line.find('.//heure_cloture').text
+        import_raw_object_calendar['date_ouverture'] = line.find('.//date_ouverture').text
+        import_raw_object_calendar['annee_publication'] = line.find('.//annee_publication').text
+        import_raw_object_calendar['date_publication'] = line.find('.//date_publication').text
+        import_raw_object_calendar['date_cloture'] = line.find('.//date_cloture').text
+        return import_raw_object_calendar
 
     def extract_author_id(self, line):
         return ADMIN_ID
