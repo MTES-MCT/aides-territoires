@@ -1,6 +1,7 @@
 {% extends 'search/search_page.html' %}
 {% load compress colors %}
 
+{% block theme %}data-fr-theme="light"{% endblock %}
 {% block title %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
 

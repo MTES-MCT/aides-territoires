@@ -1,6 +1,6 @@
 {% load compress analytics i18n settings %}
 <!doctype html>
-<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}" data-fr-theme="default">
+<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}" {% block theme %}data-fr-theme="default"{% endblock %}>
     <head>
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock %}{% endblock %}</title>
 
