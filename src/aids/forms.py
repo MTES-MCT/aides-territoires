@@ -118,7 +118,8 @@ class BaseAidForm(forms.ModelForm):
         """
         financers = self.cleaned_data.get('financers', None)
         instructors = self.cleaned_data.get('instructors', None)
-        self.instance.set_search_vector_unaccented(financers, instructors)
+        categories = self.cleaned_data.get('categories', None)
+        self.instance.set_search_vector_unaccented(financers, instructors, categories)
         return super().save(commit=commit)
 
 
