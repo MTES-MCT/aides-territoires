@@ -1,0 +1,48 @@
+<div class="fr-container">
+    <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters fr-mb-5w" method="post">
+        <div class="fr-select-group  fr-col-12 fr-col-md-3">
+            <label class="fr-label" for="select-department">
+                Département :
+            </label>
+            <select class="fr-select at-live-change" id="select-department" name="department">
+                {% for department in departments %}
+                    <option value="{{ department.id }}-{{ department.name|slugify }}" {% if department.id == current_dept.id %}selected="selected"{% endif %}>
+                        {{ department }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="fr-select-group  fr-col-12 fr-col-md-3">
+            <label class="fr-label" for="select-organization">
+                Type d’organisation :
+            </label>
+            <select class="fr-select" id="select-organization" name="organization">
+                <option value="">Toutes structures confondues</option>
+                {% for type in organization_types %}
+                    <option value="{{ type.0 }}" {% if type.0 == target_audience %}selected="selected"{% endif %}>
+                        {{ type.1 }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="fr-select-group  fr-col-12 fr-col-md-3">
+            <label class="fr-label" for="select-aid-type">
+                Afficher par :
+            </label>
+            <select class="fr-select" id="select-aid-type" name="aid-type">
+                <option value="">Total des aides</option>
+                <option value="financial" {% if aid_type == "financial" %}selected="selected"{% endif %}>Détail des aides financières</option>
+                <option value="technical" {% if aid_type == "technical" %}selected="selected"{% endif %}>Détail des aides techniques</option>
+            </select>
+        </div>
+
+        <div class="fr-col-12 fr-col-md-2 fr-input-group at-button-right">
+            <a 
+                class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+                href="{% url 'map_view' %}">
+                Retour à la carte
+            </a>
+        </div>
+    </form>
+</div>

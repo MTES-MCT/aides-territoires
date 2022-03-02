@@ -98,7 +98,7 @@ class Perimeter(models.Model):
         verbose_name=_('Is overseas?'),
         null=True)
 
-    # Backers and programs count: used only for Departements now
+    # Backers and programs count: used only for Departments now
     # script-updated nightly
     backers_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de porteurs",
