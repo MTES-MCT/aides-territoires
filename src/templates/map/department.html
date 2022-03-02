@@ -1,0 +1,149 @@
+{% extends '_base.html' %}
+{% load compress %}
+
+{% block extratitle %}Cartographie{% endblock %}
+{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock %}
+
+{% block extra_head %}
+<meta property="og:title" content="Aides-territoires | Cartographie" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'map_view' %}">Cartographie</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+{% include "map/_department_orgtype_selector.html" %}
+
+<article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-table at-table--fullwidth">
+        <table>
+            <caption>Top 10 des {{ backers_list.count }} porteurs :</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Porteur</th>
+                    <th scope="col">Nombre d’aides</th>
+                    <th scope="col">Aides financières</th>
+                    <th scope="col">Aides en ingénierie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for backer in backers_list|slice:":10" %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' backer.id backer.slug %}">
+                            {{ backer.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}">
+                            {{ backer.total_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=financial">
+                            {{ backer.financial_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=technical">
+                            {{ backer.technical_aids }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a 
+            class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+            href="{% url 'department_backers_view' current_dept.id current_dept.name|slugify %}">
+            Voir la liste complète des {{ backers_list.count }} porteurs
+        </a>
+    </div>
+</article>
+
+<article id="programs-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-table at-table--fullwidth">
+        <table>
+            <caption>Top 10 des {{ programs_list.count }} programmes :</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Programme</th>
+                    <th scope="col">Nombre d’aides</th>
+                    <th scope="col">Aides financières</th>
+                    <th scope="col">Aides en ingénierie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in programs_list|slice:":10" %}
+                <tr>
+                    <td>
+                        <a href="{% url 'program_detail' program.slug %}">
+                            {{ program.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}">
+                            {{ program.total_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=financial">
+                            {{ program.financial_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=technical">
+                            {{ program.technical_aids }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a 
+            class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
+            href="{% url 'department_programs_view' current_dept.id current_dept.name|slugify %}">
+            Voir la liste complète des {{ programs_list.count }} programmes
+        </a>
+    </div>
+
+</article>
+{% endblock %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="/static/js/map/department_filter.js"></script>
+<script>
+    $(document).ready(function () {
+        department_filter('/');
+    });
+</script>
+{% endcompress %}
+{% endblock %}
