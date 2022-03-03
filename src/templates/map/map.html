@@ -36,8 +36,8 @@
 Ici bientôt une carte
 
 <ul>
-{% for departement in departements %}
-    <li><a href="{% url 'department_view' departement.id departement.name|slugify %}">{{ departement.name }} ({{departement.code}})</a></li>
+{% for department in departments %}
+    <li><a href="{% url 'department_view' department.id department.name|slugify %}">{{ department }}</a></li>
 {% endfor %}
 </ul>
 

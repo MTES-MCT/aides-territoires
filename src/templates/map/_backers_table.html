@@ -1,0 +1,83 @@
+<table>
+    {% if caption %}
+        <caption>{{ caption }}</caption>
+    {% else %}
+        <caption role="status">{{ current_dept.name }} : {{ entries_list.count }} porteurs d‘aides présents</caption>
+    {% endif %}
+    {% if aid_type == "financial" %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Subvention</th>
+                <th scope="col">Prêt</th>
+                <th scope="col">Avance récupérable</th>
+                <th scope="col">Autres aides financières</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>{{ entry.grant }}</td>
+                    <td>{{ entry.loan }}</td>
+                    <td>{{ entry.recoverable_advance }}</td>
+                    <td>{{ entry.other }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% elif aid_type == "technical" %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Ingénierie technique</th>
+                <th scope="col">Ingénierie financière</th>
+                <th scope="col">Ingénierie Juridique / administrative</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>{{ entry.technical }}</td>
+                    <td>{{ entry.financial }}</td>
+                    <td>{{ entry.legal }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Nombre d’aides</th>
+                <th scope="col">Aides financières</th>
+                <th scope="col">Aides en ingénierie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=financial&targeted_audiences={{ target_audience }}">
+                            {{ entry.financial_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical&targeted_audiences={{ target_audience }}">
+                            {{ entry.technical_aids }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
