@@ -113,12 +113,21 @@ class Command(BaseImportCommand):
         return name_initial
 
     def extract_description(self, line):
-        # desc_1 & desc_2 already have <p></p> tags
-        desc_1 = content_prettify(line.get('engagements', ''))
-        desc_2 = content_prettify(line.get('entete', ''))
-        desc_3 = content_prettify(line.get('notes', ''))
-        description = desc_1 + desc_2 + desc_3
-        return description
+        desc = line.get('engagements', '')
+        desc += '<br>'
+        desc += line.get('entete', '')
+        desc += '<br>'
+        desc += line.get('notes', '')
+        desc += '<br>'
+        if line.get('docinformatif01_nom', ''):
+            desc += '<p><a href="' + line.get('docinformatif01_url', '') + '">' + line.get('docinformatif01_nom', '') + '</a></p>'
+        if line.get('docinformatif02_nom', ''):
+            desc += '<p><a href="' + line.get('docinformatif02_url', '') + '">' + line.get('docinformatif02_nom', '') + '</a></p>'
+        if line.get('docinformatif03_nom', ''):
+            desc += '<p><a href="' + line.get('docinformatif03_url', '') + '">' + line.get('docinformatif03_nom', '') + '</a></p>'
+        if line.get('docinformatif04_nom', ''):
+            desc += '<p><a href="' + line.get('docinformatif04_url', '') + '">' + line.get('docinformatif04_nom', '') + '</a></p>'
+        return desc
 
     def extract_financers(self, line):
         return [DATA_SOURCE.backer]
@@ -178,8 +187,20 @@ class Command(BaseImportCommand):
 
     def extract_eligibility(self, line):
         eligibility = line.get('publicsbeneficiaireprecision', '')
+        eligibility += '<br>'
         eligibility += line.get('modalite', '')
+        eligibility += '<br>'
         eligibility += line.get('objectif', '')
+        eligibility += '<br>'
         eligibility += line.get('demarches', '')
+        eligibility += '<br>'
+        if line.get('docnecessaire01_nom', ''):
+            eligibility += '<p><a href="' + line.get('docnecessaire01_url', '') + '">' + line.get('docnecessaire01_nom', '') + '</a></p>'
+        if line.get('docnecessaire02_nom', ''):
+            eligibility += '<p><a href="' + line.get('docnecessaire02_url', '') + '">' + line.get('docnecessaire02_nom', '') + '</a></p>'
+        if line.get('docnecessaire03_nom', ''):
+            eligibility += '<p><a href="' + line.get('docnecessaire03_url', '') + '">' + line.get('docnecessaire03_nom', '') + '</a></p>'
+        if line.get('docnecessaire04_nom', ''):
+            eligibility += '<p><a href="' + line.get('docnecessaire04_url', '') + '">' + line.get('docnecessaire04_nom', '') + '</a></p>'
         eligibility = content_prettify(eligibility)
         return eligibility
