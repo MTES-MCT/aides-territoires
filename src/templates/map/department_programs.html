@@ -1,17 +1,17 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load compress %}
 
-{% block extratitle %}Cartographie{% endblock %}
-{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock %}
+{% block extratitle %}Cartographie | {{ current_dept.name }} | Programmes{% endblock extratitle %}
+{% block meta_description %}{{ current_dept.name }} : Liste des programmes{% endblock meta_description %}
 
 {% block extra_head %}
-<meta property="og:title" content="Aides-territoires | Cartographie" />
+<meta property="og:title" content="Aides-territoires | Cartographie | {{ current_dept.name }} | Programmes" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -29,55 +29,28 @@
                     <a class="fr-breadcrumb__link" href="{% url 'department_view' current_dept.id current_dept.name|slugify %}">{{ current_dept }}</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Porteurs</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Programmes</a>
                 </li>
             </ol>
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
-<article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
-    <div class="fr-table at-table--fullwidth">
-        <table>
-            <caption>{{programs_list.count}} programmes présents</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Program</th>
-                    <th scope="col">Nombre d’aides</th>
-                    <th scope="col">Aides financières</th>
-                    <th scope="col">Aides en ingénierie</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for program in programs_list %}
-                <tr>
-                    <td>
-                        <a href="{% url 'program_detail' program.slug %}">
-                            {{ program.name }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}">
-                            {{ program.total_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=financial">
-                            {{ program.financial_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=technical">
-                            {{ program.technical_aids }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {% include "map/_department_orgtype_selector.html" %}
+    <article id="programs-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
+        <div class="fr-table at-table--fullwidth">{% include "map/_programs_table.html" with entries_list=programs_list %}</div>
+    </article>
+{% endblock content %}
 
-</article>
-{% endblock %}
+{% block extra_js %}
+    {% compress js %}
+        <script src="/static/js/map/department_filter.js"></script>
+        <script>
+    $(document).ready(function () {
+        department_filter('/programmes/');
+    });
+        </script>
+    {% endcompress %}
+{% endblock extra_js %}

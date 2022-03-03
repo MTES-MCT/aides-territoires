@@ -37,12 +37,6 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
         backers = (
             backers.distinct()
             .annotate(
-                financial_aids=Count(
-                    "financed_aids",
-                    filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
-                )
-            )
-            .annotate(
                 grant=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["grant"])),
@@ -66,18 +60,12 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__contains=["other"])),
                 )
             )
-            .values("name", "id", "slug", "financial_aids", "grant", "loan", "recoverable_advance", "other")
-            .order_by("-financial_aids")
+            .values("name", "id", "slug", "grant", "loan", "recoverable_advance", "other")
+            .order_by("-grant")
         )
     elif aid_type == "technical":
         backers = (
             backers.distinct()
-            .annotate(
-                technical_aids=Count(
-                    "financed_aids",
-                    filter=(Q(financed_aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
-                )
-            )
             .annotate(
                 technical=Count(
                     "financed_aids",
@@ -96,8 +84,8 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__contains=["legal"])),
                 )
             )
-            .values("name", "id", "slug", "technical_aids", "technical", "financial", "legal")
-            .order_by("-technical_aids")
+            .values("name", "id", "slug", "technical", "financial", "legal")
+            .order_by("-technical")
         )
  
     else:
@@ -122,7 +110,7 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
 
     return backers
 
-def get_programs_count_by_department(dep_id: str, target_audience: str = None) -> QuerySet:
+def get_programs_count_by_department(dep_id: str, target_audience: str = None, aid_type: str = None) -> QuerySet:
     """
     For a given department, returns a list of programs with the number of associated live aids
     """
@@ -143,23 +131,80 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None) -
             aids__perimeter_id__in=related_perimeters,
         )
 
-    programs = (
-        programs
-        .annotate(total_aids=Count("aids"))
-        .annotate(
-            technical_aids=Count(
-                "aids",
-                filter=(Q(aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
+    if aid_type == "financial":
+        programs = (
+            programs
+            .annotate(total_aids=Count("aids"))
+            .annotate(
+                grant=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["grant"])),
+                )
             )
-        )
-        .annotate(
-            financial_aids=Count(
-                "aids",
-                filter=(Q(aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
+            .annotate(
+                loan=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["loan"])),
+                )
             )
+            .annotate(
+                recoverable_advance=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["recoverable_advance"])),
+                )
+            )
+            .annotate(
+                other=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["other"])),
+                )
+            )
+            .values("name", "id", "slug", "grant", "loan", "recoverable_advance", "other")
+            .order_by("-grant")
         )
-        .values("name", "id", "slug", "total_aids", "technical_aids", "financial_aids")
-        .order_by("-total_aids")
-    )
+    elif aid_type == "technical":
+        programs = (
+            programs
+            .annotate(total_aids=Count("aids"))
+            .annotate(
+                technical=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["technical"])),
+                )
+            )
+            .annotate(
+                financial=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["financial"])),
+                )
+            )
+            .annotate(
+                recoverable_advance=Count(
+                    "legal",
+                    filter=(Q(aids__aid_types__contains=["legal"])),
+                )
+            )
+            .values("name", "id", "slug", "technical", "financial", "legal")
+            .order_by("-technical")
+        )
+    else:
+        programs = (
+            programs
+            .annotate(total_aids=Count("aids"))
+            .annotate(
+                technical_aids=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
+                )
+            )
+            .annotate(
+                financial_aids=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
+                )
+            )
+            .values("name", "id", "slug", "total_aids", "technical_aids", "financial_aids")
+            .order_by("-total_aids")
+        )
 
     return programs

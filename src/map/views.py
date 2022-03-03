@@ -35,6 +35,10 @@ class DepartmentView(TemplateView):
             backers_list = get_backers_count_by_department(current_dept.id)
             programs_list = get_programs_count_by_department(current_dept.id)
 
+        captions = {
+            "backers": f"Top 10 des {backers_list.count()} porteurs :",
+            "programs": f"Top 10 des {programs_list.count()} programmes :"
+        }
 
         context["departments"] = departments
         context["organization_types"] = ORGANIZATION_TYPE
@@ -42,6 +46,7 @@ class DepartmentView(TemplateView):
         context["target_audience"] = target_audience
         context["backers_list"] = backers_list
         context["programs_list"] = programs_list
+        context["captions"] = captions
 
         return context
 

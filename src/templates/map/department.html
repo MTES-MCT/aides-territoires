@@ -1,8 +1,8 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load compress %}
 
-{% block extratitle %}Cartographie{% endblock %}
-{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock %}
+{% block extratitle %}Cartographie{% endblock extratitle %}
+{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock meta_description %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Cartographie" />
@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -32,110 +32,42 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 {% include "map/_department_orgtype_selector.html" %}
 
 <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
     <div class="fr-table at-table--fullwidth">
-        <table>
-            <caption>Top 10 des {{ backers_list.count }} porteurs :</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Porteur</th>
-                    <th scope="col">Nombre d’aides</th>
-                    <th scope="col">Aides financières</th>
-                    <th scope="col">Aides en ingénierie</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for backer in backers_list|slice:":10" %}
-                <tr>
-                    <td>
-                        <a href="{% url 'backer_detail_view' backer.id backer.slug %}">
-                            {{ backer.name }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}">
-                            {{ backer.total_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=financial">
-                            {{ backer.financial_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ backer.id }}&aid_type=technical">
-                            {{ backer.technical_aids }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="fr-table at-table--fullwidth">
+            {% include "map/_backers_table.html" with entries_list=backers_list|slice:":10" caption=captions.backers %}
+        </div>
     </div>
     <div>
         <a 
             class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
-            href="{% url 'department_backers_view' current_dept.id current_dept.name|slugify %}">
-            Voir la liste complète des {{ backers_list.count }} porteurs
+            href="{% url 'department_backers_view' current_dept.id current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
+            Voir la liste complète des {{ backers_list.count }} porteurs d’aides
         </a>
     </div>
 </article>
 
 <article id="programs-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
     <div class="fr-table at-table--fullwidth">
-        <table>
-            <caption>Top 10 des {{ programs_list.count }} programmes :</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Programme</th>
-                    <th scope="col">Nombre d’aides</th>
-                    <th scope="col">Aides financières</th>
-                    <th scope="col">Aides en ingénierie</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for program in programs_list|slice:":10" %}
-                <tr>
-                    <td>
-                        <a href="{% url 'program_detail' program.slug %}">
-                            {{ program.name }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}">
-                            {{ program.total_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=financial">
-                            {{ program.financial_aids }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ program.slug }}&aid_type=technical">
-                            {{ program.technical_aids }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="fr-table at-table--fullwidth">
+            {% include "map/_backers_table.html" with entries_list=programs_list|slice:":10" caption=captions.programs %}
+        </div>
     </div>
     <div>
         <a 
             class="fr-link fr-fi-arrow-right-line fr-link--icon-right"
-            href="{% url 'department_programs_view' current_dept.id current_dept.name|slugify %}">
+            href="{% url 'department_programs_view' current_dept.id current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
             Voir la liste complète des {{ programs_list.count }} programmes
         </a>
     </div>
 
 </article>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
 {% compress js %}
@@ -146,4 +78,4 @@
     });
 </script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}
