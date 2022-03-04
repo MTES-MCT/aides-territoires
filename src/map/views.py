@@ -27,13 +27,10 @@ class DepartmentView(TemplateView):
         current_dept = Perimeter.objects.get(id=kwargs["pk"])
 
         target_audience = self.request.GET.get("target_audience")
+        aid_type = self.request.GET.get("aid_type")
 
-        if target_audience:
-            backers_list = get_backers_count_by_department(current_dept.id, target_audience)
-            programs_list = get_programs_count_by_department(current_dept.id, target_audience)
-        else:
-            backers_list = get_backers_count_by_department(current_dept.id)
-            programs_list = get_programs_count_by_department(current_dept.id)
+        backers_list = get_backers_count_by_department(current_dept.id, target_audience=target_audience, aid_type=aid_type)
+        programs_list = get_programs_count_by_department(current_dept.id, target_audience=target_audience, aid_type=aid_type)
 
         captions = {
             "backers": f"Top 10 des {backers_list.count()} porteurs :",
@@ -47,6 +44,7 @@ class DepartmentView(TemplateView):
         context["backers_list"] = backers_list
         context["programs_list"] = programs_list
         context["captions"] = captions
+        context["aid_type"] = aid_type
 
         return context
 

@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load compress %}
+{% load static compress %}
 
 {% block extratitle %}Cartographie{% endblock extratitle %}
 {% block meta_description %}Cartographie des porteurs et programmes par département{% endblock meta_description %}
@@ -70,12 +70,12 @@
 {% endblock content %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="/static/js/map/department_filter.js"></script>
-<script>
-    $(document).ready(function () {
-        department_filter('/');
-    });
-</script>
-{% endcompress %}
+    {% compress js %}
+    <script src="{% static 'js/map/department_filter.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            department_filter('/');
+        });
+    </script>
+    {% endcompress %}
 {% endblock extra_js %}
