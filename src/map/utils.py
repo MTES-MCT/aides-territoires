@@ -37,55 +37,55 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
         backers = (
             backers.distinct()
             .annotate(
-                grant=Count(
+                grant_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["grant"])),
                 )
             )
             .annotate(
-                loan=Count(
+                loan_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["loan"])),
                 )
             )
             .annotate(
-                recoverable_advance=Count(
+                recoverable_advance_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["recoverable_advance"])),
                 )
             )
             .annotate(
-                other=Count(
+                other_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["other"])),
                 )
             )
-            .values("name", "id", "slug", "grant", "loan", "recoverable_advance", "other")
-            .order_by("-grant")
+            .values("name", "id", "slug", "grant_count", "loan_count", "recoverable_advance_count", "other_count")
+            .order_by("-grant_count")
         )
     elif aid_type == "technical":
         backers = (
             backers.distinct()
             .annotate(
-                technical=Count(
+                technical_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["technical"])),
                 )
             )
             .annotate(
-                financial=Count(
+                financial_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["financial"])),
                 )
             )
             .annotate(
-                legal=Count(
+                legal_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["legal"])),
                 )
             )
-            .values("name", "id", "slug", "technical", "financial", "legal")
-            .order_by("-technical")
+            .values("name", "id", "slug", "technical_count", "financial_count", "legal_count")
+            .order_by("-technical_count")
         )
  
     else:
@@ -136,56 +136,56 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
             programs
             .annotate(total_aids=Count("aids"))
             .annotate(
-                grant=Count(
+                grant_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["grant"])),
                 )
             )
             .annotate(
-                loan=Count(
+                loan_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["loan"])),
                 )
             )
             .annotate(
-                recoverable_advance=Count(
+                recoverable_advance_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["recoverable_advance"])),
                 )
             )
             .annotate(
-                other=Count(
+                other_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["other"])),
                 )
             )
-            .values("name", "id", "slug", "grant", "loan", "recoverable_advance", "other")
-            .order_by("-grant")
+            .values("name", "id", "slug", "grant_count", "loan_count", "recoverable_advance_count", "other_count")
+            .order_by("-grant_count")
         )
     elif aid_type == "technical":
         programs = (
             programs
             .annotate(total_aids=Count("aids"))
             .annotate(
-                technical=Count(
+                technical_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["technical"])),
                 )
             )
             .annotate(
-                financial=Count(
+                financial_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["financial"])),
                 )
             )
             .annotate(
-                recoverable_advance=Count(
-                    "legal",
+                legal_count=Count(
+                    "aids",
                     filter=(Q(aids__aid_types__contains=["legal"])),
                 )
             )
-            .values("name", "id", "slug", "technical", "financial", "legal")
-            .order_by("-technical")
+            .values("name", "id", "slug", "technical_count", "financial_count", "legal_count")
+            .order_by("-technical_count")
         )
     else:
         programs = (

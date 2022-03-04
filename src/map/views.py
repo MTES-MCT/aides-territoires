@@ -92,6 +92,7 @@ class DepartmentProgramsView(TemplateView):
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
+        context["aid_type"] = aid_type
         context["programs_list"] = programs_list
  
         return context

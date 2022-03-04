@@ -20,10 +20,10 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    <td>{{ entry.grant }}</td>
-                    <td>{{ entry.loan }}</td>
-                    <td>{{ entry.recoverable_advance }}</td>
-                    <td>{{ entry.other }}</td>
+                    <td>{{ entry.grant_count }}</td>
+                    <td>{{ entry.loan_count }}</td>
+                    <td>{{ entry.recoverable_advance_count }}</td>
+                    <td>{{ entry.other_count }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -42,9 +42,9 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    <td>{{ entry.technical }}</td>
-                    <td>{{ entry.financial }}</td>
-                    <td>{{ entry.legal }}</td>
+                    <td>{{ entry.technical_count }}</td>
+                    <td>{{ entry.financial_count }}</td>
+                    <td>{{ entry.legal_count° }}</td>
                 </tr>
             {% endfor %}
         </tbody>
