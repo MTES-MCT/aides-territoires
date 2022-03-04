@@ -1,8 +1,8 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load compress %}
 
-{% block extratitle %}Cartographie{% endblock %}
-{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock %}
+{% block extratitle %}Cartographie{% endblock extratitle %}
+{% block meta_description %}Cartographie des porteurs et programmes par département{% endblock meta_description %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Cartographie" />
@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -29,7 +29,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumb %}
 
 {% block content %}
 <article id="map" class="fr-container fr-mb-5w fr-pb-5w">
@@ -42,4 +42,4 @@ Ici bientôt une carte
 </ul>
 
 </article>
-{% endblock %}
+{% endblock content %}

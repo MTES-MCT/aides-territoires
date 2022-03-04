@@ -7,7 +7,7 @@
             <select class="fr-select at-live-change" id="select-department" name="department">
                 {% for department in departments %}
                     <option value="{{ department.id }}-{{ department.name|slugify }}" {% if department.id == current_dept.id %}selected="selected"{% endif %}>
-                        {{ department }}
+                        {{ department.name }} ({{ department.code }})
                     </option>
                 {% endfor %}
             </select>
