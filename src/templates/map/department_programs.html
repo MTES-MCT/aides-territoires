@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load compress %}
+{% load static compress %}
 
 {% block extratitle %}Cartographie | {{ current_dept.name }} | Programmes{% endblock extratitle %}
 {% block meta_description %}{{ current_dept.name }} : Liste des programmes{% endblock meta_description %}
@@ -44,12 +44,30 @@
     </article>
 {% endblock content %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" charset="utf-8" />
+    <style>
+    .dataTables_wrapper {
+        padding-top: 3em;
+    }
+    </style>
+{% endblock extra_css %}
+
 {% block extra_js %}
     {% compress js %}
-        <script src="/static/js/map/department_filter.js"></script>
+        <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/map/department_filter.js' %}"></script>
         <script>
     $(document).ready(function () {
         department_filter('/programmes/');
+        $('.sortable-table').DataTable({
+            paging: false,
+            info: false,
+            "order": [[ 1, 'desc' ]],
+            "language": {
+                "search": "Filtrer :",
+            }
+        });
     });
         </script>
     {% endcompress %}
