@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load compress %}
+{% load static compress %}
 
 {% block extratitle %}Cartographie{% endblock extratitle %}
 {% block meta_description %}Cartographie des porteurs et programmes par département{% endblock meta_description %}
@@ -32,14 +32,86 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<article id="map" class="fr-container fr-mb-5w fr-pb-5w">
-Ici bientôt une carte
+<article id="map-page" class="fr-container fr-mb-5w fr-pb-5w">
+    <h2>Sélectionner un département sur la carte</h2>
+    <div id="france-map" class="fr-mt-4w">
+        {% include "map/france_departments.svg" %}
+    </div>
 
-<ul>
-{% for department in departments %}
-    <li><a href="{% url 'department_view' department.id department.name|slugify %}">{{ department }}</a></li>
-{% endfor %}
-</ul>
+    <h2>Sélectionner un département dans la liste</h2>
+    <ul>
+    {% for department in departments %}
+        <li><a href="{% url 'department_view' department.code department.name|slugify %}">
+            {{ department.name }} : {{ department.backers_count }} porteurs et {{ department.programs_count }} programmes
+        </a></li>
+    {% endfor %}
+    </ul>
 
 </article>
 {% endblock content %}
+
+{% block extra_css %}
+    {% compress css %}
+    <style>
+    #france-map {
+        text-align:center;
+        max-width: 800px;
+        margin:auto;
+    }
+
+    .land {
+        fill: #bccdff;
+        stroke: #fff;
+    }
+
+    .land:hover {
+        fill: #8ca4ff;
+    }
+    </style>
+    {% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script>
+        $(document).ready(function () {
+            let departments_data = JSON.parse("{{ departments_list|escapejs }}");
+
+            let get_department_data = function(selected_path) {
+                // Retrieves the data from the selected path and an array of objects
+                // that was passed through JSON
+                let department_code = selected_path.attr('data-num');
+                let department_data = departments_data.find(d => d.code === department_code);
+                if (department_data) {
+                    return department_data;
+                } else {
+                    return {}
+                }
+
+            };
+
+            $('#france-map .land').hover(function() {
+                // Shows a description on hover
+                let selected_path = $( this );
+                let data = get_department_data(selected_path);
+                if ("code" in data) {
+                    $('#france-map title').text(`${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`);
+                } else {
+                    $('#france-map title').text("Impossible de trouver les données pour ce département.");
+                }
+            });
+
+            $('#france-map .land').click(function() {
+                // Goes to the selected department entry on click
+                let selected_path = $( this );
+                let data = get_department_data(selected_path);
+                if ("code" in data) {
+                    let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/';
+                    window.location = new_url; 
+                }
+            });
+            
+        });
+        </script>
+    {% endcompress %}
+{% endblock extra_js %}

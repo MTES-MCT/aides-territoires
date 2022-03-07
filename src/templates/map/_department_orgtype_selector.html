@@ -1,21 +1,15 @@
 <div class="fr-container">
-    <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters fr-mb-5w" method="post">
+    <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters" method="post">
         <div class="fr-select-group  fr-col-12 fr-col-md-3">
-            <label class="fr-label" for="select-department">
-                Département :
-            </label>
             <select class="fr-select at-live-change" id="select-department" name="department">
                 {% for department in departments %}
                     <option value="{{ department.id }}-{{ department.name|slugify }}" {% if department.id == current_dept.id %}selected="selected"{% endif %}>
-                        {{ department.name }} ({{ department.code }})
+                        {{ department.code }} - {{ department.name }}
                     </option>
                 {% endfor %}
             </select>
         </div>
         <div class="fr-select-group  fr-col-12 fr-col-md-3">
-            <label class="fr-label" for="select-organization">
-                Bénéficiaires :
-            </label>
             <select class="fr-select" id="select-organization" name="organization">
                 <option value="">Toutes structures confondues</option>
                 {% for type in organization_types %}
@@ -27,9 +21,6 @@
         </div>
 
         <div class="fr-select-group  fr-col-12 fr-col-md-3">
-            <label class="fr-label" for="select-aid-type">
-                Afficher par :
-            </label>
             <select class="fr-select" id="select-aid-type" name="aid-type">
                 <option value="">Total des aides</option>
                 <option value="financial" {% if aid_type == "financial" %}selected="selected"{% endif %}>Détail des aides financières</option>
@@ -39,7 +30,7 @@
 
         <div class="fr-col-12 fr-col-md-2 fr-input-group at-button-right">
             <a 
-                class="fr-link"
+                class="fr-tag"
                 href="{% url 'map_view' %}">
                 Retour à la carte
             </a>

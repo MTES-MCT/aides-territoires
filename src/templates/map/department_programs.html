@@ -26,7 +26,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'map_view' %}">Cartographie</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'department_view' current_dept.id current_dept.name|slugify %}">{{ current_dept }}</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'department_view' current_dept.code current_dept.name|slugify %}">{{ current_dept.code }} - {{ current_dept.name }}</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Programmes</a>

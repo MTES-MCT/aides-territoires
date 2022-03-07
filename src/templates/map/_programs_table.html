@@ -1,4 +1,4 @@
-<table class="sortable-table">
+<table class="sortable-table at-table--xl">
     {% if caption %}
         <caption>{{ caption }}</caption>
     {% else %}
@@ -8,6 +8,7 @@
         <thead>
             <tr>
                 <th scope="col">Programme</th>
+                <th scope="col">Total aides financières</th>
                 <th scope="col">Subvention</th>
                 <th scope="col">Prêt</th>
                 <th scope="col">Avance récupérable</th>
@@ -20,6 +21,11 @@
                     <td>
                         <a href="{% url 'program_detail' entry.slug %}">{{ entry.name }}</a>
                     </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=financial">
+                            {{ entry.financial_aids }}
+                        </a>
+                    </td>
                     <td>{{ entry.grant_count }}</td>
                     <td>{{ entry.loan_count }}</td>
                     <td>{{ entry.recoverable_advance_count }}</td>
@@ -31,6 +37,7 @@
         <thead>
             <tr>
                 <th scope="col">Programme</th>
+                <th scope="col">Total aides techniques</th>
                 <th scope="col">Ingénierie technique</th>
                 <th scope="col">Ingénierie financière</th>
                 <th scope="col">Ingénierie Juridique / administrative</th>
@@ -41,6 +48,11 @@
                 <tr>
                     <td>
                         <a href="{% url 'program_detail' entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=technical">
+                            {{ entry.technical_aids }}
+                        </a>
                     </td>
                     <td>{{ entry.technical_count }}</td>
                     <td>{{ entry.financial_count }}</td>
