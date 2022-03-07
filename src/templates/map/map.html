@@ -70,46 +70,44 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
-    {% compress js %}
-        <script>
-        $(document).ready(function () {
-            let departments_data = JSON.parse("{{ departments_list|escapejs }}");
+    <script>
+    $(document).ready(function () {
+        let departments_data = JSON.parse("{{ departments_list|escapejs }}");
 
-            let get_department_data = function(selected_path) {
-                // Retrieves the data from the selected path and an array of objects
-                // that was passed through JSON
-                let department_code = selected_path.attr('data-num');
-                let department_data = departments_data.find(d => d.code === department_code);
-                if (department_data) {
-                    return department_data;
-                } else {
-                    return {}
-                }
+        let get_department_data = function(selected_path) {
+            // Retrieves the data from the selected path and an array of objects
+            // that was passed through JSON
+            let department_code = selected_path.attr('data-num');
+            let department_data = departments_data.find(d => d.code === department_code);
+            if (department_data) {
+                return department_data;
+            } else {
+                return {}
+            }
 
-            };
+        };
 
-            $('#france-map .land').hover(function() {
-                // Shows a description on hover
-                let selected_path = $( this );
-                let data = get_department_data(selected_path);
-                if ("code" in data) {
-                    $('#france-map title').text(`${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`);
-                } else {
-                    $('#france-map title').text("Impossible de trouver les données pour ce département.");
-                }
-            });
-
-            $('#france-map .land').click(function() {
-                // Goes to the selected department entry on click
-                let selected_path = $( this );
-                let data = get_department_data(selected_path);
-                if ("code" in data) {
-                    let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/';
-                    window.location = new_url; 
-                }
-            });
-            
+        $('#france-map .land').hover(function() {
+            // Shows a description on hover
+            let selected_path = $( this );
+            let data = get_department_data(selected_path);
+            if ("code" in data) {
+                $('#france-map title').text(`${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`);
+            } else {
+                $('#france-map title').text("Impossible de trouver les données pour ce département.");
+            }
         });
-        </script>
-    {% endcompress %}
+
+        $('#france-map .land').click(function() {
+            // Goes to the selected department entry on click
+            let selected_path = $( this );
+            let data = get_department_data(selected_path);
+            if ("code" in data) {
+                let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/';
+                window.location = new_url; 
+            }
+        });
+        
+    });
+    </script>
 {% endblock extra_js %}
