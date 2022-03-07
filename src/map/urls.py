@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from map.views import (
     DepartmentProgramsView,
     MapView,
@@ -9,18 +9,15 @@ from map.views import (
 
 urlpatterns = [
     path("", MapView.as_view(), name="map_view"),
-    path(
-        "<int:pk>-<str:slug>/",
+    re_path(r"^(?P<code>[0-9AB]{2,3})-(?P<slug>[\w-]+)/$",
         DepartmentView.as_view(),
         name="department_view",
     ),
-    path(
-        "<int:pk>-<str:slug>/porteurs/",
+    re_path(r"^(?P<code>[0-9AB]{2,3})-(?P<slug>[\w-]+)/porteurs/$",
         DepartmentBackersView.as_view(),
         name="department_backers_view",
     ),
-    path(
-        "<int:pk>-<str:slug>/programmes/",
+    re_path(r"^(?P<code>[0-9AB]{2,3})-(?P<slug>[\w-]+)/programmes/$",
         DepartmentProgramsView.as_view(),
         name="department_programs_view",
     ),
