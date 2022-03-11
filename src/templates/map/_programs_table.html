@@ -1,9 +1,5 @@
 <table class="sortable-table at-table--xl">
-    {% if caption %}
-        <caption>{{ caption }}</caption>
-    {% else %}
-        <caption role="status">{{ current_dept.name }} : {{ entries_list.count }} programmes présents</caption>
-    {% endif %}
+    <caption role="status">{{ caption }}</caption>
     {% if aid_type == "financial" %}
         <thead>
             <tr>

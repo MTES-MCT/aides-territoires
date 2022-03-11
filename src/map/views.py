@@ -2,10 +2,12 @@ import json
 from django.views.generic import TemplateView
 from django.utils.text import slugify
 from django.core.serializers import serialize
+from backers.models import Backer
 
 from map.utils import get_backers_count_by_department, get_programs_count_by_department
 from geofr.models import Perimeter
 from organizations.constants import ORGANIZATION_TYPE
+from programs.models import Program
 
 
 class MapView(TemplateView):
@@ -24,6 +26,8 @@ class MapView(TemplateView):
 
         context["departments"] = departments
         context["departments_list"] = json.dumps(departments_list)
+        context['backers_count'] = Backer.objects.has_financed_aids().count()
+        context['programs_count'] = Program.objects.count()
 
         return context
 
@@ -74,12 +78,21 @@ class DepartmentBackersView(TemplateView):
 
         backers_list = get_backers_count_by_department(current_dept.id, target_audience=target_audience, aid_type=aid_type)
 
+        if aid_type == "financial":
+            caption_aid_type = " financières"
+        elif aid_type == "technical":
+            caption_aid_type = " techniques"
+        else:
+            caption_aid_type =  ""
+        caption = f"{current_dept.name } : {backers_list.count()} porteurs d‘aides{caption_aid_type} présents"
+
         context["departments"] = departments
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["aid_type"] = aid_type
         context["backers_list"] = backers_list
+        context["caption"] = caption
  
         return context
 
@@ -97,11 +110,20 @@ class DepartmentProgramsView(TemplateView):
 
         programs_list = get_programs_count_by_department(current_dept.id, target_audience=target_audience, aid_type=aid_type)
 
+        if aid_type == "financial":
+            caption_aid_type = " financiers"
+        elif aid_type == "technical":
+            caption_aid_type = " techniques"
+        else:
+            caption_aid_type =  ""
+        caption = f"{current_dept.name } : {programs_list.count()} programmes{caption_aid_type} présents"
+
         context["departments"] = departments
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["aid_type"] = aid_type
         context["programs_list"] = programs_list
+        context["caption"] = caption
  
         return context

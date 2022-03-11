@@ -40,7 +40,7 @@
 {% block content %}
     {% include "map/_department_orgtype_selector.html" %}
     <article id="programs-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
-        <div class="fr-table at-table--fullwidth">{% include "map/_programs_table.html" with entries_list=programs_list %}</div>
+        <div class="fr-table at-table--fullwidth">{% include "map/_programs_table.html" with entries_list=programs_list caption=caption %}</div>
     </article>
 {% endblock content %}
 
