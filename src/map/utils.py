@@ -42,6 +42,7 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
                 )
             )
+            .filter(financial_aids__gte=1)
             .annotate(
                 grant_count=Count(
                     "financed_aids",
@@ -78,6 +79,7 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
                 )
             )
+            .filter(technical_aids__gte=1)
             .annotate(
                 technical_count=Count(
                     "financed_aids",
@@ -152,6 +154,7 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
                     filter=(Q(aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
                 )
             )
+            .filter(financial_aids__gte=1)
             .annotate(
                 grant_count=Count(
                     "aids",
@@ -188,6 +191,7 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
                     filter=(Q(aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
                 )
             )
+            .filter(technical_aids__gte=1)
             .annotate(
                 technical_count=Count(
                     "aids",

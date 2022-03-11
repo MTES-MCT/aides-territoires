@@ -1,11 +1,17 @@
 {% extends "_base.html" %}
 {% load static compress %}
 
-{% block extratitle %}Cartographie | {{ current_dept.name }} | Porteurs d’aides{% endblock extratitle %}
-{% block meta_description %}{{ current_dept.name }} : Liste des porteurs d’aides{% endblock meta_description %}
+{% block extratitle %}
+    Cartographie | {{ current_dept.name }} | Porteurs d’aides
+{% endblock extratitle %}
+
+{% block meta_description %}
+    {{ current_dept.name }} : Liste des porteurs d’aides
+{% endblock meta_description %}
 
 {% block extra_head %}
-    <meta property="og:title" content="Aides-territoires | Cartographie | {{ current_dept.name }} | Porteurs d’aides" />
+    <meta property="og:title"
+          content="Aides-territoires | Cartographie | {{ current_dept.name }} | Porteurs d’aides"/>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
     <meta property="og:site_name" content="Aides-territoires" />
@@ -44,12 +50,17 @@
 {% block content %}
     {% include "map/_department_orgtype_selector.html" %}
     <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
-        <div class="fr-table at-table--fullwidth">{% include "map/_backers_table.html" with entries_list=backers_list %}</div>
+        <div class="fr-table at-table--fullwidth">
+            {% include "map/_backers_table.html" with entries_list=backers_list caption=caption %}
+        </div>
     </article>
 {% endblock content %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" charset="utf-8" />
+    <link rel="stylesheet"
+          href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}"
+          type="text/css"
+          charset="utf-8"/>
     <style>
     .dataTables_wrapper {
         padding-top: 3em;
