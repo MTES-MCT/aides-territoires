@@ -40,7 +40,7 @@
         <div class="fr-text--lead">
             Sélectionnez un département pour avoir tout le détail des aides financières et en ingénierie par porteur et par programme
         </div>
-        <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div class="fr-col-12 fr-col-lg-7">
                 <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "map/france_departments.svg" %}</div>
             </div>
@@ -74,9 +74,9 @@
                                 <select class="fr-select fr-mt-3w at-live-change"
                                         id="select-department"
                                         name="department">
+                                    <option value="">Choisissez un département</option>
                                     {% for department in departments %}
-                                        <option value="{{ department.code }}-{{ department.name|slugify }}"
-                                                {% if department.code == current_dept.code %}selected="selected"{% endif %}>
+                                        <option value="{{ department.code }}-{{ department.name|slugify }}">
                                             {{ department.code }} - {{ department.name }}
                                         </option>
                                     {% endfor %}
