@@ -81,7 +81,7 @@ class DepartmentBackersView(TemplateView):
         if aid_type == "financial":
             caption_aid_type = " financières"
         elif aid_type == "technical":
-            caption_aid_type = " techniques"
+            caption_aid_type = " en ingénierie"
         else:
             caption_aid_type =  ""
         caption = f"{current_dept.name } : {backers_list.count()} porteurs d‘aides{caption_aid_type} présents"

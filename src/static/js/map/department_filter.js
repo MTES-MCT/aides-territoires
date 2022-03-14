@@ -1,3 +1,10 @@
+$(document).ready(function () {
+    // Reset the selects when the "back" button is clicked
+    $("select").each(function () {
+        $(this).val($(this).find('option[selected]').val());
+    });
+})
+
 set_param_value = function (param, value) {
     /* update or remove a GET parameter from the current URL */
     if ('URLSearchParams' in window) {
@@ -30,3 +37,8 @@ department_filter = function (return_page) {
         set_param_value("aid_type", aid_type);
     });
 };
+
+$('#map-back-button a').on('click', function(e){
+    e.preventDefault();
+    window.history.back();
+});
