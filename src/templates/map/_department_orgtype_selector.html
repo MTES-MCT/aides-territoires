@@ -22,9 +22,9 @@
 
         <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select" id="select-aid-type" name="aid-type">
-                <option value="">Total des aides</option>
-                <option value="financial" {% if aid_type == "financial" %}selected="selected"{% endif %}>Détail des aides financières</option>
-                <option value="technical" {% if aid_type == "technical" %}selected="selected"{% endif %}>Détail des aides techniques</option>
+                <option value="">Toutes les aides</option>
+                <option value="financial" {% if aid_type == "financial" %}selected="selected"{% endif %}>Aides financières par typologie</option>
+                <option value="technical" {% if aid_type == "technical" %}selected="selected"{% endif %}>Aides en ingénierie par typologie</option>
             </select>
         </div>
 
