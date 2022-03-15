@@ -14,9 +14,15 @@
 {% for aid in new_aids %}
     <li>
         <strong>Titre :</strong>
+        {% if domain_with_subdomain == 'aides.francemobilites.fr' %}
+        <a href="https://{{ domain_with_subdomain }}/{{ aid.slug|safe }}">
+            {{ aid.name|safe }}
+        </a>
+        {% else %}
         <a href="https://{{ domain_with_subdomain }}{{ aid.get_absolute_url|safe }}">
             {{ aid.name|safe }}
         </a>
+        {% endif %}
         {% if aid.submission_deadline %}<br /><strong>Clôture :</strong> {{ aid.submission_deadline|date }}{% endif %}
     </li>
 {% endfor %}

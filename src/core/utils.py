@@ -77,7 +77,10 @@ def build_host_with_subdomain(host, subdomain):
     Build domain with subdomain
     """
     if is_subdomain(subdomain):
-        return f'{subdomain}.{host}'
+        if subdomain == 'francemobilites':
+            return 'aides.francemobilites.fr'
+        else:
+            return f'{subdomain}.{host}'
     return host
 
 
