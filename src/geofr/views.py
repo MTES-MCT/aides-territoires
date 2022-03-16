@@ -1,17 +1,16 @@
 import json
 from django.views.generic import TemplateView
 from django.utils.text import slugify
-from django.core.serializers import serialize
 from backers.models import Backer
 
-from map.utils import get_backers_count_by_department, get_programs_count_by_department
+from geofr.services.counts_by_department import get_backers_count_by_department, get_programs_count_by_department
 from geofr.models import Perimeter
 from organizations.constants import ORGANIZATION_TYPE
 from programs.models import Program
 
 
 class MapView(TemplateView):
-    template_name = "map/map.html"
+    template_name = "geofr/map.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,7 +32,7 @@ class MapView(TemplateView):
 
 
 class DepartmentView(TemplateView):
-    template_name = "map/department.html"
+    template_name = "geofr/department.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,8 +47,8 @@ class DepartmentView(TemplateView):
         programs_list = get_programs_count_by_department(current_dept.id, target_audience=target_audience, aid_type=aid_type)
 
         captions = {
-            "backers": f"Top 10 des {backers_list.count()} porteurs :",
-            "programs": f"Top 10 des {programs_list.count()} programmes :"
+            "backers": f"Top 10 des {backers_list.count()} porteurs par nombre d’aides :",
+            "programs": f"Top 10 des {programs_list.count()} programmes par nombre d’aides :"
         }
 
         context["departments"] = departments
@@ -65,7 +64,7 @@ class DepartmentView(TemplateView):
 
 
 class DepartmentBackersView(TemplateView):
-    template_name = "map/department_backers.html"
+    template_name = "geofr/department_backers.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,7 +96,7 @@ class DepartmentBackersView(TemplateView):
         return context
 
 class DepartmentProgramsView(TemplateView):
-    template_name = "map/department_programs.html"
+    template_name = "geofr/department_programs.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

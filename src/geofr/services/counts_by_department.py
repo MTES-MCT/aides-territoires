@@ -7,9 +7,12 @@ from django.db.models.query import QuerySet
 from django.db.models import Q
 from backers.models import Backer
 from programs.models import Program
+from categories.models import Category
 
 
-def get_backers_count_by_department(dep_id: str, target_audience: str = None, aid_type: str = None) -> QuerySet:
+def get_backers_count_by_department(
+    dep_id: str, target_audience: str = None, aid_type: str = None
+) -> QuerySet:
     """
     For a given department, returns a list of backers with  the number of associated live aids
     """
@@ -19,18 +22,15 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
     backers = Backer.objects.prefetch_related("financed_aids")
 
     if target_audience:
-        backers = (
-            backers.filter(
-                financed_aids__in=live_aids,
-                financed_aids__perimeter_id__in=related_perimeters,
-                financed_aids__targeted_audiences__overlap=[target_audience]            )
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            financed_aids__targeted_audiences__overlap=[target_audience],
         )
     else:
-        backers = (
-            backers.filter(
-                financed_aids__in=live_aids,
-                financed_aids__perimeter_id__in=related_perimeters,
-            )
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
         )
 
     if aid_type == "financial":
@@ -58,7 +58,9 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
             .annotate(
                 recoverable_advance_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["recoverable_advance"])),
+                    filter=(
+                        Q(financed_aids__aid_types__contains=["recoverable_advance"])
+                    ),
                 )
             )
             .annotate(
@@ -67,7 +69,16 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__contains=["other"])),
                 )
             )
-            .values("name", "id", "slug", "financial_aids", "grant_count", "loan_count", "recoverable_advance_count", "other_count")
+            .values(
+                "name",
+                "id",
+                "slug",
+                "financial_aids",
+                "grant_count",
+                "loan_count",
+                "recoverable_advance_count",
+                "other_count",
+            )
             .order_by("-financial_aids")
         )
     elif aid_type == "technical":
@@ -98,10 +109,18 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__contains=["legal"])),
                 )
             )
-            .values("name", "id", "slug", "technical_aids", "technical_count", "financial_count", "legal_count")
+            .values(
+                "name",
+                "id",
+                "slug",
+                "technical_aids",
+                "technical_count",
+                "financial_count",
+                "legal_count",
+            )
             .order_by("-technical_aids")
         )
- 
+
     else:
         backers = (
             backers.distinct()
@@ -118,13 +137,18 @@ def get_backers_count_by_department(dep_id: str, target_audience: str = None, ai
                     filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
                 )
             )
-            .values("name", "id", "slug", "total_aids", "technical_aids", "financial_aids")
+            .values(
+                "name", "id", "slug", "total_aids", "technical_aids", "financial_aids"
+            )
             .order_by("-total_aids")
         )
 
     return backers
 
-def get_programs_count_by_department(dep_id: str, target_audience: str = None, aid_type: str = None) -> QuerySet:
+
+def get_programs_count_by_department(
+    dep_id: str, target_audience: str = None, aid_type: str = None
+) -> QuerySet:
     """
     For a given department, returns a list of programs with the number of associated live aids
     """
@@ -137,7 +161,7 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
         programs = programs.filter(
             aids__in=live_aids,
             aids__perimeter_id__in=related_perimeters,
-            aids__targeted_audiences__overlap=[target_audience]
+            aids__targeted_audiences__overlap=[target_audience],
         )
     else:
         programs = programs.filter(
@@ -147,8 +171,7 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
 
     if aid_type == "financial":
         programs = (
-            programs
-            .annotate(
+            programs.annotate(
                 financial_aids=Count(
                     "aids",
                     filter=(Q(aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
@@ -179,13 +202,21 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
                     filter=(Q(aids__aid_types__contains=["other"])),
                 )
             )
-            .values("name", "id", "slug", "financial_aids", "grant_count", "loan_count", "recoverable_advance_count", "other_count")
+            .values(
+                "name",
+                "id",
+                "slug",
+                "financial_aids",
+                "grant_count",
+                "loan_count",
+                "recoverable_advance_count",
+                "other_count",
+            )
             .order_by("-financial_aids")
         )
     elif aid_type == "technical":
         programs = (
-            programs
-            .annotate(
+            programs.annotate(
                 technical_aids=Count(
                     "aids",
                     filter=(Q(aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
@@ -210,13 +241,20 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
                     filter=(Q(aids__aid_types__contains=["legal"])),
                 )
             )
-            .values("name", "id", "slug", "technical_aids", "technical_count", "financial_count", "legal_count")
+            .values(
+                "name",
+                "id",
+                "slug",
+                "technical_aids",
+                "technical_count",
+                "financial_count",
+                "legal_count",
+            )
             .order_by("-technical_aids")
         )
     else:
         programs = (
-            programs
-            .annotate(total_aids=Count("aids"))
+            programs.annotate(total_aids=Count("aids"))
             .annotate(
                 technical_aids=Count(
                     "aids",
@@ -229,8 +267,32 @@ def get_programs_count_by_department(dep_id: str, target_audience: str = None, a
                     filter=(Q(aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
                 )
             )
-            .values("name", "id", "slug", "total_aids", "technical_aids", "financial_aids")
+            .values(
+                "name", "id", "slug", "total_aids", "technical_aids", "financial_aids"
+            )
             .order_by("-total_aids")
         )
 
     return programs
+
+
+def get_live_aids_total_by_department(dep_id: str) -> int:
+    """
+    For a given department, returns the number of live aids
+    """
+    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    return Aid.objects.live().filter(perimeter_id__in=related_perimeters).count()
+
+
+def get_categories_total_by_department(dep_id: str) -> int:
+    """
+    For a given department, returns the number of categories
+    """
+    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    live_aids = Aid.objects.live()
+    return (
+        Category.objects.prefetch_related("aids")
+        .filter(aids__in=live_aids, aids__perimeter_id__in=related_perimeters)
+        .distinct()
+        .count()
+    )

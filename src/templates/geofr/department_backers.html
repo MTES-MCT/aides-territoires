@@ -2,16 +2,16 @@
 {% load static compress %}
 
 {% block extratitle %}
-    Cartographie | {{ current_dept.name }} | Porteurs d’aides
+    Liste des porteurs d’aides financières et en ingéniérie dans le département {{ current_dept.name }} ({{ current_dept.code }})
 {% endblock extratitle %}
 
 {% block meta_description %}
-    {{ current_dept.name }} : Liste des porteurs d’aides
+    Subvention, prêt, ingénierie technique, ingénierie financière : retrouvez tous les porteurs d’aides qui peuvent vous aider à réaliser vos projets locaux
 {% endblock meta_description %}
 
 {% block extra_head %}
     <meta property="og:title"
-          content="Aides-territoires | Cartographie | {{ current_dept.name }} | Porteurs d’aides"/>
+          content="Liste des porteurs d’aides financières et en ingéniérie dans le département {{ current_dept.name }} ({{ current_dept.code }})"/>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
     <meta property="og:site_name" content="Aides-territoires" />

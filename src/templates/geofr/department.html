@@ -1,11 +1,11 @@
 {% extends "_base.html" %}
 {% load static compress %}
 
-{% block extratitle %}Cartographie  | {{ current_dept.name }}{% endblock extratitle %}
-{% block meta_description %}{{ current_dept.name }} : Cartographie des porteurs et programmes{% endblock meta_description %}
+{% block extratitle %}Top 10 des porteurs d’aides et des progammes dans le département {{ current_dept.name }} ({{ current_dept.code }}){% endblock extratitle %}
+{% block meta_description %}{{ current_dept.name }} : {{ current_dept.name }} ({{ current_dept.code }}) : retrouvez le top 10 des programmes et des porteurs d’aides pour réaliser vos projets locaux{% endblock meta_description %}
 
 {% block extra_head %}
-<meta property="og:title" content="Aides-territoires | Cartographie | {{ current_dept.name }}" />
+<meta property="og:title" content="Top 10 des porteurs d’aides et des progammes dans le département {{ current_dept.name }} ({{ current_dept.code }})" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
 <meta property="og:site_name" content="Aides-territoires" />

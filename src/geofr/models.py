@@ -98,7 +98,7 @@ class Perimeter(models.Model):
         verbose_name=_('Is overseas?'),
         null=True)
 
-    # Backers and programs count: used only for Departments now
+    # Counters: used only at Department level
     # script-updated nightly
     backers_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de porteurs",
@@ -106,6 +106,16 @@ class Perimeter(models.Model):
     )
     programs_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de programmes",
+        null=True, blank=True
+    )
+
+    live_aids_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre d’aides live",
+        null=True, blank=True
+    )
+
+    categories_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre de catégories",
         null=True, blank=True
     )
 

@@ -1,11 +1,11 @@
 {% extends "_base.html" %}
 {% load static compress %}
 
-{% block extratitle %}Cartographie | {{ current_dept.name }} | Programmes{% endblock extratitle %}
-{% block meta_description %}{{ current_dept.name }} : Liste des programmes{% endblock meta_description %}
+{% block extratitle %}Liste des programmes à disposition dans le département {{ current_dept.name }} ({{ current_dept.code }})  | Programmes{% endblock extratitle %}
+{% block meta_description %}France Relance, Petites villes de demain, programmes européens, ... : retrouvez tous les programmes disponibles dans votre département{% endblock meta_description %}
 
 {% block extra_head %}
-<meta property="og:title" content="Aides-territoires | Cartographie | {{ current_dept.name }} | Programmes" />
+<meta property="og:title" content="Aides-territoires | Liste des programmes à disposition dans le département {{ current_dept.name }} ({{ current_dept.code }})" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
 <meta property="og:site_name" content="Aides-territoires" />
