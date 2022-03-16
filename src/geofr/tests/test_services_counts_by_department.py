@@ -1,7 +1,6 @@
 import pytest
-from conftest import perimeter
 from geofr.models import Perimeter
-from map.utils import get_backers_count_by_department, get_programs_count_by_department
+from geofr.services.counts_by_department import get_backers_count_by_department, get_programs_count_by_department
 
 from aids.factories import AidFactory
 from backers.factories import BackerFactory

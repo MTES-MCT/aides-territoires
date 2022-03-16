@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from map.views import (
+from geofr.views import (
     DepartmentProgramsView,
     MapView,
     DepartmentView,

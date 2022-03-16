@@ -1,13 +1,13 @@
 {% extends "_base.html" %}
 {% load static compress %}
 {% block extratitle %}
-    Cartographie
+    Cartographie des porteurs d’aides et de programmes en France par département
 {% endblock extratitle %}
 {% block meta_description %}
-    Cartographie des porteurs et programmes par département
+    Carte de France des porteurs d’aides et des programmes
 {% endblock meta_description %}
 {% block extra_head %}
-    <meta property="og:title" content="Aides-territoires | Cartographie" />
+    <meta property="og:title" content="Cartographie des porteurs d’aides et de programmes en France par département" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
     <meta property="og:site_name" content="Aides-territoires" />
@@ -42,7 +42,7 @@
         </div>
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div class="fr-col-12 fr-col-lg-7">
-                <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "map/france_departments.svg" %}</div>
+                <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
             </div>
             <div class="fr-col-lg-5 fr-mb-10w">
                 <div class="fr-grid-row fr-grid-row--gutters ">
@@ -110,7 +110,7 @@
         </style>
     {% endblock extra_css %}
     {% block extra_js %}
-        <script src="{% static 'js/map/department_filter.js' %}"></script>
+        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
         <script>
     $(document).ready(function () {
         department_filter('/');
