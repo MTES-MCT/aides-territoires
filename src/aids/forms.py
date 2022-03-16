@@ -22,7 +22,8 @@ from projects.models import Project
 from aids.models import Aid
 from aids.constants import (
     AUDIENCES_GROUPED,
-    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST,
+    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST,
+    ALL_FINANCIAL_AIDS, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST,
     TYPES_GROUPED, AID_TYPE_CHOICES)
 
 
@@ -375,7 +376,7 @@ class BaseAidSearchForm(forms.Form):
     financial_aids = forms.MultipleChoiceField(
         label='Aides financières',
         required=False,
-        choices=FINANCIAL_AIDS,
+        choices=ALL_FINANCIAL_AIDS,
         widget=forms.CheckboxSelectMultiple)
     technical_aids = forms.MultipleChoiceField(
         label='Aides en ingénierie',

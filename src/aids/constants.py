@@ -38,6 +38,8 @@ OTHER_AIDS = (
     ('other', 'Autre aide financière'),
 )
 
+ALL_FINANCIAL_AIDS = FINANCIAL_AIDS + OTHER_AIDS
+
 FINANCIAL_AIDS_LIST = ('grant', 'loan', 'recoverable_advance', 'other')
 
 TECHNICAL_AIDS = (

@@ -60,6 +60,28 @@
     {% endif %}
     {% endblock %}
 
+    {% block search-meta-financial-aids %}
+    {% if current_search_dict.financial_aids %}
+    <div class="fr-tags-group">
+        <p title="Nature de l'aide" class="fr-tag">
+            <i class="ri-money-euro-circle-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {% form_choices_display current_search_dict 'financial_aids' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search-meta-technical-aids %}
+    {% if current_search_dict.technical_aids %}
+    <div class="fr-tags-group">
+        <p title="Nature de l'aide" class="fr-tag">
+            <i class="ri-money-euro-circle-line ri-xl fr-mr-1w fr-icon-align--sub"></i>
+            {% form_choices_display current_search_dict 'technical_aids' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
     {% block search-meta-mobilization-step %}
     {% if current_search_dict.mobilization_step %}
     <div class="fr-tags-group">
