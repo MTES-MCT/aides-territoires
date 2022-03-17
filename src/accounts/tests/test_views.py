@@ -318,7 +318,7 @@ def test_profile_form_cant_update_password_without_entering_the_current_one(clie
     res = client.post(profile_url, data, follow=True)
     contributor.refresh_from_db()
     assert contributor.password == registered_password
-    assert "Vous devez entrer votre mot de passe actuel pour pouvoir le changer." in res.content.decode()
+    assert "Vous devez entrer votre mot de passe actuel pour pouvoir le changer." in res.content.decode() # noqa
 
 
 def test_profile_form_cant_update_password_while_entering_a_wrong_current_one(client, contributor):

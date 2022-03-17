@@ -155,8 +155,17 @@ class ContributorProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'email', 'is_contributor', 'is_beneficiary',
-            'beneficiary_function', 'beneficiary_role', 'new_password', 'new_password2', 'current_password']
+            'first_name',
+            'last_name',
+            'email',
+            'is_contributor',
+            'is_beneficiary',
+            'beneficiary_function',
+            'beneficiary_role',
+            'new_password',
+            'new_password2',
+            'current_password'
+        ]
         labels = {
             'first_name': 'Votre prénom',
             'last_name': 'Votre nom',

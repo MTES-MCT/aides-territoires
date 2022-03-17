@@ -1,12 +1,11 @@
 import pytest
 from geofr.models import Perimeter
-from geofr.services.counts_by_department import get_backers_count_by_department, get_programs_count_by_department
+from geofr.services.counts_by_department import get_backers_count_by_department
 
 from aids.factories import AidFactory
 from backers.factories import BackerFactory
 
 pytestmark = pytest.mark.django_db
-
 
 
 def test_get_backers_count_by_department(client, perimeters):

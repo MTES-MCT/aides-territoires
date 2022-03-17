@@ -106,7 +106,7 @@ def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_
                         try:
                             audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])  # noqa
                             audiences_dict[row[source_column_name]].append(audience)
-                        except:
+                        except Exception:
                             print(row[column])
 
     return audiences_dict
