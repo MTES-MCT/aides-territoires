@@ -80,7 +80,7 @@ class AidResource(resources.ModelResource):
     def get_user_visible_fields(self):
         return [field for field in self.get_fields() if field.column_name not in AIDS_IMPORT_EXCLUDE_FIELDS]  # noqa
 
-    def before_import_row(self, row, **kwargs):
+    def before_import_row(self, row, row_number=None, **kwargs):
         """
         Why do we need to override before_import_row() ?
         - to revert the translation of row keys (header)
@@ -105,7 +105,7 @@ class AidResource(resources.ModelResource):
                     .replace('(', '[') \
                     .replace('None', '')
 
-    def import_field(self, field, obj, data, is_m2m=False):
+    def import_field(self, field, obj, data, is_m2m=False, **kwargs):
         """
         Why do we need to override import_field() ?
         - avoid None in text fields
@@ -140,7 +140,7 @@ class AidResource(resources.ModelResource):
                         data[field.column_name] = False
                     else:
                         data[field.column_name] = None
-            field.save(obj, data, is_m2m)
+            field.save(obj, data, is_m2m, **kwargs)
 
     def after_import(self, dataset, result, using_transactions, dry_run, **kwargs):
         if not dry_run:
