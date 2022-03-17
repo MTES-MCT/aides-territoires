@@ -1,0 +1,155 @@
+{% extends "_base.html" %}
+{% load static compress %}
+{% block extratitle %}
+    Cartographie des porteurs d’aides et de programmes en France par département
+{% endblock extratitle %}
+{% block meta_description %}
+    Carte de France des porteurs d’aides et des programmes
+{% endblock meta_description %}
+{% block extra_head %}
+    <meta property="og:title" content="Cartographie des porteurs d’aides et de programmes en France par département" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+    <meta property="og:site_name" content="Aides-territoires" />
+    <meta property="og:image"
+          content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png"/>
+    <meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+{% block breadcrumbs %}
+    <div class="fr-container">
+        <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+            <button class="fr-breadcrumb__button"
+                    aria-expanded="false"
+                    aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+            <div class="fr-collapse" id="breadcrumb-1">
+                <ol class="fr-breadcrumb__list">
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" aria-current="page">Cartographie</a>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+    </div>
+{% endblock breadcrumbs %}
+{% block content %}
+    <article id="map-page" class="fr-container">
+        <h1>Cartographie des programmes et des porteurs d’aides partenaires de la démarche Aides-territoires</h1>
+        <div class="fr-text--lead">
+            Sélectionnez un département pour avoir tout le détail des aides financières et en ingénierie par porteur et par programme
+        </div>
+        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+            <div class="fr-col-12 fr-col-lg-7">
+                <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
+            </div>
+            <div class="fr-col-lg-5 fr-mb-10w">
+                <div class="fr-grid-row fr-grid-row--gutters ">
+                    <div class="fr-col-12 fr-col-md-6 fr-col-lg-6 ">
+                        <div class="fr-card fr-card--no-arrow">
+                            <div class="fr-card__body fr-pb-0">
+                                <h3 class="fr-card__title">{{ programs_count }} programmes</h3>
+                                <p class="fr-card__desc fr-text--sm fr-mb-3w">
+                                    locaux, nationaux, et européens
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-col-12 fr-col-md-6 fr-col-lg-6 ">
+                        <div class="fr-card fr-card--no-arrow">
+                            <div class="fr-card__body fr-pb-0">
+                                <h3 class="fr-card__title">{{ backers_count }} porteurs</h3>
+                                <p class="fr-card__desc fr-text--sm fr-mb-3w">
+                                    Des partenaires toujours plus nombreux nous font confiance pour publier leurs aides
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fr-grid-row fr-grid-row--gutters ">
+                    <div class="fr-col-12">
+                        <form id="department-search-form" method="post">
+                            <div class="fr-select-group">
+                                <select class="fr-select fr-mt-3w at-live-change"
+                                        id="select-department"
+                                        name="department">
+                                    <option value="">Choisissez un département</option>
+                                    {% for department in departments %}
+                                        <option value="{{ department.code }}-{{ department.name|slugify }}">
+                                            {{ department.code }} - {{ department.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock content %}
+{% block extra_css %}
+    <style>
+    #france-map {
+        text-align:center;
+        max-width: 800px;
+        margin:auto;
+    }
+
+    .land {
+        fill: #bccdff;
+        stroke: #fff;
+    }
+
+    .land:hover {
+        fill: #8ca4ff;
+    }
+
+    
+        </style>
+    {% endblock extra_css %}
+    {% block extra_js %}
+        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
+        <script>
+    $(document).ready(function () {
+        department_filter('/');
+        let departments_data = JSON.parse("{{ departments_list|escapejs }}");
+
+        let get_department_data = function(selected_path) {
+            // Retrieves the data from the selected path and an array of objects
+            // that was passed through JSON
+            let department_code = selected_path.attr('data-num');
+            let department_data = departments_data.find(d => d.code === department_code);
+            if (department_data) {
+                return department_data;
+            } else {
+                return {}
+            }
+
+        };
+
+        $('#france-map .land').hover(function() {
+            // Shows a description on hover
+            let selected_path = $( this );
+            let data = get_department_data(selected_path);
+            if ("code" in data) {
+                $('#france-map title').text(`${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`);
+            } else {
+                $('#france-map title').text("Impossible de trouver les données pour ce département.");
+            }
+        });
+
+        $('#france-map .land').click(function() {
+            // Goes to the selected department entry on click
+            let selected_path = $( this );
+            let data = get_department_data(selected_path);
+            if ("code" in data) {
+                let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/';
+                window.location = new_url; 
+            }
+        });
+        
+    });
+        </script>
+    {% endblock extra_js %}

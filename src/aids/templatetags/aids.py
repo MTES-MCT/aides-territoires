@@ -9,7 +9,7 @@ from django.utils.html import format_html
 from django.conf import settings
 
 from aids.models import Aid
-from aids.constants import AID_TYPE_CHOICES
+from aids.constants import AID_TYPE_CHOICES, TYPES_ALL
 
 
 register = template.Library()
@@ -55,6 +55,8 @@ def form_choices_display(obj, field):
         choices_dict = dict(Aid.AUDIENCES)
     elif field in ['aid_type', 'aid_types']:
         choices_dict = dict(AID_TYPE_CHOICES)
+    elif field in ['financial_aids', 'technical_aids']:
+        choices_dict = dict(TYPES_ALL)
     elif field in ['mobilization_step', 'mobilization_steps']:
         choices_dict = dict(Aid.STEPS)
     elif field == 'destinations':

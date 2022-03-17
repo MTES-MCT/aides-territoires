@@ -701,3 +701,10 @@ section#post-content img {
     color: var(--g600);
   }
 }
+
+// Map form
+@media screen and (max-width: 768px) {
+  #map-back-button {
+      display: none;
+  }
+}

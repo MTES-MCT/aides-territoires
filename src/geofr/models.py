@@ -98,6 +98,27 @@ class Perimeter(models.Model):
         verbose_name=_('Is overseas?'),
         null=True)
 
+    # Counters: used only at Department level
+    # script-updated nightly
+    backers_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre de porteurs",
+        null=True, blank=True
+    )
+    programs_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre de programmes",
+        null=True, blank=True
+    )
+
+    live_aids_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre d’aides live",
+        null=True, blank=True
+    )
+
+    categories_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre de catégories",
+        null=True, blank=True
+    )
+
     # This field is used to store the name without accent, for indexing.
     # We recently updated the perimeter search to ignore accents, and at first
     # we were using postgres' unaccent extension.

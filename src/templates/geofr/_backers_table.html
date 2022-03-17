@@ -1,0 +1,119 @@
+<table class="sortable-table at-table--xl">
+    <caption role="status">{{ caption }}</caption>
+    {% if aid_type == "financial" %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Total des aides financières</th>
+                <th scope="col">Subvention</th>
+                <th scope="col">Prêt</th>
+                <th scope="col">Avance récupérable</th>
+                <th scope="col">Autres aides financières</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=financial{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.financial_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&financial_aids=grant{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.grant_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&financial_aids=loan{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.loan_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&financial_aids=recoverable_advance{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.recoverable_advance_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&financial_aids=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.other_count }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% elif aid_type == "technical" %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Total des aides en ingénierie</th>
+                <th scope="col">Ingénierie technique</th>
+                <th scope="col">Ingénierie financière</th>
+                <th scope="col">Ingénierie juridique / administrative</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.technical_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&technical_aids=technical{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.technical_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&technical_aids=financial{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.financial_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&technical_aids=legal{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.legal_count }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <thead>
+            <tr>
+                <th scope="col">Porteur</th>
+                <th scope="col">Total des aides</th>
+                <th scope="col">Aides financières</th>
+                <th scope="col">Aides en ingénierie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=financial&targeted_audiences={{ target_audience }}">
+                            {{ entry.financial_aids }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical&targeted_audiences={{ target_audience }}">
+                            {{ entry.technical_aids }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
