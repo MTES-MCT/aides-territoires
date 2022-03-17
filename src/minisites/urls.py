@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import View
 from django.views.generic.base import TemplateView
 
-from minisites.views import (SiteHome, SiteSearch, SiteAid, SiteAlert,
+from minisites.views import (SiteHome, SitePrivacyPolicy, SiteSearch, SiteAid, SiteAlert,
                              SiteBackers, SiteStats, SiteProgram,
                              SiteLegalMentions, Error, PageList, PageDetail)
 from minisites.utils import RedirectAidDetailView
@@ -61,6 +61,10 @@ urlpatterns = [
 
     path('mentions-légales/', SiteLegalMentions.as_view(),
          name='legal_mentions'),
+
+    path('politique-de-confidentialité/',
+         SitePrivacyPolicy.as_view(),
+         name='privacy_policy'),
 
     # Api related routes
     path('api/', include(api_patterns)),

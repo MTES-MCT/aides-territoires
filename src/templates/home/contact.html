@@ -72,10 +72,9 @@
                         </fieldset>
                     </div>
 
-                    {% url 'legal_mentions' as legal_mentions_url %}
                     <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
                         <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
-                        En utilsant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
+                        En utilsant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
                     </p>
 
                     <footer>

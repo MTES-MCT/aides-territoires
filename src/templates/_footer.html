@@ -1,5 +1,4 @@
-{% load settings i18n %}
-{% load i18n mailing_list %}
+{% load settings static i18n mailing_list %}
 
 <div class="fr-follow">
     <div class="fr-container">
@@ -18,7 +17,7 @@
             <div class="fr-col-12 fr-col-md-4">
                 <div class="fr-follow__social">
                     <p class="fr-h5 fr-mb-3v fr-mb-3v">Suivez-nous
-                        <br> sur les réseaux sociaux</p>
+                        <br /> sur les réseaux sociaux</p>
                     <ul class="fr-links-group fr-links-group--lg">
                         <li>
                             <a class="fr-link--twitter fr-link" href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter - ouvre une nouvelle fenêtre" target="_blank" rel="noopener">
@@ -69,22 +68,22 @@
             <div class="fr-footer__partners-logos">
                 <div class="fr-footer__partners-main">
                             <a class="fr-footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr/">
-                                <img class="fr-footer__logo" src="/static/img/logo-anct.svg" alt="Logo : ANCT">
+                                <img class="fr-footer__logo" src="{% static 'img/logo-anct.svg' %}" alt="Logo : ANCT" />
                             </a>
                             <a class="fr-footer__partners-link" href="https://www.francemobilites.fr/">
-                                <img class="fr-footer__logo" src="/static/img/logo-francemobilites.svg" alt="Logo : France Mobilité">
+                                <img class="fr-footer__logo" src="{% static 'img/logo-francemobilites.svg' %}" alt="Logo : France Mobilité" />
                             </a>
                 </div>
                 <div class="fr-footer__partners-sub">
                     <ul>
                         <li>
                             <a class="fr-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel">
-                                <img class="fr-footer__logo" src="/static/img/logo-fabriquenumerique.svg" alt="Logo : La Fabrique Numérique">
+                                <img class="fr-footer__logo" src="{% static 'img/logo-fabriquenumerique.svg' %}" alt="Logo : La Fabrique Numérique" />
                             </a>
                         </li>
                         <li>
                             <a class="fr-footer__partners-link" href="https://beta.gouv.fr/">
-                                <img class="fr-footer__logo" src="/static/img/logo-betagouvfr.svg" alt="Logo : Beta.gouv">
+                                <img class="fr-footer__logo" src="{% static 'img/logo-betagouvfr.svg' %}" alt="Logo : Beta.gouv" />
                             </a>
                         </li>
                     </ul>
@@ -98,6 +97,7 @@
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'data_doc' %}">Données et API</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'contact' %}">Nous contacter</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Mentions légales</a></li>
+                <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'privacy_policy' %}">Politique de confidentialité</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="https://github.com/MTES-MCT/aides-territoires">Code source</a></li>
                 <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="{% url 'legal_mentions' %}">Accessibilité : non conforme</a></li>
                 <li class="fr-footer__bottom-item">

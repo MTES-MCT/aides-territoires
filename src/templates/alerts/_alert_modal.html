@@ -22,7 +22,7 @@
                                     {% csrf_token %}
 
                                     {% if not search_page and user.is_authenticated %}
-                                    <input type="email" name="email" hidden value="{{ user.email }}" id="id_email">
+                                    <input type="email" name="email" hidden value="{{ user.email }}" id="id_email" />
                                     {% else %}
                                     {% include '_field_snippet.html' with field=alert_form.email %}
                                     {% endif %}
@@ -32,8 +32,7 @@
 
                                     <p class="info fr-background-alt-pink fr-p-2w">
                                         <span class="fas fa-check"></span>
-                                        {% url 'legal_mentions' as legal_mentions_url %}
-                                        En créant une alerte, vous acceptez que vos données soient traitées en accord avec <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
+                                        En créant une alerte, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
                                     </p>
                                 </div>
 
