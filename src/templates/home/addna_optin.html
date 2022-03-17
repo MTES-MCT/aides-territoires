@@ -1,31 +1,26 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}login-form{% endblock %}
+{% block sectionid %}login-form{% endblock sectionid %}
 
-{% block extratitle %}{{ _('You have successfully subscribed') }}{% endblock %}
+{% block extratitle %}Vous êtes abonné{% endblock extratitle %}
 
 {% block content %}
 <div class="article narrow">
-    <h1>{{ _("Your subscription is now confirmed") }}</h1>
+    <h1>Votre inscription est confirmée</h1>
 
-    <p>{% blocktrans trimmed %}
-        You have successfully subscribed to the ADDNA x Aides-territoires alert
-        system.
-     {% endblocktrans %}</p>
+    <p>Vous avez confirmé votre abonnement aux alertes ADDNA x Aides-territoires.</p>
 
-    {% url 'legal_mentions' as legal_mentions_url %}
-    <p>{% blocktrans trimmed %}
-        If you want to know more, <a href="{{ legal_mentions_url }}">
-            check out our terms of service</a>.
-     {% endblocktrans %}</p>
+    <p>
+        Si vous souhaitez en savoir plus, vous pouvez <a href="{% url 'legal_mentions' %}">consulter nos mentions légales</a>.
+    </p>
 
-    <p>{% blocktrans trimmed %}
-        You can now <a href="https://addna.aides-territoires.beta.gouv.fr/">
-        visit the custom ADDNA page on Aides-territoires</a>.
-     {% endblocktrans %}</p>
+    <p>
+        Rendez-vous sur <a href="https://addna.aides-territoires.beta.gouv.fr/">
+        page dédiée de l’ADDNA sur Aides-territoires</a>.
+    </p>
 
 </div>
-{% endblock %}
+{% endblock content %}

@@ -1,27 +1,27 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extratitle %}{{ _('Subscription confirmed') }}{% endblock %}
+{% block extratitle %}Inscription confirmée{% endblock extratitle %}
 
 {% block content %}
 
-<h1>{{ _('Your subscription was confirmed') }}</h1>
+<h1>Votre inscription est confirmée</h1>
+
+<p>
+Votre inscription à la newsletter Aides-territoires est confirmée.
+</p>
 
 <p>{% blocktrans trimmed %}
-Your subscription to the Aides-territoires mailing-list is now confirmed.
+Vous continuerez à être les premiers informés de l'actualité Aides-territoires.
 {% endblocktrans %}</p>
 
-<p>{% blocktrans trimmed %}
-You will keep being among the first informed of our news.
-{% endblocktrans %}</p>
-
-<p>{{ _('You can now:') }}</p>
+<p>Vous pouvez désormais :</p>
 <ul>
     <li><a href="{% url 'home' %}">
-        {{ _('go back to the home page;') }}
+        retourner à la page d’accueil ;
     </a></li>
-    <li><a href="{% url 'legal_mentions' %}">
-        {{ _('check for our legal mentions for informations about our data protection policy.') }}
+    <li><a href="{% url 'privacy_policy' %}">
+        consulter notre politique de protection des données.
     </a></li>
 </ul>
-{% endblock %}
+{% endblock content %}

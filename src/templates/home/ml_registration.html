@@ -1,22 +1,19 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
 {% block content %}
 
-<h1>{{ _('Please confirm your subscription') }}</h1>
+<h1>Merci de confirmer votre inscription</h1>
 
 <p>
-{% blocktrans trimmed %}
-Your mailing-list registration was taken into account. You still need to click
-the confirmation link in the mail you are about to receive.
-{% endblocktrans %}
+Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir.
 </p>
 
 <p>
-<a href="{% url 'legal_mentions' %}">
-    {{ _('Check for our legal mentions for informations about our data protection policy.') }}
+<a href="{% url 'privacy_policy' %}">
+    Consultez notre politique de protection des données.
 </a>
 
-<a href="{% url 'home' %}">{{ _('Or go back to the home page.') }}</a>
+<a href="{% url 'home' %}">Ou retournez à la page d’accueil.</a>
 </p>
-{% endblock %}
+{% endblock content %}
