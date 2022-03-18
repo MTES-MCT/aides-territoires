@@ -7,7 +7,7 @@ from django.db.utils import IntegrityError
 from django.db.models import CharField, TextField
 from django.utils import timezone
 
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 from aids.forms import AidEditForm
 from stats.utils import log_event
 
@@ -60,8 +60,8 @@ class BaseImportCommand(BaseCommand):
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(financers, instructors, categories)
+                        aid.status = AidWorkflow.states.reviewable
                         aid.save()
-                        aid.update(status='reviewable')
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
