@@ -21,8 +21,7 @@ from programs.models import Program
 from projects.models import Project
 from aids.models import Aid
 from aids.constants import (
-    AUDIENCES_GROUPED,
-    FINANCIAL_AIDS, FINANCIAL_AIDS_LIST,
+    AUDIENCES_GROUPED, FINANCIAL_AIDS_LIST,
     ALL_FINANCIAL_AIDS, TECHNICAL_AIDS, TECHNICAL_AIDS_LIST,
     TYPES_GROUPED, AID_TYPE_CHOICES)
 
