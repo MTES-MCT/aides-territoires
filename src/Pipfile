@@ -43,6 +43,7 @@ django-storages = "*"
 boto3 = "*"
 whitenoise = "*"
 xmltodict = "*"
+deepdiff = "*"
 
 [dev-packages]
 ansible = "<4"
