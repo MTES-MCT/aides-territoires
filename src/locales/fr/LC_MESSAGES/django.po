@@ -26,30 +26,6 @@ msgstr "Votre adresse e-mail"
 msgid "Administrators"
 msgstr "Administrateurs"
 
-msgid "register/"
-msgstr "inscription/"
-
-msgid "register-success/"
-msgstr "inscription-succès/"
-
-msgid "login/"
-msgstr "connexion/"
-
-msgid "login/<uidb64>/<token>/"
-msgstr "connexion/<uidb64>/<token>/"
-
-msgid "password-reset/"
-msgstr "nouveau-mot-de-passe/"
-
-msgid "password-reset-sent/"
-msgstr "mot-de-passe-envoyé/"
-
-msgid "contributor-profile/"
-msgstr "profil-contributeur/"
-
-msgid "logout/"
-msgstr "deconnexion/"
-
 msgid "Eligibility test"
 msgstr "Test d'éligibilité"
 
@@ -375,9 +351,6 @@ msgstr "Thématique"
 
 msgid "Category"
 msgstr "Sous-thématique"
-
-msgid "accounts/"
-msgstr "comptes/"
 
 msgid "backers/"
 msgstr "partenaires/"
@@ -785,15 +758,6 @@ msgstr "Mentions légales"
 msgid "Source code"
 msgstr "Code source"
 
-msgid ""
-"We <strong>could not process</strong> your form because it contains some "
-"errors. Please check your submission below and fix all errors before trying "
-"again."
-msgstr ""
-"Nous <strong>n'avons pas pu traiter</strong> votre formulaire car les "
-"données saisies sont invalides et / ou incomplètes. Merci de bien vouloir "
-"vérifier votre saisie et corriger les erreurs avant de réessayer."
-
 msgid "Toggle main menu"
 msgstr "Afficher / masquer le menu"
 
@@ -862,9 +826,6 @@ msgstr "Voir plus de détails"
 
 msgid "See less details"
 msgstr "Voir moins de détails"
-
-msgid "Your profile"
-msgstr "Votre profil"
 
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
@@ -935,17 +896,10 @@ msgstr ""
 "Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
 "\">Vous pouvez en demander un nouveau.</a>"
 
-msgid "Something went wrong"
-msgstr "Quelque chose s'est mal passé"
-
 msgid "Sorry, it looks like something went wrong. We could not log you in."
 msgstr ""
 "Désolé, il semble que quelque chose se soit mal passé. Nous n'avons pu "
 "accéder à votre demande de connexion."
-
-#, python-format
-msgid "You will <a href=\"%(login_url)s\">have to try again.</a>"
-msgstr "Vous allez <a href=\"%(login_url)s\">devoir réessayer.</a>"
 
 msgid "Password reset"
 msgstr "Récupération du mot de passe"

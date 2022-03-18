@@ -103,7 +103,7 @@ def test_login_with_wrong_token(client, user, mailoutbox):
     url = reverse('token_login', args=[uidb64, 'wrong_token'])
     res = client.get(url, follow=True)
     assert res.status_code == 200
-    assert 'Quelque chose s\'est mal passé' in res.content.decode()
+    assert "Quelque chose s’est mal passé" in res.content.decode()
     assert not res.wsgi_request.user.is_authenticated
 
 
@@ -121,7 +121,7 @@ def test_login_with_wrong_user_id(client, user, mailoutbox):
     url = reverse('token_login', args=['wrong_uid', token])
     res = client.get(url, follow=True)
     assert res.status_code == 200
-    assert 'Quelque chose s\'est mal passé' in res.content.decode()
+    assert "Quelque chose s’est mal passé" in res.content.decode()
     assert not res.wsgi_request.user.is_authenticated
 
 
@@ -151,7 +151,7 @@ def test_register_form_expects_valid_data(client):
         'contributor_contact_phone': '',
     })
     assert res.status_code == 200
-    assert 'Ce champ est obligatoire' in res.content.decode()
+    assert "Ce champ est obligatoire" in res.content.decode()
 
     res = client.post(register_url, {
         'first_name': 'Petit',
@@ -165,11 +165,11 @@ def test_register_form_expects_valid_data(client):
 
     })
     assert res.status_code == 200
-    assert ' vérifier votre saisie ' in res.content.decode()
+    assert "Saisissez une adresse e-mail valide." in res.content.decode()
 
 
 def test_register_form_with_unique_email(client, user, mailoutbox):
-    """When registering with an existing email, just send a new login form."""
+    """When registering with an existing email, there is a warning"""
 
     register_url = reverse('register')
     res = client.post(
@@ -183,12 +183,8 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
             'contributor_role': 'Tester',
             'contributor_contact_phone': '0123456779',
         })
-    assert res.status_code == 302
-    assert len(mailoutbox) == 1
-
-    mail = mailoutbox[0]
-    assert mail.subject == 'Connexion à Aides-territoires'
-
+    assert res.status_code == 200
+    assert "Un objet Utilisateur avec ce champ Adresse e-mail existe déjà" in res.content.decode()
 
 def test_register_form(client, mailoutbox):
     users = User.objects.all()
@@ -404,32 +400,6 @@ def test_profile_form_can_update_password(client, contributor):
     assert check_password(new_password, contributor.password)
     assert authenticate(
         username=contributor.email, password=new_password) is not None
-
-
-def test_logged_in_contributor_has_menu(client, contributor):
-    client.force_login(contributor)
-    home = reverse('home')
-    res = client.get(home)
-    assert 'Votre profil' in res.content.decode()
-    assert 'Espace contributeur' in res.content.decode()
-
-
-def test_logged_in_staff_has_menu(client):
-    user_staff = UserFactory(is_superuser=True, is_contributor=False)
-    client.force_login(user_staff)
-    home = reverse('home')
-    res = client.get(home)
-    assert 'Votre profil' in res.content.decode()
-    assert 'Espace contributeur' in res.content.decode()
-
-
-def test_non_contributor_can_log_in_but_no_menu(client):
-    user_api = UserFactory(is_contributor=False)
-    client.force_login(user_api)
-    home = reverse('home')
-    res = client.get(home)
-    assert 'Votre profil' not in res.content.decode()
-    assert 'Espace contributeur' not in res.content.decode()
 
 
 def test_search_page_administrator_has_specific_menu(client):

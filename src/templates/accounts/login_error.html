@@ -1,24 +1,24 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}login-form{% endblock %}
+{% block sectionid %}login-form{% endblock sectionid %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
-            <h1>{{ _("Something went wrong") }}</h1>
-            <p>{% blocktrans trimmed %}
-                Sorry, it looks like something went wrong. We could not log you in.
-            {% endblocktrans %}</p>
+            <h1>Quelque chose s’est mal passé</h1>
+            <p>
+                Désolé, il semble que quelque chose se soit mal passé.
+                Nous n'avons pu accéder à votre demande de connexion.
+            </p>
 
-            {% url 'login' as login_url %}
-            <p class="fr-mt-5w fr-background-alt-pink fr-p-3w">{% blocktrans trimmed %}
-                You will <a href="{{ login_url }}">have to try again.</a>
-            {% endblocktrans %}</p>
+            <p class="fr-mt-5w fr-background-alt-pink fr-p-3w">
+                Vous allez <a href="{% url 'login' %}">devoir réessayer.</a>
+            </p>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

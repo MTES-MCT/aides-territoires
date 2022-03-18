@@ -12,20 +12,20 @@ from accounts.views import (PasswordResetView, PasswordResetSentView, LoginView,
 
 
 urlpatterns = [
-    path(_('register/'), RegisterView.as_view(), name='register'),
-    path(_('register-success/'), RegisterSuccessView.as_view(),
+    path("inscription/", RegisterView.as_view(), name='register'),
+    path("inscription-succès/", RegisterSuccessView.as_view(),
          name='register_success'),
-    path(_('login/'), LoginView.as_view(
+    path("connexion/", LoginView.as_view(
         template_name='accounts/login.html',
         authentication_form=LoginForm,
         redirect_authenticated_user=True,
     ), name='login'),
-    path(_('login/<uidb64>/<token>/'), TokenLoginView.as_view(),
+    path("connexion/<uidb64>/<token>/", TokenLoginView.as_view(),
          name='token_login'),
 
-    path(_('password-reset/'), PasswordResetView.as_view(),
+    path("nouveau-mot-de-passe/", PasswordResetView.as_view(),
          name='password_reset'),
-    path(_('password-reset-sent/'), PasswordResetSentView.as_view(),
+    path("mot-de-passe-envoyé/", PasswordResetSentView.as_view(),
          name='password_reset_sent'),
 
     path('monprofil/', ContributorProfileView.as_view(),
@@ -35,9 +35,9 @@ urlpatterns = [
 
     path('moncompte/', UserDashboardView.as_view(),
          name='user_dashboard'),
-    path(_('api-token/'), UserApiTokenView.as_view(),
+    path("api-token/", UserApiTokenView.as_view(),
          name='api_token'),
-    path(_('logout/'), auth_views.LogoutView.as_view(), name='logout'),
+    path("deconnexion/", auth_views.LogoutView.as_view(), name='logout'),
 
     path('desinscription-newsletter/', UnSubscribeNewsletter.as_view(),
          name='unsubscribe_newsletter'),
