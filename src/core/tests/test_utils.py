@@ -38,11 +38,10 @@ def test_build_host_with_subdomain():
         ('aides-territoires.beta.gouv.fr', 'aides-territoires', 'aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.beta.gouv.fr', '', 'aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.osc-fr1.scalingo.io', 'aides-territoires', 'aides-territoires.osc-fr1.scalingo.io'),  # noqa
-        ('aides-territoires.beta.gouv.fr', 'francemobilites', 'francemobilites.aides-territoires.beta.gouv.fr'),  # noqa
+        ('aides-territoires.beta.gouv.fr', 'francemobilites', 'aides.francemobilites.fr'),  # noqa
         ('aides-territoires.beta.gouv.fr', 'staging', 'staging.aides-territoires.beta.gouv.fr'),  # noqa
         ('aides-territoires.osc-fr1.scalingo.io', 'staging', 'staging.aides-territoires.osc-fr1.scalingo.io'),  # noqa
         ('osc-fr1.scalingo.io', 'aides-territoires-pr123', 'aides-territoires-pr123.osc-fr1.scalingo.io'),  # noqa
-        # ('aides.francemobilites.fr', 'aides.francemobilites.fr'),
     ]
     for host in host_testset:
         assert build_host_with_subdomain(host[0], host[1]) == host[2]
