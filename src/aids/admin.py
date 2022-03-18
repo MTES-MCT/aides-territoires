@@ -451,7 +451,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         if obj:
             return pretty_print_readonly_jsonfield(obj.import_raw_object_temp_calendar)
         return ''
-    get_pprint_import_raw_object_temp_calendar.short_description = 'Donnée brute importée temporaire pour le calendier'
+    get_pprint_import_raw_object_temp_calendar.short_description = 'Donnée brute importée temporaire pour le calendrier'
 
     def import_raw_object_diff(self, obj):
         return json_compare(obj.import_raw_object, obj.import_raw_object_temp)

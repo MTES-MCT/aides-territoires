@@ -61,6 +61,7 @@ class BaseImportCommand(BaseCommand):
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(financers, instructors, categories)
                         aid.save()
+                        aid.update(status='reviewable')
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
@@ -85,7 +86,7 @@ class BaseImportCommand(BaseCommand):
                                 - aid.name_initial 
                             ont été modifiés.
                             Alors on ne veut pas que l'aide soit mise à jour automatiquement. 
-                            On passe donc le statut de l'aide en brouillon et on met simplement
+                            On passe donc le statut de l'aide en revue et on met simplement
                             à jour les champs du calendrier, plus les champs de données brutes :
                                 - import_raw_object_temp et
                                 - import_raw_object_temp_calendar
@@ -102,9 +103,8 @@ class BaseImportCommand(BaseCommand):
                                         name_initial=aid.name_initial,
                                         import_raw_object_temp=aid.import_raw_object,
                                         import_raw_object_temp_calendar=aid.import_raw_object_calendar,
-                                        date_updated=timezone.now(),
                                         import_last_access=timezone.now(),
-                                        status='draft')
+                                        status='reviewable')
                                 updated_counter += 1
                                 self.stdout.write(self.style.SUCCESS(
                                     'Updated aid: {}'.format(aid.name)))
@@ -120,7 +120,7 @@ class BaseImportCommand(BaseCommand):
                                 - aid.name_initial,
                             Alors on tente une mise à jour de ces champs.
                             On met aussi à jour le champ import_raw_object_temp_calendar
-                            Le statut de l'aide doit rester 'published'. 
+                            Le statut de l'aide doit être 'reviewable'. 
                             '''
                         elif Aid.objects \
                                 .values_list('import_raw_object_calendar', flat=True) \
@@ -134,8 +134,7 @@ class BaseImportCommand(BaseCommand):
                                         name_initial=aid.name_initial,
                                         import_raw_object_calendar=aid.import_raw_object_calendar,
                                         date_updated=timezone.now(),
-                                        import_last_access=timezone.now(),
-                                        status='published')
+                                        import_last_access=timezone.now())
                                 automatic_updated_counter += 1
                                 self.stdout.write(self.style.SUCCESS(
                                     'Automatic updated aid: {}'.format(aid.name)))
