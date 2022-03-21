@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+
+{% block extratitle %}Mentions Politique de confidentialité{% endblock extratitle %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Déclaration d’accessibilité</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<article class="fr-container">
+
+<h1>Déclaration d’accessibilité</h1>
+<p>Établie le <span>21 mars 2022</span>.</p>
+<p><span>La Fabrique Numérique du Ministères de la Transition écologique et solidaire et du Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales</span> s’engage à rendre son service accessible, conformément à l’article 47 de la loi n° 2005-102 du 11 février 2005.</p>
+<p>Cette déclaration d’accessibilité s’applique à <strong>Aides Territoires</strong><span> (<span>https://aides-territoires.beta.gouv.fr/</span>)</span>.</p>
+<h2>État de conformité</h2>
+<p>
+	<strong>Aides Territoires</strong> est 
+	<strong><span data-printfilter="lowercase">non conforme</span></strong> avec le <abbr title="Référentiel général d’amélioration de l’accessibilité">RGAA</abbr>. <span>Le site n’a encore pas été audité.</span>
+</p>
+<h2>Amélioration et contact</h2>
+<p>Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable de <span>Aides Territoires</span> pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.</p>
+<ul class="basic-information feedback h-card">
+	<li>
+	E-mail&nbsp;: <a href="mailto:aides-territoires@beta.gouv.fraides-territoires@beta.gouv.fr">aides-territoires@beta.gouv.fr</a>
+</li>
+	<li>
+	Formulaire de contact&nbsp;: <a href="https://aides-territoires.beta.gouv.fr/contact/">https://aides-territoires.beta.gouv.fr/contact/</a>
+</li>
+</ul>
+<h2>Voie de recours</h2>
+<p>Cette procédure est à utiliser dans le cas suivant&nbsp;: vous avez signalé au responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un contenu ou à un des services du portail et vous n’avez pas obtenu de réponse satisfaisante.</p>
+<p>Vous pouvez&nbsp;:</p>
+<ul>
+	<li>Écrire un message au <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noopener">Défenseur des droits</a></li>
+	<li>Contacter <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank" rel="noopener">le délégué du Défenseur des droits dans votre région</a></li>
+	<li>Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre)&nbsp;:<br />
+	Défenseur des droits<br />
+	Libre réponse 71120 75342 Paris CEDEX 07</li>
+</ul>
+{% endblock content %}
