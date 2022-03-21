@@ -184,7 +184,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'perimeter', 'date_updated',
-        'date_published', 'is_imported', 'submission_deadline', 'status']
+        'date_published', 'is_imported', 'import_last_access', 'submission_deadline', 'status']
     list_display_links = ['name']
     search_fields = ['id', 'name', 'name_initial']
     list_filter = [
