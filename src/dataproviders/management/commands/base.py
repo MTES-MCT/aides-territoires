@@ -118,12 +118,14 @@ class BaseImportCommand(BaseCommand):
                                 - aid.submission_deadline,
                                 - aid.start_date,
                                 - aid.name_initial,
-                            Alors on tente une mise à jour de ces champs.
+                            Alors on tente une mise à jour automatique de ces champs.
                             On met aussi à jour le champ import_raw_object_temp_calendar
-                            Le statut de l'aide doit être 'reviewable'. 
                             '''
                         elif Aid.objects \
                                 .values_list('import_raw_object_calendar', flat=True) \
+                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object_calendar \
+                        and Aid.objects \
+                                .values_list('import_raw_object_temp_calendar', flat=True) \
                                 .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object_calendar:
                             try: 
                                 Aid.objects \
@@ -132,7 +134,7 @@ class BaseImportCommand(BaseCommand):
                                         start_date=aid.start_date,
                                         submission_deadline=aid.submission_deadline,
                                         name_initial=aid.name_initial,
-                                        import_raw_object_calendar=aid.import_raw_object_calendar,
+                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,
                                         date_updated=timezone.now(),
                                         import_last_access=timezone.now())
                                 automatic_updated_counter += 1

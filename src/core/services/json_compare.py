@@ -3,6 +3,7 @@ from deepdiff.model import PrettyOrderedSet
 from difflib import SequenceMatcher
 from django.db.models import JSONField
 from django.utils.html import format_html
+from dataproviders.utils import content_prettify
 
 
 
@@ -104,7 +105,9 @@ def format_value_diff(value_dict: dict) -> str:
     output = []
     for opcode, a1, a2, b1, b2 in sm.get_opcodes():
         old_words = " ".join(old_value[a1:a2])
+        old_words = content_prettify(old_words)
         new_words = " ".join(new_value[b1:b2])
+        new_words = content_prettify(new_words)
         if opcode == "equal":
             output.append(old_words)
         elif opcode == "insert":
