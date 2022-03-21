@@ -487,6 +487,19 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         return super().export_admin_action(request, queryset)
     export_admin_action.short_description = 'Exporter et télécharger les Aides sélectionnées'
 
+    def save_model(self, request, obj, form, change):
+        if obj.import_raw_object_temp: 
+            obj.import_raw_object = obj.import_raw_object_temp
+            obj.import_raw_object_temp = None
+
+        if obj.import_raw_object_temp_calendar:
+            print(yes)
+            import ipdb; ipdb.set_trace();
+            obj.import_raw_object_calendar = obj.import_raw_object_temp_calendar
+            obj.import_raw_object_temp_calendar = None
+
+        super(BaseAidAdmin, self).save_model(request, obj, form, change)
+
     class Media:
         css = {
             'all': (
