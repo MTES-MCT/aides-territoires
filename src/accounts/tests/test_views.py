@@ -9,9 +9,10 @@ from django.urls import reverse
 
 from accounts.models import User
 from accounts.factories import UserFactory
+from organizations.models import Organization
 from search.factories import SearchPageFactory
 from django.contrib.auth.hashers import check_password
-
+from geofr.models import Perimeter
 
 pytestmark = pytest.mark.django_db
 
@@ -187,22 +188,46 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
     assert "Un objet Utilisateur avec ce champ Adresse e-mail existe déjà" in res.content.decode()
 
 def test_register_form(client, mailoutbox):
+    """
+    Registration is a two-step form:
+    - First, the data about the user themself, and status within their org
+    - Second, creating an org for the user to belong to 
+    """
+    # First step
     users = User.objects.all()
     assert users.count() == 0
 
     register_url = reverse('register')
-    res = client.post(register_url, {
-        'first_name': 'Olga',
-        'last_name': 'Tau',
-        'email': 'olga@test.com',
-        'password1': 'Gloubiboulga',
-        'password2': 'Gloubiboulga',
-        'contributor_organization': 'Test',
-        'contributor_role': 'Tester',
-        'contributor_contact_phone': '0123456779',
-    })
+    res = client.post(
+        register_url,
+        {
+            "first_name": "Olga",
+            "last_name": "Tau",
+            "email": "olga@test.com",
+            "password1": "Gloubiboulga",
+            "password2": "Gloubiboulga",
+            "organization_type": "farmer",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False
+        },
+        follow=True
+    )
 
-    assert res.status_code == 302
+    assert res.status_code == 200
+    assert "Merci de renseigner les informations de votre structure pour finaliser votre inscription" in res.content.decode()
+
+    # Second step
+    create_org_url = reverse("organization_create_view")
+    res = client.post(
+        create_org_url,
+        {
+            "name": "L’Île aux enfants",
+            "perimeter": 1
+        }
+    )
+
     assert len(mailoutbox) == 1
     assert users.count() == 1
 
@@ -221,16 +246,21 @@ def test_register_form_converts_email_to_lowercase(client):
     assert users.count() == 0
 
     register_url = reverse('register')
-    res = client.post(register_url, {
-        'first_name': 'Olga',
-        'last_name': 'Tau',
-        'email': 'OLGA@Test.Com',
-        'password1': 'Gloubiboulga',
-        'password2': 'Gloubiboulga',
-        'contributor_organization': 'Test',
-        'contributor_role': 'Tester',
-        'contributor_contact_phone': '0123456779'
-    })
+    res = client.post(
+        register_url,
+        {
+            "first_name": "Olga",
+            "last_name": "Tau",
+            "email": "OLGA@Test.Com",
+            "password1": "Gloubiboulga",
+            "password2": "Gloubiboulga",
+            "organization_type": "farmer",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False
+        },
+    )
     assert res.status_code == 302
     assert users.count() == 1
 
@@ -404,8 +434,15 @@ def test_profile_form_can_update_password(client, contributor):
 
 def test_search_page_administrator_has_specific_menu(client):
     user_admin_pp = UserFactory(is_contributor=False)
-    SearchPageFactory(title='Test PP', administrator=user_admin_pp)
+    user_org = Organization(name='Sample Org', perimeter=Perimeter.objects.first())
+    user_org.save()
+    user_admin_pp.beneficiary_organization_id=user_org.pk
+    user_admin_pp.organization_type = "farmer"
+    user_admin_pp.save()
+
+    SearchPageFactory(title="Test Page portail", administrator=user_admin_pp)
     client.force_login(user_admin_pp)
-    home = reverse('home')
-    res = client.get(home)
-    assert 'Test PP' in res.content.decode()
+    profile_page = reverse('contributor_profile')
+    res = client.get(profile_page, follow=True)
+
+    assert "Test Page portail" in res.content.decode()
