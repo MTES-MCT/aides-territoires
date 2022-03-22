@@ -26,13 +26,6 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         accented_q = self.request.query_params.get('q', '')
         q = remove_accents(accented_q)
 
-        if len(q) >= MIN_SEARCH_LENGTH:
-            qs = qs \
-                .annotate(similarity=TrigramSimilarity('unaccented_name', q)) \
-                .filter(Q(unaccented_name__trigram_similar=remove_accents(q))
-                        | Q(zipcodes__icontains=accented_q)) \
-                .order_by('-similarity', '-scale', 'name')
-
         scale = self.request.query_params.get('scale', '')
         scale_weight = getattr(Perimeter.SCALES, scale, 0)
         if scale:
@@ -41,6 +34,13 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         is_visible_to_users = self.request.query_params.get('is_visible_to_users', 'false')  # noqa
         if is_visible_to_users == 'true':
             qs = qs.filter(is_visible_to_users=True)
+
+        if len(q) >= MIN_SEARCH_LENGTH:
+            qs = qs \
+                .annotate(similarity=TrigramSimilarity('unaccented_name', q)) \
+                .filter(Q(unaccented_name__trigram_similar=remove_accents(q))
+                        | Q(zipcodes__icontains=accented_q)) \
+                .order_by('-similarity', '-scale', 'name')
 
         return qs
 
