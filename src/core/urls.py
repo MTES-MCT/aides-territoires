@@ -65,7 +65,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('home.urls')),
-    path(_('accounts/'), include('accounts.urls')),
+    path("comptes/", include('accounts.urls')),
     path('aids/<slug:slug>/', RedirectAidDetailView.as_view()),
     path('aides/', include('aids.urls')),
     path(_('backers/'), include('backers.urls')),
