@@ -1,11 +1,10 @@
 {% extends "_base.html" %}
 {% load static compress %}
-{% block extratitle %}
-    Cartographie des porteurs d’aides et de programmes en France par département
-{% endblock extratitle %}
-{% block meta_description %}
-    Carte de France des porteurs d’aides et des programmes
-{% endblock meta_description %}
+
+{% block extratitle %}Cartographie des porteurs d’aides et de programmes en France par département{% endblock extratitle %}
+
+{% block meta_description %}Carte de France des porteurs d’aides et des programmes{% endblock meta_description %}
+
 {% block extra_head %}
     <meta property="og:title" content="Cartographie des porteurs d’aides et de programmes en France par département" />
     <meta property="og:type" content="website" />
@@ -15,6 +14,7 @@
           content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png"/>
     <meta property="og:image:alt" content="Logo : Aides-territoires" />
 {% endblock extra_head %}
+
 {% block breadcrumbs %}
     <div class="fr-container">
         <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
@@ -34,6 +34,7 @@
         </nav>
     </div>
 {% endblock breadcrumbs %}
+
 {% block content %}
     <article id="map-page" class="fr-container">
         <h1>Cartographie des programmes et des porteurs d’aides partenaires de la démarche Aides-territoires</h1>
@@ -43,6 +44,7 @@
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div class="fr-col-12 fr-col-lg-7">
                 <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
+                <div id="tooltip"></div>
             </div>
             <div class="fr-col-lg-5 fr-mb-10w">
                 <div class="fr-grid-row fr-grid-row--gutters ">
@@ -89,8 +91,9 @@
         </div>
     </article>
 {% endblock content %}
+
 {% block extra_css %}
-    <style>
+<style>
     #france-map {
         text-align:center;
         max-width: 800px;
@@ -100,20 +103,38 @@
     .land {
         fill: #bccdff;
         stroke: #fff;
+        cursor: pointer;
     }
 
     .land:hover {
         fill: #8ca4ff;
     }
-
     
-        </style>
-    {% endblock extra_css %}
-    {% block extra_js %}
-        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
-        <script>
+    #tooltip {
+        position: absolute; 
+        background-color: #000;
+        color: #fff;
+        padding: 0.5rem;
+        font-size: 1rem;
+        pointer-events : none;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="{% static 'js/geofr/department_filter.js' %}"></script>
+<script>
     $(document).ready(function () {
         department_filter('/');
+
+        let tooltip = $('#tooltip');
+        tooltip.css({
+            'display': "none",
+            'top': 0,
+            'left': 0,
+        });
+        $('body').append(tooltip);
+
         let departments_data = JSON.parse("{{ departments_list|escapejs }}");
 
         let get_department_data = function(selected_path) {
@@ -126,18 +147,32 @@
             } else {
                 return {}
             }
-
         };
 
-        $('#france-map .land').hover(function() {
+        $('#france-map .land').hover(function(e) {
             // Shows a description on hover
             let selected_path = $( this );
             let data = get_department_data(selected_path);
+
+            let titleText = "";
             if ("code" in data) {
-                $('#france-map title').text(`${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`);
+                titleText = `${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`;
             } else {
-                $('#france-map title').text("Impossible de trouver les données pour ce département.");
+                titleText = "Impossible de trouver les données pour ce département.";
             }
+
+            tooltip.html(titleText);
+            tooltip.css({
+              'top': e.clientY + $(window).scrollTop(),
+              'left': e.clientX,
+              'display': 'block'
+             });
+            $('body').append(tooltip);
+        }, function() {
+            // Hide description when the cursor exits the land
+            tooltip.css({
+              'display': 'none'
+             });
         });
 
         $('#france-map .land').click(function() {
@@ -151,5 +186,5 @@
         });
         
     });
-        </script>
-    {% endblock extra_js %}
+</script>
+{% endblock extra_js %}
