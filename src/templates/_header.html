@@ -1,4 +1,4 @@
-{% load settings %}
+{% load settings static %}
 
 {% if not search_page and not user.is_authenticated %}                    
 <div class="fr-background-alt fr-p-2w">
@@ -17,13 +17,13 @@
                         <div class="fr-header__logo">
                             <p class="fr-logo">
                                 République
-                                <br>Française
+                                <br />Française
                             </p>
                         </div>
                         <div class="fr-header__operator">
                             <a href="{% url 'home' %}" title="Accueil Aides-territoires">
-                                <img src="/static/img/logo_AT_courbes.svg" class="fr-responsive-img light-mode" style="max-width:9.0625rem; min-width:9rem;" alt="Aides-territoires" />
-                                <img src="/static/img/logo_AT_courbes_dark_mode.svg" class="fr-responsive-img dark-mode" style="max-width:9.0625rem; min-width:9rem;" alt="Aides-territoires" />
+                                <img src="{% static 'img/logo_AT_courbes.svg' %}" class="fr-responsive-img light-mode" style="max-width:9.0625rem; min-width:9rem;" alt="Aides-territoires" />
+                                <img src="{% static 'img/logo_AT_courbes_dark_mode.svg' %}" class="fr-responsive-img dark-mode" style="max-width:9.0625rem; min-width:9rem;" alt="Aides-territoires" />
                             </a>
                         </div>
                         <div class="fr-header__navbar">
@@ -37,7 +37,7 @@
                 <div class="fr-header__tools">
                     <div class="fr-header__tools-links">
                         <ul class="fr-links-group">
-                            {% if user.is_authenticated %}                    
+                            {% if user.is_authenticated %}
                             <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                 {{ user.full_name }}
                             </a>
