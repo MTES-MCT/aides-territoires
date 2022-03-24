@@ -1,17 +1,17 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n aids compress humanize settings %}
 
-{% block extratitle %}{{ aid.name }}{% endblock %}
+{% block extratitle %}{{ aid.name }}{% endblock extratitle %}
 
 {% block extra_head %}
 <meta property="og:title" content="{{ aid.name }}" />
 <meta property="og:type" content="website" />
-<meta property="og:description" content="{% if financers %}{% for financer in financers %}{{ financer }}{% endfor%}{% endif %} - Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:description" content="{% if financers %}{% for financer in financers %}{{ financer }}{% endfor %}{% endif %} - Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -35,7 +35,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <article id="aid" class="fr-container fr-mb-2w">
@@ -72,13 +72,19 @@
 
             {% if not aid.is_published %}
             <div class="danger fr-background-alt-pink fr-p-3w">
-                <p>{{ _('Warning! This aid is <strong>currently not published</strong>. You can only see it because you are the author.') }}</p>
+                <p>
+                    Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</strong>.
+                    Vous pouvez la prévisualiser parce que vous en êtes l'auteur.
+                </p>
             </div>
             {% endif %}
 
             {% if aid.has_expired %}
             <div class="danger fr-background-alt-pink fr-p-3w">
-                <p>{{ _('Warning! This aid is <strong>no longer available</strong>. It is still displayed for historical purpose.') }}</p>
+                <p>
+                    Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page
+                    restera accessible pour archivage.
+                </p>
             </div>
             {% endif %}
 
@@ -345,7 +351,7 @@
                                 <div>
                                     <p class="fr-break-word"><strong>URL d'origine : </strong>{{ aid.import_data_url|default_if_none:_('NA')}}</p>
                                     <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
-                                    <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}<p>
+                                    <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                                 </div>    
                             </div>
                         </div>
@@ -366,7 +372,7 @@
                     <div class="fr-grid-row fr-mb-4w" id="logos-programs">
                         {% for program in programs %}
                         <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
-                            <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}">
+                            <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}" />
                         </a>
                         {% endfor %}
                     </div>
@@ -455,7 +461,7 @@
                         <h3 id="aides-locales">
                             {{ _('Local variants') }}
                         </h3>
-                        <p>{{  _("If you don't find your local aid refer to the national measure.") }}</p>
+                        <p>{{ _("If you don't find your local aid refer to the national measure.") }}</p>
                         {% if local_aids %}
                             <div id="localAidsLinks">
                                 <ul>
@@ -505,6 +511,7 @@
                             {% endif %}
                         </div>
                     </section>
+                </div>
             </section>
 </article>
 
@@ -526,7 +533,7 @@
                     </h3>
                     <p class="fr-card__desc fr-text--sm">L'outil très pratique pour partager facilement cette aide sur vos différents réseaux en 1 seul clic.</p>
                     <div style="text-align:center">
-                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' data-fr-opened="false" aria-controls="share-modal">
+                        <button class="fr-btn _fr-fi-add-circle-line _fr-btn--icon-left" data-fr-opened="false" aria-controls="share-modal">
                             Envoyer à mes réseaux
                         </button>
                     </div>
@@ -549,7 +556,7 @@
                     </h3>
                     <p class="fr-card__desc fr-text--sm">Ne manquez plus aucun dispositif et recevez les dernières aides en rapport avec votre recherche !</p>
                     <div style="text-align:center">
-                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' id="save-alert-detail-block-btn" data-fr-opened="false" aria-controls="alert-search-modal">
+                        <button class="fr-btn _fr-fi-add-circle-line _fr-btn--icon-left" id="save-alert-detail-block-btn" data-fr-opened="false" aria-controls="alert-search-modal">
                             Créer une alerte
                         </button>
                     </div>
@@ -573,7 +580,7 @@
                     </h3>
                     <p class="fr-card__desc fr-text--sm">Ajoutez-la pour la retrouver dans votre compte utilisateur et la partager facilement avec votre équipe.</p>
                     <div style="text-align:center">
-                        <button class='fr-btn _fr-fi-add-circle-line _fr-btn--icon-left' id="match-aid-modal-btn"  {% if open_modal %}data-fr-opened="true"{% else %}data-fr-opened="false"{% endif %} aria-controls="match-aid-modal">
+                        <button class="fr-btn _fr-fi-add-circle-line _fr-btn--icon-left" id="match-aid-modal-btn"  {% if open_modal %}data-fr-opened="true"{% else %}data-fr-opened="false"{% endif %} aria-controls="match-aid-modal">
                             Ajouter cette aide à un projet
                         </button>
                     </div>
@@ -585,14 +592,14 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'aids/_share_modal.html' %}
     {% include 'alerts/_alert_modal.html' %}
     {% include 'eligibility/_eligibility_test_modal.html' %}
     {% include 'projects/_match_aid_modal.html' %}
-{% endblock %}
+{% endblock modals %}
 
 {% block extra_js %}
 <script>
@@ -616,4 +623,4 @@
 <script src="/static/js/responsive_iframe.js"></script>
 <script src="/static/js/aids/share_aid.js"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

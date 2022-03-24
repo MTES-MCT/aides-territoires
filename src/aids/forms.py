@@ -581,7 +581,7 @@ class BaseAidSearchForm(forms.Form):
         This is the second solution we are using.
 
         By default, terms are made mandatory.
-        Terms with a " ou " in between are optional.
+        Terms with a comma in between are optional.
         """
         all_terms = filter(None, raw_query.lower().split(','))
         all_terms = list(all_terms)
