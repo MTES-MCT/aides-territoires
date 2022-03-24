@@ -1,18 +1,16 @@
 from django.template.loader import render_to_string
-from django.urls import reverse
 from django.conf import settings
 
-from core.utils import get_base_url
 from core.celery import app
 from accounts.models import User
-from emails.utils import send_email, send_email_with_template
-
+from emails.utils import send_email
 
 LOGIN_SUBJECT = 'Connexion à Aides-territoires'
 
 
 @app.task
-def send_project_deleted_email(user_email, project_name, eraser_name, body_template='emails/project_deleted.txt'):
+def send_project_deleted_email(user_email, project_name,
+                               eraser_name, body_template='emails/project_deleted.txt'):
     """Send a notification email to all organization's users.
 
     The email notify users that a project has been deleted.
