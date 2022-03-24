@@ -708,3 +708,28 @@ section#post-content img {
       display: none;
   }
 }
+
+#france-map {
+    text-align:center;
+    max-width: 800px;
+    margin:auto;
+}
+
+.land {
+    fill: #bccdff;
+    stroke: #fff;
+    cursor: pointer;
+}
+
+.land:hover {
+    fill: #8ca4ff;
+}
+
+#tooltip {
+    position: absolute; 
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 1rem;
+    pointer-events : none;
+}
