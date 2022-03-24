@@ -18,17 +18,6 @@ def test_aid_creation_requires_logged_in_user(client):
     assert res.redirect_chain[0][0].startswith('/comptes/inscription/')
 
 
-def test_aid_creation_requires_contributor(client, user):
-    """Users without contributor cannot create new aids."""
-
-    client.force_login(user)
-    form_url = reverse('aid_create_view')
-    res = client.get(form_url, follow=True)
-    assert res.status_code == 200
-    assert len(res.redirect_chain) == 1
-    assert res.redirect_chain[0][0].startswith('/comptes/profil-contributeur/')
-
-
 def test_aid_creation_view(client, contributor, aid_form_data):
     """Saving the form creates a new aid."""
 
@@ -388,18 +377,3 @@ def test_only_aid_author_can_delete_it(client, contributor):
 
     aid.refresh_from_db()
     assert aid.status == 'published'
-
-
-def test_aids_under_review_menu_is_for_admin_only(client, contributor):
-    AidFactory(status='reviewable')
-    client.force_login(contributor)
-    url = reverse('home')
-    res = client.get(url)
-    assert res.status_code == 200
-    assert 'En revue' not in res.content.decode('utf-8')
-
-    contributor.is_superuser = True
-    contributor.save()
-    res = client.get(url)
-    assert res.status_code == 200
-    assert 'En revue' in res.content.decode('utf-8')
