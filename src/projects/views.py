@@ -5,6 +5,7 @@ from django.contrib import messages
 
 from braces.views import MessageMixin
 
+from projects.tasks import send_project_deleted_email
 from projects.forms import ProjectCreateForm, ProjectUpdateForm
 from projects.models import Project
 from aids.models import AidProject
@@ -89,8 +90,16 @@ class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
         return url
 
     def delete(self, *args, **kwargs):
+        project_name = self.get_object().name
+        eraser = self.request.user
+        eraser_email = self.request.user.email
+        eraser_name = self.request.user.full_name
         res = super().delete(*args, **kwargs)
-        msg = "Votre projet a été supprimé." # noqa
+        for user in eraser.beneficiary_organization.beneficiaries.all():
+            user_email = user.email
+            if user_email != eraser_email:
+                send_project_deleted_email.delay(user_email, project_name, eraser_name)
+        msg = f"Votre projet { project_name } a bien été supprimé." # noqa
         messages.success(self.request, msg)
         return res
 

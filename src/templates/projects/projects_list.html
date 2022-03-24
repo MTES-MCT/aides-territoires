@@ -92,7 +92,7 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">
-                                <a class="btn_delete fr-link fr-fi-delete-line" href="{% url 'project_delete_view' project.pk %}" title="supprimer ce projet">Supprimer</a>
+                                <button type="button" class="btn_delete fr-link fr-fi-delete-line" id="delete-project-btn" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -117,6 +117,11 @@
 {% block modals %}
     {% include 'projects/_create_project_modal.html' %}
     {% include 'projects/_help_project_modal.html' %}
+    {% if projects %}
+    {% for project in projects %}    
+        {% include 'projects/_delete_project_modal.html' with project=project.pk %}
+    {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block extra_css %}
@@ -130,5 +135,6 @@
 <script src="/static/trumbowyg/dist/trumbowyg.js"></script>
 <script src="/static/trumbowyg/dist/langs/fr.js"></script>
 <script src="/static/js/enable_rich_text_editor_simple.js"></script>
+<script src="/static/js/aids/disable_delete_button.js"></script>
 {% endcompress %}
 {% endblock %}

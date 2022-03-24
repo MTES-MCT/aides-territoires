@@ -1,18 +1,22 @@
 {% load i18n %}
 
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="delete-project-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="delete-project-modal-{{ project }}" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="delete-project-modal">Fermer</button>
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="delete-project-modal-{{ project }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
                         <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer ce projet</h1>
 
+                        {% if user.beneficiary_organization.beneficiaries.count > 1 %}
+                        <p>Attention vous vous apprêtez à supprimer un projet sur lequel {{ user.beneficiary_organization.beneficiaries.count }} utilisateurs collaborent.</p>
+                        {% endif %}
+
                         <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre projet. Il n'y a pas d'annulation possible.</p>
-                        <form id="delete-form" action="{% url 'project_delete_view' project.pk %}" method="post">
+                        <form id="delete-form" action="{% url 'project_delete_view' project %}" method="post">
                             <section>
                                 <div class="content">
                                     {% csrf_token %}
