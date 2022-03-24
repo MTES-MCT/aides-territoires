@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}login-form{% endblock %}
+{% block sectionid %}login-form{% endblock sectionid %}
 
-{% block extratitle %}{{ _('You have successfully subscribed') }}{% endblock %}
+{% block extratitle %}Vous êtes abonné{% endblock extratitle %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -23,7 +23,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-pb-5w">
@@ -40,4 +40,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

@@ -752,9 +752,6 @@ msgstr "Publier des aides"
 msgid "Data and api"
 msgstr "Données et API"
 
-msgid "Legal mentions"
-msgstr "Mentions légales"
-
 msgid "Source code"
 msgstr "Code source"
 
@@ -995,16 +992,6 @@ msgid ""
 msgstr ""
 "Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous sur "
 "la page de connexion.</a>"
-
-#, python-format
-msgid ""
-"By registering an account, you acknowledge that your data will be processed "
-"<a href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our "
-"privacy policy</a>."
-msgstr ""
-"En créant un compte, vous acceptez que vos données soient traitées <a href="
-"\"%(legal_mentions_url)s\" target=\"_blank\"> en accord avec notre politique "
-"de confidentialité</a>."
 
 msgid "Create an account"
 msgstr "Créer un compte"
@@ -1385,16 +1372,6 @@ msgstr "Recevez en priorité les nouvelles aides !"
 msgid "Selected filters"
 msgstr "Les filtres sélectionnés"
 
-#, python-format
-msgid ""
-"By using this feature, you acknowledge that your data will be processed <a "
-"href=\"%(legal_mentions_url)s\" target=\"_blank\"> according to our privacy "
-"policy</a>."
-msgstr ""
-"En utilisant cette fonctionnalité, vous acceptez que vos données soient "
-"traitées <a href=\"%(legal_mentions_url)s\" target=\"_blank\"> en accord "
-"avec notre politique de confidentialité</a>."
-
 msgid "Alert deletion"
 msgstr "Suppression d'alerte"
 
@@ -1460,109 +1437,6 @@ msgstr "Créer une nouvelle liste"
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""
 "Sélectionnez une liste dans le menu pour consulter les aides associées."
-
-msgid ""
-"Leave your email to be informed in priority about new aids for your "
-"territory."
-msgstr ""
-"Laissez votre email pour être informé en priorité des nouvelles aides pour "
-"votre territoire."
-
-msgid "Register to the mailing-list"
-msgstr "S'inscrire à la lettre d'information"
-
-msgid "You have successfully subscribed"
-msgstr "Vous êtes abonné"
-
-msgid "Your subscription is now confirmed"
-msgstr "Votre inscription est confirmée"
-
-msgid ""
-"You have successfully subscribed to the ADDNA x Aides-territoires alert "
-"system."
-msgstr ""
-"Vous avez confirmé votre abonnement aux alertes ADDNA x Aides-territoires."
-
-#, python-format
-msgid ""
-"If you want to know more, <a href=\"%(legal_mentions_url)s\"> check out our "
-"terms of service</a>."
-msgstr ""
-"Si vous souhaitez en savoir plus, vous pouvez <a href="
-"\"%(legal_mentions_url)s\">consulter nos mentions légales</a>."
-
-msgid ""
-"You can now <a href=\"https://addna.aides-territoires.beta.gouv.fr/\"> visit "
-"the custom ADDNA page on Aides-territoires</a>."
-msgstr ""
-"Rendez-vous sur <a href=\"https://addna.aides-territoires.beta.gouv.fr/\">la "
-"page dédiée de l'ADDNA sur Aides-territoires</a>."
-
-msgid "Subscription confirmed"
-msgstr "Inscription confirmée"
-
-msgid "Your subscription was confirmed"
-msgstr "Votre inscription est confirmée"
-
-msgid ""
-"Your subscription to the Aides-territoires mailing-list is now confirmed."
-msgstr "Votre inscription à la newsletter Aides-territoires est confirmée."
-
-msgid "You will keep being among the first informed of our news."
-msgstr ""
-"Vous continuerez à être les premiers informés de l'actualité Aides-"
-"territoires."
-
-msgid "You can now:"
-msgstr "Vous pouvez désormais :"
-
-msgid "go back to the home page;"
-msgstr "retourner à la page d'accueil ;"
-
-msgid ""
-"check for our legal mentions for informations about our data protection "
-"policy."
-msgstr ""
-"consulter nos mentions légales pour obtenir des informations sur notre "
-"politique de protection des données."
-
-msgid "Please confirm your subscription"
-msgstr "Merci de confirmer votre inscription"
-
-msgid ""
-"Your mailing-list registration was taken into account. You still need to "
-"click the confirmation link in the mail you are about to receive."
-msgstr ""
-"Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
-"confirmation présent dans l'e-mail que vous allez recevoir."
-
-msgid ""
-"Check for our legal mentions for informations about our data protection "
-"policy."
-msgstr ""
-"Consultez nos mentions légales pour obtenir des informations sur notre "
-"politique de protection des données."
-
-msgid "Or go back to the home page."
-msgstr "Ou retournez à la page d'accueil."
-
-msgid "Confirm your subscribtion"
-msgstr "Merci de confirmer votre inscription"
-
-msgid ""
-"<strong>Your mailing-list registration was taken into account. You still "
-"need to click the confirmation link in the mail you are about to receive.</"
-"strong>"
-msgstr ""
-"Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de "
-"confirmation présent dans l'e-mail que vous allez recevoir."
-
-msgid "Thank you for subscribing to the newsletter"
-msgstr "Merci pour votre abonnement à la newsletter"
-
-msgid ""
-"<strong>Your subscription to the newsletter has been registered.</strong>"
-msgstr "<strong>Votre abonnement à la newsletter a été enregistré.</strong>"
 
 msgid "Do you want to extend your search?"
 msgstr "Vous souhaitez élargir votre recherche&nbsp;?"

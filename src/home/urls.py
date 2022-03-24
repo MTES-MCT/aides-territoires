@@ -12,7 +12,12 @@ urlpatterns = [
     path('mentions-légales/',
          TemplateView.as_view(template_name='home/legal_mentions.html'),
          name='legal_mentions'),
-
+    path('politique-de-confidentialité/',
+         TemplateView.as_view(template_name='home/privacy_policy.html'),
+         name='privacy_policy'),
+    path('accessibilité/',
+         TemplateView.as_view(template_name='home/accessibility.html'),
+         name='accessibility'),
     path('inscription-newsletter-a-confirmer/',
          NewsletterConfirmView.as_view(),
          name='confirm-registration-newsletter'),

@@ -1,9 +1,9 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n form_utils compress %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}register-form{% endblock %}
+{% block sectionid %}register-form{% endblock sectionid %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Inscription" />
@@ -13,9 +13,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
-{% block extratitle %}{{ _('Register') }}{% endblock %}
+{% block extratitle %}{{ _('Register') }}{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container--fluid">
@@ -117,11 +117,10 @@
                                         </fieldset>
                                     </div>
                                     <div class="fr-col-12">
-                                        {% url 'legal_mentions' as legal_mentions_url %}
                                         <p class="info fr-background-alt fr-p-3w">
                                             <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
                                             En créant un compte, vous acceptez que vos données soient traitées en accord avec
-                                            <a href="{{ legal_mentions_url }}" target="_blank" rel="noopener">
+                                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">
                                                 notre politique de confidentialité
                                             </a>.
                                         </p>
@@ -147,10 +146,10 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
 {% compress js %}
 <script src="/static/js/accounts/toggle_beneficiary_related_fields.js"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

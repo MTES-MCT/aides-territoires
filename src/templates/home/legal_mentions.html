@@ -1,6 +1,17 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 
-{% block extratitle %}Mentions légales{% endblock %}
+{% block extratitle %}Mentions légales{% endblock extratitle %}
+
+{% block meta_description %}Mentions légales{% endblock meta_description %}
+
+{% block extra_head %}
+<meta property="og:title" content="Mentions légales" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -19,7 +30,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <article class="fr-container">
@@ -30,12 +41,12 @@
             <h2>Éditeurs</h2>
 
             <div>
-                <p>Aides-territoires est édité par la Fabrique Numérique du Ministères de la Transition écologique et
+                <p>Aides-territoires est édité par la Fabrique Numérique du Ministère de la Transition écologique et
                     solidaire et du Ministère de la Cohésion des territoires et des Relations avec les collectivités
                     territoriales
                     (Grande Arche de la Défense, 92055 La Défense CEDEX), avec l'appui de <a
                         href="https://beta.gouv.fr/" target="_blank" rel="noopener" title="beta.gouv.fr">l’incubateur de services numériques
-                        beta.gouv.fr</a> de la direction interministérielle du numérique (DINUM).</p>
+                        beta.gouv.fr</a> de la direction interministérielle du numérique (DINUM).</p>
             </div>
 
             <h2>Directrice de la publication</h2>
@@ -47,7 +58,7 @@
                         <li class="fr-list__none">Directrice générale de l'aménagement, du logement et de la nature
                             (DGALN)</li>
                         <li class="fr-list__none">1, place Carpeaux, 92800 Puteaux</li>
-                        <li class="fr-list__none"><a href="tel=+33140819008">01.40.81.90.08</a></li>
+                        <li class="fr-list__none"><a href="tel:+33140819008">01.40.81.90.08</a></li>
                     </ul>
                 </address>
             </div>
@@ -67,12 +78,7 @@
 
             <h2>Accessibilité</h2>
 
-            <div>
-                <p>
-                    La conformité aux normes d’accessibilité numérique est un objectif ultérieur mais nous tâchons de
-                    rendre ce site accessible à toutes et à tous.
-                </p>
-            </div>
+            <p>Voir la page <a href="{% url 'accessibility' %}">Déclaration d’accessibilité</a>.</p>
 
             <h2>Signaler un dysfonctionnement</h2>
 
@@ -84,283 +90,11 @@
                 </p>
             </div>
 
-            <h2 class="fr-h1 fr-mt-5w">Politique de confidentialité </h2>
+            <h2>Politique de confidentialité </h2>
 
-            <h2>Traitement des données à caractère personnel</h2>
+            <p>Voir la page <a href="{% url 'privacy_policy' %}">Politique de confidentialité</a>.</p>
 
-            <p>Ce site recueille des données à caractère personnel.</p>
-
-            <p>Seules sont recueillies les données expressément nécessaires au bon fonctionnement du service et au
-                respect des obligations légales de l'éditeur.</p>
-
-            <p>Les seules données recueillies sont celles fournies directement par les usagers dans le contexte de
-                l'utilisation du service.</p>
-
-            <p>Conformément à la Loi Informatique et Liberté du 06/01/78, vous disposez d'un droit d'accès et de
-                rectification des informations nominatives vous concernant.</p>
-
-            <p>Pour toute question ou demande relative à vos droits, vous pouvez nous contacter à l'adresse
-                aides-territoires@beta.gouv.fr</p>
-
-            <p>Si vous souhaitez faire supprimer les données vous concernant, cela aura potentiellement pour impact
-                l'impossibilité pour nous de continuer à vous fournir les services proposés par ce site.</p>
-
-            <h2>Responsable du traitement</h2>
-
-            <p>Le Ministère de la Transition écologique et le Ministère de la Cohésion des territoires et des Relations
-                avec les collectivités territoriales sont les responsables du traitement de vos données à caractère
-                personnel.</p>
-
-            <p>Ils sont situés Tour Sequoia, 1 place Carpeaux, 92800 Puteaux.</p>
-
-            <h2>Destinataires des données</h2>
-
-            <p>Le responsable de traitement s’engage à ce que les données soient traitées par les seules personnes
-                autorisées.</p>
-
-            <p>Vos données ne sont pas transférées vers des états en dehors de l'Union Européenne.</p>
-
-            <h2>Sous-traitants</h2>
-
-            <p>Certaines des données sont envoyées à des sous-traitants pour réaliser certaines missions. Le responsable
-                de traitement s'est assuré de la mise en œuvre par ses sous-traitants de garanties adéquates et du
-                respect de conditions strictes de confidentialité, d’usage et de protection des données.</p>
-
-            <p>Les sociétés Scalingo (hébergeur), Sendinblue (envoi emails) interviennent en tant que sous-traitants.
-            </p>
-
-            <p>Aides-territoires s’est assurée de la mise en œuvre par ses sous-traitants de garanties adéquates et du
-                respect de conditions strictes de confidentialité, d’usage et de protection des données.</p>
-
-            <div class="fr-table">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Partenaire</th>
-                            <th scope="col">Scalingo</th>
-                            <th scope="col">SendinBlue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>Pays destinataire</th>
-                            <td>France</td>
-                            <td>France</td>
-                        </tr>
-                        <tr>
-                            <th>Traitement réalisé</th>
-                            <td>Hébergement du site</td>
-                            <td>Envoi de mails et lettres d'information aux utilisateurs</td>
-                        </tr>
-                        <tr>
-                            <th>Garanties</th>
-                            <td>https://scalingo.com/fr/privacy-policy</td>
-                            <td>https://fr.sendinblue.com/legal/privacypolicy/</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Base légale du traitement</h2>
-
-            <p>Le traitement de données est rendu licite parce qu’il est nécessaire à l’exécution d’une mission
-                d’intérêt public ou relevant de l’exercice de l’autorité publique dont est investi le responsable de
-                traitement, telle qu’entendue par l’article 6-e du règlement (UE) n°2016/679 du Parlement européen et du
-                Conseil relatif à la protection des personnes physiques à l’égard du traitement des données à caractère
-                personnel et à la libre circulation de ces données.</p>
-
-            <p>Les données sont également transférées sur les serveurs de notre prestataire en charge de l'envoi de la
-                newsletter : Sendinblue, Société par actions simplifiée au capital de 137.531 euros, immatriculée au RCS
-                de Paris sous le numéro 498 019 298 et dont le siège social est situé 55 rue d'Amsterdam, 75008 Paris,
-                France.</p>
-
-            <h2>Durée de conservation</h2>
-
-            <p>Vous pouvez vous désincrire de la newsletter soit en nous envoyant un email, soit en utilisant les liens
-                de désinscription présents dans nos emails d'alerte ou newsletter, ou directement dans le formulaire
-                d'édition du profil, rubrique "Mon compte".</p>
-
-            <p>Vos coordonnées sont conservées jusqu'à un an après votre dernière action sur le site, (dernière
-                connexion à condition de n'avoir aucune aide en cours de validité, envoi d'un message, etc), ou un an
-                suite à votre demande d’effacement des données ou demande de désinscription.</p>
-
-            <h2>Finalités du traitement</h2>
-
-            <p>La finalité du traitement de données réalisé par Aides-territoires est de faciliter la connaissance et
-                l'accès aux aides financières et en ingénierie pour permettre aux collectivités et acteurs du territoire
-                de réaliser leurs projets.</p>
-
-            <h2>Liste des traitements</h2>
-
-            <p>En accord avec le Règlement Européen pour la Protection des données (RGPD), vous trouverez ci-dessous la
-                liste des traitements nécessitant recueil de données à caractère personnel.</p>
-
-            <div class="fr-table">
-                <table class="data-table">
-                    <tbody>
-                        <tr>
-                            <th>Traitement&nbsp;→</th>
-                            <th>Accès authentifié</th>
-                            <th>Inscription newsletter</th>
-                            <th>Alerte nouveaux résultats</th>
-                            <th>Formulaire de contact</th>
-                        </tr>
-                        <tr>
-                            <th>Finalité du traitement&nbsp;→</th>
-                            <td>fourniture du service permettant aux utilisateurs de se créer un compte (profil porteur
-                                d'aides susceptible de diffuser des dispositifs et/ou porteur de projets susceptible de
-                                créer des projets, y associer des aides et des collaborateurs)</td>
-                            <td>envoi régulier ( mensuel) d’une lettre d’info</td>
-                            <td>envoi d’emails</td>
-                            <td>demande adressée à l’équipe Aides-territoires, en vue d’une réponse personnalisée</td>
-                        </tr>
-                        <tr>
-                            <th>Durée de conservation</th>
-                            <td>Vos coordonnées sont conservées jusqu'à un an après votre dernière action sur le site ou
-                                demande de suppression</td>
-                            <td>Vos coordonnées sont conservées jusqu'à un an après une demande de désinscription à la
-                                newsletter</td>
-                            <td>Vos coordonnées sont conservées jusqu'à un an après votre dernière action sur le site ou
-                                demande de suppression</td>
-                            <td>Vos coordonnées sont conservées jusqu'à un an après l’envoi de votre message </td>
-                        </tr>
-                        <tr>
-                            <th>Prénom/nom</th>
-                            <td>Oui</td>
-                            <td></td>
-                            <td></td>
-                            <td>Oui</td>
-                        </tr>
-                        <tr>
-                            <th>Structure</th>
-                            <td>Oui</td>
-                            <td></td>
-                            <td></td>
-                            <td>Optionnel</td>
-                        </tr>
-                        <tr>
-                            <th>Fonction</th>
-                            <td>Oui</td>
-                            <td></td>
-                            <td></td>
-                            <td>Optionnel</td>
-                        </tr>
-                        <tr>
-                            <th>Adresse</th>
-                            <td>Oui</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>Téléphone</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Optionnel</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>Oui</td>
-                            <td>Oui</td>
-                            <td>Oui</td>
-                            <td>Oui</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Suivi d'audience et vie privée</h2>
-
-            <h3>Cookies et consentement</h3>
-
-            <p>Un cookie est un fichier déposé sur votre terminal lors de la visite d’un site. Il a pour but de collecter des informations relatives à votre navigation et de vous adresser des services adaptés à votre terminal (ordinateur, mobile ou tablette).</p>
-
-            <p>Le site dépose des cookies de mesure d’audience (nombre de visites, pages consultées), respectant les conditions d’exemption du consentement de l’internaute définies par la recommandation « Cookies » de la Commission nationale informatique et libertés (CNIL). Cela signifie, notamment, que ces cookies ne servent qu’à la production de statistiques anonymes et ne permettent pas de suivre la navigation de l’internaute sur d’autres sites.</p>
-
-            <p><b>Nous utilisons différents types de cookies, certains nécessitant votre consentement.</b></p>
-
-            <p><b>Nous utilisons pour cela Matomo,</b> un outil de mesure d’audience web libre, paramétré pour être en conformité avec la recommandation « Cookies » de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne.</p>
-
-            <p>Il convient d’indiquer que :
-              <ul>
-                <li>Les données collectées ne sont pas recoupées avec d’autres traitements</li>
-                <li>Les cookies ne permettent pas de suivre la navigation de l’internaute sur d’autres sites</li>
-              </ul>
-            </p>
-
-            <p>
-                Vous pouvez choisir de ne pas transmettre d'informations à Matomo&nbsp;:
-            </p>
-
-            <div class="fr-mb-3w" id="piwik-consent">
-                <iframe id="stats-optout"
-                    src="//stats.data.gouv.fr/index.php?module=CoreAdminHome&action=optOut&language=fr"></iframe>
-            </div>
-
-            <p>
-                Nous utilisons également Hotjar.
-                Vous pouvez choisir de <a href="https://www.hotjar.com/legal/compliance/opt-out" target="_blank" rel="noopener">
-                    ne pas transmettre d'informations à Hotjar</a>.
-            </p>
-
-            <p>Pour un meilleur suivi de l’usage du site, nous avons mis en place un journal de connexion. À chaque fois que vous vous connectez à votre compte cela rajoute la date et l’heure dans ce journal. Cela nous permet de connaitre le nombre d’utilisateurs actifs par jour et par mois.</p>
-            <p>Vous avez toutefois la possibilité de réinitialiser ce suivi depuis votre propre journal de connexion accessible dans le menu « Mes paramètres ».</p>
-
-            <p>À tout moment, vous pouvez refuser l’utilisation des cookies et désactiver le dépôt sur votre ordinateur en utilisant la fonction dédiée de votre navigateur (fonction disponible notamment sur Microsoft Internet Explorer 11, Google Chrome, Mozilla Firefox, Apple Safari et Opera).</p>
-
-            <p>Pour aller plus loin, vous pouvez consulter les fiches proposées par la Commission Nationale de l'Informatique et des Libertés (CNIL) :
-              <ul>
-                <li><a href="https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi" target="_blank" rel="noopener" title="Que dit la loi ?">Cookies & traceurs : que dit la loi ?</a></li>
-                <li><a href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser" target="_blank" rel="noopener" title="Les outils pour maitriser les cookies">Cookies : les outils pour les maîtriser</a></li>
-              </ul>
-            </p>
-            <h3>Je contribue à enrichir vos données, puis-je y accéder ?</h3>
-
-            <p>
-                Bien sûr ! Les statistiques d’usage de la majorité de nos produits sont
-                disponibles en accès libre sur <a href="//stats.data.gouv.fr/">stats.data.gouv.fr</a>.
-            </p>
-
-            <h2>Sécurité et confidentialité</h2>
-
-            <p>Les données personnelles sont traitées dans des conditions sécurisées, selon les moyens actuels de la
-                technique, dans le respect des dispositions relatives à la protection de la vie privée et notamment au
-                référentiel général de sécurité, prévu à l’article 9 de l’ordonnance 2005-1516 du 8 décembre 2005
-                relative aux échanges électroniques entre les usagers et les autorités administratives et entre les
-                autorités administratives.</p>
-
-            <p>Les moyens de sécurisation suivants ont notamment été mis en œuvre&nbsp;:</p>
-
-            <ul>
-                <li>Contrôle d’accès&nbsp;: la base de données des utilisateurs n’est accessible qu’aux seuls membres de
-                    l’administration du service;</li>
-                <li>Mesures de traçabilité&nbsp;: les logs applicatifs permettent de savoir qui a eu accès à cette base
-                    de données&nbsp;;</li>
-                <li>Mesures de protection des logiciels&nbsp;: les mises à jour et les mesures de protection sont
-                    assurées par l'hébergeur Scalingo&nbsp;;</li>
-                <li>Sauvegarde des données&nbsp;: les sauvegardes sont assurées par l'hébergeur Scalingo&nbsp;;</li>
-                <li>Chiffrement des données&nbsp;: site uniquement accessible en HTTPS.</li>
-            </ul>
-
-            <h2>Droit des personnes</h2>
-
-            <p>Vous disposez des droits suivants concernant vos données à caractère personnel&nbsp;:</p>
-
-            <ul>
-                <li>Droit d’information, d’accès et de communication des données&nbsp;;</li>
-                <li>Droit à la limitation&nbsp;;</li>
-                <li>Droit de rectification des données&nbsp;;</li>
-                <li>Droit d'opposition.</li>
-            </ul>
-
-            <p>Pour toute demande, vous pouvez écrire un email à l’équipe Aides-territoires&nbsp;:
-                aides-territoires@beta.gouv.fr</p>
-
-            <p>Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés ou que le traitement
-                n’est pas conforme à la réglementation sur la protection des données à caractère personnel, vous pouvez
-                adresser une réclamation à la CNIL&nbsp;:&nbsp;https://www.cnil.fr.</p>
         </div>
     </div>
 </article>
-{% endblock %}
+{% endblock content %}
