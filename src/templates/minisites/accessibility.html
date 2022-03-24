@@ -1,0 +1,27 @@
+{% extends "home/accessibility.html" %}
+
+{% block header %}
+    {% include "minisites/_header.html" %}
+{% endblock header %}
+
+{% block footer %}
+    {% include "minisites/_footer.html" %}
+{% endblock footer %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li class="active" aria-current="page">Déclaration d’accessibilité</li>
+    </ol>
+</nav>
+{% endblock breadcrumbs %}
+
+{% block header_warning %}{% endblock header_warning %}
+
+{% block user_menu %}{% endblock user_menu %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "minisites/_css.html" %}
+{% endblock extra_css %}

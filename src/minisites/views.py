@@ -345,6 +345,9 @@ class SiteLegalMentions(MinisiteMixin, TemplateView):
 class SitePrivacyPolicy(MinisiteMixin, TemplateView):
     template_name = 'minisites/privacy_policy.html'
 
+class SiteAccessibility(MinisiteMixin, TemplateView):
+    template_name = 'minisites/accessibility.html'
+
 
 class Error(MinisiteMixin, TemplateView):
     template_name = 'minisites/404.html'
