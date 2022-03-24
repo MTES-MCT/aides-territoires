@@ -41,6 +41,11 @@ def user():
     """Generates a valid and active user."""
 
     user = UserFactory()
+    user_org = Organization(name='Sample Org', perimeter=Perimeter.objects.first())
+    user_org.save()
+    user.beneficiary_organization_id=user_org.pk
+    user.organization_type = "farmer"
+    user.save()
     return user
 
 
