@@ -5,8 +5,6 @@ from core.celery import app
 from accounts.models import User
 from emails.utils import send_email
 
-LOGIN_SUBJECT = 'Connexion à Aides-territoires'
-
 
 @app.task
 def send_project_deleted_email(user_email, project_name,
@@ -30,7 +28,7 @@ def send_project_deleted_email(user_email, project_name,
         'eraser_name': eraser_name,
         'project_name': project_name})
     send_email(
-        subject=LOGIN_SUBJECT,
+        subject="Suppression d'un projet",
         body=email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
