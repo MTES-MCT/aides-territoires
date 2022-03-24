@@ -1293,20 +1293,6 @@ msgstr "Annuler"
 msgid "Aid detail"
 msgstr "Détail de l'aide"
 
-msgid ""
-"Warning! This aid is <strong>currently not published</strong>. You can only "
-"see it because you are the author."
-msgstr ""
-"Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</"
-"strong>. Vous pouvez la prévisualiser parce que vous en êtes l'auteur."
-
-msgid ""
-"Warning! This aid is <strong>no longer available</strong>. It is still "
-"displayed for historical purpose."
-msgstr ""
-"Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page "
-"restera accessible pour archivage."
-
 msgid "Local aid"
 msgstr "Aide locale"
 
