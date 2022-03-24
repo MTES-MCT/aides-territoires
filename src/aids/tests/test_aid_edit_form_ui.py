@@ -5,6 +5,7 @@ from django.urls import reverse
 from aids.factories import AidFactory
 from selenium.webdriver.common.by import By
 
+
 def test_duplicate_buster(client, live_server, browser, contributor):
 
     client.force_login(contributor)

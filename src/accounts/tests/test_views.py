@@ -187,11 +187,12 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
     assert res.status_code == 200
     assert "Un objet Utilisateur avec ce champ Adresse e-mail existe déjà" in res.content.decode()
 
+
 def test_register_form(client, mailoutbox):
     """
     Registration is a two-step form:
     - First, the data about the user themself, and status within their org
-    - Second, creating an org for the user to belong to 
+    - Second, creating an org for the user to belong to
     """
     # First step
     users = User.objects.all()
@@ -216,7 +217,7 @@ def test_register_form(client, mailoutbox):
     )
 
     assert res.status_code == 200
-    assert "Merci de renseigner les informations de votre structure pour finaliser votre inscription" in res.content.decode()
+    assert "Merci de renseigner les informations de votre structure pour finaliser votre inscription" in res.content.decode() # noqa
 
     # Second step
     create_org_url = reverse("organization_create_view")
@@ -436,7 +437,7 @@ def test_search_page_administrator_has_specific_menu(client):
     user_admin_pp = UserFactory(is_contributor=False)
     user_org = Organization(name='Sample Org', perimeter=Perimeter.objects.first())
     user_org.save()
-    user_admin_pp.beneficiary_organization_id=user_org.pk
+    user_admin_pp.beneficiary_organization_id = user_org.pk
     user_admin_pp.organization_type = "farmer"
     user_admin_pp.save()
 

@@ -1,5 +1,4 @@
 from django.urls import path
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import views as auth_views
 
 from accounts.forms import LoginForm
