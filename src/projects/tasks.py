@@ -28,7 +28,7 @@ def send_project_deleted_email(user_email, project_name,
         'eraser_name': eraser_name,
         'project_name': project_name})
     send_email(
-        subject="Suppression d'un projet",
+        subject=f"Suppression du projet {project_name}",
         body=email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
