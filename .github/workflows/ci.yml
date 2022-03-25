@@ -125,6 +125,7 @@ jobs:
         npm ci
 
     - name: Load env file
+      working-directory: ./src
       run: |
         cp .env.example .env
 
