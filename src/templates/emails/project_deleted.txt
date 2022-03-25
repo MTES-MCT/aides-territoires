@@ -1,6 +1,6 @@
 Bonjour {{ user_name }},
 
-{{ eraser_name }} a supprimé le projet {{ project_name }} sur Aides-territoires, le portail d’Etat qui permet aux collectivités et à leurs partenaires locaux de trouver les aides financières et d’ingénierie pour donner vie aux ambitions de leur territoire.
+{{ eraser_name }} a supprimé le projet {{ project_name }} sur Aides-territoires.
 
 Cordialement,
 L'équipe d'Aides-territoires.
