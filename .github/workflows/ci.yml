@@ -65,8 +65,7 @@ jobs:
 
     - name: Install the required packages
       run: |
-        sudo apt install gettext
-        sudo npm install -g sass
+        sudo apt install gettext sass 
 
     - name: Install pip and pipenv
       working-directory: ./src
