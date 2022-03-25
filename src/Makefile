@@ -5,6 +5,7 @@ init:
 build:
 	pipenv run python manage.py collectstatic --settings=core.settings.test --no-input
 	pipenv run python manage.py compilemessages --settings=core.settings.test
+	pipenv run python manage.py compress --force
 
 test:
 	pipenv run py.test -v -n 10

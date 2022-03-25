@@ -38,7 +38,7 @@ jobs:
     # List of tasks to run
     steps:
 
-    - name: Set up french locale
+    - name: Set up French locale
       run: |
         sudo apt update
         sudo apt install language-pack-fr
