@@ -15,6 +15,8 @@ USER_EXPORT_FIELDS = (
     'email',
     'contributor_contact_phone',
     'perimeter',
+    'perimeter_region',
+    'perimeter_department',
     'is_contributor',
     'is_beneficiary',
     'nb_aids',
@@ -39,8 +41,14 @@ class UserResource(resources.ModelResource):
 
     perimeter = fields.Field(
         column_name="Périmètre de l'organisation",
-        attribute="perimeter",
-        widget=ForeignKeyWidget(Organization, field='perimeter__name')
+    )
+
+    perimeter_region = fields.Field(
+        column_name="Périmètre (Région)",
+    )
+
+    perimeter_department = fields.Field(
+        column_name="Périmètre (Département)",
     )
 
     nb_aids = fields.Field(
@@ -51,6 +59,22 @@ class UserResource(resources.ModelResource):
         if obj.beneficiary_organization:
             if obj.beneficiary_organization.perimeter:
                 return obj.beneficiary_organization.perimeter.name
+        else:
+            return ''
+
+    def dehydrate_perimeter_region(self, obj):
+        if obj.beneficiary_organization:
+            if obj.beneficiary_organization.perimeter:
+                if obj.beneficiary_organization.perimeter.regions:
+                    return obj.beneficiary_organization.perimeter.regions[0]
+        else:
+            return ''
+
+    def dehydrate_perimeter_department(self, obj):
+        if obj.beneficiary_organization:
+            if obj.beneficiary_organization.perimeter:
+                if obj.beneficiary_organization.perimeter.departments:
+                    return obj.beneficiary_organization.perimeter.departments[0]
         else:
             return ''
 
