@@ -124,6 +124,10 @@ jobs:
       run: |
         npm ci
 
+    - name: Load env file
+      run: |
+        cp .env.example .env
+
     - name: Build the project
       working-directory: ./src
       run: |
