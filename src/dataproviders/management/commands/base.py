@@ -80,14 +80,14 @@ class BaseImportCommand(BaseCommand):
                                 .values_list('import_raw_object', flat=True) \
                                 .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object:
                             '''
-                            Si d'autres champ que : 
+                            If fields other than :
                                 - aid.submission_deadline,
                                 - aid.start_date,
                                 - aid.name_initial 
-                            ont été modifiés.
-                            Alors on ne veut pas que l'aide soit mise à jour automatiquement. 
-                            On passe donc le statut de l'aide en revue et on met simplement
-                            à jour les champs du calendrier, plus les champs de données brutes :
+                            have been modified.
+                            We won't update automotically the aid.
+                            Aid's status is "reviewable" and we simply update the fields calendar
+                            and the fields:
                                 - import_raw_object_temp et
                                 - import_raw_object_temp_calendar
                                 - start_date
@@ -114,12 +114,12 @@ class BaseImportCommand(BaseCommand):
                                     'Cannot update aid {}: {}'.format(aid.name, e)))
 
                             '''
-                            Si les seuls champs qui ont changé sont : 
+                            If the changed fields are: 
                                 - aid.submission_deadline,
                                 - aid.start_date,
                                 - aid.name_initial,
-                            Alors on tente une mise à jour automatique de ces champs.
-                            On met aussi à jour le champ import_raw_object_temp_calendar
+                            we try an automatic update of these fields.
+                            We also update the field import_raw_object_temp_calendar
                             '''
                         elif Aid.objects \
                                 .values_list('import_raw_object_calendar', flat=True) \
