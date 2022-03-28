@@ -206,7 +206,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         'get_pprint_import_raw_object', 'get_pprint_import_raw_object_calendar',
         'get_pprint_import_raw_object_temp', 'get_pprint_import_raw_object_temp_calendar',
         'import_raw_object_diff', 'import_raw_object_calendar_diff',
-        'date_created', 'date_updated', 'date_published',]
+        'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
 
     fieldsets_with_inlines = [
@@ -439,7 +439,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         if obj:
             return pretty_print_readonly_jsonfield(obj.import_raw_object_calendar)
         return ''
-    get_pprint_import_raw_object_calendar.short_description = 'Donnée brute importée pour le calendrier'
+    get_pprint_import_raw_object_calendar.short_description = 'Donnée brute importée pour le calendrier'  # noqa
 
     def get_pprint_import_raw_object_temp(self, obj=None):
         if obj:
@@ -451,7 +451,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         if obj:
             return pretty_print_readonly_jsonfield(obj.import_raw_object_temp_calendar)
         return ''
-    get_pprint_import_raw_object_temp_calendar.short_description = 'Donnée brute importée temporaire pour le calendrier'
+    get_pprint_import_raw_object_temp_calendar.short_description = 'Donnée brute importée temporaire pour le calendrier'   # noqa
 
     def import_raw_object_diff(self, obj):
         return json_compare(obj.import_raw_object, obj.import_raw_object_temp)
@@ -459,7 +459,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
 
     def import_raw_object_calendar_diff(self, obj):
         return json_compare(obj.import_raw_object_calendar, obj.import_raw_object_calendar_temp)
-    import_raw_object_calendar_diff.short_description = "Modifications de la donnée brute importée pour le calendrier"
+    import_raw_object_calendar_diff.short_description = "Modifications de la donnée brute importée pour le calendrier"  # noqa
 
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
@@ -488,7 +488,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
     export_admin_action.short_description = 'Exporter et télécharger les Aides sélectionnées'
 
     def save_model(self, request, obj, form, change):
-        if obj.import_raw_object_temp: 
+        if obj.import_raw_object_temp:
             obj.import_raw_object = obj.import_raw_object_temp
             obj.import_raw_object_temp = None
 

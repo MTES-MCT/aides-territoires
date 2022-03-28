@@ -1,10 +1,9 @@
-from deepdiff import DeepDiff, path
+from deepdiff import DeepDiff
 from deepdiff.model import PrettyOrderedSet
 from difflib import SequenceMatcher
 from django.db.models import JSONField
 from django.utils.html import format_html
 from dataproviders.utils import content_prettify
-
 
 
 def json_compare(old_json: JSONField, new_json: JSONField):
@@ -16,36 +15,38 @@ def json_compare(old_json: JSONField, new_json: JSONField):
     result_html = '<div class="json-compare">'
 
     if "dictionary_item_removed" in ddiff:
-        result_html += f"<h3>Suppression&nbsp;:</h3>"
+        result_html += "<h3>Suppression&nbsp;:</h3>"
         entries = ddiff["dictionary_item_removed"]
         result_html += format_entries(entries, "removed-entries", tag="del")
 
     if "iterable_item_removed" in ddiff:
-        result_html += f"<h3>Suppression de liste&nbsp;:</h3>"
+        result_html += "<h3>Suppression de liste&nbsp;:</h3>"
         entries = ddiff["iterable_item_removed"]
         result_html += format_entries(entries, "removed-entries", tag="del")
 
     if "dictionary_item_added" in ddiff:
-        result_html += f"<h3>Ajout&nbsp;:</h3>"
+        result_html += "<h3>Ajout&nbsp;:</h3>"
         entries = ddiff["dictionary_item_added"]
         result_html += format_entries(entries, "added-entries", tag="ins")
 
     if "iterable_item_added" in ddiff:
-        result_html += f"<h3>Ajout de liste&nbsp;:</h3>"
+        result_html += "<h3>Ajout de liste&nbsp;:</h3>"
         entries = ddiff["iterable_item_added"]
         result_html += format_entries(entries, "added-entries", tag="ins")
 
-
     if "values_changed" in ddiff:
-        result_html += f"<h3>Modification&nbsp;:</h3>"
+        result_html += "<h3>Modification&nbsp;:</h3>"
         entries = ddiff["values_changed"]
         result_html += format_entries(entries, "added-entries", format_value=True)
 
     return format_html(result_html + "</div>")
 
-def format_entries(entries_dict: dict, class_root: str, tag: str ="", format_value: bool = False) -> str:
+
+def format_entries(entries_dict: dict, class_root: str,
+                   tag: str = "", format_value: bool = False) -> str:
+
     """
-    Formats a dict of entries for printing 
+    Formats a dict of entries for printing
     "tag" and "format_value" parameters are mutually exclusive:
         if format_value is present, tag is not used.
     """
@@ -57,7 +58,7 @@ def format_entries(entries_dict: dict, class_root: str, tag: str ="", format_val
             result_html += f'<div class="changed-entries-values">{ format_value_diff(value) }</div>'
         else:
             result_html += f'<div class="{class_root}-values"><{tag}>{value}</{tag}></div>'
-        
+
     return result_html
 
 
@@ -84,7 +85,7 @@ def format_path(str_path: str) -> str:
 
     for item in path_items:
         item = item.lstrip("'").rstrip("'")
-        output +=str(item) + "\n"
+        output += str(item) + "\n"
     output += "</span>"
 
     return output

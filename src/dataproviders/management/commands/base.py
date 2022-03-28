@@ -73,17 +73,26 @@ class BaseImportCommand(BaseCommand):
                 except IntegrityError as e:
                     self.stdout.write(self.style.ERROR(str(e)))
                     try:
-                        if Aid.objects \
+                        import_raw_object_temp = Aid.objects \
                             .values_list('import_raw_object_temp', flat=True) \
-                            .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object \
-                        and Aid.objects \
-                                .values_list('import_raw_object', flat=True) \
-                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object:
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object = Aid.objects \
+                            .values_list('import_raw_object', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object_calendar = Aid.objects \
+                            .values_list('import_raw_object_calendar', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object_temp_calendar = Aid.objects \
+                            .values_list('import_raw_object_temp_calendar', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+
+                        if import_raw_object_temp != aid.import_raw_object \
+                           and import_raw_object != aid.import_raw_object:
                             '''
                             If fields other than :
                                 - aid.submission_deadline,
                                 - aid.start_date,
-                                - aid.name_initial 
+                                - aid.name_initial
                             have been modified.
                             We won't update automotically the aid.
                             Aid's status is "reviewable" and we simply update the fields calendar
@@ -102,7 +111,7 @@ class BaseImportCommand(BaseCommand):
                                         submission_deadline=aid.submission_deadline,
                                         name_initial=aid.name_initial,
                                         import_raw_object_temp=aid.import_raw_object,
-                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,
+                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
                                         import_last_access=timezone.now(),
                                         status='reviewable')
                                 updated_counter += 1
@@ -114,27 +123,24 @@ class BaseImportCommand(BaseCommand):
                                     'Cannot update aid {}: {}'.format(aid.name, e)))
 
                             '''
-                            If the changed fields are: 
+                            If the changed fields are:
                                 - aid.submission_deadline,
                                 - aid.start_date,
                                 - aid.name_initial,
                             we try an automatic update of these fields.
                             We also update the field import_raw_object_temp_calendar
                             '''
-                        elif Aid.objects \
-                                .values_list('import_raw_object_calendar', flat=True) \
-                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object_calendar \
-                        and Aid.objects \
-                                .values_list('import_raw_object_temp_calendar', flat=True) \
-                                .get(import_uniqueid=aid.import_uniqueid) != aid.import_raw_object_calendar:
-                            try: 
+
+                        elif import_raw_object_calendar != aid.import_raw_object_calendar \
+                        and import_raw_object_temp_calendar != aid.import_raw_object_calendar:  # noqa
+                            try:
                                 Aid.objects \
                                     .filter(import_uniqueid=aid.import_uniqueid) \
                                     .update(
                                         start_date=aid.start_date,
                                         submission_deadline=aid.submission_deadline,
                                         name_initial=aid.name_initial,
-                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,
+                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
                                         date_updated=timezone.now(),
                                         import_last_access=timezone.now())
                                 automatic_updated_counter += 1
@@ -150,7 +156,7 @@ class BaseImportCommand(BaseCommand):
                             'Cannot import aid {}: {}'.format(aid.name, e)))
 
         success_message = '{} aides total, {} aides crées, {} aides maj, {} aides maj auto'.format(
-            len(aids_and_related_objects), created_counter, updated_counter, automatic_updated_counter)
+            len(aids_and_related_objects), created_counter, updated_counter, automatic_updated_counter)  # noqa
         self.stdout.write(self.style.SUCCESS(success_message))
 
         # log the results (works only for DataSource imports)
