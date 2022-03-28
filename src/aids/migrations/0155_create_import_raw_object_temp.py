@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0153_alter_aid_targeted_audiences'),
+        ('aids', '0154_alter_aid_date_updated'),
     ]
 
     operations = [
