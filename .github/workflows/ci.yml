@@ -38,8 +38,9 @@ jobs:
     # List of tasks to run
     steps:
 
-    - name: Set up french locale
+    - name: Set up French locale
       run: |
+        sudo apt update
         sudo apt install language-pack-fr
         sudo locale-gen
         sudo update-locale LANG="fr_FR.UTF-8" LC_ALL="fr_FR.UTF-8"
@@ -64,8 +65,7 @@ jobs:
 
     - name: Install the required packages
       run: |
-        sudo apt install gettext
-        sudo npm install -g sass
+        sudo apt install gettext sass 
 
     - name: Install pip and pipenv
       working-directory: ./src
@@ -122,6 +122,11 @@ jobs:
       working-directory: ./src
       run: |
         npm ci
+
+    - name: Load env file
+      working-directory: ./src
+      run: |
+        cp .env.example .env
 
     - name: Build the project
       working-directory: ./src
