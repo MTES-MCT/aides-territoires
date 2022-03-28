@@ -102,3 +102,52 @@ div.inline-error ul {
 div.inline-error ul li {
     list-style-type: disc;
 }
+
+.json-compare {
+    background-color: #fff;
+    color: black;
+    font-size: 100%;
+  }
+  
+  .formated-path {
+    margin-left: 1.5rem !important;
+  }
+  
+  .formated-path li {
+    display: inline;
+    
+  }
+  
+  .formated-path li+li::before {
+    content: " > ";
+  }
+  
+  
+  .added-entries-path,
+  ins {
+    color: #0f600b;
+  }
+  
+  .removed-entries-path,
+  del {
+    color: #9b1317;
+  }
+  
+  ins {
+    background-color: #f4fef4;
+    padding: 0.2rem;
+  }
+  
+  
+  del {
+    background-color: #fef4f4;
+    padding: 0.2rem;
+  }
+  
+  .added-entries-values,
+  .removed-entries-values,
+  .changed-entries-values {
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+    line-height: 1.6rem;
+  }

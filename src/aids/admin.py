@@ -15,6 +15,7 @@ from admin_auto_filters.filters import AutocompleteFilter
 from fieldsets_with_inlines import FieldsetsInlineMixin
 from adminsortable2.admin import SortableInlineAdminMixin
 
+from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
 from aids.admin_views import AmendmentMerge
@@ -183,7 +184,7 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
     list_display = [
         'live_status', 'name', 'all_financers', 'all_instructors',
         'author_name', 'recurrence', 'perimeter', 'date_updated',
-        'date_published', 'is_imported', 'submission_deadline', 'status']
+        'date_published', 'is_imported', 'import_last_access', 'submission_deadline', 'status']
     list_display_links = ['name']
     search_fields = ['id', 'name', 'name_initial']
     list_filter = [
@@ -202,7 +203,9 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
     readonly_fields = [
         'sibling_aids',
         'is_imported', 'import_data_source', 'import_uniqueid', 'import_data_url', 'import_share_licence', 'import_last_access',  # noqa
-        'get_pprint_import_raw_object',
+        'get_pprint_import_raw_object', 'get_pprint_import_raw_object_calendar',
+        'get_pprint_import_raw_object_temp', 'get_pprint_import_raw_object_temp_calendar',
+        'import_raw_object_diff', 'import_raw_object_calendar_diff',
         'date_created', 'date_updated', 'date_published']
     raw_id_fields = ['generic_aid']
 
@@ -315,6 +318,11 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
                 'import_share_licence',
                 'import_last_access',
                 'get_pprint_import_raw_object',
+                'get_pprint_import_raw_object_temp',
+                'import_raw_object_diff',
+                'get_pprint_import_raw_object_calendar',
+                'get_pprint_import_raw_object_temp_calendar',
+                'import_raw_object_calendar_diff',
             )
         }),
 
@@ -427,6 +435,32 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         return ''
     get_pprint_import_raw_object.short_description = 'Donnée brute importée'
 
+    def get_pprint_import_raw_object_calendar(self, obj=None):
+        if obj:
+            return pretty_print_readonly_jsonfield(obj.import_raw_object_calendar)
+        return ''
+    get_pprint_import_raw_object_calendar.short_description = 'Donnée brute importée pour le calendrier'  # noqa
+
+    def get_pprint_import_raw_object_temp(self, obj=None):
+        if obj:
+            return pretty_print_readonly_jsonfield(obj.import_raw_object_temp)
+        return ''
+    get_pprint_import_raw_object_temp.short_description = 'Donnée brute importée temporaire'
+
+    def get_pprint_import_raw_object_temp_calendar(self, obj=None):
+        if obj:
+            return pretty_print_readonly_jsonfield(obj.import_raw_object_temp_calendar)
+        return ''
+    get_pprint_import_raw_object_temp_calendar.short_description = 'Donnée brute importée temporaire pour le calendrier'   # noqa
+
+    def import_raw_object_diff(self, obj):
+        return json_compare(obj.import_raw_object, obj.import_raw_object_temp)
+    import_raw_object_diff.short_description = "Modifications de la donnée brute importée"
+
+    def import_raw_object_calendar_diff(self, obj):
+        return json_compare(obj.import_raw_object_calendar, obj.import_raw_object_calendar_temp)
+    import_raw_object_calendar_diff.short_description = "Modifications de la donnée brute importée pour le calendrier"  # noqa
+
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
         self.message_user(request, "Les aides sélectionnées ont été marquées en tant qu'AAP")
@@ -452,6 +486,17 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
         # we want to customize it's short description
         return super().export_admin_action(request, queryset)
     export_admin_action.short_description = 'Exporter et télécharger les Aides sélectionnées'
+
+    def save_model(self, request, obj, form, change):
+        if obj.import_raw_object_temp:
+            obj.import_raw_object = obj.import_raw_object_temp
+            obj.import_raw_object_temp = None
+
+        if obj.import_raw_object_temp_calendar:
+            obj.import_raw_object_calendar = obj.import_raw_object_temp_calendar
+            obj.import_raw_object_temp_calendar = None
+
+        super(BaseAidAdmin, self).save_model(request, obj, form, change)
 
     class Media:
         css = {

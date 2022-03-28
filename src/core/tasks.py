@@ -9,6 +9,13 @@ logger = logging.getLogger(__name__)
 
 
 @app.task
+def task_import_pays_de_la_loire():
+    """Import data from the Pays de la Loire data feed."""
+    logger.info('Starting Pays de la Loire import task')
+    management.call_command('import_pays_de_la_loire', verbosity=1)
+
+
+@app.task
 def task_import_ademe():
     """Import data from the Ademe data feed."""
     logger.info('Starting ADEME import task')

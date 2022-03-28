@@ -7,7 +7,7 @@ from django.db.utils import IntegrityError
 from django.db.models import CharField, TextField
 from django.utils import timezone
 
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 from aids.forms import AidEditForm
 from stats.utils import log_event
 
@@ -52,17 +52,15 @@ class BaseImportCommand(BaseCommand):
         #   2) The aid is known from a previous import, in that case,
         #      we just update a few fields but we don't overwrite some
         #      manual modifications that could have been made from our side.
-        #
-        # For the moment, since the data is not huge (there are probably a few
-        # dozains aids per provider at best), I decided to focus on code
-        # readability and not to focus on optimizing the number of db queries.
         created_counter = 0
         updated_counter = 0
+        automatic_updated_counter = 0
         with transaction.atomic():
             for aid, financers, instructors, categories, programs in aids_and_related_objects:  # noqa
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(financers, instructors, categories)
+                        aid.status = AidWorkflow.states.reviewable
                         aid.save()
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
@@ -75,29 +73,90 @@ class BaseImportCommand(BaseCommand):
                 except IntegrityError as e:
                     self.stdout.write(self.style.ERROR(str(e)))
                     try:
-                        Aid.objects \
-                            .filter(import_uniqueid=aid.import_uniqueid) \
-                            .update(
-                                origin_url=aid.origin_url,
-                                start_date=aid.start_date,
-                                submission_deadline=aid.submission_deadline,
-                                import_raw_object=aid.import_raw_object,
-                                date_updated=timezone.now(),
-                                import_last_access=timezone.now())
-                        updated_counter += 1
-                        self.stdout.write(self.style.SUCCESS(
-                            'Updated aid: {}'.format(aid.name)))
+                        import_raw_object_temp = Aid.objects \
+                            .values_list('import_raw_object_temp', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object = Aid.objects \
+                            .values_list('import_raw_object', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object_calendar = Aid.objects \
+                            .values_list('import_raw_object_calendar', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+                        import_raw_object_temp_calendar = Aid.objects \
+                            .values_list('import_raw_object_temp_calendar', flat=True) \
+                            .get(import_uniqueid=aid.import_uniqueid)
+
+                        if import_raw_object_temp != aid.import_raw_object \
+                           and import_raw_object != aid.import_raw_object:
+                            '''
+                            If fields other than :
+                                - aid.submission_deadline,
+                                - aid.start_date,
+                                - aid.name_initial
+                            have been modified.
+                            We won't update automotically the aid.
+                            Aid's status is "reviewable" and we simply update the fields calendar
+                            and the fields:
+                                - import_raw_object_temp et
+                                - import_raw_object_temp_calendar
+                                - start_date
+                                - submission_deadline
+                                - name_initial
+                            '''
+                            try:
+                                Aid.objects \
+                                    .filter(import_uniqueid=aid.import_uniqueid) \
+                                    .update(
+                                        start_date=aid.start_date,
+                                        submission_deadline=aid.submission_deadline,
+                                        name_initial=aid.name_initial,
+                                        import_raw_object_temp=aid.import_raw_object,
+                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
+                                        import_last_access=timezone.now(),
+                                        status='reviewable')
+                                updated_counter += 1
+                                self.stdout.write(self.style.SUCCESS(
+                                    'Updated aid: {}'.format(aid.name)))
+
+                            except Exception as e:
+                                self.stdout.write(self.style.ERROR(
+                                    'Cannot update aid {}: {}'.format(aid.name, e)))
+
+                            '''
+                            If the changed fields are:
+                                - aid.submission_deadline,
+                                - aid.start_date,
+                                - aid.name_initial,
+                            we try an automatic update of these fields.
+                            We also update the field import_raw_object_temp_calendar
+                            '''
+
+                        elif import_raw_object_calendar != aid.import_raw_object_calendar \
+                        and import_raw_object_temp_calendar != aid.import_raw_object_calendar:  # noqa
+                            try:
+                                Aid.objects \
+                                    .filter(import_uniqueid=aid.import_uniqueid) \
+                                    .update(
+                                        start_date=aid.start_date,
+                                        submission_deadline=aid.submission_deadline,
+                                        name_initial=aid.name_initial,
+                                        import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
+                                        date_updated=timezone.now(),
+                                        import_last_access=timezone.now())
+                                automatic_updated_counter += 1
+                                self.stdout.write(self.style.SUCCESS(
+                                    'Automatic updated aid: {}'.format(aid.name)))
+
+                            except Exception as e:
+                                self.stdout.write(self.style.ERROR(
+                                    'Cannot update aid {}: {}'.format(aid.name, e)))
 
                     except Exception as e:
                         self.stdout.write(self.style.ERROR(
-                            'Cannot update aid {}: {}'.format(aid.name, e)))
+                            'Cannot import aid {}: {}'.format(aid.name, e)))
 
-                except Exception as e:
-                    self.stdout.write(self.style.ERROR(
-                        'Cannot import aid {}: {}'.format(aid.name, e)))
-
-        success_message = '{} aides total, {} aides crées, {} aids maj'.format(
-            len(aids_and_related_objects), created_counter, updated_counter)
+        success_message = '{} aides total, {} aides crées, {} aides maj, {} aides maj auto'.format(
+            len(aids_and_related_objects), created_counter, updated_counter, automatic_updated_counter)  # noqa
         self.stdout.write(self.style.SUCCESS(success_message))
 
         # log the results (works only for DataSource imports)
@@ -129,7 +188,7 @@ class BaseImportCommand(BaseCommand):
             'author_id',
             'import_data_source', 'is_imported', 'import_uniqueid',
             'import_data_url', 'import_share_licence', 'import_last_access',
-            'import_raw_object',
+            'import_raw_object', 'import_raw_object_calendar',
             'date_published'
         ]
         fields = form_fields + more_fields
