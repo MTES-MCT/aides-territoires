@@ -7,8 +7,12 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from import_export.admin import ImportExportActionModelAdmin
+from import_export.formats import base_formats
+
 from core.admin import InputFilter
 from core.constants import YES_NO_CHOICES
+from accounts.resources import UserResource
 from aids.models import Aid
 from accounts.models import User, UserLastConnexion
 
@@ -97,9 +101,11 @@ class UserAdminForm(forms.ModelForm):
         max_length=256)
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
     """Admin module for users."""
 
+    resource_class = UserResource
+    formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         'email', 'first_name', 'last_name', 'contributor_organization',
         'is_contributor', 'nb_aids',

@@ -131,11 +131,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Contributors related data
     contributor_organization = models.CharField(
-        'Organisme',
+        'Organisme (ancien champ)',
         max_length=128,
         blank=True)
     contributor_role = models.CharField(
-        'Rôle',
+        'Rôle (ancien champ)',
         max_length=128,
         blank=True)
     contributor_contact_phone = models.CharField(
