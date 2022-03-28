@@ -1,9 +1,8 @@
-from django.template.loader import render_to_string
 from django.conf import settings
 
 from core.celery import app
 from accounts.models import User
-from emails.utils import send_email
+from emails.utils import send_email_with_template
 
 
 @app.task
