@@ -493,8 +493,6 @@ class BaseAidAdmin(FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.M
             obj.import_raw_object_temp = None
 
         if obj.import_raw_object_temp_calendar:
-            print(yes)
-            import ipdb; ipdb.set_trace();
             obj.import_raw_object_calendar = obj.import_raw_object_temp_calendar
             obj.import_raw_object_temp_calendar = None
 
