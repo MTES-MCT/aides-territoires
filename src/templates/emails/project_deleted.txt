@@ -1,0 +1,6 @@
+Bonjour {{ user_name }},
+
+{{ eraser_name }} a supprimé le projet {{ project_name }} sur Aides-territoires.
+
+Cordialement,
+L'équipe d'Aides-territoires.

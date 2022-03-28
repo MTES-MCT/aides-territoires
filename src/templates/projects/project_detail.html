@@ -148,7 +148,7 @@
                 <p>
                   <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag fr-fi-search-line">&nbsp;Trouver des aides pour ce projet</a>
                 </p>
-                <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal">
+                <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
                   Supprimer ce projet
                 </button>
                 <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left" href="{% url 'project_update_view' project.pk %}">
@@ -163,16 +163,10 @@
 {% endblock %}
 
 {% block modals %}
-    {% include 'projects/_delete_project_modal.html' %}
+    {% include 'projects/_delete_project_modal.html' with project=project.pk %}
     {% if aid_set %}
     {% for aid in aid_set %}    
         {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
     {% endfor %}
     {% endif %}
-{% endblock %}
-
-{% block extra_js %}
-{% compress js %}
-<script src="/static/js/aids/disable_delete_button.js"></script>
-{% endcompress %}
 {% endblock %}
