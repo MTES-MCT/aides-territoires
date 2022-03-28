@@ -650,6 +650,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
 
             # associate this new project's object to the aid
             aid.projects.add(project.pk, through_defaults={'creator': self.request.user})
+            aid.date_updated = aid.date_updated
             aid.save()
             project_url = reverse('project_detail_view', args=[project.pk, project.slug])
             msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}<a> a bien été créé et l'aide a été associée."  # noqa
@@ -671,7 +672,7 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get('project-pk'))
         aid.projects.remove(project_pk)
-
+        aid.date_updated = aid.date_updated
         aid.save()
 
         msg = "L'aide a bien été supprimée."

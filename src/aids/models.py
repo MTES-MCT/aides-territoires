@@ -445,7 +445,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         default=timezone.now)
     date_updated = models.DateTimeField(
         'Date de mise à jour',
-        auto_now=True)
+        default=timezone.now)
     date_published = models.DateTimeField(
         'Première date de publication',
         null=True, blank=True)
