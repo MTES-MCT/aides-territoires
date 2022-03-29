@@ -21,8 +21,6 @@ def attach_perimeters_async(perimeter_id: int, city_codes: list, user_id: int):
     print("attach_perimeters_async start")
     attach_perimeters(adhoc_perimeter, city_codes)
     print("attach_perimeters_async done")
-    attach_perimeter_confirmation_email(user_id, adhoc_perimeter.name)
-    print("attach_perimeters_async email sent")
 
 @app.task
 def attach_perimeter_confirmation_email(user_id: int, perimeter_name: str):
