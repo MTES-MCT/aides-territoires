@@ -286,7 +286,7 @@ class UserLastConnexionAdmin(admin.ModelAdmin):
     def last_connexion_with_seconds(self, obj):
         return obj.last_connexion.strftime("%d %b %Y %H:%M:%S")
     last_connexion_with_seconds.short_description = 'Dernière connexion'
-    last_connexion_with_seconds.admin_order_field = 'Dernière connexion'
+    last_connexion_with_seconds.admin_order_field = 'last_connexion'
 
 
 admin.site.register(User, UserAdmin)
