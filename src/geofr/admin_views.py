@@ -1,11 +1,8 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
-from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from braces.views import MessageMixin
-from django.utils.safestring import mark_safe
-from django.contrib import messages
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
@@ -14,6 +11,7 @@ from geofr.utils import (extract_perimeters_from_file,
                          combine_perimeters)
 from geofr.tasks import attach_perimeters_async
 
+SLOW_TASK_TIME_LIMIT = 3600
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
     """Gets a list of city codes and update the corresponding perimeters."""
@@ -46,7 +44,10 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
-            attach_perimeters_async.delay(current_perimeter.id, city_codes, self.request.user.id)
+            attach_perimeters_async.apply_async(
+                args=(current_perimeter.id, city_codes, self.request.user.id),
+                time_limit=SLOW_TASK_TIME_LIMIT
+            )
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
@@ -91,7 +92,10 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = combine_perimeters(add_perimeters, rm_perimeters)
 
-        attach_perimeters_async.delay(current_perimeter.id, list(city_codes), self.request.user.id)
+        attach_perimeters_async.apply_async(
+            args=(current_perimeter.id, list(city_codes), self.request.user.id),
+            time_limit=SLOW_TASK_TIME_LIMIT
+        )
 
         msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
