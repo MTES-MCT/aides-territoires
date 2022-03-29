@@ -4,12 +4,15 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, reverse_lazy
 from braces.views import MessageMixin
+from django.utils.safestring import mark_safe
+from django.contrib import messages
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
 from geofr.utils import (extract_perimeters_from_file,
-                         attach_perimeters, attach_epci_perimeters,
+                         attach_epci_perimeters,
                          combine_perimeters)
+from geofr.tasks import attach_perimeters_async
 
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
@@ -34,7 +37,7 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self, form, request):
         current_perimeter = self.get_object()
         perimeter_type = form.cleaned_data['perimeter_type']
 
@@ -43,7 +46,9 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
-            attach_perimeters(current_perimeter, city_codes)
+            print(request.__dict__)
+            attach_perimeters_async.delay(current_perimeter, city_codes, request)
+            messages.info(request, "Votre périmètre est en cours de création")
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
@@ -97,7 +102,8 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = combine_perimeters(add_perimeters, rm_perimeters)
-        attach_perimeters(current_perimeter, city_codes)
+        attach_perimeters_async.delay(current_perimeter, city_codes)
+        messages.info(request, "Votre périmètre est en cours de création")
 
         msg = _('We successfully configured the perimeter.')
         self.messages.success(msg)
