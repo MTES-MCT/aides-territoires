@@ -112,6 +112,8 @@ def attach_perimeters_main(current_perimeter: Perimeter, city_codes: list, user_
                 (current_perimeter.id, city_codes_chunk, user_id),
             ))
 
+        print(subtasks)
+
         job = group([subtasks])
         result = job.apply_async(time_limit=SLOW_TASK_TIME_LIMIT)
 
