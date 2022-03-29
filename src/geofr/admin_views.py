@@ -1,3 +1,4 @@
+from celery import chunks
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
 from django.utils.translation import gettext_lazy as _
@@ -6,7 +7,7 @@ from braces.views import MessageMixin
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
-from geofr.utils import (extract_perimeters_from_file,
+from geofr.utils import (attach_perimeters_initial_clear, extract_perimeters_from_file,
                          attach_epci_perimeters,
                          combine_perimeters)
 from geofr.tasks import attach_perimeters_async
@@ -44,10 +45,17 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
-            attach_perimeters_async.apply_async(
-                args=(current_perimeter.id, city_codes, self.request.user.id),
-                time_limit=SLOW_TASK_TIME_LIMIT
-            )
+            attach_perimeters_initial_clear(current_perimeter.id)
+
+            count = 0
+            CHUNK_SIZE = 1000
+            while count < len(city_codes):
+                city_codes_chunk=city_codes[count:count+CHUNK_SIZE]
+                attach_perimeters_async.apply_async(
+                    args=(current_perimeter.id, city_codes_chunk, self.request.user.id),
+                    time_limit=SLOW_TASK_TIME_LIMIT
+                )
+                count += CHUNK_SIZE
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
@@ -90,12 +98,17 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         current_perimeter = self.get_object()
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
-        city_codes = combine_perimeters(add_perimeters, rm_perimeters)
+        city_codes = list(combine_perimeters(add_perimeters, rm_perimeters))
 
-        attach_perimeters_async.apply_async(
-            args=(current_perimeter.id, list(city_codes), self.request.user.id),
-            time_limit=SLOW_TASK_TIME_LIMIT
-        )
+        attach_perimeters_initial_clear(current_perimeter.id)
+        count = 0
+        CHUNK_SIZE = 1000
+        while count < len(city_codes):
+            city_codes_chunk=city_codes[count:count+CHUNK_SIZE]
+            attach_perimeters_async.apply_async(
+                args=(current_perimeter.id, city_codes_chunk, self.request.user.id),
+                time_limit=SLOW_TASK_TIME_LIMIT
+            )
 
         msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)

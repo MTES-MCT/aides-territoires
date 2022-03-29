@@ -126,6 +126,15 @@ def attach_epci_perimeters(adhoc, epci_names):
     # finally call the usual attach_perimeters method
     attach_perimeters(adhoc, city_codes)
 
+def attach_perimeters_initial_clear(adhoc_perimeter_id: int):
+    """
+    Delete existing links
+    This function must be excuted before attach_perimeters
+    """
+    PerimeterContainedIn = Perimeter.contained_in.through
+    PerimeterContainedIn.objects \
+        .filter(to_perimeter_id=adhoc_perimeter_id) \
+        .delete()
 
 @transaction.atomic
 def attach_perimeters(adhoc, city_codes):
@@ -139,11 +148,8 @@ def attach_perimeters(adhoc, city_codes):
     "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
     "Occitanie".contained_in…
     """
-    # Delete existing links
+
     PerimeterContainedIn = Perimeter.contained_in.through
-    PerimeterContainedIn.objects \
-        .filter(to_perimeter_id=adhoc.id) \
-        .delete()
 
     # Fetch perimeters corresponding to the given city codes
     perimeters = query_cities_from_list(city_codes) \
