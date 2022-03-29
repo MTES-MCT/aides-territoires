@@ -15,16 +15,22 @@ def count_by_department():
     management.call_command("count_by_department")
 
 @app.task
-def attach_perimeters_async(perimeter_id: int, city_codes: set, user_id: int):
+def attach_perimeters_async(perimeter_id: int, city_codes: list, user_id: int):
     """Attach perimeters with delay."""
     adhoc_perimeter = Perimeter.objects.get(id=perimeter_id)
+    print("attach_perimeters_async start")
     attach_perimeters(adhoc_perimeter, city_codes)
+    print("attach_perimeters_async done")
+    attach_perimeter_confirmation_email(user_id, adhoc_perimeter.name)
+    print("attach_perimeters_async email sent")
 
+@app.task
+def attach_perimeter_confirmation_email(user_id: int, perimeter_name: str):
     user = User.objects.get(id=user_id)
     body_template = "emails/import_perimeter_success.txt"
     login_email_body = render_to_string(body_template, {
         'user_name': user.full_name,
-        'perimeter_name': adhoc_perimeter.name
+        'perimeter_name': perimeter_name
     })
 
     send_email(

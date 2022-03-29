@@ -55,17 +55,7 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
                 form.cleaned_data['epci_name_list'])
             attach_epci_perimeters(current_perimeter, epci_names)
 
-        msg = format_html(
-            _('The {name} “{obj}” was changed successfully.'),
-            name=_('Perimeter'),
-            obj=format_html(
-                '<a href="{obj_url}">{obj_name}</a>',
-                obj_url=reverse(
-                    'admin:geofr_perimeter_change', args=[current_perimeter.id]
-                ),
-                obj_name=current_perimeter
-            )
-        )
+        msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
         return super().form_valid(form)
 
@@ -100,9 +90,11 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = combine_perimeters(add_perimeters, rm_perimeters)
-        attach_perimeters_async.delay(current_perimeter, city_codes)
-        messages.info(request, "Votre périmètre est en cours de création")
 
-        msg = _('We successfully configured the perimeter.')
+        attach_perimeters_async.delay(current_perimeter.id, list(city_codes), self.request.user.id)
+
+        msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
+        print("form valid")
+
         return super().form_valid(form)
