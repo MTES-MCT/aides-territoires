@@ -37,7 +37,7 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
 
-    def form_valid(self, form, request):
+    def form_valid(self, form):
         current_perimeter = self.get_object()
         perimeter_type = form.cleaned_data['perimeter_type']
 
@@ -46,9 +46,7 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
-            print(request.__dict__)
-            attach_perimeters_async.delay(current_perimeter, city_codes, request)
-            messages.info(request, "Votre périmètre est en cours de création")
+            attach_perimeters_async.delay(current_perimeter.id, city_codes, self.request.user.id)
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
