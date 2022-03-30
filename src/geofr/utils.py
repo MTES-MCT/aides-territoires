@@ -197,3 +197,44 @@ def combine_perimeters(add_perimeters, rm_perimeters):
         .values_list('code', flat=True)
 
     return set(in_city_codes) - set(out_city_codes)
+
+@transaction.atomic
+def attach_perimeters_classic(adhoc, city_codes):
+    """Attach an ad-hoc perimeter to other perimeters.
+
+    This function makes sure the `adhoc` perimeter is added to the
+    `contained_in` list of all perimeters corresponding to the `city_codes`.
+
+    E.g if we want to attach the "Communes littorales" Ad-hoc perimeter to the
+    "Vic-la-Gardiole" city perimeter, we add "Communes littorales" to
+    "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
+    "Occitanie".contained_in…
+    """
+    # Delete existing links
+    PerimeterContainedIn = Perimeter.contained_in.through
+    PerimeterContainedIn.objects \
+        .filter(to_perimeter_id=adhoc.id) \
+        .delete()
+
+    # Fetch perimeters corresponding to the given city codes
+    perimeters = query_cities_from_list(city_codes) \
+        .prefetch_related('contained_in')
+
+    # Put the adhoc perimeter in the cities `contained_in` lists
+    containing = []
+    for perimeter in perimeters:
+        containing.append(PerimeterContainedIn(
+            from_perimeter_id=perimeter.id,
+            to_perimeter_id=adhoc.id))
+
+        # Perimeters that contain the cities must contain the adhoc perimeter
+        # except for France and Europe.
+        for container in perimeter.contained_in.all():
+            if container != adhoc and container.scale <= Perimeter.SCALES.adhoc:
+                containing.append(PerimeterContainedIn(
+                    from_perimeter_id=container.id,
+                    to_perimeter_id=adhoc.id))
+
+    # Bulk create the links
+    PerimeterContainedIn.objects.bulk_create(
+        containing, ignore_conflicts=True)
