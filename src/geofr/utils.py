@@ -1,4 +1,5 @@
 import collections
+import logging
 
 from django.db import transaction
 from django.db.models import Q
@@ -212,34 +213,40 @@ def attach_perimeters_classic(adhoc, city_codes):
     """
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
-    PerimeterContainedIn.objects \
-        .filter(to_perimeter_id=adhoc.id) \
-        .delete()
+    PerimeterContainedIn.objects.filter(to_perimeter_id=adhoc.id).delete()
 
     # Fetch perimeters corresponding to the given city codes
-    perimeters = query_cities_from_list(city_codes) \
-        .prefetch_related('contained_in')
+    perimeters = query_cities_from_list(city_codes).prefetch_related("contained_in")
+    logging.debug(f"{perimeters} perimeters found to attach.")
 
     # Put the adhoc perimeter in the cities `contained_in` lists
     containing = []
     count = 0
     for perimeter in perimeters:
-        containing.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter.id,
-            to_perimeter_id=adhoc.id))
+        containing.append(
+            PerimeterContainedIn(
+                from_perimeter_id=perimeter.id, to_perimeter_id=adhoc.id
+            )
+        )
 
         # Perimeters that contain the cities must contain the adhoc perimeter
         # except for France and Europe.
         for container in perimeter.contained_in.all():
             if container != adhoc and container.scale <= Perimeter.SCALES.adhoc:
-                containing.append(PerimeterContainedIn(
-                    from_perimeter_id=container.id,
-                    to_perimeter_id=adhoc.id))
+                containing.append(
+                    PerimeterContainedIn(
+                        from_perimeter_id=container.id, to_perimeter_id=adhoc.id
+                    )
+                )
 
-        count +=1
+        count += 1
         if not (count % 500):
-            print(f"{count} perimeters done")
+            logging.debug(f"{count} perimeters done")
 
     # Bulk create the links
-    PerimeterContainedIn.objects.bulk_create(
-        containing, ignore_conflicts=True)
+    PerimeterContainedIn.objects.bulk_create(containing, ignore_conflicts=True)
+
+    logging.debug(
+        f"""Import finished.
+        {count} perimeters attached to Ad-hoc perimeter {adhoc.name} ({adhoc.id})"""
+    )
