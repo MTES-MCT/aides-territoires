@@ -222,6 +222,7 @@ def attach_perimeters_classic(adhoc, city_codes):
 
     # Put the adhoc perimeter in the cities `contained_in` lists
     containing = []
+    count = 0
     for perimeter in perimeters:
         containing.append(PerimeterContainedIn(
             from_perimeter_id=perimeter.id,
@@ -234,6 +235,10 @@ def attach_perimeters_classic(adhoc, city_codes):
                 containing.append(PerimeterContainedIn(
                     from_perimeter_id=container.id,
                     to_perimeter_id=adhoc.id))
+
+        count +=1
+        if not (count % 500):
+            print(f"{count} perimeters done")
 
     # Bulk create the links
     PerimeterContainedIn.objects.bulk_create(
