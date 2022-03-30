@@ -272,6 +272,11 @@ CORS_URLS_REGEX = r'^/api/.*$'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse',
@@ -282,13 +287,22 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
-        }
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
     },
     'loggers': {
         'aidesterritoires': {
             'handlers': ['mail'],
             'level': 'INFO',
-        }
+        },
+        'console_log': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+
     }
 }
 

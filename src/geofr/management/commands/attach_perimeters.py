@@ -14,12 +14,14 @@ class Command(BaseCommand):
         parser.add_argument("--perimeter_id", type=int)
 
     def handle(self, *args, **options):
-        FORMAT = "%(asctime)s %(message)s"
+        logger = logging.getLogger('console_log')
         verbosity = int(options["verbosity"])
         if verbosity > 1:
-            logging.basicConfig(level=logging.DEBUG, format=FORMAT)
+            logger.setLevel(logging.DEBUG)
         else:
-            logging.basicConfig(level=logging.INFO, format=FORMAT)
+            logger.setLevel(logging.INFO)
+
+        logger.debug("Command attach_perimeters starting")
 
         file_path = os.path.abspath(options["filename"])
         with open(file_path) as f:
@@ -29,7 +31,7 @@ class Command(BaseCommand):
                 city_codes.append(line.strip())
 
         adhoc_perimeter = Perimeter.objects.get(id=options["perimeter_id"])
-        logging.debug(
+        logger.debug(
             f"Attaching perimeters for {adhoc_perimeter.name} ({adhoc_perimeter.id})"
         )
-        attach_perimeters_classic(adhoc_perimeter, city_codes)
+        attach_perimeters_classic(adhoc_perimeter, city_codes, logger)

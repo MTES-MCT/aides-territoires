@@ -200,7 +200,7 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     return set(in_city_codes) - set(out_city_codes)
 
 @transaction.atomic
-def attach_perimeters_classic(adhoc, city_codes):
+def attach_perimeters_classic(adhoc, city_codes, logger=None):
     """Attach an ad-hoc perimeter to other perimeters.
 
     This function makes sure the `adhoc` perimeter is added to the
@@ -211,13 +211,16 @@ def attach_perimeters_classic(adhoc, city_codes):
     "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
     "Occitanie".contained_in…
     """
+    if not logger:
+        logger = logging.getLogger(logger)
+
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
     PerimeterContainedIn.objects.filter(to_perimeter_id=adhoc.id).delete()
 
     # Fetch perimeters corresponding to the given city codes
     perimeters = query_cities_from_list(city_codes).prefetch_related("contained_in")
-    logging.debug(f"{perimeters} perimeters found to attach.")
+    logger.info(f"{perimeters.count()} perimeters found to attach.")
 
     # Put the adhoc perimeter in the cities `contained_in` lists
     containing = []
@@ -241,12 +244,12 @@ def attach_perimeters_classic(adhoc, city_codes):
 
         count += 1
         if not (count % 500):
-            logging.debug(f"{count} perimeters done")
+            logger.debug(f"{count} perimeters done")
 
     # Bulk create the links
     PerimeterContainedIn.objects.bulk_create(containing, ignore_conflicts=True)
 
-    logging.debug(
+    logger.debug(
         f"""Import finished.
         {count} perimeters attached to Ad-hoc perimeter {adhoc.name} ({adhoc.id})"""
     )
