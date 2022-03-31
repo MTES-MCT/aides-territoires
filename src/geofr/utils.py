@@ -4,6 +4,7 @@ import logging
 from django.db import transaction
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter, PerimeterImport
@@ -81,7 +82,7 @@ def get_all_related_perimeter_ids(search_perimeter_id):
     return perimeter_qs
 
 
-def extract_perimeters_from_file(perimeter_list_file):
+def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> list:
     item_list = []
 
     # extract items
@@ -137,10 +138,11 @@ def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logg
     """
 
     if not logger:
-        logger = logging.getLogger(logger)
+        logger = logging.getLogger(__name__)
 
+    logger.info(f"{len(city_codes)} city codes found")
     if len(city_codes) > 10000:
-        logger.info(f"{len(city_codes)} city codes found")
+        logger.info(f"Creating PerimeterImport object")
 
         PerimeterImport.objects.create(
             adhoc_perimeter=adhoc,
@@ -148,7 +150,8 @@ def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logg
             author=user
         )
     else:
-        attach_perimeters(adhoc, city_codes)
+        logger.info(f"Calling attach_perimeters function")
+        attach_perimeters(adhoc, city_codes, logger)
 
 
 @transaction.atomic
@@ -163,12 +166,18 @@ def attach_perimeters(adhoc, city_codes, logger=None):
     "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
     "Occitanie".contained_in…
     """
+    # Define logger
+    if not logger:
+        logger = logging.getLogger(__name__)
+
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
     PerimeterContainedIn.objects.filter(to_perimeter_id=adhoc.id).delete()
 
     # Fetch perimeters corresponding to the given city codes
     perimeters = query_cities_from_list(city_codes).prefetch_related("contained_in")
+
+    logger.info(f"{perimeters.count()} perimeters found")
 
     # Put the adhoc perimeter in the cities `contained_in` lists
     containing = []
@@ -192,12 +201,12 @@ def attach_perimeters(adhoc, city_codes, logger=None):
 
         count += 1
         if not (count % 500):
-            logger.debug(f"{count} perimeters done")
+            logger.info(f"{count} perimeters done")
 
     # Bulk create the links
     PerimeterContainedIn.objects.bulk_create(containing, ignore_conflicts=True)
 
-    logger.debug(
+    logger.info(
         f"""Import finished.
         {count} perimeters attached to Ad-hoc perimeter {adhoc.name} ({adhoc.id})"""
     )
