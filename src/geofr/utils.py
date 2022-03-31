@@ -6,7 +6,8 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
-from geofr.models import Perimeter
+from geofr.models import Perimeter, PerimeterImport
+from accounts.models import User
 
 
 def department_from_zipcode(zipcode):
@@ -119,108 +120,56 @@ def query_epcis_from_list(epci_names_list):
         .filter(scale=Perimeter.SCALES.epci)
 
 
-def attach_epci_perimeters(adhoc, epci_names):
+def attach_epci_perimeters(adhoc, epci_names, user):
     # first get the epci_query from the epci_names list
     epci_query = query_epcis_from_list(epci_names)
     # get the city_codes list from these epci perimeters
     city_codes = combine_perimeters(epci_query, [])
-    # finally call the usual attach_perimeters method
-    attach_perimeters(adhoc, city_codes)
+    # finally call the usual attach_perimeters_check method
+    attach_perimeters_check(adhoc, city_codes, user)
 
-def attach_perimeters_initial_clear(adhoc_perimeter_id: int):
+
+def attach_perimeters_check(adhoc:Perimeter, city_codes:list, user:User, logger=None):
     """
-    Delete existing links
-    This function must be excuted before attach_perimeters
-    """
-    PerimeterContainedIn = Perimeter.contained_in.through
-    PerimeterContainedIn.objects \
-        .filter(to_perimeter_id=adhoc_perimeter_id) \
-        .delete()
-
-@transaction.atomic
-def attach_perimeters(adhoc, city_codes):
-    """Attach an ad-hoc perimeter to other perimeters.
-
-    This function makes sure the `adhoc` perimeter is added to the
-    `contained_in` list of all perimeters corresponding to the `city_codes`.
-
-    E.g if we want to attach the "Communes littorales" Ad-hoc perimeter to the
-    "Vic-la-Gardiole" city perimeter, we add "Communes littorales" to
-    "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
-    "Occitanie".contained_in…
+    Check the numbers of city codes to import
+    If it is to high, create PerimeterImport object
+    Else run attach_perimeters function
     """
 
-    PerimeterContainedIn = Perimeter.contained_in.through
-
-    # Fetch perimeters corresponding to the given city codes
-    perimeters = query_cities_from_list(city_codes) \
-        .prefetch_related('contained_in')
-    print(f"{perimeters.count()} perimeters fetched")
-
-    # Put the adhoc perimeter in the cities `contained_in` lists
-    containing = []
-    count = 0
-    for perimeter in perimeters:
-        containing.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter.id,
-            to_perimeter_id=adhoc.id))
-
-        # Perimeters that contain the cities must contain the adhoc perimeter
-        # except for France and Europe.
-        for container in perimeter.contained_in.all():
-            if container != adhoc and container.scale <= Perimeter.SCALES.adhoc:
-                containing.append(PerimeterContainedIn(
-                    from_perimeter_id=container.id,
-                    to_perimeter_id=adhoc.id))
-
-        count +=1
-        if not (count % 500):
-            print(f"{count} perimeters done")
-    # Bulk create the links
-    PerimeterContainedIn.objects.bulk_create(
-        containing, ignore_conflicts=True)
-
-
-def combine_perimeters(add_perimeters, rm_perimeters):
-    """Combine perimeters to extract some city codes.
-
-    Return the city codes that are in `add_perimeters` and not in
-    `rm_perimeters`.
-    """
-    in_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.SCALES.commune) \
-        .filter(contained_in__in=add_perimeters) \
-        .values_list('code', flat=True)
-
-    out_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.SCALES.commune) \
-        .filter(contained_in__in=rm_perimeters) \
-        .values_list('code', flat=True)
-
-    return set(in_city_codes) - set(out_city_codes)
-
-@transaction.atomic
-def attach_perimeters_classic(adhoc, city_codes, logger=None):
-    """Attach an ad-hoc perimeter to other perimeters.
-
-    This function makes sure the `adhoc` perimeter is added to the
-    `contained_in` list of all perimeters corresponding to the `city_codes`.
-
-    E.g if we want to attach the "Communes littorales" Ad-hoc perimeter to the
-    "Vic-la-Gardiole" city perimeter, we add "Communes littorales" to
-    "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
-    "Occitanie".contained_in…
-    """
     if not logger:
         logger = logging.getLogger(logger)
 
+    if len(city_codes) > 10000:
+        logger.info(f"{len(city_codes)} city codes found")
+        perimeter_id = adhoc
+
+        PerimeterImport.objects.create(
+            adhoc_perimeter = adhoc,
+            city_codes = city_codes,
+            author = user
+        )
+    else:
+        attach_perimeters(adhoc, city_codes)
+
+
+@transaction.atomic
+def attach_perimeters(adhoc, city_codes, logger=None):
+    """Attach an ad-hoc perimeter to other perimeters.
+
+    This function makes sure the `adhoc` perimeter is added to the
+    `contained_in` list of all perimeters corresponding to the `city_codes`.
+
+    E.g if we want to attach the "Communes littorales" Ad-hoc perimeter to the
+    "Vic-la-Gardiole" city perimeter, we add "Communes littorales" to
+    "Vic-la-Gardiole".contained_in, but also to "Herault".contained_in,
+    "Occitanie".contained_in…
+    """
     # Delete existing links
     PerimeterContainedIn = Perimeter.contained_in.through
     PerimeterContainedIn.objects.filter(to_perimeter_id=adhoc.id).delete()
 
     # Fetch perimeters corresponding to the given city codes
     perimeters = query_cities_from_list(city_codes).prefetch_related("contained_in")
-    logger.info(f"{perimeters.count()} perimeters found to attach.")
 
     # Put the adhoc perimeter in the cities `contained_in` lists
     containing = []
@@ -253,3 +202,22 @@ def attach_perimeters_classic(adhoc, city_codes, logger=None):
         f"""Import finished.
         {count} perimeters attached to Ad-hoc perimeter {adhoc.name} ({adhoc.id})"""
     )
+
+
+def combine_perimeters(add_perimeters, rm_perimeters):
+    """Combine perimeters to extract some city codes.
+
+    Return the city codes that are in `add_perimeters` and not in
+    `rm_perimeters`.
+    """
+    in_city_codes = Perimeter.objects \
+        .filter(scale=Perimeter.SCALES.commune) \
+        .filter(contained_in__in=add_perimeters) \
+        .values_list('code', flat=True)
+
+    out_city_codes = Perimeter.objects \
+        .filter(scale=Perimeter.SCALES.commune) \
+        .filter(contained_in__in=rm_perimeters) \
+        .values_list('code', flat=True)
+
+    return set(in_city_codes) - set(out_city_codes)

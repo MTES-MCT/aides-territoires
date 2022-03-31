@@ -19,7 +19,7 @@ def attach_perimeters_async(perimeter_id: int, city_codes: list, user_id: int):
     """Attach perimeters with delay."""
     adhoc_perimeter = Perimeter.objects.get(id=perimeter_id)
     print("attach_perimeters_async start")
-    attach_perimeters(adhoc_perimeter, city_codes)
+    attach_perimeters_check(adhoc_perimeter, city_codes)
     print("attach_perimeters_async done")
 
 @app.task

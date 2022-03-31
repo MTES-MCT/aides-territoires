@@ -2,16 +2,12 @@ import logging
 import os
 from django.core.management.base import BaseCommand
 
-from geofr.models import Perimeter
-from geofr.utils import attach_perimeters_classic
+from geofr.models import PerimeterImport
+from geofr.utils import attach_perimeters
 
 
 class Command(BaseCommand):
     """Attach perimeters that belong in a adhoc perimeter"""
-
-    def add_arguments(self, parser):
-        parser.add_argument("--filename", type=str)
-        parser.add_argument("--perimeter_id", type=int)
 
     def handle(self, *args, **options):
         logger = logging.getLogger('console_log')
@@ -23,15 +19,13 @@ class Command(BaseCommand):
 
         logger.debug("Command attach_perimeters starting")
 
-        file_path = os.path.abspath(options["filename"])
-        with open(file_path) as f:
-            lines = f.readlines()
-            city_codes = []
-            for line in lines:
-                city_codes.append(line.strip())
+        perimeters_to_import = PerimeterImport.objects.filter(is_imported=False)
 
-        adhoc_perimeter = Perimeter.objects.get(id=options["perimeter_id"])
-        logger.debug(
-            f"Attaching perimeters for {adhoc_perimeter.name} ({adhoc_perimeter.id})"
-        )
-        attach_perimeters_classic(adhoc_perimeter, city_codes, logger)
+        for perimeter_to_import in perimeters_to_import:
+            logger.info(
+                f"Attaching perimeters for {perimeter_to_import}"
+            )
+            attach_perimeters(
+                perimeter_to_import.adhoc_perimeter,
+                perimeter_to_import.city_codes,
+                logger)
