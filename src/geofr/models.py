@@ -176,6 +176,7 @@ class Perimeter(models.Model):
         self.unaccented_name = remove_accents(self.name)
         return super().save(*args, **kwargs)
 
+
 class PerimeterImport(models.Model):
     """
     Represents the necessary data to run an Import task for a big perimeter.
@@ -191,7 +192,7 @@ class PerimeterImport(models.Model):
             verbose_name="périmètres contenus",
             help_text="Liste d'identifiants INSEE de communes",
     )
-    author =  models.ForeignKey(
+    author = models.ForeignKey(
         'accounts.User',
         verbose_name="Auteur",
         on_delete=models.PROTECT,

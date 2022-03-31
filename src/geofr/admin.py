@@ -139,10 +139,16 @@ class PerimeterAdmin(admin.ModelAdmin):
         return super().change_view(
             request, object_id, form_url=form_url, extra_context=context)
 
+
 class PerimeterImportAdmin(admin.ModelAdmin):
     """Admin module for perimeters."""
     list_display = [
-        '__str__', 'adhoc_perimeter', 'is_imported', 'date_imported', 'date_created', 'date_updated']
+        '__str__',
+        'adhoc_perimeter',
+        'is_imported',
+        'date_imported',
+        'date_created',
+        'date_updated']
     list_filter = ['is_imported']
     search_fields = ['id', '__str__', 'adhoc_perimeter__name']
     ordering = ['-date_created']

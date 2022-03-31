@@ -1,8 +1,5 @@
-from celery import group
-
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from braces.views import MessageMixin
 
@@ -54,7 +51,8 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
                 form.cleaned_data['epci_name_list'])
             attach_epci_perimeters(current_perimeter, epci_names, self.request.user)
 
-        msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
+        msg = "Votre périmètre est en cours de création. \
+               Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
         return super().form_valid(form)
 
@@ -91,8 +89,8 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         city_codes = list(combine_perimeters(add_perimeters, rm_perimeters))
         attach_perimeters_check(current_perimeter, city_codes, self.request.user)
 
-
-        msg = "Votre périmètre est en cours de création. Un email vous sera envoyé quand cela sera terminé."
+        msg = "Votre périmètre est en cours de création. \
+               Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
         print("form valid")
 

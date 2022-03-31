@@ -129,7 +129,7 @@ def attach_epci_perimeters(adhoc, epci_names, user):
     attach_perimeters_check(adhoc, city_codes, user)
 
 
-def attach_perimeters_check(adhoc:Perimeter, city_codes:list, user:User, logger=None):
+def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logger=None):
     """
     Check the numbers of city codes to import
     If it is to high, create PerimeterImport object
@@ -141,12 +141,11 @@ def attach_perimeters_check(adhoc:Perimeter, city_codes:list, user:User, logger=
 
     if len(city_codes) > 10000:
         logger.info(f"{len(city_codes)} city codes found")
-        perimeter_id = adhoc
 
         PerimeterImport.objects.create(
-            adhoc_perimeter = adhoc,
-            city_codes = city_codes,
-            author = user
+            adhoc_perimeter=adhoc,
+            city_codes=city_codes,
+            author=user
         )
     else:
         attach_perimeters(adhoc, city_codes)
