@@ -1,6 +1,7 @@
 import logging
 import os
 from django.core.management.base import BaseCommand
+import django.utils.timezone
 
 from geofr.models import PerimeterImport
 from geofr.utils import attach_perimeters
@@ -29,3 +30,7 @@ class Command(BaseCommand):
                 perimeter_to_import.adhoc_perimeter,
                 perimeter_to_import.city_codes,
                 logger)
+            
+            perimeter_to_import.is_imported = True
+            perimeter_to_import.date_imported = timezone.now()
+            perimeter_to_import.save()
