@@ -3,8 +3,11 @@ from django.utils.html import format_html
 from django.urls import reverse
 
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+from import_export.admin import ImportExportActionModelAdmin
+from import_export.formats import base_formats
 
 from organizations.models import Organization
+from organizations.resources import OrganizationResource
 from aids.constants import AUDIENCES_ALL
 from projects.models import Project
 
@@ -25,8 +28,10 @@ class OrganizationTypeListFilter(admin.SimpleListFilter):
         return queryset
 
 
-class OrganizationAdmin(admin.ModelAdmin):
+class OrganizationAdmin(ImportExportActionModelAdmin):
 
+    resource_class = OrganizationResource
+    formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ['name', 'date_created']
     search_fields = ['name']
     list_filter = [OrganizationTypeListFilter]
