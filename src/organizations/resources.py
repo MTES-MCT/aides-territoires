@@ -1,9 +1,6 @@
-
 from import_export import fields, resources
-from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
 from projects.models import Project
-from accounts.models import User
 from organizations.models import Organization
 
 
