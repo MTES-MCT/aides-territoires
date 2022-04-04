@@ -121,13 +121,14 @@ def query_epcis_from_list(epci_names_list):
         .filter(scale=Perimeter.SCALES.epci)
 
 
-def attach_epci_perimeters(adhoc: Perimeter, epci_names: list, user: User) -> None:
+def attach_epci_perimeters(adhoc: Perimeter, epci_names: list, user: User) -> dict:
     # first get the epci_query from the epci_names list
     epci_query = query_epcis_from_list(epci_names)
     # get the city_codes list from these epci perimeters
     city_codes = combine_perimeters(epci_query, [])
     # finally call the usual attach_perimeters_check method
-    attach_perimeters_check(adhoc, city_codes, user)
+    result = attach_perimeters_check(adhoc, city_codes, user)
+    return result
 
 
 def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logger=None) -> dict:

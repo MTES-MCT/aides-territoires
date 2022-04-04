@@ -50,14 +50,15 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             result = attach_perimeters_check(
                 current_perimeter,
                 city_codes,
-                self.request.user,logger)
+                self.request.user,
+                logger)
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
             # The list should be error-free (cleaned in PerimeterUploadForm)
             epci_names = extract_perimeters_from_file(
                 form.cleaned_data['epci_name_list'])
-            attach_epci_perimeters(current_perimeter, epci_names, self.request.user)
+            result = attach_epci_perimeters(current_perimeter, epci_names, self.request.user)
 
         if result['method'] == 'delayed import':
             msg = "Votre périmètre est en cours de création. \
