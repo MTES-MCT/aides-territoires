@@ -1,6 +1,4 @@
 Sample files for PerimeterUpload function.
 
-- the "small" file contains only 5 commune codes
-- the "huge" file contains all the French communes codes
-
-The "invalid" files contain one additional invalid commune code ("74666")
+The "invalid" files adds one additional invalid commune code ("74666") to the
+versions with 5 ("tiny") and all ("huge") city codes.

@@ -14,6 +14,7 @@ import logging
 logger = logging.getLogger('console_log')
 logger.setLevel(logging.DEBUG)
 
+
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
     """Gets a list of city codes and update the corresponding perimeters."""
 
@@ -40,16 +41,16 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
         current_perimeter = self.get_object()
         perimeter_type = form.cleaned_data['perimeter_type']
 
-        print(perimeter_type)
         if perimeter_type == 'city_code':
             # Fetch the list of commune perimeters from the uploaded file
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
 
-            print("(print) Lauching attach_perimeters_check")
-            logger.info("(log) Lauching attach_perimeters_check")
-            attach_perimeters_check(current_perimeter, city_codes, self.request.user, logger)
+            result = attach_perimeters_check(
+                current_perimeter,
+                city_codes,
+                self.request.user,logger)
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
@@ -58,8 +59,11 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
                 form.cleaned_data['epci_name_list'])
             attach_epci_perimeters(current_perimeter, epci_names, self.request.user)
 
-        msg = "Votre périmètre est en cours de création. \
-               Un email vous sera envoyé quand cela sera terminé."
+        if result['method'] == 'delayed import':
+            msg = "Votre périmètre est en cours de création. \
+                Un email vous sera envoyé quand cela sera terminé."
+        else:
+            msg = "Votre périmètre a été créé avec succès."
         self.messages.success(msg)
         return super().form_valid(form)
 

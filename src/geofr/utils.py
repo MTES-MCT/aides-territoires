@@ -121,7 +121,7 @@ def query_epcis_from_list(epci_names_list):
         .filter(scale=Perimeter.SCALES.epci)
 
 
-def attach_epci_perimeters(adhoc, epci_names, user):
+def attach_epci_perimeters(adhoc: Perimeter, epci_names: list, user: User) -> None:
     # first get the epci_query from the epci_names list
     epci_query = query_epcis_from_list(epci_names)
     # get the city_codes list from these epci perimeters
@@ -130,10 +130,10 @@ def attach_epci_perimeters(adhoc, epci_names, user):
     attach_perimeters_check(adhoc, city_codes, user)
 
 
-def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logger=None):
+def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logger=None) -> dict:
     """
-    Check the numbers of city codes to import
-    If it is to high, create PerimeterImport object
+    Checks the numbers of city codes to import
+    If it is too high, create PerimeterImport object
     Else run attach_perimeters function
     """
 
@@ -142,16 +142,19 @@ def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logg
 
     logger.info(f"{len(city_codes)} city codes found")
     if len(city_codes) > 10000:
-        logger.info(f"Creating PerimeterImport object")
+        logger.debug("Creating PerimeterImport object")
 
         PerimeterImport.objects.create(
             adhoc_perimeter=adhoc,
             city_codes=city_codes,
             author=user
         )
+        logger.debug("PerimeterImport object created")
+        return {'method': 'delayed import'}
     else:
-        logger.info(f"Calling attach_perimeters function")
+        logger.debug("Calling attach_perimeters function")
         attach_perimeters(adhoc, city_codes, logger)
+        return {'method': 'direct import'}
 
 
 @transaction.atomic

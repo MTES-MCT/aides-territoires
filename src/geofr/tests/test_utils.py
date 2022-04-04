@@ -72,7 +72,7 @@ def test_attach_perimeters_cleans_old_data(perimeters):
     assert adhoc not in perimeters['rodez'].contained_in.all()
 
 
-def test_attach_epci_perimeters(perimeters):
+def test_attach_epci_perimeters(perimeters,  user):
     """Attaching epci perimeters works as expected."""
 
     epci_1 = PerimeterFactory(
@@ -92,7 +92,8 @@ def test_attach_epci_perimeters(perimeters):
 
     attach_epci_perimeters(
         adhoc,
-        [epci_1.name, epci_2.name])
+        [epci_1.name, epci_2.name],
+        user)
 
     assert adhoc in perimeters['vic'].contained_in.all()
     assert adhoc in perimeters['herault'].contained_in.all()
