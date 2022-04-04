@@ -40,7 +40,7 @@ def browser():
 def user():
     """Generates a valid and active user."""
 
-    user = UserFactory()
+    user = UserFactory(email="sample.user@example.org")
     user_org = Organization(name='Sample Org', perimeter=Perimeter.objects.first())
     user_org.save()
     user.beneficiary_organization_id = user_org.pk
@@ -73,7 +73,7 @@ def contributor():
 def superuser():
     """Generates a valid and active superuser."""
 
-    user = UserFactory()
+    user = UserFactory(email="sample.admin@example.org")
     user.is_superuser = True
     user.save()
     return user

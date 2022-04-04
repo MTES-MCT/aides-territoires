@@ -175,3 +175,47 @@ class Perimeter(models.Model):
     def save(self, *args, **kwargs):
         self.unaccented_name = remove_accents(self.name)
         return super().save(*args, **kwargs)
+
+
+class PerimeterImport(models.Model):
+    """
+    Represents the necessary data to run an Import task for a big perimeter.
+    """
+    adhoc_perimeter = models.ForeignKey(
+        'geofr.Perimeter',
+        verbose_name="périmètre adhoc",
+        on_delete=models.CASCADE,
+        help_text="Périmètre à définir",
+    )
+    city_codes = ArrayField(
+            models.CharField(max_length=5),
+            verbose_name="périmètres contenus",
+            help_text="Liste d'identifiants INSEE de communes",
+    )
+    author = models.ForeignKey(
+        'accounts.User',
+        verbose_name="Auteur",
+        on_delete=models.PROTECT,
+        help_text="Créateur du périmètre",
+    )
+    is_imported = models.BooleanField(
+        "import effectué ?",
+        default=False
+    )
+    date_imported = models.DateTimeField(
+        'date d’import',
+        null=True, blank=True)
+
+    date_created = models.DateTimeField(
+        'Date de création',
+        default=timezone.now)
+    date_updated = models.DateTimeField(
+        'Date de mise à jour',
+        auto_now=True)
+
+    class Meta:
+        verbose_name = "import périmètre"
+        verbose_name_plural = "imports périmètre"
+
+    def __str__(self):
+        return f"{self.id} - {self.adhoc_perimeter.name}"

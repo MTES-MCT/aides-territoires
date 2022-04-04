@@ -1,7 +1,7 @@
 import pytest
 
 from geofr.models import Perimeter
-from geofr.utils import (department_from_zipcode, is_overseas,
+from geofr.utils import (attach_perimeters_check, department_from_zipcode, is_overseas,
                          get_all_related_perimeter_ids,
                          attach_perimeters, attach_epci_perimeters)
 from geofr.factories import PerimeterFactory
@@ -58,6 +58,30 @@ def test_attach_perimeters(perimeters):
     assert adhoc not in perimeters['europe'].contained_in.all()
 
 
+def test_attach_perimeters_check_executes_directly_with_small_list(user):
+    adhoc = PerimeterFactory(
+        name='Communes littorales',
+        scale=Perimeter.SCALES.adhoc)
+    result = attach_perimeters_check(
+        adhoc,
+        ['34333', '97209'],
+        user)
+
+    assert 'direct import' in result['method']
+
+
+def test_attach_perimeters_check_is_delayed_with_big_list(user):
+    adhoc = PerimeterFactory(
+        name='Communes littorales',
+        scale=Perimeter.SCALES.adhoc)
+    result = attach_perimeters_check(
+        adhoc,
+        list(range(10001)),
+        user)
+
+    assert 'delayed import' in result['method']
+
+
 def test_attach_perimeters_cleans_old_data(perimeters):
     """Attaching perimeters removes all other attachments."""
 
@@ -72,7 +96,7 @@ def test_attach_perimeters_cleans_old_data(perimeters):
     assert adhoc not in perimeters['rodez'].contained_in.all()
 
 
-def test_attach_epci_perimeters(perimeters):
+def test_attach_epci_perimeters(perimeters,  user):
     """Attaching epci perimeters works as expected."""
 
     epci_1 = PerimeterFactory(
@@ -92,7 +116,8 @@ def test_attach_epci_perimeters(perimeters):
 
     attach_epci_perimeters(
         adhoc,
-        [epci_1.name, epci_2.name])
+        [epci_1.name, epci_2.name],
+        user)
 
     assert adhoc in perimeters['vic'].contained_in.all()
     assert adhoc in perimeters['herault'].contained_in.all()

@@ -63,7 +63,6 @@ class PerimeterUploadForm(forms.Form):
                     _('List of missing city codes:') + "<br />"
                     + "<br />".join(missing_city_codes))
                 )
-
         return city_code_list_file
 
     def clean_epci_name_list(self):

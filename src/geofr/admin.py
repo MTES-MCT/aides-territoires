@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from geofr.models import Perimeter
+from geofr.models import Perimeter, PerimeterImport
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
 
 
@@ -140,4 +140,20 @@ class PerimeterAdmin(admin.ModelAdmin):
             request, object_id, form_url=form_url, extra_context=context)
 
 
+class PerimeterImportAdmin(admin.ModelAdmin):
+    """Admin module for perimeters."""
+    list_display = [
+        '__str__',
+        'adhoc_perimeter',
+        'is_imported',
+        'date_imported',
+        'date_created',
+        'date_updated']
+    list_filter = ['is_imported']
+    search_fields = ['id', '__str__', 'adhoc_perimeter__name']
+    ordering = ['-date_created']
+    raw_id_fields = ("adhoc_perimeter", "author")
+
+
 admin.site.register(Perimeter, PerimeterAdmin)
+admin.site.register(PerimeterImport, PerimeterImportAdmin)

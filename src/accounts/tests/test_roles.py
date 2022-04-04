@@ -16,9 +16,9 @@ def test_user_role_contributor():
     """Users with 'is_contributor' as True are considered as contributors."""
 
     # user
-    UserFactory(is_contributor=False)
+    UserFactory(is_contributor=False, email="sample.notcontributor@example.org")
     # contributor
-    UserFactory(is_contributor=True)
+    UserFactory(is_contributor=True, email="sample.iscontributor@example.org")
 
     assert User.objects.count() == 2
     assert User.objects.contributors().count() == 1
@@ -28,9 +28,11 @@ def test_user_role_search_page_admin():
     """Users with linked Search Pages are considered as Search Page administrators."""
 
     # user
-    UserFactory(is_contributor=False)
+    UserFactory(is_contributor=False, email="sample.notcontributor2@example.org")
     # search page administrator
-    search_page_administrator = UserFactory(is_contributor=False)
+    search_page_administrator = UserFactory(
+        is_contributor=False,
+        email="sample.notcontributor3@example.org")
     SearchPageFactory(administrator=search_page_administrator)
 
     assert User.objects.count() == 2
@@ -41,7 +43,9 @@ def test_user_role_animator():
     """Users with 'animator_perimeter' filled are considered as local animators."""
 
     # user
-    UserFactory(is_contributor=False)
+    UserFactory(
+        is_contributor=False,
+        email="sample.notcontributor@example.org")
     # local animator
     martinique = PerimeterFactory(name='Martinique', scale=Perimeter.SCALES.region)
     UserFactory(animator_perimeter=martinique)

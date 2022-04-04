@@ -1,0 +1,7 @@
+Bonjour {{ user_name }},
+
+Votre périmètre {{ perimeter_name }} a été défini avec succès.
+
+
+Cordialement,
+L’équipe d’Aides-territoires.

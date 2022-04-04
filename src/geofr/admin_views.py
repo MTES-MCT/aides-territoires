@@ -1,15 +1,18 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
-from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from braces.views import MessageMixin
 
 from geofr.models import Perimeter
 from geofr.forms import PerimeterUploadForm, PerimeterCombineForm
-from geofr.utils import (extract_perimeters_from_file,
-                         attach_perimeters, attach_epci_perimeters,
+from geofr.utils import (attach_perimeters_check, extract_perimeters_from_file,
+                         attach_epci_perimeters,
                          combine_perimeters)
+
+import logging
+
+logger = logging.getLogger('console_log')
+logger.setLevel(logging.DEBUG)
 
 
 class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
@@ -43,26 +46,25 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
             # The list should be error-free (cleaned in PerimeterUploadForm)
             city_codes = extract_perimeters_from_file(
                 form.cleaned_data['city_code_list'])
-            attach_perimeters(current_perimeter, city_codes)
+
+            result = attach_perimeters_check(
+                current_perimeter,
+                city_codes,
+                self.request.user,
+                logger)
 
         elif perimeter_type == 'epci_name':
             # Fetch the list of EPCI perimeters from the uploaded file
             # The list should be error-free (cleaned in PerimeterUploadForm)
             epci_names = extract_perimeters_from_file(
                 form.cleaned_data['epci_name_list'])
-            attach_epci_perimeters(current_perimeter, epci_names)
+            result = attach_epci_perimeters(current_perimeter, epci_names, self.request.user)
 
-        msg = format_html(
-            _('The {name} “{obj}” was changed successfully.'),
-            name=_('Perimeter'),
-            obj=format_html(
-                '<a href="{obj_url}">{obj_name}</a>',
-                obj_url=reverse(
-                    'admin:geofr_perimeter_change', args=[current_perimeter.id]
-                ),
-                obj_name=current_perimeter
-            )
-        )
+        if result['method'] == 'delayed import':
+            msg = "Votre périmètre est en cours de création. \
+                Un email vous sera envoyé quand cela sera terminé."
+        else:
+            msg = "Votre périmètre a été créé avec succès."
         self.messages.success(msg)
         return super().form_valid(form)
 
@@ -96,9 +98,11 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         current_perimeter = self.get_object()
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
-        city_codes = combine_perimeters(add_perimeters, rm_perimeters)
-        attach_perimeters(current_perimeter, city_codes)
+        city_codes = list(combine_perimeters(add_perimeters, rm_perimeters))
+        attach_perimeters_check(current_perimeter, city_codes, self.request.user)
 
-        msg = _('We successfully configured the perimeter.')
+        msg = "Votre périmètre est en cours de création. \
+               Un email vous sera envoyé quand cela sera terminé."
         self.messages.success(msg)
+
         return super().form_valid(form)

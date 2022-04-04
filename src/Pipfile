@@ -60,6 +60,7 @@ rope = "*"
 selenium = "*"
 yapf = "*"
 pytest-xdist = "*"
+ipdb = "*"
 
 [requires]
 python_version = "3.10"
