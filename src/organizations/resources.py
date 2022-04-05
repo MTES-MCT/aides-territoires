@@ -90,7 +90,7 @@ class OrganizationResource(resources.ModelResource):
 
     def dehydrate_projects_number(self, obj):
         projects_number = Project.objects.filter(organizations=obj).count()
-        return projects_number            
+        return projects_number
 
     class Meta:
         model = Organization
