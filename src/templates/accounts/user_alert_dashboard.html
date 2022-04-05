@@ -10,7 +10,8 @@
 {% block breadcrumbs %}
 <div class="fr-container">
     <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
-        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
         <div class="fr-collapse" id="breadcrumb-1">
             <ol class="fr-breadcrumb__list">
                 <li>
@@ -36,7 +37,12 @@
         {% include 'accounts/_sidebar_menu.html' with alert_list=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3 fr-mb-5w">Gestion des alertes et souscriptions</h1>
+            <h1 class="fr-h3 fr-mb-5w">Gestion des alertes et souscriptions
+                <button class="fr-m-1w fr-tag fr-text--sd fr-fi-information-line" id="help-alert-modal-btn"
+                    data-fr-opened="false" aria-controls="help-alert-modal">
+                    <span class="fr-ml-1w">Aide</span>
+                </button>
+            </h1>
 
             <div class="fr-mb-5w">
                 <h2 class="fr-h4">Newsletter</h2>
@@ -48,17 +54,20 @@
                 {% else %}
                 <div class="fr-grid-row fr-grid-row--middle">
                     <div class="fr-col-12 fr-col-md-2 fr-col-lg-2">
-                        <a class="fr-btn fr-mb-1w" href="{% url 'subscribe_newsletter' %}" title="S‘abonner à notre newsletter">
+                        <a class="fr-btn fr-mb-1w" href="{% url 'subscribe_newsletter' %}"
+                            title="S‘abonner à notre newsletter">
                             S'abonner
-                        </a>    
+                        </a>
                     </div>
                     <div class="fr-col-12 fr-col-md-6 fr-col-lg-6">
-                        <p id="fr-newsletter-hint-text" class="fr-hint-text">En vous abonnant, vous acceptez de recevoir nos actualités par courriel. Vous pouvez vous désinscrire à tout moment à l’aide des liens de désinscription ou en nous contactant.</p>
+                        <p id="fr-newsletter-hint-text" class="fr-hint-text">En vous abonnant, vous acceptez de recevoir
+                            nos actualités par courriel. Vous pouvez vous désinscrire à tout moment à l’aide des liens
+                            de désinscription ou en nous contactant.</p>
                     </div>
                 </div>
                 {% endif %}
             </div>
-            
+
             <h2 class="fr-h4">Mes alertes</h2>
             <p>Retrouvez ici toutes les alertes auxquelles vous vous êtes abonnées.</p>
             <div class="fr-table fr-table--bordered">
@@ -73,38 +82,40 @@
                         </tr>
                     </thead>
                     {% if alerts %}
-                        {% for alert in alerts %}
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="{% url 'search_view'%}?{{ alert.querystring }}" target="_blank" rel="noopener">
-                                        {{ alert.title }}
-                                    </a>
-                                </td>
-                                <td>{{ alert.get_alert_frequency_display }}</td>
-                                <td>{{ alert.date_created|date:'d/m/y' }}</td>
-                                <td>
-                                    {% if alert.validated %}
-                                    {{ alert.latest_alert_date|date:'d/m/y' }}
-                                    {% else %}
-                                    En attente de confirmation
-                                    {% endif %}
-                                </td>
-                                <td class="fr-text">
-                                    <button class="btn_delete fr-link fr-fi-delete-line" id="delete-alert-modal-btn" title="supprimer cette alerte" data-fr-opened="false" aria-controls="delete-alert-modal-{{ alert.pk }}">
-                                        supprimer
-                                    </button>
-                                </td>
-                            </tr>
+                    {% for alert in alerts %}
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="{% url 'search_view'%}?{{ alert.querystring }}" target="_blank" rel="noopener">
+                                    {{ alert.title }}
+                                </a>
+                            </td>
+                            <td>{{ alert.get_alert_frequency_display }}</td>
+                            <td>{{ alert.date_created|date:'d/m/y' }}</td>
+                            <td>
+                                {% if alert.validated %}
+                                {{ alert.latest_alert_date|date:'d/m/y' }}
+                                {% else %}
+                                En attente de confirmation
+                                {% endif %}
+                            </td>
+                            <td class="fr-text">
+                                <button class="btn_delete fr-link fr-fi-delete-line" id="delete-alert-modal-btn"
+                                    title="supprimer cette alerte" data-fr-opened="false"
+                                    aria-controls="delete-alert-modal-{{ alert.pk }}">
+                                    supprimer
+                                </button>
+                            </td>
+                        </tr>
                         {% endfor %}
-                    {% else %}
-                        <tbody>
-                            <tr>
-                                <td colspan="5">
-                                    <center>Vous n'avez aucune alerte pour l'instant</center>
-                                </td>
-                            </tr>
-                        </tbody>
+                        {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <center>Vous n'avez aucune alerte pour l'instant</center>
+                            </td>
+                        </tr>
+                    </tbody>
                     {% endif %}
                     </tbody>
                 </table>
@@ -115,9 +126,10 @@
 {% endblock %}
 
 {% block modals %}
-    {% if alerts %}
-    {% for alert in alerts %}    
-        {% include 'alerts/_delete_alert_modal.html' with alert=alert.pk %}
-    {% endfor %}
-    {% endif %}
+{% if alerts %}
+{% for alert in alerts %}
+{% include 'alerts/_delete_alert_modal.html' with alert=alert.pk %}
+{% endfor %}
+{% endif %}
+{% include 'accounts/_info_alert_modal.html' %}
 {% endblock %}
