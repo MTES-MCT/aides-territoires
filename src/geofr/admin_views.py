@@ -62,7 +62,7 @@ class PerimeterUpload(MessageMixin, SingleObjectMixin, FormView):
 
         if result['method'] == 'delayed import':
             msg = "Votre périmètre est en cours de création. \
-                Un email vous sera envoyé quand cela sera terminé."
+                Veuillez s’il vous plaît contacter l’équipe dev."
         else:
             msg = "Votre périmètre a été créé avec succès."
         self.messages.success(msg)
