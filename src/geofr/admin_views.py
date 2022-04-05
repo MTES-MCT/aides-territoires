@@ -99,10 +99,13 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         add_perimeters = form.cleaned_data['add_perimeters']
         rm_perimeters = form.cleaned_data['rm_perimeters']
         city_codes = list(combine_perimeters(add_perimeters, rm_perimeters))
-        attach_perimeters_check(current_perimeter, city_codes, self.request.user)
+        result = attach_perimeters_check(current_perimeter, city_codes, self.request.user)
 
-        msg = "Votre périmètre est en cours de création. \
-               Un email vous sera envoyé quand cela sera terminé."
+        if result['method'] == 'delayed import':
+            msg = "Votre périmètre est en cours de création. \
+                Veuillez s’il vous plaît contacter l’équipe dev."
+        else:
+            msg = "Votre périmètre a été créé avec succès."
         self.messages.success(msg)
 
         return super().form_valid(form)
