@@ -32,4 +32,4 @@ class Command(BaseCommand):
                     duplicates += 1
                     print("{key1} is a duplicate of {key2}")
 
-        print(f"Total: {len(duplicates)} duplicates found.")
+        print(f"Total: {duplicates} duplicates found.")
