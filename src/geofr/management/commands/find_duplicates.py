@@ -25,12 +25,11 @@ class Command(BaseCommand):
         for key, value in adhoc_perimeters_dict.items():
             adhoc_perimeters_dict[key] = sorted(value)
 
-        duplicates = []
+        duplicates = 0
         for key1, value1 in adhoc_perimeters_dict.items():
             for key2, value2 in adhoc_perimeters_dict.items():
                 if value1 == value2 and key1 > key2:
-                    duplicates.append("{key1} is a duplicate of {key2}")
+                    duplicates += 1
+                    print("{key1} is a duplicate of {key2}")
 
-        print(f"{len(duplicates)} duplicates found.")
-        for d in duplicates:
-            print(d)
+        print(f"Total: {len(duplicates)} duplicates found.")
