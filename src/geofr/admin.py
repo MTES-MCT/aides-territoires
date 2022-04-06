@@ -153,6 +153,15 @@ class PerimeterImportAdmin(admin.ModelAdmin):
     search_fields = ['id', '__str__', 'adhoc_perimeter__name']
     ordering = ['-date_created']
     raw_id_fields = ("adhoc_perimeter", "author")
+    readonly_fields = ["city_codes", "perimeters_count", "date_created", "date_updated"]
+
+
+    def perimeters_count(self, obj):
+        """Number of perimeters to attach"""
+        return len(obj.city_codes)
+
+    perimeters_count.short_description = 'Nombre de périmètres'
+    perimeters_count.help_text = "Nombre de périmètres à attacher"
 
 
 admin.site.register(Perimeter, PerimeterAdmin)
