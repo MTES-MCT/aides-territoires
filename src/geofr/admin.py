@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from geofr.models import Perimeter, PerimeterImport
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
+from django.contrib.postgres.fields import ArrayField
 
 
 class PerimeterAdminForm(forms.ModelForm):
@@ -153,8 +154,24 @@ class PerimeterImportAdmin(admin.ModelAdmin):
     search_fields = ['id', '__str__', 'adhoc_perimeter__name']
     ordering = ['-date_created']
     raw_id_fields = ("adhoc_perimeter", "author")
-    readonly_fields = ["city_codes", "perimeters_count", "date_created", "date_updated"]
-
+    formfield_overrides = {
+        ArrayField: dict(widget=forms.Textarea(attrs=dict(readonly=True)))
+    }
+    readonly_fields = ["perimeters_count", "date_created", "date_updated"]
+    fieldsets = (
+        (None, {
+           'fields': ('adhoc_perimeter', 'author')
+        }),
+        ('Périmètres à attacher', {
+            'fields': ('city_codes', 'perimeters_count'),
+        }),
+        ('Import', {
+            'fields': ('is_imported', 'date_imported'),
+        }),
+        ('Métadonnées', {
+            'fields': ("date_created", "date_updated"),
+        }),
+    )
 
     def perimeters_count(self, obj):
         """Number of perimeters to attach"""
