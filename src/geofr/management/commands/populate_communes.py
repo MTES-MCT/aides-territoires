@@ -45,7 +45,7 @@ class Command(BaseCommand):
         perimeter_links = []
 
         with urllib.request.urlopen(DATA_PATH) as url:
-            data = json.loads(url.read_file())
+            data = json.loads(url.read().decode())
             nb_created = 0
             nb_updated = 0
 

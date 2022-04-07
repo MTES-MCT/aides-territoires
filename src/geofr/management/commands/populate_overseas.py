@@ -77,7 +77,7 @@ class Command(BaseCommand):
 
         # Import the "collectivités d'Outre-Mer"
         with urllib.request.urlopen(DATA_PATH) as url:
-            data = json.loads(url.read_file())
+            data = json.loads(url.read().decode())
             coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
             for entry in coms:
                 com, created = Perimeter.objects.update_or_create(
