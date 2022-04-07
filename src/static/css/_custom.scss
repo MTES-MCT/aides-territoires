@@ -702,6 +702,12 @@ section#post-content img {
   }
 }
 
+// Sortable tables
+.dataTables_wrapper {
+  padding-top: 3em;
+}
+
+
 // Map form
 @media screen and (max-width: 768px) {
   #map-back-button {
