@@ -25,7 +25,7 @@
     "trumbowyg": "^2.21.0"
   },
   "devDependencies": {
-    "@etalab/decoupage-administratif": "^0.8.0",
+    "@etalab/decoupage-administratif": "^2.0.0",
     "eslint": "^5.16.0"
   }
 }
