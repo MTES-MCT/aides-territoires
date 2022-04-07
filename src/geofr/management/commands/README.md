@@ -4,9 +4,7 @@ objects.
 We use Etalab's `decoupage-administratif` package which contains the raw
 json data used by the geo api:
 
-https://www.npmjs.com/package/@etalab/decoupage-administratif
-
-Before running those scripts, make sure to run `npm install --dev`.
+https://github.com/etalab/decoupage-administratif
 
 Some scripts use data that is more exotic. When that happens, each script
 describes where does the data comes from.
