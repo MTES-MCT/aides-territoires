@@ -375,6 +375,7 @@ ENABLE_MINISITES_REDIRECTION = True
 REDIRECT_MINISITES_TO_EXTERNAL_URL = [
     ('francemobilites', 'https://aides.francemobilites.fr'),
     ('france-relance-cvl', 'https://centre-val-de-loire.aides-territoires.beta.gouv.fr'),
+    ('france-relance-guyane', 'https://guyane.aides-territoires.beta.gouv.fr'),
 ]
 
 # ADDNA
