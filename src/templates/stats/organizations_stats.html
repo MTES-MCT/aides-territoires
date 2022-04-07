@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load i18n humanize compress form_utils stats organizations aids %}
+{% extends "_base.html" %}
+{% load static i18n humanize compress form_utils stats organizations aids %}
 
-{% block extratitle %}Statistiques Interne - Structures{% endblock %}
+{% block extratitle %}Statistiques Interne - Structures{% endblock extratitle %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -22,13 +22,14 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <section id="users-stats" class="fr-container">
 
-    <div class="fr-table fr-table--bordered fr-mt-5w">
-        <table class="data-table">
+    <div class="fr-table fr-table--bordered at-table--fullwidth fr-mt-5w">
+        <table class="data-table sortable-table at-table--xl">
+            <caption>Nombre de structures par type</caption>
             <thead>
                 <tr>
                     <th scope="col">Type</th>
@@ -61,14 +62,14 @@
           <div id="form-group-start_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_start_date" class="fr-label"></label>
-                <input type="date" name="start_date" placeholder="jj/mm/aaaa" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0">
+                <input type="date" name="start_date" placeholder="jj/mm/aaaa" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de début</span>
             </div>
           </div>
           <div id="form-group-end_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_end_date" class="fr-label"></label>
-                <input type="date" name="end_date" placeholder="jj/mm/aaaa" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0">
+                <input type="date" name="end_date" placeholder="jj/mm/aaaa" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de fin</span>
             </div>
           </div>
@@ -85,7 +86,7 @@
         </form>
     </div>
 
-    <div class="fr-table fr-table--bordered fr-mt-5w">
+    <div class="fr-table at-table--fullwidth fr-table--bordered fr-mt-5w">
         <table class="data-table">
             <thead>
                 <tr>
@@ -122,7 +123,32 @@
             </tbody>
         </table>
     </div>
-    {% include '_pagination.html' %}
+    {% include "_pagination.html" %}
 
 </section>
-{% endblock %}
+{% endblock content %}
+
+{% block extra_css %}
+    <link rel="stylesheet"
+          href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}"
+          type="text/css"
+          charset="utf-8"/>
+{% endblock extra_css %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.sortable-table').DataTable({
+                    paging: false,
+                    info: false,
+                    "order": [[ 1, 'desc' ]],
+                    "language": {
+                        "search": "Filtrer :",
+                    }
+                });
+            });
+        </script>
+    {% endcompress %}
+{% endblock extra_js %}
