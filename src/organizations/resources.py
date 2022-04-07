@@ -15,6 +15,7 @@ ORGANIZATION_EXPORT_FIELDS = (
     'perimeter_region',
     'perimeter_department',
     'beneficiaries',
+    'projects_number',
     'projects'
 )
 
@@ -28,6 +29,10 @@ class OrganizationResource(resources.ModelResource):
 
     projects = fields.Field(
         column_name="Projets de l'organisation",
+    )
+
+    projects_number = fields.Field(
+        column_name="Nombre de projets de l'organisation",
     )
 
     perimeter = fields.Field(
@@ -82,6 +87,10 @@ class OrganizationResource(resources.ModelResource):
             return ''
         else:
             return ', '.join(projects_list)
+
+    def dehydrate_projects_number(self, obj):
+        projects_number = Project.objects.filter(organizations=obj).count()
+        return projects_number
 
     class Meta:
         model = Organization
