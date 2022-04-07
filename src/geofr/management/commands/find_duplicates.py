@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from geofr.models import Perimeter
 
 class Command(BaseCommand):
-    help = "Find ad-hoc perimeters that cover the same places"
+    help = "Find ad-hoc perimeters that cover the exact same places"
 
 
     def handle(self, *args, **options):
