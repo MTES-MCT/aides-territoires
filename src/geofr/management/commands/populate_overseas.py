@@ -1,12 +1,11 @@
 import json
+import urllib.request
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.conf import settings
 
 from geofr.models import Perimeter
-
-DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/communes.json'  # noqa
 
 
 class Command(BaseCommand):
@@ -76,27 +75,27 @@ class Command(BaseCommand):
                 to_perimeter_id=overseas.id))
 
         # Import the "collectivités d'Outre-Mer"
-        data_file = settings.DJANGO_ROOT + DATA_PATH
-        data = json.loads(data_file.read_file())
-        coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
-        for entry in coms:
-            com, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.SCALES.adhoc,
-                code=entry['collectiviteOutremer']['code'],
-                defaults={
-                    'name': entry['collectiviteOutremer']['nom'],
-                    'is_overseas': True
-                })
-            perimeter_links.append(PerimeterContainedIn(
-                from_perimeter_id=com.id,
-                to_perimeter_id=overseas.id))
-            perimeter_links.append(PerimeterContainedIn(
-                from_perimeter_id=com.id,
-                to_perimeter_id=france.id))
-            perimeter_links.append(PerimeterContainedIn(
-                from_perimeter_id=com.id,
-                to_perimeter_id=europe.id))
+        with urllib.request.urlopen("https://unpkg.com/@etalab/decoupage-administratif/data/communes.json") as url:
+            data = json.loads(url.read_file())
+            coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
+            for entry in coms:
+                com, created = Perimeter.objects.update_or_create(
+                    scale=Perimeter.SCALES.adhoc,
+                    code=entry['collectiviteOutremer']['code'],
+                    defaults={
+                        'name': entry['collectiviteOutremer']['nom'],
+                        'is_overseas': True
+                    })
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=com.id,
+                    to_perimeter_id=overseas.id))
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=com.id,
+                    to_perimeter_id=france.id))
+                perimeter_links.append(PerimeterContainedIn(
+                    from_perimeter_id=com.id,
+                    to_perimeter_id=europe.id))
 
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(
-            perimeter_links, ignore_conflicts=True)
+            # Create the links between the perimeters
+            PerimeterContainedIn.objects.bulk_create(
+                perimeter_links, ignore_conflicts=True)

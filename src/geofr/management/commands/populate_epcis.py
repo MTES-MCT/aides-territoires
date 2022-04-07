@@ -1,13 +1,11 @@
 import json
+import urllib.request
 
 from django.db import transaction
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
 from geofr.models import Perimeter
-
-
-DATA_PATH = '/node_modules/@etalab/decoupage-administratif/data/epci.json'
 
 
 class Command(BaseCommand):
@@ -40,75 +38,75 @@ class Command(BaseCommand):
         PerimeterContainedIn = Perimeter.contained_in.through
         perimeter_links = []
 
-        data_file = settings.DJANGO_ROOT + DATA_PATH
-        data = json.loads(data_file.read_file())
-        nb_created = 0
-        nb_updated = 0
+        with urllib.request.urlopen("https://unpkg.com/@etalab/decoupage-administratif/data/epci.json") as url:
+            data = json.loads(url.read_file())
+            nb_created = 0
+            nb_updated = 0
 
-        for entry in data:
+            for entry in data:
 
-            member_codes = [m['code'] for m in entry['membres']]
-            members = Perimeter.objects.filter(code__in=member_codes)
-            member_depts = []
-            member_regions = []
-            for member in members:
-                member_depts += member.departments
-                member_regions += member.regions
+                member_codes = [m['code'] for m in entry['membres']]
+                members = Perimeter.objects.filter(code__in=member_codes)
+                member_depts = []
+                member_regions = []
+                for member in members:
+                    member_depts += member.departments
+                    member_regions += member.regions
 
-            epci_name = entry['nom']
-            epci_code = entry['code']
-            is_overseas = members[0].is_overseas
+                epci_name = entry['nom']
+                epci_code = entry['code']
+                is_overseas = members[0].is_overseas
 
-            epci, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.SCALES.epci,
-                code=epci_code,
-                defaults={
-                    'name': epci_name,
-                    'departments': list(set(member_depts)),
-                    'regions': list(set(member_regions)),
-                    'is_overseas': is_overseas,
-                })
-            if created:
-                nb_created += 1
-            else:
-                nb_updated += 1
+                epci, created = Perimeter.objects.update_or_create(
+                    scale=Perimeter.SCALES.epci,
+                    code=epci_code,
+                    defaults={
+                        'name': epci_name,
+                        'departments': list(set(member_depts)),
+                        'regions': list(set(member_regions)),
+                        'is_overseas': is_overseas,
+                    })
+                if created:
+                    nb_created += 1
+                else:
+                    nb_updated += 1
 
-            # Link perimeter to france, europe, regions, departements,
-            # "collectivités d'outre-mer", mainland / overseas, etc.
-            perimeter_links.append(PerimeterContainedIn(
-                from_perimeter_id=epci.id,
-                to_perimeter_id=europe.id))
-            perimeter_links.append(PerimeterContainedIn(
-                from_perimeter_id=epci.id,
-                to_perimeter_id=france.id))
-
-            for region_code in epci.regions:
+                # Link perimeter to france, europe, regions, departements,
+                # "collectivités d'outre-mer", mainland / overseas, etc.
                 perimeter_links.append(PerimeterContainedIn(
                     from_perimeter_id=epci.id,
-                    to_perimeter_id=regions[region_code]))
-            for department_code in epci.departments:
+                    to_perimeter_id=europe.id))
                 perimeter_links.append(PerimeterContainedIn(
                     from_perimeter_id=epci.id,
-                    to_perimeter_id=departments[department_code]))
+                    to_perimeter_id=france.id))
 
-            if epci.is_overseas:
-                perimeter_links.append(PerimeterContainedIn(
-                    from_perimeter_id=epci.id,
-                    to_perimeter_id=overseas.id))
-            else:
-                perimeter_links.append(PerimeterContainedIn(
-                    from_perimeter_id=epci.id,
-                    to_perimeter_id=mainland.id))
+                for region_code in epci.regions:
+                    perimeter_links.append(PerimeterContainedIn(
+                        from_perimeter_id=epci.id,
+                        to_perimeter_id=regions[region_code]))
+                for department_code in epci.departments:
+                    perimeter_links.append(PerimeterContainedIn(
+                        from_perimeter_id=epci.id,
+                        to_perimeter_id=departments[department_code]))
 
-            # Link epci members to the epci
-            for member in members:
-                perimeter_links.append(PerimeterContainedIn(
-                    from_perimeter_id=member.id,
-                    to_perimeter_id=epci.id))
+                if epci.is_overseas:
+                    perimeter_links.append(PerimeterContainedIn(
+                        from_perimeter_id=epci.id,
+                        to_perimeter_id=overseas.id))
+                else:
+                    perimeter_links.append(PerimeterContainedIn(
+                        from_perimeter_id=epci.id,
+                        to_perimeter_id=mainland.id))
 
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(
-            perimeter_links, ignore_conflicts=True)
+                # Link epci members to the epci
+                for member in members:
+                    perimeter_links.append(PerimeterContainedIn(
+                        from_perimeter_id=member.id,
+                        to_perimeter_id=epci.id))
 
-        self.stdout.write(self.style.SUCCESS(
-            '%d epci created, %d updated.' % (nb_created, nb_updated)))
+            # Create the links between the perimeters
+            PerimeterContainedIn.objects.bulk_create(
+                perimeter_links, ignore_conflicts=True)
+
+            self.stdout.write(self.style.SUCCESS(
+                '%d epci created, %d updated.' % (nb_created, nb_updated)))
