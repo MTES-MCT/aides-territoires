@@ -3,10 +3,11 @@ import urllib.request
 
 from django.db import transaction
 from django.core.management.base import BaseCommand
-from django.conf import settings
 
 from geofr.models import Perimeter
 from geofr.constants import OVERSEAS_REGIONS
+
+DATA_PATH = "https://unpkg.com/@etalab/decoupage-administratif/data/regions.json"
 
 
 class Command(BaseCommand):
@@ -25,7 +26,7 @@ class Command(BaseCommand):
         PerimeterContainedIn = Perimeter.contained_in.through
         perimeter_links = []
 
-        with urllib.request.urlopen("https://unpkg.com/@etalab/decoupage-administratif/data/regions.json") as url:
+        with urllib.request.urlopen(DATA_PATH) as url:
             data = json.loads(url.read_file())
             nb_created = 0
             nb_updated = 0

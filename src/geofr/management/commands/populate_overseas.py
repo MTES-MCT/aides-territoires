@@ -3,9 +3,10 @@ import urllib.request
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.conf import settings
 
 from geofr.models import Perimeter
+
+DATA_PATH = "https://unpkg.com/@etalab/decoupage-administratif/data/communes.json"
 
 
 class Command(BaseCommand):
@@ -75,7 +76,7 @@ class Command(BaseCommand):
                 to_perimeter_id=overseas.id))
 
         # Import the "collectivités d'Outre-Mer"
-        with urllib.request.urlopen("https://unpkg.com/@etalab/decoupage-administratif/data/communes.json") as url:
+        with urllib.request.urlopen(DATA_PATH) as url:
             data = json.loads(url.read_file())
             coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
             for entry in coms:
