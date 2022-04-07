@@ -100,6 +100,9 @@ class SearchPage(models.Model):
         'aids.Aid',
         verbose_name=_('Highlighted aids'),
         related_name='highlighted_in_search_pages',
+        help_text="Il est possible de mettre jusqu'à 9 aides en avant. \
+             Les aides mises en avant s'affichent en haut des résultats du portail, \
+             et n’ont pas de mise en forme particulière.",
         blank=True)
     excluded_aids = models.ManyToManyField(
         'aids.Aid',
