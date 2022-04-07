@@ -7,7 +7,16 @@ from geofr.utils import attach_perimeters
 
 
 class Command(BaseCommand):
-    """Attach perimeters that belong in a adhoc perimeter"""
+    help = "Attach perimeters that belong in a adhoc perimeter"
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--id", type=int, help="""
+            If specified, the PerimeterImport with the specified ID will be imported,
+            even if it is already marked as imported.
+            """
+        )
+
 
     def handle(self, *args, **options):
         logger = logging.getLogger('console_log')
@@ -19,7 +28,11 @@ class Command(BaseCommand):
 
         logger.debug("Command attach_perimeters starting")
 
-        perimeters_to_import = PerimeterImport.objects.filter(is_imported=False)
+        force_id = options["id"]
+        if force_id:
+            perimeters_to_import = PerimeterImport.objects.filter(id=force_id)
+        else:
+            perimeters_to_import = PerimeterImport.objects.filter(is_imported=False)
 
         for perimeter_to_import in perimeters_to_import:
             logger.info(
