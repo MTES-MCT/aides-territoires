@@ -35,6 +35,10 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         if is_visible_to_users == 'true':
             qs = qs.filter(is_visible_to_users=True)
 
+        is_non_obsolete = self.request.query_params.get('is_non_obsolete', 'true')  # noqa
+        if is_non_obsolete == 'true':
+            qs = qs.filter(is_obsolete=False)
+
         if len(q) >= MIN_SEARCH_LENGTH:
             qs = qs \
                 .annotate(similarity=TrigramSimilarity('unaccented_name', q)) \
