@@ -244,7 +244,11 @@ def populate_overseas() -> dict:
     with urllib.request.urlopen(get_data_path("communes")) as url:
         data = json.loads(url.read().decode())
         coms = filter(lambda entry: 'collectiviteOutremer' in entry, data)
+        nb_created = 0
+        nb_updated = 0
+
         for entry in coms:
+
             com, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.SCALES.adhoc,
                 code=entry['collectiviteOutremer']['code'],
