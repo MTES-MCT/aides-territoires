@@ -402,8 +402,7 @@ def populate_communes() -> dict:
         Perimeter.objects \
             .filter(date_updated__lt=start_time) \
             .filter(scale=1) \
-            .update(is_obsolete=True) \
-            .update(date_obsolete=start_time)
+            .update(is_obsolete=True, date_obsolete=start_time)
 
         return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
 
@@ -512,7 +511,6 @@ def populate_epcis() -> dict:
         Perimeter.objects \
             .filter(date_updated__lt=start_time) \
             .filter(scale=5) \
-            .update(is_obsolete=True) \
-            .update(date_obsolete=start_time)
+            .update(is_obsolete=True, date_obsolete=start_time)
 
         return {"created": nb_created, "updated": nb_updated, "nb_obsolete": nb_obsolete}
