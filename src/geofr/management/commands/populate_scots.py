@@ -11,7 +11,9 @@ class Command(BaseCommand):
     """Import the list of SCoTs.
 
     Our data source comes from the DGALN.
-    https://docs.google.com/spreadsheets/d/15AyNPLNWQMxd7FHayHoQkxhEOSQE-lhp9zezphIXkHU/edit#gid=1277817401
+    https://www.data.gouv.fr/fr/datasets/schema-de-coherence-territoriale-scot-donnees-sudocuh-dernier-etat-des-lieux-annuel-au-31-decembre-2021/
+
+    Spreadsheet "Communes Scot"
     """
 
     def add_arguments(self, parser):
