@@ -1,6 +1,7 @@
 import json
 import urllib.request
 
+from django.utils import timezone
 from django.db import transaction
 
 from geofr.models import Perimeter
@@ -283,6 +284,8 @@ def populate_overseas() -> dict:
 def populate_communes() -> dict:
     """Import the list of all communes."""
 
+    start_time = timezone.now()
+
     france = Perimeter.objects.get(
         scale=Perimeter.SCALES.country,
         code='FRA')
@@ -395,12 +398,21 @@ def populate_communes() -> dict:
         PerimeterContainedIn.objects.bulk_create(
             perimeter_links, ignore_conflicts=True)
 
-        return {"created": nb_created, "updated": nb_updated}
+        nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
+        Perimeter.objects \
+            .filter(date_updated__lt=start_time) \
+            .filter(scale=1) \
+            .update(is_obsolete=True) \
+            .update(date_obsolete=start_time)
+
+        return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
 
 
 @transaction.atomic()
 def populate_epcis() -> dict:
     """Import all epcis."""
+
+    start_time = timezone.now()
 
     france = Perimeter.objects.get(
         scale=Perimeter.SCALES.country,
@@ -496,4 +508,11 @@ def populate_epcis() -> dict:
         PerimeterContainedIn.objects.bulk_create(
             perimeter_links, ignore_conflicts=True)
 
-        return {"created": nb_created, "updated": nb_updated}
+        nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
+        Perimeter.objects \
+            .filter(date_updated__lt=start_time) \
+            .filter(scale=5) \
+            .update(is_obsolete=True) \
+            .update(date_obsolete=start_time)
+
+        return {"created": nb_created, "updated": nb_updated, "nb_obsolete": nb_obsolete}
