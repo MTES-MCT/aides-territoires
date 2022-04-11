@@ -82,5 +82,9 @@ class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateV
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if self.object.perimeter.is_obsolete == True:
+            msg = "Le territoire que vous avez choisi n'existe plus."
+            messages.error(self.request, msg)
         context['organization'] = self.object
         return context
