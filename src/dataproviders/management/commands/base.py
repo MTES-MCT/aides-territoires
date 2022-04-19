@@ -275,6 +275,9 @@ class BaseImportCommand(BaseCommand):
     def extract_name_initial(self, line):
         return ''
 
+    def extract_short_title(self, line):
+        return ''
+
 
 class CrawlerImportCommand(BaseImportCommand):
     """An import task that uses a crawler to fetch data."""
