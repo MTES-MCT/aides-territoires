@@ -136,33 +136,34 @@ class Command(BaseImportCommand):
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
+        import_raw_object = dict(line)
         if line.get('deadline1', None) != None:
-            line.pop('deadline1')
+            import_raw_object.pop('deadline1')
         if line.get('dates_statut', None) != None:
-            line.pop('dates_statut')
+            import_raw_object.pop('dates_statut')
         if line.get('dates_publication', None) != None:
-            line.pop('dates_publication')
+            import_raw_object.pop('dates_publication')
         if line.get('dates_open-1', None) != None:
-            line.pop('dates_open-1')
+            import_raw_object.pop('dates_open-1')
         if line.get('dates_open-2', None) != None:
-            line.pop('dates_open-2')
+            import_raw_object.pop('dates_open-2')
         if line.get('dates_open-3', None) != None:
-            line.pop('dates_open-3')
+            import_raw_object.pop('dates_open-3')
         if line.get('dates_open-4', None) != None:
-            line.pop('dates_open-4')
+            import_raw_object.pop('dates_open-4')
         if line.get('dates_open-5', None) != None:
-            line.pop('dates_open-5')
+            import_raw_object.pop('dates_open-5')
         if line.get('dates_deadline1', None) != None:
-            line.pop('dates_deadline1')
+            import_raw_object.pop('dates_deadline1')
         if line.get('dates_deadline-2', None) != None:
-            line.pop('dates_deadline-2')
+            import_raw_object.pop('dates_deadline-2')
         if line.get('dates_deadline-3', None) != None:
-            line.pop('dates_deadline-3')
+            import_raw_object.pop('dates_deadline-3')
         if line.get('dates_deadline-4', None) != None:
-            line.pop('dates_deadline-4')
+            import_raw_object.pop('dates_deadline-4')
         if line.get('dates', None) != None:
-            line.pop('dates')
-        return line
+            import_raw_object.pop('dates')
+        return import_raw_object
 
     def extract_name(self, line):
         title = line['post_title'][:180]
