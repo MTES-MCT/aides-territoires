@@ -79,16 +79,12 @@ class Command(BaseImportCommand):
             for line in data['data']:
                 yield line
         else:
-            headers = {'accept': 'application/json', 'content-type': 'application/json'}
-            req = requests.get(DATA_SOURCE.import_api_url)
-            data = json.loads(req.text)
-            self.stdout.write('Total number of aids: {}'.format(data['nhits']))
-            if data['nhits'] > FEED_ROWS:
-                self.stdout.write(self.style.ERROR(
-                    'Only fetching {} aids, but there are {} aids'.format(FEED_ROWS, data['nhits'])))
-            self.stdout.write('Number of aids processing: {}'.format(len(data['records'])))
-            for line in data['records']:
-                yield line['fields']
+            headers = {'accept': 'application/json', 'content-type': 'application/json', 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0'}
+            req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
+            data = req.json()
+            self.stdout.write('Total number of aids: {}'.format(len(data)))
+            for line in data:
+                yield line
 
     def line_should_be_processed(self, line):
         return True
@@ -254,7 +250,7 @@ class Command(BaseImportCommand):
         Split the string, loop on the values and match to our Categories
         """
         categories = line.get('filtres_sectors', '').split(',')
-        title = line['aide_nom'][:180]
+        title = line['post_title'][:180]
         aid_categories = []
         if categories != ['']:
             for category in categories:
