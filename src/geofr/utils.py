@@ -89,7 +89,7 @@ def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> l
     for line in perimeter_list_file:
         try:
             item = line.decode().strip().split(';')[0]
-            clean_item = str(item)
+            clean_item = str(item.strip('"').strip("'"))
             item_list.append(clean_item)
         except (UnicodeDecodeError, ValueError) as e:
             msg = _('This file seems invalid. \
