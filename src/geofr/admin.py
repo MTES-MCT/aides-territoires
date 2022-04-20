@@ -18,10 +18,24 @@ class PerimeterAdmin(admin.ModelAdmin):
 
     form = PerimeterAdminForm
     list_display = [
-        'scale', 'name', 'manually_created', 'is_visible_to_users',
-        'code', 'is_overseas',
-        'regions', 'departments', 'epci', 'zipcodes', 'basin']
-    list_filter = ['scale', 'is_overseas', 'manually_created', 'is_visible_to_users']
+        'scale',
+        'name',
+        'manually_created',
+        'is_visible_to_users',
+        'is_obsolete',
+        'code',
+        'is_overseas',
+        'regions',
+        'departments',
+        'epci',
+        'zipcodes',
+        'basin']
+    list_filter = [
+        'scale',
+        'is_overseas',
+        'manually_created',
+        'is_visible_to_users',
+        'is_obsolete']
     search_fields = ['id', 'name', 'code']
     ordering = ['-date_created']
     # readonly_fields ? managed below

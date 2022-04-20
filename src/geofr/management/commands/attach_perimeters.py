@@ -17,7 +17,6 @@ class Command(BaseCommand):
             """
         )
 
-
     def handle(self, *args, **options):
         logger = logging.getLogger('console_log')
         verbosity = int(options["verbosity"])
