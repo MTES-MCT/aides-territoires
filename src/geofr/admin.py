@@ -175,7 +175,10 @@ class PerimeterImportAdmin(admin.ModelAdmin):
 
     def perimeters_count(self, obj):
         """Number of perimeters to attach"""
-        return len(obj.city_codes)
+        if obj.city_codes is not None:
+            return len(obj.city_codes)
+        else:
+            return 0
 
     perimeters_count.short_description = 'Nombre de périmètres'
     perimeters_count.help_text = "Nombre de périmètres à attacher"
