@@ -63,6 +63,14 @@ class Perimeter(models.Model):
     is_visible_to_users = models.BooleanField(
         _('The perimeter is visible to users'),
         default=True)
+    date_obsolete = models.DateTimeField(
+        "date d'obsolescence",
+        help_text="Date de mise à jour des périmètres à laquelle \
+            ce périmètre ne figurait plus dans les sources officielles",
+        blank=True, null=True)
+    is_obsolete = models.BooleanField(
+        "Ce périmètre n'existe plus",
+        default=False)
 
     continent = models.CharField(
         _('Continent'),

@@ -18,10 +18,24 @@ class PerimeterAdmin(admin.ModelAdmin):
 
     form = PerimeterAdminForm
     list_display = [
-        'scale', 'name', 'manually_created', 'is_visible_to_users',
-        'code', 'is_overseas',
-        'regions', 'departments', 'epci', 'zipcodes', 'basin']
-    list_filter = ['scale', 'is_overseas', 'manually_created', 'is_visible_to_users']
+        'scale',
+        'name',
+        'manually_created',
+        'is_visible_to_users',
+        'is_obsolete',
+        'code',
+        'is_overseas',
+        'regions',
+        'departments',
+        'epci',
+        'zipcodes',
+        'basin']
+    list_filter = [
+        'scale',
+        'is_overseas',
+        'manually_created',
+        'is_visible_to_users',
+        'is_obsolete']
     search_fields = ['id', 'name', 'code']
     ordering = ['-date_created']
     # readonly_fields ? managed below
@@ -175,7 +189,10 @@ class PerimeterImportAdmin(admin.ModelAdmin):
 
     def perimeters_count(self, obj):
         """Number of perimeters to attach"""
-        return len(obj.city_codes)
+        if obj.city_codes is not None:
+            return len(obj.city_codes)
+        else:
+            return 0
 
     perimeters_count.short_description = 'Nombre de périmètres'
     perimeters_count.help_text = "Nombre de périmètres à attacher"
