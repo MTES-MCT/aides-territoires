@@ -8,7 +8,7 @@ from django.db import transaction
 
 """
 Our data source comes from the DGALN.
-https://www.data.gouv.fr/fNr/datasets/schema-de-coherence-territoriale-scot-donnees-sudocuh-dernier-etat-des-lieux-annuel-au-31-decembre-2021/
+https://www.data.gouv.fr/fr/datasets/schema-de-coherence-territoriale-scot-donnees-sudocuh-dernier-etat-des-lieux-annuel-au-31-decembre-2021/
 """
 DATA_URL = "https://www.data.gouv.fr/fr/datasets/r/6e0cfffc-803d-4394-8461-af6e47795c19"
 SHEET_NAME = "Communes Scot"
