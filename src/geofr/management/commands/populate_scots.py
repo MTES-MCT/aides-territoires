@@ -9,5 +9,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         result = populate_scots()
         self.stdout.write(self.style.SUCCESS(
-            f"{result['created']} created, {result['updated']} updated."
+            f"{result['created']} created, {result['updated']} updated, {result['obsolete']} obsolete."
         ))
