@@ -1,15 +1,15 @@
 {% load i18n compress %}
 
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="create-project-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-create-project" role="dialog" id="create-project-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="create-project-modal">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="create-project-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter un projet</h1>
+                        <h1 id="fr-modal-title-create-project" class="fr-modal__title fr-mb-5w"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter un projet</h1>
 
                         <form id="create_project" method="post" action="{% url 'project_create_view' %}">
                             <section>

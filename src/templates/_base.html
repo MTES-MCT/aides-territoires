@@ -1,30 +1,30 @@
-{% load compress analytics i18n settings %}
+{% load compress analytics i18n settings static dsfr_tags %}
 <!doctype html>
-<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock %}" {% block theme %}data-fr-theme="default"{% endblock %}>
+<html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock extraclasses %}" {% block theme %}data-fr-theme="default"{% endblock %}>
     <head>
-        <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock %}{% endblock %}</title>
+        <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock extratitle %}{% endblock title %}</title>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="{% block meta_description %}Trouvez 🔎 des aides publiques pour financer et accompagner les projets locaux de votre territoire en France métropolitaine et en Outre-mer{% endblock %}">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="{% block meta_description %}Trouvez 🔎 des aides publiques pour financer et accompagner les projets locaux de votre territoire en France métropolitaine et en Outre-mer{% endblock meta_description %}" />
         {% setting 'ENV_NAME' as env_name %}
         {% if env_name != "production" %}
-        <meta name="robots" content="noindex, nofollow">
+        <meta name="robots" content="noindex, nofollow" />
         {% endif %}
 
-        <link rel="shortcut icon" href="/static/favicons/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/static/favicons/favicon.svg" type="image/svg">
-        <link rel="icon" href="/static/favicons/favicon.png" type="image/png">
-        <link rel="icon" sizes="32x32" href="/static/favicons/favicon-32x32.png" type="image/png">
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="shortcut icon" href="{% static 'favicons/favicon.ico' %}" type="image/x-icon" />
+        <link rel="icon" href="{% static 'favicons/favicon.svg' %}" type="image/svg" />
+        <link rel="icon" href="{% static 'favicons/favicon.png' %}" type="image/png" />
+        <link rel="icon" sizes="32x32" href="{% static 'favicons/favicon-32x32.png' %}" type="image/png" />
+        <link href="{% static 'lib/remixicon-2.5.0/fonts/remixicon.css' %}" rel="stylesheet" />
 
         {% compress css %}
-            <link rel="stylesheet" href="/static/@gouvfr/dsfr/dist/css/dsfr.min.css" type="text/css" charset="utf-8">
-            <link rel="stylesheet" href="/static/css/styles.scss" type="text/x-scss" charset="utf-8">
+            {% dsfr_css %}
+            <link rel="stylesheet" href="{% static 'css/styles.scss' %}" type="text/x-scss" charset="utf-8" />
         {% endcompress %}
-        {% block extra_css %}{% endblock %}
+        {% block extra_css %}{% endblock extra_css %}
 
-        {% block extra_head %}{% endblock %}
+        {% block extra_head %}{% endblock extra_head %}
 
         <script>
             // Add class to indicate that js is available
@@ -33,39 +33,37 @@
             html.classList.add('js');
         </script>
     </head>
-    <body class="{% block body-class %}dark-background{% endblock %}" data-spy="scroll" data-target="#nav-form" data-offset="100">
+    <body class="{% block body-class %}dark-background{% endblock body-class %}" data-spy="scroll" data-target="#nav-form" data-offset="100">
 
         {% block header %}
             {% include '_header.html' %}
-        {% endblock %}
+        {% endblock header %}
 
         <main role="main" class="fr-container-fluid">
             {% block main %}
-            <div id="{% block sectionid %}{% endblock %}" class="main-content">
-
-                {% block breadcrumbs %}{% endblock %}
+            <div id="{% block sectionid %}main-content{% endblock sectionid %}" class="main-content">
+                {% block breadcrumbs %}{% endblock breadcrumbs %}
 
                 {% block messages %}
-                {% if messages %}
-                    <div class="messages fr-container fr-my-5w">
-                        {% for message in messages %}
-                            <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
-                                <p>{{ message|safe }}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                {% endblock %}
+                    {% if messages %}
+                        <div class="messages fr-container fr-my-5w">
+                            {% for message in messages %}
+                                <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
+                                    <p>{{ message|safe }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endblock messages %}
 
-
-                {% block content %}{% endblock %}
+                {% block content %}{% endblock content %}
             </div>
-            {% endblock %}
-        </main>{% block footer %}{% include '_footer.html' %}{% endblock %}
+            {% endblock main %}
+        </main>{% block footer %}{% include '_footer.html' %}{% endblock footer %}
 
-        {% block modals %}{% endblock %}
+        {% block modals %}{% endblock modals %}
         
-        {% include 'theme/_theme_modal.html' %}
+        {% dsfr_theme_modale %}
 
         {% compress js %}
         <script src="/static/jquery/dist/jquery.js"></script>
@@ -84,10 +82,9 @@
             var hotjar_siteid = {% hotjar_siteid %};
         </script>
         {% endcompress %}
-        <script type="module" src="/static/@gouvfr/dsfr/dist/js/dsfr.module.min.js"></script>
-        <script type="text/javascript" nomodule src="/static/@gouvfr/dsfr/dist/js/dsfr.nomodule.min.js"></script>
+        {% dsfr_js %}
         <script src="/static/js/shared_config.js"></script>
-        {% block extra_js %}{% endblock %}
+        {% block extra_js %}{% endblock extra_js %}
 
         {% analytics_enabled as analytics_enabled %}
         {% analytics_goalid as analytics_goalid %}

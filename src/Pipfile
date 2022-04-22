@@ -45,6 +45,7 @@ whitenoise = "*"
 xmltodict = "*"
 deepdiff = "*"
 pandas = "*"
+django-dsfr = "*"
 
 [dev-packages]
 ansible = "<4"

@@ -1,15 +1,15 @@
 {% load i18n %}
 
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="alert-search-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-alert-search" role="dialog" id="alert-search-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche</h1>
+                        <h1 id="fr-modal-title-alert-search" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche</h1>
 
                         <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
                             <section>

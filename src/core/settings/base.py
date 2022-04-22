@@ -38,6 +38,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+<<<<<<< HEAD
     "compressor",
     "rest_framework",
     "rest_framework.authtoken",
@@ -52,6 +53,23 @@ THIRD_PARTY_APPS = [
     "fieldsets_with_inlines",
     "django_otp",
     "django_otp.plugins.otp_totp",
+=======
+    'compressor',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'drf_spectacular',
+    'django_xworkflows',
+    'corsheaders',
+    'import_export',
+    'admin_auto_filters',
+    'anymail',
+    'django_celery_beat',
+    'adminsortable2',
+    'fieldsets_with_inlines',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'dsfr',
+>>>>>>> 1e4ec16a (Moved DSFR from 1.1 to 1.4 - fixed several duplicate ids)
 ]
 
 LOCAL_APPS = [
