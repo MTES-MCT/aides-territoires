@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load compress %}
+{% extends "_base.html" %}
+{% load compress static %}
 
-{% block title %}Aides-territoires | Aides publiques pour les collectivités 🏡{% endblock %}
+{% block title %}Aides-territoires | Aides publiques pour les collectivités 🏡{% endblock title %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
@@ -11,9 +11,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
-{% block body-class %}home{% endblock %}
+{% block body-class %}home{% endblock body-class %}
 
 {% block main %}
 <section id="intro">
@@ -31,7 +31,7 @@
                 <a href="{% url 'general_search' %}" class="fr-btn">Trouver des aides</a>
             </div>
             <div class="fr-col-xs-12 fr-col-md-8 fr-col-offset-md-4" id="what-image">
-                <img src="/static/img/home_aides.svg" alt="" id="home-main-image" class="fr-responsive-img" />
+                <img src="{% static 'img/home_aides.svg' %}" alt="" id="home-main-image" class="fr-responsive-img" />
             </div>
         </div>
     </div>
@@ -42,15 +42,15 @@
                 <h2>Notre action</h2>
                 <div class="fr-grid-row fr-pb-3w fr-pt-2w fr-centered fr-grid-row--center">
                     <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="/static/img/home_steps_1.svg"/>
+                        <img alt="" src="{% static 'img/home_steps_1.svg' %}"/>
                         <p>Les aides sont diffusées par leurs porteurs</p>
                     </div>
                     <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="/static/img/home_steps_2.svg"/>
+                        <img alt="" src="{% static 'img/home_steps_2.svg' %}"/>
                         <p>Aides-territoires rassemble et structure ces informations</p>
                     </div>
                     <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="/static/img/home_steps_3.svg"/>
+                        <img alt="" src="{% static 'img/home_steps_3.svg' %}"/>
                         <p>Les dispositifs deviennent plus facilement lisibles et mobilisables</p>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
     <div class="fr-container-fluid fr-background-alt">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-mb-5w fr-col-md-11" id="how">
+                <div class="fr-mb-5w fr-col-md-11" id="base-stats">
                         <h2>Aides-territoires aujourd'hui</h2>
                         <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered" >
                             <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
@@ -102,7 +102,7 @@
                             <p class="fr-card__desc fr-text">Découvrez tous les guichets dédiés à un périmètre géographique, une thématique, un programme.</p>
                         </div>
                         <div class="fr-card__img">
-                            <img src="/static/img/portails.jpg" alt="">
+                            <img src="{% static 'img/portails.jpg' %}" alt="" />
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                             <p class="fr-card__desc fr-text">Tout savoir sur la programmation 2021-2027</p>
                         </div>
                         <div class="fr-card__img">
-                            <img src="/static/img/europe.jpg" alt="">
+                            <img src="{% static 'img/europe.jpg' %}" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                             <p class="fr-card__desc fr-text">Retrouvez tous nos replays</p>
                         </div>
                         <div class="fr-card__img">
-                            <img src="/static/img/plan-de-relance.jpg" alt="">
+                            <img src="{% static 'img/plan-de-relance.jpg' %}" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -143,27 +143,26 @@
 <section id="partner">
     <div class="fr-container fr-pb-5w">
         <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
-            <div class="fr-mb-5w fr-col-md-11" id="how">
-                    <h2>Les porteurs d'aides</h2>
-                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
-                        {% for selected_backer in subset_selected_backers %}
+            <div class="fr-mb-5w fr-col-md-11" id="backers">
+                <h2>Les porteurs d'aides</h2>
+                <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
+                    {% for selected_backer in subset_selected_backers %}
                         {% if forloop.counter < 7 %}
-                        <div class="fr-col-xs-12 fr-p-3w">
-                            <a href="{{ selected_backer.get_absolute_url }}" class="fr-box-shadow__none">
-                            {% if selected_backer.logo %}
-                                <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} ">
-                            {% endif %}
-                            </a>
-                        </div>
+                            <div class="fr-col-xs-12 fr-p-3w">
+                                <a href="{{ selected_backer.get_absolute_url }}" class="fr-box-shadow__none">
+                                {% if selected_backer.logo %}
+                                    <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " />
+                                {% endif %}
+                                </a>
+                            </div>
                         {% endif %}
-                        {% endfor %}
-                    </div>
-            </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
 </section>
-{% endif%}
+{% endif %}
 
 <div class="fr-follow">
     <div class="fr-container">
@@ -193,4 +192,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock main %}
