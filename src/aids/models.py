@@ -267,6 +267,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         related_name="aids",
         blank=True,
     )
+    keywords = models.ManyToManyField(
+        "keywords.Keyword",
+        verbose_name="Mots clé",
+        related_name="aids",
+        blank=True,
+    )
     financers = models.ManyToManyField(
         "backers.Backer",
         verbose_name="Porteurs d'aides",
@@ -531,7 +537,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             self.date_published = timezone.now()
 
     def set_search_vector_unaccented(
-        self, financers=None, instructors=None, categories=None
+        self, financers=None, instructors=None, categories=None, keywords=None
     ):
         """Update the full text unaccented cache field."""
 
@@ -577,6 +583,16 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                     output_field=models.CharField(),
                 ),
                 weight="A",
+                config="french_unaccent",
+            )
+
+        if keywords:
+            search_vector_unaccented += SearchVector(
+                Value(
+                    " ".join(str(keyword) for keyword in keywords),
+                    output_field=models.CharField(),
+                ),
+                weight="C",
                 config="french_unaccent",
             )
 
