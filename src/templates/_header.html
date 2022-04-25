@@ -36,7 +36,7 @@
 
                 <div class="fr-header__tools">
                     <div class="fr-header__tools-links">
-                        <ul class="fr-btns-group">
+                        <ul class="fr-links-group">
                             {% if user.is_authenticated %}
                             <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                 {{ user.full_name }}
@@ -50,8 +50,7 @@
                             </li>
                             {% endif %}
                             <li>
-                                <a class="fr-link fr-tag" href="{% url 'general_search' %}">
-                                    <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
+                                <a class="fr-tag fr-fi-search-line fr-tag--icon-left fr-ml-1w" href="{% url 'general_search' %}">
                                     Trouver des aides
                                 </a>
                             </li>
