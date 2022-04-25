@@ -51,7 +51,7 @@ h2, h3, h4, h5, h6 {
   color: #000091;
 }
 
-.fr-icon-align--sub {
+.at-icon-align--sub {
   vertical-align: sub;
 }
 
@@ -224,18 +224,18 @@ iframe {
 
 // Header
 
-:root[data-fr-theme="dark"] .dark-mode {
+:root[data-fr-scheme="dark"] .dark-mode {
   display: block; 
 }
 
-:root[data-fr-theme="light"] .dark-mode {
+:root[data-fr-scheme="light"] .dark-mode {
   display: none; 
 }
 
-:root[data-fr-theme="light"] .light-mode {
+:root[data-fr-scheme="light"] .light-mode {
   display: block; 
 }
 
-:root[data-fr-theme="dark"] .light-mode {
+:root[data-fr-scheme="dark"] .light-mode {
   display: none; 
 }
