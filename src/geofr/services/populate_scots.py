@@ -1,9 +1,10 @@
-from django.core.management.base import BaseCommand
 import pandas
+
+from django.db import transaction
+from django.utils import timezone
 
 from geofr.models import Perimeter
 from geofr.utils import attach_perimeters
-from django.db import transaction
 
 
 """
@@ -13,11 +14,14 @@ https://www.data.gouv.fr/fr/datasets/schema-de-coherence-territoriale-scot-donne
 DATA_URL = "https://www.data.gouv.fr/fr/datasets/r/6e0cfffc-803d-4394-8461-af6e47795c19"
 SHEET_NAME = "Communes Scot"
 
+
 @transaction.atomic
 def populate_scots() -> dict:
     """
     Import the list of SCoTs.
     """
+    start_time = timezone.now()
+
     scots = {}
     nb_created = 0
     nb_updated = 0
@@ -40,7 +44,7 @@ def populate_scots() -> dict:
     for scot_id in scots.keys():
 
         # id is just an integer, we use a custom code to make it unique
-        scot_code = "SCOT-{}".format(scot_id)
+        scot_code = f"SCOT-{scot_id}"
         scot_name = scots[scot_id]["name"]
 
         # Create the scot perimeter
@@ -60,4 +64,11 @@ def populate_scots() -> dict:
         codes = scots[scot_id]["communes"]
         attach_perimeters(scot, codes)
 
-    return {"created": nb_created, "updated": nb_updated}
+        # Mark obsolete scots
+        nb_obsolete = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.adhoc,
+            code__startswith="SCOT-",
+            date_updated__lt=start_time,
+        ).update(is_obsolete=True, date_obsolete=start_time)
+
+    return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
