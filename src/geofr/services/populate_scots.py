@@ -68,7 +68,7 @@ def populate_scots() -> dict:
         nb_obsolete = Perimeter.objects.filter(
             scale=Perimeter.SCALES.adhoc,
             code__startswith="SCOT-",
-            date_updated__gte=start_time,
+            date_updated__lt=start_time,
         ).update(is_obsolete=True, date_obsolete=start_time)
 
     return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
