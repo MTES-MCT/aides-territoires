@@ -1,9 +1,9 @@
-{% extends 'search/search_page.html' %}
+{% extends "search/search_page.html" %}
 {% load compress colors %}
 
-{% block theme %}data-fr-theme="light"{% endblock %}
-{% block title %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
-{% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+{% block theme %}data-fr-scheme="light"{% endblock theme %}
+{% block title %}{{ search_page.meta_title|default:search_page.title }}{% endblock title %}
+{% block meta_description %}{{ search_page.meta_description }}{% endblock meta_description %}
 
 {% block extra_head %}
 <meta property="og:title" content="{{ search_page.meta_title|default:search_page.title }}" />
@@ -15,42 +15,42 @@
 <meta property="og:image" content="{{ search_page.meta_image.url }}" />
 {% endif %}
 <link rel="canonical" href="{{ canonical_url }}" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block header %}
     {% include 'minisites/_header.html' %}
-{% endblock %}
+{% endblock header %}
 
 {% block sticky-btn %}
     {% include 'minisites/_sticky-btn.html' %}
-{% endblock %}
+{% endblock sticky-btn %}
 
 {% block footer %}
     {% include 'minisites/_footer.html' %}
-{% endblock %}
+{% endblock footer %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 
-{% block header_warning %}{% endblock %}
+{% block header_warning %}{% endblock header_warning %}
 
-{% block user_menu %}{% endblock %}
+{% block user_menu %}{% endblock user_menu %}
 
 {% block extra_css %}
     {{ block.super }}
     {% include 'minisites/_css.html' %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block search-engine %}
      {% include 'minisites/_search_form.html' %}
-{% endblock %}
+{% endblock search-engine %}
 
 {% block content %}
 {{ block.super }}
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'alerts/_alert_modal.html' with form=form %}
-{% endblock %}
+{% endblock modals %}
 
 {% block extra_js %}
 <script>
@@ -62,4 +62,4 @@
 <script src="/static/js/aids/categories_autocomplete.js"></script>
 <script src="/static/js/aids/targeted_audiences_autocomplete.js"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

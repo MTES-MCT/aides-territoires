@@ -16,7 +16,7 @@
         
         {% if aid.financers.all %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-hand-coin-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-hand-coin-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s'}} d'aides</strong>
             </p>
             <ul class="financers fr-p-0">
@@ -33,7 +33,7 @@
 
         {% if aid.is_financial or aid.is_technical %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-settings-5-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-settings-5-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="aid-type">Nature de l'aide</strong>
             </p>
             <ul id="aid-type-list" class="fr-p-0">
@@ -52,7 +52,7 @@
 
         {% if aid.subvention_rate %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-percent-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-percent-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="subvention-rate">Taux de subvention</strong>
             </p>
             <ul class="fr-p-0">
@@ -67,7 +67,7 @@
 
         {% if aid.recurrence %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-refresh-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-refresh-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="recurrence">Récurrence</strong></p>
             <ul class="fr-p-0">
                 <li class="fr-list__none">{{ aid.get_recurrence_display }}</li>
@@ -76,7 +76,7 @@
 
         {% if aid.has_calendar %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-calendar-2-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-calendar-2-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="deadline">Calendrier</strong>
             </p>
             <ul class="fr-p-0">
