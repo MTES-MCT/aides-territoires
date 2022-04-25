@@ -67,8 +67,8 @@ class BaseAidForm(forms.ModelForm):
         help_text="Afin d'aider les territoires à mieux comprendre votre aide, donnez ici quelques exemples concrets de projets réalisables ou réalisés.",  # noqa
         widget=forms.Textarea(
             attrs={
-                "placeholder": "Médiathèque, skatepark, accompagner des enfants en classe de neige, financer une usine de traitement des déchets, etc."
-            }  # noqa
+                "placeholder": "Médiathèque, skatepark, accompagner des enfants en classe de neige, financer une usine de traitement des déchets, etc."  # noqa
+            }
         ),
     )
     eligibility = RichTextField(label="Conditions d'éligibilité", required=False)
@@ -152,14 +152,14 @@ class AidAdminForm(BaseAidForm):
         label="Porteurs suggérés",
         max_length=256,
         required=False,
-        help_text="Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que porteur d'aides via le champ approprié.",
-    )  # noqa
+        help_text="Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que porteur d'aides via le champ approprié.",  # noqa
+    )
     instructor_suggestion = forms.CharField(
         label="Instructeurs suggérés",
         max_length=256,
         required=False,
-        help_text="Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en tant qu'instructeur via le champ approprié.",
-    )  # noqa
+        help_text="Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en tant qu'instructeur via le champ approprié.",  # noqa
+    )
     categories = CategoryMultipleChoiceField(
         label="Sous-thématiques",
         required=False,
@@ -191,25 +191,25 @@ class AidEditForm(BaseAidForm):
         queryset=Backer.objects.all(),
         required=False,
         help_text="Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.",
-    )  # noqa
+    )
     financer_suggestion = forms.CharField(
         label="Suggérer un nouveau porteur",
         max_length=256,
         required=False,
-        help_text="Suggérez un porteur si vous ne trouvez pas votre choix dans la liste principale.",
-    )  # noqa
+        help_text="Suggérez un porteur si vous ne trouvez pas votre choix dans la liste principale.",  # noqa
+    )
     instructors = AutocompleteModelMultipleChoiceField(
         label="Porteurs d'aides",
         queryset=Backer.objects.all(),
         required=False,
         help_text="Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.",
-    )  # noqa
+    )
     instructor_suggestion = forms.CharField(
         label="Suggérer un nouvel instructeur",
         max_length=256,
         required=False,
-        help_text="Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste principale.",
-    )  # noqa
+        help_text="Suggérez un instructeur si vous ne trouvez pas votre choix dans la liste principale.",  # noqa
+    )
 
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
@@ -240,8 +240,8 @@ class AidEditForm(BaseAidForm):
     categories = CategoryMultipleChoiceField(
         label="Thématiques de l'aide",
         required=False,
-        help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.",
-    )  # noqa
+        help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.",  # noqa
+    )
 
     class Meta:
         model = Aid
