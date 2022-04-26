@@ -1,13 +1,13 @@
-{% extends 'admin/submit_line.html' %}
+{% extends "admin/submit_line.html" %}
 
 {% block submit-row %}
     {% if show_delete_link %}
         <a href="{% url 'admin:geofr_perimeter_combine' original.pk %}" class="submitlink">
-            {{ _('Combine perimeters') }}
+            Combiner des périmètres
         </a>
         <a href="{% url 'admin:geofr_perimeter_upload' original.pk %}" class="submitlink">
-            {{ _('Upload perimeter list') }}
+            Importer la liste des périmètres
         </a>
     {% endif %}
     {{ block.super }}
-{% endblock %}
+{% endblock submit-row %}

@@ -419,12 +419,6 @@ msgstr "L’objet {name} « {obj} » a été modifié avec succès."
 msgid "We successfully configured the perimeter."
 msgstr "Le périmètre a bien été configuré."
 
-msgid "City list (insee codes)"
-msgstr "Liste de communes (codes insee)"
-
-msgid "EPCI list (names)"
-msgstr "Liste d'EPCIs (noms)"
-
 msgid "Perimeter type"
 msgstr "Type de périmètre"
 
@@ -475,18 +469,6 @@ msgstr "Nom sans accents (pour l'index)"
 
 msgid "Perimeters"
 msgstr "Périmètres"
-
-msgid ""
-"This file seems invalid.                     Please double-check its content "
-"or contact the                     dev team if you feel like it's an "
-"error.                     Here is the original error: {}"
-msgstr ""
-"Ce fichier semble invalide ; merci de vérifier son contenu. Si vous pensez "
-"qu'il s'agit d'une erreur, contactez l'équipe de développement. Voici "
-"l'erreur d'origine : {}"
-
-msgid "This file is valid, but contains                 duplicates: {}"
-msgstr "Ce fichier est valide, mais comporte des doublons: {}"
 
 msgid "verb"
 msgstr "verbe"
@@ -1108,12 +1090,6 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
-msgid "Combine perimeters"
-msgstr "Combiner des périmètres"
-
-msgid "Upload perimeter list"
-msgstr "Uploader la liste des périmètres"
-
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "Par %(filter_title)s "
@@ -1123,13 +1099,6 @@ msgstr "Supprimer"
 
 msgid "Combine"
 msgstr "Combiner"
-
-msgid ""
-"Use this form to set this perimeter as a combination of other perimeters. "
-"Watch out, the current perimeter settings will be reset."
-msgstr ""
-"Utilisez ce formulaire pour configurer ce périmètre comme une combinaison "
-"d'autres périmètres. Attention, la configuration actuelle sera remise à zéro."
 
 msgid "Submit"
 msgstr "Envoyer"
