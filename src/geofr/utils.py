@@ -3,7 +3,6 @@ import logging
 
 from django.db import transaction
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
@@ -62,68 +61,86 @@ def get_all_related_perimeter_ids(search_perimeter_id):
     # to the current query.
 
     Through = Perimeter.contained_in.through
-    contains_id = Through.objects \
-        .filter(from_perimeter_id=search_perimeter_id) \
-        .values('to_perimeter_id') \
+    contains_id = (
+        Through.objects.filter(from_perimeter_id=search_perimeter_id)
+        .values("to_perimeter_id")
         .distinct()
-    contained_id = Through.objects \
-        .filter(to_perimeter_id=search_perimeter_id) \
-        .values('from_perimeter_id') \
+    )
+    contained_id = (
+        Through.objects.filter(to_perimeter_id=search_perimeter_id)
+        .values("from_perimeter_id")
         .distinct()
+    )
 
     q_exact_match = Q(id=search_perimeter_id)
     q_contains = Q(id__in=contains_id)
     q_contained = Q(id__in=contained_id)
 
-    perimeter_qs = Perimeter.objects \
-        .filter(q_exact_match | q_contains | q_contained) \
-        .values('id') \
+    perimeter_qs = (
+        Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
+        .values("id")
         .distinct()
+    )
     return perimeter_qs
 
 
 def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> list:
+    """
+    Extracts a list of either:
+    - Commune Insee codes
+    - EPCI names
+    - EPCI Siren codes
+    from an imported file
+    """
     item_list = []
 
     # extract items
     for line in perimeter_list_file:
         try:
-            item = line.decode().strip().split(';')[0]
+            item = line.decode().strip().split(";")[0]
             clean_item = str(item.strip('"').strip("'"))
-            item_list.append(clean_item)
+            if clean_item:  # ignore empty lines
+                item_list.append(clean_item)
         except (UnicodeDecodeError, ValueError) as e:
-            msg = _('This file seems invalid. \
-                    Please double-check its content or contact the \
-                    dev team if you feel like it\'s an error. \
-                    Here is the original error: {}').format(e)
+            msg = f"""
+            Ce fichier semble invalide ; merci de vérifier son contenu. Si vous pensez
+            qu’il s'agit d’une erreur, contactez l’équipe de développement. Voici "
+            l’erreur d'origine : {e}"""
             raise Exception(msg)
 
     # check for duplicates
-    duplicates = [item for item, count in
-                  collections.Counter(item_list).items() if count > 1]
+    duplicates = [
+        item for item, count in collections.Counter(item_list).items() if count > 1
+    ]
     if len(duplicates):
-        msg = _('This file is valid, but contains \
-                duplicates: {}').format(duplicates)
+        msg = f"Ce fichier est valide, mais comporte des doublons: {duplicates}"
         raise Exception(msg)
 
     return item_list
 
 
 def query_cities_from_list(city_codes_list):
-    return Perimeter.objects \
-        .filter(code__in=city_codes_list) \
-        .filter(scale=Perimeter.SCALES.commune)
+    return Perimeter.objects.filter(code__in=city_codes_list).filter(
+        scale=Perimeter.SCALES.commune
+    )
 
 
-def query_epcis_from_list(epci_names_list):
-    return Perimeter.objects \
-        .filter(name__in=epci_names_list) \
-        .filter(scale=Perimeter.SCALES.epci)
+def query_epcis_from_list(epci_list, data_type: str = "names"):
+    qs = Perimeter.objects.filter(scale=Perimeter.SCALES.epci)
+
+    if data_type == "names":
+        qs = qs.filter(name__in=epci_list)
+    elif data_type == "codes":
+        qs = qs.filter(code__in=epci_list)
+
+    return qs
 
 
-def attach_epci_perimeters(adhoc: Perimeter, epci_names: list, user: User) -> dict:
+def attach_epci_perimeters(
+    adhoc: Perimeter, epci_names: list, user: User, data_type: str
+) -> dict:
     # first get the epci_query from the epci_names list
-    epci_query = query_epcis_from_list(epci_names)
+    epci_query = query_epcis_from_list(epci_names, data_type)
     # get the city_codes list from these epci perimeters
     city_codes = combine_perimeters(epci_query, [])
     # finally call the usual attach_perimeters_check method
@@ -131,7 +148,9 @@ def attach_epci_perimeters(adhoc: Perimeter, epci_names: list, user: User) -> di
     return result
 
 
-def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logger=None) -> dict:
+def attach_perimeters_check(
+    adhoc: Perimeter, city_codes: list, user: User, logger=None
+) -> dict:
     """
     Checks the numbers of city codes to import
     If it is too high, create PerimeterImport object
@@ -146,16 +165,14 @@ def attach_perimeters_check(adhoc: Perimeter, city_codes: list, user: User, logg
         logger.debug("Creating PerimeterImport object")
 
         PerimeterImport.objects.create(
-            adhoc_perimeter=adhoc,
-            city_codes=city_codes,
-            author=user
+            adhoc_perimeter=adhoc, city_codes=city_codes, author=user
         )
         logger.debug("PerimeterImport object created")
-        return {'method': 'delayed import'}
+        return {"method": "delayed import"}
     else:
         logger.debug("Calling attach_perimeters function")
         attach_perimeters(adhoc, city_codes, logger)
-        return {'method': 'direct import'}
+        return {"method": "direct import"}
 
 
 @transaction.atomic
@@ -222,14 +239,16 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     Return the city codes that are in `add_perimeters` and not in
     `rm_perimeters`.
     """
-    in_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.SCALES.commune) \
-        .filter(contained_in__in=add_perimeters) \
-        .values_list('code', flat=True)
+    in_city_codes = (
+        Perimeter.objects.filter(scale=Perimeter.SCALES.commune)
+        .filter(contained_in__in=add_perimeters)
+        .values_list("code", flat=True)
+    )
 
-    out_city_codes = Perimeter.objects \
-        .filter(scale=Perimeter.SCALES.commune) \
-        .filter(contained_in__in=rm_perimeters) \
-        .values_list('code', flat=True)
+    out_city_codes = (
+        Perimeter.objects.filter(scale=Perimeter.SCALES.commune)
+        .filter(contained_in__in=rm_perimeters)
+        .values_list("code", flat=True)
+    )
 
     return set(in_city_codes) - set(out_city_codes)
