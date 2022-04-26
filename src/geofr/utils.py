@@ -9,6 +9,8 @@ from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter, PerimeterImport
 from accounts.models import User
 
+MAX_PERIMETERS_TO_ATTACH = 7000
+
 
 def department_from_zipcode(zipcode):
     """Extracts the department code from the given (valid) zipcode."""
@@ -165,7 +167,7 @@ def attach_perimeters_check(
         logger = logging.getLogger(__name__)
 
     logger.info(f"{len(city_codes)} city codes found")
-    if len(city_codes) > 10000:
+    if len(city_codes) > MAX_PERIMETERS_TO_ATTACH:
         logger.debug("Creating PerimeterImport object")
 
         PerimeterImport.objects.create(
