@@ -125,7 +125,7 @@ def query_cities_from_list(city_codes_list):
     )
 
 
-def query_epcis_from_list(epci_list, data_type: str = "names"):
+def query_epcis_from_list(epci_list: list, data_type: str = "names"):
     qs = Perimeter.objects.filter(scale=Perimeter.SCALES.epci)
 
     if data_type == "names":
@@ -137,10 +137,14 @@ def query_epcis_from_list(epci_list, data_type: str = "names"):
 
 
 def attach_epci_perimeters(
-    adhoc: Perimeter, epci_names: list, user: User, data_type: str
+    adhoc: Perimeter, epci_list: list, user: User, data_type: str
 ) -> dict:
-    # first get the epci_query from the epci_names list
-    epci_query = query_epcis_from_list(epci_names, data_type)
+    """
+    Attach EPCI Perimeters from either a list of EPCI names or EPCI
+    codes, as stated by the value of data_type ("names" or "codes")
+    """
+    # first get the epci_query from the epci_list
+    epci_query = query_epcis_from_list(epci_list, data_type)
     # get the city_codes list from these epci perimeters
     city_codes = combine_perimeters(epci_query, [])
     # finally call the usual attach_perimeters_check method
