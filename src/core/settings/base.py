@@ -378,6 +378,7 @@ REDIRECT_MINISITES_TO_EXTERNAL_URL = [
         "https://centre-val-de-loire.aides-territoires.beta.gouv.fr",
     ),
     ("france-relance-guyane", "https://guyane.aides-territoires.beta.gouv.fr"),
+    ("france-relance-martinique", "https://martinique.aides-territoires.beta.gouv.fr"),
 ]
 
 # ADDNA
