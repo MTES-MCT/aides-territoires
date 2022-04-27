@@ -27,7 +27,7 @@
                             </a>
                         </div>
                         <div class="fr-header__navbar">
-                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu-mobile aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
+                            <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu-mobile" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
                                 Menu
                             </button>
                         </div>
@@ -38,9 +38,11 @@
                     <div class="fr-header__tools-links">
                         <ul class="fr-links-group">
                             {% if user.is_authenticated %}
-                            <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
-                                {{ user.full_name }}
-                            </a>
+                            <li>
+                                <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
+                                    {{ user.full_name }}
+                                </a>
+                            </li>
                             {% else %}
                             <li>
                                 <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>

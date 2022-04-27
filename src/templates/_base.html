@@ -2,9 +2,9 @@
 <!doctype html>
 <html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock extraclasses %}" {% block theme %}data-fr-scheme="system"{% endblock theme %}>
     <head>
+        <meta charset="utf-8" />
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock extratitle %}{% endblock title %}</title>
 
-        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="{% block meta_description %}Trouvez 🔎 des aides publiques pour financer et accompagner les projets locaux de votre territoire en France métropolitaine et en Outre-mer{% endblock meta_description %}" />
         {% setting 'ENV_NAME' as env_name %}
@@ -66,8 +66,8 @@
         {% dsfr_theme_modale %}
 
         {% compress js %}
-        <script src="/static/jquery/dist/jquery.js"></script>
-        <script src="/static/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.bundle.js' %}"></script>
         {% include '_js_i18n.html' %}
         <script>
             // Piwik variables
