@@ -125,8 +125,8 @@ def query_cities_from_list(city_codes_list):
     return Perimeter.objects.filter(code__in=city_codes_list).filter(
         scale=Perimeter.SCALES.commune
     )
- 
- 
+
+
 def query_epcis_from_list(epci_list: list, data_type: str = "names"):
     qs = Perimeter.objects.filter(scale=Perimeter.SCALES.epci)
 
@@ -137,7 +137,7 @@ def query_epcis_from_list(epci_list: list, data_type: str = "names"):
 
     return qs
 
-  
+
 def attach_epci_perimeters(
     adhoc: Perimeter, epci_list: list, user: User, data_type: str
 ) -> dict:
@@ -167,6 +167,9 @@ def attach_perimeters_check(
         logger = logging.getLogger(__name__)
 
     logger.info(f"{len(city_codes)} city codes found")
+
+    city_codes = list(city_codes)
+
     if len(city_codes) > MAX_PERIMETERS_TO_ATTACH:
         logger.debug("Creating PerimeterImport object")
 
