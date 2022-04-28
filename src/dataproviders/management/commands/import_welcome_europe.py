@@ -336,6 +336,6 @@ class Command(BaseImportCommand):
         info_contact = line.get("info_contact", "")
         info_advice = line.get("info_advice", "")
         contact = (
-            "<p>" + "<br />".join([info_utile, info_contact, info_advice]) + "</p>"
+            "<p>" + "<br />".join([info_advice, info_contact, info_utile]) + "</p>"
         )
         return contact
