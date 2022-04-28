@@ -233,7 +233,7 @@ class Command(BaseImportCommand):
         return origin_url
 
     def extract_application_url(self, line):
-        pass
+        return ""
 
     def extract_targeted_audiences(self, line):
         """
@@ -331,10 +331,11 @@ class Command(BaseImportCommand):
         return aid_categories
 
     def extract_contact(self, line):
-        info_utile = line.get("info_utile", "")
-        info_contact = line.get("info_contact", "")
-        info_advice = line.get("info_advice", "")
-        contact = (
-            "<p>" + "<br />".join([info_advice, info_contact, info_utile]) + "</p>"
-        )
+        info_utile_list = line.get("info_utile", "").split("  ")
+        info_utile = "<p>" + "<br/>".join(info_utile_list) + "<p>"
+        info_contact_list = line.get("info_contact", "").split("  ")
+        info_contact = "<p>" + "<br/>".join(info_contact_list) + "<p>"
+        info_advice_list = line.get("info_advice", "").split("  ")
+        info_advice = "<p>" + "<br/>".join(info_advice_list) + "<p>"
+        contact = "<div>" + info_advice + info_contact + info_utile + "</div>"
         return contact
