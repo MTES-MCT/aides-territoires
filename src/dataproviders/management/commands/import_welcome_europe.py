@@ -233,8 +233,7 @@ class Command(BaseImportCommand):
         return origin_url
 
     def extract_application_url(self, line):
-        application_url = line.get("permalink", "")
-        return application_url
+        pass
 
     def extract_targeted_audiences(self, line):
         """
