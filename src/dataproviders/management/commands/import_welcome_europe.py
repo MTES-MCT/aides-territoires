@@ -210,12 +210,30 @@ class Command(BaseImportCommand):
         return short_title
 
     def extract_description(self, line):
-        desc_1 = content_prettify(line.get("banner_chapeau", ""))
-        desc_2 = content_prettify(line.get("banner_budget", ""))
-        desc_3 = content_prettify(line.get("info_amount", ""))
-        desc_4 = content_prettify(line.get("info_amorce", ""))
-        desc_5 = content_prettify(line.get("info_priories", ""))
-        description = desc_1 + desc_2 + desc_3 + desc_4 + desc_5
+        banner_chapeau_list = line.get("banner_chapeau", "").split("  ")
+        banner_chapeau = "<p>" + "<br/>".join(banner_chapeau_list) + "<p>"
+
+        banner_budget_list = line.get("banner_budget", "").split("  ")
+        banner_budget = "<p>" + "<br/>".join(banner_budget_list) + "<p>"
+
+        info_amount_list = line.get("info_amount", "").split("  ")
+        info_amount = "<p>" + "<br/>".join(info_amount_list) + "<p>"
+
+        info_amorce_list = line.get("info_amorce", "").split("  ")
+        info_amorce = "<p>" + "<br/>".join(info_amorce_list) + "<p>"
+
+        info_priories_list = line.get("info_priories", "").split("  ")
+        info_priories = "<p>" + "<br/>".join(info_priories_list) + "<p>"
+
+        description = (
+            "<div>"
+            + banner_chapeau
+            + banner_budget
+            + info_amount
+            + info_amorce
+            + info_priories
+            + "</div>"
+        )
         return description
 
     def extract_financers(self, line):
