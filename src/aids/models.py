@@ -212,6 +212,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ("postop", "Usage / valorisation"),
     )
 
+    EUROPEAN_AIDS = Choices(
+        ("sectorial", "Sectorielle"),
+        ("organizational", "Structurelle"),
+    )
+
     AUDIENCES = Choices(*AUDIENCES_ALL)
 
     DESTINATIONS = Choices(
@@ -431,6 +436,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "France Relance ?",
         help_text="Cette aide est-elle éligible au programme France Relance ?",
         default=False,
+    )
+
+    # Specific to European features
+    european_aid = ChoiceArrayField(
+        verbose_name="Aide européenne ?",
+        null=True,
+        blank=True,
+        base_field=models.CharField(max_length=32, choices=EUROPEAN_AIDS),
+        help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
     )
 
     # Disable send_publication_email's task

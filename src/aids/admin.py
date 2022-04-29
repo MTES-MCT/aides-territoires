@@ -245,6 +245,7 @@ class BaseAidAdmin(
                     "name",
                     "slug",
                     "in_france_relance",
+                    "european_aid",
                     "name_initial",
                     "short_title",
                     "categories",

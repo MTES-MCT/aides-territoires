@@ -173,6 +173,7 @@ class AidAdminForm(BaseAidForm):
             "targeted_audiences": forms.CheckboxSelectMultiple,
             "aid_types": forms.CheckboxSelectMultiple,
             "destinations": forms.CheckboxSelectMultiple,
+            "european_aid": forms.CheckboxSelectMultiple,
         }
 
     def __init__(self, *args, **kwargs):
