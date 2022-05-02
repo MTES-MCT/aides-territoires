@@ -283,7 +283,7 @@ class AidSerializer14(BaseAidSerializer):
         )
 
 
-# Add 'is_call_for_projects'.
+# Add 'name_initial', 'import_data_url' and 'import_share_licence'
 class AidSerializer15(BaseAidSerializer):
 
     categories = CategoryRelatedField(
@@ -298,6 +298,7 @@ class AidSerializer15(BaseAidSerializer):
             "slug",
             "url",
             "name",
+            "name_initial",
             "short_title",
             "financers",
             "instructors",
