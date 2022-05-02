@@ -20,7 +20,7 @@ ADMIN_ID = 1
 
 DATA_SOURCE = DataSource.objects.prefetch_related("perimeter", "backer").get(pk=7)
 
-OPENDATA_URL = "https://www.welcomeurope.com/wp-content/themes/welcomeurope/assets/json/calls-project-fr.json"
+OPENDATA_URL = "https://www.welcomeurope.com/"
 FEED_ROWS = 1000
 
 AUDIENCES_DICT = {}

@@ -52,10 +52,7 @@
     {% endif %}
 
     <h1>
-    {% if aid.european_aid %}
-    <img src="/static/img/european_commission.jpg" alt="emblème de la Commission Européenne" class="at-width--s">
-    {% endif %}
-
+    {% if aid.european_aid %}🇪🇺{% endif %}
     {% if aid.headline_name %}
      {{ aid.headline_name | safe }}
     {% else %}
@@ -535,8 +532,7 @@
 
                     {% if aid.import_data_source.pk == 7 %}
                     <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
-                        Ces données sont mises à disposition par <a href="https://www.welcomeurope.com/" title="lien vers le site du partenaire WelcomEurope" target="_blank">WelcomEurope</a> à titre gracieux dans le cadre d’un partenariat avec Aides-territoires.
-                    </div>
+                        Ces données sont mises à disposition par WelcomEurope à titre gracieux, à destination d’Aides-territoires et ses utilisateurs.                    </div>
                     {% endif %}
                     <section class="fr-accordion">
                         <h3 class="fr-accordion__title">
