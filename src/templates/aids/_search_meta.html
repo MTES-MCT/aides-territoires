@@ -1,5 +1,4 @@
 {% load i18n aids %}
-
 <div class="search-meta">
 
     {% if not current_search_dict %}
@@ -15,7 +14,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-targeted-audiences %}
 
     {% block search-meta-perimeter %}
     {% if current_search_dict.perimeter %}
@@ -26,7 +25,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-perimeter %}
 
     {% block search-meta-programs %}
     {% if current_search_dict.programs %}
@@ -36,7 +35,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-programs %}
 
     {% block search-meta-backers %}
     {% if current_search_dict.backers %}
@@ -47,7 +46,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-backers %}
 
     {% block search-meta-aid-type %}
     {% if current_search_dict.aid_type %}
@@ -58,7 +57,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-aid-type %}
 
     {% block search-meta-financial-aids %}
     {% if current_search_dict.financial_aids %}
@@ -69,7 +68,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-financial-aids %}
 
     {% block search-meta-technical-aids %}
     {% if current_search_dict.technical_aids %}
@@ -80,7 +79,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-technical-aids %}
 
     {% block search-meta-mobilization-step %}
     {% if current_search_dict.mobilization_step %}
@@ -90,7 +89,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-mobilization-step %}
 
     {% block search-meta-destinations %}
     {% if current_search_dict.destinations %}
@@ -100,7 +99,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-destinations %}
 
     {% block search-meta-call-for-project %}
     {% if current_search_dict.call_for_projects_only %}
@@ -110,7 +109,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-call-for-project %}
 
     {% block search-meta-text %}
     {% if current_search_dict.text %}
@@ -121,7 +120,7 @@
         </p>
     </div>
     {% endif %}
-    {% endblock %}
+    {% endblock search-meta-text %}
 
     {% block search-meta-categories %}
     {% if current_search_dict.categories %}
@@ -147,6 +146,5 @@
         {% endfor %}
     </div>
     {% endif %}
-    {% endblock %}
-
+    {% endblock search-meta-categories %}
 </div>

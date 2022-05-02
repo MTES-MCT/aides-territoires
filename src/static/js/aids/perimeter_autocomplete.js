@@ -35,7 +35,12 @@ $(document).ready(function () {
                 };
             },
         },
-        theme: 'bootstrap4',
-        width: '',
+        theme: "select2-dsfr",
+        dropdownAutoWidth : true,
+        width: "auto",
     });
+    $('#id_perimeter').addClass("fr-input");
+    $(".select2-container").addClass("fr-select-group");
+    $(".select2-selection--single").addClass("fr-select");
+    $(".select2-search__field").addClass("fr-select");
 });

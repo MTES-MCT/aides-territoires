@@ -743,69 +743,6 @@ msgstr "Afficher / masquer le menu"
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, intercommunalité, département…"
 
-msgid "Select program(s)"
-msgstr "Sélectionnez un programme"
-
-msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le ou les porteurs"
-
-msgid "Choose instructor(s) among the list."
-msgstr "Sélectionnez le ou les instructeurs parmi la liste."
-
-msgctxt "js_catalog"
-msgid "What kind of aids are you looking for?"
-msgstr "Quels types d\\'aide cherchez-vous ?"
-
-msgctxt "js_catalog"
-msgid "When to mobilize the aid?"
-msgstr "Quand mobiliser l\\'aide ?"
-
-msgctxt "js_catalog"
-msgid "The aid is destined to…"
-msgstr "L\\'aide est destinée à…"
-
-msgid "Who can apply to this aid?"
-msgstr "Qui peut prétendre à cette aide ?"
-
-# This line is embedded in a js string, hence we have to prefix
-# the quote with a slash
-msgid "The current url was successfully copied to clipboard."
-msgstr "L\\'url courante a été copiée dans le presse-papier."
-
-# This line is embedded in a js string, hence we have to prefix
-# the quote with a slash
-msgid "Sorry, we could not copy automatically."
-msgstr "Désolé, nous n\\'avons pu effectuer la copie automatiqument."
-
-msgid "Please wait"
-msgstr "Merci de patienter"
-
-msgid "Done"
-msgstr "Fait"
-
-msgid "Done! Check your mailbox for search results."
-msgstr "Vous devriez avoir reçu votre recherche par e-mail."
-
-msgid "It seems something went wrong. Please try again in a few seconds."
-msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
-
-msgid "Are you sure you want to quit? You might lose some changes."
-msgstr ""
-"Êtes-vous certain de vouloir quitter cette page ? Vos modifications seront "
-"perdues."
-
-msgid "No results were found."
-msgstr "Aucun résultat trouvé."
-
-msgid "Add a new instructor if different from financer"
-msgstr "Ajouter un instructeur s\\'il est différent du porteur"
-
-msgid "See more details"
-msgstr "Voir plus de détails"
-
-msgid "See less details"
-msgstr "Voir moins de détails"
-
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
 
@@ -1180,29 +1117,14 @@ msgstr ""
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
 
-msgid "Create an alert"
-msgstr "Créer une alerte"
-
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
-
-msgid "Filter results"
-msgstr "Filtrer les résultats"
-
-msgid "New search"
-msgstr "Nouvelle recherche"
-
-msgid "More filters"
-msgstr "Plus de critères"
 
 msgid "Keyword"
 msgstr "Mot clé"
 
 msgid "Copy the current url to clipboard"
 msgstr "Copier l'url dans le presse-papier"
-
-msgid "Advanced search"
-msgstr "Recherche avancée"
 
 msgid "Results"
 msgstr "Résultats"
@@ -1417,9 +1339,6 @@ msgstr ""
 "Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
 "les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
 "Aides-territoires</a>&nbsp;!"
-
-msgid "Reset filters"
-msgstr "Réinitialiser"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"

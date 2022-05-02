@@ -26,17 +26,17 @@
             This way, we make sure pressing "enter" performs a new search instead
             of going to the "more filters" page.
         {% endcomment %}
-        <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
+        <button type="submit" class="hidden-btn">Filtrer les résultats</button>
 
         <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-            {{ _('More filters') }}
+            Plus de critères
         </button>
 
         <a href="#" id="save-alert-btn" class="js" data-toggle="modal" data-target="#alert-search-modal">
-            {{ _('Create an alert') }}
+            Créer une alerte
         </a>
     </div>
-    {% endblock %}
+    {% endblock other_actions %}
 
     <div class="form-container">
         <div class="form-body">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4">
                     <button name="action" value="search-filter" class="search-btn" type="submit">
-                        {{ _('Filter results') }}
+                        Filtrer les résultats
                     </button>
                 </div>
             </div>

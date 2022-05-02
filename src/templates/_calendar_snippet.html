@@ -1,19 +1,20 @@
-<div id="form-group-{{ field.name }}" class="fr-input-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
-
+<div class="fr-checkbox-group" {% if field.field.required %} required {% endif %}>
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
 
     {% if nest_field_class %}
     <div class="{{ nest_field_class }}">
     {% endif %}
 
-    {{ field }}
-
-    {% if field.help_text %}
-    <span class="field-help">{{ field.help_text|safe }}</span>
-    {% endif %}
+    <div class="fr-input-wrap fr-fi-calendar-line">
+        {{ field }}
+    </div>
 
     {% if nest_field_class %}
     </div>
+    {% endif %}
+
+    {% if field.help_text %}
+        <span class="field-help">{{ field.help_text }}</span>
     {% endif %}
 
     {% if field.errors %}

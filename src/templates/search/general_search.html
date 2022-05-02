@@ -1,5 +1,5 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n compress static %}
 
 {% block extratitle %}Recherche – Trouver des aides{% endblock extratitle %}
 
@@ -36,7 +36,7 @@
 {% block content %}
 <div class="fr-container">
     <h1 class="fr-mb-5w fr-h2">Trouver des aides</h1>
-    <form id="general_search_form" method="GET" action="{% url 'search_view' %}" class="fr-px-0">        
+    <form id="general_search_form" method="get" action="{% url 'search_view' %}" class="fr-px-0">        
         <h2 class="fr-h4 fr-mt-4w">
             <span class="counter">
                 1
@@ -85,7 +85,7 @@
                             Rechercher
                         </button>
                         <div class="fr-col-12 fr-col-md-12 fr-mr-1w">
-                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">&#128161;</span> 2 astuces pour optimiser votre recherche :</strong></p>
+                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">💡</span> 2 astuces pour optimiser votre recherche :</strong></p>
                             <ul class="fr-hint-text">
                               <li class="fr-mx-2w">"piste cyclable" renverra les aides contenant les 2 termes "piste" et "cyclable".</li>
                               <li class="fr-mx-2w">"piste cyclable<strong>,</strong> voie douce" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes "voie" et "douce".</li>
@@ -93,7 +93,7 @@
                         </div>
                     </div>    
                 </div>
-                <img src="/static/img/home_aides.svg" alt="picto-aides-territoires" class="fr-responsive-img" />
+                <img src="{% static 'img/home_aides.svg' %}" alt="picto-aides-territoires" class="fr-responsive-img" />
             </div>
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w" id="search-step-2">
                 <h3 class="fr-h6">soit par thématiques&nbsp;:
@@ -101,9 +101,9 @@
                         cliquez sur une thématique, sélectionnez ensuite une ou plusieurs sous-thématiques
                     </span>
                 </h3>
-                <div class="fr-accordions-group fr-pt-0" id="categories">
+                <ul class="fr-accordions-group fr-pt-0" id="categories">
                     {% include '_field_snippet.html' with field=form.categories %}
-                </div>
+                </ul>
                 <button name="action" value="search" type="submit" class="fr-btn fr-mb-2w fr-mt-3w">
                     <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
                     Rechercher

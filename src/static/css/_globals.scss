@@ -167,11 +167,12 @@ form .fr-input-group.required > label::after {
   content: "*";
 }
 
-form .fr-input-group > ul > li {
+form .fr-input-group > ul > li,
+form .fr-checkbox-group > ul > li {
   list-style: none;
 }
 
-form select,
+/*form select,
 #id_text,
 #alert-search-modal .fr-input-group > input,
 #register-form .fr-input-group > input,
@@ -197,7 +198,7 @@ form select,
   border-radius: 0.25rem;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
+}*/
 
 #profile-form .fr-input-group > .field-help,
 #register-form .fr-input-group > .field-help {

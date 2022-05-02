@@ -1,4 +1,4 @@
-{% extends 'aids/_search_form.html' %}
+{% extends "aids/_search_form.html" %}
 
 {% block hidden-fields %}
     {{ form.apply_before.as_hidden }}
@@ -38,16 +38,16 @@
     {% if not search_page.show_aid_type_field %}
         {{ form.aid_type.as_hidden }}
     {% endif %}
-{% endblock %}
+{% endblock hidden-fields %}
 
 {% block other-actions %}
         <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
             <button id="new-filters-btn" name="action" value="more-filters" type="submit" class="advanced-link fr-btn" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-                {{ _('More filters') }}
+                Plus de critères
             </button>
     
             <a href="{% url 'home' %}" class="fr-ml-2w">
-                {{ _('Reset filters') }}
+                Réinitialiser
             </a>    
         </div>
         <div class="fr-col-offset-md-6 fr-col-md-2 fr-grid-row fr-grid-row--right fr-mt-1w">
@@ -55,7 +55,7 @@
                 Créer une alerte
             </button>    
         </div>
-{% endblock %}
+{% endblock other-actions %}
 
 {% block form-body %}
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-mb-2w" id="search-form">
@@ -102,14 +102,14 @@
         {% endif %}
 
     </div>
-{% endblock %}
+{% endblock form-body %}
 
 {% block form-actions %}
 <div class="fr-grid-row actions-row">
     <div class="fr-col-12 fr-col-md-3 fr-mt-2w">
         <select name="order_by" id="id_order_by">
             <option hidden>Trier par&nbsp;: </option>
-            {% for option in form.order_by%}
+            {% for option in form.order_by %}
             {{ option }}
             {% endfor %}
         </select>
@@ -121,4 +121,4 @@
         </button>
     </div>
 </div>
-{% endblock %}
+{% endblock form-actions %}
