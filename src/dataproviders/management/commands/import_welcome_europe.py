@@ -197,6 +197,17 @@ class Command(BaseImportCommand):
             import_raw_object.pop("dates")
         return import_raw_object
 
+    def extract_recurrence(self, line):
+        if line.get("dates_deadline-2", None) or line.get("dates_open-2", None):
+            recurrence = Aid.RECURRENCES.recurring
+        else:
+            recurrence = Aid.RECURRENCES.oneoff
+        return recurrence
+
+    def extract_european_aid(self, line):
+        european_aid = Aid.EUROPEAN_AIDS.sectorial
+        return european_aid
+
     def extract_name(self, line):
         title = line["post_title"][:180]
         return title
