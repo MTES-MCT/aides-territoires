@@ -205,8 +205,7 @@ class Command(BaseImportCommand):
         return recurrence
 
     def extract_european_aid(self, line):
-        european_aid = Aid.EUROPEAN_AIDS.sectorial
-        return european_aid
+        return [Aid.EUROPEAN_AIDS.sectorial]
 
     def extract_name(self, line):
         title = line["post_title"][:180]
