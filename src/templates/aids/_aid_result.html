@@ -12,9 +12,8 @@
                 <span class="deadline deadline-delta fr-tag"><span class="fr-icon-flashlight-line fr-fi--sm" aria-hidden="true"></span>Spécifique PVD</span>
             {% endif %}
 
-            {% if aid.european_aid %}🇪🇺{% endif %}
             <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-            {{ aid.name }}
+            {% if aid.european_aid %}🇪🇺 {% endif %}{{ aid.name }}
             </a>
         </div>
 

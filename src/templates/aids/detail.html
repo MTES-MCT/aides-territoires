@@ -332,13 +332,13 @@
                         <i class="ri-database-2-line ri-xl"></i>
                     </div>
                     <div class="fr-col-10">
-                        <h2 class="fr-h6">
+                        <h3 class="fr-h6">
                             Origine de la donnée
-                        </h2>
-                        <p>Cette aide provient d’une source de données tierce</p>
+                        </h3>
+                        <p>Cette aide provient d'une source de données tierce</p>
                         <div>
-                            <p class="fr-break-word"><strong>URL d’origine : </strong>{{ aid.import_data_url|default_if_none:'ND' }}</p>
-                            <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:'ND' }}</p>
+                            <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
+                            <p><strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
                             <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                         </div>    
                     </div>
