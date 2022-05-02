@@ -2,7 +2,11 @@ p {
   margin: 0 0 1.5rem;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 3rem;
 }
 
@@ -11,7 +15,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-centered {
-    text-align: center;
+  text-align: center;
 }
 
 .align-end {
@@ -31,7 +35,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .fr-width-fix-100 {
@@ -39,16 +43,20 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-width-100 {
-    max-width: 100%;
+  max-width: 100%;
+}
+
+.at-width--s {
+  max-width: 3rem;
 }
 
 .fr-height--auto {
-    height: auto !important;
+  height: auto !important;
 }
 
 .fr-icon-xs {
-    width: 40px;
-    height: 25px;
+  width: 40px;
+  height: 25px;
 }
 
 .fr-color--blue {
@@ -101,8 +109,8 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-footer-content__link {
-    font-weight: 700;
-    font-size: medium;
+  font-weight: 700;
+  font-size: medium;
 }
 
 .fr-footer__partners .fr-footer__logo {
@@ -115,11 +123,11 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-list__none {
-    list-style: none;
+  list-style: none;
 }
 
 .fr-display__inline {
-    display: inline;
+  display: inline;
 }
 
 .fr-display__none {
@@ -131,7 +139,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-link-blank__none:after {
-    display: none;
+  display: none;
 }
 
 .column--space-between {
@@ -150,7 +158,8 @@ h2, h3, h4, h5, h6 {
 }
 
 // Force certain classes on tables
-.at-table--xl td, .at-table--xl th {
+.at-table--xl td,
+.at-table--xl th {
   font-size: 1rem;
 }
 
@@ -176,7 +185,7 @@ h2, h3, h4, h5, h6 {
 
 // Form general rules
 
-form .fr-input-group.required > label::after {
+form .fr-input-group.required>label::after {
   content: "*";
 }
 
@@ -200,7 +209,8 @@ form .fr-checkbox-group > ul > li {
 
 .responsive-video {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
+  /* 16:9 */
   height: 0;
 }
 
