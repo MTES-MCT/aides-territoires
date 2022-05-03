@@ -10,6 +10,7 @@ from django.utils import timezone
 from aids.models import Aid, AidWorkflow
 from aids.forms import AidEditForm
 from stats.utils import log_event
+from keywords.models import Keyword
 
 
 # Call for projects will often contain those words
@@ -62,11 +63,12 @@ class BaseImportCommand(BaseCommand):
                 instructors,
                 categories,
                 programs,
+                keywords,
             ) in aids_and_related_objects:  # noqa
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(
-                            financers, instructors, categories
+                            financers, instructors, categories, keywords
                         )
                         aid.status = AidWorkflow.states.reviewable
                         aid.save()
@@ -74,6 +76,7 @@ class BaseImportCommand(BaseCommand):
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
                         aid.programs.set(programs)
+                        aid.keywords.set(keywords)
                         created_counter += 1
                         self.stdout.write(
                             self.style.SUCCESS("New aid: {}".format(aid.name))
@@ -239,6 +242,7 @@ class BaseImportCommand(BaseCommand):
             "import_raw_object_calendar",
             "date_published",
             "european_aid",
+            "keywords",
         ]
         fields = form_fields + more_fields
 
@@ -256,9 +260,10 @@ class BaseImportCommand(BaseCommand):
         instructors = values.pop("instructors", [])
         categories = values.pop("categories", [])
         programs = values.pop("programs", [])
+        keywords = values.pop("keywords", [])
         aid = Aid(**values)
 
-        return aid, financers, instructors, categories, programs
+        return aid, financers, instructors, categories, programs, keywords
 
     def extract_is_imported(self, line):
         return True

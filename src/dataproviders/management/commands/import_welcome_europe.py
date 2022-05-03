@@ -15,6 +15,7 @@ from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
+from keywords.models import Keyword
 
 ADMIN_ID = 1
 
@@ -120,6 +121,27 @@ class Command(BaseImportCommand):
 
     def line_should_be_processed(self, line):
         return True
+
+    def extract_keywords(self, line):
+        categories = line.get("filtres_sectors", "").split(",")
+        keywords = []
+        if categories != [""]:
+            for category in categories:
+                try:
+                    keyword = Keyword.objects.get(name=category)
+                    keyword_list = []
+                    keyword_list.append(keyword)
+                    keyword_pk = Keyword.objects.get(name=category).pk
+                    keywords.extend(keyword_list)
+                except:
+                    try:
+                        keyword = Keyword.objects.create(name=category)
+                        keyword_list = []
+                        keyword_list.append(keyword)
+                        keyword_pk = Keyword.objects.get(name=category).pk
+                    except:
+                        pass
+        return keywords
 
     def extract_import_data_source(self, line):
         return DATA_SOURCE
@@ -268,7 +290,7 @@ class Command(BaseImportCommand):
         Exemple of string to process: "Centres de recherche,Autorités locales et régionales,Grandes entreprises,ONG de Développement,PME,Universités,Organisations Internationales,ONG,Association & ONG,Collectivité Territoriale & Entité Affiliée,Centre de recherche & université,Grande Entreprise (> 250 Salaries),Organisation UE & Internationale,Pme & Start-Up (< 249 Salaries)"
         Split the string, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get("filtres_beneficiaries", "").split(";")
+        audiences = line.get("filtres_beneficiaries", "").split(",")
         aid_audiences = []
         for audience in audiences:
             if audience in AUDIENCES_DICT:
@@ -281,7 +303,7 @@ class Command(BaseImportCommand):
         """
         Exemple of string to process: "Appel à propositions"
         """
-        types = line.get("info_categorie", "").split(";")
+        types = line.get("info_categorie", "").split(",")
         aid_types = []
         for type_item in types:
             if type_item in TYPES_DICT:
