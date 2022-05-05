@@ -11,11 +11,13 @@ from accounts.models import User
 from emails.utils import send_email, send_email_with_template
 
 
-LOGIN_SUBJECT = 'Connexion à Aides-territoires'
+LOGIN_SUBJECT = "Connexion à Aides-territoires"
 
 
 @app.task
-def send_connection_email(user_email, body_template='emails/login_token.txt'):
+def send_connection_email(
+    user_email, body_template="emails/login_token.txt", reset_password=False
+):
     """Send a login email to the user.
 
     The email contains a token that can be used once to login.
@@ -34,23 +36,29 @@ def send_connection_email(user_email, body_template='emails/login_token.txt'):
 
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
-    login_url = reverse('token_login', args=[user_uid, login_token])
+    if reset_passord == False:
+        login_url = reverse("token_login", args=[user_uid, login_token])
+    else:
+        login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
-    full_login_url = '{base_url}{url}'.format(
-        base_url=base_url,
-        url=login_url)
+    full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
 
-    login_email_body = render_to_string(body_template, {
-        'base_url': base_url,
-        'user_name': user.full_name,
-        'full_login_url': full_login_url})
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "user_name": user.full_name,
+            "full_login_url": full_login_url,
+        },
+    )
     send_email(
         subject=LOGIN_SUBJECT,
         body=login_email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
-        tags=['connexion', settings.ENV_NAME],
-        fail_silently=False)
+        tags=["connexion", settings.ENV_NAME],
+        fail_silently=False,
+    )
 
 
 @app.task
@@ -67,20 +75,25 @@ def send_welcome_email(user_email):
 
     user = User.objects.get(email=user_email)
     data = {
-        'PRENOM': user.first_name,
-        'NOM': user.last_name,
+        "PRENOM": user.first_name,
+        "NOM": user.last_name,
     }
     send_email_with_template(
         recipient_list=[user_email],
         template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
         data=data,
-        tags=['bienvenue', settings.ENV_NAME],
-        fail_silently=True)
+        tags=["bienvenue", settings.ENV_NAME],
+        fail_silently=True,
+    )
 
 
 @app.task
-def send_invitation_email(user_email, invitator_name, organization_name,
-                          body_template='emails/invite_login_token.txt'):
+def send_invitation_email(
+    user_email,
+    invitator_name,
+    organization_name,
+    body_template="emails/invite_login_token.txt",
+):
     """Send a login email to the user invited.
 
     The email contains a token that can be used once to login.
@@ -99,22 +112,25 @@ def send_invitation_email(user_email, invitator_name, organization_name,
 
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
-    login_url = reverse('token_login', args=[user_uid, login_token])
+    login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
-    full_login_url = '{base_url}{url}'.format(
-        base_url=base_url,
-        url=login_url)
+    full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
 
-    login_email_body = render_to_string(body_template, {
-        'base_url': base_url,
-        'invitator_name': invitator_name,
-        'organization_name': organization_name,
-        'user_name': user.full_name,
-        'full_login_url': full_login_url})
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "invitator_name": invitator_name,
+            "organization_name": organization_name,
+            "user_name": user.full_name,
+            "full_login_url": full_login_url,
+        },
+    )
     send_email(
         subject=LOGIN_SUBJECT,
         body=login_email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
-        tags=['connexion', settings.ENV_NAME],
-        fail_silently=False)
+        tags=["connexion", settings.ENV_NAME],
+        fail_silently=False,
+    )
