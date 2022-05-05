@@ -48,7 +48,7 @@
                 <h3 class="fr-h6">votre structure&nbsp;:</h3>
                 <div id="form-group-targeted_audiences" class="fr-input-group">
                     <label for="id_targeted_audiences">Vous êtes un/une</label>
-                    <select name="targeted_audiences" id="id_targeted_audiences">
+                    <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
                         <option value="" hidden>Faites votre choix</option>
                         {% for option in form.targeted_audiences %}
                         {{ option }}
@@ -121,10 +121,10 @@
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/search/check_all_categories_btn.js"></script>
-<script src="/static/js/search/track_general_search_page_events.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/search/check_all_categories_btn.js' %}"></script>
+<script src="{% static 'js/search/track_general_search_page_events.js' %}"></script>
 {% endcompress %}
 {% endblock extra_js %}

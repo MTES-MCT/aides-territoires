@@ -1,6 +1,6 @@
 {% load i18n aids %}
 
-<article class="fr-card fr-enlarge-link">
+<article class="fr-card fr-enlarge-link fr-card--grey">
     <div class="fr-card__body">
 
         <div class="fr-card__title fr-mb-1w">
@@ -17,7 +17,7 @@
         {% if aid.financers.all %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
                 <i class="ri-hand-coin-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
-                <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s'}} d'aides</strong>
+                <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s' }} d’aides</strong>
             </p>
             <ul class="financers fr-p-0">
             {% for financer in aid.financers.all %}
@@ -57,10 +57,10 @@
             </p>
             <ul class="fr-p-0">
                 {% if aid.subvention_rate.lower %}
-                    <li class="fr-list__none"><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
+                    <li class="fr-list__none"><strong>Min :</strong> {{ aid.subvention_rate.lower }}%</li>
                 {% endif %}
                 {% if aid.subvention_rate.upper %}
-                    <li class="fr-list__none"><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
+                    <li class="fr-list__none"><strong>Max :</strong> {{ aid.subvention_rate.upper }}%</li>
                 {% endif %}
             </ul>
         {% endif %}
@@ -81,7 +81,7 @@
             </p>
             <ul class="fr-p-0">
             {% if aid.is_coming_soon %}
-            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l'aide&nbsp;!</li>
+            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l’aide&nbsp;!</li>
             {% endif %}
             {% if aid.start_date %}
                 <li class="fr-list__none">Ouverture&nbsp;: {{ aid.start_date|date }}</li>
@@ -95,7 +95,7 @@
         {% if aid.has_eligibility_test %}
             <div class="eligibility-badge fr-btn">
                 <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-                    Test d'éligibilité disponible
+                    Test d’éligibilité disponible
                 </a>
             </div>
         {% endif %}

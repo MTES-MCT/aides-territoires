@@ -33,7 +33,7 @@ ul.aid-categories ul li + li::before {
 }
 
 article#aid .aid-details h2 {
-  background-color: var(--bf100-g750);
+  background-color: var(--background-alt-blue-france);
   padding: .5rem 1rem;
 }
 
@@ -108,7 +108,7 @@ legend {
 }
 
 article#aid .aid-details h2 {
-  background-color: var(--bf100-g750);
+  background-color: var(--background-alt-blue-france);
   padding: .5rem 1rem;
 }
 
@@ -202,7 +202,7 @@ section#aid-edit {
       position: sticky;
       top: 0;
       z-index: 5;
-      background-color: var(--bf100-g750);
+      background-color: var(--background-alt-blue-france);
 
       @media screen and (max-width: 1000px) {
         display: none;
@@ -218,6 +218,8 @@ section#aid-edit {
 
       & a {
           font-weight: bold;
+          text-decoration: none !important;
+          --underline-img: none;
       }
 
       & a.active {
@@ -235,9 +237,9 @@ section#aid-edit {
               height: 1.5rem;
               text-align: center;
               vertical-align: baseline;
-              border: 2px solid var(--bf500);
-              background-color: var(--bf500);
-              color: var(--w);
+              border: 2px solid var(--border-active-blue-france);
+              background-color: var(--background-active-blue-france);
+              color: var(--text-inverted-blue-france);
               border-radius: 50%;
               font-size: 0.85rem;
               line-height: 1.5;
@@ -255,8 +257,9 @@ section#aid-edit {
       background-color: inherit;
 
       span.counter {
-          background-color: var(--w) !important;
-          color: var(--bf500) !important;
+        border: 2px solid var(--border-active-blue-france) !important;
+        background-color: var(--background-open-blue-france) !important;
+        color: var(--text-active-blue-france) !important;
           border: 2px solid var(--bf500) !important;
       }
   }
@@ -322,7 +325,7 @@ section#aid-edit form.main-form > fieldset + fieldset {
 }
 
 section#aid-edit form.main-form {
-  background: linear-gradient(90deg, var(--w) 34%, var(--bf100-g750) 34%);
+  background: linear-gradient(90deg, var(--w) 34%, var(--background-alt-blue-france) 34%);
 
   @media screen and (max-width: 1000px) {
     background: none;
@@ -472,12 +475,12 @@ form#general_search_form {
     height: 2.2rem;
     text-align: center;
     vertical-align: baseline;
-    border: 1px solid var(--g700);
+    border: 1px solid var(--border-active-blue-france);
     border-radius: 50%;
   }
 
   #search-step-2:hover {
-    background-color: var(--bf100-g750);
+    background-color: var(--background-alt-blue-france);
   }
 
   @media screen and (max-width: 600px) {
@@ -620,42 +623,10 @@ fieldset {
   display: block;
 }
 
-// create-project modal
+// Max length counter
 
-form#create_project {
-
-  label {
-    display: block;
-  }
-
-  span.field-help {
-    display: block;
-    font-size: .75rem;
-    line-height: 1.25rem;
-    color: var(--g600);
-  }
-
-  input {
-    display: block;
-    box-shadow: inset 0 -2px 0 0 var(--g600);
-    display: block;
-    width: 100%;
-    border: 0;
-    border-radius: .25rem .25rem 0 0;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: .5rem 1rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    color: #495057 !important;
-    background: #f0f0f0;
-    min-height: 2.5rem;
-    max-height: 2.5rem;
-    padding-right: 2.5rem;
-    cursor: pointer;
-  }
-
+.softmaxlength-counter {
+  padding-left: 0.5em;
 }
 
 // Account Dashboard

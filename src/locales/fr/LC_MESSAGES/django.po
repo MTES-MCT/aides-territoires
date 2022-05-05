@@ -1066,12 +1066,6 @@ msgstr "Cette aide est directement publiée par la structure qui la porte."
 msgid "Corporate"
 msgstr "Privé"
 
-msgid "Min:"
-msgstr "Min :"
-
-msgid "Max:"
-msgstr "Max :"
-
 msgid "Calendar"
 msgstr "Calendrier"
 
@@ -1083,12 +1077,6 @@ msgstr "Échéance :"
 
 msgid "Deadline"
 msgstr "Échéance"
-
-msgid "Aid edition"
-msgstr "Édition de l'aide"
-
-msgid "Criterias of eligibility"
-msgstr "Critères d'éligibilité de l'aide"
 
 msgid "Search"
 msgstr "Recherche"

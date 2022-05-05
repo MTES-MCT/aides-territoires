@@ -7,6 +7,8 @@
     </div>
 
     <div class="part-form fr-checkbox-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
         {% if nest_field_class %}
         <div class="{{ nest_field_class }}">
         {% endif %}
@@ -17,7 +19,6 @@
         </div>
         {% endif %}
     
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         
         {% if field.errors %}
         <p class="error field-error">
