@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n form_utils compress %}
+{% load static form_utils compress %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
@@ -15,7 +15,7 @@
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
 {% endblock extra_head %}
 
-{% block extratitle %}{{ _('Register') }}{% endblock extratitle %}
+{% block extratitle %}Inscrivez-vous{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container--fluid">
@@ -36,7 +36,7 @@
                                 </ul>
                             </div>
                             <div class="fr-px-2w">
-                                <p class="fr-mt-1w">Et <b>si vous êtes porteur d'aides</b>, vous pourrez également gérer et diffuser toutes vos aides.</p>
+                                <p class="fr-mt-1w">Et <b>si vous êtes porteur d’aides</b>, vous pourrez également gérer et diffuser toutes vos aides.</p>
                                 <p class="fr-mt-1w">Alors, n'attendez plus, et <b>créez votre compte en 1 minute&nbsp;!</b></p>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
 
                                             <div id="form-group-organization_type" class="fr-input-group required ">
                                                 <label for="id_organization_type">Vous êtes un/une</label>
-                                                <select name="organization_type" id="id_organization_type">
+                                                <select class="fr-select" name="organization_type" id="id_organization_type">
                                                     <option value="" hidden>Sélectionnez une option</option>
                                                     {% for option in form.organization_type %}
                                                     {{ option }}
@@ -133,8 +133,8 @@
                                     <div class="fr-col-12 fr-mb-3w">
                                         <p class="info fr-background-alt fr-p-3w">
                                             <span class="fas fa-bug"></span>
-                                            Si vous n'arrivez pas à vous inscrire,
-                                            <a href="mailto:aides-territoires@beta.gouv.fr">n'hésitez pas à nous contacter.</a>
+                                            Si vous n’arrivez pas à vous inscrire,
+                                            <a href="mailto:aides-territoires@beta.gouv.fr">n’hésitez pas à nous contacter.</a>
                                         </p>
                                     </div>
                                 </div>
@@ -150,6 +150,6 @@
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/js/accounts/toggle_beneficiary_related_fields.js"></script>
+<script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
 {% endcompress %}
 {% endblock extra_js %}

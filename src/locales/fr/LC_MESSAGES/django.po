@@ -915,13 +915,6 @@ msgstr ""
 msgid "Create an account"
 msgstr "Créer un compte"
 
-msgid ""
-"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
-"gouv.fr\">Please contact us.</a>"
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
-
 msgid "You registered successfully"
 msgstr "Compte créé"
 
