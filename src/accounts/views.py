@@ -103,6 +103,11 @@ class PasswordResetConfirmView(
     form_class = PasswordResetConfirmForm
     success_message = "Votre mot de passe a bien été mis à jour."
 
+    def get_success_url(self):
+        current_url = reverse("contributor_profile")
+        next_url = self.request.GET.get("next", current_url)
+        return next_url
+
     def get_object(self):
         return self.request.user
 
