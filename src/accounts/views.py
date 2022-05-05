@@ -27,6 +27,7 @@ from accounts.mixins import (
 from accounts.forms import (
     RegisterForm,
     PasswordResetForm,
+    PasswordResetConfirmForm,
     ContributorProfileForm,
     InviteCollaboratorForm,
     CompleteProfileForm,
@@ -91,6 +92,25 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
     """Simple success confirmation message."""
 
     template_name = "accounts/password_reset_sent.html"
+
+
+class PasswordResetConfirmView(
+    ContributorAndProfileCompleteRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    """Update contributor profile data."""
+
+    template_name = "accounts/password_reset_confirm.html"
+    form_class = PasswordResetConfirmForm
+    success_message = "Votre mot de passe a bien été mis à jour."
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        """Make sure the user is not disconnected after password change."""
+        res = super().form_valid(form)
+        update_session_auth_hash(self.request, self.object)
+        return res
 
 
 class LoginView(views.LoginView, TemplateView):

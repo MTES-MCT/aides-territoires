@@ -1,6 +1,6 @@
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlencode
 from django.utils.encoding import force_bytes
 from django.urls import reverse
 from django.conf import settings
@@ -36,12 +36,13 @@ def send_connection_email(
 
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
-    if reset_passord == False:
-        login_url = reverse("token_login", args=[user_uid, login_token])
-    else:
-        login_url = reverse("token_login", args=[user_uid, login_token])
+    login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
-    full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
+    if reset_password == False:
+        full_login_url = f"{base_url}{login_url}"
+    else:
+        next_url = {"next": reverse("password_reset_confirm")}
+        full_login_url = f"{base_url}{login_url}?{urlencode(next_url)}"
 
     login_email_body = render_to_string(
         body_template,
