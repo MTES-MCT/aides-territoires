@@ -6,6 +6,4 @@ $(document).ready(function () {
         dropdownAutoWidth : true,
         width: "auto",
     });
-    $(".select2-container").addClass("fr-select-group");
-    $(".select2-selection").addClass("fr-select");
 });

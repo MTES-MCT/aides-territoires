@@ -16,7 +16,7 @@
             <h2 class="fr-h3">Merci de renseigner les informations de votre structure pour finaliser votre inscription</h2>
             {% else %}
             <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }}&nbsp;!</h1>
-            <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d'accéder à votre espace</h2>
+            <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
             {% endif %}
 
             <form method="post" action="" novalidate class="fr-mt-5w">
@@ -58,5 +58,6 @@
 <script src="{% static 'select2/dist/js/select2.js' %}"></script>
 <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
 <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 {% endcompress %}
 {% endblock extra_js %}
