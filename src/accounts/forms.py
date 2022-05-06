@@ -123,7 +123,7 @@ class PasswordResetConfirmForm(forms.ModelForm):
 
     new_password = forms.CharField(
         label="Choisissez un nouveau mot de passe",
-        required=False,
+        required=True,
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
         widget=forms.PasswordInput(),
@@ -131,7 +131,7 @@ class PasswordResetConfirmForm(forms.ModelForm):
 
     new_password2 = forms.CharField(
         label="Saisissez à nouveau le nouveau mot de passe",
-        required=False,
+        required=True,
         strip=False,
         widget=forms.PasswordInput(),
     )

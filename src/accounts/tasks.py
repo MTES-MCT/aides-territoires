@@ -44,6 +44,7 @@ def send_connection_email(
         next_url = {"next": "password_reset_confirm"}
         full_login_url = f"{base_url}{login_url}?{urlencode(next_url)}"
         body_template = "emails/reset_password.txt"
+        LOGIN_SUBJECT = "Renouvellement de votre mot de passe"
 
     login_email_body = render_to_string(
         body_template,
