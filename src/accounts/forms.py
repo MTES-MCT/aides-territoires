@@ -126,22 +126,14 @@ class PasswordResetConfirmForm(forms.ModelForm):
         required=False,
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Laissez vide pour conserver votre mot de passe actuel"
-            }
-        ),
+        widget=forms.PasswordInput(),
     )
 
     new_password2 = forms.CharField(
         label="Saisissez à nouveau le nouveau mot de passe",
         required=False,
         strip=False,
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Laissez vide pour conserver votre mot de passe actuel"
-            }
-        ),
+        widget=forms.PasswordInput(),
     )
 
     class Meta:
