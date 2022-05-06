@@ -118,7 +118,7 @@ class PasswordResetForm(forms.Form):
     username = forms.EmailField(label="Votre adresse e-mail", required=True)
 
 
-class PasswordResetConfirmForm(forms.Form):
+class PasswordResetConfirmForm(forms.ModelForm):
     """Change password after reset's request form."""
 
     new_password = forms.CharField(
@@ -150,18 +150,6 @@ class PasswordResetConfirmForm(forms.Form):
             "new_password",
             "new_password2",
         ]
-
-    def clean(self):
-        """Validation routine (frontend form only)."""
-
-        data = super().clean()
-
-        if not any((data.get("is_contributor"), data.get("is_beneficiary"))):
-            msg = "Merci de cocher au moins l'une des options."
-            self.add_error("is_beneficiary", msg)
-            self.add_error("is_contributor", msg)
-
-        return data
 
     def _post_clean(self):
         super()._post_clean()
