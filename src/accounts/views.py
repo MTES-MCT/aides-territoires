@@ -95,7 +95,7 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
 
 
 class PasswordResetConfirmView(
-    ContributorAndProfileCompleteRequiredMixin, SuccessMessageMixin, UpdateView
+    ContributorRequiredMixin, SuccessMessageMixin, UpdateView
 ):
     """Update contributor profile data."""
 
