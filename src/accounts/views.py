@@ -22,6 +22,7 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import (
     ContributorAndProfileCompleteRequiredMixin,
+    ContributorRequiredMixin,
     UserLoggedRequiredMixin,
 )
 from accounts.forms import (
