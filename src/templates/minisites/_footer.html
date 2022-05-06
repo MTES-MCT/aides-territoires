@@ -1,15 +1,12 @@
-{% load settings i18n %}
-{% load i18n mailing_list %}
+{% load settings static mailing_list %}
 <footer>
     <div id="top-footer">
         <div class="container">
-            <p>{% blocktrans trimmed %}
-                Do you want to extend your search?
-                {% endblocktrans %}</p>
-            <p>{% blocktrans trimmed %}
-                Find all aids for all beneficiaries and all themes  
-                in <a href="https://aides-territoires.beta.gouv.fr/">Aides-territoires</a>!
-                {% endblocktrans %}</p>    
+            <p>Vous souhaitez élargir votre recherche ?</p>
+            <p>
+            Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes les thématiques sur <a href="https://aides-territoires.beta.gouv.fr/">
+            Aides-territoires</a> !
+            </p>
         </div>
     </div>
     <div id="subscribe-footer">
@@ -20,9 +17,9 @@
                 <p>📬</p>
             </div>
             <div id="social-network">
-                <p>Suivez nos actualités sur&nbsp:</p>
+                <p>Suivez nos actualités sur :</p>
                 <a class="fr-box-shadow__none fr-link-blank__none" href="https://twitter.com/aidesterr" title="Retrouvez Aides territoires sur Twitter" target="_blank" rel="noopener"><img src="/static/img/logo_twitter.svg" alt="logo twitter"></a>
-                <a class="fr-box-shadow__none fr-link-blank__none" href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener"><img src="/static/img/logo_linkedin.svg" alt="logo linkedin"></a>    
+                <a class="fr-box-shadow__none fr-link-blank__none" href="https://www.linkedin.com/company/aides-territoires" title="Retrouvez Aides territoires sur Linkedin" target="_blank" rel="noopener"><img src="/static/img/logo_linkedin.svg" alt="logo linkedin"></a>
             </div>
         </div>
     </div>
@@ -35,11 +32,11 @@
             </div>
 
             <a class="fr-box-shadow__none" href="https://aides-territoires.beta.gouv.fr" target="_blank" rel="noopener" title="Aides-territoires">
-                <img class="logo" src="/static/img/logo_AT_courbes.svg" alt="Logo d'Aides-territoires" />
+                <img class="logo" src="{% static 'img/logo_AT_courbes.svg" alt="Logo d’Aides-territoires' %}" />
             </a>
 
             <a class="fr-box-shadow__none" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" target="_blank" rel="noopener" title="La Fabrique Numérique">
-                <img class="logo" id="logo-fabnum" src="/static/img/logo-fabriquenumerique.svg" alt="Logo de la Fabrique Numérique" />
+                <img class="logo" id="logo-fabnum" src="{% static 'img/logo-fabriquenumerique.svg' %}" alt="Logo de la Fabrique Numérique" />
             </a>
     
             {% if search_page.logo %}

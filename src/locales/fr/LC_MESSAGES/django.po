@@ -728,9 +728,6 @@ msgstr "Connectez-vous"
 msgid "Register"
 msgstr "Inscrivez-vous"
 
-msgid "Publish new aids"
-msgstr "Publier des aides"
-
 msgid "Data and api"
 msgstr "Données et API"
 
@@ -1309,17 +1306,6 @@ msgstr "Créer une nouvelle liste"
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""
 "Sélectionnez une liste dans le menu pour consulter les aides associées."
-
-msgid "Do you want to extend your search?"
-msgstr "Vous souhaitez élargir votre recherche&nbsp;?"
-
-msgid ""
-"Find all aids for all beneficiaries and all themes in <a href=\"https://"
-"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>!"
-msgstr ""
-"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
-"les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
-"Aides-territoires</a>&nbsp;!"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"

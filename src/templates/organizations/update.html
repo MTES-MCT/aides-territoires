@@ -1,9 +1,9 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n static compress %}
 
-{% block extratitle %}Ma structure{% endblock %}
+{% block extratitle %}Ma structure{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -24,8 +24,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
@@ -61,19 +60,18 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
 <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}
