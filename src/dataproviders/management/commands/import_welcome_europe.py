@@ -87,6 +87,16 @@ CATEGORIES_DICT = mapping_categories(
     CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
 )
 
+PROGRAMS_MAPPING_CSV_PATH = (
+    os.path.dirname(os.path.realpath(__file__))
+    + "/../../data/welcome_europe_programs_mapping.csv"
+)
+SOURCE_COLUMN_NAME = "Programme Welcome Europe"
+AT_COLUMN_NAMES = ["Programme AT 1"]
+PROGRAMS_DICT = mapping_categories(
+    PROGRAMS_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
+)
+
 
 class Command(BaseImportCommand):
     """
@@ -123,7 +133,7 @@ class Command(BaseImportCommand):
         return True
 
     def extract_keywords(self, line):
-        categories = line.get("filtres_sectors", "").split(",")
+        categories = line.get("filtres_sectors", "").split(";")
         keywords = []
         if categories != [""]:
             for category in categories:
@@ -290,7 +300,7 @@ class Command(BaseImportCommand):
         Exemple of string to process: "Centres de recherche,Autorités locales et régionales,Grandes entreprises,ONG de Développement,PME,Universités,Organisations Internationales,ONG,Association & ONG,Collectivité Territoriale & Entité Affiliée,Centre de recherche & université,Grande Entreprise (> 250 Salaries),Organisation UE & Internationale,Pme & Start-Up (< 249 Salaries)"
         Split the string, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get("filtres_beneficiaries", "").split(",")
+        audiences = line.get("filtres_beneficiaries", "").split(";")
         aid_audiences = []
         for audience in audiences:
             if audience in AUDIENCES_DICT:
@@ -363,7 +373,7 @@ class Command(BaseImportCommand):
         Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
         Split the string, loop on the values and match to our Categories
         """
-        categories = line.get("filtres_sectors", "").split(",")
+        categories = line.get("filtres_sectors", "").split(";")
         title = line["post_title"][:180]
         aid_categories = []
         if categories != [""]:
@@ -379,6 +389,28 @@ class Command(BaseImportCommand):
         else:
             print(f"{title} aucune thématique WE")
         return aid_categories
+
+    def extract_programs(self, line):
+        """
+        Exemple of string to process: "JPI - (1.) INITIATIVE DE PROGRAMMATION CONJOINTE;JPI - (1.11.) INITIATIVE DE PROGRAMMATION CONJOINTE PARTENARIAT POUR LA RECHERCHE ET L&rsquo;INNOVATION DANS LA REGION MEDITERRANEENNE (JPI PRIMA)"  # noqa
+        Split the string, loop on the values and match to our Programs
+        """
+        programs = line.get("relations_programmes", "").split(";")
+        title = line["post_title"][:180]
+        aid_programs = []
+        if programs != [""]:
+            for program in programs:
+                if program in PROGRAMS_DICT:
+                    aid_programs.extend(PROGRAMS_DICT.get(program, []))
+                else:
+                    self.stdout.write(
+                        self.style.ERROR(
+                            f"\"{line.get('relations_programmes', '')}\";{program}"
+                        )
+                    )
+        else:
+            print(f"{title} aucun programme WE")
+        return aid_programs
 
     def extract_contact(self, line):
         info_utile_list = line.get("info_utile", "").split("  ")
