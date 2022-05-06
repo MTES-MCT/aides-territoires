@@ -22,6 +22,7 @@ from braces.views import AnonymousRequiredMixin, MessageMixin
 
 from accounts.mixins import (
     ContributorAndProfileCompleteRequiredMixin,
+    ContributorRequiredMixin,
     UserLoggedRequiredMixin,
 )
 from accounts.forms import (
@@ -95,7 +96,7 @@ class PasswordResetSentView(AnonymousRequiredMixin, TemplateView):
 
 
 class PasswordResetConfirmView(
-    ContributorAndProfileCompleteRequiredMixin, SuccessMessageMixin, UpdateView
+    ContributorRequiredMixin, SuccessMessageMixin, UpdateView
 ):
     """Update contributor profile data."""
 
