@@ -43,6 +43,7 @@ def send_connection_email(
     else:
         next_url = {"next": "password_reset_confirm"}
         full_login_url = f"{base_url}{login_url}?{urlencode(next_url)}"
+        body_template = emails/reset_password.txt
 
     login_email_body = render_to_string(
         body_template,
