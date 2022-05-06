@@ -41,7 +41,7 @@ def send_connection_email(
     if reset_password == False:
         full_login_url = f"{base_url}{login_url}"
     else:
-        next_url = {"next": reverse("password_reset_confirm")}
+        next_url = {"next": "password_reset_confirm"}
         full_login_url = f"{base_url}{login_url}?{urlencode(next_url)}"
 
     login_email_body = render_to_string(
