@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n aids compress humanize settings %}
+{% load static aids compress humanize settings %}
 
 {% block extratitle %}{{ aid.name }}{% endblock extratitle %}
 
@@ -29,7 +29,7 @@
                     <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Détail de l'aide</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Détail de l’aide</a>
                 </li>
             </ol>
         </div>
@@ -45,7 +45,7 @@
                 <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
                 {% endif %}
                 <p>
-                    <strong>{{ _('Deadline') }}</strong><br />
+                    <strong>Échéance</strong><br />
                     {{ aid.submission_deadline|date }}
                 </p>
             </div>
@@ -73,8 +73,8 @@
             {% if not aid.is_published %}
             <div class="danger fr-background-alt-pink fr-p-3w">
                 <p>
-                    Attention ! Cette aide <strong>n'est actuellement pas affichée sur le site</strong>.
-                    Vous pouvez la prévisualiser parce que vous en êtes l'auteur.
+                    Attention ! Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.
+                    Vous pouvez la prévisualiser parce que vous en êtes l’auteur.
                 </p>
             </div>
             {% endif %}
@@ -82,7 +82,7 @@
             {% if aid.has_expired %}
             <div class="danger fr-background-alt-pink fr-p-3w">
                 <p>
-                    Attention ! Cette aide n'est <strong>plus disponible</strong>. Cette page
+                    Attention ! Cette aide n’est <strong>plus disponible</strong>. Cette page
                     restera accessible pour archivage.
                 </p>
             </div>
@@ -99,9 +99,9 @@
                                     <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
                                 </div>
                                 <div class="fr-col-10">
-                                    <h3 class="fr-h6">{{ _('Local aid') }}</h3>
+                                    <h3 class="fr-h6">Aide locale</h3>
                                     <p class="fr-mb-0">
-                                        {{ _('This aid is a local variant of a ') }}<a href="{{ aid.generic_aid.get_absolute_url }}">{{ _('national measure') }}</a>
+                                        Cette aide est une déclinaison locale d’une <a href="{{ aid.generic_aid.get_absolute_url }}">aide nationale</a>
                                     </p>
                                 </div>
                             </div>
@@ -115,9 +115,9 @@
                                     <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
                                 </div>
                                 <div class="fr-col-10">
-                                    <h3 class="fr-h6">{{ _('National measure') }}</h3>
+                                    <h3 class="fr-h6">Aide nationale</h3>
                                     <p class="fr-mb-0">
-                                        {{ _('This aid is a national measure ') }} <a href="#aides-locales">{{ _('declinated locally') }}</a>
+                                        Cette aide nationale <a href="#aides-locales">dispose de déclinaisons locales</a>
                                     </p>    
                                 </div>
                             </div>
@@ -135,14 +135,14 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    Porteurs d'aides
+                                    Porteurs d’aides
                                 </h3>
                                 <ul class="fr-pl-0">
                                     {% for financer in financers %}
                                     <li class="fr-list__none">
                                         {{ financer }}
                                         {% if financer.is_corporate %}
-                                        ({{ _('Corporate') }})
+                                        (Privé)
                                         {% endif %}
                                     </li>
                                     {% endfor %}
@@ -163,7 +163,7 @@
                                     <li class="fr-list__none">
                                         {{ instructor }}
                                         {% if instructor.is_corporate %}
-                                        ({{ _('Corporate') }})
+                                        (Privé)
                                         {% endif %}
                                     </li>
                                     {% endfor %}
@@ -194,7 +194,7 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    <strong>Nature de l'aide</strong>
+                                    <strong>Nature de l’aide</strong>
                                 </h3>
                                 <p class="fr-mb-0">{% choices_display aid 'aid_types' %}</p>
                             </div>
@@ -235,7 +235,7 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    Montant de l'avance récupérable
+                                    Montant de l‘avance récupérable
                                 </h3>
                                 <ul class="fr-pl-0">
                                     <li class="fr-list__none">{{ aid.recoverable_advance_amount|intcomma }} €</li>
@@ -267,7 +267,7 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    Commentaire sur l'aide financière
+                                    Commentaire sur l’aide financière
                                 </h3>
                                 <ul class="fr-pl-0">
                                     <li class="fr-list__none">{{ aid.other_financial_aid_comment }}</li>
@@ -300,7 +300,7 @@
                             </div>
                             <div class="fr-col-10">
                                 <h3 class="fr-h6">
-                                    Date d'ouverture
+                                    Date d’ouverture
                                 </h3>
                                 <p class="fr-mb-0">{{ aid.start_date|date }}</p>    
                             </div>
@@ -347,10 +347,10 @@
                                 <h3 class="fr-h6">
                                     Origine de la donnée
                                 </h3>
-                                <p>Cette aide provient d'une source de données tierce</p>
+                                <p>Cette aide provient d’une source de données tierce</p>
                                 <div>
-                                    <p class="fr-break-word"><strong>URL d'origine : </strong>{{ aid.import_data_url|default_if_none:_('NA')}}</p>
-                                    <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
+                                    <p class="fr-break-word"><strong>URL d’origine : </strong>{{ aid.import_data_url|default_if_none:'ND' }}</p>
+                                    <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:'ND' }}</p>
                                     <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                                 </div>    
                             </div>
@@ -361,7 +361,7 @@
                     {% if financers_with_logo %}
                     <div class="fr-grid-row fr-mb-4w" id="logos-financers">
                         {% for financer in financers_with_logo %}
-                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
                             <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
                         </a>
                         {% endfor %}
@@ -371,7 +371,7 @@
                     {% if programs %}
                     <div class="fr-grid-row fr-mb-4w" id="logos-programs">
                         {% for program in programs %}
-                        <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 fr-box-shadow__none">
+                        <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
                             <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}" />
                         </a>
                         {% endfor %}
@@ -398,7 +398,7 @@
                     <h2>Présentation générale</h2>
 
                     {% if aid.name_initial %}
-                    <h3>Nom initial de l'aide</h3>
+                    <h3>Nom initial de l’aide</h3>
                     <p>« {{ aid.name_initial }} »</p>
                     {% endif %}
 
@@ -406,7 +406,7 @@
                     {% if aid.description %}
                     {{ aid.description|safe }}
                     {% else %}
-                    <p> {{ _('No detailed description was submitted.') }} </p>
+                    <p>Aucune description détaillée n’a été renseignée.</p>
                     {% endif %}
 
                     {% if aid.is_local and aid.local_characteristics %}
@@ -417,18 +417,18 @@
                     {% endif %}
 
                     {% if aid.targeted_audiences %}
-                    <h3>Bénéficiaires de l'aide</h3>
+                    <h3>Bénéficiaires de l’aide</h3>
                     <p>{% choices_display aid 'targeted_audiences' %}</p>
                     {% endif %}
 
-                    <h3>{{ _('Aid targeted area') }}</h3>
+                    <h3>Zone géographique couverte par l’aide</h3>
                     <p>{{ aid.perimeter }}</p>
 
                     {% if eligibility_criteria or aid.has_eligibility_test %}
-                    <h2>{{ _('Eligibility criteria') }}</h2>
+                    <h2>Critères d’éligibilité</h2>
 
                     {% if aid.mobilization_steps %}
-                    <h3>{{ _('The aid can be mobilized during…') }}</h3>
+                    <h3>Dispositif applicable pour un projet</h3>
                     <p>{% choices_display aid 'mobilization_steps' %}</p>
                     {% endif %}
 
@@ -443,7 +443,7 @@
                     {% endif %}
 
                     {% if aid.eligibility %}
-                    <h3>Autres critères d'éligibilité</h3>
+                    <h3>Autres critères d’éligibilité</h3>
                     {{ aid.eligibility|safe }}
                     {% endif %}
                     {% endif %}
@@ -459,9 +459,9 @@
                     {% if aid.is_generic %}
                     {% with local_aids=aid.get_sorted_local_aids %}
                         <h3 id="aides-locales">
-                            {{ _('Local variants') }}
+                            Déclinaisons locales
                         </h3>
-                        <p>{{ _("If you don't find your local aid refer to the national measure.") }}</p>
+                        <p>En l’absence d’aide locale, les informations relatives à cette aide nationale font foi</p>
                         {% if local_aids %}
                             <div id="localAidsLinks">
                                 <ul>
@@ -531,7 +531,7 @@
                             </div>
                         </div>
                     </h3>
-                    <p class="fr-card__desc fr-text--sm">L'outil très pratique pour partager facilement cette aide sur vos différents réseaux en 1 seul clic.</p>
+                    <p class="fr-card__desc fr-text--sm">L’outil très pratique pour partager facilement cette aide sur vos différents réseaux en 1 seul clic.</p>
                     <div style="text-align:center">
                         <button class="fr-btn _fr-fi-add-circle-line _fr-btn--icon-left" data-fr-opened="false" aria-controls="share-modal">
                             Envoyer à mes réseaux
@@ -615,12 +615,12 @@
     CURRENT_SEARCH = '{{ current_search | safe }}';
 </script>
 {% compress js %}
-<script src="/static/js/aids/track_aid_events.js"></script>
-<script src="/static/js/alerts/track_alert_button_events.js"></script>
-<script src="/static/js/alerts/alert_form.js"></script>
-<script src="/static/js/eligibility/eligibility_test_form.js"></script>
-<script src="/static/js/links_on_images.js"></script>
-<script src="/static/js/responsive_iframe.js"></script>
-<script src="/static/js/aids/share_aid.js"></script>
+<script src="{% static 'js/aids/track_aid_events.js' %}"></script>
+<script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
+<script src="{% static 'js/alerts/alert_form.js' %}"></script>
+<script src="{% static 'js/eligibility/eligibility_test_form.js' %}"></script>
+<script src="{% static 'js/links_on_images.js' %}"></script>
+<script src="{% static 'js/responsive_iframe.js' %}"></script>
+<script src="{% static 'js/aids/share_aid.js' %}"></script>
 {% endcompress %}
 {% endblock extra_js %}

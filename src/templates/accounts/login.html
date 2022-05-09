@@ -1,9 +1,8 @@
-{% extends '_base.html' %}
-{% load i18n %}
+{% extends "_base.html" %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}login-form{% endblock %}
+{% block sectionid %}login-form{% endblock sectionid %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Connexion" />
@@ -15,7 +14,7 @@
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
 {% endblock %}
 
-{% block extratitle %}{{ _('Login') }}{% endblock %}
+{% block extratitle %}Connectez-vous{% endblock %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">

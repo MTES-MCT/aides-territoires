@@ -50,9 +50,6 @@ msgstr "Éligibilité"
 msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
 
-msgid "Aid title"
-msgstr "Nom de l'aide"
-
 msgid "Categories"
 msgstr "Sous-thématiques"
 
@@ -698,9 +695,6 @@ msgstr "Événements aide liée à un projet"
 msgid "Tag"
 msgstr "Mot clé"
 
-msgid "Publish an aid"
-msgstr "Publier une aide"
-
 msgid "Drafts"
 msgstr "Brouillons"
 
@@ -721,12 +715,6 @@ msgstr "Porteur d'aides"
 
 msgid "Publish your aids now !"
 msgstr "Diffusez vos aides dès maintenant !"
-
-msgid "Login"
-msgstr "Connectez-vous"
-
-msgid "Register"
-msgstr "Inscrivez-vous"
 
 msgid "Data and api"
 msgstr "Données et API"
@@ -1053,20 +1041,11 @@ msgstr "Envoyer le fichier"
 msgid "This aid was published by a certified account."
 msgstr "Cette aide est directement publiée par la structure qui la porte."
 
-msgid "Corporate"
-msgstr "Privé"
-
 msgid "Calendar"
 msgstr "Calendrier"
 
 msgid "Opening:"
 msgstr "Ouverture :"
-
-msgid "Deadline:"
-msgstr "Échéance :"
-
-msgid "Deadline"
-msgstr "Échéance"
 
 msgid "Search"
 msgstr "Recherche"
@@ -1142,98 +1121,6 @@ msgstr "Enregistrer et demander la publication"
 
 msgid "Save as a draft"
 msgstr "Enregistrer en brouillon"
-
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Aid detail"
-msgstr "Détail de l'aide"
-
-msgid "Local aid"
-msgstr "Aide locale"
-
-msgid "This aid is a local variant of a "
-msgstr "Cette aide est une déclinaison locale d'une "
-
-msgid "national measure"
-msgstr "aide nationale"
-
-msgid "National measure"
-msgstr "Aide nationale"
-
-msgid "This aid is a national measure "
-msgstr "Cette aide nationale "
-
-msgid "declinated locally"
-msgstr "dispose de déclinaisons locales"
-
-msgid "Call for project"
-msgstr "Appel à projet"
-
-msgid "Call for expression of interest"
-msgstr "Appel à manifestation d'intérêt"
-
-msgid "Data origin"
-msgstr "Origine de la donnée"
-
-msgid "This aid was imported from another data stream."
-msgstr "Cette aide provient d'une source de données tierce"
-
-msgid "NA"
-msgstr "ND"
-
-msgid "Import share license"
-msgstr "License de partage"
-
-msgid "Last update"
-msgstr "Dernière mise à jour"
-
-msgid "Global presentation"
-msgstr "Présentation générale"
-
-msgid "No detailed description was submitted."
-msgstr "Aucune description détaillée n'a été renseignée."
-
-msgid "Aid targeted area"
-msgstr "Zone géographique couverte par l'aide"
-
-msgid "Eligibility criteria"
-msgstr "Critères d'éligibilité"
-
-msgid "The aid can be mobilized during…"
-msgstr "Dispositif applicable pour un projet"
-
-msgid "Local variants"
-msgstr "Déclinaisons locales"
-
-msgid "If you don't find your local aid refer to the national measure."
-msgstr ""
-"En l'absence d'aide locale, les informations relatives à cette aide "
-"nationale font foi"
-
-msgid "Going further"
-msgstr "Aller plus loin"
-
-msgid "Total number of hits"
-msgstr "Nombre de vues total des aides depuis la première publication"
-
-msgid "Number of hits in the last 30 days"
-msgstr "Nombre de vues total des aides sur les 30 derniers jours"
-
-msgid "Click on the column name to order"
-msgstr "Cliquer sur le nom d'une colonne pour trier"
-
-msgid "Your list of published aids"
-msgstr "La liste de vos aides publiées"
-
-msgid "Created on"
-msgstr "Créée le"
-
-msgid "Last modified"
-msgstr "Modifiée le"
-
-msgid "Is live"
-msgstr "Visibilité sur le site"
 
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"

@@ -2,7 +2,7 @@
 
 .aid-content i {
   vertical-align: bottom;
-  color: var(--bf500);
+  color: var(--artwork-major-blue-france);
   font-weight: normal;
 }
 
@@ -22,8 +22,8 @@ ul.aid-categories ul li + li::before {
   float: right;
 
   .fr-tag {
-    background-color: var(--bf500);
-    color: var(--w);
+    background-color: var(--background-active-blue-france);
+    color: var(--text-inverted-blue-france);
     font-size: 2rem;
   }
 
@@ -43,6 +43,10 @@ article#aid .aid-details h2:first-of-type {
 
 article#aid .aid-details h3 {
   margin-top: 1rem;
+}
+
+#logos-financers a, #logos-programs a {
+  background-image: none !important;
 }
 
 #logos-financers img,
@@ -73,7 +77,7 @@ legend {
 }
 
 .bg-pic {
-  background: url(../img/home_aides.svg) bottom center no-repeat,linear-gradient(0deg,  var(--w) 10%, var(--bf200-bf300) 100%, var(--g400-t) 100% ) 0% 0%;
+  background: url("../img/home_aides.svg") bottom center no-repeat,linear-gradient(0deg,  var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100% ) 0% 0%;
   background-size: 100%;
   height: 100%;
   overflow: hidden;
@@ -87,17 +91,17 @@ legend {
 
 // legal-mentions styles
 
-  #piwik-consent {
-    position: relative;
-    top: 0px;
-    width: 100%;
-    height: 7rem;
-    left: 0;
-  }
+#piwik-consent {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 7rem;
+  left: 0;
+}
 
-  #stats-optout {
-    background-color: #fff;
-  }
+#stats-optout {
+  background-color: white; // iframe background
+}
 
 #aid .deadline-data {
   float: right;
@@ -125,12 +129,6 @@ article#aid .aid-details h3 {
   position: absolute;
 }
 
-form#match_project {
-  .fr-checkbox-group input[type=checkbox]:disabled+label:before, .fr-checkbox-group input[type=checkbox][disabled]+label:before {
-    background-color: #9090b3!important;
-  }
-}
-
 // Header style
 
 #profil::before {
@@ -145,20 +143,6 @@ legend {
   margin: 1rem 0;
   font-weight: bold;
 }
-
-// legal-mentions styles
-
-  #piwik-consent {
-    position: relative;
-    top: 0px;
-    width: 100%;
-    height: 7rem;
-    left: 0;
-  }
-
-  #stats-optout {
-    background-color: #fff;
-  }
 
 // Home style
 
@@ -223,7 +207,7 @@ section#aid-edit {
       }
 
       & a.active {
-          color: var(--bf500) !important;
+          color: var(--text-active-blue-france) !important;
       }
 
       .list-group-item  {
@@ -249,7 +233,7 @@ section#aid-edit {
   }
 
   .separator::before {
-      color: var(--bf500) !important;
+      color: var(--border-active-blue-france) !important;
       font-size: 2.8rem;
   }
 
@@ -260,13 +244,12 @@ section#aid-edit {
         border: 2px solid var(--border-active-blue-france) !important;
         background-color: var(--background-open-blue-france) !important;
         color: var(--text-active-blue-france) !important;
-          border: 2px solid var(--bf500) !important;
       }
   }
 
   .trumbowyg-box {
     z-index:  2;
-    background-color: var(--w);
+    background-color: var(--background-default-grey);
   }
 
   .trumbowyg-dropdown {
@@ -279,7 +262,7 @@ section#aid-edit {
 }
 
 #base-edit .actions {
-  border: solid 1px #000;
+  border: solid 1px var(--border-action-high-blue-france);
 }
 
 section#aid-edit form.main-form > fieldset .fr-btn {
@@ -306,7 +289,7 @@ section#aid-edit form.main-form > fieldset {
 }
 
 section#aid-edit form.main-form > fieldset > legend {
-  color: var(--bf500);
+  color: var(--text-active-blue-france);
 }
 
 section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
@@ -317,7 +300,7 @@ section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
   bottom: -50px;
   width: 70%;
   text-align: center;
-  border-bottom: 2px solid var(--bf500);
+  border-bottom: 2px solid var(--border-plain-blue-france);
 }
 
 section#aid-edit form.main-form > fieldset + fieldset {
@@ -325,7 +308,7 @@ section#aid-edit form.main-form > fieldset + fieldset {
 }
 
 section#aid-edit form.main-form {
-  background: linear-gradient(90deg, var(--w) 34%, var(--background-alt-blue-france) 34%);
+  background: linear-gradient(90deg, var(--background-default-grey) 34%, var(--background-alt-blue-france) 34%);
 
   @media screen and (max-width: 1000px) {
     background: none;
@@ -383,7 +366,7 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .hel
   }
 
   span.field-help {
-    color: #6c757d !important;
+    color: var(--text-mention-grey) !important;
   }
 }
 
@@ -461,7 +444,7 @@ div#search-steps p.steps {
       display: inline-block;
       width: 2rem;
       height: .4rem;
-      border-top: 1px solid var(--bf500);
+      border-top: 1px solid var(--border-active-blue-france);
       padding: 0 .25rem;
       vertical-align: baseline;
     }
@@ -556,7 +539,7 @@ fieldset {
 
 #alert-search-modal .fr-input-group > span.field-help {
   display: block;
-  color: #6c757d !important;
+  color: var(--text-mention-grey) !important;
   margin-top: -0.2rem;
 }
 
@@ -574,7 +557,7 @@ fieldset {
 
 #alert-search-modal .fr-input-group > span.field-help {
   display: block;
-  color: #6c757d !important;
+  color: var(--text-mention-grey) !important;
   margin-top: -0.2rem;
 }
 
@@ -615,8 +598,8 @@ fieldset {
 #aid-list .deadline.fr-tag {
   display: block;
   float: right;
-  background-color: var(--bf500);
-  color: #fff;
+  background-color: var(--background-active-blue-france);
+  color: var(--text-inverted-blue-france);
 }
 
 #aid-list .fr-card__link {
@@ -672,19 +655,19 @@ section#post-content img {
 }
 
 .land {
-    fill: #bccdff;
-    stroke: #fff;
+    fill: var(--blue-france-main-525);
+    stroke: var(--background-default-grey);
     cursor: pointer;
 }
 
 .land:hover {
-    fill: #8ca4ff;
+    fill: var(--background-action-high-blue-france);
 }
 
 #tooltip {
     position: absolute; 
-    background-color: #000;
-    color: #fff;
+    background-color: var(--border-action-high-grey);
+    color: var(--text-inverted-grey);
     padding: 0.5rem;
     font-size: 1rem;
     pointer-events : none;

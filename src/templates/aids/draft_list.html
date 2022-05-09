@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load aids i18n compress %}
+{% extends "_base.html" %}
+{% load aids compress %}
 
-{% block extratitle %}Mon portefeuille d'aides{% endblock %}
+{% block extratitle %}Mon portefeuille d’aides{% endblock extratitle %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -16,13 +16,13 @@
                     <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Mon portefeuille d'aides</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon portefeuille d’aides</a>
                 </li>
             </ol>
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <article id="draft-list" class="fr-container">
@@ -34,19 +34,19 @@
         <div class="fr-col-12 fr-col-md-9">
 
             <div class="fr-grid-row fr-grid-row--middle">    
-                <h1 class="fr-col-12 fr-col-md-9">Mon portefeuille d'aides</h1>
+                <h1 class="fr-col-12 fr-col-md-9">Mon portefeuille d’aides</h1>
                 <a class="main-action action-add fr-btn fr-col-12 fr-col-md-3 fr-grid-row--center" href="{% url 'aid_create_view' %}">Publier une aide</a>
             </div>
 
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-2w">
-                <p>Que pouvez-vous faire ici&nbsp;? Cette page vous permet de gérer vos aides sur Aides-territoires.</p>
-                <p>Depuis votre portefeuille, vous pouvez modifier vos fiches d'aides, suivre leur état de publication sur la plateforme, ainsi que le nombre de vues associé.</p>
+                <p>Que pouvez-vous faire ici ? Cette page vous permet de gérer vos aides sur Aides-territoires.</p>
+                <p>Depuis votre portefeuille, vous pouvez modifier vos fiches d’aides, suivre leur état de publication sur la plateforme, ainsi que le nombre de vues associé.</p>
                 <p>Les aides arrivées à échéance sont automatiquement dépubliées de la plateforme, mais restent dans votre portefeuille d’aides en statut "brouillon" au cas où vous souhaiteriez les publier à nouveau.</p>
             </div>
         
             <div class="info fr-mt-5w">
-                {{ _('Total number of hits') }} : <span class="counter fr-tag">{{ hits_total }}</span><br />
-                {{ _('Number of hits in the last 30 days') }} : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
+                Nombre de vues total des aides depuis la première publication : <span class="counter fr-tag">{{ hits_total }}</span><br />
+                Nombre de vues total des aides sur les 30 derniers jours : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
             </div>
 
             <form id="filter-form" action="" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
@@ -62,17 +62,17 @@
                 <table class="data-table">
                     <caption class="sr-only">
                         La liste de vos aides publiées
-                        <br>
-                        <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d'une colonne pour trier</span>
+                        <br />
+                        <span class="fr-text fr-fi-information-line"> Cliquer sur le nom d’une colonne pour trier</span>
                     </caption>
                     <thead>
                         <tr>
-                            <th scope="col" class="aid-name-column" title="Trier par Nom de l'aide">{% sortable_header _('Aid title') 'name' %}</th>
-                            <th scope="col" title="Trier par Périmètre">{% sortable_header _('Perimeter') 'perimeter__name' %}</th>
-                            <th scope="col" title="Trier par Créée le">{% sortable_header _('Created on') 'date_created' %}</th>
-                            <th scope="col" title="Trier par Modifiée le">{% sortable_header _('Last modified') 'date_updated' %}</th>
-                            <th scope="col" title="Trier par Echéance">{% sortable_header _('Deadline') 'submission_deadline' %}</th>
-                            <th scope="col">{{ _('Is live') }}</th>
+                            <th scope="col" class="aid-name-column" title="Trier par Nom de l’aide">{% sortable_header "Nom de l’aide" 'name' %}</th>
+                            <th scope="col" title="Trier par Périmètre">{% sortable_header "Périmètre" 'perimeter__name' %}</th>
+                            <th scope="col" title="Trier par Créée le">{% sortable_header "Créée le" 'date_created' %}</th>
+                            <th scope="col" title="Trier par Modifiée le">{% sortable_header "Modifiée le" 'date_updated' %}</th>
+                            <th scope="col" title="Trier par Echéance">{% sortable_header "Échéance" 'submission_deadline' %}</th>
+                            <th scope="col">Visibilité sur le site</th>
                             <th scope="col">Vues</th>
                         </tr>
                     </thead>
@@ -94,9 +94,9 @@
                                 {% if aid.is_ongoing %}
                                     <span class="fas fa-parking" title="Permanente"></span>
                                 {% elif aid.has_approaching_deadline %}
-                                    <span class="fas fa-clock" title="{{ _('Deadline approaching') }}"></span>
+                                    <span class="fas fa-clock" title="Échéance proche"></span>
                                 {% elif aid.has_expired %}
-                                    <span class="fas fa-exclamation-circle" title="{{ _('Expired') }}"></span>
+                                    <span class="fas fa-exclamation-circle" title="Expirée"></span>
                                 {% endif %}
                                 <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                             </td>
@@ -112,4 +112,4 @@
         </div>
     </div>
 </article>
-{% endblock %}
+{% endblock content %}

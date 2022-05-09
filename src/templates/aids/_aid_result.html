@@ -1,4 +1,4 @@
-{% load i18n aids %}
+{% load aids %}
 
 <article class="fr-card fr-enlarge-link fr-card--grey">
     <div class="fr-card__body">
@@ -24,7 +24,7 @@
                 <li class="fr-list__none">
                     {{ financer }}
                     {% if financer.is_corporate %}
-                        ({{ _('Corporate') }})
+                        (Privé)
                     {% endif %}
                 </li>
             {% endfor %}
@@ -34,7 +34,7 @@
         {% if aid.is_financial or aid.is_technical %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
                 <i class="ri-settings-5-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
-                <strong class="aid-type">Nature de l'aide</strong>
+                <strong class="aid-type">Nature de l’aide</strong>
             </p>
             <ul id="aid-type-list" class="fr-p-0">
                 {% if aid.is_financial %}

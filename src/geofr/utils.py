@@ -125,8 +125,8 @@ def query_cities_from_list(city_codes_list):
     return Perimeter.objects.filter(code__in=city_codes_list).filter(
         scale=Perimeter.SCALES.commune
     )
- 
- 
+
+
 def query_epcis_from_list(epci_list: list, data_type: str = "names"):
     qs = Perimeter.objects.filter(scale=Perimeter.SCALES.epci)
 
@@ -137,7 +137,7 @@ def query_epcis_from_list(epci_list: list, data_type: str = "names"):
 
     return qs
 
-  
+
 def attach_epci_perimeters(
     adhoc: Perimeter, epci_list: list, user: User, data_type: str
 ) -> dict:
