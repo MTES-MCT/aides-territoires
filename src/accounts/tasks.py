@@ -38,7 +38,7 @@ def send_connection_email(
     login_token = default_token_generator.make_token(user)
     login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
-    if reset_password == False:
+    if reset_password is False:
         full_login_url = f"{base_url}{login_url}"
     else:
         next_url = {"next": "password_reset_confirm"}
