@@ -161,7 +161,10 @@ class Command(BaseImportCommand):
         return unique_id
 
     def extract_import_data_url(self, line):
-        return OPENDATA_URL
+        return ""
+
+    def extract_import_data_mention(self, line):
+        return "Cette aide est issue d'une traduction, réalisée par la société WelcomEurope à partir des données présentes sur le site officiel 'Funding & Tenders', elle a été mise a disposition d'Aides-territoires à titre gracieux."
 
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown

@@ -236,6 +236,7 @@ class BaseImportCommand(BaseCommand):
             "is_imported",
             "import_uniqueid",
             "import_data_url",
+            "import_data_mention",
             "import_share_licence",
             "import_last_access",
             "import_raw_object",
