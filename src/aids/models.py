@@ -486,7 +486,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     import_data_mention = models.CharField(
         "Mention du partenariat avec le propriétaire de la donnée",
         max_length=900,
-        null=True, blank=True,
+        null=True,
+        blank=True,
     )
     import_last_access = models.DateField(
         "Date du dernier accès", null=True, blank=True
@@ -575,6 +576,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             )
             + SearchVector(
                 Value(self.name_initial, output_field=models.CharField()),
+                weight="A",
+                config="french_unaccent",
+            )
+            + SearchVector(
+                Value(self.short_title, output_field=models.CharField()),
                 weight="A",
                 config="french_unaccent",
             )

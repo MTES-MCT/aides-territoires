@@ -23,6 +23,11 @@ def update_search_vector_unaccented(apps, schema_editor):
                 config="french_unaccent",
             )
             + SearchVector(
+                Value(aid.short_title, output_field=models.CharField()),
+                weight="A",
+                config="french_unaccent",
+            )
+            + SearchVector(
                 Value(
                     " ".join(str(category.name) for category in categories),
                     output_field=models.CharField(),
