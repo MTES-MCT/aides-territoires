@@ -145,7 +145,7 @@ class AidAdminForm(BaseAidForm):
 
     EUROPEAN_AIDS = Choices(
         ("sectorial", "Grands programmes thématiques (Commission européenne)"),
-        ("organizational", "Fonds structurels (FEDER, FSE+ ...)"),
+        ("organizational", "Fonds structurels (FEDER, FSE+...)"),
     )
 
     perimeter_suggestion = forms.CharField(
@@ -174,8 +174,8 @@ class AidAdminForm(BaseAidForm):
     )
 
     european_aid = forms.MultipleChoiceField(
-        label="Aide européenne?",
-        help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
+        label="Aide européenne ?",
+        help_text="* Les fonds structurels (FEDER, FSE+...) sont les aides gérées par les conseils régionaux.",
         required=False,
         widget=forms.RadioSelect,
         choices=EUROPEAN_AIDS,
