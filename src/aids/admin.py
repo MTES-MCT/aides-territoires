@@ -222,6 +222,7 @@ class BaseAidAdmin(
         "is_imported",
         "import_data_source",
         "import_uniqueid",
+        "import_data_mention",
         "import_data_url",
         "import_share_licence",
         "import_last_access",  # noqa
@@ -337,6 +338,7 @@ class BaseAidAdmin(
                     "is_imported",
                     "import_data_source",
                     "import_uniqueid",
+                    "import_data_mention",
                     "import_data_url",
                     "import_share_licence",
                     "import_last_access",

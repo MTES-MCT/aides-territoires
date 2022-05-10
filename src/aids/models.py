@@ -483,6 +483,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         choices=IMPORT_LICENCES,
         blank=True,
     )
+    import_data_mention = models.CharField(
+        "Mention du partenariat avec le propriétaire de la donnée",
+        max_length=900,
+        null=True, blank=True,
+    )
     import_last_access = models.DateField(
         "Date du dernier accès", null=True, blank=True
     )
