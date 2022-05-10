@@ -40,7 +40,7 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         messages.success(self.request, msg)
         url = reverse("project_list_view")
         project = f"project_created={project.pk}"
-        url = "{}?{}".format(url, project)
+        url = f"{url}?{project}"
         return HttpResponseRedirect(url)
 
 

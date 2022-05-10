@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="project-search-aid-modal-{{ project }}" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-project-search-aid-{{ project }}" role="dialog" id="project-search-aid-modal-{{ project }}" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
@@ -9,7 +9,7 @@
                         <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="project-search-aid-modal-{{ project }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Votre projet a bien été créé.</h1>
+                        <h1 id="fr-modal-title-project-search-aid-{{ project }}" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Votre projet a bien été créé.</h1>
                         {% if aid_results > 0 %}
                         <p>Nous avons trouvé <strong>{{ aid_results }} aides</strong> qui pourraient correspondre, voulez-vous les consulter&nbsp;?</p>
                         {% else %}
