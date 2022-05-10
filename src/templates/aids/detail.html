@@ -335,9 +335,13 @@
                         <h3 class="fr-h6">
                             Origine de la donnée
                         </h3>
-                        <p>Cette aide provient d'une source de données tierce</p>
+                        <p>Cette aide provient d'une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d'Aides-territoires à titre gracieux par la société WelcomEurope.{% endif %}</p>
                         <div>
+                            {% if aid.import_data_source.pk == 7 %}
+                            <p><strong>URL d'origine : </strong>issu d'une traduction, réalisée par WelcomEurope à partir des données présentes sur le site officiel funding and tenders.</p>
+                            {% else %}
                             <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
+                            {% endif %}
                             <p><strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
                             <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                         </div>    
@@ -528,11 +532,6 @@
                     <p>
                         <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
                     </p>
-                    {% endif %}
-
-                    {% if aid.import_data_source.pk == 7 %}
-                    <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
-                        Ces données sont mises à disposition par WelcomEurope à titre gracieux, à destination d’Aides-territoires et ses utilisateurs.                    </div>
                     {% endif %}
                     <section class="fr-accordion">
                         <h3 class="fr-accordion__title">
