@@ -12,9 +12,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
-{% block extratitle %}Connectez-vous{% endblock %}
+{% block extratitle %}Connectez-vous{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
@@ -31,10 +31,10 @@
         
             {% url 'password_reset' as password_reset_url %}
             <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
-                💡 Avez-vous oublié votre mot de passe&nbsp;?
+                💡 Avez-vous oublié votre mot de passe ?
                 <a href="{{ password_reset_url }}"> Vous pouvez en demander un nouveau.</a>
             </p>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
