@@ -292,8 +292,7 @@ class Command(BaseImportCommand):
         return DATA_SOURCE.perimeter
 
     def extract_origin_url(self, line):
-        origin_url = line.get("permalink", "")
-        return origin_url
+        return ""
 
     def extract_application_url(self, line):
         return ""
