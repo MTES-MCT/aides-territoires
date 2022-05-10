@@ -283,7 +283,7 @@ class AidSerializer14(BaseAidSerializer):
         )
 
 
-# Add 'name_initial', 'import_data_url' and 'import_share_licence'
+# Add 'name_initial', 'import_data_url', 'import_data_mention' & 'import_share_licence'
 class AidSerializer15(BaseAidSerializer):
 
     categories = CategoryRelatedField(
@@ -325,6 +325,7 @@ class AidSerializer15(BaseAidSerializer):
             "recurrence",
             "project_examples",
             "import_data_url",
+            "import_data_mention",
             "import_share_licence",
             "date_created",
             "date_updated",
