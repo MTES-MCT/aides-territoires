@@ -6,6 +6,8 @@ from django.db.models import Q, F
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
+from model_utils import Choices
+
 from aids.utils import filter_generic_aids
 
 from core.forms import (
@@ -141,6 +143,11 @@ class BaseAidForm(forms.ModelForm):
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
 
+    EUROPEAN_AIDS = Choices(
+        ("sectorial", "Grands programmes thématiques (Commission européenne)"),
+        ("organizational", "Fonds structurels (FEDER, FSE+ ...)"),
+    )
+
     perimeter_suggestion = forms.CharField(
         label="Périmètre suggéré",
         max_length=256,
@@ -166,6 +173,14 @@ class AidAdminForm(BaseAidForm):
         widget=FilteredSelectMultiple("Sous-thématiques", True),
     )
 
+    european_aid = forms.MultipleChoiceField(
+        label="Aide européenne?",
+        help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
+        required=False,
+        widget=forms.RadioSelect,
+        choices=EUROPEAN_AIDS,
+    )
+
     class Meta:
         widgets = {
             "name": forms.Textarea(attrs={"rows": 3}),
@@ -173,7 +188,7 @@ class AidAdminForm(BaseAidForm):
             "targeted_audiences": forms.CheckboxSelectMultiple,
             "aid_types": forms.CheckboxSelectMultiple,
             "destinations": forms.CheckboxSelectMultiple,
-            "european_aid": forms.CheckboxSelectMultiple,
+            "european_aid": forms.RadioSelect,
         }
 
     def __init__(self, *args, **kwargs):
