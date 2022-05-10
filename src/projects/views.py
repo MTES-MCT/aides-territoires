@@ -64,6 +64,9 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
+        context["project_create_form"] = ProjectCreateForm(label_suffix="")
+
+        # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:
             context["project_created"] = self.request.GET["project_created"]
             project_created = Project.objects.get(
@@ -71,15 +74,26 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             )
             text = project_created.name.split(" ")
             text_encoded = "+".join(text)
+            if self.request.user.beneficiary_organization.perimeter:
+                perimeter = self.request.user.beneficiary_organization.perimeter.pk
+            else:
+                perimeter = ""
+            audience_list = self.request.user.beneficiary_organization.organization_type
+            audience = audience_list[0]
             aids = Aid.objects.live()
-            form = AidSearchForm({"text": text_encoded})
+            form = AidSearchForm(
+                {
+                    "text": text_encoded,
+                    "targeted_audiences": audience_list,
+                    "perimeter": perimeter,
+                }
+            )
             qs = form.filter_queryset(aids)
             aid_results = qs.count()
             context["aid_results"] = aid_results
+            context["perimeter"] = perimeter
+            context["audience"] = audience
             context["text_encoded"] = text_encoded
-
-        context["project_create_form"] = ProjectCreateForm(label_suffix="")
-
         return context
 
 
