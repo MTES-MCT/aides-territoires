@@ -34,8 +34,8 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         label="Votre adresse e-mail",
         required=True,
-        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.",
-    )  # noqa
+        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.",  # noqa
+    )
     beneficiary_role = forms.CharField(
         label="Votre rôle", max_length=128, required=False
     )
@@ -286,9 +286,9 @@ class InviteCollaboratorForm(forms.ModelForm):
         label="Son adresse e-mail",
         required=True,
         error_messages={
-            "unique": "Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires."
+            "unique": "Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires."  # noqa
         },
-    )  # noqa
+    )
 
     class Meta:
         model = User
