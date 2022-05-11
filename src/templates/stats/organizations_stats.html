@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load static i18n humanize compress form_utils stats organizations aids %}
+{% load static humanize compress form_utils stats organizations aids %}
 
 {% block extratitle %}Statistiques Interne - Structures{% endblock extratitle %}
 
@@ -55,7 +55,7 @@
         </table>
     </div>
 
-    <h4 class="fr-mt-0w">Structures&nbsp;:</h4>
+    <h4 class="fr-mt-0w">Structures :</h4>
 
     <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
         <form method="get" action="{% url 'organizations_stats' %}" class="fr-grid-row fr-grid-row--start">
