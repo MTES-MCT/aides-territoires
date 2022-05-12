@@ -318,6 +318,9 @@ class BaseImportCommand(BaseCommand):
     def extract_programs(self, line):
         return []
 
+    def extract_keywords(self, line):
+        return []
+
     def extract_project_examples(self, line):
         return ""
 
@@ -325,7 +328,7 @@ class BaseImportCommand(BaseCommand):
         return False
 
     def extract_european_aid(self, line):
-        return []
+        return None
 
     def extract_name_initial(self, line):
         return ""

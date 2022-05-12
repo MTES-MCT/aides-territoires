@@ -240,7 +240,7 @@ class Command(BaseImportCommand):
         return recurrence
 
     def extract_european_aid(self, line):
-        return [Aid.EUROPEAN_AIDS.sectorial]
+        return Aid.EUROPEAN_AIDS.sectorial
 
     def extract_name(self, line):
         title = line["post_title"][:180]
@@ -255,23 +255,17 @@ class Command(BaseImportCommand):
         return short_title
 
     def extract_description(self, line):
-        banner_chapeau_list = line.get("banner_chapeau", "").split("  ")
-        banner_chapeau = "<p>" + "<br/>".join(banner_chapeau_list) + "<p>"
-
-        banner_budget_list = line.get("banner_budget", "").split("  ")
-        banner_budget = "<p>" + "<br/>".join(banner_budget_list) + "<p>"
-
-        info_amount_list = line.get("info_amount", "").split("  ")
-        info_amount = "<p>" + "<br/>".join(info_amount_list) + "<p>"
-
-        info_amorce_list = line.get("info_amorce", "").split("  ")
-        info_amorce = "<p>" + "<br/>".join(info_amorce_list) + "<p>"
-
-        info_priories_list = line.get("info_priories", "").split("  ")
-        info_priories = "<p>" + "<br/>".join(info_priories_list) + "<p>"
+        programs_list = line.get("relations_programmes", "").split(";")
+        programs = "<p>" + "<br/>".join(programs_list) + "<p>"
+        banner_chapeau = line.get("banner_chapeau", "")
+        banner_budget = line.get("banner_budget", "")
+        info_amount = line.get("info_amount", "")
+        info_amorce = line.get("info_amorce", "")
+        info_priories = line.get("info_priories", "")
 
         description = (
             "<div>"
+            + programs
             + banner_chapeau
             + banner_budget
             + info_amount
