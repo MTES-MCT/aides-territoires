@@ -4,6 +4,6 @@ $(document).ready(function () {
         language: "fr",
         theme: "select2-dsfr",
         dropdownAutoWidth : true,
-        width: "auto",
+        width: "100%",
     });
 });
