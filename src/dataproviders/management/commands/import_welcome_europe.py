@@ -257,7 +257,7 @@ class Command(BaseImportCommand):
 
     def extract_description(self, line):
         programs_list = html.unescape(line.get("relations_programmes", "")).split(";")
-        programs = "<p>" + "<br/>".join(programs_list) + "<p>"
+        programs = "<p>" + "<br/>".join(programs_list) + "</p>"
         banner_chapeau = line.get("banner_chapeau", "")
         banner_budget = line.get("banner_budget", "")
         info_amount = line.get("info_amount", "")
@@ -267,10 +267,15 @@ class Command(BaseImportCommand):
         description = (
             "<div>"
             + programs
+            + "<p>-----</p>"
             + banner_chapeau
+            + "<p>-----</p>"
             + banner_budget
+            + "<p>-----</p>"
             + info_amount
+            + "<p>-----</p>"
             + info_amorce
+            + "<p>-----</p>"
             + info_priories
             + "</div>"
         )
@@ -416,5 +421,14 @@ class Command(BaseImportCommand):
         info_contact = "<p>" + "<br/>".join(info_contact_list) + "<p>"
         info_advice_list = line.get("info_advice", "").split("  ")
         info_advice = "<p>" + "<br/>".join(info_advice_list) + "<p>"
-        contact = "<div>" + info_advice + info_contact + info_utile + "</div>"
+        contact = (
+            "<div>"
+            + "<p> ----- </p>"
+            + info_advice
+            + "<p> ----- </p>"
+            + info_contact
+            + "<p> ----- </p>"
+            + info_utile
+            + "</div>"
+        )
         return contact
