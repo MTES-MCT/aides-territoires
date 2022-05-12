@@ -399,8 +399,12 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # general stats:
-        context['all_organizations'] = Organization.objects \
-            .values('organization_type').order_by('organization_type')
+        # general stats,
+        # with deduplication of organizations with the same name and perimeter_id
+        context["all_organizations"] = (
+            Organization.objects.values("organization_type", "name", "perimeter_id")
+            .distinct()
+            .order_by("organization_type")
+        )
 
         return context
