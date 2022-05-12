@@ -61,21 +61,6 @@ article#aid .aid-details h3 {
   display: initial;
 }
 
-// Header style
-
-#profil::before {
-  font-size: 1.5rem;
-}
-
-// register page style
-
-legend {
-  font-size: 1.5rem!important;
-  line-height: 2rem!important;
-  margin: 1rem 0;
-  font-weight: bold;
-}
-
 .bg-pic {
   background: url("../img/home_aides.svg") bottom center no-repeat,linear-gradient(0deg,  var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100% ) 0% 0%;
   background-size: 100%;
@@ -137,7 +122,7 @@ article#aid .aid-details h3 {
 
 // register page style
 
-legend {
+#register-form legend {
   font-size: 1.5rem!important;
   line-height: 2rem!important;
   margin: 1rem 0;

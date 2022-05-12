@@ -1,25 +1,34 @@
-<div class="fr-checkbox-group" {% if field.field.required %} required {% endif %}>
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+<div class="fr-form-group" {% if field.field.required %} required {% endif %}>
+    <fieldset class="fr-fieldset">
+        <legend class="fr-fieldset__legend fr-text--regular" id="{{ field.id_for_label }}">
+            {{ field.label }}
+        </legend>
+        <div class="fr-fieldset__content">
 
-    {% if nest_field_class %}
-        <div class="{{ nest_field_class }}">
-    {% endif %}
+            {% if nest_field_class %}
+                <div class="{{ nest_field_class }}">
+            {% endif %}
 
-    {{ field }}
+            <div class="fr-checkbox-group">
+                {{ field }}
+            </div>
 
-    {% if nest_field_class %}
+            {% if nest_field_class %}
+                </div>
+            {% endif %}
+
+            {% if field.help_text %}
+                <span class="field-help">{{ field.help_text }}</span>
+            {% endif %}
+
+            {% if field.errors %}
+            <p class="error field-error">
+                ↑
+                {{ field.errors.0 }}
+                ↑
+            </p>
+
+            {% endif %}
         </div>
-    {% endif %}
-
-    {% if field.help_text %}
-        <span class="field-help">{{ field.help_text }}</span>
-    {% endif %}
-
-    {% if field.errors %}
-    <p class="error field-error">
-        ↑
-        {{ field.errors.0 }}
-        ↑
-    </p>
-    {% endif %}
+    </fieldset>
 </div>

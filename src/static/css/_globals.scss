@@ -93,7 +93,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-background-alt-pink {
-    background-color: var(--background-action-low-pink-tuile);
+    background-color: var(--background-alt-pink-tuile);
 }
 
 .fr-footer-content__link {
@@ -179,6 +179,17 @@ form .fr-checkbox-group > ul > li {
   font-size: 0.9rem;
   color: var(--text-mention-grey);
 }
+
+// Fix spacing in checkboxes
+.fr-checkbox-group ul{
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+.fr-checkbox-group li {
+  padding-bottom: 0;
+}
+
 
 // Responsive video iframe
 
