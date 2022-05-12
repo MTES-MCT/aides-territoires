@@ -439,11 +439,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
 
     # Specific to European features
-    european_aid = ChoiceArrayField(
+    european_aid = models.CharField(
         verbose_name="Aide européenne ?",
         null=True,
-        blank=True,
-        base_field=models.CharField(max_length=32, choices=EUROPEAN_AIDS),
+        blank=False,
+        default=None,
+        max_length=32,
+        choices=EUROPEAN_AIDS,
         help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
     )
 

@@ -173,7 +173,7 @@ class AidAdminForm(BaseAidForm):
         widget=FilteredSelectMultiple("Sous-thématiques", True),
     )
 
-    european_aid = forms.MultipleChoiceField(
+    european_aid = forms.ChoiceField(
         label="Aide européenne ?",
         help_text="* Les fonds structurels (FEDER, FSE+...) sont les aides gérées par les conseils régionaux.",
         required=False,
