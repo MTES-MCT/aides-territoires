@@ -2,6 +2,7 @@
 import os
 import csv
 import json
+import html
 import requests
 from datetime import datetime
 
@@ -133,7 +134,7 @@ class Command(BaseImportCommand):
         return True
 
     def extract_keywords(self, line):
-        categories = line.get("filtres_sectors", "").split(";")
+        categories = html.unescape(line.get("filtres_sectors", "")).split(";")
         keywords = []
         if categories != [""]:
             for category in categories:
@@ -255,7 +256,7 @@ class Command(BaseImportCommand):
         return short_title
 
     def extract_description(self, line):
-        programs_list = line.get("relations_programmes", "").split(";")
+        programs_list = html.unescape(line.get("relations_programmes", "")).split(";")
         programs = "<p>" + "<br/>".join(programs_list) + "<p>"
         banner_chapeau = line.get("banner_chapeau", "")
         banner_budget = line.get("banner_budget", "")
@@ -369,7 +370,7 @@ class Command(BaseImportCommand):
         Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
         Split the string, loop on the values and match to our Categories
         """
-        categories = line.get("filtres_sectors", "").split(";")
+        categories = html.unescape(line.get("filtres_sectors", "")).split(";")
         title = line["post_title"][:180]
         aid_categories = []
         if categories != [""]:
@@ -391,7 +392,7 @@ class Command(BaseImportCommand):
         Exemple of string to process: "JPI - (1.) INITIATIVE DE PROGRAMMATION CONJOINTE;JPI - (1.11.) INITIATIVE DE PROGRAMMATION CONJOINTE PARTENARIAT POUR LA RECHERCHE ET L&rsquo;INNOVATION DANS LA REGION MEDITERRANEENNE (JPI PRIMA)"  # noqa
         Split the string, loop on the values and match to our Programs
         """
-        programs = line.get("relations_programmes", "").split(";")
+        programs = html.unescape(line.get("relations_programmes", "")).split(";")
         title = line["post_title"][:180]
         aid_programs = []
         if programs != [""]:
