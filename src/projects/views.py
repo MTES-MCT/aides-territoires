@@ -4,7 +4,6 @@ from django.views.generic import (
     UpdateView,
     DetailView,
     DeleteView,
-    TemplateView,
 )
 from django.urls import reverse
 from django.http import HttpResponseRedirect

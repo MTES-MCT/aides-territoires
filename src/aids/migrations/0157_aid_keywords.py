@@ -6,6 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ("keywords", "0001_initial"),
         ("aids", "0156_search_vector_fields_range"),
     ]
 
