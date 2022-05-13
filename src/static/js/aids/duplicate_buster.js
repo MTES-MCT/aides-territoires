@@ -62,7 +62,7 @@
      * Create a warning message with links to the related aids.
      */
     var displayWarningMessage = function (apiData) {
-        var messageDiv = $('<div class="fr-alert fr-alert--error fr-mt-2w" />');
+        var messageDiv = $('<div class="fr-alert fr-alert--error at-duplicate-error fr-mt-2w" />');
         var messageP = $('<p class="fr-alert__title">Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
 
         var currentSlug = slugField.val();

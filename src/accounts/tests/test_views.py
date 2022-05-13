@@ -70,7 +70,7 @@ def test_login_email_token_works(client, user, mailoutbox):
     re_match = re.search(
         r"^https://[\w.-]*/comptes/connexion/(.*)/(.*)/(.*)$", mail_body, re.MULTILINE
     )
-    url = re_match.group(2)
+    url = re_match.group(0)
     res = client.get(url, follow=True)
     assert res.status_code == 200
     assert "Vous êtes maintenant connecté" in res.content.decode()
