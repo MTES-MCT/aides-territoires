@@ -12,6 +12,7 @@ from django.views.generic.edit import FormMixin
 from aids.models import Aid, AidProject
 from accounts.models import User
 from backers.models import Backer
+from geofr.models import Perimeter
 from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
 from organizations.models import Organization
 from projects.models import Project
@@ -130,18 +131,44 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context['nb_searchPage'] = SearchPage.objects.count()
 
         # stats 'Collectivités':
-        context['nb_communes'] = Organization.objects \
-            .filter(organization_type__contains=['commune']) \
+        context['nb_communes'] = (
+            Organization.objects.filter(organization_type__contains=["commune"])
+            .values("name", "perimeter_id")
+            .distinct()
             .count()
-        context['nb_epci'] = Organization.objects \
-            .filter(organization_type__contains=['epci']) \
+        )
+        context['nb_epci'] = (
+            Organization.objects.filter(organization_type__contains=["epci"])
+            .values("name", "perimeter_id")
+            .distinct()
             .count()
-        context['nb_departments'] = Organization.objects \
-            .filter(organization_type__contains=['department']) \
+        )
+        context['nb_departments'] = (
+            Organization.objects.filter(organization_type__contains=["department"])
+            .values("name", "perimeter_id")
+            .distinct()
             .count()
-        context['nb_regions'] = Organization.objects \
-            .filter(organization_type__contains=['region']) \
+        )
+        context['nb_regions'] = (
+            Organization.objects.filter(organization_type__contains=["region"])
+            .values("name", "perimeter_id")
+            .distinct()
             .count()
+        )
+
+        # total 'Collectivités":
+        context["total_communes"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.commune, is_obsolete=False
+        ).count()
+        context["total_epci"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.epci, is_obsolete=False
+        ).count()
+        context["total_departments"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.department, is_obsolete=False
+        ).count()
+        context["total_regions"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.region, is_obsolete=False
+        ).count()
 
         # stats 'Consultation':
         context['nb_viewed_aids'] = AidViewEvent.objects \
