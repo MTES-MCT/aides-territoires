@@ -40,11 +40,12 @@ def send_connection_email(
     base_url = get_base_url()
     if reset_password is False:
         full_login_url = f"{base_url}{login_url}"
+        login_subject = LOGIN_SUBJECT
     else:
         next_url = {"next": "password_reset_confirm"}
         full_login_url = f"{base_url}{login_url}?{urlencode(next_url)}"
         body_template = "emails/reset_password.txt"
-        LOGIN_SUBJECT = "Renouvellement de votre mot de passe"
+        login_subject = "Renouvellement de votre mot de passe"
 
     login_email_body = render_to_string(
         body_template,
@@ -55,7 +56,7 @@ def send_connection_email(
         },
     )
     send_email(
-        subject=LOGIN_SUBJECT,
+        subject=login_subject,
         body=login_email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
