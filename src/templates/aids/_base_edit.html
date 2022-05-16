@@ -14,7 +14,7 @@
             {% block form_sidebar %}{% endblock form_sidebar %}
         </div>
 
-        <form id="aid-edit-form" method="post" action="" class="main-form" novalidate>
+        <form id="aid-edit-form" method="post" class="main-form" novalidate>
             {% block form_header %}{% endblock form_header %}
             {% csrf_token %}
             {{ form.media }}
@@ -94,7 +94,7 @@
             </fieldset>
 
             <fieldset>
-                <legend><span id="aid-eligibility"></span>3 - Critères d'éligibilité de l’aide</legend>
+                <legend><span id="aid-eligibility"></span>3 - Critères d’éligibilité de l’aide</legend>
                 {% include '_field_snippet_aid_form.html' with field=form.eligibility %}  
                 {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.mobilization_steps %}
                 {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.destinations %}

@@ -19,7 +19,7 @@
             <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
             {% endif %}
 
-            <form method="post" action="" novalidate class="fr-mt-5w">
+            <form method="post" novalidate class="fr-mt-5w">
                 {% csrf_token %}
                 {{ form.media }}
 

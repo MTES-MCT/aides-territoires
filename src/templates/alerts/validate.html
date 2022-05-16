@@ -1,9 +1,9 @@
-{% extends '_base.html' %}
-{% load i18n %}
+{% extends "_base.html" %}
+{% load static %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block extratitle %}{{ _('Alert validation') }}{% endblock %}
+{% block extratitle %}Validation d’alerte{% endblock extratitle %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -21,36 +21,31 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-pb-5w">
-    <h1>{{ _('Confirm your alert creation') }}</h1>
+    <h1>Confirmez la création de l’alerte</h1>
 
-    <p class="lead">{% blocktrans trimmed with alert_title=alert.title %}
-        Click on the following button to confirm the creation of the
-        "{{ alert_title }}" alert.
-    {% endblocktrans %}</p>
+    <p class="lead">Cliquez sur le bouton suivant pour confirmer la création de l’alerte « {{ alert_title }} ».</p>
 
-    <p>{% blocktrans trimmed %}
-        Once the alert is validated, you will receive emails according to the
-        selected frequency whenever
-        new aids corresponding to the alert are published.
-    {% endblocktrans %}</p>
+    <p>
+        Une fois l'alerte validée, vous recevrez à la fréquence choisie des e-mails listant
+        les nouvelles aides correspondantes à votre recherche.
+    </p>
 
-    <form id="validation-form" method="POST" action="">
+    <form id="validation-form" method="post">
         {% csrf_token %}
         <button type="submit" class="fr-btn">
-            {{ _('Confirm alert creation') }}
+            Confirmez la création de l’alerte
         </button>
     </form>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
 <script>
     ALERT_TITLE = '{{ alert.title }}';
 </script>
-<script src="/static/js/alerts/track_alert_form_events.js"></script>
-{% endblock %}
+<script src="{% static 'js/alerts/track_alert_form_events.js' %}"></script>
+{% endblock extra_js %}

@@ -34,12 +34,23 @@
         </script>
     </head>
     <body class="{% block body-class %}dark-background{% endblock body-class %}" data-spy="scroll" data-target="#nav-form" data-offset="100">
+        {% block skiplinks %}
+        <div class="fr-skiplinks">
+            <nav role="navigation" class="fr-container" aria-label="Accès rapide">
+                <ul class="fr-skiplinks__list">
+                    <li>
+                        <a class="fr-link" href="#at-main">Contenu</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {% endblock skiplinks %}
 
         {% block header %}
             {% include '_header.html' %}
         {% endblock header %}
 
-        <main role="main" class="fr-container-fluid">
+        <main role="main" class="fr-container-fluid" id="at-main">
             {% block main %}
             <div id="{% block sectionid %}main-content{% endblock sectionid %}" class="main-content">
                 {% block breadcrumbs %}{% endblock breadcrumbs %}

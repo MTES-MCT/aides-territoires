@@ -4,11 +4,11 @@
     <div class="modal-dialog">
         <section>
             <header>
-                <h1>{{ _('Save this aid') }}</h1>
+                <h1>Sauvegarder cette aide</h1>
             </header>
             <div class="content">
                 {% if user.is_authenticated %}
-                    <form id="bundle-form" method="post" action="">
+                    <form id="bundle-form" method="post">
                         {% csrf_token %}
                         {% include '_form_header.html' with form=bundle_form %}
 
@@ -16,23 +16,20 @@
                             {% include '_field_snippet.html' with field=bundle_form.bundles %}
                         {% endif %}
                         {% include '_field_snippet.html' with field=bundle_form.new_bundle %}
-                        <button id="bundle-btn" type="submit">{{ _('Save this aid') }}</button>
+                        <button id="bundle-btn" type="submit">Sauvegarder cette aide</button>
                         {% url 'bundle_list_view' as bundle_url %}
                     </form>
-                    <span class="field-help">{% blocktrans trimmed %}
-                        You can <a href="{{ bundle_url }}">manage your
-                        bundles on the dedicated page</a>.
-                    {% endblocktrans %}</span>
+                    <span class="field-help">
+                        Vous pouvez <a href="{{ bundle_url }}">gérer vos listes d’aides sur la page dédiée</a>.
+                    </span>
                 {% else %}
                     {% url 'login' as login_url %}
                     {% url 'register' as register_url %}
-                    <p>{% blocktrans trimmed %}
-                        You need to be logged in to save aids in custom bundles.
-                        <a href="{{ login_url }}">Proceed to the login form</a>
-                        or <a href="{{ register_url }}">sign up for a new
-                        account</a>.
-                    {% endblocktrans %}</p>
                     <p>
+                        Vous devez être identifé pour utiliser les listes d'aides.
+                        <a href="{{ login_url }}">Rendez-vous sur le formulaire de connexion</a> ou
+                        <a href="{{ register_url }}">enregistrez un nouveau compte</a>."
+                    </p>
                 {% endif %}
             </div>
         </section>

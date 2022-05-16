@@ -3,7 +3,7 @@
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}register-form{% endblock sectionid %}
+{% block sectionid %}register-page{% endblock sectionid %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Inscription" />
@@ -25,8 +25,8 @@
                 <div class="fr-container">
                     <div class="fr-grid-row fr-grid-row--center">
                         <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
-                            <h1 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides-territoires&nbsp;! </h1>
-                            <div class="fr-px-2w fr-pt-2w"><b>En créant votre compte, vous pourrez&nbsp:</b></div>
+                            <h1 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides-territoires ! </h1>
+                            <div class="fr-px-2w fr-pt-2w"><b>En créant votre compte, vous pourrez :</b></div>
                             <div class="fr-pl-4w fr-py-1w">
                                 <ul>
                                   <li>renseigner tous vos projets,</li>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="fr-px-2w">
                                 <p class="fr-mt-1w">Et <b>si vous êtes porteur d’aides</b>, vous pourrez également gérer et diffuser toutes vos aides.</p>
-                                <p class="fr-mt-1w">Alors, n'attendez plus, et <b>créez votre compte en 1 minute&nbsp;!</b></p>
+                                <p class="fr-mt-1w">Alors, n'attendez plus, et <b>créez votre compte en 1 minute !</b></p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
                                 Créer votre compte
                             </h2>
-                            <form method="post" action="" novalidate id="register-form">
+                            <form method="post" novalidate id="register-form">
                                 {% csrf_token %}
                                 {{ form.media }}
 

@@ -783,9 +783,6 @@ msgstr ""
 "Ces informations nous sont essentielles pour garantir la qualité des données "
 "présentes sur le site."
 
-msgid "Update your personal data"
-msgstr "Mettre à jour vos données"
-
 msgid "Log in to your contributor account"
 msgstr "Connexion à votre compte contributeur"
 
@@ -858,16 +855,6 @@ msgstr ""
 
 msgid "Update your profile"
 msgstr "Mettre à jour votre profil"
-
-#, python-format
-msgid ""
-"<p> <span class=\"fas fa-lightbulb\"></span> You have a contributor account. "
-"<a href=\"%(contributor_profile_url)s\"> To update your contributor profile, "
-"please proceed to the specific page. </a> </p>"
-msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Vous bénéficiez d'un compte "
-"contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
-"votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
 
 msgid "Create an account to broadcast your aids"
 msgstr "Créez un compte pour diffuser vos aides"
@@ -1005,10 +992,6 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "Par %(filter_title)s "
-
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -1049,27 +1032,6 @@ msgstr "Ouverture :"
 
 msgid "Search"
 msgstr "Recherche"
-
-msgid "Save this aid"
-msgstr "Sauvegarder cette aide"
-
-#, python-format
-msgid ""
-"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
-"page</a>."
-msgstr ""
-"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
-"dédiée</a>."
-
-#, python-format
-msgid ""
-"You need to be logged in to save aids in custom bundles. <a href="
-"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
-"\">sign up for a new account</a>."
-msgstr ""
-"Vous devez être identifé pour utiliser les listes d'aides. <a href="
-"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
-"\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
@@ -1145,31 +1107,6 @@ msgstr ""
 msgid "Yes, delete this alert now"
 msgstr "Oui, supprimer cette alerte"
 
-msgid "Alert validation"
-msgstr "Validation d'alerte"
-
-msgid "Confirm your alert creation"
-msgstr "Confirmez la création de l'alerte"
-
-#, python-format
-msgid ""
-"Click on the following button to confirm the creation of the "
-"\"%(alert_title)s\" alert."
-msgstr ""
-"Cliquez sur le bouton suivant pour confirmer la création de l'alerte "
-"« %(alert_title)s »."
-
-msgid ""
-"Once the alert is validated, you will receive emails according to the "
-"selected frequency whenever new aids corresponding to the alert are "
-"published."
-msgstr ""
-"Une fois l'alerte validée, vous recevrez à la fréquence choisie des e-mails "
-"listant les nouvelles aides correspondantes à votre recherche."
-
-msgid "Confirm alert creation"
-msgstr "Confirmez la création de l'alerte"
-
 msgid "Blog"
 msgstr "Blog"
 
@@ -1186,9 +1123,6 @@ msgstr ""
 "Vous n'avez créé aucune liste d'aides personnalisée pour le moment. Pour en "
 "créer une, consultez la page de n'importe quelle aide et utilisez le bouton "
 "« Ajouter à une liste »."
-
-msgid "Create new bundle"
-msgstr "Créer une nouvelle liste"
 
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""

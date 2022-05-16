@@ -1,59 +1,55 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n static compress %}
 
-{% block extratitle %}{{ _('Update your profile') }}{% endblock %}
+{% block extratitle %}Mettre à jour votre profil{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}profile-form{% endblock %}
+{% block sectionid %}profile-form{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">{{ _('Home') }}</a></li>
-        <li class="active" aria-current="page">{{ _('Update your profile') }}</li>
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li class="active" aria-current="page">Mettre à jour votre profil</li>
     </ol>
 </nav>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container">
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
-            <h1>{{ _('Update your profile') }}</h1>
+            <h1>Mettre à jour votre profil</h1>
 
             {% if user.is_contributor_or_staff %}
             {% url 'contributor_profile' as contributor_profile_url %}
             <div class="info">
-            {% blocktrans trimmed %}
                 <p>
-                    💡 You have a contributor account. <a href="{{ contributor_profile_url }}">
-                    To update your contributor profile, please proceed to the specific page.
-                    </a>
+                    💡 Vous bénéficiez d’un compte contributeur.
+                    <a href="{{ contributor_profile_url }}">Pour mettre à jour votre profil contributeur, rendez-vous sur la page dédiée.</a>
                 </p>
-            {% endblocktrans %}
             </div>
             {% endif %}
 
-            <form method="post" action="" novalidate>
+            <form method="post" novalidate>
                 {% csrf_token %}
                 {% include '_form_snippet.html' with form=form %}
-                <button type="submit">{{ _('Update your personal data') }}</button>
+                <button type="submit">Mettre à jour vos données</button>
             </form>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
+<script src="{% static '/select2/dist/js/select2.js' %}"></script>
+<script src="{% static '/select2/dist/js/i18n/fr.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

@@ -1,9 +1,9 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n static compress %}
 
-{% block extratitle %}Mise à jour d'un projet{% endblock %}
+{% block extratitle %}Mise à jour d’un projet{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -30,8 +30,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -40,11 +39,11 @@
         {% include 'accounts/_sidebar_menu.html' with project_admin=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-mb-5w fr-h3">Modifier les informations du projet «&nbsp;{{ project.name }}&nbsp;»</h1>
+            <h1 class="fr-mb-5w fr-h3">Modifier les informations du projet « {{ project.name }} »</h1>
 
-            <form id="update_project" method="post" action="">
+            <form id="update_project" method="post">
 
-                {% block form_header %}{% endblock %}
+                {% block form_header %}{% endblock form_header %}
                 {% csrf_token %}
                 {{ form.media }}
 
@@ -75,18 +74,18 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-<link rel="stylesheet" href="/static/trumbowyg/dist/ui/trumbowyg.css" type="text/css" charset="utf-8">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" charset="utf-8" />
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/trumbowyg/dist/trumbowyg.js"></script>
-<script src="/static/trumbowyg/dist/langs/fr.js"></script>
-<script src="/static/js/enable_rich_text_editor_simple.js"></script>
+<script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
+<script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
+<script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}
