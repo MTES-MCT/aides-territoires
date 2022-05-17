@@ -173,13 +173,6 @@ form .fr-checkbox-group > ul > li {
   list-style: none;
 }
 
-#profile-form .fr-input-group > .field-help,
-#register-form .fr-input-group > .field-help {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--text-mention-grey);
-}
-
 // Fix spacing in checkboxes
 .fr-checkbox-group ul{
   margin-block-end: 0;

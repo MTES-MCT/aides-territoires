@@ -19,9 +19,9 @@
                         <button id="bundle-btn" type="submit">Sauvegarder cette aide</button>
                         {% url 'bundle_list_view' as bundle_url %}
                     </form>
-                    <span class="field-help">
+                    <div class="fr-hint-text">
                         Vous pouvez <a href="{{ bundle_url }}">gérer vos listes d’aides sur la page dédiée</a>.
-                    </span>
+                    </div>
                 {% else %}
                     {% url 'login' as login_url %}
                     {% url 'register' as register_url %}

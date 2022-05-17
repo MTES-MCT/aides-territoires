@@ -350,9 +350,6 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .hel
         max-width: 100%;
   }
 
-  span.field-help {
-    color: var(--text-mention-grey) !important;
-  }
 }
 
 section#aid-edit #form-group-name .part-form label::after,
@@ -521,30 +518,6 @@ fieldset {
 }
 
 // Alert modal
-
-#alert-search-modal .fr-input-group > span.field-help {
-  display: block;
-  color: var(--text-mention-grey) !important;
-  margin-top: -0.2rem;
-}
-
-#alert-search-modal .fr-input-group > input,
-#alert-search-modal .fr-input-group > select {
-  width: 100%;
-  margin-top: 0.5rem;
-}
-
-#contact-form .fr-input-group > textarea {
-  height: auto;
-}
-
-// Alert modal
-
-#alert-search-modal .fr-input-group > span.field-help {
-  display: block;
-  color: var(--text-mention-grey) !important;
-  margin-top: -0.2rem;
-}
 
 #alert-search-modal .fr-input-group > input,
 #alert-search-modal .fr-input-group > select {
