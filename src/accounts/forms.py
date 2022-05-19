@@ -6,6 +6,7 @@ from model_utils import Choices
 
 from accounts.models import User
 from accounts.utils import check_current_password
+from projects.models import Project
 
 
 class RegisterForm(UserCreationForm):
@@ -280,7 +281,7 @@ class ContributorProfileForm(forms.ModelForm):
         return user
 
 
-class InviteCollaboratorForm(forms.ModelForm):
+class InviteCollaboratorForm(forms.Form):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
@@ -288,14 +289,7 @@ class InviteCollaboratorForm(forms.ModelForm):
     email = forms.EmailField(
         label="Son adresse e-mail",
         required=True,
-        error_messages={
-            "unique": "Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires."  # noqa
-        },
     )
-
-    class Meta:
-        model = User
-        fields = ["first_name", "last_name", "email"]
 
     def __init__(self, *args, **kwargs):
         super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
@@ -305,6 +299,30 @@ class InviteCollaboratorForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
         return email.lower()
+
+
+class JoinOrganizationForm(forms.Form):
+    """Form used to allow user to join an other organization."""
+
+    invite_other_collaborators = forms.BooleanField(
+        label="Inviter mes collaborateurs", required=False
+    )
+    projects = forms.ModelMultipleChoiceField(
+        label="Projets à transférer",
+        queryset=Project.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(JoinOrganizationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "fr-input"
+
+    def clean(self):
+        """Validation routine (frontend form only)."""
+        data = super().clean()
+        return data
 
 
 class CompleteProfileForm(forms.ModelForm):

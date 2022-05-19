@@ -8,6 +8,7 @@ from django.conf import settings
 from core.utils import get_base_url
 from core.celery import app
 from accounts.models import User
+from organizations.models import Organization
 from emails.utils import send_email, send_email_with_template
 
 
@@ -16,7 +17,9 @@ LOGIN_SUBJECT = "Connexion à Aides-territoires"
 
 @app.task
 def send_connection_email(
-    user_email, body_template="emails/login_token.txt", reset_password=False
+    user_email,
+    body_template="emails/login_token.txt",
+    reset_password=False
 ):
     """Send a login email to the user.
 
@@ -103,8 +106,9 @@ def send_welcome_email(user_email):
 def send_invitation_email(
     user_email,
     invitator_name,
-    organization_name,
+    organization_id,
     body_template="emails/invite_login_token.txt",
+    collaborator_exist=False
 ):
     """Send a login email to the user invited.
 
@@ -127,6 +131,15 @@ def send_invitation_email(
     login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
     full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
+    organization = Organization.objects.get(pk=organization_id)
+    organization_name = organization.name
+    organization_slug = organization.slug
+
+    if collaborator_exist is False:
+        full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
+    else:
+        reverse_url = reverse("join_organization")
+        full_login_url = f"{base_url}{reverse_url}"
 
     login_email_body = render_to_string(
         body_template,

@@ -1,0 +1,83 @@
+{% extends '_base.html' %}
+{% load i18n compress %}
+
+{% block extratitle %}Mon profil{% endblock %}
+
+{% block extraclasses %}light{% endblock %}
+
+{% block sectionid %}join-organization-form{% endblock %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Rejoindre une organisation</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="fr-container fr-my-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+
+        {% include 'accounts/_sidebar_menu.html' %}
+
+        <div class="fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w">Invitation à transférer votre compte vers une autre organisation</h1>
+
+                {% if organization_name %}
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                        <p><strong>L'organisation «&nbsp;{{ organization_name }}&nbsp;» vous a invité à la rejoindre.</strong></p>
+                        <p>Si vous acceptez cette invitation, votre organisation de rattachement sera modifiée. Si vous êtes l'unique utilisateur de votre organisation actuelle celle-ci sera par ailleurs supprimée.</p>
+                        <p class="fr-mb-0">Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation et d'inviter vos collaborateurs actuels à rejoindre également la nouvelle organisation.</p>
+                        <p>Sélectionnez ci-dessous vos choix et acceptez ou refusez l'invitation</p>
+                    </div>
+
+                    <div>
+                        <p class="fr-mb-1w"><strong>Souhaitez-vous inviter vos collaborateurs à vous suivre vers l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;?</strong></p>
+                        {% include '_checkbox_snippet.html' with field=form.invite_other_collaborators %}
+                    </div>
+                    
+                    {% if projects %}
+                    <div id="form-group-projects" class="fr-checkbox-group">
+                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez transférer à l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;:</strong></p>
+                        <ul id="id_projects" class=" fr-pl-0">
+                            {% for project in projects %}
+                            <li class="fr-list__none">
+                                <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}">
+                                <label for="{{ project.id }}" class="fr-label">{{ project.name }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <div class="fr-mt-5w">
+                        <button type="submit" name="action" value="no-join" class="fr-btn fr-btn--secondary">Refuser l'invitation</button>
+                        <button type="submit" name="action" value="yes-join" class="fr-btn">Rejoindre l'invitation</button>
+                    </div>
+                </form>
+                {% else %}
+                <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-5w">
+                    <p><strong>Vous n'avez aucune invitation pour rejoindre une organisation.</strong></p>
+                </div>
+                {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
