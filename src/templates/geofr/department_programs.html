@@ -2,7 +2,7 @@
 {% load static compress %}
 
 {% block extratitle %}Liste des programmes à disposition dans le département {{ current_dept.name }} ({{ current_dept.code }})  | Programmes{% endblock extratitle %}
-{% block meta_description %}France Relance, Petites villes de demain, programmes européens, ... : retrouvez tous les programmes disponibles dans votre département{% endblock meta_description %}
+{% block meta_description %}France Relance, Petites villes de demain, programmes européens… : retrouvez tous les programmes disponibles dans votre département{% endblock meta_description %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Liste des programmes à disposition dans le département {{ current_dept.name }} ({{ current_dept.code }})" />
@@ -45,7 +45,7 @@
 {% endblock content %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" />
 {% endblock extra_css %}
 
 {% block extra_js %}

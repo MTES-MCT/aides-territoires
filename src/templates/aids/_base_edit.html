@@ -6,7 +6,7 @@
 {% block content %}
 <div class="article fr-container fr-my-5w" id="base-edit">
 
-    {% block before-section %}{% endblock before-section %}
+    {% block before_section %}{% endblock before_section %}
 
     <section id="aid-edit" class="fr-container">
 
@@ -120,7 +120,7 @@
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" />
 {% endblock extra_css %}
 
 {% block extra_js %}

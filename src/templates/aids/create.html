@@ -1,23 +1,23 @@
-{% extends 'aids/_base_edit.html' %}
+{% extends "aids/_base_edit.html" %}
 {% load i18n form_utils %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 
 {% block page_title %}
     <h1>Publier une aide</h1>
-{% endblock %}
+{% endblock page_title %}
 
-{% block before-section %}
+{% block before_section %}
 <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
     <p class="fr-mb-0">Votre aide devra être <strong>revue par un administrateur</strong> avant publication.</p>
 </div>
 <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
     <p class="fr-mb-0">Vous pouvez créer votre aide et <strong>demander la publication immédiatement,</strong> ou <strong>l'enregistrer en tant que brouillon.</strong></p>
 </div>
-{% endblock %}
+{% endblock before_section %}
 
 {% block form_sidebar %}
-<ul id="nav-form" class="list-group list-group-horizontal">
+<div id="nav-form" class="list-group list-group-horizontal">
     <a href="#aid-presentation" class="at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
         <span class="counter">1</span>
         Présentation
@@ -37,8 +37,8 @@
         <span class="counter">4</span>
         Contact et démarches
     </a>
-</ul>
-{% endblock %}
+</div>
+{% endblock form_sidebar %}
 
 {% block form_actions %}
 <div class="fr-background-main fr-pt-2w">
@@ -58,4 +58,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock form_actions %}

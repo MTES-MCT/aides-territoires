@@ -9,7 +9,7 @@
     <h1>Modifiez une aide</h1>
 {% endblock page_title %}
 
-{% block before-section %}
+{% block before_section %}
     {% if messages %}
         {% for message in messages %}
         <p class="warning fr-background-alt-pink fr-p-3w">
@@ -74,11 +74,11 @@
             </div>
         </div>
     </div>
-{% endblock before-section %}
+{% endblock before_section %}
 
 {% block form_sidebar %}
 
-<ul id="nav-form" class="list-group list-group-horizontal">
+<div id="nav-form" class="list-group list-group-horizontal">
     <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
         <span class="counter">1</span>
         Présentation
@@ -98,7 +98,7 @@
         <span class="counter">4</span>
         Contact et démarches
     </a>
-</ul>
+</div>
 
 {% endblock form_sidebar %}
 

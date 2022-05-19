@@ -1,8 +1,10 @@
 <div class="fr-form-group" {% if field.field.required %} required {% endif %}>
     <fieldset class="fr-fieldset">
+        {% if field.label %}
         <legend class="fr-fieldset__legend fr-text--regular" id="{{ field.id_for_label }}">
             {{ field.label }}
         </legend>
+        {% endif %}
         <div class="fr-fieldset__content">
 
             {% if nest_field_class %}

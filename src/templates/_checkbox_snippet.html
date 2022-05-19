@@ -10,7 +10,7 @@
     </div>
     {% endif %}
 
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% if field.label %}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{% endif %}
 
     {% if field.help_text %}
         <div class="fr-hint-text">{{ field.help_text }}</div>
