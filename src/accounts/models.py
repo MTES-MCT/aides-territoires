@@ -163,6 +163,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         'Rôle du bénéficiaire',
         max_length=128,
         blank=True)
+    proposed_organization = models.ForeignKey(
+        'organizations.Organization',
+        related_name = "invited_user",
+        verbose_name="Structure proposée",
+        on_delete=models.SET_NULL,
+        help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure",
+        null=True, blank=True)
 
     # Roles
     is_contributor = models.BooleanField(
