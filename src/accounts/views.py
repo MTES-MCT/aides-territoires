@@ -37,6 +37,7 @@ from accounts.forms import (
 from accounts.tasks import (
     send_connection_email,
     send_invitation_email,
+    send_reject_invitation_email,
     send_welcome_email,
 )
 from accounts.models import User, UserLastConnexion
@@ -306,16 +307,17 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
         collaborator_last_name = form.cleaned_data['last_name']
         collaborator_first_name = form.cleaned_data['first_name']
         organization_id  = self.request.user.beneficiary_organization.id
-        invitator_name = self.request.user.full_name
+        invitation_author = self.request.user.full_name
 
         users = User.objects.all()
 
-        if users.get(email=collaborator_email):
+        if users.filter(email=collaborator_email).exists():
             collaborator = users.get(email=collaborator_email)
             users.filter(pk=collaborator.pk).update(proposed_organization=organization_id)
+            users.filter(pk=collaborator.pk).update(invitation_author=self.request.user.pk)
             send_invitation_email.delay(
                 collaborator.email,
-                invitator_name,
+                invitation_author,
                 organization_id,
                 collaborator_exist=True)
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
@@ -343,7 +345,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
             User.objects.filter(pk=collaborator_id).update(beneficiary_organization=organization.pk)
             send_invitation_email.delay(
                 collaborator.email,
-                invitator_name,
+                invitation_author,
                 organization_id,
                 )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
@@ -376,10 +378,16 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
         user = User.objects.get(pk=self.request.user.pk)
         user_queryset = User.objects.filter(pk=user.pk)
         proposed_organization = self.request.user.proposed_organization
+        invitation_author = self.request.user.invitation_author
 
         if self.request.POST.get('action') == 'no-join':
+            send_reject_invitation_email.delay(
+                invitation_author.email,
+                user.full_name,
+                proposed_organization.pk)
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
             user_queryset.update(proposed_organization = None)
-            msg = "Votre refus a bien été pris en compte."
+            msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."
         elif self.request.POST.get('action') == 'yes-join':
             projects = form.cleaned_data['projects']
             collaborators = form.cleaned_data['collaborators']

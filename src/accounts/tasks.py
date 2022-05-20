@@ -105,7 +105,7 @@ def send_welcome_email(user_email):
 @app.task
 def send_invitation_email(
     user_email,
-    invitator_name,
+    invitation_author,
     organization_id,
     body_template="emails/invite_login_token.txt",
     collaborator_exist=False
@@ -133,11 +133,11 @@ def send_invitation_email(
     full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
     organization = Organization.objects.get(pk=organization_id)
     organization_name = organization.name
-    organization_slug = organization.slug
 
     if collaborator_exist is False:
         full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
     else:
+        body_template="emails/invite_existent_user.txt",
         reverse_url = reverse("join_organization")
         full_login_url = f"{base_url}{reverse_url}"
 
@@ -145,14 +145,60 @@ def send_invitation_email(
         body_template,
         {
             "base_url": base_url,
-            "invitator_name": invitator_name,
+            "invitation_author": invitation_author,
             "organization_name": organization_name,
             "user_name": user.full_name,
             "full_login_url": full_login_url,
         },
     )
     send_email(
-        subject=LOGIN_SUBJECT,
+        subject="invitation à collaborer sur Aides-territoires",
+        body=login_email_body,
+        recipient_list=[user.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=["connexion", settings.ENV_NAME],
+        fail_silently=False,
+    )
+
+
+@app.task
+def send_reject_invitation_email(
+    user_email,
+    invited_name,
+    organization_id,
+    body_template="emails/reject_invitation.txt",
+):
+    """
+    Send an email to the invitation author to inform him
+    his invitation has been rejected.
+    """
+    try:
+        user = User.objects.get(email=user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    base_url = get_base_url()
+    organization = Organization.objects.get(pk=organization_id)
+    organization_name = organization.name
+
+    reverse_url = reverse("join_organization")
+    full_login_url = f"{base_url}{reverse_url}"
+
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "invitation_author": user.full_name,
+            "organization_name": organization_name,
+            "invited_name": invited_name,
+        },
+    )
+    send_email(
+        subject="Rejet de votre invitation à collaborer sur Aides-territoires",
         body=login_email_body,
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
