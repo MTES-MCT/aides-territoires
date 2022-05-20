@@ -304,8 +304,11 @@ class InviteCollaboratorForm(forms.Form):
 class JoinOrganizationForm(forms.Form):
     """Form used to allow user to join an other organization."""
 
-    invite_other_collaborators = forms.BooleanField(
-        label="Inviter mes collaborateurs", required=False
+    collaborators = forms.ModelMultipleChoiceField(
+        label="Collaborateurs à inviter",
+        queryset=User.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
     )
     projects = forms.ModelMultipleChoiceField(
         label="Projets à transférer",

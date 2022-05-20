@@ -382,12 +382,33 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             msg = "Votre refus a bien été pris en compte."
         elif self.request.POST.get('action') == 'yes-join':
             projects = form.cleaned_data['projects']
+            collaborators = form.cleaned_data['collaborators']
+
+            # Transfer selected projects to the proposed_organization
             for project in projects:
                 project_queryset = Project.objects.get(pk=project.pk)
                 project_queryset.organizations.remove(user.beneficiary_organization.pk)
                 project_queryset.organizations.add(proposed_organization.pk)
+
+            # Send an invitation to selected collaborators
+            # and populate proposed_organization field for each selected collaborators
+            for collaborator in collaborators:
+                collaborator = User.objects.get(pk=collaborator.pk)
+                User.objects.filter(pk=collaborator.pk).update(proposed_organization=proposed_organization)
+                send_invitation_email.delay(
+                    collaborator.email,
+                    user.full_name,
+                    proposed_organization.pk,
+                    collaborator_exist=True)
+                track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+
+            # Remove user from his current organization
+            # Add user to the proposed_organization
+            Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
+            Organization.objects.get(pk=user.proposed_organization.pk).beneficiaries.add(user.pk)
             user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
             user_queryset.update(proposed_organization = None)
+            
             msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
         
         messages.success(self.request, msg)
@@ -402,6 +423,10 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             context['projects'] = Project.objects \
                 .filter(organizations=self.request.user.beneficiary_organization.pk) \
                 .order_by('name')
+            context['collaborators'] = User.objects \
+                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
+                .exclude(pk=self.request.user.pk) \
+                .order_by('last_name')
         return context
 
 
