@@ -170,6 +170,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         on_delete=models.SET_NULL,
         help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure",
         null=True, blank=True)
+    invitation_author = models.ForeignKey(
+        'accounts.User',
+        related_name = "invited_user",
+        verbose_name="Auteur de l'invitation",
+        on_delete=models.SET_NULL,
+        help_text="utilisateur qui a invité cet utilisateur a rejoindre sa structure",
+        null=True, blank=True)
 
     # Roles
     is_contributor = models.BooleanField(

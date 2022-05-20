@@ -119,7 +119,11 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         SearchPageAdministratorFilter, AnimatorFilter, ApiTokenFilter,
         'is_certified', 'ml_consent', 'groups']
 
-    autocomplete_fields = ['animator_perimeter', 'beneficiary_organization', 'proposed_organization']
+    autocomplete_fields = [
+        'animator_perimeter',
+        'beneficiary_organization',
+        'proposed_organization',
+        'invitation_author']
     readonly_fields = [
         'nb_aids',
         'administrator_of_search_pages_list', 'api_token',
@@ -155,7 +159,8 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                 'beneficiary_function',
                 'beneficiary_role',
                 'beneficiary_organization',
-                'proposed_organization'
+                'proposed_organization',
+                'invitation_author'
             )
         }),
         ('Espace administrateur', {
