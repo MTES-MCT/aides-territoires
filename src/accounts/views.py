@@ -38,6 +38,7 @@ from accounts.tasks import (
     send_connection_email,
     send_invitation_email,
     send_reject_invitation_email,
+    send_accept_invitation_email,
     send_welcome_email,
 )
 from accounts.models import User, UserLastConnexion
@@ -416,6 +417,13 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             Organization.objects.get(pk=user.proposed_organization.pk).beneficiaries.add(user.pk)
             user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
             user_queryset.update(proposed_organization = None)
+
+            # Send an email to the invitation_author to notice user joined the organization
+            send_accept_invitation_email.delay(
+                invitation_author.email,
+                user.full_name,
+                proposed_organization.pk)
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
             
             msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
         
