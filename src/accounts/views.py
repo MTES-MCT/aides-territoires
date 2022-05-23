@@ -43,7 +43,7 @@ from accounts.tasks import (
 )
 from accounts.models import User, UserLastConnexion
 from projects.models import Project
-from aids.models import Aid
+from aids.models import Aid, AidProject
 from organizations.models import Organization
 from analytics.utils import track_goal
 
@@ -412,10 +412,21 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
             # Remove user from his current organization
+            # if current organization has no user : delete the organization, AidProject & Projects objects associated
+            if Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.count() == 1:
+                projects = Project.objects.filter(organizations = user.beneficiary_organization.pk)
+                for project in projects:
+                    AidProject.objects.filter(project=project).delete()
+                projects.delete()
+                user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
+                Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
+                Organization.objects.filter(beneficiaries=None).delete()
+            else:
+                user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
+                Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
+
             # Add user to the proposed_organization
-            Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
             Organization.objects.get(pk=user.proposed_organization.pk).beneficiaries.add(user.pk)
-            user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
             user_queryset.update(proposed_organization = None)
 
             # Send an email to the invitation_author to notice user joined the organization
