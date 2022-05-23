@@ -33,7 +33,7 @@ from accounts.forms import (
     ContributorProfileForm,
     InviteCollaboratorForm,
     CompleteProfileForm,
-    JoinOrganizationForm
+    JoinOrganizationForm,
 )
 from accounts.tasks import (
     send_connection_email,
@@ -305,25 +305,30 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
     template_name = "accounts/collaborators.html"
 
     def form_valid(self, form):
-        collaborator_email = form.cleaned_data['email']
-        collaborator_last_name = form.cleaned_data['last_name']
-        collaborator_first_name = form.cleaned_data['first_name']
-        organization_id  = self.request.user.beneficiary_organization.id
+        collaborator_email = form.cleaned_data["email"]
+        collaborator_last_name = form.cleaned_data["last_name"]
+        collaborator_first_name = form.cleaned_data["first_name"]
+        organization_id = self.request.user.beneficiary_organization.id
         invitation_author = self.request.user.full_name
 
         users = User.objects.all()
 
         if users.filter(email=collaborator_email).exists():
             collaborator = users.get(email=collaborator_email)
-            users.filter(pk=collaborator.pk).update(proposed_organization=organization_id)
-            users.filter(pk=collaborator.pk).update(invitation_author=self.request.user.pk)
+            users.filter(pk=collaborator.pk).update(
+                proposed_organization=organization_id
+            )
+            users.filter(pk=collaborator.pk).update(
+                invitation_author=self.request.user.pk
+            )
             send_invitation_email.delay(
                 collaborator.email,
                 invitation_author,
                 organization_id,
-                collaborator_exist=True)
+                collaborator_exist=True,
+            )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-            msg = "Votre invitation a bien été envoyée ; l'utilisateur invité pourra accepter ou non votre invitation."
+            msg = "Votre invitation a bien été envoyée ; l'utilisateur invité pourra accepter ou non votre invitation."  # noqa
 
         else:
             collaborator = User.objects.create(
@@ -333,23 +338,31 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 is_beneficiary=self.request.user.is_beneficiary,
                 is_contributor=self.request.user.is_contributor,
             )
-            collaborator.beneficiary_organization = self.request.user.beneficiary_organization
+            collaborator.beneficiary_organization = (
+                self.request.user.beneficiary_organization
+            )
             collaborator_id = collaborator.pk
 
             # add user created to organization
-            user_beneficiary_organization = self.request.user.beneficiary_organization.pk
-            organizations = Organization.objects.filter(pk=user_beneficiary_organization)
+            user_beneficiary_organization = (
+                self.request.user.beneficiary_organization.pk
+            )
+            organizations = Organization.objects.filter(
+                pk=user_beneficiary_organization
+            )
             if organizations is not None:
                 for organization in organizations:
                     organization.beneficiaries.add(collaborator_id)
                     organization.save()
 
-            User.objects.filter(pk=collaborator_id).update(beneficiary_organization=organization.pk)
+            User.objects.filter(pk=collaborator_id).update(
+                beneficiary_organization=organization.pk
+            )
             send_invitation_email.delay(
                 collaborator.email,
                 invitation_author,
                 organization_id,
-                )
+            )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
             msg = "Votre invitation a bien été envoyée."
@@ -382,17 +395,16 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
         proposed_organization = self.request.user.proposed_organization
         invitation_author = self.request.user.invitation_author
 
-        if self.request.POST.get('action') == 'no-join':
+        if self.request.POST.get("action") == "no-join":
             send_reject_invitation_email.delay(
-                invitation_author.email,
-                user.full_name,
-                proposed_organization.pk)
+                invitation_author.email, user.full_name, proposed_organization.pk
+            )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-            user_queryset.update(proposed_organization = None)
-            msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."
-        elif self.request.POST.get('action') == 'yes-join':
-            projects = form.cleaned_data['projects']
-            collaborators = form.cleaned_data['collaborators']
+            user_queryset.update(proposed_organization=None)
+            msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."  # noqa
+        elif self.request.POST.get("action") == "yes-join":
+            projects = form.cleaned_data["projects"]
+            collaborators = form.cleaned_data["collaborators"]
 
             # Transfer selected projects to the proposed_organization
             for project in projects:
@@ -404,41 +416,61 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             # and populate proposed_organization field for each selected collaborators
             for collaborator in collaborators:
                 collaborator = User.objects.get(pk=collaborator.pk)
-                User.objects.filter(pk=collaborator.pk).update(proposed_organization=proposed_organization)
+                User.objects.filter(pk=collaborator.pk).update(
+                    proposed_organization=proposed_organization
+                )
                 send_invitation_email.delay(
                     collaborator.email,
                     user.full_name,
                     proposed_organization.pk,
-                    collaborator_exist=True)
+                    collaborator_exist=True,
+                )
                 track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
             # Remove user from his current organization
-            # if current organization has no user : delete the organization, AidProject & Projects objects associated
-            if Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.count() == 1:
-                projects = Project.objects.filter(organizations = user.beneficiary_organization.pk)
+            # if current organization has no user :
+            # delete the organization, AidProject & Projects objects associated
+            if (
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.count()
+                == 1
+            ):
+                projects = Project.objects.filter(
+                    organizations=user.beneficiary_organization.pk
+                )
                 for project in projects:
                     AidProject.objects.filter(project=project).delete()
                 projects.delete()
-                user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
-                Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
+                user_queryset.update(
+                    beneficiary_organization=user.proposed_organization.pk
+                )
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.remove(user.pk)
                 Organization.objects.filter(beneficiaries=None).delete()
             else:
-                user_queryset.update(beneficiary_organization = user.proposed_organization.pk)
-                Organization.objects.get(pk=user.beneficiary_organization.pk).beneficiaries.remove(user.pk)
+                user_queryset.update(
+                    beneficiary_organization=user.proposed_organization.pk
+                )
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.remove(user.pk)
 
             # Add user to the proposed_organization
-            Organization.objects.get(pk=user.proposed_organization.pk).beneficiaries.add(user.pk)
-            user_queryset.update(proposed_organization = None)
+            Organization.objects.get(
+                pk=user.proposed_organization.pk
+            ).beneficiaries.add(user.pk)
+            user_queryset.update(proposed_organization=None)
 
             # Send an email to the invitation_author to notice user joined the organization
             send_accept_invitation_email.delay(
-                invitation_author.email,
-                user.full_name,
-                proposed_organization.pk)
+                invitation_author.email, user.full_name, proposed_organization.pk
+            )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-            
+
             msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
-        
+
         messages.success(self.request, msg)
         success_url = reverse("user_dashboard")
         return HttpResponseRedirect(success_url)
@@ -448,13 +480,16 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
         if self.request.user.proposed_organization:
             context["organization_name"] = self.request.user.proposed_organization.name
         if self.request.user.beneficiary_organization:
-            context['projects'] = Project.objects \
-                .filter(organizations=self.request.user.beneficiary_organization.pk) \
-                .order_by('name')
-            context['collaborators'] = User.objects \
-                .filter(beneficiary_organization=self.request.user.beneficiary_organization.pk) \
-                .exclude(pk=self.request.user.pk) \
-                .order_by('last_name')
+            context["projects"] = Project.objects.filter(
+                organizations=self.request.user.beneficiary_organization.pk
+            ).order_by("name")
+            context["collaborators"] = (
+                User.objects.filter(
+                    beneficiary_organization=self.request.user.beneficiary_organization.pk
+                )
+                .exclude(pk=self.request.user.pk)
+                .order_by("last_name")
+            )
         return context
 
 
@@ -468,7 +503,9 @@ class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_queryset(self):
         beneficiary_organization_pk = self.request.user.beneficiary_organization.pk
         if self.request.user.beneficiary_organization is not None:
-            queryset = User.objects.filter(Q (beneficiary_organization=beneficiary_organization_pk) | Q (proposed_organization=beneficiary_organization_pk)
+            queryset = User.objects.filter(
+                Q(beneficiary_organization=beneficiary_organization_pk)
+                | Q(proposed_organization=beneficiary_organization_pk)
             ).exclude(pk=self.request.user.pk)
         else:
             queryset = User.objects.none()
