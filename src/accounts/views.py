@@ -17,6 +17,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
 from django.contrib import messages
 from django.shortcuts import resolve_url
+from django.db.models import Q
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
@@ -465,9 +466,9 @@ class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     paginate_by = 18
 
     def get_queryset(self):
+        beneficiary_organization_pk = self.request.user.beneficiary_organization.pk
         if self.request.user.beneficiary_organization is not None:
-            queryset = User.objects.filter(
-                beneficiary_organization=self.request.user.beneficiary_organization.pk
+            queryset = User.objects.filter(Q (beneficiary_organization=beneficiary_organization_pk) | Q (proposed_organization=beneficiary_organization_pk)
             ).exclude(pk=self.request.user.pk)
         else:
             queryset = User.objects.none()
@@ -476,6 +477,7 @@ class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = InviteCollaboratorForm
+        context["beneficiary_organization"] = self.request.user.beneficiary_organization
 
         return context
 

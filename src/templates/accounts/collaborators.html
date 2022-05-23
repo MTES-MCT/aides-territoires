@@ -80,7 +80,7 @@
                             </td>
                             <td>{{ user.date_created|date:'d/m/y' }}</td>
                             <td>
-                                {% if user.last_login %}
+                                {% if user.last_login and user.beneficiary_organization == beneficiary_organization %}
                                 Validée
                                 {% else %}
                                 En cours
