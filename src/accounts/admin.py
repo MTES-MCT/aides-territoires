@@ -159,8 +159,13 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                 'beneficiary_function',
                 'beneficiary_role',
                 'beneficiary_organization',
+            )
+        }),
+        ("Fusion d'organisation", {
+            'fields': (
                 'proposed_organization',
-                'invitation_author'
+                'invitation_author',
+                'invitation_date',
             )
         }),
         ('Espace administrateur', {
