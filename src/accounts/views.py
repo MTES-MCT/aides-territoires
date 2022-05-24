@@ -15,6 +15,7 @@ from django.contrib.auth import login, update_session_auth_hash, views
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
+from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import resolve_url
 from django.db.models import Q
@@ -319,7 +320,8 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 proposed_organization=organization_id
             )
             users.filter(pk=collaborator.pk).update(
-                invitation_author=self.request.user.pk
+                invitation_author=self.request.user.pk,
+                invitation_date=timezone.now()
             )
             send_invitation_email.delay(
                 collaborator.email,
