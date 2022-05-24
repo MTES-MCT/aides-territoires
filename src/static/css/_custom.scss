@@ -20,6 +20,12 @@ ul.aid-categories ul li + li::before {
 
 #aid .deadline-data {
   float: right;
+  background-color: var(--background-alt-blue-france);
+  padding: 1.5rem;
+
+  p {
+    margin: 0;
+  }
 
   .fr-tag {
     background-color: var(--background-active-blue-france);
@@ -31,6 +37,7 @@ ul.aid-categories ul li + li::before {
     display: none;
   }
 }
+
 
 article#aid .aid-details h2 {
   background-color: var(--background-alt-blue-france);
@@ -597,6 +604,11 @@ section#post-content img {
 // Sortable tables
 .dataTables_wrapper {
   padding-top: 3em;
+}
+
+// Sidemenu separator
+.at-sidemenu__separator hr {
+  border: 1px solid var(--text-action-high-grey);
 }
 
 // Map form

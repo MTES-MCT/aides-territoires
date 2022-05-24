@@ -72,7 +72,7 @@
             <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet&nbsp;: aucune</p>
             {% endif %}
             <div class="fr-table fr-table--bordered">
-                <table class="data-table">
+                <table class="data-table at-table--xl">
                     <caption class="sr-only">
                         Liste des aides sélectionnées&nbsp;:
                     </caption>
@@ -120,8 +120,13 @@
                                 {% endif %}
                                 {% endfor %}
                                 <td class="fr-text">
-                                    <button class="btn_delete fr-link fr-fi-delete-line" id="delete-aid-modal-btn" data-fr-opened="false" aria-controls="delete-aid-modal-{{ aid.slug }}">
-                                        supprimer cette aide
+                                    <button
+                                        class="fr-btn fr-fi-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="delete-aid-modal-btn"
+                                        title="Supprimer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="delete-aid-modal-{{ aid.slug }}">
+                                        Supprimer cette aide
                                     </button>
                                 </td>
                             </tr>

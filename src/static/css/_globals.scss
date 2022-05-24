@@ -89,7 +89,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .fr-background-alt {
-    background-color: var(--background-contrast-grey);
+    background-color: var(--background-alt-blue-france);
 }
 
 .fr-background-alt-pink {
@@ -137,6 +137,10 @@ h2, h3, h4, h5, h6 {
   margin-right: 0;
 }
 
+.at-box-shadow--none {
+  box-shadow: none;
+}
+
 // Force certain classes on tables
 .at-table--xl td, .at-table--xl th {
   font-size: 1rem;
@@ -177,7 +181,6 @@ form .fr-checkbox-group > ul > li {
 .fr-checkbox-group ul{
   margin-block-end: 0;
   margin-block-start: 0;
-  padding-inline-start: 0;
 }
 
 .fr-checkbox-group li {
@@ -214,4 +217,8 @@ iframe {
 @media (prefers-color-scheme: light) {
   .dark-mode { display: none !important; }
   .light-mode { display: block !important; }
+}
+
+.fr-card__desc, .fr-card__title {
+  margin-top: 0;
 }

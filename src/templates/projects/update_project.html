@@ -61,7 +61,7 @@
 
                 {% include '_field_snippet.html' with field=form.name %}
                 {% include '_field_snippet.html' with field=form.description %}
-                {% include '_field_snippet.html' with field=form.due_date %}
+                {% include '_calendar_snippet.html' with field=form.due_date %}
 
                 <a href="{% url 'project_detail_view' project.pk project.slug %}" class="btn-block fr-btn fr-mt-2w">
                     Annuler
