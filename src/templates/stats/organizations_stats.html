@@ -33,23 +33,22 @@
             <thead>
                 <tr>
                     <th scope="col">Type</th>
-                    <th scope="col">Nombre d'inscrits</th>
+                    <th scope="col">Nombre d’inscrits</th>
                     <th scope="col">%</th>
                 </tr>
             </thead>
             <tbody>
-                {% regroup all_organizations by organization_type.0 as orga_list %}
-                {% for organization_type in orga_list %}    
+                {% for organization_type, count in all_organizations_types.items %}    
                 <tr>
-                    <th>{% Organization_type_choice_display organization_type.grouper %}</th>
-                    <td>{{ organization_type.list|length }}</td>
-                    <td>{% percent_display organization_type.list|length all_organizations.count %}</td>
+                    <th>{% Organization_type_choice_display organization_type %}</th>
+                    <td>{{ count }}</td>
+                    <td>{% percent_display count total_organizations %}</td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <th>TOTAL</th>
-                    <td>{{ all_organizations.count }}</td>
-                    <td>{% percent_display all_organizations.count all_organizations.count %}</td>
+                    <td>{{ total_organizations }}</td>
+                    <td>{% percent_display total_organizations total_organizations %}</td>
                 </tr>
             </tbody>
         </table>
