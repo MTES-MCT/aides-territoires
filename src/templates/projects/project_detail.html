@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n aids compress %}
 
-{% block extratitle %}Mon compte{% endblock %}
+{% block extratitle %}Mon compte{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock %}
+{% block sectionid %}user-account{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -29,7 +29,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -148,24 +148,21 @@
                 <i class="ri-arrow-left-line fr-pr-1w"></i>
                 Retour aux projets
             </a> -->
-            <div class="fr-container">
-              <center>
+            <div class="fr-container fr-centered">
                 <p>
-                  <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag fr-fi-search-line">&nbsp;Trouver des aides pour ce projet</a>
+                  <a href="{% url 'general_search' %}" class="fr-btn fr-btn--secondary fr-fi-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
                 </p>
-                <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
+                <button type="button" class="fr-btn fr-btn--secondary fr-fi-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
                   Supprimer ce projet
                 </button>
-                <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left" href="{% url 'project_update_view' project.pk %}">
+                <a class="fr-btn fr-fi-edit-line fr-btn--icon-left" href="{% url 'project_update_view' project.pk %}">
                   Modifier les informations du projet
                 </a>
-              </center>
             </div>
-
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'projects/_delete_project_modal.html' with project=project.pk %}
@@ -174,4 +171,4 @@
         {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
     {% endfor %}
     {% endif %}
-{% endblock %}
+{% endblock modals %}

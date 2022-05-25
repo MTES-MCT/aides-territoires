@@ -281,7 +281,11 @@ section#aid-edit form.main-form > fieldset {
 }
 
 section#aid-edit form.main-form > fieldset > legend {
+  font-size: 1.5rem;
   color: var(--text-active-blue-france);
+  line-height: 2rem;
+  margin: 1rem 0;
+  font-weight: bold;
 }
 
 section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
@@ -619,9 +623,9 @@ section#post-content img {
 }
 
 #france-map {
-    text-align:center;
+    text-align: center;
     max-width: 800px;
-    margin:auto;
+    margin: auto;
 }
 
 .land {

@@ -1,6 +1,6 @@
 <div id="form-group-{{ field.name }}" class="fr-input-group{% if field.errors %} fr-input-group--error{% endif %}{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
 
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <label for="{{ field.id_for_label }}" class="fr-label">{{ field.label }}</label>
 
     {% if nest_field_class %}
     <div class="{{ nest_field_class }}">
