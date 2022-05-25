@@ -21,17 +21,17 @@
                                     <a class="fr-btn fr-btn--linkedin" title="Partager sur LinkedIn - ouvre une nouvelle fenêtre" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" rel="noopener" onclick="window.open(this.href,'Partager sur LinkedIn','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=yes,width=550,height=550'); event.preventDefault();">Partager sur LinkedIn</a>
                                 </li>
                                 <li>
-                                    <a class="fr-fr-btn fr-btn--mail" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" title="Partager par email" target="_blank">Partager par email</a>
+                                    <a class="fr-btn fr-btn--mail" href="mailto:?subject=Votre%20recherche%20sur%20Aides%20territoires&body={{ request.build_absolute_uri }}" title="Partager par email" target="_blank">Partager par email</a>
                                 </li>
                             </ul>
                         </div>
                               
                         <form id="copy-to-clipboard-form" class="fr-grid-row fr-grid-row--center">
                             <div class="form-group fr-my-2w fr-col-12">
-                                <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" class="fr-col-12" />
+                                <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" class="fr-input" />
                             </div>
                             <button type="button" id="clipboard-btn" class="fr-btn">
-                                {{ _('Copy the current url to clipboard') }}
+                                Copier l’url dans le presse-papier
                             </button>
                         </form>
                     </div>

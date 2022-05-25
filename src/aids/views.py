@@ -477,7 +477,7 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         aid.save()
         form.save_m2m()
 
-        msg = """ Votre aide a été créée. Vous pouvez poursuivre l\'édition ou
+        msg = """ Votre aide a été créée. Vous pouvez poursuivre l’édition ou
         <a href="{url}" target="_blank"> la prévisualiser</a>.""".format(
             url=aid.get_absolute_url())
 
@@ -535,7 +535,7 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
             form.save_m2m()
             msg = "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. "
             "Et retrouvez l'aide dupliquée sur "
-            '<a href="{url}">votre portefeuille d\'aides</a>.'.format(
+            '<a href="{url}">votre portefeuille d’aides</a>.'.format(
                 url=reverse('aid_draft_list_view'))
             response = HttpResponseRedirect(self.get_success_url())
         else:
@@ -546,12 +546,12 @@ class AidEditView(ContributorAndProfileCompleteRequiredMixin, MessageMixin,
                 aid = self.object
                 if aid.is_draft():
                     aid.submit()
-                    msg = "Votre aide est actuellement en revue. Elle sera publiée et visible par les utilisateurs du site une fois que l'administrateur l’aura validé."  # noqa
+                    msg = "Votre aide est actuellement en revue. Elle sera publiée et visible par les utilisateurs du site une fois que l’administrateur l’aura validée."  # noqa
                 else:
                     aid.unpublish()
-                    msg = 'Le changement de statut de votre aide a bien été pris en compte.'
+                    msg = "Le changement de statut de votre aide a bien été pris en compte."
             else:
-                msg = "L'aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
+                msg = "L’aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
 
         self.messages.success(msg)
         return response
@@ -639,7 +639,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_name = project_obj.name
                 project_slug = project_obj.slug
                 project_url = reverse('project_detail_view', args=[project, project_slug])
-                msg = f"L'aide a bien été associée au projet <a href='{project_url}'>{project_name}<a>"  # noqa
+                msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}</a>"  # noqa
                 messages.success(self.request, msg)
 
         if self.request.POST.get('new_project'):
@@ -653,7 +653,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             aid.date_updated = aid.date_updated
             aid.save()
             project_url = reverse('project_detail_view', args=[project.pk, project.slug])
-            msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}<a> a bien été créé et l'aide a été associée."  # noqa
+            msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}</a> a bien été créé et l'aide a été associée."  # noqa
             messages.success(self.request, msg)
 
         url = reverse('aid_detail_view', args=[aid.slug])

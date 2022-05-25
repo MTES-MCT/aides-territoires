@@ -20,9 +20,6 @@ msgstr ""
 msgid "Author"
 msgstr "Auteur"
 
-msgid "Your email address"
-msgstr "Votre adresse e-mail"
-
 msgid "Administrators"
 msgstr "Administrateurs"
 
@@ -109,18 +106,6 @@ msgstr "Aide"
 
 msgid "Aids"
 msgstr "Aides"
-
-msgid "We will send an email to confirm your address"
-msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
-
-msgid "Give a name to your alert"
-msgstr "Donnez un nom à votre alerte"
-
-msgid "Alert frequency"
-msgstr "Fréquence de l'alerte"
-
-msgid "How often do you want to receive alerts?"
-msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid ""
 "\n"
@@ -254,9 +239,6 @@ msgid ""
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
-
-msgid "How often to you want to receive alerts?"
-msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
@@ -1041,9 +1023,6 @@ msgstr "Nous n'avons pu trouver aucun résultat."
 
 msgid "Keyword"
 msgstr "Mot clé"
-
-msgid "Copy the current url to clipboard"
-msgstr "Copier l'url dans le presse-papier"
 
 msgid "Results"
 msgstr "Résultats"
