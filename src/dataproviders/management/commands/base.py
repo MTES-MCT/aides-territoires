@@ -56,16 +56,17 @@ class BaseImportCommand(BaseCommand):
         updated_counter = 0
         automatic_updated_counter = 0
         with transaction.atomic():
-            for aid, financers, instructors, categories, programs in aids_and_related_objects:  # noqa
+            for aid, financers, instructors, categories, programs, keywords in aids_and_related_objects:  # noqa
                 try:
                     with transaction.atomic():
-                        aid.set_search_vector_unaccented(financers, instructors, categories)
+                        aid.set_search_vector_unaccented(financers, instructors, categories, keywords)
                         aid.status = AidWorkflow.states.reviewable
                         aid.save()
                         aid.financers.set(financers)
                         aid.instructors.set(instructors)
                         aid.categories.set(categories)
                         aid.programs.set(programs)
+                        aid.keywords.set(keywords)
                         created_counter += 1
                         self.stdout.write(self.style.SUCCESS(
                             'New aid: {}'.format(aid.name)))
@@ -185,11 +186,17 @@ class BaseImportCommand(BaseCommand):
         """
         form_fields = AidEditForm.Meta.fields
         more_fields = [
-            'author_id',
-            'import_data_source', 'is_imported', 'import_uniqueid',
-            'import_data_url', 'import_share_licence', 'import_last_access',
-            'import_raw_object', 'import_raw_object_calendar',
-            'date_published'
+            "author_id",
+            "import_data_source",
+            "is_imported",
+            "import_uniqueid",
+            "import_data_url",
+            "import_share_licence",
+            "import_last_access",
+            "import_raw_object_calendar",
+            "import_raw_object",
+            "date_published",
+            "keywords",
         ]
         fields = form_fields + more_fields
 
@@ -210,9 +217,10 @@ class BaseImportCommand(BaseCommand):
         instructors = values.pop('instructors', [])
         categories = values.pop('categories', [])
         programs = values.pop('programs', [])
+        keywords = values.pop('keywords', [])
         aid = Aid(**values)
 
-        return aid, financers, instructors, categories, programs
+        return aid, financers, instructors, categories, programs, keywords
 
     def extract_is_imported(self, line):
         return True
@@ -264,6 +272,9 @@ class BaseImportCommand(BaseCommand):
         return []
 
     def extract_programs(self, line):
+        return []
+
+    def extract_keywords(self, line):
         return []
 
     def extract_project_examples(self, line):
