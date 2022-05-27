@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extratitle %}Contact{% endblock %}
+{% block extratitle %}Contact{% endblock extratitle %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Contactez-nous" />
@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -29,7 +29,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-pb-5w">
@@ -70,11 +70,15 @@
                         <fieldset>
                             {% include '_field_snippet.html' with field=form.message %}
                         </fieldset>
+
+                        <fieldset>
+                            {% include '_field_snippet.html' with field=form.captcha %}
+                        </fieldset>
                     </div>
 
                     <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
                         <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
-                        En utilsant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
+                        En utilisant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
                     </p>
 
                     <footer>
@@ -85,4 +89,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

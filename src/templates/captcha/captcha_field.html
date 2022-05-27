@@ -1,0 +1,16 @@
+{% spaceless %}
+<div class="form-group">
+  <label class="control-label">{{ label }}</label>
+  <div class="form-group">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        {% if audio %}
+            <a title="Jouer le captcha comme fichier audio" href="{{ audio }}">🔊</a>
+        {% endif %}
+        <img src="{{ image }}" alt="captcha" class="captcha" />
+      </div>
+      {% include "django/forms/widgets/multiwidget.html" %}
+    </div>
+  </div>
+</div>
+{% endspaceless %}
