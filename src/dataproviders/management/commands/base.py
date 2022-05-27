@@ -63,7 +63,7 @@ class BaseImportCommand(BaseCommand):
                 categories,
                 programs,
                 keywords,
-            ) in aids_and_related_objects:  # noqa
+            ) in aids_and_related_objects:
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(
@@ -241,7 +241,6 @@ class BaseImportCommand(BaseCommand):
             "import_raw_object_calendar",
             "import_raw_object",
             "date_published",
-            "european_aid",
             "keywords",
         ]
         fields = form_fields + more_fields
