@@ -380,12 +380,12 @@
                     <div class="fr-list__none">
                         {% for theme in theme_list %}
                         {% for category in theme.list %}
-                        <p class="fr-tag fr-mb-1w fr-tag--icon-left">{{ category }}</p>
+                        <a href="{% url 'search_view' %}?text={{ category }}" class="fr-tag fr-mb-1w" target="blank">{{ category }}</a>
                         {% endfor %}
                         {% endfor %}
                         {% if aid.keywords.all %}
                         {% for keyword in aid.keywords.all %}
-                        <p class="fr-tag fr-mb-1w fr-tag--icon-left">{{ keyword }}</p>
+                        <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" target="blank">{{ keyword }}</a>
                         {% endfor %}
                         {% endif %}
                     </div>
