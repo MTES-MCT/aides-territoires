@@ -4,12 +4,18 @@
   <div class="form-group">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        {% if audio %}
-            <a title="Jouer le captcha comme fichier audio" href="{{ audio }}">🔊</a>
-        {% endif %}
         <img src="{{ image }}" alt="captcha" class="captcha" />
       </div>
       {% include "django/forms/widgets/multiwidget.html" %}
+        {% if audio %}
+          <div>
+            <span>Alternativement, vous pouvez utiliser le lecteur audio ci-dessous pour écouter les lettres à taper :</span>
+            <audio controls>
+              <source src="{{ audio }}" />
+              <p>Votre navigateur ne prend pas en charge l’audio. Voici un lien pour <a title="Jouer le captcha comme fichier audio" href="{{ audio }}">télécharger le fichier audio</a></p>
+            </audio>
+          </div>
+        {% endif %}
     </div>
   </div>
 </div>
