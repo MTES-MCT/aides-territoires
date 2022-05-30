@@ -52,23 +52,6 @@
             {% endif %}
 
             <h1> {{ aid.name }} </h1>
-            {% if aid.categories %}
-            {% regroup aid.categories.all by theme as theme_list %}
-            <ul class="aid-categories fr-list__none">
-                {% for theme in theme_list %}
-                <li class="theme">
-                    <strong class="fr-uppercase">
-                        {{ theme.grouper }}
-                    </strong>
-                    <ul class="fr-list__none fr-display__inline fr-p-0">
-                        {% for category in theme.list %}
-                        <li class="category fr-display__inline">{{ category }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
 
             {% if not aid.is_published %}
             <div class="danger fr-background-alt-pink fr-p-3w">
@@ -391,6 +374,18 @@
                         </div>
                     </div>
                     {% endif %}
+
+                    {% if aid.categories %}
+                    {% regroup aid.categories.all by theme as theme_list %}
+                    <div class="fr-list__none">
+                        {% for theme in theme_list %}
+                        {% for category in theme.list %}
+                        <p class="fr-tag fr-mb-1w fr-tag--icon-left">{{ category }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+        
                 </div>
 
                 <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
