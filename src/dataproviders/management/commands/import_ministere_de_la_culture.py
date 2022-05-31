@@ -228,17 +228,21 @@ class Command(BaseImportCommand):
 
     def extract_eligibility(self, line):
         eligibility = line.get("amount", "")
+        if line.get("deadline"):
+            if not line.get("deadline")[0].isdigit():
+                eligibility += f"<br/> date de clôture de l'aide : {line.get('deadline')}"
         eligibility = content_prettify(eligibility)
         return eligibility
 
     def extract_submission_deadline(self, line):
         if line.get("deadline"):
-            locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
-            deadline = line.get("deadline")
-            if "1er" in deadline:
-                deadline = re.sub("1er", "1", line.get("deadline"))
-            submission_deadline = datetime.strptime(deadline, "%d %B %Y")
-            return submission_deadline
+            if line.get("deadline")[0].isdigit():
+                locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
+                deadline = line.get("deadline")
+                if "1er" in deadline:
+                    deadline = re.sub("1er", "1", line.get("deadline"))
+                submission_deadline = datetime.strptime(deadline, "%d %B %Y")
+                return submission_deadline
         else:
             pass
 
