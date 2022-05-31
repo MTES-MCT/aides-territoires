@@ -649,6 +649,7 @@ class AmendmentAdmin(admin.ModelAdmin):
         qs = qs.select_related("author", "eligibility_test")
         return qs
 
+
 class AidProjectAdmin(admin.ModelAdmin):
     list_display = ["aid", "project", "creator", "date_created"]
 
