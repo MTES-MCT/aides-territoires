@@ -81,7 +81,8 @@
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Echéance</th>
                             <th scope="col" class="fr-text">Type d'aide</th>
-                            <th scope="col" class="fr-text">Ajouté&nbsp;le</th>
+                            <th scope="col" class="fr-text">Porteur&nbsp;d'aides</th>
+                            <th scope="col" class="fr-text">Ajoutée&nbsp;le</th>
                             <th scope="col" class="fr-text">Par</th>
                             <th scope="col" class="fr-text">Action</th>
                         </tr>
@@ -105,6 +106,17 @@
                                 <td class="fr-text">
                                     {% choices_display aid 'aid_types' %}
                                 </td>
+                                <td class="fr-text">
+                                    <ul>
+                                    {% for financer in aid.financers.all %}
+                                        <li>
+                                            <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
+                                            {{ financer.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    <ul>
+                                </td>       
                                 {% for aidproject in AidProject %}
                                 {% if aidproject.aid == aid %}
                                 <td class="fr-text">

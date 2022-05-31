@@ -16,7 +16,7 @@
 
     var aidForm, nameField, slugField, originUrlField;
 
-    var DuplicateBuster = function(form) {
+    var DuplicateBuster = function (form) {
         aidForm = form;
         nameField = $('#id_name');
         slugField = $('#id_slug');
@@ -24,7 +24,7 @@
     };
     exports.DuplicateBuster = DuplicateBuster;
 
-    DuplicateBuster.prototype.init = function() {
+    DuplicateBuster.prototype.init = function () {
         initializeErrorDom();
         aidForm.on('change', warnForDuplicates);
 
@@ -33,13 +33,13 @@
     };
 
     // Insert the message holding div into the dom
-    var initializeErrorDom = function() {
+    var initializeErrorDom = function () {
         topErrorDiv.insertAfter(nameField);
         inlineErrorDiv.insertAfter(originUrlField);
     };
 
     // Generate a link to a single duplicate aid
-    var formatSingleDuplicate = function(data) {
+    var formatSingleDuplicate = function (data) {
         var url;
         var currentPath = $(location).attr('pathname');
 
@@ -61,15 +61,15 @@
     /**
      * Create a warning message with links to the related aids.
      */
-    var displayWarningMessage = function(apiData) {
-        var messageDiv = $('<div class="errornote duplicate-error" />');
-        var messageP = $('<p>Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
+    var displayWarningMessage = function (apiData) {
+        var messageDiv = $('<div class="fr-alert fr-alert--error at-duplicate-error fr-mt-2w" />');
+        var messageP = $('<p class="fr-alert__title">Attention ! Nous avons trouvé des aides qui ressemblent à des doublons.</p>');
 
         var currentSlug = slugField.val();
         var count = apiData['count'];
         var maxResults = Math.min(count, MAX_RESULTS);
         var duplicates = apiData['results']
-            .filter(function(result) {
+            .filter(function (result) {
                 return result['slug'] != currentSlug;
             })
             .slice(0, maxResults)
@@ -88,7 +88,7 @@
      * Create a query to fetch for duplicates.
      * Note : if we don't have enough data, just return null.
      */
-    var buildSearchForDuplicateQuery = function() {
+    var buildSearchForDuplicateQuery = function () {
         var origin_url = originUrlField.val();
 
         var query;
@@ -104,11 +104,11 @@
     /**
      * Call the API to find aid that might be duplicates from the current one.
      */
-    var fetchDuplicates = function() {
+    var fetchDuplicates = function () {
         var query = buildSearchForDuplicateQuery();
         if (query === null) {
             // If we can't call the api, just return an empty result set
-            return new Promise(function() { return {count: 0, results: []}; });
+            return new Promise(function () { return { count: 0, results: [] }; });
         }
 
         return $.getJSON(query);
@@ -117,7 +117,7 @@
     /**
      * Hide or display a warning message depending on the duplicates found
      */
-    var hideOrShowMessage = function(duplicates) {
+    var hideOrShowMessage = function (duplicates) {
         var count = duplicates['count'];
         var results = duplicates['results'];
         var currentSlug = slugField.val();
@@ -136,14 +136,14 @@
     /**
      * Display an error message if we find aids that might be duplicate.
      */
-    var warnForDuplicates = function() {
+    var warnForDuplicates = function () {
         var duplicates = fetchDuplicates();
         duplicates.then(hideOrShowMessage);
     };
 
 }(this, $ || django.jQuery));
 
-(function($) {
+(function ($) {
     $(document).ready(function () {
         var aidForm = $('#aid_form').length ? $('#aid_form') : $('#aid-edit-form');
         var buster = new DuplicateBuster(aidForm);

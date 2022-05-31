@@ -70,6 +70,7 @@ urlpatterns = [
     path('aides/', include('aids.urls')),
     path(_('backers/'), include('backers.urls')),
     path(_('blog/'), include('blog.urls')),
+    path('captcha/', include('captcha.urls')),
     path('cartographie/', include('geofr.urls')),
     path(_('programs/'), include('programs.urls')),
     path(_('integration/'), include('integration.urls')),

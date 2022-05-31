@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<dialog aria-labelledby="fr-modal-title-project-search-aid-{{ project }}" role="dialog" id="project-search-aid-modal-{{ project }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="project-search-aid-modal-{{ project }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-project-search-aid-{{ project }}" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Votre projet a bien été créé.</h1>
+                        {% if aid_results > 0 %}
+                        <p>Nous avons trouvé <strong>{{ aid_results }} aides</strong> qui pourraient lui correspondre, voulez-vous les consulter&nbsp;?</p>
+                        {% else %}
+                        <p>Nous n'avons pas trouvé d'aide correspondant à ce projet, mais pas de panique, c'est peut-être parce que le nom est trop spécifique ou qu'il n'y pas encore d'aide existante.</p>
+                        <p><strong>Souhaitez-vous chercher des aides maintenant&nbsp;?</strong></p>
+                        <p>💡 Pour trouver des aides spécifiques à votre projet, n'hésitez pas à élargir le champ lexical ou à mettre des synonymes.</p>
+                        {% endif %}
+                        <section>
+                            <footer>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                    <li>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="project-search-aid-modal-{{ project }}">Non merci</button>
+                                    </li>
+                                    <li>
+                                        {% if aid_results > 0 %}
+                                        <a href="{% url 'search_view' %}?text={{ text_encoded }}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
+                                        {% else %}
+                                        <a href="{% url 'search_view' %}?perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
+                                        {% endif %}
+                                            OK, j'y vais!
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

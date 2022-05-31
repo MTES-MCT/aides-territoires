@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
     "django_otp",
     "django_otp.plugins.otp_totp",
     "dsfr",
+    "captcha",
 ]
 
 LOCAL_APPS = [

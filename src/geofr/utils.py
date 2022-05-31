@@ -167,6 +167,9 @@ def attach_perimeters_check(
         logger = logging.getLogger(__name__)
 
     logger.info(f"{len(city_codes)} city codes found")
+
+    city_codes = list(city_codes)
+
     if len(city_codes) > MAX_PERIMETERS_TO_ATTACH:
         logger.debug("Creating PerimeterImport object")
 

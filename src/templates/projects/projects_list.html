@@ -44,6 +44,12 @@
                 Ajouter un projet
             </button>
 
+            {% if request.GET.project_created %}
+            <button class="at-visibility__hidden" id="project-search-aid-btn" data-fr-opened="true" aria-controls="project-search-aid-modal-{{ request.GET.project_created }}">
+                Votre nouveau projet
+            </button>
+            {% endif %}
+
             <div class="fr-table">
                 <table class="data-table at-table--xl">
                     <caption>
@@ -116,6 +122,9 @@
 {% block modals %}
     {% include 'projects/_create_project_modal.html' %}
     {% include 'projects/_help_project_modal.html' %}
+    {% if request.GET.project_created %}
+    {% include 'projects/_project_search_aid_modal.html' with project=project_created %}
+    {% endif %}
     {% if projects %}
     {% for project in projects %}    
         {% include 'projects/_delete_project_modal.html' with project=project.pk %}

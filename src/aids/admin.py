@@ -212,6 +212,7 @@ class BaseAidAdmin(
         "instructors",
         "perimeter",
         "programs",
+        "keywords",
     ]
     filter_vertical = [
         "categories",
@@ -294,6 +295,7 @@ class BaseAidAdmin(
                     "description",
                     "project_examples",
                     "eligibility",
+                    "keywords",
                 )
             },
         ),
@@ -646,7 +648,6 @@ class AmendmentAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related("financers")
         qs = qs.select_related("author", "eligibility_test")
         return qs
-
 
 class AidProjectAdmin(admin.ModelAdmin):
     list_display = ["aid", "project", "creator", "date_created"]
