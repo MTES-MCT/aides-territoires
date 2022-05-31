@@ -19,6 +19,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import resolve_url
 from django.db.models import Q
+from django.db import transaction
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
@@ -391,6 +392,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
     form_class = JoinOrganizationForm
     template_name = "accounts/join_organization.html"
 
+    @transaction.atomic
     def form_valid(self, form):
         user = User.objects.get(pk=self.request.user.pk)
         user_queryset = User.objects.filter(pk=user.pk)
@@ -481,6 +483,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         if self.request.user.proposed_organization:
             context["organization_name"] = self.request.user.proposed_organization.name
+            context["invitation_author"] = self.request.user.invitation_author.full_name
         if self.request.user.beneficiary_organization:
             context["projects"] = Project.objects.filter(
                 organizations=self.request.user.beneficiary_organization.pk
