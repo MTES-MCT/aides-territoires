@@ -199,6 +199,28 @@ class Command(BaseImportCommand):
             print(f"{title}")
         return aid_categories
 
+    def extract_keywords(self, line):
+        categories = line.get("eztag_theme", [])
+        keywords = []
+        if categories != []:
+            for category in categories:
+                try:
+                    keyword = Keyword.objects.get(name=category)
+                    keyword_list = []
+                    keyword_list.append(keyword)
+                    keyword_pk = Keyword.objects.get(name=category).pk
+                    keywords.extend(keyword_list)
+                except:
+                    try:
+                        keyword = Keyword.objects.create(name=category)
+                        keyword_list = []
+                        keyword_list.append(keyword)
+                        keyword_pk = Keyword.objects.get(name=category).pk
+                        keywords.extend(keyword_list)
+                    except:
+                        pass
+        return keywords
+
     def extract_contact(self, line):
         contact = line.get("contact", "")
         contact = content_prettify(contact)
