@@ -230,6 +230,7 @@ class BaseImportCommand(BaseCommand):
         """
         form_fields = AidEditForm.Meta.fields
         more_fields = [
+<<<<<<< HEAD
             "author_id",
             "import_data_source",
             "is_imported",
@@ -243,6 +244,13 @@ class BaseImportCommand(BaseCommand):
             "date_published",
             "european_aid",
             "keywords",
+=======
+            'author_id',
+            'import_data_source', 'is_imported', 'import_uniqueid',
+            'import_data_url', 'import_share_licence', 'import_last_access',
+            'import_raw_object_calendar', 'import_raw_object',
+            'date_published'
+>>>>>>> 22558160... add extract_import_raw_object & extract_import_raw_object_calendar
         ]
         fields = form_fields + more_fields
 
