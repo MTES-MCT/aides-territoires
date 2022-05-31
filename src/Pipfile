@@ -46,6 +46,7 @@ xmltodict = "*"
 deepdiff = "*"
 pandas = "*"
 django-dsfr = "*"
+django-simple-captcha = "*"
 
 [dev-packages]
 ansible = "<4"
