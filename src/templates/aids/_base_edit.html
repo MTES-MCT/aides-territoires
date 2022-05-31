@@ -1,147 +1,149 @@
-{% extends '_base.html' %}
-{% load i18n form_utils compress %}
+{% extends "_base.html" %}
+{% load static i18n form_utils compress %}
 
-{% block extratitle %}{{ _('Aid edition') }}{% endblock %}
+{% block extratitle %}Édition de l’aide{% endblock extratitle %}
 
 {% block content %}
 <div class="article fr-container fr-my-5w" id="base-edit">
 
-{% block before-section %}{% endblock %}
+    {% block before_section %}{% endblock before_section %}
 
-<section id="aid-edit" class="fr-container">
+    <section id="aid-edit" class="fr-container">
 
-<div class="form-sidebar fr-col-md-12 fr-mt-4w fr-py-2w">
-    {% block form_sidebar %}{% endblock %}
-</div>
-
-<form id="aid-edit-form" method="post" action="" class="main-form" novalidate>
-    {% block form_header %}{% endblock %}
-    {% csrf_token %}
-    {{ form.media }}
-
-    {% include '_form_header.html' with form=form %}
-
-    {% if form.non_field_errors %}
-    <div class="danger" role="alert">
-        {{ form.non_field_errors.0 }}
-    </div>
-    {% endif %}
-
-    {% for field in form.hidden_fields %}
-        {{ field }}
-    {% endfor %}
-
-    {% block fields %}
-    <fieldset>
-            <legend><span id="aid-presentation"></span>1 - Présentation de l'aide</legend>
-            {% include '_field_snippet_aid_form.html' with field=form.name %}
-            {% include '_field_snippet_aid_form.html' with field=form.name_initial %}
-            {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
-            {% include '_field_snippet_aid_form.html' with field=form.programs %}
-            {% include '_field_snippet_aid_form.html' with field=form.financers %}
-            {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
-            <div id="instructor-fields-accordion" class="fr-accordion fr-mb-5w">
-                <h3 class="fr-accordion__title fr-grid-row">
-                    <button type="button" class="fr-accordion__btn fr-col-md-8 fr-col-offset-md-4" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
-                </h3>
-                <div id="instructor-fields" class="fr-collapse">
-                    {% include '_field_snippet_aid_form.html' with field=form.instructors %}
-                    {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
-                </div>    
-            </div>
-            {% include '_field_snippet_aid_form.html' with field=form.targeted_audiences %}
-            {% include '_field_snippet_aid_form.html' with field=form.aid_types %}
-            <div id="subvention-fields">
-                <div id="subvention-fields-collapse" class="fr-collapse">
-                {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
-                {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}    
-                </div>
-            </div>
-            <div id="loan-fields">
-                <div id="loan-fields-collapse" class="fr-collapse">
-                {% include '_field_snippet_aid_form.html' with field=form.loan_amount %}
-                </div>
-            </div>
-            <div id="recoverable-advance-fields">
-                <div id="recoverable-advance-fields-collapse" class="fr-collapse">
-                {% include '_field_snippet_aid_form.html' with field=form.recoverable_advance_amount %}
-                </div>
-            </div>
-            <div id="other-financial-aid-fields">
-                <div id="other-financial-aid-fields-collapse" class="fr-collapse">
-                {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
-                </div>
-            </div>
-            {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
-    </fieldset>
-
-    <fieldset>
-        <legend><span id="aid-description"></span>2 - Description de l'aide</legend>
-        {% include '_field_snippet_aid_form.html' with field=form.description %}
-        {% if aid.is_local %}
-            {% include '_field_snippet_aid_form.html' with field=form.local_characteristics %}
-        {% endif %}
-        {% include '_field_snippet_aid_form.html' with field=form.project_examples %}
-        {% include '_field_snippet_aid_form.html' with field=form.categories %}
-        {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
-        <div id="calendar-fields">
-            <div id="calendar-fields-collapse" class="fr-collapse">
-                {% include '_field_snippet_aid_form.html' with field=form.start_date %}
-                {% include '_field_snippet_aid_form.html' with field=form.predeposit_date %}
-                {% include '_field_snippet_aid_form.html' with field=form.submission_deadline %}    
-            </div>  
+        <div class="form-sidebar fr-col-md-12 fr-mt-4w fr-py-2w">
+            {% block form_sidebar %}{% endblock form_sidebar %}
         </div>
-    </fieldset>
 
-    <fieldset>
-        <legend><span id="aid-eligibility"></span>3 - {{ _('Criterias of eligibility') }}</legend>
-        {% include '_field_snippet_aid_form.html' with field=form.eligibility %}  
-        {% include '_field_snippet_aid_form.html' with field=form.mobilization_steps %}
-        {% include '_field_snippet_aid_form.html' with field=form.destinations %}
-        {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
-        {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
-    </fieldset>
+        <form id="aid-edit-form" method="post" class="main-form" novalidate>
+            {% block form_header %}{% endblock form_header %}
+            {% csrf_token %}
+            {{ form.media }}
 
-    <fieldset>
-        <legend><span id="aid-contact"></span>4 - Contact et démarches</legend>
-        {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
-        {% include '_field_snippet_aid_form.html' with field=form.application_url %}
-        {% include '_field_snippet_aid_form.html' with field=form.contact %}    
-    </fieldset>
+            {% include '_form_header.html' with form=form %}
 
-    {% endblock %}
+            {% if form.non_field_errors %}
+            <div class="danger" role="alert">
+                {{ form.non_field_errors.0 }}
+            </div>
+            {% endif %}
 
-    {% block form_actions %}{% endblock %}
-</form>
+            {% for field in form.hidden_fields %}
+                {{ field }}
+            {% endfor %}
+
+            {% block fields %}
+            <fieldset>
+                    <legend><span id="aid-presentation"></span>1 - Présentation de l’aide</legend>
+                    {% include '_field_snippet_aid_form.html' with field=form.name %}
+                    {% include '_field_snippet_aid_form.html' with field=form.name_initial %}
+                    {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
+                    {% include '_field_snippet_aid_form.html' with field=form.programs %}
+                    {% include '_field_snippet_aid_form.html' with field=form.financers %}
+                    {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
+                    <div id="instructor-fields-accordion" class="fr-accordion fr-mb-5w">
+                        <h3 class="fr-accordion__title fr-grid-row">
+                            <button type="button" class="fr-accordion__btn fr-col-md-8 fr-col-offset-md-4" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
+                        </h3>
+                        <div id="instructor-fields" class="fr-collapse">
+                            {% include '_field_snippet_aid_form.html' with field=form.instructors %}
+                            {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
+                        </div>    
+                    </div>
+                    {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.targeted_audiences %}
+                    {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.aid_types %}
+                    <div id="subvention-fields">
+                        <div id="subvention-fields-collapse" class="fr-collapse">
+                        {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
+                        {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}    
+                        </div>
+                    </div>
+                    <div id="loan-fields">
+                        <div id="loan-fields-collapse" class="fr-collapse">
+                        {% include '_field_snippet_aid_form.html' with field=form.loan_amount %}
+                        </div>
+                    </div>
+                    <div id="recoverable-advance-fields">
+                        <div id="recoverable-advance-fields-collapse" class="fr-collapse">
+                        {% include '_field_snippet_aid_form.html' with field=form.recoverable_advance_amount %}
+                        </div>
+                    </div>
+                    <div id="other-financial-aid-fields">
+                        <div id="other-financial-aid-fields-collapse" class="fr-collapse">
+                        {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
+                        </div>
+                    </div>
+                    {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
+            </fieldset>
+
+            <fieldset>
+                <legend><span id="aid-description"></span>2 - Description de l’aide</legend>
+                {% include '_field_snippet_aid_form.html' with field=form.description %}
+                {% if aid.is_local %}
+                    {% include '_field_snippet_aid_form.html' with field=form.local_characteristics %}
+                {% endif %}
+                {% include '_field_snippet_aid_form.html' with field=form.project_examples %}
+                {% include '_field_snippet_aid_form.html' with field=form.categories %}
+                {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
+                <div id="calendar-fields">
+                    <div id="calendar-fields-collapse" class="fr-collapse">
+                        {% include '_field_snippet_aid_form.html' with field=form.start_date %}
+                        {% include '_field_snippet_aid_form.html' with field=form.predeposit_date %}
+                        {% include '_field_snippet_aid_form.html' with field=form.submission_deadline %}    
+                    </div>  
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><span id="aid-eligibility"></span>3 - Critères d’éligibilité de l’aide</legend>
+                {% include '_field_snippet_aid_form.html' with field=form.eligibility %}  
+                {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.mobilization_steps %}
+                {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.destinations %}
+                {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
+                {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
+            </fieldset>
+
+            <fieldset>
+                <legend><span id="aid-contact"></span>4 - Contact et démarches</legend>
+                {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
+                {% include '_field_snippet_aid_form.html' with field=form.application_url %}
+                {% include '_field_snippet_aid_form.html' with field=form.contact %}    
+            </fieldset>
+
+            {% endblock fields %}
+
+            {% block form_actions %}{% endblock form_actions %}
+        </form>
+    </section>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-<link rel="stylesheet" href="/static/trumbowyg/dist/ui/trumbowyg.css" type="text/css" charset="utf-8">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" />
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
 {% comment %}Third party plugins{% endcomment %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/trumbowyg/dist/trumbowyg.js"></script>
-<script src="/static/trumbowyg/dist/langs/fr.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
+<script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
 
 {% comment %}Custom homemade scripts{% endcomment %}
-<script src="/static/js/plugins/softmaxlength.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/categories_autocomplete.js"></script>
-<script src="/static/js/aids/programs_autocomplete.js"></script>
-<script src="/static/js/backers_autocomplete.js"></script>
-<script src="/static/js/aids/enable_page_exit_confirmation.js"></script>
-<script src="/static/js/aids/toggle_short_title_field.js"></script>
-<script src="/static/js/aids/toggle_financial_aids_related_fields.js"></script>
-<script src="/static/js/aids/toggle_calendar_related_fields.js"></script>
-<script src="/static/js/aids/enable_softmaxlength.js"></script>
-<script src="/static/js/enable_rich_text_editor_simple.js"></script>
-<script src="/static/js/aids/duplicate_buster.js"></script>
+<script src="{% static 'js/plugins/softmaxlength.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
+<script src="{% static 'js/backers_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+<script src="{% static 'js/aids/enable_page_exit_confirmation.js' %}"></script>
+<script src="{% static 'js/aids/toggle_short_title_field.js' %}"></script>
+<script src="{% static 'js/aids/toggle_financial_aids_related_fields.js' %}"></script>
+<script src="{% static 'js/aids/toggle_calendar_related_fields.js' %}"></script>
+<script src="{% static 'js/aids/enable_softmaxlength.js' %}"></script>
+<script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
+<script src="{% static 'js/aids/duplicate_buster.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

@@ -6,7 +6,7 @@
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
-    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    <a href="{% url 'admin:index' %}">Accueil</a>
     > <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
     > <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
     > <a href="{% url 'admin:geofr_perimeter_change' original.id %}">{{ original }}</a>
@@ -15,7 +15,7 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<form method='post' action="">
+<form method="post">
     {{ form.media }}
     {% csrf_token %}
     <div>

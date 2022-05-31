@@ -1,19 +1,19 @@
-{% extends '_base.html' %}
-{% load i18n %}
+{% extends "_base.html" %}
+{% load static %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block extratitle %}Suppression d'alerte{% endblock %}
+{% block extratitle %}Suppression d’alerte{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
-            <h1 class="fr-mb-5w">Confirmer la suppression de l'alerte</h1>
-            <p class="lead">Vous êtes sur le point de supprimer l'alerte « {{ alert.title }} »</p>
+            <h1 class="fr-mb-5w">Confirmer la suppression de l’alerte</h1>
+            <p class="lead">Vous êtes sur le point de supprimer l’alerte « {{ alert.title }} »</p>
             <p>Êtes vous certain de vouloir continuer ?</p>
 
-            <form id="delete-form" method="post" action="">
+            <form id="delete-form" method="post">
                 {% csrf_token %}
                 <button class="fr-btn" type="submit">
                     Oui, supprimer cette alerte
@@ -22,11 +22,11 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
 <script>
     ALERT_TITLE = '{{ alert.title }}';
 </script>
-<script src="/static/js/alerts/track_alert_form_events.js"></script>
-{% endblock %}
+<script src="{% static 'js/alerts/track_alert_form_events.js' %}"></script>
+{% endblock extra_js %}

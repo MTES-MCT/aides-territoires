@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load compress static %}
 
-{% block extratitle %}{{ _('Advanced search') }}{% endblock %}
+{% block extratitle %}Recherche avancée{% endblock extratitle %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -25,9 +25,9 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
-{% block sectionid %}mobile-search{% endblock %}
+{% block sectionid %}mobile-search{% endblock sectionid %}
 
 {% block content %}
 <div class="article fr-container">
@@ -41,16 +41,16 @@
         
                 {% include '_field_snippet.html' with field=form.text %}
                 {% include '_field_snippet.html' with field=form.perimeter %}
-                {% include '_field_snippet.html' with field=form.targeted_audiences %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.targeted_audiences %}
                 {% include '_field_snippet.html' with field=form.categories %}
-                {% include '_field_snippet.html' with field=form.aid_type %}
-                {% include '_field_snippet.html' with field=form.apply_before %}
-                {% include '_field_snippet.html' with field=form.destinations %}
-                {% include '_field_snippet.html' with field=form.mobilization_step %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                {% include '_calendar_snippet.html' with field=form.apply_before %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.destinations %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.mobilization_step %}
                 {% include '_field_snippet.html' with field=form.backers %}
                 {% include '_checkbox_snippet.html' with field=form.call_for_projects_only %}
                 {% include '_field_snippet.html' with field=form.programs %}
-                {% include '_field_snippet.html' with field=form.order_by %}
+                {% include '_select_snippet.html' with field=form.order_by %}
                 <button name="action" value="search-filter-advanced" type="submit" class="fr-btn fr-mb-5w">
                     Trouver des aides
                 </button>
@@ -58,20 +58,21 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/aids/backers_autocomplete.js"></script>
-<script src="/static/js/aids/categories_autocomplete.js"></script>
-<script src="/static/js/aids/programs_autocomplete.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

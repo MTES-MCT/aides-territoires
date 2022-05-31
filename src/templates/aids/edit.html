@@ -1,15 +1,15 @@
-{% extends 'aids/_base_edit.html' %}
-{% load i18n form_utils compress %}
+{% extends "aids/_base_edit.html" %}
+{% load i18n static form_utils compress %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 
-{% block messages %}{% endblock %}
+{% block messages %}{% endblock messages %}
 
 {% block page_title %}
     <h1>Modifiez une aide</h1>
-{% endblock %}
+{% endblock page_title %}
 
-{% block before-section %}
+{% block before_section %}
     {% if messages %}
         {% for message in messages %}
         <p class="warning fr-background-alt-pink fr-p-3w">
@@ -31,16 +31,15 @@
             
             <div>
                 {% if aid.is_draft %}
-                    <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l'envoyer pour publication en demandant une revue par un administrateur.</p>
+                    <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l’envoyer pour publication en demandant une revue par un administrateur.</p>
                     <p class="help">Vous pourrez continuer à modifier votre aide.</p>
                     <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Demander la publication</button>
-                </form>
                 {% elif aid.is_under_review %}
                     <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
                     <p class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</p>
                     <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Annuler la revue</button>
                 {% elif aid.is_published %}
-                    <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url}}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
+                    <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url }}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
                     <p class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</p>
                     <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Dépublier maintenant</button>
                 {% endif %}
@@ -56,15 +55,17 @@
         </div>
 
         <div class="sidebar-actions action-danger fr-col-12 fr-col-md-4">
-            <p class="fr-h3 fr-mt-1w">Suppression de l'aide</p>
+            <p class="fr-h3 fr-mt-1w">Suppression de l’aide</p>
             <div>
                 <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
                 <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
                     {% csrf_token %}
 
-                    <div class="form-group fr-mb-5w">
-                        <input type="checkbox" name="confirm" />
-                        <label>Je comprends</label>
+                    <div class="fr-form-group fr-mb-5w">
+                        <div class="fr-checkbox-group">
+                            <input type="checkbox" name="confirm" id="confirm" class="fr-input" />
+                            <label class="fr-label" for="confirm">Je comprends</label>
+                        </div>
                     </div>
                     <button type="submit" class="fr-btn">
                         Supprimer cette aide
@@ -73,33 +74,33 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock before_section %}
 
 {% block form_sidebar %}
 
-<ul id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class=" fr-box-shadow__none list-group-item list-group-item-action active" aria-current="true">
+<div id="nav-form" class="list-group list-group-horizontal">
+    <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
         <span class="counter">1</span>
         Présentation
     </a>
     <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-description" class=" fr-box-shadow__none list-group-item list-group-item-action">
+    <a href="#aid-description" class=" at-link__nodecorator list-group-item list-group-item-action">
         <span class="counter">2</span>
         Description
     </a>
     <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-eligibility" class="fr-box-shadow__none list-group-item list-group-item-action">
+    <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
         <span class="counter">3</span>
-        Critères d'éligibilité
+        Critères d’éligibilité
     </a>
     <span class="separator fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-contact" class="fr-box-shadow__none list-group-item list-group-item-action">
+    <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
         <span class="counter">4</span>
         Contact et démarches
     </a>
-</ul>
+</div>
 
-{% endblock %}
+{% endblock form_sidebar %}
 
 {% block form_actions %}
 <div class="form-actions fr-grid-row fr-grid-row--gutters fr-my-5w fr-py-5w fr-background-main">
@@ -108,17 +109,17 @@
         <button class="fr-btn fr-mb-2w" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
     </div>
     <div class="fr-col-md-4 fr-grid-row fr-grid-row--right">
-        <a href="{% url 'aid_draft_list_view' %}" class="fr-mb-2w">Retour à votre portefeuille d'aides</a>
+        <a href="{% url 'aid_draft_list_view' %}" class="fr-mb-2w">Retour à votre portefeuille d’aides</a>
     </div>
 </div>
-{% endblock %}
+{% endblock form_actions %}
 
 {% block extra_js %}
 {{ block.super }}
 {% compress js %}
-<script src="/static/js/aids/update_status_form_availability.js"></script>
-<script src="/static/js/aids/disable_delete_button.js"></script>
-<script src="/static/js/aids/configure_preview_modal.js"></script>
+<script src="{% static 'js/aids/update_status_form_availability.js' %}"></script>
+<script src="{% static 'js/aids/disable_delete_button.js' %}"></script>
+<script src="{% static 'js/aids/configure_preview_modal.js' %}"></script>
 {% endcompress %}
 <script>
 $(document).ready(function() {
@@ -130,9 +131,9 @@ $(document).ready(function() {
     }
 });
 </script>
-{% endblock %}
+{% endblock extra_js %}
 
 {% block content %}
 {{ block.super }}
 {% include 'aids/_preview_modal.html' %}
-{% endblock %}
+{% endblock content %}

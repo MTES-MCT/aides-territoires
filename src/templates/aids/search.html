@@ -1,4 +1,4 @@
-{% extends 'aids/_base_search.html' %}
+{% extends "aids/_base_search.html" %}
 {% load i18n compress %}
 
 {% block breadcrumbs %}
@@ -20,7 +20,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block extra_js %}
 {{ block.super }}
@@ -44,4 +44,4 @@
     var NB_RESULTS = {{ paginator.count }};
 </script>
 <script src="/static/js/search/track_search_events.js"></script>
-{% endblock %}
+{% endblock extra_js %}

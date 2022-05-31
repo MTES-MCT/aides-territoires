@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = [
     "fieldsets_with_inlines",
     "django_otp",
     "django_otp.plugins.otp_totp",
+    "dsfr",
     "captcha",
 ]
 

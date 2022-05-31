@@ -1,0 +1,33 @@
+<div class="fr-form-group" {% if field.field.required %} required {% endif %}>
+    <fieldset class="fr-fieldset">
+        {% if field.label %}
+        <legend class="fr-fieldset__legend fr-text--regular" id="{{ field.id_for_label }}">
+            {{ field.label }}
+        </legend>
+        {% endif %}
+        <div class="fr-fieldset__content">
+
+            {% if nest_field_class %}
+                <div class="{{ nest_field_class }}">
+            {% endif %}
+
+            <div class="fr-checkbox-group">
+                {{ field }}
+            </div>
+
+            {% if nest_field_class %}
+                </div>
+            {% endif %}
+
+            {% if field.help_text %}
+                <div class="fr-hint-text">{{ field.help_text }}</div>
+            {% endif %}
+
+            {% if field.errors %}
+            <p id="text-input-error-desc-error" class="fr-error-text">
+                {{ field.errors.0 }}
+            </p>
+            {% endif %}
+        </div>
+    </fieldset>
+</div>

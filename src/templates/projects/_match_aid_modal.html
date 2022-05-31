@@ -1,56 +1,53 @@
-{% load i18n %}
-
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="match-aid-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-match-aid" role="dialog" id="match-aid-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="match-aid-modal">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="match-aid-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un projet existant</h1>
-
+                        <h1 id="fr-modal-title-match-aid" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un projet existant</h1>
                         {% if not search_page %}
-                        {% if user.is_authenticated %}
-                        <form id="match_project" method="post" action="{% url 'aid_match_project_view' aid.slug %}">
-                            <section>
-                                <div class="content">
-                                    {% csrf_token %}
-                                    {% if projects %}
-                                    <div id="form-group-projects" class="fr-checkbox-group">
-                                        <ul id="id_projects">
-                                            {% for project in projects %}
-                                            <li class="fr-list__none">
-                                                {% if project in aid.projects.all %}
-                                                <input checked disabled type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}">
-                                                {% else %}
-                                                <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}">
-                                                {% endif %}
-                                                <label for="{{ project.id }}" class="fr-label">{{ project.name }}</label>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                    <p>Vous n'avez pas encore créé de projet</p>
-                                    {% endif %}
+                            {% if user.is_authenticated %}
+                            <form id="match_project" method="post" action="{% url 'aid_match_project_view' aid.slug %}">
+                                <section>
+                                    <div class="content">
+                                        {% csrf_token %}
+                                        {% if projects %}
+                                        <div id="form-group-projects" class="fr-checkbox-group">
+                                            <ul id="id_projects">
+                                                {% for project in projects %}
+                                                <li class="fr-list__none">
+                                                    {% if project in aid.projects.all %}
+                                                    <input checked disabled type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}" />
+                                                    {% else %}
+                                                    <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}" />
+                                                    {% endif %}
+                                                    <label for="{{ project.id }}" class="fr-label">{{ project.name }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                        <p>Vous n’avez pas encore créé de projet</p>
+                                        {% endif %}
+                                        </div>
+                                        <h2 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-h1 fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un nouveau projet</h2>
+                                        <div id="form-group-new-project" class="fr-checkbox-group fr-mb-3w">
+                                            <label for="id_new_project" class="fr-label">Nom du projet</label>
+                                            <input type="text" name="new_project" class="fr-input" id="id_new_project" />
+                                        </div>
+                                        <footer>
+                                            <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                                Ajouter cette aide
+                                            </button>
+                                        </footer>
                                     </div>
-                                    <h2 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-h1 fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un nouveau projet</h2>
-                                    <div id="form-group-new-project" class="fr-checkbox-group fr-mb-3w">
-                                        <label for="id_new_project" class="fr-label">Nom du projet</label>
-                                        <input type="text" name="new_project" class="fr-input" id="id_new_project">
-                                    </div>
-                                    <footer>
-                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
-                                            Ajouter cette aide
-                                        </button>
-                                    </footer>
-                                </div>
-                            </section>
-                        </form>
-                        {% else %}
-                        <p><a href="{% url 'login' %}?next={{ aid.get_absolute_url }}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'ajouter cette aide à vos projets&nbsp!</p>
-                        {% endif %}
+                                </section>
+                            </form>
+                            {% else %}
+                            <p><a href="{% url 'login' %}?next={{ aid.get_absolute_url }}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’ajouter cette aide à vos projets !</p>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

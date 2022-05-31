@@ -89,7 +89,7 @@ def test_admin_users_can_preview_unpublished_aids(client, superuser):
     url = aid.get_absolute_url()
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
+    assert 'Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
 
 
 def test_contributons_can_preview_their_own_aids(client, user, contributor):
@@ -103,7 +103,7 @@ def test_contributons_can_preview_their_own_aids(client, user, contributor):
     aid.save()
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Cette aide <strong>n\'est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
+    assert 'Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
 
 
 def test_anonymous_cannot_see_unpublished_aids(client):
@@ -125,4 +125,6 @@ def test_anonymous_can_see_expired_aids(client, past_week):
     url = aid.get_absolute_url()
     res = client.get(url)
     assert res.status_code == 200
-    assert 'Cette aide n\'est <strong>plus disponible</strong>' in res.content.decode() # noqa
+    assert (
+        "Cette aide n’est <strong>plus disponible</strong>" in res.content.decode()
+    )  # noqa

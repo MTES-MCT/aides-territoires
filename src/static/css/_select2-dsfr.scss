@@ -1,0 +1,58 @@
+/********** DSFR theme for select2 ***********/
+.select2-container--select2-dsfr {
+  display: block;
+}
+
+.select2-container--select2-dsfr .select2-selection--single {
+  height: auto;
+}
+
+.select2-container--select2-dsfr .select2-results__option {
+  color: #161616;
+  background-color: #fff;
+}
+
+.select2-container--select2-dsfr .select2-results__option--highlighted {
+  background-color: #d2d2d2;
+}
+
+.select2-container--select2-dsfr .select2-dropdown {
+  color: var(--text-default-grey);
+  background-color: var(--background-default-grey);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.select2-container--select2-dsfr .select2-search__field::placeholder,
+.select2-container--select2-dsfr .select2-selection__placeholder {
+  font-style: italic;
+  color: var(--text-label-grey);
+  background-color: var(--background-contrast-grey);
+}
+
+.select2-container--select2-dsfr .select2-search--inline {
+  background-color: var(--background-contrast-grey);
+}
+
+.select2-container--select2-dsfr .select2-search__field {
+  min-width: 100%;
+  color: var(--text-default-grey);
+  background-color: var(--background-contrast-grey);
+  font-size: 1rem;
+}
+
+.select2-container--select2-dsfr .select2-selection__choice__remove,
+.select2-container--select2-dsfr .select2-selection__clear {
+  margin-right: 0.5em;
+}
+
+.select2-container--select2-dsfr .select2-selection__choice__remove:hover,
+.select2-container--select2-dsfr .select2-selection__clear:hover {
+  background-color: var(--background-disabled-grey);
+}
+
+.select2-container--select2-dsfr .select2-selection__rendered {
+  margin-block-end: 0;
+  margin-block-start: 0;
+  padding-inline-start: 0;
+}

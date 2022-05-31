@@ -1,6 +1,5 @@
 {% load pagination i18n %}
-
-<form id="search-form" action="" method="get" autocomplete='off'>
+<form id="search-form" method="get" autocomplete='off'>
 
     {{ form.integration }}
 
@@ -17,7 +16,7 @@
         {{ form.perimeter.as_hidden }}
         {{ form.themes.as_hidden }}
         {{ form.call_for_projects_only.as_hidden }}
-    {% endblock %}
+    {% endblock hidden-fields %}
 
     {% block other_actions %}
     <div class="other-actions fr-mb-2w fr-grid-row fr-grid-row--middle">
@@ -27,12 +26,12 @@
             This way, we make sure pressing "enter" performs a new search instead
             of going to the "more filters" page.
         {% endcomment %}
-        <button type="submit" class="hidden-btn">{{ _('Filter results') }}</button>
+        <button type="submit" class="hidden-btn">Filtrer les résultats</button>
 
         {% block other-actions %}
         <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
             <a id="new-search-btn" class="fr-btn" href="{% url 'general_search' %}">
-                {{ _('New search') }}
+                Nouvelle recherche
             </a>
             <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                 Plus de critères
@@ -43,9 +42,9 @@
                 <i class="ri-notification-2-line ri-lg fr-mr-1w"></i>Créer une alerte
             </button>    
         </div>
-        {% endblock %}
+        {% endblock other-actions %}
     </div>
-    {% endblock %}
+    {% endblock other_actions %}
 
     <div class="form-container fr-mb-5w fr-background-alt-pink fr-p-3w">
         <div class="form-body">
@@ -53,7 +52,7 @@
             {% block form-body %}
             <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                 <div class="fr-col-12 fr-col-md-3">
-                    {% include '_field_snippet.html' with field=form.aid_type %}
+                    {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
                 </div>
 
                 <div class="fr-col-12 fr-col-md-3">
@@ -68,7 +67,7 @@
                     {% include '_field_snippet.html' with field=form.text %}
                 </div>
             </div>
-            {% endblock %}
+            {% endblock form-body %}
 
             {% block form-actions %}
             <div class="fr-grid-row actions-row">
@@ -82,9 +81,7 @@
                     </button>
                 </div>
             </div>
-            {% endblock %}
-
+            {% endblock form-actions %}
         </div>
     </div>
-
 </form>

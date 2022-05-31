@@ -20,9 +20,6 @@ msgstr ""
 msgid "Author"
 msgstr "Auteur"
 
-msgid "Your email address"
-msgstr "Votre adresse e-mail"
-
 msgid "Administrators"
 msgstr "Administrateurs"
 
@@ -49,9 +46,6 @@ msgstr "Éligibilité"
 
 msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
-
-msgid "Aid title"
-msgstr "Nom de l'aide"
 
 msgid "Categories"
 msgstr "Sous-thématiques"
@@ -112,18 +106,6 @@ msgstr "Aide"
 
 msgid "Aids"
 msgstr "Aides"
-
-msgid "We will send an email to confirm your address"
-msgstr "Nous enverrons un e-mail pour confirmer votre adresse"
-
-msgid "Give a name to your alert"
-msgstr "Donnez un nom à votre alerte"
-
-msgid "Alert frequency"
-msgstr "Fréquence de l'alerte"
-
-msgid "How often do you want to receive alerts?"
-msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid ""
 "\n"
@@ -257,9 +239,6 @@ msgid ""
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
-
-msgid "How often to you want to receive alerts?"
-msgstr "À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?"
 
 msgid "Receive new results by email"
 msgstr "Recevoir les nouveaux résultats par e-mail"
@@ -698,9 +677,6 @@ msgstr "Événements aide liée à un projet"
 msgid "Tag"
 msgstr "Mot clé"
 
-msgid "Publish an aid"
-msgstr "Publier une aide"
-
 msgid "Drafts"
 msgstr "Brouillons"
 
@@ -722,15 +698,6 @@ msgstr "Porteur d'aides"
 msgid "Publish your aids now !"
 msgstr "Diffusez vos aides dès maintenant !"
 
-msgid "Login"
-msgstr "Connectez-vous"
-
-msgid "Register"
-msgstr "Inscrivez-vous"
-
-msgid "Publish new aids"
-msgstr "Publier des aides"
-
 msgid "Data and api"
 msgstr "Données et API"
 
@@ -742,69 +709,6 @@ msgstr "Afficher / masquer le menu"
 
 msgid "City, department, region, EPCI…"
 msgstr "Votre ville, intercommunalité, département…"
-
-msgid "Select program(s)"
-msgstr "Sélectionnez un programme"
-
-msgid "Choose backer(s) among the list."
-msgstr "Sélectionnez le ou les porteurs"
-
-msgid "Choose instructor(s) among the list."
-msgstr "Sélectionnez le ou les instructeurs parmi la liste."
-
-msgctxt "js_catalog"
-msgid "What kind of aids are you looking for?"
-msgstr "Quels types d\\'aide cherchez-vous ?"
-
-msgctxt "js_catalog"
-msgid "When to mobilize the aid?"
-msgstr "Quand mobiliser l\\'aide ?"
-
-msgctxt "js_catalog"
-msgid "The aid is destined to…"
-msgstr "L\\'aide est destinée à…"
-
-msgid "Who can apply to this aid?"
-msgstr "Qui peut prétendre à cette aide ?"
-
-# This line is embedded in a js string, hence we have to prefix
-# the quote with a slash
-msgid "The current url was successfully copied to clipboard."
-msgstr "L\\'url courante a été copiée dans le presse-papier."
-
-# This line is embedded in a js string, hence we have to prefix
-# the quote with a slash
-msgid "Sorry, we could not copy automatically."
-msgstr "Désolé, nous n\\'avons pu effectuer la copie automatiqument."
-
-msgid "Please wait"
-msgstr "Merci de patienter"
-
-msgid "Done"
-msgstr "Fait"
-
-msgid "Done! Check your mailbox for search results."
-msgstr "Vous devriez avoir reçu votre recherche par e-mail."
-
-msgid "It seems something went wrong. Please try again in a few seconds."
-msgstr "Il semble que quelque chose se soit mal passé. Merci de réessayer."
-
-msgid "Are you sure you want to quit? You might lose some changes."
-msgstr ""
-"Êtes-vous certain de vouloir quitter cette page ? Vos modifications seront "
-"perdues."
-
-msgid "No results were found."
-msgstr "Aucun résultat trouvé."
-
-msgid "Add a new instructor if different from financer"
-msgstr "Ajouter un instructeur s\\'il est différent du porteur"
-
-msgid "See more details"
-msgstr "Voir plus de détails"
-
-msgid "See less details"
-msgstr "Voir moins de détails"
 
 msgid "Update your contributor profile"
 msgstr "Mettre à jour votre profil contributeur"
@@ -860,9 +764,6 @@ msgid "We will use this data to help validate the aids your contribute."
 msgstr ""
 "Ces informations nous sont essentielles pour garantir la qualité des données "
 "présentes sur le site."
-
-msgid "Update your personal data"
-msgstr "Mettre à jour vos données"
 
 msgid "Log in to your contributor account"
 msgstr "Connexion à votre compte contributeur"
@@ -937,16 +838,6 @@ msgstr ""
 msgid "Update your profile"
 msgstr "Mettre à jour votre profil"
 
-#, python-format
-msgid ""
-"<p> <span class=\"fas fa-lightbulb\"></span> You have a contributor account. "
-"<a href=\"%(contributor_profile_url)s\"> To update your contributor profile, "
-"please proceed to the specific page. </a> </p>"
-msgstr ""
-"<p> <span class=\"fas fa-lightbulb\"></span> Vous bénéficiez d'un compte "
-"contributeur. <a href=\"%(contributor_profile_url)s\">Pour mettre à jour "
-"votre profil contributeur, rendez-vous sur la page dédiée.</a></p>"
-
 msgid "Create an account to broadcast your aids"
 msgstr "Créez un compte pour diffuser vos aides"
 
@@ -977,13 +868,6 @@ msgstr ""
 
 msgid "Create an account"
 msgstr "Créer un compte"
-
-msgid ""
-"Do you have a problem to register? <a href=\"mailto:aides-territoires@beta."
-"gouv.fr\">Please contact us.</a>"
-msgstr ""
-"Si vous n'arrivez pas à vous inscrire, <a href=\"mailto:aides-"
-"territoires@beta.gouv.fr\">n'hésitez pas à nous contacter</a>."
 
 msgid "You registered successfully"
 msgstr "Compte créé"
@@ -1090,10 +974,6 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "Par %(filter_title)s "
-
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -1126,83 +1006,23 @@ msgstr "Envoyer le fichier"
 msgid "This aid was published by a certified account."
 msgstr "Cette aide est directement publiée par la structure qui la porte."
 
-msgid "Corporate"
-msgstr "Privé"
-
-msgid "Min:"
-msgstr "Min :"
-
-msgid "Max:"
-msgstr "Max :"
-
 msgid "Calendar"
 msgstr "Calendrier"
 
 msgid "Opening:"
 msgstr "Ouverture :"
 
-msgid "Deadline:"
-msgstr "Échéance :"
-
-msgid "Deadline"
-msgstr "Échéance"
-
-msgid "Aid edition"
-msgstr "Édition de l'aide"
-
-msgid "Criterias of eligibility"
-msgstr "Critères d'éligibilité de l'aide"
-
 msgid "Search"
 msgstr "Recherche"
-
-msgid "Save this aid"
-msgstr "Sauvegarder cette aide"
-
-#, python-format
-msgid ""
-"You can <a href=\"%(bundle_url)s\">manage your bundles on the dedicated "
-"page</a>."
-msgstr ""
-"Vous pouvez <a href=\"%(bundle_url)s\">gérer vos listes d'aides sur la page "
-"dédiée</a>."
-
-#, python-format
-msgid ""
-"You need to be logged in to save aids in custom bundles. <a href="
-"\"%(login_url)s\">Proceed to the login form</a> or <a href=\"%(register_url)s"
-"\">sign up for a new account</a>."
-msgstr ""
-"Vous devez être identifé pour utiliser les listes d'aides. <a href="
-"\"%(login_url)s\">Rendez-vous sur le formulaire de connexion</a> ou <a href="
-"\"%(register_url)s\">enregistrez un nouveau compte</a>."
 
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
 
-msgid "Create an alert"
-msgstr "Créer une alerte"
-
 msgid "We could not find any results."
 msgstr "Nous n'avons pu trouver aucun résultat."
 
-msgid "Filter results"
-msgstr "Filtrer les résultats"
-
-msgid "New search"
-msgstr "Nouvelle recherche"
-
-msgid "More filters"
-msgstr "Plus de critères"
-
 msgid "Keyword"
 msgstr "Mot clé"
-
-msgid "Copy the current url to clipboard"
-msgstr "Copier l'url dans le presse-papier"
-
-msgid "Advanced search"
-msgstr "Recherche avancée"
 
 msgid "Results"
 msgstr "Résultats"
@@ -1243,98 +1063,6 @@ msgstr "Enregistrer et demander la publication"
 msgid "Save as a draft"
 msgstr "Enregistrer en brouillon"
 
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Aid detail"
-msgstr "Détail de l'aide"
-
-msgid "Local aid"
-msgstr "Aide locale"
-
-msgid "This aid is a local variant of a "
-msgstr "Cette aide est une déclinaison locale d'une "
-
-msgid "national measure"
-msgstr "aide nationale"
-
-msgid "National measure"
-msgstr "Aide nationale"
-
-msgid "This aid is a national measure "
-msgstr "Cette aide nationale "
-
-msgid "declinated locally"
-msgstr "dispose de déclinaisons locales"
-
-msgid "Call for project"
-msgstr "Appel à projet"
-
-msgid "Call for expression of interest"
-msgstr "Appel à manifestation d'intérêt"
-
-msgid "Data origin"
-msgstr "Origine de la donnée"
-
-msgid "This aid was imported from another data stream."
-msgstr "Cette aide provient d'une source de données tierce"
-
-msgid "NA"
-msgstr "ND"
-
-msgid "Import share license"
-msgstr "License de partage"
-
-msgid "Last update"
-msgstr "Dernière mise à jour"
-
-msgid "Global presentation"
-msgstr "Présentation générale"
-
-msgid "No detailed description was submitted."
-msgstr "Aucune description détaillée n'a été renseignée."
-
-msgid "Aid targeted area"
-msgstr "Zone géographique couverte par l'aide"
-
-msgid "Eligibility criteria"
-msgstr "Critères d'éligibilité"
-
-msgid "The aid can be mobilized during…"
-msgstr "Dispositif applicable pour un projet"
-
-msgid "Local variants"
-msgstr "Déclinaisons locales"
-
-msgid "If you don't find your local aid refer to the national measure."
-msgstr ""
-"En l'absence d'aide locale, les informations relatives à cette aide "
-"nationale font foi"
-
-msgid "Going further"
-msgstr "Aller plus loin"
-
-msgid "Total number of hits"
-msgstr "Nombre de vues total des aides depuis la première publication"
-
-msgid "Number of hits in the last 30 days"
-msgstr "Nombre de vues total des aides sur les 30 derniers jours"
-
-msgid "Click on the column name to order"
-msgstr "Cliquer sur le nom d'une colonne pour trier"
-
-msgid "Your list of published aids"
-msgstr "La liste de vos aides publiées"
-
-msgid "Created on"
-msgstr "Créée le"
-
-msgid "Last modified"
-msgstr "Modifiée le"
-
-msgid "Is live"
-msgstr "Visibilité sur le site"
-
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
@@ -1358,31 +1086,6 @@ msgstr ""
 msgid "Yes, delete this alert now"
 msgstr "Oui, supprimer cette alerte"
 
-msgid "Alert validation"
-msgstr "Validation d'alerte"
-
-msgid "Confirm your alert creation"
-msgstr "Confirmez la création de l'alerte"
-
-#, python-format
-msgid ""
-"Click on the following button to confirm the creation of the "
-"\"%(alert_title)s\" alert."
-msgstr ""
-"Cliquez sur le bouton suivant pour confirmer la création de l'alerte "
-"« %(alert_title)s »."
-
-msgid ""
-"Once the alert is validated, you will receive emails according to the "
-"selected frequency whenever new aids corresponding to the alert are "
-"published."
-msgstr ""
-"Une fois l'alerte validée, vous recevrez à la fréquence choisie des e-mails "
-"listant les nouvelles aides correspondantes à votre recherche."
-
-msgid "Confirm alert creation"
-msgstr "Confirmez la création de l'alerte"
-
 msgid "Blog"
 msgstr "Blog"
 
@@ -1400,26 +1103,9 @@ msgstr ""
 "créer une, consultez la page de n'importe quelle aide et utilisez le bouton "
 "« Ajouter à une liste »."
 
-msgid "Create new bundle"
-msgstr "Créer une nouvelle liste"
-
 msgid "Select a bundle on the menu to see the associated aids."
 msgstr ""
 "Sélectionnez une liste dans le menu pour consulter les aides associées."
-
-msgid "Do you want to extend your search?"
-msgstr "Vous souhaitez élargir votre recherche&nbsp;?"
-
-msgid ""
-"Find all aids for all beneficiaries and all themes in <a href=\"https://"
-"aides-territoires.beta.gouv.fr/\">Aides-territoires</a>!"
-msgstr ""
-"Retrouvez l’ensemble des dispositifs pour tous les bénéficiaires et toutes "
-"les thématiques sur <a href=\"https://aides-territoires.beta.gouv.fr/\"> "
-"Aides-territoires</a>&nbsp;!"
-
-msgid "Reset filters"
-msgstr "Réinitialiser"
 
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"

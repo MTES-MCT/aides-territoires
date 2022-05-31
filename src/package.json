@@ -9,10 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.2",
-    "@gouvfr/dsfr": "^1.1.0",
     "autoprefixer": "^9.6.1",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.6.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "datatables.net": "^1.11.5",
@@ -21,7 +19,6 @@
     "jquery-resizable-dom": "^0.35.0",
     "postcss-cli": "^6.1.3",
     "select2": "^4.0.13",
-    "select2-bootstrap4-theme": "github:thibault/select2-bootstrap4-theme#master",
     "trumbowyg": "^2.21.0"
   },
   "devDependencies": {

@@ -3,16 +3,16 @@
         <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Mon compte</button>
         <div class="fr-collapse" id="fr-sidemenu-wrapper">
             <ul class="fr-sidemenu__list">
-                <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif%}">
-                    <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" rel="noopener">Tableau de bord</a>
+                <li class="fr-sidemenu__item {% if dashboard %}fr-sidemenu__item--active{% endif %}">
+                    <a class="fr-sidemenu__link" href="{% url 'user_dashboard' %}" target="_self" {% if dashboard %}aria-current="page"{% endif %} rel="noopener">Tableau de bord</a>
                 </li>
                 {% if user.is_contributor %}
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" {% if publish_aid %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-2">Diffuser mes aides</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-2">
                         <ul class="fr-sidemenu__list">
-                            <li class="fr-sidemenu__item {% if aid_draft_list %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'aid_draft_list_view' %}" target="_self" rel="noopener">Mon&nbsp;portefeuille&nbsp;d'aides</a>
+                            <li class="fr-sidemenu__item {% if aid_draft_list %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'aid_draft_list_view' %}" target="_self"  {% if aid_draft_list %}aria-current="page"{% endif %} rel="noopener">Mon&nbsp;portefeuille&nbsp;d'aides</a>
                             </li>
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'aid_create_view' %}" target="_self" rel="noopener">Publier une aide</a>
@@ -22,12 +22,12 @@
                 </li>
                {% endif %}
                {% if user.is_beneficiary %}
-               <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif%}">
-                   <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" rel="noopener">Gérer mes projets</a>
+               <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
+                   <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" {% if project_admin %}aria-current="page"{% endif %} rel="noopener">Gérer mes projets</a>
                </li>
                {% endif %}
-                <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif%}">
-                    <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" rel="noopener">Gérer mes alertes</a>
+                <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif %}">
+                    <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" {% if alert_list %}aria-current="page"{% endif %} rel="noopener">Gérer mes alertes</a>
                 </li>
                {% if user.search_pages.count %}
                 <li class="fr-sidemenu__item ">
@@ -43,16 +43,16 @@
                     </div>
                 </li>
                {% endif %}
-                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
-                    <div class="container fr-px-2w"><hr _class="fr-hint-text"/></div>
+                <li class="fr-sidemenu__item fr-py-2w">
+                    <div class="at-sidemenu__separator fr-px-2w"><hr /></div>
                 </li>
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn"  {% if structure %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-4">Ma structure</button>
                     <div class="fr-collapse" id="fr-sidemenu-item-4">
                         <ul class="fr-sidemenu__list">
                             {% if user.beneficiary_organization %}
-                            <li class="fr-sidemenu__item {% if structure_info %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'organization_update_view' user.beneficiary_organization.pk %}" target="_self" rel="noopener">Informations</a>
+                            <li class="fr-sidemenu__item {% if structure_info %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'organization_update_view' user.beneficiary_organization.pk %}" target="_self" {% if structure_info %}aria-current="page"{% endif %} rel="noopener">Informations</a>
                             </li>
                             {% endif %}
                             <!-- <li class="fr-sidemenu__item">
@@ -61,8 +61,8 @@
                             <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="#" target="_self" rel="noopener">Compétences</a>
                             </li> -->
-                            <li class="fr-sidemenu__item {% if structure_collab %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'collaborators' %}" target="_self" rel="noopener">Collaborateurs</a>
+                            <li class="fr-sidemenu__item {% if structure_collab %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'collaborators' %}" target="_self" {% if structure_collab %}aria-current="page"{% endif %} rel="noopener">Collaborateurs</a>
                             </li>
                         </ul>
                     </div>
@@ -74,11 +74,11 @@
                             <!-- <li class="fr-sidemenu__item">
                                 <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" rel="noopener">Ma clé API</a>
                             </li> -->
-                            <li class="fr-sidemenu__item {% if contrib_profile %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" rel="noopener">Mon profil</a>
+                            <li class="fr-sidemenu__item {% if contrib_profile %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" {% if contrib_profile %}aria-current="page"{% endif %} rel="noopener">Mon profil</a>
                             </li>
-                            <li class="fr-sidemenu__item {% if history_login %}fr-sidemenu__item--active{% endif%}">
-                                <a class="fr-sidemenu__link" href="{% url 'history_login' %}" target="_self" rel="noopener">Mon journal de connexion</a>
+                            <li class="fr-sidemenu__item {% if history_login %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'history_login' %}" target="_self" {% if history_login %}aria-current="page"{% endif %} rel="noopener">Mon journal de connexion</a>
                             </li>
                         </ul>
                     </div>
@@ -87,8 +87,8 @@
                     <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
                 </li>
                 {% if user.is_superuser %}
-                <li class="fr-sidemenu__item _fr-sidemenu__item--active fr-py-2w">
-                    <div class="container fr-px-2w"><hr class="fr-hint-text"/></div>
+                <li class="fr-sidemenu__item fr-py-2w">
+                    <div class="at-sidemenu__separator fr-px-2w"><hr class="fr-hint-text"/></div>
                 </li>
                 <li class="fr-sidemenu__item">
                     <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-6">

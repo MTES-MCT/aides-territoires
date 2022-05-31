@@ -36,9 +36,11 @@ div.field-aids div.selector-chosen select {
 label.softmaxlength::after {
     content: none !important;
 }
+
 label span.softmaxlength-counter {
     display: block;
 }
+
 label span.softmaxlength-counter.out-of-range {
     color: #ba2121;
 }

@@ -159,7 +159,7 @@ class EligibilityQuestionAdmin(admin.ModelAdmin):
         related_test_html = format_html('<table> \
             <thead><tr> \
             <th>Auteur</th> \
-            <th>Test d\'éligibilité</th> \
+            <th>Test d’éligibilité</th> \
             </tr></thead> \
             <tbody>')
         related_tests = obj.eligibility_tests.all().order_by('name').select_related('author')  # noqa
