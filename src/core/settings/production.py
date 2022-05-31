@@ -114,5 +114,9 @@ AID_DETAIL_API_CACHE_TIMEOUT = env.int('AID_DETAIL_API_CACHE_TIMEOUT', 0)
 CAPTCHA_FLITE_PATH = env("CAPTCHA_FLITE_PATH", default=None)
 CAPTCHA_LENGTH = env("CAPTCHA_LENGTH", default=6)
 CAPTCHA_NOISE_FUNCTIONS = env(
-    "CAPTCHA_NOISE_FUNCTIONS", default=("captcha.helpers.noise_dots",)
+    "CAPTCHA_NOISE_FUNCTIONS",
+    default=(
+        "captcha.helpers.noise_arcs",
+        "captcha.helpers.noise_dots",
+    ),
 )
