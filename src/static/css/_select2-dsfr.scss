@@ -19,6 +19,8 @@
 .select2-container--select2-dsfr .select2-dropdown {
   color: var(--text-default-grey);
   background-color: var(--background-default-grey);
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .select2-container--select2-dsfr .select2-search__field::placeholder,
@@ -36,6 +38,7 @@
   min-width: 100%;
   color: var(--text-default-grey);
   background-color: var(--background-contrast-grey);
+  font-size: 1rem;
 }
 
 .select2-container--select2-dsfr .select2-selection__choice__remove,
