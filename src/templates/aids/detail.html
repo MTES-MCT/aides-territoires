@@ -410,6 +410,7 @@
             {% else %}
             <p>« {{ aid.name_initial }} »</p>
             {% endif %}
+
             {% if aid.short_title %}
             <p>« {{ aid.short_title }} »</p>
             {% endif %}
@@ -533,33 +534,6 @@
                         <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
                     </p>
                     {% endif %}
-                    <section class="fr-accordion">
-                        <h3 class="fr-accordion__title">
-                            <button id="going-further-reveal-button" class="fr-accordion__btn background-blue color-white" aria-expanded="false" aria-controls="going-further">
-                                Cliquez ici pour avoir les contacts et poursuivre la démarche
-                            </button>
-                        </h3>
-                        <div id="going-further" class="fr-collapse">
-                            {% if aid.contact %}
-                            <h3>Contact</h3>
-                            {{ aid.contact|safe }}
-                            {% endif %}
-            
-                            {% if aid.origin_url %}
-                            <h3>Lien vers le descriptif complet</h3>
-                            <p>
-                                <a target="_blank" rel="noopener" href="{{ aid.origin_url }}">{{ aid.origin_url }}</a>
-                            </p>
-                            {% endif %}
-            
-                            {% if aid.application_url %}
-                            <h3>Lien vers la démarche en ligne</h3>
-                            <p>
-                                <a target="_blank" rel="noopener" href="{{ aid.application_url }}">{{ aid.application_url }}</a>
-                            </p>
-                            {% endif %}
-                        </div>
-                    </section>
                 </div>
             </section>
         </div>
