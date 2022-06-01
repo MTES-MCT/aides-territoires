@@ -8,9 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="{% block meta_description %}Trouvez 🔎 des aides publiques pour financer et accompagner les projets locaux de votre territoire en France métropolitaine et en Outre-mer{% endblock meta_description %}" />
         {% setting 'ENV_NAME' as env_name %}
+        {% block noindex %}
         {% if env_name != "production" %}
         <meta name="robots" content="noindex, nofollow" />
         {% endif %}
+        {% endblock noindex %}
 
         <link rel="shortcut icon" href="{% static 'favicons/favicon.ico' %}" type="image/x-icon" />
         <link rel="icon" href="{% static 'favicons/favicon.svg' %}" type="image/svg" />

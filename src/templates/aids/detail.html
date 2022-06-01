@@ -3,6 +3,12 @@
 
 {% block extratitle %}{{ aid.name }}{% endblock extratitle %}
 
+{% block noindex %}
+{% if aid.import_data_source.pk == 8 %}
+<meta name="robots" content="noindex, nofollow" />
+{% endif %}
+{% endblock noindex %}
+
 {% block extra_head %}
 <meta property="og:title" content="{{ aid.name }}" />
 <meta property="og:type" content="website" />
