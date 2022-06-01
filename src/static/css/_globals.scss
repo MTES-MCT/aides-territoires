@@ -6,6 +6,10 @@ h2, h3, h4, h5, h6 {
   margin-top: 3rem;
 }
 
+.fr-card__desc, .fr-card__title {
+  margin-top: 0;
+}
+
 .fr-centered {
     text-align: center;
 }
@@ -210,19 +214,30 @@ iframe {
 
 // HEADER: Manage the light/dark schemes on the main logo
 // Only display the light mode in case the "scheme" media query is not supported
-.dark-mode { display: none;}
-.light-mode { display: block; }
+.dark-mode { display: none !important; }
+.light-mode { display: block !important; }
 
-@media (prefers-color-scheme: dark) {
+// Manage system scheme
+:root[data-fr-scheme="system"] {
+  @media (prefers-color-scheme: dark) {
+    .dark-mode { display: block !important; }
+    .light-mode { display: none !important; }
+  }
+  
+  @media (prefers-color-scheme: light) {
+    .dark-mode { display: none !important; }
+    .light-mode { display: block !important; }
+  }
+}
+
+// Manage actually selected scheme
+:root[data-fr-scheme="dark"] {
   .dark-mode { display: block !important; }
   .light-mode { display: none !important; }
 }
+  
 
-@media (prefers-color-scheme: light) {
+:root[data-fr-scheme="light"] {
   .dark-mode { display: none !important; }
   .light-mode { display: block !important; }
-}
-
-.fr-card__desc, .fr-card__title {
-  margin-top: 0;
 }
