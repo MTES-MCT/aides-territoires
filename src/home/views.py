@@ -56,7 +56,10 @@ class ContactView(SuccessMessageMixin, FormView):
         """Send the content of the form via email."""
         response = super().form_valid(form)
         form_dict = form.cleaned_data
-        send_contact_form_email.delay(form_dict)
+
+        # Only send the message if the honeypot field is empty
+        if form_dict["website"] == "":
+            send_contact_form_email.delay(form_dict)
         # track_goal(self.request.session, settings.GOAL_CONTACT_ID)
         return response
 
