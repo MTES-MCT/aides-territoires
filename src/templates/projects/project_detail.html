@@ -98,9 +98,9 @@
                                 </td>
                                 <td class="fr-text">
                                 {% if aid.has_calendar %}
-                                {% if aid.submission_deadline %}
-                                {{ aid.submission_deadline|date }}
-                                {% endif %}
+                                    {% if aid.submission_deadline %}
+                                        {{ aid.submission_deadline|date }}
+                                    {% endif %}
                                 {% endif %}
                                 </td>
                                 <td class="fr-text">
@@ -115,7 +115,7 @@
                                             </a>
                                         </li>
                                     {% endfor %}
-                                    <ul>
+                                    </ul>
                                 </td>       
                                 {% for aidproject in AidProject %}
                                 {% if aidproject.aid == aid %}
@@ -147,7 +147,7 @@
                         <tbody>
                             <tr>
                                 <td colspan="6" class="fr-text">
-                                    <center>Vous n'avez ajouté aucune aide à ce projet pour l'instant</center>
+                                    <center>Vous n’avez ajouté aucune aide à ce projet pour l’instant</center>
                                 </td>
                             </tr>
                         </tbody>
@@ -164,6 +164,10 @@
                 <p>
                   <a href="{% url 'general_search' %}" class="fr-btn fr-btn--secondary fr-fi-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
                 </p>
+                <button type="button" class="fr-btn fr-btn--secondary fr-fi-download-line fr-btn--icon-left" id="export-project-btn"  data-fr-opened="false" aria-controls="export-project-modal-{{ project.pk }}">
+                  Exporter ce projet
+                </button>
+
                 <button type="button" class="fr-btn fr-btn--secondary fr-fi-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
                   Supprimer ce projet
                 </button>
@@ -178,6 +182,7 @@
 
 {% block modals %}
     {% include 'projects/_delete_project_modal.html' with project=project.pk %}
+    {% include 'projects/_export_project_modal.html' with project=project.pk %}
     {% if aid_set %}
     {% for aid in aid_set %}    
         {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}

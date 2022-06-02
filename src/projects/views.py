@@ -7,13 +7,15 @@ from django.views.generic import (
 )
 from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
+from projects.services.export import csv_export_content
 
 from projects.tasks import send_project_deleted_email
-from projects.forms import ProjectCreateForm, ProjectUpdateForm
+from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
 from projects.models import Project
 from aids.models import AidProject, Aid
 from aids.views import AidPaginator
@@ -138,6 +140,8 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
+        context["form"] = ProjectExportForm
+
         return context
 
 
@@ -210,7 +214,6 @@ class ProjectUpdateView(
         return super().get_queryset()
 
     def form_valid(self, form):
-
         response = super().form_valid(form)
 
         msg = "Le projet a bien été mis à jour."
@@ -226,3 +229,26 @@ class ProjectUpdateView(
         context = super().get_context_data(**kwargs)
         context["project"] = self.object
         return context
+
+
+class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
+    """Export an existing project."""
+
+    context_object_name = "project"
+
+    def get_queryset(self):
+        queryset = Project.objects.prefetch_related("aid_set")
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        format = request.POST["format"]
+        print(request)
+
+        project = self.get_object()
+
+        if format == "csv":
+            return csv_export_content(project)
+        else:
+            return HttpResponse(
+                f"Method: POST, project: {project.name}, format: {format}"
+            )

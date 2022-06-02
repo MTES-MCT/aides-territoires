@@ -181,8 +181,9 @@ form .fr-input-group.required > label::after {
 }
 
 form .fr-input-group > ul > li,
-form .fr-checkbox-group > ul > li {
-  list-style: none;
+form .fr-checkbox-group > ul > li,
+form .fr-radio-group > ul > li {
+  list-style-type: none;
 }
 
 // Fix spacing in checkboxes
@@ -191,6 +192,7 @@ form .fr-checkbox-group > ul > li {
   margin-block-start: 0;
 }
 
+.fr-radio-group li,
 .fr-checkbox-group li {
   padding-bottom: 0;
 }
