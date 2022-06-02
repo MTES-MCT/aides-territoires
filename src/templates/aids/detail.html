@@ -51,7 +51,17 @@
     </div>
     {% endif %}
 
-    <h1>{{ aid.name }}</h1>
+    {% if not aid.headline_name %}
+    <p>Dada</p>
+    {% endif %}
+
+
+    {% if aid.headline_name %}
+    <h1> {{ aid.headline_name | safe }} </h1>
+    {% else %}
+    <h1> {{ aid.name }} </h1>
+    {% endif %}
+    
     {% if aid.categories %}
     {% regroup aid.categories.all by theme as theme_list %}
     <ul class="aid-categories fr-list__none">
@@ -398,12 +408,20 @@
 
             {% if aid.name_initial %}
             <h3>Nom initial de l’aide</h3>
+            {% if aid.headline_name_initial %}
+            <p> {{ aid.headline_name_initial|safe }} </p>
+            {% else %}
             <p>« {{ aid.name_initial }} »</p>
+            {% endif %}
             {% endif %}
 
             <h3>Description</h3>
             {% if aid.description %}
+            {% if aid.headline_description %}
+            {{ aid.headline_description|safe }}
+            {% else %}
             {{ aid.description|safe }}
+            {% endif %}
             {% else %}
             <p>Aucune description détaillée n’a été renseignée.</p>
             {% endif %}
@@ -438,12 +456,20 @@
 
             {% if aid.project_examples %}
             <h3>Exemples de projets réalisables</h3>
+            {% if aid.headline_project_examples %}
+            {{ aid.headline_project_examples|safe }}
+            {% else %}
             {{ aid.project_examples|safe }}
+            {% endif %}
             {% endif %}
 
             {% if aid.eligibility %}
             <h3>Autres critères d’éligibilité</h3>
+            {% if headline_eligibility %}
+            {{ aid.headline_eligibility|safe }}
+            {% else %}
             {{ aid.eligibility|safe }}
+            {% endif %}
             {% endif %}
             {% endif %}
 
@@ -608,6 +634,7 @@
     });
 </script>
 <script>
+    TEXT_SEARCH = '{{ text }}';
     AID_ID = parseInt('{{ aid.id }}');
     AID_SLUG = '{{ aid.slug }}';
     AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');

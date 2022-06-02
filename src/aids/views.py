@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchHeadline
 from django.db.models import Q, Count, Prefetch
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template.loader import render_to_string
@@ -36,6 +37,8 @@ from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
+from aids.forms import BaseAidSearchForm
+from core.utils import remove_accents
 
 
 class AidPaginator(Paginator):
@@ -291,6 +294,73 @@ class AidDetailView(DetailView):
             .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
+        current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
+        current_search_form = AidSearchForm(data=QueryDict(current_search))
+
+        current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
+        current_search_form = AidSearchForm(data=QueryDict(current_search))
+
+        if current_search_form.is_valid():
+            if "text" in clean_search_form(
+                current_search_form.cleaned_data, remove_extra_fields=True
+            ):
+                text = clean_search_form(
+                    current_search_form.cleaned_data, remove_extra_fields=True
+                )["text"]
+                text = remove_accents(text)
+                base_qs = (
+                    base_qs.annotate(
+                        headline_name=SearchHeadline(
+                            "name",
+                            SearchQuery(text, config="french_unaccent"),
+                            config="french_unaccent",
+                            start_sel="<mark>",
+                            stop_sel="</mark>",
+                            highlight_all=True,
+                        )
+                    )
+                    .annotate(
+                        headline_name_initial=SearchHeadline(
+                            "name_initial",
+                            SearchQuery(text, config="french_unaccent"),
+                            config="french_unaccent",
+                            start_sel="<mark>",
+                            stop_sel="</mark>",
+                            highlight_all=True,
+                        )
+                    )
+                    .annotate(
+                        headline_description=SearchHeadline(
+                            "description",
+                            SearchQuery(text, config="french_unaccent"),
+                            config="french_unaccent",
+                            start_sel="<mark>",
+                            stop_sel="</mark>",
+                            highlight_all=True,
+                        )
+                    )
+                    .annotate(
+                        headline_project_examples=SearchHeadline(
+                            "project_examples",
+                            SearchQuery(text, config="french_unaccent"),
+                            config="french_unaccent",
+                            start_sel="<mark>",
+                            stop_sel="</mark>",
+                            highlight_all=True,
+                        )
+                    )
+                    .annotate(
+                        headline_eligibility=SearchHeadline(
+                            "eligibility",
+                            SearchQuery(text, config="french_unaccent"),
+                            config="french_unaccent",
+                            start_sel="<mark>",
+                            stop_sel="</mark>",
+                            highlight_all=True,
+                        )
+                    )
+                )
+
         user = self.request.user
         if user.is_authenticated and user.is_superuser:
             qs = base_qs
@@ -314,6 +384,8 @@ class AidDetailView(DetailView):
         if current_search_form.is_valid():
             context['current_search_dict'] = clean_search_form(
                 current_search_form.cleaned_data, remove_extra_fields=True)
+            if 'text' in clean_search_form(current_search_form.cleaned_data, remove_extra_fields=True):
+                context['text'] = clean_search_form(current_search_form.cleaned_data, remove_extra_fields=True)['text']
 
         if self.request.GET.get('open-modal'):
             context['open_modal'] = True
