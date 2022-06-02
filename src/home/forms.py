@@ -33,6 +33,13 @@ class ContactForm(forms.Form):
     phone = forms.CharField(
         label="Votre numéro de téléphone", max_length=16, required=False
     )
+    # honeypot field, not actually used
+    website = forms.CharField(
+        label="Votre site internet",
+        help_text="Merci de laisser ce champ vide",
+        required=False,
+    )
+
     organization_and_role = forms.CharField(
         label="Votre structure et fonction",
         widget=forms.TextInput(

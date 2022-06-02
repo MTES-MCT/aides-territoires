@@ -646,3 +646,8 @@ section#post-content img {
     font-size: 1rem;
     pointer-events : none;
 }
+
+// Honeypot antispam field on contact form
+#formset-website {
+  display: none;
+}
