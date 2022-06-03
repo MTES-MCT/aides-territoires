@@ -6,13 +6,12 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse
-from django.http import HttpResponseRedirect, Http404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
-from projects.services.export import csv_export_content
+from projects.services.export import export_project
 
 from projects.tasks import send_project_deleted_email
 from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
@@ -241,14 +240,7 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         return queryset
 
     def post(self, request, *args, **kwargs):
-        format = request.POST["format"]
-        print(request)
-
+        file_format = request.POST["format"]
         project = self.get_object()
 
-        if format == "csv":
-            return csv_export_content(project)
-        else:
-            return HttpResponse(
-                f"Method: POST, project: {project.name}, format: {format}"
-            )
+        return export_project(project, file_format)

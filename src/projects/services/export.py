@@ -1,28 +1,38 @@
-import csv
-
 from django.http import HttpResponse
-from aids.api.serializers import AidSerializerLatest
 from projects.models import Project
 
+from aids.resources import AidResource
 
-def csv_export_content(project: Project):
-    aids = project.aid_set.all()
-    fields = AidSerializerLatest.Meta.fields
-    filename = f"{project.slug}.csv"
-    print(aids, filename)
 
-    response = HttpResponse(
-        content_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-    )
+def export_project(project: Project, file_format: str):
+    aids_qs = project.aid_set.all()
 
-    writer = csv.writer(response)
-    writer.writerow(fields)
-    for aid in aids:
-        serializer = AidSerializerLatest()
-        formated_aid = serializer.get_object(aid)
-        row = []
-        for field in fields:
-            row.append(getattr(formated_aid, field))
+    exported_aids = AidResource().export(aids_qs)
+
+    print(exported_aids)
+
+    filename = f"at-export-projet-{project.slug}.{file_format}"
+
+    if file_format == "csv":
+        response = HttpResponse(
+            exported_aids.csv.encode(),
+            content_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
+    elif file_format == "xlsx":
+        response = HttpResponse(
+            exported_aids.xlsx,
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
+
+    elif file_format == "pdf":
+        pass
+    else:
+        # If file_format is not one of the above values, return a basic html page
+        # Should only happen for debugging
+        response = HttpResponse(
+            f"Method: POST, project: {project.name}, format: {file_format}"
+        )
 
     return response
