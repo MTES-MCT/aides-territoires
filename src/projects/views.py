@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     ListView,
@@ -243,4 +244,14 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         file_format = request.POST["format"]
         project = self.get_object()
 
-        return export_project(project, file_format)
+        if file_format in ["csv", "xlsx"]:
+            response_data = export_project(project, file_format)
+
+            filename = response_data["filename"]
+            return HttpResponse(
+                response_data["content"],
+                content_type=response_data["content_type"],
+                headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+            )
+        else:
+            return redirect(project)
