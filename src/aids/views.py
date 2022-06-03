@@ -294,9 +294,6 @@ class AidDetailView(DetailView):
             .prefetch_related('programs') \
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
-        current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
-        current_search_form = AidSearchForm(data=QueryDict(current_search))
-
         current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
         current_search_form = AidSearchForm(data=QueryDict(current_search))
 
