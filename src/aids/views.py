@@ -295,6 +295,8 @@ class AidDetailView(DetailView):
             .prefetch_related(Prefetch('categories', queryset=category_qs))
 
         current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
+        if "targeted_audiences=&" in current_search:
+            current_search = current_search.removeprefix("targeted_audiences=&")
         current_search_form = AidSearchForm(data=QueryDict(current_search))
 
         if current_search_form.is_valid():
@@ -374,6 +376,9 @@ class AidDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, '')
+        if "targeted_audiences=&" in current_search:
+            current_search = current_search.removeprefix("targeted_audiences=&")
+
         context['current_search'] = current_search
         # Here we reconstruct the AidSearchForm from the current_search
         # querystring. This is needed to display some of the search filters.
