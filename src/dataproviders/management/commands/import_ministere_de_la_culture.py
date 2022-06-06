@@ -228,9 +228,13 @@ class Command(BaseImportCommand):
 
     def extract_eligibility(self, line):
         eligibility = line.get("amount", "")
+        if line.get("public"):
+            eligibility += line.get("public", "")
         if line.get("deadline"):
             if not line.get("deadline")[0].isdigit():
-                eligibility += f"<br/> date de clôture de l'aide : {line.get('deadline')}"
+                eligibility += (
+                    f"<br/> date de clôture de l'aide : {line.get('deadline')}"
+                )
         eligibility = content_prettify(eligibility)
         return eligibility
 
