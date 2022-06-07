@@ -244,14 +244,23 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         file_format = request.POST["format"]
         project = self.get_object()
 
-        if file_format in ["csv", "xlsx"]:
+        if file_format in ["csv", "xlsx", "pdf"]:
             response_data = export_project(project, file_format)
-
-            filename = response_data["filename"]
-            return HttpResponse(
-                response_data["content"],
-                content_type=response_data["content_type"],
-                headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-            )
-        else:
-            return redirect(project)
+            if not "error" in response_data:
+                filename = response_data["filename"]
+                return HttpResponse(
+                    response_data["content"],
+                    content_type=response_data["content_type"],
+                    headers={
+                        "Content-Disposition": f'attachment; filename="{filename}"'
+                    },
+                )
+        # If something went wrong, redirect to the project page with an error
+        messages.error(
+            request,
+            f"""
+            Impossible de générer votre export. Si le problème persiste, merci de
+            <a href="{reverse('contact')}"/>nous contacter</a>.
+            """,
+        )
+        return redirect(project)

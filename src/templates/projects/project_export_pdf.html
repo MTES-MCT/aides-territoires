@@ -1,0 +1,72 @@
+{% extends "_base_pdf.html" %}
+{% load i18n aids compress %}
+
+{% block extratitle %}Projet {{ project.name }}{% endblock extratitle %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row">
+              <div class="fr-col-12 fr-col-md-9">
+                  <h1 class="fr-h3">Votre projet « {{ project.name }} »</h1>
+              </div>
+            </div>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date d'échéance du projet :
+                {% if project.due_date %}
+                {{ project.due_date|date:'d/m/y' }}
+                {% else %}
+                aucune
+                {% endif %}
+            </p>
+            {% if project.description %}
+                <section class="fr-mb-5w">
+                    <h3>Description du projet</h3>
+                    <div id="project-description">
+                        {{ project.description|safe }}
+                    </div>
+                    <hr />
+                </section>
+            {% endif %}
+            {% for aid in aid_set %}
+                <h2>{{ aid.name }}</h2>
+                <p>{{ aid.description|safe }}</p>
+
+                <h3>Porteurs d’aides</h3>
+                <ul>
+                {% for financer in aid.financers.all %}
+                    <li>{{ financer.name }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+                
+                <h3>Bénéficiaires</h3>
+                <ul>
+                {% for audience in aid.get_targeted_audiences_display %}
+                    <li>{{ audience }}</li>
+                {% endfor %}
+                </ul>
+
+                <h3>Calendrier</h3>
+                <ul>
+                    <li><strong>Récurrence:</strong> {{ aid.get_recurrence_display }}</li>
+                    {% if aid.start_date %}
+                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>                
+                    {% endif %}
+                    {% if aid.submission_deadline %}
+                        <li><strong>Clôture:</strong> {{ aid.submission_deadline|date }}</li>
+                    {% endif %}
+                </ul>
+                <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link" target="_blank">
+                    Voir le descriptif complet sur Aides-territoires
+                </a>
+                <hr />
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

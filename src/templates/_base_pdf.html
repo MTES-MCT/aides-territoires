@@ -1,0 +1,105 @@
+{% load static compress dsfr_tags %}
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock extratitle %}{% endblock title %}</title>
+        {# xhtml2pdf doesn't allow linking to external stylesheets #}
+        <style type="text/css">
+        body {
+            font-family: Helvetica;
+            font-size: 12px;
+        }
+
+        h1, h2, h3 {
+            background-color: #f5f5fe;
+            padding: 1em 1em 0 1em;
+        }
+
+        .at-pdf-link {
+            text-align: center;
+            margin: 1em;
+            padding: 1em;
+        }
+
+        .at-pdf-footer__logo { height: 50px;}
+        </style>
+    </head>
+    <body>
+        {% block header %}
+        <header role="banner" class="at-pdf-header">
+            <div class="at-pdf-header__body">
+                <div class="fr-container">
+                    <div class="at-pdf-header__body-row">
+                        <div class="at-pdf-header__brand fr-enlarge-link">
+                            <div class="at-pdf-header__brand-top">
+                                <div class="at-pdf-header__operator">
+                                    <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>Aides-territoires est un service public numérique qui facilite la recherche
+                        d’aides financières et d’ingénierie des collectivités territoriales et de leurs
+                        partenaires locaux en regroupant les dispositifs auxquels ils peuvent prétendre sur
+                        un portail unique.</div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+        <hr />
+        {% endblock header %}
+
+        <main role="main" class="at-pdf-container-fluid" id="at-main">
+            {% block main %}
+            <div class="main-content">
+                {% block content %}{% endblock content %}
+            </div>
+            {% endblock main %}
+        </main>
+        {% block footer %}
+        <footer class="at-pdf-footer" role="contentinfo" id="footer">
+            <div class="fr-container">
+                <div class="at-pdf-footer__body">
+                    <div class="at-pdf-footer__content">
+                        <h2>À propos</h2>
+                        <p class="at-pdf-footer__content-desc">
+                            Aides-territoires est une startup d’État portée par la Direction
+                            Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le
+                            soutien de l’Agence Nationale de Cohésion des Territoires (ANCT) et de
+                            la Direction Générale des Infrastructures de Transport et de la Mer
+                            (DGITM).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="at-pdf-footer__partners">
+                    <h2 class="at-pdf-footer__partners-title">Nos partenaires</h2>
+                    <div class="at-pdf-footer__partners-logos">
+                        <div class="at-pdf-footer__partners-main">
+                            <a class="at-pdf-footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr/">
+                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-anct.svg' %}" alt="Logo : ANCT" />
+                            </a>
+                            <a class="at-pdf-footer__partners-link" href="https://www.francemobilites.fr/">
+                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-francemobilites.svg' %}" alt="Logo : France Mobilité" />
+                            </a>
+                            <a class="at-pdf-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel">
+                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-fabriquenumerique.svg' %}" alt="Logo : La Fabrique Numérique" />
+                            </a>
+                            <a class="at-pdf-footer__partners-link" href="https://beta.gouv.fr/">
+                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-betagouvfr.svg' %}" alt="Logo : Beta.gouv" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="at-pdf-footer__bottom-copy">
+                    <p>Sauf mention contraire, tous les textes de ce document sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener">licence etalab-2.0</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        {% endblock footer %}
+    </body>
+</html>

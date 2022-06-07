@@ -164,7 +164,14 @@
                 <p>
                   <a href="{% url 'general_search' %}" class="fr-btn fr-btn--secondary fr-fi-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
                 </p>
-                <button type="button" class="fr-btn fr-btn--secondary fr-fi-download-line fr-btn--icon-left" id="export-project-btn"  data-fr-opened="false" aria-controls="export-project-modal-{{ project.pk }}">
+                <button
+                    type="button"
+                    class="fr-btn fr-btn--secondary fr-fi-download-line fr-btn--icon-left"
+                    id="export-project-btn"
+                    data-fr-opened="false"
+                    aria-controls="export-project-modal-{{ project.pk }}"
+                    {% if not aid_set %}disabled="disabled"{% endif %}
+                >
                   Exporter ce projet
                 </button>
 
@@ -184,8 +191,8 @@
     {% include 'projects/_delete_project_modal.html' with project=project.pk %}
     {% include 'projects/_export_project_modal.html' with project=project.pk %}
     {% if aid_set %}
-    {% for aid in aid_set %}    
-        {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
-    {% endfor %}
+        {% for aid in aid_set %}    
+            {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
+        {% endfor %}
     {% endif %}
 {% endblock modals %}
