@@ -6,14 +6,14 @@ from search.forms import GeneralSearchForm
 class SearchMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['querystring'] = self.request.GET.urlencode()
+        context["querystring"] = self.request.GET.urlencode()
         return context
 
 
 class GeneralSearch(FormView):
     """general search form."""
 
-    template_name = 'search/general_search.html'
+    template_name = "search/general_search.html"
     form_class = GeneralSearchForm
 
     def get_initial(self):
@@ -31,7 +31,7 @@ class GeneralSearch(FormView):
                 if user_org.perimeter is not None:
                     PERIMETER = user_org.perimeter.id_slug
                 initial = {
-                    'targeted_audiences': TARGETED_AUDIENCES,
-                    'perimeter': PERIMETER,
+                    "targeted_audiences": TARGETED_AUDIENCES,
+                    "perimeter": PERIMETER,
                 }
                 return initial
