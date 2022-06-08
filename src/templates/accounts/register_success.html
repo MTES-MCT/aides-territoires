@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}login-form{% endblock %}
+{% block sectionid %}login-form{% endblock sectionid %}
 
-{% block extratitle %}Compte créé{% endblock %}
+{% block extratitle %}Compte créé{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
@@ -14,25 +14,25 @@
             <h1>Merci d'avoir créé un compte</h1>
 
             <p>
-                <strong>Une dernière étape est nécessaire avant d'activer votre compte&nbsp;:</strong>
+                <strong>Une dernière étape est nécessaire avant d’activer votre compte :</strong>
                 consultez votre messagerie et cliquez sur le lien de confirmation.
             </p>
 
             <p>
-                Si vous ne recevez pas d'e-mail, essayez les solutions suivantes&nbsp;:
+                Si vous ne recevez pas d’e-mail, essayez les solutions suivantes :
                 <ul>
-                    <li>vérifiez l'exactitude de l'adresse e-mail saisie&nbsp;;</li>
-                    <li>vérifiez vos spams&nbsp;;</li>
-                    <li>attendez quelques minutes <a href="{% url 'register' %}">et réessayez</a>&nbsp;;</li>
+                    <li>vérifiez l’exactitude de l’adresse e-mail saisie ;</li>
+                    <li>vérifiez vos spams ;</li>
+                    <li>attendez quelques minutes <a href="{% url 'register' %}">et réessayez</a> ;</li>
                 </ul>
             </p>
 
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
                 <span class="fas fa-bug"></span>
-                Si vous n'arrivez pas à vous inscrire,
-                <a href="mailto:aides-territoires@beta.gouv.fr"> n'hésitez pas à nous contacter</a>.
+                Si vous n’arrivez pas à vous inscrire,
+                <a href="{% url 'contact' %}"> n’hésitez pas à nous contacter</a>.
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
