@@ -38,11 +38,14 @@
                 <button type="submit" class="fr-btn fr-mb-5w fr-mt-1w">Finaliser mon inscription</button>
             </form>
 
-            <p class="warning fr-background-alt-pink fr-p-3w">
-                <span class="fas fa-bug"></span>
-                Si vous n’arrivez pas à vous inscrire,
-                <a href="mailto:aides-territoires@beta.gouv.fr">n’hésitez pas à nous contacter</a>.
-            </p>
+            <div class="fr-mt-3w">
+                <div class="fr-alert fr-alert--info fr-alert--sm">
+                    <p>
+                        Si vous n’arrivez pas à vous inscrire,
+                        <a href="{% url 'contact' %}">n’hésitez pas à nous contacter.</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

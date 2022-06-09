@@ -768,38 +768,10 @@ msgstr ""
 msgid "Log in to your contributor account"
 msgstr "Connexion à votre compte contributeur"
 
-#, python-format
-msgid ""
-"Have you forgotten your password? <a href=\"%(password_reset_url)s\"> "
-"Request a new one.</a>"
-msgstr ""
-"Avez-vous oublié votre mot de passe ? <a href=\"%(password_reset_url)s"
-"\">Vous pouvez en demander un nouveau.</a>"
-
 msgid "Sorry, it looks like something went wrong. We could not log you in."
 msgstr ""
 "Désolé, il semble que quelque chose se soit mal passé. Nous n'avons pu "
 "accéder à votre demande de connexion."
-
-msgid "Password reset"
-msgstr "Récupération du mot de passe"
-
-msgid "Forgot your password?"
-msgstr "Mot de passe oublié ?"
-
-msgid "Request a new one"
-msgstr "En demander un nouveau"
-
-msgid "Request a new password"
-msgstr "Demander un nouveau mot de passe"
-
-#, python-format
-msgid ""
-"Don't have an account yet? <a href=\"%(register_url)s\">Proceed to the "
-"registration form.</a>"
-msgstr ""
-"Vous n'avez pas encore de compte ? <a href=\"%(register_url)s\">Rendez-vous "
-"au formulaire d'inscription.</a>"
 
 msgid "Update your profile"
 msgstr "Mettre à jour votre profil"

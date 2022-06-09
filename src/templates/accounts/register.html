@@ -133,8 +133,8 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="fr-col-12">
-                                        <p class="info fr-background-alt fr-p-3w">
+                                    <div class="fr-col-12 fr-mb-3w">
+                                        <p class="fr-background-alt fr-p-3w">
                                             <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
                                             En créant un compte, vous acceptez que vos données soient traitées en accord avec
                                             <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">
@@ -148,11 +148,12 @@
                                         </button>
                                     </div>
                                     <div class="fr-col-12 fr-mb-3w">
-                                        <p class="info fr-background-alt fr-p-3w">
-                                            <span class="fas fa-bug"></span>
-                                            Si vous n’arrivez pas à vous inscrire,
-                                            <a href="mailto:aides-territoires@beta.gouv.fr">n’hésitez pas à nous contacter.</a>
-                                        </p>
+                                        <div class="fr-alert fr-alert--info fr-alert--sm">
+                                            <p>
+                                                Si vous n’arrivez pas à vous inscrire,
+                                                <a href="{% url 'contact' %}">n’hésitez pas à nous contacter.</a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-{% load i18n %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
@@ -34,7 +33,7 @@
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
                 <p>
                     <strong>
-                        Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l'e-mail que vous allez recevoir.
+                        Afin de finaliser votre inscription, il vous reste à cliquer sur le lien de confirmation présent dans l’e-mail que vous allez recevoir.
                     </strong> 
                 </p>
             </div>
@@ -42,9 +41,9 @@
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
                 <p>
                     <strong>
-                        Si vous n'arrivez pas à vous inscrire, 
-                        <a href="mailto:aides-territoires@beta.gouv.fr">
-                            n'hésitez pas à nous contacter.
+                        Si vous n’arrivez pas à vous inscrire,
+                        <a href="{% url 'contact' %}">
+                            n’hésitez pas à nous contacter.
                         </a>
                     </strong> 
                 </p>
