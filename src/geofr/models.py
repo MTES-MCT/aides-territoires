@@ -161,25 +161,6 @@ class Perimeter(models.Model):
         self.unaccented_name = remove_accents(self.name)
         return super().save(*args, **kwargs)
 
-    def is_pvd(self):
-        """
-        Check if the perimeter is a "commune lauréate du programme Petites villes de
-        demain", ie:
-        - is a commune
-        - contained in the "Petites villes de demain" perimeter
-        """
-        result = False
-
-        pvd = Perimeter.objects.filter(code="PVD").first()
-        if pvd:
-            if (
-                self.scale == Perimeter.SCALES.commune
-                and self.contained_in.filter(pk=pvd.id).exists()
-            ):
-                result = True
-
-        return result
-
 
 class PerimeterImport(models.Model):
     """

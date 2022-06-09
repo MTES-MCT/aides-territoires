@@ -7,8 +7,8 @@
             {% if aid.has_approaching_deadline %}
                 <span class="deadline deadline-delta fr-tag">J-{{ aid.days_before_deadline }}</span>
             {% endif %}
-            {% if current_search_dict.perimeter.is_pvd and aid.programs.first.id == 1 %}
-                <span class="deadline deadline-delta fr-tag">Spécifique PVD</span>
+            {% if aid.perimeter.code == "PVD" %}
+                <span class="deadline deadline-delta fr-tag"><span class="fr-icon-flashlight-line fr-fi--sm" aria-hidden="true"></span>Spécifique PVD</span>
             {% endif %}
 
             <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
