@@ -757,14 +757,14 @@ class DraftListAidFilterForm(forms.Form):
     """"""
 
     AID_STATE_CHOICES = [
-        ("", ""),
+        ("", "Sélectionnez une option"),
         ("open", "Ouverte"),
         ("deadline", "Expire bientôt"),
         ("expired", "Expirée"),
     ]
 
     AID_DISPLAY_STATUS_CHOICES = [
-        ("", ""),
+        ("", "Sélectionnez une option"),
         ("hidden", "Non affichée"),
         ("live", "Affichée"),
     ]

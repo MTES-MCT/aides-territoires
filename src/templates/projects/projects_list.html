@@ -75,12 +75,10 @@
                                 </a>
                             </td>
                             <td class="fr-text">
-                                <ul>
                                 {% if project.aid_set.all %}
                                     {{ project.aid_set.all.count }}
                                 {% else %}
                                 <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
-                                </ul>
                             {% endif %}
                             </td>
                             <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
@@ -97,7 +95,7 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">
-                                <button type="button" class="btn_delete fr-link fr-fi-delete-line" id="delete-project-btn" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
+                                <button type="button" class="btn_delete fr-link fr-fi-delete-line" id="delete-project-btn-{{ project.id }}" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
                             </td>
                         </tr>
                         {% endfor %}
