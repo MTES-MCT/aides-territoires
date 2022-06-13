@@ -142,6 +142,12 @@ class Command(BaseImportCommand):
     def extract_description(self, line):
         desc_1 = content_prettify(line.get("summary", ""))
         desc_2 = content_prettify(line.get("body", ""))
+        if line.get("type", "") == ["Demande d'autorisation"] or line.get(
+            "type", ""
+        ) == ["Demande de labellisation"]:
+            aid_to_delete = "Aide à supprimer : type d'aides non correspondant"
+            description = aid_to_delete + desc_1 + desc_2
+            return description
         description = desc_1 + desc_2
         return description
 
@@ -227,9 +233,13 @@ class Command(BaseImportCommand):
         return contact
 
     def extract_eligibility(self, line):
-        eligibility = line.get("amount", "")
-        if line.get("public"):
-            eligibility += line.get("public", "")
+        eligibility = ""
+        if line.get("amount") is not None:
+            eligibility += line.get("amount", "")
+        if line.get("public") is not None:
+            eligibility += f"<br/> bénéficiaires de l'aide: {line.get('public')}"
+        if line.get("eztag_region") is not None:
+            eligibility += f"<br/> périmètre de l'aide: {line.get('eztag_region')}"
         if line.get("deadline"):
             if not line.get("deadline")[0].isdigit():
                 eligibility += (
@@ -265,4 +275,11 @@ class Command(BaseImportCommand):
         return is_call_for_project
 
     def extract_aid_types(self, line):
-        return [Aid.TYPES.grant]
+        if (
+            line.get("type", "") == ["Subvention"]
+            or line.get("type", "") == ["Aide"]
+            or line.get("type", "") == ["Aide & subvention"]
+        ):
+            return [Aid.TYPES.grant]
+        else:
+            return []
