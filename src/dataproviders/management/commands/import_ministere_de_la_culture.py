@@ -39,6 +39,7 @@ AT_COLUMN_NAMES = [
     "Bénéficiaires AT 3",
     "Bénéficiaires AT 4",
     "Bénéficiaires AT 5",
+    "Bénéficiaires AT 6",
 ]
 with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
     csvreader = csv.DictReader(csv_file, delimiter=",")
@@ -238,7 +239,7 @@ class Command(BaseImportCommand):
             eligibility += line.get("amount", "")
         if line.get("public") is not None:
             eligibility += f"<br/> bénéficiaires de l'aide: {line.get('public')}"
-        if line.get("eztag_region") is not None:
+        if line.get("eztag_region") != []:
             eligibility += f"<br/> périmètre de l'aide: {line.get('eztag_region')}"
         if line.get("deadline"):
             if not line.get("deadline")[0].isdigit():
