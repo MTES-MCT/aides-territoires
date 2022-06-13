@@ -35,18 +35,49 @@
                 <h2>{{ aid.name }}</h2>
                 <p>{{ aid.description|safe }}</p>
 
+            {% if aid.is_local and aid.local_characteristics %}
+                <h3>Spécificités locales</h3>
+
+                {{ aid.local_characteristics|safe }}
+
+            {% endif %}
+
+            {% if aid.targeted_audiences %}
+                <h3>Bénéficiaires de l’aide</h3>
+                <p>{% choices_display aid 'targeted_audiences' %}</p>
+            {% endif %}
+
+            <h3>Zone géographique couverte par l’aide</h3>
+            <p>{{ aid.perimeter }}</p>
+
+            {% if eligibility_criteria or aid.has_eligibility_test %}
+                <h2>Critères d’éligibilité</h2>
+
+                {% if aid.mobilization_steps %}
+                <h3>Dispositif applicable pour un projet</h3>
+                <p>{% choices_display aid 'mobilization_steps' %}</p>
+                {% endif %}
+
+                {% if aid.destinations %}
+                <h3>Types de dépenses / actions couvertes</h3>
+                <p>{% choices_display aid 'destinations' %}</p>
+                {% endif %}
+
+                {% if aid.project_examples %}
+                <h3>Exemples de projets réalisables</h3>
+                {{ aid.project_examples|safe }}
+                {% endif %}
+
+                {% if aid.eligibility %}
+                <h3>Autres critères d’éligibilité</h3>
+                {{ aid.eligibility|safe }}
+                {% endif %}
+            {% endif %}
+
                 <h3>Porteurs d’aides</h3>
                 <ul>
                 {% for financer in aid.financers.all %}
-                    <li>{{ financer.name }}</a>
-                    </li>
-                {% endfor %}
-                </ul>
-                
-                <h3>Bénéficiaires</h3>
-                <ul>
-                {% for audience in aid.get_targeted_audiences_display %}
-                    <li>{{ audience }}</li>
+                    <li>{{ financer.name }}</li>
                 {% endfor %}
                 </ul>
 

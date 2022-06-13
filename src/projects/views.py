@@ -246,7 +246,7 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
 
         if file_format in ["csv", "xlsx", "pdf"]:
             response_data = export_project(project, file_format)
-            if not "error" in response_data:
+            if "error" not in response_data:
                 filename = response_data["filename"]
                 return HttpResponse(
                     response_data["content"],

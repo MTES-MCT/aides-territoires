@@ -540,16 +540,6 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         # has change - check what we do when saving the Aid instance.
         self.original_status = self.status
 
-    def get_targeted_audiences_display(self):
-        """
-        Get the human readable targeted audiences
-        """
-        result = []
-        for audience in self.targeted_audiences:
-            result.append(self.AUDIENCES[audience])
-
-        return result
-
     def set_slug(self):
         """Set the object's slug.
 
