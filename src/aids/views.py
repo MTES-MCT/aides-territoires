@@ -329,12 +329,11 @@ class AidDetailView(DetailView):
         current_search_form = AidSearchForm(data=QueryDict(current_search))
 
         if current_search_form.is_valid():
-            if "text" in clean_search_form(
+            cleaned_search_data = clean_search_form(
                 current_search_form.cleaned_data, remove_extra_fields=True
-            ):
-                text = clean_search_form(
-                    current_search_form.cleaned_data, remove_extra_fields=True
-                )["text"]
+            )
+            if "text" in cleaned_search_data:
+                text = cleaned_search_data["text"]
                 text = remove_accents(text)
                 base_qs = (
                     base_qs.annotate(
