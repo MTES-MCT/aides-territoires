@@ -165,6 +165,9 @@ class Command(BaseImportCommand):
     def extract_application_url(self, line):
         return ""
 
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.preop, Aid.STEPS.op, Aid.STEPS.postop]
+
     def extract_targeted_audiences(self, line):
         """
         Exemple of string to process: "PDR-Administration" + "Communes, Départements"
