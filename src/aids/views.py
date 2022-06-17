@@ -456,6 +456,15 @@ class AidDetailView(DetailView):
             )
         )
 
+        categories = self.object.categories.all()
+        keywords = self.object.keywords.all()
+        categories_keywords_list = []
+        for cat in categories:
+            categories_keywords_list.append(cat.name)
+        for keyword in keywords:
+            categories_keywords_list.append(keyword.name)
+        context["keywords"] = sorted(categories_keywords_list)
+
         context["alert_form"] = AlertForm(label_suffix="")
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
