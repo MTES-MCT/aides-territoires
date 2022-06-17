@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = [
     "fieldsets_with_inlines",
     "django_otp",
     "django_otp.plugins.otp_totp",
+    "widget_tweaks",
     "dsfr",
     "captcha",
 ]
@@ -195,7 +196,10 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "NAME": "BASE",
-        "DIRS": [DJANGO_ROOT.child("templates")],
+        "DIRS": [
+            DJANGO_ROOT.child("dsfr").child("templates"),
+            DJANGO_ROOT.child("templates"),
+        ],
         "OPTIONS": {
             "debug": False,
             "context_processors": [

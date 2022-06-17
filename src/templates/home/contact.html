@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% load dsfr_tags %}
 
 {% block extratitle %}Contact{% endblock extratitle %}
 
@@ -61,19 +62,19 @@
                         </div>
                         {% csrf_token %}
                         <fieldset>
-                            {% include '_field_snippet.html' with field=form.first_name %}
-                            {% include '_field_snippet.html' with field=form.last_name %}
-                            {% include '_field_snippet.html' with field=form.email %}
-                            {% include '_field_snippet.html' with field=form.phone %}
-                            {% include '_field_snippet.html' with field=form.organization_and_role %}
+                            {% dsfr_form_field form.first_name %}
+                            {% dsfr_form_field form.last_name %}
+                            {% dsfr_form_field form.email %}
+                            {% dsfr_form_field form.phone %}
+                            {% dsfr_form_field form.organization_and_role %}
                         </fieldset>
 
                         <fieldset id="formset-website">
-                            {% include '_field_snippet.html' with field=form.website %}
+                            {% dsfr_form_field form.website %}
                         </fieldset>
 
                         <fieldset>
-                            {% include '_field_snippet.html' with field=form.subject %}
+                            {% dsfr_form_field form.subject %}
                         </fieldset>
 
                         <fieldset>

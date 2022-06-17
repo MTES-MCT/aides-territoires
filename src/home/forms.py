@@ -1,12 +1,14 @@
 from django import forms
 from captcha.fields import CaptchaField, CaptchaTextInput
 
+from dsfr.forms import DsfrBaseForm
+
 
 class CustomCaptchaTextInput(CaptchaTextInput):
     template_name = "captcha/captcha_field.html"
 
 
-class ContactForm(forms.Form):
+class ContactForm(DsfrBaseForm):
     """Contact form."""
 
     SUBJECT_CHOICES = (
