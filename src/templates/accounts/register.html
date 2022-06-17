@@ -98,9 +98,9 @@
 
                                             <div id="beneficiary-fields-collapse" class="fr-collapse fr-mb-3w">
 
-                                                <div id="form-group-beneficiary_function" class="fr-input-group">
+                                                <div id="form-group-beneficiary_function" class="fr-select-group">
                                                     <label for="id_beneficiary_function">Votre fonction</label>
-                                                    <select name="beneficiary_function" id="id_beneficiary_function">
+                                                    <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function">
                                                         <option value="" hidden>Sélectionnez votre fonction</option>
                                                         {% for option in form.beneficiary_function %}
                                                         {{ option }}

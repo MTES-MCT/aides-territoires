@@ -7,8 +7,10 @@ from model_utils import Choices
 from accounts.models import User
 from accounts.utils import check_current_password
 
+from dsfr.forms import DsfrBaseForm
 
-class RegisterForm(UserCreationForm):
+
+class RegisterForm(UserCreationForm, DsfrBaseForm):
     """Form used to create new user accounts."""
 
     ORGANIZATION_TYPE = Choices(
@@ -94,7 +96,7 @@ class RegisterForm(UserCreationForm):
         return data
 
 
-class LoginForm(AuthenticationForm):
+class LoginForm(AuthenticationForm, DsfrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
         "inactive": "Ce compte n'est actuellement pas actif.",
@@ -115,13 +117,13 @@ class LoginForm(AuthenticationForm):
         return username.lower()
 
 
-class PasswordResetForm(forms.Form):
+class PasswordResetForm(DsfrBaseForm):
     """Password reset request form."""
 
     username = forms.EmailField(label="Votre adresse e-mail", required=True)
 
 
-class PasswordResetConfirmForm(forms.ModelForm):
+class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
     """Change password after reset's request form."""
 
     new_password = forms.CharField(
