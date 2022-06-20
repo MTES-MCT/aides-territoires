@@ -298,12 +298,19 @@ class InviteCollaboratorForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        
+
         if self.data.get("email"):
-            if User.objects.get(email=self.data.get("email")).proposed_organization is not None:
-                msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."
-                self.add_error("email", msg)
-        
+            try:
+                User.objects.get(email=self.data.get("email"))
+                try:
+                    User.objects.get(email=self.data.get("email")).proposed_organization
+                    msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."
+                    self.add_error("email", msg)
+                except:
+                    return email.lower()
+            except:
+                return email.lower()
+
         return email.lower()
 
 
