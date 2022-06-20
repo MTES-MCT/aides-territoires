@@ -378,19 +378,11 @@
             </div>
             {% endif %}
 
-            {% if aid.categories %}
-            {% regroup aid.categories.all by theme as theme_list %}
+            {% if keywords %}
             <div class="fr-list__none">
-                {% for theme in theme_list %}
-                {% for category in theme.list %}
-                <a href="{% url 'search_view' %}?text={{ category }}" class="fr-tag fr-mb-1w" target="blank">{{ category }}</a>
+                {% for keyword in keywords %}
+                <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
                 {% endfor %}
-                {% endfor %}
-                {% if aid.keywords.all %}
-                {% for keyword in aid.keywords.all %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" target="blank">{{ keyword }}</a>
-                {% endfor %}
-                {% endif %}
             </div>
             {% endif %}
         </div>
