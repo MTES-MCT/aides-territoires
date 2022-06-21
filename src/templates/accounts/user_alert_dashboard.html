@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n compress mailing_list %}
 
-{% block extratitle %}Mon compte{% endblock %}
+{% block extratitle %}Mon compte{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock %}
+{% block sectionid %}user-account{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -27,8 +27,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -86,7 +85,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a href="{% url 'search_view'%}?{{ alert.querystring }}" target="_blank" rel="noopener">
+                                <a href="{% url 'search_view' %}?{{ alert.querystring }}" target="_blank" rel="noopener">
                                     {{ alert.title }}
                                 </a>
                             </td>
@@ -112,7 +111,7 @@
                     <tbody>
                         <tr>
                             <td colspan="5">
-                                <center>Vous n'avez aucune alerte pour l'instant</center>
+                                <center>Vous n’avez aucune alerte pour l’instant</center>
                             </td>
                         </tr>
                     </tbody>
@@ -123,13 +122,13 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
-{% if alerts %}
-{% for alert in alerts %}
-{% include 'alerts/_delete_alert_modal.html' with alert=alert.pk %}
-{% endfor %}
-{% endif %}
-{% include 'accounts/_info_alert_modal.html' %}
-{% endblock %}
+    {% if alerts %}
+        {% for alert in alerts %}
+            {% include 'alerts/_delete_alert_modal.html' with alert=alert.pk %}
+        {% endfor %}
+    {% endif %}
+    {% include 'accounts/_info_alert_modal.html' %}
+{% endblock modals %}

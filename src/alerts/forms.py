@@ -1,12 +1,13 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+
+from dsfr.forms import DsfrBaseForm
 
 from alerts.models import Alert
 from search.models import SearchPage
 
 
-class AlertForm(forms.ModelForm):
+class AlertForm(forms.ModelForm, DsfrBaseForm):
     email = forms.EmailField(
         label="Votre adresse e-mail",
         help_text="Nous enverrons un e-mail pour confirmer votre adresse",
@@ -16,7 +17,7 @@ class AlertForm(forms.ModelForm):
         label="Donnez un nom à votre alerte", required=True, max_length=250
     )
     alert_frequency = forms.ChoiceField(
-        label="Fréquence de l'alerte",
+        label="Fréquence de l’alerte",
         choices=Alert.FREQUENCIES,
         help_text="À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?",
     )
@@ -41,23 +42,20 @@ class AlertForm(forms.ModelForm):
                 validated=False
             )
             if unvalidated_alerts.count() >= settings.UNVALIDATED_ALERTS_QUOTA:
-                msg = _(
-                    """
-                    You can't create more alerts without validating them.
-                    If you don't receive the validation email, please contact
-                    us.
+                msg = """
+                Vous ne pouvez pas créer de nouvelles alertes avant de valider celles existantes.
+                Si vous ne recevez pas les e-mails de validation, merci de nous contacter.
                 """
-                )
+
                 self.add_error("email", msg)
 
             all_alerts = Alert.objects.filter(email=email)
             if all_alerts.count() >= settings.MAX_ALERTS_QUOTA:
-                msg = _(
-                    """
-                    You've reached the maximum amount of alerts you can create
-                    for your email address.
+                msg = """
+                Vous avez atteint le nombre maximum d’alertes qu’il est possible de créer
+                pour une seule adresse e-mail.
                 """
-                )
+
                 self.add_error("email", msg)
 
         return data
@@ -77,5 +75,5 @@ class AlertForm(forms.ModelForm):
         return super().save(commit=commit)
 
 
-class DeleteAlertForm(forms.Form):
+class DeleteAlertForm(DsfrBaseForm):
     token = forms.UUIDField(widget=forms.HiddenInput(), required=True)
