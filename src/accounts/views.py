@@ -321,8 +321,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 proposed_organization=organization_id
             )
             users.filter(pk=collaborator.pk).update(
-                invitation_author=self.request.user.pk,
-                invitation_date=timezone.now()
+                invitation_author=self.request.user.pk, invitation_date=timezone.now()
             )
             send_invitation_email.delay(
                 collaborator.email,
@@ -413,8 +412,23 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             # Transfer selected projects to the proposed_organization
             for project in projects:
                 project_queryset = Project.objects.get(pk=project.pk)
-                project_queryset.organizations.remove(user.beneficiary_organization.pk)
-                project_queryset.organizations.add(proposed_organization.pk)
+                project_description = project_queryset.description
+                project_name = project_queryset.name
+                project_due_date = project_queryset.due_date
+                duplicate_project = Project.objects.create(
+                    name=project_name,
+                    description=project_description,
+                    due_date=project_due_date,
+                )
+                duplicate_project.author.add(self.request.user.pk)
+                duplicate_project.organizations.add(proposed_organization)
+                aidproject_list = AidProject.objects.filter(project=project_queryset.pk)
+                for aidproject in aidproject_list:
+                    new_aidproject = AidProject.objects.create(
+                        aid=aidproject.aid,
+                        project=duplicate_project,
+                        creator=self.request.user,
+                    )
 
             # Send an invitation to selected collaborators
             # and populate proposed_organization field for each selected collaborators
@@ -423,7 +437,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 User.objects.filter(pk=collaborator.pk).update(
                     proposed_organization=proposed_organization,
                     invitation_author=self.request.user.pk,
-                    invitation_date=timezone.now()
+                    invitation_date=timezone.now(),
                 )
                 send_invitation_email.delay(
                     collaborator.email,
