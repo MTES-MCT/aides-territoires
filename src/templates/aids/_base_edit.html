@@ -47,7 +47,7 @@
                         <div id="instructor-fields" class="fr-collapse">
                             {% include '_field_snippet_aid_form.html' with field=form.instructors %}
                             {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
-                        </div>    
+                        </div>
                     </div>
                     {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.targeted_audiences %}
                     {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.aid_types %}
@@ -86,9 +86,9 @@
                 {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
                 <div id="calendar-fields">
                     <div id="calendar-fields-collapse" class="fr-collapse">
-                        {% include '_field_snippet_aid_form.html' with field=form.start_date %}
-                        {% include '_field_snippet_aid_form.html' with field=form.predeposit_date %}
-                        {% include '_field_snippet_aid_form.html' with field=form.submission_deadline %}    
+                        {% include '_calendar_snippet_aid_form.html' with field=form.start_date %}
+                        {% include '_calendar_snippet_aid_form.html' with field=form.predeposit_date %}
+                        {% include '_calendar_snippet_aid_form.html' with field=form.submission_deadline %}
                     </div>  
                 </div>
             </fieldset>

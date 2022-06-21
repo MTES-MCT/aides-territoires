@@ -174,7 +174,7 @@ class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class ContributorProfileForm(forms.ModelForm):
+class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
     """Edit contributor profile related user data."""
 
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
@@ -282,7 +282,7 @@ class ContributorProfileForm(forms.ModelForm):
         return user
 
 
-class InviteCollaboratorForm(forms.ModelForm):
+class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
@@ -309,7 +309,7 @@ class InviteCollaboratorForm(forms.ModelForm):
         return email.lower()
 
 
-class CompleteProfileForm(forms.ModelForm):
+class CompleteProfileForm(forms.ModelForm, DsfrBaseForm):
     """Edit user profile."""
 
     first_name = forms.CharField(label="Votre prénom", required=True)

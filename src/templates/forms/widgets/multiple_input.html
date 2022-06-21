@@ -1,5 +1,9 @@
-{% with id=widget.attrs.id %}<div{% if id %} id="{{ id }}"{% endif %} class="multiple-input{% if widget.attrs.class %} {{ widget.attrs.class }}{% endif %}">{% for group, options, index in widget.optgroups %}{% if group %}
-  <fieldset{% if id %} id="{{ id }}_{{ index }}"{% endif %}><legend>{{ group }}</legend>{% endif %}{% for option in options %}
-    <div class="single-input">{% include option.template_name with widget=option %}</div>{% endfor %}{% if group %}
-  </fieldset>{% endif %}{% endfor %}
-</div>{% endwith %}
+{% with id=widget.attrs.id %}
+  {% for group, options, index in widget.optgroups %}
+    {% if group %}<fieldset{% if id %} id="{{ id }}_{{ index }}"{% endif %}><legend>{{ group }}</legend>{% endif %}
+    {% for option in options %}
+      {% include option.template_name with widget=option %}
+    {% endfor %}
+    {% if group %}</fieldset>{% endif %}
+  {% endfor %}
+{% endwith %}

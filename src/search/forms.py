@@ -3,6 +3,8 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
+from dsfr.forms import DsfrBaseForm
+
 from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterator
 from categories.models import Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
@@ -11,22 +13,28 @@ from pages.admin import PageForm
 
 
 AUDIENCES = [
-    ('Une collectivité', (
-        ('commune', 'Commune'),
-        ('epci', 'Intercommunalité / Pays'),
-        ('department', 'Département'),
-        ('region', 'Région'),
-        ('special', "Collectivité d'outre-mer à statuts particuliers"),
-    )),
-    ('Un autre bénéficiaire', (
-        ('public_org', 'Établissement public'),
-        ('public_cies', "Entreprise publique locale (Sem, Spl, SemOp)"),
-        ('association', 'Association'),
-        ('private_sector', 'Entreprise privée'),
-        ('private_person', 'Particulier'),
-        ('farmer', 'Agriculteur'),
-        ('researcher', 'Recherche'),
-    ))
+    (
+        "Une collectivité",
+        (
+            ("commune", "Commune"),
+            ("epci", "Intercommunalité / Pays"),
+            ("department", "Département"),
+            ("region", "Région"),
+            ("special", "Collectivité d'outre-mer à statuts particuliers"),
+        ),
+    ),
+    (
+        "Un autre bénéficiaire",
+        (
+            ("public_org", "Établissement public"),
+            ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
+            ("association", "Association"),
+            ("private_sector", "Entreprise privée"),
+            ("private_person", "Particulier"),
+            ("farmer", "Agriculteur"),
+            ("researcher", "Recherche"),
+        ),
+    ),
 ]
 
 
@@ -37,7 +45,6 @@ class AudienceWidget(forms.widgets.ChoiceWidget):
 
 
 class CategoryIterator(CategoryChoiceIterator):
-
     def theme_label(self, theme_name):
         return theme_name
 
@@ -51,51 +58,56 @@ class CategoryWidget(forms.widgets.ChoiceWidget):
     """Custom widget to select categories grouped by themes."""
 
     allow_multiple_selected = True
-    template_name = 'search/forms/widgets/category_widget.html'
+    template_name = "search/forms/widgets/category_widget.html"
 
 
-class GeneralSearchForm(forms.Form):
+class GeneralSearchForm(DsfrBaseForm):
 
-    CATEGORIES_QS = Category.objects \
-        .select_related('theme') \
-        .order_by('theme__name', 'name')
+    CATEGORIES_QS = Category.objects.select_related("theme").order_by(
+        "theme__name", "name"
+    )
 
     targeted_audiences = forms.MultipleChoiceField(
-        label='Votre structure',
-        required=False)
+        label="Votre structure", required=False
+    )
     perimeter = AutocompleteModelChoiceField(
-        label='Votre territoire',
-        queryset=Perimeter.objects.all(),
-        required=False)
+        label="Votre territoire", queryset=Perimeter.objects.all(), required=False
+    )
     text = forms.CharField(
-        label='Recherche textuelle',
+        label="Recherche textuelle",
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Ex: rénovation énergétique, vélo, tiers lieu, etc.'}))
+            attrs={"placeholder": "Ex: rénovation énergétique, vélo, tiers lieu, etc."}
+        ),
+    )
     categories = CategoryChoiceField(
-        label='Thématiques',  # Not a mistake
+        label="Thématiques",  # Not a mistake
         queryset=CATEGORIES_QS,
-        to_field_name='slug',
+        to_field_name="slug",
         required=False,
-        widget=CategoryWidget)
+        widget=CategoryWidget,
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['targeted_audiences'].choices = AUDIENCES
+        self.fields["targeted_audiences"].choices = AUDIENCES
 
 
 class SearchPageAdminForm(forms.ModelForm):
     content = RichTextField(
-        label='Contenu de la page',
-        help_text='Description complète de la page. Sera affichée au dessus des résultats.')
+        label="Contenu de la page",
+        help_text="Description complète de la page. Sera affichée au dessus des résultats.",
+    )
     more_content = RichTextField(
-        label='Contenu additionnel',
-        help_text='Contenu caché, révélé au clic sur le bouton « Voir plus ».')
+        label="Contenu additionnel",
+        help_text="Contenu caché, révélé au clic sur le bouton « Voir plus ».",
+    )
     available_categories = CategoryMultipleChoiceField(
-        label='Sous-thématiques',
+        label="Sous-thématiques",
         required=False,
-        widget=FilteredSelectMultiple('Sous-thématiques', True))
+        widget=FilteredSelectMultiple("Sous-thématiques", True),
+    )
 
     def clean(self):
         """Validate search page customization consistency.
@@ -107,9 +119,13 @@ class SearchPageAdminForm(forms.ModelForm):
         data = super().clean()
 
         search_fields = [
-            'show_perimeter_field', 'show_audience_field',
-            'show_categories_field', 'show_mobilization_step_field',
-            'show_aid_type_field', 'show_backers_field', 'show_text_field',
+            "show_perimeter_field",
+            "show_audience_field",
+            "show_categories_field",
+            "show_mobilization_step_field",
+            "show_aid_type_field",
+            "show_backers_field",
+            "show_text_field",
         ]
 
         # If there is no form customization fields, then we don't
@@ -118,7 +134,8 @@ class SearchPageAdminForm(forms.ModelForm):
         # access to form customization.
         all_form_fields = self.fields.keys()
         has_form_customization_fields = any(
-            field in all_form_fields for field in search_fields)
+            field in all_form_fields for field in search_fields
+        )
         if not has_form_customization_fields:
             return data
 
@@ -129,13 +146,15 @@ class SearchPageAdminForm(forms.ModelForm):
 
         if nb_filters == 0:
             raise ValidationError(
-                'Vous devez sélectionner au moins un filtre pour le formulaire de recherche.',
-                code='not_enough_filters')
+                "Vous devez sélectionner au moins un filtre pour le formulaire de recherche.",
+                code="not_enough_filters",
+            )
 
         if nb_filters > 3:
             raise ValidationError(
-                'Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de recherche.',  # noqa
-                code='too_many_filters')
+                "Vous ne devez pas sélectionner plus de trois filtres pour le formulaire de recherche.",  # noqa
+                code="too_many_filters",
+            )
 
         return data
 
@@ -149,17 +168,17 @@ class MinisiteTabFormLite(MinisiteTabForm):
 
     def build_url_from_title(self, title):
         slug = slugify(title)[:50]
-        url = f'/{slug}/'
+        url = f"/{slug}/"
         return url
 
     def clean_url(self):
-        url = self.cleaned_data['url']
+        url = self.cleaned_data["url"]
         if not url:
-            title = self.cleaned_data.get('title')
+            title = self.cleaned_data.get("title")
             url = self.build_url_from_title(title)
         return url
 
     def save(self, commit=True):
         if not self.instance.id:
-            self.instance.url = self.cleaned_data['url']
+            self.instance.url = self.cleaned_data["url"]
         return super().save(commit=commit)

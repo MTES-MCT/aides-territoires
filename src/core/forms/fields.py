@@ -15,7 +15,7 @@ class RichTextField(forms.CharField):
       - sanitize the generated html
     """
 
-    CSS_CLASS = 'textarea-wysiwyg'
+    CSS_CLASS = "textarea-wysiwyg"
 
     def __init__(self, *args, widget=None, **kwargs):
         widget = widget or forms.Textarea
@@ -25,17 +25,15 @@ class RichTextField(forms.CharField):
         """Add a custom css class to the widget."""
 
         attrs = super().widget_attrs(widget)
-        attrs.update({
-            'class': self.CSS_CLASS
-        })
+        attrs.update({"class": self.CSS_CLASS})
         return attrs
 
     def clean(self, value):
         """Sanitize the html."""
 
         cleaned = super().clean(value)
-        extra_tags = ['a', 'blockquote', 'br', 'header', 'footer', 'img']
-        extra_attrs = ['style']
+        extra_tags = ["a", "blockquote", "br", "header", "footer", "img"]
+        extra_attrs = ["style"]
         return content_prettify(
             cleaned,
             more_allowed_tags=extra_tags,
@@ -65,15 +63,17 @@ class GroupedModelChoiceField(forms.ModelChoiceField):
     Shamelessly stolen from here:
     https://code.djangoproject.com/ticket/27331#comment:7
     """
+
     def __init__(self, *args, choices_groupby, **kwargs):
         if isinstance(choices_groupby, str):
             choices_groupby = attrgetter(choices_groupby)
         elif not callable(choices_groupby):
-            msg = 'choices_groupby must either be a str or a callable ' \
-                  'accepting a single argument'
+            msg = (
+                "choices_groupby must either be a str or a callable "
+                "accepting a single argument"
+            )
             raise TypeError(msg)
-        self.iterator = partial(
-            GroupedModelChoiceIterator, groupby=choices_groupby)
+        self.iterator = partial(GroupedModelChoiceIterator, groupby=choices_groupby)
         super().__init__(*args, **kwargs)
 
 
@@ -102,7 +102,7 @@ class AutocompleteModelChoiceField(forms.ModelChoiceField):
 
     def prepare_value(self, value):
         if isinstance(value, str):
-            value = value.split('-')[0]
+            value = value.split("-")[0]
         return value
 
 
@@ -123,15 +123,16 @@ class AutocompleteModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         return super().to_python(value)
 
     def prepare_value(self, value):
-
         def clean_val(val):
             if isinstance(val, str):
-                val = val.split('-')[0]
+                val = val.split("-")[0]
             return val
 
-        if (hasattr(value, '__iter__') and
-                not isinstance(value, str) and
-                not hasattr(value, '_meta')):
+        if (
+            hasattr(value, "__iter__")
+            and not isinstance(value, str)
+            and not hasattr(value, "_meta")
+        ):
             value = [clean_val(val) for val in value]
 
         return super().prepare_value(value)
