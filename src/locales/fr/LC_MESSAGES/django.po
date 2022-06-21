@@ -892,9 +892,6 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
-msgid "Remove"
-msgstr "Supprimer"
-
 msgid "Combine"
 msgstr "Combiner"
 
