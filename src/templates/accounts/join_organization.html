@@ -45,18 +45,18 @@
                         <p><strong>{{ invitation_author }} vous invite à rejoindre l'organisation «&nbsp;{{ organization_name }}&nbsp;».</strong></p>
                         <p>Si vous acceptez cette invitation, votre organisation de rattachement sera modifiée. Si vous êtes l'unique utilisateur de votre organisation actuelle celle-ci sera par ailleurs supprimée.</p>
                         {% if collaborators %}
-                        <p>Le cas échéant vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation et d'inviter vos collaborateurs actuels à rejoindre également la nouvelle organisation.</p>
+                        <p>Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation et d'inviter vos collaborateurs actuels à rejoindre également la nouvelle organisation.</p>
                         {% elif projects %}
-                        <p>Le cas échéant vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation.</p>
+                        <p>Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation.</p>
                         {% endif %}
                         {% if collaborators or projects %}
-                        <p>Sélectionnez ci-dessous vos choix et acceptez ou refusez l'invitation</p>
+                        <p>Acceptez l'invitation et sélectionnez ci-dessous vos choix ou refusez l'invitation</p>
                         {% endif %}
                     </div>
 
                     {% if collaborators %}
                     <div id="form-group-collaborators" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w"><strong>Souhaitez-vous inviter vos collaborateurs à vous suivre vers l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;?</strong></p>
+                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les collaborateurs que vous souhaitez inviter à vous suivre vers l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;?</strong></p>
                         <ul id="id_collaborators" class=" fr-pl-0">
                             {% for collaborator in collaborators %}
                             <li class="fr-list__none">
@@ -69,7 +69,7 @@
 
                     {% if projects %}
                     <div id="form-group-projects" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez transférer à l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;:</strong></p>
+                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez dupliquer dans l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;:</strong></p>
                         <ul id="id_projects" class=" fr-pl-0">
                             {% for project in projects %}
                             <li class="fr-list__none">
