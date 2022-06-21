@@ -421,7 +421,9 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             for collaborator in collaborators:
                 collaborator = User.objects.get(pk=collaborator.pk)
                 User.objects.filter(pk=collaborator.pk).update(
-                    proposed_organization=proposed_organization
+                    proposed_organization=proposed_organization,
+                    invitation_author=self.request.user.pk,
+                    invitation_date=timezone.now()
                 )
                 send_invitation_email.delay(
                     collaborator.email,
