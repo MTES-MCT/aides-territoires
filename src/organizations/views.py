@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse
-from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.http import HttpResponseRedirect, Http404
+from django.utils.translation import gettext as _
+from django.core.exceptions import PermissionDenied
+
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
@@ -64,6 +67,36 @@ class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateV
     template_name = 'organizations/update.html'
     form_class = OrganizationUpdateForm
     context_object_name = 'organization'
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` argument in the URLconf.
+        Require also user in the organization object
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        user = self.request.user
+        if pk is not None:
+            queryset = queryset.filter(pk=pk)
+
+        if pk is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if user not in obj.beneficiaries.all():
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404(
+                _("No %(verbose_name)s found matching the query")
+                % {"verbose_name": queryset.model._meta.verbose_name}
+            )
+        return obj
 
     def form_valid(self, form):
 
