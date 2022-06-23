@@ -6,7 +6,8 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
+from django.utils.translation import gettext as _
 from django.contrib import messages
 
 from braces.views import MessageMixin
@@ -100,6 +101,33 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
     template_name = "projects/project_detail.html"
     context_object_name = "project"
 
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404(
+                _("No %(verbose_name)s found matching the query")
+                % {"verbose_name": queryset.model._meta.verbose_name}
+            )
+        return obj
+
     def get_queryset(self):
         queryset = Project.objects.prefetch_related("aid_set")
         return queryset
@@ -148,6 +176,33 @@ class ProjectUpdateView(
     template_name = "projects/update_project.html"
     context_object_name = "project"
     form_class = ProjectUpdateForm
+
+    def get_object(self, queryset=None):
+        """
+        Require a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+        except queryset.model.DoesNotExist:
+            raise Http404(
+                _("No %(verbose_name)s found matching the query")
+                % {"verbose_name": queryset.model._meta.verbose_name}
+            )
+        return obj
 
     def get_queryset(self):
         qs = Project.objects.all()
