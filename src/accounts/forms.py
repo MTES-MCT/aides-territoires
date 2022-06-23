@@ -299,11 +299,6 @@ class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
         model = User
         fields = ["first_name", "last_name", "email"]
 
-    def __init__(self, *args, **kwargs):
-        super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs["class"] = "fr-input"
-
     def clean_email(self):
         email = self.cleaned_data["email"]
         return email.lower()

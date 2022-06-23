@@ -15,7 +15,7 @@ class ContactForm(DsfrBaseForm):
         (None, "----"),
         (
             "contact_add",
-            "Je veux en savoir plus sur l'ajout de mes aides sur la plateforme",
+            "Je veux en savoir plus sur l’ajout de mes aides sur la plateforme",
         ),
         ("contact_com", "Je souhaite communiquer sur Aides-territoires"),
         ("contact_question", "J’ai une question sur mon compte utilisateur"),

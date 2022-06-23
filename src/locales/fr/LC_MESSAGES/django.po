@@ -216,16 +216,6 @@ msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
 
-msgid "Receive new results by email"
-msgstr "Recevoir les nouveaux résultats par e-mail"
-
-msgid ""
-"An account with this address already exists. If this is your account, you "
-"might want to login first."
-msgstr ""
-"Un compte avec cette adresse existe déjà. Avez-vous oublié de vous "
-"connecter ?"
-
 msgid "Owner"
 msgstr "Auteur"
 

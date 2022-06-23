@@ -34,8 +34,14 @@ class OrganizationCreateForm(forms.ModelForm, DsfrBaseForm):
         model = Organization
         fields = ["name", "organization_type", "perimeter"]
 
+    def __init__(self, *args, **kwargs):
+        super(OrganizationCreateForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            if type(visible.field.widget) == OrganizationTypeWidget:
+                visible.field.widget.attrs["class"] = "fr-select"
 
-class OrganizationUpdateForm(forms.ModelForm):
+
+class OrganizationUpdateForm(forms.ModelForm, DsfrBaseForm):
     """allow user to update organization's data."""
 
     name = forms.CharField(label="Nom de la structure", required=True)
@@ -82,4 +88,5 @@ class OrganizationUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrganizationUpdateForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs["class"] = "fr-input"
+            if type(visible.field.widget) == OrganizationTypeWidget:
+                visible.field.widget.attrs["class"] = "fr-select"

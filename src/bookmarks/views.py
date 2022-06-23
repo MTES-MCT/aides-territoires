@@ -109,9 +109,8 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
         return user
 
     def form_invalid(self, form):
-        if form.has_error('email', 'unique'):
-            msg = _('An account with this address already exists. If this is '
-                    'your account, you might want to login first.')
+        if form.has_error("email", "unique"):
+            msg = "Un compte avec cette adresse existe déjà. Avez-vous oublié de vous connecter ?"
         else:
             msg = _('We could not create your bookmark because of those '
                     'errors: {}').format(form.errors.as_text())
