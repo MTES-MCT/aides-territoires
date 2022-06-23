@@ -45,14 +45,14 @@
         // build the test form
         eligibilityTestJson.questions.forEach((question, index) => {
             var questionTitle = $(`<h6><span class="badge badge-primary">${index + 1}</span>&nbsp;&nbsp;${question.text}</h6>`);
-            var questionFormGroup = $('<div>', { class: 'form-group required' });
+            var questionFormGroup = $('<div>', { class: 'form-group fr-form-group required' });
             // inline radio for each question's answer_choice
             ANSWER_CHOICES.forEach((answerChoice, answerIndex) => {
                 var answerChoiceKey = `answer_choice_${answerChoice}`;
                 if (question[answerChoiceKey]) {
-                    var formCheck = $('<div>', { class: 'form-check' });
-                    var formCheckLabel = $('<label>', { class: 'form-check-label', for: `answer-${question.id}-${answerIndex + 1}`, text: question[answerChoiceKey] });
-                    formCheckLabel.prepend($('<input>', { class: 'form-check-input', type: 'radio', id: `answer-${question.id}-${answerIndex + 1}`, name: question.id, value: answerChoice, required: true }));
+                    var formCheck = $('<div>', { class: 'form-check fr-radio-group' });
+                    var formCheckLabel = $('<label>', { class: 'form-check-label fr-label', for: `answer-${question.id}-${answerIndex + 1}`, text: question[answerChoiceKey] });
+                    formCheck.append($('<input>', { class: 'form-check-input', type: 'radio', id: `answer-${question.id}-${answerIndex + 1}`, name: question.id, value: answerChoice, required: true }));
                     formCheck.append(formCheckLabel);
                     questionFormGroup.append(formCheck);
                 }
