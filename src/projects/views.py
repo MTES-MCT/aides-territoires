@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.utils.translation import gettext as _
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
 
@@ -110,6 +111,7 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
 
         pk = self.kwargs.get(self.pk_url_kwarg)
         slug = self.kwargs.get(self.slug_url_kwarg)
+        user = self.request.user
         if pk is not None and slug is not None:
             queryset = queryset.filter(pk=pk, slug=slug)
 
@@ -121,6 +123,8 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
 
         try:
             obj = queryset.get()
+            if user not in obj.organizations.first().beneficiaries.all():
+                raise PermissionDenied()
         except queryset.model.DoesNotExist:
             raise Http404(
                 _("No %(verbose_name)s found matching the query")
@@ -197,6 +201,8 @@ class ProjectUpdateView(
 
         try:
             obj = queryset.get()
+            if user not in obj.organizations.first().beneficiaries.all():
+                raise PermissionDenied()
         except queryset.model.DoesNotExist:
             raise Http404(
                 _("No %(verbose_name)s found matching the query")
