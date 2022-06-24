@@ -92,10 +92,7 @@ class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateV
             if user not in obj.beneficiaries.all():
                 raise PermissionDenied()
         except queryset.model.DoesNotExist:
-            raise Http404(
-                _("No %(verbose_name)s found matching the query")
-                % {"verbose_name": queryset.model._meta.verbose_name}
-            )
+            raise Http404()
         return obj
 
     def form_valid(self, form):
