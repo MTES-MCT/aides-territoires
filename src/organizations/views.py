@@ -3,7 +3,6 @@ from django.views.generic import CreateView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404
-from django.utils.translation import gettext as _
 from django.core.exceptions import PermissionDenied
 
 
