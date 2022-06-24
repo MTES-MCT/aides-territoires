@@ -104,9 +104,11 @@
 
         // show results
         if (results) {
+            eligibilityTestResults.attr("class", "fr-alert fr-alert--success");
             eligibilityTestResultMessage.attr('class', 'success').text(SUCCESS_MESSAGE);
             eligibilityTestConclusion.html(event.data.eligibilityTestJson.conclusion_success); // .attr('class', 'info')
         } else {
+            eligibilityTestResults.attr("class", "fr-alert fr-alert--warning");
             eligibilityTestResultMessage.attr('class', 'warning').text(FAILURE_MESSAGE);
             eligibilityTestConclusion.html(event.data.eligibilityTestJson.conclusion_failure); // .attr('class', 'info')
         }

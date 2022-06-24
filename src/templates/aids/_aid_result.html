@@ -36,7 +36,7 @@
                 <i class="ri-settings-5-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="aid-type">Nature de l’aide</strong>
             </p>
-            <ul id="aid-type-list" class="fr-p-0">
+            <ul class="fr-p-0">
                 {% if aid.is_financial %}
                 <li class="fr-list__none">
                     Aide financière
@@ -81,13 +81,13 @@
             </p>
             <ul class="fr-p-0">
             {% if aid.is_coming_soon %}
-            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l’aide&nbsp;!</li>
+            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l’aide !</li>
             {% endif %}
             {% if aid.start_date %}
-                <li class="fr-list__none">Ouverture&nbsp;: {{ aid.start_date|date }}</li>
+                <li class="fr-list__none">Ouverture : {{ aid.start_date|date }}</li>
             {% endif %}
             {% if aid.submission_deadline %}
-                <li class="fr-list__none">Échéance&nbsp;: {{ aid.submission_deadline|date }}</li>
+                <li class="fr-list__none">Échéance : {{ aid.submission_deadline|date }}</li>
             {% endif %}
             </ul>
         {% endif %}

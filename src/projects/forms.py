@@ -1,12 +1,13 @@
 from django import forms
 
+from dsfr.forms import DsfrBaseForm
 from core.forms import RichTextField
 
 from projects.models import Project
 from organizations.models import Organization
 
 
-class ProjectCreateForm(forms.ModelForm):
+class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     """allow user to create project."""
 
     name = forms.CharField(label="Nom de votre projet", required=True)
@@ -32,7 +33,7 @@ class ProjectCreateForm(forms.ModelForm):
         fields = ["name", "description", "organizations", "due_date"]
 
 
-class ProjectUpdateForm(forms.ModelForm):
+class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 
     name = forms.CharField(label="Nom du projet", max_length=256, required=True)
     description = RichTextField(
@@ -50,11 +51,7 @@ class ProjectUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = [
-            "name",
-            "description",
-            "due_date",
-        ]
+        fields = ["name", "description", "due_date"]
         widgets = {
             "due_date": forms.TextInput(
                 attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
