@@ -381,7 +381,13 @@
             {% if keywords %}
             <div class="fr-list__none">
                 {% for keyword in keywords %}
+                {% if user_perimeter and user_targeted_audience %}
+                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience}}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                {% elif user_targeted_audience %}
+                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience}}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                {% else %}
                 <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}

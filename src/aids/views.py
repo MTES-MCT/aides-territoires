@@ -473,6 +473,16 @@ class AidDetailView(DetailView):
                     organizations=self.request.user.beneficiary_organization.pk
                 ).order_by("name")
 
+        if self.request.user.is_authenticated:
+            if self.request.user.beneficiary_organization is not None:
+                context[
+                    "user_targeted_audience"
+                ] = self.request.user.beneficiary_organization.organization_type[0]
+                if self.request.user.beneficiary_organization.perimeter is not None:
+                    context[
+                        "user_perimeter"
+                    ] = self.request.user.beneficiary_organization.perimeter_id
+
         return context
 
     def get(self, request, *args, **kwargs):
