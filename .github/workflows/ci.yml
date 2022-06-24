@@ -77,7 +77,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
+        key: ${{ runner.os }}-pip-2-${{ hashFiles('**/Pipfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
@@ -85,7 +85,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pipenv
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+        key: ${{ runner.os }}-pipenv-2-${{ hashFiles('**/Pipfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pipenv-
 
@@ -93,7 +93,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip-tools
-        key: ${{ runner.os }}-piptools-${{ hashFiles('**/Pipfile.lock') }}
+        key: ${{ runner.os }}-piptools-2-${{ hashFiles('**/Pipfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-piptools-
 
@@ -102,9 +102,10 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-venv-${{ hashFiles('**/Pipfile.lock') }}
+        key: ${{ runner.os }}-venv-2-${{ hashFiles('**/Pipfile.lock') }}
 
     - name: Install python dependencies
+      if: steps.cache-venv.outputs.cache-hit != 'true'
       working-directory: ./src
       run: |
         pipenv sync --dev
