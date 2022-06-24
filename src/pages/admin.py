@@ -27,7 +27,7 @@ class PageForm(FlatpageForm):
 
         if same_url.exists():
             raise ValidationError(
-                "L'url %(url)s existe déjà sur le site Aides-territoires. Veuillez choisir une url davantage personnalisée.",
+                "L'url %(url)s existe déjà sur le site Aides-territoires. Veuillez choisir une url davantage personnalisée.",  # noqa
                 code="duplicate_url",
                 params={"url": url},
             )
