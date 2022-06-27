@@ -975,10 +975,6 @@ msgstr ""
 "créer une, consultez la page de n'importe quelle aide et utilisez le bouton "
 "« Ajouter à une liste »."
 
-msgid "Select a bundle on the menu to see the associated aids."
-msgstr ""
-"Sélectionnez une liste dans le menu pour consulter les aides associées."
-
 msgid "All aid programs"
 msgstr "Tous les programmes d'aides"
 

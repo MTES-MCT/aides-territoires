@@ -27,21 +27,21 @@
 {% block content %}
 <div id="users-stats" class="fr-container">
 
-    <h1 class="fr-mt-0w fr-h4">Projets&nbsp;:</h1>
+    <h1 class="fr-mt-0w fr-h4">Projets :</h1>
 
     <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
         <form method="get" action="{% url 'projects_stats' %}" class="fr-grid-row fr-grid-row--start">
           <div id="form-group-start_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_start_date" class="fr-label"></label>
-                <input type="date" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0">
+                <input type="date" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de début</span>
             </div>
           </div>
           <div id="form-group-end_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_end_date" class="fr-label"></label>
-                <input type="date" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0">
+                <input type="date" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de fin</span>
             </div>
           </div>

@@ -10,67 +10,68 @@
 {% endblock page_title %}
 
 {% block before_section %}
-    {% if messages %}
-        {% for message in messages %}
-        <p class="warning fr-background-alt-pink fr-p-3w">
-            <span class="fr-fi-error-warning-line" aria-hidden="true"></span>
-            {{ message | safe }}
-        </p>
-    {% endfor %}
-    {% endif %}
-    <div class="actions fr-container fr-grid-row fr-grid-row--center fr-mb-5w fr-grid-row--gutters">
-        <div class="sidebar-actions fr-col-12 fr-col-md-4">
-            <p class="fr-h3 fr-mt-1w">{{ aid.get_status_display }}</p>
-
-            {% comment %}
-            This hidden button is here to make it the "default" submit button.
-            This way, we make sure pressing "enter" performs a "save modifications"
-            instead of going to the "unpublished" button.
-            {% endcomment %}
-            <button type="submit" value="save" name="_action" class="hidden-btn" form="aid-edit-form">Enregistrer vos modifications</button>
-            
-            <div>
-                {% if aid.is_draft %}
-                    <p>Cette aide <strong>n’est actuellement pas affichée sur le site</strong>. Vous pouvez l’envoyer pour publication en demandant une revue par un administrateur.</p>
-                    <p class="help">Vous pourrez continuer à modifier votre aide.</p>
-                    <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Demander la publication</button>
-                {% elif aid.is_under_review %}
-                    <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
-                    <p class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</p>
-                    <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Annuler la revue</button>
-                {% elif aid.is_published %}
-                    <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url }}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
-                    <p class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</p>
-                    <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Dépublier maintenant</button>
-                {% endif %}
+    <div class="fr-container">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
+                <p>{{ message | safe }}</p>
             </div>
-        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="actions fr-grid-row fr-grid-row--center fr-mb-5w fr-grid-row--gutters">
+            <div class="sidebar-actions fr-col-12 fr-col-md-4">
+                <p class="fr-h3 fr-mt-1w">{{ aid.get_status_display }}</p>
 
-        <div class="sidebar-actions fr-col-12 fr-col-md-4">
-            <p class="fr-h3 fr-mt-1w">Prévisualisation</p>
-            <div>
-                <p>Vérifiez le rendu de votre aide pour notre public.</p>
-                <a class="fr-btn" href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">Prévisualiser cette aide</a>
+                {% comment %}
+                This hidden button is here to make it the "default" submit button.
+                This way, we make sure pressing "enter" performs a "save modifications"
+                instead of going to the "unpublished" button.
+                {% endcomment %}
+                <button type="submit" value="save" name="_action" class="hidden-btn" form="aid-edit-form">Enregistrer vos modifications</button>
+                
+                <div>
+                    {% if aid.is_draft %}
+                        <p>Cette aide <strong>n’est actuellement pas affichée sur le site</strong>. Vous pouvez l’envoyer pour publication en demandant une revue par un administrateur.</p>
+                        <p class="help">Vous pourrez continuer à modifier votre aide.</p>
+                        <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Demander la publication</button>
+                    {% elif aid.is_under_review %}
+                        <p>Sous réserve de validation par un administrateur, <strong>cette aide sera publiée sous peu</strong>.</p>
+                        <p class="help">Vous pourrez à nouveau demander une revue pour publication plus tard.</p>
+                        <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Annuler la revue</button>
+                    {% elif aid.is_published %}
+                        <p>Vous éditez actuellement une aide publiée à <a href="{{ aid.get_absolute_url }}"><strong>cette adresse</strong></a>. Merci de procéder avec prudence.</p>
+                        <p class="help">Vous devrez demander une revue par un administrateur pour re-publier votre aide.</p>
+                        <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Dépublier maintenant</button>
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        <div class="sidebar-actions action-danger fr-col-12 fr-col-md-4">
-            <p class="fr-h3 fr-mt-1w">Suppression de l’aide</p>
-            <div>
-                <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
-                <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
-                    {% csrf_token %}
+            <div class="sidebar-actions fr-col-12 fr-col-md-4">
+                <p class="fr-h3 fr-mt-1w">Prévisualisation</p>
+                <div>
+                    <p>Vérifiez le rendu de votre aide pour notre public.</p>
+                    <a class="fr-btn" href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">Prévisualiser cette aide</a>
+                </div>
+            </div>
 
-                    <div class="fr-form-group fr-mb-5w">
-                        <div class="fr-checkbox-group">
-                            <input type="checkbox" name="confirm" id="confirm" class="fr-input" />
-                            <label class="fr-label" for="confirm">Je comprends</label>
+            <div class="sidebar-actions action-danger fr-col-12 fr-col-md-4">
+                <p class="fr-h3 fr-mt-1w">Suppression de l’aide</p>
+                <div>
+                    <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre aide. Il n'y a pas d'annulation possible.</p>
+                    <form id="delete-form" action="{% url 'aid_delete_view' aid.slug %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="fr-form-group fr-mb-5w">
+                            <div class="fr-checkbox-group">
+                                <input type="checkbox" name="confirm" id="confirm" class="fr-input" />
+                                <label class="fr-label" for="confirm">Je comprends</label>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="fr-btn">
-                        Supprimer cette aide
-                    </button>
-                </form>
+                        <button type="submit" class="fr-btn">
+                            Supprimer cette aide
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

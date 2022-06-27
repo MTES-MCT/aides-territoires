@@ -58,20 +58,18 @@
     {% endif %}
 
     {% if not aid.is_published %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>
-            Attention ! Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.
-            Vous pouvez la prévisualiser parce que vous en êtes l’auteur.
-        </p>
+    <br clear="all" />
+    <div class="fr-alert fr-alert--warning fr-mt-2w">
+        <p class="fr-alert__title">Attention ! Cette aide n’est actuellement pas affichée sur le site.</p>
+        <p>Vous pouvez la prévisualiser parce que vous en êtes l’auteur.</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>
-            Attention ! Cette aide n’est <strong>plus disponible</strong>. Cette page
-            restera accessible pour archivage.
-        </p>
+    <br clear="all" />
+    <div class="fr-alert fr-alert--warning fr-mt-2w">
+        <p class="fr-alert__title">Attention ! Cette aide n’est plus disponible.</p>
+        <p>Cette page restera accessible pour archivage.</p>
     </div>
     {% endif %}
 

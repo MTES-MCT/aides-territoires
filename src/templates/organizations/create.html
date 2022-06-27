@@ -12,10 +12,10 @@
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
             {% if request.session.USER_NAME %}
-            <h1 class="fr-mb-5w">Bienvenue {{ request.session.USER_NAME }}&nbsp;!</h1>
+            <h1 class="fr-mb-5w">Bienvenue {{ request.session.USER_NAME }} !</h1>
             <h2 class="fr-h3">Merci de renseigner les informations de votre structure pour finaliser votre inscription</h2>
             {% else %}
-            <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }}&nbsp;!</h1>
+            <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }} !</h1>
             <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
             {% endif %}
 

@@ -1,5 +1,4 @@
-{% extends 'bundles/_base_bundles.html' %}
-{% load i18n %}
+{% extends "bundles/_base_bundles.html" %}
 
 {% block content %}
 {{ block.super }}
@@ -8,9 +7,7 @@
     {% if selected_bundle %}
         {% include 'aids/_results.html' %}
     {% else %}
-        <p class="info">{% blocktrans trimmed %}
-            Select a bundle on the menu to see the associated aids.
-        {% endblocktrans %}</p>
+        <p>Sélectionnez une liste dans le menu pour consulter les aides associées.</p>
     {% endif %}
 </section>
-{% endblock %}
+{% endblock content %}
