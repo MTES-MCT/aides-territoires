@@ -166,6 +166,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                 'proposed_organization',
                 'invitation_author',
                 'invitation_date',
+                'join_organization_date'
             )
         }),
         ('Espace administrateur', {

@@ -184,7 +184,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
     )
-    invitation_date = models.DateTimeField("Date de l'invitation", null=True, blank=True)
+    invitation_date = models.DateTimeField(
+        "Date de l'invitation", null=True, blank=True
+    )
+    join_organization_date = models.DateTimeField(
+        "Date d'acceptation de l'invitation", null=True, blank=True
+    )
 
     # Roles
     is_contributor = models.BooleanField(

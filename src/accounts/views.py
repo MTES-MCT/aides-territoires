@@ -504,6 +504,11 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             ).beneficiaries.add(user.pk)
             user_queryset.update(proposed_organization=None)
 
+            # Add join_organization_date
+            User.objects.filter(pk=user.pk).update(
+                join_organization_date=timezone.now(),
+            )
+
             # Send an email to the invitation_author to notice user joined the organization
             send_accept_invitation_email.delay(
                 invitation_author.email, user.full_name, proposed_organization.pk

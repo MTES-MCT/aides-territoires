@@ -78,7 +78,13 @@
                                 Ce collaborateur n'a pas encore renseigné sa fonction
                             {% endif %}
                             </td>
-                            <td>{{ user.date_created|date:'d/m/y' }}</td>
+                            <td>
+                                {% if user.join_organization_date %}
+                                {{ user.join_organization_date|date:'d/m/y' }}
+                                {% else %}
+                                {{ user.date_created|date:'d/m/y' }}
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if user.last_login and user.beneficiary_organization == beneficiary_organization %}
                                 Validée
