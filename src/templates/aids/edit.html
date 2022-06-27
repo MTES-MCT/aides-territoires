@@ -31,7 +31,7 @@
             
             <div>
                 {% if aid.is_draft %}
-                    <p>Cette aide <strong>n'est actuellement pas affichée sur le site</strong>. Vous pouvez l’envoyer pour publication en demandant une revue par un administrateur.</p>
+                    <p>Cette aide <strong>n’est actuellement pas affichée sur le site</strong>. Vous pouvez l’envoyer pour publication en demandant une revue par un administrateur.</p>
                     <p class="help">Vous pourrez continuer à modifier votre aide.</p>
                     <button type="submit" name="_action" value="update_status" form="aid-edit-form" class="fr-btn">Demander la publication</button>
                 {% elif aid.is_under_review %}

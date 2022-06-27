@@ -60,7 +60,7 @@ def contributor():
     """Generates a valid and active contributor."""
 
     # We may need an OrganizationFactory when the organizations app has a test suite
-    sample_org = Organization(name="Sample org")
+    sample_org = Organization(name="Sample org", organization_type=["epci"])
     sample_org.save()
 
     user = ContributorFactory()
