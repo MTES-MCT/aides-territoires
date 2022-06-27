@@ -944,9 +944,6 @@ msgstr "Enregistrer en brouillon"
 msgid "Receive new aids before everyone!"
 msgstr "Recevez en priorité les nouvelles aides !"
 
-msgid "Selected filters"
-msgstr "Les filtres sélectionnés"
-
 msgid "Alert deletion"
 msgstr "Suppression d'alerte"
 
@@ -963,9 +960,6 @@ msgstr ""
 
 msgid "Yes, delete this alert now"
 msgstr "Oui, supprimer cette alerte"
-
-msgid "Blog"
-msgstr "Blog"
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"
