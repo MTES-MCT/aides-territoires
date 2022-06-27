@@ -37,7 +37,7 @@
                             </div>
                             <div class="fr-px-2w">
                                 <p class="fr-mt-1w">Et <b>si vous êtes porteur d’aides</b>, vous pourrez également gérer et diffuser toutes vos aides.</p>
-                                <p class="fr-mt-1w">Alors, n'attendez plus, et <b>créez votre compte en 1 minute !</b></p>
+                                <p class="fr-mt-1w">Alors, n’attendez plus, et <b>créez votre compte en 1 minute !</b></p>
                             </div>
                         </div>
                     </div>
@@ -88,10 +88,8 @@
                                                     {% endfor %}
                                                 </select>
                                                 {% if form.organization_type.errors %}
-                                                <p class="error field-error">
-                                                    <p id="text-input-error-desc-error" class="fr-error-text">
-                                                        {{ form.organization_type.errors.0 }}
-                                                    </p>
+                                                <p id="text-input-error-desc-error" class="fr-error-text">
+                                                    {{ form.organization_type.errors.0 }}
                                                 </p>
                                                 {% endif %}
                                             </div>
@@ -107,10 +105,8 @@
                                                         {% endfor %}
                                                     </select>
                                                     {% if form.beneficiary_function.errors %}
-                                                    <p class="error field-error">
-                                                        ↑
+                                                    <p id="text-input-error-desc-error" class="fr-error-text">
                                                         {{ form.beneficiary_function.errors.0 }}
-                                                        ↑
                                                     </p>
                                                     {% endif %}
                                                 </div>
@@ -120,7 +116,7 @@
 
                                             <div class="fr-form-group">
                                                 <fieldset class="fr-fieldset">
-                                                    <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
+                                                    <p>Vous souhaitez utiliser Aides-territoires pour :</p>
                                                     <div class="fr-grid-row fr-grid--middle">
                                                         <div class="fr-fieldset__content fr-pr-2w">
                                                             {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}

@@ -899,9 +899,6 @@ msgstr "Recherche"
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
 
-msgid "We could not find any results."
-msgstr "Nous n'avons pu trouver aucun résultat."
-
 msgid "Keyword"
 msgstr "Mot clé"
 
