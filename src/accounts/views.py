@@ -409,12 +409,33 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             projects = form.cleaned_data["projects"]
             collaborators = form.cleaned_data["collaborators"]
 
-            # Transfer selected projects to the proposed_organization
+            # Duplicate selected projects & Transfer them to the proposed_organization
             for project in projects:
                 project_queryset = Project.objects.get(pk=project.pk)
                 project_description = project_queryset.description
                 project_name = project_queryset.name
                 project_due_date = project_queryset.due_date
+
+                # if the author of the project selected is the user,
+                # and if the current organization has more than one beneficiary
+                # we reattribute the project to an other user of the current organization
+                if project.author.first() == user:
+                    if (
+                        Organization.objects.get(
+                            pk=user.beneficiary_organization.pk
+                        ).beneficiaries.count()
+                        > 1
+                    ):
+                        new_author = (
+                            User.objects.filter(
+                                beneficiary_organization=user.beneficiary_organization.pk
+                            )
+                            .exclude(pk=user.pk)
+                            .first()
+                        )
+                        project.author.add(new_author.pk)
+                        project.author.remove(user.pk)
+
                 duplicate_project = Project.objects.create(
                     name=project_name,
                     description=project_description,
