@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load i18n humanize %}
+{% extends "_base.html" %}
+{% load humanize %}
 
-{% block extratitle %}Statistiques publiques{% endblock %}
+{% block extratitle %}Statistiques publiques{% endblock extratitle %}
 
 {% block content %}
 <section id="stats" class="fr-container">
@@ -9,50 +9,36 @@
 
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Aides disponibles</p>
-                    <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
-                </h4>
+                <h4 class="fr-card__title">Aides disponibles</h4>
+                <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
                 <p class="fr-card__desc fr-h1">{{ nb_live_aids|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Alertes envoyées</p>
-                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        E-mails d'alertes « nouvelles aides »
-                    {% endblocktrans %}</p>
-                </h4>
+                <h4 class="fr-card__title">Alertes envoyées</h4>
+                <p class="fr-mb-0 fr-xs">E-mails d’alertes « nouvelles aides »</p>
                 <p class="fr-card__desc fr-h1">{{ nb_sent_alerts|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Aides vues</p>
-                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        Aides vues sur les 7 derniers jours
-                    {% endblocktrans %}</p>
-                </h4>
+                <h4 class="fr-card__title">Aides vues</h4>
+                <p class="fr-mb-0 fr-xs">Aides vues sur les 7 derniers jours</p>
                 <p class="fr-card__desc fr-h1">{{ nb_viewed_aids|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Porteurs d'aides</p>
-                    <p class="fr-mb-0 fr-xs">{% blocktrans trimmed %}
-                        Organisations diffusant au moins une aide financière ou en ingénierie
-                    {% endblocktrans %}</p>
-                </h4>
+                <h4 class="fr-card__title">Porteurs d’aides</h4>
+                <p class="fr-mb-0 fr-xs">Organisations diffusant au moins une aide financière ou en ingénierie</p>
                 <p class="fr-card__desc fr-h1">{{ nb_backers|intcomma }}</p>
             </div>
         </div>
 
     </div>
 </section>
-{% endblock %}
+{% endblock content %}
