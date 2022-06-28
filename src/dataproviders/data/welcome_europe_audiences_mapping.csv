@@ -11,7 +11,10 @@ Grande Entreprise (> 250 Salaries),Entreprises privées,"Entreprises publiques l
 Médias et organisations culturelles,Entreprises privées,"Établissements publics (écoles, bibliothèques…) / Services de l'État",Associations,,,,,,,,,
 Organisation UE & Internationale,"Établissements publics (écoles, bibliothèques…) / Services de l'État",,,,,,,,,,,
 Pme & Start-Up (< 249 Salaries),Entreprises privées,,,,,,,,,,,
+Pme & Start-Up (< 249 Salarié.es),Entreprises privées,,,,,,,,,,,
+Grande Entreprise (> 250 Salarié.es),Entreprises privées,,,,,,,,,,,
 Tous bénéficiaires,Communes,Intercommunalités / Pays,Départements,Régions,Collectivités d'outre-mer à statuts particuliers,Associations,Particuliers,Agriculteurs,Entreprises privées,"Entreprises publiques locales (Sem, Spl, SemOp)","Établissements publics (écoles, bibliothèques…) / Services de l'État",Recherche
+Tout bénéficiaire,Communes,Intercommunalités / Pays,Départements,Régions,Collectivités d'outre-mer à statuts particuliers,Associations,Particuliers,Agriculteurs,Entreprises privées,"Entreprises publiques locales (Sem, Spl, SemOp)","Établissements publics (écoles, bibliothèques…) / Services de l'État",Recherche
 Autorités locales et régionales,Communes,Intercommunalités / Pays,Départements,Régions,Collectivités d'outre-mer à statuts particuliers,,,,,,,
 Association,Associations,,,,,,,,,,,
 Centres de formation,Entreprises privées,,,,,,,,,,,

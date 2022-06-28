@@ -383,11 +383,7 @@ class Command(BaseImportCommand):
                 if category in CATEGORIES_DICT:
                     aid_categories.extend(CATEGORIES_DICT.get(category, []))
                 else:
-                    self.stdout.write(
-                        self.style.ERROR(
-                            f"\"{line.get('filtres_sectors', '')}\";{category}"
-                        )
-                    )
+                    self.stdout.write(self.style.ERROR(f"{category}"))
         else:
             print(f"{title} aucune thématique WE")
         return aid_categories
@@ -404,14 +400,14 @@ class Command(BaseImportCommand):
             for program in programs:
                 if program in PROGRAMS_DICT:
                     aid_programs.extend(PROGRAMS_DICT.get(program, []))
-                else:
-                    self.stdout.write(
-                        self.style.ERROR(
-                            f"\"{line.get('relations_programmes', '')}\";{program}"
-                        )
-                    )
-        else:
-            print(f"{title} aucun programme WE")
+                # else:
+                #     self.stdout.write(
+                #         self.style.ERROR(
+                #             f"\"{line.get('relations_programmes', '')}\";{program}"
+                #         )
+                #     )
+        # else:
+        #     print(f"{title} aucun programme WE")
         return aid_programs
 
     def extract_contact(self, line):
