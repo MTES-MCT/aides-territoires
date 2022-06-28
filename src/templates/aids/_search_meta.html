@@ -2,7 +2,10 @@
 <div class="search-meta">
 
     {% if not current_search_dict %}
-    <i>Vous n'avez pas sélectionné de filtres. Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</i>
+    <div class="fr-alert fr-alert--info">
+        <p class="fr-alert__title">Vous n’avez pas sélectionné de filtres.</p>
+        <p>Obtenez des aides plus personnalisées en sélectionnant des critères lors de votre recherche.</p>
+    </div>
     {% endif %}
 
     {% block search-meta-targeted-audiences %}

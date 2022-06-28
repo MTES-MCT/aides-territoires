@@ -5,29 +5,9 @@
     <form name="generic_to_local" action="{% url 'aid_generic_to_local_view' aid.slug %}" method="post">
         {% csrf_token %}
         <button type="submit" class="fr-btn">
-            <i class="fas fa-solid fa-copy mr-1"></i>
+            <i class="ri-file-copy-line ri-xl at-icon-align--sub color-white fr-mr-1w"></i>
             Créer une variante locale de cette aide
         </button>
     </form>
-</div>
-{% else %}
-<div class="fr-accordion">
-    <button type="button" id="create-local-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="collapse-create-local">
-        💡 Vous souhaitez créer une déclinaison locale de cette aide ?
-    </button>
-    <div class="fr-collapse" id="collapse-create-local">
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            {% url 'login' as login_url %}
-            Vous disposez déjà d'un compte ?
-            <a href="{{ login_url }}?next={% url 'aid_detail_view' aid.slug %}">Rendez-vous sur la page de connexion.</a>
-        </div>
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-            {% url 'register' as register_url %}
-            Vous n'avez pas encore de compte ?
-            <a href="{{ register_url }}">Inscrivez-vous puis revenez sur cette page.</a>
-        </div>
-        <p class="fr-mt-3w">Si vous avez des questions, <a href="{% url 'contact' %}">n'hésitez pas à nous contacter.</a>
-        </p>
-    </div>
 </div>
 {% endif %}

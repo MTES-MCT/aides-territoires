@@ -84,7 +84,7 @@
                                     {{ aid.name }}
                                 </a>
                                 {% if aid.is_live %}
-                                    <span class="fas fa-check-circle" title="Affichée"></span>
+                                    <span class="fr-icon-success-line" title="Affichée" aria-hidden="true"></span>
                                 {% endif %}
                             </td>
                             <td>{{ aid.perimeter }}</td>
@@ -92,11 +92,11 @@
                             <td>{{ aid.date_updated|date:'d/m/y' }}</td>
                             <td class="nowrap-cell">
                                 {% if aid.is_ongoing %}
-                                    <span class="fas fa-parking" title="Permanente"></span>
+                                    <span class="ri-parking-box-line ri-xl" title="Permanente"></span> 
                                 {% elif aid.has_approaching_deadline %}
-                                    <span class="fas fa-clock" title="Échéance proche"></span>
+                                    <span class="ri-time-line ri-xl" title="Échéance proche"></span>
                                 {% elif aid.has_expired %}
-                                    <span class="fas fa-exclamation-circle" title="Expirée"></span>
+                                    <span class="fr-icon-warning-line" title="Expirée"></span>
                                 {% endif %}
                                 <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                             </td>

@@ -745,15 +745,6 @@ msgstr "Mettre à jour votre profil"
 msgid "Create an account to broadcast your aids"
 msgstr "Créez un compte pour diffuser vos aides"
 
-msgid ""
-"<span class=\"fas fa-exclamation-circle\"></span> Only create an account "
-"<strong>if you are an aid backer</strong> and want to broadcast your aids "
-"with us."
-msgstr ""
-"<span class=\"fas fa-exclamation-circle\"></span>\n"
-"Les contributeurs sont les acteurs qui référencent les aides et non ceux qui "
-"les reçoivent."
-
 #, python-format
 msgid ""
 "If you want to browse our aids catalog, <a href=\"%(search_url)s\"> use our "
@@ -904,62 +895,6 @@ msgstr "Mot clé"
 
 msgid "Results"
 msgstr "Résultats"
-
-msgid "More search filters"
-msgstr "Plus de critères"
-
-msgid "Find aids"
-msgstr "Trouver des aides"
-
-msgid ""
-"<span class=\"fas fa-exclamation-circle\"></span> Before being published, "
-"your aid <strong>must be reviewed by an administrator</strong>."
-msgstr ""
-"<span class=\"fas fa-exclamation-circle\"></span>\n"
-"Votre aide devra être <strong>revue par un administrateur</strong> avant "
-"publication."
-
-msgid ""
-"You can create your aid and <strong>ask for publication</strong> right away, "
-"or <strong>save it as a draft</strong>."
-msgstr ""
-"Vous pouvez créer votre aide et <strong>demander la publication "
-"immédiatement</strong>, ou <strong>l'enregistrer en tant que brouillon</"
-"strong>."
-
-msgid ""
-"<span class=\"fas fa-exclamation-circle\"></span> Your aid <strong>will not "
-"be published</strong> until it is reviewed by an administrator."
-msgstr ""
-"<span class=\"fas fa-exclamation-circle\"></span>\n"
-"Votre aide <strong>ne sera pas publiée</strong> tant qu'elle n'aura pas été "
-"revue par un administrateur."
-
-msgid "Save and request publication"
-msgstr "Enregistrer et demander la publication"
-
-msgid "Save as a draft"
-msgstr "Enregistrer en brouillon"
-
-msgid "Receive new aids before everyone!"
-msgstr "Recevez en priorité les nouvelles aides !"
-
-msgid "Alert deletion"
-msgstr "Suppression d'alerte"
-
-msgid "Confirm the alert deletion"
-msgstr "Confirmez la suppression de l'alerte"
-
-#, python-format
-msgid ""
-"You are about to delete the alert \"%(alert_title)s\". Are you sure you want "
-"to continue?"
-msgstr ""
-"Vous êtes sur le point de supprimer l'alerte « %(alert_title)s ». Êtes vous "
-"certain de vouloir continuer ?"
-
-msgid "Yes, delete this alert now"
-msgstr "Oui, supprimer cette alerte"
 
 msgid "Aid bundles"
 msgstr "Listes d'aides"
