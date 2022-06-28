@@ -25,7 +25,7 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<article id="draft-list" class="fr-container">
+<div id="draft-list" class="fr-container">
 
     <div class="fr-grid-row">    
         
@@ -84,21 +84,21 @@
                                     {{ aid.name }}
                                 </a>
                                 {% if aid.is_live %}
-                                    <span class="fr-icon-success-line" title="Affichée" aria-hidden="true"></span>
+                                    <p class="fr-badge fr-badge--success fr-badge--sm">Affichée</p>
                                 {% endif %}
                             </td>
                             <td>{{ aid.perimeter }}</td>
-                            <td>{{ aid.date_created|date:'d/m/y' }}</td>
-                            <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+                            <td>{{ aid.date_created|date:'d/m/Y' }}</td>
+                            <td>{{ aid.date_updated|date:'d/m/Y' }}</td>
                             <td class="nowrap-cell">
+                                <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
                                 {% if aid.is_ongoing %}
-                                    <span class="ri-parking-box-line ri-xl" title="Permanente"></span> 
+                                    <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
                                 {% elif aid.has_approaching_deadline %}
-                                    <span class="ri-time-line ri-xl" title="Échéance proche"></span>
+                                    <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
                                 {% elif aid.has_expired %}
-                                    <span class="fr-icon-warning-line" title="Expirée"></span>
+                                    <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
                                 {% endif %}
-                                <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                             </td>
                             <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
                             <td>{% get hits_per_aid aid.id 0 %}</td>
@@ -111,5 +111,5 @@
             {% include '_pagination.html' %}
         </div>
     </div>
-</article>
+</div>
 {% endblock content %}
