@@ -92,7 +92,7 @@ def test_admin_users_can_preview_unpublished_aids(client, superuser):
     assert 'Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.' in res.content.decode()  # noqa
 
 
-def test_contributons_can_preview_their_own_aids(client, user, contributor):
+def test_contributors_can_preview_their_own_aids(client, user, contributor):
     client.force_login(contributor)
     aid = AidFactory(status='draft', author=user)
     url = aid.get_absolute_url()
