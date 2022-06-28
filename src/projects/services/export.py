@@ -5,6 +5,7 @@ from xhtml2pdf import pisa
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template.loader import get_template
+from django.utils.text import get_valid_filename
 
 from aids.resources import AidResource
 from projects.models import Project
@@ -39,7 +40,7 @@ def export_project(project: Project, file_format: str) -> dict:
 
     exported_aids = AidResource().export(aids_qs)
 
-    filename = f"at-export-projet-{project.slug}.{file_format}"
+    filename = get_valid_filename(f"Aides-territoires_-_{project.name}.{file_format}")
 
     if file_format == "csv":
         response = {
@@ -48,6 +49,7 @@ def export_project(project: Project, file_format: str) -> dict:
             "filename": filename,
         }
     elif file_format == "xlsx":
+        exported_aids.title = "Aides-territoires"  # Sheet title
         response = {
             "content": exported_aids.xlsx,
             "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
