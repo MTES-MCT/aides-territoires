@@ -372,7 +372,7 @@
             {% endif %}
 
             {% if keywords %}
-            <div class="fr-list__none">
+            <div class="fr-list__none fr-mb-4w">
                 {% for keyword in keywords %}
                 {% if user_perimeter and user_targeted_audience %}
                 <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience}}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
@@ -384,6 +384,20 @@
                 {% endfor %}
             </div>
             {% endif %}
+
+            <div>
+                <div class="data-origin fr-mb-4w fr-grid-row">
+                    <div class="fr-col-2">
+                        <i class="fr-icon-flashlight-line" aria-hidden="true"></i>                    </div>
+                    <div class="fr-col-10">
+                        <h2 class="fr-h6">
+                            Dernière mise à jour
+                        </h2>
+                        <p>{{ aid.date_updated|date}}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
