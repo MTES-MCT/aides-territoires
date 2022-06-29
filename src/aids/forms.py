@@ -200,7 +200,7 @@ class AidEditForm(BaseAidForm):
         help_text="Suggérez un porteur si vous ne trouvez pas votre choix dans la liste principale.",  # noqa
     )
     instructors = AutocompleteModelMultipleChoiceField(
-        label="Porteurs d'aides",
+        label="Instructeurs",
         queryset=Backer.objects.all(),
         required=False,
         help_text="Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.",
