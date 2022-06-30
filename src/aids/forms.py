@@ -175,7 +175,7 @@ class AidAdminForm(BaseAidForm):
 
     european_aid = forms.ChoiceField(
         label="Aide européenne ?",
-        help_text="* Les fonds structurels (FEDER, FSE+...) sont les aides gérées par les conseils régionaux.",
+        help_text="* Les fonds structurels (FEDER, FSE+...) sont les aides gérées par les conseils régionaux.",  # noqa
         required=False,
         widget=forms.RadioSelect,
         choices=EUROPEAN_AIDS,

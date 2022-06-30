@@ -10,7 +10,6 @@ from django.utils import timezone
 from aids.models import Aid, AidWorkflow
 from aids.forms import AidEditForm
 from stats.utils import log_event
-from keywords.models import Keyword
 
 
 # Call for projects will often contain those words
