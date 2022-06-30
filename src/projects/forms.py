@@ -66,10 +66,10 @@ class ProjectExportForm(forms.ModelForm):
     """Form used to export a project."""
 
     CHOICES = [
-        ("pdf", "Document PDF"),
         ("csv", "Fichier CSV"),
         ("xlsx", "Tableur Excel"),
     ]
+    # ("pdf", "Document PDF"),
 
     format = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
 
