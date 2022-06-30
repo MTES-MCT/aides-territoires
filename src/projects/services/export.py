@@ -1,13 +1,14 @@
 from io import BytesIO
 import os
 from xhtml2pdf import pisa
+from datetime import date
 
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.template.loader import get_template
 from django.utils.text import get_valid_filename
 
-from aids.resources import AidResource
+from aids.resources import AidResourcePublic
 from projects.models import Project
 
 
@@ -38,9 +39,13 @@ def fetch_resources(uri: str, rel) -> str:
 def export_project(project: Project, file_format: str) -> dict:
     aids_qs = project.aid_set.all()
 
-    exported_aids = AidResource().export(aids_qs)
+    exported_aids = AidResourcePublic().export(aids_qs)
 
-    filename = get_valid_filename(f"Aides-territoires_-_{project.name}.{file_format}")
+    today = date.today().strftime("%Y-%m-%d")
+
+    filename = get_valid_filename(
+        f"Aides-territoires - {today} - {project.name}.{file_format}"
+    )
 
     if file_format == "csv":
         response = {

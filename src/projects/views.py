@@ -244,7 +244,7 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         file_format = request.POST["format"]
         project = self.get_object()
 
-        if file_format in ["csv", "xlsx", "pdf"]:
+        if file_format in ["csv", "xlsx"]:  # "pdf"
             response_data = export_project(project, file_format)
             if "error" not in response_data:
                 filename = response_data["filename"]
