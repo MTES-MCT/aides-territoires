@@ -67,7 +67,7 @@ class BaseImportCommand(BaseCommand):
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(
-                            financers, instructors, categories, keywords
+                            financers, instructors, categories, keywords, programs
                         )
                         aid.status = AidWorkflow.states.reviewable
                         aid.save()
