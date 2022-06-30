@@ -24,7 +24,7 @@ DATA_SOURCE = DataSource.objects \
     .prefetch_related('perimeter', 'backer') \
     .get(pk=4)
 
-OPENDATA_URL = 'https://data.iledefrance.fr/api/records/1.0/search/?dataset=aides-appels-a-projets&q=&rows=1000'
+OPENDATA_URL = 'https://mesdemarches.iledefrance.fr/guide-des-aides/api/public/tenants/cridfprd/aides?top=2500'
 FEED_ROWS = 1000
 
 AUDIENCES_DICT = {}
@@ -65,22 +65,22 @@ class Command(BaseImportCommand):
         super().handle(*args, **options)
 
     def fetch_data(self, **options):
-        if options['data-file']:
-            data_file = os.path.abspath(options['data-file'])
+        if options["data-file"]:
+            data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            for line in data['data']:
+            for line in data["data"]:
                 yield line
         else:
-            req = requests.get(DATA_SOURCE.import_api_url)
-            req.encoding = 'utf-8-sig'  # We need this to take care of the bom
-            data = json.loads(req.text)
-            self.stdout.write('Total number of aids: {}'.format(data['nhits']))
-            if data['nhits'] > FEED_ROWS:
-                self.stdout.write(self.style.ERROR(
-                    'Only fetching {} aids, but there are {} aids'.format(FEED_ROWS, data['nhits'])))
-            self.stdout.write('Number of aids processing: {}'.format(len(data['records'])))
-            for line in data['records']:
-                yield line['fields']
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0",
+            }
+            req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
+            data = req.json()
+            self.stdout.write("Total number of aids: {}".format(len(data)))
+            for line in data:
+                yield line
 
     def line_should_be_processed(self, line):
         return True
