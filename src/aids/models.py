@@ -212,6 +212,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ("postop", "Usage / valorisation"),
     )
 
+    EUROPEAN_AIDS = Choices(
+        ("sectorial", "Sectorielle"),
+        ("organizational", "Structurelle"),
+    )
+
     AUDIENCES = Choices(*AUDIENCES_ALL)
 
     DESTINATIONS = Choices(
@@ -433,6 +438,17 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         default=False,
     )
 
+    # Specific to European features
+    european_aid = models.CharField(
+        verbose_name="Aide européenne ?",
+        null=True,
+        blank=False,
+        default=None,
+        max_length=32,
+        choices=EUROPEAN_AIDS,
+        help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
+    )
+
     # Disable send_publication_email's task
     author_notification = models.BooleanField(
         "Envoyer un email à l'auteur de l'aide ?",
@@ -467,6 +483,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "Sous quelle licence cette aide a-t-elle été partagée ?",
         max_length=50,
         choices=IMPORT_LICENCES,
+        blank=True,
+    )
+    import_data_mention = models.CharField(
+        "Mention du partenariat avec le propriétaire de la donnée",
+        max_length=900,
+        null=True,
         blank=True,
     )
     import_last_access = models.DateField(
@@ -556,6 +578,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             )
             + SearchVector(
                 Value(self.name_initial, output_field=models.CharField()),
+                weight="A",
+                config="french_unaccent",
+            )
+            + SearchVector(
+                Value(self.short_title, output_field=models.CharField()),
                 weight="A",
                 config="french_unaccent",
             )

@@ -51,11 +51,14 @@
     </div>
     {% endif %}
 
+    <h1>
+    {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
     {% if aid.headline_name %}
-    <h1> {{ aid.headline_name | safe }} </h1>
+     {{ aid.headline_name | safe }}
     {% else %}
-    <h1> {{ aid.name }} </h1>
+    {{ aid.name }}
     {% endif %}
+    </h1>
 
     {% if not aid.is_published %}
     <div class="danger fr-background-alt-pink fr-p-3w">
@@ -330,13 +333,17 @@
                         <i class="ri-database-2-line ri-xl"></i>
                     </div>
                     <div class="fr-col-10">
-                        <h2 class="fr-h6">
+                        <h3 class="fr-h6">
                             Origine de la donnée
-                        </h2>
-                        <p>Cette aide provient d’une source de données tierce</p>
+                        </h3>
+                        <p>Cette aide provient d'une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d'Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}</p>
                         <div>
-                            <p class="fr-break-word"><strong>URL d’origine : </strong>{{ aid.import_data_url|default_if_none:'ND' }}</p>
-                            <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:'ND' }}</p>
+                            {% if aid.import_data_source.pk == 7 %}
+                            <p><strong>URL d'origine : </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></p>
+                            {% else %}
+                            <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
+                            {% endif %}
+                            <p><strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
                             <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                         </div>    
                     </div>
@@ -404,6 +411,10 @@
             {% else %}
             <p>« {{ aid.name_initial }} »</p>
             {% endif %}
+            {% endif %}
+
+            {% if aid.short_title %}
+            <p>« {{ aid.short_title }} »</p>
             {% endif %}
 
             <h3>Description</h3>
