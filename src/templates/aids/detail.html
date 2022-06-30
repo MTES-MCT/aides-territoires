@@ -52,11 +52,12 @@
     {% endif %}
 
     <h1>
-    {% if aid.european_aid %}🇪🇺{% endif %}
+    {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
     {% if aid.headline_name %}
      {{ aid.headline_name | safe }}
     {% else %}
     {{ aid.name }}
+    {% endif %}
     </h1>
 
     {% if not aid.is_published %}
@@ -338,7 +339,7 @@
                         <p>Cette aide provient d'une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d'Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}</p>
                         <div>
                             {% if aid.import_data_source.pk == 7 %}
-                            <p><strong>URL d'origine : </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></p>
+                            <p><strong>URL d'origine : </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></p>
                             {% else %}
                             <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
                             {% endif %}
@@ -409,6 +410,7 @@
             <p> {{ aid.headline_name_initial|safe }} </p>
             {% else %}
             <p>« {{ aid.name_initial }} »</p>
+            {% endif %}
             {% endif %}
 
             {% if aid.short_title %}
