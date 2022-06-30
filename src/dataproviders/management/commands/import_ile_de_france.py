@@ -16,7 +16,7 @@ from geofr.models import Perimeter
 from backers.models import Backer
 from aids.models import Aid
 from categories.models import Theme, Category
-
+from keywords.models import Keyword
 
 ADMIN_ID = 1
 
@@ -253,3 +253,24 @@ class Command(BaseImportCommand):
 
     def extract_aid_types(self, line):
         return [Aid.TYPES.grant]
+
+    def extract_keywords(self, line):
+        categories = line.get('competences', '')
+        keywords = []
+        if categories != [""]:
+            for category in categories:
+                try:
+                    keyword = Keyword.objects.get(name=category["title"])
+                    keyword_list = []
+                    keyword_list.append(keyword)
+                    keyword_pk = Keyword.objects.get(name=category["title"]).pk
+                    keywords.extend(keyword_list)
+                except:
+                    try:
+                        keyword = Keyword.objects.create(name=category["title"])
+                        keyword_list = []
+                        keyword_list.append(keyword)
+                        keyword_pk = Keyword.objects.get(name=category["title"]).pk
+                    except:
+                        pass
+        return keywords
