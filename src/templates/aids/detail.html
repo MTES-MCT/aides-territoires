@@ -341,7 +341,7 @@
                             {% if aid.import_data_source.pk == 7 %}
                             <p><strong>URL d'origine : </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></p>
                             {% else %}
-                            <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
+                            <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
                             {% endif %}
                             <p><strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
                             <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
