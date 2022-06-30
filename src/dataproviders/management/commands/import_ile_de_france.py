@@ -89,7 +89,7 @@ class Command(BaseImportCommand):
         return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
-        unique_id = 'IDF_{}'.format(line['id'])
+        unique_id = 'IDF_{}'.format(line['reference'])
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -101,8 +101,29 @@ class Command(BaseImportCommand):
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        if line.get("dateFinCampagne", None) != None:
+            import_raw_object_calendar["dateFinCampagne"] = line["dateFinCampagne"]
+        if line.get("dateOuvertureCampagne", None) != None:
+            import_raw_object_calendar["dateOuvertureCampagne"] = line["dateOuvertureCampagne"]
+        if line.get("dateDebutFuturCampagne", None) != None:
+            import_raw_object_calendar["dateDebutFuturCampagne"] = line["dateDebutFuturCampagne"]
+        if line.get("datePublicationSouhaitee", None) != None:
+            import_raw_object_calendar["datePublicationSouhaitee"] = line["datePublicationSouhaitee"]
+        return import_raw_object_calendar
+
     def extract_import_raw_object(self, line):
-        return line
+        import_raw_object = dict(line)
+        if line.get("dateFinCampagne", None) != None:
+            import_raw_object.pop("dateFinCampagne")
+        if line.get("dateOuvertureCampagne", None) != None:
+            import_raw_object.pop("dateOuvertureCampagne")
+        if line.get("dateDebutFuturCampagne", None) != None:
+            import_raw_object.pop("dateDebutFuturCampagne")
+        if line.get("datePublicationSouhaitee", None) != None:
+            import_raw_object.pop("datePublicationSouhaitee")
+        return import_raw_object
 
     def extract_name(self, line):
         name = line['title'][:180]
@@ -119,14 +140,6 @@ class Command(BaseImportCommand):
         desc += '<br>'
         desc += line.get('notes', '')
         desc += '<br>'
-        if line.get('docinformatif01_nom', ''):
-            desc += '<p><a href="' + line.get('docinformatif01_url', '') + '">' + line.get('docinformatif01_nom', '') + '</a></p>'
-        if line.get('docinformatif02_nom', ''):
-            desc += '<p><a href="' + line.get('docinformatif02_url', '') + '">' + line.get('docinformatif02_nom', '') + '</a></p>'
-        if line.get('docinformatif03_nom', ''):
-            desc += '<p><a href="' + line.get('docinformatif03_url', '') + '">' + line.get('docinformatif03_nom', '') + '</a></p>'
-        if line.get('docinformatif04_nom', ''):
-            desc += '<p><a href="' + line.get('docinformatif04_url', '') + '">' + line.get('docinformatif04_nom', '') + '</a></p>'
         return desc
 
     def extract_financers(self, line):
@@ -136,14 +149,14 @@ class Command(BaseImportCommand):
         return DATA_SOURCE.perimeter
 
     def extract_origin_url(self, line):
-        title = line.get('title', '')
+        title = line.get('title', '').replace('à', '')
         title_slugified = slugify(title)
         base_url = "https://www.iledefrance.fr/"
         origin_url = base_url + title_slugified
         return origin_url
 
     def extract_application_url(self, line):
-        title = line.get('title', '')
+        title = line.get('title', '').replace('à', '')
         title_slugified = slugify(title)
         base_url = "https://www.iledefrance.fr/"
         application_url = base_url + title_slugified
@@ -154,13 +167,14 @@ class Command(BaseImportCommand):
         Exemple of string to process: "Associations;Collectivités - Institutions;Entreprises"
         Split the string, loop on the values and match to our AUDIENCES
         """
-        audiences = line.get('publics', '').split(';')
+        audiences = line.get('publicsBeneficiaire', '')
         aid_audiences = []
         for audience in audiences:
-            if audience in AUDIENCES_DICT:
-                aid_audiences.extend(AUDIENCES_DICT.get(audience, []))
+            if audience["title"] in AUDIENCES_DICT:
+                aid_audiences.extend(AUDIENCES_DICT.get(audience["title"], []))
             else:
-                self.stdout.write(self.style.ERROR(f'Audience {audience} not mapped'))
+                audience_title = audience["title"]
+                self.stdout.write(self.style.ERROR(f"Audience '{audience_title}' not mapped"))
         return aid_audiences
 
     def extract_categories(self, line):
@@ -168,17 +182,18 @@ class Command(BaseImportCommand):
         Exemple of string to process: "Emploi et formation, Jeunes"
         Split the string, loop on the values and match to our Categories
         """
-        categories = line.get('competences_', '').split(';')
+        categories = line.get('competences', '')
         title = line['title'][:180]
         aid_categories = []
         if categories != ['']:
             for category in categories:
-                if category in CATEGORIES_DICT:
-                    aid_categories.extend(CATEGORIES_DICT.get(category, []))
+                if category["title"] in CATEGORIES_DICT:
+                    aid_categories.extend(CATEGORIES_DICT.get(category["title"], []))
                 else:
-                    self.stdout.write(self.style.ERROR(f"{category}"))
+                    category_title = category["title"]
+                    self.stdout.write(self.style.ERROR(f"Category '{category_title}' not mapped"))
         else:
-            print(f"{title}")
+            print(f"no categories for aid '{title}'")
         return aid_categories
 
     def extract_contact(self, line):
@@ -186,7 +201,7 @@ class Command(BaseImportCommand):
         return contact
 
     def extract_eligibility(self, line):
-        eligibility = line.get('publicsbeneficiaireprecision', '')
+        eligibility = line.get('publicsBeneficiairePrecision', '')
         eligibility += '<br>'
         eligibility += line.get('modalite', '')
         eligibility += '<br>'
@@ -194,7 +209,7 @@ class Command(BaseImportCommand):
         eligibility += '<br>'
         eligibility += line.get('demarches', '')
         eligibility += '<br>'
-        if line.get('docnecessaire01_nom', ''):
+        if line.get('documentsPublics', ''):
             eligibility += '<p><a href="' + line.get('docnecessaire01_url', '') + '">' + line.get('docnecessaire01_nom', '') + '</a></p>'
         if line.get('docnecessaire02_nom', ''):
             eligibility += '<p><a href="' + line.get('docnecessaire02_url', '') + '">' + line.get('docnecessaire02_nom', '') + '</a></p>'
@@ -204,3 +219,37 @@ class Command(BaseImportCommand):
             eligibility += '<p><a href="' + line.get('docnecessaire04_url', '') + '">' + line.get('docnecessaire04_nom', '') + '</a></p>'
         eligibility = content_prettify(eligibility)
         return eligibility
+
+    def extract_recurrence(self, line):
+        if line.get("dateDebutFuturCampagne", None):
+            recurrence = Aid.RECURRENCES.recurring
+        elif line.get("dateFinCampagne", None) :
+            recurrence = Aid.RECURRENCES.oneoff
+        else:
+            recurrence = Aid.RECURRENCES.ongoing
+        return recurrence
+
+    def extract_start_date(self, line):
+        # Some aids have a field "dateOuvertureCampagne" when other just don't
+        # Moreover the format of "dateOuvertureCampagne" field is not unique
+        # Date format can be '%Y-%m-%dT%H:%M:%S.%fZ' and sometimes '%Y-%m-%dT%H:%M:%SZ'
+        if line.get("dateOuvertureCampagne", None):
+            try:
+                start_date = datetime.strptime(line["dateOuvertureCampagne"], '%Y-%m-%dT%H:%M:%S.%fZ')
+            except:
+                start_date = datetime.strptime(line["dateOuvertureCampagne"], '%Y-%m-%dT%H:%M:%SZ')
+            return start_date
+
+    def extract_submission_deadline(self, line):
+        # Some aids have a field "dateFinCampagne" when other just don't
+        # Moreover the format of "dateFinCampagne" field is not unique
+        # Date format can be '%Y-%m-%dT%H:%M:%S.%fZ' and sometimes '%Y-%m-%dT%H:%M:%SZ'
+        if line.get("dateFinCampagne", None):
+            try:
+                submission_deadline = datetime.strptime(line["dateFinCampagne"], '%Y-%m-%dT%H:%M:%S.%fZ')
+            except:
+                submission_deadline = datetime.strptime(line["dateFinCampagne"], '%Y-%m-%dT%H:%M:%SZ')
+            return submission_deadline
+
+    def extract_aid_types(self, line):
+        return [Aid.TYPES.grant]
