@@ -149,17 +149,15 @@ class Command(BaseImportCommand):
         return DATA_SOURCE.perimeter
 
     def extract_origin_url(self, line):
-        title = line.get('title', '').replace('à', '')
-        title_slugified = slugify(title)
-        base_url = "https://www.iledefrance.fr/"
-        origin_url = base_url + title_slugified
+        title = line.get('reference', '')
+        base_url = "https://www.iledefrance.fr/aides-appels-a-projets/"
+        origin_url = base_url + title
         return origin_url
 
     def extract_application_url(self, line):
-        title = line.get('title', '').replace('à', '')
-        title_slugified = slugify(title)
-        base_url = "https://www.iledefrance.fr/"
-        application_url = base_url + title_slugified
+        title = line.get('reference', '')
+        base_url = "https://www.iledefrance.fr/aides-appels-a-projets/"
+        application_url = base_url + title
         return application_url
 
     def extract_targeted_audiences(self, line):
