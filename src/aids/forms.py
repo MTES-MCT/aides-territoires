@@ -24,7 +24,7 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from projects.models import Project
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 from aids.constants import (
     AUDIENCES_GROUPED,
     FINANCIAL_AIDS_LIST,
@@ -196,6 +196,31 @@ class AidAdminForm(BaseAidForm):
         super().__init__(*args, **kwargs)
         if "start_date" in self.fields:
             self.fields["start_date"].required = False
+
+    def clean(self):
+        """Validation routine if status is published."""
+
+        data = super().clean()
+
+        # If the aid is saved as draft, don't perform any data validation
+        if data["status"].state == AidWorkflow.states.published:
+            if "recurrence" in data and data["recurrence"]:
+                recurrence = data["recurrence"]
+                submission_deadline = data.get("submission_deadline", None)
+
+                if recurrence != "ongoing" and not submission_deadline:
+                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date limite de soumission."  # noqa
+                    self.add_error(
+                        "submission_deadline",
+                        ValidationError(msg, code="missing_submission_deadline"),
+                    )
+
+            if not self.data.get("aidfinancer_set-0-backer"):
+                raise ValidationError("Merci d'indiquer un porteur d'aide.")
+
+            return data
+        else:
+            return data
 
 
 class AidEditForm(BaseAidForm):
