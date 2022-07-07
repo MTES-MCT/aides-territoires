@@ -71,7 +71,7 @@ class ProjectExportForm(forms.ModelForm):
     ]
     # ("pdf", "Document PDF"),
 
-    format = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    format = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label="")
 
     class Meta:
         model = Project
