@@ -35,7 +35,7 @@ FINANCIAL_AIDS = (
     ("grant", "Subvention"),
     ("loan", "Prêt"),
     ("recoverable_advance", "Avance récupérable"),
-    ("cee", "Certificat d'économie d'énergie"),
+    ("cee", "Certificat d'économie d'énergie (CEE)"),
 )
 
 OTHER_AIDS = (("other", "Autre aide financière"),)
