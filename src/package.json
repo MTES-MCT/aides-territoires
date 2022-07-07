@@ -13,7 +13,7 @@
     "bootstrap": "^4.6.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
-    "datatables.net": "^1.11.5",
+    "datatables.net": "^1.12.1",
     "datatables.net-dt": "^1.11.5",
     "jquery": "^3.5.1",
     "jquery-resizable-dom": "^0.35.0",
