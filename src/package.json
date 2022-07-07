@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^9.8.8",
     "bootstrap": "^4.6.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
