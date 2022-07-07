@@ -165,7 +165,7 @@ class Command(BaseImportCommand):
         return ""
 
     def extract_import_data_mention(self, line):
-        return "Cette aide est issue d'une traduction, réalisée par la société WelcomEurope à partir des données présentes sur le site officiel 'Funding & Tenders', elle a été mise a disposition d'Aides-territoires à titre gracieux."
+        return "Ces données sont mises à disposition par Welcomeurope à titre gracieux."
 
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
