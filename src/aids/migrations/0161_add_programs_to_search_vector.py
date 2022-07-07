@@ -38,6 +38,14 @@ def update_search_vector_unaccented(apps, schema_editor):
             )
             + SearchVector(
                 Value(
+                    " ".join(str(program.name) for program in programs),
+                    output_field=models.CharField(),
+                ),
+                weight="A",
+                config="french_unaccent",
+            )
+            + SearchVector(
+                Value(
                     " ".join(str(keyword.name) for keyword in keywords),
                     output_field=models.CharField(),
                 ),
@@ -62,14 +70,6 @@ def update_search_vector_unaccented(apps, schema_editor):
             + SearchVector(
                 Value(
                     " ".join(str(backer.name) for backer in backers),
-                    output_field=models.CharField(),
-                ),
-                weight="D",
-                config="french_unaccent",
-            )
-            + SearchVector(
-                Value(
-                    " ".join(str(program.name) for program in programs),
                     output_field=models.CharField(),
                 ),
                 weight="D",

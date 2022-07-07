@@ -629,7 +629,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
                     " ".join(str(program) for program in programs),
                     output_field=models.CharField(),
                 ),
-                weight="D",
+                weight="A",
                 config="french_unaccent",
             )
 
