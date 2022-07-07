@@ -134,8 +134,9 @@ class BaseAidForm(forms.ModelForm):
         instructors = self.cleaned_data.get("instructors", None)
         categories = self.cleaned_data.get("categories", None)
         keywords = self.cleaned_data.get("keywords", None)
+        programs = self.cleaned_data.get("programs", None)
         self.instance.set_search_vector_unaccented(
-            financers, instructors, categories, keywords
+            financers, instructors, categories, keywords, programs
         )
         return super().save(commit=commit)
 
