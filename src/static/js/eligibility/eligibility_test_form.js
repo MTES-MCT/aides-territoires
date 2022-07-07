@@ -6,7 +6,7 @@
 
     const SUBMIT_BUTTON_TEXT = 'Vérifier mon éligibilité';
     const SUCCESS_MESSAGE = '✔️ Vous êtes éligible !';
-    const FAILURE_MESSAGE = 'Vous n\'êtes malheureusement pas éligible.';
+    const FAILURE_MESSAGE = 'Vous n’êtes malheureusement pas éligible.';
 
     var eligibilityTestIntroduction = $('div#eligibility-test-introduction');
     var eligibilityTestForm = $('form#eligibility-test-form');
@@ -45,14 +45,14 @@
         // build the test form
         eligibilityTestJson.questions.forEach((question, index) => {
             var questionTitle = $(`<h6><span class="badge badge-primary">${index + 1}</span>&nbsp;&nbsp;${question.text}</h6>`);
-            var questionFormGroup = $('<div>', { class: 'form-group required' });
+            var questionFormGroup = $('<div>', { class: 'form-group fr-radio-group required' });
             // inline radio for each question's answer_choice
             ANSWER_CHOICES.forEach((answerChoice, answerIndex) => {
                 var answerChoiceKey = `answer_choice_${answerChoice}`;
                 if (question[answerChoiceKey]) {
                     var formCheck = $('<div>', { class: 'form-check' });
                     var formCheckLabel = $('<label>', { class: 'form-check-label', for: `answer-${question.id}-${answerIndex + 1}`, text: question[answerChoiceKey] });
-                    formCheckLabel.prepend($('<input>', { class: 'form-check-input', type: 'radio', id: `answer-${question.id}-${answerIndex + 1}`, name: question.id, value: answerChoice, required: true }));
+                    formCheck.append($('<input>', { class: 'form-check-input', type: 'radio', id: `answer-${question.id}-${answerIndex + 1}`, name: question.id, value: answerChoice, required: true }));
                     formCheck.append(formCheckLabel);
                     questionFormGroup.append(formCheck);
                 }
