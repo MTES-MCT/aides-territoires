@@ -43,6 +43,7 @@ from accounts.tasks import (
     send_reject_invitation_email,
     send_accept_invitation_email,
     send_welcome_email,
+    send_leave_organization_email,
 )
 from accounts.models import User, UserLastConnexion
 from projects.models import Project
@@ -491,9 +492,22 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 ).beneficiaries.remove(user.pk)
                 Organization.objects.filter(beneficiaries=None).delete()
             else:
+                # send an email to all the former collaborators to inform them that user leave the organization
+                former_collaborators = User.objects.filter(
+                    beneficiary_organization=user.beneficiary_organization.pk
+                ).exclude(pk=user.pk)
+                for former_collaborator in former_collaborators:
+                    send_leave_organization_email.delay(
+                        former_collaborator.email,
+                        user.full_name,
+                        former_collaborator.beneficiary_organization.pk,
+                    )
+                    track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+                # change user organization
                 user_queryset.update(
                     beneficiary_organization=user.proposed_organization.pk
                 )
+                # remove user from organization object
                 Organization.objects.get(
                     pk=user.beneficiary_organization.pk
                 ).beneficiaries.remove(user.pk)

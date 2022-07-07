@@ -245,3 +245,46 @@ def send_accept_invitation_email(
         tags=["connexion", settings.ENV_NAME],
         fail_silently=False,
     )
+
+
+@app.task
+def send_leave_organization_email(
+    former_collaborator_email,
+    user_name,
+    former_organization_id,
+    body_template="emails/leave_organization.txt",
+):
+    """
+    Send an email to the former collaborator to inform him
+    the user left the organization.
+    """
+    try:
+        user = User.objects.get(email=former_collaborator_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    base_url = get_base_url()
+    organization = Organization.objects.get(pk=former_organization_id)
+    organization_name = organization.name
+
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "former_collaborator": user.full_name,
+            "organization_name": organization_name,
+            "user_name": user_name,
+        },
+    )
+    send_email(
+        subject="Un collaborateur a quitté votre structure sur Aides-territoires",
+        body=login_email_body,
+        recipient_list=[user.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=["connexion", settings.ENV_NAME],
+        fail_silently=False,
+    )
