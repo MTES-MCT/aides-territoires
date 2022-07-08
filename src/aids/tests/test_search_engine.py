@@ -28,7 +28,7 @@ def aids(perimeters):
         *AidFactory.create_batch(10, perimeter=perimeters['eure']),
         *AidFactory.create_batch(11, perimeter=perimeters['st-cyr']),
         *AidFactory.create_batch(12, perimeter=perimeters['adour-garonne']),
-        *AidFactory.create_batch(13, perimeter=perimeters['rhone-mediterannee']),  # noqa
+        *AidFactory.create_batch(13, perimeter=perimeters['rhone-mediterannee']),
         *AidFactory.create_batch(14, perimeter=perimeters['fort-de-france']),
         *AidFactory.create_batch(15, perimeter=perimeters['outre-mer']),
 
