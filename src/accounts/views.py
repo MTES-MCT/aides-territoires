@@ -446,7 +446,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 duplicate_project.organizations.add(proposed_organization)
                 aidproject_list = AidProject.objects.filter(project=project_queryset.pk)
                 for aidproject in aidproject_list:
-                    new_aidproject = AidProject.objects.create(
+                    AidProject.objects.create(
                         aid=aidproject.aid,
                         project=duplicate_project,
                         creator=self.request.user,
@@ -492,7 +492,8 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 ).beneficiaries.remove(user.pk)
                 Organization.objects.filter(beneficiaries=None).delete()
             else:
-                # send an email to all the former collaborators to inform them that user leave the organization
+                # send an email to all the former collaborators to inform them
+                # that user leave the organization
                 former_collaborators = User.objects.filter(
                     beneficiary_organization=user.beneficiary_organization.pk
                 ).exclude(pk=user.pk)

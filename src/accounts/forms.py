@@ -303,9 +303,9 @@ class InviteCollaboratorForm(forms.Form):
             try:
                 User.objects.get(email=self.data.get("email"))
                 if User.objects.get(email=self.data.get("email")).proposed_organization is not None:
-                    msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."
+                    msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."  # noqa
                     self.add_error("email", msg)
-            except:
+            except Exception:
                 return email.lower()
 
         return email.lower()
