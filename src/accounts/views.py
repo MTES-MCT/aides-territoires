@@ -307,10 +307,10 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
     form_class = InviteCollaboratorForm
     template_name = "accounts/collaborators.html"
 
-    ## We add request as kwargs to access self.request.user in the form's clean_email def
+    # We add request as kwargs to access self.request.user in the form's clean_email def
     def get_form_kwargs(self):
         kwargs_form = super(InviteCollaborator, self).get_form_kwargs()
-        kwargs_form['request'] = self.request
+        kwargs_form["request"] = self.request
         return kwargs_form
 
     def form_valid(self, form):
@@ -441,7 +441,9 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             # if the author of the project is the user,
             # and if the current organization has more than one beneficiary
             # we reattribute the project to an other user of the current organization
-            organization_projects = Project.objects.filter(organizations=user.beneficiary_organization.pk)
+            organization_projects = Project.objects.filter(
+                organizations=user.beneficiary_organization.pk
+            )
             for project in organization_projects:
                 if project.author.first() == user:
                     if (
