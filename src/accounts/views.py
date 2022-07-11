@@ -423,9 +423,26 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 project_name = project_queryset.name
                 project_due_date = project_queryset.due_date
 
-                # if the author of the project selected is the user,
-                # and if the current organization has more than one beneficiary
-                # we reattribute the project to an other user of the current organization
+                duplicate_project = Project.objects.create(
+                    name=project_name,
+                    description=project_description,
+                    due_date=project_due_date,
+                )
+                duplicate_project.author.add(self.request.user.pk)
+                duplicate_project.organizations.add(proposed_organization)
+                aidproject_list = AidProject.objects.filter(project=project_queryset.pk)
+                for aidproject in aidproject_list:
+                    AidProject.objects.create(
+                        aid=aidproject.aid,
+                        project=duplicate_project,
+                        creator=self.request.user,
+                    )
+
+            # if the author of the project is the user,
+            # and if the current organization has more than one beneficiary
+            # we reattribute the project to an other user of the current organization
+            organization_projects = Project.objects.filter(organizations=user.beneficiary_organization.pk)
+            for project in organization_projects:
                 if project.author.first() == user:
                     if (
                         Organization.objects.get(
@@ -442,21 +459,6 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                         )
                         project.author.add(new_author.pk)
                         project.author.remove(user.pk)
-
-                duplicate_project = Project.objects.create(
-                    name=project_name,
-                    description=project_description,
-                    due_date=project_due_date,
-                )
-                duplicate_project.author.add(self.request.user.pk)
-                duplicate_project.organizations.add(proposed_organization)
-                aidproject_list = AidProject.objects.filter(project=project_queryset.pk)
-                for aidproject in aidproject_list:
-                    AidProject.objects.create(
-                        aid=aidproject.aid,
-                        project=duplicate_project,
-                        creator=self.request.user,
-                    )
 
             # Send an invitation to selected collaborators
             # and populate proposed_organization field for each selected collaborators
