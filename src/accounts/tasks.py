@@ -69,7 +69,7 @@ def send_connection_email(
 def send_welcome_email(user_email):
     """Send a welcome email to the user.
 
-    This email is actually stored as a template in the ESP's dashboard,
+    This email is actually stored as a template in the SendinBlue's dashboard,
     and can be modified by the bizdev team.
 
     Hence we don't define any email body ourselves.
@@ -82,9 +82,17 @@ def send_welcome_email(user_email):
         "PRENOM": user.first_name,
         "NOM": user.last_name,
     }
+
+    if user.is_contributor and user.is_beneficiary:
+        template_id = settings.SIB_WELCOME_MIXTE_EMAIL_TEMPLATE_ID,
+    elif user.is_contributor:
+        template_id = settings.SIB_WELCOME_CONTRIBUTOR_EMAIL_TEMPLATE_ID,
+    elif user.is_beneficiary:
+        template_id = settings.SIB_WELCOME_BENEFICIARY_EMAIL_TEMPLATE_ID,
+
     send_email_with_template(
         recipient_list=[user_email],
-        template_id=settings.SIB_WELCOME_EMAIL_TEMPLATE_ID,
+        template_id=template_id,
         data=data,
         tags=["bienvenue", settings.ENV_NAME],
         fail_silently=True,
