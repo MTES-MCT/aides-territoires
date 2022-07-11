@@ -292,6 +292,7 @@ class InviteCollaboratorForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
         super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = "fr-input"
@@ -302,8 +303,18 @@ class InviteCollaboratorForm(forms.Form):
         if self.data.get("email"):
             try:
                 User.objects.get(email=self.data.get("email"))
-                if User.objects.get(email=self.data.get("email")).proposed_organization is not None:
+                current_organization = User.objects.get(
+                    email=self.data.get("email")
+                ).beneficiary_organization
+                proposed_organization = self.request.user.beneficiary_organization
+                if (
+                    User.objects.get(email=self.data.get("email")).proposed_organization
+                    is not None
+                ):
                     msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."  # noqa
+                    self.add_error("email", msg)
+                elif proposed_organization == current_organization:
+                    msg = "Cet utilisateur est déjà un de vos collaborateurs."
                     self.add_error("email", msg)
             except Exception:
                 return email.lower()

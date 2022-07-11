@@ -307,6 +307,12 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
     form_class = InviteCollaboratorForm
     template_name = "accounts/collaborators.html"
 
+    ## We add request as kwargs to access self.request.user in the form's clean_email def
+    def get_form_kwargs(self):
+        kwargs_form = super(InviteCollaborator, self).get_form_kwargs()
+        kwargs_form['request'] = self.request
+        return kwargs_form
+
     def form_valid(self, form):
         collaborator_email = form.cleaned_data["email"]
         collaborator_last_name = form.cleaned_data["last_name"]
