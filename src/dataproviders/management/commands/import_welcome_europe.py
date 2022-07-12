@@ -428,3 +428,6 @@ class Command(BaseImportCommand):
             + "</div>"
         )
         return contact
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
