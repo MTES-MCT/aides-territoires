@@ -31,7 +31,7 @@ def test_invite_collaborator_form_expects_valid_data(client, user):
     assert "Ce champ est obligatoire" in res.content.decode()
 
 
-def test_cant_invite_a_current_collaborator(client, user):
+def test_cant_invite_a_current_collaborator(client):
     """When inviting a user with a current collaborator email, there is a warning"""
 
     organization = OrganizationFactory()
@@ -83,7 +83,7 @@ def test_cant_invite_user_with_an_existing_invitation(client, user):
     )
 
 
-def test_can_invite_user_with_an_existing_account(client, user):
+def test_can_invite_user_with_an_existing_account(client):
     """It is possible to invite a user that already has an account"""
 
     organization = OrganizationFactory()
@@ -117,7 +117,7 @@ def test_can_invite_user_with_an_existing_account(client, user):
     )
 
 
-def test_can_invite_user_with_no_existing_account(client, user):
+def test_can_invite_user_with_no_existing_account(client):
     """It is possible to invite a user that already has an account"""
 
     organization = OrganizationFactory()
@@ -142,7 +142,7 @@ def test_can_invite_user_with_no_existing_account(client, user):
     assert "Votre invitation a bien été envoyée" in res.content.decode()
 
 
-def test_send_an_invitation_email_to_user_with_no_existing_account(client, user, mailoutbox):
+def test_send_an_invitation_email_to_user_with_no_existing_account(client, mailoutbox):
     """An email is send to the invited user with no existing account"""
 
     organization = OrganizationFactory()
@@ -169,7 +169,7 @@ def test_send_an_invitation_email_to_user_with_no_existing_account(client, user,
     assert mail.subject == "invitation à collaborer sur Aides-territoires"
 
 
-def test_send_an_invitation_email_to_user_with_an_existing_account(client, user, mailoutbox):
+def test_send_an_invitation_email_to_user_with_an_existing_account(client, mailoutbox):
     """An email is send to the invited user with an existing account"""
 
     organization = OrganizationFactory()
