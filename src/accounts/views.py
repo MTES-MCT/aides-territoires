@@ -405,14 +405,14 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
         proposed_organization = self.request.user.proposed_organization
         invitation_author = self.request.user.invitation_author
 
-        if self.request.POST.get("action") == "no-join":
+        if 'no-join' in self.request.POST:
             send_reject_invitation_email.delay(
                 invitation_author.email, user.full_name, proposed_organization.pk
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
             user_queryset.update(proposed_organization=None)
             msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."  # noqa
-        elif self.request.POST.get("action") == "yes-join":
+        elif 'yes-join' in self.request.POST:
             projects = form.cleaned_data["projects"]
             collaborators = form.cleaned_data["collaborators"]
 
