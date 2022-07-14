@@ -20,7 +20,7 @@ text = OpenApiParameter(
     examples=[
         OpenApiExample('', value=''),
         OpenApiExample('velo', value='velo'),
-        OpenApiExample('piste OU velo', value='piste+velo'),
+        OpenApiExample('piste OU velo', value='piste, velo'),
         OpenApiExample('piste ET velo', value='piste velo')
     ])
 aids_api_parameters.append(text)
