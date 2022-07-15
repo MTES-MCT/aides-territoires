@@ -206,14 +206,13 @@ def test_an_invitation_email_is_sent_to_user_with_an_existing_account(client, ma
 
 
 def test_invited_user_can_refuse_to_join_a_new_organization(client, mailoutbox):
-    """An email is send to the invited user with an existing account"""
     
-    organization = OrganizationFactory()
+    current_organization = OrganizationFactory()
     organization2 = OrganizationFactory()
     invitation_author = UserFactory(email="author.oftheinvitation@example.org", beneficiary_organization=organization2)
-    user = UserFactory(beneficiary_organization=organization, proposed_organization=organization2, invitation_author=invitation_author)
-    organization.beneficiaries.add(user)
-    organization.save()
+    user = UserFactory(beneficiary_organization=current_organization, proposed_organization=organization2, invitation_author=invitation_author)
+    current_organization.beneficiaries.add(user)
+    current_organization.save()
 
     client.force_login(user)
 
@@ -228,7 +227,7 @@ def test_invited_user_can_refuse_to_join_a_new_organization(client, mailoutbox):
     assert res.status_code == 302
 
     user.refresh_from_db()
-    assert user.beneficiary_organization == organization
+    assert user.beneficiary_organization == current_organization
     assert user.proposed_organization == None
 
     assert len(mailoutbox) == 1
@@ -238,3 +237,41 @@ def test_invited_user_can_refuse_to_join_a_new_organization(client, mailoutbox):
     user_dashboard_page = reverse("user_dashboard")
     res = client.get(user_dashboard_page, follow=True)
     assert "Votre refus a bien été pris en compte." in res.content.decode()
+
+
+def test_invited_user_can_join_a_new_organization(client, mailoutbox):
+    
+    current_organization = OrganizationFactory()
+    new_organization = OrganizationFactory()
+    invitation_author = UserFactory(email="author.oftheinvitation@example.org", beneficiary_organization=new_organization)
+    user = UserFactory(beneficiary_organization=current_organization, proposed_organization=new_organization, invitation_author=invitation_author)
+    current_organization.beneficiaries.add(user)
+    current_organization.save()
+    new_organization.beneficiaries.add(invitation_author)
+    new_organization.save()
+
+
+    client.force_login(user)
+
+    join_organization_url = reverse('join_organization')
+    res = client.post(
+        join_organization_url,
+        {
+            "yes-join": True,
+        },
+    )
+
+    assert res.status_code == 302
+
+    user.refresh_from_db()
+    assert user.beneficiary_organization == new_organization
+    assert user.proposed_organization == None
+    assert new_organization.beneficiaries.count() == 2
+
+    assert len(mailoutbox) == 1
+    mail = mailoutbox[0]
+    assert mail.subject == "Votre invitation à collaborer sur Aides-territoires a été acceptée"
+    
+    user_dashboard_page = reverse("user_dashboard")
+    res = client.get(user_dashboard_page, follow=True)
+    assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
