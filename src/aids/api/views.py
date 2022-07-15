@@ -14,8 +14,17 @@ from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api import doc as api_doc
 from aids.api.serializers import (
-    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializer13, AidSerializer14, AidSerializerLatest,
-    AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa
+    AidSerializer10,
+    AidSerializer11,
+    AidSerializer12,
+    AidSerializer13,
+    AidSerializer14,
+    AidSerializerLatest,
+    AidAudienceSerializer,
+    AidTypeSerializer,
+    AidStepSerializer,
+    AidRecurrenceSerializer,
+    AidDestinationSerializer)
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
