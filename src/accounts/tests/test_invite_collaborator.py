@@ -275,3 +275,44 @@ def test_invited_user_can_join_a_new_organization(client, mailoutbox):
     user_dashboard_page = reverse("user_dashboard")
     res = client.get(user_dashboard_page, follow=True)
     assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
+
+
+def test_email_is_send_to_former_collaborators_to_notice_them_the_leaving(client, mailoutbox):
+    # If the invited user join the new organization 
+    # and was not the only member of the previous organization, 
+    # an email is send to the former collaborators of the user to notice them the departure
+
+    current_organization = OrganizationFactory()
+    new_organization = OrganizationFactory()
+    invitation_author = UserFactory(email="author.oftheinvitation@example.org", beneficiary_organization=new_organization)
+    former_collaborator = UserFactory(email="former.collaborator@example.org", beneficiary_organization=current_organization)
+    user = UserFactory(beneficiary_organization=current_organization, proposed_organization=new_organization, invitation_author=invitation_author)
+    current_organization.beneficiaries.add(former_collaborator)
+    current_organization.beneficiaries.add(user)
+    current_organization.save()
+
+    client.force_login(user)
+
+    join_organization_url = reverse('join_organization')
+    res = client.post(
+        join_organization_url,
+        {
+            "yes-join": True,
+        },
+    )
+
+    assert res.status_code == 302
+
+    user.refresh_from_db()
+    assert user.beneficiary_organization == new_organization
+    assert user.proposed_organization == None
+
+    assert len(mailoutbox) == 2
+    mail1 = mailoutbox[0]
+    mail2 = mailoutbox[1]
+    assert mail1.subject == "Un collaborateur a quitté votre structure sur Aides-territoires"
+    assert mail2.subject == "Votre invitation à collaborer sur Aides-territoires a été acceptée"
+    
+    user_dashboard_page = reverse("user_dashboard")
+    res = client.get(user_dashboard_page, follow=True)
+    assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
