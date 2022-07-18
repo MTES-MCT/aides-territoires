@@ -180,6 +180,32 @@ class Command(BaseImportCommand):
             submission_deadline = line.get("submission_deadline", None)
             return submission_deadline
 
+    def extract_targeted_audiences(self, line):
+        """
+        Exemple of string to process:
+        [
+            "Communes",
+            "Intercommunalités / Pays",
+            "Associations",
+            "Particuliers"
+        ]
+        """
+        targeted_audiences = line.get("targeted_audiences", None)
+        name = line["name"][:180]
+        aid_targeted_audiences = []
+        if targeted_audiences is not None:
+            if targeted_audiences != []:
+                for targeted_audience in targeted_audiences:
+                    try:
+                        if targeted_audience in Aid.AUDIENCES:
+                            aid_targeted_audiences.append(targeted_audience)
+                    except Exception:
+                        print(f"{targeted_audience}")
+            else:
+                print(f"{name} aucun bénéficiaire")
+            return aid_targeted_audiences
+
+
     def extract_categories(self, line):
         """
         Exemple of string to process: [
@@ -201,10 +227,13 @@ class Command(BaseImportCommand):
                 except Exception:
                     print(f"{category}")
         else:
-            print(f"{title} aucune thématique")
+            print(f"{name} aucune thématique")
         return aid_categories
 
     def extract_contact(self, line):
         if line.get("contact", None) != None:
             contact = line.get("contact")
         return contact
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op, Aid.STEPS.preop]
