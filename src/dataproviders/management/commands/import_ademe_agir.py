@@ -62,8 +62,21 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        if line.get("date_debut", None) != None:
+            import_raw_object_calendar["date_debut"] = line["date_debut"]
+        if line.get("date_fin", None) != None:
+            import_raw_object_calendar["date_fin"] = line["date_fin"]
+        return import_raw_object_calendar
+
     def extract_import_raw_object(self, line):
-        return line
+        import_raw_object = dict(line)
+        if line.get("date_debut", None) != None:
+            import_raw_object.pop("date_debut")
+        if line.get("date_fin", None) != None:
+            import_raw_object.pop("date_fin")
+        return import_raw_object
 
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
