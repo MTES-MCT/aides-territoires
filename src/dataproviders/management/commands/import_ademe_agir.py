@@ -64,17 +64,17 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("date_debut", None) != None:
+        if line.get("date_debut", None) is not None:
             import_raw_object_calendar["date_debut"] = line["date_debut"]
-        if line.get("date_fin", None) != None:
+        if line.get("date_fin", None) is not None:
             import_raw_object_calendar["date_fin"] = line["date_fin"]
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
         import_raw_object = dict(line)
-        if line.get("date_debut", None) != None:
+        if line.get("date_debut", None) is not None:
             import_raw_object.pop("date_debut")
-        if line.get("date_fin", None) != None:
+        if line.get("date_fin", None) is not None:
             import_raw_object.pop("date_fin")
         return import_raw_object
 
