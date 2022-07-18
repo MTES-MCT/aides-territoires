@@ -34,6 +34,11 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Bienvenue sur votre compte Aides-territoires {{ user.full_name }}&nbsp;!</h1>
+            {% if join_organization %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mt-5w fr-mb-5w">
+                <p><strong>Vous avez une invitation à rejoindre une organisation en attente. <a href="{% url 'join_organization' %}">Cliquez ici</a> pour la consulter.</strong></p>
+            </div>
+            {% endif %}
             <p>Depuis votre compte utilisateur, gérez vos projets, vos aides, ou les informations liées à votre structure.</p>
             <div class="fr-ml-5w fr-grid-row fr-grid-row--gutters fr-mt-5w">
                 {% if user.is_contributor %}
