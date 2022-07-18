@@ -20,7 +20,7 @@ text = OpenApiParameter(
     examples=[
         OpenApiExample('', value=''),
         OpenApiExample('velo', value='velo'),
-        OpenApiExample('piste OU velo', value='piste+velo'),
+        OpenApiExample('piste OU velo', value='piste, velo'),
         OpenApiExample('piste ET velo', value='piste velo')
     ])
 aids_api_parameters.append(text)
@@ -280,6 +280,22 @@ prevent_generic_filter = OpenApiParameter(
         OpenApiExample('true', value=True),
     ])
 aids_api_parameters.append(prevent_generic_filter)
+
+published = OpenApiParameter(
+    name='published',
+    type=OpenApiTypes.STR,
+    location=OpenApiParameter.QUERY,
+    description="Ce paramètre permet d'empêcher l'exclusion par défaut \
+    des aides clôturées. Quand ce paramètre est présent, \
+    le résultat de l'API va lister toutes les aides publiées (clôturées ou non)."
+    "<br /><br />"
+    "Note : la valeur du paramètre, ici 'true', n'a pas d'importance, \
+    puisque la simple présence de ce paramètre suffit.",
+    examples=[
+        OpenApiExample('', value=''),
+        OpenApiExample('true', value=True),
+    ])
+aids_api_parameters.append(published)
 
 order_by = OpenApiParameter(
     name='order_by',

@@ -14,8 +14,17 @@ from aids.models import Aid
 from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
 from aids.api import doc as api_doc
 from aids.api.serializers import (
-    AidSerializer10, AidSerializer11, AidSerializer12, AidSerializerLatest,
-    AidAudienceSerializer, AidTypeSerializer, AidStepSerializer, AidRecurrenceSerializer, AidDestinationSerializer)  # noqa
+    AidSerializer10,
+    AidSerializer11,
+    AidSerializer12,
+    AidSerializer13,
+    AidSerializer14,
+    AidSerializerLatest,
+    AidAudienceSerializer,
+    AidTypeSerializer,
+    AidStepSerializer,
+    AidRecurrenceSerializer,
+    AidDestinationSerializer)
 from aids.forms import AidSearchForm
 from stats.utils import log_aidviewevent, log_aidsearchevent
 
@@ -57,6 +66,8 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
         if self.request.user.is_superuser and 'drafts' in self.request.GET:
             # Superusers can search among unfiltered aids (including aid drafts)
             pass
+        elif 'published' in self.request.GET:
+            qs = qs.published()
         else:
             # Normal users can only see aids that are actually published
             qs = qs.live()
@@ -78,6 +89,10 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest
+        elif version == '1.4':
+            serializer_class = AidSerializer14
+        elif version == '1.3':
+            serializer_class = AidSerializer13
         elif version == '1.2':
             serializer_class = AidSerializer12
         elif version == '1.1':
