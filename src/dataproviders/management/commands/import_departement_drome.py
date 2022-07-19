@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import get_category_list_from_name
+from dataproviders.utils import content_prettify, get_category_list_from_name
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
 from backers.models import Backer
@@ -127,7 +127,21 @@ class Command(BaseImportCommand):
 
     def extract_description(self, line):
         description = line["description"]
+        if "Service Instructeur et Référent" in description:
+            description = str(line.get('description', '').partition('Service Instructeur et Référent')[0])
+            description = content_prettify(description)
         return description
+
+    def extract_eligibility(self, line):
+        if 'Opérations éligibles' in line.get('description', ''):
+            eligibility_1 = str(line.get('description', '').partition('Opérations éligibles')[1])
+            eligibility_2 = str(line.get('description', '').partition('Opérations éligibles')[2])
+            eligibility_3 = str(eligibility_2.partition("Type d’aide")[0])
+            eligibility = "<h3><strong>" + eligibility_1 + eligibility_3
+            eligibility = content_prettify(eligibility)
+            return eligibility
+        else:
+            return ""
 
     def extract_financers(self, line):
         return [DATA_SOURCE.backer]
@@ -157,13 +171,11 @@ class Command(BaseImportCommand):
             return []
 
     def extract_aid_types(self, line):
-        """
-        Exemple of string to process: "Appel à propositions"
-        """
         types = line.get("aid_types", None)
         aid_types = []
         for type_item in types:
-            aid_types.extend(type_item)
+            types = next(choice[0] for choice in Aid.TYPES if choice[1] == type_item)
+            aid_types.append(types)
         return aid_types
 
     def extract_is_call_for_project(self, line):
@@ -197,14 +209,13 @@ class Command(BaseImportCommand):
             if targeted_audiences != []:
                 for targeted_audience in targeted_audiences:
                     try:
-                        if targeted_audience in Aid.AUDIENCES:
-                            aid_targeted_audiences.append(targeted_audience)
+                        targeted_audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == targeted_audience)
+                        aid_targeted_audiences.append(targeted_audience)
                     except Exception:
                         print(f"{targeted_audience}")
             else:
                 print(f"{name} aucun bénéficiaire")
             return aid_targeted_audiences
-
 
     def extract_categories(self, line):
         """
@@ -231,9 +242,16 @@ class Command(BaseImportCommand):
         return aid_categories
 
     def extract_contact(self, line):
-        if line.get("contact", None) != None:
+        if line.get("contact", "") != "":
             contact = line.get("contact")
-        return contact
+            return content_prettify(contact)
+        elif 'Service Instructeur et Référent' in line.get('description', ''):
+            contact_1 = str(line.get('description', '').partition('Service Instructeur et Référent')[1])
+            contact_2 = str(line.get('description', '').partition('Service Instructeur et Référent')[2])
+            contact = "<h3><strong>" + contact_1 + contact_2
+            return content_prettify(contact)
+        else:
+            return ""
 
     def extract_mobilization_steps(self, line):
         return [Aid.STEPS.op, Aid.STEPS.preop]
