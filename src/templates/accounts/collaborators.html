@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extratitle %}Mon compte{% endblock %}
+{% block extratitle %}Mon compte{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock %}
+{% block sectionid %}user-account{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -26,8 +26,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -43,7 +42,7 @@
                     </button>
                 </h1>
 
-            <button class="fr-btn fr-my-5w" data-fr-opened='{% if error_mail %}true{% endif %}' aria-controls="invite-collaborator-modal">
+            <button class="fr-btn fr-my-5w" data-fr-opened="{% if error_mail %}true{% endif %}" aria-controls="invite-collaborator-modal">
                Ajouter un collaborateur
             </button>
 
@@ -75,7 +74,7 @@
                             {% if user.beneficiary_role %}
                                 {{ user.beneficiary_role }}
                             {% else %}
-                                Ce collaborateur n'a pas encore renseigné sa fonction
+                                Ce collaborateur n’a pas encore renseigné sa fonction
                             {% endif %}
                             </td>
                             <td>{{ user.date_created|date:'d/m/y' }}</td>
@@ -84,7 +83,7 @@
                                 Validée
                                 {% else %}
                                 En cours
-                                {% endif%}
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -92,8 +91,8 @@
                     {% else %}
                     <tbody>
                         <tr>
-                            <td colspan="5">
-                                <center>Vous n'avez aucun collaborateur pour le moment</center>
+                            <td colspan="5" class="at-centered-important">
+                                Vous n’avez aucun collaborateur pour le moment
                             </td>
                         </tr>
                     </tbody>
@@ -104,9 +103,9 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'accounts/_invite_collaborator_modal.html' %}
     {% include 'accounts/_help_collaborators_modal.html' %}
-{% endblock %}
+{% endblock modals %}

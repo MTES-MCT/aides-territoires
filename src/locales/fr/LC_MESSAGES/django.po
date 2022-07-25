@@ -658,9 +658,6 @@ msgstr "Aides en brouillon"
 msgid "Log out"
 msgstr "Déconnexion"
 
-msgid "Aid backers"
-msgstr "Porteur d'aides"
-
 msgid "Publish your aids now !"
 msgstr "Diffusez vos aides dès maintenant !"
 
@@ -889,9 +886,6 @@ msgstr "Recherche"
 
 msgid "Preview your aid"
 msgstr "Prévisualisation de l'aide"
-
-msgid "Keyword"
-msgstr "Mot clé"
 
 msgid "Results"
 msgstr "Résultats"

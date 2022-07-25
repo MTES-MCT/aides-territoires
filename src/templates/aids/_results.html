@@ -1,15 +1,15 @@
 {% load i18n %}
 
-    {% if aids %}
+{% if aids %}
     <ul class="fr-btns-group fr-btns-group--inline">
         <li>
             <button class="fr-btn fr-mr-0" title="Afficher les résultats en carte" id="btn-results-card">
-                <i class="ri-function-line"></i>
+                <span class="ri-function-line"></span>
             </button>
         </li>
         <li>
             <button class="fr-btn fr-btn--secondary" title="Afficher les résultats en liste" id="btn-results-list">
-                <i class="ri-list-check"></i>
+                <span class="ri-list-check"></span>
             </button>
         </li>
     </ul>
@@ -28,7 +28,7 @@
                 <p class="fr-h5 fr-centered">🔔 Configurez une alerte email pour rester informé des nouveaux dispositifs disponibles pour votre recherche !</p>
                 <div class="fr-grid-row fr-grid-row--center">
                     <button class="fr-btn js" id="save-alert-results-block-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
-                        <i class="ri-notification-2-line ri-lg fr-mr-1w"></i>Créer une alerte
+                        <span class="ri-notification-2-line ri-lg fr-mr-1w"></span>Créer une alerte
                     </button>
                 </div>
             </div>
