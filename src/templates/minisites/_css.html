@@ -165,7 +165,7 @@ body > #partner-navbar .partner-link img {
 
 .dark-background .main-content > article,
 .dark-background .main-content > div.article,
-section#aid-list article,
+#aid-list article,
 div.modal .modal-dialog {
     color: rgba(0, 0, 0, 0.85) !important;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
@@ -175,21 +175,30 @@ div #coming-soon {
     color: {{ search_page.color_2 }} !important;
 }
 
-section#search-engine div.form-container {
+#search-engine div.form-container {
     background-color: {{ search_page.color_2 }} !important;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
-section#search-engine div.other-actions button:hover,
-section#search-engine div.other-actions a:hover,
-section#search-engine div.other-actions a {
+#search-engine div.other-actions button:hover,
+#search-engine div.other-actions a:hover,
+#search-engine div.other-actions a,
+#search-engine legend {
     color: white;
 }
 
-section#search-engine div.form-container button,
-section#search-engine a#save-alert-btn,
+#search-engine .fr-checkbox-group input[type="checkbox"]:not(:checked) + label::before {
+    background-color: white;
+}
+
+#search-engine .fr-fieldset__legend {
+    font-weight: bold !important;
+}
+
+#search-engine div.form-container button,
+#search-engine a#save-alert-btn,
 div#promotion-block a,
-div.modal .modal-dialog section footer button,
+div.modal .modal-dialog footer button,
 .cta-btn,
 .badge-primary,
 .btn-primary,
@@ -199,9 +208,9 @@ button[type=submit] {
 }
 
 {% if search_page.color_3 %}
-    section#search-engine div.form-container button:hover,
-    section#search-engine a#save-alert-btn:hover,
-    div.modal .modal-dialog section footer button:hover,
+    #search-engine div.form-container button:hover,
+    #search-engine a#save-alert-btn:hover,
+    div.modal .modal-dialog footer button:hover,
     .cta-btn:hover,
     .badge-primary:hover,
     .btn-primary:hover,
@@ -279,11 +288,11 @@ article#aid .aid-details h2::after {
     border-radius: 3px;
 }
 
-section#aid-list article.aid span.no-deadline {
+#aid-list article.aid span.no-deadline {
     border-color: {{ search_page.color_3 }} !important;
 }
 
-section#aid-list article div span.deadline-delta {
+#aid-list article div span.deadline-delta {
     background-color: {{ search_page.color_3 }};
 }
 
@@ -298,7 +307,7 @@ article#aid .card > div::before {
 
 
 .dark-background .main-content > article a,
-section#aid-list article.aid div h1 a,
+#aid-list article.aid div h1 a,
 nav#pagination ul li a,
 ol.breadcrumb li.active {
     color: {{ search_page.color_4 }} !important;
@@ -312,13 +321,13 @@ ol.breadcrumb li.active {
     text-decoration: none;
 }
 
-section#aid-list nav {
+#aid-list nav {
     color: #fff !important;
 }
 
 {% if search_page.color_4 %}
     .dark-background .main-content > article a:hover,
-    section#aid-list article.aid div h1 a:hover,
+    #aid-list article.aid div h1 a:hover,
     a:hover {
         color: {% darken search_page.color_4 20 %} !important;
     }
