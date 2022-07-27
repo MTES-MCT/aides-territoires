@@ -283,7 +283,7 @@ class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
+class InviteCollaboratorForm(DsfrBaseForm):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
@@ -292,10 +292,6 @@ class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
         label="Son adresse e-mail",
         required=True,
     )
-
-    class Meta:
-        model = User
-        fields = ["first_name", "last_name", "email"]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
