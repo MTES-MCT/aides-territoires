@@ -1,7 +1,11 @@
 from os.path import splitext
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
 from django.utils import timezone
 from model_utils import Choices
 
@@ -45,8 +49,9 @@ class UserManager(BaseUserManager):
         """Create and save the user object."""
 
         email = self.normalize_email(email)
-        user = self.model(email=email, first_name=first_name,
-                          last_name=last_name, **extra_fields)
+        user = self.model(
+            email=email, first_name=first_name, last_name=last_name, **extra_fields
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -54,13 +59,13 @@ class UserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         """Creates a simple user."""
 
-        extra_fields['is_superuser'] = False
+        extra_fields["is_superuser"] = False
         return self._create_user(email, first_name, last_name, password, **extra_fields)
 
     def create_superuser(self, email, first_name, last_name, password, **extra_fields):
         """Creates a superuser."""
 
-        extra_fields['is_superuser'] = True
+        extra_fields["is_superuser"] = True
         return self._create_user(email, first_name, last_name, password, **extra_fields)
 
     def contributors(self):
@@ -94,7 +99,7 @@ def logo_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.pk
-    filename = 'accounts/{}_logo{}'.format(name, extension)
+    filename = "accounts/{}_logo{}".format(name, extension)
     return filename
 
 
@@ -102,106 +107,128 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Represents a single user account (one physical person)."""
 
     FUNCTION_TYPE = Choices(
-        ('elected', 'Élu'),
-        ('agent', 'Agent territorial'),
-        ('other', 'Autre'),
+        ("elected", "Élu"),
+        ("agent", "Agent territorial"),
+        ("other", "Autre"),
     )
 
     objects = UserManager()
 
-    email = models.EmailField(
-        "Adresse e-mail",
-        unique=True)
-    first_name = models.CharField(
-        'Prénom',
-        max_length=256)
-    last_name = models.CharField(
-        'Nom',
-        max_length=256)
+    email = models.EmailField("Adresse e-mail", unique=True)
+    first_name = models.CharField("Prénom", max_length=256)
+    last_name = models.CharField("Nom", max_length=256)
     image = models.FileField(
         "Avatar de l'utilisateur",
-        null=True, blank=True,
+        null=True,
+        blank=True,
         upload_to=logo_upload_to,
-        help_text="Assurez vous que l'image n'est pas trop lourde.")
+        help_text="Assurez vous que l'image n'est pas trop lourde.",
+    )
 
     # Account settings fields
     ml_consent = models.BooleanField(
-        "A donné son consentement pour recevoir l'actualité",
-        default=False)
+        "A donné son consentement pour recevoir l'actualité", default=False
+    )
 
     # Contributors related data
     contributor_organization = models.CharField(
-        'Organisme (ancien champ)',
-        max_length=128,
-        blank=True)
+        "Organisme (ancien champ)", max_length=128, blank=True
+    )
     contributor_role = models.CharField(
-        'Rôle (ancien champ)',
-        max_length=128,
-        blank=True)
+        "Rôle (ancien champ)", max_length=128, blank=True
+    )
     contributor_contact_phone = models.CharField(
-        'Numéro de téléphone',
-        max_length=35,
-        blank=True)
+        "Numéro de téléphone", max_length=35, blank=True
+    )
     is_certified = models.BooleanField(
-        'Certifié ?',
-        help_text='Afficher un badge à côté des aides publiées par ce compte.',
-        default=False)
+        "Certifié ?",
+        help_text="Afficher un badge à côté des aides publiées par ce compte.",
+        default=False,
+    )
 
     # Beneficiaries related data
     beneficiary_organization = models.ForeignKey(
-        'organizations.Organization',
+        "organizations.Organization",
         verbose_name="Structure du bénéficiaire",
         on_delete=models.PROTECT,
         help_text="A quelle structure appartient le bénéficiaire ?",
-        null=True, blank=True)
+        null=True,
+        blank=True,
+    )
     beneficiary_function = models.CharField(
         "Fonction du bénéficiaire",
         max_length=32,
         choices=FUNCTION_TYPE,
-        null=True, blank=True,)
+        null=True,
+        blank=True,
+    )
     beneficiary_role = models.CharField(
-        'Rôle du bénéficiaire',
-        max_length=128,
-        blank=True)
+        "Rôle du bénéficiaire", max_length=128, blank=True
+    )
+
+    proposed_organization = models.ForeignKey(
+        "organizations.Organization",
+        related_name="invited_user",
+        verbose_name="Structure proposée",
+        on_delete=models.SET_NULL,
+        help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure",
+        null=True,
+        blank=True,
+    )
+    invitation_author = models.ForeignKey(
+        "accounts.User",
+        related_name="invited_user",
+        verbose_name="Auteur de l'invitation",
+        on_delete=models.SET_NULL,
+        help_text="utilisateur qui a invité cet utilisateur a rejoindre sa structure",
+        null=True,
+        blank=True,
+    )
+    invitation_date = models.DateTimeField(
+        "Date de l'invitation", null=True, blank=True
+    )
+    join_organization_date = models.DateTimeField(
+        "Date d'acceptation de l'invitation", null=True, blank=True
+    )
 
     # Roles
     is_contributor = models.BooleanField(
-        'Contributeur ?',
-        help_text='Peut accéder à un espace pour créer et modifier ses aides.',
-        default=True)
+        "Contributeur ?",
+        help_text="Peut accéder à un espace pour créer et modifier ses aides.",
+        default=True,
+    )
     is_beneficiary = models.BooleanField(
-        'Bénéficiaire ?',
-        help_text='Peut accéder à un espace pour créer et modifier ses projets.',
-        default=True)
+        "Bénéficiaire ?",
+        help_text="Peut accéder à un espace pour créer et modifier ses projets.",
+        default=True,
+    )
     animator_perimeter = models.ForeignKey(
-        'geofr.Perimeter',
+        "geofr.Perimeter",
         verbose_name="Périmètre d'animation",
         on_delete=models.PROTECT,
-        related_name='animators',
+        related_name="animators",
         help_text="Sur quel périmètre l'animateur local est-il responsable ?",
-        null=True, blank=True)
+        null=True,
+        blank=True,
+    )
 
-    date_created = models.DateTimeField(
-        'Date de création',
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        'Date de mise à jour',
-        auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
-    USERNAME_FIELD = 'email'
-    EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    EMAIL_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     class Meta:
-        verbose_name = 'Utilisateur'
-        verbose_name_plural = 'Utilisateurs'
+        verbose_name = "Utilisateur"
+        verbose_name_plural = "Utilisateurs"
 
     def __str__(self):
-        return '{} ({})'.format(self.full_name, self.email)
+        return "{} ({})".format(self.full_name, self.email)
 
     @property
     def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        return f"{self.first_name} {self.last_name}"
 
     @property
     def is_staff(self):
@@ -246,13 +273,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 class UserLastConnexion(models.Model):
 
     user = models.ForeignKey(
-        'accounts.User',
-        verbose_name='Utilisateur',
-        on_delete=models.PROTECT,
-        null=True)
+        "accounts.User", verbose_name="Utilisateur", on_delete=models.PROTECT, null=True
+    )
     last_connexion = models.DateTimeField(
-        'Date de la dernière connexion',
-        default=timezone.now)
+        "Date de la dernière connexion", default=timezone.now
+    )
 
     class Meta:
         verbose_name = "Dernière connexion de l'utilisateur"

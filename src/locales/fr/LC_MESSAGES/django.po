@@ -72,7 +72,7 @@ msgid "Displayed"
 msgstr "Affichée"
 
 msgid "Slug"
-msgstr "Fragment d'URL"
+msgstr "Fragment d’URL"
 
 msgid "Let it empty so it will be autopopulated."
 msgstr "Laisser vide pour autoremplir."
@@ -481,18 +481,6 @@ msgid ""
 msgstr ""
 "Quel est son objectif, son état d’avancement ou tout autre information "
 "permettant de le qualifier"
-
-msgid "Project name"
-msgstr "Nom du projet"
-
-msgid "Full description of the project"
-msgstr "Description complète du projet"
-
-msgid "Key words"
-msgstr "Mots-clés"
-
-msgid "key words associated to the project"
-msgstr "mots-clés associés au projet"
 
 msgid "Is a suggested project?"
 msgstr "Est-ce un projet suggéré ?"

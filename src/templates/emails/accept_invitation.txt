@@ -1,0 +1,6 @@
+Bonjour {{ invitation_author }},
+
+{{ invited_name }} a accepté votre invitation et rejoint donc votre structure.
+
+Cordialement,
+L'équipe d'Aides-territoires.

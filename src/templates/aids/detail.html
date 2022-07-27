@@ -51,11 +51,14 @@
     </div>
     {% endif %}
 
+    <h1>
+    {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
     {% if aid.headline_name %}
-    <h1> {{ aid.headline_name | safe }} </h1>
+     {{ aid.headline_name | safe }}
     {% else %}
-    <h1> {{ aid.name }} </h1>
+    {{ aid.name }}
     {% endif %}
+    </h1>
 
     {% if not aid.is_published %}
     <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
@@ -326,13 +329,17 @@
                         <span class="ri-database-2-line ri-xl"></span>
                     </div>
                     <div class="fr-col-10">
-                        <h2 class="fr-h6">
+                        <h3 class="fr-h6">
                             Origine de la donnée
-                        </h2>
-                        <p>Cette aide provient d’une source de données tierce</p>
+                        </h3>
+                        <p>Cette aide provient d'une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d'Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}</p>
                         <div>
-                            <p class="fr-break-word"><strong>URL d’origine : </strong>{{ aid.import_data_url|default_if_none:'ND' }}</p>
-                            <p><strong>License de partage : </strong>{{ aid.get_import_share_licence_display|default:'ND' }}</p>
+                            {% if aid.import_data_source.pk == 7 %}
+                            <p><strong>URL d'origine : </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></p>
+                            {% else %}
+                            <p class="fr-break-word"><strong>URL d'origine : </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</p>
+                            {% endif %}
+                            <p><strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</p>
                             <p><strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}</p>
                         </div>    
                     </div>
@@ -360,22 +367,8 @@
             </div>
             {% endif %}
 
-            {% if aid.is_corporate_aid %}
-            <div class="fr-mb-4w fr-grid-row" id="aid-entreprise">
-                <div class="fr-col-2">
-                    <span class="ri-building-4-fill ri-xl fr-mr-1w"></span>
-                </div>
-                <div class="aid-entreprise fr-col-10">
-                    <h2 class="fr-h6">
-                        <strong>Vous recherchez des aides pour les entreprises ?</strong>
-                    </h2>
-                    <p class="fr-mb-0">Visitez <a href="https://www.aides-entreprises.fr/" target="_blank" rel="noopener">Aides-entreprises</a></p>    
-                </div>
-            </div>
-            {% endif %}
-
             {% if keywords %}
-            <div class="fr-list__none">
+            <div class="fr-list__none fr-mb-4w">
                 {% for keyword in keywords %}
                 {% if user_perimeter and user_targeted_audience %}
                 <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
@@ -387,6 +380,20 @@
                 {% endfor %}
             </div>
             {% endif %}
+
+            <div>
+                <div class="data-origin fr-mb-4w fr-grid-row">
+                    <div class="fr-col-2">
+                        <i class="fr-icon-flashlight-line" aria-hidden="true"></i>                    </div>
+                    <div class="fr-col-10">
+                        <h2 class="fr-h6">
+                            Dernière mise à jour
+                        </h2>
+                        <p>{{ aid.date_updated|date}}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
@@ -400,6 +407,10 @@
             {% else %}
             <p>« {{ aid.name_initial }} »</p>
             {% endif %}
+            {% endif %}
+
+            {% if aid.short_title %}
+            <p>« {{ aid.short_title }} »</p>
             {% endif %}
 
             <h3>Description</h3>

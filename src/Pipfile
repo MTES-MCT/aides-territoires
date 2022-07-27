@@ -47,6 +47,7 @@ deepdiff = "*"
 pandas = "*"
 django-simple-captcha = "*"
 django-dsfr = "*"
+xhtml2pdf = "*"
 
 [dev-packages]
 ansible = "<4"

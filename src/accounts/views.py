@@ -15,8 +15,11 @@ from django.contrib.auth import login, update_session_auth_hash, views
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
+from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import resolve_url
+from django.db.models import Q
+from django.db import transaction
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
@@ -32,15 +35,19 @@ from accounts.forms import (
     ContributorProfileForm,
     InviteCollaboratorForm,
     CompleteProfileForm,
+    JoinOrganizationForm,
 )
 from accounts.tasks import (
     send_connection_email,
     send_invitation_email,
+    send_reject_invitation_email,
+    send_accept_invitation_email,
     send_welcome_email,
+    send_leave_organization_email,
 )
 from accounts.models import User, UserLastConnexion
 from projects.models import Project
-from aids.models import Aid
+from aids.models import Aid, AidProject
 from organizations.models import Organization
 from analytics.utils import track_goal
 
@@ -212,6 +219,8 @@ class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView
                 organizations=self.request.user.beneficiary_organization.pk
             ).count()
         context["aids_number"] = Aid.objects.filter(author=self.request.user.pk).count()
+        if self.request.user.proposed_organization is not None:
+            context["join_organization"] = True
         return context
 
 
@@ -293,37 +302,79 @@ class UnSubscribeNewsletter(View):
         return HttpResponseRedirect(redirect_url)
 
 
-class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView):
+class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
 
     form_class = InviteCollaboratorForm
     template_name = "accounts/collaborators.html"
 
+    # We add request as kwargs to access self.request.user in the form's clean_email def
+    def get_form_kwargs(self):
+        kwargs_form = super(InviteCollaborator, self).get_form_kwargs()
+        kwargs_form["request"] = self.request
+        return kwargs_form
+
     def form_valid(self, form):
+        collaborator_email = form.cleaned_data["email"]
+        collaborator_last_name = form.cleaned_data["last_name"]
+        collaborator_first_name = form.cleaned_data["first_name"]
+        organization_id = self.request.user.beneficiary_organization.id
+        invitation_author = self.request.user.full_name
 
-        user = form.save(commit=False)
-        user.is_beneficiary = self.request.user.is_beneficiary
-        user.is_contributor = self.request.user.is_contributor
-        user.beneficiary_organization = self.request.user.beneficiary_organization
-        user.save()
+        users = User.objects.all()
 
-        user_id = user.pk
+        if users.filter(email=collaborator_email).exists():
+            collaborator = users.get(email=collaborator_email)
+            users.filter(pk=collaborator.pk).update(
+                proposed_organization=organization_id
+            )
+            users.filter(pk=collaborator.pk).update(
+                invitation_author=self.request.user.pk, invitation_date=timezone.now()
+            )
+            send_invitation_email.delay(
+                collaborator.email,
+                invitation_author,
+                organization_id,
+                collaborator_exist=True,
+            )
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+            msg = "Votre invitation a bien été envoyée ; l'utilisateur invité pourra accepter ou non votre invitation."  # noqa
 
-        # add user created to organization
-        user_beneficiary_organization = self.request.user.beneficiary_organization.pk
-        organizations = Organization.objects.filter(pk=user_beneficiary_organization)
-        if organizations is not None:
-            for organization in organizations:
-                organization.beneficiaries.add(user_id)
-                organization.save()
+        else:
+            collaborator = User.objects.create(
+                email=collaborator_email,
+                last_name=collaborator_last_name,
+                first_name=collaborator_first_name,
+                is_beneficiary=self.request.user.is_beneficiary,
+                is_contributor=self.request.user.is_contributor,
+            )
+            collaborator.beneficiary_organization = (
+                self.request.user.beneficiary_organization
+            )
+            collaborator_id = collaborator.pk
 
-        User.objects.filter(pk=user_id).update(beneficiary_organization=organization.pk)
+            # add user created to organization
+            user_beneficiary_organization = (
+                self.request.user.beneficiary_organization.pk
+            )
+            organizations = Organization.objects.filter(
+                pk=user_beneficiary_organization
+            )
+            if organizations is not None:
+                for organization in organizations:
+                    organization.beneficiaries.add(collaborator_id)
+                    organization.save()
 
-        organization_name = self.request.user.beneficiary_organization.name
-        invitator_name = self.request.user.full_name
-        send_invitation_email.delay(user.email, invitator_name, organization_name)
-        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+            User.objects.filter(pk=collaborator_id).update(
+                beneficiary_organization=organization.pk
+            )
+            send_invitation_email.delay(
+                collaborator.email,
+                invitation_author,
+                organization_id,
+            )
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
-        msg = "Votre invitation a bien été envoyée."
+            msg = "Votre invitation a bien été envoyée."
         messages.success(self.request, msg)
         success_url = reverse("collaborators")
         return HttpResponseRedirect(success_url)
@@ -342,6 +393,178 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, CreateView)
         )  # noqa
 
 
+class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
+
+    form_class = JoinOrganizationForm
+    template_name = "accounts/join_organization.html"
+
+    @transaction.atomic
+    def form_valid(self, form):
+        user = User.objects.get(pk=self.request.user.pk)
+        user_queryset = User.objects.filter(pk=user.pk)
+        proposed_organization = self.request.user.proposed_organization
+        invitation_author = self.request.user.invitation_author
+
+        if 'no-join' in self.request.POST:
+            send_reject_invitation_email.delay(
+                invitation_author.email, user.full_name, proposed_organization.pk
+            )
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+            user_queryset.update(proposed_organization=None)
+            msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."  # noqa
+        elif 'yes-join' in self.request.POST:
+            projects = form.cleaned_data["projects"]
+            collaborators = form.cleaned_data["collaborators"]
+
+            # Duplicate selected projects & Transfer them to the proposed_organization
+            for project in projects:
+                project_queryset = Project.objects.get(pk=project.pk)
+                project_description = project_queryset.description
+                project_name = project_queryset.name
+                project_due_date = project_queryset.due_date
+
+                duplicate_project = Project.objects.create(
+                    name=project_name,
+                    description=project_description,
+                    due_date=project_due_date,
+                )
+                duplicate_project.author.add(self.request.user.pk)
+                duplicate_project.organizations.add(proposed_organization)
+                aidproject_list = AidProject.objects.filter(project=project_queryset.pk)
+                for aidproject in aidproject_list:
+                    AidProject.objects.create(
+                        aid=aidproject.aid,
+                        project=duplicate_project,
+                        creator=self.request.user,
+                    )
+
+            # if the author of the project is the user,
+            # and if the current organization has more than one beneficiary
+            # we reattribute the project to an other user of the current organization
+            organization_projects = Project.objects.filter(
+                organizations=user.beneficiary_organization.pk
+            )
+            for project in organization_projects:
+                if project.author.first() == user:
+                    if (
+                        Organization.objects.get(
+                            pk=user.beneficiary_organization.pk
+                        ).beneficiaries.count()
+                        > 1
+                    ):
+                        new_author = (
+                            User.objects.filter(
+                                beneficiary_organization=user.beneficiary_organization.pk
+                            )
+                            .exclude(pk=user.pk)
+                            .first()
+                        )
+                        project.author.add(new_author.pk)
+                        project.author.remove(user.pk)
+
+            # Send an invitation to selected collaborators
+            # and populate proposed_organization field for each selected collaborators
+            for collaborator in collaborators:
+                collaborator = User.objects.get(pk=collaborator.pk)
+                User.objects.filter(pk=collaborator.pk).update(
+                    proposed_organization=proposed_organization,
+                    invitation_author=self.request.user.pk,
+                    invitation_date=timezone.now(),
+                )
+                send_invitation_email.delay(
+                    collaborator.email,
+                    user.full_name,
+                    proposed_organization.pk,
+                    collaborator_exist=True,
+                )
+                track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+
+            # Remove user from his current organization
+            # if current organization has no user :
+            # delete the organization, AidProject & Projects objects associated
+            if (
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.count()
+                == 1
+            ):
+                projects = Project.objects.filter(
+                    organizations=user.beneficiary_organization.pk
+                )
+                for project in projects:
+                    AidProject.objects.filter(project=project).delete()
+                projects.delete()
+                user_queryset.update(
+                    beneficiary_organization=user.proposed_organization.pk
+                )
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.remove(user.pk)
+                Organization.objects.filter(beneficiaries=None).delete()
+            else:
+                # send an email to all the former collaborators to inform them
+                # that user leave the organization
+                former_collaborators = User.objects.filter(
+                    beneficiary_organization=user.beneficiary_organization.pk
+                ).exclude(pk=user.pk)
+                for former_collaborator in former_collaborators:
+                    send_leave_organization_email.delay(
+                        former_collaborator.email,
+                        user.full_name,
+                        former_collaborator.beneficiary_organization.pk,
+                    )
+                    track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+                # change user organization
+                user_queryset.update(
+                    beneficiary_organization=user.proposed_organization.pk
+                )
+                # remove user from organization object
+                Organization.objects.get(
+                    pk=user.beneficiary_organization.pk
+                ).beneficiaries.remove(user.pk)
+
+            # Add user to the proposed_organization
+            Organization.objects.get(
+                pk=user.proposed_organization.pk
+            ).beneficiaries.add(user.pk)
+            user_queryset.update(proposed_organization=None)
+
+            # Add join_organization_date
+            User.objects.filter(pk=user.pk).update(
+                join_organization_date=timezone.now(),
+            )
+
+            # Send an email to the invitation_author to notice user joined the organization
+            send_accept_invitation_email.delay(
+                invitation_author.email, user.full_name, proposed_organization.pk
+            )
+            track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+
+            msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
+
+        messages.success(self.request, msg)
+        success_url = reverse("user_dashboard")
+        return HttpResponseRedirect(success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.proposed_organization:
+            context["organization_name"] = self.request.user.proposed_organization.name
+            context["invitation_author"] = self.request.user.invitation_author.full_name
+        if self.request.user.beneficiary_organization:
+            context["projects"] = Project.objects.filter(
+                organizations=self.request.user.beneficiary_organization.pk
+            ).order_by("name")
+            context["collaborators"] = (
+                User.objects.filter(
+                    beneficiary_organization=self.request.user.beneficiary_organization.pk
+                )
+                .exclude(pk=self.request.user.pk)
+                .order_by("last_name")
+            )
+        return context
+
+
 class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     """List of all the collaborators of an user"""
 
@@ -350,9 +573,11 @@ class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     paginate_by = 18
 
     def get_queryset(self):
+        beneficiary_organization_pk = self.request.user.beneficiary_organization.pk
         if self.request.user.beneficiary_organization is not None:
             queryset = User.objects.filter(
-                beneficiary_organization=self.request.user.beneficiary_organization.pk
+                Q(beneficiary_organization=beneficiary_organization_pk)
+                | Q(proposed_organization=beneficiary_organization_pk)
             ).exclude(pk=self.request.user.pk)
         else:
             queryset = User.objects.none()
@@ -361,6 +586,7 @@ class CollaboratorsList(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = InviteCollaboratorForm
+        context["beneficiary_organization"] = self.request.user.beneficiary_organization
 
         return context
 

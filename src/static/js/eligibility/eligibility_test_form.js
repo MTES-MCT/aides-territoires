@@ -6,7 +6,7 @@
 
     const SUBMIT_BUTTON_TEXT = 'Vérifier mon éligibilité';
     const SUCCESS_MESSAGE = '✔️ Vous êtes éligible !';
-    const FAILURE_MESSAGE = 'Vous n\'êtes malheureusement pas éligible.';
+    const FAILURE_MESSAGE = 'Vous n’êtes malheureusement pas éligible.';
 
     var eligibilityTestIntroduction = $('div#eligibility-test-introduction');
     var eligibilityTestForm = $('form#eligibility-test-form');

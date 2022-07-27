@@ -6,6 +6,7 @@ from model_utils import Choices
 
 from accounts.models import User
 from accounts.utils import check_current_password
+from projects.models import Project
 
 from dsfr.forms import DsfrBaseForm
 
@@ -290,18 +291,64 @@ class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
     email = forms.EmailField(
         label="Son adresse e-mail",
         required=True,
-        error_messages={
-            "unique": "Cette adresse email correspond à un utilisateur déjà enregistré sur Aides Territoires."  # noqa
-        },
     )
 
-    class Meta:
-        model = User
-        fields = ["first_name", "last_name", "email"]
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
+        super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "fr-input"
 
     def clean_email(self):
         email = self.cleaned_data["email"]
+
+        if self.data.get("email"):
+            try:
+                User.objects.get(email=self.data.get("email"))
+                current_organization = User.objects.get(
+                    email=self.data.get("email")
+                ).beneficiary_organization
+                proposed_organization = self.request.user.beneficiary_organization
+                if (
+                    User.objects.get(email=self.data.get("email")).proposed_organization
+                    is not None
+                ):
+                    msg = "Cet utilisateur ne peut être invité car il a déjà une invitation en attente."  # noqa
+                    self.add_error("email", msg)
+                elif proposed_organization == current_organization:
+                    msg = "Cet utilisateur est déjà un de vos collaborateurs."
+                    self.add_error("email", msg)
+            except Exception:
+                return email.lower()
+
         return email.lower()
+
+
+class JoinOrganizationForm(DsfrBaseForm):
+    """Form used to allow user to join an other organization."""
+
+    collaborators = forms.ModelMultipleChoiceField(
+        label="Collaborateurs à inviter",
+        queryset=User.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    projects = forms.ModelMultipleChoiceField(
+        label="Projets à transférer",
+        queryset=Project.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(JoinOrganizationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "fr-input"
+
+    def clean(self):
+        """Validation routine (frontend form only)."""
+        data = super().clean()
+        return data
 
 
 class CompleteProfileForm(forms.ModelForm, DsfrBaseForm):

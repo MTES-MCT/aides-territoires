@@ -6,6 +6,9 @@ from django.db.models import Q, F
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
+from model_utils import Choices
+
+from aids.utils import filter_generic_aids
 
 from dsfr.forms import DsfrBaseForm
 from core.forms import (
@@ -22,7 +25,7 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from projects.models import Project
-from aids.models import Aid
+from aids.models import Aid, AidWorkflow
 from aids.constants import (
     AUDIENCES_GROUPED,
     FINANCIAL_AIDS_LIST,
@@ -133,14 +136,20 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
         instructors = self.cleaned_data.get("instructors", None)
         categories = self.cleaned_data.get("categories", None)
         keywords = self.cleaned_data.get("keywords", None)
+        programs = self.cleaned_data.get("programs", None)
         self.instance.set_search_vector_unaccented(
-            financers, instructors, categories, keywords
+            financers, instructors, categories, keywords, programs
         )
         return super().save(commit=commit)
 
 
 class AidAdminForm(BaseAidForm):
     """Custom Aid edition admin form."""
+
+    EUROPEAN_AIDS = Choices(
+        ("sectorial", "Grands programmes thématiques (Commission européenne)"),
+        ("organizational", "Fonds structurels (FEDER, FSE+...)"),
+    )
 
     perimeter_suggestion = forms.CharField(
         label="Périmètre suggéré",
@@ -167,6 +176,14 @@ class AidAdminForm(BaseAidForm):
         widget=FilteredSelectMultiple("Sous-thématiques", True),
     )
 
+    european_aid = forms.ChoiceField(
+        label="Aide européenne ?",
+        help_text="* Les fonds structurels (FEDER, FSE+...) sont les aides gérées par les conseils régionaux.",  # noqa
+        required=False,
+        widget=forms.RadioSelect,
+        choices=EUROPEAN_AIDS,
+    )
+
     class Meta:
         widgets = {
             "name": forms.Textarea(attrs={"rows": 3}),
@@ -174,12 +191,102 @@ class AidAdminForm(BaseAidForm):
             "targeted_audiences": forms.CheckboxSelectMultiple,
             "aid_types": forms.CheckboxSelectMultiple,
             "destinations": forms.CheckboxSelectMultiple,
+            "european_aid": forms.RadioSelect,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if "start_date" in self.fields:
             self.fields["start_date"].required = False
+
+    def clean(self):
+        """Validation routine if status is published."""
+
+        data = super().clean()
+
+        # If the aid is saved as draft, don't perform any data validation
+        if data["status"].state == AidWorkflow.states.published:
+
+            if not data.get("name", None):
+                msg = "Veuillez compléter le champ nom de l'aide"
+                self.add_error(
+                    "name",
+                    ValidationError(msg, code="missing_name"),
+                )
+
+            if not data.get("slug", None):
+                msg = "Veuillez compléter le champ fragment d'url"
+                self.add_error(
+                    "slug",
+                    ValidationError(msg, code="missing_slug"),
+                )
+
+            if not data.get("targeted_audiences", None):
+                msg = "Veuillez compléter le champ bénéficiaires de l'aide"
+                self.add_error(
+                    "targeted_audiences",
+                    ValidationError(msg, code="missing_targeted_audiences"),
+                )
+
+            if not data.get("aid_types", None):
+                msg = "Veuillez compléter le champ type d'aide"
+                self.add_error(
+                    "aid_types",
+                    ValidationError(msg, code="missing_aid_types"),
+                )
+
+            if not data.get("description", None):
+                msg = "Veuillez compléter le champ description"
+                self.add_error(
+                    "description",
+                    ValidationError(msg, code="missing_description"),
+                )
+
+            if not data.get("categories", None):
+                msg = "Veuillez compléter le champ thématiques"
+                self.add_error(
+                    "categories",
+                    ValidationError(msg, code="missing_categories"),
+                )
+
+            if not data.get("mobilization_steps", None):
+                msg = "Veuillez compléter le champ état d'avancement du projet"
+                self.add_error(
+                    "mobilization_steps",
+                    ValidationError(msg, code="missing_mobilization_steps"),
+                )
+
+            if not data.get("perimeter", None):
+                msg = "Veuillez renseigner une zone géographique."
+                self.add_error(
+                    "perimeter",
+                    ValidationError(msg, code="missing_perimeter"),
+                )
+
+            if not data.get("recurrence", None):
+                msg = "Veuillez renseigner une récurrence."
+                self.add_error(
+                    "recurrence",
+                    ValidationError(msg, code="missing_recurrence"),
+                )
+
+            if "recurrence" in data and data["recurrence"]:
+                recurrence = data["recurrence"]
+                submission_deadline = data.get("submission_deadline", None)
+
+                if recurrence != "ongoing" and not submission_deadline:
+                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date de clôture de l'aide."  # noqa
+                    self.add_error(
+                        "submission_deadline",
+                        ValidationError(msg, code="missing_submission_deadline"),
+                    )
+
+            if not self.data.get("aidfinancer_set-0-backer"):
+                raise ValidationError("Merci d'indiquer un porteur d'aide.")
+
+            return data
+        else:
+            return data
 
 
 class AidEditForm(BaseAidForm):

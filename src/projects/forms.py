@@ -51,9 +51,29 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 
     class Meta:
         model = Project
-        fields = ["name", "description", "due_date"]
+        fields = [
+            "name",
+            "description",
+            "due_date",
+        ]
         widgets = {
             "due_date": forms.TextInput(
                 attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
             ),
         }
+
+
+class ProjectExportForm(forms.ModelForm):
+    """Form used to export a project."""
+
+    CHOICES = [
+        ("csv", "Fichier CSV"),
+        ("xlsx", "Tableur Excel"),
+    ]
+    # ("pdf", "Document PDF"),
+
+    format = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label="")
+
+    class Meta:
+        model = Project
+        fields = ["format"]
