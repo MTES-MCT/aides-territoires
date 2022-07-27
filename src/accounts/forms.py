@@ -293,6 +293,10 @@ class InviteCollaboratorForm(forms.ModelForm, DsfrBaseForm):
         required=True,
     )
 
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super(InviteCollaboratorForm, self).__init__(*args, **kwargs)
