@@ -40,7 +40,7 @@
 {% block content %}
 <article id="aid" class="fr-container fr-mb-2w">
     {% if aid.submission_deadline and not aid.is_ongoing %}
-    <div class="deadline-data">
+    <div class="deadline-data fr-mb-1w">
         {% if aid.has_approaching_deadline %}
         <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
         {% endif %}
@@ -58,16 +58,14 @@
     {% endif %}
 
     {% if not aid.is_published %}
-    <br clear="all" />
-    <div class="fr-alert fr-alert--warning fr-mt-2w">
+    <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
         <p class="fr-alert__title">Attention ! Cette aide n’est actuellement pas affichée sur le site.</p>
         <p>Vous pouvez la prévisualiser parce que vous en êtes l’auteur.</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
-    <br clear="all" />
-    <div class="fr-alert fr-alert--warning fr-mt-2w">
+    <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
         <p class="fr-alert__title">Attention ! Cette aide n’est plus disponible.</p>
         <p>Cette page restera accessible pour archivage.</p>
     </div>
