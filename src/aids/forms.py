@@ -8,8 +8,6 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from model_utils import Choices
 
-from aids.utils import filter_generic_aids
-
 from dsfr.forms import DsfrBaseForm
 from core.forms import (
     AutocompleteModelChoiceField,
