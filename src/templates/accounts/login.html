@@ -28,12 +28,15 @@
                 {% include '_form_snippet.html' with form=form %}
                 <button type="submit" class="fr-btn">Connectez-vous</button>
             </form>
-        
-            {% url 'password_reset' as password_reset_url %}
-            <p class="warning fr-mt-5w fr-background-alt-pink fr-p-3w">
-                💡 Avez-vous oublié votre mot de passe ?
-                <a href="{{ password_reset_url }}"> Vous pouvez en demander un nouveau.</a>
-            </p>
+
+            <div class="fr-col-12 fr-mt-3w">
+                <div class="fr-alert fr-alert--info fr-alert--sm">
+                    <p>
+                        Avez-vous oublié votre mot de passe ?
+                        <a href="{% url 'password_reset' %}"> Vous pouvez en demander un nouveau.</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

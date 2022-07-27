@@ -25,7 +25,7 @@
                     {% if aid.financers.all %}
                     <ul>
                     {% for financer in aid.financers.all %}
-                    <li class="">
+                    <li>
                         {{ financer }}                        
                     </li>
                     {% endfor %}
@@ -35,21 +35,21 @@
                 <td>
                     {% if aid.is_grant %}
                     <p class="fr-centered fr-mb-0">
-                        <i class="ri-check-line ri-xl"></i>
+                        <span class="ri-check-line ri-xl"></span>
                     </p>
                     {% endif %}
                 </td>
                 <td>
                     {% if aid.is_loan %}
                     <p class="fr-centered fr-mb-0">
-                        <i class="ri-check-line ri-xl"></i>
+                        <span class="ri-check-line ri-xl"></span>
                     </p>
                     {% endif %}
                 </td>
                 <td>
                     {% if aid.is_technical %}
                     <p class="fr-centered fr-mb-0">
-                        <i class="ri-check-line ri-xl"></i>
+                        <span class="ri-check-line ri-xl"></span>
                     </p>
                     {% endif %}
                 </td>

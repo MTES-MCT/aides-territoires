@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 
-{% block extratitle %}Mon profil{% endblock %}
+{% block extratitle %}Mon profil{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}profile-form{% endblock %}
+{% block sectionid %}profile-form{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -26,8 +26,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
@@ -38,7 +37,7 @@
         <div class="fr-col-md-9">
             <h1 class="fr-h3">Mon profil</h1>
 
-            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+            <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
                 <p>
                     Vous pouvez mettre à jour vos informations ci-dessous.
                 </p>
@@ -54,7 +53,7 @@
                 {% include '_field_snippet.html' with field=form.beneficiary_role %}
                 <div class="fr-form-group">
                     <fieldset class="fr-fieldset">
-                        <p>Vous souhaitez utiliser Aides-territoires pour&nbsp;:</p>
+                        <p>Vous souhaitez utiliser Aides-territoires pour :</p>
                         <div class="fr-grid-row fr-grid--middle">
                             <div class="fr-fieldset__content fr-pr-2w">
                                 {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
@@ -73,4 +72,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

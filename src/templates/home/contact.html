@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% load dsfr_tags %}
 
 {% block extratitle %}Contact{% endblock extratitle %}
 
@@ -61,19 +62,19 @@
                         </div>
                         {% csrf_token %}
                         <fieldset>
-                            {% include '_field_snippet.html' with field=form.first_name %}
-                            {% include '_field_snippet.html' with field=form.last_name %}
-                            {% include '_field_snippet.html' with field=form.email %}
-                            {% include '_field_snippet.html' with field=form.phone %}
-                            {% include '_field_snippet.html' with field=form.organization_and_role %}
+                            {% dsfr_form_field form.first_name %}
+                            {% dsfr_form_field form.last_name %}
+                            {% dsfr_form_field form.email %}
+                            {% dsfr_form_field form.phone %}
+                            {% dsfr_form_field form.organization_and_role %}
                         </fieldset>
 
                         <fieldset id="formset-website">
-                            {% include '_field_snippet.html' with field=form.website %}
+                            {% dsfr_form_field form.website %}
                         </fieldset>
 
                         <fieldset>
-                            {% include '_field_snippet.html' with field=form.subject %}
+                            {% dsfr_form_field form.subject %}
                         </fieldset>
 
                         <fieldset>
@@ -87,10 +88,11 @@
                         </fieldset>
                     </div>
 
-                    <p class="info fr-background-alt-pink fr-p-3w fr-mt-5w">
-                        <span class="fr-fi-checkbox-circle-line" aria-hidden="true"></span>
-                        En utilisant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
-                    </p>
+                    <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
+                        <p>
+                            En utilisant cette fonctionnalité, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>.
+                        </p>
+                    </div>
 
                     <footer>
                         <button type="submit" class="fr-btn">Envoyer</button>

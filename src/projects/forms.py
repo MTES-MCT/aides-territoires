@@ -1,12 +1,13 @@
 from django import forms
 
+from dsfr.forms import DsfrBaseForm
 from core.forms import RichTextField
 
 from projects.models import Project
 from organizations.models import Organization
 
 
-class ProjectCreateForm(forms.ModelForm):
+class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     """allow user to create project."""
 
     name = forms.CharField(label="Nom de votre projet", required=True)
@@ -21,7 +22,7 @@ class ProjectCreateForm(forms.ModelForm):
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
     due_date = forms.DateTimeField(
-        label="Date d'échéance",
+        label="Date d’échéance",
         help_text="Si votre projet doit sortir avant une certaine date, indiquez-la ici",
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "placeholder": "jj/mm/aaaa"}),
@@ -32,7 +33,7 @@ class ProjectCreateForm(forms.ModelForm):
         fields = ["name", "description", "organizations", "due_date"]
 
 
-class ProjectUpdateForm(forms.ModelForm):
+class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 
     name = forms.CharField(label="Nom du projet", max_length=256, required=True)
     description = RichTextField(
@@ -44,7 +45,7 @@ class ProjectUpdateForm(forms.ModelForm):
     )
     due_date = (
         forms.DateField(
-            label="Date d'échéance du projet",
+            label="Date d’échéance du projet",
         ),
     )
 

@@ -60,8 +60,8 @@
                     {% else %}
                     <tbody>
                         <tr>
-                            <td colspan="5">
-                                <center>Aucun historique de connexion</center>
+                            <td colspan="5" class="at-centered-important">
+                                Aucun historique de connexion
                             </td>
                         </tr>
                     </tbody>
@@ -70,8 +70,8 @@
             </div>
             {% include '_pagination.html' %}
 
-            <button class="fr-tag fr-my-5w" data-fr-opened='false' aria-controls="delete-history-login-modal">
-                <i class="ri-delete-bin-7-line ri-xl fr-mr-1w"></i>Réinitialiser mon journal
+            <button class="fr-btn" data-fr-opened='false' aria-controls="delete-history-login-modal">
+                <span class="ri-delete-bin-7-line ri-xl fr-mr-1w"></span>Réinitialiser mon journal
             </button>
 
         </div>

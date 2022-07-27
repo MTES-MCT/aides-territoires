@@ -61,14 +61,14 @@
           <div id="form-group-start_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_start_date" class="fr-label"></label>
-                <input type="date" name="start_date" placeholder="jj/mm/aaaa" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
+                <input type="date" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de début</span>
             </div>
           </div>
           <div id="form-group-end_date" class="fr-input-group fr-mb-0">
             <div class="fr-input-wrap fr-fi-calendar-line">
                 <label for="id_end_date" class="fr-label"></label>
-                <input type="date" name="end_date" placeholder="jj/mm/aaaa" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
+                <input type="date" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
                 <span class="fr-hint-text">Date de fin</span>
             </div>
           </div>
@@ -114,7 +114,6 @@
                         {% endif %}
                     </td>
                     <td>{{ organization.date_created|date:'d/m/y' }}</td>
-                    <td></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -128,8 +127,7 @@
 {% block extra_css %}
     <link rel="stylesheet"
           href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}"
-          type="text/css"
-          charset="utf-8"/>
+          type="text/css" />
 {% endblock extra_css %}
 
 {% block extra_js %}

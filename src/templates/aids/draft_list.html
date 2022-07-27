@@ -25,7 +25,7 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-<article id="draft-list" class="fr-container">
+<div id="draft-list" class="fr-container">
 
     <div class="fr-grid-row">    
         
@@ -44,14 +44,14 @@
                 <p>Les aides arrivées à échéance sont automatiquement dépubliées de la plateforme, mais restent dans votre portefeuille d’aides en statut "brouillon" au cas où vous souhaiteriez les publier à nouveau.</p>
             </div>
         
-            <div class="info fr-mt-5w">
+            <div class="fr-mt-5w">
                 Nombre de vues total des aides depuis la première publication : <span class="counter fr-tag">{{ hits_total }}</span><br />
                 Nombre de vues total des aides sur les 30 derniers jours : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
             </div>
 
             <form id="filter-form" method="get" autocomplete='off' class="fr-background-alt-pink fr-my-5w">
                 <div class="form-container fr-p-3w">
-                    {{ filter_form }}
+                    {{ filter_form.as_p }}
                     <button class="filter-btn fr-btn fr-mt-3w" type="submit">
                         Filtrer les résultats
                     </button>
@@ -84,21 +84,21 @@
                                     {{ aid.name }}
                                 </a>
                                 {% if aid.is_live %}
-                                    <span class="fas fa-check-circle" title="Affichée"></span>
+                                    <p class="fr-badge fr-badge--success fr-badge--sm">Affichée</p>
                                 {% endif %}
                             </td>
                             <td>{{ aid.perimeter }}</td>
-                            <td>{{ aid.date_created|date:'d/m/y' }}</td>
-                            <td>{{ aid.date_updated|date:'d/m/y' }}</td>
+                            <td>{{ aid.date_created|date:'d/m/Y' }}</td>
+                            <td>{{ aid.date_updated|date:'d/m/Y' }}</td>
                             <td class="nowrap-cell">
+                                <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
                                 {% if aid.is_ongoing %}
-                                    <span class="fas fa-parking" title="Permanente"></span>
+                                    <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
                                 {% elif aid.has_approaching_deadline %}
-                                    <span class="fas fa-clock" title="Échéance proche"></span>
+                                    <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
                                 {% elif aid.has_expired %}
-                                    <span class="fas fa-exclamation-circle" title="Expirée"></span>
+                                    <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
                                 {% endif %}
-                                <span>{{ aid.submission_deadline|date:'d/m/y' }}</span>
                             </td>
                             <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
                             <td>{% get hits_per_aid aid.id 0 %}</td>
@@ -111,5 +111,5 @@
             {% include '_pagination.html' %}
         </div>
     </div>
-</article>
+</div>
 {% endblock content %}

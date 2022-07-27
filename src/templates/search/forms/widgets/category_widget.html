@@ -8,18 +8,16 @@
                 {{ group }}
             </button>
         </h3>
-        <div class="fr-collapse fr-pl-5w" id="accordion-theme-{{ index }}">
-            <center>
-                <button class="fr-m-1w fr-tag _fr-tag--md fr-text--sd _fr-fi-search-line _fr-tag--icon-left all-categories-btn" type="button" data-selected=false data-theme="{{index}}">
-                    Sélectionner toutes les sous-thématiques
-                </button>
-            </center>
+        <div class="fr-collapse fr-pl-5w fr-centered" id="accordion-theme-{{ index }}">
+            <button class="fr-m-1w fr-tag _fr-tag--md fr-text--sd _fr-fi-search-line _fr-tag--icon-left all-categories-btn" type="button" data-selected=false data-theme="{{index}}">
+                Sélectionner toutes les sous-thématiques
+            </button>
             {% for option in options %}
             <div class="custom-control custom-switch fr-toggle">
                 <input type="checkbox" class="custom-control-input fr-toggle__input" name="{{ option.name }}" value="{{ option.value }}" id="{{ option.attrs.id }}" data-theme="{{index}}"/>
                 <label class="custom-control-label fr-toggle__label" for="{{ option.attrs.id }}">
                     {{ option.label }}
-                </lapel>
+                </label>
             </div>
             {% endfor %}
         </div>

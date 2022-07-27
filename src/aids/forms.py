@@ -8,8 +8,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from model_utils import Choices
 
-from aids.utils import filter_generic_aids
-
+from dsfr.forms import DsfrBaseForm
 from core.forms import (
     AutocompleteModelChoiceField,
     AutocompleteModelMultipleChoiceField,
@@ -34,12 +33,13 @@ from aids.constants import (
     TYPES_GROUPED,
     AID_TYPE_CHOICES,
 )
+from aids.utils import filter_generic_aids
 
 
 IS_CALL_FOR_PROJECT = ((None, "----"), (True, "Oui"), (False, "Non"))
 
 
-class BaseAidForm(forms.ModelForm):
+class BaseAidForm(forms.ModelForm, DsfrBaseForm):
     """Base for all aid edition forms (front, admin)."""
 
     short_title = forms.CharField(
@@ -51,22 +51,22 @@ class BaseAidForm(forms.ModelForm):
         ),
     )
     description = RichTextField(
-        label="Description complète de l'aide et de ses objectifs",
+        label="Description complète de l’aide et de ses objectifs",
         widget=forms.Textarea(
             attrs={
                 "placeholder": """
-                Si vous avez un descriptif, n'hésitez pas à le copier ici.
-                Essayez de compléter le descriptif avec le maximum d'informations.
-                Si l'on vous contacte régulièrement pour vous demander les mêmes "
+                Si vous avez un descriptif, n’hésitez pas à le copier ici.
+                Essayez de compléter le descriptif avec le maximum d’informations.
+                Si l’on vous contacte régulièrement pour vous demander les mêmes "
                 informations, essayez de donner des éléments de réponses dans cet espace."
                 """
             }
         ),
     )
     project_examples = RichTextField(
-        label="Exemples d'applications ou de projets réalisés grâce à cette aide",
+        label="Exemples d’applications ou de projets réalisés grâce à cette aide",
         required=False,
-        help_text="Afin d'aider les territoires à mieux comprendre votre aide, donnez ici quelques exemples concrets de projets réalisables ou réalisés.",  # noqa
+        help_text="Afin d’aider les territoires à mieux comprendre votre aide, donnez ici quelques exemples concrets de projets réalisables ou réalisés.",  # noqa
         widget=forms.Textarea(
             attrs={
                 "placeholder": "Médiathèque, skatepark, accompagner des enfants en classe de neige, financer une usine de traitement des déchets, etc."  # noqa
@@ -77,7 +77,7 @@ class BaseAidForm(forms.ModelForm):
     contact = RichTextField(
         label="Contact pour candidater",
         required=True,
-        help_text="N'hésitez pas à ajouter plusieurs contacts",
+        help_text="N’hésitez pas à ajouter plusieurs contacts",
         widget=forms.Textarea(
             attrs={"placeholder": "Nom, prénom, e-mail, téléphone, commentaires…"}
         ),
@@ -88,7 +88,7 @@ class BaseAidForm(forms.ModelForm):
         help_text="Décrivez les spécificités de cette aide locale.",
     )
     is_call_for_project = forms.BooleanField(
-        label="Appel à projet / Manifestation d'intérêt", required=False
+        label="Appel à projet / Manifestation d’intérêt", required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -104,21 +104,21 @@ class BaseAidForm(forms.ModelForm):
             self.fields["recurrence"].required = True
 
         custom_labels = {
-            "name": "Nom de l'aide",
-            "financers": "Porteur de l'aide",
-            "instructors": "Instructeur de l'aide",
-            "new_backer": "…ou ajoutez un nouveau porteur d'aide",
+            "name": "Nom de l’aide",
+            "financers": "Porteur de l’aide",
+            "instructors": "Instructeur de l’aide",
+            "new_backer": "…ou ajoutez un nouveau porteur d’aide",
             "destinations": "Types de dépenses / actions couvertes",
             "origin_url": "Lien vers le descriptif complet",
             "application_url": "Lien vers la démarche en ligne",
-            "is_call_for_project": "Cochez cette case s'il s'agit d'un appel à projets (AAP) ou d'un appel à manifestation d'intérêt (AMI)",  # noqa
+            "is_call_for_project": "Cochez cette case s’il s’agit d'un appel à projets (AAP) ou d’un appel à manifestation d’intérêt (AMI)",  # noqa
         }
         for field, label in custom_labels.items():
             if field in self.fields:
                 self.fields[field].label = label
 
         custom_help_text = {
-            "new_backer": "Si le porteur de l'aide n'est pas déjà présent dans la liste précédente, vous pouvez utiliser ce champ pour nous le communiquer.",  # noqa
+            "new_backer": "Si le porteur de l’aide n'est pas déjà présent dans la liste précédente, vous pouvez utiliser ce champ pour nous le communiquer.",  # noqa
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -160,13 +160,13 @@ class AidAdminForm(BaseAidForm):
         label="Porteurs suggérés",
         max_length=256,
         required=False,
-        help_text="Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que porteur d'aides via le champ approprié.",  # noqa
+        help_text="Ce porteur a été suggéré. Créez le nouveau porteur et ajouter le en tant que porteur d’aides via le champ approprié.",  # noqa
     )
     instructor_suggestion = forms.CharField(
         label="Instructeurs suggérés",
         max_length=256,
         required=False,
-        help_text="Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en tant qu'instructeur via le champ approprié.",  # noqa
+        help_text="Cet instructeur a été suggéré. Créez le nouveau porteur et ajouter le en tant qu’instructeur via le champ approprié.",  # noqa
     )
     categories = CategoryMultipleChoiceField(
         label="Sous-thématiques",
@@ -305,7 +305,7 @@ class AidEditForm(BaseAidForm):
         help_text="Suggérez un porteur si vous ne trouvez pas votre choix dans la liste principale.",  # noqa
     )
     instructors = AutocompleteModelMultipleChoiceField(
-        label="Porteurs d'aides",
+        label="Instructeurs",
         queryset=Backer.objects.all(),
         required=False,
         help_text="Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.",
@@ -467,7 +467,7 @@ class AidEditForm(BaseAidForm):
         return data
 
 
-class BaseAidSearchForm(forms.Form):
+class BaseAidSearchForm(DsfrBaseForm):
     """Main form for search engine."""
 
     AID_CATEGORY_CHOICES = (
@@ -502,7 +502,7 @@ class BaseAidSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"type": "date"}),
     )
     aid_type = forms.MultipleChoiceField(
-        label="Nature de l'aide",
+        label="Nature de l’aide",
         choices=AID_TYPE_CHOICES,
         required=False,
         widget=forms.CheckboxSelectMultiple,
@@ -539,10 +539,10 @@ class BaseAidSearchForm(forms.Form):
         required=False,
     )
     backers = AutocompleteModelMultipleChoiceField(
-        label="Porteurs d'aides", queryset=Backer.objects.all(), required=False
+        label="Porteurs d’aides", queryset=Backer.objects.all(), required=False
     )
     programs = forms.ModelMultipleChoiceField(
-        label="Programmes d'aides",
+        label="Programmes d’aides",
         queryset=Program.objects.all(),
         to_field_name="slug",
         required=False,
@@ -573,7 +573,7 @@ class BaseAidSearchForm(forms.Form):
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(), label="Votre territoire", required=False
     )
-    origin_url = forms.URLField(label="URL d'origine", required=False)
+    origin_url = forms.URLField(label="URL d’origine", required=False)
 
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
@@ -859,18 +859,18 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
     )
 
 
-class DraftListAidFilterForm(forms.Form):
+class DraftListAidFilterForm(DsfrBaseForm):
     """"""
 
     AID_STATE_CHOICES = [
-        ("", ""),
+        ("", "Sélectionnez une option"),
         ("open", "Ouverte"),
         ("deadline", "Expire bientôt"),
         ("expired", "Expirée"),
     ]
 
     AID_DISPLAY_STATUS_CHOICES = [
-        ("", ""),
+        ("", "Sélectionnez une option"),
         ("hidden", "Non affichée"),
         ("live", "Affichée"),
     ]
@@ -884,7 +884,7 @@ class DraftListAidFilterForm(forms.Form):
     )
 
 
-class AidMatchProjectForm(forms.ModelForm):
+class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
     """allow user to associate aid to existing projects."""
 
     projects = forms.ModelMultipleChoiceField(

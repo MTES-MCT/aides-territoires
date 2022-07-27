@@ -8,8 +8,10 @@ from accounts.models import User
 from accounts.utils import check_current_password
 from projects.models import Project
 
+from dsfr.forms import DsfrBaseForm
 
-class RegisterForm(UserCreationForm):
+
+class RegisterForm(UserCreationForm, DsfrBaseForm):
     """Form used to create new user accounts."""
 
     ORGANIZATION_TYPE = Choices(
@@ -95,7 +97,7 @@ class RegisterForm(UserCreationForm):
         return data
 
 
-class LoginForm(AuthenticationForm):
+class LoginForm(AuthenticationForm, DsfrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
         "inactive": "Ce compte n'est actuellement pas actif.",
@@ -116,13 +118,13 @@ class LoginForm(AuthenticationForm):
         return username.lower()
 
 
-class PasswordResetForm(forms.Form):
+class PasswordResetForm(DsfrBaseForm):
     """Password reset request form."""
 
     username = forms.EmailField(label="Votre adresse e-mail", required=True)
 
 
-class PasswordResetConfirmForm(forms.ModelForm):
+class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
     """Change password after reset's request form."""
 
     new_password = forms.CharField(
@@ -173,7 +175,7 @@ class PasswordResetConfirmForm(forms.ModelForm):
         return user
 
 
-class ContributorProfileForm(forms.ModelForm):
+class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
     """Edit contributor profile related user data."""
 
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
@@ -281,7 +283,7 @@ class ContributorProfileForm(forms.ModelForm):
         return user
 
 
-class InviteCollaboratorForm(forms.Form):
+class InviteCollaboratorForm(DsfrBaseForm):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
@@ -322,7 +324,7 @@ class InviteCollaboratorForm(forms.Form):
         return email.lower()
 
 
-class JoinOrganizationForm(forms.Form):
+class JoinOrganizationForm(DsfrBaseForm):
     """Form used to allow user to join an other organization."""
 
     collaborators = forms.ModelMultipleChoiceField(
@@ -349,7 +351,7 @@ class JoinOrganizationForm(forms.Form):
         return data
 
 
-class CompleteProfileForm(forms.ModelForm):
+class CompleteProfileForm(forms.ModelForm, DsfrBaseForm):
     """Edit user profile."""
 
     first_name = forms.CharField(label="Votre prénom", required=True)

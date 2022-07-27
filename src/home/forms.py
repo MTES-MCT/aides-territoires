@@ -1,19 +1,21 @@
 from django import forms
 from captcha.fields import CaptchaField, CaptchaTextInput
 
+from dsfr.forms import DsfrBaseForm
+
 
 class CustomCaptchaTextInput(CaptchaTextInput):
     template_name = "captcha/captcha_field.html"
 
 
-class ContactForm(forms.Form):
+class ContactForm(DsfrBaseForm):
     """Contact form."""
 
     SUBJECT_CHOICES = (
         (None, "----"),
         (
             "contact_add",
-            "Je veux en savoir plus sur l'ajout de mes aides sur la plateforme",
+            "Je veux en savoir plus sur l’ajout de mes aides sur la plateforme",
         ),
         ("contact_com", "Je souhaite communiquer sur Aides-territoires"),
         ("contact_question", "J’ai une question sur mon compte utilisateur"),

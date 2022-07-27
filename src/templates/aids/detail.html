@@ -40,12 +40,12 @@
 {% block content %}
 <article id="aid" class="fr-container fr-mb-2w">
     {% if aid.submission_deadline and not aid.is_ongoing %}
-    <div class="deadline-data">
+    <div class="deadline-data fr-mb-1w">
         {% if aid.has_approaching_deadline %}
         <span class="fr-tag fr-mb-1w fr-py-2w fr-px-5w">J-{{ aid.days_before_deadline }}</span>
         {% endif %}
         <p>
-            <strong><i class="ri-calendar-line ri-xl fr-mr-1w"></i> Échéance</strong><br />
+            <strong><span class="ri-calendar-line ri-xl fr-mr-1w"></span> Échéance</strong><br />
             {{ aid.submission_deadline|date }}
         </p>
     </div>
@@ -61,20 +61,16 @@
     </h1>
 
     {% if not aid.is_published %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>
-            Attention ! Cette aide <strong>n’est actuellement pas affichée sur le site</strong>.
-            Vous pouvez la prévisualiser parce que vous en êtes l’auteur.
-        </p>
+    <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
+        <p class="fr-alert__title">Attention ! Cette aide n’est actuellement pas affichée sur le site.</p>
+        <p>Vous pouvez la prévisualiser parce que vous en êtes l’auteur.</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
-    <div class="danger fr-background-alt-pink fr-p-3w">
-        <p>
-            Attention ! Cette aide n’est <strong>plus disponible</strong>. Cette page
-            restera accessible pour archivage.
-        </p>
+    <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
+        <p class="fr-alert__title">Attention ! Cette aide n’est plus disponible.</p>
+        <p>Cette page restera accessible pour archivage.</p>
     </div>
     {% endif %}
 
@@ -85,7 +81,7 @@
                 <div>
                     <div class="local-generic fr-mb-4w fr-grid-row">
                         <div class="fr-col-2">
-                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                            <span class="ri-map-pin-line ri-xl fr-mr-1w"></span>
                         </div>
                         <div class="fr-col-10">
                             <h2 class="fr-h6">Aide locale</h2>
@@ -101,7 +97,7 @@
                 <div>
                     <div class="local-generic fr-mb-4w fr-grid-row">
                         <div class="fr-col-2">
-                            <i class="ri-map-pin-line ri-xl fr-mr-1w"></i>
+                            <span class="ri-map-pin-line ri-xl fr-mr-1w"></span>
                         </div>
                         <div class="fr-col-10">
                             <h2 class="fr-h6">Aide nationale</h2>
@@ -120,7 +116,7 @@
                 {% if financers %}
                 <div class="financers fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-hand-coin-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-hand-coin-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -143,7 +139,7 @@
                 {% if instructors %}
                 <div class="instructors fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-search-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-search-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">Instructeurs</h2>
@@ -167,7 +163,7 @@
                 {% if aid.is_call_for_project %}
                 <div class="call-for-project fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-pushpin-2-fill ri-xl fr-mr-1w"></i>
+                        <span class="ri-pushpin-2-fill ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -179,7 +175,7 @@
 
                 <div class="aid-type fr-grid-row fr-mb-4w">
                     <div class="fr-col-2">
-                        <i class="ri-money-euro-circle-line ri-xl"></i>
+                        <span class="ri-money-euro-circle-line ri-xl"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -192,7 +188,7 @@
                 {% if aid.subvention_rate or aid.subvention_comment %}
                 <div class="subvention-rate fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl"></i>
+                        <span class="ri-percent-line ri-xl"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -220,7 +216,7 @@
                 {% if aid.recoverable_advance_amount %}
                 <div class="subvention-rate fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-percent-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -236,7 +232,7 @@
                 {% if aid.loan_amount %}
                 <div class="subvention-rate fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-percent-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -252,7 +248,7 @@
                 {% if aid.other_financial_aid_comment %}
                 <div class="subvention-rate fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-percent-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-percent-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -270,7 +266,7 @@
                 {% if aid.recurrence %}
                 <div class="recurrence fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-calendar-2-fill ri-xl fr-mr-1w"></i>
+                        <span class="ri-calendar-2-fill ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -285,7 +281,7 @@
                 {% if aid.start_date and not aid.is_ongoing %}
                 <div class="calendar-start fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-calendar-check-fill ri-xl fr-mr-1w"></i>
+                        <span class="ri-calendar-check-fill ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -299,7 +295,7 @@
                 {% if aid.predeposit_date and not aid.is_ongoing %}
                 <div class="calendar-predeposit fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-calendar-todo-line ri-xl fr-mr-1w"></i>
+                        <span class="ri-calendar-todo-line ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="fr-h6">
@@ -313,7 +309,7 @@
                 {% if aid.submission_deadline and not aid.is_ongoing %}
                 <div class="calendar-deadline fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-calendar-fill ri-xl fr-mr-1w"></i>
+                        <span class="ri-calendar-fill ri-xl fr-mr-1w"></span>
                     </div>
                     <div class="fr-col-10">
                         <h2 class="submission_deadline fr-h6">
@@ -330,7 +326,7 @@
             <div>
                 <div class="data-origin fr-mb-4w fr-grid-row">
                     <div class="fr-col-2">
-                        <i class="ri-database-2-line ri-xl"></i>
+                        <span class="ri-database-2-line ri-xl"></span>
                     </div>
                     <div class="fr-col-10">
                         <h3 class="fr-h6">
@@ -375,11 +371,11 @@
             <div class="fr-list__none fr-mb-4w">
                 {% for keyword in keywords %}
                 {% if user_perimeter and user_targeted_audience %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience}}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                 {% elif user_targeted_audience %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience}}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                 {% else %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot clé '{{ keyword }}'">{{ keyword }}</a>
+                <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                 {% endif %}
                 {% endfor %}
             </div>
@@ -551,10 +547,10 @@
                     <h3 class="fr-card__title">
                         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
                             <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
-                                <i class="ri-share-line ri-2x fr-text--normal"></i>
+                                <span class="ri-share-line ri-2x fr-text--normal"></span>
                             </div>
                             <div class="fr-col-xs-12 fr-col-lg-10">
-                                Vous souhaitez diffuser cette aide&nbsp;?
+                                Vous souhaitez diffuser cette aide ?
                             </div>
                         </div>
                     </h3>
@@ -574,10 +570,10 @@
                     <h3 class="fr-card__title">
                         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
                             <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
-                                <i class="ri-notification-2-line ri-2x fr-text--normal"></i>
+                                <span class="ri-notification-2-line ri-2x fr-text--normal"></span>
                             </div>
                             <div class="fr-col-xs-12 fr-col-lg-10">
-                                Cette thématique vous intéresse&nbsp;?
+                                Cette thématique vous intéresse ?
                             </div>
                         </div>
                     </h3>
@@ -598,10 +594,10 @@
                     <h3 class="fr-card__title">
                         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
                             <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
-                                <i class="ri-list-check ri-2x fr-text--normal"></i>
+                                <span class="ri-list-check ri-2x fr-text--normal"></span>
                             </div>
                             <div class="fr-col-xs-12 fr-col-lg-10">
-                                Cette aide correspond à un de vos projets&nbsp;?
+                                Cette aide correspond à un de vos projets ?
                             </div>
                         </div>
                     </h3>

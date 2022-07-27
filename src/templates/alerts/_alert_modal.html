@@ -1,5 +1,3 @@
-{% load i18n %}
-
 <dialog aria-labelledby="fr-modal-title-alert-search" role="dialog" id="alert-search-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
@@ -9,14 +7,14 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-alert-search" class="fr-modal__title">
+                        <h2 id="fr-modal-title-alert-search" class="fr-modal__title">
                             <span class="fr-fi-arrow-right-line fr-fi--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche
-                        </h1>
+                        </h2>
 
                         <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
-                            <section>
+                            <div>
                                 <div class="content">
-                                    <div class="info fr-mb-3w">
+                                    <div class="fr-mb-3w">
                                         <p class="fr-h6">Les filtres sélectionnés</p>
                                         {% include 'aids/_search_meta.html' with display="all" %}
                                     </div>
@@ -32,10 +30,11 @@
                                     {% include '_field_snippet.html' with field=alert_form.title %}
                                     {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
 
-                                    <p class="info fr-background-alt-pink fr-p-2w">
-                                        <span class="fas fa-check"></span>
-                                        En créant une alerte, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
-                                    </p>
+                                    <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
+                                        <p>
+                                            En créant une alerte, vous acceptez que vos données soient traitées en accord avec <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener">notre politique de confidentialité</a>. 
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <footer>
@@ -43,7 +42,7 @@
                                        Créer une alerte
                                     </button>
                                 </footer>
-                            </section>
+                            </div>
                         </form>
                     </div>
                 </div>

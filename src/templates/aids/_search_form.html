@@ -33,13 +33,13 @@
             <a id="new-search-btn" class="fr-btn" href="{% url 'general_search' %}">
                 Nouvelle recherche
             </a>
-            <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" class="advanced-link" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
+            <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
                 Plus de critères
             </button>
         </div>
         <div class="fr-col-offset-md-5 fr-col-md-3 fr-grid-row fr-grid-row--right fr-mt-1w">
             <button type="button" class="fr-btn js" id="save-alert-btn" data-fr-opened="false" aria-controls="alert-search-modal">
-                <i class="ri-notification-2-line ri-lg fr-mr-1w"></i>Créer une alerte
+                <span class="ri-notification-2-line ri-lg fr-mr-1w"></span>Créer une alerte
             </button>    
         </div>
         {% endblock other-actions %}

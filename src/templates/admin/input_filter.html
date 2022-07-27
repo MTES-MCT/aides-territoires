@@ -1,6 +1,4 @@
-{% load i18n %}
-
-<h3>Par {{ filter_title }}</h3>
+<h3>Par {{ title }}</h3>
 <ul>
     <li>
         {% with choices.0 as all_choice %}
@@ -15,7 +13,7 @@
                     name="{{ spec.parameter_name }}"/>
 
             {% if not all_choice.selected %}
-                <strong><a href="{{ all_choice.query_string }}">x {% trans 'Remove' %}</a></strong>
+                <strong><a href="{{ all_choice.query_string }}">✖ Supprimer</a></strong>
             {% endif %}
 
         </form>

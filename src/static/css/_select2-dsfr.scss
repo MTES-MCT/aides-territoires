@@ -7,6 +7,10 @@
   height: auto;
 }
 
+.select2-container--select2-dsfr .select2-selection {
+  padding-bottom: 0.30rem;
+}
+
 .select2-container--select2-dsfr .select2-results__option {
   color: #161616;
   background-color: #fff;
@@ -55,4 +59,8 @@
   margin-block-end: 0;
   margin-block-start: 0;
   padding-inline-start: 0;
+}
+
+.fr-label ~ .select2-container--select2-dsfr {
+  margin-top: 0.5em;
 }

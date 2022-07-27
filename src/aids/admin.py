@@ -106,7 +106,7 @@ class GenericAidListFilter(admin.SimpleListFilter):
 
 class BackersFilter(InputFilter):
     parameter_name = "backers"
-    title = "Porteurs d'aides"
+    title = "Porteurs d’aides"
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -145,8 +145,8 @@ class FinancersInline(SortableInlineAdminMixin, admin.TabularInline):
 
     model = AidFinancer
     extra = 1
-    verbose_name = "Porteur d'aide"
-    verbose_name_plural = "Porteurs d'aides"
+    verbose_name = "Porteur d’aide"
+    verbose_name_plural = "Porteurs d’aides"
     autocomplete_fields = ["backer"]
 
 

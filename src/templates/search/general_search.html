@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n compress static %}
+{% load i18n compress static dsfr_tags %}
 
 {% block extratitle %}Recherche – Trouver des aides{% endblock extratitle %}
 
@@ -17,7 +17,7 @@
 
 {% block breadcrumbs %}
 <div class="fr-container">
-    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici&nbsp;:">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
         <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
         <div class="fr-collapse" id="breadcrumb-1">
             <ol class="fr-breadcrumb__list">
@@ -45,7 +45,7 @@
         </h2>
         <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
             <div class="fr-select-group fr-col-12 fr-col-md-3 fr-pb-0 fr-mb-0">
-                <h3 class="fr-h6">votre structure&nbsp;:</h3>
+                <h3 class="fr-h6">votre structure :</h3>
                 <div id="form-group-targeted_audiences" class="fr-input-group">
                     <label for="id_targeted_audiences">Vous êtes un/une</label>
                     <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
@@ -59,7 +59,7 @@
 
             </div>
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pb-0 fr-mb-0">
-                <h3 class="fr-h6">votre territoire&nbsp;:</h3>
+                <h3 class="fr-h6">votre territoire :</h3>
                 {% include '_field_snippet.html' with field=form.perimeter %}
             </div>
             <div id="text-research-help" class="fr-mt-2w fr-ml-1w">
@@ -71,14 +71,14 @@
         <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w fr-mb-5w">
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w column--space-between fr-mb-0" id="search-step-2">
                 <div class="fr-container fr-p-0">
-                    <h3 class="fr-h6">soit par mot-clé&nbsp;:
+                    <h3 class="fr-h6">soit par mot-clé :
                         <div class="fr-hint-text">
                             recherchez parmi toutes les aides le mot-clé que vous souhaitez
                         </div>
                     </h3>
                     <div class="fr-grid-row fr-grid-row--middle">
                         <div class="fr-col-12 fr-col-md-8 fr-mr-1w">
-                            {% include '_field_snippet.html' with field=form.text %}
+                            {% dsfr_form_field form.text %}
                         </div>
                         <button name="action" value="search" type="submit" class="fr-btn fr-my-1w">
                             <span class="fr-fi-search-line fr-mr-1w" aria-hidden="true"></span>
@@ -96,7 +96,7 @@
                 <img src="{% static 'img/home_aides.svg' %}" alt="picto-aides-territoires" class="fr-responsive-img" />
             </div>
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w" id="search-step-2">
-                <h3 class="fr-h6">soit par thématiques&nbsp;:
+                <h3 class="fr-h6">soit par thématiques :
                     <span class="fr-hint-text fr-mb-0">
                         cliquez sur une thématique, sélectionnez ensuite une ou plusieurs sous-thématiques
                     </span>

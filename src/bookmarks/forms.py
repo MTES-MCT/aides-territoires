@@ -1,18 +1,19 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
+
+from dsfr.forms import DsfrBaseForm
 
 from accounts.models import User
 from bookmarks.models import Bookmark
 
 
-class BaseBookmarkForm(forms.Form):
+class BaseBookmarkForm(DsfrBaseForm):
     """Commont fields for both bookmark forms."""
 
     title = forms.CharField(
         label="Donnez un nom à votre alerte", required=True, max_length=250
     )
     alert_frequency = forms.ChoiceField(
-        label="Fréquence de l'alerte",
+        label="Fréquence de l’alerte",
         choices=Bookmark.FREQUENCIES,
         help_text="À quelle fréquence souhaitez-vous recevoir les nouveaux résultats ?",
     )
@@ -23,7 +24,7 @@ class UserBookmarkForm(BaseBookmarkForm):
     """Form used to configure a new search bookmark (user connected only)."""
 
     send_email_alert = forms.BooleanField(
-        label=_("Receive new results by email"), required=False
+        label="Recevoir les nouveaux résultats par e-mail", required=False
     )
 
 
@@ -48,10 +49,7 @@ class AnonymousBookmarkForm(BaseBookmarkForm):
             User.objects.filter(email=email).filter(last_login__isnull=False).exists()
         )
         if user_exists:
-            msg = _(
-                "An account with this address already exists. If this is "
-                "your account, you might want to login first."
-            )
+            msg = "Un compte avec cette adresse existe déjà. Avez-vous oublié de vous connecter ?"
             raise forms.ValidationError(msg, code="unique")
         return email
 

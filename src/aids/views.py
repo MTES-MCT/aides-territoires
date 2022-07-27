@@ -670,8 +670,8 @@ class AidEditView(
             obj = form.save(commit=False)
             obj = self.copy_aid(obj)
             form.save_m2m()
-            msg = "La nouvelle aide a été créée. Vous pouvez poursuivre l'édition. "
-            "Et retrouvez l'aide dupliquée sur "
+            msg = "La nouvelle aide a été créée. Vous pouvez poursuivre l’édition. "
+            "Et retrouvez l’aide dupliquée sur "
             '<a href="{url}">votre portefeuille d’aides</a>.'.format(
                 url=reverse("aid_draft_list_view")
             )
@@ -689,7 +689,7 @@ class AidEditView(
                     aid.unpublish()
                     msg = "Le changement de statut de votre aide a bien été pris en compte."
             else:
-                msg = "L’aide a bien été mise à jour. Vous pouvez poursuivre l'édition."
+                msg = "L’aide a bien été mise à jour. Vous pouvez poursuivre l’édition."
 
         self.messages.success(msg)
         return response

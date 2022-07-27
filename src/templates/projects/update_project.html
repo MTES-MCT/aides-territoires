@@ -50,9 +50,10 @@
                 {% include '_form_header.html' with form=form %}
 
                 {% if form.non_field_errors %}
-                <div class="danger" role="alert">
+                <div class="fr-alert fr-alert--info fr-alert--sm">
                     {{ form.non_field_errors.0 }}
-                </div>
+               </div>
+
                 {% endif %}
 
                 {% for field in form.hidden_fields %}

@@ -8,11 +8,11 @@
     <fieldset class="part-form fr-fieldset">
         {% if field.label %}
         <legend class="fr-fieldset__legend">
-            {{ field.label }}
+            {{ field.label }}{% if field.field.required %} *{% endif %}
         </legend>
         {% endif %}
 
-        <div class="part-form fr-checkbox-group">
+        <div class="part-form">
             {% if nest_field_class %}
             <div class="{{ nest_field_class }}">
             {% endif %}
