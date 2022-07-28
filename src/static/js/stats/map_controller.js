@@ -216,17 +216,17 @@ export default class extends Controller {
         <tbody data-table-target="body">
           <tr data-table-target="row">
             ${correspondanceCommunes
-              .map(
-                (item) =>
-                  `
+        .map(
+          (item) =>
+            `
                   <td scope="row">${item.nom}</td>
                   <td>${item.organization_name}</td>
                   <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
                   <td>${item.projects_count}</td>
                   <td>${item.user_email}</td>
                   `
-              )
-              .join('</tr><tr data-table-target="row">')}
+        )
+        .join('</tr><tr data-table-target="row">')}
           </tr>
         </tbody>
       </table>
@@ -277,17 +277,17 @@ export default class extends Controller {
         <tbody data-table-target="body">
           <tr data-table-target="row">
             ${correspondanceEpcis
-              .map(
-                (item) =>
-                  `
+        .map(
+          (item) =>
+            `
                   <td scope="row">${item.nom}</td>
                   <td>${item.organization_name}</td>
                   <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
                   <td>${item.projects_count}</td>
                   <td>${item.user_email}</td>
                   `
-              )
-              .join('</tr><tr data-table-target="row">')}
+        )
+        .join('</tr><tr data-table-target="row">')}
           </tr>
         </tbody>
       </table>
@@ -693,8 +693,8 @@ const mapUtils = (function () {
       if (
         vert[i][0] > y != vert[j][0] > y &&
         x <
-          ((vert[j][1] - vert[i][1]) * (y - vert[i][0])) / (vert[j][0] - vert[i][0]) +
-            vert[i][1]
+        ((vert[j][1] - vert[i][1]) * (y - vert[i][0])) / (vert[j][0] - vert[i][0]) +
+        vert[i][1]
       )
         inside = !inside
     }
