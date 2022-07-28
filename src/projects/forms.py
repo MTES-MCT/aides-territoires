@@ -2,6 +2,7 @@ from django import forms
 
 from dsfr.forms import DsfrBaseForm
 from core.forms import RichTextField
+from projects.constants import EXPORT_FORMAT_CHOICES
 
 from projects.models import Project
 from organizations.models import Organization
@@ -66,11 +67,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 class ProjectExportForm(forms.ModelForm):
     """Form used to export a project."""
 
-    CHOICES = [
-        ("csv", "Fichier CSV"),
-        ("xlsx", "Tableur Excel"),
-    ]
-    # ("pdf", "Document PDF"),
+    CHOICES = EXPORT_FORMAT_CHOICES
 
     format = forms.ChoiceField(
         choices=CHOICES,

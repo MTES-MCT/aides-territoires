@@ -10,14 +10,14 @@
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
               <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Votre projet « {{ project.name }} »</h1>
+                  <h1 class="fr-h3">Liste des aides au {{ today|date }} pour votre projet « {{ project.name }} »</h1>
               </div>
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Date d'échéance du projet :
                 {% if project.due_date %}
-                {{ project.due_date|date:'d/m/y' }}
+                {{ project.due_date|date }}
                 {% else %}
                 aucune
                 {% endif %}
@@ -28,9 +28,29 @@
                     <div id="project-description">
                         {{ project.description|safe }}
                     </div>
-                    <hr />
                 </section>
             {% endif %}
+
+            {# Aids table #}
+            <h3>Synthèse des aides pour votre projet</h3>
+            <table>
+                <tr>
+                    <th>Titre de l’aide</th>
+                    <th>Type</th>
+                    <th>Date d’échéance</th>
+                </tr>
+
+                {% for aid in aid_set %}
+                    <tr>
+                        <td>{{ aid.name }}</td>
+                        <td>{{ aid.get_recurrence_display }}</td>
+                        <td>{% if aid.submission_deadline %}{{ aid.submission_deadline }}{% endif %} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <pdf:nextpage />
+
+            {# Aid detail #}
             {% for aid in aid_set %}
                 <h2>{{ aid.name }}</h2>
                 <p>{{ aid.description|safe }}</p>
@@ -95,10 +115,15 @@
                 <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link">
                     {{ hostname }}{{ aid.get_absolute_url }}
                 </a>
-                <hr />
+                <pdf:nextpage />
             {% endfor %}
 
         </div>
     </div>
 </div>
 {% endblock content %}
+
+{% block extrafooter %}
+<p>Export valable en date du {{ today|date }}, pensez à revenir régulièrement sur Aides-territoires
+pour rester informé des nouveaux dispositifs d’aides mobilisables.</p>
+{% endblock extrafooter %}

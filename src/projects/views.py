@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
+from projects.constants import EXPORT_FORMAT_KEYS
 from projects.services.export import export_project
 
 from projects.tasks import send_project_deleted_email
@@ -244,7 +245,7 @@ class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         file_format = request.POST["format"]
         project = self.get_object()
 
-        if file_format in ["csv", "xlsx"]:  # "pdf"
+        if file_format in EXPORT_FORMAT_KEYS:
             response_data = export_project(project, file_format)
             if "error" not in response_data:
                 filename = response_data["filename"]

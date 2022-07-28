@@ -41,10 +41,11 @@ def export_project(project: Project, file_format: str) -> dict:
 
     exported_aids = AidResourcePublic().export(aids_qs)
 
-    today = date.today().strftime("%Y-%m-%d")
+    today = date.today()
+    today_formated = today.strftime("%Y-%m-%d")
 
     filename = get_valid_filename(
-        f"Aides-territoires - {today} - {project.name}.{file_format}"
+        f"Aides-territoires - {today_formated } - {project.name}.{file_format}"
     )
 
     if file_format == "csv":
@@ -66,6 +67,7 @@ def export_project(project: Project, file_format: str) -> dict:
         current_site = Site.objects.get_current()
         html = template.render(
             {
+                "today": today,
                 "project": project,
                 "aid_set": aids_qs,
                 "hostname": f"https://{current_site.domain}",

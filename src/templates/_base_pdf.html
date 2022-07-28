@@ -27,6 +27,11 @@
         }
 
         .at-pdf-footer__logo { height: 50px;}
+
+        td, th {
+            border: 1px solid #000;
+            padding: 1em;
+        }
         </style>
     </head>
     <body>
@@ -38,16 +43,16 @@
                         <div class="at-pdf-header__brand fr-enlarge-link">
                             <div class="at-pdf-header__brand-top">
                                 <div class="at-pdf-header__operator">
+                                    <img src="{% static 'img/logo_gouv.svg' %}" style="width:150px" alt="Gouvernement" />
                                     <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
                                 </div>
                             </div>
                         </div>
 
                         <div>Aides-territoires est un service public numérique qui facilite la recherche
-                        d’aides financières et d’ingénierie des collectivités territoriales et de leurs
-                        partenaires locaux en regroupant les dispositifs auxquels ils peuvent prétendre sur
+                        d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
+                        territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
                         un portail unique.</div>
-
                     </div>
                 </div>
             </div>
@@ -75,6 +80,7 @@
                             la Direction Générale des Infrastructures de Transport et de la Mer
                             (DGITM).
                         </p>
+                        {% block extrafooter %}{% endblock extrafooter %}
                     </div>
                 </div>
 
