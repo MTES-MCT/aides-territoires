@@ -53,7 +53,7 @@ export default class extends Controller {
     this.map.on('moveend', this.#_forwardRegularEvent, this)
   }
 
-  switchShapes(e) {
+  switchShapes() {
     // These two values are empirical, on load, when you zoom in
     // then zoom out you should get back to the same shapes level.
     const zoomRegion = this.zoomFrance + 0.5
@@ -64,55 +64,67 @@ export default class extends Controller {
       currentZoomLevel > zoomRegion && currentZoomLevel < zoomDepartment
     const communeLevel = currentZoomLevel >= zoomDepartment
     if (regionLevel) {
-      this.map.hasLayer(this.departments) && this.map.removeLayer(this.departments)
-      if (this.map.hasLayer(this.regions)) return
-      this.map.addLayer(this.regions)
-      this.legend.setContent(this.#generateLegendContent(this.scaleRegions))
+      this.#switchToRegionLevel()
     } else if (departmentLevel) {
-      this.map.hasLayer(this.regions) && this.map.removeLayer(this.regions)
-      for (let commune of Object.values(this.communes)) {
-        this.map.removeLayer(commune)
-      }
-      if (this.map.hasLayer(this.departments)) return
-      if (this.departments.length) {
-        this.map.addLayer(this.departments)
-      } else {
-        this.#getDepartments().then((departments) => {
-          this.departments = departments
-          this.map.addLayer(departments)
-        })
-      }
-      this.legend.setContent(this.#generateLegendContent(this.scaleDepartments))
+      this.#switchToDepartmentLevel()
     } else if (communeLevel) {
-      this.map.hasLayer(this.regions) && this.map.removeLayer(this.regions)
-      this.map.hasLayer(this.departments) && this.map.removeLayer(this.departments)
-
-      // We determine the current department being the one at the center of the map.
-      const insideLayers = mapUtils.pointInLayer(
-        this.map.getCenter(),
-        this.departments,
-        true
-      )
-      if (!insideLayers.length) return
-      const currentDepartmentCode = insideLayers[0].feature.properties.code
-
-      if (this.communes[currentDepartmentCode]) {
-        this.map.addLayer(this.communes[currentDepartmentCode])
-      } else {
-        this.#getCommunes(currentDepartmentCode).then((communes) => {
-          this.communes[currentDepartmentCode] = communes
-          this.map.addLayer(communes)
-        })
-      }
-      // TODO: manual for now, we need to discuss the appropriated scale.
-      this.legend.setContent(`
-        <i style="background:${this.#getAgeColor(1)};"></i> L’année dernière<br>
-        <i style="background:${this.#getAgeColor(2)};"></i> Janvier-Février<br>
-        <i style="background:${this.#getAgeColor(3)};"></i> Mars-Avril<br>
-        <i style="background:${this.#getAgeColor(4)};"></i> Mai-Juin<br>
-        <i style="background:${this.#getAgeColor(5)};"></i> Juillet-Août
-      `)
+      this.#switchToCommuneLevel()
     }
+  }
+
+  #switchToRegionLevel() {
+    this.map.hasLayer(this.departments) && this.map.removeLayer(this.departments)
+    if (this.map.hasLayer(this.regions)) return
+    this.map.addLayer(this.regions)
+    this.legend.setContent(this.#generateLegendContent(this.scaleRegions))
+  }
+
+  #switchToDepartmentLevel() {
+    this.map.hasLayer(this.regions) && this.map.removeLayer(this.regions)
+    for (let commune of Object.values(this.communes)) {
+      this.map.removeLayer(commune)
+    }
+    if (this.map.hasLayer(this.departments)) return
+    if (this.departments.length) {
+      this.map.addLayer(this.departments)
+    } else {
+      this.#getDepartments().then((departments) => {
+        this.departments = departments
+        this.map.addLayer(departments)
+      })
+    }
+    this.legend.setContent(this.#generateLegendContent(this.scaleDepartments))
+  }
+
+  #switchToCommuneLevel() {
+    this.map.hasLayer(this.regions) && this.map.removeLayer(this.regions)
+    this.map.hasLayer(this.departments) && this.map.removeLayer(this.departments)
+
+    // We determine the current department being the one at the center of the map.
+    const insideLayers = mapUtils.pointInLayer(
+      this.map.getCenter(),
+      this.departments,
+      true
+    )
+    if (!insideLayers.length) return
+    const currentDepartmentCode = insideLayers[0].feature.properties.code
+
+    if (this.communes[currentDepartmentCode]) {
+      this.map.addLayer(this.communes[currentDepartmentCode])
+    } else {
+      this.#getCommunes(currentDepartmentCode).then((communes) => {
+        this.communes[currentDepartmentCode] = communes
+        this.map.addLayer(communes)
+      })
+    }
+    // TODO: manual for now, we need to discuss the appropriated scale.
+    this.legend.setContent(`
+      <i style="background:${this.#getAgeColor(1)};"></i> L’année dernière<br>
+      <i style="background:${this.#getAgeColor(2)};"></i> Janvier-Février<br>
+      <i style="background:${this.#getAgeColor(3)};"></i> Mars-Avril<br>
+      <i style="background:${this.#getAgeColor(4)};"></i> Mai-Juin<br>
+      <i style="background:${this.#getAgeColor(5)};"></i> Juillet-Août
+    `)
   }
 
   #initMap() {
@@ -144,7 +156,7 @@ export default class extends Controller {
 
   #createInfo() {
     L.HoverInfo = L.Control.extend({
-      onAdd: function (map) {
+      onAdd: function () {
         this._div = L.DomUtil.create('div', 'info')
         this.update(null, this.regionsOrgCount)
         return this._div
@@ -170,13 +182,12 @@ export default class extends Controller {
         this._div.innerHTML = message
       },
     })
-    const info = new L.HoverInfo()
-    return info
+    return new L.HoverInfo()
   }
 
   #createLegend() {
     L.Legend = L.Control.extend({
-      onAdd: function (map) {
+      onAdd: function () {
         const container = document.createElement('div')
         container.classList.add('info', 'legend')
         if (this.options.content) {
@@ -189,11 +200,10 @@ export default class extends Controller {
       },
     })
 
-    const legend = new L.Legend({
+    return new L.Legend({
       position: 'bottomleft',
       content: this.#generateLegendContent(this.scaleRegions),
     })
-    return legend
   }
 
   #generateLegendContent(scale) {
@@ -224,17 +234,17 @@ export default class extends Controller {
         }
         return { ...this.defaultFillStyle, ...fillColor }
       },
-      onEachFeature: (feature, layer) => {
+      onEachFeature: (_feature, layer) => {
         layer.on({
           mouseover: (e) => {
-            const layer = e.target
-            layer.setStyle(this.defaultHoverStyle)
+            const target = e.target
+            target.setStyle(this.defaultHoverStyle)
 
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-              layer.bringToFront()
+              target.bringToFront()
             }
 
-            this.info.update(layer.feature.properties, this.regionsOrgCount)
+            this.info.update(target.feature.properties, this.regionsOrgCount)
           },
           mouseout: (e) => {
             regions.resetStyle(e.target)
@@ -250,12 +260,7 @@ export default class extends Controller {
   #getDepartments() {
     // TODISCUSS: how to use whitenoise here?
     return fetch('/static/geojson/departements-1000m.geojson')
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw response.statusText
-      })
+      .then(this.#checkResponse)
       .then((data) => {
         const departments = L.geoJson(data, {
           style: (feature) => {
@@ -267,17 +272,17 @@ export default class extends Controller {
             }
             return { ...this.defaultFillStyle, ...fillColor }
           },
-          onEachFeature: (feature, layer) => {
+          onEachFeature: (_feature, layer) => {
             layer.on({
               mouseover: (e) => {
-                const layer = e.target
-                layer.setStyle(this.defaultHoverStyle)
+                const target = e.target
+                target.setStyle(this.defaultHoverStyle)
 
                 if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                  layer.bringToFront()
+                  target.bringToFront()
                 }
 
-                this.info.update(layer.feature.properties, this.departmentsOrgCount)
+                this.info.update(target.feature.properties, this.departmentsOrgCount)
               },
               mouseout: (e) => {
                 departments.resetStyle(e.target)
@@ -297,12 +302,7 @@ export default class extends Controller {
   #getCommunes(code) {
     // TODISCUSS: how to use whitenoise here?
     return fetch(`/static/geojson/communes-1000m-${code}.geojson`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw response.statusText
-      })
+      .then(this.#checkResponse)
       .then((data) => {
         const communes = L.geoJson(data, {
           style: (feature) => {
@@ -313,17 +313,17 @@ export default class extends Controller {
             const fillColor = { fillColor: this.#getAgeColor(age) }
             return { ...this.defaultFillStyle, ...fillColor }
           },
-          onEachFeature: (feature, layer) => {
+          onEachFeature: (_feature, layer) => {
             layer.on({
               mouseover: (e) => {
-                const layer = e.target
-                layer.setStyle(this.defaultHoverStyle)
+                const target = e.target
+                target.setStyle(this.defaultHoverStyle)
 
                 if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                  layer.bringToFront()
+                  target.bringToFront()
                 }
 
-                const properties = layer.feature.properties
+                const properties = target.feature.properties
                 const key = `${properties.code}-${properties.nom}`
                 const communeHasOrg = Object.keys(this.communesWithOrg).includes(key)
                 if (communeHasOrg) {
@@ -348,6 +348,13 @@ export default class extends Controller {
           ex
         )
       })
+  }
+
+  #checkResponse(response) {
+    if (response.ok) {
+      return response.json()
+    }
+    throw response.statusText
   }
 
   #fitMap(e) {
