@@ -5,7 +5,7 @@ from geofr.utils import (
     attach_perimeters_check,
     department_from_zipcode,
     is_overseas,
-    get_all_related_perimeter_ids,
+    get_all_related_perimeters,
     attach_perimeters,
     attach_epci_perimeters,
     sort_departments,
@@ -30,11 +30,11 @@ def test_is_overseas():
     assert is_overseas("97414")
 
 
-def test_get_all_related_perimeter_ids(perimeters):
+def test_get_all_related_perimeters(perimeters):
     """Finding related perimeters works as expected."""
 
-    related_perimeters_france = get_all_related_perimeter_ids(
-        perimeters["herault"].id
+    related_perimeters_france = get_all_related_perimeters(
+        perimeters["herault"].id, values=["id"]
     )  # noqa
 
     assert {"id": perimeters["france"].id} in related_perimeters_france

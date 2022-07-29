@@ -38,8 +38,10 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
-def get_all_related_perimeter_ids(search_perimeter_id, direction="both", scale=None):
-    """Return a list of all perimeter ids related to the searched perimeter.
+def get_all_related_perimeters(
+    search_perimeter_id, direction="both", scale=None, values=None
+):
+    """Return a list of all perimeters related to the searched perimeter.
 
     In case of direction `up`, we only retrieve the wider perimeters.
     In case of direction `down`, we only retrieve the smaller perimeters.
@@ -61,6 +63,9 @@ def get_all_related_perimeter_ids(search_perimeter_id, direction="both", scale=N
 
     The `scale` parameter allows you to restrict results to a given
     `Perimeter.SCALES` kind of perimeter.
+
+    The `values` list parameter allows you to return values instead of
+    instances of Perimeters.
     """
 
     # Note: the original way we adressed this was more straightforward,
@@ -90,14 +95,12 @@ def get_all_related_perimeter_ids(search_perimeter_id, direction="both", scale=N
         )
         q_contained = Q(id__in=contained_id)
 
-    perimeter_qs = (
-        Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
-        .values("id")
-        .distinct()
-    )
+    perimeter_qs = Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
     if scale is not None:
-        perimeter_qs.filter(scale=scale)
-    return perimeter_qs
+        perimeter_qs = perimeter_qs.filter(scale=scale)
+    if values is not None:
+        perimeter_qs = perimeter_qs.values(*values)
+    return perimeter_qs.distinct()
 
 
 def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> list:

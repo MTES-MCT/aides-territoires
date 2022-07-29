@@ -6,7 +6,7 @@ from core.fields import ChoiceArrayField
 from model_utils import Choices
 from aids.constants import AUDIENCES_ALL
 from geofr.models import Perimeter
-from geofr.utils import get_all_related_perimeter_ids
+from geofr.utils import get_all_related_perimeters
 
 
 class Organization(models.Model):
@@ -150,7 +150,7 @@ class Organization(models.Model):
 
     def set_perimeters(self):
         """Set the object's region and department perimeters if it is missing."""
-        if self.perimeter.scale in [
+        if self.perimeter and self.perimeter.scale in [
             Perimeter.SCALES.commune,
             Perimeter.SCALES.epci,
             Perimeter.SCALES.department,
@@ -159,14 +159,14 @@ class Organization(models.Model):
             # TODISCUSS: we may want to be able to override these values?
             if not self.perimeter_region and not self.perimeter_department:
                 # We might have EPCI across two regions.
-                regions = get_all_related_perimeter_ids(
+                regions = get_all_related_perimeters(
                     self.perimeter.id, direction="up", scale=Perimeter.SCALES.region
                 )
                 # In that case, we arbitrarily take the first one.
                 region = regions.first()
 
                 # We might have EPCI across two/three departments.
-                departments = get_all_related_perimeter_ids(
+                departments = get_all_related_perimeters(
                     self.perimeter.id, direction="up", scale=Perimeter.SCALES.department
                 )
                 # In that case, we arbitrarily take the first one.

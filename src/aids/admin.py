@@ -23,7 +23,7 @@ from core.admin import InputFilter, pretty_print_readonly_jsonfield
 from core.constants import YES_NO_CHOICES
 from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
 from exporting.utils import get_admin_export_message
-from geofr.utils import get_all_related_perimeter_ids
+from geofr.utils import get_all_related_perimeters
 from search.models import SearchPage
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
@@ -136,8 +136,8 @@ class PerimeterAutocompleteFilter(AutocompleteFilter):
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-            perimeter_qs = get_all_related_perimeter_ids(value)
-            return queryset.filter(perimeter__in=perimeter_qs)
+            perimeter_ids = get_all_related_perimeters(value, values=["id"])
+            return queryset.filter(perimeter__in=perimeter_ids)
 
 
 class FinancersInline(SortableInlineAdminMixin, admin.TabularInline):
