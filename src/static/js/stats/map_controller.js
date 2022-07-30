@@ -430,9 +430,9 @@ const mapUtils = (function () {
     let xAll = []
     let yAll = []
 
-    for (let i = 0; i < coords[0].length; i++) {
-      xAll.push(coords[0][i][1])
-      yAll.push(coords[0][i][0])
+    for (let coord of coords[0]) {
+      xAll.push(coord[1])
+      yAll.push(coord[0])
     }
 
     xAll = xAll.sort((a, b) => a - b)
@@ -461,11 +461,11 @@ const mapUtils = (function () {
     // From https://github.com/maxogden/geojson-js-utils
     let vert = [[0, 0]]
 
-    for (let i = 0; i < coords.length; i++) {
-      for (let j = 0; j < coords[i].length; j++) {
-        vert.push(coords[i][j])
+    for (let coord of coords) {
+      for (let subcoord of coord) {
+        vert.push(subcoord)
       }
-      vert.push(coords[i][0])
+      vert.push(coord[0])
       vert.push([0, 0])
     }
 
@@ -488,15 +488,14 @@ const mapUtils = (function () {
     const coords = poly.type == 'Polygon' ? [poly.coordinates] : poly.coordinates
 
     let insideBox = false
-    for (let i = 0; i < coords.length; i++) {
-      if (pointInBoundingBox(p, boundingBoxAroundPolyCoords(coords[i])))
-        insideBox = true
+    for (let coord of coords) {
+      if (pointInBoundingBox(p, boundingBoxAroundPolyCoords(coord))) insideBox = true
     }
     if (!insideBox) return false
 
     let insidePoly = false
-    for (let i = 0; i < coords.length; i++) {
-      if (pnpoly(p.coordinates[1], p.coordinates[0], coords[i])) insidePoly = true
+    for (let coord of coords) {
+      if (pnpoly(p.coordinates[1], p.coordinates[0], coord)) insidePoly = true
     }
 
     return insidePoly
@@ -523,13 +522,7 @@ const mapUtils = (function () {
 
       if (
         isPoly(l) &&
-        pointInPolygon(
-          {
-            type: 'Point',
-            coordinates: p,
-          },
-          l.toGeoJSON().geometry
-        )
+        pointInPolygon({ type: 'Point', coordinates: p }, l.toGeoJSON().geometry)
       ) {
         results.push(l)
       }
