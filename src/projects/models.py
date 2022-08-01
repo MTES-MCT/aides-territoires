@@ -34,6 +34,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "projet"
         verbose_name_plural = "projets"
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name
