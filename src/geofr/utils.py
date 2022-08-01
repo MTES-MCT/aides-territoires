@@ -280,12 +280,12 @@ def sort_departments(departments: QuerySet) -> list:
         departments_list.append(department)
 
     # sort the departments so that Corsican ones are between 19 and 21
-    dept21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept2A = [i for i, d in enumerate(departments_list) if "2A" in d.values()][0]
-    departments_list.insert(dept21, departments_list.pop(dept2A))
+    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
+    dept_2a = [i for i, d in enumerate(departments_list) if "2A" in d.values()][0]
+    departments_list.insert(dept_21, departments_list.pop(dept_2a))
 
-    dept21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept2B = [i for i, d in enumerate(departments_list) if "2B" in d.values()][0]
-    departments_list.insert(dept21, departments_list.pop(dept2B))
+    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
+    dept_2b = [i for i, d in enumerate(departments_list) if "2B" in d.values()][0]
+    departments_list.insert(dept_21, departments_list.pop(dept_2b))
 
     return departments_list
