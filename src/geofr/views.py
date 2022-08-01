@@ -1,13 +1,14 @@
 import json
-from django.views.generic import TemplateView
-from django.utils.text import slugify
-from backers.models import Backer
 
+from django.views.generic import TemplateView
+
+from backers.models import Backer
 from geofr.services.counts_by_department import (
     get_backers_count_by_department,
     get_programs_count_by_department,
 )
 from geofr.models import Perimeter
+from geofr.utils import sort_departments
 from organizations.constants import ORGANIZATION_TYPE
 from programs.models import Program
 
@@ -21,14 +22,10 @@ class MapView(TemplateView):
             scale=Perimeter.SCALES.department
         ).values("id", "name", "code", "backers_count", "programs_count")
 
-        # perimeters currently don't have a proper slug
-        departments_list = []
-        for department in departments:
-            department["slug"] = slugify(department["name"])
-            departments_list.append(department)
+        departments_list = sort_departments(departments)
 
-        context["departments"] = departments
-        context["departments_list"] = json.dumps(departments_list)
+        context["departments"] = departments_list
+        context["departments_json"] = json.dumps(departments_list)
         context["backers_count"] = Backer.objects.has_financed_aids().count()
         context["programs_count"] = Program.objects.count()
 
@@ -42,6 +39,7 @@ class DepartmentView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
+        departments_list = sort_departments(departments.values("id", "name", "code"))
         current_dept = departments.get(code=kwargs["code"])
 
         target_audience = self.request.GET.get("target_audience")
@@ -59,7 +57,7 @@ class DepartmentView(TemplateView):
             "programs": f"Top 10 des {programs_list.count()} programmes par nombre d’aides :",
         }
 
-        context["departments"] = departments
+        context["departments"] = departments_list
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
@@ -78,6 +76,7 @@ class DepartmentBackersView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
+        departments_list = sort_departments(departments.values("id", "name", "code"))
         current_dept = departments.get(code=kwargs["code"])
 
         target_audience = self.request.GET.get("target_audience")
@@ -96,7 +95,7 @@ class DepartmentBackersView(TemplateView):
         caption = f"{current_dept.name } : {backers_list.count()} "
         caption += f"porteurs d‘aides{caption_aid_type} présents"
 
-        context["departments"] = departments
+        context["departments"] = departments_list
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
@@ -114,6 +113,7 @@ class DepartmentProgramsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
+        departments_list = sort_departments(departments.values("id", "name", "code"))
         current_dept = departments.get(code=kwargs["code"])
 
         target_audience = self.request.GET.get("target_audience")
@@ -132,7 +132,7 @@ class DepartmentProgramsView(TemplateView):
         caption = f"{current_dept.name } : {programs_list.count()} "
         caption += f"programmes{caption_aid_type} présents"
 
-        context["departments"] = departments
+        context["departments"] = departments_list
         context["organization_types"] = ORGANIZATION_TYPE
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience

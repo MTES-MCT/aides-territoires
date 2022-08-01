@@ -78,7 +78,7 @@
                                         name="department">
                                     <option value="">Choisissez un département</option>
                                     {% for department in departments %}
-                                        <option value="{{ department.code }}-{{ department.name|slugify }}">
+                                        <option value="{{ department.code }}-{{ department.slug }}">
                                             {{ department.code }} - {{ department.name }}
                                         </option>
                                     {% endfor %}
@@ -98,7 +98,7 @@
 <script src="{% static 'js/geofr/map.js' %}"></script>
 {% endcompress %}
 <script>
-    let departments_data = JSON.parse("{{ departments_list|escapejs }}");
+    let departments_data = JSON.parse("{{ departments_json|escapejs }}");
     $(document).ready(function () {
         department_filter('/');
     });
