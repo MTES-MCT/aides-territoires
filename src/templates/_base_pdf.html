@@ -6,6 +6,24 @@
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock extratitle %}{% endblock title %}</title>
         {# xhtml2pdf doesn't allow linking to external stylesheets #}
         <style type="text/css">
+        @page {
+            size: a4 portrait;
+
+            @frame header_frame {           /* Static Header Frame */
+                -pdf-frame-content: header_content;
+                left: 50pt; width: 512pt; top: 50pt; height: 120pt;
+            }
+
+            @frame content_frame {          /* Content Frame */
+                left: 50pt; width: 512pt; top: 170pt; height: 542pt;
+            }
+
+            @frame footer_frame {           /* Static Footer Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 712pt; height: 40pt;
+            }
+        }
+
         body {
             font-family: Helvetica;
             font-size: 12px;
@@ -14,6 +32,13 @@
         h1, h2, h3 {
             background-color: #f5f5fe;
             padding: 1em 1em 0 1em;
+        }
+
+        #footer_content {
+            border-top: 1px solid #666;
+            padding-top: 1em;
+            color: #666;
+            font-style: italic;
         }
 
         .at-pdf-link {
@@ -36,29 +61,36 @@
     </head>
     <body>
         {% block header %}
-        <header role="banner" class="at-pdf-header">
-            <div class="at-pdf-header__body">
-                <div class="fr-container">
-                    <div class="at-pdf-header__body-row">
-                        <div class="at-pdf-header__brand fr-enlarge-link">
-                            <div class="at-pdf-header__brand-top">
-                                <div class="at-pdf-header__operator">
-                                    <img src="{% static 'img/logo_gouv.svg' %}" style="width:150px" alt="Gouvernement" />
-                                    <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+        <div id="header_content">
+            <header role="banner"  class="at-pdf-header">
+                <div class="at-pdf-header__body">
+                    <div class="fr-container">
+                        <div class="at-pdf-header__body-row">
+                            <div class="at-pdf-header__brand fr-enlarge-link">
+                                <div class="at-pdf-header__brand-top">
+                                    <div class="at-pdf-header__operator">
+                                        <img src="{% static 'img/logo_gouv.svg' %}" style="width:150px" alt="Gouvernement" />
+                                        <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div>Aides-territoires est un service public numérique qui facilite la recherche
-                        d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
-                        territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
-                        un portail unique.</div>
+                            <div>Aides-territoires est un service public numérique qui facilite la recherche
+                            d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
+                            territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
+                            un portail unique.</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
-        <hr />
+                <hr />
+            </header>
+        </div>
         {% endblock header %}
+
+        <div id="footer_content">
+            {% block footer %}<p>Page <pdf:pagenumber></p>{% endblock footer %}
+        </div>
+
 
         <main role="main" class="at-pdf-container-fluid" id="at-main">
             {% block main %}
@@ -67,42 +99,22 @@
             </div>
             {% endblock main %}
         </main>
-        {% block footer %}
-        <footer class="at-pdf-footer" role="contentinfo" id="footer">
-            <div class="fr-container">
-                <div class="at-pdf-footer__body">
-                    <div class="at-pdf-footer__content">
-                        <h2>À propos</h2>
-                        <p class="at-pdf-footer__content-desc">
-                            Aides-territoires est une startup d’État portée par la Direction
-                            Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le
-                            soutien de l’Agence Nationale de Cohésion des Territoires (ANCT) et de
-                            la Direction Générale des Infrastructures de Transport et de la Mer
-                            (DGITM).
-                        </p>
-                        {% block extrafooter %}{% endblock extrafooter %}
-                    </div>
-                </div>
 
-                <div class="at-pdf-footer__partners">
-                    <h2 class="at-pdf-footer__partners-title">Nos partenaires</h2>
-                    <div class="at-pdf-footer__partners-logos">
-                        <div class="at-pdf-footer__partners-main">
-                            <a class="at-pdf-footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr/" title="Agence nationale de la cohésion des territoires">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-anct.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://www.francemobilites.fr/" title="France Mobilités">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-francemobilites.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="Fabrique Numérique">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-fabriquenumerique.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://beta.gouv.fr/" title="Beta.gouv.fr">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-betagouvfr.svg' %}" alt="" />
-                            </a>
+        {% block postface %}
+            <footer class="at-pdf-footer" role="contentinfo">
+                <div class="fr-container">
+                    <div class="at-pdf-footer__body">
+                        <div class="at-pdf-footer__content">
+                            <h2>À propos</h2>
+                            <p class="at-pdf-footer__content-desc">
+                                Aides-territoires est une startup d’État portée par la Direction
+                                Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le
+                                soutien de l’Agence Nationale de Cohésion des Territoires (ANCT) et de
+                                la Direction Générale des Infrastructures de Transport et de la Mer
+                                (DGITM).
+                            </p>
                         </div>
                     </div>
-                </div>
 
                 <div class="at-pdf-footer__bottom-copy">
                     <p>
@@ -112,8 +124,8 @@
                         </a>
                     </p>
                 </div>
-            </div>
-        </footer>
-        {% endblock footer %}
+            </footer>
+        {% endblock postface %}
+
     </body>
 </html>

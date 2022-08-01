@@ -71,26 +71,26 @@
             <p>{{ aid.perimeter }}</p>
 
             {% if eligibility_criteria or aid.has_eligibility_test %}
-                <h2>Critères d’éligibilité</h2>
+                <h3>Critères d’éligibilité</h3>
 
                 {% if aid.mobilization_steps %}
-                <h3>État d’avancement du projet pour bénéficier du dispositif</h3>
+                <h4>État d’avancement du projet pour bénéficier du dispositif</h4>
                 <p>{% choices_display aid 'mobilization_steps' %}</p>
                 {% endif %}
 
                 {% if aid.destinations %}
-                <h3>Types de dépenses / actions couvertes</h3>
+                <h4>Types de dépenses / actions couvertes</h4>
                 <p>{% choices_display aid 'destinations' %}</p>
                 {% endif %}
 
                 {% if aid.project_examples %}
-                <h3>Exemples de projets réalisables</h3>
-                <p>{{ aid.project_examples|safe }}</p>
+                <h4>Exemples de projets réalisables</h4>
+                {{ aid.project_examples|safe }}
                 {% endif %}
 
                 {% if aid.eligibility %}
-                <h3>Autres critères d’éligibilité</h3>
-                <p>{{ aid.eligibility|safe }}</p>
+                <h4>Autres critères d’éligibilité</h4>
+                {{ aid.eligibility|safe }}
                 {% endif %}
             {% endif %}
 
@@ -123,7 +123,7 @@
 </div>
 {% endblock content %}
 
-{% block extrafooter %}
-<p>Export valable en date du {{ today|date }}, pensez à revenir régulièrement sur Aides-territoires
+{% block footer %}
+<p>Page <pdf:pagenumber /> — Export valable en date du {{ today|date }}, pensez à revenir régulièrement sur Aides-territoires
 pour rester informé des nouveaux dispositifs d’aides mobilisables.</p>
-{% endblock extrafooter %}
+{% endblock footer %}
