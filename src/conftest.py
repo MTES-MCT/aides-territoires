@@ -19,8 +19,12 @@ def django_db_setup(django_db_setup, django_db_blocker):
     with django_db_blocker.unblock():
         with connection.cursor() as cursor:
             cursor.execute(
-                "CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;"
-            )  # noqa
+                """
+                CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french );
+                ALTER TEXT SEARCH CONFIGURATION french_unaccent
+                ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;
+                """
+            )
 
 
 @pytest.fixture(scope="module")
