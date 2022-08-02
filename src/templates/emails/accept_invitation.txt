@@ -2,5 +2,10 @@ Bonjour {{ invitation_author }},
 
 {{ invited_name }} a accepté votre invitation et rejoint donc votre structure.
 
+Cela signifie que vous pourrez désormais accéder aux projets que vous avez tous deux créés (si {{ invited_name }} accepte bien de les dupliquer dans {{ organization_name }}) et aux aides qui leur sont associées.
+
 Cordialement,
+
 L'équipe d'Aides-territoires.
+
+Nous restons joignables sur [aides-territoires@beta.gouv.fr](mailto:aides-territoires@beta.gouv.fr)

@@ -1,20 +1,25 @@
 Bonjour {{ user_name }},
 
-Vous avez déjà créé votre compte sur Aides-territoires, la plateforme publique qui permet aux collectivités et à leurs partenaires de trouver les aides financières et d'ingénierie pour donner vie à leurs projets.
+Vous avez créé votre compte sur Aides-territoires, la plateforme publique qui permet aux collectivités et à leurs partenaires de trouver les aides financières et en ingénierie.
 
-{{ invitation_author }} vous invite à rejoindre sa structure "{{ organization_name }}" sur Aides-territoires.
+{{ invitation_author }} vous invite à rejoindre la structure "{{ organization_name }}" sur Aides-territoires.
 
-Pour ce faire, il vous suffit de cliquer sur le lien suivant (ou de copier/coller dans votre navigateur) :
+Un utilisateur ne peut être membre que d’une seule équipe : cela implique que vous quittiez votre équipe actuelle, {{ current_organization_name }}.
+
+Pour rejoindre "{{ organization_name }}", il vous suffit de cliquer sur le lien suivant (ou de copier/coller dans votre navigateur) :
 
 {{ full_login_url }}
 
-En rejoignant {{ organization_name }}, {{ invitation_author }} partage avec vous ses projets déjà créés.
+En rejoignant {{ organization_name }}, 
 
-Vous pourrez également choisir de conserver ou non vos projets, et de les ajouter au compte de la structure.
+- vous aurez automatiquement accès aux projets créés par {{ invitation_author }} et le reste de son équipe, ainsi que les aides qui y ont été affectées.
+- vous pourrez également choisir d’emporter avec vous une copie de vos projets, qui seront donc accessibles et modifiables par votre nouvelle équipe.
 
-Si votre structure actuelle compte des collaborateurs, vous pourrez à votre tour les inviter à rejoindre {{ organization_name }}.
+Si {{ current_organization_name }} compte d’autres collaborateurs susceptibles d’être intéressés pour rejoindre {{ organization_name }}, vous pourrez à votre tour les inviter.
 
 Si vous ne souhaitez pas rejoindre la structure de {{ invitation_author }}, vous pouvez décliner son offre.
 
 Cordialement,
 L'équipe d'Aides-territoires.
+
+Nous restons joignables sur aides-territoires@beta.gouv.fr
