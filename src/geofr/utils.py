@@ -270,8 +270,11 @@ def sort_departments(departments: QuerySet) -> list:
     """
     Returns a list of the departments
     - with a slug
-    - sorted so that the Corsican ones are listed between 19 and 21
+    - sorted by code
+    - and so that the Corsican ones are listed between 19 and 21
     """
+
+    departments = departments.order_by("code")
     departments_list = []
 
     # perimeters currently don't have a proper slug
