@@ -17,9 +17,7 @@ LOGIN_SUBJECT = "Connexion à Aides-territoires"
 
 @app.task
 def send_connection_email(
-    user_email,
-    body_template="emails/login_token.txt",
-    reset_password=False
+    user_email, body_template="emails/login_token.txt", reset_password=False
 ):
     """Send a login email to the user.
 
@@ -108,7 +106,7 @@ def send_invitation_email(
     invitation_author,
     organization_id,
     body_template="emails/invite_login_token.txt",
-    collaborator_exist=False
+    collaborator_exist=False,
 ):
     """Send a login email to the user invited.
 
@@ -137,7 +135,7 @@ def send_invitation_email(
     if collaborator_exist is False:
         full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
     else:
-        body_template = "emails/invite_existent_user.txt",
+        body_template = ("emails/invite_existent_user.txt",)
         reverse_url = reverse("join_organization")
         full_login_url = f"{base_url}{reverse_url}"
 
@@ -147,6 +145,7 @@ def send_invitation_email(
             "base_url": base_url,
             "invitation_author": invitation_author,
             "organization_name": organization_name,
+            "current_organization_name": user.organization_set.first().name,
             "user_name": user.full_name,
             "full_login_url": full_login_url,
         },
