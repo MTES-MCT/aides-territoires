@@ -48,6 +48,7 @@ pandas = "*"
 django-simple-captcha = "*"
 django-dsfr = "*"
 xhtml2pdf = "*"
+python-stdnum = "*"
 
 [dev-packages]
 ansible = "<4"
