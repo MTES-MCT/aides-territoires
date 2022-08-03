@@ -97,11 +97,16 @@
                                     </a>
                                 </td>
                                 <td class="fr-text">
-                                {% if aid.has_calendar %}
-                                    {% if aid.submission_deadline %}
-                                        {{ aid.submission_deadline|date }}
+                                    <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                                    {% if aid.is_ongoing %}
+                                        <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                                    {% elif aid.has_approaching_deadline %}
+                                        <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
+                                    {% elif aid.has_expired %}
+                                        <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
                                     {% endif %}
-                                {% endif %}
+                               </td>
+
                                 </td>
                                 <td class="fr-text">
                                     {% choices_display aid 'aid_types' %}
