@@ -6,7 +6,7 @@ from accounts.factories import UserFactory
 from backers.factories import BackerFactory
 from aids.factories import AidFactory
 from aids.models import Aid
-
+from random import randint
 
 pytestmark = pytest.mark.django_db
 
@@ -15,12 +15,14 @@ class ImportStub(BaseImportCommand):
     """Stub implementation for testing purpose."""
 
     def __init__(self, *args, **kwargs):
-        self.aids = kwargs.pop('aids')
-        self.financer = kwargs.pop('financer')
+        self.aids = kwargs.pop("aids")
+        self.financer = kwargs.pop("financer")
         super().__init__(*args, **kwargs)
 
     def populate_cache(self, *args, **kwargs):
-        self.author = UserFactory()
+        self.author = UserFactory(
+            email=f"cache.populator.{randint(0, 50000)}@example.org"
+        )
 
     def fetch_data(self):
         return self.aids
@@ -35,7 +37,7 @@ class ImportStub(BaseImportCommand):
         return line.slug
 
     def extract_import_data_url(self, line):
-        return 'https:///example.com/aid/{}'.format(line.id)
+        return "https:///example.com/aid/{}".format(line.id)
 
     def extract_import_share_licence(self, line):
         return IMPORT_LICENCES.unknown
@@ -50,10 +52,10 @@ class ImportStub(BaseImportCommand):
         return self.author.id
 
     def extract_project_examples(self, line):
-        return ''
+        return ""
 
     def extract_contact(self, line):
-        return ''
+        return ""
 
 
 def test_importing_new_aids():

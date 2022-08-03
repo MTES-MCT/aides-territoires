@@ -35,7 +35,9 @@ def test_cant_invite_a_current_collaborator(client):
     """When inviting a user with a current collaborator email, there is a warning"""
 
     organization = OrganizationFactory()
-    user = UserFactory(beneficiary_organization=organization)
+    user = UserFactory(
+        email="invite.sender@example.org", beneficiary_organization=organization
+    )
     user2 = UserFactory(
         email="isalready.ourcollaborator@example.org",
         beneficiary_organization=organization,
@@ -88,7 +90,9 @@ def test_can_invite_user_with_an_existing_account(client):
 
     organization = OrganizationFactory()
     organization2 = OrganizationFactory()
-    user = UserFactory(beneficiary_organization=organization)
+    user = UserFactory(
+        beneficiary_organization=organization, email="invite.sender@example.org"
+    )
     user2 = UserFactory(
         email="hasalready.anaccount@example.org", beneficiary_organization=organization2
     )
@@ -124,7 +128,9 @@ def test_can_invite_user_with_no_existing_account(client):
     """It is possible to invite a user that already has an account"""
 
     organization = OrganizationFactory()
-    user = UserFactory(beneficiary_organization=organization)
+    user = UserFactory(
+        beneficiary_organization=organization, email="invite.sender@example.org"
+    )
     organization.beneficiaries.add(user)
     organization.save()
 
@@ -151,7 +157,9 @@ def test_an_invitation_email_is_sent_to_user_with_no_existing_account(
     """An email is send to the invited user with no existing account"""
 
     organization = OrganizationFactory()
-    user = UserFactory(beneficiary_organization=organization)
+    user = UserFactory(
+        beneficiary_organization=organization, email="invite.sender@example.org"
+    )
     organization.beneficiaries.add(user)
     organization.save()
 
@@ -181,7 +189,9 @@ def test_an_invitation_email_is_sent_to_user_with_an_existing_account(
 
     organization = OrganizationFactory()
     organization2 = OrganizationFactory()
-    user = UserFactory(beneficiary_organization=organization)
+    user = UserFactory(
+        beneficiary_organization=organization, email="invite.sender@example.org"
+    )
     user2 = UserFactory(
         email="hasalready.anaccount@example.org", beneficiary_organization=organization2
     )
@@ -221,6 +231,7 @@ def test_invited_user_can_refuse_to_join_a_new_organization(client, mailoutbox):
         beneficiary_organization=current_organization,
         proposed_organization=organization2,
         invitation_author=invitation_author,
+        email="willrefuse.invite@example.org",
     )
     current_organization.beneficiaries.add(user)
     current_organization.save()
@@ -264,6 +275,7 @@ def test_invited_user_can_join_a_new_organization(client, mailoutbox):
         beneficiary_organization=current_organization,
         proposed_organization=new_organization,
         invitation_author=invitation_author,
+        email="willjoin.neworg@example.org",
     )
     current_organization.beneficiaries.add(user)
     current_organization.save()
@@ -320,6 +332,7 @@ def test_email_is_send_to_former_collaborators_to_notice_them_the_leaving(
         beneficiary_organization=current_organization,
         proposed_organization=new_organization,
         invitation_author=invitation_author,
+        email="invited.user@example.org",
     )
     current_organization.beneficiaries.add(former_collaborator)
     current_organization.beneficiaries.add(user)
@@ -379,6 +392,7 @@ def test_email_can_be_send_to_former_collaborators_to_invite_them_to_join(
         beneficiary_organization=current_organization,
         proposed_organization=new_organization,
         invitation_author=invitation_author,
+        email="invited.user@example.org",
     )
     current_organization.beneficiaries.add(former_collaborator)
     current_organization.beneficiaries.add(user)
