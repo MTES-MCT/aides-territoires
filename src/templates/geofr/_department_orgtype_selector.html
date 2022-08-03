@@ -3,7 +3,7 @@
         <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select at-live-change" id="select-department" name="department">
                 {% for department in departments %}
-                    <option value="{{ department.code }}-{{ department.name|slugify }}" {% if department.code == current_dept.code %}selected="selected"{% endif %}>
+                    <option value="{{ department.code }}-{{ department.slug }}" {% if department.code == current_dept.code %}selected="selected"{% endif %}>
                         {{ department.code }} - {{ department.name }}
                     </option>
                 {% endfor %}
