@@ -18,7 +18,7 @@ def staging_warning():
 
     if settings.ENV_NAME == "staging":
         warning_div = """
-        <div class="header-warning fr-centered fr-background-alt-pink">
+        <div class="header-warning at-centered fr-background-alt-pink">
             <div class="container">
                 <p class="fr-py-1w">Attention, vous êtes en recette, pas en production !</p>
             </div>
