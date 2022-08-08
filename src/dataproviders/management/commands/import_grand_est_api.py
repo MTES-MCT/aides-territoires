@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_categories
+from dataproviders.utils import content_prettify, mapping_categories, mapping_programs
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
 from keywords.models import Keyword
@@ -68,6 +68,15 @@ CATEGORIES_DICT = mapping_categories(
     CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
 )
 
+PROGRAMS_MAPPING_CSV_PATH = (
+    os.path.dirname(os.path.realpath(__file__))
+    + "/../../data/grand_est_api_programs_mapping.csv"
+)
+
+PROGRAMS_DICT = mapping_programs(
+    PROGRAMS_MAPPING_CSV_PATH, "Programmes Grand Est", ["Programmes AT"]
+)
+
 
 class Command(BaseImportCommand):
     """
@@ -102,6 +111,7 @@ class Command(BaseImportCommand):
                 auth=(settings.GRAND_EST_API_USERNAME, settings.GRAND_EST_API_PASSWORD),
             )
             data = req.json()
+
             self.stdout.write("Total number of aids: {}".format(len(data)))
             for line in data:
                 yield line
@@ -229,6 +239,21 @@ class Command(BaseImportCommand):
                     pass
         return keywords
 
+    def extract_programs(self, line):
+        """
+        Source format: list of strings
+        Get the objects, loop on the values and match to our Categories
+        """
+        programs = line.get("gui_programme_aides", [])
+        aid_programs = []
+        for program in programs:
+            if program in PROGRAMS_DICT:
+                aid_programs.extend(PROGRAMS_DICT.get(program, []))
+                print(f"programmes: {aid_programs}")
+            else:
+                self.stdout.write(self.style.ERROR(f"Program {program} not mapped"))
+        return aid_programs
+
     def extract_origin_url(self, line):
         return line["url"]
 
@@ -261,3 +286,13 @@ class Command(BaseImportCommand):
         if is_call_for_project:
             start_date = datetime.strptime(line.get("pro_fin"), "%Y-%m-%d")
             return start_date
+
+    def extract_destinations(self, line) -> list:
+        actions = line.get("gui_actions_concernees", None)
+        destinations = []
+        if actions != None:
+            if "Dépenses de fonctionnement" in actions:
+                destinations.append(Aid.DESTINATIONS.supply)
+            if "Dépenses d'investissement" in actions:
+                destinations.append(Aid.DESTINATIONS.investment)
+        return destinations
