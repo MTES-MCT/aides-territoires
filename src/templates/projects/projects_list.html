@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n static compress %}
 
-{% block extratitle %}Mon compte{% endblock %}
+{% block extratitle %}Mon compte{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock %}
+{% block sectionid %}user-account{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -26,8 +26,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
-
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -52,7 +51,7 @@
             {% endif %}
 
             <div class="fr-table">
-                <table class="data-table">
+                <table class="data-table at-table--xl">
                     <caption>
                         Liste de vos projets en cours
                     </caption>
@@ -118,7 +117,7 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'projects/_create_project_modal.html' %}
@@ -131,18 +130,18 @@
         {% include 'projects/_delete_project_modal.html' with project=project.pk %}
     {% endfor %}
     {% endif %}
-{% endblock %}
+{% endblock modals %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-<link rel="stylesheet" href="/static/trumbowyg/dist/ui/trumbowyg.css" type="text/css" charset="utf-8">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" />
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/trumbowyg/dist/trumbowyg.js"></script>
-<script src="/static/trumbowyg/dist/langs/fr.js"></script>
-<script src="/static/js/enable_rich_text_editor_simple.js"></script>
+<script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
+<script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
+<script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

@@ -1,10 +1,10 @@
 {% load i18n %}
 
-<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<h3>Par {{ filter_title }}</h3>
 <ul>
     <li>
         {% with choices.0 as all_choice %}
-        <form method="GET" action="">
+        <form method="get">
 
             {% for k, v in all_choice.query_parts %}
             <input type="hidden" name="{{ k }}" value="{{ v }}" />

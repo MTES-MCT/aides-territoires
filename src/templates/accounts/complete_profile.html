@@ -44,7 +44,7 @@
                 </p>
             </div>
 
-            <form method="post" action="" novalidate>
+            <form method="post" novalidate>
                 {% csrf_token %}
 
                 {% include '_field_snippet.html' with field=form.first_name %}

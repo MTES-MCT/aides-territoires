@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n aids compress %}
 
-{% block extratitle %}Mon compte{% endblock %}
+{% block extratitle %}Mon compte{% endblock extratitle %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock %}
+{% block sectionid %}user-account{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -29,7 +29,7 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -71,8 +71,8 @@
             {% else %}
             <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet&nbsp;: aucune</p>
             {% endif %}
-            <div class="fr-table fr-table--bordered">
-                <table class="data-table">
+            <div class="fr-table">
+                <table class="data-table at-table--xl">
                     <caption class="sr-only">
                         Liste des aides sélectionnées&nbsp;:
                     </caption>
@@ -98,9 +98,9 @@
                                 </td>
                                 <td class="fr-text">
                                 {% if aid.has_calendar %}
-                                {% if aid.submission_deadline %}
-                                {{ aid.submission_deadline|date }}
-                                {% endif %}
+                                    {% if aid.submission_deadline %}
+                                        {{ aid.submission_deadline|date }}
+                                    {% endif %}
                                 {% endif %}
                                 </td>
                                 <td class="fr-text">
@@ -115,7 +115,7 @@
                                             </a>
                                         </li>
                                     {% endfor %}
-                                    <ul>
+                                    </ul>
                                 </td>       
                                 {% for aidproject in AidProject %}
                                 {% if aidproject.aid == aid %}
@@ -132,8 +132,13 @@
                                 {% endif %}
                                 {% endfor %}
                                 <td class="fr-text">
-                                    <button class="btn_delete fr-link fr-fi-delete-line" id="delete-aid-modal-btn" data-fr-opened="false" aria-controls="delete-aid-modal-{{ aid.slug }}">
-                                        supprimer cette aide
+                                    <button
+                                        class="fr-btn fr-fi-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="delete-aid-modal-btn"
+                                        title="Supprimer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="delete-aid-modal-{{ aid.slug }}">
+                                        Supprimer cette aide
                                     </button>
                                 </td>
                             </tr>
@@ -142,7 +147,7 @@
                         <tbody>
                             <tr>
                                 <td colspan="6" class="fr-text">
-                                    <center>Vous n'avez ajouté aucune aide à ce projet pour l'instant</center>
+                                    <center>Vous n’avez ajouté aucune aide à ce projet pour l’instant</center>
                                 </td>
                             </tr>
                         </tbody>
@@ -155,30 +160,38 @@
                 <i class="ri-arrow-left-line fr-pr-1w"></i>
                 Retour aux projets
             </a> -->
-            <div class="fr-container">
-              <center>
+            <div class="fr-container fr-centered">
                 <p>
-                  <a href="{% url 'general_search' %}" class="fr-m-1w fr-tag fr-fi-search-line">&nbsp;Trouver des aides pour ce projet</a>
+                  <a href="{% url 'general_search' %}" class="fr-btn fr-fi-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
                 </p>
-                <button type="button" class="fr-m-1w fr-tag fr-tag--md fr-text--md fr-fi-delete-line fr-tag--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
-                  Supprimer ce projet
+                <button type="button" class="fr-btn fr-btn--secondary fr-fi-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
+                    Supprimer ce projet
                 </button>
-                <a class="fr-m-1w fr-tag fr-tag--md fr-fi-edit-line fr-tag--icon-left" href="{% url 'project_update_view' project.pk %}">
+                <a class="fr-btn fr-btn--secondary fr-fi-edit-line fr-btn--icon-left" href="{% url 'project_update_view' project.pk project.slug %}">
                   Modifier les informations du projet
                 </a>
-              </center>
+                <button
+                    type="button"
+                    class="fr-btn fr-btn--secondary fr-fi-download-line fr-btn--icon-left"
+                    id="export-project-btn"
+                    data-fr-opened="false"
+                    aria-controls="export-project-modal-{{ project.pk }}"
+                    {% if not aid_set %}disabled="disabled"{% endif %}
+                >
+                  Exporter ce projet
+                </button>
             </div>
-
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
     {% include 'projects/_delete_project_modal.html' with project=project.pk %}
+    {% include 'projects/_export_project_modal.html' with project=project.pk %}
     {% if aid_set %}
-    {% for aid in aid_set %}    
-        {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
-    {% endfor %}
+        {% for aid in aid_set %}    
+            {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
+        {% endfor %}
     {% endif %}
-{% endblock %}
+{% endblock modals %}

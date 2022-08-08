@@ -1,0 +1,30 @@
+<dialog aria-labelledby="fr-modal-title-export-project" role="dialog" id="export-project-modal-{{ project }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="export-project-modal-{{ project }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-export-project" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Exporter ce projet</h1>
+
+                        <p class="fr-mb-0">Veuillez sélectionner le format d’export&nbsp;:</p>
+                        <form id="invite_collaborator" method="post" action="{% url 'project_export_view' project %}">
+                            <div class="content">
+                                {% csrf_token %}
+                                {% include '_radio_snippet.html' with field=form.format %}
+                                <footer>
+                                    <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                        Exporter ce projet
+                                    </button>
+                                </footer>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

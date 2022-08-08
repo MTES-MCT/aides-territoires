@@ -1,36 +1,31 @@
 {% load i18n %}
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="aid-eligibility-test-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-aid-eligibility-test" role="dialog" id="aid-eligibility-test-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="aid-eligibility-test-modal">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="aid-eligibility-test-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Test d'éligibilité</h1>
+                        <h1 id="fr-modal-title-aid-eligibility-test" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Test d’éligibilité</h1>
 
                         <div class="content">
                             <div id="eligibility-test-introduction"></div>
 
                             <hr />
 
-                            <form id="eligibility-test-form" action=""></form>
+                            <form id="eligibility-test-form"></form>
                             
                             <div id="eligibility-test-results">
                                 <hr />
                                 <p id="eligibility-test-result-message"></p>
                                 <div id="eligibility-test-conclusion"></div>
                                 <br />
-                                <button type="button" class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="aid-eligibility-test-modal">
+                                <button type="button" class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="aid-eligibility-test-modal">
                                     Fermer
                                 </button>
-                            </div>
-                            
-                            <span id="spinner">
-                                <span class="spinner-border spinner-border-sm mr-3" role="status" aria-hidden="true"></span>
-                                <span>Chargement en cours</span>
-                            </span>
+                            </div>                            
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,8 @@ $(document).ready(function () {
                   };
               }
         },
-        theme: 'bootstrap4',
-        width: '',
+        theme: "select2-dsfr",
+        dropdownAutoWidth : true,
+        width: "auto",
     });
 });

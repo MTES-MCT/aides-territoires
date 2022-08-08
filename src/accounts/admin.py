@@ -267,7 +267,7 @@ class UserLastConnexionAdmin(admin.ModelAdmin):
         return qs
 
     list_display = ['user', 'last_connexion_with_seconds']
-    search_fields = ['user', 'last_connexion_with_seconds']
+    search_fields = ['user__email']
     ordering = ['user', 'last_connexion']
 
     list_filter = ['last_connexion']

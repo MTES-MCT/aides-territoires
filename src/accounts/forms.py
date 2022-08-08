@@ -67,7 +67,10 @@ class RegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields["first_name"].widget.attrs.update({"autofocus": True})
         self.fields["email"].widget.attrs.update(
-            {"placeholder": "Merci de bien vérifier l'adresse saisie."}
+            {
+                "placeholder": "Merci de bien vérifier l'adresse saisie.",
+                "autofocus": False,
+            }
         )
 
     def clean_email(self):

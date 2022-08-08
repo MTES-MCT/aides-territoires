@@ -1,23 +1,23 @@
 {% load i18n %}
 
-<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="delete-aid-modal-{{ aid }}" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-delete-aid" role="dialog" id="delete-aid-modal-{{ aid }}" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-link--close fr-link" title="Fermer la fenêtre modale" aria-controls="delete-aid-modal-{{ aid }}">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="delete-aid-modal-{{ aid }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer cette aide</h1>
+                        <h1 id="fr-modal-title-delete-aid" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer cette aide</h1>
 
                         <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement cette aide de votre projet.</p>
                         <form action="{% url 'aid_unmatch_project_view' aid %}" method="post">
                             <section>
                                 <div class="content">
                                     {% csrf_token %}
-                                    <input name="project-pk" value="{{ project.pk }}" type="hidden">
-                                    <input name="project-slug" value="{{ project.slug }}" type="hidden">
+                                    <input name="project-pk" value="{{ project.pk }}" type="hidden" />
+                                    <input name="project-slug" value="{{ project.slug }}" type="hidden" />
                                 </div>
                                 <footer>
                                     <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">

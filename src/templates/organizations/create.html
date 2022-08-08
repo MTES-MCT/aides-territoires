@@ -1,11 +1,11 @@
-{% extends '_base.html' %}
-{% load i18n form_utils compress %}
+{% extends "_base.html" %}
+{% load static form_utils compress %}
 
-{% block extraclasses %}light{% endblock %}
+{% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}register-form{% endblock %}
+{% block sectionid %}register-form{% endblock sectionid %}
 
-{% block extratitle %}Inscription - étape 2/2{% endblock %}
+{% block extratitle %}Inscription - étape 2/2{% endblock extratitle %}
 
 {% block content %}
 <div class="fr-container fr-my-5w">
@@ -16,10 +16,10 @@
             <h2 class="fr-h3">Merci de renseigner les informations de votre structure pour finaliser votre inscription</h2>
             {% else %}
             <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }}&nbsp;!</h1>
-            <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d'accéder à votre espace</h2>
+            <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
             {% endif %}
 
-            <form method="post" action="" novalidate class="fr-mt-5w">
+            <form method="post" novalidate class="fr-mt-5w">
                 {% csrf_token %}
                 {{ form.media }}
 
@@ -40,24 +40,24 @@
 
             <p class="warning fr-background-alt-pink fr-p-3w">
                 <span class="fas fa-bug"></span>
-                {% blocktrans trimmed %}
-                Do you have a problem to register?
-                <a href="mailto:aides-territoires@beta.gouv.fr">Please contact us.</a>
-            {% endblocktrans %}</p>
+                Si vous n’arrivez pas à vous inscrire,
+                <a href="mailto:aides-territoires@beta.gouv.fr">n’hésitez pas à nous contacter</a>.
+            </p>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

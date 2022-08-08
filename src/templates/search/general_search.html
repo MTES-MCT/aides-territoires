@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n compress static %}
 
-{% block extratitle %}Recherche – Trouver des aides{% endblock %}
+{% block extratitle %}Recherche – Trouver des aides{% endblock extratitle %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
@@ -11,9 +11,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
-{% block sectionid %}search-steps{% endblock %}
+{% block sectionid %}search-steps{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -31,12 +31,12 @@
         </div>
     </nav>
 </div>
-{% endblock %}
+{% endblock breadcrumbs %}
 
 {% block content %}
 <div class="fr-container">
     <h1 class="fr-mb-5w fr-h2">Trouver des aides</h1>
-    <form id="general_search_form" method="GET" action="{% url 'search_view' %}" class="fr-px-0">        
+    <form id="general_search_form" method="get" action="{% url 'search_view' %}" class="fr-px-0">        
         <h2 class="fr-h4 fr-mt-4w">
             <span class="counter">
                 1
@@ -48,7 +48,7 @@
                 <h3 class="fr-h6">votre structure&nbsp;:</h3>
                 <div id="form-group-targeted_audiences" class="fr-input-group">
                     <label for="id_targeted_audiences">Vous êtes un/une</label>
-                    <select name="targeted_audiences" id="id_targeted_audiences">
+                    <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
                         <option value="" hidden>Faites votre choix</option>
                         {% for option in form.targeted_audiences %}
                         {{ option }}
@@ -63,7 +63,7 @@
                 {% include '_field_snippet.html' with field=form.perimeter %}
             </div>
             <div id="text-research-help" class="fr-mt-2w fr-ml-1w">
-                <p><span>💡</span> Si vous laissez ces champs vides, votre recherche portera sur l'ensemble du territoire, toutes structures confondues.</p>
+                <p><span>💡</span> Si vous laissez ces champs vides, votre recherche portera sur l’ensemble du territoire, toutes structures confondues.</p>
             </div>
         </div>
 
@@ -72,9 +72,9 @@
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w column--space-between fr-mb-0" id="search-step-2">
                 <div class="fr-container fr-p-0">
                     <h3 class="fr-h6">soit par mot-clé&nbsp;:
-                        <span class="fr-hint-text">
+                        <div class="fr-hint-text">
                             recherchez parmi toutes les aides le mot-clé que vous souhaitez
-                        </span>
+                        </div>
                     </h3>
                     <div class="fr-grid-row fr-grid-row--middle">
                         <div class="fr-col-12 fr-col-md-8 fr-mr-1w">
@@ -85,7 +85,7 @@
                             Rechercher
                         </button>
                         <div class="fr-col-12 fr-col-md-12 fr-mr-1w">
-                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">&#128161;</span> 2 astuces pour optimiser votre recherche :</strong></p>
+                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">💡</span> 2 astuces pour optimiser votre recherche :</strong></p>
                             <ul class="fr-hint-text">
                               <li class="fr-mx-2w">"piste cyclable" renverra les aides contenant les 2 termes "piste" et "cyclable".</li>
                               <li class="fr-mx-2w">"piste cyclable<strong>,</strong> voie douce" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes "voie" et "douce".</li>
@@ -93,7 +93,7 @@
                         </div>
                     </div>    
                 </div>
-                <img src="/static/img/home_aides.svg" alt="picto-aides-territoires" class="fr-responsive-img" />
+                <img src="{% static 'img/home_aides.svg' %}" alt="picto-aides-territoires" class="fr-responsive-img" />
             </div>
             <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w" id="search-step-2">
                 <h3 class="fr-h6">soit par thématiques&nbsp;:
@@ -112,19 +112,20 @@
         </div>            
     </form>        
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/perimeter_autocomplete.js"></script>
-<script src="/static/js/search/check_all_categories_btn.js"></script>
-<script src="/static/js/search/track_general_search_page_events.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+<script src="{% static 'js/search/check_all_categories_btn.js' %}"></script>
+<script src="{% static 'js/search/track_general_search_page_events.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

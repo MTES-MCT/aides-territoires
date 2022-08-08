@@ -4,9 +4,6 @@ from operator import and_
 
 from django.db.models import Q
 from django.contrib import admin
-from django.contrib.admin.views.main import ChangeList
-from django.urls import path
-from django.urls import reverse
 from django.http import HttpResponseForbidden
 
 from import_export.admin import ImportMixin, ExportActionMixin
@@ -18,7 +15,6 @@ from adminsortable2.admin import SortableInlineAdminMixin
 from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
-from aids.admin_views import AmendmentMerge
 from aids.forms import AidAdminForm
 from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor, AidProject
 from aids.resources import AidResource
@@ -226,6 +222,7 @@ class BaseAidAdmin(
         "is_imported",
         "import_data_source",
         "import_uniqueid",
+        "import_data_mention",
         "import_data_url",
         "import_share_licence",
         "import_last_access",  # noqa
@@ -249,6 +246,7 @@ class BaseAidAdmin(
                     "name",
                     "slug",
                     "in_france_relance",
+                    "european_aid",
                     "name_initial",
                     "short_title",
                     "categories",
@@ -340,6 +338,7 @@ class BaseAidAdmin(
                     "is_imported",
                     "import_data_source",
                     "import_uniqueid",
+                    "import_data_mention",
                     "import_data_url",
                     "import_share_licence",
                     "import_last_access",
@@ -644,13 +643,6 @@ class Amendment(Aid):
         verbose_name_plural = "Amendements"
 
 
-class AmendmentChangeList(ChangeList):
-    def url_for_result(self, result):
-        pk = getattr(result, self.pk_attname)
-        url = reverse("admin:aids_amendment_merge", args=[pk])
-        return url
-
-
 class AmendmentAdmin(admin.ModelAdmin):
     list_display = ["name", "amended_aid", "amendment_author_name", "date_created"]
 
@@ -659,20 +651,6 @@ class AmendmentAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related("financers")
         qs = qs.select_related("author", "eligibility_test")
         return qs
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path(
-                "<path:object_id>/merge/",
-                self.admin_site.admin_view(AmendmentMerge.as_view()),
-                name="aids_amendment_merge",
-            ),  # noqa
-        ]
-        return my_urls + urls
-
-    def get_changelist(self, request, **kwargs):
-        return AmendmentChangeList
 
 
 class AidProjectAdmin(admin.ModelAdmin):

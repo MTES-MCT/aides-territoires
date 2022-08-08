@@ -24,8 +24,9 @@ $(document).ready(function () {
                 };
             },
         },
-        theme: 'bootstrap4',
-        width: '',
+        theme: "select2-dsfr",
+        dropdownAutoWidth : true,
+        width: "auto",
     });
 
     $('select#id_instructors').select2({
@@ -47,7 +48,10 @@ $(document).ready(function () {
                 };
             },
         },
-        theme: 'bootstrap4',
-        width: '',
+        theme: "select2-dsfr",
+        dropdownAutoWidth : true,
+        width: "auto",
     });
+    $(".select2-container").addClass("fr-select-group");
+    $(".select2-selection").addClass("fr-select");
 });

@@ -1,14 +1,19 @@
-{% load i18n aids %}
+{% load aids %}
 
-<article class="fr-card fr-enlarge-link">
+<article class="fr-card fr-enlarge-link fr-card--grey">
     <div class="fr-card__body">
 
         <div class="fr-card__title fr-mb-1w">
             {% if aid.has_approaching_deadline %}
                 <span class="deadline deadline-delta fr-tag">J-{{ aid.days_before_deadline }}</span>
             {% endif %}
+
+            {% if aid.perimeter.code == "PVD" %}
+                <span class="deadline deadline-delta fr-tag"><span class="fr-icon-flashlight-line fr-fi--sm" aria-hidden="true"></span>Spécifique PVD</span>
+            {% endif %}
+
             <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-            {{ aid.name }}
+            {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}{{ aid.name }}
             </a>
         </div>
 
@@ -16,15 +21,15 @@
         
         {% if aid.financers.all %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-hand-coin-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
-                <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s'}} d'aides</strong>
+                <i class="ri-hand-coin-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
+                <strong class="financers">Porteur{{ aid.financers.count|pluralize:'s' }} d’aides</strong>
             </p>
             <ul class="financers fr-p-0">
             {% for financer in aid.financers.all %}
                 <li class="fr-list__none">
                     {{ financer }}
                     {% if financer.is_corporate %}
-                        ({{ _('Corporate') }})
+                        (Privé)
                     {% endif %}
                 </li>
             {% endfor %}
@@ -33,8 +38,8 @@
 
         {% if aid.is_financial or aid.is_technical %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-settings-5-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
-                <strong class="aid-type">Nature de l'aide</strong>
+                <i class="ri-settings-5-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
+                <strong class="aid-type">Nature de l’aide</strong>
             </p>
             <ul id="aid-type-list" class="fr-p-0">
                 {% if aid.is_financial %}
@@ -52,22 +57,22 @@
 
         {% if aid.subvention_rate %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-percent-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-percent-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="subvention-rate">Taux de subvention</strong>
             </p>
             <ul class="fr-p-0">
                 {% if aid.subvention_rate.lower %}
-                    <li class="fr-list__none"><strong>{{ _('Min:') }}</strong> {{ aid.subvention_rate.lower }}%</li>
+                    <li class="fr-list__none"><strong>Min :</strong> {{ aid.subvention_rate.lower }}%</li>
                 {% endif %}
                 {% if aid.subvention_rate.upper %}
-                    <li class="fr-list__none"><strong>{{ _('Max:') }}</strong> {{ aid.subvention_rate.upper }}%</li>
+                    <li class="fr-list__none"><strong>Max :</strong> {{ aid.subvention_rate.upper }}%</li>
                 {% endif %}
             </ul>
         {% endif %}
 
         {% if aid.recurrence %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-refresh-line ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-refresh-line ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="recurrence">Récurrence</strong></p>
             <ul class="fr-p-0">
                 <li class="fr-list__none">{{ aid.get_recurrence_display }}</li>
@@ -76,12 +81,12 @@
 
         {% if aid.has_calendar %}
             <p class="fr-mb-1w fr-mt-3w fr-uppercase">
-                <i class="ri-calendar-2-fill ri-xl fr-color--blue fr-icon-align--sub fr-mr-1w"></i>
+                <i class="ri-calendar-2-fill ri-xl fr-color--blue at-icon-align--sub fr-mr-1w"></i>
                 <strong class="deadline">Calendrier</strong>
             </p>
             <ul class="fr-p-0">
             {% if aid.is_coming_soon %}
-            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l'aide&nbsp;!</li>
+            <li class="fr-list__none" id="coming-soon">Ouverture prochaine de l’aide&nbsp;!</li>
             {% endif %}
             {% if aid.start_date %}
                 <li class="fr-list__none">Ouverture&nbsp;: {{ aid.start_date|date }}</li>
@@ -95,7 +100,7 @@
         {% if aid.has_eligibility_test %}
             <div class="eligibility-badge fr-btn">
                 <a href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-                    Test d'éligibilité disponible
+                    Test d’éligibilité disponible
                 </a>
             </div>
         {% endif %}

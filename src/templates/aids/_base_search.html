@@ -1,7 +1,7 @@
-{% extends '_base.html' %}
-{% load i18n compress %}
+{% extends "_base.html" %}
+{% load i18n compress static %}
 
-{% block extratitle %}{{ _('Search') }}{% endblock %}
+{% block extratitle %}Recherche{% endblock extratitle %}
 
 {% block extra_head %}
 <meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
@@ -11,9 +11,9 @@
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
 <meta property="og:image:alt" content="Logo : Aides-territoires" />
-{% endblock %}
+{% endblock extra_head %}
 
-{% block sectionid %}search{% endblock %}
+{% block sectionid %}search{% endblock sectionid %}
 
 {% block content %}
 <div class="fr-container">
@@ -32,42 +32,43 @@
             {% endif %}
 
             {% block search-meta %}
-                {% include 'aids/_search_meta.html' %}
+                {% include "aids/_search_meta.html" %}
                 <br />
-            {% endblock %}
+            {% endblock search-meta %}
 
             <section id="search-engine">
                 {% block search-engine %}
-                {% include 'aids/_search_form.html' %}
-                {% endblock %}
+                {% include "aids/_search_form.html" %}
+                {% endblock search-engine %}
             </section>
 
             <section id="aid-list">
-                {% include 'aids/_results.html' with search_actions="yes" %}
+                {% include "aids/_results.html" with search_actions="yes" %}
             </section>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 {% block modals %}
-    {% include 'alerts/_alert_modal.html' with form=form %}
-{% endblock %}
+    {% include "alerts/_alert_modal.html" with form=form %}
+{% endblock modals %}
 
 {% block extra_css %}
 {% compress css %}
 {% endcompress %}
-{% endblock %}
+{% endblock extra_css %}
 
 {% block extra_js %}
 {% compress js %}
-<script src="/static/select2/dist/js/select2.js"></script>
-<script src="/static/select2/dist/js/i18n/fr.js"></script>
-<script src="/static/js/aids/backers_autocomplete.js"></script>
-<script src="/static/js/aids/programs_autocomplete.js"></script>
-<script src="/static/js/alerts/alert_form.js"></script>
-<script src="/static/js/aids/bookmark_results.js"></script>
-<script src="/static/js/alerts/track_alert_button_events.js"></script>
-<script src="/static/js/aids/display_results_list.js"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+<script src="{% static 'js/alerts/alert_form.js' %}"></script>
+<script src="{% static 'js/aids/bookmark_results.js' %}"></script>
+<script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
+<script src="{% static 'js/aids/display_results_list.js' %}"></script>
 {% endcompress %}
-{% endblock %}
+{% endblock extra_js %}

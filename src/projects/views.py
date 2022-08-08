@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     ListView,
@@ -6,13 +7,15 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
+from projects.services.export import export_project
 
 from projects.tasks import send_project_deleted_email
-from projects.forms import ProjectCreateForm, ProjectUpdateForm
+from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
 from projects.models import Project
 from aids.models import AidProject, Aid
 from aids.views import AidPaginator
@@ -100,6 +103,33 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
     template_name = "projects/project_detail.html"
     context_object_name = "project"
 
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        user = self.request.user
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if user not in obj.organizations.first().beneficiaries.all():
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
     def get_queryset(self):
         queryset = Project.objects.prefetch_related("aid_set")
         return queryset
@@ -110,6 +140,8 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
+        context["form"] = ProjectExportForm
+
         return context
 
 
@@ -149,13 +181,39 @@ class ProjectUpdateView(
     context_object_name = "project"
     form_class = ProjectUpdateForm
 
+    def get_object(self, queryset=None):
+        """
+        Require a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        user = self.request.user
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if user not in obj.organizations.first().beneficiaries.all():
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
     def get_queryset(self):
         qs = Project.objects.all()
         self.queryset = qs
         return super().get_queryset()
 
     def form_valid(self, form):
-
         response = super().form_valid(form)
 
         msg = "Le projet a bien été mis à jour."
@@ -171,3 +229,38 @@ class ProjectUpdateView(
         context = super().get_context_data(**kwargs)
         context["project"] = self.object
         return context
+
+
+class ProjectExportView(ContributorAndProfileCompleteRequiredMixin, DetailView):
+    """Export an existing project."""
+
+    context_object_name = "project"
+
+    def get_queryset(self):
+        queryset = Project.objects.prefetch_related("aid_set")
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        file_format = request.POST["format"]
+        project = self.get_object()
+
+        if file_format in ["csv", "xlsx"]:  # "pdf"
+            response_data = export_project(project, file_format)
+            if "error" not in response_data:
+                filename = response_data["filename"]
+                return HttpResponse(
+                    response_data["content"],
+                    content_type=response_data["content_type"],
+                    headers={
+                        "Content-Disposition": f'attachment; filename="{filename}"'
+                    },
+                )
+        # If something went wrong, redirect to the project page with an error
+        messages.error(
+            request,
+            f"""
+            Impossible de générer votre export. Si le problème persiste, merci de
+            <a href="{reverse('contact')}"/>nous contacter</a>.
+            """,
+        )
+        return redirect(project)
