@@ -1,3 +1,4 @@
+import json
 from deepdiff import DeepDiff
 from deepdiff.model import PrettyOrderedSet
 from difflib import SequenceMatcher
@@ -42,8 +43,9 @@ def json_compare(old_json: JSONField, new_json: JSONField):
     return format_html(result_html + "</div>")
 
 
-def format_entries(entries_dict: dict, class_root: str,
-                   tag: str = "", format_value: bool = False) -> str:
+def format_entries(
+    entries_dict: dict, class_root: str, tag: str = "", format_value: bool = False
+) -> str:
 
     """
     Formats a dict of entries for printing
@@ -57,7 +59,11 @@ def format_entries(entries_dict: dict, class_root: str,
         if format_value:
             result_html += f'<div class="changed-entries-values">{ format_value_diff(value) }</div>'
         else:
-            result_html += f'<div class="{class_root}-values"><{tag}>{value}</{tag}></div>'
+            # manage the case where value is a dictionary
+            value = json.dumps(value).replace("{", "").replace("}", "")
+            result_html += (
+                f'<div class="{class_root}-values"><{tag}>{value}</{tag}></div>'
+            )
 
     return result_html
 
@@ -96,10 +102,15 @@ def format_value_diff(value_dict: dict) -> str:
     Takes the diff with two values outputted by Deepdiff and compares them
     """
 
-    # Casting to string (to manage numbers/booleans)
-    # then splitting so that the sequencer works on full words instead of single chars.
-    old_value = str(value_dict["old_value"]).split(" ")
-    new_value = str(value_dict["new_value"]).split(" ")
+    # Casting to string (to manage numbers/booleans) with json.dumps
+    # then removing { and } characters (to manage dictionaries)
+    # and finally splitting so that the sequencer works on full words instead of single chars.
+    old_value = (
+        json.dumps(value_dict["old_value"]).replace("{", "").replace("}", "").split(" ")
+    )
+    new_value = (
+        json.dumps(value_dict["new_value"]).replace("{", "").replace("}", "").split(" ")
+    )
 
     sm = SequenceMatcher(None, old_value, new_value)
 

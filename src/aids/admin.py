@@ -240,7 +240,7 @@ class BaseAidAdmin(
 
     fieldsets_with_inlines = [
         (
-            "Présentation de l'aide",
+            "Présentation de l’aide",
             {
                 "fields": (
                     "name",
@@ -261,7 +261,7 @@ class BaseAidAdmin(
         InstructorsInline,
         ("INSTRUCTEURS SUGGÉRÉS", {"fields": ("instructor_suggestion",)}),
         (
-            "Périmètre de l'aide",
+            "Périmètre de l’aide",
             {
                 "fields": (
                     "perimeter",
@@ -270,7 +270,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Calendrier de l'aide",
+            "Calendrier de l’aide",
             {
                 "fields": (
                     "recurrence",
@@ -281,7 +281,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Description de l'aide",
+            "Description de l’aide",
             {
                 "fields": (
                     "is_call_for_project",
@@ -313,7 +313,7 @@ class BaseAidAdmin(
         ),
         ("Éligibilité", {"fields": ("eligibility_test",)}),
         (
-            "Administration de l'aide",
+            "Administration de l’aide",
             {
                 "fields": (
                     "status",
@@ -332,7 +332,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Données liées à l'import",
+            "Données liées à l’import",
             {
                 "fields": (
                     "is_imported",
@@ -506,7 +506,7 @@ class BaseAidAdmin(
         return ""
 
     get_pprint_import_raw_object_temp_calendar.short_description = (
-        "Donnée brute importée temporaire pour le calendrier"  # noqa
+        "Donnée brute importée temporaire pour le calendrier"
     )
 
     def import_raw_object_diff(self, obj):
@@ -528,10 +528,10 @@ class BaseAidAdmin(
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
         self.message_user(
-            request, "Les aides sélectionnées ont été marquées en tant qu'AAP"
+            request, "Les aides sélectionnées ont été marquées en tant qu’AAP"
         )
 
-    make_mark_as_CFP.short_description = "Marquer en tant qu'AAP"
+    make_mark_as_CFP.short_description = "Marquer en tant qu’AAP"
 
     def show_export_message(self, request):
         self.message_user(request, get_admin_export_message())
