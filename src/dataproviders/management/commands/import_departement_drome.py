@@ -69,7 +69,7 @@ class Command(BaseImportCommand):
         return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
-        unique_id = "CDDr_{}".format(line["name"][:180])
+        unique_id = "CDDr_{}".format(line["id"])
         return unique_id
 
     def extract_import_data_url(self, line):
