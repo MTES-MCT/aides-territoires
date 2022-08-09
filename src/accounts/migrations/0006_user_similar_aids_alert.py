@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0005_user_ml_consent'),
+        ("accounts", "0005_user_ml_consent"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='similar_aids_alert',
-            field=models.BooleanField(default=False, verbose_name='Wants to receive alerts when similar aids are published'),
+            model_name="user",
+            name="similar_aids_alert",
+            field=models.BooleanField(
+                default=False,
+                verbose_name="Wants to receive alerts when similar aids are published",
+            ),
         ),
     ]

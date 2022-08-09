@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 def update_emails_to_lowercase(apps, schema_editor):
-    User = apps.get_model('accounts', 'User')
+    User = apps.get_model("accounts", "User")
     users = User.objects.all()
     for user in users:
         user.email = user.email.lower()
@@ -14,9 +14,7 @@ def update_emails_to_lowercase(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0008_auto_20190115_1127'),
+        ("accounts", "0008_auto_20190115_1127"),
     ]
 
-    operations = [
-        migrations.RunPython(update_emails_to_lowercase)
-    ]
+    operations = [migrations.RunPython(update_emails_to_lowercase)]

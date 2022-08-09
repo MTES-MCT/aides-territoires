@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0006_user_similar_aids_alert'),
+        ("accounts", "0006_user_similar_aids_alert"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='watched_tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=50), blank=True, default=list, size=16, verbose_name='Watched tags'),
+            model_name="user",
+            name="watched_tags",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(blank=True, max_length=50),
+                blank=True,
+                default=list,
+                size=16,
+                verbose_name="Watched tags",
+            ),
         ),
     ]

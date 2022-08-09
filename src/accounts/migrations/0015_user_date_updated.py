@@ -7,18 +7,22 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0014_rename_date_joined_user_date_created'),
+        ("accounts", "0014_rename_date_joined_user_date_created"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="user",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="user",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
     ]

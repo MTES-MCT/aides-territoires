@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_auto_20181115_1606'),
+        ("accounts", "0004_auto_20181115_1606"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='ml_consent',
-            field=models.BooleanField(default=False, verbose_name='Gave consent to receive communications'),
+            model_name="user",
+            name="ml_consent",
+            field=models.BooleanField(
+                default=False, verbose_name="Gave consent to receive communications"
+            ),
         ),
     ]

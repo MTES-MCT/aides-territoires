@@ -29,14 +29,18 @@ class Command(BaseCommand):
         reminded = []
         for invited_user in invited_users:
             self.send_invitation(invited_user)
-            logger.info('Sending invitation reminder email to {}'.format(invited_user.email))
+            logger.info(
+                "Sending invitation reminder email to {}".format(invited_user.email)
+            )
             reminded.append(invited_user.pk)
 
-        updated = User.objects \
-            .filter(pk__in=reminded) \
-            .update(invitation_date=timezone.now())
-        self.stdout.write('{} invitations reminder sent'.format(updated))
-        log_event('invitation reminder', 'sent', source='send_invitations', value=updated)
+        updated = User.objects.filter(pk__in=reminded).update(
+            invitation_date=timezone.now()
+        )
+        self.stdout.write("{} invitations reminder sent".format(updated))
+        log_event(
+            "invitation reminder", "sent", source="send_invitations", value=updated
+        )
         return
 
     def get_invited_users(self):
@@ -49,10 +53,11 @@ class Command(BaseCommand):
         now = timezone.now()
         last_week = now - timedelta(days=7)
 
-        invited_users = User.objects \
-            .filter(proposed_organization__isnull=False) \
-            .exclude(beneficiary_organization=self.proposed_organization) \
+        invited_users = (
+            User.objects.filter(proposed_organization__isnull=False)
+            .exclude(beneficiary_organization=self.proposed_organization)
             .filter(invitation_date__lte=last_week)
+        )
 
         return invited_users
 
@@ -64,17 +69,22 @@ class Command(BaseCommand):
         full_login_url = f"{base_url}{reverse_url}"
 
         email_context = {
-            'user_name': invited_user.full_name,
-            'invitation_author': invited_user.invitation_author.full_name,
-            'organization_name': invited_user.proposed_organization.name,
-            'full_login_url': full_login_url,
+            "user_name": invited_user.full_name,
+            "invitation_author": invited_user.invitation_author.full_name,
+            "organization_name": invited_user.proposed_organization.name,
+            "full_login_url": full_login_url,
         }
 
-        text_body = render_to_string('emails/invitation_reminder_body.txt', email_context)
+        text_body = render_to_string(
+            "emails/invitation_reminder_body.txt", email_context
+        )
 
         email_subject_prefix = settings.EMAIL_SUBJECT_PREFIX
-        email_subject = '{} — Une invitation à rejoindre une organisation est en attente'.format(
-            email_subject_prefix)
+        email_subject = (
+            "{} — Une invitation à rejoindre une organisation est en attente".format(
+                email_subject_prefix
+            )
+        )
 
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [invited_user.email]
@@ -84,7 +94,8 @@ class Command(BaseCommand):
                 body=text_body,
                 recipient_list=email_to,
                 from_email=email_from,
-                tags=['rappel invitation', settings.ENV_NAME],
-                fail_silently=False)
+                tags=["rappel invitation", settings.ENV_NAME],
+                fail_silently=False,
+            )
         except Exception as e:
             capture_exception(e)

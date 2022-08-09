@@ -7,13 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0018_user_beneficiary_fields'),
+        ("accounts", "0018_user_beneficiary_fields"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='beneficiary_function',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('elected', 'Élu'), ('agent', 'Agent territorial'), ('other', 'Autre')], max_length=32), blank=True, null=True, size=None, verbose_name='Fonction du bénéficiaire'),
+            model_name="user",
+            name="beneficiary_function",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("elected", "Élu"),
+                        ("agent", "Agent territorial"),
+                        ("other", "Autre"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Fonction du bénéficiaire",
+            ),
         ),
     ]

@@ -8,44 +8,70 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0001_initial'),
-        ('accounts', '0017_user_animator_perimeter'),
+        ("organizations", "0001_initial"),
+        ("accounts", "0017_user_animator_perimeter"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='user',
-            old_name='contact_phone',
-            new_name='contributor_contact_phone',
+            model_name="user",
+            old_name="contact_phone",
+            new_name="contributor_contact_phone",
         ),
         migrations.RenameField(
-            model_name='user',
-            old_name='organization',
-            new_name='contributor_organization',
+            model_name="user",
+            old_name="organization",
+            new_name="contributor_organization",
         ),
         migrations.RenameField(
-            model_name='user',
-            old_name='role',
-            new_name='contributor_role',
+            model_name="user",
+            old_name="role",
+            new_name="contributor_role",
         ),
         migrations.AddField(
-            model_name='user',
-            name='beneficiary_function',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('Elected', 'Elu'), ('territorial agent', 'Agent territorial'), ('other', 'Autre')], max_length=32), blank=True, null=True, size=None, verbose_name='Fonction du bénéficiaire'),
+            model_name="user",
+            name="beneficiary_function",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("Elected", "Elu"),
+                        ("territorial agent", "Agent territorial"),
+                        ("other", "Autre"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Fonction du bénéficiaire",
+            ),
         ),
         migrations.AddField(
-            model_name='user',
-            name='beneficiary_organization',
-            field=models.ForeignKey(blank=True, help_text='A quelle structure appartient le bénéficiaire ?', null=True, on_delete=django.db.models.deletion.PROTECT, to='organizations.organization', verbose_name='Structure du bénéficiaire'),
+            model_name="user",
+            name="beneficiary_organization",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="A quelle structure appartient le bénéficiaire ?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="organizations.organization",
+                verbose_name="Structure du bénéficiaire",
+            ),
         ),
         migrations.AddField(
-            model_name='user',
-            name='beneficiary_role',
-            field=models.CharField(blank=True, max_length=128, verbose_name='Rôle du bénéficiaire'),
+            model_name="user",
+            name="beneficiary_role",
+            field=models.CharField(
+                blank=True, max_length=128, verbose_name="Rôle du bénéficiaire"
+            ),
         ),
         migrations.AddField(
-            model_name='user',
-            name='is_beneficiary',
-            field=models.BooleanField(default=True, help_text='Peut accéder à un espace pour créer et modifier ses projets.', verbose_name='Bénéficiaire ?'),
+            model_name="user",
+            name="is_beneficiary",
+            field=models.BooleanField(
+                default=True,
+                help_text="Peut accéder à un espace pour créer et modifier ses projets.",
+                verbose_name="Bénéficiaire ?",
+            ),
         ),
     ]

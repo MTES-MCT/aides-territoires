@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0026_user_invitation_date'),
+        ("accounts", "0026_user_invitation_date"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='join_organization_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name="Date d'acceptation de l'invitation"),
+            model_name="user",
+            name="join_organization_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Date d'acceptation de l'invitation"
+            ),
         ),
     ]

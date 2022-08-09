@@ -9,20 +9,42 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0021_user_image'),
+        ("accounts", "0021_user_image"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UserLastConnexion',
+            name="UserLastConnexion",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('last_connexion', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de la dernière connexion')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "last_connexion",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Date de la dernière connexion",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Utilisateur",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': "Dernière connexion de l'utilisateur",
-                'verbose_name_plural': 'Dernières connexions des utilisateurs',
+                "verbose_name": "Dernière connexion de l'utilisateur",
+                "verbose_name_plural": "Dernières connexions des utilisateurs",
             },
         ),
     ]

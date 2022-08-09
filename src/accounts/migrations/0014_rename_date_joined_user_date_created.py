@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0013_remove_user_watched_tags'),
+        ("accounts", "0013_remove_user_watched_tags"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='user',
-            old_name='date_joined',
-            new_name='date_created',
+            model_name="user",
+            old_name="date_joined",
+            new_name="date_created",
         ),
     ]

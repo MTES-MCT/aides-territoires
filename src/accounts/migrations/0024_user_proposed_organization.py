@@ -7,14 +7,22 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0005_alter_organization_organization_type'),
-        ('accounts', '0023_auto_20220331_1055'),
+        ("organizations", "0005_alter_organization_organization_type"),
+        ("accounts", "0023_auto_20220331_1055"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='proposed_organization',
-            field=models.ForeignKey(blank=True, help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invited_user', to='organizations.organization', verbose_name='Structure proposée'),
+            model_name="user",
+            name="proposed_organization",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invited_user",
+                to="organizations.organization",
+                verbose_name="Structure proposée",
+            ),
         ),
     ]
