@@ -49,6 +49,8 @@ from accounts.models import User, UserLastConnexion
 from projects.models import Project
 from aids.models import Aid, AidProject
 from organizations.models import Organization
+from geofr.models import Perimeter
+
 from analytics.utils import track_goal
 
 
@@ -57,17 +59,29 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     template_name = "accounts/register.html"
     form_class = RegisterForm
-    success_url = reverse_lazy("organization_create_view")
+    success_url = reverse_lazy("register_success")
 
     def form_valid(self, form):
-        """Send a connection/confirmation link to the user."""
-        user_organization_type = self.request.POST.get("organization_type", None)
-        user_email = form.cleaned_data["email"]
-        user_first_name = form.cleaned_data["first_name"]
-        user_last_name = form.cleaned_data["last_name"]
-        self.request.session["USER_EMAIL"] = user_email
-        self.request.session["USER_ORGANIZATION_TYPE"] = user_organization_type
-        self.request.session["USER_NAME"] = user_first_name + " " + user_last_name
+        organization_name = self.request.POST.get("organization_name", None)
+        organization_perimeter_id = int(self.request.POST.get("perimeter", None).partition('-')[0])
+        organization_perimeter = Perimeter.objects.get(id=organization_perimeter_id)
+        organization_type = self.request.POST.get("organization_type", None)
+
+        user = form.save(commit=False)
+        organization = Organization.objects.create(
+            name=organization_name,
+            organization_type=[organization_type],
+            perimeter=organization_perimeter,
+        )
+        user.beneficiary_organization = organization
+        user.save()
+        organization.beneficiaries.add(user.pk)
+
+        send_connection_email.delay(user.email)
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+        msg = "Vous êtes bien enregistré&nbsp;!"
+        messages.success(self.request, msg)
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

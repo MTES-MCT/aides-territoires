@@ -11,13 +11,8 @@
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-md-8">
-            {% if request.session.USER_NAME %}
-            <h1 class="fr-mb-5w">Bienvenue {{ request.session.USER_NAME }} !</h1>
-            <h2 class="fr-h3">Merci de renseigner les informations de votre structure pour finaliser votre inscription</h2>
-            {% else %}
             <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }} !</h1>
             <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
-            {% endif %}
 
             <form method="post" novalidate class="fr-mt-5w">
                 {% csrf_token %}
@@ -29,10 +24,7 @@
                     <legend class="fr-pt-4w">Informations professionnelles</legend>
                     {% include '_field_snippet.html' with field=form.name %}
                     {% include '_field_snippet.html' with field=form.perimeter %}
-
-                    {% if not request.session.USER_NAME %}
                     {% include '_field_snippet.html' with field=form.organization_type required=required %}
-                    {% endif %}
                 </fieldset>
 
                 <button type="submit" class="fr-btn fr-mb-5w fr-mt-1w">Finaliser mon inscription</button>
