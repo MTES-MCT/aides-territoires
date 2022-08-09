@@ -127,15 +127,17 @@ class Command(BaseImportCommand):
 
     def extract_description(self, line):
         description = line["description"]
-        if "Service Instructeur et Référent" in description:
-            description = str(line.get('description', '').partition('Service Instructeur et Référent')[0])
+        str_to_find = "Service Instructeur et Référent"
+        if str_to_find in description:
+            description = str(line.get('description', '').partition(str_to_find)[0])
             description = content_prettify(description)
         return description
 
     def extract_eligibility(self, line):
-        if 'Opérations éligibles' in line.get('description', ''):
-            eligibility_1 = str(line.get('description', '').partition('Opérations éligibles')[1])
-            eligibility_2 = str(line.get('description', '').partition('Opérations éligibles')[2])
+        str_to_find = 'Opérations éligibles'
+        if str_to_find in line.get('description', ''):
+            eligibility_1 = str(line.get('description', '').partition(str_to_find)[1])
+            eligibility_2 = str(line.get('description', '').partition(str_to_find)[2])
             eligibility_3 = str(eligibility_2.partition("Type d’aide")[0])
             eligibility = "<h3><strong>" + eligibility_1 + eligibility_3
             eligibility = content_prettify(eligibility)
@@ -242,12 +244,13 @@ class Command(BaseImportCommand):
         return aid_categories
 
     def extract_contact(self, line):
+        str_to_find = 'Service Instructeur et Référent'
         if line.get("contact", "") != "":
             contact = line.get("contact")
             return content_prettify(contact)
-        elif 'Service Instructeur et Référent' in line.get('description', ''):
-            contact_1 = str(line.get('description', '').partition('Service Instructeur et Référent')[1])
-            contact_2 = str(line.get('description', '').partition('Service Instructeur et Référent')[2])
+        elif str_to_find in line.get('description', ''):
+            contact_1 = str(line.get('description', '').partition(str_to_find)[1])
+            contact_2 = str(line.get('description', '').partition(str_to_find)[2])
             contact = "<h3><strong>" + contact_1 + contact_2
             return content_prettify(contact)
         else:
