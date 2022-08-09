@@ -8,13 +8,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0024_user_proposed_organization'),
+        ("accounts", "0024_user_proposed_organization"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='invitation_author',
-            field=models.ForeignKey(blank=True, help_text='utilisateur qui a invité cet utilisateur a rejoindre sa structure', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invited_user', to=settings.AUTH_USER_MODEL, verbose_name="Auteur de l'invitation"),
+            model_name="user",
+            name="invitation_author",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="utilisateur qui a invité cet utilisateur a rejoindre sa structure",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invited_user",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Auteur de l'invitation",
+            ),
         ),
     ]

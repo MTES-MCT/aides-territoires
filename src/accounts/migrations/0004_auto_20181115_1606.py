@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_user_is_certified'),
+        ("accounts", "0003_user_is_certified"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='is_certified',
-            field=models.BooleanField(default=False, help_text="Display a badge next to this user's aids", verbose_name='Is certified'),
+            model_name="user",
+            name="is_certified",
+            field=models.BooleanField(
+                default=False,
+                help_text="Display a badge next to this user's aids",
+                verbose_name="Is certified",
+            ),
         ),
     ]

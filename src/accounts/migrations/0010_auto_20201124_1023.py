@@ -6,18 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0009_update_emails_to_lowercase'),
+        ("accounts", "0009_update_emails_to_lowercase"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='user',
-            old_name='full_name', new_name='last_name'
+            model_name="user", old_name="full_name", new_name="last_name"
         ),
         migrations.AddField(
-            model_name='user',
-            name='first_name',
-            field=models.CharField(default='', max_length=256, verbose_name='First name'),
+            model_name="user",
+            name="first_name",
+            field=models.CharField(
+                default="", max_length=256, verbose_name="First name"
+            ),
             preserve_default=False,
         ),
     ]

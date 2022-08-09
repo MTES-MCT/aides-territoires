@@ -18,18 +18,20 @@ from accounts.models import User, UserLastConnexion
 
 
 class AuthorFilter(InputFilter):
-    parameter_name = 'author'
-    title = 'Auteur'
+    parameter_name = "author"
+    title = "Auteur"
 
     def queryset(self, request, queryset):
         value = self.value()
         if value is not None:
-            qs = queryset \
-                .annotate(
-                    author_name=Concat(
-                        'author__first_name', V(' '), 'author__last_name',
-                        output_field=CharField())) \
-                .filter(Q(author_name__icontains=value))
+            qs = queryset.annotate(
+                author_name=Concat(
+                    "author__first_name",
+                    V(" "),
+                    "author__last_name",
+                    output_field=CharField(),
+                )
+            ).filter(Q(author_name__icontains=value))
             return qs
 
 
@@ -37,17 +39,17 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
     """Custom admin filter to target users who are
     search page administrators."""
 
-    title = 'Administrateur de PP ?'
-    parameter_name = 'is_administrator_of_search_pages'
+    title = "Administrateur de PP ?"
+    parameter_name = "is_administrator_of_search_pages"
 
     def lookups(self, request, model_admin):
         return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
-        if value == 'Yes':
+        if value == "Yes":
             return queryset.search_page_admins()
-        elif value == 'No':
+        elif value == "No":
             return queryset.filter(search_pages__isnull=True)
         return queryset
 
@@ -55,17 +57,17 @@ class SearchPageAdministratorFilter(admin.SimpleListFilter):
 class AnimatorFilter(admin.SimpleListFilter):
     """Custom admin filter to target users who are animators."""
 
-    title = 'Animateur ?'
-    parameter_name = 'is_animator'
+    title = "Animateur ?"
+    parameter_name = "is_animator"
 
     def lookups(self, request, model_admin):
         return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
-        if value == 'Yes':
+        if value == "Yes":
             return queryset.animators()
-        elif value == 'No':
+        elif value == "No":
             return queryset.filter(animator_perimeter__isnull=True)
         return queryset
 
@@ -73,17 +75,17 @@ class AnimatorFilter(admin.SimpleListFilter):
 class ApiTokenFilter(admin.SimpleListFilter):
     """Custom admin filter to target users with API Tokens."""
 
-    title = 'Token API ?'
-    parameter_name = 'has_api_token'
+    title = "Token API ?"
+    parameter_name = "has_api_token"
 
     def lookups(self, request, model_admin):
         return YES_NO_CHOICES
 
     def queryset(self, request, queryset):
         value = self.value()
-        if value == 'Yes':
+        if value == "Yes":
             return queryset.with_api_token()
-        elif value == 'No':
+        elif value == "No":
             return queryset.filter(auth_token__isnull=True)
         return queryset
 
@@ -91,14 +93,8 @@ class ApiTokenFilter(admin.SimpleListFilter):
 class UserAdminForm(forms.ModelForm):
     """Custom form for inline user edition."""
 
-    first_name = forms.CharField(
-        label='Prénom',
-        required=False,
-        max_length=256)
-    last_name = forms.CharField(
-        label='Nom',
-        required=False,
-        max_length=256)
+    first_name = forms.CharField(label="Prénom", required=False, max_length=256)
+    last_name = forms.CharField(label="Nom", required=False, max_length=256)
 
 
 class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
@@ -107,139 +103,172 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
     resource_class = UserResource
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
-        'email', 'first_name', 'last_name', 'contributor_organization',
-        'is_contributor', 'nb_aids',
-        'is_certified', 'in_mailing_list', 'date_created', 'last_login']
-    list_editable = ['first_name', 'last_name']
-    search_fields = ['email', 'first_name', 'last_name']
-    ordering = ['last_name', 'email']
+        "email",
+        "first_name",
+        "last_name",
+        "contributor_organization",
+        "is_contributor",
+        "nb_aids",
+        "is_certified",
+        "in_mailing_list",
+        "date_created",
+        "last_login",
+    ]
+    list_editable = ["first_name", "last_name"]
+    search_fields = ["email", "first_name", "last_name"]
+    ordering = ["last_name", "email"]
 
     list_filter = [
-        'is_superuser', 'is_contributor', 'is_beneficiary',
-        SearchPageAdministratorFilter, AnimatorFilter, ApiTokenFilter,
-        'is_certified', 'ml_consent', 'groups']
+        "is_superuser",
+        "is_contributor",
+        "is_beneficiary",
+        SearchPageAdministratorFilter,
+        AnimatorFilter,
+        ApiTokenFilter,
+        "is_certified",
+        "ml_consent",
+        "groups",
+    ]
 
     autocomplete_fields = [
-        'animator_perimeter',
-        'beneficiary_organization',
-        'proposed_organization',
-        'invitation_author']
+        "animator_perimeter",
+        "beneficiary_organization",
+        "proposed_organization",
+        "invitation_author",
+    ]
     readonly_fields = [
-        'nb_aids',
-        'administrator_of_search_pages_list', 'api_token',
-        'last_login', 'date_created', 'date_updated']
+        "nb_aids",
+        "administrator_of_search_pages_list",
+        "api_token",
+        "last_login",
+        "date_created",
+        "date_updated",
+    ]
 
     fieldsets = (
-        (None, {
-            'fields': (
-                'email',
-                'password',
-                'is_certified',
-            )
-        }),
-        ('Informations personnelles', {
-            'fields': (
-                'first_name',
-                'last_name',
-                'image'
-            )
-        }),
-        ('Espace contributeur', {
-            'fields': (
-                'is_contributor',
-                'contributor_organization',
-                'contributor_role',
-                'contributor_contact_phone',
-                'nb_aids',
-            )
-        }),
-        ('Espace bénéficiaire', {
-            'fields': (
-                'is_beneficiary',
-                'beneficiary_function',
-                'beneficiary_role',
-                'beneficiary_organization',
-            )
-        }),
-        ("Fusion d'organisation", {
-            'fields': (
-                'proposed_organization',
-                'invitation_author',
-                'invitation_date',
-                'join_organization_date'
-            )
-        }),
-        ('Espace administrateur', {
-            'fields': (
-                'administrator_of_search_pages_list',
-                'groups',
-            )
-        }),
-        ('Espace animateur', {
-            'fields': (
-                'animator_perimeter',
-            )
-        }),
-        ('Permissions', {
-            'fields': (
-                'is_superuser',
-                'api_token'
-            )
-        }),
-        ('Données diverses', {
-            'fields': (
-                'ml_consent',
-                'last_login',
-                'date_created',
-                'date_updated',
-            )
-        }),
+        (
+            None,
+            {
+                "fields": (
+                    "email",
+                    "password",
+                    "is_certified",
+                )
+            },
+        ),
+        ("Informations personnelles", {"fields": ("first_name", "last_name", "image")}),
+        (
+            "Espace contributeur",
+            {
+                "fields": (
+                    "is_contributor",
+                    "contributor_organization",
+                    "contributor_role",
+                    "contributor_contact_phone",
+                    "nb_aids",
+                )
+            },
+        ),
+        (
+            "Espace bénéficiaire",
+            {
+                "fields": (
+                    "is_beneficiary",
+                    "beneficiary_function",
+                    "beneficiary_role",
+                    "beneficiary_organization",
+                )
+            },
+        ),
+        (
+            "Fusion d'organisation",
+            {
+                "fields": (
+                    "proposed_organization",
+                    "invitation_author",
+                    "invitation_date",
+                    "join_organization_date",
+                )
+            },
+        ),
+        (
+            "Espace administrateur",
+            {
+                "fields": (
+                    "administrator_of_search_pages_list",
+                    "groups",
+                )
+            },
+        ),
+        ("Espace animateur", {"fields": ("animator_perimeter",)}),
+        ("Permissions", {"fields": ("is_superuser", "api_token")}),
+        (
+            "Données diverses",
+            {
+                "fields": (
+                    "ml_consent",
+                    "last_login",
+                    "date_created",
+                    "date_updated",
+                )
+            },
+        ),
     )
 
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': (
-                'email',
-                'first_name',
-                'last_name',
-                'password1',
-                'password2',
-                'is_contributor',
-                'is_certified',
-            )}
-         ),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password1",
+                    "password2",
+                    "is_contributor",
+                    "is_certified",
+                ),
+            },
+        ),
     )
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        qs = qs.annotate(aid_count=Count('aids'))
+        qs = qs.annotate(aid_count=Count("aids"))
         # TODO: if not superuser, only return user's colleagues
         return qs
 
     def nb_aids(self, user):
         return user.aid_count
+
     nb_aids.short_description = "Nombre d'aides"
-    nb_aids.admin_order_field = 'aid_count'
+    nb_aids.admin_order_field = "aid_count"
 
     def administrator_of_search_pages_list(self, user):
         search_pages = user.search_pages.all()
         if not search_pages:
-            return 'Aucune'
+            return "Aucune"
         else:
-            html = ''
+            html = ""
             for search_page in search_pages:
                 html += format_html(
                     '<a href="{obj_url}">{obj_name}</a></br>',
-                    obj_url=reverse('admin:search_searchpage_change', args=[search_page.id]),
-                    obj_name=search_page)
+                    obj_url=reverse(
+                        "admin:search_searchpage_change", args=[search_page.id]
+                    ),
+                    obj_name=search_page,
+                )
             return format_html(html)
-    administrator_of_search_pages_list.short_description = 'Recherche personnalisée'
+
+    administrator_of_search_pages_list.short_description = "Recherche personnalisée"
 
     def in_mailing_list(self, user):
         return user.ml_consent
+
     in_mailing_list.short_description = mark_safe(
-        '<abbr title=\"Dans la newsletter\">NL</abbr>')
+        '<abbr title="Dans la newsletter">NL</abbr>'
+    )
     in_mailing_list.boolean = True
 
     def api_token(self, user):
@@ -249,26 +278,30 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         except AttributeError:
             return format_html(
                 'Non. <a href="{obj_url}">Créer</a>',
-                obj_url=reverse('admin:authtoken_tokenproxy_changelist'))
+                obj_url=reverse("admin:authtoken_tokenproxy_changelist"),
+            )
+
     api_token.short_description = "Token API"
 
     def get_changelist_form(self, request, **kwargs):
         return UserAdminForm
 
-    def change_view(self, request, object_id, form_url='', extra_context=None):
+    def change_view(self, request, object_id, form_url="", extra_context=None):
         """Add aids by same author in context."""
 
-        other_aids = Aid.objects \
-            .existing() \
-            .filter(author_id=object_id) \
-            .prefetch_related('financers') \
-            .order_by('-date_published')
+        other_aids = (
+            Aid.objects.existing()
+            .filter(author_id=object_id)
+            .prefetch_related("financers")
+            .order_by("-date_published")
+        )
 
         context = extra_context or {}
-        context['other_aids'] = other_aids
+        context["other_aids"] = other_aids
 
         return super().change_view(
-            request, object_id, form_url=form_url, extra_context=context)
+            request, object_id, form_url=form_url, extra_context=context
+        )
 
 
 class UserLastConnexionAdmin(admin.ModelAdmin):
@@ -278,27 +311,31 @@ class UserLastConnexionAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         return qs
 
-    list_display = ['user', 'last_connexion_with_seconds']
-    search_fields = ['user__email']
-    ordering = ['user', 'last_connexion']
+    list_display = ["user", "last_connexion_with_seconds"]
+    search_fields = ["user__email"]
+    ordering = ["user", "last_connexion"]
 
-    list_filter = ['last_connexion']
+    list_filter = ["last_connexion"]
 
-    readonly_fields = ['user', 'last_connexion_with_seconds']
+    readonly_fields = ["user", "last_connexion_with_seconds"]
 
     fieldsets = (
-        (None, {
-            'fields': (
-                'user',
-                'last_connexion_with_seconds',
-            )
-        }),
+        (
+            None,
+            {
+                "fields": (
+                    "user",
+                    "last_connexion_with_seconds",
+                )
+            },
+        ),
     )
 
     def last_connexion_with_seconds(self, obj):
         return obj.last_connexion.strftime("%d %b %Y %H:%M:%S")
-    last_connexion_with_seconds.short_description = 'Dernière connexion'
-    last_connexion_with_seconds.admin_order_field = 'last_connexion'
+
+    last_connexion_with_seconds.short_description = "Dernière connexion"
+    last_connexion_with_seconds.admin_order_field = "last_connexion"
 
 
 admin.site.register(User, UserAdmin)

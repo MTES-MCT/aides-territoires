@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0007_user_watched_tags'),
+        ("accounts", "0007_user_watched_tags"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='contact_phone',
-            field=models.CharField(blank=True, max_length=35, verbose_name='Contact phone number'),
+            model_name="user",
+            name="contact_phone",
+            field=models.CharField(
+                blank=True, max_length=35, verbose_name="Contact phone number"
+            ),
         ),
     ]

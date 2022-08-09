@@ -9,10 +9,10 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
 
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
-    email = factory.Faker('email')
-    password = factory.PostGenerationMethodCall('set_password', 'DefaultPassword!')
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    email = factory.Faker("email")
+    password = factory.PostGenerationMethodCall("set_password", "DefaultPassword!")
     is_contributor = True
     is_beneficiary = True
     beneficiary_function = "other"
@@ -20,6 +20,6 @@ class UserFactory(DjangoModelFactory):
 
 
 class ContributorFactory(UserFactory):
-    contributor_organization = factory.Faker('company')
-    contributor_role = factory.Faker('job')
-    contributor_contact_phone = factory.Faker('phone_number')
+    contributor_organization = factory.Faker("company")
+    contributor_role = factory.Faker("job")
+    contributor_contact_phone = factory.Faker("phone_number")
