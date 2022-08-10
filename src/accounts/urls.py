@@ -21,6 +21,8 @@ from accounts.views import (
     CompleteProfileView,
     HistoryLoginList,
     DeleteHistoryLoginView,
+    DeleteUserView,
+    DeleteUserConfirmationView,
 )
 
 
@@ -83,5 +85,15 @@ urlpatterns = [
         "suppression-journal-de-connexion/",
         DeleteHistoryLoginView.as_view(),
         name="delete_history_login",
+    ),
+    path(
+        "suppression-compte/",
+        DeleteUserConfirmationView.as_view(),
+        name="delete_user_account_confirmation",
+    ),
+    path(
+        "suppression-compte-validation/",
+        DeleteUserView.as_view(),
+        name="delete_user_account_validated",
     ),
 ]

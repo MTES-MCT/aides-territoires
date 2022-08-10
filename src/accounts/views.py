@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     View,
     ListView,
+    DeleteView,
 )
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
@@ -52,6 +53,7 @@ from organizations.models import Organization
 from geofr.models import Perimeter
 
 from analytics.utils import track_goal
+from alerts.models import Alert
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
@@ -625,6 +627,35 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
         res = super().form_valid(form)
         update_session_auth_hash(self.request, self.object)
         return res
+
+
+class DeleteUserConfirmationView(UserLoggedRequiredMixin, TemplateView):
+    """Asks for user confirmation before deleting profile."""
+
+    template_name = "accounts/user_delete_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+        user_org = user.beneficiary_organization
+        # user_org = self.request.user.organization_set().first()
+
+        context["org_members"] = user_org.beneficiaries.all()
+        context["projects"] = user_org.project_set.all()
+
+        context["alerts"] = Alert.objects.filter(email=user.email)
+        context["aids"] = Aid.objects.filter(author=user)
+
+        return context
+
+
+class DeleteUserView(UserLoggedRequiredMixin, SuccessMessageMixin, DeleteView):
+    """Delete user profile."""
+
+    form_class = CompleteProfileForm
+    template_name = "accounts/complete_profile.html"
+    success_message = "Votre profil a été mis à jour."
 
 
 class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):
