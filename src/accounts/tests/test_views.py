@@ -150,9 +150,13 @@ def test_register_form_expects_valid_data(client):
             "email": "tar@tiflet.te",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "contributor_organization": "",
-            "contributor_role": "",
-            "contributor_contact_phone": "",
+            "organization_type": "farmer",
+            "perimeter": "79138-chanterac",
+            "organization_name": "L'île aux enfants",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False,
         },
     )
     assert res.status_code == 200
@@ -166,9 +170,13 @@ def test_register_form_expects_valid_data(client):
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
             "email": "tartiflette",
-            "contributor_organization": "Pif Magazine",
-            "contributor_role": "Héro",
-            "contributor_contact_phone": "012345678",
+            "organization_type": "farmer",
+            "perimeter": "79138-chanterac",
+            "organization_name": "L'île aux enfants",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False,
         },
     )
     assert res.status_code == 200
@@ -187,9 +195,13 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
             "email": user.email,
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "contributor_organization": "Test",
-            "contributor_role": "Tester",
-            "contributor_contact_phone": "0123456779",
+            "organization_type": "farmer",
+            "perimeter": 1,
+            "organization_name": "L'île aux enfants",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False,
         },
     )
     assert res.status_code == 200
@@ -200,14 +212,10 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
 
 
 def test_register_form(client, mailoutbox):
-    """
-    Registration is a two-step form:
-    - First, the data about the user themself, and status within their org
-    - Second, creating an org for the user to belong to
-    """
-    # First step
     users = User.objects.all()
+    organizations = Organization.objects.all()
     assert users.count() == 0
+    assert organizations.count() == 0
 
     register_url = reverse("register")
     res = client.post(
@@ -218,34 +226,30 @@ def test_register_form(client, mailoutbox):
             "email": "olga@test.com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
+            "perimeter": 1,
+            "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
             "is_beneficiary": True,
             "is_contributor": False,
         },
-        follow=True,
     )
 
-    assert res.status_code == 200
-    assert (
-        "Merci de renseigner les informations de votre structure pour finaliser votre inscription"
-        in res.content.decode()
-    )  # noqa
-
-    # Second step
-    create_org_url = reverse("organization_create_view")
-    res = client.post(create_org_url, {"name": "L’Île aux enfants", "perimeter": 1})
+    assert res.status_code == 302
 
     assert len(mailoutbox) == 1
     assert users.count() == 1
+    assert organizations.count() == 1
 
     user = users[0]
     assert user.email == "olga@test.com"
     assert user.first_name == "Olga"
     assert user.last_name == "Tau"
     assert not user.ml_consent
-
+    organization = organizations[0]
+    assert organization.name == "L'île aux enfants"
+    
     mail = mailoutbox[0]
     assert mail.subject == "Connexion à Aides-territoires"
 
@@ -263,6 +267,8 @@ def test_register_form_converts_email_to_lowercase(client):
             "email": "OLGA@Test.Com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
+            "perimeter": 1,
+            "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
