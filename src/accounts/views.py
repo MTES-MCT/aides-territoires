@@ -615,19 +615,21 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
         return res
 
 
-class DeleteUserConfirmationView(UserLoggedRequiredMixin, TemplateView):
+class DeleteUserDashboardView(UserLoggedRequiredMixin, TemplateView):
     """Asks for user confirmation before deleting profile."""
 
-    template_name = "accounts/user_delete_confirmation.html"
+    template_name = "accounts/user_delete_dashboard.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
-        user_org = user.beneficiary_organization
-        # user_org = self.request.user.organization_set().first()
 
-        context["org_members"] = user_org.beneficiaries.all()
+        user_org = user.beneficiary_organization
+        user_org = self.request.user.organization_set.first()
+
+        context["organization"] = user_org
+        context["organization_members"] = user_org.beneficiaries.all()
         context["projects"] = user_org.project_set.all()
 
         context["alerts"] = Alert.objects.filter(email=user.email)
