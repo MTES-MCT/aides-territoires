@@ -86,9 +86,6 @@
                 <li class="fr-sidemenu__item">
                     <a class="fr-sidemenu__link" href="{% url 'logout' %}" target="_self" rel="noopener">Se déconnecter</a>
                 </li>
-                <li class="fr-sidemenu__item">
-                    <a class="fr-sidemenu__link" href="{% url 'delete_user_account_confirmation' %}" target="_self" rel="noopener">Supprimer mon compte</a>
-                </li>
                 {% if user.is_superuser %}
                 <li class="fr-sidemenu__item fr-py-2w">
                     <div class="at-sidemenu__separator fr-px-2w"><hr class="fr-hint-text"/></div>
