@@ -22,7 +22,7 @@ from accounts.views import (
     HistoryLoginList,
     DeleteHistoryLoginView,
     DeleteUserView,
-    DeleteUserDashboardView,
+    DeleteUserView,
 )
 
 
@@ -85,11 +85,6 @@ urlpatterns = [
         "suppression-journal-de-connexion/",
         DeleteHistoryLoginView.as_view(),
         name="delete_history_login",
-    ),
-    path(
-        "suppression-compte-confirmation/",
-        DeleteUserDashboardView.as_view(),
-        name="delete_user_account_dashboard",
     ),
     path(
         "suppression-compte/",
