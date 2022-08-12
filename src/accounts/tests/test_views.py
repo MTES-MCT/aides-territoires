@@ -140,7 +140,7 @@ def test_register_form_is_accessible_to_anonymous_user(client):
     assert res.status_code == 200
 
 
-def test_register_form_expects_valid_data(client):
+def test_register_form_expects_valid_data(client, perimeters):
     register_url = reverse("register")
     res = client.post(
         register_url,
@@ -151,7 +151,7 @@ def test_register_form_expects_valid_data(client):
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
             "organization_type": "farmer",
-            "perimeter": "79138-chanterac",
+            "perimeter": perimeters['france'].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -171,7 +171,7 @@ def test_register_form_expects_valid_data(client):
             "password2": "Gloubiboulga",
             "email": "tartiflette",
             "organization_type": "farmer",
-            "perimeter": "79138-chanterac",
+            "perimeter": perimeters['france'].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -183,7 +183,7 @@ def test_register_form_expects_valid_data(client):
     assert "Saisissez une adresse e-mail valide." in res.content.decode()
 
 
-def test_register_form_with_unique_email(client, user, mailoutbox):
+def test_register_form_with_unique_email(client, user, mailoutbox, perimeters):
     """When registering with an existing email, there is a warning"""
 
     register_url = reverse("register")
@@ -196,7 +196,7 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
             "organization_type": "farmer",
-            "perimeter": 1,
+            "perimeter": perimeters['france'].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -211,7 +211,7 @@ def test_register_form_with_unique_email(client, user, mailoutbox):
     )
 
 
-def test_register_form(client, mailoutbox):
+def test_register_form(client, mailoutbox, perimeters):
     users = User.objects.all()
     organizations = Organization.objects.all()
     assert users.count() == 0
@@ -226,7 +226,7 @@ def test_register_form(client, mailoutbox):
             "email": "olga@test.com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "perimeter": 1,
+            "perimeter": perimeters['france'].id,
             "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
@@ -254,7 +254,7 @@ def test_register_form(client, mailoutbox):
     assert mail.subject == "Connexion à Aides-territoires"
 
 
-def test_register_form_converts_email_to_lowercase(client):
+def test_register_form_converts_email_to_lowercase(client, perimeters):
     users = User.objects.all()
     assert users.count() == 0
 
@@ -267,7 +267,7 @@ def test_register_form_converts_email_to_lowercase(client):
             "email": "OLGA@Test.Com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "perimeter": 1,
+            "perimeter": perimeters['france'].id,
             "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
