@@ -117,7 +117,7 @@ Il faut aussi installer l'extension pg_trgm :
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;' -U postgres
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS unaccent;' -U postgres
     psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS btree_gin;' -U postgres
-    psql -d aides -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;' -U postgres
+    psql -d template1 -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;' -U postgres
 
 En suivant l'utilisateur `aides` peut lancer les tests :
 
