@@ -4,7 +4,7 @@
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}profile-form{% endblock sectionid %}
+{% block sectionid %}user-delete-form{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -19,7 +19,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Supprimer mon comptel</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Supprimer mon compte</a>
                 </li>
             </ol>
         </div>
@@ -30,10 +30,11 @@
 {% block content %}
 <div class="fr-container fr-my-5w">
     <div class="fr-grid-row fr-grid-row--center">
-
         {% include 'accounts/_sidebar_menu.html' with user_parameter=True %}
 
-        <div class="fr-col-md-9">
+        <form method="post" action="{% url 'delete_user_account' %}" class="fr-col-md-9">
+            {% csrf_token %}
+
             <h1 class="fr-h3">Supprimer mon compte</h1>
 
             <div role="alert" class="fr-alert fr-alert--warning fr-alert--sm fr-mb-5w">
@@ -175,52 +176,52 @@
                         </tbody>
                     </table>
                 </div>
+
+                {% if organization_members.count > 1 %}
+                <div class="fr-select-group">
+                    <label class="fr-label" for="aids-transfer-select">
+                        Transférer les aides à :
+                    </label>
+                    <select class="fr-select" id="aids-transfer" name="aids-transfer-select">
+                        <option value="" selected disabled hidden>Selectionnez une personne</option>
+                        {% for member in organization_members %}
+                            {% if member.id != user.id %}
+                                <option value="{{ member.id }}">{{ member.full_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+
             {% endif %}
 
             {% if alerts.count > 0 %}
                 <h2 id="alerts" class="fr-h4">Alertes</h2>
-                <p>Les alertes suivantes vont être supprimées :</p>
-                <div class="fr-table at-table--fullwidth">
-                    <table class="data-table" aria-describedby="alerts">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Fréquence</th>
-                                <th scope="col">Date création</th>
-                                <th scope="col">Dernière réception</th>
-                            </tr>
-                        </thead>
-                        {% for alert in alerts %}
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="{% url 'search_view' %}?{{ alert.querystring }}" target="_blank" rel="noopener">
-                                        {{ alert.title }}
-                                    </a>
-                                </td>
-                                <td>{{ alert.get_alert_frequency_display }}</td>
-                                <td>{{ alert.date_created|date:'d/m/y' }}</td>
-                                <td>
-                                    {% if alert.validated %}
-                                    {{ alert.latest_alert_date|date:'d/m/y' }}
-                                    {% else %}
-                                    En attente de confirmation
-                                    {% endif %}
-                                </td>
-                            </tr>
+                <div class="fr-form-group">
+                    <fieldset class="fr-fieldset" aria-labelledby="alerts-checkboxes-legend" role="group">
+                        <legend class="fr-fieldset__legend fr-text--regular" id="alerts-checkboxes-legend">
+                            Les alertes suivantes sont associées à votre compte. Si vous voulez en supprimer certaines, vous pouvez les cocher :
+                        </legend>
+                        <div class="fr-fieldset__content">
+                            {% for alert in alerts %}
+                            <div class="fr-checkbox-group">
+                                <input type="checkbox" id="alert-{{ alert.pk }}" name="alert-{{ alert.pk }}" />
+                                <label class="fr-label" for="alert-{{ alert.pk }}">{{ alert.title }}
+                                </label>
+                            </div>
                             {% endfor %}
-                        </tbody>
-                    </table>
+                        </div>
+                    </fieldset>
                 </div>
             {% endif %}
 
             <div>
-                <a class="fr-btn fr-btn--icon-left fr-fi-delete-line btn_delete" href="{% url 'delete_user_account' %}">
+                <button type="submit" class="fr-btn fr-btn--icon-left fr-fi-delete-line btn_delete">
                     Supprimer votre compte
-                </a>
+                </button>
             </div>
-            
-        </div>
+        </form>
     </div>
 </div>
 {% endblock content %}

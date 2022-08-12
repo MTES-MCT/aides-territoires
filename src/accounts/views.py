@@ -10,6 +10,7 @@ from django.views.generic import (
     ListView,
     DeleteView,
 )
+from django.views.generic.edit import FormMixin
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash, views
@@ -21,6 +22,7 @@ from django.contrib import messages
 from django.shortcuts import resolve_url
 from django.db.models import Q
 from django.db import transaction
+
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
@@ -629,10 +631,11 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
         return res
 
 
-class DeleteUserDashboardView(UserLoggedRequiredMixin, TemplateView):
+class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
     """Asks for user confirmation before deleting profile."""
 
     template_name = "accounts/user_delete_dashboard.html"
+    success_message = "Votre compte utilisateur a été supprimé."
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -651,13 +654,19 @@ class DeleteUserDashboardView(UserLoggedRequiredMixin, TemplateView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data()
 
-class DeleteUserView(UserLoggedRequiredMixin, SuccessMessageMixin, DeleteView):
-    """Delete user profile."""
+        post_data = request.POST
+        print(post_data)
+        user = request.user
 
-    form_class = CompleteProfileForm
-    template_name = "accounts/complete_profile.html"
-    success_message = "Votre profil a été mis à jour."
+        alerts = Alert.objects.filter(email=user.email)
+        for alert in alerts:
+            if f"alert-{alert.pk}" in post_data:
+                alert.delete()
+
+        return self.render_to_response(context)
 
 
 class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):
