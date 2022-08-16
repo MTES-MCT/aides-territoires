@@ -12,6 +12,8 @@ from model_utils import Choices
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
+from aids.models import Aid
+
 
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""
@@ -274,6 +276,48 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.search_pages.exists()
 
 
+@receiver(pre_delete, sender=User, dispatch_uid="user_delete_signal")
+def manage_user_content_before_deletion(sender, instance, using, **kwargs):
+    """
+    Some user-generated content must be managed on user account deletion.
+
+    Part of this management is delegated to the DeleteUserView, which allows the user
+    to make some extra deletions.
+
+    - ALERTS:   User can chose to delete some alerts along with their account.
+                Otherwise, they are kept → nothing to do here
+
+    Using a pre_delete signal https://docs.djangoproject.com/en/3.2/ref/signals/#django.db.models.signals.pre_delete
+    """
+    user = instance
+    user_org = user.beneficiary_organization
+
+    # PROJECTS: Reattributed to another user belonging to the user's organization if such a user exists.
+    # Otherwise, the projects are deleted.
+    new_author = user_org.beneficiaries.exclude(id=user.id).first()
+
+    projects = user_org.project_set.all()
+    if new_author:
+        for project in projects:
+            project.author.add(new_author)
+            project.save()
+    else:
+        projects.delete()
+
+    # AIDS: The form allows the user to reattribute his aids to another user.
+    # Otherwise, they ar reattributed to the AT Admin user
+    at_admin = User.objects.get(email="aides-territoires@beta.gouv.fr")
+
+    aids = Aid.objects.filter(author=user)
+    for aid in aids:
+        aid.author = at_admin
+        aid.save()
+
+    # ORGANIZATION: if the user is alone in their organization, it must be deleted too.
+    if not new_author:
+        user_org.delete()
+
+
 class UserLastConnexion(models.Model):
 
     user = models.ForeignKey(
@@ -286,32 +330,3 @@ class UserLastConnexion(models.Model):
     class Meta:
         verbose_name = "Dernière connexion de l’utilisateur"
         verbose_name_plural = "Dernières connexions des utilisateurs"
-
-
-@receiver(pre_delete, sender=User, dispatch_uid="user_delete_signal")
-def manage_user_content(sender, instance, using, **kwargs):
-    """
-    Some user-generated content must be managed on user account deletion.
-
-    Part of this management is delegated to the DeleteUserView, which allows the user
-    to make some extra deletions.
-
-    - alerts:   User can chose to delete some alerts along with their account.
-                Otherwise, they are kept → nothing to do here
-
-    Using a pre_delete signal https://docs.djangoproject.com/en/3.2/ref/signals/#django.db.models.signals.pre_delete
-    """
-    user = instance
-    user_org = user.beneficiary_organization
-
-    new_author = user_org.beneficiaries.exclude(id=user.id)
-
-    # PROJECTS: Reattributed to another user belonging to the user's organization if it exists.
-    # Otherwise, they are deleted.
-    projects = user_org.project_set.all()
-    if new_author:
-        for project in projects:
-            project.author.add(new_author)
-            project.save()
-    else:
-        projects.delete()

@@ -47,14 +47,42 @@
             <h2 class="fr-h4">Structure</h2>
             {% if organization_members.count > 1 %}
                 <p>
-                    La structure « {{ organization }} » compte d’autres membres que vous : elle ne sera donc pas supprimée.
+                    La structure « <strong>{{ organization }}</strong> » compte d’autres membres que vous : elle ne sera donc pas supprimée.
                 </p>
             {% else %}
                 <p>
-                    Vous êtes la seule personne appartenant à la structure « {{ organization }} ».
+                    Vous êtes la seule personne appartenant à la structure « <strong>{{ organization }}</strong> ».
                     Si vous supprimez votre compte elle sera donc également supprimée.
                 </p>
-                
+            {% endif %}
+
+            {% if invitations.count > 0 %}
+                <p>Il y a des invitations en attente de votre part pour votre structure.</p>
+
+                {% if organization_members.count > 1 %}
+                    <p>
+                        Vous pouvez ici les attribuer à un autre utilisateur, sinon elles seront
+                        supprimées en même temps que votre compte.
+                    </p>
+
+                    <div class="fr-select-group">
+                        <label class="fr-label" for="invitations-transfer-select">
+                            Transférer les invitations à :
+                        </label>
+                        <select class="fr-select" id="invitations-transfer" name="invitations-transfer-select">
+                            <option value="" selected disabled hidden>Selectionnez une personne</option>
+                            {% for member in organization_members %}
+                                {% if member.id != user.id %}
+                                    <option value="{{ member.id }}">{{ member.full_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% else %}
+                    <p>
+                        Si vous supprimez votre compte maintenant, elles seront supprimées.
+                    </p>
+                {% endif %}
             {% endif %}
 
             {% if projects.count > 0 %}
@@ -109,22 +137,6 @@
                         </tbody>
                     </table>
                 </div>
-                {% if organization_members.count > 1 %}
-                    <div class="fr-select-group">
-                        <label class="fr-label" for="select">
-                            Transférer les projets à :
-                        </label>
-                        <select class="fr-select" id="select" name="select">
-                            <option value="" selected disabled hidden>Selectionnez une personne</option>
-                            {% for member in organization_members %}
-                                {% if member.id != user.id %}
-                                    <option value="{{ member.id }}">{{ member.full_name }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                {% endif %}
-
             {% endif %}
 
             {% if aids.count > 0 %}
@@ -192,7 +204,6 @@
                     </select>
                 </div>
                 {% endif %}
-
 
             {% endif %}
 

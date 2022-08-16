@@ -558,7 +558,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
-            msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
+            msg = f"Félicitations, vous avez rejoint la structure { proposed_organization } !"
 
         messages.success(self.request, msg)
         success_url = reverse("user_dashboard")
@@ -632,7 +632,10 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
 
 
 class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
-    """Asks for user confirmation before deleting profile."""
+    """
+    Asks the user what to do with their user-generated content
+    before deleting their profile.
+    """
 
     template_name = "accounts/user_delete_dashboard.html"
     success_message = "Votre compte utilisateur a été supprimé."
@@ -651,6 +654,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
 
         context["alerts"] = Alert.objects.filter(email=user.email)
         context["aids"] = Aid.objects.filter(author=user)
+        context["invitations"] = User.objects.filter(invitation_author_id=user)
 
         return context
 
@@ -658,7 +662,6 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         context = self.get_context_data()
 
         post_data = request.POST
-        print(post_data)
         user = request.user
 
         alerts = Alert.objects.filter(email=user.email)
@@ -666,6 +669,16 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             if f"alert-{alert.pk}" in post_data:
                 alert.delete()
 
+        if "aids-transfer-select" in post_data:
+            new_author_id = post_data["aids-transfer-select"]
+            new_author = User.objects.get(id=new_author_id)
+
+            aids = Aid.objects.filter(author=user)
+            for aid in aids:
+                aid.author = new_author
+                aid.save()
+
+        user.delete()
         return self.render_to_response(context)
 
 
