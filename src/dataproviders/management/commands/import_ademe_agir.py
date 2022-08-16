@@ -8,9 +8,11 @@ from django.conf import settings
 from django.utils import timezone
 
 from aids.models import Aid
+from keywords.models import Keyword
+from geofr.models import Perimeter
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_categories
+from dataproviders.utils import content_prettify, mapping_categories, mapping_categories_label
 from dataproviders.management.commands.base import BaseImportCommand
 
 ADMIN_ID = 1
@@ -52,6 +54,7 @@ CATEGORIES_MAPPING_CSV_PATH = (
     + "/../../data/ademe_agir_categories_mapping.csv"
 )
 SOURCE_COLUMN_NAME = "Réf Sous-thématique Ademe Agir"
+SOURCE_COLUMN_LABEL = "Sous-thématique Ademe Agir"
 AT_COLUMN_NAMES = [
     "Sous-thématique AT 1",
     "Sous-thématique AT 2",
@@ -59,6 +62,9 @@ AT_COLUMN_NAMES = [
 ]
 CATEGORIES_DICT = mapping_categories(
     CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
+)
+CATEGORIES_LABEL_DICT = mapping_categories_label(
+    CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, SOURCE_COLUMN_LABEL
 )
 
 SOURCE_COLUMN_NAME = "Réf Thématique Ademe Agir"
@@ -70,6 +76,7 @@ AT_COLUMN_NAMES = [
 THEMATIQUES_DICT = mapping_categories(
     CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
 )
+
 
 class Command(BaseImportCommand):
     """
@@ -184,13 +191,33 @@ class Command(BaseImportCommand):
     def extract_perimeter(self, line):
         couv_geo = line.get("couverture_geo", [])
         if couv_geo["code"] == "1":
-            Perimeter.objects.get(code='FRA')
-        if couv_geo["code"] == "2" or couv_geo["code"] == "3" :
-            Perimeter.objects.get(code='EU')
+            return Perimeter.objects.get(code="FRA")
+        if couv_geo["code"] == "2" or couv_geo["code"] == "3":
+            return Perimeter.objects.get(code="EU")
         elif couv_geo["code"] == "4":
             regions_code = line.get("regions", [])
             if len(regions_code) == 1:
-                return Perimeter.objects.get(code=regions_code[0]),
+                return Perimeter.objects.get(code=regions_code[0], scale=Perimeter.SCALES.region)
+
+    def extract_eligibility(self, line):
+        eligibility = ""
+        couv_geo = line.get("couverture_geo", [])
+        if couv_geo["code"] == "4":
+            region_codes = line.get("regions", [])
+            if len(region_codes) > 1:
+                perimeters = []
+                for region_code in region_codes:
+                    try:
+                        perimeters.append(Perimeter.objects.get(code=region_code, scale=Perimeter.SCALES.region).name)
+                    except Exception:
+                        try:
+                            perimeters.append(Perimeter.objects.get(code=region_code).name)
+                        except Exception():
+                            print(f"Code région : {region_code}")
+                perimeters_str = ", ".join(perimeters)
+                eligibility = f"Ce dispositif est applicable uniquement aux régions suivantes : {perimeters_str}"
+                return eligibility
+        return eligibility        
 
     def extract_targeted_audiences(self, line):
         """
@@ -229,3 +256,25 @@ class Command(BaseImportCommand):
         else:
             print(f"{title} - {thematiques}")
         return aid_categories
+
+    def extract_keywords(self, line):
+        categories = line.get("thematiques", [])
+        keywords = []
+        if categories != []:
+            for category in categories:
+                category = CATEGORIES_LABEL_DICT.get(category, [])
+                try:
+                    keyword = Keyword.objects.get(name=category)
+                    keyword_list = []
+                    keyword_list.append(keyword)
+                    keyword_pk = Keyword.objects.get(name=category).pk
+                    keywords.extend(keyword_list)
+                except:
+                    try:
+                        keyword = Keyword.objects.create(name=category)
+                        keyword_list = []
+                        keyword_list.append(keyword)
+                        keyword_pk = Keyword.objects.get(name=category).pk
+                    except:
+                        pass
+        return keywords
