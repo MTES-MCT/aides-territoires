@@ -175,6 +175,23 @@ class Command(BaseImportCommand):
         )
         return submission_deadline
 
+    def extract_recurrence(self, line):
+        if line.get("date_debut") and line.get("date_fin"):
+            return Aid.RECURRENCES.oneoff
+        else:
+            return Aid.RECURRENCES.ongoing
+
+    def extract_perimeter(self, line):
+        couv_geo = line.get("couverture_geo", [])
+        if couv_geo["code"] == "1":
+            Perimeter.objects.get(code='FRA')
+        if couv_geo["code"] == "2" or couv_geo["code"] == "3" :
+            Perimeter.objects.get(code='EU')
+        elif couv_geo["code"] == "4":
+            regions_code = line.get("regions", [])
+            if len(regions_code) == 1:
+                return Perimeter.objects.get(code=regions_code[0]),
+
     def extract_targeted_audiences(self, line):
         """
         Source format: list of dicts
