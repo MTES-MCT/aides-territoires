@@ -559,7 +559,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             self.date_published = timezone.now()
 
     def set_search_vector_unaccented(
-        self, financers=None, instructors=None, categories=None, keywords=None, programs=None
+        self,
+        financers=None,
+        instructors=None,
+        categories=None,
+        keywords=None,
+        programs=None,
     ):
         """Update the full text unaccented cache field."""
 
@@ -803,6 +808,10 @@ class AidProject(models.Model):
         "projects.Project", on_delete=models.CASCADE, verbose_name="Projet", blank=True
     )
     creator = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE, verbose_name="Créateur", blank=True
+        "accounts.User",
+        on_delete=models.SET_NULL,
+        verbose_name="Créateur",
+        blank=True,
+        null=True,
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
