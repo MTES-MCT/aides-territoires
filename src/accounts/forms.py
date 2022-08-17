@@ -1,12 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
+from core.forms.fields import AutocompleteModelChoiceField
 
 from model_utils import Choices
 
 from accounts.models import User
 from accounts.utils import check_current_password
 from projects.models import Project
+from geofr.models import Perimeter
 
 from dsfr.forms import DsfrBaseForm
 
@@ -47,8 +49,12 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
     )
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
     is_beneficiary = forms.BooleanField(label="Trouver des aides", required=False)
+    organization_name = forms.CharField(label="Nom de votre structure", required=True)
     organization_type = forms.ChoiceField(
         label="Vous êtes un/une", required=True, choices=ORGANIZATION_TYPE
+    )
+    perimeter = AutocompleteModelChoiceField(
+        label="Votre territoire", queryset=Perimeter.objects.all(), required=True
     )
 
     class Meta:
@@ -63,7 +69,9 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
             "beneficiary_function",
             "is_contributor",
             "is_beneficiary",
+            "organization_name",
             "organization_type",
+            "perimeter",
         ]
 
     def __init__(self, *args, **kwargs):
