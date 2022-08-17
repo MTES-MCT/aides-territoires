@@ -263,18 +263,19 @@ class Command(BaseImportCommand):
         if categories != []:
             for category in categories:
                 category = CATEGORIES_LABEL_DICT.get(category, [])
-                try:
-                    keyword = Keyword.objects.get(name=category)
-                    keyword_list = []
-                    keyword_list.append(keyword)
-                    keyword_pk = Keyword.objects.get(name=category).pk
-                    keywords.extend(keyword_list)
-                except:
+                if category != []:
                     try:
-                        keyword = Keyword.objects.create(name=category)
+                        keyword = Keyword.objects.get(name=category)
                         keyword_list = []
                         keyword_list.append(keyword)
                         keyword_pk = Keyword.objects.get(name=category).pk
+                        keywords.extend(keyword_list)
                     except:
-                        pass
+                        try:
+                            keyword = Keyword.objects.create(name=category)
+                            keyword_list = []
+                            keyword_list.append(keyword)
+                            keyword_pk = Keyword.objects.get(name=category).pk
+                        except:
+                            pass
         return keywords
