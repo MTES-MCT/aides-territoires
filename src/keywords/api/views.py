@@ -32,7 +32,7 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
-        qs = qs.order_by('name')
+        qs = qs.order_by('name').distinct()
 
         return qs
 

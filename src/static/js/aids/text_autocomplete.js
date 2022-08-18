@@ -10,7 +10,6 @@ $(document).ready(function () {
         language: 'fr',
         selectOnClose: true,
         minimumInputLength: 1,
-        selectOnBlur: true,
         language: {
             inputTooShort: function () { return ''; },
         },
