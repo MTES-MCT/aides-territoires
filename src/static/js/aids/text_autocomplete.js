@@ -18,7 +18,6 @@ $(document).ready(function () {
             url: catalog.text_url,
             dataType: 'json',
             delay: 100,
-            cache: true,
             data: function (params) {
                 var query = {
                     q: params.term,
