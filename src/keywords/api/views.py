@@ -21,14 +21,14 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         """Filter data according to search query."""
 
-        qs = SynonymList.objects.all()
+        qs = SynonymList.objects.prefetch_related('keywords').all()
 
         q = self.request.query_params.get('q', '')
         terms = q.split()
         q_filters = []
         for term in terms:
             if len(term) >= MIN_SEARCH_LENGTH:
-                q_filters.append(Q(name__icontains=term))
+                q_filters.append(Q(keywords__name__icontains=term))
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 

@@ -85,10 +85,11 @@
                             Rechercher
                         </button>
                         <div class="fr-col-12 fr-col-md-12 fr-mr-1w">
-                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">💡</span> 2 astuces pour optimiser votre recherche :</strong></p>
+                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">💡</span> 3 astuces pour optimiser votre recherche :</strong></p>
                             <ul class="fr-hint-text">
                               <li class="fr-mx-2w">"piste cyclable" renverra les aides contenant les 2 termes "piste" et "cyclable".</li>
                               <li class="fr-mx-2w">"piste cyclable<strong>,</strong> voie douce" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes "voie" et "douce".</li>
+                              <li class="fr-mx-2w">Certains champs lexicaux lié au mot clé que vous tapez peuvent vous êtes proposé à la sélection. Si vous sélectionnez un champ lexical votre recherche sera effectuée sur tous les mots clés de ce champ lexical.</li>
                             </ul>
                         </div>
                     </div>    
@@ -124,6 +125,7 @@
 <script src="{% static 'select2/dist/js/select2.js' %}"></script>
 <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
 <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
 <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 <script src="{% static 'js/search/check_all_categories_btn.js' %}"></script>
 <script src="{% static 'js/search/track_general_search_page_events.js' %}"></script>

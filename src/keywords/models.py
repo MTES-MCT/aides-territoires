@@ -55,6 +55,19 @@ class SynonymList(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
 
+    @property
+    def keywords_str(self):
+
+        keywords_name_list = []
+        for keyword in self.keywords.all():
+            keywords_name_list.append(keyword.name)
+        keywords_name_str = ", ".join(keywords_name_list)
+        return keywords_name_str
+
+    @property
+    def autocomplete_name(self):
+        return f"Champ lexical du mot «{self.name}»"
+
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
