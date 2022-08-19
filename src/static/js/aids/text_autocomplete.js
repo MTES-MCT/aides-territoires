@@ -7,15 +7,12 @@ $(document).ready(function () {
         language: 'fr',
         selectOnClose: true,
         minimumInputLength: 1,
-        language: {
-            inputTooShort: function () { return ''; },
-        },
         ajax: {
             url: catalog.text_url,
             dataType: 'json',
             delay: 100,
             data: function (params) {
-                var query = {
+                let query = {
                     q: params.term,
                 }
                 return query;

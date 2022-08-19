@@ -29,7 +29,6 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         q_filters = []
         for term in terms:
             if len(term) >= MIN_SEARCH_LENGTH:
-                term_unaccented = remove_accents(term)
                 q_filters.append(
                     Q(unaccented_keywords_list__trigram_similar=remove_accents(term))
                 )
