@@ -308,7 +308,7 @@ def test_invited_user_can_join_a_new_organization(client, mailoutbox):
 
     user_dashboard_page = reverse("user_dashboard")
     res = client.get(user_dashboard_page, follow=True)
-    assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
+    assert "Félicitations, vous avez rejoint la structure" in res.content.decode()
 
 
 def test_email_is_send_to_former_collaborators_to_notice_them_the_leaving(
@@ -368,7 +368,7 @@ def test_email_is_send_to_former_collaborators_to_notice_them_the_leaving(
 
     user_dashboard_page = reverse("user_dashboard")
     res = client.get(user_dashboard_page, follow=True)
-    assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
+    assert "Félicitations, vous avez rejoint la structure" in res.content.decode()
 
 
 def test_email_can_be_send_to_former_collaborators_to_invite_them_to_join(
@@ -423,4 +423,4 @@ def test_email_can_be_send_to_former_collaborators_to_invite_them_to_join(
 
     user_dashboard_page = reverse("user_dashboard")
     res = client.get(user_dashboard_page, follow=True)
-    assert "Félicitation, vous avez rejoint l'organisation" in res.content.decode()
+    assert "Félicitations, vous avez rejoint la structure" in res.content.decode()
