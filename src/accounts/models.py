@@ -10,9 +10,6 @@ from django.utils import timezone
 from model_utils import Choices
 
 from django.db.models.signals import pre_delete
-from django.dispatch import receiver
-
-from aids.models import Aid
 
 
 class UserQueryset(models.QuerySet):
@@ -227,7 +224,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Utilisateur"
         verbose_name_plural = "Utilisateurs"
-        ordering = ["-date_created"]
+        ordering = ["id"]
 
     def __str__(self):
         return "{} ({})".format(self.full_name, self.email)
@@ -274,48 +271,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Only the minisite administrators can access
         certain pages of the app."""
         return self.search_pages.exists()
-
-
-@receiver(pre_delete, sender=User, dispatch_uid="user_delete_signal")
-def manage_user_content_before_deletion(sender, instance, using, **kwargs):
-    """
-    Some user-generated content must be managed on user account deletion.
-
-    Part of this management is delegated to the DeleteUserView, which allows the user
-    to make some extra deletions.
-
-    - ALERTS:   User can chose to delete some alerts along with their account.
-                Otherwise, they are kept → nothing to do here
-
-    Using a pre_delete signal https://docs.djangoproject.com/en/3.2/ref/signals/#django.db.models.signals.pre_delete
-    """
-    user = instance
-    user_org = user.beneficiary_organization
-
-    # PROJECTS: Reattributed to another user belonging to the user's organization if such a user exists.
-    # Otherwise, the projects are deleted.
-    new_author = user_org.beneficiaries.exclude(id=user.id).first()
-
-    projects = user_org.project_set.all()
-    if new_author:
-        for project in projects:
-            project.author.add(new_author)
-            project.save()
-    else:
-        projects.delete()
-
-    # AIDS: The form allows the user to reattribute his aids to another user.
-    # Otherwise, they ar reattributed to the AT Admin user
-    at_admin = User.objects.get(email="aides-territoires@beta.gouv.fr")
-
-    aids = Aid.objects.filter(author=user)
-    for aid in aids:
-        aid.author = at_admin
-        aid.save()
-
-    # ORGANIZATION: if the user is alone in their organization, it must be deleted too.
-    if not new_author:
-        user_org.delete()
 
 
 class UserLastConnexion(models.Model):
