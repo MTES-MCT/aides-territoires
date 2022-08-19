@@ -1,8 +1,5 @@
 $(document).ready(function () {
 
-    var newOption = new Option("lali", false, false);
-    $('select#id_text').append(newOption).trigger('change');
-
     $('select#id_text').select2({
         placeholder: catalog.text_placeholder,
         allowClear: true,

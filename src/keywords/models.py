@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
 from django.utils import timezone
+from django.contrib.postgres.indexes import GinIndex
+
+from core.utils import remove_accents
 
 
 class Keyword(models.Model):
@@ -35,10 +38,14 @@ class SynonymList(models.Model):
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
-    keywords = models.ManyToManyField(
-        "keywords.Keyword",
-        verbose_name="Mots clé",
-        related_name="synonymList",
+    keywords_list = models.CharField(
+        "liste de mots clés", max_length=1800, null=True, blank=True
+    )
+
+    unaccented_keywords_list = models.CharField(
+        "liste de mots clés sans accents (Pour indexation)",
+        max_length=1800,
+        null=True,
         blank=True,
     )
 
@@ -46,6 +53,18 @@ class SynonymList(models.Model):
         verbose_name = "Liste de synonymes"
         verbose_name_plural = "Listes de synonymes"
         ordering = ["name"]
+        indexes = [
+            GinIndex(
+                name="keywords_list_trgm",
+                fields=["keywords_list"],
+                opclasses=["gin_trgm_ops"],
+            ),
+            GinIndex(
+                name="unaccented_keywords_list_trgm",
+                fields=["unaccented_keywords_list"],
+                opclasses=["gin_trgm_ops"],
+            ),
+        ]
 
     def __str__(self):
         return self.name
@@ -56,18 +75,10 @@ class SynonymList(models.Model):
             self.slug = slugify(self.name)[:50]
 
     @property
-    def keywords_str(self):
-
-        keywords_name_list = []
-        for keyword in self.keywords.all():
-            keywords_name_list.append(keyword.name)
-        keywords_name_str = ", ".join(keywords_name_list)
-        return keywords_name_str
-
-    @property
     def autocomplete_name(self):
         return f"Champ lexical du mot «{self.name}»"
 
     def save(self, *args, **kwargs):
         self.set_slug()
+        self.unaccented_keywords_list = remove_accents(self.keywords_list)
         return super().save(*args, **kwargs)

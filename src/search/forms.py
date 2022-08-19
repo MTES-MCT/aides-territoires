@@ -75,7 +75,7 @@ class GeneralSearchForm(DsfrBaseForm):
         label="Votre territoire", queryset=Perimeter.objects.all(), required=False
     )
     text = AutocompleteModelChoiceField(
-        label="Recherche textuelle", queryset=SynonymList.objects.prefetch_related('keywords').all(), required=False
+        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
     )
     
     categories = CategoryChoiceField(
