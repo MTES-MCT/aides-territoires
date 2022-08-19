@@ -16,180 +16,192 @@
 {% block body-class %}home{% endblock body-class %}
 
 {% block main %}
-<section id="intro">
-    <div class="fr-container">
-        <div class="fr-grid-row" id="what">
-            <div class="fr-my-5w fr-col-md-7 fr-col-xs-12 fr-pt-4w fr-ml-5w">
-                <h1>Réalisez vos projets locaux</h1>
-                <p>
-                    Chaque jour, des collectivités comme la vôtre trouvent des aides
-                    pour financer et accompagner leurs projets sur de nombreuses
-                    thématiques. Vous aussi, <strong>découvrez les aides disponibles</strong> et
-                    <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
-                    territoire.
-                </p>
-                <a href="{% url 'general_search' %}" class="fr-btn">Trouver des aides</a>
+    {% block messages %}
+        {% if messages %}
+            <div class="messages fr-container fr-my-5w">
+                {% for message in messages %}
+                    <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
+                        <p>{{ message|safe }}</p>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="fr-col-xs-12 fr-col-md-8 fr-col-offset-md-4" id="what-image">
-                <img src="{% static 'img/home_aides.svg' %}" alt="" id="home-main-image" class="fr-responsive-img" />
-            </div>
-        </div>
-    </div>
+        {% endif %}
+    {% endblock messages %}
 
-    <div class="fr-container">
-        <div class="fr-grid-row fr-grid-row--center">
-            <div class="fr-col-md-11 fr-my-5w" id="how">
-                <h2>Notre action</h2>
-                <div class="fr-grid-row fr-pb-3w fr-pt-2w fr-centered fr-grid-row--center">
-                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="{% static 'img/home_steps_1.svg' %}"/>
-                        <p>Les aides sont diffusées par leurs porteurs</p>
-                    </div>
-                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="{% static 'img/home_steps_2.svg' %}"/>
-                        <p>Aides-territoires rassemble et structure ces informations</p>
-                    </div>
-                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                        <img alt="" src="{% static 'img/home_steps_3.svg' %}"/>
-                        <p>Les dispositifs deviennent plus facilement lisibles et mobilisables</p>
-                    </div>
+    <section id="intro">
+        <div class="fr-container">
+            <div class="fr-grid-row" id="what">
+                <div class="fr-my-5w fr-col-md-7 fr-col-xs-12 fr-pt-4w fr-ml-5w">
+                    <h1>Réalisez vos projets locaux</h1>
+                    <p>
+                        Chaque jour, des collectivités comme la vôtre trouvent des aides
+                        pour financer et accompagner leurs projets sur de nombreuses
+                        thématiques. Vous aussi, <strong>découvrez les aides disponibles</strong> et
+                        <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
+                        territoire.
+                    </p>
+                    <a href="{% url 'general_search' %}" class="fr-btn">Trouver des aides</a>
+                </div>
+                <div class="fr-col-xs-12 fr-col-md-8 fr-col-offset-md-4" id="what-image">
+                    <img src="{% static 'img/home_aides.svg' %}" alt="" id="home-main-image" class="fr-responsive-img" />
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-<section id="home-stats" class="dark-background">
-    <div class="fr-container-fluid fr-background-alt">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-mb-5w fr-col-md-11" id="base-stats">
-                        <h2>Aides-territoires aujourd’hui</h2>
-                        <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered" >
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <p class="fr-display--xs fr-m-1w">{{ nb_aids }} </p>
-                                <p class="fr-text--lead fr-m-1w fr-uppercase">Aides disponibles</p>
-                                <p>Un chiffre en croissance grâce à notre stratégie de déploiement</p>
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <p class="fr-display--xs fr-m-1w">{{ nb_backers }}</p>
-                                <p class="fr-text--lead fr-m-1w fr-uppercase">Porteurs d’aides</p>
-                                <p>Des partenaires toujours plus nombreux nous font confiance pour publier leurs aides</p>
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <p class="fr-display--xs fr-m-1w">{{ nb_categories }}</p>
-                                <p class="fr-text--lead fr-m-1w fr-uppercase">Thématiques de projet</p>
-                                <p>et sous-thématiques pour faciliter votre recherche sur tout le territoire</p>
-                            </div>
+                <div class="fr-col-md-11 fr-my-5w" id="how">
+                    <h2>Notre action</h2>
+                    <div class="fr-grid-row fr-pb-3w fr-pt-2w fr-centered fr-grid-row--center">
+                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                            <img alt="" src="{% static 'img/home_steps_1.svg' %}"/>
+                            <p>Les aides sont diffusées par leurs porteurs</p>
                         </div>
+                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                            <img alt="" src="{% static 'img/home_steps_2.svg' %}"/>
+                            <p>Aides-territoires rassemble et structure ces informations</p>
+                        </div>
+                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                            <img alt="" src="{% static 'img/home_steps_3.svg' %}"/>
+                            <p>Les dispositifs deviennent plus facilement lisibles et mobilisables</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="fr-container fr-pb-5w">
-    <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-md-11">
-            <h2>Suivez l’actualité</h2>
-            <div class="fr-grid-row">
-                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            <h3 class="fr-card__title">
-                                <a href="/portails/" class="fr-card__link">Les pages de nos partenaires</a>
-                            </h3>
-                            <p class="fr-card__desc fr-text">Découvrez tous les guichets dédiés à un périmètre géographique, une thématique, un programme.</p>
-                        </div>
-                        <div class="fr-card__img">
-                            <img src="{% static 'img/portails.jpg' %}" alt="" />
-                        </div>
+    <section id="home-stats" class="dark-background">
+        <div class="fr-container-fluid fr-background-alt">
+            <div class="fr-container">
+                <div class="fr-grid-row fr-grid-row--center">
+                    <div class="fr-mb-5w fr-col-md-11" id="base-stats">
+                            <h2>Aides-territoires aujourd’hui</h2>
+                            <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered" >
+                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                    <p class="fr-display--xs fr-m-1w">{{ nb_aids }} </p>
+                                    <p class="fr-text--lead fr-m-1w fr-uppercase">Aides disponibles</p>
+                                    <p>Un chiffre en croissance grâce à notre stratégie de déploiement</p>
+                                </div>
+                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                    <p class="fr-display--xs fr-m-1w">{{ nb_backers }}</p>
+                                    <p class="fr-text--lead fr-m-1w fr-uppercase">Porteurs d’aides</p>
+                                    <p>Des partenaires toujours plus nombreux nous font confiance pour publier leurs aides</p>
+                                </div>
+                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                    <p class="fr-display--xs fr-m-1w">{{ nb_categories }}</p>
+                                    <p class="fr-text--lead fr-m-1w fr-uppercase">Thématiques de projet</p>
+                                    <p>et sous-thématiques pour faciliter votre recherche sur tout le territoire</p>
+                                </div>
+                            </div>
                     </div>
                 </div>
-        
-                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            <h3 class="fr-card__title">
-                                <a href="/europe/" class="fr-card__link">Europe</a>
-                            </h3>
-                            <p class="fr-card__desc fr-text">Tout savoir sur la programmation 2021-2027</p>
-                        </div>
-                        <div class="fr-card__img">
-                            <img src="{% static 'img/europe.jpg' %}" alt=""/>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                    <div class="fr-card fr-enlarge-link">
-                        <div class="fr-card__body">
-                            <h3 class="fr-card__title">
-                                <a href="/webinaires/" class="fr-card__link">Webinaire Plan de Relance</a>
-                            </h3>
-                            <p class="fr-card__desc fr-text">Retrouvez tous nos replays</p>
-                        </div>
-                        <div class="fr-card__img">
-                            <img src="{% static 'img/plan-de-relance.jpg' %}" alt=""/>
-                        </div>
-                    </div>
-                </div>
-            </div>        
+            </div>
         </div>
-    </div>
-</div>
+    </section>
 
-{% if subset_selected_backers %}
-<section id="partner">
     <div class="fr-container fr-pb-5w">
-        <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
-            <div class="fr-mb-5w fr-col-md-11" id="backers">
-                <h2>Les porteurs d’aides</h2>
-                <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
-                    {% for selected_backer in subset_selected_backers %}
-                        {% if forloop.counter < 7 %}
-                            <div class="fr-col-xs-12 fr-p-3w">
-                                <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
-                                {% if selected_backer.logo %}
-                                    <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " />
-                                {% endif %}
-                                </a>
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-md-11">
+                <h2>Suivez l’actualité</h2>
+                <div class="fr-grid-row">
+                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                        <div class="fr-card fr-enlarge-link">
+                            <div class="fr-card__body">
+                                <h3 class="fr-card__title">
+                                    <a href="/portails/" class="fr-card__link">Les pages de nos partenaires</a>
+                                </h3>
+                                <p class="fr-card__desc fr-text">Découvrez tous les guichets dédiés à un périmètre géographique, une thématique, un programme.</p>
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                            <div class="fr-card__img">
+                                <img src="{% static 'img/portails.jpg' %}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                        <div class="fr-card fr-enlarge-link">
+                            <div class="fr-card__body">
+                                <h3 class="fr-card__title">
+                                    <a href="/europe/" class="fr-card__link">Europe</a>
+                                </h3>
+                                <p class="fr-card__desc fr-text">Tout savoir sur la programmation 2021-2027</p>
+                            </div>
+                            <div class="fr-card__img">
+                                <img src="{% static 'img/europe.jpg' %}" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                        <div class="fr-card fr-enlarge-link">
+                            <div class="fr-card__body">
+                                <h3 class="fr-card__title">
+                                    <a href="/webinaires/" class="fr-card__link">Webinaire Plan de Relance</a>
+                                </h3>
+                                <p class="fr-card__desc fr-text">Retrouvez tous nos replays</p>
+                            </div>
+                            <div class="fr-card__img">
+                                <img src="{% static 'img/plan-de-relance.jpg' %}" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
             </div>
         </div>
     </div>
-</section>
-{% endif %}
 
-<div class="fr-follow">
-    <div class="fr-container">
-        <div class="fr-grid-row">
-            <div class="fr-col-12 fr-col-md-10">
-                <div class="fr-follow__newsletter">
-                    <div>
-                        <p class="fr-h5 fr-follow__title">Porteur d’aides</p>
-                        <p class="fr-text--sm fr-follow__desc">Diffusez vos aides dès maintenant !</p>
-                    </div>
-                    <div>
-                        {% if user.is_authenticated and user.is_contributor_or_staff %}
-                        <a class="fr-btn" href="{% url 'aid_draft_list_view' %}">Publier une aide</a>
-                        {% else %}
-                            <ul class="fr-btns-group fr-btns-group--inline">
-                                <li>
-                                    <a class="fr-btn" href="{% url 'login' %}">Connectez-vous</a>
-                                </li>
-                                <li>
-                                    <a class="fr-btn" href="{% url 'register' %}">Inscrivez-vous</a>    
-                                </li>
-                            </ul>
-                    {% endif %}
+    {% if subset_selected_backers %}
+    <section id="partner">
+        <div class="fr-container fr-pb-5w">
+            <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
+                <div class="fr-mb-5w fr-col-md-11" id="backers">
+                    <h2>Les porteurs d’aides</h2>
+                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
+                        {% for selected_backer in subset_selected_backers %}
+                            {% if forloop.counter < 7 %}
+                                <div class="fr-col-xs-12 fr-p-3w">
+                                    <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
+                                    {% if selected_backer.logo %}
+                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " />
+                                    {% endif %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-            </div>        
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="fr-follow">
+        <div class="fr-container">
+            <div class="fr-grid-row">
+                <div class="fr-col-12 fr-col-md-10">
+                    <div class="fr-follow__newsletter">
+                        <div>
+                            <p class="fr-h5 fr-follow__title">Porteur d’aides</p>
+                            <p class="fr-text--sm fr-follow__desc">Diffusez vos aides dès maintenant !</p>
+                        </div>
+                        <div>
+                            {% if user.is_authenticated and user.is_contributor_or_staff %}
+                            <a class="fr-btn" href="{% url 'aid_draft_list_view' %}">Publier une aide</a>
+                            {% else %}
+                                <ul class="fr-btns-group fr-btns-group--inline">
+                                    <li>
+                                        <a class="fr-btn" href="{% url 'login' %}">Connectez-vous</a>
+                                    </li>
+                                    <li>
+                                        <a class="fr-btn" href="{% url 'register' %}">Inscrivez-vous</a>    
+                                    </li>
+                                </ul>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>        
+            </div>
         </div>
     </div>
-</div>
 {% endblock main %}
