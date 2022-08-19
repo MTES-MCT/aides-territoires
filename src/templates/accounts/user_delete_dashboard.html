@@ -57,19 +57,19 @@
             {% endif %}
 
             {% if invitations.count > 0 %}
-                <p>Il y a des invitations en attente de votre part pour votre structure.</p>
+                <p>Vous avez envoyé des invitations à rejoindre votre structure, qui sont actuellement en attente.</p>
 
                 {% if organization_members.count > 1 %}
                     <p>
-                        Vous pouvez ici les attribuer à un autre utilisateur, sinon elles seront
-                        supprimées en même temps que votre compte.
+                        Vous pouvez transférer la gestion de ces invitations à un autre utilisateur,
+                        sinon elles seront supprimées en même temps que votre compte.
                     </p>
 
                     <div class="fr-select-group">
-                        <label class="fr-label" for="invitations-transfer-select">
+                        <label class="fr-label" for="invitations-transfer">
                             Transférer les invitations à :
                         </label>
-                        <select class="fr-select" id="invitations-transfer" name="invitations-transfer-select">
+                        <select class="fr-select" id="invitations-transfer" name="invitations-transfer">
                             <option value="" selected disabled hidden>Selectionnez une personne</option>
                             {% for member in organization_members %}
                                 {% if member.id != user.id %}
@@ -123,13 +123,13 @@
                                 <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
                                 <td class="fr-text">
                                 {% if project.author %}
-                                {% for author in project.author.all %}
-                                {% if author == user %}
-                                Vous
-                                {% else %}
-                                    {{ author.first_name }} {{ author.last_name }}
-                                {% endif %}
-                                {% endfor %}
+                                    {% for author in project.author.all %}
+                                        {% if author == user %}
+                                        Vous
+                                        {% else %}
+                                            {{ author.first_name }} {{ author.last_name }}
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endif %}
                                 </td>
                             </tr>
@@ -137,11 +137,26 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="fr-select-group">
+                    <label class="fr-label" for="projects-transfer">
+                        Transférer les projets à :
+                    </label>
+                    <select class="fr-select" id="projects-transfer" name="projects-transfer">
+                        <option value="" selected disabled hidden>Selectionnez une personne</option>
+                        {% for member in organization_members %}
+                            {% if member.id != user.id %}
+                                <option value="{{ member.id }}">{{ member.full_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
             {% endif %}
 
             {% if aids.count > 0 %}
                 <h2 id="aids" class="fr-h4">Aides</h2>
-                <p>Les aides suivantes vont être supprimées :</p>
+                <p>Les aides suivantes vont être détachées de votre compte :</p>
 
                 <div class="fr-table at-table--fullwidth">
                     <table class="data-table" aria-describedby="aids">
@@ -191,10 +206,10 @@
 
                 {% if organization_members.count > 1 %}
                 <div class="fr-select-group">
-                    <label class="fr-label" for="aids-transfer-select">
+                    <label class="fr-label" for="aids-transfer">
                         Transférer les aides à :
                     </label>
-                    <select class="fr-select" id="aids-transfer" name="aids-transfer-select">
+                    <select class="fr-select" id="aids-transfer" name="aids-transfer">
                         <option value="" selected disabled hidden>Selectionnez une personne</option>
                         {% for member in organization_members %}
                             {% if member.id != user.id %}
