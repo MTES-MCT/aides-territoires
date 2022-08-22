@@ -30,7 +30,7 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         for term in terms:
             if len(term) >= MIN_SEARCH_LENGTH:
                 q_filters.append(
-                    Q(unaccented_keywords_list__trigram_similar=remove_accents(term))
+                    Q(search_vector_keywords_list=remove_accents(term))
                 )
 
         if q_filters:

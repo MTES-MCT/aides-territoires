@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models import Value
 from django.utils.text import slugify
 from django.utils import timezone
+from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 
 from core.utils import remove_accents
@@ -42,28 +44,15 @@ class SynonymList(models.Model):
         "liste de mots clés", max_length=1800, null=True, blank=True
     )
 
-    unaccented_keywords_list = models.CharField(
-        "liste de mots clés sans accents (Pour indexation)",
-        max_length=1800,
-        null=True,
-        blank=True,
-    )
+    # This field is used to index searchable text content
+    search_vector_keywords_list = SearchVectorField("liste de mots clés sans accents (Pour indexation)", null=True)
 
     class Meta:
         verbose_name = "Liste de synonymes"
         verbose_name_plural = "Listes de synonymes"
         ordering = ["name"]
         indexes = [
-            GinIndex(
-                name="keywords_list_trgm",
-                fields=["keywords_list"],
-                opclasses=["gin_trgm_ops"],
-            ),
-            GinIndex(
-                name="unaccented_keywords_list_trgm",
-                fields=["unaccented_keywords_list"],
-                opclasses=["gin_trgm_ops"],
-            ),
+            GinIndex(fields=["search_vector_keywords_list"]),
         ]
 
     def __str__(self):
@@ -74,11 +63,25 @@ class SynonymList(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
 
+    def set_search_vector_keywords_list(self):
+        """Update the full text unaccented cache field."""
+
+        search_vector_keywords_list = (
+            SearchVector(
+                Value(self.keywords_list, output_field=models.CharField()),
+                weight="A",
+                config="french_unaccent",
+            )
+        )
+
+        self.search_vector_keywords_list = search_vector_keywords_list
+
+
     @property
     def autocomplete_name(self):
         return f"Champ lexical du mot «{self.name}»"
 
     def save(self, *args, **kwargs):
         self.set_slug()
-        self.unaccented_keywords_list = remove_accents(self.keywords_list)
+        self.set_search_vector_keywords_list()
         return super().save(*args, **kwargs)
