@@ -32,6 +32,7 @@ def manage_user_content_before_deletion(sender, instance, **kwargs):
     if new_author:
         for project in projects:
             project.author.add(new_author)
+            project.author.remove(user)
             project.save()
     else:
         projects.delete()
