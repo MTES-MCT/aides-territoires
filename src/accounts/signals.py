@@ -2,6 +2,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 from accounts.models import User
+from accounts.utils import cancel_invitations
 
 
 @receiver(pre_delete, sender=User, dispatch_uid="user_delete_signal")
@@ -26,12 +27,12 @@ def manage_user_content_before_deletion(sender, instance, **kwargs):
 
     # PROJECTS: Reattributed to another user belonging to the user's organization if such a user exists.
     # Otherwise, the projects are deleted.
-    new_author = user_org.beneficiaries.exclude(id=user.id).first()
+    other_org_member = user_org.beneficiaries.exclude(id=user.id).first()
 
     projects = user_org.project_set.filter(author=user)
-    if new_author:
+    if other_org_member:
         for project in projects:
-            project.author.add(new_author)
+            project.author.add(other_org_member)
             project.author.remove(user)
             project.save()
     else:
@@ -40,15 +41,10 @@ def manage_user_content_before_deletion(sender, instance, **kwargs):
     # INVITATIONS (to the organization) : The form allows the user to reattribute them to another
     #  user. Otherwise, they are deleted.
     invited_users = User.objects.filter(invitation_author_id=user)
-
-    for invited_user in invited_users:
-        invited_user.proposed_organization_id = None
-        invited_user.invitation_author_id = None
-        invited_user.invitation_date = None
-        invited_user.save()
+    cancel_invitations(invited_users)
 
     # ORGANIZATION: if the user is alone in their organization, it must be deleted too.
-    if not new_author:
+    if not other_org_member:
         user.beneficiary_organization = None
         user.save()
         user_org.delete()
