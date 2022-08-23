@@ -1,8 +1,9 @@
 import operator
 from functools import reduce
-from core.utils import remove_accents
+from core.utils import remove_accents, parse_query
 
-from django.db.models import Q
+from django.db.models import F
+from django.contrib.postgres.search import SearchRank
 
 from rest_framework import viewsets, mixins
 from drf_spectacular.utils import extend_schema
@@ -10,9 +11,6 @@ from drf_spectacular.utils import extend_schema
 from core.api.pagination import ApiPagination
 from keywords.models import SynonymList
 from keywords.api.serializers import SynonymListSerializer
-
-
-MIN_SEARCH_LENGTH = 2
 
 
 class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -24,17 +22,14 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         qs = SynonymList.objects.all()
 
-        q = self.request.query_params.get("q", "")
-        terms = q.split()
-        q_filters = []
-        for term in terms:
-            if len(term) >= MIN_SEARCH_LENGTH:
-                q_filters.append(
-                    Q(search_vector_keywords_list=remove_accents(term))
-                )
+        terms = self.request.query_params.get("q", "")
 
-        if q_filters:
-            qs = qs.filter(reduce(operator.and_, q_filters))
+        if terms:
+            terms = self.request.query_params.get("q", "")
+            query = parse_query(remove_accents(terms))
+            qs = qs.filter(search_vector_keywords_list=query).annotate(
+                rank=SearchRank(F("search_vector_keywords_list"), query)
+            )
 
         qs = qs.order_by("name").distinct()
 
