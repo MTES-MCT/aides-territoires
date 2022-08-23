@@ -6,7 +6,7 @@ $(document).ready(function () {
         tags: true,
         language: 'fr',
         selectOnClose: true,
-        minimumInputLength: 1,
+        minimumInputLength: 3,
         ajax: {
             url: catalog.text_url,
             dataType: 'json',
