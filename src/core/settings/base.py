@@ -416,3 +416,6 @@ SCALINGO_API_TOKEN = ""
 # Imports
 GRAND_EST_API_USERNAME = ""
 GRAND_EST_API_PASSWORD = ""
+
+# Default account for content reattribution after user deletion
+AT_ADMIN_EMAIL = "aides-territoires@beta.gouv.fr"
