@@ -9,8 +9,6 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 from model_utils import Choices
 
-from django.db.models.signals import pre_delete
-
 
 class UserQueryset(models.QuerySet):
     """Custom queryset with additional filtering methods for users."""

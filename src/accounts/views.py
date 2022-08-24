@@ -8,9 +8,7 @@ from django.views.generic import (
     UpdateView,
     View,
     ListView,
-    DeleteView,
 )
-from django.views.generic.edit import FormMixin
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash, views
@@ -19,7 +17,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
 from django.utils import timezone
 from django.contrib import messages
-from django.shortcuts import resolve_url, redirect
+from django.shortcuts import resolve_url, redirect, get_object_or_404
 from django.db.models import Q
 from django.db import transaction
 
@@ -663,6 +661,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         post_data = request.POST
         user = request.user
         user_org = user.beneficiary_organization
+        user_org_members = user_org.beneficiaries.all()
 
         alerts = Alert.objects.filter(email=user.email)
         for alert in alerts:
@@ -673,7 +672,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
 
         if "invitations-transfer" in post_data:
             new_inviter_id = post_data["invitations-transfer"]
-            new_inviter = User.objects.get(id=new_inviter_id)
+            new_inviter = get_object_or_404(user_org_members, pk=new_inviter_id)
 
             invited_users = User.objects.filter(invitation_author_id=user)
 
@@ -686,7 +685,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             # If they didn't and there are other users in the org, authorship
             # will be transferred to the first available user
             new_author_id = post_data["projects-transfer"]
-            new_author = User.objects.get(id=new_author_id)
+            new_author = get_object_or_404(user_org_members, pk=new_author_id)
 
             projects = user_org.project_set.filter(author=user)
 
@@ -701,7 +700,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         aids = Aid.objects.filter(author=user)
         if "aids-transfer" in post_data:
             new_author_id = post_data["aids-transfer"]
-            new_author = User.objects.get(id=new_author_id)
+            new_author = get_object_or_404(user_org_members, pk=new_author_id)
 
             for aid in aids:
                 aid.author = new_author

@@ -69,13 +69,13 @@ def test_mucbd_deletes_invitations_to_existing_users(client):
     user_to_delete.beneficiary_organization_id = user_org.pk
     user_to_delete.save()
 
-    invited_user = UserFactory(
+    UserFactory(
         is_contributor=False,
         email="invited@example.org",
         proposed_organization=user_org,
         invitation_author=user_to_delete,
         invitation_date=timezone.now(),
-    )
+    )  # invited_user
 
     user_org.beneficiaries.add(user_to_delete)
     user_org.save()
