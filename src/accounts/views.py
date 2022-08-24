@@ -685,10 +685,11 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             # At this step, we check if the user explicitely set a new author
             # If they didn't and there are other users in the org, authorship
             # will be transferred to the first available user
-            new_author_id = post_data["invitations-transfer"]
+            new_author_id = post_data["projects-transfer"]
             new_author = User.objects.get(id=new_author_id)
 
             projects = user_org.project_set.filter(author=user)
+
             if new_author:
                 for project in projects:
                     project.author.add(new_author)
