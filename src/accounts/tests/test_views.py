@@ -3,13 +3,19 @@
 import pytest
 import re
 
+from django.conf import settings
 from django.contrib.auth import authenticate
 from django.test import override_settings
 from django.urls import reverse
+from django.utils import timezone
 
 from accounts.models import User
 from accounts.factories import UserFactory
+from aids.factories import AidFactory
+from alerts.factories import AlertFactory
+from alerts.models import Alert
 from organizations.models import Organization
+from projects.factories import ProjectFactory
 from search.factories import SearchPageFactory
 from django.contrib.auth.hashers import check_password
 from geofr.models import Perimeter
@@ -231,7 +237,7 @@ def test_register_form(client, mailoutbox):
     assert (
         "Merci de renseigner les informations de votre structure pour finaliser votre inscription"
         in res.content.decode()
-    )  # noqa
+    )
 
     # Second step
     create_org_url = reverse("organization_create_view")
@@ -360,7 +366,7 @@ def test_profile_form_cant_update_password_without_entering_the_current_one(
     assert (
         "Vous devez entrer votre mot de passe actuel pour pouvoir le changer."
         in res.content.decode()
-    )  # noqa
+    )
 
 
 def test_profile_form_cant_update_password_while_entering_a_wrong_current_one(
@@ -463,3 +469,140 @@ def test_search_page_administrator_has_specific_menu(client):
     res = client.get(profile_page, follow=True)
 
     assert "Test Page portail" in res.content.decode()
+
+
+def test_user_deletion_form_deletes_the_account(client, contributor):
+    client.force_login(contributor)
+    user_deletion_url = reverse("delete_user_account")
+    data = {}
+    res = client.post(user_deletion_url, data, follow=True)
+
+    assert User.objects.filter(email=contributor.email).count() == 0
+
+
+def test_user_deletion_form_allows_to_delete_specific_alerts(client, contributor):
+    client.force_login(contributor)
+
+    alert_to_keep = AlertFactory(querystring="text=Garder", email=contributor.email)
+    alert_to_delete = AlertFactory(querystring="text=Effacer", email=contributor.email)
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {f"alert-{alert_to_delete.pk}": True}
+    res = client.post(user_deletion_url, data, follow=True)
+
+    assert Alert.objects.count() == 1
+
+
+def test_user_deletion_form_allows_to_reattribute_invitations(client, contributor):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    invited_user = UserFactory(
+        is_contributor=False,
+        email="invited@example.org",
+        proposed_organization=contributor.beneficiary_organization,
+        invitation_author=contributor,
+        invitation_date=timezone.now(),
+    )
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.beneficiary_organization = contributor_org
+    other_member.save()
+
+    contributor_org.beneficiaries.add(other_member)
+    contributor_org.save()
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "invitations-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data, follow=True)
+    invited_user.refresh_from_db()
+
+    assert invited_user.invitation_author == other_member
+
+
+def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.beneficiary_organization = contributor_org
+    other_member.save()
+
+    project_to_transfer = ProjectFactory(name="Projet à transférer")
+    project_to_transfer.author.add(contributor)
+    project_to_transfer.save()
+
+    contributor_org.beneficiaries.add(other_member)
+    contributor_org.project_set.add(project_to_transfer)
+    contributor_org.save()
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "projects-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data, follow=True)
+    project_to_transfer.refresh_from_db()
+
+    assert project_to_transfer.author.first() == other_member
+
+
+def test_user_deletion_form_allows_to_reattribute_aids(client, contributor):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.beneficiary_organization = contributor_org
+    other_member.save()
+
+    contributor_org.beneficiaries.add(other_member)
+    contributor_org.save()
+
+    aid_to_transfer = AidFactory(author=contributor)
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "aids-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data, follow=True)
+    aid_to_transfer.refresh_from_db()
+
+    assert aid_to_transfer.author == other_member
+
+
+def test_user_deletion_form_reattributes_aids_to_AT_admin_by_default(
+    client, contributor
+):
+    """
+    If the user does not choose to reattribute their aids to another member of their org,
+    their aids are instead reattributed to AT admin (even if the org has other members)
+    """
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.beneficiary_organization = contributor_org
+    other_member.save()
+
+    contributor_org.beneficiaries.add(other_member)
+    contributor_org.save()
+
+    aid_to_transfer = AidFactory(author=contributor)
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {}
+
+    res = client.post(user_deletion_url, data, follow=True)
+    aid_to_transfer.refresh_from_db()
+
+    at_admin = User.objects.get(email=settings.AT_ADMIN_EMAIL)
+
+    assert aid_to_transfer.author == at_admin
