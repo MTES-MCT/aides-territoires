@@ -475,7 +475,7 @@ def test_user_deletion_form_deletes_the_account(client, contributor):
     client.force_login(contributor)
     user_deletion_url = reverse("delete_user_account")
     data = {}
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
 
     assert User.objects.filter(email=contributor.email).count() == 0
 
@@ -483,12 +483,12 @@ def test_user_deletion_form_deletes_the_account(client, contributor):
 def test_user_deletion_form_allows_to_delete_specific_alerts(client, contributor):
     client.force_login(contributor)
 
-    alert_to_keep = AlertFactory(querystring="text=Garder", email=contributor.email)
+    AlertFactory(querystring="text=Garder", email=contributor.email)  # alert_to_keep
     alert_to_delete = AlertFactory(querystring="text=Effacer", email=contributor.email)
 
     user_deletion_url = reverse("delete_user_account")
     data = {f"alert-{alert_to_delete.pk}": True}
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
 
     assert Alert.objects.count() == 1
 
@@ -499,14 +499,13 @@ def test_user_deletion_form_allows_to_reattribute_invitations(client, contributo
     contributor_org = contributor.beneficiary_organization
 
     invited_user = UserFactory(
-        is_contributor=False,
         email="invited@example.org",
         proposed_organization=contributor.beneficiary_organization,
         invitation_author=contributor,
         invitation_date=timezone.now(),
     )
 
-    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member = UserFactory(email="to.keep@example.org")
     other_member.beneficiary_organization = contributor_org
     other_member.save()
 
@@ -518,10 +517,35 @@ def test_user_deletion_form_allows_to_reattribute_invitations(client, contributo
         "invitations-transfer": other_member.id,
     }
 
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
     invited_user.refresh_from_db()
 
     assert invited_user.invitation_author == other_member
+
+
+def test_user_deletion_form_can_only_reattribute_invitations_to_org_members(
+    client, contributor
+):
+    client.force_login(contributor)
+
+    invited_user = UserFactory(
+        email="invited@example.org",
+        proposed_organization=contributor.beneficiary_organization,
+        invitation_author=contributor,
+        invitation_date=timezone.now(),
+    )
+
+    other_member = UserFactory(email="to.keep@example.org")
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "invitations-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data)
+    invited_user.refresh_from_db()
+
+    assert res.status_code == 404
 
 
 def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
@@ -546,10 +570,38 @@ def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
         "projects-transfer": other_member.id,
     }
 
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
     project_to_transfer.refresh_from_db()
 
     assert project_to_transfer.author.first() == other_member
+
+
+def test_user_deletion_form_can_only_reattribute_projects_to_org_members(
+    client, contributor
+):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.save()
+
+    project_to_transfer = ProjectFactory(name="Projet à transférer")
+    project_to_transfer.author.add(contributor)
+    project_to_transfer.save()
+
+    contributor_org.project_set.add(project_to_transfer)
+    contributor_org.save()
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "projects-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data, follow=True)
+    project_to_transfer.refresh_from_db()
+
+    assert res.status_code == 404
 
 
 def test_user_deletion_form_allows_to_reattribute_aids(client, contributor):
@@ -571,7 +623,7 @@ def test_user_deletion_form_allows_to_reattribute_aids(client, contributor):
         "aids-transfer": other_member.id,
     }
 
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
     aid_to_transfer.refresh_from_db()
 
     assert aid_to_transfer.author == other_member
@@ -600,9 +652,30 @@ def test_user_deletion_form_reattributes_aids_to_AT_admin_by_default(
     user_deletion_url = reverse("delete_user_account")
     data = {}
 
-    res = client.post(user_deletion_url, data, follow=True)
+    client.post(user_deletion_url, data, follow=True)
     aid_to_transfer.refresh_from_db()
 
     at_admin = User.objects.get(email=settings.AT_ADMIN_EMAIL)
 
     assert aid_to_transfer.author == at_admin
+
+
+def test_user_deletion_form_can_only_reattribute_aids_to_org_members(
+    client, contributor
+):
+    client.force_login(contributor)
+
+    other_member = UserFactory(is_contributor=False, email="to.keep@example.org")
+    other_member.save()
+
+    aid_to_transfer = AidFactory(author=contributor)
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {
+        "aids-transfer": other_member.id,
+    }
+
+    res = client.post(user_deletion_url, data, follow=True)
+    aid_to_transfer.refresh_from_db()
+
+    assert res.status_code == 404

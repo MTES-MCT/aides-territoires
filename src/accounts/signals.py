@@ -19,14 +19,15 @@ def manage_user_content_before_deletion(sender, instance, **kwargs):
     - AIDS:     Aids are protected and thus must be managed outside of the pre_delete
                 (else the delete() method will never go there)
 
-    Using a pre_delete signal https://docs.djangoproject.com/en/3.2/ref/signals/#django.db.models.signals.pre_delete
+    Using a pre_delete signal
+    https://docs.djangoproject.com/en/3.2/ref/signals/#django.db.models.signals.pre_delete
     """
 
     user = instance
     user_org = user.beneficiary_organization
 
-    # PROJECTS: Reattributed to another user belonging to the user's organization if such a user exists.
-    # Otherwise, the projects are deleted.
+    # PROJECTS: Reattributed to another user belonging to the user's organization if such a user
+    # exists. Otherwise, the projects are deleted.
     other_org_member = user_org.beneficiaries.exclude(id=user.id).first()
 
     projects = user_org.project_set.filter(author=user)

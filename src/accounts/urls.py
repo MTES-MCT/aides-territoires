@@ -22,7 +22,6 @@ from accounts.views import (
     HistoryLoginList,
     DeleteHistoryLoginView,
     DeleteUserView,
-    DeleteUserView,
 )
 
 
