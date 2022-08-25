@@ -141,8 +141,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
         # if user has selected an existing synonymList object we display the object name
         # else if user has used the possibility to create an option we display the text wrote
         if "-synonym-" in value:
-            id = value.split("-synonym-")[0]
-            value = SynonymList.objects.get(id=id).pk
+            synonym_list_id = value.split("-synonym-")[0]
+            value = SynonymList.objects.get(id=synonym_list_id).pk
         return value
 
     def clean(self, value):

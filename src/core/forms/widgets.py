@@ -75,10 +75,6 @@ class AutocompleteSelectSynonym(forms.Select):
         - retrieve the selected option when we reload the page
     """
 
-    def __init__(self, *args, **kwargs):
-        self.choices = list()
-        return super().__init__(*args, **kwargs)
-
     def optgroups(self, name, value, attr=None):
         # Return selected option based on the ModelChoiceIterator.
 
