@@ -4,8 +4,6 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
-from django.db import connection
-
 from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
 from geofr.models import Perimeter
