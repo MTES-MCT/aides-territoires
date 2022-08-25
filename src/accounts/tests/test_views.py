@@ -157,7 +157,7 @@ def test_register_form_expects_valid_data(client, perimeters):
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
             "organization_type": "farmer",
-            "perimeter": perimeters['france'].id,
+            "perimeter": perimeters["france"].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -177,7 +177,7 @@ def test_register_form_expects_valid_data(client, perimeters):
             "password2": "Gloubiboulga",
             "email": "tartiflette",
             "organization_type": "farmer",
-            "perimeter": perimeters['france'].id,
+            "perimeter": perimeters["france"].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -202,7 +202,7 @@ def test_register_form_with_unique_email(client, user, mailoutbox, perimeters):
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
             "organization_type": "farmer",
-            "perimeter": perimeters['france'].id,
+            "perimeter": perimeters["france"].id,
             "organization_name": "L'île aux enfants",
             "beneficiary_role": "Pas de la tarte",
             "beneficiary_function": "other",
@@ -232,7 +232,7 @@ def test_register_form(client, mailoutbox, perimeters):
             "email": "olga@test.com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "perimeter": perimeters['france'].id,
+            "perimeter": perimeters["france"].id,
             "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
@@ -241,7 +241,6 @@ def test_register_form(client, mailoutbox, perimeters):
             "is_contributor": False,
         },
     )
-
 
     assert res.status_code == 302
 
@@ -256,7 +255,7 @@ def test_register_form(client, mailoutbox, perimeters):
     assert not user.ml_consent
     organization = organizations[0]
     assert organization.name == "L'île aux enfants"
-    
+
     mail = mailoutbox[0]
     assert mail.subject == "Connexion à Aides-territoires"
 
@@ -274,7 +273,7 @@ def test_register_form_converts_email_to_lowercase(client, perimeters):
             "email": "OLGA@Test.Com",
             "password1": "Gloubiboulga",
             "password2": "Gloubiboulga",
-            "perimeter": perimeters['france'].id,
+            "perimeter": perimeters["france"].id,
             "organization_name": "L'île aux enfants",
             "organization_type": "farmer",
             "beneficiary_role": "Pas de la tarte",
