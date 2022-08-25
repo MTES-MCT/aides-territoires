@@ -18,8 +18,9 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import resolve_url, redirect, get_object_or_404
-from django.db.models import Q
 from django.db import transaction
+from django.db.models import Q
+from django.db.models.query import QuerySet
 
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
@@ -638,7 +639,6 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
 
         user = self.request.user
 
-        user_org = user.beneficiary_organization
         user_org = self.request.user.organization_set.first()
 
         context["organization"] = user_org
@@ -673,12 +673,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         if "invitations-transfer" in post_data:
             new_inviter_id = post_data["invitations-transfer"]
             new_inviter = get_object_or_404(user_org_members, pk=new_inviter_id)
-
-            invited_users = User.objects.filter(invitation_author_id=user)
-
-            for invited_user in invited_users:
-                invited_user.invitation_author_id = new_inviter
-                invited_user.save()
+            self.transfer_invitations(user, new_inviter)
 
         if "projects-transfer" in post_data:
             # At this step, we check if the user explicitely set a new author
@@ -687,12 +682,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             new_author_id = post_data["projects-transfer"]
             new_author = get_object_or_404(user_org_members, pk=new_author_id)
 
-            projects = user_org.project_set.filter(author=user)
-
-            if new_author:
-                for project in projects:
-                    project.author.add(new_author)
-                    project.save()
+            self.transfer_projects(user, new_author)
 
         # If the user is alone or has not chosen a new author,
         # aids are reattributed to the AT admin account.
@@ -702,18 +692,38 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             new_author_id = post_data["aids-transfer"]
             new_author = get_object_or_404(user_org_members, pk=new_author_id)
 
-            for aid in aids:
-                aid.author = new_author
-                aid.save()
+            self.transfer_aids(aids, new_author)
         else:
-            for aid in aids:
-                aid.author = at_admin
-                aid.save()
+            self.transfer_aids(aids, at_admin)
 
         user.delete()
 
         messages.success(request, "Votre compte utilisateur a été supprimé.")
         return redirect("/")
+
+    def transfer_invitations(self, user: User, new_inviter: User) -> None:
+        """Helper method to transfer the invitations"""
+        invited_users = User.objects.filter(invitation_author_id=user)
+
+        for invited_user in invited_users:
+            invited_user.invitation_author_id = new_inviter
+            invited_user.save()
+
+    def transfer_projects(self, user: User, new_author: User) -> None:
+        """Helper method to transfer the projects"""
+        user_org = user.beneficiary_organization
+        projects = user_org.project_set.filter(author=user)
+
+        if new_author:
+            for project in projects:
+                project.author.add(new_author)
+                project.save()
+
+    def transfer_aids(self, aids: QuerySet, new_author: User) -> None:
+        """Helper method to transfer the projects"""
+        for aid in aids:
+            aid.author = new_author
+            aid.save()
 
 
 class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):

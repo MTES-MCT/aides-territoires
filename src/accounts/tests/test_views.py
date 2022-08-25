@@ -635,7 +635,7 @@ def test_user_deletion_form_allows_to_reattribute_aids(client, contributor):
     assert aid_to_transfer.author == other_member
 
 
-def test_user_deletion_form_reattributes_aids_to_AT_admin_by_default(
+def test_user_deletion_form_reattributes_aids_to_at_admin_by_default(
     client, contributor
 ):
     """
