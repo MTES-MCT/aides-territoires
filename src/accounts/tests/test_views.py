@@ -249,7 +249,7 @@ def test_register_form(client, mailoutbox, perimeters):
     assert not user.ml_consent
     organization = organizations[0]
     assert organization.name == "L'île aux enfants"
-    
+
     mail = mailoutbox[0]
     assert mail.subject == "Connexion à Aides-territoires"
 
