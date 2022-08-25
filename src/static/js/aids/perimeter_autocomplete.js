@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
     // hide "custom" perimeters in the user part of the website
-    var RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length;
-    var RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length;
+    var RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length;
+    var RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length;
 
     $('select#id_perimeter').select2({
         placeholder: catalog.perimeter_placeholder,
