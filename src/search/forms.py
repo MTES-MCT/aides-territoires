@@ -77,7 +77,7 @@ class GeneralSearchForm(DsfrBaseForm):
     text = AutocompleteModelChoiceField(
         label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
     )
-    
+
     categories = CategoryChoiceField(
         label="Thématiques",  # Not a mistake
         queryset=CATEGORIES_QS,

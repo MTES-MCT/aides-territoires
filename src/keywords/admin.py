@@ -38,5 +38,6 @@ class SynonymListAdmin(admin.ModelAdmin):
     current_keywords_list.short_description = 'Liste de mots clés (avant modification)'
     current_keywords_list.allow_tags = True
 
+
 admin.site.register(Keyword, KeywordAdmin)
 admin.site.register(SynonymList, SynonymListAdmin)

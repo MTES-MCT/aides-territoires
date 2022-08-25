@@ -5,8 +5,6 @@ from django.utils import timezone
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 
-from core.utils import remove_accents
-
 
 class Keyword(models.Model):
 
@@ -45,7 +43,9 @@ class SynonymList(models.Model):
     )
 
     # This field is used to index searchable text content
-    search_vector_keywords_list = SearchVectorField("liste de mots clés sans accents (Pour indexation)", null=True)
+    search_vector_keywords_list = SearchVectorField(
+        "liste de mots clés sans accents (Pour indexation)", null=True
+    )
 
     class Meta:
         verbose_name = "Liste de synonymes"
@@ -63,19 +63,21 @@ class SynonymList(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
 
+    @property
+    def id_slug(self):
+        """Set the object's id_slug for autocomplete purpose."""
+        return f"{self.id}-synonym-{self.keywords_list}"
+
     def set_search_vector_keywords_list(self):
         """Update the full text unaccented cache field."""
 
-        search_vector_keywords_list = (
-            SearchVector(
-                Value(self.keywords_list, output_field=models.CharField()),
-                weight="A",
-                config="french_unaccent",
-            )
+        search_vector_keywords_list = SearchVector(
+            Value(self.keywords_list, output_field=models.CharField()),
+            weight="A",
+            config="french_unaccent",
         )
 
         self.search_vector_keywords_list = search_vector_keywords_list
-
 
     @property
     def autocomplete_name(self):

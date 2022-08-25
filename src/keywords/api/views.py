@@ -1,12 +1,9 @@
-import operator
-from functools import reduce
 from core.utils import remove_accents, parse_query
 
 from django.db.models import F
 from django.contrib.postgres.search import SearchRank
 
 from rest_framework import viewsets, mixins
-from drf_spectacular.utils import extend_schema
 
 from core.api.pagination import ApiPagination
 from keywords.models import SynonymList

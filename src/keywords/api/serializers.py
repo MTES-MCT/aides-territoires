@@ -8,7 +8,7 @@ class SynonymListSerializer(serializers.ModelSerializer):
     Pourquoi renommer 'name' en 'text' ? Pour l'autocomplete avec select2.
     """
 
-    id = serializers.CharField(source='keywords_list')
+    id = serializers.CharField(source='id_slug')
     text = serializers.CharField(source='autocomplete_name')
     name = serializers.CharField()
 
