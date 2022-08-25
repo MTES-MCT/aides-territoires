@@ -4,12 +4,27 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+from django.db import connection
+
 from accounts.factories import UserFactory, ContributorFactory
 from backers.factories import BackerFactory
 from geofr.models import Perimeter
 from geofr.factories import PerimeterFactory
 from categories.factories import CategoryFactory
 from organizations.models import Organization
+
+
+@pytest.fixture(scope="session")
+def django_db_setup(django_db_setup, django_db_blocker):
+    with django_db_blocker.unblock():
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french );
+                ALTER TEXT SEARCH CONFIGURATION french_unaccent
+                ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;
+                """
+            )
 
 
 @pytest.fixture(scope="module")
