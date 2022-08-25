@@ -36,6 +36,7 @@ api_patterns = [
     path('perimeters/', include('geofr.api.urls')),
     path('backers/', include('backers.api.urls')),
     path('stats/', include('stats.api.urls')),
+    path('synonymLists/', include('keywords.api.urls')),
 ]
 
 urlpatterns = [
