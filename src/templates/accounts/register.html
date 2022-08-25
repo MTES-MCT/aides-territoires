@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load static form_utils compress %}
+{% load i18n static form_utils compress dsfr_tags %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
@@ -79,6 +79,8 @@
                                         <fieldset>
                                             <legend>Informations professionnelles</legend>
 
+                                            {% include '_field_snippet.html' with field=form.organization_name %}
+
                                             <div id="form-group-organization_type" class="fr-input-group required ">
                                                 <label for="id_organization_type">Vous êtes un/une</label>
                                                 <select class="fr-select" name="organization_type" id="id_organization_type">
@@ -113,6 +115,8 @@
     
                                                 {% include '_field_snippet.html' with field=form.beneficiary_role %}
                                             </div>
+
+                                            {% include '_field_snippet.html' with field=form.perimeter %}
 
                                             <div class="fr-form-group">
                                                 <fieldset class="fr-fieldset">
@@ -160,8 +164,17 @@
 </div>
 {% endblock content %}
 
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+{% endblock extra_css %}
+
 {% block extra_js %}
 {% compress js %}
 <script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
 {% endcompress %}
 {% endblock extra_js %}
