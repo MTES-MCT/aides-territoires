@@ -336,7 +336,7 @@ def test_synonym_search(client, perimeters):
         keywords_list='voie douce, vélo, vélos, liaisons douces, bmx, piste cyclable')
 
     # Searching with a synonym-list find the aids and exclude irrelevant results
-    res = client.get(url, data={'text': '1-synonym-'})
+    res = client.get(url, data={'text': '1-synonyms-'})
     assert res.context['paginator'].count == 3
 
 

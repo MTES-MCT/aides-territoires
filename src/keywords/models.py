@@ -74,10 +74,16 @@ class SynonymList(models.Model):
 
         self.search_vector_keywords_list = search_vector_keywords_list
 
+    def sort_keywords_list(self):
+        """Sort keywords_list by alpha."""
+        harmonized_keywords_list = self.keywords_list.replace(', ', ',')
+        sorted_keywords_list = sorted(harmonized_keywords_list.split(","))
+        self.keywords_list = ", ".join(sorted_keywords_list)
+
     @property
     def id_slug(self):
         """Set the object's id_slug for autocomplete purpose."""
-        return f"{self.id}-synonym-{self.name}"
+        return f"{self.id}-synonyms-{self.name}"
 
     @property
     def autocomplete_name(self):
@@ -85,5 +91,6 @@ class SynonymList(models.Model):
 
     def save(self, *args, **kwargs):
         self.set_slug()
+        self.sort_keywords_list()
         self.set_search_vector_keywords_list()
         return super().save(*args, **kwargs)

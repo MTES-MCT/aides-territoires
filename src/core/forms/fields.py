@@ -117,10 +117,10 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
     In the aid search form, fields are submitted as "GET" values and thus they
     appear in the url.
 
-    For this reason, we draft custom `id` values in the form "{id}-synonym-{keywords_list}" so
+    For this reason, we draft custom `id` values in the form "{id}-synonyms-{keywords_list}" so
     the search filter url stays readable.
 
-    This field's job is to get rid of the "-synonym-{keywords_list}" part when it performs its
+    This field's job is to get rid of the "-synonyms-{keywords_list}" part when it performs its
     usal field tasks.
     """
 
@@ -132,8 +132,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
 
     def to_python(self, value):
         # this def allow us to get the keywords list as value
-        if value is not None and "-synonym-" in value:
-            synonym_list_id = value.split("-synonym-")[0]
+        if value is not None and "-synonyms-" in value:
+            synonym_list_id = value.split("-synonyms-")[0]
             value = SynonymList.objects.get(id=synonym_list_id).keywords_list
         return value
 
@@ -141,8 +141,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
         # this def allow us to display the correct option in the autocompletefield :
         # if user has selected an existing synonymList object we display the object name
         # else if user has used the possibility to create an option we display the text wrote
-        if value is not None and "-synonym-" in value:
-            synonym_list_id = value.split("-synonym-")[0]
+        if value is not None and "-synonyms-" in value:
+            synonym_list_id = value.split("-synonyms-")[0]
             value = SynonymList.objects.get(id=synonym_list_id).pk
         return value
 
