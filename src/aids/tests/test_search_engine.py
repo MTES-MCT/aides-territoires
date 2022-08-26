@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from aids.factories import AidFactory
 from programs.factories import ProgramFactory
-
+from keywords.factories import SynonymListFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -314,6 +314,30 @@ def test_full_text_advanced_syntax(client, perimeters):
 
     res = client.get(url, data={'text': 'soleil, dépollution temps'})
     assert res.context['paginator'].count == 1
+
+
+def test_synonym_search(client, perimeters):
+    AidFactory(
+        perimeter=perimeters['france'],
+        name='Aménager une piste cyclable le long des saules')
+    AidFactory(
+        perimeter=perimeters['france'],
+        name='Acheter un vélo pour flamber')
+    AidFactory(
+        perimeter=perimeters['france'],
+        name='Construire un atelier de réparation pour vélos')
+    AidFactory(
+        perimeter=perimeters['france'],
+        name='Organiser un tour de France sur autoroute')
+    url = reverse('search_view')
+
+    SynonymListFactory(
+        name='Voie douce',
+        keywords_list='voie douce, vélo, vélos, liaisons douces, bmx, piste cyclable')
+
+    # Searching with a synonym-list find the aids and exclude irrelevant results
+    res = client.get(url, data={'text': '1-synonym-'})
+    assert res.context['paginator'].count == 3
 
 
 def test_the_call_for_project_only_filter(client, perimeters, aids):
