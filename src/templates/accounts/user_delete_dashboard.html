@@ -45,7 +45,7 @@
             </div>
 
             <h2 class="fr-h4">Structure</h2>
-            {% if organization_members.count > 1 %}
+            {% if organization_members.count > 0 %}
                 <p>
                     La structure « <strong>{{ organization }}</strong> » compte d’autres membres que vous : elle ne sera donc pas supprimée.
                 </p>
@@ -54,15 +54,24 @@
                     Vous êtes la seule personne appartenant à la structure « <strong>{{ organization }}</strong> ».
                     Si vous supprimez votre compte elle sera donc également supprimée.
                 </p>
-            {% endif %}
+            {% endif %} {# end of if organization_members #}
 
             {% if invitations.count > 0 %}
-                <p>Vous avez envoyé des invitations à rejoindre votre structure, qui sont actuellement en attente.</p>
+                <p>
+                    Vous avez envoyé {% if invitations.count == 1 %}une invitation{% else %}des invitations{% endif %} à rejoindre votre structure,
+                    qui {% if invitations.count == 1 %}est{% else %}sont{% endif %} actuellement en attente.
+                    {% if organization_members.count == 0 %}
+                        Si vous supprimez votre compte maintenant,
+                        {% if invitations.count == 1 %}elle sera supprimée{% else %}elles seront supprimées{% endif %}.
+                    {% endif %}
+                </p>
 
-                {% if organization_members.count > 1 %}
+                {% if organization_members.count > 0 %}
                     <p>
-                        Vous pouvez transférer la gestion de ces invitations à un autre utilisateur,
-                        sinon elles seront supprimées en même temps que votre compte.
+                        Vous pouvez transférer la gestion de
+                        {% if invitations.count == 1 %}cette invitation{% else %}ces invitations{% endif %}
+                        à un autre utilisateur,
+                        sinon {% if invitations.count == 1 %}elle sera supprimée{% else %}elles seront supprimées{% endif %} en même temps que votre compte.
                     </p>
 
                     <div class="fr-select-group">
@@ -72,28 +81,26 @@
                         <select class="fr-select" id="invitations-transfer" name="invitations-transfer">
                             <option value="" selected disabled hidden>Selectionnez une personne</option>
                             {% for member in organization_members %}
-                                {% if member.id != user.id %}
-                                    <option value="{{ member.id }}">{{ member.full_name }}</option>
-                                {% endif %}
+                                <option value="{{ member.id }}">{{ member.full_name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                {% else %}
-                    <p>
-                        Si vous supprimez votre compte maintenant, elles seront supprimées.
-                    </p>
                 {% endif %}
-            {% endif %}
+            {% endif %} {# end of if invitations #}
 
             {% if projects.count > 0 %}
                 <h2 id="projects" class="fr-h4">Projets</h2>
-                {% if organization_members.count > 1 %}
-                    <p>Vous pouvez transférer la propriété des projets suivants à un autre membre de votre structure  « {{ organization }} ».</p>
+                {% if organization_members.count > 0 %}
+                    <p>Vous pouvez transférer la propriété
+                    {% if projects.count == 1 %}du projet suivant{% else %}des projets suivants{% endif %}
+                    à un autre membre de votre structure  « {{ organization }} ».</p>
                 {% else %}
                     <p>
-                        Les projets suivants seront supprimés. Si vous voulez les transférer à un autre utilisateur,
+                        {% if projects.count == 1 %}Le projet suivant sera supprimé{% else %}Les projets suivants seront supprimés{% endif %}.
+                        Si vous voulez {% if projects.count == 1 %}le{% else %}les{% endif %} transférer à un autre utilisateur,
                         vous pouvez l’inviter à rejoindre votre structure ou demander à ce qu’il vous invite.
-                        Vous pourrez alors transférer la propriété du projet à cette personne.
+                        Vous pourrez alors transférer la propriété de
+                        {% if projects.count == 1 %}ce projet{% else %}ces projets{% endif %} à cette personne.
                     </p>
                 {% endif %}
 
@@ -110,53 +117,54 @@
                         </thead>
                         <tbody>
                             {% for project in projects %}
-                            <tr>
-                                <td class="fr-text">
-                                    <a href="{{ project.get_absolute_url }}">
-                                        {{ project.name }}
-                                    </a>
-                                </td>
-                                <td class="fr-text">
-                                    {{ project.aid_set.all.count }}
-                                </td>
-                                <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
-                                <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
-                                <td class="fr-text">
-                                {% if project.author %}
-                                    {% for author in project.author.all %}
-                                        {% if author == user %}
-                                        Vous
-                                        {% else %}
-                                            {{ author.first_name }} {{ author.last_name }}
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="fr-text">
+                                        <a href="{{ project.get_absolute_url }}">
+                                            {{ project.name }}
+                                        </a>
+                                    </td>
+                                    <td class="fr-text">
+                                        {{ project.aid_set.all.count }}
+                                    </td>
+                                    <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
+                                    <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
+                                    <td class="fr-text">
+                                    {% if project.author %}
+                                        {% for author in project.author.all %}
+                                            {% if author == user %}
+                                                Vous
+                                            {% else %}
+                                                {{ author.first_name }} {{ author.last_name }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-                <div class="fr-select-group">
-                    <label class="fr-label" for="projects-transfer">
-                        Transférer les projets à :
-                    </label>
-                    <select class="fr-select" id="projects-transfer" name="projects-transfer">
-                        <option value="" selected disabled hidden>Selectionnez une personne</option>
-                        {% for member in organization_members %}
-                            {% if member.id != user.id %}
+                {% if organization_members.count > 0 %}
+                    <div class="fr-select-group">
+                        <label class="fr-label" for="projects-transfer">
+                            Transférer {% if projects.count == 1 %}le projet{% else %}les projets{% endif %} à :
+                        </label>
+                        <select class="fr-select" id="projects-transfer" name="projects-transfer">
+                            <option value="" selected disabled hidden>Selectionnez une personne</option>
+                            {% for member in organization_members %}
                                 <option value="{{ member.id }}">{{ member.full_name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
 
-            {% endif %}
+            {% endif %} {# end of if projects #}
 
             {% if aids.count > 0 %}
                 <h2 id="aids" class="fr-h4">Aides</h2>
-                <p>Les aides suivantes vont être détachées de votre compte :</p>
+                <p>{% if aids.count == 1 %}L’aide suivante va être détachée
+                {% else %}Les aides suivantes vont être détachées{% endif %} de votre compte :</p>
 
                 <div class="fr-table at-table--fullwidth">
                     <table class="data-table" aria-describedby="aids">
@@ -175,59 +183,61 @@
                         </thead>
                         <tbody>
                             {% for aid in aids %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'aid_edit_view' aid.slug %}">
-                                        {{ aid.name }}
-                                    </a>
-                                    {% if aid.is_live %}
-                                        <p class="fr-badge fr-badge--success fr-badge--sm">Affichée</p>
-                                    {% endif %}
-                                </td>
-                                <td>{{ aid.perimeter }}</td>
-                                <td>{{ aid.date_created|date:'d/m/Y' }}</td>
-                                <td>{{ aid.date_updated|date:'d/m/Y' }}</td>
-                                <td class="nowrap-cell">
-                                    <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
-                                    {% if aid.is_ongoing %}
-                                        <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
-                                    {% elif aid.has_approaching_deadline %}
-                                        <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
-                                    {% elif aid.has_expired %}
-                                        <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
-                                    {% endif %}
-                                </td>
-                                <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'aid_edit_view' aid.slug %}">
+                                            {{ aid.name }}
+                                        </a>
+                                        {% if aid.is_live %}
+                                            <p class="fr-badge fr-badge--success fr-badge--sm">Affichée</p>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ aid.perimeter }}</td>
+                                    <td>{{ aid.date_created|date:'d/m/Y' }}</td>
+                                    <td>{{ aid.date_updated|date:'d/m/Y' }}</td>
+                                    <td class="nowrap-cell">
+                                        <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                                        {% if aid.is_ongoing %}
+                                            <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                                        {% elif aid.has_approaching_deadline %}
+                                            <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>
+                                        {% elif aid.has_expired %}
+                                            <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
+                                        {% endif %}
+                                    </td>
+                                    <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-                {% if organization_members.count > 1 %}
-                <div class="fr-select-group">
-                    <label class="fr-label" for="aids-transfer">
-                        Transférer les aides à :
-                    </label>
-                    <select class="fr-select" id="aids-transfer" name="aids-transfer">
-                        <option value="" selected disabled hidden>Selectionnez une personne</option>
-                        {% for member in organization_members %}
-                            {% if member.id != user.id %}
+                {% if organization_members.count > 0 %}
+                    <div class="fr-select-group">
+                        <label class="fr-label" for="aids-transfer">
+                            Transférer {% if aids.count == 1 %}les aides{% else %}l’aide{% endif %} à :
+                        </label>
+                        <select class="fr-select" id="aids-transfer" name="aids-transfer">
+                            <option value="" selected disabled hidden>Selectionnez une personne</option>
+                            {% for member in organization_members %}
                                 <option value="{{ member.id }}">{{ member.full_name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %} {# end of if members #}
 
-            {% endif %}
+            {% endif %} {# end of if aids #}
 
             {% if alerts.count > 0 %}
                 <h2 id="alerts" class="fr-h4">Alertes</h2>
                 <div class="fr-form-group">
                     <fieldset class="fr-fieldset" aria-labelledby="alerts-checkboxes-legend" role="group">
                         <legend class="fr-fieldset__legend fr-text--regular" id="alerts-checkboxes-legend">
-                            Les alertes suivantes sont associées à votre compte. Si vous voulez en supprimer certaines, vous pouvez les cocher :
+                            {% if alerts.count == 1 %}
+                                L’alerte suivante est associée à votre compte. Si vous voulez la supprimer, vous pouvez la cocher :
+                            {% else %}
+                                Les alertes suivantes sont associées à votre compte. Si vous voulez en supprimer certaines, vous pouvez les cocher :
+                            {% endif %}
                         </legend>
                         <div class="fr-fieldset__content">
                             {% for alert in alerts %}

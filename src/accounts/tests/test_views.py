@@ -12,10 +12,12 @@ from django.utils import timezone
 from accounts.models import User
 from accounts.factories import UserFactory
 from aids.factories import AidFactory
+from aids.models import AidProject
 from alerts.factories import AlertFactory
 from alerts.models import Alert
 from organizations.models import Organization
 from projects.factories import ProjectFactory
+from projects.models import Project
 from search.factories import SearchPageFactory
 from django.contrib.auth.hashers import check_password
 from geofr.models import Perimeter
@@ -497,6 +499,7 @@ def test_user_deletion_form_allows_to_delete_specific_alerts(client, contributor
     client.post(user_deletion_url, data, follow=True)
 
     assert Alert.objects.count() == 1
+    assert Alert.objects.first().querystring == "text=Garder"
 
 
 def test_user_deletion_form_allows_to_reattribute_invitations(client, contributor):
@@ -554,6 +557,33 @@ def test_user_deletion_form_can_only_reattribute_invitations_to_org_members(
     assert res.status_code == 404
 
 
+def test_user_deletion_form_deletes_projects_if_no_other_member(client, contributor):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    project_to_delete = ProjectFactory(name="Projet à supprimer")
+    project_to_delete.author.add(contributor)
+    project_to_delete.save()
+
+    associated_aid = AidFactory(author=contributor)
+    aid_project = AidProject(
+        aid=associated_aid, project=project_to_delete, creator=contributor
+    )
+    aid_project.save()
+
+    contributor_org.project_set.add(project_to_delete)
+    contributor_org.save()
+
+    user_deletion_url = reverse("delete_user_account")
+    data = {}
+
+    client.post(user_deletion_url, data, follow=True)
+
+    assert Project.objects.count() == 0
+    assert AidProject.objects.count() == 0
+
+
 def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
     client.force_login(contributor)
 
@@ -567,6 +597,12 @@ def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
     project_to_transfer.author.add(contributor)
     project_to_transfer.save()
 
+    associated_aid = AidFactory(author=contributor)
+    aid_project = AidProject(
+        aid=associated_aid, project=project_to_transfer, creator=contributor
+    )
+    aid_project.save()
+
     contributor_org.beneficiaries.add(other_member)
     contributor_org.project_set.add(project_to_transfer)
     contributor_org.save()
@@ -578,8 +614,10 @@ def test_user_deletion_form_allows_to_reattribute_projects(client, contributor):
 
     client.post(user_deletion_url, data, follow=True)
     project_to_transfer.refresh_from_db()
+    aid_project.refresh_from_db()
 
     assert project_to_transfer.author.first() == other_member
+    assert AidProject.objects.first().creator is None
 
 
 def test_user_deletion_form_can_only_reattribute_projects_to_org_members(

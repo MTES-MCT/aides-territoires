@@ -66,7 +66,9 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     def form_valid(self, form):
         organization_name = self.request.POST.get("organization_name", None)
-        organization_perimeter_id = int(self.request.POST.get("perimeter", None).partition('-')[0])
+        organization_perimeter_id = int(
+            self.request.POST.get("perimeter", None).partition("-")[0]
+        )
         organization_perimeter = Perimeter.objects.get(id=organization_perimeter_id)
         organization_type = self.request.POST.get("organization_type", None)
 
@@ -642,7 +644,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         user_org = self.request.user.organization_set.first()
 
         context["organization"] = user_org
-        context["organization_members"] = user_org.beneficiaries.all()
+        context["organization_members"] = user_org.beneficiaries.exclude(id=user.id)
         context["projects"] = user_org.project_set.filter(author=user)
 
         context["alerts"] = Alert.objects.filter(email=user.email)
@@ -661,7 +663,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
         post_data = request.POST
         user = request.user
         user_org = user.beneficiary_organization
-        user_org_members = user_org.beneficiaries.all()
+        user_org_members = user_org.beneficiaries.exclude(id=user.id)
 
         alerts = Alert.objects.filter(email=user.email)
         for alert in alerts:
