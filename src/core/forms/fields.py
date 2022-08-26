@@ -133,8 +133,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
     def to_python(self, value):
         # this def allow us to get the keywords list as value
         if value is not None and "-synonym-" in value:
-                synonym_list_id = value.split("-synonym-")[0]
-                value = SynonymList.objects.get(id=synonym_list_id).keywords_list
+            synonym_list_id = value.split("-synonym-")[0]
+            value = SynonymList.objects.get(id=synonym_list_id).keywords_list
         return value
 
     def prepare_value(self, value):
@@ -142,8 +142,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
         # if user has selected an existing synonymList object we display the object name
         # else if user has used the possibility to create an option we display the text wrote
         if value is not None and "-synonym-" in value:
-                synonym_list_id = value.split("-synonym-")[0]
-                value = SynonymList.objects.get(id=synonym_list_id).pk
+            synonym_list_id = value.split("-synonym-")[0]
+            value = SynonymList.objects.get(id=synonym_list_id).pk
         return value
 
     def clean(self, value):

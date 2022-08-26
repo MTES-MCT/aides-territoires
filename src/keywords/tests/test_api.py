@@ -3,9 +3,7 @@ import pytest
 
 from django.urls import reverse
 
-from keywords.models import SynonymList
 from keywords.factories import SynonymListFactory
-
 
 pytestmark = pytest.mark.django_db
 
@@ -22,7 +20,7 @@ def test_api(client, api_url):
     )
     SynonymListFactory(
         name="Énergie renouvelable",
-        keywords_list="énergie renouvelable, biomasse, géothermie, énergie solaire, énergie éolienne, énergie hydraulique",
+        keywords_list="biomasse, géothermie, énergie solaire, énergie éolienne",
     )
 
     res = client.get(api_url)
@@ -38,7 +36,7 @@ def test_api_with_q_filter(client, api_url):
     )
     SynonymListFactory(
         name="Énergie renouvelable",
-        keywords_list="énergie renouvelable, biomasse, géothermie, énergie solaire, énergie éolienne, énergie hydraulique",
+        keywords_list="biomasse, géothermie, énergie solaire, énergie éolienne",
     )
 
     res = client.get(f"{api_url}?q=biomasse")
