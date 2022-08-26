@@ -63,11 +63,6 @@ class SynonymList(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
 
-    @property
-    def id_slug(self):
-        """Set the object's id_slug for autocomplete purpose."""
-        return f"{self.id}-synonym-{self.keywords_list}"
-
     def set_search_vector_keywords_list(self):
         """Update the full text unaccented cache field."""
 
@@ -78,6 +73,11 @@ class SynonymList(models.Model):
         )
 
         self.search_vector_keywords_list = search_vector_keywords_list
+
+    @property
+    def id_slug(self):
+        """Set the object's id_slug for autocomplete purpose."""
+        return f"{self.id}-synonym-{self.name}"
 
     @property
     def autocomplete_name(self):

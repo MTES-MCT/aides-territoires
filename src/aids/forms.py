@@ -653,19 +653,11 @@ class BaseAidSearchForm(DsfrBaseForm):
 
         text = self.cleaned_data.get("text", None)
         if text:
-            try:
-                text = SynonymList.objects.get(id=text.id).id_slug
-                text_unaccented = remove_accents(text)
-                query = parse_query(text_unaccented)
-                qs = qs.filter(search_vector_unaccented=query).annotate(
-                    rank=SearchRank(F("search_vector_unaccented"), query)
-                )
-            except Exception:
-                text_unaccented = remove_accents(text)
-                query = parse_query(text_unaccented)
-                qs = qs.filter(search_vector_unaccented=query).annotate(
-                    rank=SearchRank(F("search_vector_unaccented"), query)
-                )
+            text_unaccented = remove_accents(text)
+            query = parse_query(text_unaccented)
+            qs = qs.filter(search_vector_unaccented=query).annotate(
+                rank=SearchRank(F("search_vector_unaccented"), query)
+            )
 
         targeted_audiences = self.cleaned_data.get("targeted_audiences", None)
         if targeted_audiences:

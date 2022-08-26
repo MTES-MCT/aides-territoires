@@ -105,7 +105,6 @@ class AutocompleteSelectSynonym(forms.Select):
             )
 
         if self.choices.queryset.filter(pk__in=selected_choices):
-            print("oupsi!")
             for option_value, option_label in choices:
                 selected = str(option_value) in value and (
                     has_selected is False or self.allow_multiple_selected
