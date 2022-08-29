@@ -387,6 +387,7 @@ REDIRECT_MINISITES_TO_EXTERNAL_URL = [
     ),
     ("france-relance-guyane", "https://guyane.aides-territoires.beta.gouv.fr"),
     ("france-relance-martinique", "https://martinique.aides-territoires.beta.gouv.fr"),
+    ("france-relance-mayotte", "https://mayotte.aides-territoires.beta.gouv.fr"),
 ]
 
 # ADDNA
