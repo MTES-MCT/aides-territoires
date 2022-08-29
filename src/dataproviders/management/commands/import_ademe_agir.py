@@ -1,6 +1,5 @@
 import os
 import csv
-import json
 import requests
 from datetime import datetime
 
@@ -10,9 +9,14 @@ from django.utils import timezone
 from aids.models import Aid
 from keywords.models import Keyword
 from geofr.models import Perimeter
+from geofr.utils import attach_perimeters_check, combine_perimeters
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.utils import content_prettify, mapping_categories, mapping_categories_label
+from dataproviders.utils import (
+    content_prettify,
+    mapping_categories,
+    mapping_categories_label,
+)
 from dataproviders.management.commands.base import BaseImportCommand
 
 ADMIN_ID = 1
@@ -46,7 +50,7 @@ with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
                             if choice[1] == row[column]
                         )
                         AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
-                    except:
+                    except Exception:
                         print(row[column])
 
 CATEGORIES_MAPPING_CSV_PATH = (
@@ -194,7 +198,55 @@ class Command(BaseImportCommand):
         elif couv_geo["code"] == "4":
             regions_code = line.get("regions", [])
             if len(regions_code) == 1:
-                return Perimeter.objects.get(code=regions_code[0], scale=Perimeter.SCALES.region)
+                return Perimeter.objects.get(
+                    code=regions_code[0], scale=Perimeter.SCALES.region
+                )
+            elif len(regions_code) > 1:
+                regions_code_sorted = sorted(regions_code)
+                regions_code_sorted_str = "_".join(regions_code_sorted)
+                regions_code_str = f"regions_{regions_code_sorted_str}"
+                try:
+                    perimeter = Perimeter.objects.get(
+                        name=regions_code_str, scale=Perimeter.SCALES.adhoc
+                    )
+                    print(f"Perimeter found: {perimeter}")
+                    return perimeter
+                except Exception:
+                    try:
+                        new_id = Perimeter.objects.last().pk + 1
+                        perimeter = Perimeter.objects.create(
+                            name=regions_code_str,
+                            code=f"id_{new_id}",
+                            scale=Perimeter.SCALES.adhoc,
+                            is_visible_to_users=False,
+                        )
+                        print(f"Perimeter created: {perimeter}")
+                        add_perimeters = []
+                        for region in regions_code_sorted:
+                            try:
+                                region_object = Perimeter.objects.get(
+                                    code=region, scale=Perimeter.SCALES.region
+                                )
+                            except Exception:
+                                try:
+                                    region_object = Perimeter.objects.get(
+                                        code=region, scale=Perimeter.SCALES.adhoc
+                                    )
+                                except Exception:
+                                    print(f"This region_code does not exist {region}")
+                            add_perimeters.append(region_object)
+                        add_perimeters = add_perimeters
+                        rm_perimeters = []
+                        city_codes = list(
+                            combine_perimeters(add_perimeters, rm_perimeters)
+                        )
+                        attach_perimeters_check(
+                            perimeter, city_codes, DATA_SOURCE.aid_author
+                        )
+                        return perimeter
+                    except Exception as e:
+                        print(e)
+                        print(regions_code_str)
 
     def extract_eligibility(self, line):
         eligibility = ""
@@ -205,16 +257,23 @@ class Command(BaseImportCommand):
                 perimeters = []
                 for region_code in region_codes:
                     try:
-                        perimeters.append(Perimeter.objects.get(code=region_code, scale=Perimeter.SCALES.region).name)
+                        perimeters.append(
+                            Perimeter.objects.get(
+                                code=region_code, scale=Perimeter.SCALES.region
+                            ).name
+                        )
                     except Exception:
                         try:
-                            perimeters.append(Perimeter.objects.get(code=region_code).name)
+                            perimeters.append(
+                                Perimeter.objects.get(code=region_code).name
+                            )
                         except Exception():
                             print(f"Code région : {region_code}")
                 perimeters_str = ", ".join(perimeters)
-                eligibility = f"Ce dispositif est applicable uniquement aux régions suivantes : {perimeters_str}"
+                eligibility = f"Ce dispositif est applicable uniquement aux régions \
+                    suivantes : {perimeters_str}"
                 return eligibility
-        return eligibility        
+        return eligibility
 
     def extract_targeted_audiences(self, line):
         """
@@ -251,7 +310,7 @@ class Command(BaseImportCommand):
                         )
                     )
         else:
-            print(f"{title} - {thematiques}")
+            print(f"{title} - {categories}")
         return aid_categories
 
     def extract_keywords(self, line):
@@ -265,14 +324,12 @@ class Command(BaseImportCommand):
                         keyword = Keyword.objects.get(name=category)
                         keyword_list = []
                         keyword_list.append(keyword)
-                        keyword_pk = Keyword.objects.get(name=category).pk
                         keywords.extend(keyword_list)
-                    except:
+                    except Exception:
                         try:
                             keyword = Keyword.objects.create(name=category)
                             keyword_list = []
                             keyword_list.append(keyword)
-                            keyword_pk = Keyword.objects.get(name=category).pk
-                        except:
+                        except Exception:
                             pass
         return keywords
