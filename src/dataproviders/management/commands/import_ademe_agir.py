@@ -103,9 +103,6 @@ class Command(BaseImportCommand):
         }
         req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
         data = req.json()
-        f = open("ademe_agir_160822.txt", "w")
-        f.write(json.dumps(data))
-        f.close()
         self.stdout.write(
             "Total number of aids: {}".format(len(data["ListeDispositifs"]))
         )
