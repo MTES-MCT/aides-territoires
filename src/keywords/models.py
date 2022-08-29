@@ -39,7 +39,12 @@ class SynonymList(models.Model):
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     keywords_list = models.CharField(
-        "liste de mots clés", max_length=1800, null=True, blank=True
+        "liste de mots clés",
+        max_length=1800,
+        null=True,
+        blank=True,
+        help_text="La liste de mots clés correspond à une liste de synonymes,\
+         et termes du champ lexical associé.",
     )
 
     # This field is used to index searchable text content
@@ -76,7 +81,7 @@ class SynonymList(models.Model):
 
     def sort_keywords_list(self):
         """Sort keywords_list by alpha."""
-        harmonized_keywords_list = self.keywords_list.replace(', ', ',')
+        harmonized_keywords_list = self.keywords_list.replace(", ", ",")
         sorted_keywords_list = sorted(harmonized_keywords_list.split(","))
         self.keywords_list = ", ".join(sorted_keywords_list)
 
