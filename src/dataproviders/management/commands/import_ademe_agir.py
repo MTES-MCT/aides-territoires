@@ -190,12 +190,12 @@ class Command(BaseImportCommand):
             return Aid.RECURRENCES.ongoing
 
     def extract_perimeter(self, line):
-        couv_geo = line.get("couverture_geo", [])
-        if couv_geo["code"] == "1":
+        couv_geo = line.get("couverture_geo", [])["code"]
+        if couv_geo == "1":
             return Perimeter.objects.get(code="FRA")
-        if couv_geo["code"] == "2" or couv_geo["code"] == "3":
+        elif couv_geo == "2" or couv_geo == "3":
             return Perimeter.objects.get(code="EU")
-        elif couv_geo["code"] == "4":
+        elif couv_geo == "4":
             regions_code = line.get("regions", [])
             if len(regions_code) == 1:
                 return Perimeter.objects.get(
@@ -235,7 +235,6 @@ class Command(BaseImportCommand):
                                 except Exception:
                                     print(f"This region_code does not exist {region}")
                             add_perimeters.append(region_object)
-                        add_perimeters = add_perimeters
                         rm_perimeters = []
                         city_codes = list(
                             combine_perimeters(add_perimeters, rm_perimeters)
