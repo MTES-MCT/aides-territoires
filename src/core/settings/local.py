@@ -118,10 +118,6 @@ SCALINGO_API_TOKEN = env("SCALINGO_API_TOKEN", default="")
 # Admin
 ADMIN_OTP_ENABLED = env.bool("ADMIN_OTP_ENABLED", False)
 
-# API
-ADEME_AGIR_API_USERNAME = env('ADEME_AGIR_API_USERNAME')
-ADEME_AGIR_API_PASSWORD = env('ADEME_AGIR_API_PASSWORD')
-
 # File storage settings
 DEFAULT_FILE_STORAGE = env(
     "DEFAULT_FILE_STORAGE", default="django.core.files.storage.FileSystemStorage"
