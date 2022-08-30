@@ -60,6 +60,7 @@ jobs:
       run: |
         psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
         psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS unaccent;'
+        psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;'
       env:
         PGPASSWORD: aides
 
