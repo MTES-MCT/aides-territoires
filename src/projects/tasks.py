@@ -25,13 +25,14 @@ def send_project_deleted_email(user_email, project_name, eraser_name):
         return
 
     data = {
-        'USER_NAME': user.full_name,
-        'ERASER_NAME': eraser_name,
-        'PROJECT_NAME': project_name
+        "USER_NAME": user.full_name,
+        "ERASER_NAME": eraser_name,
+        "PROJECT_NAME": project_name,
     }
     send_email_with_template(
         recipient_list=[user_email],
         template_id=settings.SIB_DELETE_PROJECT_EMAIL_TEMPLATE_ID,
         data=data,
-        tags=['suppression de projet', settings.ENV_NAME],
-        fail_silently=True)
+        tags=["suppression de projet", settings.ENV_NAME],
+        fail_silently=True,
+    )

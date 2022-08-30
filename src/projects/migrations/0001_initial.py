@@ -9,24 +9,71 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('categories', '0004_auto_20200217_1136'),
+        ("categories", "0004_auto_20200217_1136"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=256, verbose_name='Name')),
-                ('slug', models.SlugField(blank=True, help_text='Let it empty so it will be autopopulated.', verbose_name='Slug')),
-                ('description', models.TextField(blank=True, default='', verbose_name='Full description of the project')),
-                ('is_suggested', models.BooleanField(default=False, help_text='If the project is suggested by a user', verbose_name='Is a suggested project?')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('categories', models.ManyToManyField(blank=True, related_name='projects', to='categories.Category', verbose_name='Categories')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=256, verbose_name="Name"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        help_text="Let it empty so it will be autopopulated.",
+                        verbose_name="Slug",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        verbose_name="Full description of the project",
+                    ),
+                ),
+                (
+                    "is_suggested",
+                    models.BooleanField(
+                        default=False,
+                        help_text="If the project is suggested by a user",
+                        verbose_name="Is a suggested project?",
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="projects",
+                        to="categories.Category",
+                        verbose_name="Categories",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Project',
-                'verbose_name_plural': 'Projects',
+                "verbose_name": "Project",
+                "verbose_name_plural": "Projects",
             },
         ),
     ]
