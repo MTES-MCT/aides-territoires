@@ -49,6 +49,10 @@ class Project(models.Model):
     def id_slug(self):
         return "{}-{}".format(self.id, self.slug)
 
+    @property
+    def organization(self):
+        return self.organizations.first()
+
     def set_slug(self):
         """Set the object's slug"""
         if not self.id:

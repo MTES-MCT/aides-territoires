@@ -11,11 +11,11 @@
 
             @frame header_frame {           /* Static Header Frame */
                 -pdf-frame-content: header_content;
-                left: 50pt; width: 512pt; top: 50pt; height: 120pt;
+                left: 50pt; width: 512pt; top: 50pt; height: 80pt;
             }
 
             @frame content_frame {          /* Content Frame */
-                left: 50pt; width: 512pt; top: 170pt; height: 542pt;
+                left: 50pt; width: 512pt; top: 130pt; height: 582pt;
             }
 
             @frame footer_frame {           /* Static Footer Frame */
@@ -29,7 +29,7 @@
             font-size: 12px;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             background-color: #f5f5fe;
             padding: 1em 1em 0 1em;
         }
@@ -74,15 +74,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div>Aides-territoires est un service public numérique qui facilite la recherche
-                            d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
-                            territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
-                            un portail unique.</div>
                         </div>
                     </div>
                 </div>
-                <hr />
             </header>
         </div>
         {% endblock header %}
@@ -93,6 +87,12 @@
 
 
         <main role="main" class="at-pdf-container-fluid" id="at-main">
+            {% block intro %}
+                <div>Aides-territoires est un service public numérique qui facilite la recherche
+                d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
+                territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
+                un portail unique.</div>
+            {% endblock intro %}
             {% block main %}
             <div class="main-content">
                 {% block content %}{% endblock content %}
