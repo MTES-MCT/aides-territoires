@@ -92,7 +92,7 @@ class SynonymList(models.Model):
 
     @property
     def autocomplete_name(self):
-        return f"Champ lexical du mot «{self.name}»"
+        return f"Suggestion : «{self.name}» et ses synonymes"
 
     def save(self, *args, **kwargs):
         self.set_slug()
