@@ -394,21 +394,13 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         )
 
         def get_age(date_):
-            # TODO: make it dynamic, do we want a linear scale?!
-            if date_ > datetime.datetime(2022, 9, 1, tzinfo=timezone.utc):
-                return 6
-            if date_ > datetime.datetime(2022, 7, 1, tzinfo=timezone.utc):
-                return 5
-            if date_ > datetime.datetime(2022, 5, 1, tzinfo=timezone.utc):
-                return 4
-            if date_ > datetime.datetime(2022, 3, 1, tzinfo=timezone.utc):
+            now = datetime.datetime.now(timezone.utc)
+            if now - datetime.timedelta(days=30) < date_:
                 return 3
-            if date_ > datetime.datetime(2022, 1, 1, tzinfo=timezone.utc):
+            if now - datetime.timedelta(days=90) < date_:
                 return 2
-            if date_ > datetime.datetime(2021, 11, 3, tzinfo=timezone.utc):
+            else:
                 return 1
-            # Should never happen, lowest bound is 2021-11-04.
-            return 0
 
         communes_with_org = {
             f"{commune['code']}-{commune['name']}": {

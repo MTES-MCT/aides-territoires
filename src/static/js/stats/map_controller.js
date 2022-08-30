@@ -117,13 +117,10 @@ export default class extends Controller {
         this.map.addLayer(communes)
       })
     }
-    // TODO: manual for now, we need to discuss the appropriated scale.
     this.legend.setContent(`
-      <i style="background:${this.#getAgeColor(1)};"></i> L’année dernière<br>
-      <i style="background:${this.#getAgeColor(2)};"></i> Janvier-Février<br>
-      <i style="background:${this.#getAgeColor(3)};"></i> Mars-Avril<br>
-      <i style="background:${this.#getAgeColor(4)};"></i> Mai-Juin<br>
-      <i style="background:${this.#getAgeColor(5)};"></i> Juillet-Août
+      <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
+      <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
+      <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne
     `)
   }
 
@@ -384,9 +381,7 @@ export default class extends Controller {
     const gradientRed = [
       '--yellow-tournesol-950-100-hover', // Jaune.
       '--warning-425-625-hover', // Orange.
-      '--warning-425-625', // Marron.
       '--red-marianne-main-472', // Rouge.
-      '--grey-50-1000', // Noir.
     ]
     const color = gradientRed[age - 1]
     return this.styles.getPropertyValue(color)
