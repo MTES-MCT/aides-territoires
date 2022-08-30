@@ -13,8 +13,17 @@ class KeywordAdmin(admin.ModelAdmin):
     ordering = ["name"]
 
 
+class SynonymListAdminForm(forms.ModelForm):
+    """Custom form for inline synonymList edition."""
+
+    keywords_list = forms.CharField(
+        label="Liste de mots clés", required=False, max_length=1800
+    )
+
+
 class SynonymListAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["name", "keywords_list"]
+    list_editable = ["keywords_list"]
     fields = ["name", "slug", "keywords_list", "current_keywords_list"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name"]
@@ -22,8 +31,10 @@ class SynonymListAdmin(admin.ModelAdmin):
     ordering = ["name"]
 
     def formfield_for_dbfield(self, db_field, **kwargs):
-        formfield = super(SynonymListAdmin, self).formfield_for_dbfield(db_field, **kwargs)
-        if db_field.name == 'keywords_list':
+        formfield = super(SynonymListAdmin, self).formfield_for_dbfield(
+            db_field, **kwargs
+        )
+        if db_field.name == "keywords_list":
             formfield.widget = forms.Textarea(attrs=formfield.widget.attrs)
         return formfield
 
@@ -35,7 +46,8 @@ class SynonymListAdmin(admin.ModelAdmin):
             keywords_list_html += format_html(f"{keyword} <br/>")
         keywords_list_html += format_html("</p>")
         return keywords_list_html
-    current_keywords_list.short_description = 'Liste de mots clés (avant modification)'
+
+    current_keywords_list.short_description = "Liste de mots clés (avant modification)"
     current_keywords_list.allow_tags = True
 
 
