@@ -386,6 +386,13 @@ export default class extends Controller {
     const color = gradientRed[age - 1]
     return this.styles.getPropertyValue(color)
   }
+
+  flyTo(e) {
+    e.preventDefault()
+    // Necessary to be able to display communes.
+    this.#switchToDepartmentLevel()
+    this.map.flyTo(JSON.parse(e.target.dataset.latlon), Number(e.target.dataset.zoom))
+  }
 }
 
 const utils = (function () {
