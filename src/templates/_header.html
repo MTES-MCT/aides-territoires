@@ -39,20 +39,20 @@
                         <ul class="fr-links-group">
                             {% if user.is_authenticated %}
                             <li>
-                                <a class="fr-link fr-fi-account-line" id="profil" href="{% url 'user_dashboard' %}">
+                                <a class="fr-link fr-icon-account-line" id="profil" href="{% url 'user_dashboard' %}">
                                     {{ user.full_name }}
                                 </a>
                             </li>
                             {% else %}
                             <li>
-                                <a class="fr-link fr-fi-lock-line" href="{% url 'login' %}">Se connecter</a>
+                                <a class="fr-link fr-icon-lock-line" href="{% url 'login' %}">Se connecter</a>
                             </li>
                             <li>
-                                <a class="fr-link fr-fi-account-line" href="{% url 'register' %}">S’inscrire</a>
+                                <a class="fr-link fr-icon-account-line" href="{% url 'register' %}">S’inscrire</a>
                             </li>
                             {% endif %}
                             <li>
-                                <a class="fr-tag fr-fi-search-line fr-tag--icon-left fr-ml-1w" href="{% url 'general_search' %}">
+                                <a class="fr-tag fr-icon-search-line fr-tag--icon-left fr-ml-1w" href="{% url 'general_search' %}">
                                     Trouver des aides
                                 </a>
                             </li>

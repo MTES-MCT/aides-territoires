@@ -7,7 +7,7 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="match-aid-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-match-aid" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un projet existant</h2>
+                        <h2 id="fr-modal-title-match-aid" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Ajouter cette aide à un projet existant</h2>
                         {% if not search_page %}
                             {% if user.is_authenticated %}
                             <form id="match_project" method="post" action="{% url 'aid_match_project_view' aid.slug %}">
@@ -32,7 +32,7 @@
                                         <p>Vous n’avez pas encore créé de projet</p>
                                         {% endif %}
                                         </div>
-                                        <h2 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-h1 fr-fi-arrow-right-line fr-fi--lg"></span>Ajouter cette aide à un nouveau projet</h2>
+                                        <h2 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-h1 fr-icon-arrow-right-line fr-icon--lg"></span>Ajouter cette aide à un nouveau projet</h2>
                                         <div id="form-group-new-project" class="fr-checkbox-group fr-mb-3w">
                                             <label for="id_new_project" class="fr-label">Nom du projet</label>
                                             <input type="text" name="new_project" class="fr-input" id="id_new_project" />

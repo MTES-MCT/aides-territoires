@@ -33,7 +33,7 @@
     {% block search-meta-programs %}
     {% if current_search_dict.programs %}
     <div class="fr-tags-group">
-        <p title="Programmes d'aides" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Programmes d'aides" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
             {{ current_search_dict.programs|join:', ' }}
         </p>
     </div>
@@ -87,7 +87,7 @@
     {% block search-meta-mobilization-step %}
     {% if current_search_dict.mobilization_step %}
     <div class="fr-tags-group">
-        <p title="Avancement du projet" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Avancement du projet" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
             {% form_choices_display current_search_dict 'mobilization_step' %}
         </p>
     </div>
@@ -97,7 +97,7 @@
     {% block search-meta-destinations %}
     {% if current_search_dict.destinations %}
     <div class="fr-tags-group">
-        <p title="Actions concernées" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Actions concernées" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
             {% form_choices_display current_search_dict 'destinations' %}
         </p>
     </div>
@@ -107,7 +107,7 @@
     {% block search-meta-call-for-project %}
     {% if current_search_dict.call_for_projects_only %}
     <div class="fr-tags-group">
-        <p title="Appels à projets / Appels à manifestation d’intérêt uniquement" class="fr-tag fr-fi-arrow-right-line fr-tag--icon-left">
+        <p title="Appels à projets / Appels à manifestation d’intérêt uniquement" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
             Appels à projets / Appels à manifestation d’intérêt uniquement
         </p>
     </div>
