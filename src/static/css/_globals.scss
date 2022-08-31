@@ -170,6 +170,23 @@ h2, h3, h4, h5, h6 {
   display: table;
 }
 
+// Used to make a header button look like a normal one 
+.fr-header__tools-links .at-btn--primary {
+  --hover-tint: var(--hover);
+  --hover: var(--background-action-high-blue-france-hover);
+  --active: var(--background-action-high-blue-france-active);
+  background-color: var(--background-action-high-blue-france);
+  color: var(--text-inverted-blue-france);
+}
+
+@media screen and (min-width: 768px) {
+  .at-btn-header--help {
+    font-size: smaller;
+    position: absolute;
+    margin-top: -2em;
+  }
+}
+
 // error general rules
 
 .error.global-errors {
