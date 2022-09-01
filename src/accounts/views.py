@@ -48,6 +48,7 @@ from accounts.tasks import (
     send_leave_organization_email,
 )
 from accounts.models import User, UserLastConnexion
+from aids.resources import ADMIN_EMAIL
 from projects.models import Project
 from aids.models import Aid, AidProject
 from organizations.models import Organization
@@ -670,7 +671,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             if f"alert-{alert.pk}" in post_data:
                 alert.delete()
 
-        at_admin, _created = User.objects.get_or_create(pk=1)
+        at_admin, _created = User.objects.get_or_create(email=ADMIN_EMAIL)
 
         if "invitations-transfer" in post_data:
             new_inviter_id = post_data["invitations-transfer"]
