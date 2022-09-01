@@ -9,7 +9,7 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="delete-project-modal-{{ project }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-delete-project-{{ project }}" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg"></span>Supprimer ce projet</h2>
+                        <h2 id="fr-modal-title-delete-project-{{ project }}" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Supprimer ce projet</h2>
 
                         {% if user.beneficiary_organization.beneficiaries.count > 1 %}
                         <p>Attention vous vous apprêtez à supprimer un projet sur lequel {{ user.beneficiary_organization.beneficiaries.count }} utilisateurs collaborent.</p>

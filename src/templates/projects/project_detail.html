@@ -43,7 +43,7 @@
                   <h1 class="fr-h3">Votre projet « {{ project.name }} »</h1>
               </div>
               <div class="fr-col-12 fr-col-md-3">
-                <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-fi-arrow-left-line fr-tag--icon-left">Retour aux projets</a>
+                <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-icon-arrow-left-line fr-tag--icon-left">Retour aux projets</a>
               </div>
             </div>
 
@@ -138,7 +138,7 @@
                                 {% endfor %}
                                 <td class="fr-text">
                                     <button
-                                        class="fr-btn fr-fi-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
                                         id="delete-aid-modal-btn"
                                         title="Supprimer cette aide"
                                         data-fr-opened="false"
@@ -167,17 +167,17 @@
             </a> -->
             <div class="fr-container fr-centered">
                 <p>
-                  <a href="{% url 'general_search' %}" class="fr-btn fr-fi-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
+                  <a href="{% url 'general_search' %}" class="fr-btn fr-icon-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
                 </p>
-                <button type="button" class="fr-btn fr-btn--secondary fr-fi-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
+                <button type="button" class="fr-btn fr-btn--secondary fr-icon-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
                     Supprimer ce projet
                 </button>
-                <a class="fr-btn fr-btn--secondary fr-fi-edit-line fr-btn--icon-left" href="{% url 'project_update_view' project.pk project.slug %}">
+                <a class="fr-btn fr-btn--secondary fr-icon-edit-line fr-btn--icon-left" href="{% url 'project_update_view' project.pk project.slug %}">
                   Modifier les informations du projet
                 </a>
                 <button
                     type="button"
-                    class="fr-btn fr-btn--secondary fr-fi-download-line fr-btn--icon-left"
+                    class="fr-btn fr-btn--secondary fr-icon-download-line fr-btn--icon-left"
                     id="export-project-btn"
                     data-fr-opened="false"
                     aria-controls="export-project-modal-{{ project.pk }}"

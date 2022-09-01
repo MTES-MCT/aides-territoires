@@ -17,9 +17,7 @@
             {% endif %}
             <li>
                 <a class="fr-pagination__link" aria-current="page" href="#">
-                {% blocktrans with current_page=page_obj.number total_pages=paginator.num_pages trimmed %}
-                Page {{ current_page }} of {{ total_pages }}
-                {% endblocktrans %}
+                    Page {{ page_obj.number }} sur {{ paginator.num_pages }}
                 </a>
             </li>
             {% if page_obj.has_next %}

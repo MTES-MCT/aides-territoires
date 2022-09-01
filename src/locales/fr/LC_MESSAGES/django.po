@@ -643,61 +643,6 @@ msgstr "Importé"
 msgid "Draft aids"
 msgstr "Aides en brouillon"
 
-msgid "Log out"
-msgstr "Déconnexion"
-
-msgid "Publish your aids now !"
-msgstr "Diffusez vos aides dès maintenant !"
-
-msgid "Data and api"
-msgstr "Données et API"
-
-msgid "Source code"
-msgstr "Code source"
-
-msgid "Toggle main menu"
-msgstr "Afficher / masquer le menu"
-
-msgid "City, department, region, EPCI…"
-msgstr "Votre ville, intercommunalité, département…"
-
-msgid "Update your contributor profile"
-msgstr "Mettre à jour votre profil contributeur"
-
-msgid "Become a contributor"
-msgstr "Devenir contributeur"
-
-msgid "My portfolio"
-msgstr "Mon portefeuille d'aides"
-
-msgid "Publish a new aid"
-msgstr "Publier une aide"
-
-msgid "Search results pages"
-msgstr "Pages de résultats"
-
-msgid "First"
-msgstr "Premier"
-
-msgid "Previous"
-msgstr "Précédent"
-
-#, python-format
-msgid "Page %(current_page)s of %(total_pages)s"
-msgstr "Page %(current_page)s sur %(total_pages)s"
-
-msgid "Next"
-msgstr "Suivant"
-
-msgid "Last"
-msgstr "Dernier"
-
-msgid "Show more aids"
-msgstr "Voir plus d'aides"
-
-msgid "Contributor profile"
-msgstr "Profil contributeur"
-
 msgid "Home"
 msgstr "Accueil"
 

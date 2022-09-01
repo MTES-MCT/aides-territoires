@@ -36,11 +36,11 @@
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Mes projets
-              <button class="fr-m-1w fr-tag fr-text--sd fr-fi-information-line" id="help-collaborators-modal-btn" data-fr-opened="false" aria-controls="help-project-modal">
+              <button class="fr-m-1w fr-tag _fr-tag--md fr-text--sd fr-icon-information-line _fr-tag--icon-left" id="help-collaborators-modal-btn" data-fr-opened="false" aria-controls="help-project-modal">
                 <span class="fr-ml-1w">Aide</span>
               </button>
             </h1>
-            <button class="fr-btn fr-fi-add-circle-line fr-btn--icon-left fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
+            <button class="fr-btn fr-icon-add-circle-line fr-btn--icon-left fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
                 Ajouter un projet
             </button>
 
@@ -95,7 +95,7 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">
-                                <button type="button" class="btn_delete fr-link fr-fi-delete-line" id="delete-project-btn-{{ project.id }}" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
+                                <button type="button" class="btn_delete fr-link fr-icon-delete-line" id="delete-project-btn-{{ project.id }}" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
                             </td>
                         </tr>
                         {% endfor %}

@@ -85,10 +85,10 @@ def sortable_header(context, name, field):
     else:
         if order_value.startswith('-'):
             new_order = field
-            icon = mark_safe('<span class="fr-fi-arrow-up-s-line"></span>')
+            icon = mark_safe('<span class="fr-icon-arrow-up-s-line"></span>')
         else:
             new_order = '-%s' % field
-            icon = mark_safe('<span class="fr-fi-arrow-down-s-line"></span>')
+            icon = mark_safe('<span class="fr-icon-arrow-down-s-line"></span>')
 
     get_params['order'] = new_order
 

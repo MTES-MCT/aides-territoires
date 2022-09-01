@@ -61,21 +61,30 @@
             {% if posts %}
             <div class="posts">
                 {% for post in posts %}
-                <div class="fr-card fr-card--horizontal fr-enlarge-link fr-my-5w">
-                    <div class="fr-card__body">
-                
-                       <h4 class="fr-card__title">
-                           <a href="{{ post.get_absolute_url }}" class="fr-card__link">{{ post.title }}</a>
-                       </h4>
-                       <p class="fr-card__desc">{{ post.short_text }}</p>
-                       <p class="fr-card__detail">{{ post.category.name }}</p>
+                    <div class="fr-card fr-enlarge-link fr-card--horizontal fr-card--horizontal-third fr-my-5w">
+                        <div class="fr-card__body">
+                            <div class="fr-card__content">
+                                <h4 class="fr-card__title">
+                                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                </h4>
+                                <p class="fr-card__desc">{{ post.short_text }}</p>
+                                <div class="fr-card__start">
+                                    <ul class="fr-tags-group">
+                                        <li>
+                                            <p class="fr-tag">{{ post.category.name }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% if post.logo %}
+                            <div class="fr-card__header">
+                                <div class="fr-card__img">
+                                <img src="{{ post.logo.url }}" class="fr-responsive-img" alt="">
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
-                    {% if post.logo %}
-                    <div class="fr-card__img">
-                       <img src="{{ post.logo.url }}" class="fr-responsive-img" alt="">
-                    </div>
-                    {% endif %}
-                </div>
                 {% endfor %}
             </div>
             {% else %}
