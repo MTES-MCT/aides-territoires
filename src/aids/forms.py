@@ -1,21 +1,21 @@
 import re
-import operator
 
 from django import forms
 from django.db.models import Q, F
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.contrib.postgres.search import SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchRank
 from model_utils import Choices
 
 from dsfr.forms import DsfrBaseForm
 from core.forms import (
     AutocompleteModelChoiceField,
+    AutocompleteSynonymChoiceField,
     AutocompleteModelMultipleChoiceField,
     MultipleChoiceFilterWidget,
     RichTextField,
 )
-from core.utils import remove_accents
+from core.utils import remove_accents, parse_query
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeter_ids
 from backers.models import Backer
@@ -23,6 +23,7 @@ from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
 from programs.models import Program
 from projects.models import Project
+from keywords.models import SynonymList
 from aids.models import Aid, AidWorkflow
 from aids.constants import (
     AUDIENCES_GROUPED,
@@ -486,11 +487,10 @@ class BaseAidSearchForm(DsfrBaseForm):
         "theme__name", "name"
     )
 
-    text = forms.CharField(
-        label="Recherche textuelle",
-        required=False,
-        widget=forms.TextInput(attrs={"placeholder": "Titre, sujet, mot-clé, etc."}),
+    text = AutocompleteSynonymChoiceField(
+        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
     )
+
     apply_before = forms.DateField(
         label="Candidater avant…",
         required=False,
@@ -654,7 +654,7 @@ class BaseAidSearchForm(DsfrBaseForm):
         text = self.cleaned_data.get("text", None)
         if text:
             text_unaccented = remove_accents(text)
-            query = self.parse_query(text_unaccented)
+            query = parse_query(text_unaccented)
             qs = qs.filter(search_vector_unaccented=query).annotate(
                 rank=SearchRank(F("search_vector_unaccented"), query)
             )
@@ -691,70 +691,6 @@ class BaseAidSearchForm(DsfrBaseForm):
             qs = self.generic_aid_filter(qs)
 
         return qs
-
-    def parse_query(self, raw_query):
-        """Process a raw query and returns a `SearchQuery`.
-
-        In Postgres, you converts a search query into a `tsquery` object
-        that is matched against a `tsvector` object.
-
-        The main method to get a `tsquery` is to use
-        the function `plainto_tsquery` that is designed to transform
-        unformatted text and generates a `tsquery` with tokens separated by
-        `AND`. That is the default function used by Django when you create
-        a `SearchQuery` object.
-
-        If you want to create a `ts_query` with other boolean operators, you
-        have two main solutions:
-         - use the `to_tsquery` method that is not made to handle raw data
-         - create several `ts_query` objects and combine them using
-           boolean operators.
-
-        This is the second solution we are using.
-
-        By default, terms are made mandatory.
-        Terms with a comma in between are optional.
-        """
-        all_terms = filter(None, raw_query.lower().split(","))
-        all_terms = list(all_terms)
-        all_terms = [term.strip(" ") for term in all_terms]
-
-        next_operator = operator.or_
-        invert = False
-        query = None
-
-        for term in all_terms:
-            if len(term.split(" ")) > 1:
-                list_sub_term = term.split(" ")
-                sub_query = None
-                for sub_term in list_sub_term:
-                    next_operator = operator.and_
-                    if sub_query is None:
-                        sub_query = SearchQuery(
-                            sub_term, config="french", invert=invert
-                        )
-                    else:
-                        sub_query = next_operator(
-                            sub_query,
-                            SearchQuery(sub_term, config="french", invert=invert),
-                        )
-                if query is None:
-                    query = sub_query
-                else:
-                    next_operator = operator.or_
-                    query = next_operator(query, sub_query)
-            else:
-                if query is None:
-                    query = SearchQuery(term, config="french", invert=invert)
-                else:
-                    query = next_operator(
-                        query, SearchQuery(term, config="french", invert=invert)
-                    )
-
-            next_operator = operator.or_
-            invert = False
-
-        return query
 
     def get_order_fields(self, qs, has_highlighted_aids=False, pre_order=None):
         """On which fields must this queryset be sorted?."""

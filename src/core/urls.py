@@ -42,6 +42,7 @@ api_patterns = [
     path('backers/', include('backers.api.urls')),
     path('programs/', include('programs.api.urls')),
     path('themes/', include('categories.api.urls')),
+    path('synonymlists/', include('keywords.api.urls')),
 
     # Internal api routes
     path('eligibility/', include('eligibility.api.urls')),

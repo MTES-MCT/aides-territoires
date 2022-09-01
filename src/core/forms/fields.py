@@ -2,8 +2,13 @@ from functools import partial
 from itertools import groupby
 from operator import attrgetter
 from django import forms
+from keywords.models import SynonymList
 
-from core.forms.widgets import AutocompleteSelect, AutocompleteSelectMultiple
+from core.forms.widgets import (
+    AutocompleteSelect,
+    AutocompleteSelectMultiple,
+    AutocompleteSelectSynonym,
+)
 from dataproviders.utils import content_prettify
 
 
@@ -103,6 +108,47 @@ class AutocompleteModelChoiceField(forms.ModelChoiceField):
     def prepare_value(self, value):
         if isinstance(value, str):
             value = value.split("-")[0]
+        return value
+
+
+class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
+    """A custom fields that works well with autocomplete widgets.
+
+    In the aid search form, fields are submitted as "GET" values and thus they
+    appear in the url.
+
+    For this reason, we draft custom `id` values in the form "{id}-synonyms-{keywords_list}" so
+    the search filter url stays readable.
+
+    This field's job is to get rid of the "-synonyms-{keywords_list}" part when it performs its
+    usal field tasks.
+    """
+
+    def __init__(self, *args, widget=None, **kwargs):
+        if widget is None:
+            widget = AutocompleteSelectSynonym
+
+        super().__init__(*args, widget=widget, **kwargs)
+
+    def to_python(self, value):
+        # this def allow us to get the keywords list as value
+        if value is not None and "-synonyms-" in value:
+            synonym_list_id = value.split("-synonyms-")[0]
+            value = SynonymList.objects.get(id=synonym_list_id).keywords_list
+        return value
+
+    def prepare_value(self, value):
+        # this def allow us to display the correct option in the autocompletefield :
+        # if user has selected an existing synonymList object we display the object name
+        # else if user has used the possibility to create an option we display the text wrote
+        if value is not None and "-synonyms-" in value:
+            synonym_list_id = value.split("-synonyms-")[0]
+            value = SynonymList.objects.get(id=synonym_list_id).pk
+        return value
+
+    def clean(self, value):
+        self.prepare_value(value)
+        value = self.to_python(value)
         return value
 
 

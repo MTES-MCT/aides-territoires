@@ -10,6 +10,7 @@ from categories.models import Category
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from pages.admin import PageForm
+from keywords.models import SynonymList
 
 
 AUDIENCES = [
@@ -73,13 +74,10 @@ class GeneralSearchForm(DsfrBaseForm):
     perimeter = AutocompleteModelChoiceField(
         label="Votre territoire", queryset=Perimeter.objects.all(), required=False
     )
-    text = forms.CharField(
-        label="Recherche textuelle",
-        required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Ex: rénovation énergétique, vélo, tiers lieu, etc."}
-        ),
+    text = AutocompleteModelChoiceField(
+        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
     )
+
     categories = CategoryChoiceField(
         label="Thématiques",  # Not a mistake
         queryset=CATEGORIES_QS,

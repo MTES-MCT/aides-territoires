@@ -1,7 +1,9 @@
 import unicodedata
+import operator
 
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.contrib.postgres.search import SearchQuery
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import RedirectView
 
@@ -33,6 +35,71 @@ def remove_accents(input_str):
     """
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+
+def parse_query(raw_query):
+    """Process a raw query and returns a `SearchQuery`.
+
+    In Postgres, you converts a search query into a `tsquery` object
+    that is matched against a `tsvector` object.
+
+    The main method to get a `tsquery` is to use
+    the function `plainto_tsquery` that is designed to transform
+    unformatted text and generates a `tsquery` with tokens separated by
+    `AND`. That is the default function used by Django when you create
+    a `SearchQuery` object.
+
+    If you want to create a `ts_query` with other boolean operators, you
+    have two main solutions:
+        - use the `to_tsquery` method that is not made to handle raw data
+        - create several `ts_query` objects and combine them using
+        boolean operators.
+
+    This is the second solution we are using.
+
+    By default, terms are made mandatory.
+    Terms with a comma in between are optional.
+    """
+    all_terms = filter(None, raw_query.lower().split(","))
+    all_terms = list(all_terms)
+    all_terms = [term.strip(" ") for term in all_terms]
+
+    next_operator = operator.or_
+    invert = False
+    query = None
+
+    for term in all_terms:
+        if len(term.split(" ")) > 1:
+            list_sub_term = term.split(" ")
+            sub_query = None
+            for sub_term in list_sub_term:
+                next_operator = operator.and_
+                if sub_query is None:
+                    sub_query = SearchQuery(
+                        sub_term, config="french_unaccent", invert=invert
+                    )
+                else:
+                    sub_query = next_operator(
+                        sub_query,
+                        SearchQuery(sub_term, config="french_unaccent", invert=invert),
+                    )
+            if query is None:
+                query = sub_query
+            else:
+                next_operator = operator.or_
+                query = next_operator(query, sub_query)
+        else:
+            if query is None:
+                query = SearchQuery(term, config="french_unaccent", invert=invert)
+            else:
+                query = next_operator(
+                    query, SearchQuery(term, config="french_unaccent", invert=invert)
+                )
+
+        next_operator = operator.or_
+        invert = False
+
+    return query
 
 
 def get_base_url():
