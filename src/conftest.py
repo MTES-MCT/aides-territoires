@@ -79,7 +79,7 @@ def contributor():
 def superuser():
     """Generates a valid and active superuser."""
 
-    user = UserFactory(email="sample.admin@example.org")
+    user = UserFactory(email="sample.admin@example.org", pk=1)
     user.is_superuser = True
     user.save()
     return user

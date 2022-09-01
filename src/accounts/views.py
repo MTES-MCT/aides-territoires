@@ -670,7 +670,7 @@ class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
             if f"alert-{alert.pk}" in post_data:
                 alert.delete()
 
-        at_admin, _created = User.objects.get_or_create(email=settings.AT_ADMIN_EMAIL)
+        at_admin, _created = User.objects.get_or_create(pk=1)
 
         if "invitations-transfer" in post_data:
             new_inviter_id = post_data["invitations-transfer"]

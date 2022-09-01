@@ -674,7 +674,7 @@ def test_user_deletion_form_allows_to_reattribute_aids(client, contributor):
 
 
 def test_user_deletion_form_reattributes_aids_to_at_admin_by_default(
-    client, contributor
+    client, superuser, contributor
 ):
     """
     If the user does not choose to reattribute their aids to another member of their org,
@@ -699,9 +699,7 @@ def test_user_deletion_form_reattributes_aids_to_at_admin_by_default(
     client.post(user_deletion_url, data, follow=True)
     aid_to_transfer.refresh_from_db()
 
-    at_admin = User.objects.get(email=settings.AT_ADMIN_EMAIL)
-
-    assert aid_to_transfer.author == at_admin
+    assert aid_to_transfer.author == superuser
 
 
 def test_user_deletion_form_can_only_reattribute_aids_to_org_members(
