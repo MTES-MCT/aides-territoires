@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0004_project_key_words'),
+        ("projects", "0004_project_key_words"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='project',
-            name='key_words',
-            field=models.TextField(blank=True, default='', help_text='key words associated to the project', verbose_name='Key words'),
+            model_name="project",
+            name="key_words",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="key words associated to the project",
+                verbose_name="Key words",
+            ),
         ),
     ]

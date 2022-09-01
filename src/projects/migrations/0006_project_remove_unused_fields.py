@@ -8,20 +8,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('projects', '0005_auto_20210430_1323'),
+        ("projects", "0005_auto_20210430_1323"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='project',
-            name='categories',
+            model_name="project",
+            name="categories",
         ),
         migrations.RemoveField(
-            model_name='project',
-            name='is_suggested',
+            model_name="project",
+            name="is_suggested",
         ),
         migrations.RemoveField(
-            model_name='project',
-            name='status',
+            model_name="project",
+            name="status",
         ),
     ]

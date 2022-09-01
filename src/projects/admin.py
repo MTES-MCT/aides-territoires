@@ -13,11 +13,11 @@ from projects.resources import ProjectResource
 
 
 class ProjectForm(forms.ModelForm):
-    description = RichTextField(label=_('Description'), required=False)
+    description = RichTextField(label=_("Description"), required=False)
 
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = "__all__"
 
 
 class ProjectAdmin(ImportExportActionModelAdmin):
@@ -25,24 +25,32 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ['name', 'date_created']
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ["name", "date_created"]
+    prepopulated_fields = {"slug": ("name",)}
     fields = [
-        'name', 'slug', 'description',
-        'key_words', 'author', 'organizations',
-        'nb_aids_associated', 'display_related_aids',
-        'due_date', 'date_created',
+        "name",
+        "slug",
+        "description",
+        "key_words",
+        "author",
+        "organizations",
+        "nb_aids_associated",
+        "display_related_aids",
+        "due_date",
+        "date_created",
     ]
-    search_fields = ['name']
-    readonly_fields = ['date_created', 'nb_aids_associated', 'display_related_aids']
-    autocomplete_fields = ['organizations', 'author']
+    search_fields = ["name"]
+    readonly_fields = ["date_created", "nb_aids_associated", "display_related_aids"]
+    autocomplete_fields = ["organizations", "author"]
 
     def display_related_aids(self, obj):
-        related_aid_html = format_html('<table> \
+        related_aid_html = format_html(
+            "<table> \
             <thead><tr> \
             <th>Aide</th> \
             </tr></thead> \
-            <tbody>')
+            <tbody>"
+        )
         for aid in obj.aid_set.all():
             url = reverse("admin:aids_aid_change", args=(aid.pk,))
             related_aid_html += format_html(
@@ -52,33 +60,35 @@ class ProjectAdmin(ImportExportActionModelAdmin):
                 name=aid.name,
                 id=aid.pk,
             )
-        related_aid_html += format_html('</tbody></table>')
+        related_aid_html += format_html("</tbody></table>")
         return related_aid_html
-    display_related_aids.short_description = 'Aides associées'
+
+    display_related_aids.short_description = "Aides associées"
 
     def nb_aids_associated(self, obj):
         return obj.aid_set.count()
+
     nb_aids_associated.short_description = "Nombre d'aides associées"
 
     class Media:
         css = {
-            'all': (
-                'css/admin.css',
-                '/static/trumbowyg/dist/ui/trumbowyg.css',
+            "all": (
+                "css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
             )
         }
         js = [
-            'admin/js/jquery.init.js',
-            '/static/js/shared_config.js',
-            '/static/js/plugins/softmaxlength.js',
-            '/static/js/search/enable_softmaxlength.js',
-            '/static/trumbowyg/dist/trumbowyg.js',
-            '/static/trumbowyg/dist/langs/fr.js',
-            '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
-            '/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js',  # noqa
-            '/static/jquery-resizable-dom/dist/jquery-resizable.js',
-            '/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js',
-            '/static/js/enable_rich_text_editor.js',
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/js/plugins/softmaxlength.js",
+            "/static/js/search/enable_softmaxlength.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js",
+            "/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js",  # noqa
+            "/static/jquery-resizable-dom/dist/jquery-resizable.js",
+            "/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js",
+            "/static/js/enable_rich_text_editor.js",
         ]
 
 

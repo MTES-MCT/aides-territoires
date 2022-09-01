@@ -7,42 +7,59 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0010_alter_project_due_date'),
+        ("projects", "0010_alter_project_due_date"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='project',
-            options={'verbose_name': 'projet', 'verbose_name_plural': 'projets'},
+            name="project",
+            options={"verbose_name": "projet", "verbose_name_plural": "projets"},
         ),
         migrations.AlterField(
-            model_name='project',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="project",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='description',
-            field=models.TextField(blank=True, default='', verbose_name='Description complète du projet'),
+            model_name="project",
+            name="description",
+            field=models.TextField(
+                blank=True, default="", verbose_name="Description complète du projet"
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='due_date',
-            field=models.DateField(blank=True, null=True, verbose_name='Date d’échéance'),
+            model_name="project",
+            name="due_date",
+            field=models.DateField(
+                blank=True, null=True, verbose_name="Date d’échéance"
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='key_words',
-            field=models.TextField(blank=True, default='', help_text='mots-clés associés au projet', verbose_name='Mots-clés'),
+            model_name="project",
+            name="key_words",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="mots-clés associés au projet",
+                verbose_name="Mots-clés",
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='name',
-            field=models.CharField(db_index=True, max_length=256, verbose_name='Nom du projet'),
+            model_name="project",
+            name="name",
+            field=models.CharField(
+                db_index=True, max_length=256, verbose_name="Nom du projet"
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='slug',
-            field=models.SlugField(blank=True, help_text='Laisser vide pour autoremplir.', verbose_name='Fragment d’URL'),
+            model_name="project",
+            name="slug",
+            field=models.SlugField(
+                blank=True,
+                help_text="Laisser vide pour autoremplir.",
+                verbose_name="Fragment d’URL",
+            ),
         ),
     ]

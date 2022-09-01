@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0006_project_remove_unused_fields'),
+        ("projects", "0006_project_remove_unused_fields"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='project',
-            name='due_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name="Date d'échéance"),
+            model_name="project",
+            name="due_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Date d'échéance"
+            ),
         ),
     ]
