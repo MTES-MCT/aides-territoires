@@ -118,16 +118,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField("Prénom", max_length=256)
     last_name = models.CharField("Nom", max_length=256)
     image = models.FileField(
-        "Avatar de l'utilisateur",
+        "Avatar de l’utilisateur",
         null=True,
         blank=True,
         upload_to=logo_upload_to,
-        help_text="Assurez vous que l'image n'est pas trop lourde.",
+        help_text="Assurez vous que l’image n’est pas trop lourde.",
     )
 
     # Account settings fields
     ml_consent = models.BooleanField(
-        "A donné son consentement pour recevoir l'actualité", default=False
+        "A donné son consentement pour recevoir l’actualité", default=False
     )
 
     # Contributors related data
@@ -171,24 +171,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name="invited_user",
         verbose_name="Structure proposée",
         on_delete=models.SET_NULL,
-        help_text="L'utilisateur a reçu une proposition pour rejoindre cette structure",
+        help_text="L’utilisateur a reçu une proposition pour rejoindre cette structure",
         null=True,
         blank=True,
     )
     invitation_author = models.ForeignKey(
         "accounts.User",
         related_name="invited_user",
-        verbose_name="Auteur de l'invitation",
+        verbose_name="Auteur de l’invitation",
         on_delete=models.SET_NULL,
         help_text="utilisateur qui a invité cet utilisateur a rejoindre sa structure",
         null=True,
         blank=True,
     )
     invitation_date = models.DateTimeField(
-        "Date de l'invitation", null=True, blank=True
+        "Date de l’invitation", null=True, blank=True
     )
     join_organization_date = models.DateTimeField(
-        "Date d'acceptation de l'invitation", null=True, blank=True
+        "Date d’acceptation de l’invitation", null=True, blank=True
     )
 
     # Roles
@@ -204,10 +204,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     animator_perimeter = models.ForeignKey(
         "geofr.Perimeter",
-        verbose_name="Périmètre d'animation",
+        verbose_name="Périmètre d’animation",
         on_delete=models.PROTECT,
         related_name="animators",
-        help_text="Sur quel périmètre l'animateur local est-il responsable ?",
+        help_text="Sur quel périmètre l’animateur local est-il responsable ?",
         null=True,
         blank=True,
     )
@@ -222,6 +222,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Utilisateur"
         verbose_name_plural = "Utilisateurs"
+        ordering = ["id"]
 
     def __str__(self):
         return "{} ({})".format(self.full_name, self.email)
@@ -273,12 +274,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 class UserLastConnexion(models.Model):
 
     user = models.ForeignKey(
-        "accounts.User", verbose_name="Utilisateur", on_delete=models.PROTECT, null=True
+        "accounts.User", verbose_name="Utilisateur", on_delete=models.CASCADE, null=True
     )
     last_connexion = models.DateTimeField(
         "Date de la dernière connexion", default=timezone.now
     )
 
     class Meta:
-        verbose_name = "Dernière connexion de l'utilisateur"
+        verbose_name = "Dernière connexion de l’utilisateur"
         verbose_name_plural = "Dernières connexions des utilisateurs"

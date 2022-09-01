@@ -17,9 +17,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.http import urlsafe_base64_decode
 from django.utils import timezone
 from django.contrib import messages
-from django.shortcuts import resolve_url
-from django.db.models import Q
+from django.shortcuts import resolve_url, redirect, get_object_or_404
 from django.db import transaction
+from django.db.models import Q
+from django.db.models.query import QuerySet
+
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
 
@@ -46,12 +48,14 @@ from accounts.tasks import (
     send_leave_organization_email,
 )
 from accounts.models import User, UserLastConnexion
+from aids.resources import ADMIN_EMAIL
 from projects.models import Project
 from aids.models import Aid, AidProject
 from organizations.models import Organization
 from geofr.models import Perimeter
 
 from analytics.utils import track_goal
+from alerts.models import Alert
 
 
 class RegisterView(AnonymousRequiredMixin, CreateView):
@@ -63,7 +67,9 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
     def form_valid(self, form):
         organization_name = self.request.POST.get("organization_name", None)
-        organization_perimeter_id = int(self.request.POST.get("perimeter", None).partition('-')[0])
+        organization_perimeter_id = int(
+            self.request.POST.get("perimeter", None).partition("-")[0]
+        )
         organization_perimeter = Perimeter.objects.get(id=organization_perimeter_id)
         organization_type = self.request.POST.get("organization_type", None)
 
@@ -496,12 +502,10 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             # Remove user from his current organization
             # if current organization has no user :
             # delete the organization, AidProject & Projects objects associated
-            if (
-                Organization.objects.get(
-                    pk=user.beneficiary_organization.pk
-                ).beneficiaries.count()
-                == 1
-            ):
+            user_current_org = Organization.objects.get(
+                pk=user.beneficiary_organization.pk
+            )
+            if user_current_org.beneficiaries.count() == 1:
                 projects = Project.objects.filter(
                     organizations=user.beneficiary_organization.pk
                 )
@@ -511,10 +515,8 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 user_queryset.update(
                     beneficiary_organization=user.proposed_organization.pk
                 )
-                Organization.objects.get(
-                    pk=user.beneficiary_organization.pk
-                ).beneficiaries.remove(user.pk)
-                Organization.objects.filter(beneficiaries=None).delete()
+                user_current_org.beneficiaries.remove(user.pk)
+                user_current_org.delete()
             else:
                 # send an email to all the former collaborators to inform them
                 # that user leave the organization
@@ -554,7 +556,7 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
-            msg = f"Félicitation, vous avez rejoint l'organisation { proposed_organization }&nbsp;!"
+            msg = f"Félicitations, vous avez rejoint la structure { proposed_organization } !"
 
         messages.success(self.request, msg)
         success_url = reverse("user_dashboard")
@@ -625,6 +627,106 @@ class CompleteProfileView(UserLoggedRequiredMixin, SuccessMessageMixin, UpdateVi
         res = super().form_valid(form)
         update_session_auth_hash(self.request, self.object)
         return res
+
+
+class DeleteUserView(UserLoggedRequiredMixin, TemplateView):
+    """
+    Asks the user what to do with their user-generated content
+    before deleting their profile.
+    """
+
+    template_name = "accounts/user_delete_dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+
+        user_org = self.request.user.organization_set.first()
+
+        context["organization"] = user_org
+        context["organization_members"] = user_org.beneficiaries.exclude(id=user.id)
+        context["projects"] = user_org.project_set.filter(author=user)
+
+        context["alerts"] = Alert.objects.filter(email=user.email)
+        context["aids"] = Aid.objects.filter(author=user)
+        context["invitations"] = User.objects.filter(invitation_author_id=user)
+
+        return context
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        """
+        See the function manage_user_content_before_deletion in accounts/models.py
+        for a detailed explanation the logic
+        """
+
+        post_data = request.POST
+        user = request.user
+        user_org = user.beneficiary_organization
+        user_org_members = user_org.beneficiaries.exclude(id=user.id)
+
+        alerts = Alert.objects.filter(email=user.email)
+        for alert in alerts:
+            if f"alert-{alert.pk}" in post_data:
+                alert.delete()
+
+        at_admin, _created = User.objects.get_or_create(email=ADMIN_EMAIL)
+
+        if "invitations-transfer" in post_data:
+            new_inviter_id = post_data["invitations-transfer"]
+            new_inviter = get_object_or_404(user_org_members, pk=new_inviter_id)
+            self.transfer_invitations(user, new_inviter)
+
+        if "projects-transfer" in post_data:
+            # At this step, we check if the user explicitely set a new author
+            # If they didn't and there are other users in the org, authorship
+            # will be transferred to the first available user
+            new_author_id = post_data["projects-transfer"]
+            new_author = get_object_or_404(user_org_members, pk=new_author_id)
+
+            self.transfer_projects(user, new_author)
+
+        # If the user is alone or has not chosen a new author,
+        # aids are reattributed to the AT admin account.
+        # aids are protected and so must be processed before the delete() is called.
+        aids = Aid.objects.filter(author=user)
+        if "aids-transfer" in post_data:
+            new_author_id = post_data["aids-transfer"]
+            new_author = get_object_or_404(user_org_members, pk=new_author_id)
+
+            self.transfer_aids(aids, new_author)
+        else:
+            self.transfer_aids(aids, at_admin)
+
+        user.delete()
+
+        messages.success(request, "Votre compte utilisateur a été supprimé.")
+        return redirect("/")
+
+    def transfer_invitations(self, user: User, new_inviter: User) -> None:
+        """Helper method to transfer the invitations"""
+        invited_users = User.objects.filter(invitation_author_id=user)
+
+        for invited_user in invited_users:
+            invited_user.invitation_author_id = new_inviter
+            invited_user.save()
+
+    def transfer_projects(self, user: User, new_author: User) -> None:
+        """Helper method to transfer the projects"""
+        user_org = user.beneficiary_organization
+        projects = user_org.project_set.filter(author=user)
+
+        if new_author:
+            for project in projects:
+                project.author.add(new_author)
+                project.save()
+
+    def transfer_aids(self, aids: QuerySet, new_author: User) -> None:
+        """Helper method to transfer the projects"""
+        for aid in aids:
+            aid.author = new_author
+            aid.save()
 
 
 class HistoryLoginList(ContributorAndProfileCompleteRequiredMixin, ListView):

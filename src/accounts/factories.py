@@ -23,3 +23,6 @@ class ContributorFactory(UserFactory):
     contributor_organization = factory.Faker("company")
     contributor_role = factory.Faker("job")
     contributor_contact_phone = factory.Faker("phone_number")
+    email = "contributor@example.org"
+    first_name = "Sample"
+    last_name = "Contributor"

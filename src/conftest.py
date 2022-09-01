@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
 from accounts.factories import UserFactory, ContributorFactory
+from aids.resources import ADMIN_EMAIL
 from backers.factories import BackerFactory
 from geofr.models import Perimeter
 from geofr.factories import PerimeterFactory
@@ -64,7 +65,7 @@ def contributor():
 def superuser():
     """Generates a valid and active superuser."""
 
-    user = UserFactory(email="sample.admin@example.org")
+    user = UserFactory(email=ADMIN_EMAIL)
     user.is_superuser = True
     user.save()
     return user
