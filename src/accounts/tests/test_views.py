@@ -3,7 +3,6 @@
 import pytest
 import re
 
-from django.conf import settings
 from django.contrib.auth import authenticate
 from django.test import override_settings
 from django.urls import reverse
