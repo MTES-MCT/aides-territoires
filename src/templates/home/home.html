@@ -40,6 +40,29 @@
                         <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
                         territoire.
                     </p>
+
+                    <div class="fr-tabs">
+                        <ul class="fr-tabs__list" role="tablist" aria-label="Onglets de l’accueil">
+                            <li role="presentation">
+                                <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Aides</button>
+                            </li>
+                            <li role="presentation">
+                                <button id="tabpanel-projects" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-projects-panel">Projets</button>
+                            </li>
+                            <li>
+                                <p>NOUVEAU ! Trouvez de l’inspiration avec les projets d’autres collectivités</p>
+                            </li>
+                        </ul>
+                        <div id="tabpanel-aids-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-aids" tabindex="0">
+                            <!-- données de test -->
+                        <p>Contenu 1</p>
+                        </div>
+                        <div id="tabpanel-projects-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-projects" tabindex="0">
+                            <!-- données de test -->
+                            <p>Contenu 2</p>
+                        </div>
+                    </div>
+
                     <a href="{% url 'general_search' %}" class="fr-btn">Trouver des aides</a>
                 </div>
             </div>
