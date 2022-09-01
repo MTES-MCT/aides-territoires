@@ -241,6 +241,7 @@ def test_register_form(client, mailoutbox, perimeters):
             "beneficiary_function": "other",
             "is_beneficiary": True,
             "is_contributor": False,
+            "channel_acquisition": "other",
         },
     )
 
@@ -282,6 +283,7 @@ def test_register_form_converts_email_to_lowercase(client, perimeters):
             "beneficiary_function": "other",
             "is_beneficiary": True,
             "is_contributor": False,
+            "channel_acquisition": "other",
         },
     )
     assert res.status_code == 302
