@@ -131,6 +131,21 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+
+                                            <div id="form-group-channel_acquisition" class="fr-input-group required ">
+                                                <label for="id_channel_acquisition">Comment avez-vous connu Aides-territoires&nbsp;?</label>
+                                                <select class="fr-select" name="channel_acquisition" id="id_channel_acquisition">
+                                                    <option value="" hidden>Sélectionnez une option</option>
+                                                    {% for option in form.channel_acquisition %}
+                                                    {{ option }}
+                                                    {% endfor %}
+                                                </select>
+                                                {% if form.channel_acquisition.errors %}
+                                                <p id="text-input-error-desc-error" class="fr-error-text">
+                                                    {{ form.channel_acquisition.errors.0 }}
+                                                </p>
+                                                {% endif %}
+                                            </div>
                                         </fieldset>
                                     </div>
                                     <div class="fr-col-12 fr-mb-3w">

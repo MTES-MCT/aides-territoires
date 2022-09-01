@@ -112,6 +112,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
+    CHANNEL_ACQUISITION = Choices(
+        ("webinar", "Webinaire de démo"),
+        ("thematic-webinar", "Webinaire thématique"),
+        ("animator", "Animateur local"),
+        ("trade-press", "Presse spécialisée"),
+        ("association", "Association"),
+        ("elected", "Élu"),
+        ("invited", "Invitation à collaborer"),
+        ("other", "Autre"),
+    )
+
     objects = UserManager()
 
     email = models.EmailField("Adresse e-mail", unique=True)
@@ -210,6 +221,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text="Sur quel périmètre l’animateur local est-il responsable ?",
         null=True,
         blank=True,
+    )
+    channel_acquisition = models.CharField(
+        "Canal d'acquisition",
+        max_length=32,
+        choices=CHANNEL_ACQUISITION,
+        null=True,
+        blank=True,
+        help_text="Comment l'utilisateur a-t-il connu Aides-territoires?",
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
