@@ -77,6 +77,7 @@ export default class extends Controller {
     if (this.map.hasLayer(this.regions)) return
     this.map.addLayer(this.regions)
     this.legend.setContent(this.#generateLegendContent(this.scaleRegions))
+    this.lastInscriptions.setContent('')
   }
 
   #switchToDepartmentLevel() {
@@ -94,6 +95,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(this.#generateLegendContent(this.scaleDepartments))
+    this.lastInscriptions.setContent('')
   }
 
   #switchToCommuneLevel() {
@@ -112,15 +114,52 @@ export default class extends Controller {
     if (this.communes[currentDepartmentCode]) {
       this.map.addLayer(this.communes[currentDepartmentCode])
     } else {
-      this.#getCommunes(currentDepartmentCode).then((communes) => {
+      this.#getCommunes(currentDepartmentCode).then(({ communes, data }) => {
         this.communes[currentDepartmentCode] = communes
         this.map.addLayer(communes)
+        this.#updateLastInscriptions(data)
       })
     }
     this.legend.setContent(`
       <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
       <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
       <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne
+    `)
+  }
+
+  #updateLastInscriptions(data) {
+    const correspondance = []
+    for (const feature of data.features) {
+      const key = `${feature.properties.code}-${feature.properties.nom}`
+      if (Object.keys(this.communesWithOrg).includes(key)) {
+        correspondance.push({
+          date: this.communesWithOrg[key].date,
+          nom: feature.properties.nom,
+        })
+      }
+    }
+    correspondance.sort((a, b) => b.date > a.date)
+    this.lastInscriptions.setContent(`
+      <table>
+        <caption>
+          <strong>
+            5 dernières communes enregistrées :
+          </strong>
+        </caption>
+        <tbody>
+          <tr>
+            ${correspondance
+              .slice(0, 5)
+              .map(
+                (item) =>
+                  `<td>${item.nom}</td><td>${new Date(item.date).toLocaleDateString(
+                    'fr-FR'
+                  )}</td>`
+              )
+              .join('</tr><tr>')}
+          </tr>
+        </tbody>
+      </table>
     `)
   }
 
@@ -132,6 +171,8 @@ export default class extends Controller {
     // Control that shows the legend for colors.
     this.legend = this.#createLegend()
     map.addControl(this.legend)
+    this.lastInscriptions = this.#createLastInscriptions()
+    map.addControl(this.lastInscriptions)
     this.regions = this.#getRegions()
     // By default, we load regions’ shapes.
     this.regions.addTo(map)
@@ -200,6 +241,27 @@ export default class extends Controller {
     return new L.Legend({
       position: 'bottomleft',
       content: this.#generateLegendContent(this.scaleRegions),
+    })
+  }
+
+  #createLastInscriptions() {
+    L.Legend = L.Control.extend({
+      onAdd: function () {
+        const container = document.createElement('div')
+        container.classList.add('info', 'legend')
+        if (this.options.content) {
+          container.innerHTML = this.options.content
+        }
+        return container
+      },
+      setContent: function (str) {
+        this.getContainer().innerHTML = str
+      },
+    })
+
+    return new L.Legend({
+      position: 'bottomright',
+      content: '',
     })
   }
 
@@ -337,7 +399,7 @@ export default class extends Controller {
             })
           },
         })
-        return communes
+        return { communes, data }
       })
       .catch((ex) => {
         console.log(
