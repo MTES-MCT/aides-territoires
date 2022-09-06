@@ -201,6 +201,11 @@ h6 {
   height: 30em;
 }
 
+// Custom classes for tabs
+.at-tabs__panel--opaque {
+  background-color: var(--background-default-grey);
+}
+
 // Used to make a header button look like a normal one 
 .fr-header__tools-links .at-btn--primary {
   --hover-tint: var(--hover);

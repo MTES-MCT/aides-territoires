@@ -12,6 +12,7 @@ from categories.models import Category
 from projects.models import Project
 from minisites.mixins import SearchMixin
 from projects.models import Project
+from minisites.mixins import SearchMixin
 
 
 class HomeView(SearchMixin, FormMixin, TemplateView):
