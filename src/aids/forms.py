@@ -33,7 +33,6 @@ from aids.constants import (
     TECHNICAL_AIDS,
     TECHNICAL_AIDS_LIST,
     TYPES_GROUPED,
-    AID_TYPE_CHOICES,
 )
 from aids.utils import filter_generic_aids
 
@@ -507,9 +506,8 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
     aid_type = forms.MultipleChoiceField(
         label="Nature de l’aide",
-        choices=AID_TYPE_CHOICES,
+        choices=TYPES_GROUPED,
         required=False,
-        widget=forms.CheckboxSelectMultiple,
     )
     financial_aids = forms.MultipleChoiceField(
         label="Aides financières",

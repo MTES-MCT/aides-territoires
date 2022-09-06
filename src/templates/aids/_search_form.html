@@ -1,5 +1,4 @@
-{% load pagination i18n %}
-<form id="search-form" method="get" autocomplete='off'>
+<form id="search-form" method="get" action="{% url 'search_view' %}" autocomplete='off'>
 
     {{ form.integration }}
 
@@ -29,60 +28,44 @@
         <button type="submit" class="hidden-btn">Filtrer les résultats</button>
 
         {% block other-actions %}
-        <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
-            <a id="new-search-btn" class="fr-btn" href="{% url 'general_search' %}">
-                Nouvelle recherche
-            </a>
-            <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" formmethod="GET" formaction="{% url 'advanced_search_view' %}">
-                Plus de critères
-            </button>
-        </div>
-        <div class="fr-col-offset-md-5 fr-col-md-3 fr-grid-row fr-grid-row--right fr-mt-1w">
-            <button type="button" class="fr-btn js" id="save-alert-btn" data-fr-opened="false" aria-controls="alert-search-modal">
-                <span class="ri-notification-2-line ri-lg fr-mr-1w"></span>Créer une alerte
-            </button>    
-        </div>
         {% endblock other-actions %}
     </div>
     {% endblock other_actions %}
 
-    <div class="form-container fr-mb-5w fr-background-alt-pink fr-p-3w">
+    <div class="form-container fr-mb-5w">
         <div class="form-body">
-
             {% block form-body %}
-
             <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                 <div class="fr-col-12 fr-col-md-3">
-                    {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                    <div class="fr-select-group">
+                        <div id="form-group-targeted_audiences" class="fr-input-group">
+                            <label class="fr-label" for="id_targeted_audiences">Vous cherchez pour…</label>
+                            <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
+                                <option value="" hidden>Faites votre choix</option>
+                                {% for option in form.targeted_audiences %}
+                                {{ option }}
+                                {% endfor %}
+                                <option value="">Toutes structures</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="fr-col-12 fr-col-md-3">
-                    {% include '_field_snippet.html' with field=form.programs %}
-                </div>
-
-                <div class="fr-col-12 fr-col-md-3">
-                    {% include '_field_snippet.html' with field=form.backers %}
+                    {% include '_field_snippet.html' with field=form.perimeter %}
                 </div>
 
                 <div class="fr-col-12 fr-col-md-3">
                     {% include '_field_snippet.html' with field=form.text %}
                 </div>
-            </div>
-            {% endblock form-body %}
 
-            {% block form-actions %}
-            <div class="fr-grid-row actions-row">
-                <div class="fr-col-12 fr-col-md-3 fr-mt-2w">
-                    {{ form.order_by }}
-                </div>
-                <div class="fr-col-md-3 fr-col-offset-md-6 fr-grid-row fr-grid-row--right fr-mt-2w">
-                    <button name="action" value="search-filter" class="search-btn fr-btn" type="submit">
-                        <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span>
-                        Filtrer les résultats
+                <div class="fr-col-12 fr-col-md-3">
+                    <button name="action" value="search-filter" class="search-btn fr-btn" title="Trouver des aides" type="submit">
+                        <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Trouver des aides
                     </button>
                 </div>
             </div>
-            {% endblock form-actions %}
+            {% endblock form-body %}
         </div>
     </div>
 </form>

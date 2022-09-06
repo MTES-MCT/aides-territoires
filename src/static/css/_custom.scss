@@ -107,7 +107,16 @@ article#aid .aid-details h3 {
 // Home style
 
 #intro {
-  background: url("../img/home_search.svg") bottom/100% no-repeat;
+  background: var(--background-alt-green-menthe) url("../img/home_search.svg") bottom/100% no-repeat;
+}
+
+.at-tab-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1em;
+  color: var(--text-title-blue-france);
+  font-weight: bold;
 }
 
 div #what-image {

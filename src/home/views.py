@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from aids.forms import AidSearchForm
 
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
@@ -8,9 +10,10 @@ from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
 from projects.models import Project
+from minisites.mixins import SearchMixin
 
 
-class HomeView(TemplateView):
+class HomeView(SearchMixin, FormMixin, TemplateView):
     """Display the home page, as well as some other pages
     (contact form, mailing list registration form, ...)
 
@@ -21,6 +24,8 @@ class HomeView(TemplateView):
 
     http_method_names = ["get"]
     template_name = "home/home.html"
+    context_object_name = "aids"
+    form_class = AidSearchForm
 
     def get_context_data(self, **kwargs):
         aids_qs = Aid.objects.live()

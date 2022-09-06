@@ -5,5 +5,14 @@ $(document).ready(function () {
         theme: "select2-dsfr",
         dropdownAutoWidth: true,
         width: "auto",
+    }).on('select2:close', function (evt) {
+        var uldiv = $(this).siblings('span.select2').find('ul')
+        var count = $(this).select2('data').length
+        if(count==0){
+          uldiv.html("")
+        }
+        else{
+          uldiv.html("<li>"+count+" sélectionnées</li>")
+        }
     });
 });
