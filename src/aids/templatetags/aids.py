@@ -33,7 +33,9 @@ def choices_display(obj, field):
 def financers_type_display(obj):
     """Correct rendering of financers types values.."""
 
-    financers_type = obj.financers.all().values_list("is_corporate", flat=True).distinct()
+    financers_type = (
+        obj.financers.all().values_list("is_corporate", flat=True).distinct()
+    )
     financers_type_list = []
     financers_type_str = ""
 
@@ -41,11 +43,11 @@ def financers_type_display(obj):
         if financer_type not in financers_type_list:
             financers_type_list.append(financer_type)
 
-    if len(financers_type_list) > 1:  
+    if len(financers_type_list) > 1:
         financers_type_str += "PORTEURS D'AIDE PUBLIC ET PRIVÉ"
     else:
         for financer_type in financers_type_list:
-            if financer_type == False:
+            if financer_type is False:
                 financers_type_str += "PORTEUR D'AIDE PUBLIC"
             else:
                 financers_type_str += "PORTEUR D'AIDE PRIVÉ"
@@ -54,9 +56,7 @@ def financers_type_display(obj):
 
 
 @register.simple_tag
-def aid_types_choices_display_list(
-    obj,
-    field):
+def aid_types_choices_display_list(obj, field):
     """Correct rendering of `ChoiceArrayField` values.."""
 
     choices = obj._meta.get_field(field).base_field.choices
@@ -70,22 +70,51 @@ def aid_types_choices_display_list(
     for value in values:
         if value == "Subvention":
             if obj.subvention_rate is not None:
-                if obj.subvention_rate.lower is not None and obj.subvention_rate.upper is not None:
-                    formated_string += format_html("<strong>{}</strong> (min&nbsp;: {}&nbsp;% - max&nbsp;: {}% {})</br>", value, obj.subvention_rate.lower, obj.subvention_rate.upper, obj.subvention_comment)
+                if (
+                    obj.subvention_rate.lower is not None
+                    and obj.subvention_rate.upper is not None
+                ):
+                    formated_string += format_html(
+                        "<strong>{}</strong> (min&nbsp;: {}&nbsp;% - max&nbsp;: {}% {})</br>",
+                        value,
+                        obj.subvention_rate.lower,
+                        obj.subvention_rate.upper,
+                        obj.subvention_comment,
+                    )
                 elif obj.subvention_rate.lower is not None:
-                    formated_string += format_html("<strong>{}</strong> (min&nbsp;: {}&nbsp;% {})</br>", value, obj.subvention_rate.lower, obj.subvention_comment)
+                    formated_string += format_html(
+                        "<strong>{}</strong> (min&nbsp;: {}&nbsp;% {})</br>",
+                        value,
+                        obj.subvention_rate.lower,
+                        obj.subvention_comment,
+                    )
                 elif obj.subvention_rate.upper is not None:
-                    formated_string += format_html("<strong>{}</strong> (max&nbsp;: {}% {})</br>", value, obj.subvention_rate.upper, obj.subvention_comment)
+                    formated_string += format_html(
+                        "<strong>{}</strong> (max&nbsp;: {}% {})</br>",
+                        value,
+                        obj.subvention_rate.upper,
+                        obj.subvention_comment,
+                    )
             elif obj.subvention_comment:
-                formated_string += format_html("<strong>{}</strong></br>", value, obj.subvention_comment)
+                formated_string += format_html(
+                    "<strong>{}</strong></br>", value, obj.subvention_comment
+                )
             else:
                 formated_string += format_html("<strong>{}</strong></br>", value)
         elif value == "Avance récupérable":
-                formated_string += format_html("<strong>{}</strong> (jusqu'à {}&nbsp;€)</br>", value, obj.recoverable_advance_amount)
+            formated_string += format_html(
+                "<strong>{}</strong> (jusqu'à {}&nbsp;€)</br>",
+                value,
+                obj.recoverable_advance_amount,
+            )
         elif value == "Prêt":
-                formated_string += format_html("<strong>{}</strong> (jusqu'à {}&nbsp;€)</br>", value, obj.loan_amount)
+            formated_string += format_html(
+                "<strong>{}</strong> (jusqu'à {}&nbsp;€)</br>", value, obj.loan_amount
+            )
         elif value == "Autre aide financière":
-            formated_string += format_html("<strong>{}</strong> ({})</br>", value, obj.other_financial_aid_comment)
+            formated_string += format_html(
+                "<strong>{}</strong> ({})</br>", value, obj.other_financial_aid_comment
+            )
         else:
             formated_string += format_html("<strong>{}</strong></br>", value)
     return format_html(formated_string)
