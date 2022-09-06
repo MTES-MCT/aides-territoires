@@ -63,6 +63,11 @@ h2, h3, h4, h5, h6 {
   color: var(--text-action-high-blue-france);
 }
 
+// we override ri-xl class to remove line-height propertie that false the icon alignment
+.ri-xl {
+  line-height: 1.5rem;
+}
+
 .at-icon-align--sub {
   vertical-align: sub;
 }
