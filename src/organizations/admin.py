@@ -9,7 +9,6 @@ from import_export.formats import base_formats
 from organizations.models import Organization
 from organizations.resources import OrganizationResource
 from aids.constants import AUDIENCES_ALL
-from projects.models import Project
 
 
 class OrganizationTypeListFilter(admin.SimpleListFilter):

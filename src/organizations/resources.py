@@ -1,6 +1,5 @@
 from import_export import fields, resources
 
-from projects.models import Project
 from organizations.models import Organization
 
 
