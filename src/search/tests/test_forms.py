@@ -15,6 +15,7 @@ def test_valid_search_page_form():
     form = DummySearchPageAdminForm({
         'title': 'Test title',
         'slug': 'test-title',
+        'contact_link': 'https://aides-territoires.beta.gouv.fr/contact/',
         'content': 'Test content',
         'more_content': 'Test content',
         'search_querystring': 'text=',
@@ -35,6 +36,7 @@ def test_search_form_field_customizations():
     form = DummySearchPageAdminForm({
         'title': 'Test title',
         'slug': 'test-title',
+        'contact_link': 'https://aides-territoires.beta.gouv.fr/contact/',
         'content': 'Test content',
         'more_content': 'Test content',
         'search_querystring': 'text=',
@@ -55,6 +57,7 @@ def test_search_form_not_enough_filters():
     form = DummySearchPageAdminForm({
         'title': 'Test title',
         'slug': 'test-title',
+        'contact_link': 'https://aides-territoires.beta.gouv.fr/contact/',
         'content': 'Test content',
         'more_content': 'Test content',
         'search_querystring': 'text=',
@@ -76,6 +79,7 @@ def test_search_form_too_many_filters():
     form = DummySearchPageAdminForm({
         'title': 'Test title',
         'slug': 'test-title',
+        'contact_link': 'https://aides-territoires.beta.gouv.fr/contact/',
         'content': 'Test content',
         'more_content': 'Test content',
         'search_querystring': 'text=',
