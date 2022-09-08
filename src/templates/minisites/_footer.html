@@ -52,7 +52,11 @@
                 <ul>
                     <li class="fr-list__none"><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/comptes/profil-contributeur/?next=/aides/publications/">Publier des aides</a></li>
                     <li class="fr-list__none"><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/data/">Données et API</a></li>
-                    <li class="fr-list__none"><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/contact/">Nous contacter</a></li>
+                    <li class="fr-list__none">
+                        <a class="at-link__nodecorator" href="{% if search_page.contact_link_is_email %}mailto: {{ search_page.contact_link }}{% else %}{{ search_page.contact_link }}{% endif %}">
+                        Nous contacter
+                        </a>
+                    </li>
                     <li class="fr-list__none"><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/mentions-légales/">Mentions Légales</a></li>
                     <li class="fr-list__none"><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/politique-de-confidentialité/">Politique de confidentialité</a></li>
                     <li class="fr-list__none" id="accessibility" ><a class="at-link__nodecorator" href="https://aides-territoires.beta.gouv.fr/accessibilité/">Accessibilité&nbsp;: non conforme</a></li></li>
