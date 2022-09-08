@@ -1,5 +1,7 @@
 from os.path import splitext
 
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import models
 from django.db.models import Count, Case, When, IntegerField
 from django.http import QueryDict
@@ -18,8 +20,7 @@ def logo_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.slug
-    filename = 'minisites/{}_logo{}'.format(
-        name, extension)
+    filename = "minisites/{}_logo{}".format(name, extension)
     return filename
 
 
@@ -28,8 +29,7 @@ def meta_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.slug
-    filename = 'minisites/{}_meta{}'.format(
-        name, extension)
+    filename = "minisites/{}_meta{}".format(name, extension)
     return filename
 
 
@@ -60,154 +60,179 @@ class SearchPage(models.Model):
     objects = SearchPageQuerySet.as_manager()
 
     title = models.CharField(
-        _('Title'),
-        max_length=180,
-        help_text=_('The main displayed title.'))
+        _("Title"), max_length=180, help_text=_("The main displayed title.")
+    )
     short_title = models.CharField(
-        _('Short title'),
+        _("Short title"),
         max_length=180,
-        blank=True, default='',
-        help_text=_('A shorter, more concise title.'))
-    slug = models.SlugField(
-        _('Slug'),
-        help_text=_('This part is used in the url. '
-                    'DON\'t change this for existing pages. '
-                    'MUST be lowercase for minisites.'))
-    content = models.TextField(
-        _('Page content'),
-        help_text=_('Full description of the page. '
-                    'Will be displayed above results.'))
-    more_content = models.TextField(
-        _('Additional page content'),
         blank=True,
-        help_text=_('Hidden content, revealed with a `See more` button'))
+        default="",
+        help_text=_("A shorter, more concise title."),
+    )
+    slug = models.SlugField(
+        _("Slug"),
+        help_text=_(
+            "This part is used in the url. "
+            "DON't change this for existing pages. "
+            "MUST be lowercase for minisites."
+        ),
+    )
+    content = models.TextField(
+        _("Page content"),
+        help_text=_(
+            "Full description of the page. Will be displayed above results."
+        ),
+    )
+    more_content = models.TextField(
+        _("Additional page content"),
+        blank=True,
+        help_text=_("Hidden content, revealed with a `See more` button"),
+    )
     tab_title = models.CharField(
-        "Titre de l'onglet principal",
-        blank=True, default='Accueil',
-        max_length=180)
+        "Titre de l'onglet principal", blank=True, default="Accueil", max_length=180
+    )
+    contact_link = models.CharField(
+        "Url du lien contact",
+        help_text="Url ou adresse email qui sera utilisé"
+        " pour le lien 'contact' dans le footer.",
+        blank=False,
+        default="https://aides-territoires.beta.gouv.fr/contact/",
+        max_length=300,
+    )
+
     search_querystring = models.TextField(
-        _('Querystring'),
-        help_text=_('The search paramaters url'))
+        _("Querystring"), help_text=_("The search paramaters url")
+    )
 
     administrator = models.ForeignKey(
-        'accounts.User',
+        "accounts.User",
         on_delete=models.PROTECT,
-        verbose_name='Administrateur',
-        related_name='search_pages',
-        null=True, blank=True)
+        verbose_name="Administrateur",
+        related_name="search_pages",
+        null=True,
+        blank=True,
+    )
 
     highlighted_aids = models.ManyToManyField(
-        'aids.Aid',
-        verbose_name=_('Highlighted aids'),
-        related_name='highlighted_in_search_pages',
+        "aids.Aid",
+        verbose_name=_("Highlighted aids"),
+        related_name="highlighted_in_search_pages",
         help_text="Il est possible de mettre jusqu'à 9 aides en avant. \
              Les aides mises en avant s'affichent en haut des résultats du portail, \
              et n’ont pas de mise en forme particulière.",
-        blank=True)
+        blank=True,
+    )
     excluded_aids = models.ManyToManyField(
-        'aids.Aid',
-        verbose_name=_('Excluded aids'),
-        related_name='excluded_from_search_pages',
-        blank=True)
+        "aids.Aid",
+        verbose_name=_("Excluded aids"),
+        related_name="excluded_from_search_pages",
+        blank=True,
+    )
 
     # SEO
     meta_title = models.CharField(
-        _('Meta title'),
+        _("Meta title"),
         max_length=180,
-        blank=True, default='',
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 60 characters. '
-                    'Leave empty and we will reuse the page title.'))
+        blank=True,
+        default="",
+        help_text=_(
+            "This will be displayed in SERPs. "
+            "Keep it under 60 characters. "
+            "Leave empty and we will reuse the page title."
+        ),
+    )
     meta_description = models.TextField(
-        _('Meta description'),
-        blank=True, default='',
+        _("Meta description"),
+        blank=True,
+        default="",
         max_length=256,
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 120 characters.'))
+        help_text=_(
+            "This will be displayed in SERPs. Keep it under 120 characters."
+        ),
+    )
     meta_image = models.FileField(
-        _('Meta image'),
-        null=True, blank=True,
+        _("Meta image"),
+        null=True,
+        blank=True,
         upload_to=meta_upload_to,
-        help_text=_('Make sure the file is at least 1024px long.'))
+        help_text=_("Make sure the file is at least 1024px long."),
+    )
 
     # custom_colors
     color_1 = models.CharField(
-        _('Color 1'),
-        max_length=10,
-        blank=True,
-        help_text=_('Main background color'))
+        _("Color 1"), max_length=10, blank=True, help_text=_("Main background color")
+    )
     color_2 = models.CharField(
-        _('Color 2'),
+        _("Color 2"),
         max_length=10,
         blank=True,
-        help_text=_('Search form background color'))
+        help_text=_("Search form background color"),
+    )
     color_3 = models.CharField(
-        _('Color 3'),
+        _("Color 3"),
         max_length=10,
         blank=True,
-        help_text=_('Buttons and title borders color'))
+        help_text=_("Buttons and title borders color"),
+    )
     color_4 = models.CharField(
-        _('Color 4'),
-        max_length=10,
-        blank=True,
-        help_text=_('Link colors'))
+        _("Color 4"), max_length=10, blank=True, help_text=_("Link colors")
+    )
     color_5 = models.CharField(
-        _('Color 5'),
-        max_length=10,
-        blank=True,
-        help_text=_('Footer background color'))
+        _("Color 5"), max_length=10, blank=True, help_text=_("Footer background color")
+    )
     logo = models.FileField(
-        _('Logo image'),
-        null=True, blank=True,
+        _("Logo image"),
+        null=True,
+        blank=True,
         upload_to=logo_upload_to,
-        help_text=_('Make sure the file is not too heavy. Prefer svg files.'))
+        help_text=_("Make sure the file is not too heavy. Prefer svg files."),
+    )
     logo_link = models.URLField(
-        _('Logo link'),
-        null=True, blank=True,
-        help_text=_('The url for the partner\'s logo link'))
+        _("Logo link"),
+        null=True,
+        blank=True,
+        help_text=_("The url for the partner's logo link"),
+    )
 
     # Search form customization fields
     show_categories_field = models.BooleanField(
-        'Montrer le champ « thématiques » ?',
-        default=True)
+        "Montrer le champ « thématiques » ?", default=True
+    )
     available_categories = models.ManyToManyField(
-        'categories.Category',
-        verbose_name=_('Categories'),
-        related_name='search_pages',
-        blank=True)
+        "categories.Category",
+        verbose_name=_("Categories"),
+        related_name="search_pages",
+        blank=True,
+    )
 
     show_audience_field = models.BooleanField(
-        'Montrer le champ « structure » ?',
-        default=True)
+        "Montrer le champ « structure » ?", default=True
+    )
     available_audiences = ChoiceArrayField(
-        verbose_name=_('Targeted audiences'),
-        null=True, blank=True,
-        base_field=models.CharField(
-            max_length=32,
-            choices=AUDIENCES_GROUPED))
+        verbose_name=_("Targeted audiences"),
+        null=True,
+        blank=True,
+        base_field=models.CharField(max_length=32, choices=AUDIENCES_GROUPED),
+    )
 
     show_perimeter_field = models.BooleanField(
-        'Montrer le champ « territoire » ?',
-        default=True)
+        "Montrer le champ « territoire » ?", default=True
+    )
     show_backers_field = models.BooleanField(
-        'Montrer le champ « porteur » ?',
-        default=False)
+        "Montrer le champ « porteur » ?", default=False
+    )
     show_mobilization_step_field = models.BooleanField(
-        'Montrer le champ « avancement du projet » ?',
-        default=False)
+        "Montrer le champ « avancement du projet » ?", default=False
+    )
     show_text_field = models.BooleanField(
-        'Montrer le champ « recherche textuelle » ?',
-        default=False)
+        "Montrer le champ « recherche textuelle » ?", default=False
+    )
     show_aid_type_field = models.BooleanField(
-        "Montrer le champ « nature de l'aide » ?",
-        default=False)
+        "Montrer le champ « nature de l'aide » ?", default=False
+    )
 
-    date_created = models.DateTimeField(
-        _('Date created'),
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        _('Date updated'),
-        auto_now=True)
+    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
+    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
 
     class Meta:
         verbose_name = "page personnalisée"
@@ -217,12 +242,12 @@ class SearchPage(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('search_page', args=[self.slug])
+        return reverse("search_page", args=[self.slug])
 
     def get_base_querystring_data(self):
         # Sometime, the admin person enters a prefix "?" character
         # and we don't want it here.
-        querystring = self.search_querystring.strip('?')
+        querystring = self.search_querystring.strip("?")
         data = QueryDict(querystring)
         return data
 
@@ -230,46 +255,61 @@ class SearchPage(models.Model):
         """Return the list of aids based on the initial search querysting."""
 
         from aids.forms import AidSearchForm
+
         data = self.get_base_querystring_data()
         form = AidSearchForm(data)
         if all_aids:
             qs = form.filter_queryset(
-                qs=Aid.objects.all(),
-                apply_generic_aid_filter=False).distinct()
+                qs=Aid.objects.all(), apply_generic_aid_filter=False
+            ).distinct()
         else:
-            qs = form.filter_queryset(
-                apply_generic_aid_filter=False).distinct()
+            qs = form.filter_queryset(apply_generic_aid_filter=False).distinct()
 
         # Annotate aids contained in the highlighted_aids field
         # This field will be helpful to order the queryset
         # source: https://stackoverflow.com/a/44048355
-        highlighted_aids_id_list = self.highlighted_aids.values_list('id', flat=True)  # noqa
-        qs = qs.annotate(is_highlighted_aid=Count(
-            Case(
-                When(id__in=highlighted_aids_id_list, then=1),
-                output_field=IntegerField()
+        highlighted_aids_id_list = self.highlighted_aids.values_list(
+            "id", flat=True
+        )  # noqa
+        qs = qs.annotate(
+            is_highlighted_aid=Count(
+                Case(
+                    When(id__in=highlighted_aids_id_list, then=1),
+                    output_field=IntegerField(),
+                )
             )
-        ))
+        )
         # Simpler approach, but error-prone (aid could be highlighted in another SearchPage)  # noqa
         # qs = qs.annotate(is_highlighted_aid=Count('highlighted_in_search_pages'))  # noqa
 
         # Also exlude aids contained in the excluded_aids field
-        excluded_aids_id_list = self.excluded_aids.values_list('id', flat=True)
+        excluded_aids_id_list = self.excluded_aids.values_list("id", flat=True)
         qs = qs.exclude(id__in=excluded_aids_id_list)
 
         return qs
 
     def get_aids_per_status(self):
-        all_aids_per_status = self.get_base_queryset(all_aids=True) \
-                                  .values('status') \
-                                  .annotate(count=Count('id', distinct=True))
-        return {s['status']: s['count'] for s in list(all_aids_per_status)}
+        all_aids_per_status = (
+            self.get_base_queryset(all_aids=True)
+            .values("status")
+            .annotate(count=Count("id", distinct=True))
+        )
+        return {s["status"]: s["count"] for s in list(all_aids_per_status)}
+
+    def contact_link_is_email(self):
+        try:
+            validate_email(self.contact_link)
+        except ValidationError:
+            return False
+        else:
+            return True
 
 
 class SearchPageLite(SearchPage):
     """This proxy model is used for restricted/lite access,
     for instance when we want to give access to site users that
     are not super admin"""
+
     class Meta:
         proxy = True
         verbose_name = "page personnalisée"
@@ -281,6 +321,7 @@ class MinisiteTab(Page):
     Proxy class to make Page model available for minisites
     as a Tab.
     """
+
     class Meta:
         proxy = True
         verbose_name = "onglet"
